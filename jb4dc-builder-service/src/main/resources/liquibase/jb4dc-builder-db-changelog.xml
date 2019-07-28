@@ -1,0 +1,449 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+    <!--模块构建-->
+    <changeSet author="zhuangrb" id="changeSet-Builder-0001" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
+
+        <createTable tableName="TBUILD_DB_LINK" remarks="业务数据库连接">
+            <column name="DB_ID" type="NVARCHAR(100)" remarks="主键:UUID">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="DB_LINK_VALUE" type="NVARCHAR(200)" remarks="值,唯一"/>
+            <column name="DB_LINK_NAME" type="NVARCHAR(200)" remarks="数据库名称"/>
+            <column name="DB_TYPE" type="NVARCHAR(200)" remarks="数据库类型"/>
+            <column name="DB_DRIVER_NAME" type="NVARCHAR(200)" remarks="驱动程序名称"/>
+            <column name="DB_DATABASE_NAME" type="NVARCHAR(200)" remarks="数据库名称"/>
+            <column name="DB_URL" type="NVARCHAR(1000)" remarks="数据库URL地址"/>
+            <column name="DB_USER" type="NVARCHAR(100)" remarks="用户名"/>
+            <column name="DB_PASSWORD" type="NVARCHAR(100)" remarks="密码"/>
+            <column name="DB_CREATE_TIME" type="datetime(6)" remarks="创建时间"/>
+            <column name="DB_ORDER_NUM" type="INT" remarks="排序号"/>
+            <column name="DB_DESC" type="NVARCHAR(500)" remarks="备注"/>
+            <column name="DB_IS_LOCATION" type="NVARCHAR(10)" remarks="是否本地库,构建库与业务库一体"/>
+            <column name="DB_STATUS" type="NVARCHAR(50)" remarks="状态"/>
+            <column name="DB_ORGAN_ID" type="NVARCHAR(100)" remarks="组织ID"/>
+            <column name="DB_ORGAN_NAME" type="NVARCHAR(100)" remarks="组织名称"/>
+        </createTable>
+
+        <createTable tableName="TBUILD_TABLE_GROUP" remarks="表分组信息表">
+            <column name="TABLE_GROUP_ID" type="NVARCHAR(100)" remarks="主键:UUID">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="TABLE_GROUP_VALUE" type="NVARCHAR(200)" remarks="分组值">
+                <constraints nullable="false"/>
+            </column>
+            <column name="TABLE_GROUP_TEXT" type="NVARCHAR(200)" remarks="分组名称">
+                <constraints nullable="false"/>
+            </column>
+            <column name="TABLE_GROUP_ORDER_NUM" type="INT" remarks="排序号"/>
+            <column name="TABLE_GROUP_CREATE_TIME" type="datetime(6)" remarks="创建时间"/>
+            <column name="TABLE_GROUP_DESC" type="NVARCHAR(500)" remarks="备注"/>
+            <column name="TABLE_GROUP_STATUS" type="NVARCHAR(10)" remarks="状态"/>
+            <column name="TABLE_GROUP_PARENT_ID" type="NVARCHAR(100)" remarks="父节点ID"/>
+            <column name="TABLE_GROUP_IS_SYSTEM" type="NVARCHAR(10)" remarks="是否系统所有"/>
+            <column name="TABLE_GROUP_DEL_ENABLE" type="NVARCHAR(10)" remarks="能否删除"/>
+            <column name="TABLE_GROUP_PID_LIST" type="NVARCHAR(1200)" remarks="父节点IDList">
+                <constraints nullable="false"/>
+            </column>
+            <column name="TABLE_GROUP_CHILD_COUNT" type="INT" remarks="子节点数量"/>
+            <column name="TABLE_GROUP_LINK_ID" type="NVARCHAR(100)" remarks="所属连接ID:关联到表TBUILD_DB_LINK.DB_ID"/>
+            <column name="TABLE_GROUP_ORGAN_ID" type="NVARCHAR(100)" remarks="组织ID"/>
+            <column name="TABLE_GROUP_ORGAN_NAME" type="NVARCHAR(100)" remarks="组织名称"/>
+        </createTable>
+
+        <createTable tableName="TBUILD_TABLE" remarks="表基础信息:分为构建表和系统表">
+            <column name="TABLE_ID" type="NVARCHAR(100)" remarks="主键:UUID">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="TABLE_CODE" type="NVARCHAR(50)" remarks="表编号:无特殊作用,序列生成,便于查找,禁止用于开发">
+                <constraints nullable="false"/>
+            </column>
+            <column name="TABLE_CAPTION" type="NVARCHAR(200)" remarks="表标题">
+                <constraints nullable="false"/>
+            </column>
+            <column name="TABLE_NAME" type="NVARCHAR(200)" remarks="表名称:在数据库中的名称">
+                <constraints nullable="false"/>
+            </column>
+            <column name="TABLE_DB_NAME" type="NVARCHAR(200)" remarks="所属库名">
+                <constraints nullable="false"/>
+            </column>
+            <column name="TABLE_CREATE_TIME" type="datetime(6)" remarks="创建时间"/>
+            <column name="TABLE_CREATOR" type="NVARCHAR(100)" remarks="创建人"/>
+            <column name="TABLE_UPDATE_TIME" type="datetime(6)" remarks="更新时间"/>
+            <column name="TABLE_UPDATER" type="NVARCHAR(100)" remarks="更新人"/>
+            <column name="TABLE_SERVICE_VALUE" type="NVARCHAR(100)" remarks="连接服务值"/>
+            <column name="TABLE_TYPE" type="NVARCHAR(100)" remarks="表类型:DBDesign=直接在数据库中设计的,Builder=通过表设计器设计"/>
+            <column name="TABLE_IS_SYSTEM" type="NVARCHAR(10)" remarks="是否系统表:系统表不允许修改" />
+            <column name="TABLE_ORDER_NUM" type="INT" remarks="排序号" />
+            <column name="TABLE_DESC" type="NVARCHAR(2000)" remarks="备注" />
+            <column name="TABLE_GROUP_ID" type="NVARCHAR(100)" remarks="所属分组ID" >
+                <constraints nullable="false"/>
+            </column>
+            <column name="TABLE_STATUS" type="NVARCHAR(10)" remarks="状态" />
+            <column name="TABLE_LINK_ID" type="NVARCHAR(100)" remarks="所属连接ID:关联到表TBUILD_DB_LINK.DB_ID"/>
+            <column name="TABLE_ORGAN_ID" type="NVARCHAR(100)" remarks="组织ID" />
+            <column name="TABLE_ORGAN_NAME" type="NVARCHAR(100)" remarks="组织名称" />
+        </createTable>
+
+        <createTable tableName="TBUILD_TABLE_FIELD" remarks="表的相关字段表">
+            <column name="FIELD_ID" type="NVARCHAR(100)" remarks="主键:UUID">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="FIELD_TABLE_ID" type="NVARCHAR(100)" remarks="所属表ID">
+                <constraints nullable="false"/>
+            </column>
+            <column name="FIELD_NAME" type="NVARCHAR(100)" remarks="字段名">
+                <constraints nullable="false"/>
+            </column>
+            <column name="FIELD_CAPTION" type="NVARCHAR(100)" remarks="字段标题">
+                <constraints nullable="false"/>
+            </column>
+            <column name="FIELD_IS_PK" type="NVARCHAR(10)" remarks="是否主键"/>
+            <column name="FIELD_ALLOW_NULL" type="NVARCHAR(10)" remarks="是否允许为空"/>
+            <column name="FIELD_DATA_TYPE" type="NVARCHAR(50)" remarks="数据类型:类型详见枚举TableFieldTypeEnum">
+                <constraints nullable="false"/>
+            </column>
+            <column name="FIELD_DATA_LENGTH" type="INT" remarks="字段长度"/>
+            <column name="FIELD_DECIMAL_LENGTH" type="INT" remarks="小数位数"/>
+            <column name="FIELD_DEFAULT_TYPE" type="NVARCHAR(50)" remarks="默认值类型"/>
+            <column name="FIELD_DEFAULT_VALUE" type="NVARCHAR(1000)" remarks="默认值"/>
+            <column name="FIELD_DEFAULT_TEXT" type="NVARCHAR(400)" remarks="默认值描述"/>
+            <column name="FIELD_CREATE_TIME" type="datetime(6)" remarks="创建时间">
+                <constraints nullable="false"/>
+            </column>
+            <column name="FIELD_CREATOR" type="NVARCHAR(100)" remarks="创建人"/>
+            <column name="FIELD_UPDATE_TIME" type="datetime(6)" remarks="更新时间">
+                <constraints nullable="false"/>
+            </column>
+            <column name="FIELD_UPDATER" type="NVARCHAR(100)" remarks="更新人"/>
+            <column name="FIELD_DESC" type="NVARCHAR(500)" remarks="备注"/>
+            <column name="FIELD_ORDER_NUM" type="INT" remarks="排序号"/>
+            <column name="FIELD_TEMPLATE_NAME" type="NVARCHAR(100)" remarks="模版名称"/>
+        </createTable>
+
+        <!--表关系只是作为逻辑上的描述,便于了解项目的数据结构,不做实际上表之间的物理关系-->
+        <createTable tableName="TBUILD_TABLE_RELATION_GROUP" remarks="表关系分组表">
+            <column name="REL_GROUP_ID" type="NVARCHAR(100)" remarks="主键:UUID">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="REL_GROUP_VALUE" type="NVARCHAR(200)" remarks="关联分组值">
+                <constraints nullable="false"/>
+            </column>
+            <column name="REL_GROUP_TEXT" type="NVARCHAR(200)" remarks="关联分组标题">
+                <constraints nullable="false"/>
+            </column>
+            <column name="REL_GROUP_ORDER_NUM" type="INT" remarks="排序号"/>
+            <column name="REL_GROUP_CREATE_TIME" type="datetime(6)" remarks="创建时间"/>
+            <column name="REL_GROUP_DESC" type="NVARCHAR(500)" remarks="描述" />
+            <column name="REL_GROUP_STATUS" type="NVARCHAR(10)" remarks="状态" />
+            <column name="REL_GROUP_PARENT_ID" type="NVARCHAR(100)" remarks="父节点ID" />
+            <column name="REL_GROUP_IS_SYSTEM" type="NVARCHAR(10)" remarks="是否系统" />
+            <column name="REL_GROUP_DEL_ENABLE" type="NVARCHAR(10)" remarks="是否允许删除" />
+            <column name="REL_GROUP_PID_LIST" type="NVARCHAR(1200)" remarks="父节点列表" >
+                <constraints nullable="false"/>
+            </column>
+            <column name="REL_GROUP_CHILD_COUNT" type="INT" remarks="子节点数量" />
+            <column name="REL_GROUP_USER_ID" type="NVARCHAR(100)" remarks="创建人ID" />
+            <column name="REL_GROUP_USER_NAME" type="NVARCHAR(100)" remarks="创建人" />
+        </createTable>
+
+        <createTable tableName="TBUILD_TABLE_RELATION" remarks="表关系描述信息表">
+            <column name="RELATION_ID" type="NVARCHAR(100)" remarks="表关联ID:主键">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="RELATION_GROUP_ID" type="NVARCHAR(100)" remarks="所属分组ID" />
+            <column name="RELATION_NAME" type="NVARCHAR(100)" remarks="表关联名称" />
+            <column name="RELATION_USER_ID" type="NVARCHAR(100)" remarks="创建人ID" />
+            <column name="RELATION_USER_NAME" type="NVARCHAR(100)" remarks="创建人" />
+            <column name="RELATION_ORDER_NUM" type="INT" remarks="排序号" />
+            <column name="RELATION_CREATE_TIME" type="datetime(6)" remarks="创建时间"/>
+            <column name="RELATION_DESC" type="NVARCHAR(500)" remarks="描述" />
+            <column name="RELATION_STATUS" type="NVARCHAR(10)" remarks="状态" />
+            <column name="RELATION_CONTENT" type="CLOB" remarks="表关系的Json描述:抽取元素的组要属性进行存储" />
+            <column name="RELATION_DIAGRAM_JSON" type="CLOB" remarks="画布的原始Json:用于生成图片" />
+        </createTable>
+
+        <createTable tableName="TBUILD_TABLE_RELATION_HIS" remarks="表关系描述信息历史表">
+            <column name="HIS_ID" type="NVARCHAR(100)" remarks="主键:UUID">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="HIS_GROUP_ID" type="NVARCHAR(100)" remarks="所属分组ID" />
+            <column name="HIS_NAME" type="NVARCHAR(100)" remarks="表关联名称" />
+            <column name="HIS_USER_ID" type="NVARCHAR(100)" remarks="创建人ID" />
+            <column name="HIS_USER_NAME" type="NVARCHAR(100)" remarks="创建人" />
+            <column name="HIS_ORDER_NUM" type="INT" remarks="排序号" />
+            <column name="HIS_CREATE_TIME" type="datetime(6)" remarks="创建时间"/>
+            <column name="HIS_DESC" type="NVARCHAR(500)" remarks="描述" />
+            <column name="HIS_STATUS" type="NVARCHAR(10)" remarks="状态" />
+            <column name="HIS_CONTENT" type="CLOB" remarks="表关系的Json描述" />
+            <column name="HIS_BELONG_REL_ID" type="NVARCHAR(100)" remarks="所属记录ID" />
+        </createTable>
+
+        <createTable tableName="TBUILD_DATASET_GROUP" remarks="数据集分组表">
+            <column name="DS_GROUP_ID" type="NVARCHAR(100)" remarks="主键:UUID">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="DS_GROUP_VALUE" type="NVARCHAR(200)" remarks="分组值">
+                <constraints nullable="false"/>
+            </column>
+            <column name="DS_GROUP_TEXT" type="NVARCHAR(200)" remarks="分组名称">
+                <constraints nullable="false"/>
+            </column>
+            <column name="DS_GROUP_ORDER_NUM" type="INT" remarks="排序号"/>
+            <column name="DS_GROUP_CREATE_TIME" type="datetime(6)" remarks="创建时间"/>
+            <column name="DS_GROUP_DESC" type="NVARCHAR(500)" remarks="备注"/>
+            <column name="DS_GROUP_STATUS" type="NVARCHAR(10)" remarks="状态"/>
+            <column name="DS_GROUP_PARENT_ID" type="NVARCHAR(100)" remarks="父节点ID"/>
+            <column name="DS_GROUP_IS_SYSTEM" type="NVARCHAR(10)" remarks="是否系统所有"/>
+            <column name="DS_GROUP_DEL_ENABLE" type="NVARCHAR(10)" remarks="内否进行删除"/>
+            <column name="DS_GROUP_PID_LIST" type="NVARCHAR(1200)" remarks="父节点ID列表">
+                <constraints nullable="false"/>
+            </column>
+            <column name="DS_GROUP_CHILD_COUNT" type="INT" remarks="子节点数量"/>
+            <column name="DS_GROUP_ORGAN_ID" type="NVARCHAR(100)" remarks="组织ID"/>
+            <column name="DS_GROUP_ORGAN_NAME" type="NVARCHAR(100)" remarks="组织ID名称"/>
+        </createTable>
+
+        <createTable tableName="TBUILD_DATASET" remarks="数据集定义表">
+            <column name="DS_ID" type="NVARCHAR(100)" remarks="主键:UUID">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="DS_CODE" type="NVARCHAR(50)" remarks="数据集编号:无特殊作用,序列生成,便于查找,禁止用于开发" >
+                <constraints nullable="false"/>
+            </column>
+            <column name="DS_CAPTION" type="NVARCHAR(200)" remarks="数据集标题" >
+                <constraints nullable="false"/>
+            </column>
+            <column name="DS_NAME" type="NVARCHAR(200)" remarks="数据集名称" >
+                <constraints nullable="false"/>
+            </column>
+            <column name="DS_CREATE_TIME" type="datetime(6)" remarks="创建时间" />
+            <column name="DS_CREATOR" type="NVARCHAR(100)" remarks="创建人"/>
+            <column name="DS_UPDATE_TIME" type="datetime(6)" remarks="更新时间"/>
+            <column name="DS_UPDATER" type="NVARCHAR(100)" remarks="更新人"/>
+            <column name="DS_TYPE" type="NVARCHAR(100)" remarks="类型"/>
+            <column name="DS_IS_SYSTEM" type="NVARCHAR(10)" remarks="是否系统所有"/>
+            <column name="DS_ORDER_NUM" type="INT" remarks="排序号"/>
+            <column name="DS_DESC" type="NVARCHAR(1000)" remarks="备注"/>
+            <column name="DS_GROUP_ID" type="NVARCHAR(100)" remarks="所属分组ID">
+                <constraints nullable="false"/>
+            </column>
+            <column name="DS_STATUS" type="NVARCHAR(10)" remarks="状态"/>
+            <column name="DS_SQL_SELECT_TEXT" type="NVARCHAR(4000)" remarks="查询的SQL原始文本"/>
+            <column name="DS_SQL_SELECT_VALUE" type="NVARCHAR(4000)" remarks="实际用于查询的SQL"/>
+            <column name="DS_SQL_DB_LINK_ID" type="NVARCHAR(100)" remarks="数据库连接ID:数据集为SQL形成时,目标库的ID"/>
+            <column name="DS_CLASS_NAME" type="NVARCHAR(300)" remarks="API类的名称"/>
+            <column name="DS_REST_STRUCTURE_URL" type="NVARCHAR(500)" remarks="REST数据集结构的接口地址"/>
+            <column name="DS_REST_DATA_URL" type="NVARCHAR(500)" remarks="REST数据集的接口地址" />
+            <column name="DS_ORGAN_ID" type="NVARCHAR(100)" remarks="组织ID"/>
+            <column name="DS_ORGAN_NAME" type="NVARCHAR(100)" remarks="组织名称"/>
+        </createTable>
+
+        <createTable tableName="TBUILD_DATASET_COLUMN" remarks="数据集包含的列描述表">
+            <column name="COLUMN_ID" type="NVARCHAR(100)" remarks="主键:UUID">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="COLUMN_DS_ID" type="NVARCHAR(100)" remarks="所属数据集ID"/>
+            <column name="COLUMN_CAPTION" type="NVARCHAR(200)" remarks="列标题"/>
+            <column name="COLUMN_NAME" type="NVARCHAR(200)" remarks="列名"/>
+            <column name="COLUMN_DATA_TYPE_NAME" type="NVARCHAR(200)" remarks="数据类型"/>
+            <column name="COLUMN_CREATE_TIME" type="datetime(6)" remarks="创建时间"/>
+            <column name="COLUMN_CREATOR" type="NVARCHAR(100)" remarks="创建人"/>
+            <column name="COLUMN_UPDATE_TIME" type="datetime(6)" remarks="更新时间"/>
+            <column name="COLUMN_UPDATER" type="NVARCHAR(100)" remarks="更新人"/>
+            <column name="COLUMN_DESC" type="NVARCHAR(1000)" remarks="备注"/>
+            <column name="COLUMN_DEFAULT_TYPE" type="NVARCHAR(50)" remarks="默认值类型"/>
+            <column name="COLUMN_DEFAULT_VALUE" type="NVARCHAR(1000)" remarks="默认值"/>
+            <column name="COLUMN_DEFAULT_TEXT" type="NVARCHAR(400)" remarks="默认值描述"/>
+            <column name="COLUMN_ORDER_NUM" type="INT" remarks="排序号"/>
+            <column name="COLUMN_TABLE_NAME" type="NVARCHAR(50)" remarks="所属表名"/>
+            <column name="COLUMN_IS_CUSTOM" type="NVARCHAR(10)" remarks="是否自定义"/>
+            <column name="COLUMN_FORMATTER" type="NVARCHAR(400)" remarks="格式化方法"/>
+        </createTable>
+
+        <createTable tableName="TBUILD_DATASET_RELATED_TABLE" remarks="数据集相关的数据表">
+            <column name="RT_ID" type="NVARCHAR(100)" remarks="主键:UUID">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="RT_DS_ID" type="NVARCHAR(100)" remarks="数据集ID"/>
+            <column name="RT_TABLE_NAME" type="NVARCHAR(200)" remarks="表名"/>
+            <column name="RT_TABLE_CAPTION" type="NVARCHAR(200)" remarks="表标题"/>
+            <column name="RT_TABLE_ID" type="NVARCHAR(200)" remarks="表ID"/>
+            <column name="RT_TABLE_TYPE" type="NVARCHAR(200)" remarks="表类型"/>
+            <column name="RT_DESC" type="NVARCHAR(1000)" remarks="备注"/>
+            <column name="RT_ORDER_NUM" type="INT" remarks="排序号"/>
+        </createTable>
+
+        <createTable tableName="TBUILD_MODULE" remarks="模块表">
+            <column name="MODULE_ID" type="NVARCHAR(100)" remarks="主键:UUID">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="MODULE_VALUE" type="NVARCHAR(200)" remarks="模块值">
+                <constraints nullable="false"/>
+            </column>
+            <column name="MODULE_TEXT" type="NVARCHAR(200)" remarks="模块标题">
+                <constraints nullable="false"/>
+            </column>
+            <column name="MODULE_ORDER_NUM" type="INT" remarks="排序号"/>
+            <column name="MODULE_CREATE_TIME" type="datetime(6)" remarks="创建时间"/>
+            <column name="MODULE_DESC" type="NVARCHAR(500)" remarks="备注"/>
+            <column name="MODULE_STATUS" type="NVARCHAR(10)" remarks="状态"/>
+            <column name="MODULE_PARENT_ID" type="NVARCHAR(100)" remarks="父节点ID"/>
+            <column name="MODULE_IS_SYSTEM" type="NVARCHAR(10)" remarks="是否系统所有"/>
+            <column name="MODULE_DEL_ENABLE" type="NVARCHAR(10)" remarks="能否删除"/>
+            <column name="MODULE_PID_LIST" type="NVARCHAR(1200)" remarks="父节点ID列表">
+                <constraints nullable="false"/>
+            </column>
+            <column name="MODULE_CHILD_COUNT" type="INT" remarks="子节点数量"/>
+            <column name="MODULE_ORGAN_ID" type="NVARCHAR(100)" remarks="组织ID"/>
+            <column name="MODULE_ORGAN_NAME" type="NVARCHAR(100)" remarks="组织名称"/>
+        </createTable>
+
+        <createTable tableName="TBUILD_FLOW_MODEL" remarks="流程模型表">
+            <column name="MODEL_ID" type="NVARCHAR(100)" remarks="主键:UUID">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="MODEL_DE_ID" type="NVARCHAR(100)" remarks="act_de_model表的ID">
+                <constraints nullable="false"/>
+            </column>
+            <column name="MODEL_MODULE_ID" type="NVARCHAR(100)" remarks="所属的模块ID">
+                <constraints nullable="false"/>
+            </column>
+            <column name="MODEL_CODE" type="NVARCHAR(50)" remarks="模型编码">
+                <constraints nullable="false"/>
+            </column>
+            <column name="MODEL_NAME" type="NVARCHAR(100)" remarks="模型名称">
+                <constraints nullable="false"/>
+            </column>
+            <column name="MODEL_CREATE_TIME" type="datetime(6)" remarks="创建时间"/>
+            <column name="MODEL_CREATOR" type="NVARCHAR(100)" remarks="创建者"/>
+            <column name="MODEL_UPDATE_TIME" type="datetime(6)" remarks="更新时间"/>
+            <column name="MODEL_UPDATER" type="NVARCHAR(100)" remarks="更新人"/>
+            <column name="MODEL_DESC" type="NVARCHAR(1000)" remarks="备注"/>
+            <column name="MODEL_STATUS" type="NVARCHAR(10)" remarks="状态"/>
+            <column name="MODEL_ORDER_NUM" type="INT" remarks="排序号"/>
+            <column name="MODEL_DEPLOYMENT_ID" type="NVARCHAR(1000)" remarks="部署ID"/>
+            <column name="MODEL_START_KEY" type="NVARCHAR(1000)" remarks="启动键"/>
+            <column name="MODEL_RESOURCE_NAME" type="NVARCHAR(1000)" remarks="资源名称"/>
+            <column name="MODEL_FROM_TYPE" type="NVARCHAR(50)" remarks="流程模型来自上传或者页面设计"/>
+            <column name="MODEL_MAIN_IMAGE_ID" type="NVARCHAR(100)" remarks="关联到TFS_FILE_INFO表的FILE_ID"/>
+        </createTable>
+
+        <createTable tableName="TBUILD_FORM_RESOURCE" remarks="窗体资源存储表:用于存储窗体设计的文件">
+            <column name="FORM_ID" type="NVARCHAR(100)" remarks="主键:UUID">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="FORM_CODE" type="NVARCHAR(50)" remarks="窗体编号:无特殊作用,序列生成,便于查找,禁止用于开发">
+                <constraints nullable="false"/>
+            </column>
+            <column name="FORM_NAME" type="NVARCHAR(200)" remarks="窗体名称">
+                <constraints nullable="false"/>
+            </column>
+            <column name="FORM_SINGLE_NAME" type="NVARCHAR(200)" remarks="唯一名称:可以为空,如果存在则必须唯一">
+                <constraints nullable="false"/>
+            </column>
+            <column name="FORM_CREATE_TIME" type="datetime(6)" remarks="创建时间" />
+            <column name="FORM_CREATOR" type="NVARCHAR(100)" remarks="创建人" />
+            <column name="FORM_UPDATE_TIME" type="datetime(6)" remarks="更新时间" />
+            <column name="FORM_UPDATER" type="NVARCHAR(100)" remarks="更新人" />
+            <column name="FORM_TYPE" type="NVARCHAR(100)" remarks="表单类型:业务表单....." />
+            <column name="FORM_IS_SYSTEM" type="NVARCHAR(10)" remarks="是否系统" />
+            <column name="FORM_ORDER_NUM" type="INT" remarks="排序号" />
+            <column name="FORM_DESC" type="NVARCHAR(1000)" remarks="备注" />
+            <column name="FORM_MODULE_ID" type="NVARCHAR(100)" remarks="所属模块ID" >
+                <constraints nullable="false"/>
+            </column>
+            <column name="FORM_STATUS" type="NVARCHAR(10)" remarks="状态" />
+            <column name="FORM_ORGAN_ID" type="NVARCHAR(100)" remarks="创建组织ID" />
+            <column name="FORM_ORGAN_NAME" type="NVARCHAR(100)" remarks="创建组织名称" />
+            <column name="FORM_MAIN_TABLE_NAME" type="NVARCHAR(100)"  remarks="表单的主表名称:从数据关系字段FORM_DATA_RELATION提取" />
+            <column name="FORM_MAIN_TABLE_CAPTION" type="NVARCHAR(100)" remarks="表单的主表标题:从数据关系字段FORM_DATA_RELATION提取" />
+            <column name="FORM_DATA_RELATION" type="NVARCHAR(4000)" remarks="数据关系的设置:根节点为主表" />
+            <column name="FORM_IS_TEMPLATE" type="NVARCHAR(100)" remarks="是否模版:未使用" />
+            <column name="FORM_IS_RESOLVE" type="NVARCHAR(10)" remarks="是否进行了解析:解析过的表单将不再进行服务端的解析" />
+            <column name="FORM_EVERY_TIME_RESOLVE" type="NVARCHAR(10)" remarks="是否每次都进行服务端解析:默认为否,只解析一次" />
+            <column name="FORM_HTML_SOURCE" type="CLOB" remarks="原始的HTML" />
+            <column name="FORM_HTML_RESOLVE" type="CLOB" remarks="解析后的HTML" />
+            <column name="FORM_JS_CONTENT" type="CLOB" remarks="JS编辑器中的内容" />
+            <column name="FORM_CSS_CONTENT" type="CLOB" remarks="CSS编辑器中的内容" />
+            <column name="FORM_CONFIG_CONTENT" type="CLOB" remarks="配置编辑器中的内容" />
+            <column name="FORM_SOURCE" type="NVARCHAR(50)" remarks="表单的来源:Web设计器,URL引入..." />
+            <column name="FORM_CONTENT_URL" type="NVARCHAR(1000)" remarks="引入表单的URL地址" />
+            <column name="FORM_THEME" type="NVARCHAR(50)" remarks="风格主题:基于配置文件中的配置" />
+            <column name="FORM_CUST_SERVER_RENDERER" type="NVARCHAR(200)" remarks="服务端自定义的渲染方法:继承IFormSeverRenderer" />
+            <column name="FORM_CUST_REF_JS" type="NVARCHAR(500)" remarks="引入的脚本:多个通过;分割" />
+            <column name="FORM_CUST_CLIENT_RENDERER" type="NVARCHAR(200)" remarks="客户端自定义的渲染方法:需要指明具体的方法名称" />
+            <column name="FORM_CUST_DESC" type="NVARCHAR(400)" remarks="自定义设置备注:使用了自定义设置相关方法的备注说明" />
+        </createTable>
+
+        <createTable tableName="TBUILD_FORM_CONFIG" remarks="窗体资源相关配置表">
+            <column name="FCONFIG_ID" type="NVARCHAR(100)" remarks="主键:UUID">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="FCONFIG_FORM_ID" type="NVARCHAR(100)" remarks="所属表单ID">
+                <constraints nullable="false"/>
+            </column>
+            <column name="FCONFIG_TYPE" type="NVARCHAR(100)" remarks="配置类型">
+                <constraints nullable="false"/>
+            </column>
+            <column name="FCONFIG_NAME" type="NVARCHAR(100)" remarks="配置名称">
+                <constraints nullable="false"/>
+            </column>
+            <column name="FCONFIG_VALUE" type="NVARCHAR(1000)" remarks="配置值">
+                <constraints nullable="false"/>
+            </column>
+            <column name="FCONFIG_DESC" type="NVARCHAR(1000)" remarks="备注">
+                <constraints nullable="false"/>
+            </column>
+            <column name="FCONFIG_CREATE_TIME" type="datetime(6)" remarks="创建时间"/>
+            <column name="FCONFIG_CREATOR" type="NVARCHAR(100)" remarks="创建人"/>
+            <column name="FCONFIG_ORDER_NUM" type="INT" remarks="排序号"/>
+        </createTable>
+
+        <createTable tableName="TBUILD_LIST_RESOURCE" remarks="列表资源存储表:用于存储列表设计的文件" >
+            <column name="LIST_ID" type="NVARCHAR(100)" remarks="主键:UUID">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="LIST_CODE" type="NVARCHAR(50)" remarks="列表编号:无特殊作用,序列生成,便于查找,禁止用于开发" >
+                <constraints nullable="false"/>
+            </column>
+            <column name="LIST_NAME" type="NVARCHAR(200)" remarks="列表名称" >
+                <constraints nullable="false"/>
+            </column>
+            <column name="LIST_SINGLE_NAME" type="NVARCHAR(200)" remarks="唯一名称:可以为空,如果存在则必须唯一" >
+                <constraints nullable="false"/>
+            </column>
+            <column name="LIST_CREATE_TIME" type="datetime(6)" remarks="创建时间" />
+            <column name="LIST_CREATOR" type="NVARCHAR(100)" remarks="创建人" />
+            <column name="LIST_UPDATE_TIME" type="datetime(6)" remarks="更新时间" />
+            <column name="LIST_UPDATER" type="NVARCHAR(100)" remarks="更新人" />
+            <column name="LIST_TYPE" type="NVARCHAR(100)" remarks="列表类型:...."/>
+            <column name="LIST_IS_SYSTEM" type="NVARCHAR(10)" remarks="是否系统所有" />
+            <column name="LIST_ORDER_NUM" type="INT" remarks="排序号" />
+            <column name="LIST_DESC" type="NVARCHAR(1000)" remarks="备注" />
+            <column name="LIST_MODULE_ID" type="NVARCHAR(100)" remarks="所属模块ID">
+                <constraints nullable="false"/>
+            </column>
+            <column name="LIST_STATUS" type="NVARCHAR(10)" remarks="列表状态" />
+            <column name="LIST_ORGAN_ID" type="NVARCHAR(100)" remarks="组织id" />
+            <column name="LIST_ORGAN_NAME" type="NVARCHAR(100)" remarks="组织名称" />
+            <column name="LIST_DATASET_ID" type="NVARCHAR(100)" remarks="使用的数据集ID:如果布局容器中没有设置自己的数据集,则使用该处的数据集" />
+            <column name="LIST_DATASET_NAME" type="NVARCHAR(150)" remarks="使用的数据集名称:如果布局容器中没有设置自己的数据集,则使用该处的数据集" />
+            <column name="LIST_DATASET_PAGE_SIZE" type="INT" remarks="使用的数据集的单页数量" />
+            <column name="LIST_IS_RESOLVE" type="NVARCHAR(10)" remarks="是否进行了解析:解析过的列表将不再进行服务端的解析" />
+            <column name="LIST_EVERY_TIME_RESOLVE" type="NVARCHAR(10)" remarks="是否每次都进行服务端解析:默认为否,只解析一次" />
+            <column name="LIST_HTML_SOURCE" type="CLOB" remarks="原始的HTML" />
+            <column name="LIST_HTML_RESOLVE" type="CLOB" remarks="解析后的HTML" />
+            <column name="LIST_JS_CONTENT" type="CLOB" remarks="JS编辑器中的内容" />
+            <column name="LIST_CSS_CONTENT" type="CLOB" remarks="CSS编辑器中的内容" />
+            <column name="LIST_CONFIG_CONTENT" type="CLOB" remarks="配置编辑器中的内容" />
+            <column name="LIST_ENABLE_S_SEAR" type="NVARCHAR(10)" remarks="是否启用简单查询" />
+            <column name="LIST_ENABLE_C_SEAR" type="NVARCHAR(10)" remarks="是否启用复杂查询" />
+            <column name="LIST_THEME" type="NVARCHAR(50)" remarks="风格主题:基于配置文件中的配置" />
+            <column name="LIST_CUST_SERVER_RENDERER" type="NVARCHAR(200)" remarks="服务端自定义的渲染方法:继承IFormSeverRenderer" />
+            <column name="LIST_CUST_REF_JS" type="NVARCHAR(500)" remarks="引入的脚本:多个通过;分割" />
+            <column name="LIST_CUST_CLIENT_RENDERER" type="NVARCHAR(200)" remarks="客户端自定义的渲染方法:需要指明具体的方法名称" />
+            <column name="LIST_CUST_DESC" type="NVARCHAR(400)" remarks="自定义设置备注:使用了自定义设置相关方法的备注说明" />
+        </createTable>
+    </changeSet>
+
+</databaseChangeLog>
