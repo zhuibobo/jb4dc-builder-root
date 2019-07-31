@@ -109,8 +109,8 @@
         data: {
             isSubmitting:false,
             acInterface:{
-                getDataUrl:"/PlatFormRest/Builder/DataStorage/DBLink/GetDetailData",
-                saveDataUrl:"/PlatFormRest/Builder/DataStorage/DBLink/SaveEdit"
+                getDataUrl:"/Rest/Builder/DataStorage/DBLink/GetDetailData",
+                saveDataUrl:"/Rest/Builder/DataStorage/DBLink/SaveEdit"
             },
             recordId:BaseUtility.GetUrlParaValue("recordId"),
             formEntity: {
@@ -173,7 +173,7 @@
                                 window.OpenerWindowObj.appList.reloadData();
                                 DialogUtility.Frame_CloseDialog(window);
                             });
-                        }, "json");
+                        }, this);
                     } else {
                         this.$Message.error('Fail!');
                     }
