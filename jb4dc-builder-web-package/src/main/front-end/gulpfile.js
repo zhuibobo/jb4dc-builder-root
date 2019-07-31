@@ -32,6 +32,19 @@ gulp.task('js-vue-ex-component',()=>{
         .pipe(gulp.dest(distPath + "/Js"));
 });
 
+/*编译Js下旧的UI的组件*/
+gulp.task('js-ui-component',()=>{
+    return gulp.src([sourcePath + '/Js/EditTable/**/*.js',sourcePath + '/Js/TreeTable/**/*.js'])
+        .pipe(babel({
+            presets: ['@babel/env']
+        }))
+        .pipe(sourcemaps.init())
+        .pipe(concat('UIEXComponentForBuilder.js'))
+        //.pipe(uglify())
+        .pipe(sourcemaps.write())
+        .pipe(gulp.dest(distPath + "/Js"));
+});
+
 gulp.task('html-only',()=>{
     //gulp.src(jarFromResourcePath+"/HTML/**/*", {base:jarFromResourcePath+"/HTML"}).pipe(gulp.dest(jarToResourcePath+"/HTML"))
     return copyAndResolveHtml(sourcePath + "/HTML/**/*.html",sourcePath + "/HTML",distPath + "/HTML");

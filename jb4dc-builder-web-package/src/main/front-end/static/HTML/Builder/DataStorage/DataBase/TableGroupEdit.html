@@ -77,8 +77,8 @@
             el:"#appForm",
             data: {
                 acInterface:{
-                    getDataUrl:"/PlatFormRest/Builder/DataStorage/DataBase/TableGroup/GetDetailData",
-                    saveDataUrl:"/PlatFormRest/Builder/DataStorage/DataBase/TableGroup/SaveEdit"
+                    getDataUrl:"/Rest/Builder/DataStorage/DataBase/TableGroup/GetDetailData",
+                    saveDataUrl:"/Rest/Builder/DataStorage/DataBase/TableGroup/SaveEdit"
                 },
                 recordId:BaseUtility.GetUrlParaValue("recordId"),
                 formEntity: {
@@ -127,7 +127,7 @@
                                     }
                                     DialogUtility.Frame_CloseDialog(window);
                                 });
-                            }, "json");
+                            }, this);
                         } else {
                             this.$Message.error('Fail!');
                         }

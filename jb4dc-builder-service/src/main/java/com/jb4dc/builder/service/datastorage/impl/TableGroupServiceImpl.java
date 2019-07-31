@@ -65,12 +65,12 @@ public class TableGroupServiceImpl extends BaseServiceImpl<TableGroupEntity> imp
                 sourceEntity.setTableGroupCreateTime(new Date());
                 sourceEntity.setTableGroupOrganId(jb4DSession.getOrganId());
                 sourceEntity.setTableGroupOrganName(jb4DSession.getOrganName());
-                String parentIdList;
+                String parentIdList="-1";
                 if(sourceEntity.getTableGroupId().equals(rootId)){
                     parentIdList=rootParentId;
                     sourceEntity.setTableGroupParentId(rootParentId);
                 }
-                else
+                else if(!sourceEntity.getTableGroupParentId().equals(rootParentId))
                 {
                     TableGroupEntity parentEntity=tableGroupMapper.selectByPrimaryKey(sourceEntity.getTableGroupParentId());
                     parentIdList=parentEntity.getTableGroupPidList();
@@ -86,7 +86,7 @@ public class TableGroupServiceImpl extends BaseServiceImpl<TableGroupEntity> imp
     @Override
     public TableGroupEntity createRootNode(JB4DCSession jb4DSession,String dbLinkId,String text,String value) throws JBuild4DCGenerallyException {
         TableGroupEntity treeTableEntity=new TableGroupEntity();
-        treeTableEntity.setTableGroupId(rootId);
+        treeTableEntity.setTableGroupId(dbLinkId);
         treeTableEntity.setTableGroupParentId(rootParentId);
         treeTableEntity.setTableGroupIsSystem(TrueFalseEnum.True.getDisplayName());
         treeTableEntity.setTableGroupText(text);

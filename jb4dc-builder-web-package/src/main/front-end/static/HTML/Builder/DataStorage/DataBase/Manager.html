@@ -91,15 +91,15 @@
             data:{
                 acInterface:{
                     <!--Tree -->
-                    getGroupTreeData:"/PlatFormRest/Builder/DataStorage/DataBase/TableGroup/GetTreeData",
+                    getGroupTreeData:"/Rest/Builder/DataStorage/DataBase/TableGroup/GetTreeData",
                     groupEditView:"/HTML/Builder/DataStorage/DataBase/TableGroupEdit.html",
-                    deleteGroup:"/PlatFormRest/Builder/DataStorage/DataBase/TableGroup/Delete",
-                    moveGroup:"/PlatFormRest/Builder/DataStorage/DataBase/TableGroup/Move",
+                    deleteGroup:"/Rest/Builder/DataStorage/DataBase/TableGroup/Delete",
+                    moveGroup:"/Rest/Builder/DataStorage/DataBase/TableGroup/Move",
                     <!--List -->
                     editTableView:"/HTML/Builder/DataStorage/DataBase/TableEdit.html",
-                    reloadTableListData:"/PlatFormRest/Builder/DataStorage/DataBase/Table/GetListData",
-                    deleteTable:"/PlatFormRest/Builder/DataStorage/DataBase/Table/Delete",
-                    tableMove:"/PlatFormRest/Builder/DataStorage/DataBase/Table/Move"
+                    reloadTableListData:"/Rest/Builder/DataStorage/DataBase/Table/GetListData",
+                    deleteTable:"/Rest/Builder/DataStorage/DataBase/Table/Delete",
+                    tableMove:"/Rest/Builder/DataStorage/DataBase/Table/Move"
                 },
                 <!--Tree-->
                 treeIdFieldName:"tableGroupId",
@@ -231,32 +231,30 @@
                 initTree:function (dbLinkId) {
                     //this.treeSetting.async.url = BaseUtility.BuildAction(this.acInterface.getGroupTreeData, {});
                     //this.treeObj=$.fn.zTree.init($("#ztreeUL"), this.treeSetting);
-                    var _self=this;
+                    var _self = this;
                     //debugger;
                     //var url = '/PlatFormRest/Builder/DataSet/DataSetSQLDesigner/GetTableField.do';
-                    AjaxUtility.Post(this.acInterface.getGroupTreeData, {dbLinkId:dbLinkId}, function (result) {
-                        if(result.success){
-                            if(result.data!=null&&result.data.length>0){
-                                for(var i=0;i<result.data.length;i++) {
-                                    if(result.data[i].tableGroupIssystem=="是"&&result.data[i].tableGroupChildCount==0) {
+                    AjaxUtility.Post(this.acInterface.getGroupTreeData, {dbLinkId: dbLinkId}, function (result) {
+                        if (result.success) {
+                            if (result.data != null && result.data.length > 0) {
+                                for (var i = 0; i < result.data.length; i++) {
+                                    if (result.data[i].tableGroupIssystem == "是" && result.data[i].tableGroupChildCount == 0) {
                                         result.data[i].icon = "../../../../Themes/Png16X16/database_key.png";
-                                    }
-                                    else if(result.data[i].tableGroupIssystem=="否"&&result.data[i].tableGroupChildCount==0) {
+                                    } else if (result.data[i].tableGroupIssystem == "否" && result.data[i].tableGroupChildCount == 0) {
                                         result.data[i].icon = "../../../../Themes/Png16X16/database_edit.png";
-                                    }
-                                    else if(result.data[i].tableGroupParentId=="-1"){
+                                    } else if (result.data[i].tableGroupParentId == "-1") {
                                         result.data[i].icon = "../../../../Themes/Png16X16/server_database.png";
                                     }
                                 }
                             }
-                            _self.treeObj=$.fn.zTree.init($("#ztreeUL"), _self.treeSetting,result.data);
+                            _self.treeObj = $.fn.zTree.init($("#ztreeUL"), _self.treeSetting, result.data);
                             _self.treeObj.expandAll(true);
                             //$.fn.zTree.init($("#datetimeZTreeUL"), this.tree.datetimeTreeSetting,this.tree.datetimeTreeData);
+                        } else {
+                            DialogUtility.Alert(window, DialogUtility.DialogAlertId, {}, result.message, function () {
+                            });
                         }
-                        else {
-                            DialogUtility.Alert(window, DialogUtility.DialogAlertId, {}, result.message, function () {});
-                        }
-                    }, "json");
+                    }, this);
                 },
                 treeNodeSelected:function (event, treeId, treeNode) {
                     // 根节点不触发任何事件
@@ -368,7 +366,20 @@
                     this.selectionRows = selection;
                 },
                 reloadData: function () {
-                    ListPageUtility.IViewTableLoadDataSearch(this.acInterface.reloadTableListData,this.pageNum,this.pageSize,this.searchCondition,this,this.idFieldName,true,null);
+                    //ListPageUtility.IViewTableLoadDataSearch(this.acInterface.reloadTableListData,this.pageNum,this.pageSize,this.searchCondition,this,this.idFieldName,true,null);
+                    ListPageUtility.IViewTableBindDataBySearch({
+                        url: this.acInterface.reloadTableListData,
+                        pageNum: this.pageNum,
+                        pageSize: this.pageSize,
+                        searchCondition: this.searchCondition,
+                        pageAppObj: this,
+                        tableList: this,
+                        idField: this.idFieldName,
+                        autoSelectedOldRows: true,
+                        successFunc: null,
+                        loadDict: false,
+                        custParas: {}
+                    });
                     //this.selectionRows=null;
                 },
                 add: function () {

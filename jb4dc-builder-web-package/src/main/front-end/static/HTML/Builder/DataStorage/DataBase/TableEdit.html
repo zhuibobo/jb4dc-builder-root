@@ -107,8 +107,8 @@
             data:{
                 isSubmitting:false,
                 acInterface:{
-                    getDataUrl:"/PlatFormRest/Builder/DataStorage/DataBase/Table/GetEditTableData",
-                    saveDataUrl:"/PlatFormRest/Builder/DataStorage/DataBase/Table/SaveTableEdit"
+                    getDataUrl:"/Rest/Builder/DataStorage/DataBase/Table/GetEditTableData",
+                    saveDataUrl:"/Rest/Builder/DataStorage/DataBase/Table/SaveTableEdit"
                 },
                 recordId:BaseUtility.GetUrlParaValue("recordId"),
                 useTemplateName:"通用模版",
@@ -286,7 +286,7 @@
                         this.editTableConfig.Templates[9].Hidden=false;
                     }
                     this.editTableObj.Initialization(this.editTableConfig);
-                    this.currUserEntity=CacheDataUtility.GetCurrentUserInfo();
+                    this.currUserEntity=SessionUtility.GetSessionUserSync();
                     DetailPageUtility.OverrideObjectValue(tableDesion.tableEntity, result.data);
                     if(this.status=="add"){
                         this.tableEntity.tableCreater=this.currUserEntity.userName;
@@ -315,7 +315,7 @@
                         else {
                             DialogUtility.Alert(window, DialogUtility.DialogAlertId, {}, result.message, null);
                         }
-                    },"json");
+                    },this);
                 },
                 addField:function(){
                     this.editTableObj.AddEditingRowByTemplate();
@@ -329,7 +329,7 @@
                         var _self=this;
                         var rowId=editRow.attr("id");
                         var fieldId=this.editTableObj.GetSelectRowDataByRowId(rowId).fieldId;
-                        var url = '/PlatFormRest/Builder/DataStorage/DataBase/Table/Move.do';
+                        var url = '/Rest/Builder/DataStorage/DataBase/Table/Move.do';
                         AjaxUtility.Post(url, {recordId: fieldId,type:type}, function (result) {
                             if (result.success) {
                                 DialogUtility.Alert(window, DialogUtility.DialogAlertId, {}, result.message, function () {

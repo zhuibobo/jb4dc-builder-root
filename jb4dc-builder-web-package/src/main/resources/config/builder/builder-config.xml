@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Config>
+    <TableConfig>
+        <Default>
+            <TablePrefix Value="TDEV_"></TablePrefix>
+        </Default>
+    </TableConfig>
+    <DataSetConfig>
+        <ResolveSQLEnable Value="True"></ResolveSQLEnable>
+    </DataSetConfig>
+    <ModuleConfig></ModuleConfig>
+</Config>

@@ -15,7 +15,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping(value = "/Rest/Builder/DataStorage/DBLink")
-public class DBLinkRestResource extends GeneralRest<DbLinkEntity> {
+public class DBLinkRest extends GeneralRest<DbLinkEntity> {
 
     @Autowired
     private IDbLinkService dbLinkService;
