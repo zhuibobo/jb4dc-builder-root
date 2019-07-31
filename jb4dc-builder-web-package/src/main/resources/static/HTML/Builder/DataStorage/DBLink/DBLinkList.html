@@ -14,7 +14,7 @@
                 statusChange:"/Rest/Builder/DataStorage/DBLink/StatusChange",
                 move:"/Rest/Builder/DataStorage/DBLink/Move"
             },
-            idFieldName:"ddglId",
+            idFieldName:"dbId",
             columnsConfig: [
                 {
                     type: 'selection',
@@ -97,6 +97,7 @@
                 DialogUtility.Frame_OpenIframeWindow(window, DialogUtility.DialogId, url, {title: "通用列表"}, 2);
             },
             edit: function (recordId) {
+                debugger;
                 var url = BaseUtility.BuildView(this.acInterface.editView, {
                     "op": "update",
                     "recordId": recordId
