@@ -9,10 +9,10 @@
         data: {
             acInterface:{
                 editView: "/HTML/Builder/DataStorage/DBLink/DBLinkEdit.html",
-                reloadData:"/PlatFormRest/Builder/DataStorage/DBLink/GetListData",
-                delete:"/PlatFormRest/Builder/DataStorage/DBLink/Delete",
-                statusChange:"/PlatFormRest/Builder/DataStorage/DBLink/StatusChange",
-                move:"/PlatFormRest/Builder/DataStorage/DBLink/Move"
+                reloadData:"/Rest/Builder/DataStorage/DBLink/GetListData",
+                delete:"/Rest/Builder/DataStorage/DBLink/Delete",
+                statusChange:"/Rest/Builder/DataStorage/DBLink/StatusChange",
+                move:"/Rest/Builder/DataStorage/DBLink/Move"
             },
             idFieldName:"ddglId",
             columnsConfig: [
@@ -77,7 +77,20 @@
                 this.selectionRows = selection;
             },
             reloadData: function () {
-                ListPageUtility.IViewTableLoadDataSearch(this.acInterface.reloadData,this.pageNum,this.pageSize,this.searchCondition,this,this.idFieldName,true,null);
+                //ListPageUtility.IViewTableLoadDataSearch(this.acInterface.reloadData,this.pageNum,this.pageSize,this.searchCondition,this,this.idFieldName,true,null);
+                ListPageUtility.IViewTableBindDataBySearch({
+                    url: this.acInterface.reloadData,
+                    pageNum: this.pageNum,
+                    pageSize: this.pageSize,
+                    searchCondition: this.searchCondition,
+                    pageAppObj: this,
+                    tableList: this,
+                    idField: this.idFieldName,
+                    autoSelectedOldRows: true,
+                    successFunc: null,
+                    loadDict: false,
+                    custParas: {}
+                });
             },
             add: function () {
                 var url = BaseUtility.BuildView(this.acInterface.editView, {"op": "add"});

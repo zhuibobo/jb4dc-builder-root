@@ -3,6 +3,7 @@ package com.jb4dc.builder.service.datastorage.dbtablebuilder;
 
 
 import com.jb4dc.base.service.ISQLBuilderService;
+import com.jb4dc.base.ymls.DBYaml;
 import com.jb4dc.builder.dbentities.datastorage.DbLinkEntity;
 import com.jb4dc.builder.dbentities.datastorage.TableEntity;
 import com.jb4dc.builder.dbentities.datastorage.TableGroupEntity;
@@ -11,7 +12,6 @@ import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
 import com.jb4dc.core.base.exception.JBuild4DCPhysicalTableException;
 import com.jb4dc.core.base.exception.JBuild4DCSQLKeyWordException;
 import com.jb4dc.core.base.tools.SQLKeyWordUtility;
-import com.jb4dc.core.base.ymls.DBYaml;
 
 import java.beans.PropertyVetoException;
 import java.util.List;
@@ -30,7 +30,7 @@ public class TableBuilederFace {
 
     }
 
-    public static TableBuilederFace getInstance(ISQLBuilderService sqlBuilderService) throws JBuild4DCGenerallyException {
+    public static TableBuilederFace getInstance() throws JBuild4DCGenerallyException {
         TableBuilederFace instance=new TableBuilederFace();
         if(DBYaml.isSqlServer()){
             instance.dbBuidler=new MSSQLTableBuilder();

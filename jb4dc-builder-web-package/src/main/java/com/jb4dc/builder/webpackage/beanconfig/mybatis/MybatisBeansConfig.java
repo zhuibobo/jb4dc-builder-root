@@ -4,7 +4,7 @@ import com.github.pagehelper.PageInterceptor;
 import com.jb4dc.base.dbaccess.dynamic.GeneralMapper;
 import com.jb4dc.base.dbaccess.exenum.EnableTypeEnum;
 import com.jb4dc.base.dbaccess.exenum.UniversalIntEnumHandler;
-import com.jb4dc.core.base.ymls.DBYaml;
+import com.jb4dc.base.ymls.DBYaml;
 import com.mchange.v2.c3p0.ComboPooledDataSource;
 import org.apache.ibatis.plugin.Interceptor;
 import org.apache.ibatis.session.SqlSessionFactory;

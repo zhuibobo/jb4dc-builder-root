@@ -16,6 +16,8 @@ import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
 import com.jb4dc.core.base.session.JB4DCSession;
 import com.jb4dc.core.base.tools.UUIDUtility;
 import org.mybatis.spring.SqlSessionTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.util.Date;
@@ -27,6 +29,7 @@ import java.util.List;
  * Date: 2018/7/30
  * To change this template use File | Settings | File Templates.
  */
+@Service
 public class TableFieldServiceImpl extends BaseServiceImpl<TableFieldEntity> implements ITableFieldService
 {
     TableFieldMapper tableFieldMapper;
@@ -34,7 +37,8 @@ public class TableFieldServiceImpl extends BaseServiceImpl<TableFieldEntity> imp
 
     //private TableFieldServiceImpl(TableFieldMapper _defaultBaseMapper, SqlSessionTemplate _sqlSessionTemplate, ISQLBuilderService _sqlBuilderService){}
 
-    public TableFieldServiceImpl(TableFieldMapper _defaultBaseMapper, TableMapper _tableMapper, SqlSessionTemplate _sqlSessionTemplate, ISQLBuilderService _sqlBuilderService){
+    @Autowired
+    public TableFieldServiceImpl(TableFieldMapper _defaultBaseMapper, TableMapper _tableMapper){
         super(_defaultBaseMapper);
         tableFieldMapper=_defaultBaseMapper;
         tableMapper=_tableMapper;

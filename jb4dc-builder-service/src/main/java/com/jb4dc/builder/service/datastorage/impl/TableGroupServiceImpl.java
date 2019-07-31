@@ -2,8 +2,8 @@ package com.jb4dc.builder.service.datastorage.impl;
 
 import com.jb4dc.base.dbaccess.exenum.TrueFalseEnum;
 import com.jb4dc.base.service.IAddBefore;
-import com.jb4dc.base.service.ISQLBuilderService;
 import com.jb4dc.base.service.impl.BaseServiceImpl;
+import com.jb4dc.base.ymls.JBuild4DCYaml;
 import com.jb4dc.builder.dao.datastorage.TableGroupMapper;
 import com.jb4dc.builder.dbentities.datastorage.TableGroupEntity;
 import com.jb4dc.builder.service.datastorage.IDbLinkService;
@@ -11,9 +11,8 @@ import com.jb4dc.builder.service.datastorage.ITableGroupService;
 import com.jb4dc.builder.service.datastorage.ITableService;
 import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
 import com.jb4dc.core.base.session.JB4DCSession;
-import com.jb4dc.core.base.ymls.JBuild4DCYaml;
-import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;
@@ -24,6 +23,7 @@ import java.util.List;
  * Date: 2018/7/30
  * To change this template use File | Settings | File Templates.
  */
+@Service
 public class TableGroupServiceImpl extends BaseServiceImpl<TableGroupEntity> implements ITableGroupService
 {
     TableGroupMapper tableGroupMapper;

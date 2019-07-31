@@ -1,3 +1,18 @@
+jb4dc:
+  system-caption: 应用构建系统
+  system-title: 应用构建系统
+  warning-operation-code: jb4d82
+  sso:
+    server:
+      name: JB4DC-SSO-WEB-SERVER
+      address: http://localhost:9101
+      context-path: /SSOSystem
+      view:
+        login: /Controller/LoginSSOView
+        logout: /logout
+      excluded:
+
+
 spring:
   application:
     name: JB4DC-BUILDER-WEB-SERVER
@@ -36,17 +51,6 @@ logging:
           dao: TRACE
         sso:
           client: debug
-
-jb4dc:
-  sso:
-    server:
-      name: JB4DC-SSO-WEB-SERVER
-      address: http://localhost:9101
-      context-path: /SSOSystem
-      view:
-        login: /Controller/LoginSSOView
-        logout: /logout
-      excluded:
 
 feign:
   client:

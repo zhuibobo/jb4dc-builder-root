@@ -5,6 +5,7 @@ import com.jb4dc.base.dbaccess.exenum.TrueFalseEnum;
 import com.jb4dc.base.service.IMetadataService;
 import com.jb4dc.base.service.ISQLBuilderService;
 import com.jb4dc.base.service.impl.BaseServiceImpl;
+import com.jb4dc.base.ymls.JBuild4DCYaml;
 import com.jb4dc.builder.dao.datastorage.TableFieldMapper;
 import com.jb4dc.builder.dao.datastorage.TableMapper;
 import com.jb4dc.builder.dbentities.datastorage.DbLinkEntity;
@@ -24,17 +25,13 @@ import com.jb4dc.code.generate.service.ICodeGenerateService;
 import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
 import com.jb4dc.core.base.exception.JBuild4DCPhysicalTableException;
 import com.jb4dc.core.base.exception.JBuild4DCSQLKeyWordException;
-import com.jb4dc.core.base.exenum.DBTypeEnum;
 import com.jb4dc.core.base.list.IListWhereCondition;
 import com.jb4dc.core.base.list.ListUtility;
 import com.jb4dc.core.base.session.JB4DCSession;
 import com.jb4dc.core.base.tools.StringUtility;
-import com.jb4dc.core.base.ymls.JBuild4DCYaml;
-import org.apache.commons.lang3.StringUtils;
 import org.mybatis.generatorex.api.IntrospectedColumn;
-import org.mybatis.generatorex.api.IntrospectedTable;
-import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.beans.PropertyVetoException;
@@ -49,17 +46,18 @@ import java.util.List;
  * Date: 2018/7/30
  * To change this template use File | Settings | File Templates.
  */
+@Service
 public class TableServiceImpl extends BaseServiceImpl<TableEntity> implements ITableService
 {
     TableBuilederFace tableBuilederFace;
     TableMapper tableMapper;
     TableFieldMapper tableFieldMapper;
 
-    @Autowired
-    ICodeGenerateService codeGenerateService;
+    //@Autowired
+    //ICodeGenerateService codeGenerateService;
 
-    @Autowired
-    IMetadataService metadataService;
+    //@Autowired
+    //IMetadataService metadataService;
 
     @Autowired
     IDbLinkService dbLinkService;
@@ -67,10 +65,10 @@ public class TableServiceImpl extends BaseServiceImpl<TableEntity> implements IT
     @Autowired
     ITableGroupService tableGroupService;
 
-    public TableServiceImpl(TableMapper _tableMapper, TableFieldMapper _tableFieldMapper, ISQLBuilderService _sqlBuilderService) throws JBuild4DCGenerallyException {
+    public TableServiceImpl(TableMapper _tableMapper, TableFieldMapper _tableFieldMapper) throws JBuild4DCGenerallyException {
         super(_tableMapper);
         tableMapper=_tableMapper;
-        tableBuilederFace= TableBuilederFace.getInstance(_sqlBuilderService);
+        tableBuilederFace= TableBuilederFace.getInstance();
         tableFieldMapper=_tableFieldMapper;
     }
 
