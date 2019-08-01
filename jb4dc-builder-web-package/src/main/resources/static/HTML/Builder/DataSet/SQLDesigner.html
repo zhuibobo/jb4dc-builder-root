@@ -211,7 +211,7 @@
                     //debugger;
                     var tableId=treeNode.id;
                     var _self=this;
-                    var url = '/PlatFormRest/Builder/DataSet/DataSetSQLDesigner/GetTableField.do';
+                    var url = '/Rest/Builder/DataSet/DataSetSQLDesigner/GetTableField';
                     AjaxUtility.Post(url, {tableId:tableId}, function (result) {
                         if(result.success){
                             _self.tableField.fieldData=result.data;
@@ -240,7 +240,7 @@
                 },
                 validateSQLEnable:function (func) {
                     var sql=this.getEditSQL();
-                    var url = '/PlatFormRest/Builder/DataSet/DataSetSQLDesigner/ValidateSQLEnable.do';
+                    var url = '/Rest/Builder/DataSet/DataSetSQLDesigner/ValidateSQLEnable';
                     AjaxUtility.Post(url, {sqlText:encodeURIComponent(sql)}, function (result) {
                         //debugger;
                         if(result.success){
