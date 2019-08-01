@@ -25,6 +25,9 @@ spring:
     prefix: classpath:/static/HTML/
     suffix: .html
     enabled: true
+  mvc:
+    favicon:
+      enabled: true
 
 server:
   port: 9103

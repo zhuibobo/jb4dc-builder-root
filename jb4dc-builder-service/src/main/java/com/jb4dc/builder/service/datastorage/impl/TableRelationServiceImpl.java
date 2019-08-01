@@ -10,10 +10,12 @@ import com.jb4dc.builder.service.datastorage.ITableRelationService;
 import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
 import com.jb4dc.core.base.session.JB4DCSession;
 import org.mybatis.spring.SqlSessionTemplate;
+import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;
 
+@Service
 public class TableRelationServiceImpl extends BaseServiceImpl<TableRelationEntity> implements ITableRelationService
 {
     TableRelationMapper tableRelationMapper;

@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "/PlatFormRest/Builder/DataStorage/TableRelation/TableRelation")
+@RequestMapping(value = "/Rest/Builder/DataStorage/TableRelation/TableRelation")
 public class TableRelationRest extends GeneralRest<TableRelationEntity> {
 
     @Autowired

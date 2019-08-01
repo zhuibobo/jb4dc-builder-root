@@ -66,10 +66,10 @@
                     if(result.success){
                         if(result.data!=null&&result.data.length>0){
                             for(var i=0;i<result.data.length;i++) {
-                                if(result.data[i].relGroupIssystem=="是"&&result.data[i].relGroupChildCount==0) {
+                                if(result.data[i].relGroupIsSystem=="是"&&result.data[i].relGroupChildCount==0) {
                                     result.data[i].icon = "../../../../Themes/Png16X16/table_key.png";
                                 }
-                                else if(result.data[i].relGroupIssystem=="否"&&result.data[i].relGroupChildCount==0) {
+                                else if(result.data[i].relGroupIsSystem=="否"&&result.data[i].relGroupChildCount==0) {
                                     result.data[i].icon = "../../../../Themes/Png16X16/table_edit.png";
                                 }
                                 else if(result.data[i].relGroupParentId=="-1"){
@@ -83,7 +83,7 @@
                     else {
                         DialogUtility.Alert(window, DialogUtility.DialogAlertId, {}, result.message, function () {});
                     }
-                }, "json");
+                }, this);
             },
             treeNodeSelected:function (event, treeId, treeNode) {
                 // 根节点不触发任何事件
@@ -146,7 +146,7 @@
                         else {
                             DialogUtility.Alert(window, DialogUtility.DialogAlertId, {}, result.message, function () {});
                         }
-                    }, "json");
+                    }, this);
                 });
             },
             moveGroup:function (type) {
@@ -169,7 +169,7 @@
                         else {
                             DialogUtility.Alert(window, DialogUtility.DialogAlertId, {}, result.message,null);
                         }
-                    }, "json");
+                    }, this);
                 }
                 else {
                     DialogUtility.Alert(window,DialogUtility.DialogAlertId,{},"请选择需要编辑的节点!",null);
@@ -236,7 +236,7 @@
                                 DialogUtility.AlertError(window, DialogUtility.DialogAlertId, {}, result.message, function () {
                                 });
                             }
-                        }, "json");
+                        }, this);
                 });
             },
             move:function (type) {
@@ -255,7 +255,7 @@
                         else{
                             DialogUtility.Alert(window,DialogUtility.DialogAlertId,{},result.message,null);
                         }
-                    }, "json"
+                    }, this
                 );
             },
             reloadRelations:function (groupId) {
@@ -281,7 +281,7 @@
                         {
                             DialogUtility.AlertError(window, DialogUtility.DialogAlertId, {}, result.message, function () {});
                         }
-                    }, "json");
+                    }, this);
             }
         }
     });</script></body></html>

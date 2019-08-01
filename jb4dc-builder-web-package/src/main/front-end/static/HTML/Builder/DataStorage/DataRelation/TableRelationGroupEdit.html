@@ -43,7 +43,7 @@
             <row>
                 <i-col span="10">
                     <form-item>
-                        <radio-group v-model="formEntity.relGroupIssystem">
+                        <radio-group v-model="formEntity.relGroupIsSystem">
                             <radio label="是">是</radio>
                             <radio label="否">否</radio>
                         </radio-group>
@@ -79,8 +79,8 @@
         data: {
             isSubmitting:false,
             acInterface:{
-                getDataUrl:"/PlatFormRest/Builder/DataStorage/TableRelation/TableRelationGroup/GetDetailData",
-                saveDataUrl:"/PlatFormRest/Builder/DataStorage/TableRelation/TableRelationGroup/SaveEdit"
+                getDataUrl:"/Rest/Builder/DataStorage/TableRelation/TableRelationGroup/GetDetailData",
+                saveDataUrl:"/Rest/Builder/DataStorage/TableRelation/TableRelationGroup/SaveEdit"
             },
             recordId:BaseUtility.GetUrlParaValue("recordId"),
             formEntity: {
@@ -91,7 +91,7 @@
                 relGroupDesc:"",
                 relGroupStatus:"启用",
                 relGroupParentId: BaseUtility.GetUrlParaValue("parentId"),
-                relGroupIssystem:"否",
+                relGroupIsSystem:"否",
                 relGroupDelEnable:"是"
             },
             ruleValidate: {
@@ -131,7 +131,7 @@
                                 _self.isSubmitting=false;
                                 DialogUtility.Frame_CloseDialog(window);
                             });
-                        }, "json");
+                        }, this);
                     } else {
                         this.$Message.error('Fail!');
                     }

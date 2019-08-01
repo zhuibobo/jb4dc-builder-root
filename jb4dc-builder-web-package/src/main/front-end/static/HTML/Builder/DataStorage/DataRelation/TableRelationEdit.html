@@ -60,8 +60,8 @@
         data: {
             isSubmitting:false,
             acInterface: {
-                getDataUrl: "/PlatFormRest/Builder/DataStorage/TableRelation/TableRelation/GetDetailData",
-                saveDataUrl: "/PlatFormRest/Builder/DataStorage/TableRelation/TableRelation/SaveEdit"
+                getDataUrl: "/Rest/Builder/DataStorage/TableRelation/TableRelation/GetDetailData",
+                saveDataUrl: "/Rest/Builder/DataStorage/TableRelation/TableRelation/SaveEdit"
             },
             recordId: BaseUtility.GetUrlParaValue("recordId"),
             formEntity: {
@@ -100,7 +100,7 @@
                                 window.OpenerWindowObj.appList.reloadRelations(_self.formEntity.relationGroupId);
                                 DialogUtility.Frame_CloseDialog(window);
                             });
-                        }, "json");
+                        }, this);
                     } else {
                         this.$Message.error('Fail!');
                     }
