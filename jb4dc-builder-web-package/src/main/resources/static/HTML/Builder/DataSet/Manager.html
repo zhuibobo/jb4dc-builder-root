@@ -134,10 +134,10 @@
                         if(result.success){
                             if(result.data!=null&&result.data.length>0){
                                 for(var i=0;i<result.data.length;i++) {
-                                    if(result.data[i].dsGroupIssystem=="是"&&result.data[i].dsGroupChildCount==0) {
+                                    if(result.data[i].dsGroupIsSystem=="是"&&result.data[i].dsGroupChildCount==0) {
                                         result.data[i].icon = "../../../Themes/Png16X16/table_key.png";
                                     }
-                                    else if(result.data[i].dsGroupIssystem=="否"&&result.data[i].dsGroupChildCount==0) {
+                                    else if(result.data[i].dsGroupIsSystem=="否"&&result.data[i].dsGroupChildCount==0) {
                                         result.data[i].icon = "../../../Themes/Png16X16/note_edit.png";
                                     }
                                     else if(result.data[i].dsGroupParentId=="-1"){
@@ -268,7 +268,20 @@
                 },
                 reloadData: function () {
                     //var url = '/PlatForm/Builder/DataStorage/DataBase/Table/GetListData.do';
-                    ListPageUtility.IViewTableLoadDataSearch(this.acInterface.reloadListData,this.pageNum,this.pageSize,this.searchCondition,this,this.idFieldName,true,null);
+                    //ListPageUtility.IViewTableLoadDataSearch(this.acInterface.reloadListData,this.pageNum,this.pageSize,this.searchCondition,this,this.idFieldName,true,null);
+                    ListPageUtility.IViewTableBindDataBySearch({
+                        url: this.acInterface.reloadListData,
+                        pageNum: this.pageNum,
+                        pageSize: this.pageSize,
+                        searchCondition: this.searchCondition,
+                        pageAppObj: this,
+                        tableList: this,
+                        idField: this.idFieldName,
+                        autoSelectedOldRows: true,
+                        successFunc: null,
+                        loadDict: false,
+                        custParas: {}
+                    });
                     //this.selectionRows=null;
                 },
                 add: function () {

@@ -58,26 +58,26 @@ let replaceBlock = {
         let replaceArray = new Array();
         let levelPath = calculateFilePath(file);
 
-        replaceArray.push(refJs(levelPath + "Js/External/CodeMirror-5.39.2/lib/codemirror.js"));
-        replaceArray.push(refCss(levelPath + 'Js/External/CodeMirror-5.39.2/lib/codemirror.css'));
-        replaceArray.push(refCss(levelPath + 'Js/External/CodeMirror-5.39.2/theme/monokai.css'));
-        replaceArray.push(refJs(levelPath + "Js/External/CodeMirror-5.39.2/mode/xml/xml.js"));
-        replaceArray.push(refJs(levelPath + "Js/External/CodeMirror-5.39.2/mode/javascript/javascript.js"));
-        replaceArray.push(refJs(levelPath + "Js/External/CodeMirror-5.39.2/mode/css/css.js"));
-        replaceArray.push(refJs(levelPath + "Js/External/CodeMirror-5.39.2/mode/sql/sql.js"));
-        replaceArray.push(refJs(levelPath + "Js/External/CodeMirror-5.39.2/mode/htmlmixed/htmlmixed.js"));
-        replaceArray.push(refJs(levelPath + "Js/External/CodeMirror-5.39.2/addon/fold/foldcode.js"));
-        replaceArray.push(refJs(levelPath + "Js/External/CodeMirror-5.39.2/addon/fold/foldgutter.js"));
-        replaceArray.push(refJs(levelPath + "Js/External/CodeMirror-5.39.2/addon/fold/brace-fold.js"));
-        replaceArray.push(refJs(levelPath + "Js/External/CodeMirror-5.39.2/addon/fold/xml-fold.js"));
-        replaceArray.push(refJs(levelPath + "Js/External/CodeMirror-5.39.2/addon/fold/markdown-fold.js"));
-        replaceArray.push(refJs(levelPath + "Js/External/CodeMirror-5.39.2/addon/fold/comment-fold.js"));
-        replaceArray.push(refJs(levelPath + "Js/External/CodeMirror-5.39.2/addon/fold/brace-fold.js"));
-        replaceArray.push(refJs(levelPath + "Js/External/CodeMirror-5.39.2/addon/util/formatting.js"));
-        replaceArray.push(refCss(levelPath + 'Js/External/CodeMirror-5.39.2/addon/fold/foldgutter.css'));
+        replaceArray.push(refJs(levelPath + "Js/External/Codemirror-5.48.0/lib/codemirror.js"));
+        replaceArray.push(refCss(levelPath + 'Js/External/Codemirror-5.48.0/lib/codemirror.css'));
+        replaceArray.push(refCss(levelPath + 'Js/External/Codemirror-5.48.0/theme/monokai.css'));
+        replaceArray.push(refJs(levelPath + "Js/External/Codemirror-5.48.0/mode/xml/xml.js"));
+        replaceArray.push(refJs(levelPath + "Js/External/Codemirror-5.48.0/mode/javascript/javascript.js"));
+        replaceArray.push(refJs(levelPath + "Js/External/Codemirror-5.48.0/mode/css/css.js"));
+        replaceArray.push(refJs(levelPath + "Js/External/Codemirror-5.48.0/mode/sql/sql.js"));
+        replaceArray.push(refJs(levelPath + "Js/External/Codemirror-5.48.0/mode/htmlmixed/htmlmixed.js"));
+        replaceArray.push(refJs(levelPath + "Js/External/Codemirror-5.48.0/addon/fold/foldcode.js"));
+        replaceArray.push(refJs(levelPath + "Js/External/Codemirror-5.48.0/addon/fold/foldgutter.js"));
+        replaceArray.push(refJs(levelPath + "Js/External/Codemirror-5.48.0/addon/fold/brace-fold.js"));
+        replaceArray.push(refJs(levelPath + "Js/External/Codemirror-5.48.0/addon/fold/xml-fold.js"));
+        replaceArray.push(refJs(levelPath + "Js/External/Codemirror-5.48.0/addon/fold/markdown-fold.js"));
+        replaceArray.push(refJs(levelPath + "Js/External/Codemirror-5.48.0/addon/fold/comment-fold.js"));
+        replaceArray.push(refJs(levelPath + "Js/External/Codemirror-5.48.0/addon/fold/brace-fold.js"));
+        replaceArray.push(refJs(levelPath + "Js/External/Codemirror-5.48.0/addon/util/formatting.js"));
+        replaceArray.push(refCss(levelPath + 'Js/External/Codemirror-5.48.0/addon/fold/foldgutter.css'));
 
-        replaceArray.push(refJs(levelPath + "Js/External/CodeMirror-5.39.2/addon/search/search.js"));
-        replaceArray.push(refJs(levelPath + "Js/External/CodeMirror-5.39.2/addon/search/searchcursor.js"));
+        replaceArray.push(refJs(levelPath + "Js/External/Codemirror-5.48.0/addon/search/search.js"));
+        replaceArray.push(refJs(levelPath + "Js/External/Codemirror-5.48.0/addon/search/searchcursor.js"));
 
         return replaceArray.join("\n\t");
     },

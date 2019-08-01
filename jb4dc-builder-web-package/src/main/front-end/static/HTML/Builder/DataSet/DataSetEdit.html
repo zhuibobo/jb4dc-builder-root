@@ -91,7 +91,7 @@
                     <form-item label="创建人：">
                         <row>
                             <i-col span="6">
-                                <i-input v-model="datasetEntity.dsCreater"></i-input>
+                                <i-input v-model="datasetEntity.dsCreator"></i-input>
                             </i-col>
                             <i-col span="8" style="text-align: center">创建时间：</i-col>
                             <i-col span="10">
@@ -117,7 +117,7 @@
                         </row>
                     </form-item>
                     <form-item label="系统表：">
-                        <i-input v-model="datasetEntity.dsIssystem" readonly></i-input>
+                        <i-input v-model="datasetEntity.dsIsSystem" readonly></i-input>
                     </form-item>
                     <form-item label="备注：">
                         <i-input v-model="datasetEntity.dsDesc" type="textarea" :autosize="{minRows: 5,maxRows: 5}"></i-input>
@@ -161,11 +161,11 @@
                     dsCaption:"",
                     dsName:"",
                     dsCreateTime:DateUtility.GetCurrentData(),
-                    dsCreater:"",
+                    dsCreator:"",
                     dsUpdateTime:DateUtility.GetCurrentData(),
                     dsUpdater:"",
                     dsType:"",
-                    dsIssystem:"否",
+                    dsIsSystem:"否",
                     dsDesc: "",
                     dsGroupId:"",
                     dsStatus:"启用",
@@ -297,10 +297,10 @@
             mounted:function(){
                 this.editTableObj=Object.create(EditTable);
                 this.editTableObj.Initialization(this.editTableConfig);
-                this.currUserEntity=CacheDataUtility.GetCurrentUserInfo();
+                this.currUserEntity=SessionUtility.GetSessionUserSync();
                 if(this.status=="add"){
                     //this.editTableObj.LoadJsonData(this.templateFieldGroup[this.useTemplateName]);
-                    this.datasetEntity.dsCreater=this.currUserEntity.userName;
+                    this.datasetEntity.dsCreator=this.currUserEntity.userName;
                     this.datasetEntity.dsUpdater=this.currUserEntity.userName;
                     this.datasetEntity.dsId=StringUtility.Guid();
                     this.datasetEntity.dsGroupId=BaseUtility.GetUrlParaValue("groupId");

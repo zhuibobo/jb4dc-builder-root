@@ -141,7 +141,7 @@
             el:"#sqlDesignerForm",
             data:{
                 acInterface:{
-                    getDataUrl:"/PlatFormRest/Builder/DataSet/DataSetSQLDesigner/GetSqlDesignerViewData"
+                    getDataUrl:"/Rest/Builder/DataSet/DataSetSQLDesigner/GetSqlDesignerViewData"
                 },
                 formResourceEntity:{
                     formId:"",
@@ -311,7 +311,7 @@
                     else {
                         DialogUtility.Alert(window, DialogUtility.DialogAlertId, {}, result.message, null);
                     }
-                },"json");
+                },this);
 
                 //var _height=PageStyleUtility.GetPageHeight()-300;
                 if(PageStyleUtility.GetPageHeight()<550){
@@ -358,7 +358,7 @@
                         else {
                             DialogUtility.Alert(window, DialogUtility.DialogAlertId, {}, result.message, function () {});
                         }
-                    }, "json");
+                    }, this);
                 },
                 handleClose: function () {
                     //debugger;
@@ -413,7 +413,7 @@
                         else {
                             DialogUtility.Alert(window, DialogUtility.DialogAlertId, {}, result.message, function () {});
                         }
-                    }, "json");
+                    }, this);
                 }
             }
         });

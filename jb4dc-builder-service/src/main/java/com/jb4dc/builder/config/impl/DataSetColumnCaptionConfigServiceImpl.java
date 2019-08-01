@@ -2,6 +2,7 @@ package com.jb4dc.builder.config.impl;
 
 import com.jb4dc.builder.config.IDataSetColumnCaptionConfigService;
 import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
+import com.jb4dc.core.base.tools.FileUtility;
 import com.jb4dc.core.base.tools.XMLDocumentUtility;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
@@ -21,7 +22,7 @@ import java.util.List;
  */
 public class DataSetColumnCaptionConfigServiceImpl implements IDataSetColumnCaptionConfigService {
 
-    String configResource= "/builder/dataset/BuilderDataSetColumnCaptionConfig.xml";
+    String configResource= "/config/builder/dataset/dataset-column-caption-config.xml";
     Document xmlDocument=null;
 
     public DataSetColumnCaptionConfigServiceImpl() throws IOException, SAXException, ParserConfigurationException {
@@ -29,7 +30,7 @@ public class DataSetColumnCaptionConfigServiceImpl implements IDataSetColumnCapt
     }
 
     private void loadDocument() throws ParserConfigurationException, SAXException, IOException {
-        InputStream inputStream = this.getClass().getResourceAsStream(configResource);
+        InputStream inputStream = FileUtility.getStreamByLevel(configResource);
         xmlDocument = XMLDocumentUtility.parseForDoc(inputStream);
     }
 

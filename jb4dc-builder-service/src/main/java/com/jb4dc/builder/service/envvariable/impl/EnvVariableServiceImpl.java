@@ -8,6 +8,7 @@ import com.jb4dc.core.base.list.IListWhereCondition;
 import com.jb4dc.core.base.list.ListUtility;
 import com.jb4dc.core.base.session.JB4DCSession;
 import com.jb4dc.core.base.tools.ClassUtility;
+import com.jb4dc.core.base.tools.FileUtility;
 import com.jb4dc.core.base.tools.StringUtility;
 import com.jb4dc.core.base.tools.XMLDocumentUtility;
 import org.springframework.stereotype.Service;
@@ -34,7 +35,7 @@ import java.util.List;
 @Service
 public class EnvVariableServiceImpl implements IEnvVariableService {
 
-    static String configResource= "envvariable"+File.separator+"EnvVariableConfig.xml";
+    static String configResource= "/config/envvariable/env-variable-config.xml";
     //IJb4dCacheService jb4dCacheService;
 
     public EnvVariableServiceImpl() {
@@ -134,7 +135,7 @@ public class EnvVariableServiceImpl implements IEnvVariableService {
         try {
             Document xmlDocument = null;
             List<EnvVariableVo> allEnvVariableVoList = null;
-            InputStream inputStream = this.getClass().getClassLoader().getResourceAsStream(configResource);
+            InputStream inputStream = FileUtility.getStreamByLevel(configResource);
             xmlDocument = XMLDocumentUtility.parseForDoc(inputStream);
             validateDocumentEnable(xmlDocument);
             allEnvVariableVoList = new ArrayList<>();

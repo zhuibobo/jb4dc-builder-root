@@ -42,7 +42,7 @@
                 <row>
                     <i-col span="10">
                         <form-item>
-                            <radio-group v-model="dataSetGroupEntity.dsGroupIssystem">
+                            <radio-group v-model="dataSetGroupEntity.dsGroupIsSystem">
                                 <radio label="是">是</radio>
                                 <radio label="否">否</radio>
                             </radio-group>
@@ -77,8 +77,8 @@
             el:"#appForm",
             data: {
                 acInterface:{
-                    getDataUrl:"/PlatFormRest/Builder/DataSet/DataSetGroup/GetDetailData",
-                    saveDataUrl:"/PlatFormRest/Builder/DataSet/DataSetGroup/SaveEdit"
+                    getDataUrl:"/Rest/Builder/DataSet/DataSetGroup/GetDetailData",
+                    saveDataUrl:"/Rest/Builder/DataSet/DataSetGroup/SaveEdit"
                 },
                 recordId:BaseUtility.GetUrlParaValue("recordId"),
                 dataSetGroupEntity: {
@@ -89,7 +89,7 @@
                     dsGroupDesc: "",
                     dsGroupParentId: BaseUtility.GetUrlParaValue("parentId"),
                     dsGroupStatus: "启用",
-                    dsGroupIssystem: "否",
+                    dsGroupIsSystem: "否",
                     dsGroupDelEnable: "是"
                 },
                 ruleValidate: {
@@ -128,7 +128,7 @@
                                     }
                                     DialogUtility.Frame_CloseDialog(window);
                                 });
-                            }, "json");
+                            }, this);
                         } else {
                             this.$Message.error('Fail!');
                         }
