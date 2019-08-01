@@ -8,7 +8,6 @@ import com.jb4dc.builder.dbentities.datastorage.TableGroupEntity;
 import com.jb4dc.builder.exenum.TableFieldTypeEnum;
 import com.jb4dc.builder.po.TableFieldVO;
 import com.jb4dc.core.base.exception.JBuild4DCPhysicalTableException;
-import com.jb4dc.core.base.ymls.DBYaml;
 
 import java.beans.PropertyVetoException;
 import java.util.Map;

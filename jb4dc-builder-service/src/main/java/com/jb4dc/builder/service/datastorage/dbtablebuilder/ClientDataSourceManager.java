@@ -1,8 +1,8 @@
 package com.jb4dc.builder.service.datastorage.dbtablebuilder;
 
 import com.jb4dc.base.dbaccess.exenum.TrueFalseEnum;
+import com.jb4dc.base.ymls.DBYaml;
 import com.jb4dc.builder.dbentities.datastorage.DbLinkEntity;
-import com.jb4dc.core.base.ymls.DBYaml;
 import com.mchange.v2.c3p0.ComboPooledDataSource;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCallback;
