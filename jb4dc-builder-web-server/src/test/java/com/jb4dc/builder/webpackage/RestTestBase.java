@@ -1,5 +1,6 @@
 package com.jb4dc.builder.webpackage;
 
+import com.jb4dc.base.service.general.JB4DCSessionUtility;
 import com.jb4dc.base.tools.JsonUtility;
 import com.jb4dc.builder.webserver.ApplicationBuilderWebServer;
 import com.jb4dc.core.base.session.JB4DCSession;
@@ -47,12 +48,7 @@ public class RestTestBase {
     }
 
     public JB4DCSession getSession(){
-        JB4DCSession b4DSession = new JB4DCSession();
-        b4DSession.setOrganName("4D-UnitTest");
-        b4DSession.setOrganId("OrganId-UnitTest");
-        b4DSession.setUserName("Alex-UnitTest");
-        b4DSession.setUserId("UserId-UnitTest");
-        return b4DSession;
+        return JB4DCSessionUtility.getInitSystemSession();
     }
 
     public JBuild4DCResponseVo simpleDelete(String url, String recordId, Map<String,String> paras) throws Exception {

@@ -84,7 +84,13 @@ public class TableServiceImpl extends BaseServiceImpl<TableEntity> implements IT
 
     @Override
     public int deleteByKeyNotValidate(JB4DCSession jb4DSession, String id, String warningOperationCode) throws JBuild4DCGenerallyException {
-        throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_BUILDER_CODE,"未实现该方法");
+        if(warningOperationCode.equals(JBuild4DCYaml.getWarningOperationCode())) {
+
+            tableFieldMapper.deleteByTableId(id);
+            return tableMapper.deleteByPrimaryKey(id);
+        }
+        return 0;
+        //throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_BUILDER_CODE,"未实现该方法");
     }
 
     @Override

@@ -1,5 +1,6 @@
 package com.jb4dc.builder.webpackage.rest;
 
+import com.jb4dc.base.service.general.JB4DCSessionUtility;
 import com.jb4dc.base.tools.JsonUtility;
 import com.jb4dc.builder.webpackage.RestTestBase;
 import com.jb4dc.core.base.vo.JBuild4DCResponseVo;
@@ -47,7 +48,7 @@ public class InitializationSystemRestTest extends RestTestBase {
         //context.getServletContext().
         MockHttpServletRequestBuilder requestBuilder =post("/Rest/Builder/InitializationSystem/Running?createTestData=true");
 
-        requestBuilder.sessionAttr("JB4DCSession",getSession());
+        requestBuilder.sessionAttr(JB4DCSessionUtility.UserLoginSessionKey,getSession());
         MvcResult result=mockMvc.perform(requestBuilder).andReturn();
         String json=result.getResponse().getContentAsString();
         System.out.println(json);
