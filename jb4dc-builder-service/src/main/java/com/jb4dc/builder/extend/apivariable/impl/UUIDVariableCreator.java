@@ -1,4 +1,4 @@
-package com.jb4dc.builder.apivariable.impl;
+package com.jb4dc.builder.extend.apivariable.impl;
 
 /**
  * Created with IntelliJ IDEA.
@@ -6,5 +6,5 @@ package com.jb4dc.builder.apivariable.impl;
  * Date: 2018/8/6
  * To change this template use File | Settings | File Templates.
  */
-public class SingleTableNumberVariableCreater {
+public class UUIDVariableCreator {
 }

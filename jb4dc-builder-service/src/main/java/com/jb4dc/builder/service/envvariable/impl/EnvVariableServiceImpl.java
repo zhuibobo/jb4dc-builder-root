@@ -1,6 +1,6 @@
 package com.jb4dc.builder.service.envvariable.impl;
 
-import com.jb4dc.builder.apivariable.IAPIVariableCreater;
+import com.jb4dc.builder.extend.apivariable.IAPIVariableCreator;
 import com.jb4dc.builder.po.EnvVariableVo;
 import com.jb4dc.builder.service.envvariable.IEnvVariableService;
 import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
@@ -10,6 +10,7 @@ import com.jb4dc.core.base.session.JB4DCSession;
 import com.jb4dc.core.base.tools.ClassUtility;
 import com.jb4dc.core.base.tools.StringUtility;
 import com.jb4dc.core.base.tools.XMLDocumentUtility;
+import org.springframework.stereotype.Service;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -29,6 +30,8 @@ import java.util.List;
  * Date: 2018/8/3
  * To change this template use File | Settings | File Templates.
  */
+
+@Service
 public class EnvVariableServiceImpl implements IEnvVariableService {
 
     static String configResource= "envvariable"+File.separator+"EnvVariableConfig.xml";
@@ -74,9 +77,9 @@ public class EnvVariableServiceImpl implements IEnvVariableService {
         if(StringUtility.isEmpty(className)){
             throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_BUILDER_CODE,"Value为"+value+"的变量节点中未设置对应的ClassName!");
         }
-        IAPIVariableCreater varCreater=null;
+        IAPIVariableCreator varCreater=null;
         try {
-            varCreater=(IAPIVariableCreater) ClassUtility.loadClass(className).newInstance();
+            varCreater=(IAPIVariableCreator) ClassUtility.loadClass(className).newInstance();
         } catch (InstantiationException ex) {
             ex.printStackTrace();
             throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_BUILDER_CODE,ex.getMessage());

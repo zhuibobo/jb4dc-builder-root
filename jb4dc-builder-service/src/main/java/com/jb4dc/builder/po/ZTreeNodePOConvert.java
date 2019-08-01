@@ -2,6 +2,7 @@ package com.jb4dc.builder.po;
 
 import com.jb4dc.base.service.po.ZTreeNodePO;
 import com.jb4dc.builder.dbentities.dataset.DatasetEntity;
+import com.jb4dc.builder.dbentities.dataset.DatasetGroupEntity;
 import com.jb4dc.builder.dbentities.datastorage.TableEntity;
 import com.jb4dc.builder.dbentities.datastorage.TableGroupEntity;
 
@@ -49,10 +50,10 @@ public class ZTreeNodePOConvert extends ZTreeNodePO {
         return result;
     }
 
-    /*public static List<ZTreeNodePO> parseDataSetToZTreeNodeList(List<DatasetGroupEntity> datasetGroupEntityList, List<DatasetEntity> datasetEntityList){
-        List<ZTreeNodeVo> result=new ArrayList<>();
+    public static List<ZTreeNodePO> parseDataSetToZTreeNodeList(List<DatasetGroupEntity> datasetGroupEntityList, List<DatasetEntity> datasetEntityList){
+        List<ZTreeNodePO> result=new ArrayList<>();
         for (DatasetGroupEntity group : datasetGroupEntityList) {
-            ZTreeNodeVo nodeVo=new ZTreeNodeVo();
+            ZTreeNodePO nodeVo=new ZTreeNodePO();
             nodeVo.setId(group.getDsGroupId());
             nodeVo.setValue(group.getDsGroupValue());
             nodeVo.setText(group.getDsGroupText());
@@ -64,7 +65,7 @@ public class ZTreeNodePOConvert extends ZTreeNodePO {
         }
 
         for (DatasetEntity datasetEntity : datasetEntityList) {
-            ZTreeNodeVo nodeVo=new ZTreeNodeVo();
+            ZTreeNodePO nodeVo=new ZTreeNodePO();
             nodeVo.setId(datasetEntity.getDsId());
             nodeVo.setValue(datasetEntity.getDsName());
             nodeVo.setText(datasetEntity.getDsCaption()+"【"+datasetEntity.getDsCode()+"】");
@@ -78,7 +79,7 @@ public class ZTreeNodePOConvert extends ZTreeNodePO {
         return result;
     }
 
-    public static List<ZTreeNodePO> parseWebFormToZTreeNodeList(List<ModuleEntity> moduleEntityList, List<FormResourceEntity> formResourceEntityList) {
+    /*public static List<ZTreeNodePO> parseWebFormToZTreeNodeList(List<ModuleEntity> moduleEntityList, List<FormResourceEntity> formResourceEntityList) {
         Map<String,ModuleEntity> temp=new HashMap<>();
         List<ZTreeNodeVo> result=new ArrayList<>();
         for (ModuleEntity moduleEntity : moduleEntityList) {

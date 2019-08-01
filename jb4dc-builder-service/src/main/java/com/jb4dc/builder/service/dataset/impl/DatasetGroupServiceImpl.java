@@ -10,6 +10,8 @@ import com.jb4dc.builder.service.dataset.IDatasetGroupService;
 import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
 import com.jb4dc.core.base.session.JB4DCSession;
 import org.mybatis.spring.SqlSessionTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.Date;
 
@@ -19,12 +21,15 @@ import java.util.Date;
  * Date: 2018/8/7
  * To change this template use File | Settings | File Templates.
  */
+@Service
 public class DatasetGroupServiceImpl extends BaseServiceImpl<DatasetGroupEntity> implements IDatasetGroupService
 {
     private String rootId="0";
     private String rootParentId="-1";
 
     DatasetGroupMapper datasetGroupMapper;
+
+    @Autowired
     public DatasetGroupServiceImpl(DatasetGroupMapper _defaultBaseMapper){
         super(_defaultBaseMapper);
         datasetGroupMapper=_defaultBaseMapper;

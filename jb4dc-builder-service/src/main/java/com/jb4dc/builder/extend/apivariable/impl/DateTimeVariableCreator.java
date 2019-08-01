@@ -1,7 +1,7 @@
-package com.jb4dc.builder.apivariable.impl;
+package com.jb4dc.builder.extend.apivariable.impl;
 
 
-import com.jb4dc.builder.apivariable.IAPIVariableCreater;
+import com.jb4dc.builder.extend.apivariable.IAPIVariableCreator;
 import com.jb4dc.builder.po.EnvVariableVo;
 import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
 import com.jb4dc.core.base.session.JB4DCSession;
@@ -15,7 +15,7 @@ import java.util.Date;
  * Date: 2018/8/6
  * To change this template use File | Settings | File Templates.
  */
-public class DateTimeVariableCreater implements IAPIVariableCreater {
+public class DateTimeVariableCreator implements IAPIVariableCreator {
 
     @Override
     public String createVar(JB4DCSession jb4DSession, EnvVariableVo vo) throws JBuild4DCGenerallyException {

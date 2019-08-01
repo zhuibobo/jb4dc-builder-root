@@ -1,4 +1,4 @@
-package com.jb4dc.builder.apivariable;
+package com.jb4dc.builder.extend.apivariable;
 
 import com.jb4dc.builder.po.EnvVariableVo;
 import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
@@ -12,7 +12,7 @@ import org.w3c.dom.Node;
  * Date: 2018/8/6
  * To change this template use File | Settings | File Templates.
  */
-public interface IAPIVariableCreater {
+public interface IAPIVariableCreator {
     Document doc=null;
     Node node=null;
 
