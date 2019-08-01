@@ -27,6 +27,6 @@ public class UserSessionVariableCreator implements IAPIVariableCreator {
         else if(vo.getPara().equals("ApiVarCurrentUserName")){
             return jb4DSession.getUserName();
         }
-        throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_BUILDER_CODE,"UserSessionVariableCreator.createVar中无法根据"+vo.getPara()+"查询到对应的数据！");
+        throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_BUILDER_CODE,this.getClass().getName()+"中无法根据"+vo.getPara()+"查询到对应的数据！");
     }
 }

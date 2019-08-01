@@ -169,9 +169,9 @@
                     if(result.success) {
                         sqlDesignerForm.bindData(result);
                     }
-                    else {
+                    /*else {
                         DialogUtility.Alert(window, DialogUtility.DialogAlertId, {}, result.message, null);
-                    }
+                    }*/
                 },this);
 
                 //var _height=PageStyleUtility.GetPageHeight()-300;
@@ -216,9 +216,9 @@
                         if(result.success){
                             _self.tableField.fieldData=result.data;
                         }
-                        else {
+                        /*else {
                             DialogUtility.Alert(window, DialogUtility.DialogAlertId, {}, result.message, function () {});
-                        }
+                        }*/
                     }, this);
                 },
                 handleClose: function () {
@@ -271,9 +271,9 @@
                                 });
                             }
                         }
-                        else {
+                        /*else {
                             DialogUtility.Alert(window, DialogUtility.DialogAlertId, {}, result.message, function () {});
-                        }
+                        }*/
                     }, this);
                 }
             }

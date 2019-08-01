@@ -22,13 +22,13 @@ public class DateTimeVariableCreator implements IAPIVariableCreator {
         try {
             String result;
             Date date = new Date();
-            SimpleDateFormat formater = new SimpleDateFormat();
-            formater.applyPattern(vo.getPara());
-            result = formater.format(date);
+            SimpleDateFormat formatter = new SimpleDateFormat();
+            formatter.applyPattern(vo.getPara());
+            result = formatter.format(date);
             return result;
         }
         catch (Exception ex){
-            throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_BUILDER_CODE,"com.jb4dc.builder.apivariable.impl.DateTimeVariableCreater Error:"+ex.getMessage());
+            throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_BUILDER_CODE,this.getClass().getName()+" Error:"+ex.getMessage());
         }
     }
 }

@@ -438,11 +438,14 @@ public class TableServiceImpl extends BaseServiceImpl<TableEntity> implements IT
     }
 
     @Override
-    public boolean testTablesInTheSameDBLink(JB4DCSession jb4DSession,List tableList) {
+    public boolean testTablesInTheSameDBLink(JB4DCSession jb4DSession,List tableList) throws JBuild4DCGenerallyException {
         String sameDBLinkId="";
         for (Object o : tableList) {
             String tableName=o.toString();
             TableEntity tableEntity=tableMapper.selectByTableName(tableName);
+            if(tableEntity==null){
+                throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_BUILDER_CODE,"不存在表:"+tableName);
+            }
             if(sameDBLinkId.equals("")){
                 sameDBLinkId=tableEntity.getTableLinkId();
             }

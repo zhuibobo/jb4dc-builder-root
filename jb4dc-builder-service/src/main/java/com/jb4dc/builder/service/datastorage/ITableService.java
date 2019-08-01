@@ -52,7 +52,7 @@ public interface ITableService extends IBaseService<TableEntity> {
 
     List<TableEntity> getTablesByTableIds(JB4DCSession session, List<String> tableIds);
 
-    boolean testTablesInTheSameDBLink(JB4DCSession jb4DSession, List tableList);
+    boolean testTablesInTheSameDBLink(JB4DCSession jb4DSession, List tableList) throws JBuild4DCGenerallyException;
 
     DbLinkEntity getDBLinkByTableName(JB4DCSession jb4DSession, String toString) throws JBuild4DCGenerallyException;
 }
