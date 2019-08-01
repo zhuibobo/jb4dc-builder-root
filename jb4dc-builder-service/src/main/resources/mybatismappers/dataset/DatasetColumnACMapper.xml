@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jb4dc.builder.dao.dataset.DatasetColumnMapper">
+    <resultMap id="BaseResultMap" type="com.jb4dc.builder.dbentities.dataset.DatasetColumnEntity">
+        <constructor>
+            <idArg column="COLUMN_ID" javaType="java.lang.String" jdbcType="NVARCHAR" />
+            <arg column="COLUMN_DS_ID" javaType="java.lang.String" jdbcType="NVARCHAR" />
+            <arg column="COLUMN_CAPTION" javaType="java.lang.String" jdbcType="NVARCHAR" />
+            <arg column="COLUMN_NAME" javaType="java.lang.String" jdbcType="NVARCHAR" />
+            <arg column="COLUMN_DATA_TYPE_NAME" javaType="java.lang.String" jdbcType="NVARCHAR" />
+            <arg column="COLUMN_CREATE_TIME" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+            <arg column="COLUMN_CREATOR" javaType="java.lang.String" jdbcType="NVARCHAR" />
+            <arg column="COLUMN_UPDATE_TIME" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+            <arg column="COLUMN_UPDATER" javaType="java.lang.String" jdbcType="NVARCHAR" />
+            <arg column="COLUMN_DESC" javaType="java.lang.String" jdbcType="NVARCHAR" />
+            <arg column="COLUMN_DEFAULT_TYPE" javaType="java.lang.String" jdbcType="NVARCHAR" />
+            <arg column="COLUMN_DEFAULT_VALUE" javaType="java.lang.String" jdbcType="NVARCHAR" />
+            <arg column="COLUMN_DEFAULT_TEXT" javaType="java.lang.String" jdbcType="NVARCHAR" />
+            <arg column="COLUMN_ORDER_NUM" javaType="java.lang.Integer" jdbcType="INTEGER" />
+            <arg column="COLUMN_TABLE_NAME" javaType="java.lang.String" jdbcType="NVARCHAR" />
+            <arg column="COLUMN_IS_CUSTOM" javaType="java.lang.String" jdbcType="NVARCHAR" />
+            <arg column="COLUMN_FORMATTER" javaType="java.lang.String" jdbcType="NVARCHAR" />
+        </constructor>
+    </resultMap>
+    <sql id="Base_Column_List">
+    COLUMN_ID, COLUMN_DS_ID, COLUMN_CAPTION, COLUMN_NAME, COLUMN_DATA_TYPE_NAME, COLUMN_CREATE_TIME,
+    COLUMN_CREATOR, COLUMN_UPDATE_TIME, COLUMN_UPDATER, COLUMN_DESC, COLUMN_DEFAULT_TYPE,
+    COLUMN_DEFAULT_VALUE, COLUMN_DEFAULT_TEXT, COLUMN_ORDER_NUM, COLUMN_TABLE_NAME, COLUMN_IS_CUSTOM,
+    COLUMN_FORMATTER
+  </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from TBUILD_DATASET_COLUMN
+        where COLUMN_ID = #{columnId,jdbcType=NVARCHAR}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from TBUILD_DATASET_COLUMN
+    where COLUMN_ID = #{columnId,jdbcType=NVARCHAR}
+  </delete>
+    <insert id="insert" parameterType="com.jb4dc.builder.dbentities.dataset.DatasetColumnEntity">
+    insert into TBUILD_DATASET_COLUMN (COLUMN_ID, COLUMN_DS_ID, COLUMN_CAPTION,
+      COLUMN_NAME, COLUMN_DATA_TYPE_NAME, COLUMN_CREATE_TIME,
+      COLUMN_CREATOR, COLUMN_UPDATE_TIME, COLUMN_UPDATER,
+      COLUMN_DESC, COLUMN_DEFAULT_TYPE, COLUMN_DEFAULT_VALUE,
+      COLUMN_DEFAULT_TEXT, COLUMN_ORDER_NUM, COLUMN_TABLE_NAME,
+      COLUMN_IS_CUSTOM, COLUMN_FORMATTER)
+    values (#{columnId,jdbcType=NVARCHAR}, #{columnDsId,jdbcType=NVARCHAR}, #{columnCaption,jdbcType=NVARCHAR},
+      #{columnName,jdbcType=NVARCHAR}, #{columnDataTypeName,jdbcType=NVARCHAR}, #{columnCreateTime,jdbcType=TIMESTAMP},
+      #{columnCreator,jdbcType=NVARCHAR}, #{columnUpdateTime,jdbcType=TIMESTAMP}, #{columnUpdater,jdbcType=NVARCHAR},
+      #{columnDesc,jdbcType=NVARCHAR}, #{columnDefaultType,jdbcType=NVARCHAR}, #{columnDefaultValue,jdbcType=NVARCHAR},
+      #{columnDefaultText,jdbcType=NVARCHAR}, #{columnOrderNum,jdbcType=INTEGER}, #{columnTableName,jdbcType=NVARCHAR},
+      #{columnIsCustom,jdbcType=NVARCHAR}, #{columnFormatter,jdbcType=NVARCHAR})
+  </insert>
+    <insert id="insertSelective" parameterType="com.jb4dc.builder.dbentities.dataset.DatasetColumnEntity">
+        insert into TBUILD_DATASET_COLUMN
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="columnId != null">
+                COLUMN_ID,
+            </if>
+            <if test="columnDsId != null">
+                COLUMN_DS_ID,
+            </if>
+            <if test="columnCaption != null">
+                COLUMN_CAPTION,
+            </if>
+            <if test="columnName != null">
+                COLUMN_NAME,
+            </if>
+            <if test="columnDataTypeName != null">
+                COLUMN_DATA_TYPE_NAME,
+            </if>
+            <if test="columnCreateTime != null">
+                COLUMN_CREATE_TIME,
+            </if>
+            <if test="columnCreator != null">
+                COLUMN_CREATOR,
+            </if>
+            <if test="columnUpdateTime != null">
+                COLUMN_UPDATE_TIME,
+            </if>
+            <if test="columnUpdater != null">
+                COLUMN_UPDATER,
+            </if>
+            <if test="columnDesc != null">
+                COLUMN_DESC,
+            </if>
+            <if test="columnDefaultType != null">
+                COLUMN_DEFAULT_TYPE,
+            </if>
+            <if test="columnDefaultValue != null">
+                COLUMN_DEFAULT_VALUE,
+            </if>
+            <if test="columnDefaultText != null">
+                COLUMN_DEFAULT_TEXT,
+            </if>
+            <if test="columnOrderNum != null">
+                COLUMN_ORDER_NUM,
+            </if>
+            <if test="columnTableName != null">
+                COLUMN_TABLE_NAME,
+            </if>
+            <if test="columnIsCustom != null">
+                COLUMN_IS_CUSTOM,
+            </if>
+            <if test="columnFormatter != null">
+                COLUMN_FORMATTER,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="columnId != null">
+                #{columnId,jdbcType=NVARCHAR},
+            </if>
+            <if test="columnDsId != null">
+                #{columnDsId,jdbcType=NVARCHAR},
+            </if>
+            <if test="columnCaption != null">
+                #{columnCaption,jdbcType=NVARCHAR},
+            </if>
+            <if test="columnName != null">
+                #{columnName,jdbcType=NVARCHAR},
+            </if>
+            <if test="columnDataTypeName != null">
+                #{columnDataTypeName,jdbcType=NVARCHAR},
+            </if>
+            <if test="columnCreateTime != null">
+                #{columnCreateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="columnCreator != null">
+                #{columnCreator,jdbcType=NVARCHAR},
+            </if>
+            <if test="columnUpdateTime != null">
+                #{columnUpdateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="columnUpdater != null">
+                #{columnUpdater,jdbcType=NVARCHAR},
+            </if>
+            <if test="columnDesc != null">
+                #{columnDesc,jdbcType=NVARCHAR},
+            </if>
+            <if test="columnDefaultType != null">
+                #{columnDefaultType,jdbcType=NVARCHAR},
+            </if>
+            <if test="columnDefaultValue != null">
+                #{columnDefaultValue,jdbcType=NVARCHAR},
+            </if>
+            <if test="columnDefaultText != null">
+                #{columnDefaultText,jdbcType=NVARCHAR},
+            </if>
+            <if test="columnOrderNum != null">
+                #{columnOrderNum,jdbcType=INTEGER},
+            </if>
+            <if test="columnTableName != null">
+                #{columnTableName,jdbcType=NVARCHAR},
+            </if>
+            <if test="columnIsCustom != null">
+                #{columnIsCustom,jdbcType=NVARCHAR},
+            </if>
+            <if test="columnFormatter != null">
+                #{columnFormatter,jdbcType=NVARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.jb4dc.builder.dbentities.dataset.DatasetColumnEntity">
+        update TBUILD_DATASET_COLUMN
+        <set>
+            <if test="columnDsId != null">
+                COLUMN_DS_ID = #{columnDsId,jdbcType=NVARCHAR},
+            </if>
+            <if test="columnCaption != null">
+                COLUMN_CAPTION = #{columnCaption,jdbcType=NVARCHAR},
+            </if>
+            <if test="columnName != null">
+                COLUMN_NAME = #{columnName,jdbcType=NVARCHAR},
+            </if>
+            <if test="columnDataTypeName != null">
+                COLUMN_DATA_TYPE_NAME = #{columnDataTypeName,jdbcType=NVARCHAR},
+            </if>
+            <if test="columnCreateTime != null">
+                COLUMN_CREATE_TIME = #{columnCreateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="columnCreator != null">
+                COLUMN_CREATOR = #{columnCreator,jdbcType=NVARCHAR},
+            </if>
+            <if test="columnUpdateTime != null">
+                COLUMN_UPDATE_TIME = #{columnUpdateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="columnUpdater != null">
+                COLUMN_UPDATER = #{columnUpdater,jdbcType=NVARCHAR},
+            </if>
+            <if test="columnDesc != null">
+                COLUMN_DESC = #{columnDesc,jdbcType=NVARCHAR},
+            </if>
+            <if test="columnDefaultType != null">
+                COLUMN_DEFAULT_TYPE = #{columnDefaultType,jdbcType=NVARCHAR},
+            </if>
+            <if test="columnDefaultValue != null">
+                COLUMN_DEFAULT_VALUE = #{columnDefaultValue,jdbcType=NVARCHAR},
+            </if>
+            <if test="columnDefaultText != null">
+                COLUMN_DEFAULT_TEXT = #{columnDefaultText,jdbcType=NVARCHAR},
+            </if>
+            <if test="columnOrderNum != null">
+                COLUMN_ORDER_NUM = #{columnOrderNum,jdbcType=INTEGER},
+            </if>
+            <if test="columnTableName != null">
+                COLUMN_TABLE_NAME = #{columnTableName,jdbcType=NVARCHAR},
+            </if>
+            <if test="columnIsCustom != null">
+                COLUMN_IS_CUSTOM = #{columnIsCustom,jdbcType=NVARCHAR},
+            </if>
+            <if test="columnFormatter != null">
+                COLUMN_FORMATTER = #{columnFormatter,jdbcType=NVARCHAR},
+            </if>
+        </set>
+        where COLUMN_ID = #{columnId,jdbcType=NVARCHAR}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.jb4dc.builder.dbentities.dataset.DatasetColumnEntity">
+    update TBUILD_DATASET_COLUMN
+    set COLUMN_DS_ID = #{columnDsId,jdbcType=NVARCHAR},
+      COLUMN_CAPTION = #{columnCaption,jdbcType=NVARCHAR},
+      COLUMN_NAME = #{columnName,jdbcType=NVARCHAR},
+      COLUMN_DATA_TYPE_NAME = #{columnDataTypeName,jdbcType=NVARCHAR},
+      COLUMN_CREATE_TIME = #{columnCreateTime,jdbcType=TIMESTAMP},
+      COLUMN_CREATOR = #{columnCreator,jdbcType=NVARCHAR},
+      COLUMN_UPDATE_TIME = #{columnUpdateTime,jdbcType=TIMESTAMP},
+      COLUMN_UPDATER = #{columnUpdater,jdbcType=NVARCHAR},
+      COLUMN_DESC = #{columnDesc,jdbcType=NVARCHAR},
+      COLUMN_DEFAULT_TYPE = #{columnDefaultType,jdbcType=NVARCHAR},
+      COLUMN_DEFAULT_VALUE = #{columnDefaultValue,jdbcType=NVARCHAR},
+      COLUMN_DEFAULT_TEXT = #{columnDefaultText,jdbcType=NVARCHAR},
+      COLUMN_ORDER_NUM = #{columnOrderNum,jdbcType=INTEGER},
+      COLUMN_TABLE_NAME = #{columnTableName,jdbcType=NVARCHAR},
+      COLUMN_IS_CUSTOM = #{columnIsCustom,jdbcType=NVARCHAR},
+      COLUMN_FORMATTER = #{columnFormatter,jdbcType=NVARCHAR}
+    where COLUMN_ID = #{columnId,jdbcType=NVARCHAR}
+  </update>
+</mapper>

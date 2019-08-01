@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jb4dc.builder.dao.dataset.DatasetMapper">
+    <select id="selectAll" resultMap="BaseResultMap">select<include refid="Base_Column_List"/> from TBUILD_DATASET ORDER by DS_ORDER_NUM DESC</select>
+    <delete id="deleteAll">delete from TBUILD_DATASET</delete>
+    <select id="nextOrderNum" resultType="integer">select case when max(DS_ORDER_NUM) is null then 1 else max(DS_ORDER_NUM)+1 end ORDERNUM from TBUILD_DATASET</select>
+    <select id="selectBySearch" parameterType="java.util.Map" resultMap="BaseResultMap">select<include refid="Base_Column_List"/>from TBUILD_DATASET<where>
+        <if test="dsCode !=null and dsCode !=''"> and DS_CODE like #{dsCode} </if>
+        <if test="dsCaption !=null and dsCaption !=''"> and DS_CAPTION like #{dsCaption} </if>
+        <if test="dsName !=null and dsName !=''"> and DS_NAME like #{dsName} </if>
+        <if test="dsCreator !=null and dsCreator !=''"> and DS_CREATOR like #{dsCreator} </if>
+        <if test="dsUpdater !=null and dsUpdater !=''"> and DS_UPDATER like #{dsUpdater} </if>
+        <if test="dsType !=null and dsType !=''"> and DS_TYPE like #{dsType} </if>
+        <if test="dsIsSystem !=null and dsIsSystem !=''"> and DS_IS_SYSTEM like #{dsIsSystem} </if>
+        <if test="dsDesc !=null and dsDesc !=''"> and DS_DESC like #{dsDesc} </if>
+        <if test="dsGroupId !=null and dsGroupId !=''"> and DS_GROUP_ID like #{dsGroupId} </if>
+        <if test="dsStatus !=null and dsStatus !=''"> and DS_STATUS like #{dsStatus} </if>
+        <if test="dsSqlSelectText !=null and dsSqlSelectText !=''"> and DS_SQL_SELECT_TEXT like #{dsSqlSelectText} </if>
+        <if test="dsSqlSelectValue !=null and dsSqlSelectValue !=''"> and DS_SQL_SELECT_VALUE like #{dsSqlSelectValue} </if>
+        <if test="dsSqlDbLinkId !=null and dsSqlDbLinkId !=''"> and DS_SQL_DB_LINK_ID like #{dsSqlDbLinkId} </if>
+        <if test="dsClassName !=null and dsClassName !=''"> and DS_CLASS_NAME like #{dsClassName} </if>
+        <if test="dsRestStructureUrl !=null and dsRestStructureUrl !=''"> and DS_REST_STRUCTURE_URL like #{dsRestStructureUrl} </if>
+        <if test="dsRestDataUrl !=null and dsRestDataUrl !=''"> and DS_REST_DATA_URL like #{dsRestDataUrl} </if>
+        <if test="dsOrganId !=null and dsOrganId !=''"> and DS_ORGAN_ID like #{dsOrganId} </if>
+        <if test="dsOrganName !=null and dsOrganName !=''"> and DS_ORGAN_NAME like #{dsOrganName} </if>
+    </where>ORDER by DS_ORDER_NUM DESC</select>
+    <select id="selectByGroupId" parameterType="java.util.Map" resultMap="BaseResultMap">select<include refid="Base_Column_List"/>from TBUILD_DATASET
+        where DS_GROUP_ID=#{groupId}
+        ORDER by DS_ORDER_NUM DESC</select>
+    <select id="selectLessThanRecord" parameterType="java.lang.String" resultMap="BaseResultMap"><![CDATA[select * from TBUILD_DATASET
+ where DS_ORDER_NUM = (select max(DS_ORDER_NUM) from TBUILD_DATASET where DS_ORDER_NUM<(select DS_ORDER_NUM from TBUILD_DATASET where DS_ID=#{Id,jdbcType=NVARCHAR}))]]></select>
+    <select id="selectGreaterThanRecord" parameterType="java.lang.String" resultMap="BaseResultMap"><![CDATA[select * from TBUILD_DATASET
+ where DS_ORDER_NUM = (select min(DS_ORDER_NUM) from TBUILD_DATASET where DS_ORDER_NUM>(select DS_ORDER_NUM from TBUILD_DATASET where DS_ID=#{Id,jdbcType=NVARCHAR}))]]></select>
+</mapper>
