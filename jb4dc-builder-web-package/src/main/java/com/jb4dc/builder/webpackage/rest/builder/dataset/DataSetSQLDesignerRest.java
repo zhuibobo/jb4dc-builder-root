@@ -30,7 +30,7 @@ import java.net.URLDecoder;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "/PlatFormRest/Builder/DataSet/DataSetSQLDesigner")
+@RequestMapping(value = "/Rest/Builder/DataSet/DataSetSQLDesigner")
 public class DataSetSQLDesignerRest {
     @Autowired
     IEnvVariableService envVariableService;

@@ -34,6 +34,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.AutowireCapableBeanFactory;
 import org.springframework.jdbc.core.JdbcOperations;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.xml.sax.SAXException;
 
@@ -51,6 +52,7 @@ import java.util.regex.Pattern;
  * Date: 2018/8/7
  * To change this template use File | Settings | File Templates.
  */
+@Service
 public class DatasetServiceImpl extends BaseServiceImpl<DatasetEntity> implements IDatasetService
 {
     DatasetMapper datasetMapper;
@@ -67,8 +69,9 @@ public class DatasetServiceImpl extends BaseServiceImpl<DatasetEntity> implement
     @Autowired
     private AutowireCapableBeanFactory autowireCapableBeanFactory;
 
+    @Autowired
     public DatasetServiceImpl(DatasetMapper _defaultBaseMapper,
-                              SqlSessionTemplate _sqlSessionTemplate, ISQLBuilderService _sqlBuilderService, JdbcOperations _jdbcOperations,
+                              SqlSessionTemplate _sqlSessionTemplate, JdbcOperations _jdbcOperations,
                               IBuilderConfigService _builderConfigService, ITableService _tableService, ITableFieldService _tableFieldService,
                               IEnvVariableService _envVariableService, IDatasetRelatedTableService _datasetRelatedTableService, IDatasetColumnService _datasetColumnService){
         super(_defaultBaseMapper);

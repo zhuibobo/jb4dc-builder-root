@@ -2,6 +2,7 @@ package com.jb4dc.builder.webpackage.rest.builder;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.jb4dc.base.service.general.JB4DCSessionUtility;
+import com.jb4dc.builder.service.dataset.IDatasetGroupService;
 import com.jb4dc.builder.service.datastorage.ITableFieldService;
 import com.jb4dc.builder.service.datastorage.ITableRelationGroupService;
 import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
@@ -30,6 +31,9 @@ public class InitializationSystemRest {
     @Autowired
     ITableRelationGroupService tableRelationGroupService;
 
+    @Autowired
+    IDatasetGroupService datasetGroupService;
+
     @RequestMapping(value = "/Running", method = RequestMethod.POST)
     @ResponseBody
     public JBuild4DCResponseVo running(String createTestData) throws JBuild4DCGenerallyException, JsonProcessingException {
@@ -38,6 +42,8 @@ public class InitializationSystemRest {
         tableFieldService.createTableFieldTemplates(jb4DSession);
 
         tableRelationGroupService.createRootNode(jb4DSession);
+
+        datasetGroupService.createRootNode(jb4DSession);
 
         return JBuild4DCResponseVo.success("系统数据初始化成功！");
     }

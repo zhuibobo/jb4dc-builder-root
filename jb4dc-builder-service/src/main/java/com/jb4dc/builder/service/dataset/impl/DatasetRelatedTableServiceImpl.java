@@ -10,6 +10,8 @@ import com.jb4dc.builder.service.dataset.IDatasetRelatedTableService;
 import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
 import com.jb4dc.core.base.session.JB4DCSession;
 import org.mybatis.spring.SqlSessionTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.util.List;
@@ -20,9 +22,12 @@ import java.util.List;
  * Date: 2018/8/9
  * To change this template use File | Settings | File Templates.
  */
+@Service
 public class DatasetRelatedTableServiceImpl extends BaseServiceImpl<DatasetRelatedTableEntity> implements IDatasetRelatedTableService
 {
     DatasetRelatedTableMapper datasetRelatedTableMapper;
+
+    @Autowired
     public DatasetRelatedTableServiceImpl(DatasetRelatedTableMapper _defaultBaseMapper){
         super(_defaultBaseMapper);
         datasetRelatedTableMapper=_defaultBaseMapper;

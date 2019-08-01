@@ -32,7 +32,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping(value = "/PlatFormRest/Builder/DataSet/DataSetMain")
+@RequestMapping(value = "/Rest/Builder/DataSet/DataSetMain")
 public class DataSetMainRest  {
     @Autowired
     IDatasetService datasetService;
