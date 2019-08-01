@@ -116,7 +116,7 @@ public class TableServiceImpl extends BaseServiceImpl<TableEntity> implements IT
                         tableEntity.setTableUpdater(jb4DSession.getUserName());
                         tableEntity.setTableUpdateTime(new Date());
                         tableEntity.setTableType(TableTypeEnum.Builder.getText());
-                        //tableEntity.setTableDbname("JBuild4D");
+                        tableEntity.setTableDbName(dbLinkEntity.getDbDatabaseName());
                         tableEntity.setTableOrganId(jb4DSession.getOrganId());
                         tableEntity.setTableOrganName(jb4DSession.getOrganName());
                         tableEntity.setTableLinkId(dbLinkEntity.getDbId());

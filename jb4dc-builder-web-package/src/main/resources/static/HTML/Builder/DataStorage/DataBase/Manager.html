@@ -160,10 +160,11 @@
                     AjaxUtility.Post(this.acInterface.getGroupTreeData, {dbLinkId: dbLinkId}, function (result) {
                         if (result.success) {
                             if (result.data != null && result.data.length > 0) {
+                                console.table(result.data);
                                 for (var i = 0; i < result.data.length; i++) {
-                                    if (result.data[i].tableGroupIssystem == "是" && result.data[i].tableGroupChildCount == 0) {
+                                    if (result.data[i].tableGroupIsSystem == "是" && result.data[i].tableGroupChildCount == 0) {
                                         result.data[i].icon = "../../../../Themes/Png16X16/database_key.png";
-                                    } else if (result.data[i].tableGroupIssystem == "否" && result.data[i].tableGroupChildCount == 0) {
+                                    } else if (result.data[i].tableGroupIsSystem == "否" && result.data[i].tableGroupChildCount == 0) {
                                         result.data[i].icon = "../../../../Themes/Png16X16/database_edit.png";
                                     } else if (result.data[i].tableGroupParentId == "-1") {
                                         result.data[i].icon = "../../../../Themes/Png16X16/server_database.png";
@@ -242,7 +243,7 @@
                             else {
                                 DialogUtility.Alert(window, DialogUtility.DialogAlertId, {}, result.message, function () {});
                             }
-                        }, "json");
+                        }, this);
                     });
                 },
                 moveGroup:function (type) {
@@ -265,7 +266,7 @@
                             else {
                                 DialogUtility.Alert(window, DialogUtility.DialogAlertId, {}, result.message,null);
                             }
-                        }, "json");
+                        }, this);
                     }
                     else {
                         DialogUtility.Alert(window,DialogUtility.DialogAlertId,{},"请选择需要编辑的节点!",null);
@@ -344,7 +345,7 @@
                             else {
                                 DialogUtility.Alert(window, DialogUtility.DialogAlertId, {}, result.message, function () {});
                             }
-                        }, "json");
+                        }, this);
                     });
                 },
                 move:function (type) {

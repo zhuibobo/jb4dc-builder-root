@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jb4dc.builder.dao.datastorage.TableRelationMapper">
+    <resultMap id="BaseResultMap" type="com.jb4dc.builder.dbentities.datastorage.TableRelationEntity">
+        <constructor>
+            <idArg column="RELATION_ID" javaType="java.lang.String" jdbcType="NVARCHAR" />
+            <arg column="RELATION_GROUP_ID" javaType="java.lang.String" jdbcType="NVARCHAR" />
+            <arg column="RELATION_NAME" javaType="java.lang.String" jdbcType="NVARCHAR" />
+            <arg column="RELATION_USER_ID" javaType="java.lang.String" jdbcType="NVARCHAR" />
+            <arg column="RELATION_USER_NAME" javaType="java.lang.String" jdbcType="NVARCHAR" />
+            <arg column="RELATION_ORDER_NUM" javaType="java.lang.Integer" jdbcType="INTEGER" />
+            <arg column="RELATION_CREATE_TIME" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+            <arg column="RELATION_DESC" javaType="java.lang.String" jdbcType="NVARCHAR" />
+            <arg column="RELATION_STATUS" javaType="java.lang.String" jdbcType="NVARCHAR" />
+            <arg column="RELATION_CONTENT" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="RELATION_DIAGRAM_JSON" javaType="java.lang.String" jdbcType="VARCHAR" />
+        </constructor>
+    </resultMap>
+    <sql id="Base_Column_List">
+    RELATION_ID, RELATION_GROUP_ID, RELATION_NAME, RELATION_USER_ID, RELATION_USER_NAME,
+    RELATION_ORDER_NUM, RELATION_CREATE_TIME, RELATION_DESC, RELATION_STATUS, RELATION_CONTENT,
+    RELATION_DIAGRAM_JSON
+  </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from TBUILD_TABLE_RELATION
+        where RELATION_ID = #{relationId,jdbcType=NVARCHAR}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from TBUILD_TABLE_RELATION
+    where RELATION_ID = #{relationId,jdbcType=NVARCHAR}
+  </delete>
+    <insert id="insert" parameterType="com.jb4dc.builder.dbentities.datastorage.TableRelationEntity">
+    insert into TBUILD_TABLE_RELATION (RELATION_ID, RELATION_GROUP_ID, RELATION_NAME,
+      RELATION_USER_ID, RELATION_USER_NAME, RELATION_ORDER_NUM,
+      RELATION_CREATE_TIME, RELATION_DESC, RELATION_STATUS,
+      RELATION_CONTENT, RELATION_DIAGRAM_JSON)
+    values (#{relationId,jdbcType=NVARCHAR}, #{relationGroupId,jdbcType=NVARCHAR}, #{relationName,jdbcType=NVARCHAR},
+      #{relationUserId,jdbcType=NVARCHAR}, #{relationUserName,jdbcType=NVARCHAR}, #{relationOrderNum,jdbcType=INTEGER},
+      #{relationCreateTime,jdbcType=TIMESTAMP}, #{relationDesc,jdbcType=NVARCHAR}, #{relationStatus,jdbcType=NVARCHAR},
+      #{relationContent,jdbcType=VARCHAR}, #{relationDiagramJson,jdbcType=VARCHAR})
+  </insert>
+    <insert id="insertSelective" parameterType="com.jb4dc.builder.dbentities.datastorage.TableRelationEntity">
+        insert into TBUILD_TABLE_RELATION
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="relationId != null">
+                RELATION_ID,
+            </if>
+            <if test="relationGroupId != null">
+                RELATION_GROUP_ID,
+            </if>
+            <if test="relationName != null">
+                RELATION_NAME,
+            </if>
+            <if test="relationUserId != null">
+                RELATION_USER_ID,
+            </if>
+            <if test="relationUserName != null">
+                RELATION_USER_NAME,
+            </if>
+            <if test="relationOrderNum != null">
+                RELATION_ORDER_NUM,
+            </if>
+            <if test="relationCreateTime != null">
+                RELATION_CREATE_TIME,
+            </if>
+            <if test="relationDesc != null">
+                RELATION_DESC,
+            </if>
+            <if test="relationStatus != null">
+                RELATION_STATUS,
+            </if>
+            <if test="relationContent != null">
+                RELATION_CONTENT,
+            </if>
+            <if test="relationDiagramJson != null">
+                RELATION_DIAGRAM_JSON,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="relationId != null">
+                #{relationId,jdbcType=NVARCHAR},
+            </if>
+            <if test="relationGroupId != null">
+                #{relationGroupId,jdbcType=NVARCHAR},
+            </if>
+            <if test="relationName != null">
+                #{relationName,jdbcType=NVARCHAR},
+            </if>
+            <if test="relationUserId != null">
+                #{relationUserId,jdbcType=NVARCHAR},
+            </if>
+            <if test="relationUserName != null">
+                #{relationUserName,jdbcType=NVARCHAR},
+            </if>
+            <if test="relationOrderNum != null">
+                #{relationOrderNum,jdbcType=INTEGER},
+            </if>
+            <if test="relationCreateTime != null">
+                #{relationCreateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="relationDesc != null">
+                #{relationDesc,jdbcType=NVARCHAR},
+            </if>
+            <if test="relationStatus != null">
+                #{relationStatus,jdbcType=NVARCHAR},
+            </if>
+            <if test="relationContent != null">
+                #{relationContent,jdbcType=VARCHAR},
+            </if>
+            <if test="relationDiagramJson != null">
+                #{relationDiagramJson,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.jb4dc.builder.dbentities.datastorage.TableRelationEntity">
+        update TBUILD_TABLE_RELATION
+        <set>
+            <if test="relationGroupId != null">
+                RELATION_GROUP_ID = #{relationGroupId,jdbcType=NVARCHAR},
+            </if>
+            <if test="relationName != null">
+                RELATION_NAME = #{relationName,jdbcType=NVARCHAR},
+            </if>
+            <if test="relationUserId != null">
+                RELATION_USER_ID = #{relationUserId,jdbcType=NVARCHAR},
+            </if>
+            <if test="relationUserName != null">
+                RELATION_USER_NAME = #{relationUserName,jdbcType=NVARCHAR},
+            </if>
+            <if test="relationOrderNum != null">
+                RELATION_ORDER_NUM = #{relationOrderNum,jdbcType=INTEGER},
+            </if>
+            <if test="relationCreateTime != null">
+                RELATION_CREATE_TIME = #{relationCreateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="relationDesc != null">
+                RELATION_DESC = #{relationDesc,jdbcType=NVARCHAR},
+            </if>
+            <if test="relationStatus != null">
+                RELATION_STATUS = #{relationStatus,jdbcType=NVARCHAR},
+            </if>
+            <if test="relationContent != null">
+                RELATION_CONTENT = #{relationContent,jdbcType=VARCHAR},
+            </if>
+            <if test="relationDiagramJson != null">
+                RELATION_DIAGRAM_JSON = #{relationDiagramJson,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where RELATION_ID = #{relationId,jdbcType=NVARCHAR}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.jb4dc.builder.dbentities.datastorage.TableRelationEntity">
+    update TBUILD_TABLE_RELATION
+    set RELATION_GROUP_ID = #{relationGroupId,jdbcType=NVARCHAR},
+      RELATION_NAME = #{relationName,jdbcType=NVARCHAR},
+      RELATION_USER_ID = #{relationUserId,jdbcType=NVARCHAR},
+      RELATION_USER_NAME = #{relationUserName,jdbcType=NVARCHAR},
+      RELATION_ORDER_NUM = #{relationOrderNum,jdbcType=INTEGER},
+      RELATION_CREATE_TIME = #{relationCreateTime,jdbcType=TIMESTAMP},
+      RELATION_DESC = #{relationDesc,jdbcType=NVARCHAR},
+      RELATION_STATUS = #{relationStatus,jdbcType=NVARCHAR},
+      RELATION_CONTENT = #{relationContent,jdbcType=VARCHAR},
+      RELATION_DIAGRAM_JSON = #{relationDiagramJson,jdbcType=VARCHAR}
+    where RELATION_ID = #{relationId,jdbcType=NVARCHAR}
+  </update>
+</mapper>

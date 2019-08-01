@@ -5,14 +5,15 @@
     <delete id="deleteAll">delete from TBUILD_TABLE</delete>
     <select id="nextOrderNum" resultType="integer">select case when max(TABLE_ORDER_NUM) is null then 1 else max(TABLE_ORDER_NUM)+1 end ORDERNUM from TBUILD_TABLE</select>
     <select id="selectBySearch" parameterType="java.util.Map" resultMap="BaseResultMap">select<include refid="Base_Column_List"/>from TBUILD_TABLE<where>
+        <if test="tableCode !=null and tableCode !=''"> and TABLE_CODE like #{tableCode} </if>
         <if test="tableCaption !=null and tableCaption !=''"> and TABLE_CAPTION like #{tableCaption} </if>
         <if test="tableName !=null and tableName !=''"> and TABLE_NAME like #{tableName} </if>
-        <if test="tableDbname !=null and tableDbname !=''"> and TABLE_DBNAME like #{tableDbname} </if>
-        <if test="tableCreater !=null and tableCreater !=''"> and TABLE_CREATER like #{tableCreater} </if>
+        <if test="tableDbName !=null and tableDbName !=''"> and TABLE_DB_NAME like #{tableDbName} </if>
+        <if test="tableCreator !=null and tableCreator !=''"> and TABLE_CREATOR like #{tableCreator} </if>
         <if test="tableUpdater !=null and tableUpdater !=''"> and TABLE_UPDATER like #{tableUpdater} </if>
         <if test="tableServiceValue !=null and tableServiceValue !=''"> and TABLE_SERVICE_VALUE like #{tableServiceValue} </if>
         <if test="tableType !=null and tableType !=''"> and TABLE_TYPE like #{tableType} </if>
-        <if test="tableIssystem !=null and tableIssystem !=''"> and TABLE_ISSYSTEM like #{tableIssystem} </if>
+        <if test="tableIsSystem !=null and tableIsSystem !=''"> and TABLE_IS_SYSTEM like #{tableIsSystem} </if>
         <if test="tableDesc !=null and tableDesc !=''"> and TABLE_DESC like #{tableDesc} </if>
         <if test="tableGroupId !=null and tableGroupId !=''"> and TABLE_GROUP_ID like #{tableGroupId} </if>
         <if test="tableStatus !=null and tableStatus !=''"> and TABLE_STATUS like #{tableStatus} </if>

@@ -76,6 +76,8 @@ public class TableGroupServiceImpl extends BaseServiceImpl<TableGroupEntity> imp
                     parentIdList=parentEntity.getTableGroupPidList();
                     parentEntity.setTableGroupChildCount(parentEntity.getTableGroupChildCount()+1);
                     tableGroupMapper.updateByPrimaryKeySelective(parentEntity);
+
+                    record.setTableGroupLinkId(parentEntity.getTableGroupLinkId());
                 }
                 sourceEntity.setTableGroupPidList(parentIdList+"*"+sourceEntity.getTableGroupId());
                 return sourceEntity;

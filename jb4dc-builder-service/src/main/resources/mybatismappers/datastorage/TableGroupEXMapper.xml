@@ -40,7 +40,7 @@
             <if test="tableGroupDesc !=null and tableGroupDesc !=''"> and TABLE_GROUP_DESC like #{tableGroupDesc} </if>
             <if test="tableGroupStatus !=null and tableGroupStatus !=''"> and TABLE_GROUP_STATUS like #{tableGroupStatus} </if>
             <if test="tableGroupParentId !=null and tableGroupParentId !=''"> and TABLE_GROUP_PARENT_ID like #{tableGroupParentId} </if>
-            <if test="tableGroupIssystem !=null and tableGroupIssystem !=''"> and TABLE_GROUP_ISSYSTEM like #{tableGroupIssystem} </if>
+            <if test="tableGroupIsSystem !=null and tableGroupIsSystem !=''"> and TABLE_GROUP_IS_SYSTEM like #{tableGroupIsSystem} </if>
             <if test="tableGroupDelEnable !=null and tableGroupDelEnable !=''"> and TABLE_GROUP_DEL_ENABLE like #{tableGroupDelEnable} </if>
             <if test="tableGroupPidList !=null and tableGroupPidList !=''"> and TABLE_GROUP_PID_LIST like #{tableGroupPidList} </if>
             <if test="tableGroupLinkId !=null and tableGroupLinkId !=''"> and TABLE_GROUP_LINK_ID like #{tableGroupLinkId} </if>

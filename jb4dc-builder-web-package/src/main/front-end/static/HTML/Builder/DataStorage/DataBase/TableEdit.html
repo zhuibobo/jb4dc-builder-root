@@ -54,7 +54,7 @@
                     <form-item label="创建人：">
                         <row>
                             <i-col span="6">
-                                <i-input v-model="tableEntity.tableCreater"></i-input>
+                                <i-input v-model="tableEntity.tableCreator"></i-input>
                             </i-col>
                             <i-col span="8" style="text-align: center">创建时间：</i-col>
                             <i-col span="10">
@@ -80,7 +80,7 @@
                         </row>
                     </form-item>
                     <form-item label="系统表：">
-                        <i-input v-model="tableEntity.tableIssystem" readonly></i-input>
+                        <i-input v-model="tableEntity.tableIsSystem" readonly></i-input>
                     </form-item>
                     <form-item label="备注：">
                         <i-input v-model="tableEntity.tableDesc" type="textarea" :autosize="{minRows: 5,maxRows: 5}"></i-input>
@@ -121,11 +121,11 @@
                     tableCaption:"",
                     tableName:"",
                     tableCreateTime:DateUtility.GetCurrentData(),
-                    tableCreater:"",
+                    tableCreator:"",
                     tableUpdateTime:DateUtility.GetCurrentData(),
                     tableUpdater:"",
                     tableType:"",
-                    tableIssystem:"否",
+                    tableIsSystem:"否",
                     tableDesc: "",
                     tableGroupId:"",
                     tableLinkId:""
@@ -289,7 +289,7 @@
                     this.currUserEntity=SessionUtility.GetSessionUserSync();
                     DetailPageUtility.OverrideObjectValue(tableDesion.tableEntity, result.data);
                     if(this.status=="add"){
-                        this.tableEntity.tableCreater=this.currUserEntity.userName;
+                        this.tableEntity.tableCreator=this.currUserEntity.userName;
                         this.tableEntity.tableUpdater=this.currUserEntity.userName;
                         this.tableEntity.tableName=result.exKVData.tablePrefix;
                         this.tablePrefix=result.exKVData.tablePrefix;

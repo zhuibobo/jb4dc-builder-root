@@ -42,7 +42,7 @@
                 <row>
                     <i-col span="10">
                         <form-item>
-                            <radio-group v-model="formEntity.tableGroupIssystem">
+                            <radio-group v-model="formEntity.tableGroupIsSystem">
                                 <radio label="是">是</radio>
                                 <radio label="否">否</radio>
                             </radio-group>
@@ -89,7 +89,7 @@
                     tableGroupDesc: "",
                     tableGroupParentId: BaseUtility.GetUrlParaValue("parentId"),
                     tableGroupStatus:"启用",
-                    tableGroupIssystem: "否",
+                    tableGroupIsSystem: "否",
                     tableGroupDelEnable: "是"
                 },
                 ruleValidate: {
