@@ -1,10 +1,16 @@
 package com.jb4dc.builder.service.datastorage.impl;
 
+import com.jb4dc.base.dbaccess.dynamic.ISQLBuilderMapper;
+import com.jb4dc.base.dbaccess.dynamic.impl.SQLBuilderMapper;
+import com.jb4dc.base.dbaccess.dynamic.impl.TemporarySqlSessionFactoryBuilder;
 import com.jb4dc.base.dbaccess.exenum.EnableTypeEnum;
 import com.jb4dc.base.dbaccess.exenum.TrueFalseEnum;
 import com.jb4dc.base.service.IMetadataService;
 import com.jb4dc.base.service.ISQLBuilderService;
 import com.jb4dc.base.service.impl.BaseServiceImpl;
+import com.jb4dc.base.service.impl.MetadataServiceImpl;
+import com.jb4dc.base.service.impl.SQLBuilderServiceImpl;
+import com.jb4dc.base.ymls.DBYaml;
 import com.jb4dc.base.ymls.JBuild4DCYaml;
 import com.jb4dc.builder.dao.datastorage.TableFieldMapper;
 import com.jb4dc.builder.dao.datastorage.TableMapper;
@@ -25,11 +31,16 @@ import com.jb4dc.code.generate.service.ICodeGenerateService;
 import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
 import com.jb4dc.core.base.exception.JBuild4DCPhysicalTableException;
 import com.jb4dc.core.base.exception.JBuild4DCSQLKeyWordException;
+import com.jb4dc.core.base.exenum.DBTypeEnum;
 import com.jb4dc.core.base.list.IListWhereCondition;
 import com.jb4dc.core.base.list.ListUtility;
 import com.jb4dc.core.base.session.JB4DCSession;
 import com.jb4dc.core.base.tools.StringUtility;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.ibatis.session.SqlSession;
+import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.generatorex.api.IntrospectedColumn;
+import org.mybatis.generatorex.api.IntrospectedTable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -53,8 +64,8 @@ public class TableServiceImpl extends BaseServiceImpl<TableEntity> implements IT
     TableMapper tableMapper;
     TableFieldMapper tableFieldMapper;
 
-    //@Autowired
-    //ICodeGenerateService codeGenerateService;
+    @Autowired
+    ICodeGenerateService codeGenerateService;
 
     //@Autowired
     //IMetadataService metadataService;
@@ -122,7 +133,7 @@ public class TableServiceImpl extends BaseServiceImpl<TableEntity> implements IT
                         tableEntity.setTableUpdater(jb4DSession.getUserName());
                         tableEntity.setTableUpdateTime(new Date());
                         tableEntity.setTableType(TableTypeEnum.Builder.getText());
-                        tableEntity.setTableDbName(dbLinkEntity.getDbDatabaseName());
+                        //tableEntity.setTableDbName(dbLinkEntity.getDbDatabaseName());
                         tableEntity.setTableOrganId(jb4DSession.getOrganId());
                         tableEntity.setTableOrganName(jb4DSession.getOrganName());
                         tableEntity.setTableLinkId(dbLinkEntity.getDbId());
@@ -387,7 +398,17 @@ public class TableServiceImpl extends BaseServiceImpl<TableEntity> implements IT
 
     @Override
     public void registerSystemTableToBuilderToModule(JB4DCSession jb4DSession, String tableName, TableGroupEntity tableGroupEntity) throws JBuild4DCGenerallyException {
-        /*IntrospectedTable tableInfo=codeGenerateService.getTableInfo(tableName);
+        DbLinkEntity dbLinkEntity=dbLinkService.getByPrimaryKey(jb4DSession,tableGroupEntity.getTableGroupLinkId());
+
+        if(dbLinkEntity.getDbIsLocation().equals(TrueFalseEnum.True.getDisplayName())){
+            dbLinkEntity=dbLinkService.getLocationDBByYML(jb4DSession);
+            //dbLinkEntity.setDbDriverName(DBYaml.get);
+        }
+
+        IntrospectedTable tableInfo=codeGenerateService.getTableInfo(tableName,dbLinkEntity.getDbDriverName(),dbLinkEntity.getDbUrl(),dbLinkEntity.getDbUser(),dbLinkEntity.getDbPassword());
+
+        IMetadataService metadataService=MetadataServiceImpl.getInstance(dbLinkEntity.getDbDriverName(),dbLinkEntity.getDbUrl(),dbLinkEntity.getDbUser(),dbLinkEntity.getDbPassword());
+
         if(tableInfo!=null) {
             //删除旧的逻辑记录.
             this.deleteLogicTableAndFields(jb4DSession, tableName, JBuild4DCYaml.getWarningOperationCode());
@@ -395,7 +416,7 @@ public class TableServiceImpl extends BaseServiceImpl<TableEntity> implements IT
             //String tableName=tableInfo.getFullyQualifiedTable().getIntrospectedTableName().toUpperCase();
             String tableComment = tableInfo.getRemarks();
             if (tableComment == null || tableComment.equals("")) {
-                tableComment = metadataService.getTableComment();
+                tableComment = metadataService.getTableComment(DBTypeEnum.getEnum(dbLinkEntity.getDbType()),tableName,dbLinkEntity.getDbDatabaseName());
                 if(tableComment==null||tableComment.equals("")){
                     tableComment=tableName;
                 }
@@ -421,7 +442,8 @@ public class TableServiceImpl extends BaseServiceImpl<TableEntity> implements IT
             tableEntity.setTableLinkId("");
             tableEntity.setTableOrganId(jb4DSession.getOrganId());
             tableEntity.setTableOrganName(jb4DSession.getOrganName());
-            tableEntity.setTableLinkId(dbLinkService.getLocationDBLinkId());
+            tableEntity.setTableLinkId(dbLinkEntity.getDbId());
+            //tableEntity.setTableDbName();
             tableMapper.insert(tableEntity);
 
             for (IntrospectedColumn primaryKeyColumn : tableInfo.getPrimaryKeyColumns()) {
@@ -435,7 +457,7 @@ public class TableServiceImpl extends BaseServiceImpl<TableEntity> implements IT
         }
         else {
             throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_BUILDER_CODE,"获取不到表:"+tableName+"的信息!");
-        }*/
+        }
     }
 
     @Override

@@ -4,6 +4,7 @@ import com.jb4dc.base.dbaccess.exenum.EnableTypeEnum;
 import com.jb4dc.base.dbaccess.exenum.TrueFalseEnum;
 import com.jb4dc.base.service.IAddBefore;
 import com.jb4dc.base.service.impl.BaseServiceImpl;
+import com.jb4dc.base.ymls.DBYaml;
 import com.jb4dc.base.ymls.JBuild4DCYaml;
 import com.jb4dc.builder.dao.datastorage.DbLinkMapper;
 import com.jb4dc.builder.dbentities.datastorage.DbLinkEntity;
@@ -53,21 +54,32 @@ public class DbLinkServiceImpl extends BaseServiceImpl<DbLinkEntity> implements 
         });
     }
 
-    @Override
-    public String getLocationDBLinkId(){
-        return "JBuild4dLocationDBLink";
-    }
+    //@Override
+    //public String getLocationDBLinkId(){
+    //    return "JBuild4dLocationDBLink";
+    //}
 
     @Override
     public DbLinkEntity getDBLinkEntity(JB4DCSession jb4DSession) throws JBuild4DCGenerallyException {
-        return this.getByPrimaryKey(jb4DSession,this.getLocationDBLinkId());
+        return this.getByPrimaryKey(jb4DSession,this.JBUILD4DC_BUILDER_DB_LINK_ID);
     }
 
     @Override
-    public void createLocationDBLink(JB4DCSession jb4DSession) throws JBuild4DCGenerallyException {
+    public DbLinkEntity getLocationDBByYML(JB4DCSession jb4DCSession) throws JBuild4DCGenerallyException {
+        DbLinkEntity entity=getDBLinkEntity(jb4DCSession);
+        entity.setDbDriverName(DBYaml.getDriverName());
+        entity.setDbDatabaseName(DBYaml.getDatabaseName());
+        entity.setDbPassword(DBYaml.getPassword());
+        entity.setDbUrl(DBYaml.getUrl());
+        entity.setDbType(DBYaml.getDBType().getDisplayName());
+        entity.setDbUser(DBYaml.getUser());
+        return entity;
+    }
+
+    public void createBuilderDBLink(JB4DCSession jb4DSession) throws JBuild4DCGenerallyException {
         DbLinkEntity dbLinkEntity=new DbLinkEntity();
-        dbLinkEntity.setDbId(this.getLocationDBLinkId());
-        dbLinkEntity.setDbLinkValue("Location");
+        dbLinkEntity.setDbId(this.JBUILD4DC_BUILDER_DB_LINK_ID);
+        dbLinkEntity.setDbLinkValue("JBUILD4DC_BUILDER_DB_LINK_ID");
         dbLinkEntity.setDbLinkName("应用构建库连接");
         dbLinkEntity.setDbType("Location");
         dbLinkEntity.setDbDriverName("Location");
@@ -79,5 +91,64 @@ public class DbLinkServiceImpl extends BaseServiceImpl<DbLinkEntity> implements 
         dbLinkEntity.setDbIsLocation(TrueFalseEnum.True.getDisplayName());
         dbLinkEntity.setDbStatus(EnableTypeEnum.enable.getDisplayName());
         this.saveSimple(jb4DSession,dbLinkEntity.getDbId(),dbLinkEntity);
+    }
+
+    public void createSSODBLink(JB4DCSession jb4DSession) throws JBuild4DCGenerallyException {
+        DbLinkEntity dbLinkEntity=new DbLinkEntity();
+        dbLinkEntity.setDbId(this.JBUILD4DC_SSO_DB_LINK_ID);
+        dbLinkEntity.setDbLinkValue("JBUILD4DC_SSO_DB_LINK_ID");
+        dbLinkEntity.setDbLinkName("单点登录库连接");
+        dbLinkEntity.setDbType("sqlserver");
+        dbLinkEntity.setDbDriverName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+        dbLinkEntity.setDbDatabaseName("JB4DC_SSO_V01");
+        dbLinkEntity.setDbUrl("jdbc:sqlserver://127.0.0.1:1433; DatabaseName=JB4DC_SSO_V01");
+        dbLinkEntity.setDbUser("sa");
+        dbLinkEntity.setDbPassword("sql");
+        dbLinkEntity.setDbDesc("单点登录数据库连接");
+        dbLinkEntity.setDbIsLocation(TrueFalseEnum.False.getDisplayName());
+        dbLinkEntity.setDbStatus(EnableTypeEnum.enable.getDisplayName());
+        this.saveSimple(jb4DSession,dbLinkEntity.getDbId(),dbLinkEntity);
+    }
+
+    public void createDevMockDBLink(JB4DCSession jb4DSession) throws JBuild4DCGenerallyException {
+        DbLinkEntity dbLinkEntity=new DbLinkEntity();
+        dbLinkEntity.setDbId(this.JBUILD4DC_DEV_MOCK_DB_LINK_ID);
+        dbLinkEntity.setDbLinkValue("JBUILD4DC_DEV_MOCK_DB_LINK_ID");
+        dbLinkEntity.setDbLinkName("开发样例库连接");
+        dbLinkEntity.setDbType("sqlserver");
+        dbLinkEntity.setDbDriverName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+        dbLinkEntity.setDbDatabaseName("JB4DC_DEV_MOCK_V01");
+        dbLinkEntity.setDbUrl("jdbc:sqlserver://127.0.0.1:1433; DatabaseName=JB4DC_DEV_MOCK_V01");
+        dbLinkEntity.setDbUser("sa");
+        dbLinkEntity.setDbPassword("sql");
+        dbLinkEntity.setDbDesc("开发样例数据库连接");
+        dbLinkEntity.setDbIsLocation(TrueFalseEnum.False.getDisplayName());
+        dbLinkEntity.setDbStatus(EnableTypeEnum.enable.getDisplayName());
+        this.saveSimple(jb4DSession,dbLinkEntity.getDbId(),dbLinkEntity);
+    }
+
+    public void createBusinessTestDBLink(JB4DCSession jb4DSession) throws JBuild4DCGenerallyException {
+        DbLinkEntity dbLinkEntity=new DbLinkEntity();
+        dbLinkEntity.setDbId(this.JBUILD4DC_BUSINESS_TEST_DB_LINK_ID);
+        dbLinkEntity.setDbLinkValue("JBUILD4DC_BUSINESS_TEST_DB_LINK_ID");
+        dbLinkEntity.setDbLinkName("业务测试库连接");
+        dbLinkEntity.setDbType("sqlserver");
+        dbLinkEntity.setDbDriverName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+        dbLinkEntity.setDbDatabaseName("JB4DC_BUSINESS_V01");
+        dbLinkEntity.setDbUrl("jdbc:sqlserver://127.0.0.1:1433; DatabaseName=JB4DC_BUSINESS_V01");
+        dbLinkEntity.setDbUser("sa");
+        dbLinkEntity.setDbPassword("sql");
+        dbLinkEntity.setDbDesc("业务测试数据库连接");
+        dbLinkEntity.setDbIsLocation(TrueFalseEnum.False.getDisplayName());
+        dbLinkEntity.setDbStatus(EnableTypeEnum.enable.getDisplayName());
+        this.saveSimple(jb4DSession,dbLinkEntity.getDbId(),dbLinkEntity);
+    }
+
+    @Override
+    public void initSystemData(JB4DCSession jb4DSession) throws JBuild4DCGenerallyException {
+        this.createBuilderDBLink(jb4DSession);
+        this.createSSODBLink(jb4DSession);
+        this.createDevMockDBLink(jb4DSession);
+        this.createBusinessTestDBLink(jb4DSession);
     }
 }

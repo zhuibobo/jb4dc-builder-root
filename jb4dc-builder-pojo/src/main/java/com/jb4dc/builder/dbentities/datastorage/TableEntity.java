@@ -25,9 +25,6 @@ public class TableEntity {
     //TABLE_NAME:表名称:在数据库中的名称
     private String tableName;
 
-    //TABLE_DB_NAME:所属库名
-    private String tableDbName;
-
     //TABLE_CREATE_TIME:创建时间
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     private Date tableCreateTime;
@@ -78,7 +75,6 @@ public class TableEntity {
      * @param tableCode 表编号
      * @param tableCaption 表标题
      * @param tableName 表名称
-     * @param tableDbName 所属库名
      * @param tableCreateTime 创建时间
      * @param tableCreator 创建人
      * @param tableUpdateTime 更新时间
@@ -94,12 +90,11 @@ public class TableEntity {
      * @param tableOrganId 组织ID
      * @param tableOrganName 组织名称
      **/
-    public TableEntity(String tableId, String tableCode, String tableCaption, String tableName, String tableDbName, Date tableCreateTime, String tableCreator, Date tableUpdateTime, String tableUpdater, String tableServiceValue, String tableType, String tableIsSystem, Integer tableOrderNum, String tableDesc, String tableGroupId, String tableStatus, String tableLinkId, String tableOrganId, String tableOrganName) {
+    public TableEntity(String tableId, String tableCode, String tableCaption, String tableName, Date tableCreateTime, String tableCreator, Date tableUpdateTime, String tableUpdater, String tableServiceValue, String tableType, String tableIsSystem, Integer tableOrderNum, String tableDesc, String tableGroupId, String tableStatus, String tableLinkId, String tableOrganId, String tableOrganName) {
         this.tableId = tableId;
         this.tableCode = tableCode;
         this.tableCaption = tableCaption;
         this.tableName = tableName;
-        this.tableDbName = tableDbName;
         this.tableCreateTime = tableCreateTime;
         this.tableCreator = tableCreator;
         this.tableUpdateTime = tableUpdateTime;
@@ -182,22 +177,6 @@ public class TableEntity {
      **/
     public void setTableName(String tableName) {
         this.tableName = tableName == null ? null : tableName.trim();
-    }
-
-    /**
-     * 所属库名
-     * @return java.lang.String
-     **/
-    public String getTableDbName() {
-        return tableDbName;
-    }
-
-    /**
-     * 所属库名
-     * @param tableDbName 所属库名
-     **/
-    public void setTableDbName(String tableDbName) {
-        this.tableDbName = tableDbName == null ? null : tableDbName.trim();
     }
 
     /**

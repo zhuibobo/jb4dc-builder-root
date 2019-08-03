@@ -20,11 +20,13 @@ public interface ITableGroupService extends IBaseService<TableGroupEntity> {
 
     TableGroupEntity createRootNode(JB4DCSession jb4DSession, String dbLinkId, String text, String value) throws JBuild4DCGenerallyException;
 
-    TableGroupEntity createSystemTableGroupNode(JB4DCSession jb4DSession, TableGroupEntity parentGroup) throws JBuild4DCGenerallyException;
+    //TableGroupEntity createSystemTableGroupNode(JB4DCSession jb4DSession, TableGroupEntity parentGroup) throws JBuild4DCGenerallyException;
 
     TableGroupEntity getByGroupText(JB4DCSession jb4DSession, String groupText);
 
     TableGroupEntity getLocationTableGroupRoot(JB4DCSession jb4DSession);
 
     List<TableGroupEntity> getByDBLinkId(JB4DCSession session, String dbLinkId);
+
+    void initSystemData(JB4DCSession jb4DSession) throws JBuild4DCGenerallyException;
 }

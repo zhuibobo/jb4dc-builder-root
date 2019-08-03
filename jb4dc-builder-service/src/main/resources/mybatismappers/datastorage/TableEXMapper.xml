@@ -8,7 +8,6 @@
         <if test="tableCode !=null and tableCode !=''"> and TABLE_CODE like #{tableCode} </if>
         <if test="tableCaption !=null and tableCaption !=''"> and TABLE_CAPTION like #{tableCaption} </if>
         <if test="tableName !=null and tableName !=''"> and TABLE_NAME like #{tableName} </if>
-        <if test="tableDbName !=null and tableDbName !=''"> and TABLE_DB_NAME like #{tableDbName} </if>
         <if test="tableCreator !=null and tableCreator !=''"> and TABLE_CREATOR like #{tableCreator} </if>
         <if test="tableUpdater !=null and tableUpdater !=''"> and TABLE_UPDATER like #{tableUpdater} </if>
         <if test="tableServiceValue !=null and tableServiceValue !=''"> and TABLE_SERVICE_VALUE like #{tableServiceValue} </if>

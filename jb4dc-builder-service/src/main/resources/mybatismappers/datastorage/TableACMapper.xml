@@ -7,7 +7,6 @@
             <arg column="TABLE_CODE" javaType="java.lang.String" jdbcType="NVARCHAR" />
             <arg column="TABLE_CAPTION" javaType="java.lang.String" jdbcType="NVARCHAR" />
             <arg column="TABLE_NAME" javaType="java.lang.String" jdbcType="NVARCHAR" />
-            <arg column="TABLE_DB_NAME" javaType="java.lang.String" jdbcType="NVARCHAR" />
             <arg column="TABLE_CREATE_TIME" javaType="java.util.Date" jdbcType="TIMESTAMP" />
             <arg column="TABLE_CREATOR" javaType="java.lang.String" jdbcType="NVARCHAR" />
             <arg column="TABLE_UPDATE_TIME" javaType="java.util.Date" jdbcType="TIMESTAMP" />
@@ -25,10 +24,10 @@
         </constructor>
     </resultMap>
     <sql id="Base_Column_List">
-    TABLE_ID, TABLE_CODE, TABLE_CAPTION, TABLE_NAME, TABLE_DB_NAME, TABLE_CREATE_TIME,
-    TABLE_CREATOR, TABLE_UPDATE_TIME, TABLE_UPDATER, TABLE_SERVICE_VALUE, TABLE_TYPE,
-    TABLE_IS_SYSTEM, TABLE_ORDER_NUM, TABLE_DESC, TABLE_GROUP_ID, TABLE_STATUS, TABLE_LINK_ID,
-    TABLE_ORGAN_ID, TABLE_ORGAN_NAME
+    TABLE_ID, TABLE_CODE, TABLE_CAPTION, TABLE_NAME, TABLE_CREATE_TIME, TABLE_CREATOR,
+    TABLE_UPDATE_TIME, TABLE_UPDATER, TABLE_SERVICE_VALUE, TABLE_TYPE, TABLE_IS_SYSTEM,
+    TABLE_ORDER_NUM, TABLE_DESC, TABLE_GROUP_ID, TABLE_STATUS, TABLE_LINK_ID, TABLE_ORGAN_ID,
+    TABLE_ORGAN_NAME
   </sql>
     <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
         select
@@ -42,19 +41,19 @@
   </delete>
     <insert id="insert" parameterType="com.jb4dc.builder.dbentities.datastorage.TableEntity">
     insert into TBUILD_TABLE (TABLE_ID, TABLE_CODE, TABLE_CAPTION,
-      TABLE_NAME, TABLE_DB_NAME, TABLE_CREATE_TIME,
-      TABLE_CREATOR, TABLE_UPDATE_TIME, TABLE_UPDATER,
-      TABLE_SERVICE_VALUE, TABLE_TYPE, TABLE_IS_SYSTEM,
-      TABLE_ORDER_NUM, TABLE_DESC, TABLE_GROUP_ID,
-      TABLE_STATUS, TABLE_LINK_ID, TABLE_ORGAN_ID,
-      TABLE_ORGAN_NAME)
+      TABLE_NAME, TABLE_CREATE_TIME, TABLE_CREATOR,
+      TABLE_UPDATE_TIME, TABLE_UPDATER, TABLE_SERVICE_VALUE,
+      TABLE_TYPE, TABLE_IS_SYSTEM, TABLE_ORDER_NUM,
+      TABLE_DESC, TABLE_GROUP_ID, TABLE_STATUS,
+      TABLE_LINK_ID, TABLE_ORGAN_ID, TABLE_ORGAN_NAME
+      )
     values (#{tableId,jdbcType=NVARCHAR}, #{tableCode,jdbcType=NVARCHAR}, #{tableCaption,jdbcType=NVARCHAR},
-      #{tableName,jdbcType=NVARCHAR}, #{tableDbName,jdbcType=NVARCHAR}, #{tableCreateTime,jdbcType=TIMESTAMP},
-      #{tableCreator,jdbcType=NVARCHAR}, #{tableUpdateTime,jdbcType=TIMESTAMP}, #{tableUpdater,jdbcType=NVARCHAR},
-      #{tableServiceValue,jdbcType=NVARCHAR}, #{tableType,jdbcType=NVARCHAR}, #{tableIsSystem,jdbcType=NVARCHAR},
-      #{tableOrderNum,jdbcType=INTEGER}, #{tableDesc,jdbcType=NVARCHAR}, #{tableGroupId,jdbcType=NVARCHAR},
-      #{tableStatus,jdbcType=NVARCHAR}, #{tableLinkId,jdbcType=NVARCHAR}, #{tableOrganId,jdbcType=NVARCHAR},
-      #{tableOrganName,jdbcType=NVARCHAR})
+      #{tableName,jdbcType=NVARCHAR}, #{tableCreateTime,jdbcType=TIMESTAMP}, #{tableCreator,jdbcType=NVARCHAR},
+      #{tableUpdateTime,jdbcType=TIMESTAMP}, #{tableUpdater,jdbcType=NVARCHAR}, #{tableServiceValue,jdbcType=NVARCHAR},
+      #{tableType,jdbcType=NVARCHAR}, #{tableIsSystem,jdbcType=NVARCHAR}, #{tableOrderNum,jdbcType=INTEGER},
+      #{tableDesc,jdbcType=NVARCHAR}, #{tableGroupId,jdbcType=NVARCHAR}, #{tableStatus,jdbcType=NVARCHAR},
+      #{tableLinkId,jdbcType=NVARCHAR}, #{tableOrganId,jdbcType=NVARCHAR}, #{tableOrganName,jdbcType=NVARCHAR}
+      )
   </insert>
     <insert id="insertSelective" parameterType="com.jb4dc.builder.dbentities.datastorage.TableEntity">
         insert into TBUILD_TABLE
@@ -70,9 +69,6 @@
             </if>
             <if test="tableName != null">
                 TABLE_NAME,
-            </if>
-            <if test="tableDbName != null">
-                TABLE_DB_NAME,
             </if>
             <if test="tableCreateTime != null">
                 TABLE_CREATE_TIME,
@@ -130,9 +126,6 @@
             <if test="tableName != null">
                 #{tableName,jdbcType=NVARCHAR},
             </if>
-            <if test="tableDbName != null">
-                #{tableDbName,jdbcType=NVARCHAR},
-            </if>
             <if test="tableCreateTime != null">
                 #{tableCreateTime,jdbcType=TIMESTAMP},
             </if>
@@ -189,9 +182,6 @@
             <if test="tableName != null">
                 TABLE_NAME = #{tableName,jdbcType=NVARCHAR},
             </if>
-            <if test="tableDbName != null">
-                TABLE_DB_NAME = #{tableDbName,jdbcType=NVARCHAR},
-            </if>
             <if test="tableCreateTime != null">
                 TABLE_CREATE_TIME = #{tableCreateTime,jdbcType=TIMESTAMP},
             </if>
@@ -242,7 +232,6 @@
     set TABLE_CODE = #{tableCode,jdbcType=NVARCHAR},
       TABLE_CAPTION = #{tableCaption,jdbcType=NVARCHAR},
       TABLE_NAME = #{tableName,jdbcType=NVARCHAR},
-      TABLE_DB_NAME = #{tableDbName,jdbcType=NVARCHAR},
       TABLE_CREATE_TIME = #{tableCreateTime,jdbcType=TIMESTAMP},
       TABLE_CREATOR = #{tableCreator,jdbcType=NVARCHAR},
       TABLE_UPDATE_TIME = #{tableUpdateTime,jdbcType=TIMESTAMP},

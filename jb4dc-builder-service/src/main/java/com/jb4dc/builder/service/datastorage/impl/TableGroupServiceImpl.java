@@ -42,13 +42,13 @@ public class TableGroupServiceImpl extends BaseServiceImpl<TableGroupEntity> imp
     private String rootId="0";
     private String rootParentId="-1";
 
-    private String TableGroupJBuild4DSystem="TableGroupJBuild4DSystem";
-    private String TableGroupJBuild4DSystemSetting="TableGroupJBuild4DSystemSetting";
-    private String TableGroupJBuild4DSystemSSORelevance ="TableGroupJBuild4DSystemSSORelevance";
-    private String TableGroupJBuild4DSystemAuth="TableGroupJBuild4DSystemAuth";
-    private String TableGroupJBuild4DSystemBuilder="TableGroupJBuild4DSystemBuilder";
-    private String TableGroupJBuild4DSystemDevDemo="TableGroupJBuild4DSystemDevDemo";
-    private String TableGroupJbuild4DFileStore="TableGroupJbuild4DFileStore";
+    //private String TableGroupJBuild4DSystem="TableGroupJBuild4DSystem";
+    //private String TableGroupJBuild4DSystemSetting="TableGroupJBuild4DSystemSetting";
+
+    //private String TableGroupJBuild4DSystemAuth="TableGroupJBuild4DSystemAuth";
+    //private String TableGroupJBuild4DSystemBuilder="TableGroupJBuild4DSystemBuilder";
+
+    //private String TableGroupJbuild4DFileStore="TableGroupJbuild4DFileStore";
 
     public TableGroupServiceImpl(TableGroupMapper _defaultBaseMapper){
         super(_defaultBaseMapper);
@@ -98,7 +98,9 @@ public class TableGroupServiceImpl extends BaseServiceImpl<TableGroupEntity> imp
         return treeTableEntity;
     }
 
-    @Override
+
+
+    /*@Override
     public TableGroupEntity createSystemTableGroupNode(JB4DCSession jb4DSession,TableGroupEntity parentGroup) throws JBuild4DCGenerallyException {
         //系统基础
         deleteByKeyNotValidate(jb4DSession,TableGroupJBuild4DSystem, JBuild4DCYaml.getWarningOperationCode());
@@ -108,7 +110,7 @@ public class TableGroupServiceImpl extends BaseServiceImpl<TableGroupEntity> imp
         jBuild4DSystemBase.setTableGroupIsSystem(TrueFalseEnum.True.getDisplayName());
         jBuild4DSystemBase.setTableGroupText("JBuild4D-System");
         jBuild4DSystemBase.setTableGroupValue("JBuild4D-System");
-        jBuild4DSystemBase.setTableGroupLinkId(dbLinkService.getLocationDBLinkId());
+        jBuild4DSystemBase.setTableGroupLinkId(dbLinkService.JBUILD4DC_BUILDER_DB_LINK_ID);
         this.saveSimple(jb4DSession,TableGroupJBuild4DSystem,jBuild4DSystemBase);
 
         //系统设置相关表
@@ -119,51 +121,23 @@ public class TableGroupServiceImpl extends BaseServiceImpl<TableGroupEntity> imp
         jBuild4DSystemSetting.setTableGroupIsSystem(TrueFalseEnum.True.getDisplayName());
         jBuild4DSystemSetting.setTableGroupText("系统设置相关表");
         jBuild4DSystemSetting.setTableGroupValue("系统设置相关表");
-        jBuild4DSystemSetting.setTableGroupLinkId(dbLinkService.getLocationDBLinkId());
+        jBuild4DSystemSetting.setTableGroupLinkId(dbLinkService.JBUILD4DC_BUILDER_DB_LINK_ID);
         this.saveSimple(jb4DSession,TableGroupJBuild4DSystemSetting,jBuild4DSystemSetting);
 
-        tableService.registerSystemTableToBuilderToModule(jb4DSession,"TSYS_DICTIONARY_GROUP",jBuild4DSystemSetting);
-        tableService.registerSystemTableToBuilderToModule(jb4DSession,"TSYS_DICTIONARY",jBuild4DSystemSetting);
-        tableService.registerSystemTableToBuilderToModule(jb4DSession,"TSYS_JB4D_CACHE",jBuild4DSystemSetting);
-        tableService.registerSystemTableToBuilderToModule(jb4DSession,"TSYS_MENU",jBuild4DSystemSetting);
-        tableService.registerSystemTableToBuilderToModule(jb4DSession,"TSYS_OPERATION_LOG",jBuild4DSystemSetting);
-        tableService.registerSystemTableToBuilderToModule(jb4DSession,"TSYS_SETTING",jBuild4DSystemSetting);
-        tableService.registerSystemTableToBuilderToModule(jb4DSession,"TSYS_HISTORY_DATA",jBuild4DSystemSetting);
+
 
         //单点登录相关表
-        deleteByKeyNotValidate(jb4DSession, TableGroupJBuild4DSystemSSORelevance, JBuild4DCYaml.getWarningOperationCode());
-        TableGroupEntity jBuild4DSSORelevance=new TableGroupEntity();
-        jBuild4DSSORelevance.setTableGroupId(TableGroupJBuild4DSystemSSORelevance);
-        jBuild4DSSORelevance.setTableGroupParentId(jBuild4DSystemBase.getTableGroupId());
-        jBuild4DSSORelevance.setTableGroupIsSystem(TrueFalseEnum.True.getDisplayName());
-        jBuild4DSSORelevance.setTableGroupText("单点登录相关表");
-        jBuild4DSSORelevance.setTableGroupValue("单点登录相关表");
-        jBuild4DSSORelevance.setTableGroupLinkId(dbLinkService.getLocationDBLinkId());
-        this.saveSimple(jb4DSession, TableGroupJBuild4DSystemSSORelevance,jBuild4DSSORelevance);
 
-        tableService.registerSystemTableToBuilderToModule(jb4DSession,"TSSO_ORGAN_TYPE",jBuild4DSSORelevance);
-        tableService.registerSystemTableToBuilderToModule(jb4DSession,"TSSO_ORGAN",jBuild4DSSORelevance);
-        tableService.registerSystemTableToBuilderToModule(jb4DSession,"TSSO_DEPARTMENT",jBuild4DSSORelevance);
-        tableService.registerSystemTableToBuilderToModule(jb4DSession,"TSSO_DEPARTMENT_USER",jBuild4DSSORelevance);
-        tableService.registerSystemTableToBuilderToModule(jb4DSession,"TSSO_USER",jBuild4DSSORelevance);
-        tableService.registerSystemTableToBuilderToModule(jb4DSession,"TSSO_ROLE_GROUP",jBuild4DSSORelevance);
-        tableService.registerSystemTableToBuilderToModule(jb4DSession,"TSSO_ROLE",jBuild4DSSORelevance);
-        tableService.registerSystemTableToBuilderToModule(jb4DSession,"TSSO_USER_ROLE",jBuild4DSSORelevance);
-        tableService.registerSystemTableToBuilderToModule(jb4DSession,"TSSO_AUTHORITY",jBuild4DSSORelevance);
-        tableService.registerSystemTableToBuilderToModule(jb4DSession,"TSSO_SSO_APP",jBuild4DSSORelevance);
-        tableService.registerSystemTableToBuilderToModule(jb4DSession,"TSSO_SSO_APP_INTERFACE",jBuild4DSSORelevance);
-        tableService.registerSystemTableToBuilderToModule(jb4DSession,"TSSO_SSO_APP_FILE",jBuild4DSSORelevance);
-        tableService.registerSystemTableToBuilderToModule(jb4DSession,"TSSO_SSO_APP_USER_MAPPING",jBuild4DSSORelevance);
 
         //权限相关表
-        /*deleteByKeyNotValidate(jb4DSession,TableGroupJBuild4DSystemAuth, JBuild4DProp.getWarningOperationCode());
+        *//*deleteByKeyNotValidate(jb4DSession,TableGroupJBuild4DSystemAuth, JBuild4DProp.getWarningOperationCode());
         TableGroupEntity jBuild4DSystemAuth=new TableGroupEntity();
         jBuild4DSystemAuth.setTableGroupId(TableGroupJBuild4DSystemAuth);
         jBuild4DSystemAuth.setTableGroupParentId(jBuild4DSystemBase.getTableGroupId());
         jBuild4DSystemAuth.setTableGroupIssystem(TrueFalseEnum.True.getDisplayName());
         jBuild4DSystemAuth.setTableGroupText("权限相关表");
         jBuild4DSystemAuth.setTableGroupValue("权限相关表");
-        this.saveSimple(jb4DSession,TableGroupJBuild4DSystemAuth,jBuild4DSystemAuth);*/
+        this.saveSimple(jb4DSession,TableGroupJBuild4DSystemAuth,jBuild4DSystemAuth);*//*
 
         //应用设计相关表
         deleteByKeyNotValidate(jb4DSession,TableGroupJBuild4DSystemBuilder, JBuild4DCYaml.getWarningOperationCode());
@@ -173,25 +147,10 @@ public class TableGroupServiceImpl extends BaseServiceImpl<TableGroupEntity> imp
         jBuild4DSystemBuilder.setTableGroupIsSystem(TrueFalseEnum.True.getDisplayName());
         jBuild4DSystemBuilder.setTableGroupText("应用设计相关表");
         jBuild4DSystemBuilder.setTableGroupValue("应用设计相关表");
-        jBuild4DSystemBuilder.setTableGroupLinkId(dbLinkService.getLocationDBLinkId());
+        jBuild4DSystemBuilder.setTableGroupLinkId(dbLinkService.JBUILD4DC_BUILDER_DB_LINK_ID);
         this.saveSimple(jb4DSession,TableGroupJBuild4DSystemBuilder,jBuild4DSystemBuilder);
 
-        tableService.registerSystemTableToBuilderToModule(jb4DSession,"TBUILD_SERVICE_LINK",jBuild4DSystemBuilder);
-        tableService.registerSystemTableToBuilderToModule(jb4DSession,"TBUILD_TABLE_GROUP",jBuild4DSystemBuilder);
-        tableService.registerSystemTableToBuilderToModule(jb4DSession,"TBUILD_TABLE",jBuild4DSystemBuilder);
-        tableService.registerSystemTableToBuilderToModule(jb4DSession,"TBUILD_TABLE_FIELD",jBuild4DSystemBuilder);
-        tableService.registerSystemTableToBuilderToModule(jb4DSession,"TBUILD_TABLE_RELATION_GROUP",jBuild4DSystemBuilder);
-        tableService.registerSystemTableToBuilderToModule(jb4DSession,"TBUILD_TABLE_RELATION",jBuild4DSystemBuilder);
-        tableService.registerSystemTableToBuilderToModule(jb4DSession,"TBUILD_TABLE_RELATION_HIS",jBuild4DSystemBuilder);
-        tableService.registerSystemTableToBuilderToModule(jb4DSession,"TBUILD_DATASET_GROUP",jBuild4DSystemBuilder);
-        tableService.registerSystemTableToBuilderToModule(jb4DSession,"TBUILD_DATASET",jBuild4DSystemBuilder);
-        tableService.registerSystemTableToBuilderToModule(jb4DSession,"TBUILD_DATASET_COLUMN",jBuild4DSystemBuilder);
-        tableService.registerSystemTableToBuilderToModule(jb4DSession,"TBUILD_DATASET_RELATED_TABLE",jBuild4DSystemBuilder);
-        tableService.registerSystemTableToBuilderToModule(jb4DSession,"TBUILD_MODULE",jBuild4DSystemBuilder);
-        tableService.registerSystemTableToBuilderToModule(jb4DSession,"TBUILD_FLOW_MODEL",jBuild4DSystemBuilder);
-        tableService.registerSystemTableToBuilderToModule(jb4DSession,"TBUILD_FORM_CONFIG",jBuild4DSystemBuilder);
-        tableService.registerSystemTableToBuilderToModule(jb4DSession,"TBUILD_FORM_RESOURCE",jBuild4DSystemBuilder);
-        tableService.registerSystemTableToBuilderToModule(jb4DSession,"TBUILD_LIST_RESOURCE",jBuild4DSystemBuilder);
+
 
         //文件存储相关表
         deleteByKeyNotValidate(jb4DSession,TableGroupJbuild4DFileStore, JBuild4DCYaml.getWarningOperationCode());
@@ -201,31 +160,11 @@ public class TableGroupServiceImpl extends BaseServiceImpl<TableGroupEntity> imp
         jbuild4DFileStore.setTableGroupIsSystem(TrueFalseEnum.True.getDisplayName());
         jbuild4DFileStore.setTableGroupText("文件存储相关表");
         jbuild4DFileStore.setTableGroupValue("文件存储相关表");
-        jbuild4DFileStore.setTableGroupLinkId(dbLinkService.getLocationDBLinkId());
+        jbuild4DFileStore.setTableGroupLinkId(dbLinkService.JBUILD4DC_BUILDER_DB_LINK_ID);
         this.saveSimple(jb4DSession,TableGroupJbuild4DFileStore,jbuild4DFileStore);
 
-        tableService.registerSystemTableToBuilderToModule(jb4DSession,"TFS_FILE_INFO",jbuild4DFileStore);
-        tableService.registerSystemTableToBuilderToModule(jb4DSession,"TFS_FILE_CONTENT",jbuild4DFileStore);
-        tableService.registerSystemTableToBuilderToModule(jb4DSession,"TFS_FILE_REF",jbuild4DFileStore);
-
-        //开发示例相关表
-        deleteByKeyNotValidate(jb4DSession,TableGroupJBuild4DSystemDevDemo, JBuild4DCYaml.getWarningOperationCode());
-        TableGroupEntity jBuild4DSystemDevDemo=new TableGroupEntity();
-        jBuild4DSystemDevDemo.setTableGroupId(TableGroupJBuild4DSystemDevDemo);
-        jBuild4DSystemDevDemo.setTableGroupParentId(jBuild4DSystemBase.getTableGroupId());
-        jBuild4DSystemDevDemo.setTableGroupIsSystem(TrueFalseEnum.True.getDisplayName());
-        jBuild4DSystemDevDemo.setTableGroupText("开发示例相关表");
-        jBuild4DSystemDevDemo.setTableGroupValue("开发示例相关表");
-        jBuild4DSystemDevDemo.setTableGroupLinkId(dbLinkService.getLocationDBLinkId());
-        this.saveSimple(jb4DSession,TableGroupJBuild4DSystemDevDemo,jBuild4DSystemDevDemo);
-
-        tableService.registerSystemTableToBuilderToModule(jb4DSession,"TDEV_DEMO_GEN_LIST",jBuild4DSystemDevDemo);
-        tableService.registerSystemTableToBuilderToModule(jb4DSession,"TDEV_DEMO_TL_TREE",jBuild4DSystemDevDemo);
-        tableService.registerSystemTableToBuilderToModule(jb4DSession,"TDEV_DEMO_TL_TREE_LIST",jBuild4DSystemDevDemo);
-        tableService.registerSystemTableToBuilderToModule(jb4DSession,"TDEV_DEMO_TREE_TABLE",jBuild4DSystemDevDemo);
-
         return jBuild4DSystemBase;
-    }
+    }*/
 
     @Override
     public TableGroupEntity getByGroupText(JB4DCSession jb4DSession, String groupText) {
@@ -234,12 +173,129 @@ public class TableGroupServiceImpl extends BaseServiceImpl<TableGroupEntity> imp
 
     @Override
     public TableGroupEntity getLocationTableGroupRoot(JB4DCSession jb4DSession) {
-        return tableGroupMapper.selectTableGroupRoot(dbLinkService.getLocationDBLinkId());
+        return tableGroupMapper.selectTableGroupRoot(dbLinkService.JBUILD4DC_BUILDER_DB_LINK_ID);
     }
 
     @Override
     public List<TableGroupEntity> getByDBLinkId(JB4DCSession session, String dbLinkId) {
         return tableGroupMapper.selectTableGroupsByDBLinkId(dbLinkId);
+    }
+
+    private void initDevMockSystemTableToBuilderSystem(JB4DCSession jb4DSession) throws JBuild4DCGenerallyException {
+        //开发示例相关表
+        String TableGroup_DevDemo="TABLE_GROUP_JBUILD4DC_DEV_MOCK_GROUP_ID";
+        deleteByKeyNotValidate(jb4DSession,TableGroup_DevDemo, JBuild4DCYaml.getWarningOperationCode());
+        TableGroupEntity jBuild4DSystemDevDemo=new TableGroupEntity();
+        jBuild4DSystemDevDemo.setTableGroupId(TableGroup_DevDemo);
+        jBuild4DSystemDevDemo.setTableGroupParentId(IDbLinkService.JBUILD4DC_DEV_MOCK_DB_LINK_ID);
+        jBuild4DSystemDevDemo.setTableGroupIsSystem(TrueFalseEnum.True.getDisplayName());
+        jBuild4DSystemDevDemo.setTableGroupText("系统默认相关表");
+        jBuild4DSystemDevDemo.setTableGroupValue("开发示例系统默认相关表");
+        jBuild4DSystemDevDemo.setTableGroupLinkId(dbLinkService.JBUILD4DC_DEV_MOCK_DB_LINK_ID);
+        this.saveSimple(jb4DSession,TableGroup_DevDemo,jBuild4DSystemDevDemo);
+
+        tableService.registerSystemTableToBuilderToModule(jb4DSession,"TDEV_DEMO_GEN_LIST",jBuild4DSystemDevDemo);
+        tableService.registerSystemTableToBuilderToModule(jb4DSession,"TDEV_DEMO_TL_TREE",jBuild4DSystemDevDemo);
+        tableService.registerSystemTableToBuilderToModule(jb4DSession,"TDEV_DEMO_TL_TREE_LIST",jBuild4DSystemDevDemo);
+        tableService.registerSystemTableToBuilderToModule(jb4DSession,"TDEV_DEMO_TREE_TABLE",jBuild4DSystemDevDemo);
+    }
+
+    private void initSSOSystemTableToBuilderSystem(JB4DCSession jb4DCSession) throws JBuild4DCGenerallyException{
+        String TableGroupJBuild4DSystemSSORelevance ="TABLE_GROUP_JBUILD4DC_SSO_GROUP_ID";
+        deleteByKeyNotValidate(jb4DCSession, TableGroupJBuild4DSystemSSORelevance, JBuild4DCYaml.getWarningOperationCode());
+        TableGroupEntity jBuild4DSSORelevance=new TableGroupEntity();
+        jBuild4DSSORelevance.setTableGroupId(TableGroupJBuild4DSystemSSORelevance);
+        jBuild4DSSORelevance.setTableGroupParentId(IDbLinkService.JBUILD4DC_SSO_DB_LINK_ID);
+        jBuild4DSSORelevance.setTableGroupIsSystem(TrueFalseEnum.True.getDisplayName());
+        jBuild4DSSORelevance.setTableGroupText("单点登录相关表");
+        jBuild4DSSORelevance.setTableGroupValue("单点登录相关表");
+        jBuild4DSSORelevance.setTableGroupLinkId(dbLinkService.JBUILD4DC_SSO_DB_LINK_ID);
+        this.saveSimple(jb4DCSession, TableGroupJBuild4DSystemSSORelevance,jBuild4DSSORelevance);
+
+        tableService.registerSystemTableToBuilderToModule(jb4DCSession,"TSSO_ORGAN_TYPE",jBuild4DSSORelevance);
+        tableService.registerSystemTableToBuilderToModule(jb4DCSession,"TSSO_ORGAN",jBuild4DSSORelevance);
+        tableService.registerSystemTableToBuilderToModule(jb4DCSession,"TSSO_DEPARTMENT",jBuild4DSSORelevance);
+        tableService.registerSystemTableToBuilderToModule(jb4DCSession,"TSSO_DEPARTMENT_USER",jBuild4DSSORelevance);
+        tableService.registerSystemTableToBuilderToModule(jb4DCSession,"TSSO_USER",jBuild4DSSORelevance);
+        tableService.registerSystemTableToBuilderToModule(jb4DCSession,"TSSO_ROLE_GROUP",jBuild4DSSORelevance);
+        tableService.registerSystemTableToBuilderToModule(jb4DCSession,"TSSO_ROLE",jBuild4DSSORelevance);
+        tableService.registerSystemTableToBuilderToModule(jb4DCSession,"TSSO_USER_ROLE",jBuild4DSSORelevance);
+        tableService.registerSystemTableToBuilderToModule(jb4DCSession,"TSSO_AUTHORITY",jBuild4DSSORelevance);
+        tableService.registerSystemTableToBuilderToModule(jb4DCSession,"TSSO_SSO_APP",jBuild4DSSORelevance);
+        tableService.registerSystemTableToBuilderToModule(jb4DCSession,"TSSO_SSO_APP_INTERFACE",jBuild4DSSORelevance);
+        tableService.registerSystemTableToBuilderToModule(jb4DCSession,"TSSO_SSO_APP_FILE",jBuild4DSSORelevance);
+        tableService.registerSystemTableToBuilderToModule(jb4DCSession,"TSSO_SSO_APP_USER_MAPPING",jBuild4DSSORelevance);
+        tableService.registerSystemTableToBuilderToModule(jb4DCSession,"TSSO_MENU",jBuild4DSSORelevance);
+
+        String TableGroupJBuild4DSystemSettingRelevance ="TABLE_GROUP_JBUILD4DC_SETTING_GROUP_ID";
+        deleteByKeyNotValidate(jb4DCSession, TableGroupJBuild4DSystemSettingRelevance, JBuild4DCYaml.getWarningOperationCode());
+        TableGroupEntity jBuild4DSystemSettingRelevance=new TableGroupEntity();
+        jBuild4DSystemSettingRelevance.setTableGroupId(TableGroupJBuild4DSystemSettingRelevance);
+        jBuild4DSystemSettingRelevance.setTableGroupParentId(IDbLinkService.JBUILD4DC_SSO_DB_LINK_ID);
+        jBuild4DSystemSettingRelevance.setTableGroupIsSystem(TrueFalseEnum.True.getDisplayName());
+        jBuild4DSystemSettingRelevance.setTableGroupText("系统设置相关表");
+        jBuild4DSystemSettingRelevance.setTableGroupValue("系统设置相关表");
+        jBuild4DSystemSettingRelevance.setTableGroupLinkId(dbLinkService.JBUILD4DC_SSO_DB_LINK_ID);
+        this.saveSimple(jb4DCSession, TableGroupJBuild4DSystemSettingRelevance,jBuild4DSystemSettingRelevance);
+
+        tableService.registerSystemTableToBuilderToModule(jb4DCSession,"TSYS_DICTIONARY_GROUP",jBuild4DSystemSettingRelevance);
+        tableService.registerSystemTableToBuilderToModule(jb4DCSession,"TSYS_DICTIONARY",jBuild4DSystemSettingRelevance);
+        tableService.registerSystemTableToBuilderToModule(jb4DCSession,"TSYS_OPERATION_LOG",jBuild4DSystemSettingRelevance);
+        tableService.registerSystemTableToBuilderToModule(jb4DCSession,"TSYS_SETTING",jBuild4DSystemSettingRelevance);
+        tableService.registerSystemTableToBuilderToModule(jb4DCSession,"TSYS_HISTORY_DATA",jBuild4DSystemSettingRelevance);
+
+        String TableGroupJBuild4DSystemFileRelevance ="TABLE_GROUP_JBUILD4DC_FILES_GROUP_ID";
+        deleteByKeyNotValidate(jb4DCSession, TableGroupJBuild4DSystemFileRelevance, JBuild4DCYaml.getWarningOperationCode());
+        TableGroupEntity jBuild4DSystemFileRelevance=new TableGroupEntity();
+        jBuild4DSystemFileRelevance.setTableGroupId(TableGroupJBuild4DSystemFileRelevance);
+        jBuild4DSystemFileRelevance.setTableGroupParentId(IDbLinkService.JBUILD4DC_SSO_DB_LINK_ID);
+        jBuild4DSystemFileRelevance.setTableGroupIsSystem(TrueFalseEnum.True.getDisplayName());
+        jBuild4DSystemFileRelevance.setTableGroupText("文件存储相关表");
+        jBuild4DSystemFileRelevance.setTableGroupValue("文件存储相关表");
+        jBuild4DSystemFileRelevance.setTableGroupLinkId(dbLinkService.JBUILD4DC_SSO_DB_LINK_ID);
+        this.saveSimple(jb4DCSession, TableGroupJBuild4DSystemFileRelevance,jBuild4DSystemFileRelevance);
+
+        tableService.registerSystemTableToBuilderToModule(jb4DCSession,"TFS_FILE_INFO",jBuild4DSystemFileRelevance);
+        tableService.registerSystemTableToBuilderToModule(jb4DCSession,"TFS_FILE_CONTENT",jBuild4DSystemFileRelevance);
+        tableService.registerSystemTableToBuilderToModule(jb4DCSession,"TFS_FILE_REF",jBuild4DSystemFileRelevance);
+    }
+
+    private void initBuilderSystemTableToBuilderSystem(JB4DCSession jb4DCSession) throws JBuild4DCGenerallyException {
+        //开发示例相关表
+        String TableGroup_DevDemo="TABLE_GROUP_JBUILD4DC_BUILDER_GROUP_ID";
+        deleteByKeyNotValidate(jb4DCSession,TableGroup_DevDemo, JBuild4DCYaml.getWarningOperationCode());
+        TableGroupEntity jBuild4DSystemDevDemo=new TableGroupEntity();
+        jBuild4DSystemDevDemo.setTableGroupId(TableGroup_DevDemo);
+        jBuild4DSystemDevDemo.setTableGroupParentId(IDbLinkService.JBUILD4DC_BUILDER_DB_LINK_ID);
+        jBuild4DSystemDevDemo.setTableGroupIsSystem(TrueFalseEnum.True.getDisplayName());
+        jBuild4DSystemDevDemo.setTableGroupText("系统默认相关表");
+        jBuild4DSystemDevDemo.setTableGroupValue("应用构建默认相关表");
+        jBuild4DSystemDevDemo.setTableGroupLinkId(dbLinkService.JBUILD4DC_BUILDER_DB_LINK_ID);
+        this.saveSimple(jb4DCSession,TableGroup_DevDemo,jBuild4DSystemDevDemo);
+
+        tableService.registerSystemTableToBuilderToModule(jb4DCSession,"TBUILD_DB_LINK",jBuild4DSystemDevDemo);
+        tableService.registerSystemTableToBuilderToModule(jb4DCSession,"TBUILD_TABLE_GROUP",jBuild4DSystemDevDemo);
+        tableService.registerSystemTableToBuilderToModule(jb4DCSession,"TBUILD_TABLE",jBuild4DSystemDevDemo);
+        tableService.registerSystemTableToBuilderToModule(jb4DCSession,"TBUILD_TABLE_FIELD",jBuild4DSystemDevDemo);
+        tableService.registerSystemTableToBuilderToModule(jb4DCSession,"TBUILD_TABLE_RELATION_GROUP",jBuild4DSystemDevDemo);
+        tableService.registerSystemTableToBuilderToModule(jb4DCSession,"TBUILD_TABLE_RELATION",jBuild4DSystemDevDemo);
+        tableService.registerSystemTableToBuilderToModule(jb4DCSession,"TBUILD_TABLE_RELATION_HIS",jBuild4DSystemDevDemo);
+        tableService.registerSystemTableToBuilderToModule(jb4DCSession,"TBUILD_DATASET_GROUP",jBuild4DSystemDevDemo);
+        tableService.registerSystemTableToBuilderToModule(jb4DCSession,"TBUILD_DATASET",jBuild4DSystemDevDemo);
+        tableService.registerSystemTableToBuilderToModule(jb4DCSession,"TBUILD_DATASET_COLUMN",jBuild4DSystemDevDemo);
+        tableService.registerSystemTableToBuilderToModule(jb4DCSession,"TBUILD_DATASET_RELATED_TABLE",jBuild4DSystemDevDemo);
+        tableService.registerSystemTableToBuilderToModule(jb4DCSession,"TBUILD_MODULE",jBuild4DSystemDevDemo);
+        tableService.registerSystemTableToBuilderToModule(jb4DCSession,"TBUILD_FLOW_MODEL",jBuild4DSystemDevDemo);
+        tableService.registerSystemTableToBuilderToModule(jb4DCSession,"TBUILD_FORM_CONFIG",jBuild4DSystemDevDemo);
+        tableService.registerSystemTableToBuilderToModule(jb4DCSession,"TBUILD_FORM_RESOURCE",jBuild4DSystemDevDemo);
+        tableService.registerSystemTableToBuilderToModule(jb4DCSession,"TBUILD_LIST_RESOURCE",jBuild4DSystemDevDemo);
+    }
+
+    @Override
+    public void initSystemData(JB4DCSession jb4DSession) throws JBuild4DCGenerallyException {
+        this.initDevMockSystemTableToBuilderSystem(jb4DSession);
+        this.initSSOSystemTableToBuilderSystem(jb4DSession);
+        this.initBuilderSystemTableToBuilderSystem(jb4DSession);
     }
 
     @Override

@@ -178,7 +178,7 @@ public class TableRestTest extends TableGroupRestTest {
         tableEntity.setTableId(tableId);
         tableEntity.setTableCaption(tableCaption);
         tableEntity.setTableName(tableName);
-        tableEntity.setTableDbName("");
+        //tableEntity.setTableDbName("");
         tableEntity.setTableOrganId(jb4DSession.getOrganId());
         tableEntity.setTableCreateTime(new Date());
         tableEntity.setTableCreator(jb4DSession.getUserName());
