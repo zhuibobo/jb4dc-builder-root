@@ -2,6 +2,7 @@ package com.jb4dc.builder.webpackage.rest.builder;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.jb4dc.base.service.general.JB4DCSessionUtility;
+import com.jb4dc.builder.dbentities.datastorage.TableRelationGroupEntity;
 import com.jb4dc.builder.service.dataset.IDatasetGroupService;
 import com.jb4dc.builder.service.datastorage.IDbLinkService;
 import com.jb4dc.builder.service.datastorage.ITableFieldService;
@@ -49,7 +50,9 @@ public class InitializationSystemRest {
 
         tableFieldService.createTableFieldTemplates(jb4DSession);
 
-        tableRelationGroupService.createRootNode(jb4DSession);
+        TableRelationGroupEntity rootTableRelationGroupEntity=tableRelationGroupService.createRootNode(jb4DSession);
+
+        tableRelationGroupService.createSystemTableRelationGroupNode(jb4DSession,rootTableRelationGroupEntity);
 
         datasetGroupService.createRootNode(jb4DSession);
 

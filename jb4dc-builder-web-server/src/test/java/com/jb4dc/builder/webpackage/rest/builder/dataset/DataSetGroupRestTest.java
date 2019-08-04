@@ -45,11 +45,11 @@ public class DataSetGroupRestTest extends RestTestBase {
             requestBuilder.sessionAttr(JB4DCSessionUtility.UserLoginSessionKey, getSession());
             DatasetGroupEntity groupEntity=new DatasetGroupEntity();
             groupEntity.setDsGroupId(devGroupId);
-            groupEntity.setDsGroupValue("DevGroupValue");
-            groupEntity.setDsGroupText("DevGroupText");
+            groupEntity.setDsGroupValue("UnitTestDataSetGroup");
+            groupEntity.setDsGroupText("单元测试分组");
             groupEntity.setDsGroupOrderNum(0);
             groupEntity.setDsGroupCreateTime(new Date());
-            groupEntity.setDsGroupDesc("DevGroupDesc");
+            groupEntity.setDsGroupDesc("UnitTestDataSetGroup");
             groupEntity.setDsGroupStatus(EnableTypeEnum.enable.getDisplayName());
             groupEntity.setDsGroupParentId(datasetGroupService.getRootId());
             groupEntity.setDsGroupIsSystem(TrueFalseEnum.False.getDisplayName());

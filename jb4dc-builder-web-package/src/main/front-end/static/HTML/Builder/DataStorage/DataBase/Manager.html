@@ -237,7 +237,7 @@
                     AjaxUtility.Post(this.acInterface.getGroupTreeData, {dbLinkId: dbLinkId}, function (result) {
                         if (result.success) {
                             if (result.data != null && result.data.length > 0) {
-                                console.table(result.data);
+                                //console.table(result.data);
                                 for (var i = 0; i < result.data.length; i++) {
                                     if (result.data[i].tableGroupIsSystem == "是" && result.data[i].tableGroupChildCount == 0) {
                                         result.data[i].icon = "../../../../Themes/Png16X16/database_key.png";

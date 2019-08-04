@@ -143,9 +143,9 @@
             data:{
                 isSubmitting:false,
                 acInterface:{
-                    getDataUrl:"/PlatFormRest/Builder/DataSet/DataSetMain/GetDataSetData",
-                    saveDataUrl:"/PlatFormRest/Builder/DataSet/DataSetMain/SaveDataSetEdit",
-                    loadApiDataUrl:"/PlatFormRest/Builder/DataSet/DataSetMain/GetApiDataSetVoStructure"
+                    getDataUrl:"/Rest/Builder/DataSet/DataSetMain/GetDataSetData",
+                    saveDataUrl:"/Rest/Builder/DataSet/DataSetMain/SaveDataSetEdit",
+                    loadApiDataUrl:"/Rest/Builder/DataSet/DataSetMain/GetApiDataSetVoStructure"
                 },
                 currUserEntity:null,
                 ruleValidate: {
@@ -344,7 +344,7 @@
                         else {
                             DialogUtility.Alert(window, DialogUtility.DialogAlertId, {}, result.message, null);
                         }
-                    },"json");
+                    },this);
                 },
                 addColumn:function(){
                     this.editTableObj.AddEditingRowByTemplate();
@@ -414,7 +414,7 @@
                                     DialogUtility.Frame_CloseDialog(window);
                                 }
                             });
-                        }, "json");
+                        },this);
                     }
                 },
                 handleClose: function () {
@@ -488,7 +488,7 @@
                         else {
                             DialogUtility.Alert(window, DialogUtility.DialogAlertId, {}, result.message, null);
                         }
-                    },"json");
+                    },this);
                 },
                 loadRestDataSetVo:function () {
 
