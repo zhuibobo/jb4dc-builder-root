@@ -42,7 +42,7 @@
             <row>
                 <i-col span="10">
                     <form-item>
-                        <radio-group v-model="formEntity.moduleIssystem">
+                        <radio-group v-model="formEntity.moduleIsSystem">
                             <radio label="是">是</radio>
                             <radio label="否">否</radio>
                         </radio-group>
@@ -77,8 +77,8 @@
         el:"#appForm",
         data: {
             acInterface:{
-                getDataUrl:"/PlatFormRest/Builder/Module/GetDetailData",
-                saveDataUrl:"/PlatFormRest/Builder/Module/SaveEdit"
+                getDataUrl:"/Rest/Builder/Module/GetDetailData",
+                saveDataUrl:"/Rest/Builder/Module/SaveEdit"
             },
             recordId:BaseUtility.GetUrlParaValue("recordId"),
             formEntity: {
@@ -89,7 +89,7 @@
                 moduleDesc: "",
                 moduleParentId: BaseUtility.GetUrlParaValue("parentId"),
                 moduleStatus: "启用",
-                moduleIssystem: "否",
+                moduleIsSystem: "否",
                 moduleDelEnable: "是"
             },
             ruleValidate: {
@@ -128,7 +128,7 @@
                                 }
                                 DialogUtility.Frame_CloseDialog(window);
                             });
-                        }, "json");
+                        },this);
                     } else {
                         this.$Message.error('Fail!');
                     }

@@ -98,7 +98,7 @@ public class DataSetMainRestTest extends DataSetSQLDesignerRestTest {
     public void deleteSQLDataSet() throws Exception{
         addSQLDataSet();
         MockHttpServletRequestBuilder requestBuilder = post("/PlatForm/Builder/DataSet/DataSetMain/DeleteDataSet.do");
-        requestBuilder.sessionAttr("JB4DSession", getSession());
+        requestBuilder.sessionAttr(JB4DCSessionUtility.UserLoginSessionKey, getSession());
         requestBuilder.param("dataSetId",dataSetId);
         MvcResult result = mockMvc.perform(requestBuilder).andReturn();
         String json = result.getResponse().getContentAsString();
