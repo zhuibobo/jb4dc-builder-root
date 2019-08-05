@@ -97,19 +97,6 @@ gulp.task('html-design-plugins-less',()=>{
         .pipe(gulp.dest(distPath+'/Themes/Default/Css'));
 });
 
-gulp.task('html-design-all', gulp.series('html-design-utility','html-design-ckeditor-config','html-design-plugins','html-design-plugins-html','html-design-plugins-less'));
-
-/*编译Themes下的Less文件*/
-gulp.task('less',()=>{
-    return gulp.src(sourcePath+"/Themes/Default/Css/*.less")
-        .pipe(sourcemaps.init())
-        .pipe(less({
-            paths: [ path.join(__dirname, 'less', 'includes') ]
-        }))
-        .pipe(sourcemaps.write())
-        .pipe(gulp.dest(distPath+'/Themes/Default/Css'));
-});
-
 /*表单设计器的运行时JS库*/
 gulp.task('html-design-runtime-full-js',()=>{
     return gulp.src([sourcePath + '/Js/HTMLDesignRuntime/**/*.js'])
@@ -127,6 +114,19 @@ gulp.task('html-design-runtime-full-js',()=>{
         .pipe(gulp.dest(distPath + "/Js"));
 });
 
+/*编译Themes下的Less文件*/
+gulp.task('less',()=>{
+    return gulp.src(sourcePath+"/Themes/Default/Css/*.less")
+        .pipe(sourcemaps.init())
+        .pipe(less({
+            paths: [ path.join(__dirname, 'less', 'includes') ]
+        }))
+        .pipe(sourcemaps.write())
+        .pipe(gulp.dest(distPath+'/Themes/Default/Css'));
+});
+
+gulp.task('html-design-all', gulp.series('html-design-utility','html-design-ckeditor-config','html-design-plugins','html-design-plugins-html','html-design-runtime-full-js','less'));
+
 gulp.task('html-only',()=>{
     //gulp.src(jarFromResourcePath+"/HTML/**/*", {base:jarFromResourcePath+"/HTML"}).pipe(gulp.dest(jarToResourcePath+"/HTML"))
     return copyAndResolveHtml(sourcePath + "/HTML/**/*.html",sourcePath + "/HTML",distPath + "/HTML");
@@ -139,8 +139,9 @@ gulp.task('html-only',()=>{
 });
 
 gulp.task('dist-watch', function() {
-    gulp.watch(sourcePath+"/HTML/**/*", gulp.series('html-only'));
-    gulp.watch(sourcePath + "/Js/VueComponent/**/*.js", gulp.series('js-vue-ex-component'));
+    //gulp.watch(sourcePath+"/HTML/**/*", gulp.series('html-only'));
+    //gulp.watch(sourcePath + "/Js/VueComponent/**/*.js", gulp.series('js-vue-ex-component'));
+    gulp.watch(sourcePath+"/**/*", gulp.series('html-design-all','html-only','js-vue-ex-component','js-ui-component'));
 });
 
 //endregion

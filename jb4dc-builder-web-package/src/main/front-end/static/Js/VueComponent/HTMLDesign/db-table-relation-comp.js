@@ -593,7 +593,7 @@ Vue.component("db-table-relation-comp", {
                             <i-option :value="item.dbId" v-for="item in selectTableTree.dbLinkEntities">{{item.dbLinkName}}</i-option>
                         </i-select>
                     </i-input>
-                    <ul id="selectTableZTreeUL" class="ztree" style="height: 500px;overflow-y:scroll;overflow-x:hidden"></ul>
+                    <ul id="selectTableZTreeUL" class="ztree div-custom-scroll" style="height: 500px;overflow-y:scroll;overflow-x:hidden"></ul>
                 </div>
               </div>`
 });

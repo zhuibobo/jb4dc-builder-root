@@ -18,6 +18,12 @@
         .cke_button_label {
             display:inline !important;
         }
+        /* Based on Sublime Text's Monokai theme */
+
+        .cm-s-monokai div.CodeMirror-selected { background: #69685d; }
+        .cm-s-monokai .CodeMirror-line::selection, .cm-s-monokai .CodeMirror-line > span::selection, .cm-s-monokai .CodeMirror-line > span > span::selection { background: rgba(255,210,77, 0.99); }
+        .cm-s-monokai .CodeMirror-line::-moz-selection, .cm-s-monokai .CodeMirror-line > span::-moz-selection, .cm-s-monokai .CodeMirror-line > span > span::-moz-selection { background: rgba(255,210,77, 0.99); }
+
     </style>
 </head>
 <body>
@@ -210,6 +216,7 @@
         },
         mounted:function () {
             this.initPageUI();
+            BaseUtility.SetSystemFavicon();
             //this.bindStatusData();
         },
         methods: {
