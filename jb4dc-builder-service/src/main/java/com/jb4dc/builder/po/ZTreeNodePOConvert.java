@@ -5,6 +5,8 @@ import com.jb4dc.builder.dbentities.dataset.DatasetEntity;
 import com.jb4dc.builder.dbentities.dataset.DatasetGroupEntity;
 import com.jb4dc.builder.dbentities.datastorage.TableEntity;
 import com.jb4dc.builder.dbentities.datastorage.TableGroupEntity;
+import com.jb4dc.builder.dbentities.module.ModuleEntity;
+import com.jb4dc.builder.dbentities.webform.FormResourceEntity;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -79,11 +81,11 @@ public class ZTreeNodePOConvert extends ZTreeNodePO {
         return result;
     }
 
-    /*public static List<ZTreeNodePO> parseWebFormToZTreeNodeList(List<ModuleEntity> moduleEntityList, List<FormResourceEntity> formResourceEntityList) {
-        Map<String,ModuleEntity> temp=new HashMap<>();
-        List<ZTreeNodeVo> result=new ArrayList<>();
+    public static List<ZTreeNodePO> parseWebFormToZTreeNodeList(List<ModuleEntity> moduleEntityList, List<FormResourceEntity> formResourceEntityList) {
+        Map<String, ModuleEntity> temp=new HashMap<>();
+        List<ZTreeNodePO> result=new ArrayList<>();
         for (ModuleEntity moduleEntity : moduleEntityList) {
-            ZTreeNodeVo nodeVo=new ZTreeNodeVo();
+            ZTreeNodePO nodeVo=new ZTreeNodePO();
             nodeVo.setId(moduleEntity.getModuleId());
             nodeVo.setValue(moduleEntity.getModuleValue());
             nodeVo.setText(moduleEntity.getModuleText());
@@ -97,7 +99,7 @@ public class ZTreeNodePOConvert extends ZTreeNodePO {
         }
 
         for (FormResourceEntity formResourceEntity : formResourceEntityList) {
-            ZTreeNodeVo nodeVo=new ZTreeNodeVo();
+            ZTreeNodePO nodeVo=new ZTreeNodePO();
             nodeVo.setId(formResourceEntity.getFormId());
             nodeVo.setValue(formResourceEntity.getFormId());
             nodeVo.setText(formResourceEntity.getFormName()+"【"+formResourceEntity.getFormCode()+"】");
@@ -112,5 +114,5 @@ public class ZTreeNodePOConvert extends ZTreeNodePO {
         }
 
         return result;
-    }*/
+    }
 }

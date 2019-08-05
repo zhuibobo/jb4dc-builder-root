@@ -4,6 +4,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping(value = "/PlatFormRest/Builder/DataStorage/TableRelation/TableRelationHistory")
+@RequestMapping(value = "/Rest/Builder/DataStorage/TableRelation/TableRelationHistory")
 public class TableRelationHistoryRest {
 }

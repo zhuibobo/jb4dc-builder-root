@@ -67,7 +67,7 @@ Vue.component("inner-form-button-list-comp", {
             },
             api:{
                 acInterface: {
-                    getButtonApiConfig: "/PlatFormRest/Builder/Button/ButtonApi/GetButtonApiConfig",
+                    getButtonApiConfig: "/Rest/Builder/Button/ButtonApi/GetButtonApiConfig",
                 },
                 apiSelectData:null,
                 editTableObject:null,
@@ -100,7 +100,7 @@ Vue.component("inner-form-button-list-comp", {
             },
             field:{
                 acInterface: {
-                    getFormMainTableFields: "/PlatFormRest/Builder/Form/GetFormMainTableFields",
+                    getFormMainTableFields: "/Rest/Builder/Form/GetFormMainTableFields",
                 },
                 editTableObject:null,
                 editTableConfig:{

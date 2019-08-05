@@ -13,7 +13,9 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.AutowireCapableBeanFactory;
+import org.springframework.stereotype.Service;
 
+@Service
 public class HTMLRuntimeResolveImpl implements IHTMLRuntimeResolve {
 
     @Autowired

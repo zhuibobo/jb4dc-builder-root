@@ -19,7 +19,7 @@ import java.util.List;
  */
 public class CKEditorPluginsConfigService {
 
-    String configResource= "/config/builder/htmldesign/CKEditorPluginsConfig.xml";
+    String configResource= "/config/builder/htmldesign/ckeditor-plugins-config.xml";
     Document xmlDocument=null;
     //IJb4dCacheService jb4dCacheService;
 

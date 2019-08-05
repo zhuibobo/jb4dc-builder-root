@@ -21,36 +21,25 @@
     <artifactId>jb4dc-builder-root</artifactId>
     <packaging>pom</packaging>
     <dependencies>
-        <dependency>
-            <groupId>jb4dc</groupId>
-            <artifactId>jb4dc-web-app-starter</artifactId>
-            <version>${platform.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>jb4dc</groupId>
-            <artifactId>jb4dc-sso-client</artifactId>
-            <version>${platform.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>jb4dc</groupId>
-            <artifactId>jb4dc-code-generate-service</artifactId>
-            <version>${platform.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-openfeign</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-eureka</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.jsoup</groupId>
-            <artifactId>jsoup</artifactId>
-        </dependency>
+
     </dependencies>
     <dependencyManagement>
         <dependencies>
+            <dependency>
+                <groupId>jb4dc</groupId>
+                <artifactId>jb4dc-web-app-starter</artifactId>
+                <version>${platform.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>jb4dc</groupId>
+                <artifactId>jb4dc-sso-client</artifactId>
+                <version>${platform.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>jb4dc</groupId>
+                <artifactId>jb4dc-code-generate-service</artifactId>
+                <version>${platform.version}</version>
+            </dependency>
             <dependency>
                 <groupId>jb4dc</groupId>
                 <artifactId>jb4dc-builder-client</artifactId>

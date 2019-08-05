@@ -45,6 +45,60 @@ gulp.task('js-ui-component',()=>{
         .pipe(gulp.dest(distPath + "/Js"));
 });
 
+
+/*HTML设计的基础的工具类*/
+gulp.task('html-design-utility',()=> {
+    return gulp.src([
+        sourcePath + "/Js/HTMLDesign/*.js"
+    ])
+        .pipe(babel())
+        .pipe(sourcemaps.init())
+        .pipe(concat('HTMLDesignUtility.js'))
+        .pipe(sourcemaps.write())
+        .pipe(gulp.dest(distPath + "/Js/HTMLDesign"));
+});
+
+/*CKEditor的配置文件*/
+gulp.task('html-design-ckeditor-config',()=> {
+    return gulp.src([
+        sourcePath + "/Js/HTMLDesign/CKEditorConfig/*.js"
+    ])
+        .pipe(babel())
+        .pipe(sourcemaps.init())
+        .pipe(concat('CKEditorConfig.js'))
+        .pipe(sourcemaps.write())
+        .pipe(gulp.dest(distPath + "/Js/HTMLDesign/CKEditorConfig"));
+});
+
+/*WebForm相关的插件*/
+gulp.task('html-design-plugins',()=>{
+    return gulp.src([
+        sourcePath + "/Js/HTMLDesign/**/Plugins/**/*.js",
+        sourcePath + "/Js/HTMLDesign/**/Plugins/**/*.css",
+        sourcePath + "/Js/HTMLDesign/**/Plugins/**/*.png"
+    ], {base: sourcePath+"/Js/HTMLDesign/**/Plugins"}).
+    pipe(gulp.dest(distPath + "/Js/HTMLDesign/**/Plugins"));
+});
+
+/*编译表单设计器插件的相关的HTML文件*/
+gulp.task('html-design-plugins-html',()=>{
+    return copyAndResolveHtml(sourcePath + "/Js/HTMLDesign/**/*.html",sourcePath + "/Js/HTMLDesign",distPath + "/Js/HTMLDesign");
+});
+
+/*编译表单设计器插件的相关Less文件*/
+gulp.task('html-design-plugins-less',()=>{
+    return gulp.src(sourcePath+"/Js/HTMLDesign/**/*.less")
+        .pipe(sourcemaps.init())
+        .pipe(less({
+            paths: [ path.join(__dirname, 'less', 'includes') ]
+        }))
+        .pipe(sourcemaps.write())
+        .pipe(concat('HTMLDesignWysiwygForPlugins.css'))
+        .pipe(gulp.dest(distPath+'/Themes/Default/Css'));
+});
+
+gulp.task('html-design-all', gulp.series('html-design-utility','html-design-ckeditor-config','html-design-plugins','html-design-plugins-html','html-design-plugins-less'));
+
 gulp.task('html-only',()=>{
     //gulp.src(jarFromResourcePath+"/HTML/**/*", {base:jarFromResourcePath+"/HTML"}).pipe(gulp.dest(jarToResourcePath+"/HTML"))
     return copyAndResolveHtml(sourcePath + "/HTML/**/*.html",sourcePath + "/HTML",distPath + "/HTML");

@@ -11,5 +11,10 @@
 
     <artifactId>jb4dc-builder-pojo</artifactId>
 
-
+    <dependencies>
+        <dependency>
+            <groupId>jb4dc</groupId>
+            <artifactId>jb4dc-web-app-starter</artifactId>
+        </dependency>
+    </dependencies>
 </project>

@@ -5,9 +5,9 @@ Vue.component("fd-control-select-bind-to-single-field-dialog", {
         var _self=this;
         return {
             acInterface: {
-                getTablesDataUrl: "/PlatFormRest/Builder/DataStorage/DataBase/Table/GetTablesForZTreeNodeList",
-                getTableFieldsDataUrl: "/PlatFormRest/Builder/DataStorage/DataBase/Table/GetTableFieldsByTableId",
-                getTablesFieldsByTableIds:"/PlatFormRest/Builder/DataStorage/DataBase/Table/GetTablesFieldsByTableIds"
+                getTablesDataUrl: "/Rest/Builder/DataStorage/DataBase/Table/GetTablesForZTreeNodeList",
+                getTableFieldsDataUrl: "/Rest/Builder/DataStorage/DataBase/Table/GetTableFieldsByTableId",
+                getTablesFieldsByTableIds:"/Rest/Builder/DataStorage/DataBase/Table/GetTablesFieldsByTableIds"
             },
             selectedData: {
                 tableId: "",

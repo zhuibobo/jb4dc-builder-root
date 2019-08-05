@@ -2,7 +2,6 @@ package com.jb4dc.builder.service.webform.impl;
 
 import com.jb4dc.base.dbaccess.exenum.TrueFalseEnum;
 import com.jb4dc.base.service.IAddBefore;
-import com.jb4dc.base.service.ISQLBuilderService;
 import com.jb4dc.base.service.impl.BaseServiceImpl;
 import com.jb4dc.builder.dao.webform.FormResourceMapper;
 import com.jb4dc.builder.dbentities.webform.FormResourceEntity;
@@ -12,8 +11,8 @@ import com.jb4dc.builder.service.module.IModuleService;
 import com.jb4dc.builder.service.webform.IFormResourceService;
 import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
 import com.jb4dc.core.base.session.JB4DCSession;
-import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.Date;
 
@@ -23,6 +22,7 @@ import java.util.Date;
  * Date: 2018/11/13
  * To change this template use File | Settings | File Templates.
  */
+@Service
 public class FormResourceServiceImpl extends BaseServiceImpl<FormResourceEntity> implements IFormResourceService {
     FormResourceMapper formResourceMapper;
     IModuleService moduleService;

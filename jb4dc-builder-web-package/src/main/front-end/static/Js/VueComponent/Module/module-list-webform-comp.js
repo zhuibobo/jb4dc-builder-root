@@ -6,9 +6,9 @@ Vue.component("module-list-webform-comp", {
         return {
             acInterface:{
                 editView: "/HTML/Builder/Form/FormDesign.html",
-                reloadData: "/PlatFormRest/Builder/Form/GetListData",
-                delete: "/PlatFormRest/Builder/Form/Delete",
-                move: "/PlatFormRest/Builder/Form/Move",
+                reloadData: "/Rest/Builder/Form/GetListData",
+                delete: "/Rest/Builder/Form/Delete",
+                move: "/Rest/Builder/Form/Move",
             },
             idFieldName: "formId",
             searchCondition: {
@@ -118,9 +118,24 @@ Vue.component("module-list-webform-comp", {
         reloadData: function () {
             if(this.moduleData!=null&&this.activeTabName=="list-webform") {
                 this.searchCondition.formModuleId.value = this.moduleData.moduleId;
-                ListPageUtility.IViewTableLoadDataSearch(this.acInterface.reloadData, this.pageNum, this.pageSize, this.searchCondition, this, this.idFieldName, true, function (result,pageAppObj) {
+                /*ListPageUtility.IViewTableLoadDataSearch(this.acInterface.reloadData, this.pageNum, this.pageSize, this.searchCondition, this, this.idFieldName, true, function (result,pageAppObj) {
                     pageAppObj.tableDataOriginal=result.data.list;
-                },false);
+                },false);*/
+                ListPageUtility.IViewTableBindDataBySearch({
+                    url: this.acInterface.reloadData,
+                    pageNum: this.pageNum,
+                    pageSize: this.pageSize,
+                    searchCondition: this.searchCondition,
+                    pageAppObj: this,
+                    tableList: this,
+                    idField: this.idFieldName,
+                    autoSelectedOldRows: true,
+                    successFunc: function (result,pageAppObj) {
+                        pageAppObj.tableDataOriginal=result.data.list;
+                    },
+                    loadDict: false,
+                    custParas: {}
+                });
             }
         },
         add: function () {

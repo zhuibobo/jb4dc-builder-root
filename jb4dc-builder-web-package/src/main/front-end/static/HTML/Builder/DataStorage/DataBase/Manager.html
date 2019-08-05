@@ -233,7 +233,7 @@
                     //this.treeObj=$.fn.zTree.init($("#ztreeUL"), this.treeSetting);
                     var _self = this;
                     //debugger;
-                    //var url = '/PlatFormRest/Builder/DataSet/DataSetSQLDesigner/GetTableField.do';
+                    //var url = '/Rest/Builder/DataSet/DataSetSQLDesigner/GetTableField.do';
                     AjaxUtility.Post(this.acInterface.getGroupTreeData, {dbLinkId: dbLinkId}, function (result) {
                         if (result.success) {
                             if (result.data != null && result.data.length > 0) {

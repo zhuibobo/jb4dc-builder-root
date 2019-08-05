@@ -2,6 +2,7 @@
   <dictionary name="BBHOME">
     <words>
       <w>apivariable</w>
+      <w>ckeditor</w>
       <w>cust</w>
       <w>datastorage</w>
       <w>dbentities</w>
@@ -13,6 +14,7 @@
       <w>tbuild</w>
       <w>tsso</w>
       <w>tsys</w>
+      <w>webform</w>
       <w>zhuangrb</w>
     </words>
   </dictionary>
