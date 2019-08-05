@@ -65,7 +65,7 @@ CKEDITOR.editorConfig = function(config) {
         }
     }
 
-    inputCssArray.push(BaseUtility.GetRootPath()+"/static/Themes/Default/Css/HTMLDesignWysiwygMain.css");
+    inputCssArray.push(BaseUtility.GetRootPath()+"/Themes/Default/Css/HTMLDesignWysiwygMain.css");
     config.contentsCss = inputCssArray;//['','../../../Themes/Default/Css/HTMLDesignWysiwyg.css','../../../Themes/Default/Css/Jbuild4dPlatform.css'];
     //config.contentsCss =
     //,Source

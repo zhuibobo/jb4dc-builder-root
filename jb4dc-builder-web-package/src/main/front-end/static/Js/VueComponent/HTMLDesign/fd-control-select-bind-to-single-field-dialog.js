@@ -241,7 +241,7 @@ Vue.component("fd-control-select-bind-to-single-field-dialog", {
                 else {
                     DialogUtility.Alert(window, DialogUtility.DialogAlertId, {}, result.message, null);
                 }
-            }, "json");
+            },this);
         },
         filterAllFieldsToTable:function(tableId){
             if(tableId) {
@@ -272,7 +272,7 @@ Vue.component("fd-control-select-bind-to-single-field-dialog", {
                 else {
                     DialogUtility.Alert(window, DialogUtility.DialogAlertId, {}, result.message, null);
                 }
-            },"json");
+            },this);
         },
         bindFieldTable:function(){
             var _self=this;
@@ -295,7 +295,7 @@ Vue.component("fd-control-select-bind-to-single-field-dialog", {
                     else {
                         DialogUtility.Alert(window, DialogUtility.DialogAlertId, {}, result.message, null);
                     }
-                },"json");
+                },this);
             }
             else{
                 DialogUtility.Alert(window, DialogUtility.DialogAlertId, {}, "请先选择表!", null);

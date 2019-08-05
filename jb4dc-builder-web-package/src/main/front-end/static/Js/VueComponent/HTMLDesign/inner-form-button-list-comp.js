@@ -298,7 +298,7 @@ Vue.component("inner-form-button-list-comp", {
                 _self.field.editTableConfig.Templates[1].ClientDataSource=fieldsData;
                 _self.field.editTableObject = Object.create(EditTable);
                 _self.field.editTableObject.Initialization(_self.field.editTableConfig);
-            },"json");
+            },this);
         },
         addField:function(){
             this.field.editTableObject.AddEditingRowByTemplate();
@@ -361,7 +361,7 @@ Vue.component("inner-form-button-list-comp", {
                 _self.api.editTableConfig.Templates[0].ClientDataSource=apiSelectData;
                 _self.api.editTableObject = Object.create(EditTable);
                 _self.api.editTableObject.Initialization(_self.api.editTableConfig);
-            },"json");
+            },this);
         },
         addAPI:function () {
             this.api.editTableObject.AddEditingRowByTemplate();

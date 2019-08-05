@@ -239,7 +239,7 @@
                             else {
                                 DialogUtility.Alert(window, DialogUtility.DialogAlertId, {}, result.message,null);
                             }
-                        }, "json");
+                        },this);
                     }
                 },
                 saveEditTable:function () {
@@ -284,7 +284,7 @@
                                     DialogUtility.Frame_CloseDialog(window);
                                 }
                             });
-                        }, "json");
+                        },this);
                     }
                 },
                 handleClose: function () {

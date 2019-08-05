@@ -99,6 +99,34 @@ gulp.task('html-design-plugins-less',()=>{
 
 gulp.task('html-design-all', gulp.series('html-design-utility','html-design-ckeditor-config','html-design-plugins','html-design-plugins-html','html-design-plugins-less'));
 
+/*编译Themes下的Less文件*/
+gulp.task('less',()=>{
+    return gulp.src(sourcePath+"/Themes/Default/Css/*.less")
+        .pipe(sourcemaps.init())
+        .pipe(less({
+            paths: [ path.join(__dirname, 'less', 'includes') ]
+        }))
+        .pipe(sourcemaps.write())
+        .pipe(gulp.dest(distPath+'/Themes/Default/Css'));
+});
+
+/*表单设计器的运行时JS库*/
+gulp.task('html-design-runtime-full-js',()=>{
+    return gulp.src([sourcePath + '/Js/HTMLDesignRuntime/**/*.js'])
+        .pipe(babel({
+            presets: ['@babel/env'],
+        }))
+        .pipe(sourcemaps.init())
+        .pipe(concat('HTMLDesignRuntimeFull.js'))
+        /*.pipe(uglify(
+            {
+                compress: {drop_debugger: false}
+            }
+        ))*/
+        .pipe(sourcemaps.write())
+        .pipe(gulp.dest(distPath + "/Js"));
+});
+
 gulp.task('html-only',()=>{
     //gulp.src(jarFromResourcePath+"/HTML/**/*", {base:jarFromResourcePath+"/HTML"}).pipe(gulp.dest(jarToResourcePath+"/HTML"))
     return copyAndResolveHtml(sourcePath + "/HTML/**/*.html",sourcePath + "/HTML",distPath + "/HTML");

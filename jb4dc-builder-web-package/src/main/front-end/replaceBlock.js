@@ -10,10 +10,10 @@ function calculateFilePath(file) {
     let levelPathArray = repath[1].split("\\");
     //console.log(levelPathArray.length);
     let levelPath = "";
-    if(file.path.indexOf("HTMLDesign")>0){
+    //if(file.path.indexOf("HTMLDesign")>0){
         //由于HTML下的经过Spring的映射,少了static一层,所以js下的html再加上一层回退
-        levelPath="../";
-    }
+    //    levelPath="../";
+    //}
     for (let i = 0; i < levelPathArray.length-1; i++) {
         levelPath += "../";
     }

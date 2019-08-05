@@ -195,7 +195,7 @@ Vue.component("db-table-relation-comp", {
                     else {
                         DialogUtility.Alert(window, DialogUtility.DialogAlertId, {}, result.message, null);
                     }
-                },"json");
+                },this);
             }
             if(this.tempDataStore["tableField_"+tableId]){
                 return this.tempDataStore["tableField_"+tableId];
@@ -229,7 +229,7 @@ Vue.component("db-table-relation-comp", {
                 else {
                     DialogUtility.Alert(window, DialogUtility.DialogAlertId, {}, result.message, null);
                 }
-            }, "json");
+            },this);
         },
         bindSelectTableTree: function (isGetCookieOldSelected) {
             //debugger;

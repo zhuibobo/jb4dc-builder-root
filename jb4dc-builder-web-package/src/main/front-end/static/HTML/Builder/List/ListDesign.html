@@ -267,7 +267,7 @@
 
                     _self.$refs.jsDesignCodeFragment.setJSEditorInstance(JsEditorUtility.GetJsEditorInst());
 
-                },"json");
+                },this);
 
             },
             getTheme:function(value){
@@ -344,7 +344,7 @@
                                 successFunc(result);
                             }
                         });
-                    }, "json");
+                    },this);
                 }
                 else{
                     DialogUtility.AlertText(validateResult.msg.join("<br />"));
@@ -395,7 +395,7 @@
                         else {
                             DialogUtility.AlertText(result.message);
                         }
-                    },"json");
+                    },this);
                     return this.storeDataSet[dataSetId];
                 }
             }

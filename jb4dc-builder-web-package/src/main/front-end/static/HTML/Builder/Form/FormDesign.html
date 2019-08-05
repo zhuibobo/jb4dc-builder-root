@@ -292,7 +292,7 @@
 
 
 
-                },"json");
+                },this);
             },
             getTheme:function(value){
                 for(var i=0;i<this.designThemes.length;i++){
@@ -402,7 +402,7 @@
                                 successFunc(result);
                             }
                         });
-                    }, "json");
+                    },this);
                 }
                 else{
                     DialogUtility.AlertText(validateResult.msg.join("<br />"));
