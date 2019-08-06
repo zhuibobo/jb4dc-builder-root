@@ -127,7 +127,7 @@ gulp.task('less',()=>{
 
 gulp.task('html-design-all', gulp.series('html-design-utility','html-design-ckeditor-config','html-design-plugins','html-design-plugins-html','html-design-runtime-full-js','less'));
 
-gulp.task('html-only',()=>{
+gulp.task('html-template',()=>{
     //gulp.src(jarFromResourcePath+"/HTML/**/*", {base:jarFromResourcePath+"/HTML"}).pipe(gulp.dest(jarToResourcePath+"/HTML"))
     return copyAndResolveHtml(sourcePath + "/HTML/**/*.html",sourcePath + "/HTML",distPath + "/HTML");
     /*return gulp.src(jarFromResourcePath+"/HTML/!**!/!*.html", {base:jarFromResourcePath+"/HTML"}).pipe(htmlmin({
@@ -137,6 +137,8 @@ gulp.task('html-only',()=>{
         removeComments:true
     })).pipe(gulp.dest(jarToResourcePath+"/HTML"));*/
 });
+
+gulp.task('all', gulp.series('html-design-all','html-template','js-vue-ex-component','js-ui-component'));
 
 gulp.task('dist-watch', function() {
     //gulp.watch(sourcePath+"/HTML/**/*", gulp.series('html-only'));

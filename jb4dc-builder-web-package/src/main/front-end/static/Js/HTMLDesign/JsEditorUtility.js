@@ -29,7 +29,7 @@ class JsEditorUtility{
     }
 
     static InitializeJsCodeDesign (status) {
-        debugger;
+        //debugger;
         this._JsEditorInst=CodeMirror.fromTextArea($("#TextAreaJsEditor")[0], {
             //mode: "javascript",
             mode: "application/ld+json",

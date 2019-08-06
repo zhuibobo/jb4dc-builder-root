@@ -20,10 +20,6 @@
             <groupId>jb4dc</groupId>
             <artifactId>jb4dc-builder-pojo</artifactId>
         </dependency>
-        <dependency>
-            <groupId>jb4dc</groupId>
-            <artifactId>jb4dc-builder-service</artifactId>
-        </dependency>
 
         <dependency>
             <groupId>jb4dc</groupId>
