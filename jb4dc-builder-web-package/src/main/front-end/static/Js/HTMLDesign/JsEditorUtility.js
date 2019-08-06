@@ -29,6 +29,7 @@ class JsEditorUtility{
     }
 
     static InitializeJsCodeDesign (status) {
+        debugger;
         this._JsEditorInst=CodeMirror.fromTextArea($("#TextAreaJsEditor")[0], {
             //mode: "javascript",
             mode: "application/ld+json",
@@ -48,6 +49,7 @@ class JsEditorUtility{
         this._JsEditorInst.setSize("100%",PageStyleUtility.GetWindowHeight()-85);
         if(status=="add"){
             this.SetJsEditorJs(this._GetNewFormJsString());
+            //this.SetJsEditorJs("111111111");
             CodeMirror.commands["selectAll"](this.GetJsEditorInst());
             var range = { from: this.GetJsEditorInst().getCursor(true), to: this.GetJsEditorInst().getCursor(false) };
             this.GetJsEditorInst().autoFormatRange(range.from, range.to);

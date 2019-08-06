@@ -123,10 +123,12 @@
 
                         //初始化表单编辑器
                         CKEditorUtility.InitializeCKEditor('html_design',_self.pluginVoList,function () {
-                            HTMLEditorUtility.SetHTMLEditorHTML(_self.formResourceEntity.formHtmlSource);
-                            CKEditorUtility.SetCKEditorHTML(_self.formResourceEntity.formHtmlSource);
-                            JsEditorUtility.SetJsEditorJs(_self.formResourceEntity.formJsContent);
 
+                            if(_self.status=="update") {
+                                HTMLEditorUtility.SetHTMLEditorHTML(_self.formResourceEntity.formHtmlSource);
+                                CKEditorUtility.SetCKEditorHTML(_self.formResourceEntity.formHtmlSource);
+                                JsEditorUtility.SetJsEditorJs(_self.formResourceEntity.formJsContent);
+                            }
                             _self.isLoading=false;
                         },"../../HTMLDesign/CKEditorConfig/CKEditorConfig.js","../../HTMLDesign/WebFormDesign/Plugins/",themeVo);
 

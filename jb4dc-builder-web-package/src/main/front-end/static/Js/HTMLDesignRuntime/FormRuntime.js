@@ -11,9 +11,9 @@ var FormRuntime={
     },
     _LoadHTMLToEl:function () {
         //debugger;
-        $(this._Prop_Config.RendererTo).load(BaseUtility.GetRootPath()+"/PlatFormRest/Builder/FormRuntime/FormPreview?formId="+this._Prop_Config.FormId, function() {
+        $(this._Prop_Config.RendererTo).load(BaseUtility.GetRootPath()+"/Rest/Builder/FormRuntime/FormPreview?formId="+this._Prop_Config.FormId, function() {
             //alert( "Load was performed." );
-            console.log("加载预览窗体成功!");
+            console.log("加载预览窗体成功!!");
         });
     }
 }
