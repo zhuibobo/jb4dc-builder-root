@@ -36,7 +36,7 @@ public class DataSetMainRestTest extends DataSetSQLDesignerRestTest {
     @Autowired
     IDatasetService datasetService;
 
-    private String dataSetId="UnitTestDataSet001";
+    public static String dataSetId="UnitTestDataSet001";
     private String dataSetGroupId= DataSetGroupRestTest.devGroupId;
 
     @Test

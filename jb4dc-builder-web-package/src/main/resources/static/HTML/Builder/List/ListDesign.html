@@ -19,11 +19,9 @@
                 listName:"",
                 listSingleName:"",
                 listCreateTime:DateUtility.GetCurrentData(),
-                listCreater:"",
                 listUpdateTime:DateUtility.GetCurrentData(),
                 listUpdater:"",
                 listType:"",
-                listIssystem:"否",
                 listOrderNum:"",
                 listDesc:"",
                 listModuleId:"",
@@ -44,8 +42,8 @@
                 listJsContent:"",
                 listCssContent:"",
                 listConfigContent:"",
-                listDatasetPageSize:20
-
+                listDatasetPageSize:20,
+                listIsSystem:"否"
             },
             designThemes:[],
             status: BaseUtility.GetUrlParaValue("op"),
@@ -55,6 +53,7 @@
         },
         mounted:function () {
             this.initPageUI();
+            BaseUtility.SetSystemFavicon();
             //this.bindStatusData();
         },
         methods: {
@@ -190,7 +189,7 @@
                             if (result.success) {
                                 //window.OpenerWindowObj.appList.reloadData();
                                 //DialogUtility.Frame_CloseDialog(window);
-                                window.opener._modulelistwebformcomp.reloadData();
+                                window.opener._modulelistweblistcomp.reloadData();
                                 successFunc(result);
                             }
                         });

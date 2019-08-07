@@ -16,7 +16,7 @@ public class ModuleRestTest extends RestTestBase {
     @Autowired
     IModuleService moduleService;
 
-    String moduleId="DevMockModuleId";
+    public String moduleId="DevMockModuleId";
 
     @Test
     public void addDevTestGroup() throws Exception {

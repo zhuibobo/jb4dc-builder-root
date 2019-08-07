@@ -7,18 +7,28 @@
 var ListRuntime={
     _Prop_Status:"Edit",
     _Prop_Config:{
-        RendererTo:null,
+        RendererToId:null,
         ListId:""
     },
     Initialization:function (_config) {
         this._Prop_Config= $.extend(true,{},this._Prop_Config,_config);
-
+        this._$RendererToElem=$("#"+this._Prop_Config.RendererToId);
         this._LoadHTMLToEl();
     },
     _LoadHTMLToEl:function () {
         //debugger;
-        $(this._Prop_Config.RendererTo).load(BaseUtility.GetRootPath()+"/Rest/Builder/ListRuntime/ListPreview?listId="+this._Prop_Config.ListId, function() {
+        /*$(this._Prop_Config.RendererTo).load(BaseUtility.GetRootPath()+"/Rest/Builder/ListRuntime/ListPreview?listId="+this._Prop_Config.ListId, function() {
             console.log("加载预览列表成功!!");
-        });
+        });*/
+        RuntimeGeneralInstance.LoadHtmlDesignContent(BaseUtility.GetRootPath()+"/Rest/Builder/ListRuntime/ListPreview?listId="+this._Prop_Config.ListId,this._Prop_Config.RendererTo, {}, function (result) {
+            //alert( "Load was performed.");
+            console.log("加载预览窗体成功!!");
+            console.log(result);
+            console.log(result.data.formHtmlRuntime);
+            //var $rootElem=$(result.data.formHtmlRuntime);
+            //if($rootElem.)
+            this._$RendererToElem.append(result.data.formHtmlRuntime);
+            VirtualBodyControl.RendererChain(result.data.formHtmlRuntime,this._$RendererToElem,this._$RendererToElem);
+        },this);
     }
 }
