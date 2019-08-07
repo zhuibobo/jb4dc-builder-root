@@ -34,7 +34,7 @@ public class DataSetGroupRestTest extends RestTestBase {
     @Autowired
     IDatasetGroupService datasetGroupService;
 
-    public static String devGroupId="DevGroupId";
+    public static String devGroupId="DevMockDataSetGroupId";
 
     @Test
     public void addDevTestGroup() throws Exception {
@@ -46,7 +46,7 @@ public class DataSetGroupRestTest extends RestTestBase {
             DatasetGroupEntity groupEntity=new DatasetGroupEntity();
             groupEntity.setDsGroupId(devGroupId);
             groupEntity.setDsGroupValue("UnitTestDataSetGroup");
-            groupEntity.setDsGroupText("单元测试分组");
+            groupEntity.setDsGroupText("开发样例分组");
             groupEntity.setDsGroupOrderNum(0);
             groupEntity.setDsGroupCreateTime(new Date());
             groupEntity.setDsGroupDesc("UnitTestDataSetGroup");

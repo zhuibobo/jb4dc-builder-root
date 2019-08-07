@@ -73,9 +73,9 @@ public class TableRestTest extends TableGroupRestTest {
         JBuild4DCResponseVo responseVo = JsonUtility.toObject(json, JBuild4DCResponseVo.class);
         if (!responseVo.isSuccess()) {
             TableEntity tempTableEntity=tableService.getByTableName(getSession(),newTable.getTableName());
+            tableService.deletePhysicsTable(getSession(),newTable.getTableName(),JBuild4DCYaml.getWarningOperationCode());
             tableService.deleteByKeyNotValidate(getSession(),tempTableEntity.getTableId(), JBuild4DCYaml.getWarningOperationCode());
             tableFieldService.deleteByTableId(getSession(),tempTableEntity.getTableId());
-            tableService.deletePhysicsTable(getSession(),newTable.getTableName(),JBuild4DCYaml.getWarningOperationCode());
         }
         requestBuilder = post("/Rest/Builder/DataStorage/DataBase/Table/SaveTableEdit");
         requestBuilder.sessionAttr(JB4DCSessionUtility.UserLoginSessionKey, getSession());
@@ -246,7 +246,7 @@ public class TableRestTest extends TableGroupRestTest {
         //JBuild4DResponseVo responseVo= tableController.GetEditTableData("xxx","add","DevGroup");
 
         List<TableFieldVO> tableFieldVOList=new ArrayList<>();
-        List<Map> mapList=((Map<String,List<Map>>)responseVo.getExKVData().get("templateFieldGroup")).get("通用模版");
+        List<Map> mapList=((Map<String,List<Map>>)responseVo.getExKVData().get("templateFieldGroup")).get("新闻类模版");
         for (Map mapVo : mapList) {
             String recordString=JsonUtility.toObjectString(mapVo);
             tableFieldVOList.add(JsonUtility.toObject(recordString,TableFieldVO.class));
