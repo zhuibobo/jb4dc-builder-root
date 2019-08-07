@@ -1,7 +1,7 @@
 package com.jb4dc.builder.webpackage.rest.builder.datastorage.dblink;
 
-import com.jb4dc.base.dbaccess.exenum.EnableTypeEnum;
-import com.jb4dc.base.dbaccess.exenum.TrueFalseEnum;
+import com.jb4dc.base.service.exenum.EnableTypeEnum;
+import com.jb4dc.base.service.exenum.TrueFalseEnum;
 import com.jb4dc.builder.dbentities.datastorage.DbLinkEntity;
 import com.jb4dc.builder.service.datastorage.IDbLinkService;
 import com.jb4dc.builder.webpackage.RestTestBase;
@@ -20,21 +20,21 @@ public class DBLinkRestTest extends RestTestBase {
     @Autowired
     IDbLinkService dbLinkService;
 
-    public String testDBLinkId="SQL_SERVER_DB_LINK_TEST_1";
+    public String testDBLinkId="JBuild4DCDevMockDBLink";
 
     @Test
     public void CreateTestDBLink() throws JBuild4DCGenerallyException {
         DbLinkEntity dbLinkEntity=new DbLinkEntity();
         dbLinkEntity.setDbId(testDBLinkId);
         dbLinkEntity.setDbLinkValue(testDBLinkId);
-        dbLinkEntity.setDbLinkName("单元测试连接库");
+        dbLinkEntity.setDbLinkName("开发样例库连接");
         dbLinkEntity.setDbType("sqlserver");
         dbLinkEntity.setDbDriverName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-        dbLinkEntity.setDbDatabaseName("JB4DC_BUSINESS_UNIT_TEST_V01");
-        dbLinkEntity.setDbUrl("jdbc:sqlserver://127.0.0.1:1433; DatabaseName=JB4DC_BUSINESS_UNIT_TEST_V01");
+        dbLinkEntity.setDbDatabaseName("JB4DC_DEV_MOCK_V01");
+        dbLinkEntity.setDbUrl("jdbc:sqlserver://127.0.0.1:1433; DatabaseName=JB4DC_DEV_MOCK_V01");
         dbLinkEntity.setDbUser("sa");
         dbLinkEntity.setDbPassword("sql");
-        dbLinkEntity.setDbDesc("单元测试连接库");
+        dbLinkEntity.setDbDesc("单元测试修改");
         dbLinkEntity.setDbIsLocation(TrueFalseEnum.False.getDisplayName());
         dbLinkEntity.setDbStatus(EnableTypeEnum.enable.getDisplayName());
 

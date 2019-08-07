@@ -1,7 +1,7 @@
 package com.jb4dc.builder.webpackage.rest.builder.dataset;
 
-import com.jb4dc.base.dbaccess.exenum.EnableTypeEnum;
-import com.jb4dc.base.dbaccess.exenum.TrueFalseEnum;
+import com.jb4dc.base.service.exenum.EnableTypeEnum;
+import com.jb4dc.base.service.exenum.TrueFalseEnum;
 import com.jb4dc.base.service.general.JB4DCSessionUtility;
 import com.jb4dc.base.tools.JsonUtility;
 import com.jb4dc.builder.dbentities.dataset.DatasetGroupEntity;

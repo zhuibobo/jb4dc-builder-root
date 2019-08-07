@@ -1,6 +1,6 @@
 package com.jb4dc.builder.service.webform.impl;
 
-import com.jb4dc.base.dbaccess.exenum.TrueFalseEnum;
+import com.jb4dc.base.service.exenum.TrueFalseEnum;
 import com.jb4dc.base.service.IAddBefore;
 import com.jb4dc.base.service.impl.BaseServiceImpl;
 import com.jb4dc.builder.dao.webform.FormResourceMapper;

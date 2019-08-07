@@ -1,7 +1,7 @@
 package com.jb4dc.builder.webpackage.rest.builder.datastorage.database;
 
-import com.jb4dc.base.dbaccess.exenum.EnableTypeEnum;
-import com.jb4dc.base.dbaccess.exenum.TrueFalseEnum;
+import com.jb4dc.base.service.exenum.EnableTypeEnum;
+import com.jb4dc.base.service.exenum.TrueFalseEnum;
 import com.jb4dc.builder.dbentities.datastorage.TableGroupEntity;
 import com.jb4dc.builder.service.datastorage.ITableGroupService;
 import com.jb4dc.builder.webpackage.RestTestBase;

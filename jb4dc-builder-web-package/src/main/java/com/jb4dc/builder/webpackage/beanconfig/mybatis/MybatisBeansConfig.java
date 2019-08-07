@@ -2,7 +2,7 @@ package com.jb4dc.builder.webpackage.beanconfig.mybatis;
 
 import com.github.pagehelper.PageInterceptor;
 import com.jb4dc.base.dbaccess.dynamic.GeneralMapper;
-import com.jb4dc.base.dbaccess.exenum.EnableTypeEnum;
+import com.jb4dc.base.service.exenum.EnableTypeEnum;
 import com.jb4dc.base.dbaccess.exenum.UniversalIntEnumHandler;
 import com.jb4dc.base.ymls.DBYaml;
 import com.mchange.v2.c3p0.ComboPooledDataSource;

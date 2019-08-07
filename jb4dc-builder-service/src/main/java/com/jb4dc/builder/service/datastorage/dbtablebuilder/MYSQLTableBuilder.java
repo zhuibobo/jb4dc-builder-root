@@ -1,6 +1,6 @@
 package com.jb4dc.builder.service.datastorage.dbtablebuilder;
 
-import com.jb4dc.base.dbaccess.exenum.TrueFalseEnum;
+import com.jb4dc.base.service.exenum.TrueFalseEnum;
 import com.jb4dc.builder.dbentities.datastorage.DbLinkEntity;
 import com.jb4dc.builder.dbentities.datastorage.TableEntity;
 import com.jb4dc.builder.dbentities.datastorage.TableFieldEntity;

@@ -1,7 +1,7 @@
 package com.jb4dc.builder.service.datastorage.impl;
 
-import com.jb4dc.base.dbaccess.exenum.EnableTypeEnum;
-import com.jb4dc.base.dbaccess.exenum.TrueFalseEnum;
+import com.jb4dc.base.service.exenum.EnableTypeEnum;
+import com.jb4dc.base.service.exenum.TrueFalseEnum;
 import com.jb4dc.base.service.IAddBefore;
 import com.jb4dc.base.service.impl.BaseServiceImpl;
 import com.jb4dc.base.ymls.DBYaml;
@@ -127,7 +127,7 @@ public class DbLinkServiceImpl extends BaseServiceImpl<DbLinkEntity> implements 
         this.saveSimple(jb4DCSession,dbLinkEntity.getDbId(),dbLinkEntity);
     }
 
-    public void createBusinessTestDBLink(JB4DCSession jb4DCSession) throws JBuild4DCGenerallyException {
+    /*public void createBusinessTestDBLink(JB4DCSession jb4DCSession) throws JBuild4DCGenerallyException {
         DbLinkEntity dbLinkEntity=new DbLinkEntity();
         dbLinkEntity.setDbId(this.JBUILD4DC_BUSINESS_TEST_DB_LINK_ID);
         dbLinkEntity.setDbLinkValue("JBUILD4DC_BUSINESS_TEST_DB_LINK_ID");
@@ -142,13 +142,13 @@ public class DbLinkServiceImpl extends BaseServiceImpl<DbLinkEntity> implements 
         dbLinkEntity.setDbIsLocation(TrueFalseEnum.False.getDisplayName());
         dbLinkEntity.setDbStatus(EnableTypeEnum.enable.getDisplayName());
         this.saveSimple(jb4DCSession,dbLinkEntity.getDbId(),dbLinkEntity);
-    }
+    }*/
 
     @Override
     public void initSystemData(JB4DCSession jb4DCSession) throws JBuild4DCGenerallyException {
         this.createBuilderDBLink(jb4DCSession);
         this.createSSODBLink(jb4DCSession);
         this.createDevMockDBLink(jb4DCSession);
-        this.createBusinessTestDBLink(jb4DCSession);
+        //this.createBusinessTestDBLink(jb4DCSession);
     }
 }

@@ -57,19 +57,5 @@ public class InitializationSystemRestTest extends RestTestBase {
         Assert.assertTrue(responseVo.isSuccess());
     }
 
-    @Test
-    /*@DisplayName("When zero operands")*/
-    public void initializationSystem1() throws Exception {
-        //context.getServletContext().
-        MockHttpServletRequestBuilder requestBuilder =post("/Rest/Builder/InitializationSystem/Running?createTestData=true");
-
-        requestBuilder.sessionAttr(JB4DCSessionUtility.UserLoginSessionKey,getSession());
-        MvcResult result=mockMvc.perform(requestBuilder).andReturn();
-        String json=result.getResponse().getContentAsString();
-        System.out.println(json);
-
-        JBuild4DCResponseVo responseVo = JsonUtility.toObject(json, JBuild4DCResponseVo.class);
-        Assert.assertTrue(responseVo.isSuccess());
-    }
 }
 

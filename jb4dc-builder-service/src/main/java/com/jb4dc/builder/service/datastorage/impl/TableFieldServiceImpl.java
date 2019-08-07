@@ -1,7 +1,7 @@
 package com.jb4dc.builder.service.datastorage.impl;
 
 import com.jb4dc.base.dbaccess.dao.BaseMapper;
-import com.jb4dc.base.dbaccess.exenum.TrueFalseEnum;
+import com.jb4dc.base.service.exenum.TrueFalseEnum;
 import com.jb4dc.base.service.IAddBefore;
 import com.jb4dc.base.service.ISQLBuilderService;
 import com.jb4dc.base.service.impl.BaseServiceImpl;
