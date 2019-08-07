@@ -12,7 +12,7 @@ import org.jsoup.nodes.Element;
 public class WebListListButtonContainer  extends HTMLControl implements IHTMLControl {
 
     /*@Override
-    public void rendererChain(JB4DCSession jb4DSession, String sourceHTML, Document doc, Element singleControlElem, Element parentElem, Element lastParentJbuild4dCustomElem, ResolveHTMLControlContextVo resolveHTMLControlContextVo) throws JBuild4DGenerallyException {
+    public void rendererChain(JB4DCSession jb4DCSession, String sourceHTML, Document doc, Element singleControlElem, Element parentElem, Element lastParentJbuild4dCustomElem, ResolveHTMLControlContextVo resolveHTMLControlContextVo) throws JBuild4DGenerallyException {
 
         StringBuilder buttonsJson=new StringBuilder();
         buttonsJson.append("<script>");
@@ -20,7 +20,7 @@ public class WebListListButtonContainer  extends HTMLControl implements IHTMLCon
         //获取所有的自定义控件
         Elements allElems=singleControlElem.getElementsByTag("div");
         for (Element singleInnerElem : allElems) {
-            if(singleInnerElem.attr("jbuild4d_custom").equals("true")){
+            if(singleInnerElem.attr("jbuild4dc_custom").equals("true")){
                 String singleName=singleInnerElem.attr(HTMLControlAttrs.SINGLENAME);
                 HtmlControlDefinitionVo htmlControlDefinitionVo=ckEditorPluginsService.getVo(singleName);
                 String serverResolveFullClassName = htmlControlDefinitionVo.getServerResolve();
@@ -28,7 +28,7 @@ public class WebListListButtonContainer  extends HTMLControl implements IHTMLCon
                     try {
                         IHTMLControl htmlControl = this.getHTMLControlInstance(serverResolveFullClassName);
 
-                        String buttonJson=htmlControl.parseToJson(jb4DSession, sourceHTML, doc, singleInnerElem, singleControlElem, lastParentJbuild4dCustomElem, resolveHTMLControlContextVo, htmlControlDefinitionVo);
+                        String buttonJson=htmlControl.parseToJson(jb4DCSession, sourceHTML, doc, singleInnerElem, singleControlElem, lastParentJbuild4dCustomElem, resolveHTMLControlContextVo, htmlControlDefinitionVo);
 
                         buttonsJson.append(buttonJson);
                     }
@@ -49,12 +49,12 @@ public class WebListListButtonContainer  extends HTMLControl implements IHTMLCon
     }*/
 
     @Override
-    public void resolveSelf(JB4DCSession jb4DSession, String sourceHTML, Document doc, Element singleControlElem, Element parentElem, Element lastParentJbuild4dCustomElem, ResolveHTMLControlContextVo resolveHTMLControlContextVo, HtmlControlDefinitionVo htmlControlDefinitionVo) {
+    public void resolveSelf(JB4DCSession jb4DCSession, String sourceHTML, Document doc, Element singleControlElem, Element parentElem, Element lastParentJbuild4dCustomElem, ResolveHTMLControlContextVo resolveHTMLControlContextVo, HtmlControlDefinitionVo htmlControlDefinitionVo) {
 
     }
 
     @Override
-    public void dynamicBind(JB4DCSession jb4DSession, String sourceHTML, String resolveHTML, Document doc, Element singleControlElem, DynamicBindHTMLControlContextVo dynamicBindHTMLControlContextVo, HtmlControlDefinitionVo htmlControlPluginDefinitionVo) {
+    public void dynamicBind(JB4DCSession jb4DCSession, String sourceHTML, String resolveHTML, Document doc, Element singleControlElem, DynamicBindHTMLControlContextVo dynamicBindHTMLControlContextVo, HtmlControlDefinitionVo htmlControlPluginDefinitionVo) {
 
     }
 }

@@ -32,27 +32,27 @@ public class ModuleServiceImpl extends BaseServiceImpl<ModuleEntity> implements 
     }
 
     @Override
-    public ModuleEntity createRootNode(JB4DCSession jb4DSession) throws JBuild4DCGenerallyException {
+    public ModuleEntity createRootNode(JB4DCSession jb4DCSession) throws JBuild4DCGenerallyException {
         ModuleEntity rootEntity=new ModuleEntity();
         rootEntity.setModuleId(rootId);
         rootEntity.setModuleParentId(rootParentId);
         rootEntity.setModuleIsSystem(TrueFalseEnum.True.getDisplayName());
         rootEntity.setModuleText("模块分组");
         rootEntity.setModuleValue("模块分组");
-        this.saveSimple(jb4DSession,rootEntity.getModuleId(),rootEntity);
+        this.saveSimple(jb4DCSession,rootEntity.getModuleId(),rootEntity);
         return rootEntity;
     }
 
     @Override
-    public int saveSimple(JB4DCSession jb4DSession, String id, ModuleEntity record) throws JBuild4DCGenerallyException {
-        return super.save(jb4DSession,id, record, new IAddBefore<ModuleEntity>() {
+    public int saveSimple(JB4DCSession jb4DCSession, String id, ModuleEntity record) throws JBuild4DCGenerallyException {
+        return super.save(jb4DCSession,id, record, new IAddBefore<ModuleEntity>() {
             @Override
-            public ModuleEntity run(JB4DCSession jb4DSession,ModuleEntity sourceEntity) throws JBuild4DCGenerallyException {
+            public ModuleEntity run(JB4DCSession jb4DCSession,ModuleEntity sourceEntity) throws JBuild4DCGenerallyException {
                 sourceEntity.setModuleOrderNum(moduleMapper.nextOrderNum());
                 sourceEntity.setModuleChildCount(0);
                 sourceEntity.setModuleCreateTime(new Date());
-                sourceEntity.setModuleOrganId(jb4DSession.getOrganId());
-                sourceEntity.setModuleOrganName(jb4DSession.getOrganName());
+                sourceEntity.setModuleOrganId(jb4DCSession.getOrganId());
+                sourceEntity.setModuleOrganName(jb4DCSession.getOrganName());
                 String parentIdList;
                 if(sourceEntity.getModuleId().equals(rootId)){
                     parentIdList=rootParentId;
@@ -72,14 +72,14 @@ public class ModuleServiceImpl extends BaseServiceImpl<ModuleEntity> implements 
     }
 
     @Override
-    public void moveUp(JB4DCSession jb4DSession, String id) throws JBuild4DCGenerallyException {
+    public void moveUp(JB4DCSession jb4DCSession, String id) throws JBuild4DCGenerallyException {
         ModuleEntity selfEntity=moduleMapper.selectByPrimaryKey(id);
         ModuleEntity ltEntity=moduleMapper.selectLessThanRecord(id,selfEntity.getModuleParentId());
         switchOrder(ltEntity,selfEntity);
     }
 
     @Override
-    public void moveDown(JB4DCSession jb4DSession, String id) throws JBuild4DCGenerallyException {
+    public void moveDown(JB4DCSession jb4DCSession, String id) throws JBuild4DCGenerallyException {
         ModuleEntity selfEntity=moduleMapper.selectByPrimaryKey(id);
         ModuleEntity ltEntity=moduleMapper.selectGreaterThanRecord(id,selfEntity.getModuleParentId());
         switchOrder(ltEntity,selfEntity);

@@ -13,7 +13,7 @@ import com.jb4dc.core.base.session.JB4DCSession;
  * To change this template use File | Settings | File Templates.
  */
 public interface IDatasetGroupService extends IBaseService<DatasetGroupEntity> {
-    DatasetGroupEntity createRootNode(JB4DCSession jb4DSession) throws JBuild4DCGenerallyException;
+    DatasetGroupEntity createRootNode(JB4DCSession jb4DCSession) throws JBuild4DCGenerallyException;
 
     String getRootId();
 }

@@ -34,10 +34,10 @@ public class DatasetRelatedTableServiceImpl extends BaseServiceImpl<DatasetRelat
     }
 
     @Override
-    public int saveSimple(JB4DCSession jb4DSession, String id, DatasetRelatedTableEntity record) throws JBuild4DCGenerallyException {
-        return super.save(jb4DSession,id, record, new IAddBefore<DatasetRelatedTableEntity>() {
+    public int saveSimple(JB4DCSession jb4DCSession, String id, DatasetRelatedTableEntity record) throws JBuild4DCGenerallyException {
+        return super.save(jb4DCSession,id, record, new IAddBefore<DatasetRelatedTableEntity>() {
             @Override
-            public DatasetRelatedTableEntity run(JB4DCSession jb4DSession, DatasetRelatedTableEntity sourceEntity) throws JBuild4DCGenerallyException {
+            public DatasetRelatedTableEntity run(JB4DCSession jb4DCSession, DatasetRelatedTableEntity sourceEntity) throws JBuild4DCGenerallyException {
                 //设置排序,以及其他参数--nextOrderNum()
                 return sourceEntity;
             }
@@ -45,12 +45,12 @@ public class DatasetRelatedTableServiceImpl extends BaseServiceImpl<DatasetRelat
     }
 
     @Override
-    public void deleteByDataSetId(JB4DCSession jb4DSession, String dataSetId) {
+    public void deleteByDataSetId(JB4DCSession jb4DCSession, String dataSetId) {
         datasetRelatedTableMapper.deleteByDataSetId(dataSetId);
     }
 
     @Override
-    public List<DataSetRelatedTableVo> getByDataSetId(JB4DCSession jb4DSession, String dataSetId) throws IOException {
+    public List<DataSetRelatedTableVo> getByDataSetId(JB4DCSession jb4DCSession, String dataSetId) throws IOException {
         List<DatasetRelatedTableEntity> datasetRelatedTableEntities=datasetRelatedTableMapper.selectByDataSetId(dataSetId);
         return DataSetRelatedTableVo.EntityListToVoList(datasetRelatedTableEntities);
     }

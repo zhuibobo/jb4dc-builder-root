@@ -9,7 +9,7 @@ import com.jb4dc.core.base.session.JB4DCSession;
 public interface ITableRelationGroupService extends IBaseService<TableRelationGroupEntity> {
     String getRootId();
 
-    TableRelationGroupEntity createRootNode(JB4DCSession jb4DSession) throws JBuild4DCGenerallyException;
+    TableRelationGroupEntity createRootNode(JB4DCSession jb4DCSession) throws JBuild4DCGenerallyException;
 
-    TableRelationGroupEntity createSystemTableRelationGroupNode(JB4DCSession jb4DSession, TableRelationGroupEntity parentGroup) throws JBuild4DCGenerallyException;
+    TableRelationGroupEntity createSystemTableRelationGroupNode(JB4DCSession jb4DCSession, TableRelationGroupEntity parentGroup) throws JBuild4DCGenerallyException;
 }

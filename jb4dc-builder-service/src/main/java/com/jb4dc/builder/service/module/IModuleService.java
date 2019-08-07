@@ -9,7 +9,7 @@ import com.jb4dc.core.base.session.JB4DCSession;
 public interface IModuleService extends IBaseService<ModuleEntity> {
     String getRootId();
 
-    ModuleEntity createRootNode(JB4DCSession jb4DSession) throws JBuild4DCGenerallyException;
+    ModuleEntity createRootNode(JB4DCSession jb4DCSession) throws JBuild4DCGenerallyException;
 
     String buildModuleItemCode(int num);
 }

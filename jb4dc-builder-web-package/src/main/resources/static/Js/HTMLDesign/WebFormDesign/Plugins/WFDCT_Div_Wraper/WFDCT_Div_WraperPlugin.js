@@ -1,7 +1,7 @@
 /**
  * Created by zhuangrb on 2018/11/23.
  */
-(JBuild4D.FormDesign.Plugins.FDCT_Div_Wraper={
+(JBuild4DC.FormDesign.Plugins.FDCT_Div_Wraper={
     Setting:{
         //插件名称
         Name:'FDCT_Div_Wraper',
@@ -32,16 +32,16 @@
         ServerResolve:"",
 
         Init:function () {
-            JBuild4D.FormDesign.InitControlSetting(this);
+            JBuild4DC.FormDesign.InitControlSetting(this);
         }
     }
 }).Setting.Init();
 
-CKEDITOR.plugins.add(JBuild4D.FormDesign.Plugins.FDCT_Div_Wraper.Setting.Name, {
+CKEDITOR.plugins.add(JBuild4DC.FormDesign.Plugins.FDCT_Div_Wraper.Setting.Name, {
     init: function(editor) {
-        var ControlSetting=JBuild4D.FormDesign.Plugins.FDCT_Div_Wraper.Setting;
+        var ControlSetting=JBuild4DC.FormDesign.Plugins.FDCT_Div_Wraper.Setting;
 
-        JBuild4D.FormDesign.ImportCssToWysiwyg(this,ControlSetting,editor);
+        JBuild4DC.FormDesign.ImportCssToWysiwyg(this,ControlSetting,editor);
 
         CKEDITOR.dialog.addIframe(
             ControlSetting.DialogName,

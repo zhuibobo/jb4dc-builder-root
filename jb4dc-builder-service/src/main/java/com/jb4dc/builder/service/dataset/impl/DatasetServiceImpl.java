@@ -86,34 +86,34 @@ public class DatasetServiceImpl extends BaseServiceImpl<DatasetEntity> implement
     }
 
     @Override
-    public int saveSimple(JB4DCSession jb4DSession, String id, DatasetEntity record) throws JBuild4DCGenerallyException {
+    public int saveSimple(JB4DCSession jb4DCSession, String id, DatasetEntity record) throws JBuild4DCGenerallyException {
         throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_BUILDER_CODE,"请调用方法saveDataSetVo");
     }
 
     @Override
-    public int save(JB4DCSession jb4DSession, String id, DatasetEntity entity, IAddBefore<DatasetEntity> addBefore) throws JBuild4DCGenerallyException {
+    public int save(JB4DCSession jb4DCSession, String id, DatasetEntity entity, IAddBefore<DatasetEntity> addBefore) throws JBuild4DCGenerallyException {
         throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_BUILDER_CODE,"请调用方法saveDataSetVo");
     }
 
     @Override
-    public int save(JB4DCSession jb4DSession, String id, DatasetEntity entity, IAddBefore<DatasetEntity> addBefore, IUpdateBefore<DatasetEntity> updateBefore) throws JBuild4DCGenerallyException {
+    public int save(JB4DCSession jb4DCSession, String id, DatasetEntity entity, IAddBefore<DatasetEntity> addBefore, IUpdateBefore<DatasetEntity> updateBefore) throws JBuild4DCGenerallyException {
         throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_BUILDER_CODE,"请调用方法saveDataSetVo");
     }
 
     @Override
-    public DatasetEntity getByPrimaryKey(JB4DCSession jb4DSession, String id) throws JBuild4DCGenerallyException {
+    public DatasetEntity getByPrimaryKey(JB4DCSession jb4DCSession, String id) throws JBuild4DCGenerallyException {
         throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_BUILDER_CODE,"请调用方法getVoByPrimaryKey");
     }
 
     @Override
-    public DataSetVo getVoByPrimaryKey(JB4DCSession jb4DSession, String id) throws JBuild4DCGenerallyException, IOException {
+    public DataSetVo getVoByPrimaryKey(JB4DCSession jb4DCSession, String id) throws JBuild4DCGenerallyException, IOException {
 
-        DatasetEntity datasetEntity=super.getByPrimaryKey(jb4DSession, id);
+        DatasetEntity datasetEntity=super.getByPrimaryKey(jb4DCSession, id);
         if(datasetEntity==null)
             return null;
         DataSetVo dataSetVo=DataSetVo.parseToVo(datasetEntity);
-        List<DataSetColumnVo> dataSetColumnVos=datasetColumnService.getByDataSetId(jb4DSession,id);
-        List<DataSetRelatedTableVo> dataSetRelatedTableVos=datasetRelatedTableService.getByDataSetId(jb4DSession,id);
+        List<DataSetColumnVo> dataSetColumnVos=datasetColumnService.getByDataSetId(jb4DCSession,id);
+        List<DataSetRelatedTableVo> dataSetRelatedTableVos=datasetRelatedTableService.getByDataSetId(jb4DCSession,id);
 
         dataSetVo.setColumnVoList(dataSetColumnVos);
         dataSetVo.setRelatedTableVoList(dataSetRelatedTableVos);
@@ -123,13 +123,13 @@ public class DatasetServiceImpl extends BaseServiceImpl<DatasetEntity> implement
 
     @Override
     @Transactional(rollbackFor=JBuild4DCGenerallyException.class)
-    public int saveDataSetVo(JB4DCSession jb4DSession, String id, DataSetVo record) throws JBuild4DCGenerallyException, IOException {
+    public int saveDataSetVo(JB4DCSession jb4DCSession, String id, DataSetVo record) throws JBuild4DCGenerallyException, IOException {
         //保存数据集的列
         if(record.getColumnVoList()!=null) {
-            //DataSetVo oldDataSetVo=getVoByPrimaryKey(jb4DSession,id);
+            //DataSetVo oldDataSetVo=getVoByPrimaryKey(jb4DCSession,id);
 
             //删除旧的列设置
-            datasetColumnService.deleteByDataSetId(jb4DSession,id);
+            datasetColumnService.deleteByDataSetId(jb4DCSession,id);
 
             List<DataSetColumnVo> columnVoList = record.getColumnVoList();
             for (int i = 0; i < columnVoList.size(); i++) {
@@ -138,16 +138,16 @@ public class DatasetServiceImpl extends BaseServiceImpl<DatasetEntity> implement
                 if (StringUtility.isEmpty(dataSetColumnVo.getColumnId())) {
                     throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_BUILDER_CODE,"DataSetColumnVo:请在客户端设置DataSetColumnVo的ColumnId");
                 }
-                datasetColumnService.save(jb4DSession, dataSetColumnVo.getColumnId(), dataSetColumnVo, (jb4DSession1, sourceEntity) -> {
-                    sourceEntity.setColumnCreator(jb4DSession1.getUserName());
+                datasetColumnService.save(jb4DCSession, dataSetColumnVo.getColumnId(), dataSetColumnVo, (jb4DCSession1, sourceEntity) -> {
+                    sourceEntity.setColumnCreator(jb4DCSession1.getUserName());
                     sourceEntity.setColumnCreateTime(new Date());
                     sourceEntity.setColumnDsId(record.getDsId());
-                    sourceEntity.setColumnUpdater(jb4DSession1.getUserName());
+                    sourceEntity.setColumnUpdater(jb4DCSession1.getUserName());
                     sourceEntity.setColumnUpdateTime(new Date());
                     return sourceEntity;
-                }, (jb4DSession12, sourceEntity) -> {
+                }, (jb4DCSession12, sourceEntity) -> {
                     sourceEntity.setColumnDsId(record.getDsId());
-                    sourceEntity.setColumnUpdater(jb4DSession12.getUserName());
+                    sourceEntity.setColumnUpdater(jb4DCSession12.getUserName());
                     sourceEntity.setColumnUpdateTime(new Date());
                     return sourceEntity;
                 });
@@ -162,7 +162,7 @@ public class DatasetServiceImpl extends BaseServiceImpl<DatasetEntity> implement
             if(StringUtility.isEmpty(dataSetRelatedTableVo.getRtId())){
                 throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_BUILDER_CODE,"DataSetRelatedTableVo:请在客户端设置DataSetRelatedTableVo的RTId");
             }
-            datasetRelatedTableService.save(jb4DSession, dataSetRelatedTableVo.getRtId(), dataSetRelatedTableVo, (jb4DSession13, sourceEntity) -> {
+            datasetRelatedTableService.save(jb4DCSession, dataSetRelatedTableVo.getRtId(), dataSetRelatedTableVo, (jb4DCSession13, sourceEntity) -> {
                 sourceEntity.setRtDsId(record.getDsId());
                 return sourceEntity;
             });
@@ -172,31 +172,31 @@ public class DatasetServiceImpl extends BaseServiceImpl<DatasetEntity> implement
         DatasetEntity datasetEntity=datasetMapper.selectByPrimaryKey(id);
         if(datasetEntity==null){
             record.setDsCode("DS_"+StringUtility.build1W5DCode(datasetMapper.nextOrderNum()));
-            record.setDsOrganId(jb4DSession.getOrganId());
-            record.setDsOrganName(jb4DSession.getOrganName());
+            record.setDsOrganId(jb4DCSession.getOrganId());
+            record.setDsOrganName(jb4DCSession.getOrganName());
             record.setDsOrderNum(datasetMapper.nextOrderNum());
-            record.setDsCreator(jb4DSession.getUserName());
-            record.setDsUpdater(jb4DSession.getUserName());
+            record.setDsCreator(jb4DCSession.getUserName());
+            record.setDsUpdater(jb4DCSession.getUserName());
             record.setDsCreateTime(new Date());
             record.setDsUpdateTime(new Date());
             return datasetMapper.insertSelective(record);
         }
         else {
-            record.setDsUpdater(jb4DSession.getUserName());
+            record.setDsUpdater(jb4DCSession.getUserName());
             record.setDsUpdateTime(new Date());
             return datasetMapper.updateByPrimaryKeySelective(record);
         }
     }
 
     @Override
-    public DataSetVo resolveSQLToDataSet(JB4DCSession jb4DSession,String sql) throws JBuild4DCGenerallyException, SAXException, ParserConfigurationException, XPathExpressionException, IOException, PropertyVetoException {
+    public DataSetVo resolveSQLToDataSet(JB4DCSession jb4DCSession,String sql) throws JBuild4DCGenerallyException, SAXException, ParserConfigurationException, XPathExpressionException, IOException, PropertyVetoException {
         if(builderConfigService.getResolveSQLEnable()) {
 
             if(validateResolveSqlWithKeyWord(sql)) {
                 SQLDataSetBuilder sqlDataSetBuilder = new SQLDataSetBuilder();
                 autowireCapableBeanFactory.autowireBean(sqlDataSetBuilder);
                 //sqlDataSetBuilder.setJdbcOperations(jdbcOperations);
-                DataSetVo resultVo = sqlDataSetBuilder.resolveSQLToDataSet(jb4DSession, sql);
+                DataSetVo resultVo = sqlDataSetBuilder.resolveSQLToDataSet(jb4DCSession, sql);
                 //进行返回前的结果验证
                 if (validateResolveResult(resultVo)) {
                     //尝试补充上字段标题
@@ -239,7 +239,7 @@ public class DatasetServiceImpl extends BaseServiceImpl<DatasetEntity> implement
                     //尝试补充表的标题
                     List<DataSetRelatedTableVo> dataSetRelatedTableVoList=resultVo.getRelatedTableVoList();
                     for (DataSetRelatedTableVo dataSetRelatedTableVo : dataSetRelatedTableVoList) {
-                        TableEntity tableEntity=tableService.getByTableName(jb4DSession,dataSetRelatedTableVo.getRtTableName());
+                        TableEntity tableEntity=tableService.getByTableName(jb4DCSession,dataSetRelatedTableVo.getRtTableName());
                         if(tableEntity!=null){
                             dataSetRelatedTableVo.setRtTableCaption(tableEntity.getTableCaption());
                         }
@@ -261,7 +261,7 @@ public class DatasetServiceImpl extends BaseServiceImpl<DatasetEntity> implement
     }
 
     @Override
-    public String sqlReplaceEnvTextToEnvValue(JB4DCSession jb4DSession, String sqlText) throws JBuild4DCGenerallyException, XPathExpressionException, IOException, SAXException, ParserConfigurationException {
+    public String sqlReplaceEnvTextToEnvValue(JB4DCSession jb4DCSession, String sqlText) throws JBuild4DCGenerallyException, XPathExpressionException, IOException, SAXException, ParserConfigurationException {
         String sqlValue=sqlText;
         //进行关键字校验
         if(validateResolveSqlWithKeyWord(sqlText)){
@@ -286,7 +286,7 @@ public class DatasetServiceImpl extends BaseServiceImpl<DatasetEntity> implement
 
                 fullValue=fullValue+"."+envValue+"}";
                 try {
-                    aboutValueParas.put(fullValue,envVariableService.execEnvVarResult(jb4DSession,envValue));
+                    aboutValueParas.put(fullValue,envVariableService.execEnvVarResult(jb4DCSession,envValue));
                     textPara.setValue(fullValue);
                 }
                 catch (Exception ex){
@@ -302,7 +302,7 @@ public class DatasetServiceImpl extends BaseServiceImpl<DatasetEntity> implement
     }
 
     @Override
-    public String sqlReplaceEnvValueToRunningValue(JB4DCSession jb4DSession, String sqlValue) throws JBuild4DCGenerallyException {
+    public String sqlReplaceEnvValueToRunningValue(JB4DCSession jb4DCSession, String sqlValue) throws JBuild4DCGenerallyException {
         String sqlRunValue=sqlValue;
         if(validateResolveSqlWithKeyWord(sqlValue)) {
             //Map<String,String> aboutValueParas=new HashMap<>();
@@ -314,7 +314,7 @@ public class DatasetServiceImpl extends BaseServiceImpl<DatasetEntity> implement
                 //将变量的Value转换为运行时的值
                 String envValue = m.group().substring(m.group().indexOf(".")+1).replace("}","");
                 try {
-                    String runValue=envVariableService.execEnvVarResult(jb4DSession,envValue);
+                    String runValue=envVariableService.execEnvVarResult(jb4DCSession,envValue);
                     String t1=m.group().replace("{","\\{");
                     sqlRunValue=sqlRunValue.replaceAll(t1,runValue);
                 } catch (Exception ex) {
@@ -328,7 +328,7 @@ public class DatasetServiceImpl extends BaseServiceImpl<DatasetEntity> implement
     }
 
     @Override
-    public String sqlReplaceRunningValueToEmptyFilter(JB4DCSession jb4DSession, String sqlRunValue) {
+    public String sqlReplaceRunningValueToEmptyFilter(JB4DCSession jb4DCSession, String sqlRunValue) {
         if (sqlRunValue.indexOf("where") > 0) {
             return sqlRunValue.replaceAll("(?i)where", "where 1=2 and");
         } else {
@@ -338,16 +338,16 @@ public class DatasetServiceImpl extends BaseServiceImpl<DatasetEntity> implement
     }
 
     @Override
-    public SQLResolveToDataSetVo sqlResolveToDataSetVo(JB4DCSession jb4DSession, String sqlWithEnvText) throws XPathExpressionException, JBuild4DCGenerallyException, IOException, SAXException, ParserConfigurationException, PropertyVetoException {
+    public SQLResolveToDataSetVo sqlResolveToDataSetVo(JB4DCSession jb4DCSession, String sqlWithEnvText) throws XPathExpressionException, JBuild4DCGenerallyException, IOException, SAXException, ParserConfigurationException, PropertyVetoException {
         SQLResolveToDataSetVo resolveToDataSetVo=new SQLResolveToDataSetVo();
         resolveToDataSetVo.setSqlWithEnvText(sqlWithEnvText);
-        String sqlReplaceEnvTextToEnvValue=sqlReplaceEnvTextToEnvValue(jb4DSession,sqlWithEnvText);
+        String sqlReplaceEnvTextToEnvValue=sqlReplaceEnvTextToEnvValue(jb4DCSession,sqlWithEnvText);
         resolveToDataSetVo.setSqlWithEnvValue(sqlReplaceEnvTextToEnvValue);
-        String setSqlWithEnvRunningValue=sqlReplaceEnvValueToRunningValue(jb4DSession,sqlReplaceEnvTextToEnvValue);
+        String setSqlWithEnvRunningValue=sqlReplaceEnvValueToRunningValue(jb4DCSession,sqlReplaceEnvTextToEnvValue);
         resolveToDataSetVo.setSqlWithEnvRunningValue(setSqlWithEnvRunningValue);
-        String sqlReplaceRunningValueToEmptyFilter=sqlReplaceRunningValueToEmptyFilter(jb4DSession,setSqlWithEnvRunningValue);
+        String sqlReplaceRunningValueToEmptyFilter=sqlReplaceRunningValueToEmptyFilter(jb4DCSession,setSqlWithEnvRunningValue);
         resolveToDataSetVo.setSqlWithEmptyData(sqlReplaceRunningValueToEmptyFilter);
-        DataSetVo dataSetVo=resolveSQLToDataSet(jb4DSession,sqlReplaceRunningValueToEmptyFilter);
+        DataSetVo dataSetVo=resolveSQLToDataSet(jb4DCSession,sqlReplaceRunningValueToEmptyFilter);
 
         //验证字段中是否都是大写
         for (DataSetColumnVo dataSetColumnVo : dataSetVo.getColumnVoList()) {
@@ -366,7 +366,7 @@ public class DatasetServiceImpl extends BaseServiceImpl<DatasetEntity> implement
     }
 
     @Override
-    public PageInfo<DatasetEntity> getPageByGroupId(JB4DCSession jb4DSession, Integer pageNum, Integer pageSize, String groupId) {
+    public PageInfo<DatasetEntity> getPageByGroupId(JB4DCSession jb4DCSession, Integer pageNum, Integer pageSize, String groupId) {
         //return null;
         PageHelper.startPage(pageNum, pageSize);
         //PageHelper.
@@ -429,20 +429,20 @@ public class DatasetServiceImpl extends BaseServiceImpl<DatasetEntity> implement
     }
 
     @Override
-    public int deleteByKey(JB4DCSession jb4DSession, String id) throws JBuild4DCGenerallyException {
-        return deleteByKeyNotValidate(jb4DSession, id, JBuild4DCYaml.getWarningOperationCode());
+    public int deleteByKey(JB4DCSession jb4DCSession, String id) throws JBuild4DCGenerallyException {
+        return deleteByKeyNotValidate(jb4DCSession, id, JBuild4DCYaml.getWarningOperationCode());
     }
 
     @Override
-    public int deleteByKeyNotValidate(JB4DCSession jb4DSession, String id, String warningOperationCode) throws JBuild4DCGenerallyException {
+    public int deleteByKeyNotValidate(JB4DCSession jb4DCSession, String id, String warningOperationCode) throws JBuild4DCGenerallyException {
         if(JBuild4DCYaml.getWarningOperationCode().equals(warningOperationCode)) {
             datasetMapper.deleteByPrimaryKey(id);
-            datasetRelatedTableService.deleteByDataSetId(jb4DSession, id);
-            datasetColumnService.deleteByDataSetId(jb4DSession, id);
+            datasetRelatedTableService.deleteByDataSetId(jb4DCSession, id);
+            datasetColumnService.deleteByDataSetId(jb4DCSession, id);
             return 0;
         }
         throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_BUILDER_CODE,"删除失败WarningOperationCode错误");
-        //return super.deleteByKeyNotValidate(jb4DSession, id);
+        //return super.deleteByKeyNotValidate(jb4DCSession, id);
     }
 }
 

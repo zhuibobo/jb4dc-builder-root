@@ -18,7 +18,7 @@ import java.util.Date;
 public class DateTimeVariableCreator implements IAPIVariableCreator {
 
     @Override
-    public String createVar(JB4DCSession jb4DSession, EnvVariableVo vo) throws JBuild4DCGenerallyException {
+    public String createVar(JB4DCSession jb4DCSession, EnvVariableVo vo) throws JBuild4DCGenerallyException {
         try {
             String result;
             Date date = new Date();

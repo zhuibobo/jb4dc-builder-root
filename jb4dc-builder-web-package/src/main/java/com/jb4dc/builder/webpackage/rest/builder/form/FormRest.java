@@ -51,10 +51,10 @@ public class FormRest extends GeneralRest<FormResourceEntity> {
             responseVo.setSuccess(true);
             responseVo.setMessage("获取数据成功！");
 
-            JB4DCSession jb4DSession= JB4DCSessionUtility.getSession();
+            JB4DCSession jb4DCSession= JB4DCSessionUtility.getSession();
 
-            List<ModuleEntity> moduleEntityList=moduleService.getALL(jb4DSession);
-            List<FormResourceEntity> formResourceEntityList=formResourceService.getALL(jb4DSession);
+            List<ModuleEntity> moduleEntityList=moduleService.getALL(jb4DCSession);
+            List<FormResourceEntity> formResourceEntityList=formResourceService.getALL(jb4DCSession);
 
             responseVo.setData(ZTreeNodePOConvert.parseWebFormToZTreeNodeList(moduleEntityList,formResourceEntityList));
 

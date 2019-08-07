@@ -16,7 +16,7 @@ import java.util.List;
  * To change this template use File | Settings | File Templates.
  */
 public interface IDatasetColumnService extends IBaseService<DatasetColumnEntity> {
-    void deleteByDataSetId(JB4DCSession jb4DSession, String dataSetId);
+    void deleteByDataSetId(JB4DCSession jb4DCSession, String dataSetId);
 
-    List<DataSetColumnVo> getByDataSetId(JB4DCSession jb4DSession, String dataSetId) throws IOException;
+    List<DataSetColumnVo> getByDataSetId(JB4DCSession jb4DCSession, String dataSetId) throws IOException;
 }

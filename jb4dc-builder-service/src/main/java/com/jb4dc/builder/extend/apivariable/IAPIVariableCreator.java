@@ -16,5 +16,5 @@ public interface IAPIVariableCreator {
     Document doc=null;
     Node node=null;
 
-    String createVar(JB4DCSession jb4DSession, EnvVariableVo vo) throws JBuild4DCGenerallyException;
+    String createVar(JB4DCSession jb4DCSession, EnvVariableVo vo) throws JBuild4DCGenerallyException;
 }

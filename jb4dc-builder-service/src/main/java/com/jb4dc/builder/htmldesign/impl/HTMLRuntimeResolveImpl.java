@@ -25,7 +25,7 @@ public class HTMLRuntimeResolveImpl implements IHTMLRuntimeResolve {
     private ICKEditorPluginsService ckEditorPluginsService;
 
     @Override
-    public String resolveSourceHTML(JB4DCSession jb4DSession, String id, String htmlSource) throws JBuild4DCGenerallyException {
+    public String resolveSourceHTML(JB4DCSession jb4DCSession, String id, String htmlSource) throws JBuild4DCGenerallyException {
         String sourceHTML=htmlSource;
         if(sourceHTML!=null&&!sourceHTML.equals("")){
             //获取并解析HTML
@@ -43,8 +43,8 @@ public class HTMLRuntimeResolveImpl implements IHTMLRuntimeResolve {
 
             VirtualBodyControl bodyControl= VirtualBodyControl.getInstance();
             autowireCapableBeanFactory.autowireBean(bodyControl);
-            bodyControl.rendererChain(jb4DSession,htmlSource,doc,doc,doc,null,resolveHTMLControlContextVo);
-            //this.loopResolveElem(jb4DSession,doc,doc,sourceHTML,null,resolveHTMLControlContextVo);
+            bodyControl.rendererChain(jb4DCSession,htmlSource,doc,doc,doc,null,resolveHTMLControlContextVo);
+            //this.loopResolveElem(jb4DCSession,doc,doc,sourceHTML,null,resolveHTMLControlContextVo);
 
             return doc.getElementsByTag("body").html();
         }
@@ -52,10 +52,10 @@ public class HTMLRuntimeResolveImpl implements IHTMLRuntimeResolve {
     }
 
     //Element lastParentJbuild4dCustomElem=null;
-    //public void loopResolveElem(JB4DCSession jb4DSession, Document doc, Element parentElem, String sourceHTML, Element lastParentJbuild4dCustomElem, ResolveHTMLControlContextVo resolveHTMLControlContextVo, boolean resolveSelf) throws JBuild4DGenerallyException {
+    //public void loopResolveElem(JB4DCSession jb4DCSession, Document doc, Element parentElem, String sourceHTML, Element lastParentJbuild4dCustomElem, ResolveHTMLControlContextVo resolveHTMLControlContextVo, boolean resolveSelf) throws JBuild4DGenerallyException {
         /*for (Element singleElem : parentElem.children()) {
 
-            if(singleElem.attr(HTMLControlAttrs.JBUILD4D_CUSTOM).equals("true")){
+            if(singleElem.attr(HTMLControlAttrs.JBUILD4DC_CUSTOM).equals("true")){
                 //String serverResolveFullClassName = singleElem.attr(HTMLControlAttrs.SERVERRESOLVE);
                 String singleName=singleElem.attr(HTMLControlAttrs.SINGLENAME);
                 HtmlControlDefinitionVo htmlControlDefinitionVo=ckEditorPluginsService.getVo(singleName);
@@ -70,7 +70,7 @@ public class HTMLRuntimeResolveImpl implements IHTMLRuntimeResolve {
                             htmlControl.resolveSelf();
                         }
                         else {
-                            htmlControl.renderer(jb4DSession, sourceHTML, doc, singleElem, parentElem, lastParentJbuild4dCustomElem, resolveHTMLControlContextVo, htmlControlDefinitionVo);
+                            htmlControl.renderer(jb4DCSession, sourceHTML, doc, singleElem, parentElem, lastParentJbuild4dCustomElem, resolveHTMLControlContextVo, htmlControlDefinitionVo);
                         }
                     }
                     catch (Exception ex){
@@ -81,7 +81,7 @@ public class HTMLRuntimeResolveImpl implements IHTMLRuntimeResolve {
             else{
                 //如果是普通html元素则直接递归处理,如果是自定义控件,则由控件显示调用
                 if(singleElem.childNodeSize()>0){
-                    loopResolveElem(jb4DSession,doc,singleElem,sourceHTML,lastParentJbuild4dCustomElem,resolveHTMLControlContextVo);
+                    loopResolveElem(jb4DCSession,doc,singleElem,sourceHTML,lastParentJbuild4dCustomElem,resolveHTMLControlContextVo);
                 }
             }
         }*/
@@ -89,7 +89,7 @@ public class HTMLRuntimeResolveImpl implements IHTMLRuntimeResolve {
 
     //控件是否动态绑定,交由控件解析时,控件本身解析自行设定,动态绑定完成字后,需要控件自身移除敏感属性.
     @Override
-    public String dynamicBind(JB4DCSession jb4DSession, String id, String resolveHtml) {
+    public String dynamicBind(JB4DCSession jb4DCSession, String id, String resolveHtml) {
         return resolveHtml;
     }
 }

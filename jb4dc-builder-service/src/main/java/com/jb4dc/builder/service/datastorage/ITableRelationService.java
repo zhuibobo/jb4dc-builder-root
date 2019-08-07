@@ -9,8 +9,8 @@ import com.jb4dc.core.base.session.JB4DCSession;
 import java.util.List;
 
 public interface ITableRelationService extends IBaseService<TableRelationEntity> {
-    List<TableRelationEntity> getRelationByGroup(JB4DCSession jb4DSession, String groupId);
+    List<TableRelationEntity> getRelationByGroup(JB4DCSession jb4DCSession, String groupId);
 
 
-    void updateDiagram(JB4DCSession jb4DSession, String recordId, String relationContent, String relationDiagramJson) throws JBuild4DCGenerallyException;
+    void updateDiagram(JB4DCSession jb4DCSession, String recordId, String relationContent, String relationDiagramJson) throws JBuild4DCGenerallyException;
 }

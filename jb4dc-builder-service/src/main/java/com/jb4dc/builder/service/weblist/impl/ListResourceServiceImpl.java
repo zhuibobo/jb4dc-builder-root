@@ -39,26 +39,26 @@ public class ListResourceServiceImpl extends BaseServiceImpl<ListResourceEntity>
     }
 
     @Override
-    public int saveSimple(JB4DCSession jb4DSession, String id, ListResourceEntity record) throws JBuild4DCGenerallyException {
+    public int saveSimple(JB4DCSession jb4DCSession, String id, ListResourceEntity record) throws JBuild4DCGenerallyException {
         //修改时设置为未解析的状态.
         //record.setFormIsResolve(TrueFalseEnum.False.getDisplayName());
         //保存时进行同步的表单内容的解析,并存入对应的字段中.
-        String resolvedHtml=htmlRuntimeResolve.resolveSourceHTML(jb4DSession,id,record.getListHtmlSource());
+        String resolvedHtml=htmlRuntimeResolve.resolveSourceHTML(jb4DCSession,id,record.getListHtmlSource());
         record.setListHtmlResolve(resolvedHtml);
         record.setListIsResolve(TrueFalseEnum.True.getDisplayName());
 
-        return super.save(jb4DSession,id, record, new IAddBefore<ListResourceEntity>() {
+        return super.save(jb4DCSession,id, record, new IAddBefore<ListResourceEntity>() {
             @Override
-            public ListResourceEntity run(JB4DCSession jb4DSession,ListResourceEntity sourceEntity) throws JBuild4DCGenerallyException {
+            public ListResourceEntity run(JB4DCSession jb4DCSession,ListResourceEntity sourceEntity) throws JBuild4DCGenerallyException {
 
                 sourceEntity.setListCreateTime(new Date());
-                sourceEntity.setListCreator(jb4DSession.getUserName());
+                sourceEntity.setListCreator(jb4DCSession.getUserName());
                 sourceEntity.setListUpdateTime(new Date());
-                sourceEntity.setListUpdater(jb4DSession.getUserName());
+                sourceEntity.setListUpdater(jb4DCSession.getUserName());
                 sourceEntity.setListOrderNum(listResourceMapper.nextOrderNum());
                 sourceEntity.setListStatus(EnableTypeEnum.enable.getDisplayName());
-                sourceEntity.setListOrganId(jb4DSession.getOrganId());
-                sourceEntity.setListOrganName(jb4DSession.getOrganName());
+                sourceEntity.setListOrganId(jb4DCSession.getOrganId());
+                sourceEntity.setListOrganName(jb4DCSession.getOrganName());
                 sourceEntity.setListCode(moduleService.buildModuleItemCode(sourceEntity.getListOrderNum()));
                 return sourceEntity;
             }
@@ -71,9 +71,9 @@ public class ListResourceServiceImpl extends BaseServiceImpl<ListResourceEntity>
     }
 
     @Override
-    public String getListRuntimeHTMLContent(JB4DCSession jb4DSession, String id) throws JBuild4DCGenerallyException {
-        ListResourceEntity listResourceEntity=getByPrimaryKey(jb4DSession,id);
-        String runtimeForm=htmlRuntimeResolve.dynamicBind(jb4DSession,id,listResourceEntity.getListHtmlResolve());
+    public String getListRuntimeHTMLContent(JB4DCSession jb4DCSession, String id) throws JBuild4DCGenerallyException {
+        ListResourceEntity listResourceEntity=getByPrimaryKey(jb4DCSession,id);
+        String runtimeForm=htmlRuntimeResolve.dynamicBind(jb4DCSession,id,listResourceEntity.getListHtmlResolve());
         return runtimeForm;
     }
 }

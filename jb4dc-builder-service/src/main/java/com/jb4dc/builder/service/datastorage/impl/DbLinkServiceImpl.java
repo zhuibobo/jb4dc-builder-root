@@ -32,19 +32,19 @@ public class DbLinkServiceImpl extends BaseServiceImpl<DbLinkEntity> implements 
     }
 
     @Override
-    public int saveSimple(JB4DCSession jb4DSession, String id, DbLinkEntity record) throws JBuild4DCGenerallyException {
-        return super.save(jb4DSession,id, record, new IAddBefore<DbLinkEntity>() {
+    public int saveSimple(JB4DCSession jb4DCSession, String id, DbLinkEntity record) throws JBuild4DCGenerallyException {
+        return super.save(jb4DCSession,id, record, new IAddBefore<DbLinkEntity>() {
             @Override
-            public DbLinkEntity run(JB4DCSession jb4DSession,DbLinkEntity sourceEntity) throws JBuild4DCGenerallyException {
+            public DbLinkEntity run(JB4DCSession jb4DCSession,DbLinkEntity sourceEntity) throws JBuild4DCGenerallyException {
                 //自动创建该连接的表分组根节点
-                tableGroupService.deleteByKeyNotValidate(jb4DSession,id, JBuild4DCYaml.getWarningOperationCode());
-                tableGroupService.createRootNode(jb4DSession,id,record.getDbLinkName(),record.getDbLinkValue());
+                tableGroupService.deleteByKeyNotValidate(jb4DCSession,id, JBuild4DCYaml.getWarningOperationCode());
+                tableGroupService.createRootNode(jb4DCSession,id,record.getDbLinkName(),record.getDbLinkValue());
 
                 sourceEntity.setDbCreateTime(new Date());
                 sourceEntity.setDbOrderNum(dbLinkMapper.nextOrderNum());
                 sourceEntity.setDbStatus(EnableTypeEnum.enable.getDisplayName());
-                sourceEntity.setDbOrganId(jb4DSession.getOrganId());
-                sourceEntity.setDbOrganName(jb4DSession.getOrganName());
+                sourceEntity.setDbOrganId(jb4DCSession.getOrganId());
+                sourceEntity.setDbOrganName(jb4DCSession.getOrganName());
 
                 if(record.getDbIsLocation()==null||record.getDbIsLocation().equals("")){
                     record.setDbIsLocation(TrueFalseEnum.False.getDisplayName());
@@ -60,8 +60,8 @@ public class DbLinkServiceImpl extends BaseServiceImpl<DbLinkEntity> implements 
     //}
 
     @Override
-    public DbLinkEntity getDBLinkEntity(JB4DCSession jb4DSession) throws JBuild4DCGenerallyException {
-        return this.getByPrimaryKey(jb4DSession,this.JBUILD4DC_BUILDER_DB_LINK_ID);
+    public DbLinkEntity getDBLinkEntity(JB4DCSession jb4DCSession) throws JBuild4DCGenerallyException {
+        return this.getByPrimaryKey(jb4DCSession,this.JBUILD4DC_BUILDER_DB_LINK_ID);
     }
 
     @Override
@@ -76,7 +76,7 @@ public class DbLinkServiceImpl extends BaseServiceImpl<DbLinkEntity> implements 
         return entity;
     }
 
-    public void createBuilderDBLink(JB4DCSession jb4DSession) throws JBuild4DCGenerallyException {
+    public void createBuilderDBLink(JB4DCSession jb4DCSession) throws JBuild4DCGenerallyException {
         DbLinkEntity dbLinkEntity=new DbLinkEntity();
         dbLinkEntity.setDbId(this.JBUILD4DC_BUILDER_DB_LINK_ID);
         dbLinkEntity.setDbLinkValue("JBUILD4DC_BUILDER_DB_LINK_ID");
@@ -90,10 +90,10 @@ public class DbLinkServiceImpl extends BaseServiceImpl<DbLinkEntity> implements 
         dbLinkEntity.setDbDesc("应用构建库本身数据库连接");
         dbLinkEntity.setDbIsLocation(TrueFalseEnum.True.getDisplayName());
         dbLinkEntity.setDbStatus(EnableTypeEnum.enable.getDisplayName());
-        this.saveSimple(jb4DSession,dbLinkEntity.getDbId(),dbLinkEntity);
+        this.saveSimple(jb4DCSession,dbLinkEntity.getDbId(),dbLinkEntity);
     }
 
-    public void createSSODBLink(JB4DCSession jb4DSession) throws JBuild4DCGenerallyException {
+    public void createSSODBLink(JB4DCSession jb4DCSession) throws JBuild4DCGenerallyException {
         DbLinkEntity dbLinkEntity=new DbLinkEntity();
         dbLinkEntity.setDbId(this.JBUILD4DC_SSO_DB_LINK_ID);
         dbLinkEntity.setDbLinkValue("JBUILD4DC_SSO_DB_LINK_ID");
@@ -107,10 +107,10 @@ public class DbLinkServiceImpl extends BaseServiceImpl<DbLinkEntity> implements 
         dbLinkEntity.setDbDesc("单点登录数据库连接");
         dbLinkEntity.setDbIsLocation(TrueFalseEnum.False.getDisplayName());
         dbLinkEntity.setDbStatus(EnableTypeEnum.enable.getDisplayName());
-        this.saveSimple(jb4DSession,dbLinkEntity.getDbId(),dbLinkEntity);
+        this.saveSimple(jb4DCSession,dbLinkEntity.getDbId(),dbLinkEntity);
     }
 
-    public void createDevMockDBLink(JB4DCSession jb4DSession) throws JBuild4DCGenerallyException {
+    public void createDevMockDBLink(JB4DCSession jb4DCSession) throws JBuild4DCGenerallyException {
         DbLinkEntity dbLinkEntity=new DbLinkEntity();
         dbLinkEntity.setDbId(this.JBUILD4DC_DEV_MOCK_DB_LINK_ID);
         dbLinkEntity.setDbLinkValue("JBUILD4DC_DEV_MOCK_DB_LINK_ID");
@@ -124,10 +124,10 @@ public class DbLinkServiceImpl extends BaseServiceImpl<DbLinkEntity> implements 
         dbLinkEntity.setDbDesc("开发样例数据库连接");
         dbLinkEntity.setDbIsLocation(TrueFalseEnum.False.getDisplayName());
         dbLinkEntity.setDbStatus(EnableTypeEnum.enable.getDisplayName());
-        this.saveSimple(jb4DSession,dbLinkEntity.getDbId(),dbLinkEntity);
+        this.saveSimple(jb4DCSession,dbLinkEntity.getDbId(),dbLinkEntity);
     }
 
-    public void createBusinessTestDBLink(JB4DCSession jb4DSession) throws JBuild4DCGenerallyException {
+    public void createBusinessTestDBLink(JB4DCSession jb4DCSession) throws JBuild4DCGenerallyException {
         DbLinkEntity dbLinkEntity=new DbLinkEntity();
         dbLinkEntity.setDbId(this.JBUILD4DC_BUSINESS_TEST_DB_LINK_ID);
         dbLinkEntity.setDbLinkValue("JBUILD4DC_BUSINESS_TEST_DB_LINK_ID");
@@ -141,14 +141,14 @@ public class DbLinkServiceImpl extends BaseServiceImpl<DbLinkEntity> implements 
         dbLinkEntity.setDbDesc("业务测试数据库连接");
         dbLinkEntity.setDbIsLocation(TrueFalseEnum.False.getDisplayName());
         dbLinkEntity.setDbStatus(EnableTypeEnum.enable.getDisplayName());
-        this.saveSimple(jb4DSession,dbLinkEntity.getDbId(),dbLinkEntity);
+        this.saveSimple(jb4DCSession,dbLinkEntity.getDbId(),dbLinkEntity);
     }
 
     @Override
-    public void initSystemData(JB4DCSession jb4DSession) throws JBuild4DCGenerallyException {
-        this.createBuilderDBLink(jb4DSession);
-        this.createSSODBLink(jb4DSession);
-        this.createDevMockDBLink(jb4DSession);
-        this.createBusinessTestDBLink(jb4DSession);
+    public void initSystemData(JB4DCSession jb4DCSession) throws JBuild4DCGenerallyException {
+        this.createBuilderDBLink(jb4DCSession);
+        this.createSSODBLink(jb4DCSession);
+        this.createDevMockDBLink(jb4DCSession);
+        this.createBusinessTestDBLink(jb4DCSession);
     }
 }

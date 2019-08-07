@@ -58,10 +58,10 @@ public class DataSetSQLDesignerRest {
             List<EnvVariableVo> dateTimeVoList=envVariableService.getDateTimeVars();
             List<EnvVariableVo> apiVarVoList=envVariableService.getAPIVars();
 
-            JB4DCSession jb4DSession= JB4DCSessionUtility.getSession();
+            JB4DCSession jb4DCSession= JB4DCSessionUtility.getSession();
 
-            List<TableGroupEntity> tableGroupEntityList=tableGroupService.getALL(jb4DSession);
-            List<TableEntity> tableEntityList=tableService.getALL(jb4DSession);
+            List<TableGroupEntity> tableGroupEntityList=tableGroupService.getALL(jb4DCSession);
+            List<TableEntity> tableEntityList=tableService.getALL(jb4DCSession);
 
             //modelAndView.addObject("datetimeTreeData", JsonUtility.toObjectString(dateTimeVoList));
             //modelAndView.addObject("apiVarTreeData",JsonUtility.toObjectString(apiVarVoList));
@@ -81,11 +81,11 @@ public class DataSetSQLDesignerRest {
     @RequestMapping(value = "ValidateSQLEnable", method = RequestMethod.POST)
     public JBuild4DCResponseVo validateSQLEnable(String sqlText) {
         try {
-            JB4DCSession jb4DSession = JB4DCSessionUtility.getSession();
-            //String sqlValue=datasetService.sqlReplaceEnvTextToEnvValue(jb4DSession,sqlText);
+            JB4DCSession jb4DCSession = JB4DCSessionUtility.getSession();
+            //String sqlValue=datasetService.sqlReplaceEnvTextToEnvValue(jb4DCSession,sqlText);
             //String sqlWithEnvText=sqlText;
             sqlText= URLDecoder.decode(sqlText,"utf-8");
-            SQLResolveToDataSetVo sqlResolveToDataSetVo=datasetService.sqlResolveToDataSetVo(jb4DSession,sqlText);
+            SQLResolveToDataSetVo sqlResolveToDataSetVo=datasetService.sqlResolveToDataSetVo(jb4DCSession,sqlText);
             //List<TableFieldVO> tableFieldVOList=tableFieldService.getTableFieldsByTableId(tableId);
             return JBuild4DCResponseVo.success("校验成功！",sqlResolveToDataSetVo);
         }
@@ -97,7 +97,7 @@ public class DataSetSQLDesignerRest {
     @RequestMapping(value = "GetTableField", method = RequestMethod.POST)
     public JBuild4DCResponseVo getTableField(String tableId) {
         try {
-            JB4DCSession jb4DSession = JB4DCSessionUtility.getSession();
+            JB4DCSession jb4DCSession = JB4DCSessionUtility.getSession();
             List<TableFieldVO> tableFieldVOList=tableFieldService.getTableFieldsByTableId(tableId);
             return JBuild4DCResponseVo.success("获取成功", tableFieldVOList);
         }

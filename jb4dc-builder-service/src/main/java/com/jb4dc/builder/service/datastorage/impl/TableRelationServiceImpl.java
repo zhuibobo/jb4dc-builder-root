@@ -25,13 +25,13 @@ public class TableRelationServiceImpl extends BaseServiceImpl<TableRelationEntit
     }
 
     @Override
-    public int saveSimple(JB4DCSession jb4DSession, String id, TableRelationEntity record) throws JBuild4DCGenerallyException {
-        return super.save(jb4DSession,id, record, new IAddBefore<TableRelationEntity>() {
+    public int saveSimple(JB4DCSession jb4DCSession, String id, TableRelationEntity record) throws JBuild4DCGenerallyException {
+        return super.save(jb4DCSession,id, record, new IAddBefore<TableRelationEntity>() {
             @Override
-            public TableRelationEntity run(JB4DCSession jb4DSession, TableRelationEntity sourceEntity) throws JBuild4DCGenerallyException {
+            public TableRelationEntity run(JB4DCSession jb4DCSession, TableRelationEntity sourceEntity) throws JBuild4DCGenerallyException {
                 //设置排序,以及其他参数--nextOrderNum()
-                sourceEntity.setRelationUserId(jb4DSession.getUserId());
-                sourceEntity.setRelationUserName(jb4DSession.getUserName());
+                sourceEntity.setRelationUserId(jb4DCSession.getUserId());
+                sourceEntity.setRelationUserName(jb4DCSession.getUserName());
                 sourceEntity.setRelationOrderNum(tableRelationMapper.nextOrderNum());
                 sourceEntity.setRelationCreateTime(new Date());
                 sourceEntity.setRelationStatus(EnableTypeEnum.enable.getDisplayName());
@@ -41,17 +41,17 @@ public class TableRelationServiceImpl extends BaseServiceImpl<TableRelationEntit
     }
 
     @Override
-    public List<TableRelationEntity> getRelationByGroup(JB4DCSession jb4DSession, String groupId) {
+    public List<TableRelationEntity> getRelationByGroup(JB4DCSession jb4DCSession, String groupId) {
         return tableRelationMapper.selectByGroupId(groupId);
     }
 
     @Override
-    public void updateDiagram(JB4DCSession jb4DSession, String recordId, String relationContent, String relationDiagramJson) throws JBuild4DCGenerallyException {
-        TableRelationEntity tableRelationEntityWithBLOBs=getByPrimaryKey(jb4DSession,recordId);
+    public void updateDiagram(JB4DCSession jb4DCSession, String recordId, String relationContent, String relationDiagramJson) throws JBuild4DCGenerallyException {
+        TableRelationEntity tableRelationEntityWithBLOBs=getByPrimaryKey(jb4DCSession,recordId);
         if(tableRelationEntityWithBLOBs!=null){
             tableRelationEntityWithBLOBs.setRelationContent(relationContent);
             tableRelationEntityWithBLOBs.setRelationDiagramJson(relationDiagramJson);
-            this.updateByKeySelective(jb4DSession,tableRelationEntityWithBLOBs);
+            this.updateByKeySelective(jb4DCSession,tableRelationEntityWithBLOBs);
         }
         else {
             throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_BUILDER_CODE,"不存在记录为" + recordId + "的数据!");
@@ -59,14 +59,14 @@ public class TableRelationServiceImpl extends BaseServiceImpl<TableRelationEntit
     }
 
     @Override
-    public void moveUp(JB4DCSession jb4DSession, String id) throws JBuild4DCGenerallyException {
+    public void moveUp(JB4DCSession jb4DCSession, String id) throws JBuild4DCGenerallyException {
         TableRelationEntity selfEntity=tableRelationMapper.selectByPrimaryKey(id);
         TableRelationEntity ltEntity=tableRelationMapper.selectLessThanRecord(id,selfEntity.getRelationGroupId());
         switchOrder(ltEntity,selfEntity);
     }
 
     @Override
-    public void moveDown(JB4DCSession jb4DSession, String id) throws JBuild4DCGenerallyException {
+    public void moveDown(JB4DCSession jb4DCSession, String id) throws JBuild4DCGenerallyException {
         TableRelationEntity selfEntity=tableRelationMapper.selectByPrimaryKey(id);
         TableRelationEntity ltEntity=tableRelationMapper.selectGreaterThanRecord(id,selfEntity.getRelationGroupId());
         switchOrder(ltEntity,selfEntity);

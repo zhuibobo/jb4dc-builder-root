@@ -63,7 +63,7 @@ public class EnvVariableServiceImpl implements IEnvVariableService {
     }
 
     @Override
-    public String execEnvVarResult(JB4DCSession jb4DSession, String value) throws XPathExpressionException, JBuild4DCGenerallyException, IOException, SAXException, ParserConfigurationException {
+    public String execEnvVarResult(JB4DCSession jb4DCSession, String value) throws XPathExpressionException, JBuild4DCGenerallyException, IOException, SAXException, ParserConfigurationException {
         List<EnvVariableVo> envVariableVoList=getVoListFromCache();
         EnvVariableVo envVariableVo=ListUtility.WhereSingle(envVariableVoList, new IListWhereCondition<EnvVariableVo>() {
             @Override
@@ -90,7 +90,7 @@ public class EnvVariableServiceImpl implements IEnvVariableService {
         }
 
         try {
-            return varCreater.createVar(jb4DSession,envVariableVo);
+            return varCreater.createVar(jb4DCSession,envVariableVo);
         }
         catch (Exception ex){
             ex.printStackTrace();

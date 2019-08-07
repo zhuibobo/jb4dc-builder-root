@@ -55,7 +55,7 @@ public class SQLDataSetBuilder {
     @Autowired
     private ITableService tableService;
 
-    public DataSetVo resolveSQLToDataSet(JB4DCSession jb4DSession, String sql) throws PropertyVetoException, JBuild4DCGenerallyException {
+    public DataSetVo resolveSQLToDataSet(JB4DCSession jb4DCSession, String sql) throws PropertyVetoException, JBuild4DCGenerallyException {
         DataSetVo dataSetVo=new DataSetVo();
         List<DataSetColumnVo> dataSetColumnVoList=new ArrayList<>();
         List<DataSetRelatedTableVo> dataSetRelatedTableVoList=new ArrayList<>();
@@ -82,7 +82,7 @@ public class SQLDataSetBuilder {
             }
 
             //判断表是否来自一个数据库
-            if(!tableService.testTablesInTheSameDBLink(jb4DSession,tableList)){
+            if(!tableService.testTablesInTheSameDBLink(jb4DCSession,tableList)){
                 String tableNames="";
                 for (Object o : tableList) {
                     tableNames+=o.toString()+";";
@@ -90,7 +90,7 @@ public class SQLDataSetBuilder {
                 throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_BUILDER_CODE,"表:"+tableNames+"不是来自同一个数据库,暂时不支持!");
             }
 
-            DbLinkEntity dbLinkEntity=tableService.getDBLinkByTableName(jb4DSession,tableList.get(0).toString());
+            DbLinkEntity dbLinkEntity=tableService.getDBLinkByTableName(jb4DCSession,tableList.get(0).toString());
             dataSetVo.setDsSqlDbLinkId(dbLinkEntity.getDbId());
 
             //解析相关的字段

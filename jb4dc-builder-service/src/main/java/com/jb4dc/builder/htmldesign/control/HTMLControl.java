@@ -39,10 +39,10 @@ public abstract class HTMLControl implements IHTMLControl {
     }
 
     @Override
-    public void rendererChain(JB4DCSession jb4DSession, String sourceHTML, Document doc, Element singleControlElem, Element parentElem, Element lastParentJbuild4dCustomElem, ResolveHTMLControlContextVo resolveHTMLControlContextVo) throws JBuild4DCGenerallyException {
+    public void rendererChain(JB4DCSession jb4DCSession, String sourceHTML, Document doc, Element singleControlElem, Element parentElem, Element lastParentJbuild4dCustomElem, ResolveHTMLControlContextVo resolveHTMLControlContextVo) throws JBuild4DCGenerallyException {
         for (Element singleElem : singleControlElem.children()) {
 
-            if(singleElem.attr(HTMLControlAttrs.JBUILD4D_CUSTOM).equals("true")){
+            if(singleElem.attr(HTMLControlAttrs.JBUILD4DC_CUSTOM).equals("true")){
                 //String serverResolveFullClassName = singleElem.attr(HTMLControlAttrs.SERVERRESOLVE);
                 String singleName=singleElem.attr(HTMLControlAttrs.SINGLENAME);
                 HtmlControlDefinitionVo htmlControlDefinitionVo=ckEditorPluginsService.getVo(singleName);
@@ -54,10 +54,10 @@ public abstract class HTMLControl implements IHTMLControl {
                     try {
                         IHTMLControl htmlControl = this.getHTMLControlInstance(serverResolveFullClassName);
 
-                        htmlControl.resolveDefAttr(jb4DSession, sourceHTML, doc, singleElem, parentElem, lastParentJbuild4dCustomElem, resolveHTMLControlContextVo, htmlControlDefinitionVo);
-                        htmlControl.resolveSelf(jb4DSession, sourceHTML, doc, singleElem, parentElem, lastParentJbuild4dCustomElem, resolveHTMLControlContextVo, htmlControlDefinitionVo);
+                        htmlControl.resolveDefAttr(jb4DCSession, sourceHTML, doc, singleElem, parentElem, lastParentJbuild4dCustomElem, resolveHTMLControlContextVo, htmlControlDefinitionVo);
+                        htmlControl.resolveSelf(jb4DCSession, sourceHTML, doc, singleElem, parentElem, lastParentJbuild4dCustomElem, resolveHTMLControlContextVo, htmlControlDefinitionVo);
 
-                        htmlControl.rendererChain(jb4DSession, sourceHTML, doc, singleElem, parentElem, lastParentJbuild4dCustomElem, resolveHTMLControlContextVo);
+                        htmlControl.rendererChain(jb4DCSession, sourceHTML, doc, singleElem, parentElem, lastParentJbuild4dCustomElem, resolveHTMLControlContextVo);
                     }
                     catch (Exception ex){
                         singleElem.html("控件解析出错！【"+ex.getMessage()+"】");
@@ -65,13 +65,13 @@ public abstract class HTMLControl implements IHTMLControl {
                 }
                 else
                 {
-                    rendererChain(jb4DSession, sourceHTML, doc, singleElem, singleElem, lastParentJbuild4dCustomElem, resolveHTMLControlContextVo);
+                    rendererChain(jb4DCSession, sourceHTML, doc, singleElem, singleElem, lastParentJbuild4dCustomElem, resolveHTMLControlContextVo);
                 }
             }
             else{
                 //如果是普通html元素则直接递归处理,如果是自定义控件,则由控件显示调用
                 if(singleElem.childNodeSize()>0){
-                    rendererChain(jb4DSession, sourceHTML, doc, singleElem, singleElem, lastParentJbuild4dCustomElem, resolveHTMLControlContextVo);
+                    rendererChain(jb4DCSession, sourceHTML, doc, singleElem, singleElem, lastParentJbuild4dCustomElem, resolveHTMLControlContextVo);
                 }
             }
         }
@@ -79,12 +79,12 @@ public abstract class HTMLControl implements IHTMLControl {
 
     //todo 绑定默认值
     @Override
-    public void bindDefaultValue(JB4DCSession jb4DSession, String sourceHTML, Document doc, Element singleControlElem, Element parentElem, Element lastParentJbuild4dCustomElem, ResolveHTMLControlContextVo resolveHTMLControlContextVo, HtmlControlDefinitionVo htmlControlDefinitionVo) {
+    public void bindDefaultValue(JB4DCSession jb4DCSession, String sourceHTML, Document doc, Element singleControlElem, Element parentElem, Element lastParentJbuild4dCustomElem, ResolveHTMLControlContextVo resolveHTMLControlContextVo, HtmlControlDefinitionVo htmlControlDefinitionVo) {
 
     }
 
     @Override
-    public void resolveDefAttr(JB4DCSession jb4DSession, String sourceHTML, Document doc, Element singleControlElem, Element parentElem, Element lastParentJbuild4dCustomElem, ResolveHTMLControlContextVo resolveHTMLControlContextVo, HtmlControlDefinitionVo htmlControlDefinitionVo) {
+    public void resolveDefAttr(JB4DCSession jb4DCSession, String sourceHTML, Document doc, Element singleControlElem, Element parentElem, Element lastParentJbuild4dCustomElem, ResolveHTMLControlContextVo resolveHTMLControlContextVo, HtmlControlDefinitionVo htmlControlDefinitionVo) {
         //附件上客户端解析对象,适用于简单控件
         singleControlElem.attr("client_resolve",htmlControlDefinitionVo.getClientResolve());
 
@@ -119,7 +119,7 @@ public abstract class HTMLControl implements IHTMLControl {
     }
 
     @Override
-    public String parseToJson(JB4DCSession jb4DSession, String sourceHTML, Document doc, Element singleControlElem, Element parentElem, Element lastParentJbuild4dCustomElem, ResolveHTMLControlContextVo resolveHTMLControlContextVo, HtmlControlDefinitionVo htmlControlDefinitionVo) {
+    public String parseToJson(JB4DCSession jb4DCSession, String sourceHTML, Document doc, Element singleControlElem, Element parentElem, Element lastParentJbuild4dCustomElem, ResolveHTMLControlContextVo resolveHTMLControlContextVo, HtmlControlDefinitionVo htmlControlDefinitionVo) {
         return "{}";
     }
 }

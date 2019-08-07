@@ -4,7 +4,7 @@ class CKEditorPluginUtility {
         //来自服务端的插件的相关的配置,在初始的时候写入
     };
 
-    static AddPluginsServerConfig(singleName,toolbarLocation,text,clientResolve,serverResolve,clientResolveJs,dialogWidth,dialogHeight,isJBuild4DData,controlCategory,serverDynamicBind,showRemoveButton,showInEditorToolbar){
+    static AddPluginsServerConfig(singleName,toolbarLocation,text,clientResolve,serverResolve,clientResolveJs,dialogWidth,dialogHeight,isJBuild4DCData,controlCategory,serverDynamicBind,showRemoveButton,showInEditorToolbar){
         this.PluginsServerConfig[singleName]={
             SingleName:singleName,
             ToolbarLocation:toolbarLocation,
@@ -14,7 +14,7 @@ class CKEditorPluginUtility {
             ClientResolveJs:clientResolveJs,
             DialogWidth:dialogWidth,
             DialogHeight:dialogHeight,
-            IsJBuild4DData:isJBuild4DData,
+            IsJBuild4DCData:isJBuild4DCData,
             ControlCategory:controlCategory,
             ServerDynamicBind:serverDynamicBind,
             ShowRemoveButton:showRemoveButton,
@@ -68,7 +68,7 @@ class CKEditorPluginUtility {
             ClientResolve: "",
             ServerResolve: "",
             //是否是数据控件
-            IsJBuild4DData: "",
+            IsJBuild4DCData: "",
             //控件类别:输入控件或者为容器控件
             ControlCategory:"",
             //是否进行服务端的动态绑定
@@ -83,7 +83,7 @@ class CKEditorPluginUtility {
         //使用服务端定义覆盖定义的空值;
         defaultSetting = CKEditorPluginUtility._UseServerConfigCoverEmptyPluginProp(defaultSetting);
         defaultSetting.DialogName = defaultSetting.SingleName;
-        defaultSetting.ToolbarCommand = "JBuild4D.FormDesign.Plugins." + defaultSetting.SingleName;
+        defaultSetting.ToolbarCommand = "JBuild4DC.FormDesign.Plugins." + defaultSetting.SingleName;
         defaultSetting.DialogSettingTitle = defaultSetting.ToolbarLabel + "Web控件";
         //debugger;
         return {
@@ -202,9 +202,9 @@ class CKEditorPluginUtility {
 
     static SerializePropsToElem(elem,props,controlSetting){
         //debugger;
-        elem.setAttribute("jbuild4d_custom", "true");
+        elem.setAttribute("jbuild4dc_custom", "true");
         elem.setAttribute("singlename",controlSetting.SingleName);
-        elem.setAttribute("is_jbuild4d_data",controlSetting.IsJBuild4DData);
+        elem.setAttribute("is_jbuild4dc_data",controlSetting.IsJBuild4DCData);
         elem.setAttribute("control_category",controlSetting.ControlCategory);
         elem.setAttribute("show_remove_button",controlSetting.ShowRemoveButton);
         //elem.setAttribute("clientresolve",controlSetting.ClientResolve);

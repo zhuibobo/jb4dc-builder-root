@@ -68,9 +68,9 @@ public class DataSetMainRest  {
     @RequestMapping(value = "/GetListData", method = RequestMethod.POST)
     public JBuild4DCResponseVo getListData(Integer pageSize,Integer pageNum,String searchCondition) throws IOException, ParseException {
 
-        JB4DCSession jb4DSession= JB4DCSessionUtility.getSession();
+        JB4DCSession jb4DCSession= JB4DCSessionUtility.getSession();
         Map<String,Object> searchMap= GeneralSearchUtility.deserializationToMap(searchCondition);
-        PageInfo<DatasetEntity> proOrganPageInfo=datasetService.getPage(jb4DSession,pageNum,pageSize,searchMap);
+        PageInfo<DatasetEntity> proOrganPageInfo=datasetService.getPage(jb4DCSession,pageNum,pageSize,searchMap);
         JBuild4DCResponseVo responseVo=new JBuild4DCResponseVo();
         responseVo.setData(proOrganPageInfo);
         responseVo.setMessage("获取成功");
@@ -85,10 +85,10 @@ public class DataSetMainRest  {
             responseVo.setSuccess(true);
             responseVo.setMessage("获取数据成功！");
 
-            JB4DCSession jb4DSession= JB4DCSessionUtility.getSession();
+            JB4DCSession jb4DCSession= JB4DCSessionUtility.getSession();
 
-            List<DatasetGroupEntity> tableGroupEntityList=datasetGroupService.getALL(jb4DSession);
-            List<DatasetEntity> tableEntityList=datasetService.getALL(jb4DSession);
+            List<DatasetGroupEntity> tableGroupEntityList=datasetGroupService.getALL(jb4DCSession);
+            List<DatasetEntity> tableEntityList=datasetService.getALL(jb4DCSession);
 
             responseVo.setData(ZTreeNodePOConvert.parseDataSetToZTreeNodeList(tableGroupEntityList,tableEntityList));
 

@@ -173,17 +173,17 @@ public class TableRestTest extends TableGroupRestTest {
         Assert.assertTrue(responseVo.isSuccess());
     }
 
-    private TableEntity getTableEntity(JB4DCSession jb4DSession, String tableId, String tableCaption, String tableName) throws JBuild4DCGenerallyException {
+    private TableEntity getTableEntity(JB4DCSession jb4DCSession, String tableId, String tableCaption, String tableName) throws JBuild4DCGenerallyException {
         TableEntity tableEntity=new TableEntity();
         tableEntity.setTableId(tableId);
         tableEntity.setTableCaption(tableCaption);
         tableEntity.setTableName(tableName);
         //tableEntity.setTableDbName("");
-        tableEntity.setTableOrganId(jb4DSession.getOrganId());
+        tableEntity.setTableOrganId(jb4DCSession.getOrganId());
         tableEntity.setTableCreateTime(new Date());
-        tableEntity.setTableCreator(jb4DSession.getUserName());
+        tableEntity.setTableCreator(jb4DCSession.getUserName());
         tableEntity.setTableUpdateTime(new Date());
-        tableEntity.setTableUpdater(jb4DSession.getUserName());
+        tableEntity.setTableUpdater(jb4DCSession.getUserName());
         tableEntity.setTableServiceValue("");
         tableEntity.setTableType("");
         tableEntity.setTableIsSystem(TrueFalseEnum.False.getDisplayName());
@@ -191,7 +191,7 @@ public class TableRestTest extends TableGroupRestTest {
         tableEntity.setTableDesc("");
         tableEntity.setTableLinkId(testDBLinkId);
 
-        /*TableGroupEntity tableGroupEntity=tableGroupService.getByGroupText(jb4DSession,"开发测试");
+        /*TableGroupEntity tableGroupEntity=tableGroupService.getByGroupText(jb4DCSession,"开发测试");
         if(tableGroupEntity==null){
             tableGroupEntity=new TableGroupEntity();
             tableGroupEntity.setTableGroupId("DevGroup");
@@ -205,7 +205,7 @@ public class TableRestTest extends TableGroupRestTest {
             tableGroupEntity.setTableGroupIsSystem(TrueFalseEnum.False.getDisplayName());
             tableGroupEntity.setTableGroupDelEnable(TrueFalseEnum.False.getDisplayName());
             tableGroupEntity.setTableGroupLinkId(testDBLinkId);
-            tableGroupService.saveSimple(jb4DSession,tableGroupEntity.getTableGroupId(),tableGroupEntity);
+            tableGroupService.saveSimple(jb4DCSession,tableGroupEntity.getTableGroupId(),tableGroupEntity);
         }*/
 
         tableEntity.setTableGroupId(tableGroupId);
@@ -214,7 +214,7 @@ public class TableRestTest extends TableGroupRestTest {
         return tableEntity;
     }
 
-    private TableFieldVO newFiled(JB4DCSession jb4DSession, String tableId, String fieldName, String fieldCaption,
+    private TableFieldVO newFiled(JB4DCSession jb4DCSession, String tableId, String fieldName, String fieldCaption,
                                   TrueFalseEnum pk, TrueFalseEnum allowNull,
                                   TableFieldTypeEnum fieldDataType, int dataLength, int decimalLength,
                                   String fieldDefaultValue, String fieldDefaultText, String fieldDesc, String templateName
@@ -232,9 +232,9 @@ public class TableRestTest extends TableGroupRestTest {
         fieldVO.setFieldDefaultValue(fieldDefaultValue);
         fieldVO.setFieldDefaultText(fieldDefaultText);
         fieldVO.setFieldCreateTime(new Date());
-        fieldVO.setFieldCreator(jb4DSession.getUserName());
+        fieldVO.setFieldCreator(jb4DCSession.getUserName());
         fieldVO.setFieldUpdateTime(new Date());
-        fieldVO.setFieldUpdater(jb4DSession.getUserName());
+        fieldVO.setFieldUpdater(jb4DCSession.getUserName());
         fieldVO.setFieldDesc(fieldDesc);
         fieldVO.setFieldTemplateName(templateName);
         return fieldVO;

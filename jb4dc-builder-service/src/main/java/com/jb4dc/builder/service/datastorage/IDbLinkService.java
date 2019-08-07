@@ -14,9 +14,9 @@ public interface IDbLinkService extends IBaseService<DbLinkEntity> {
 
     //String getLocationDBLinkId();
 
-    DbLinkEntity getDBLinkEntity(JB4DCSession jb4DSession) throws JBuild4DCGenerallyException;
+    DbLinkEntity getDBLinkEntity(JB4DCSession jb4DCSession) throws JBuild4DCGenerallyException;
 
     DbLinkEntity getLocationDBByYML(JB4DCSession jb4DCSession) throws JBuild4DCGenerallyException;
 
-    void initSystemData(JB4DCSession jb4DSession) throws JBuild4DCGenerallyException;
+    void initSystemData(JB4DCSession jb4DCSession) throws JBuild4DCGenerallyException;
 }

@@ -17,15 +17,15 @@ public class WebFormTextBox extends HTMLControl implements IHTMLControl {
     //IDictionaryService dictionaryService;
 
     @Override
-    public void resolveSelf(JB4DCSession jb4DSession, String sourceHTML, Document doc, Element singleControlElem, Element parentElem, Element lastParentJbuild4dCustomElem, ResolveHTMLControlContextVo resolveHTMLControlContextVo, HtmlControlDefinitionVo htmlControlDefinitionVo) {
-        System.out.println(sourceHTML);
+    public void resolveSelf(JB4DCSession jb4DCSession, String sourceHTML, Document doc, Element singleControlElem, Element parentElem, Element lastParentJbuild4dCustomElem, ResolveHTMLControlContextVo resolveHTMLControlContextVo, HtmlControlDefinitionVo htmlControlDefinitionVo) {
+        //System.out.println(sourceHTML);
         singleControlElem.tagName("input");
         singleControlElem.text("");
         singleControlElem.attr("type","text");
     }
 
     @Override
-    public void dynamicBind(JB4DCSession jb4DSession, String sourceHTML, String resolveHTML, Document doc, Element singleControlElem, DynamicBindHTMLControlContextVo dynamicBindHTMLControlContextVo, HtmlControlDefinitionVo htmlControlPluginDefinitionVo) {
+    public void dynamicBind(JB4DCSession jb4DCSession, String sourceHTML, String resolveHTML, Document doc, Element singleControlElem, DynamicBindHTMLControlContextVo dynamicBindHTMLControlContextVo, HtmlControlDefinitionVo htmlControlPluginDefinitionVo) {
 
     }
 }

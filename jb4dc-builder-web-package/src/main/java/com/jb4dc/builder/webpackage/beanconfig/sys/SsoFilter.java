@@ -51,9 +51,9 @@ public class SsoFilter {
         SsoWebFilter filter = new SsoWebFilter();
         filter.setCheckSessionSuccess(new ICheckSessionSuccess() {
             @Override
-            public void run(ServletRequest request, ServletResponse response, FilterChain chain, JB4DCSession jb4DSession) {
+            public void run(ServletRequest request, ServletResponse response, FilterChain chain, JB4DCSession jb4DCSession) {
                 try {
-                    System.out.println("重远程获取Session完成,用户:"+ JsonUtility.toObjectString(jb4DSession));
+                    System.out.println("重远程获取Session完成,用户:"+ JsonUtility.toObjectString(jb4DCSession));
                 } catch (JsonProcessingException e) {
                     e.printStackTrace();
                 }

@@ -21,15 +21,15 @@
                  ServerResolve=""
                  ClientResolve="2"
                  ClientResolveJs="3"
-                 DialogWidth="780" DialogHeight="550" IsJBuild4DData="false" ControlCategory="ContainerControl" ServerDynamicBind="false" ShowRemoveButton="false" ShowInEditorToolbar="true">
+                 DialogWidth="780" DialogHeight="550" IsJBuild4DCData="false" ControlCategory="ContainerControl" ServerDynamicBind="false" ShowRemoveButton="false" ShowInEditorToolbar="true">
             <Config></Config>
             <Desc></Desc>
         </Control>
         <Control SingleName="WFDCT_TextBox" Text="单行输入框" ToolbarLocation="LC_Simple_G1,1"
                  ServerResolve="com.jb4dc.builder.htmldesign.control.webform.WebFormTextBox"
-                 ClientResolve="2"
+                 ClientResolve="WFDCT_TextBox"
                  ClientResolveJs="3"
-                 DialogWidth="780" DialogHeight="550" IsJBuild4DData="true" ControlCategory="InputControl" ServerDynamicBind="false" ShowRemoveButton="true" ShowInEditorToolbar="true">
+                 DialogWidth="780" DialogHeight="550" IsJBuild4DCData="true" ControlCategory="InputControl" ServerDynamicBind="false" ShowRemoveButton="true" ShowInEditorToolbar="true">
             <Config></Config>
             <Desc></Desc>
         </Control>
@@ -42,7 +42,7 @@
     <WebListControls>
         <Control SingleName="WLDCT_LayoutTemplate" Text="布局模版" ToolbarLocation="LC_Template,1"
                  ServerResolve="" ClientResolve="" ClientResolveJs=""
-                 DialogWidth="780" DialogHeight="550" IsJBuild4DData="false" ControlCategory="ContainerControl" ServerDynamicBind="false"  ShowRemoveButton="false" ShowInEditorToolbar="true">
+                 DialogWidth="780" DialogHeight="550" IsJBuild4DCData="false" ControlCategory="ContainerControl" ServerDynamicBind="false"  ShowRemoveButton="false" ShowInEditorToolbar="true">
             <Config></Config>
             <Desc></Desc>
         </Control>
@@ -52,7 +52,7 @@
                  ClientResolveJs=""
                  DialogWidth="780"
                  DialogHeight="550"
-                 IsJBuild4DData="false"
+                 IsJBuild4DCData="false"
                  ControlCategory="ContainerControl"
                  ServerDynamicBind="false"
                  ShowRemoveButton="false"
@@ -64,7 +64,7 @@
                  ServerResolve=""
                  ClientResolve=""
                  ClientResolveJs=""
-                 DialogWidth="780" DialogHeight="550" IsJBuild4DData="false" ControlCategory="ContainerControl" ServerDynamicBind="false"  ShowRemoveButton="false" ShowInEditorToolbar="true">
+                 DialogWidth="780" DialogHeight="550" IsJBuild4DCData="false" ControlCategory="ContainerControl" ServerDynamicBind="false"  ShowRemoveButton="false" ShowInEditorToolbar="true">
             <Config></Config>
             <Desc></Desc>
         </Control>
@@ -72,7 +72,7 @@
                  ServerResolve="com.jb4dc.builder.htmldesign.control.weblist.WebListListSimpleSearchContainer"
                  ClientResolve=""
                  ClientResolveJs=""
-                 DialogWidth="780" DialogHeight="550" IsJBuild4DData="false" ControlCategory="ContainerControl" ServerDynamicBind="false"  ShowRemoveButton="false" ShowInEditorToolbar="true">
+                 DialogWidth="780" DialogHeight="550" IsJBuild4DCData="false" ControlCategory="ContainerControl" ServerDynamicBind="false"  ShowRemoveButton="false" ShowInEditorToolbar="true">
             <Config></Config>
             <Desc></Desc>
         </Control>
@@ -80,7 +80,7 @@
                  ServerResolve="com.jb4dc.builder.htmldesign.control.weblist.WebListListComplexSearchContainer"
                  ClientResolve=""
                  ClientResolveJs=""
-                 DialogWidth="780" DialogHeight="550" IsJBuild4DData="false" ControlCategory="ContainerControl" ServerDynamicBind="false"  ShowRemoveButton="false" ShowInEditorToolbar="true">
+                 DialogWidth="780" DialogHeight="550" IsJBuild4DCData="false" ControlCategory="ContainerControl" ServerDynamicBind="false"  ShowRemoveButton="false" ShowInEditorToolbar="true">
             <Config></Config>
             <Desc></Desc>
         </Control>
@@ -88,7 +88,7 @@
                  ServerResolve="com.jb4dc.builder.htmldesign.control.weblist.WebListListButtonContainer"
                  ClientResolve=""
                  ClientResolveJs=""
-                 DialogWidth="780" DialogHeight="550" IsJBuild4DData="false" ControlCategory="ContainerControl" ServerDynamicBind="false"  ShowRemoveButton="false" ShowInEditorToolbar="true">
+                 DialogWidth="780" DialogHeight="550" IsJBuild4DCData="false" ControlCategory="ContainerControl" ServerDynamicBind="false"  ShowRemoveButton="false" ShowInEditorToolbar="true">
             <Config></Config>
             <Desc></Desc>
         </Control>
@@ -96,7 +96,7 @@
                  ServerResolve="com.jb4dc.builder.htmldesign.control.weblist.WebListListTableContainer"
                  ClientResolve=""
                  ClientResolveJs=""
-                 DialogWidth="780" DialogHeight="550" IsJBuild4DData="false" ControlCategory="ContainerControl" ServerDynamicBind="false"  ShowRemoveButton="false" ShowInEditorToolbar="true">
+                 DialogWidth="780" DialogHeight="550" IsJBuild4DCData="false" ControlCategory="ContainerControl" ServerDynamicBind="false"  ShowRemoveButton="false" ShowInEditorToolbar="true">
             <Config></Config>
             <Desc></Desc>
         </Control>
@@ -104,7 +104,7 @@
                  ServerResolve="com.jb4dc.builder.htmldesign.control.weblist.WebListSearchTextBox"
                  ClientResolve=""
                  ClientResolveJs=""
-                 DialogWidth="780" DialogHeight="550" IsJBuild4DData="true" ControlCategory="InputControl" ServerDynamicBind="false" ShowRemoveButton="true" ShowInEditorToolbar="true">
+                 DialogWidth="780" DialogHeight="550" IsJBuild4DCData="true" ControlCategory="InputControl" ServerDynamicBind="false" ShowRemoveButton="true" ShowInEditorToolbar="true">
             <Config></Config>
             <Desc></Desc>
         </Control>
@@ -112,7 +112,7 @@
                  ServerResolve="com.jb4dc.builder.htmldesign.control.weblist.WebListFormButton"
                  ClientResolve=""
                  ClientResolveJs=""
-                 DialogWidth="780" DialogHeight="550" IsJBuild4DData="true" ControlCategory="InputControl" ServerDynamicBind="false" ShowRemoveButton="true" ShowInEditorToolbar="true">
+                 DialogWidth="780" DialogHeight="550" IsJBuild4DCData="true" ControlCategory="InputControl" ServerDynamicBind="false" ShowRemoveButton="true" ShowInEditorToolbar="true">
             <Config></Config>
             <Desc></Desc>
         </Control>
@@ -120,13 +120,13 @@
                  ServerResolve="com.jb4dc.builder.htmldesign.control.weblist.WebListListTableLabel"
                  ClientResolve=""
                  ClientResolveJs=""
-                 DialogWidth="780" DialogHeight="550" IsJBuild4DData="true" ControlCategory="InputControl" ServerDynamicBind="false" ShowRemoveButton="true" ShowInEditorToolbar="true">
+                 DialogWidth="780" DialogHeight="550" IsJBuild4DCData="true" ControlCategory="InputControl" ServerDynamicBind="false" ShowRemoveButton="true" ShowInEditorToolbar="true">
             <Config></Config>
             <Desc></Desc>
         </Control>
         <!--<Control SingleName="WLDCT_GroupBy" Text="列表分组" ToolbarLocation="LC_Template,3"
                  ServerResolve="" ClientResolve="2" ClientResolveJs="3"
-                 DialogWidth="780" DialogHeight="550" IsJBuild4DData="false" ControlCategory="ContainerControl" ServerDynamicBind="false"  ShowRemoveButton="false" ShowInEditorToolbar="true">
+                 DialogWidth="780" DialogHeight="550" IsJBuild4DCData="false" ControlCategory="ContainerControl" ServerDynamicBind="false"  ShowRemoveButton="false" ShowInEditorToolbar="true">
             <Config></Config>
             <Desc></Desc>
         </Control>-->

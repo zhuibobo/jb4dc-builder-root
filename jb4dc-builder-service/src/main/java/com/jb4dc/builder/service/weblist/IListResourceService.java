@@ -15,5 +15,5 @@ import com.jb4dc.core.base.session.JB4DCSession;
 public interface IListResourceService extends IBaseService<ListResourceEntity> {
     String getFormPreviewHTMLContent(JB4DCSession session, String listId) throws JBuild4DCGenerallyException;
 
-    String getListRuntimeHTMLContent(JB4DCSession jb4DSession, String id) throws JBuild4DCGenerallyException;
+    String getListRuntimeHTMLContent(JB4DCSession jb4DCSession, String id) throws JBuild4DCGenerallyException;
 }

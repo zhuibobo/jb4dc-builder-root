@@ -35,10 +35,10 @@ public class DatasetColumnServiceImpl extends BaseServiceImpl<DatasetColumnEntit
     }
 
     @Override
-    public int saveSimple(JB4DCSession jb4DSession, String id, DatasetColumnEntity record) throws JBuild4DCGenerallyException {
-        return super.save(jb4DSession,id, record, new IAddBefore<DatasetColumnEntity>() {
+    public int saveSimple(JB4DCSession jb4DCSession, String id, DatasetColumnEntity record) throws JBuild4DCGenerallyException {
+        return super.save(jb4DCSession,id, record, new IAddBefore<DatasetColumnEntity>() {
             @Override
-            public DatasetColumnEntity run(JB4DCSession jb4DSession, DatasetColumnEntity sourceEntity) throws JBuild4DCGenerallyException {
+            public DatasetColumnEntity run(JB4DCSession jb4DCSession, DatasetColumnEntity sourceEntity) throws JBuild4DCGenerallyException {
                 //设置排序,以及其他参数--nextOrderNum()
                 return sourceEntity;
             }
@@ -46,12 +46,12 @@ public class DatasetColumnServiceImpl extends BaseServiceImpl<DatasetColumnEntit
     }
 
     @Override
-    public void deleteByDataSetId(JB4DCSession jb4DSession, String dataSetId) {
+    public void deleteByDataSetId(JB4DCSession jb4DCSession, String dataSetId) {
         datasetColumnMapper.deleteByDataSetId(dataSetId);
     }
 
     @Override
-    public List<DataSetColumnVo> getByDataSetId(JB4DCSession jb4DSession, String dataSetId) throws IOException {
+    public List<DataSetColumnVo> getByDataSetId(JB4DCSession jb4DCSession, String dataSetId) throws IOException {
         List<DatasetColumnEntity> datasetColumnEntities=datasetColumnMapper.selectByDataSetId(dataSetId);
         return DataSetColumnVo.EntityListToVoList(datasetColumnEntities);
     }

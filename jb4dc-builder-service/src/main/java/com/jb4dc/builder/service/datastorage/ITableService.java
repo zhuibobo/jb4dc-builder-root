@@ -25,34 +25,34 @@ import java.util.List;
  */
 public interface ITableService extends IBaseService<TableEntity> {
     @Transactional(rollbackFor= JBuild4DCGenerallyException.class)
-    void newTable(JB4DCSession jb4DSession, TableEntity tableEntity, List<TableFieldVO> tableFieldVOList, String groupId) throws JBuild4DCGenerallyException;
+    void newTable(JB4DCSession jb4DCSession, TableEntity tableEntity, List<TableFieldVO> tableFieldVOList, String groupId) throws JBuild4DCGenerallyException;
 
-    UpdateTableResolveVo updateTableResolve(JB4DCSession jb4DSession, TableEntity newTableEntity, List<TableFieldVO> newTableFieldVOList) throws IOException, JBuild4DCGenerallyException;
+    UpdateTableResolveVo updateTableResolve(JB4DCSession jb4DCSession, TableEntity newTableEntity, List<TableFieldVO> newTableFieldVOList) throws IOException, JBuild4DCGenerallyException;
 
-    ValidateTableUpdateResultVo validateTableUpdateEnable(JB4DCSession jb4DSession, TableEntity newTableEntity, List<TableFieldVO> newTableFieldVOList) throws JBuild4DCGenerallyException, IOException, PropertyVetoException;
+    ValidateTableUpdateResultVo validateTableUpdateEnable(JB4DCSession jb4DCSession, TableEntity newTableEntity, List<TableFieldVO> newTableFieldVOList) throws JBuild4DCGenerallyException, IOException, PropertyVetoException;
 
-    ValidateTableUpdateResultVo validateTableUpdateEnable(JB4DCSession jb4DSession, UpdateTableResolveVo resolveVo) throws JBuild4DCGenerallyException, PropertyVetoException;
+    ValidateTableUpdateResultVo validateTableUpdateEnable(JB4DCSession jb4DCSession, UpdateTableResolveVo resolveVo) throws JBuild4DCGenerallyException, PropertyVetoException;
 
     @Transactional(rollbackFor=JBuild4DCGenerallyException.class)
-    List<String> updateTable(JB4DCSession jb4DSession, TableEntity tableEntity, List<TableFieldVO> tableFieldVOList, boolean ignorePhysicalError) throws JBuild4DCGenerallyException, IOException, PropertyVetoException;
+    List<String> updateTable(JB4DCSession jb4DCSession, TableEntity tableEntity, List<TableFieldVO> tableFieldVOList, boolean ignorePhysicalError) throws JBuild4DCGenerallyException, IOException, PropertyVetoException;
 
-    boolean existLogicTableName(JB4DCSession jb4DSession, String tableName);
+    boolean existLogicTableName(JB4DCSession jb4DCSession, String tableName);
 
     //void deleteTable(TableEntity tableEntity);
 
-    boolean existPhysicsTableName(JB4DCSession jb4DSession, String tableName) throws JBuild4DCGenerallyException, PropertyVetoException;
+    boolean existPhysicsTableName(JB4DCSession jb4DCSession, String tableName) throws JBuild4DCGenerallyException, PropertyVetoException;
 
-    boolean deletePhysicsTable(JB4DCSession jb4DSession, String tableName, String warningOperationCode) throws JBuild4DCSQLKeyWordException, JBuild4DCPhysicalTableException, JBuild4DCGenerallyException, PropertyVetoException;
+    boolean deletePhysicsTable(JB4DCSession jb4DCSession, String tableName, String warningOperationCode) throws JBuild4DCSQLKeyWordException, JBuild4DCPhysicalTableException, JBuild4DCGenerallyException, PropertyVetoException;
 
-    boolean deleteLogicTableAndFields(JB4DCSession jb4DSession, String tableName, String warningOperationCode) throws JBuild4DCGenerallyException;
+    boolean deleteLogicTableAndFields(JB4DCSession jb4DCSession, String tableName, String warningOperationCode) throws JBuild4DCGenerallyException;
 
-    TableEntity getByTableName(JB4DCSession jb4DSession, String tableName);
+    TableEntity getByTableName(JB4DCSession jb4DCSession, String tableName);
 
-    void registerSystemTableToBuilderToModule(JB4DCSession jb4DSession, String tableName, TableGroupEntity tableGroupEntity) throws JBuild4DCGenerallyException;
+    void registerSystemTableToBuilderToModule(JB4DCSession jb4DCSession, String tableName, TableGroupEntity tableGroupEntity) throws JBuild4DCGenerallyException;
 
     List<TableEntity> getTablesByTableIds(JB4DCSession session, List<String> tableIds);
 
-    boolean testTablesInTheSameDBLink(JB4DCSession jb4DSession, List tableList) throws JBuild4DCGenerallyException;
+    boolean testTablesInTheSameDBLink(JB4DCSession jb4DCSession, List tableList) throws JBuild4DCGenerallyException;
 
-    DbLinkEntity getDBLinkByTableName(JB4DCSession jb4DSession, String toString) throws JBuild4DCGenerallyException;
+    DbLinkEntity getDBLinkByTableName(JB4DCSession jb4DCSession, String toString) throws JBuild4DCGenerallyException;
 }

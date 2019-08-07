@@ -18,15 +18,15 @@ import java.util.List;
 public interface ITableGroupService extends IBaseService<TableGroupEntity> {
     String getRootId();
 
-    TableGroupEntity createRootNode(JB4DCSession jb4DSession, String dbLinkId, String text, String value) throws JBuild4DCGenerallyException;
+    TableGroupEntity createRootNode(JB4DCSession jb4DCSession, String dbLinkId, String text, String value) throws JBuild4DCGenerallyException;
 
-    //TableGroupEntity createSystemTableGroupNode(JB4DCSession jb4DSession, TableGroupEntity parentGroup) throws JBuild4DCGenerallyException;
+    //TableGroupEntity createSystemTableGroupNode(JB4DCSession jb4DCSession, TableGroupEntity parentGroup) throws JBuild4DCGenerallyException;
 
-    TableGroupEntity getByGroupText(JB4DCSession jb4DSession, String groupText);
+    TableGroupEntity getByGroupText(JB4DCSession jb4DCSession, String groupText);
 
-    TableGroupEntity getLocationTableGroupRoot(JB4DCSession jb4DSession);
+    TableGroupEntity getLocationTableGroupRoot(JB4DCSession jb4DCSession);
 
     List<TableGroupEntity> getByDBLinkId(JB4DCSession session, String dbLinkId);
 
-    void initSystemData(JB4DCSession jb4DSession) throws JBuild4DCGenerallyException;
+    void initSystemData(JB4DCSession jb4DCSession) throws JBuild4DCGenerallyException;
 }

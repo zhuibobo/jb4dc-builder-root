@@ -59,12 +59,12 @@ public class TableRest {
     @RequestMapping(value = "/ValidateTableIsNoExist")
     public JBuild4DCResponseVo validateTableIsExist(String tableName){
         //TableEntity tableEntity=tableService.getByTableName(tableName);
-        JB4DCSession jb4DSession= JB4DCSessionUtility.getSession();
-        if(tableService.existLogicTableName(jb4DSession,tableName)){
+        JB4DCSession jb4DCSession= JB4DCSessionUtility.getSession();
+        if(tableService.existLogicTableName(jb4DCSession,tableName)){
             return JBuild4DCResponseVo.error("已经存在名称为"+tableName+"的逻辑表！");
         }
         else{
-            if(tableService.existLogicTableName(jb4DSession,tableName)){
+            if(tableService.existLogicTableName(jb4DCSession,tableName)){
                 return JBuild4DCResponseVo.error("已经存在名称为"+tableName+"的物理表！");
             }
         }
@@ -158,20 +158,20 @@ public class TableRest {
 
     @RequestMapping(value = "/GetListData", method = RequestMethod.POST)
     public JBuild4DCResponseVo getListData(Integer pageSize,Integer pageNum,String searchCondition) throws IOException, ParseException {
-        JB4DCSession jb4DSession= JB4DCSessionUtility.getSession();
+        JB4DCSession jb4DCSession= JB4DCSessionUtility.getSession();
         Map<String,Object> searchMap= GeneralSearchUtility.deserializationToMap(searchCondition);
-        PageInfo<TableEntity> proOrganPageInfo=tableService.getPage(jb4DSession,pageNum,pageSize,searchMap);
+        PageInfo<TableEntity> proOrganPageInfo=tableService.getPage(jb4DCSession,pageNum,pageSize,searchMap);
         return JBuild4DCResponseVo.success("获取成功",proOrganPageInfo);
     }
 
     @RequestMapping(value = "/Move", method = RequestMethod.POST)
     public JBuild4DCResponseVo move(String recordId, String type , HttpServletRequest request) throws JBuild4DCGenerallyException, JsonProcessingException {
-        JB4DCSession jb4DSession=JB4DCSessionUtility.getSession();
+        JB4DCSession jb4DCSession=JB4DCSessionUtility.getSession();
         if(type.equals("up")) {
-            tableFieldService.moveUp(jb4DSession, recordId);
+            tableFieldService.moveUp(jb4DCSession, recordId);
         }
         else {
-            tableFieldService.moveDown(jb4DSession,recordId);
+            tableFieldService.moveDown(jb4DCSession,recordId);
         }
         return JBuild4DCResponseVo.opSuccess();
     }
@@ -194,14 +194,14 @@ public class TableRest {
             responseVo.setSuccess(true);
             responseVo.setMessage("获取数据成功！");
 
-            JB4DCSession jb4DSession= JB4DCSessionUtility.getSession();
+            JB4DCSession jb4DCSession= JB4DCSessionUtility.getSession();
 
-            List<TableGroupEntity> tableGroupEntityList=tableGroupService.getALL(jb4DSession);
-            List<TableEntity> tableEntityList=tableService.getALL(jb4DSession);
+            List<TableGroupEntity> tableGroupEntityList=tableGroupService.getALL(jb4DCSession);
+            List<TableEntity> tableEntityList=tableService.getALL(jb4DCSession);
 
             responseVo.setData(ZTreeNodePOConvert.parseTableToZTreeNodeList(tableGroupEntityList,tableEntityList));
 
-            List<DbLinkEntity> dbLinkEntityList=dbLinkService.getALL(jb4DSession);
+            List<DbLinkEntity> dbLinkEntityList=dbLinkService.getALL(jb4DCSession);
 
             Map<String,Object> exKVData=new HashMap<>();
             exKVData.put("dbLinkEntityList",dbLinkEntityList);

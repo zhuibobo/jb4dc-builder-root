@@ -36,15 +36,15 @@ public class DatasetGroupServiceImpl extends BaseServiceImpl<DatasetGroupEntity>
     }
 
     @Override
-    public int saveSimple(JB4DCSession jb4DSession, String id, DatasetGroupEntity record) throws JBuild4DCGenerallyException {
-        return super.save(jb4DSession,id, record, new IAddBefore<DatasetGroupEntity>() {
+    public int saveSimple(JB4DCSession jb4DCSession, String id, DatasetGroupEntity record) throws JBuild4DCGenerallyException {
+        return super.save(jb4DCSession,id, record, new IAddBefore<DatasetGroupEntity>() {
             @Override
-            public DatasetGroupEntity run(JB4DCSession jb4DSession, DatasetGroupEntity sourceEntity) throws JBuild4DCGenerallyException {
+            public DatasetGroupEntity run(JB4DCSession jb4DCSession, DatasetGroupEntity sourceEntity) throws JBuild4DCGenerallyException {
                 sourceEntity.setDsGroupOrderNum(datasetGroupMapper.nextOrderNum());
                 sourceEntity.setDsGroupChildCount(0);
                 sourceEntity.setDsGroupCreateTime(new Date());
-                sourceEntity.setDsGroupOrganId(jb4DSession.getOrganId());
-                sourceEntity.setDsGroupOrganName(jb4DSession.getOrganName());
+                sourceEntity.setDsGroupOrganId(jb4DCSession.getOrganId());
+                sourceEntity.setDsGroupOrganName(jb4DCSession.getOrganName());
                 String parentIdList;
                 if(sourceEntity.getDsGroupId().equals(rootId)){
                     parentIdList=rootParentId;
@@ -64,14 +64,14 @@ public class DatasetGroupServiceImpl extends BaseServiceImpl<DatasetGroupEntity>
     }
 
     @Override
-    public DatasetGroupEntity createRootNode(JB4DCSession jb4DSession) throws JBuild4DCGenerallyException {
+    public DatasetGroupEntity createRootNode(JB4DCSession jb4DCSession) throws JBuild4DCGenerallyException {
         DatasetGroupEntity rootEntity=new DatasetGroupEntity();
         rootEntity.setDsGroupId(rootId);
         rootEntity.setDsGroupParentId(rootParentId);
         rootEntity.setDsGroupIsSystem(TrueFalseEnum.True.getDisplayName());
         rootEntity.setDsGroupText("数据集分组");
         rootEntity.setDsGroupValue("数据集分组");
-        this.saveSimple(jb4DSession,rootEntity.getDsGroupId(),rootEntity);
+        this.saveSimple(jb4DCSession,rootEntity.getDsGroupId(),rootEntity);
         return rootEntity;
     }
 
@@ -81,14 +81,14 @@ public class DatasetGroupServiceImpl extends BaseServiceImpl<DatasetGroupEntity>
     }
 
     @Override
-    public void moveUp(JB4DCSession jb4DSession, String id) throws JBuild4DCGenerallyException {
+    public void moveUp(JB4DCSession jb4DCSession, String id) throws JBuild4DCGenerallyException {
         DatasetGroupEntity selfEntity=datasetGroupMapper.selectByPrimaryKey(id);
         DatasetGroupEntity ltEntity=datasetGroupMapper.selectLessThanRecord(id,selfEntity.getDsGroupParentId());
         switchOrder(ltEntity,selfEntity);
     }
 
     @Override
-    public void moveDown(JB4DCSession jb4DSession, String id) throws JBuild4DCGenerallyException {
+    public void moveDown(JB4DCSession jb4DCSession, String id) throws JBuild4DCGenerallyException {
         DatasetGroupEntity selfEntity=datasetGroupMapper.selectByPrimaryKey(id);
         DatasetGroupEntity ltEntity=datasetGroupMapper.selectGreaterThanRecord(id,selfEntity.getDsGroupParentId());
         switchOrder(ltEntity,selfEntity);

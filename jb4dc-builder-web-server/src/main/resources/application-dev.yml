@@ -1,6 +1,6 @@
 jb4dc:
   system-caption: 应用构建系统
-  system-title: 应用构建系统
+  system-title: JBuild4DC-应用构建系统
   warning-operation-code: jb4d82
   is-debug: true
   sso:

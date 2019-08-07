@@ -143,7 +143,7 @@ gulp.task('all', gulp.series('html-design-all','html-template','js-vue-ex-compon
 gulp.task('dist-watch', function() {
     //gulp.watch(sourcePath+"/HTML/**/*", gulp.series('html-only'));
     //gulp.watch(sourcePath + "/Js/VueComponent/**/*.js", gulp.series('js-vue-ex-component'));
-    gulp.watch(sourcePath+"/**/*", gulp.series('html-design-all','html-only','js-vue-ex-component','js-ui-component'));
+    gulp.watch(sourcePath+"/**/*", gulp.series('all'));
 });
 
 //endregion

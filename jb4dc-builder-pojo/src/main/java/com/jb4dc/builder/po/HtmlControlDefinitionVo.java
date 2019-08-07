@@ -14,7 +14,7 @@ public class HtmlControlDefinitionVo {
     private String clientResolveJs;
     private String desc;
     private String config;
-    private String isJBuild4DData;
+    private String isJBuild4DCData;
     private String controlCategory;
     private String serverDynamicBind;
     private String showRemoveButton;
@@ -53,12 +53,12 @@ public class HtmlControlDefinitionVo {
         this.controlCategory = controlCategory;
     }
 
-    public String getIsJBuild4DData() {
-        return isJBuild4DData;
+    public String getIsJBuild4DCData() {
+        return isJBuild4DCData;
     }
 
-    public void setIsJBuild4DData(String isJBuild4DData) {
-        this.isJBuild4DData = isJBuild4DData;
+    public void setIsJBuild4DCData(String isJBuild4DCData) {
+        this.isJBuild4DCData = isJBuild4DCData;
     }
 
     private int dialogWidth;
@@ -156,7 +156,7 @@ public class HtmlControlDefinitionVo {
         vo.setDialogHeight(Integer.parseInt(XMLDocumentUtility.getAttribute(node,"DialogHeight")));
         vo.setDesc(XMLDocumentUtility.parseForString(node,"Desc"));
         vo.setConfig(XMLDocumentUtility.parseForString(node,"Config"));
-        vo.setIsJBuild4DData(XMLDocumentUtility.getAttribute(node,"IsJBuild4DData"));
+        vo.setIsJBuild4DCData(XMLDocumentUtility.getAttribute(node,"IsJBuild4DCData"));
         vo.setControlCategory(XMLDocumentUtility.getAttribute(node,"ControlCategory"));
         vo.setServerDynamicBind(XMLDocumentUtility.getAttribute(node,"ServerDynamicBind"));
         vo.setShowRemoveButton(XMLDocumentUtility.getAttribute(node,"ShowRemoveButton"));

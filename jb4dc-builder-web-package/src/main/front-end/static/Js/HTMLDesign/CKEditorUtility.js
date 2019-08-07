@@ -59,7 +59,7 @@ class CKEditorUtility {
             var clientResolveJs=singlePluginConfig.clientResolveJs;
             var dialogWidth=singlePluginConfig.dialogWidth;
             var dialogHeight=singlePluginConfig.dialogHeight;
-            var isJBuild4DData=singlePluginConfig.isJBuild4DData;
+            var isJBuild4DCData=singlePluginConfig.isJBuild4DCData;
             var controlCategory=singlePluginConfig.controlCategory;
             var serverDynamicBind=singlePluginConfig.serverDynamicBind;
             var showRemoveButton=singlePluginConfig.showRemoveButton;
@@ -72,7 +72,7 @@ class CKEditorUtility {
             extraPlugins.push(singleName);
 
             //设置默认值
-            CKEditorPluginUtility.AddPluginsServerConfig(singleName,toolbarLocation,text,clientResolve,serverResolve,clientResolveJs,dialogWidth,dialogHeight,isJBuild4DData,controlCategory,serverDynamicBind,showRemoveButton,showInEditorToolbar);
+            CKEditorPluginUtility.AddPluginsServerConfig(singleName,toolbarLocation,text,clientResolve,serverResolve,clientResolveJs,dialogWidth,dialogHeight,isJBuild4DCData,controlCategory,serverDynamicBind,showRemoveButton,showInEditorToolbar);
             /*CKEditorPluginUtility.PluginsServerConfig[singleName]={
                 SingleName:singleName,
                 ToolbarLocation:toolbarLocation,
@@ -82,7 +82,7 @@ class CKEditorUtility {
                 ClientResolveJs:clientResolveJs,
                 DialogWidth:dialogWidth,
                 DialogHeight:dialogHeight,
-                IsJBuild4DData:isJBuild4DData
+                IsJBuild4DCData:isJBuild4DCData
             }*/
         }
 
@@ -177,7 +177,7 @@ class CKEditorUtility {
 
                 //alert("1");
                 //CKEDITOR.instances.html_design.config.contentsCss = ['../../../Themes/Default/Css/FormDesignWysiwyg1.css','../../../Themes/Default/Css/Jbuild4dPlatform2.css'];
-                /*JBuild4D.FormDesign.SetCKEditorHTML("<div class=\"table-width-wraper-1024\" clientresolve=\"2\" is_jbuild4d_data=\"false\" jbuild4d_custom=\"true\" serialize=\"false\" serverresolve=\"1\" singlename=\"FDCT_Template\">" +
+                /*JBuild4DC.FormDesign.SetCKEditorHTML("<div class=\"table-width-wraper-1024\" clientresolve=\"2\" is_jbuild4dc_data=\"false\" jbuild4dc_custom=\"true\" serialize=\"false\" serverresolve=\"1\" singlename=\"FDCT_Template\">" +
                     "<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" class=\"wathet-blue-table\">" +
                     "<colgroup>" +
                     "<col style=\"width: 10%;\" />" +

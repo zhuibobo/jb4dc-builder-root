@@ -45,10 +45,10 @@ public class TableFieldServiceImpl extends BaseServiceImpl<TableFieldEntity> imp
     }
 
     @Override
-    public int saveSimple(JB4DCSession jb4DSession, String id, TableFieldEntity record) throws JBuild4DCGenerallyException {
-        return super.save(jb4DSession,id, record, new IAddBefore<TableFieldEntity>() {
+    public int saveSimple(JB4DCSession jb4DCSession, String id, TableFieldEntity record) throws JBuild4DCGenerallyException {
+        return super.save(jb4DCSession,id, record, new IAddBefore<TableFieldEntity>() {
             @Override
-            public TableFieldEntity run(JB4DCSession jb4DSession, TableFieldEntity sourceEntity) throws JBuild4DCGenerallyException {
+            public TableFieldEntity run(JB4DCSession jb4DCSession, TableFieldEntity sourceEntity) throws JBuild4DCGenerallyException {
                 //设置排序,以及其他参数--nextOrderNum()
                 return sourceEntity;
             }
@@ -66,62 +66,62 @@ public class TableFieldServiceImpl extends BaseServiceImpl<TableFieldEntity> imp
     }
 
     @Override
-    public void createTableFieldTemplates(JB4DCSession jb4DSession) {
+    public void createTableFieldTemplates(JB4DCSession jb4DCSession) {
         tableFieldMapper.deleteTemplate("通用模版");
-        this.createGeneralTableFieldTemplate("通用模版",jb4DSession);
+        this.createGeneralTableFieldTemplate("通用模版",jb4DCSession);
 
         tableFieldMapper.deleteTemplate("新闻类模版");
-        this.createCMSTableFieldTemplate("新闻类模版",jb4DSession);
+        this.createCMSTableFieldTemplate("新闻类模版",jb4DCSession);
 
         tableFieldMapper.deleteTemplate("树结构数据模版");
-        this.createTreeStructureFieldTemplate("树结构数据模版",jb4DSession);
+        this.createTreeStructureFieldTemplate("树结构数据模版",jb4DCSession);
     }
 
-    private void createGeneralTableFieldTemplate(String templateName,JB4DCSession jb4DSession){
+    private void createGeneralTableFieldTemplate(String templateName,JB4DCSession jb4DCSession){
 
-        TableFieldEntity idField=newFiled(jb4DSession,"Template","ID","ID",
+        TableFieldEntity idField=newFiled(jb4DCSession,"Template","ID","ID",
                 TrueFalseEnum.True,TrueFalseEnum.False,
                 TableFieldTypeEnum.NVarCharType,50,0,
                 "IdCoder","UUID","通用唯一识别码",
                 "表主键",templateName);
         tableFieldMapper.insert(idField);
 
-        TableFieldEntity createTimeField=newFiled(jb4DSession,"Template","F_CREATE_TIME","记录时间",
+        TableFieldEntity createTimeField=newFiled(jb4DCSession,"Template","F_CREATE_TIME","记录时间",
                 TrueFalseEnum.False,TrueFalseEnum.True,
                 TableFieldTypeEnum.DataTimeType,20,0,
                 "DateTime","yyyy-MM-dd HH:mm:ss","年年年年-月月-日日 时:分:秒",
                 "",templateName);
         tableFieldMapper.insert(createTimeField);
 
-        TableFieldEntity orderNumField=newFiled(jb4DSession,"Template","F_ORDER_NUM","排序号",
+        TableFieldEntity orderNumField=newFiled(jb4DCSession,"Template","F_ORDER_NUM","排序号",
                 TrueFalseEnum.False,TrueFalseEnum.True,
                 TableFieldTypeEnum.IntType,20,0,
                 "","","",
                 "",templateName);
         tableFieldMapper.insert(orderNumField);
 
-        TableFieldEntity organIdField=newFiled(jb4DSession,"Template","F_ORGAN_ID","组织ID",
+        TableFieldEntity organIdField=newFiled(jb4DCSession,"Template","F_ORGAN_ID","组织ID",
                 TrueFalseEnum.False,TrueFalseEnum.True,
                 TableFieldTypeEnum.NVarCharType,50,0,
                 "ApiVar","ApiVarCurrentUserOrganId","当前用户所在组织ID",
                 "",templateName);
         tableFieldMapper.insert(organIdField);
 
-        TableFieldEntity organNameField=newFiled(jb4DSession,"Template","F_ORGAN_NAME","组织名称",
+        TableFieldEntity organNameField=newFiled(jb4DCSession,"Template","F_ORGAN_NAME","组织名称",
                 TrueFalseEnum.False,TrueFalseEnum.True,
                 TableFieldTypeEnum.NVarCharType,100,0,
                 "ApiVar","ApiVarCurrentUserOrganName","当前用户所在组织名称",
                 "",templateName);
         tableFieldMapper.insert(organNameField);
 
-        TableFieldEntity userIdField=newFiled(jb4DSession,"Template","F_USER_ID","用户ID",
+        TableFieldEntity userIdField=newFiled(jb4DCSession,"Template","F_USER_ID","用户ID",
                 TrueFalseEnum.False,TrueFalseEnum.True,
                 TableFieldTypeEnum.NVarCharType,50,0,
                 "ApiVar","ApiVarCurrentUserId","当前用户ID",
                 "",templateName);
         tableFieldMapper.insert(userIdField);
 
-        TableFieldEntity userNameField=newFiled(jb4DSession,"Template","F_USER_NAME","用户名称",
+        TableFieldEntity userNameField=newFiled(jb4DCSession,"Template","F_USER_NAME","用户名称",
                 TrueFalseEnum.False,TrueFalseEnum.True,
                 TableFieldTypeEnum.NVarCharType,50,0,
                 "ApiVar","ApiVarCurrentUserName","当前用户名称",
@@ -129,59 +129,59 @@ public class TableFieldServiceImpl extends BaseServiceImpl<TableFieldEntity> imp
         tableFieldMapper.insert(userNameField);
     }
 
-    private void createCMSTableFieldTemplate(String templateName,JB4DCSession jb4DSession){
-        this.createGeneralTableFieldTemplate(templateName,jb4DSession);
+    private void createCMSTableFieldTemplate(String templateName,JB4DCSession jb4DCSession){
+        this.createGeneralTableFieldTemplate(templateName,jb4DCSession);
 
-        TableFieldEntity mainImgField=newFiled(jb4DSession,"Template","F_MAIN_IMG_ID","主题图片ID",
+        TableFieldEntity mainImgField=newFiled(jb4DCSession,"Template","F_MAIN_IMG_ID","主题图片ID",
                 TrueFalseEnum.False,TrueFalseEnum.True,
                 TableFieldTypeEnum.NVarCharType,50,0,
                 "","","",
                 "",templateName);
         tableFieldMapper.insert(mainImgField);
 
-        TableFieldEntity titleField=newFiled(jb4DSession,"Template","F_TITLE","标题",
+        TableFieldEntity titleField=newFiled(jb4DCSession,"Template","F_TITLE","标题",
                 TrueFalseEnum.False,TrueFalseEnum.True,
                 TableFieldTypeEnum.NVarCharType,200,0,
                 "","","",
                 "",templateName);
         tableFieldMapper.insert(titleField);
 
-        TableFieldEntity contentField=newFiled(jb4DSession,"Template","F_CONTENT","内容",
+        TableFieldEntity contentField=newFiled(jb4DCSession,"Template","F_CONTENT","内容",
                 TrueFalseEnum.False,TrueFalseEnum.True,
                 TableFieldTypeEnum.TextType,0,0,
                 "","","",
                 "",templateName);
         tableFieldMapper.insert(contentField);
 
-        TableFieldEntity publicTimeField=newFiled(jb4DSession,"Template","F_PUBLIC_TIME","发布时间",
+        TableFieldEntity publicTimeField=newFiled(jb4DCSession,"Template","F_PUBLIC_TIME","发布时间",
                 TrueFalseEnum.False,TrueFalseEnum.True,
                 TableFieldTypeEnum.DataTimeType,20,0,
                 "","","",
                 "",templateName);
         tableFieldMapper.insert(publicTimeField);
 
-        TableFieldEntity statueField=newFiled(jb4DSession,"Template","F_PUBLIC_STATUS","发布状态",
+        TableFieldEntity statueField=newFiled(jb4DCSession,"Template","F_PUBLIC_STATUS","发布状态",
                 TrueFalseEnum.False,TrueFalseEnum.True,
                 TableFieldTypeEnum.NVarCharType,50,0,
                 "","","",
                 "",templateName);
         tableFieldMapper.insert(statueField);
 
-        TableFieldEntity keyWordField=newFiled(jb4DSession,"Template","F_KEY_WORDS","关键字",
+        TableFieldEntity keyWordField=newFiled(jb4DCSession,"Template","F_KEY_WORDS","关键字",
                 TrueFalseEnum.False,TrueFalseEnum.True,
                 TableFieldTypeEnum.NVarCharType,200,0,
                 "","","",
                 "",templateName);
         tableFieldMapper.insert(keyWordField);
 
-        TableFieldEntity columnIdField=newFiled(jb4DSession,"Template","F_COLUMN_ID","所属栏目ID",
+        TableFieldEntity columnIdField=newFiled(jb4DCSession,"Template","F_COLUMN_ID","所属栏目ID",
                 TrueFalseEnum.False,TrueFalseEnum.True,
                 TableFieldTypeEnum.NVarCharType,50,0,
                 "","","",
                 "",templateName);
         tableFieldMapper.insert(columnIdField);
 
-        TableFieldEntity authorField=newFiled(jb4DSession,"Template","F_AUTHOR","作者",
+        TableFieldEntity authorField=newFiled(jb4DCSession,"Template","F_AUTHOR","作者",
                 TrueFalseEnum.False,TrueFalseEnum.True,
                 TableFieldTypeEnum.NVarCharType,50,0,
                 "","","",
@@ -189,38 +189,38 @@ public class TableFieldServiceImpl extends BaseServiceImpl<TableFieldEntity> imp
         tableFieldMapper.insert(authorField);
     }
 
-    private void createTreeStructureFieldTemplate(String templateName,JB4DCSession jb4DSession){
-        this.createGeneralTableFieldTemplate(templateName,jb4DSession);
+    private void createTreeStructureFieldTemplate(String templateName,JB4DCSession jb4DCSession){
+        this.createGeneralTableFieldTemplate(templateName,jb4DCSession);
 
-        TableFieldEntity codeField=newFiled(jb4DSession,"Template","F_CODE_VALUE","节点编码",
+        TableFieldEntity codeField=newFiled(jb4DCSession,"Template","F_CODE_VALUE","节点编码",
                 TrueFalseEnum.False,TrueFalseEnum.True,
                 TableFieldTypeEnum.NVarCharType,50,0,
                 "","","",
                 "",templateName);
         tableFieldMapper.insert(codeField);
 
-        TableFieldEntity mainImgField=newFiled(jb4DSession,"Template","F_MAIN_IMG_ID","主题图片ID",
+        TableFieldEntity mainImgField=newFiled(jb4DCSession,"Template","F_MAIN_IMG_ID","主题图片ID",
                 TrueFalseEnum.False,TrueFalseEnum.True,
                 TableFieldTypeEnum.NVarCharType,50,0,
                 "","","",
                 "",templateName);
         tableFieldMapper.insert(mainImgField);
 
-        TableFieldEntity parentIdField=newFiled(jb4DSession,"Template","F_PARENT_ID","父节点ID",
+        TableFieldEntity parentIdField=newFiled(jb4DCSession,"Template","F_PARENT_ID","父节点ID",
                 TrueFalseEnum.False,TrueFalseEnum.True,
                 TableFieldTypeEnum.NVarCharType,50,0,
                 "","","",
                 "",templateName);
         tableFieldMapper.insert(parentIdField);
 
-        TableFieldEntity parentIdListField=newFiled(jb4DSession,"Template","F_PARENT_IDLIST","父节点ID列表",
+        TableFieldEntity parentIdListField=newFiled(jb4DCSession,"Template","F_PARENT_IDLIST","父节点ID列表",
                 TrueFalseEnum.False,TrueFalseEnum.True,
                 TableFieldTypeEnum.NVarCharType,500,0,
                 "","","",
                 "",templateName);
         tableFieldMapper.insert(parentIdListField);
 
-        TableFieldEntity parentChildCountField=newFiled(jb4DSession,"Template","F_CHILD_COUNT","子节点的数量",
+        TableFieldEntity parentChildCountField=newFiled(jb4DCSession,"Template","F_CHILD_COUNT","子节点的数量",
                 TrueFalseEnum.False,TrueFalseEnum.True,
                 TableFieldTypeEnum.IntType,20,0,
                 "","","",
@@ -252,7 +252,7 @@ public class TableFieldServiceImpl extends BaseServiceImpl<TableFieldEntity> imp
         return tableFieldMapper.selectByTableIds(tableIds);
     }
 
-    private TableFieldEntity newFiled(JB4DCSession jb4DSession, String tableId, String fieldName, String fieldCaption,
+    private TableFieldEntity newFiled(JB4DCSession jb4DCSession, String tableId, String fieldName, String fieldCaption,
                                       TrueFalseEnum pk, TrueFalseEnum allowNull,
                                       TableFieldTypeEnum fieldDataType,int dataLength,int decimalLength,
                                       String fieldDefaultType,String fieldDefaultValue,String fieldDefaultText,String fieldDesc,String templateName
@@ -271,9 +271,9 @@ public class TableFieldServiceImpl extends BaseServiceImpl<TableFieldEntity> imp
         fieldEntity.setFieldDefaultValue(fieldDefaultValue);
         fieldEntity.setFieldDefaultText(fieldDefaultText);
         fieldEntity.setFieldCreateTime(new Date());
-        fieldEntity.setFieldCreator(jb4DSession.getUserName());
+        fieldEntity.setFieldCreator(jb4DCSession.getUserName());
         fieldEntity.setFieldUpdateTime(new Date());
-        fieldEntity.setFieldUpdater(jb4DSession.getUserName());
+        fieldEntity.setFieldUpdater(jb4DCSession.getUserName());
         fieldEntity.setFieldDesc(fieldDesc);
         fieldEntity.setFieldOrderNum(tableFieldMapper.nextOrderNum());
         fieldEntity.setFieldTemplateName(templateName);
@@ -285,14 +285,14 @@ public class TableFieldServiceImpl extends BaseServiceImpl<TableFieldEntity> imp
     }
 
     @Override
-    public void moveUp(JB4DCSession jb4DSession, String id) throws JBuild4DCGenerallyException {
+    public void moveUp(JB4DCSession jb4DCSession, String id) throws JBuild4DCGenerallyException {
         TableFieldEntity selfEntity=tableFieldMapper.selectByPrimaryKey(id);
         TableFieldEntity ltEntity=tableFieldMapper.selectLessThanRecord(id,selfEntity.getFieldTableId());
         switchOrder(ltEntity,selfEntity);
     }
 
     @Override
-    public void moveDown(JB4DCSession jb4DSession, String id) throws JBuild4DCGenerallyException {
+    public void moveDown(JB4DCSession jb4DCSession, String id) throws JBuild4DCGenerallyException {
         TableFieldEntity selfEntity=tableFieldMapper.selectByPrimaryKey(id);
         TableFieldEntity ltEntity=tableFieldMapper.selectGreaterThanRecord(id,selfEntity.getFieldTableId());
         switchOrder(ltEntity,selfEntity);

@@ -92,7 +92,7 @@ Vue.component("fd-control-bind-to", {
         /*绑定默认值*/
         selectDefaultValueView:function () {
             //var url = BaseUtility.BuildAction("/PlatForm/SelectView/SelectEnvVariable/Select", {instanceName: "_SelectBindObj"});
-            //window.parent.JBuild4D.FormDesign.Dialog.ShowIframeDialogInDesignPage(window, url, {
+            //window.parent.JBuild4DC.FormDesign.Dialog.ShowIframeDialogInDesignPage(window, url, {
             //    modal: true,
             //    title: "选择默认值"
             //});

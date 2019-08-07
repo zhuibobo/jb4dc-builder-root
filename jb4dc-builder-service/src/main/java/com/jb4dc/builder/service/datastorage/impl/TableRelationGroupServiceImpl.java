@@ -41,15 +41,15 @@ public class TableRelationGroupServiceImpl extends BaseServiceImpl<TableRelation
     }
 
     @Override
-    public int saveSimple(JB4DCSession jb4DSession, String id, TableRelationGroupEntity record) throws JBuild4DCGenerallyException {
-        return super.save(jb4DSession,id, record, new IAddBefore<TableRelationGroupEntity>() {
+    public int saveSimple(JB4DCSession jb4DCSession, String id, TableRelationGroupEntity record) throws JBuild4DCGenerallyException {
+        return super.save(jb4DCSession,id, record, new IAddBefore<TableRelationGroupEntity>() {
             @Override
-            public TableRelationGroupEntity run(JB4DCSession jb4DSession, TableRelationGroupEntity sourceEntity) throws JBuild4DCGenerallyException {
+            public TableRelationGroupEntity run(JB4DCSession jb4DCSession, TableRelationGroupEntity sourceEntity) throws JBuild4DCGenerallyException {
                 sourceEntity.setRelGroupOrderNum(tableRelationGroupMapper.nextOrderNum());
                 sourceEntity.setRelGroupChildCount(0);
                 sourceEntity.setRelGroupCreateTime(new Date());
-                sourceEntity.setRelGroupUserId(jb4DSession.getUserId());
-                sourceEntity.setRelGroupUserName(jb4DSession.getUserName());
+                sourceEntity.setRelGroupUserId(jb4DCSession.getUserId());
+                sourceEntity.setRelGroupUserName(jb4DCSession.getUserName());
                 String parentIdList;
                 if(sourceEntity.getRelGroupId().equals(rootId)){
                     parentIdList=rootParentId;
@@ -69,19 +69,19 @@ public class TableRelationGroupServiceImpl extends BaseServiceImpl<TableRelation
     }
 
     @Override
-    public TableRelationGroupEntity createRootNode(JB4DCSession jb4DSession) throws JBuild4DCGenerallyException {
+    public TableRelationGroupEntity createRootNode(JB4DCSession jb4DCSession) throws JBuild4DCGenerallyException {
         TableRelationGroupEntity treeTableEntity=new TableRelationGroupEntity();
         treeTableEntity.setRelGroupId(rootId);
         treeTableEntity.setRelGroupParentId(rootParentId);
         treeTableEntity.setRelGroupIsSystem(TrueFalseEnum.True.getDisplayName());
         treeTableEntity.setRelGroupText("表关系分组");
         treeTableEntity.setRelGroupValue("表关系分组");
-        this.saveSimple(jb4DSession,treeTableEntity.getRelGroupId(),treeTableEntity);
+        this.saveSimple(jb4DCSession,treeTableEntity.getRelGroupId(),treeTableEntity);
         return treeTableEntity;
     }
 
     @Override
-    public int deleteByKey(JB4DCSession jb4DSession, String id) throws JBuild4DCGenerallyException {
+    public int deleteByKey(JB4DCSession jb4DCSession, String id) throws JBuild4DCGenerallyException {
         TableRelationGroupEntity groupEntity=tableRelationGroupMapper.selectByPrimaryKey(id);
         if(groupEntity!=null){
             if(groupEntity.getRelGroupIsSystem().equals(TrueFalseEnum.True.getDisplayName())){
@@ -94,7 +94,7 @@ public class TableRelationGroupServiceImpl extends BaseServiceImpl<TableRelation
             if(childEntityList!=null&&childEntityList.size()>0){
                 throw JBuild4DCGenerallyException.getHadChildDelException(JBuild4DCGenerallyException.EXCEPTION_BUILDER_CODE);
             }
-            return super.deleteByKey(jb4DSession, id);
+            return super.deleteByKey(jb4DCSession, id);
         }
         else
         {
@@ -103,7 +103,7 @@ public class TableRelationGroupServiceImpl extends BaseServiceImpl<TableRelation
     }
 
     @Override
-    public TableRelationGroupEntity createSystemTableRelationGroupNode(JB4DCSession jb4DSession, TableRelationGroupEntity parentGroup) throws JBuild4DCGenerallyException{
+    public TableRelationGroupEntity createSystemTableRelationGroupNode(JB4DCSession jb4DCSession, TableRelationGroupEntity parentGroup) throws JBuild4DCGenerallyException{
         String TableRelationGroupJBuild4DSystem="TableRelationGroupJBuild4DSystem";
         String TableRelationGroupJBuild4DSystemSetting="TableRelationGroupJBuild4DSystemSetting";
         String TableRelationGroupJBuild4DSystemSSORelevance ="TableRelationGroupJBuild4DSystemSSORelevance";
@@ -112,26 +112,26 @@ public class TableRelationGroupServiceImpl extends BaseServiceImpl<TableRelation
         String TableRelationGroupJbuild4DFileStore="TableRelationGroupJbuild4DFileStore";
 
         //系统基础
-        deleteByKeyNotValidate(jb4DSession,TableRelationGroupJBuild4DSystem, JBuild4DCYaml.getWarningOperationCode());
+        deleteByKeyNotValidate(jb4DCSession,TableRelationGroupJBuild4DSystem, JBuild4DCYaml.getWarningOperationCode());
         TableRelationGroupEntity jBuild4DSystemBaseEntity=new TableRelationGroupEntity();
         jBuild4DSystemBaseEntity.setRelGroupId(TableRelationGroupJBuild4DSystem);
         jBuild4DSystemBaseEntity.setRelGroupParentId(parentGroup.getRelGroupId());
         jBuild4DSystemBaseEntity.setRelGroupIsSystem(TrueFalseEnum.True.getDisplayName());
         jBuild4DSystemBaseEntity.setRelGroupText("JBuild4D-System-Relation");
         jBuild4DSystemBaseEntity.setRelGroupValue("JBuild4D-System-Relation");
-        this.saveSimple(jb4DSession,TableRelationGroupJBuild4DSystem,jBuild4DSystemBaseEntity);
+        this.saveSimple(jb4DCSession,TableRelationGroupJBuild4DSystem,jBuild4DSystemBaseEntity);
 
         //系统设置相关表
-        deleteByKeyNotValidate(jb4DSession,TableRelationGroupJBuild4DSystemSetting, JBuild4DCYaml.getWarningOperationCode());
+        deleteByKeyNotValidate(jb4DCSession,TableRelationGroupJBuild4DSystemSetting, JBuild4DCYaml.getWarningOperationCode());
         TableRelationGroupEntity jBuild4DSystemSetting=new TableRelationGroupEntity();
         jBuild4DSystemSetting.setRelGroupId(TableRelationGroupJBuild4DSystemSetting);
         jBuild4DSystemSetting.setRelGroupParentId(jBuild4DSystemBaseEntity.getRelGroupId());
         jBuild4DSystemSetting.setRelGroupIsSystem(TrueFalseEnum.True.getDisplayName());
         jBuild4DSystemSetting.setRelGroupText("系统设置相关表关系");
         jBuild4DSystemSetting.setRelGroupValue("系统设置相关表关系");
-        this.saveSimple(jb4DSession,TableRelationGroupJBuild4DSystemSetting,jBuild4DSystemSetting);
+        this.saveSimple(jb4DCSession,TableRelationGroupJBuild4DSystemSetting,jBuild4DSystemSetting);
 
-        this.createTableRelation(jb4DSession,jBuild4DSystemSetting,"TSYS_DICTIONARY_RELATION","数据字典关系图","数据字典分组与数据字典的关系图","{\n" +
+        this.createTableRelation(jb4DCSession,jBuild4DSystemSetting,"TSYS_DICTIONARY_RELATION","数据字典关系图","数据字典分组与数据字典的关系图","{\n" +
                 "  \"tableList\": [\n" +
                 "    {\n" +
                 "      \"tableId\": \"T_S_Y_S___D_I_C_T_I_O_N_A_R_Y\",\n" +
@@ -161,16 +161,16 @@ public class TableRelationGroupServiceImpl extends BaseServiceImpl<TableRelation
                 "}","");
 
         //单点登录相关表
-        deleteByKeyNotValidate(jb4DSession, TableRelationGroupJBuild4DSystemSSORelevance, JBuild4DCYaml.getWarningOperationCode());
+        deleteByKeyNotValidate(jb4DCSession, TableRelationGroupJBuild4DSystemSSORelevance, JBuild4DCYaml.getWarningOperationCode());
         TableRelationGroupEntity jBuild4DSSORelevance=new TableRelationGroupEntity();
         jBuild4DSSORelevance.setRelGroupId(TableRelationGroupJBuild4DSystemSSORelevance);
         jBuild4DSSORelevance.setRelGroupParentId(jBuild4DSystemBaseEntity.getRelGroupId());
         jBuild4DSSORelevance.setRelGroupIsSystem(TrueFalseEnum.True.getDisplayName());
         jBuild4DSSORelevance.setRelGroupText("单点登录相关表关系");
         jBuild4DSSORelevance.setRelGroupValue("单点登录相关表关系");
-        this.saveSimple(jb4DSession, TableRelationGroupJBuild4DSystemSSORelevance,jBuild4DSSORelevance);
+        this.saveSimple(jb4DCSession, TableRelationGroupJBuild4DSystemSSORelevance,jBuild4DSSORelevance);
 
-        this.createTableRelation(jb4DSession,jBuild4DSSORelevance,"TSSO_ORGAN_DEPT_USER","机构部门人员关系图","机构部门人员关系图的关系图","{\n" +
+        this.createTableRelation(jb4DCSession,jBuild4DSSORelevance,"TSSO_ORGAN_DEPT_USER","机构部门人员关系图","机构部门人员关系图的关系图","{\n" +
                 "  \"tableList\": [\n" +
                 "    {\n" +
                 "      \"tableId\": \"T_S_S_O___O_R_G_A_N___T_Y_P_E\",\n" +
@@ -233,41 +233,41 @@ public class TableRelationGroupServiceImpl extends BaseServiceImpl<TableRelation
                 "}","");
 
         //应用设计相关表
-        deleteByKeyNotValidate(jb4DSession,TableRelationGroupJBuild4DSystemBuilder, JBuild4DCYaml.getWarningOperationCode());
+        deleteByKeyNotValidate(jb4DCSession,TableRelationGroupJBuild4DSystemBuilder, JBuild4DCYaml.getWarningOperationCode());
         TableRelationGroupEntity jBuild4DSystemBuilder=new TableRelationGroupEntity();
         jBuild4DSystemBuilder.setRelGroupId(TableRelationGroupJBuild4DSystemBuilder);
         jBuild4DSystemBuilder.setRelGroupParentId(jBuild4DSystemBaseEntity.getRelGroupId());
         jBuild4DSystemBuilder.setRelGroupIsSystem(TrueFalseEnum.True.getDisplayName());
         jBuild4DSystemBuilder.setRelGroupText("应用设计相关表关系");
         jBuild4DSystemBuilder.setRelGroupValue("应用设计相关表关系");
-        this.saveSimple(jb4DSession,TableRelationGroupJBuild4DSystemBuilder,jBuild4DSystemBuilder);
+        this.saveSimple(jb4DCSession,TableRelationGroupJBuild4DSystemBuilder,jBuild4DSystemBuilder);
 
 
         //文件存储相关表
-        deleteByKeyNotValidate(jb4DSession,TableRelationGroupJbuild4DFileStore, JBuild4DCYaml.getWarningOperationCode());
+        deleteByKeyNotValidate(jb4DCSession,TableRelationGroupJbuild4DFileStore, JBuild4DCYaml.getWarningOperationCode());
         TableRelationGroupEntity jbuild4DFileStore=new TableRelationGroupEntity();
         jbuild4DFileStore.setRelGroupId(TableRelationGroupJbuild4DFileStore);
         jbuild4DFileStore.setRelGroupParentId(jBuild4DSystemBaseEntity.getRelGroupId());
         jbuild4DFileStore.setRelGroupIsSystem(TrueFalseEnum.True.getDisplayName());
         jbuild4DFileStore.setRelGroupText("文件存储相关表关系");
         jbuild4DFileStore.setRelGroupValue("文件存储相关表表关系");
-        this.saveSimple(jb4DSession,TableRelationGroupJbuild4DFileStore,jbuild4DFileStore);
+        this.saveSimple(jb4DCSession,TableRelationGroupJbuild4DFileStore,jbuild4DFileStore);
 
         //开发示例相关表
-        deleteByKeyNotValidate(jb4DSession,TableRelationGroupJBuild4DSystemDevDemo, JBuild4DCYaml.getWarningOperationCode());
+        deleteByKeyNotValidate(jb4DCSession,TableRelationGroupJBuild4DSystemDevDemo, JBuild4DCYaml.getWarningOperationCode());
         TableRelationGroupEntity jBuild4DSystemDevDemo=new TableRelationGroupEntity();
         jBuild4DSystemDevDemo.setRelGroupId(TableRelationGroupJBuild4DSystemDevDemo);
         jBuild4DSystemDevDemo.setRelGroupParentId(jBuild4DSystemBaseEntity.getRelGroupId());
         jBuild4DSystemDevDemo.setRelGroupIsSystem(TrueFalseEnum.True.getDisplayName());
         jBuild4DSystemDevDemo.setRelGroupText("开发示例相关表关系");
         jBuild4DSystemDevDemo.setRelGroupValue("开发示例相关表关系");
-        this.saveSimple(jb4DSession,TableRelationGroupJBuild4DSystemDevDemo,jBuild4DSystemDevDemo);
+        this.saveSimple(jb4DCSession,TableRelationGroupJBuild4DSystemDevDemo,jBuild4DSystemDevDemo);
 
         return jBuild4DSystemBaseEntity;
     }
 
-    private void createTableRelation(JB4DCSession jb4DSession,TableRelationGroupEntity tableGroup,String tableRelationId,String tableRelationName,String tableRelationDesc,String contentJson,String diagramJson) throws JBuild4DCGenerallyException {
-        tableRelationService.deleteByKeyNotValidate(jb4DSession,tableRelationId,JBuild4DCYaml.getWarningOperationCode());
+    private void createTableRelation(JB4DCSession jb4DCSession,TableRelationGroupEntity tableGroup,String tableRelationId,String tableRelationName,String tableRelationDesc,String contentJson,String diagramJson) throws JBuild4DCGenerallyException {
+        tableRelationService.deleteByKeyNotValidate(jb4DCSession,tableRelationId,JBuild4DCYaml.getWarningOperationCode());
         TableRelationEntity tableRelationEntity=new TableRelationEntity();
         tableRelationEntity.setRelationId(tableRelationId);
         tableRelationEntity.setRelationGroupId(tableGroup.getRelGroupId());
@@ -277,6 +277,6 @@ public class TableRelationGroupServiceImpl extends BaseServiceImpl<TableRelation
         tableRelationEntity.setRelationContent(contentJson);
         tableRelationEntity.setRelationDiagramJson(diagramJson);
 
-        tableRelationService.saveSimple(jb4DSession,tableRelationId,tableRelationEntity);
+        tableRelationService.saveSimple(jb4DCSession,tableRelationId,tableRelationEntity);
     }
 }

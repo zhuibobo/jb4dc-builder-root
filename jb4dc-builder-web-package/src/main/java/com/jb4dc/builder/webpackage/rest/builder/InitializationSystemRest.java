@@ -50,21 +50,21 @@ public class InitializationSystemRest {
     @RequestMapping(value = "/Running", method = RequestMethod.POST)
     @ResponseBody
     public JBuild4DCResponseVo running(String createTestData) throws JBuild4DCGenerallyException, JsonProcessingException {
-        JB4DCSession jb4DSession= JB4DCSessionUtility.getInitSystemSession();
+        JB4DCSession jb4DCSession= JB4DCSessionUtility.getInitSystemSession();
 
-        tableFieldService.createTableFieldTemplates(jb4DSession);
+        tableFieldService.createTableFieldTemplates(jb4DCSession);
 
-        TableRelationGroupEntity rootTableRelationGroupEntity=tableRelationGroupService.createRootNode(jb4DSession);
+        TableRelationGroupEntity rootTableRelationGroupEntity=tableRelationGroupService.createRootNode(jb4DCSession);
 
-        tableRelationGroupService.createSystemTableRelationGroupNode(jb4DSession,rootTableRelationGroupEntity);
+        tableRelationGroupService.createSystemTableRelationGroupNode(jb4DCSession,rootTableRelationGroupEntity);
 
-        datasetGroupService.createRootNode(jb4DSession);
+        datasetGroupService.createRootNode(jb4DCSession);
 
-        dbLinkService.initSystemData(jb4DSession);
+        dbLinkService.initSystemData(jb4DCSession);
 
-        tableGroupService.initSystemData(jb4DSession);
+        tableGroupService.initSystemData(jb4DCSession);
 
-        moduleService.createRootNode(jb4DSession);
+        moduleService.createRootNode(jb4DCSession);
 
         return JBuild4DCResponseVo.success("系统数据初始化成功！");
     }

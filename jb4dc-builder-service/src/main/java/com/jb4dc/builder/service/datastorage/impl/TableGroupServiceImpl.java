@@ -56,15 +56,15 @@ public class TableGroupServiceImpl extends BaseServiceImpl<TableGroupEntity> imp
     }
 
     @Override
-    public int saveSimple(JB4DCSession jb4DSession, String id, TableGroupEntity record) throws JBuild4DCGenerallyException {
-        return super.save(jb4DSession,id, record, new IAddBefore<TableGroupEntity>() {
+    public int saveSimple(JB4DCSession jb4DCSession, String id, TableGroupEntity record) throws JBuild4DCGenerallyException {
+        return super.save(jb4DCSession,id, record, new IAddBefore<TableGroupEntity>() {
             @Override
-            public TableGroupEntity run(JB4DCSession jb4DSession, TableGroupEntity sourceEntity) throws JBuild4DCGenerallyException {
+            public TableGroupEntity run(JB4DCSession jb4DCSession, TableGroupEntity sourceEntity) throws JBuild4DCGenerallyException {
                 sourceEntity.setTableGroupOrderNum(tableGroupMapper.nextOrderNum());
                 sourceEntity.setTableGroupChildCount(0);
                 sourceEntity.setTableGroupCreateTime(new Date());
-                sourceEntity.setTableGroupOrganId(jb4DSession.getOrganId());
-                sourceEntity.setTableGroupOrganName(jb4DSession.getOrganName());
+                sourceEntity.setTableGroupOrganId(jb4DCSession.getOrganId());
+                sourceEntity.setTableGroupOrganName(jb4DCSession.getOrganName());
                 String parentIdList="-1";
                 if(sourceEntity.getTableGroupId().equals(rootId)){
                     parentIdList=rootParentId;
@@ -86,7 +86,7 @@ public class TableGroupServiceImpl extends BaseServiceImpl<TableGroupEntity> imp
     }
 
     @Override
-    public TableGroupEntity createRootNode(JB4DCSession jb4DSession,String dbLinkId,String text,String value) throws JBuild4DCGenerallyException {
+    public TableGroupEntity createRootNode(JB4DCSession jb4DCSession,String dbLinkId,String text,String value) throws JBuild4DCGenerallyException {
         TableGroupEntity treeTableEntity=new TableGroupEntity();
         treeTableEntity.setTableGroupId(dbLinkId);
         treeTableEntity.setTableGroupParentId(rootParentId);
@@ -94,16 +94,16 @@ public class TableGroupServiceImpl extends BaseServiceImpl<TableGroupEntity> imp
         treeTableEntity.setTableGroupText(text);
         treeTableEntity.setTableGroupValue(value);
         treeTableEntity.setTableGroupLinkId(dbLinkId);
-        this.saveSimple(jb4DSession,treeTableEntity.getTableGroupId(),treeTableEntity);
+        this.saveSimple(jb4DCSession,treeTableEntity.getTableGroupId(),treeTableEntity);
         return treeTableEntity;
     }
 
 
 
     /*@Override
-    public TableGroupEntity createSystemTableGroupNode(JB4DCSession jb4DSession,TableGroupEntity parentGroup) throws JBuild4DCGenerallyException {
+    public TableGroupEntity createSystemTableGroupNode(JB4DCSession jb4DCSession,TableGroupEntity parentGroup) throws JBuild4DCGenerallyException {
         //系统基础
-        deleteByKeyNotValidate(jb4DSession,TableGroupJBuild4DSystem, JBuild4DCYaml.getWarningOperationCode());
+        deleteByKeyNotValidate(jb4DCSession,TableGroupJBuild4DSystem, JBuild4DCYaml.getWarningOperationCode());
         TableGroupEntity jBuild4DSystemBase=new TableGroupEntity();
         jBuild4DSystemBase.setTableGroupId(TableGroupJBuild4DSystem);
         jBuild4DSystemBase.setTableGroupParentId(parentGroup.getTableGroupId());
@@ -111,10 +111,10 @@ public class TableGroupServiceImpl extends BaseServiceImpl<TableGroupEntity> imp
         jBuild4DSystemBase.setTableGroupText("JBuild4D-System");
         jBuild4DSystemBase.setTableGroupValue("JBuild4D-System");
         jBuild4DSystemBase.setTableGroupLinkId(dbLinkService.JBUILD4DC_BUILDER_DB_LINK_ID);
-        this.saveSimple(jb4DSession,TableGroupJBuild4DSystem,jBuild4DSystemBase);
+        this.saveSimple(jb4DCSession,TableGroupJBuild4DSystem,jBuild4DSystemBase);
 
         //系统设置相关表
-        deleteByKeyNotValidate(jb4DSession,TableGroupJBuild4DSystemSetting, JBuild4DCYaml.getWarningOperationCode());
+        deleteByKeyNotValidate(jb4DCSession,TableGroupJBuild4DSystemSetting, JBuild4DCYaml.getWarningOperationCode());
         TableGroupEntity jBuild4DSystemSetting=new TableGroupEntity();
         jBuild4DSystemSetting.setTableGroupId(TableGroupJBuild4DSystemSetting);
         jBuild4DSystemSetting.setTableGroupParentId(jBuild4DSystemBase.getTableGroupId());
@@ -122,7 +122,7 @@ public class TableGroupServiceImpl extends BaseServiceImpl<TableGroupEntity> imp
         jBuild4DSystemSetting.setTableGroupText("系统设置相关表");
         jBuild4DSystemSetting.setTableGroupValue("系统设置相关表");
         jBuild4DSystemSetting.setTableGroupLinkId(dbLinkService.JBUILD4DC_BUILDER_DB_LINK_ID);
-        this.saveSimple(jb4DSession,TableGroupJBuild4DSystemSetting,jBuild4DSystemSetting);
+        this.saveSimple(jb4DCSession,TableGroupJBuild4DSystemSetting,jBuild4DSystemSetting);
 
 
 
@@ -130,17 +130,17 @@ public class TableGroupServiceImpl extends BaseServiceImpl<TableGroupEntity> imp
 
 
         //权限相关表
-        *//*deleteByKeyNotValidate(jb4DSession,TableGroupJBuild4DSystemAuth, JBuild4DProp.getWarningOperationCode());
+        *//*deleteByKeyNotValidate(jb4DCSession,TableGroupJBuild4DSystemAuth, JBuild4DProp.getWarningOperationCode());
         TableGroupEntity jBuild4DSystemAuth=new TableGroupEntity();
         jBuild4DSystemAuth.setTableGroupId(TableGroupJBuild4DSystemAuth);
         jBuild4DSystemAuth.setTableGroupParentId(jBuild4DSystemBase.getTableGroupId());
         jBuild4DSystemAuth.setTableGroupIssystem(TrueFalseEnum.True.getDisplayName());
         jBuild4DSystemAuth.setTableGroupText("权限相关表");
         jBuild4DSystemAuth.setTableGroupValue("权限相关表");
-        this.saveSimple(jb4DSession,TableGroupJBuild4DSystemAuth,jBuild4DSystemAuth);*//*
+        this.saveSimple(jb4DCSession,TableGroupJBuild4DSystemAuth,jBuild4DSystemAuth);*//*
 
         //应用设计相关表
-        deleteByKeyNotValidate(jb4DSession,TableGroupJBuild4DSystemBuilder, JBuild4DCYaml.getWarningOperationCode());
+        deleteByKeyNotValidate(jb4DCSession,TableGroupJBuild4DSystemBuilder, JBuild4DCYaml.getWarningOperationCode());
         TableGroupEntity jBuild4DSystemBuilder=new TableGroupEntity();
         jBuild4DSystemBuilder.setTableGroupId(TableGroupJBuild4DSystemBuilder);
         jBuild4DSystemBuilder.setTableGroupParentId(jBuild4DSystemBase.getTableGroupId());
@@ -148,12 +148,12 @@ public class TableGroupServiceImpl extends BaseServiceImpl<TableGroupEntity> imp
         jBuild4DSystemBuilder.setTableGroupText("应用设计相关表");
         jBuild4DSystemBuilder.setTableGroupValue("应用设计相关表");
         jBuild4DSystemBuilder.setTableGroupLinkId(dbLinkService.JBUILD4DC_BUILDER_DB_LINK_ID);
-        this.saveSimple(jb4DSession,TableGroupJBuild4DSystemBuilder,jBuild4DSystemBuilder);
+        this.saveSimple(jb4DCSession,TableGroupJBuild4DSystemBuilder,jBuild4DSystemBuilder);
 
 
 
         //文件存储相关表
-        deleteByKeyNotValidate(jb4DSession,TableGroupJbuild4DFileStore, JBuild4DCYaml.getWarningOperationCode());
+        deleteByKeyNotValidate(jb4DCSession,TableGroupJbuild4DFileStore, JBuild4DCYaml.getWarningOperationCode());
         TableGroupEntity jbuild4DFileStore=new TableGroupEntity();
         jbuild4DFileStore.setTableGroupId(TableGroupJbuild4DFileStore);
         jbuild4DFileStore.setTableGroupParentId(jBuild4DSystemBase.getTableGroupId());
@@ -161,18 +161,18 @@ public class TableGroupServiceImpl extends BaseServiceImpl<TableGroupEntity> imp
         jbuild4DFileStore.setTableGroupText("文件存储相关表");
         jbuild4DFileStore.setTableGroupValue("文件存储相关表");
         jbuild4DFileStore.setTableGroupLinkId(dbLinkService.JBUILD4DC_BUILDER_DB_LINK_ID);
-        this.saveSimple(jb4DSession,TableGroupJbuild4DFileStore,jbuild4DFileStore);
+        this.saveSimple(jb4DCSession,TableGroupJbuild4DFileStore,jbuild4DFileStore);
 
         return jBuild4DSystemBase;
     }*/
 
     @Override
-    public TableGroupEntity getByGroupText(JB4DCSession jb4DSession, String groupText) {
+    public TableGroupEntity getByGroupText(JB4DCSession jb4DCSession, String groupText) {
         return tableGroupMapper.selectByGroupText(groupText);
     }
 
     @Override
-    public TableGroupEntity getLocationTableGroupRoot(JB4DCSession jb4DSession) {
+    public TableGroupEntity getLocationTableGroupRoot(JB4DCSession jb4DCSession) {
         return tableGroupMapper.selectTableGroupRoot(dbLinkService.JBUILD4DC_BUILDER_DB_LINK_ID);
     }
 
@@ -181,10 +181,10 @@ public class TableGroupServiceImpl extends BaseServiceImpl<TableGroupEntity> imp
         return tableGroupMapper.selectTableGroupsByDBLinkId(dbLinkId);
     }
 
-    private void initDevMockSystemTableToBuilderSystem(JB4DCSession jb4DSession) throws JBuild4DCGenerallyException {
+    private void initDevMockSystemTableToBuilderSystem(JB4DCSession jb4DCSession) throws JBuild4DCGenerallyException {
         //开发示例相关表
         String TableGroup_DevDemo="TABLE_GROUP_JBUILD4DC_DEV_MOCK_GROUP_ID";
-        deleteByKeyNotValidate(jb4DSession,TableGroup_DevDemo, JBuild4DCYaml.getWarningOperationCode());
+        deleteByKeyNotValidate(jb4DCSession,TableGroup_DevDemo, JBuild4DCYaml.getWarningOperationCode());
         TableGroupEntity jBuild4DSystemDevDemo=new TableGroupEntity();
         jBuild4DSystemDevDemo.setTableGroupId(TableGroup_DevDemo);
         jBuild4DSystemDevDemo.setTableGroupParentId(IDbLinkService.JBUILD4DC_DEV_MOCK_DB_LINK_ID);
@@ -192,12 +192,12 @@ public class TableGroupServiceImpl extends BaseServiceImpl<TableGroupEntity> imp
         jBuild4DSystemDevDemo.setTableGroupText("系统默认相关表");
         jBuild4DSystemDevDemo.setTableGroupValue("开发示例系统默认相关表");
         jBuild4DSystemDevDemo.setTableGroupLinkId(dbLinkService.JBUILD4DC_DEV_MOCK_DB_LINK_ID);
-        this.saveSimple(jb4DSession,TableGroup_DevDemo,jBuild4DSystemDevDemo);
+        this.saveSimple(jb4DCSession,TableGroup_DevDemo,jBuild4DSystemDevDemo);
 
-        tableService.registerSystemTableToBuilderToModule(jb4DSession,"TDEV_DEMO_GEN_LIST",jBuild4DSystemDevDemo);
-        tableService.registerSystemTableToBuilderToModule(jb4DSession,"TDEV_DEMO_TL_TREE",jBuild4DSystemDevDemo);
-        tableService.registerSystemTableToBuilderToModule(jb4DSession,"TDEV_DEMO_TL_TREE_LIST",jBuild4DSystemDevDemo);
-        tableService.registerSystemTableToBuilderToModule(jb4DSession,"TDEV_DEMO_TREE_TABLE",jBuild4DSystemDevDemo);
+        tableService.registerSystemTableToBuilderToModule(jb4DCSession,"TDEV_DEMO_GEN_LIST",jBuild4DSystemDevDemo);
+        tableService.registerSystemTableToBuilderToModule(jb4DCSession,"TDEV_DEMO_TL_TREE",jBuild4DSystemDevDemo);
+        tableService.registerSystemTableToBuilderToModule(jb4DCSession,"TDEV_DEMO_TL_TREE_LIST",jBuild4DSystemDevDemo);
+        tableService.registerSystemTableToBuilderToModule(jb4DCSession,"TDEV_DEMO_TREE_TABLE",jBuild4DSystemDevDemo);
     }
 
     private void initSSOSystemTableToBuilderSystem(JB4DCSession jb4DCSession) throws JBuild4DCGenerallyException{
@@ -292,14 +292,14 @@ public class TableGroupServiceImpl extends BaseServiceImpl<TableGroupEntity> imp
     }
 
     @Override
-    public void initSystemData(JB4DCSession jb4DSession) throws JBuild4DCGenerallyException {
-        this.initDevMockSystemTableToBuilderSystem(jb4DSession);
-        this.initSSOSystemTableToBuilderSystem(jb4DSession);
-        this.initBuilderSystemTableToBuilderSystem(jb4DSession);
+    public void initSystemData(JB4DCSession jb4DCSession) throws JBuild4DCGenerallyException {
+        this.initDevMockSystemTableToBuilderSystem(jb4DCSession);
+        this.initSSOSystemTableToBuilderSystem(jb4DCSession);
+        this.initBuilderSystemTableToBuilderSystem(jb4DCSession);
     }
 
     @Override
-    public int deleteByKey(JB4DCSession jb4DSession, String id) throws JBuild4DCGenerallyException {
+    public int deleteByKey(JB4DCSession jb4DCSession, String id) throws JBuild4DCGenerallyException {
         TableGroupEntity tableGroupEntity=tableGroupMapper.selectByPrimaryKey(id);
         if(tableGroupEntity!=null){
             if(tableGroupEntity.getTableGroupIsSystem().equals(TrueFalseEnum.True.getDisplayName())){
@@ -312,7 +312,7 @@ public class TableGroupServiceImpl extends BaseServiceImpl<TableGroupEntity> imp
             if(childEntityList!=null&&childEntityList.size()>0){
                 throw JBuild4DCGenerallyException.getHadChildDelException(JBuild4DCGenerallyException.EXCEPTION_BUILDER_CODE);
             }
-            return super.deleteByKey(jb4DSession, id);
+            return super.deleteByKey(jb4DCSession, id);
         }
         else
         {
@@ -321,14 +321,14 @@ public class TableGroupServiceImpl extends BaseServiceImpl<TableGroupEntity> imp
     }
 
     @Override
-    public void moveUp(JB4DCSession jb4DSession, String id) throws JBuild4DCGenerallyException {
+    public void moveUp(JB4DCSession jb4DCSession, String id) throws JBuild4DCGenerallyException {
         TableGroupEntity selfEntity=tableGroupMapper.selectByPrimaryKey(id);
         TableGroupEntity ltEntity=tableGroupMapper.selectLessThanRecord(id,selfEntity.getTableGroupParentId());
         switchOrder(ltEntity,selfEntity);
     }
 
     @Override
-    public void moveDown(JB4DCSession jb4DSession, String id) throws JBuild4DCGenerallyException {
+    public void moveDown(JB4DCSession jb4DCSession, String id) throws JBuild4DCGenerallyException {
         TableGroupEntity selfEntity=tableGroupMapper.selectByPrimaryKey(id);
         TableGroupEntity ltEntity=tableGroupMapper.selectGreaterThanRecord(id,selfEntity.getTableGroupParentId());
         switchOrder(ltEntity,selfEntity);
