@@ -16,15 +16,21 @@ public class ModuleRestTest extends RestTestBase {
     @Autowired
     IModuleService moduleService;
 
-    public String moduleId="DevMockModuleId";
+    public String devMockModuleId="DevMockModuleId";
+    public String builderModuleId="BuilderModuleId001";
 
     @Test
     public void addDevTestGroup() throws Exception {
+        createModule(devMockModuleId,"开发样例分组");
+        createModule(builderModuleId,"构建库-开发测试分组");
+    }
+
+    private void createModule(String moduleId,String text) throws com.jb4dc.core.base.exception.JBuild4DCGenerallyException {
         moduleService.deleteByKeyNotValidate(JB4DCSessionUtility.getInitSystemSession(),moduleId, JBuild4DCYaml.getWarningOperationCode());
         ModuleEntity moduleEntity=new ModuleEntity();
         moduleEntity.setModuleId(moduleId);
         moduleEntity.setModuleValue(moduleId);
-        moduleEntity.setModuleText("开发样例分组");
+        moduleEntity.setModuleText(text);
         moduleEntity.setModuleStatus(EnableTypeEnum.enable.getDisplayName());
         moduleEntity.setModuleParentId("0");
         moduleEntity.setModuleIsSystem(TrueFalseEnum.False.getDisplayName());
