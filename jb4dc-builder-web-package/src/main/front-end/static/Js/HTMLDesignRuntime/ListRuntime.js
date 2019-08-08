@@ -30,7 +30,13 @@ var ListRuntime={
             //var $rootElem=$(result.data.formHtmlRuntime);
             //if($rootElem.)
             this._$RendererToElem.append(result.data.listHtmlRuntime);
-            VirtualBodyControl.RendererChain(result.data.listHtmlRuntime,this._$RendererToElem,this._$RendererToElem);
+            VirtualBodyControl.RendererChain({
+                sourceHTML:result.data.listHtmlRuntime,
+                $rootElem:this._$RendererToElem,
+                $parentControlElem:this._$RendererToElem,
+                $singleControlElem:this._$RendererToElem,
+                allData:null
+            });
         },this);
     }
 }

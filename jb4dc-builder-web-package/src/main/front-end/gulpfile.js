@@ -98,6 +98,7 @@ gulp.task('html-design-plugins-less',()=>{
 });
 
 /*表单设计器的运行时JS库*/
+const html_design_runtime_distPath = "../../../../jb4dc-builder-client/src/main/resources/static";
 gulp.task('html-design-runtime-full-js',()=>{
     return gulp.src([sourcePath + '/Js/HTMLDesignRuntime/**/*.js'])
         .pipe(babel({
@@ -111,7 +112,7 @@ gulp.task('html-design-runtime-full-js',()=>{
             }
         ))*/
         .pipe(sourcemaps.write())
-        .pipe(gulp.dest(distPath + "/Js"));
+        .pipe(gulp.dest(html_design_runtime_distPath + "/Js"));
 });
 
 /*编译Themes下的Less文件*/
@@ -122,7 +123,8 @@ gulp.task('less',()=>{
             paths: [ path.join(__dirname, 'less', 'includes') ]
         }))
         .pipe(sourcemaps.write())
-        .pipe(gulp.dest(distPath+'/Themes/Default/Css'));
+        .pipe(gulp.dest(distPath+'/Themes/Default/Css'))
+        .pipe(gulp.dest(html_design_runtime_distPath+'/Themes/Default/Css'));
 });
 
 gulp.task('html-design-all', gulp.series('html-design-utility','html-design-ckeditor-config','html-design-plugins','html-design-plugins-html','html-design-runtime-full-js','less'));

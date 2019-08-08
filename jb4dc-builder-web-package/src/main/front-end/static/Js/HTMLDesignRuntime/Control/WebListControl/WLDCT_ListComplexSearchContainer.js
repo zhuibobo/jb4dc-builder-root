@@ -1,3 +1,6 @@
 var WLDCT_ListComplexSearchContainer= {
-    RendererChain: HTMLControl.RendererChain
+    RendererChain: function (_rendererChainParas) {
+        var $singleControlElem=_rendererChainParas.$singleControlElem;
+        $singleControlElem.hide();
+    }
 }

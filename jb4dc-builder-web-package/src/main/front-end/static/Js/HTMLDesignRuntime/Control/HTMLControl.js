@@ -1,5 +1,6 @@
 let HTMLControlAttrs= {
     JBUILD4DC_CUSTOM: "jbuild4dc_custom",
+    SELECTED_JBUILD4DC_CUSTOM:"[jbuild4dc_custom=true]",
     CLIENT_RESOLVE:"client_resolve"
 }
 let HTMLControl={
@@ -14,7 +15,15 @@ let HTMLControl={
         this._InstanceMap[name]=instance;
         return instance;
     },
-    RendererChain:function (sourceHTML,$rootElem,$singleControlElem,allData) {
+    RendererChainParas:{
+        sourceHTML:null,
+        $rootElem:null,
+        $parentControlElem:null,
+        $singleControlElem:null,
+        allData:null
+    },
+    RendererChain:function (_rendererChainParas) {
+        var $singleControlElem=_rendererChainParas.$singleControlElem;
         //debugger;
         for (var i = 0; i < $singleControlElem.children().length; i++) {
             var $childSingleElem = $($singleControlElem.children()[i]);
@@ -23,9 +32,21 @@ let HTMLControl={
                 //debugger;
                 var clientResolveInstanceName=$childSingleElem.attr(HTMLControlAttrs.CLIENT_RESOLVE);
                 var instance=HTMLControl.GetInstance(clientResolveInstanceName);
-                instance.RendererChain(sourceHTML,$rootElem,$childSingleElem,allData);
+                instance.RendererChain({
+                    sourceHTML:_rendererChainParas.sourceHTML,
+                    $rootElem:_rendererChainParas.$rootElem,
+                    $parentControlElem:_rendererChainParas.$singleControlElem,
+                    $singleControlElem:$childSingleElem,
+                    allData:_rendererChainParas.allData
+                });
             } else {
-                HTMLControl.RendererChain(sourceHTML,$rootElem,$childSingleElem,allData);
+                HTMLControl.RendererChain({
+                    sourceHTML:_rendererChainParas.sourceHTML,
+                    $rootElem:_rendererChainParas.$rootElem,
+                    $parentControlElem:_rendererChainParas.$singleControlElem,
+                    $singleControlElem:$childSingleElem,
+                    allData:_rendererChainParas.allData
+                });
             }
         }
     }
