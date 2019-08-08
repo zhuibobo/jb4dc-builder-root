@@ -10,6 +10,7 @@ var ListRuntime={
         RendererToId:null,
         ListId:""
     },
+    _$RendererToElem:null,
     Initialization:function (_config) {
         this._Prop_Config= $.extend(true,{},this._Prop_Config,_config);
         this._$RendererToElem=$("#"+this._Prop_Config.RendererToId);
@@ -22,13 +23,14 @@ var ListRuntime={
         });*/
         RuntimeGeneralInstance.LoadHtmlDesignContent(BaseUtility.GetRootPath()+"/Rest/Builder/ListRuntime/ListPreview?listId="+this._Prop_Config.ListId,this._Prop_Config.RendererTo, {}, function (result) {
             //alert( "Load was performed.");
+            //debugger;
             console.log("加载预览窗体成功!!");
             console.log(result);
-            console.log(result.data.formHtmlRuntime);
+            //console.log(result.data.listHtmlRuntime);
             //var $rootElem=$(result.data.formHtmlRuntime);
             //if($rootElem.)
-            this._$RendererToElem.append(result.data.formHtmlRuntime);
-            VirtualBodyControl.RendererChain(result.data.formHtmlRuntime,this._$RendererToElem,this._$RendererToElem);
+            this._$RendererToElem.append(result.data.listHtmlRuntime);
+            VirtualBodyControl.RendererChain(result.data.listHtmlRuntime,this._$RendererToElem,this._$RendererToElem);
         },this);
     }
 }

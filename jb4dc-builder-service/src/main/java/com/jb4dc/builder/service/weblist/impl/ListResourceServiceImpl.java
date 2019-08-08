@@ -7,6 +7,7 @@ import com.jb4dc.base.service.impl.BaseServiceImpl;
 import com.jb4dc.builder.dao.weblist.ListResourceMapper;
 import com.jb4dc.builder.dbentities.weblist.ListResourceEntity;
 import com.jb4dc.builder.htmldesign.IHTMLRuntimeResolve;
+import com.jb4dc.builder.po.ListResourcePO;
 import com.jb4dc.builder.service.module.IModuleService;
 import com.jb4dc.builder.service.weblist.IListResourceService;
 import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
@@ -66,14 +67,14 @@ public class ListResourceServiceImpl extends BaseServiceImpl<ListResourceEntity>
     }
 
     @Override
-    public String getFormPreviewHTMLContent(JB4DCSession session, String listId) throws JBuild4DCGenerallyException {
+    public ListResourcePO getFormPreviewHTMLContent(JB4DCSession session, String listId) throws JBuild4DCGenerallyException {
         return getListRuntimeHTMLContent(session,listId);
     }
 
     @Override
-    public String getListRuntimeHTMLContent(JB4DCSession jb4DCSession, String id) throws JBuild4DCGenerallyException {
+    public ListResourcePO getListRuntimeHTMLContent(JB4DCSession jb4DCSession, String id) throws JBuild4DCGenerallyException {
         ListResourceEntity listResourceEntity=getByPrimaryKey(jb4DCSession,id);
         String runtimeForm=htmlRuntimeResolve.dynamicBind(jb4DCSession,id,listResourceEntity.getListHtmlResolve());
-        return runtimeForm;
+        return new ListResourcePO(listResourceEntity,runtimeForm);
     }
 }

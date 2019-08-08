@@ -48,7 +48,7 @@
         </Control>
         <Control SingleName="WLDCT_LayoutContainer" Text="布局区域" ToolbarLocation="LC_Template,2"
                  ServerResolve="com.jb4dc.builder.htmldesign.control.weblist.WebListLayoutContainer"
-                 ClientResolve=""
+                 ClientResolve="WLDCT_LayoutContainer"
                  ClientResolveJs=""
                  DialogWidth="780"
                  DialogHeight="550"
@@ -70,7 +70,7 @@
         </Control>
         <Control SingleName="WLDCT_ListSimpleSearchContainer" Text="列表-简单查询区域" ToolbarLocation="LC_Template,4"
                  ServerResolve="com.jb4dc.builder.htmldesign.control.weblist.WebListListSimpleSearchContainer"
-                 ClientResolve=""
+                 ClientResolve="WLDCT_ListSimpleSearchContainer"
                  ClientResolveJs=""
                  DialogWidth="780" DialogHeight="550" IsJBuild4DCData="false" ControlCategory="ContainerControl" ServerDynamicBind="false"  ShowRemoveButton="false" ShowInEditorToolbar="true">
             <Config></Config>
@@ -78,7 +78,7 @@
         </Control>
         <Control SingleName="WLDCT_ListComplexSearchContainer" Text="列表-弹出查询区域" ToolbarLocation="LC_Template,5"
                  ServerResolve="com.jb4dc.builder.htmldesign.control.weblist.WebListListComplexSearchContainer"
-                 ClientResolve=""
+                 ClientResolve="WLDCT_ListComplexSearchContainer"
                  ClientResolveJs=""
                  DialogWidth="780" DialogHeight="550" IsJBuild4DCData="false" ControlCategory="ContainerControl" ServerDynamicBind="false"  ShowRemoveButton="false" ShowInEditorToolbar="true">
             <Config></Config>
@@ -86,7 +86,7 @@
         </Control>
         <Control SingleName="WLDCT_ListButtonContainer" Text="列表-按钮区域" ToolbarLocation="LC_Template,6"
                  ServerResolve="com.jb4dc.builder.htmldesign.control.weblist.WebListListButtonContainer"
-                 ClientResolve=""
+                 ClientResolve="WLDCT_ListButtonContainer"
                  ClientResolveJs=""
                  DialogWidth="780" DialogHeight="550" IsJBuild4DCData="false" ControlCategory="ContainerControl" ServerDynamicBind="false"  ShowRemoveButton="false" ShowInEditorToolbar="true">
             <Config></Config>
@@ -94,7 +94,7 @@
         </Control>
         <Control SingleName="WLDCT_ListTableContainer" Text="列表-表格区域" ToolbarLocation="LC_Template,7"
                  ServerResolve="com.jb4dc.builder.htmldesign.control.weblist.WebListListTableContainer"
-                 ClientResolve=""
+                 ClientResolve="WLDCT_ListTableContainer"
                  ClientResolveJs=""
                  DialogWidth="780" DialogHeight="550" IsJBuild4DCData="false" ControlCategory="ContainerControl" ServerDynamicBind="false"  ShowRemoveButton="false" ShowInEditorToolbar="true">
             <Config></Config>
@@ -102,7 +102,7 @@
         </Control>
         <Control SingleName="WLDCT_Search_TextBox" Text="查询-单行输入框" ToolbarLocation="LC_Simple_G1,1"
                  ServerResolve="com.jb4dc.builder.htmldesign.control.weblist.WebListSearchTextBox"
-                 ClientResolve=""
+                 ClientResolve="WLDCT_Search_TextBox"
                  ClientResolveJs=""
                  DialogWidth="780" DialogHeight="550" IsJBuild4DCData="true" ControlCategory="InputControl" ServerDynamicBind="false" ShowRemoveButton="true" ShowInEditorToolbar="true">
             <Config></Config>
@@ -110,7 +110,7 @@
         </Control>
         <Control SingleName="WLDCT_FormButton" Text="按钮-窗体按钮" ToolbarLocation="LC_Simple_G2,2"
                  ServerResolve="com.jb4dc.builder.htmldesign.control.weblist.WebListFormButton"
-                 ClientResolve=""
+                 ClientResolve="WLDCT_FormButton"
                  ClientResolveJs=""
                  DialogWidth="780" DialogHeight="550" IsJBuild4DCData="true" ControlCategory="InputControl" ServerDynamicBind="false" ShowRemoveButton="true" ShowInEditorToolbar="true">
             <Config></Config>
@@ -118,7 +118,7 @@
         </Control>
         <Control SingleName="WLDCT_ListTableLabel" Text="列表-标签" ToolbarLocation="LC_Simple_G3,2"
                  ServerResolve="com.jb4dc.builder.htmldesign.control.weblist.WebListListTableLabel"
-                 ClientResolve=""
+                 ClientResolve="WLDCT_ListTableLabel"
                  ClientResolveJs=""
                  DialogWidth="780" DialogHeight="550" IsJBuild4DCData="true" ControlCategory="InputControl" ServerDynamicBind="false" ShowRemoveButton="true" ShowInEditorToolbar="true">
             <Config></Config>
