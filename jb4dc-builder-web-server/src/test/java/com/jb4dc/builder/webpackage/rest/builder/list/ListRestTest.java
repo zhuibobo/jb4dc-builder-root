@@ -29,7 +29,7 @@ public class ListRestTest extends ModuleRestTest {
     @Test
     public void addDevTestList() throws Exception {
         createList(devMockListId,devMockModuleId,"开发样例列表1",DataSetMainRestTest.devMockDataSetId);
-        createList(builderListId,builderModuleId,"开发样例列表1",DataSetMainRestTest.builderDataSetId);
+        createList(builderListId,builderModuleId,"构建库-开发样例列表1",DataSetMainRestTest.builderDataSetId);
     }
 
     private void createList(String listId,String moduleId,String text,String dateSetId) throws com.jb4dc.core.base.exception.JBuild4DCGenerallyException {
