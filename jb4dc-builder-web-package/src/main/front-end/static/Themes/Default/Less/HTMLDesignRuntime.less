@@ -5,7 +5,8 @@
     width: 100%;
     padding: 4px 7px;
     font-size: 12px;
-    border: 1px solid #dcdee2;
+    border: 0px solid #dcdee2;
+    border-bottom: 1px solid #dcdee2;
     border-radius: 4px;
     color: #515a6e;
     background-color: #fff;
@@ -205,16 +206,17 @@
     .wldct-list-simple-search-outer-wrap{
 
         .wldct-list-simple-search-inner-wrap{
-            border: #c5c9d4 1px solid;
+            border: @g-wldct-list-border-color 1px solid;
             border-radius: 4px;
             min-height: 70px;
             margin: 10px;
+            text-align: left;
 
             table {
-                margin: 8px auto auto;
+                margin: 8px 8px 8px 8px;
                 border-collapse: collapse;
                 font-size: 12px;
-                width: 98%;
+                width: 98.6%;
 
                 .title {
                     color: #2e6e9e;
@@ -243,13 +245,36 @@
                 }
             }
         }
+
+        .wldct-list-simple-search-button-inner-wrap{
+            position: absolute;
+            right: 10px;
+            top: 20px;
+
+            button{
+              .html-design-list-button;
+            }
+            button:hover{
+                background-color: #57a3f3;
+                border-color: #57a3f3;
+            }
+            button:first-child{
+                border-top-left-radius: 4px;
+                border-top-right-radius: 4px;
+            }
+
+            button:last-child{
+                border-bottom-left-radius: 4px;
+                border-bottom-right-radius: 4px;
+            }
+        }
     }
 
     .wldct-list-complex-search-outer-wrap{
         //display: none;
 
         .wldct-list-complex-search-inner-wrap{
-            border: #c5c9d4 1px solid;
+            border: @g-wldct-list-border-color 1px solid;
             border-radius: 4px;
             min-height: 70px;
             margin: 10px;
@@ -292,7 +317,7 @@
     .wldct-list-button-outer-wrap{
 
         .wldct-list-button-inner-wrap{
-            border: #c5c9d4 1px solid;
+            border: @g-wldct-list-border-color 1px solid;
             border-radius: 4px;
             min-height: 48px;
             margin: 10px;
@@ -323,7 +348,6 @@
             margin: 6px;
             padding: 0px;
             text-size-adjust: 100%;
-            width: 557.406px;
             -webkit-box-direction: normal;
             -webkit-font-smoothing: antialiased;
             -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
@@ -350,12 +374,13 @@
     .wldct-list-table-outer-wrap{
 
         .wldct-list-table-inner-wrap{
-            border: #c5c9d4 1px solid;
+            border:@g-wldct-list-border-color 1px solid;
             border-radius: 4px;
             min-height: 230px;
             margin: 10px;
 
-            table {
+            th, td { white-space: nowrap; }
+            /*table {
                 margin: 8px auto 8px auto;
                 border-collapse: collapse;
                 font-size: 12px;
@@ -380,7 +405,7 @@
                         }
                     }
                 }
-            }
+            }*/
         }
     }
 }

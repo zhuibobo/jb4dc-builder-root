@@ -22,6 +22,8 @@ public class DBLinkRestTest extends RestTestBase {
 
     public String testDBLinkId="JBuild4DCDevMockDBLink";
 
+    public String testBuilderDBLinkId="JBuild4DCBuilderDBLink";
+
     @Test
     public void CreateTestDBLink() throws JBuild4DCGenerallyException {
         DbLinkEntity dbLinkEntity=new DbLinkEntity();

@@ -19,7 +19,6 @@ import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilde
 
 import java.util.Date;
 
-import static com.jb4dc.base.service.general.JB4DCSessionUtility.getSession;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 
 /**
@@ -34,32 +33,42 @@ public class DataSetGroupRestTest extends RestTestBase {
     @Autowired
     IDatasetGroupService datasetGroupService;
 
-    public static String devGroupId="DevMockDataSetGroupId";
+    public String devMockGroupId ="DevMockDataSetGroupId";
+
+    public String builderGroupId="BuilderDataSetGroupId001";
 
     @Test
     public void addDevTestGroup() throws Exception {
-        DatasetGroupEntity datasetGroupEntity=datasetGroupService.getByPrimaryKey(getSession(),devGroupId);
+        DatasetGroupEntity datasetGroupEntity=datasetGroupService.getByPrimaryKey(getSession(), devMockGroupId);
         if(datasetGroupEntity==null){
-            MockHttpServletRequestBuilder requestBuilder = post("/Rest/Builder/DataSet/DataSetGroup/SaveEdit");
-            requestBuilder.contentType(MediaType.APPLICATION_JSON_UTF8);
-            requestBuilder.sessionAttr(JB4DCSessionUtility.UserLoginSessionKey, getSession());
-            DatasetGroupEntity groupEntity=new DatasetGroupEntity();
-            groupEntity.setDsGroupId(devGroupId);
-            groupEntity.setDsGroupValue("UnitTestDataSetGroup");
-            groupEntity.setDsGroupText("开发样例分组");
-            groupEntity.setDsGroupOrderNum(0);
-            groupEntity.setDsGroupCreateTime(new Date());
-            groupEntity.setDsGroupDesc("UnitTestDataSetGroup");
-            groupEntity.setDsGroupStatus(EnableTypeEnum.enable.getDisplayName());
-            groupEntity.setDsGroupParentId(datasetGroupService.getRootId());
-            groupEntity.setDsGroupIsSystem(TrueFalseEnum.False.getDisplayName());
-            groupEntity.setDsGroupDelEnable(TrueFalseEnum.True.getDisplayName());
-
-            requestBuilder.content(JsonUtility.toObjectString(groupEntity));
-            MvcResult result = mockMvc.perform(requestBuilder).andReturn();
-            String json = result.getResponse().getContentAsString();
-            JBuild4DCResponseVo responseVo = JsonUtility.toObject(json, JBuild4DCResponseVo.class);
-            Assert.assertTrue(responseVo.isSuccess());
+            createDataSetGroup(devMockGroupId,"开发样例分组");
         }
+        datasetGroupEntity=datasetGroupService.getByPrimaryKey(getSession(),builderGroupId);
+        if(datasetGroupEntity==null){
+            createDataSetGroup(builderGroupId,"构建库-开发测试分组");
+        }
+    }
+
+    private void createDataSetGroup(String groupId,String groupText) throws Exception {
+        MockHttpServletRequestBuilder requestBuilder = post("/Rest/Builder/DataSet/DataSetGroup/SaveEdit");
+        requestBuilder.contentType(MediaType.APPLICATION_JSON_UTF8);
+        requestBuilder.sessionAttr(JB4DCSessionUtility.UserLoginSessionKey, getSession());
+        DatasetGroupEntity groupEntity=new DatasetGroupEntity();
+        groupEntity.setDsGroupId(groupId);
+        groupEntity.setDsGroupValue(groupId);
+        groupEntity.setDsGroupText(groupText);
+        groupEntity.setDsGroupOrderNum(0);
+        groupEntity.setDsGroupCreateTime(new Date());
+        groupEntity.setDsGroupDesc("UnitTestDataSetGroup");
+        groupEntity.setDsGroupStatus(EnableTypeEnum.enable.getDisplayName());
+        groupEntity.setDsGroupParentId(datasetGroupService.getRootId());
+        groupEntity.setDsGroupIsSystem(TrueFalseEnum.False.getDisplayName());
+        groupEntity.setDsGroupDelEnable(TrueFalseEnum.True.getDisplayName());
+
+        requestBuilder.content(JsonUtility.toObjectString(groupEntity));
+        MvcResult result = mockMvc.perform(requestBuilder).andReturn();
+        String json = result.getResponse().getContentAsString();
+        JBuild4DCResponseVo responseVo = JsonUtility.toObject(json, JBuild4DCResponseVo.class);
+        Assert.assertTrue(responseVo.isSuccess());
     }
 }

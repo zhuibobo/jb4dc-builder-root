@@ -3,7 +3,7 @@ var WLDCT_FormButton= {
     ResolveSelf:function (_rendererChainParas) {
         var $singleControlElem=_rendererChainParas.$singleControlElem;
         var caption=$singleControlElem.attr("buttoncaption");
-        var $button=$("<div class='wldct-list-button'>"+caption+"</div>");
+        var $button=$("<button class='wldct-list-button'>"+caption+"</button>");
         $button.bind("click",{},function () {
             alert(caption);
         });

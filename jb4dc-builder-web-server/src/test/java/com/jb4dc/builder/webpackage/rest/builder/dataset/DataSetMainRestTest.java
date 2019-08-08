@@ -36,19 +36,28 @@ public class DataSetMainRestTest extends DataSetSQLDesignerRestTest {
     @Autowired
     IDatasetService datasetService;
 
-    public static String dataSetId="UnitTestDataSet001";
-    private String dataSetGroupId= DataSetGroupRestTest.devGroupId;
+    public static String devMockDataSetId="UnitTestDataSet001";
+    public static String builderDataSetId="BuilderUnitTestDataSet001";
+    //private String dataSetGroupId= DataSetGroupRestTest.devMockGroupId;
 
     @Test
     public void addSQLDataSet() throws Exception {
+        createDataSet("select TDEV_TEST_1.*,TDEV_TEST_2.F_TABLE1_ID,'ADDRESS' ADDRESS,'SEX' SEX from TDEV_TEST_1 join TDEV_TEST_2 on TDEV_TEST_1.ID=TDEV_TEST_2.F_TABLE1_ID where TDEV_TEST_1.ID='#{ApiVar.当前用户所在组织ID}'",
+                devMockGroupId,devMockDataSetId);
+
+        createDataSet("select TDEV_TEST_3.*,TDEV_TEST_4.F_TABLE3_ID,'ADDRESS' ADDRESS,'SEX' SEX from TDEV_TEST_3 join TDEV_TEST_4 on TDEV_TEST_3.ID=TDEV_TEST_4.F_TABLE3_ID",
+                builderGroupId,builderDataSetId);
+    }
+
+    public void createDataSet(String sql,String dataSetGroupId,String dataSetId) throws Exception {
         validateSQLEnable();
         DatasetEntity existDataSet=datasetService.getVoByPrimaryKey(getSession(),dataSetId);
         if(existDataSet!=null){
             datasetService.deleteByKeyNotValidate(getSession(),dataSetId, JBuild4DCYaml.getWarningOperationCode());
         }
-        if(existDataSet==null) {
+        //if(existDataSet==null) {
             //DataSetSQLDesignerRestTest dataSetSQLDesignerControllerTest = new DataSetSQLDesignerRestTest();
-            JBuild4DCResponseVo jBuild4DResponseVo = this.validateSQLEnable("select TDEV_TEST_1.*,TDEV_TEST_2.F_TABLE1_ID,'ADDRESS' ADDRESS,'SEX' SEX from TDEV_TEST_1 join TDEV_TEST_2 on TDEV_TEST_1.ID=TDEV_TEST_2.F_TABLE1_ID where TDEV_TEST_1.ID='#{ApiVar.当前用户所在组织ID}'");
+            JBuild4DCResponseVo jBuild4DResponseVo = this.validateSQLEnable(sql);
             SQLResolveToDataSetVo resolveToDataSetVo = (SQLResolveToDataSetVo) jBuild4DResponseVo.getData();
             JB4DCSession jb4DCSession=getSession();
             DataSetVo dataSetVo = new DataSetVo();
@@ -91,11 +100,11 @@ public class DataSetMainRestTest extends DataSetSQLDesignerRestTest {
             System.out.printf(json);
             JBuild4DCResponseVo responseVo = JsonUtility.toObject(json, JBuild4DCResponseVo.class);
             Assert.assertTrue(responseVo.getMessage(),responseVo.isSuccess());
-        }
+        //}
     }
 
-    @Test
-    public void deleteSQLDataSet() throws Exception{
+    /*@Test
+    public void deleteSQLDataSet(String dataSetId) throws Exception{
         addSQLDataSet();
         MockHttpServletRequestBuilder requestBuilder = post("/PlatForm/Builder/DataSet/DataSetMain/DeleteDataSet.do");
         requestBuilder.sessionAttr(JB4DCSessionUtility.UserLoginSessionKey, getSession());
@@ -106,5 +115,5 @@ public class DataSetMainRestTest extends DataSetSQLDesignerRestTest {
         JBuild4DCResponseVo responseVo = JsonUtility.toObject(json, JBuild4DCResponseVo.class);
         Assert.assertTrue(responseVo.getMessage(),responseVo.isSuccess());
         //做到这里
-    }
+    }*/
 }

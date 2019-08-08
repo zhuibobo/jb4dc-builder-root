@@ -5,7 +5,6 @@ import com.jb4dc.base.service.general.JB4DCSessionUtility;
 import com.jb4dc.base.tools.JsonUtility;
 import com.jb4dc.base.ymls.JBuild4DCYaml;
 import com.jb4dc.builder.dbentities.datastorage.TableEntity;
-import com.jb4dc.builder.dbentities.datastorage.TableGroupEntity;
 import com.jb4dc.builder.exenum.TableFieldTypeEnum;
 import com.jb4dc.builder.po.TableFieldVO;
 import com.jb4dc.builder.service.datastorage.ITableFieldService;
@@ -48,7 +47,7 @@ public class TableRestTest extends TableGroupRestTest {
     public void saveTableEdit() throws Exception {
         CreateTestTableGroup();
 
-        saveTableEdit_Add("TDEV_TEST_1","开发测试表1",null);
+        saveTableEdit_Add("TDEV_TEST_1","开发测试表1",null,devMockTableGroupId1);
 
         List<TableFieldVO> appendTableFieldVO=new ArrayList<>();
         TableFieldVO ntextField1 = newFiled(getSession(), "TDEV_TEST_2", "F_TABLE1_ID", "F_TABLE1_ID",
@@ -56,13 +55,25 @@ public class TableRestTest extends TableGroupRestTest {
                 TableFieldTypeEnum.NVarCharType, 50, 0,
                 "", "", "", "");
         appendTableFieldVO.add(ntextField1);
-        saveTableEdit_Add("TDEV_TEST_2","开发测试表1",appendTableFieldVO);
 
-        saveTableEdit_Update();
+        saveTableEdit_Add("TDEV_TEST_2","开发测试表1",appendTableFieldVO,devMockTableGroupId1);
+
+        saveTableEdit_Update(devMockTableGroupId1);
+
+        saveTableEdit_Add("TDEV_TEST_3","开发测试表3",null,builderDevTableGroupId);
+
+        List<TableFieldVO> appendTableFieldVO1=new ArrayList<>();
+        TableFieldVO ntextField2 = newFiled(getSession(), "TDEV_TEST_4", "F_TABLE3_ID", "F_TABLE3_ID",
+                TrueFalseEnum.False, TrueFalseEnum.True,
+                TableFieldTypeEnum.NVarCharType, 50, 0,
+                "", "", "", "");
+        appendTableFieldVO1.add(ntextField2);
+
+        saveTableEdit_Add("TDEV_TEST_4","开发测试表4",appendTableFieldVO1,builderDevTableGroupId);
     }
 
-    private void saveTableEdit_Add(String tableName,String tableCaption,List<TableFieldVO> appendTableFieldVO) throws Exception {
-        TableEntity newTable = getTableEntity(getSession(), tableName, tableCaption, tableName);
+    private void saveTableEdit_Add(String tableName,String tableCaption,List<TableFieldVO> appendTableFieldVO,String tableGroupId) throws Exception {
+        TableEntity newTable = getTableEntity(getSession(), tableName, tableCaption, tableName,tableGroupId);
 
         //验证是否存在同名的表，存在则删除表
         MockHttpServletRequestBuilder requestBuilder = post("/Rest/Builder/DataStorage/DataBase/Table/ValidateTableIsNoExist");
@@ -83,7 +94,7 @@ public class TableRestTest extends TableGroupRestTest {
         String tableEntityJson = URLEncoder.encode(URLEncoder.encode(JsonUtility.toObjectString(newTable), "utf-8"), "utf-8");
 
         //调用接口，获取通用模版
-        List<TableFieldVO> templateFieldVoList = getFieldVoListGeneralTemplate();
+        List<TableFieldVO> templateFieldVoList = getFieldVoListGeneralTemplate(tableGroupId);
         TableFieldVO ntextField1 = newFiled(getSession(), newTable.getTableId(), "F_NTEXT_1", "F_NTEXT_1",
                 TrueFalseEnum.False, TrueFalseEnum.True,
                 TableFieldTypeEnum.TextType, 0, 0,
@@ -110,7 +121,7 @@ public class TableRestTest extends TableGroupRestTest {
         requestBuilder.param("op", "add");
         requestBuilder.param("tableEntityJson", tableEntityJson);
         requestBuilder.param("fieldVoListJson", fieldVoListJson);
-        requestBuilder.param("groupId",tableGroupId);
+        requestBuilder.param("groupId", tableGroupId);
         requestBuilder.param("ignorePhysicalError", "false");
 
         result = mockMvc.perform(requestBuilder).andReturn();
@@ -120,9 +131,9 @@ public class TableRestTest extends TableGroupRestTest {
         System.out.println(json);
     }
 
-    private void saveTableEdit_Update() throws Exception {
+    private void saveTableEdit_Update(String tableGroupId) throws Exception {
         TableEntity tableEntity=tableService.getByTableName(getSession(),"TDEV_TEST_1");
-        JBuild4DCResponseVo responseVo=getEditTableData("update",tableEntity.getTableId());
+        JBuild4DCResponseVo responseVo=getEditTableData("update",tableEntity.getTableId(),tableGroupId);
         List<TableFieldVO> tableFieldVOList=new ArrayList<>();
         List<Map> mapList=(List<Map>)responseVo.getExKVData().get("tableFieldsData");
         for (Map mapVo : mapList) {
@@ -173,7 +184,7 @@ public class TableRestTest extends TableGroupRestTest {
         Assert.assertTrue(responseVo.isSuccess());
     }
 
-    private TableEntity getTableEntity(JB4DCSession jb4DCSession, String tableId, String tableCaption, String tableName) throws JBuild4DCGenerallyException {
+    private TableEntity getTableEntity(JB4DCSession jb4DCSession, String tableId, String tableCaption, String tableName,String tableGroupId) throws JBuild4DCGenerallyException {
         TableEntity tableEntity=new TableEntity();
         tableEntity.setTableId(tableId);
         tableEntity.setTableCaption(tableCaption);
@@ -240,8 +251,8 @@ public class TableRestTest extends TableGroupRestTest {
         return fieldVO;
     }
 
-    private List<TableFieldVO> getFieldVoListGeneralTemplate() throws Exception {
-        JBuild4DCResponseVo responseVo = getEditTableData("add","Empty");
+    private List<TableFieldVO> getFieldVoListGeneralTemplate(String tableGroupId) throws Exception {
+        JBuild4DCResponseVo responseVo = getEditTableData("add","Empty",tableGroupId);
         System.out.println(responseVo);
         //JBuild4DResponseVo responseVo= tableController.GetEditTableData("xxx","add","DevGroup");
 
@@ -254,11 +265,11 @@ public class TableRestTest extends TableGroupRestTest {
         return tableFieldVOList;
     }
 
-    private JBuild4DCResponseVo getEditTableData(String op,String recordId) throws Exception {
+    private JBuild4DCResponseVo getEditTableData(String op,String recordId,String tableGroupId) throws Exception {
         MockHttpServletRequestBuilder requestBuilder =post("/Rest/Builder/DataStorage/DataBase/Table/GetEditTableData");
         requestBuilder.sessionAttr(JB4DCSessionUtility.UserLoginSessionKey,getSession());
         requestBuilder.param("op",op);
-        requestBuilder.param("groupId",tableGroupId);
+        requestBuilder.param("groupId", tableGroupId);
         requestBuilder.param("recordId",recordId);
         MvcResult result=mockMvc.perform(requestBuilder).andReturn();
         String json=result.getResponse().getContentAsString();

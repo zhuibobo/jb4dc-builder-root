@@ -4,7 +4,6 @@ import com.jb4dc.base.service.exenum.EnableTypeEnum;
 import com.jb4dc.base.service.exenum.TrueFalseEnum;
 import com.jb4dc.builder.dbentities.datastorage.TableGroupEntity;
 import com.jb4dc.builder.service.datastorage.ITableGroupService;
-import com.jb4dc.builder.webpackage.RestTestBase;
 import com.jb4dc.builder.webpackage.rest.builder.datastorage.dblink.DBLinkRestTest;
 import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
 import org.junit.Assert;
@@ -24,26 +23,36 @@ public class TableGroupRestTest extends DBLinkRestTest {
     @Autowired
     public ITableGroupService tableGroupService;
 
-    public String tableGroupId="SQL_SERVER_DB_TABLE_GROUP_TEST_1";
+    public String devMockTableGroupId1 ="SQL_SERVER_DB_TABLE_GROUP_TEST_1";
+
+    public String builderDevTableGroupId="SQL_SERVER_DB_TABLE_BUILDER_GROUP_TEST_1";
+
+
 
     @Test
     public void CreateTestTableGroup() throws JBuild4DCGenerallyException {
         CreateTestDBLink();
 
+        createTableGroup(devMockTableGroupId1,"单元测试表分组",testDBLinkId);
+
+        createTableGroup(builderDevTableGroupId,"开发测试表分组",testBuilderDBLinkId);
+    }
+
+    private void createTableGroup(String tableGroupId,String text,String dbLinkId) throws JBuild4DCGenerallyException {
         TableGroupEntity groupEntity=new TableGroupEntity();
         groupEntity.setTableGroupId(tableGroupId);
         groupEntity.setTableGroupValue(tableGroupId);
-        groupEntity.setTableGroupText("单元测试表分组");
+        groupEntity.setTableGroupText(text);
         groupEntity.setTableGroupDesc("");
         groupEntity.setTableGroupStatus(EnableTypeEnum.enable.getDisplayName());
-        groupEntity.setTableGroupParentId(testDBLinkId);
+        groupEntity.setTableGroupParentId(dbLinkId);
         groupEntity.setTableGroupIsSystem(TrueFalseEnum.False.getDisplayName());
         groupEntity.setTableGroupDelEnable(TrueFalseEnum.True.getDisplayName());
-        groupEntity.setTableGroupLinkId(testDBLinkId);
+        groupEntity.setTableGroupLinkId(dbLinkId);
 
-        tableGroupService.saveSimple(getSession(),tableGroupId,groupEntity);
+        tableGroupService.saveSimple(getSession(), tableGroupId,groupEntity);
 
-        groupEntity=tableGroupService.getByPrimaryKey(getSession(),tableGroupId);
+        groupEntity=tableGroupService.getByPrimaryKey(getSession(), tableGroupId);
         Assert.assertEquals(tableGroupId,groupEntity.getTableGroupId());
     }
 }

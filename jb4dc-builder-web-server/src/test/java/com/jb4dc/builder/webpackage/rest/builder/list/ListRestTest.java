@@ -37,7 +37,7 @@ public class ListRestTest extends ModuleRestTest {
         listEntity.setListIsSystem(TrueFalseEnum.False.getDisplayName());
         listEntity.setListModuleId(moduleId);
         listEntity.setListStatus(EnableTypeEnum.enable.getDisplayName());
-        listEntity.setListDatasetId(DataSetMainRestTest.dataSetId);
+        listEntity.setListDatasetId(DataSetMainRestTest.devMockDataSetId);
         listEntity.setListDatasetName("单元测试数据集");
         listEntity.setListDatasetPageSize(5);
         listEntity.setListIsResolve(TrueFalseEnum.True.getDisplayName());
