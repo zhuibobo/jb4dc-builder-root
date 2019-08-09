@@ -18,6 +18,8 @@ const replaceBlockObj=require("./replaceBlock.js");
 const sourcePath = "static";
 const distPath = "../resources/static";
 
+const isdebug=false;
+
 /*编译Vue的扩展插件*/
 gulp.task('js-vue-ex-component',()=>{
     return gulp.src([sourcePath + '/Js/VueComponent/**/*.js'])
@@ -115,6 +117,10 @@ gulp.task('html-design-runtime-full-js',()=>{
         .pipe(gulp.dest(html_design_runtime_distPath + "/Js"));
 });
 
+gulp.task('html-design-runtime-template',()=>{
+    return copyAndResolveHtml(sourcePath + "/HTML/Builder/Runtime/**/*.html",sourcePath + "/HTML",html_design_runtime_distPath + "/HTML");
+});
+
 /*编译Themes下的Less文件*/
 gulp.task('less',()=>{
     return gulp.src(sourcePath+"/Themes/Default/Css/*.less")
@@ -127,11 +133,11 @@ gulp.task('less',()=>{
         .pipe(gulp.dest(html_design_runtime_distPath+'/Themes/Default/Css'));
 });
 
-gulp.task('html-design-all', gulp.series('html-design-utility','html-design-ckeditor-config','html-design-plugins','html-design-plugins-html','html-design-runtime-full-js','less'));
+gulp.task('html-design-all', gulp.series('html-design-utility','html-design-ckeditor-config','html-design-plugins','html-design-plugins-html','html-design-runtime-full-js','less','html-design-runtime-template'));
 
-gulp.task('html-template',()=>{
+gulp.task('html-template-web-package',()=>{
     //gulp.src(jarFromResourcePath+"/HTML/**/*", {base:jarFromResourcePath+"/HTML"}).pipe(gulp.dest(jarToResourcePath+"/HTML"))
-    return copyAndResolveHtml(sourcePath + "/HTML/**/*.html",sourcePath + "/HTML",distPath + "/HTML");
+    return copyAndResolveHtml(sourcePath + "/HTML/Builder/!(Runtime)/**/*.html",sourcePath + "/HTML",distPath + "/HTML");
     /*return gulp.src(jarFromResourcePath+"/HTML/!**!/!*.html", {base:jarFromResourcePath+"/HTML"}).pipe(htmlmin({
         collapseWhitespace: true,
         minifyCSS:true,
@@ -140,17 +146,65 @@ gulp.task('html-template',()=>{
     })).pipe(gulp.dest(jarToResourcePath+"/HTML"));*/
 });
 
-gulp.task('all', gulp.series('html-design-all','html-template','js-vue-ex-component','js-ui-component'));
+gulp.task('all', gulp.series('html-design-all','html-template-web-package','js-vue-ex-component','js-ui-component'));
+
+gulp.task('all-debug',done =>{
+     var isdebug=true;
+     gulp.series('all');
+     done();
+});
 
 gulp.task('dist-watch', function() {
     //gulp.watch(sourcePath+"/HTML/**/*", gulp.series('html-only'));
     //gulp.watch(sourcePath + "/Js/VueComponent/**/*.js", gulp.series('js-vue-ex-component'));
+    var isdebug=false;
     gulp.watch(sourcePath+"/**/*", gulp.series('all'));
+});
+
+gulp.task('dist-watch-debug', function() {
+    //gulp.watch(sourcePath+"/HTML/**/*", gulp.series('html-only'));
+    //gulp.watch(sourcePath + "/Js/VueComponent/**/*.js", gulp.series('js-vue-ex-component'));
+    gulp.watch(sourcePath+"/**/*", gulp.series('all-debug'));
 });
 
 //endregion
 
 function copyAndResolveHtml(sourcePath,base,toPath) {
+    /*拷贝HTML文件*/
+    var obj=gulp.src(sourcePath, {base: base})
+        .pipe(replacecust(replaceBlockObj.replaceBlock('GeneralLib'), replaceBlockObj.replaceGeneralLib))
+        .pipe(replacecust(replaceBlockObj.replaceBlock('CodeMirrorLib'), replaceBlockObj.replaceCodeMirrorLib))
+        .pipe(replacecust(replaceBlockObj.replaceBlock('FormDesignLib'), replaceBlockObj.replaceFormDesignLib))
+        .pipe(replacecust(replaceBlockObj.replaceBlock('JBuild4DFormDesignLib'), replaceBlockObj.replaceJBuild4DFormDesignLib))
+        .pipe(replacecust(replaceBlockObj.replaceBlock('ZTreeExtendLib'), replaceBlockObj.replaceZTreeExtendLib))
+        .pipe(replacecust(replaceBlockObj.replaceBlock('ThemesLib'), replaceBlockObj.replaceThemesLib))
+        .pipe(replacecust(replaceBlockObj.replaceBlock('BootStrap4Lib'), replaceBlockObj.replaceBootStrap4Lib))
+        .pipe(replacecust(replaceBlockObj.replaceBlock('FrameV1Lib'), replaceBlockObj.replaceFrameV1Lib))
+        .pipe(replacecust(replaceBlockObj.replaceBlock('GoJsLib'), replaceBlockObj.replaceGoJsLib))
+        .pipe(replacecust(replaceBlockObj.replaceBlock('Webix'), replaceBlockObj.replaceWebixLib))
+        .pipe(replacecust(replaceBlockObj.replaceBlock('HTMLDesignRuntimeLib'), replaceBlockObj.replaceHTMLDesignRuntimeLib))
+        .pipe(replacecust(replaceBlockObj.replaceBlock('HTMLDesignWysiwygLib'), replaceBlockObj.replaceHTMLDesignWysiwygLib))
+
+    if(isdebug){
+        obj=obj.pipe(htmlmin({
+            collapseWhitespace: true,
+            minifyCSS:true,
+            minifyJS:false,
+            removeComments:true
+        }));
+    }
+    else{
+        obj=obj.pipe(htmlmin({
+            collapseWhitespace: true,
+            minifyCSS:true,
+            minifyJS:true,
+            removeComments:true
+        }));
+    }
+    return obj.pipe(gulp.dest(toPath));
+}
+
+function copyAndResolveHtml1(sourcePath,base,toPath) {
     /*拷贝HTML文件*/
     return gulp.src(sourcePath, {base: base})
         .pipe(replacecust(replaceBlockObj.replaceBlock('GeneralLib'), replaceBlockObj.replaceGeneralLib))

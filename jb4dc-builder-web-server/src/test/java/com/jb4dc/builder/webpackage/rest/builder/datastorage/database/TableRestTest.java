@@ -1,5 +1,6 @@
 package com.jb4dc.builder.webpackage.rest.builder.datastorage.database;
 
+import com.jb4dc.base.service.ISQLBuilderService;
 import com.jb4dc.base.service.exenum.TrueFalseEnum;
 import com.jb4dc.base.service.general.JB4DCSessionUtility;
 import com.jb4dc.base.tools.JsonUtility;
@@ -13,6 +14,7 @@ import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
 import com.jb4dc.core.base.list.IListWhereCondition;
 import com.jb4dc.core.base.list.ListUtility;
 import com.jb4dc.core.base.session.JB4DCSession;
+import com.jb4dc.core.base.tools.DateUtility;
 import com.jb4dc.core.base.tools.UUIDUtility;
 import com.jb4dc.core.base.vo.JBuild4DCResponseVo;
 import org.junit.Assert;
@@ -43,8 +45,15 @@ public class TableRestTest extends TableGroupRestTest {
     @Autowired
     private ITableFieldService tableFieldService;
 
+    @Autowired
+    private ISQLBuilderService sqlBuilderService;
+
     @Test
     public void saveTableEdit() throws Exception {
+
+        sqlBuilderService.execute("delete TDEV_TEST_3");
+        sqlBuilderService.execute("delete TDEV_TEST_4");
+
         CreateTestTableGroup();
 
         saveTableEdit_Add("TDEV_TEST_1","开发测试表1",null,devMockTableGroupId1);
@@ -70,7 +79,96 @@ public class TableRestTest extends TableGroupRestTest {
         appendTableFieldVO1.add(ntextField2);
 
         saveTableEdit_Add("TDEV_TEST_4","开发测试表4",appendTableFieldVO1,builderDevTableGroupId);
+
+        createTableData();
     }
+
+    private void createTableData() {
+        for(int i=0;i<1000;i++) {
+            String id = "ID" + i;
+            String datetime = DateUtility.getDate_yyyy_MM_dd_HH_mm_ss();
+            String sql = "INSERT INTO [dbo].[TDEV_TEST_3]\n" +
+                    "           ([ID]\n" +
+                    "           ,[F_CREATE_TIME]\n" +
+                    "           ,[F_ORDER_NUM]\n" +
+                    "           ,[F_ORGAN_ID]\n" +
+                    "           ,[F_ORGAN_NAME]\n" +
+                    "           ,[F_USER_ID]\n" +
+                    "           ,[F_USER_NAME]\n" +
+                    "           ,[F_MAIN_IMG_ID]\n" +
+                    "           ,[F_TITLE]\n" +
+                    "           ,[F_CONTENT]\n" +
+                    "           ,[F_PUBLIC_TIME]\n" +
+                    "           ,[F_PUBLIC_STATUS]\n" +
+                    "           ,[F_KEY_WORDS]\n" +
+                    "           ,[F_COLUMN_ID]\n" +
+                    "           ,[F_AUTHOR]\n" +
+                    "           ,[F_NTEXT_1]\n" +
+                    "           ,[F_NTEXT_2]\n" +
+                    "           ,[F_NTEXT_3])\n" +
+                    "     VALUES\n" +
+                    "           ('" + id + "'\n" +
+                    "           ,'" + datetime + "'\n" +
+                    "           ,'" + i + "'\n" +
+                    "           ,'" + JB4DCSessionUtility.getInitSystemSession().getOrganId() + "'\n" +
+                    "           ,'" + JB4DCSessionUtility.getInitSystemSession().getOrganName() + "'\n" +
+                    "           ,'" + JB4DCSessionUtility.getInitSystemSession().getUserId() + "'\n" +
+                    "           ,'" + JB4DCSessionUtility.getInitSystemSession().getUserName() + "'\n" +
+                    "           ,'1'\n" +
+                    "           ,'" + JB4DCSessionUtility.getInitSystemSession().getUserName() + "'\n" +
+                    "           ,'" + JB4DCSessionUtility.getInitSystemSession().getUserName() + "'\n" +
+                    "           ,'" + datetime + "'\n" +
+                    "           ,'启用'\n" +
+                    "           ,'" + JB4DCSessionUtility.getInitSystemSession().getUserName() + "'\n" +
+                    "           ,'" + JB4DCSessionUtility.getInitSystemSession().getUserName() + "'\n" +
+                    "           ,'" + JB4DCSessionUtility.getInitSystemSession().getUserName() + "'\n" +
+                    "           ,'" + JB4DCSessionUtility.getInitSystemSession().getUserName() + "'\n" +
+                    "           ,'" + JB4DCSessionUtility.getInitSystemSession().getUserName() + "'\n" +
+                    "           ,null)";
+            sqlBuilderService.execute(sql);
+
+            sql = "INSERT INTO [dbo].[TDEV_TEST_4]\n" +
+                    "           ([ID]\n" +
+                    "           ,[F_CREATE_TIME]\n" +
+                    "           ,[F_ORDER_NUM]\n" +
+                    "           ,[F_ORGAN_ID]\n" +
+                    "           ,[F_ORGAN_NAME]\n" +
+                    "           ,[F_USER_ID]\n" +
+                    "           ,[F_USER_NAME]\n" +
+                    "           ,[F_MAIN_IMG_ID]\n" +
+                    "           ,[F_TITLE]\n" +
+                    "           ,[F_CONTENT]\n" +
+                    "           ,[F_PUBLIC_TIME]\n" +
+                    "           ,[F_PUBLIC_STATUS]\n" +
+                    "           ,[F_KEY_WORDS]\n" +
+                    "           ,[F_COLUMN_ID]\n" +
+                    "           ,[F_AUTHOR]\n" +
+                    "           ,[F_NTEXT_1]\n" +
+                    "           ,[F_NTEXT_2]\n" +
+                    "           ,[F_NTEXT_3],[F_TABLE3_ID])\n" +
+                    "     VALUES\n" +
+                    "           ('" + id + "_OUTER1" + "'\n" +
+                    "           ,'" + datetime + "'\n" +
+                    "           ,'" + i + "'\n" +
+                    "           ,'" + JB4DCSessionUtility.getInitSystemSession().getOrganId() + "'\n" +
+                    "           ,'" + JB4DCSessionUtility.getInitSystemSession().getOrganName() + "'\n" +
+                    "           ,'" + JB4DCSessionUtility.getInitSystemSession().getUserId() + "'\n" +
+                    "           ,'" + JB4DCSessionUtility.getInitSystemSession().getUserName() + "'\n" +
+                    "           ,'1'\n" +
+                    "           ,'" + JB4DCSessionUtility.getInitSystemSession().getUserName() + "'\n" +
+                    "           ,'" + JB4DCSessionUtility.getInitSystemSession().getUserName() + "'\n" +
+                    "           ,'" + datetime + "'\n" +
+                    "           ,'启用'\n" +
+                    "           ,'" + JB4DCSessionUtility.getInitSystemSession().getUserName() + "'\n" +
+                    "           ,'" + JB4DCSessionUtility.getInitSystemSession().getUserName() + "'\n" +
+                    "           ,'" + JB4DCSessionUtility.getInitSystemSession().getUserName() + "'\n" +
+                    "           ,'" + JB4DCSessionUtility.getInitSystemSession().getUserName() + "'\n" +
+                    "           ,'" + JB4DCSessionUtility.getInitSystemSession().getUserName() + "'\n" +
+                    "           ,null,'" + id + "')";
+            sqlBuilderService.execute(sql);
+        }
+    }
+
 
     private void saveTableEdit_Add(String tableName,String tableCaption,List<TableFieldVO> appendTableFieldVO,String tableGroupId) throws Exception {
         TableEntity newTable = getTableEntity(getSession(), tableName, tableCaption, tableName,tableGroupId);

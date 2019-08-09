@@ -23,8 +23,8 @@ public class ListRestTest extends ModuleRestTest {
     @Autowired
     IListResourceService listResourceService;
 
-    String devMockListId="DevMockListIdTest";
-    String builderListId="BuilderListIdTest";
+    String devMockListId="DevMockListIdTest0001";
+    String builderListId="BuilderListIdTest0001";
 
     @Test
     public void addDevTestList() throws Exception {

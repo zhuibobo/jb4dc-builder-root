@@ -2,11 +2,16 @@ package com.jb4dc.builder.webpackage.beanconfig.mybatis;
 
 import com.github.pagehelper.PageInterceptor;
 import com.jb4dc.base.dbaccess.dynamic.GeneralMapper;
+import com.jb4dc.base.dbaccess.dynamic.ISQLBuilderMapper;
+import com.jb4dc.base.dbaccess.dynamic.impl.SQLBuilderMapper;
+import com.jb4dc.base.service.ISQLBuilderService;
 import com.jb4dc.base.service.exenum.EnableTypeEnum;
 import com.jb4dc.base.dbaccess.exenum.UniversalIntEnumHandler;
+import com.jb4dc.base.service.impl.SQLBuilderServiceImpl;
 import com.jb4dc.base.ymls.DBYaml;
 import com.mchange.v2.c3p0.ComboPooledDataSource;
 import org.apache.ibatis.plugin.Interceptor;
+import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.type.TypeHandler;
 import org.mybatis.spring.SqlSessionFactoryBean;
@@ -87,5 +92,17 @@ public class MybatisBeansConfig {
     @Bean
     public GeneralMapper generalMapper(SqlSessionTemplate sqlSessionTemplate) {
         return sqlSessionTemplate.getMapper(GeneralMapper.class);
+    }
+
+    @Bean
+    public ISQLBuilderMapper sqlBuilderMapper(SqlSession session){
+        ISQLBuilderMapper sqlBuilderMapper=new SQLBuilderMapper(session);
+        return sqlBuilderMapper;
+    }
+
+    @Bean
+    public ISQLBuilderService sqlBuilderService(ISQLBuilderMapper isqlBuilderMapper){
+        ISQLBuilderService sqlBuilderService=new SQLBuilderServiceImpl(isqlBuilderMapper);
+        return sqlBuilderService;
     }
 }

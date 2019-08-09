@@ -3,7 +3,7 @@ var WLDCT_ListSimpleSearchContainer={
         var $singleControlElem = _rendererChainParas.$singleControlElem;
         var pageWidth = PageStyleUtility.GetPageWidth();
 
-        var buttonWrapWidth=140;
+        var buttonWrapWidth=200;
 
         $singleControlElem.find("table:first").width(pageWidth-buttonWrapWidth);
 
