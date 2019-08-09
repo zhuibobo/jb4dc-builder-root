@@ -21,22 +21,41 @@ var ListRuntime={
         /*$(this._Prop_Config.RendererTo).load(BaseUtility.GetRootPath()+"/Rest/Builder/ListRuntime/ListPreview?listId="+this._Prop_Config.ListId, function() {
             console.log("加载预览列表成功!!");
         });*/
-        RuntimeGeneralInstance.LoadHtmlDesignContent(BaseUtility.GetRootPath()+"/Rest/Builder/ListRuntime/ListPreview?listId="+this._Prop_Config.ListId,this._Prop_Config.RendererTo, {}, function (result) {
+        RuntimeGeneralInstance.LoadHtmlDesignContent(BaseUtility.GetRootPath()+"/Rest/Builder/RunTime/ListRuntime/ListPreview?listId="+this._Prop_Config.ListId,this._Prop_Config.RendererTo, {}, function (result) {
             //alert( "Load was performed.");
             //debugger;
-            console.log("加载预览窗体成功!!");
+            console.log("加载列表设置成功!!");
             console.log(result);
+
             //console.log(result.data.listHtmlRuntime);
             //var $rootElem=$(result.data.formHtmlRuntime);
             //if($rootElem.)
             this._$RendererToElem.append(result.data.listHtmlRuntime);
+
+            //进行元素渲染
             VirtualBodyControl.RendererChain({
+                listEntity:result.data,
                 sourceHTML:result.data.listHtmlRuntime,
                 $rootElem:this._$RendererToElem,
                 $parentControlElem:this._$RendererToElem,
-                $singleControlElem:this._$RendererToElem,
-                allData:null
+                $singleControlElem:this._$RendererToElem
             });
+
+
+            //获取绑定的数据集合之后
+            var topDataSetId=result.data.listDatasetId;
+            AjaxUtility.Get("",{},function (result) {
+                //进行数据渲染
+                VirtualBodyControl.RendererDataChain({
+                    listEntity:result.data,
+                    sourceHTML:result.data.listHtmlRuntime,
+                    $rootElem:this._$RendererToElem,
+                    $parentControlElem:this._$RendererToElem,
+                    $singleControlElem:this._$RendererToElem,
+                    topDataSet:null
+                });
+            },this);
+
         },this);
     }
 }

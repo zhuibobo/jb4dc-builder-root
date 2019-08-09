@@ -6,12 +6,12 @@ package com.jb4dc.builder.po;
  * Date: 2018/8/17
  * To change this template use File | Settings | File Templates.
  */
-public class SQLResolveToDataSetVo {
+public class SQLResolveToDataSetPO {
     String sqlWithEnvText;
     String sqlWithEnvValue;
     String sqlWithEnvRunningValue;
     String sqlWithEmptyData;
-    DataSetVo dataSetVo;
+    DataSetPO dataSetPO;
 
     public String getSqlWithEnvText() {
         return sqlWithEnvText;
@@ -37,12 +37,12 @@ public class SQLResolveToDataSetVo {
         this.sqlWithEnvRunningValue = sqlWithEnvRunningValue;
     }
 
-    public DataSetVo getDataSetVo() {
-        return dataSetVo;
+    public DataSetPO getDataSetPO() {
+        return dataSetPO;
     }
 
-    public void setDataSetVo(DataSetVo dataSetVo) {
-        this.dataSetVo = dataSetVo;
+    public void setDataSetPO(DataSetPO dataSetPO) {
+        this.dataSetPO = dataSetPO;
     }
 
     public String getSqlWithEmptyData() {

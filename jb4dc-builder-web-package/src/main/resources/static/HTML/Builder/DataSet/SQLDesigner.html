@@ -254,12 +254,12 @@
                                 $("#sqlWithEnvRunningValue").html(result.data.sqlWithEnvRunningValue);
                                 $("#sqlWithEmptyData").html(result.data.sqlWithEmptyData);
                                 var relatedTables = new Array();
-                                for (var i = 0; i < result.data.dataSetVo.relatedTableVoList.length; i++) {
-                                    relatedTables.push(result.data.dataSetVo.relatedTableVoList[i].rtTableName + ":" + result.data.dataSetVo.relatedTableVoList[i].rtTableCaption);
+                                for (var i = 0; i < result.data.dataSetPO.relatedTableVoList.length; i++) {
+                                    relatedTables.push(result.data.dataSetPO.relatedTableVoList[i].rtTableName + ":" + result.data.dataSetPO.relatedTableVoList[i].rtTableCaption);
                                 }
                                 var aboutColumns = new Array();
-                                for (var i = 0; i < result.data.dataSetVo.columnVoList.length; i++) {
-                                    aboutColumns.push(result.data.dataSetVo.columnVoList[i].columnName + ":" + result.data.dataSetVo.columnVoList[i].columnCaption);
+                                for (var i = 0; i < result.data.dataSetPO.columnVoList.length; i++) {
+                                    aboutColumns.push(result.data.dataSetPO.columnVoList[i].columnName + ":" + result.data.dataSetPO.columnVoList[i].columnCaption);
                                 }
                                 $("#relatedTables").html(relatedTables.join("<br />"));
                                 $("#aboutColumns").html(aboutColumns.join("<br />"));

@@ -8,7 +8,7 @@ import java.util.Date;
  * Date: 2019/2/11
  * To change this template use File | Settings | File Templates.
  */
-public class DeModelVo {
+public class DeModelPO {
     protected String id;
     protected String name;
     protected String key;
@@ -22,16 +22,16 @@ public class DeModelVo {
     protected Integer modelType;
     protected String tenantId;
 
-    public DeModelVo() {
+    public DeModelPO() {
     }
 
-    public DeModelVo(String name, String key, String description) {
+    public DeModelPO(String name, String key, String description) {
         this.name = name;
         this.key = key;
         this.description = description;
     }
 
-    public DeModelVo(String name, String key, String description, Integer modelType) {
+    public DeModelPO(String name, String key, String description, Integer modelType) {
         this.name = name;
         this.key = key;
         this.description = description;

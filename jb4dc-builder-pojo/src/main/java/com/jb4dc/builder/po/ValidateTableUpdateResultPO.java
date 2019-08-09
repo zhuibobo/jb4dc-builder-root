@@ -1,6 +1,6 @@
 package com.jb4dc.builder.po;
 
-public class ValidateTableUpdateResultVo {
+public class ValidateTableUpdateResultPO {
     /**
      * 是否允许
      */

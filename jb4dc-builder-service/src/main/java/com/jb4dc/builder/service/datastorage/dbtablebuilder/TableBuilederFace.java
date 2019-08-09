@@ -2,12 +2,11 @@ package com.jb4dc.builder.service.datastorage.dbtablebuilder;
 
 
 
-import com.jb4dc.base.service.ISQLBuilderService;
 import com.jb4dc.base.ymls.DBYaml;
 import com.jb4dc.builder.dbentities.datastorage.DbLinkEntity;
 import com.jb4dc.builder.dbentities.datastorage.TableEntity;
 import com.jb4dc.builder.dbentities.datastorage.TableGroupEntity;
-import com.jb4dc.builder.po.TableFieldVO;
+import com.jb4dc.builder.po.TableFieldPO;
 import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
 import com.jb4dc.core.base.exception.JBuild4DCPhysicalTableException;
 import com.jb4dc.core.base.exception.JBuild4DCSQLKeyWordException;
@@ -51,7 +50,7 @@ public class TableBuilederFace {
         return SQLKeyWordUtility.singleWord(tableEntity.getTableName());
     }
 
-    private boolean validateTableField(TableFieldVO fieldVo) throws JBuild4DCSQLKeyWordException {
+    private boolean validateTableField(TableFieldPO fieldVo) throws JBuild4DCSQLKeyWordException {
         return SQLKeyWordUtility.singleWord(fieldVo.getFieldName()) &&
                 SQLKeyWordUtility.singleWord(fieldVo.getOldFieldName()) &&
                 SQLKeyWordUtility.singleWord(fieldVo.getFieldDataType()) &&
@@ -59,15 +58,15 @@ public class TableBuilederFace {
                 SQLKeyWordUtility.singleWord(fieldVo.getFieldIsPk());
     }
 
-    private boolean validateTableFields(List<TableFieldVO> fieldVos) throws JBuild4DCSQLKeyWordException {
+    private boolean validateTableFields(List<TableFieldPO> fieldVos) throws JBuild4DCSQLKeyWordException {
         boolean result=true;
-        for (TableFieldVO fieldVo : fieldVos) {
+        for (TableFieldPO fieldVo : fieldVos) {
             validateTableField(fieldVo);
         }
         return result;
     }
 
-    public boolean newTable(TableEntity tableEntity, List<TableFieldVO> fieldVos, TableGroupEntity tableGroupEntity, DbLinkEntity dbLinkEntity) throws JBuild4DCSQLKeyWordException, JBuild4DCPhysicalTableException, PropertyVetoException {
+    public boolean newTable(TableEntity tableEntity, List<TableFieldPO> fieldVos, TableGroupEntity tableGroupEntity, DbLinkEntity dbLinkEntity) throws JBuild4DCSQLKeyWordException, JBuild4DCPhysicalTableException, PropertyVetoException {
         this.validateTableEntity(tableEntity);
         this.validateTableFields(fieldVos);
         return dbBuidler.newTable(tableEntity,fieldVos,tableGroupEntity,dbLinkEntity);
@@ -79,7 +78,7 @@ public class TableBuilederFace {
         return dbBuidler.isExistTable(tableEntity,dbLinkEntity);
     }
 
-    public boolean updateTable(TableEntity tableEntity,List<TableFieldVO> newFields,List<TableFieldVO> updateFields,List<TableFieldVO> deleteFields, TableGroupEntity tableGroupEntity, DbLinkEntity dbLinkEntity) throws JBuild4DCSQLKeyWordException, JBuild4DCPhysicalTableException {
+    public boolean updateTable(TableEntity tableEntity, List<TableFieldPO> newFields, List<TableFieldPO> updateFields, List<TableFieldPO> deleteFields, TableGroupEntity tableGroupEntity, DbLinkEntity dbLinkEntity) throws JBuild4DCSQLKeyWordException, JBuild4DCPhysicalTableException {
         this.validateTableEntity(tableEntity);
         this.validateTableFields(newFields);
         this.validateTableFields(updateFields);

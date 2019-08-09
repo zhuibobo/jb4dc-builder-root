@@ -12,30 +12,30 @@ import java.util.List;
  * Date: 2018/8/8
  * To change this template use File | Settings | File Templates.
  */
-public class DataSetVo extends DatasetEntity {
+public class DataSetPO extends DatasetEntity {
 
-    List<DataSetColumnVo> columnVoList;
+    List<DataSetColumnPO> columnVoList;
 
-    List<DataSetRelatedTableVo> relatedTableVoList;
+    List<DataSetRelatedTablePO> relatedTableVoList;
 
-    public List<DataSetColumnVo> getColumnVoList() {
+    public List<DataSetColumnPO> getColumnVoList() {
         return columnVoList;
     }
 
-    public void setColumnVoList(List<DataSetColumnVo> columnVoList) {
+    public void setColumnVoList(List<DataSetColumnPO> columnVoList) {
         this.columnVoList = columnVoList;
     }
 
-    public List<DataSetRelatedTableVo> getRelatedTableVoList() {
+    public List<DataSetRelatedTablePO> getRelatedTableVoList() {
         return relatedTableVoList;
     }
 
-    public void setRelatedTableVoList(List<DataSetRelatedTableVo> relatedTableVoList) {
+    public void setRelatedTableVoList(List<DataSetRelatedTablePO> relatedTableVoList) {
         this.relatedTableVoList = relatedTableVoList;
     }
 
-    public static DataSetVo parseToVo(DatasetEntity entity) throws IOException {
+    public static DataSetPO parseToVo(DatasetEntity entity) throws IOException {
         String jsonStr= JsonUtility.toObjectString(entity);
-        return JsonUtility.toObject(jsonStr,DataSetVo.class);
+        return JsonUtility.toObject(jsonStr, DataSetPO.class);
     }
 }

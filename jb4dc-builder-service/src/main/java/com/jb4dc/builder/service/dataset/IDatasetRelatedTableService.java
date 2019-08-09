@@ -3,7 +3,7 @@ package com.jb4dc.builder.service.dataset;
 
 import com.jb4dc.base.service.IBaseService;
 import com.jb4dc.builder.dbentities.dataset.DatasetRelatedTableEntity;
-import com.jb4dc.builder.po.DataSetRelatedTableVo;
+import com.jb4dc.builder.po.DataSetRelatedTablePO;
 import com.jb4dc.core.base.session.JB4DCSession;
 
 import java.io.IOException;
@@ -18,5 +18,5 @@ import java.util.List;
 public interface IDatasetRelatedTableService extends IBaseService<DatasetRelatedTableEntity> {
     void deleteByDataSetId(JB4DCSession jb4DCSession, String dataSetId);
 
-    List<DataSetRelatedTableVo> getByDataSetId(JB4DCSession jb4DCSession, String dataSetId) throws IOException;
+    List<DataSetRelatedTablePO> getByDataSetId(JB4DCSession jb4DCSession, String dataSetId) throws IOException;
 }

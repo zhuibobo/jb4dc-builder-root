@@ -13,13 +13,13 @@ import java.util.List;
         "desc",
         "themes"
 })
-public class DesignThemeConfigVo {
+public class DesignThemeConfigPO {
 
     @XmlAttribute(name = "desc")
     private String desc;
 
     @XmlElement(name = "Theme")
-    private List<DesignThemeVo> themes;
+    private List<DesignThemePO> themes;
 
     public String getDesc() {
         return desc;
@@ -29,11 +29,11 @@ public class DesignThemeConfigVo {
         this.desc = desc;
     }
 
-    public List<DesignThemeVo> getThemes() {
+    public List<DesignThemePO> getThemes() {
         return themes;
     }
 
-    public void setThemes(List<DesignThemeVo> themes) {
+    public void setThemes(List<DesignThemePO> themes) {
         this.themes = themes;
     }
 }

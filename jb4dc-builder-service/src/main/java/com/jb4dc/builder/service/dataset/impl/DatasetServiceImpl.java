@@ -3,7 +3,6 @@ package com.jb4dc.builder.service.dataset.impl;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.jb4dc.base.service.IAddBefore;
-import com.jb4dc.base.service.ISQLBuilderService;
 import com.jb4dc.base.service.IUpdateBefore;
 import com.jb4dc.base.service.impl.BaseServiceImpl;
 import com.jb4dc.base.ymls.JBuild4DCYaml;
@@ -106,24 +105,24 @@ public class DatasetServiceImpl extends BaseServiceImpl<DatasetEntity> implement
     }
 
     @Override
-    public DataSetVo getVoByPrimaryKey(JB4DCSession jb4DCSession, String id) throws JBuild4DCGenerallyException, IOException {
+    public DataSetPO getVoByPrimaryKey(JB4DCSession jb4DCSession, String id) throws JBuild4DCGenerallyException, IOException {
 
         DatasetEntity datasetEntity=super.getByPrimaryKey(jb4DCSession, id);
         if(datasetEntity==null)
             return null;
-        DataSetVo dataSetVo=DataSetVo.parseToVo(datasetEntity);
-        List<DataSetColumnVo> dataSetColumnVos=datasetColumnService.getByDataSetId(jb4DCSession,id);
-        List<DataSetRelatedTableVo> dataSetRelatedTableVos=datasetRelatedTableService.getByDataSetId(jb4DCSession,id);
+        DataSetPO dataSetPO = DataSetPO.parseToVo(datasetEntity);
+        List<DataSetColumnPO> dataSetColumnVos=datasetColumnService.getByDataSetId(jb4DCSession,id);
+        List<DataSetRelatedTablePO> dataSetRelatedTablePOS =datasetRelatedTableService.getByDataSetId(jb4DCSession,id);
 
-        dataSetVo.setColumnVoList(dataSetColumnVos);
-        dataSetVo.setRelatedTableVoList(dataSetRelatedTableVos);
+        dataSetPO.setColumnVoList(dataSetColumnVos);
+        dataSetPO.setRelatedTableVoList(dataSetRelatedTablePOS);
 
-        return dataSetVo;
+        return dataSetPO;
     }
 
     @Override
     @Transactional(rollbackFor=JBuild4DCGenerallyException.class)
-    public int saveDataSetVo(JB4DCSession jb4DCSession, String id, DataSetVo record) throws JBuild4DCGenerallyException, IOException {
+    public int saveDataSetVo(JB4DCSession jb4DCSession, String id, DataSetPO record) throws JBuild4DCGenerallyException, IOException {
         //保存数据集的列
         if(record.getColumnVoList()!=null) {
             //DataSetVo oldDataSetVo=getVoByPrimaryKey(jb4DCSession,id);
@@ -131,9 +130,9 @@ public class DatasetServiceImpl extends BaseServiceImpl<DatasetEntity> implement
             //删除旧的列设置
             datasetColumnService.deleteByDataSetId(jb4DCSession,id);
 
-            List<DataSetColumnVo> columnVoList = record.getColumnVoList();
+            List<DataSetColumnPO> columnVoList = record.getColumnVoList();
             for (int i = 0; i < columnVoList.size(); i++) {
-                DataSetColumnVo dataSetColumnVo = columnVoList.get(i);
+                DataSetColumnPO dataSetColumnVo = columnVoList.get(i);
                 dataSetColumnVo.setColumnOrderNum(i + 1);
                 if (StringUtility.isEmpty(dataSetColumnVo.getColumnId())) {
                     throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_BUILDER_CODE,"DataSetColumnVo:请在客户端设置DataSetColumnVo的ColumnId");
@@ -155,14 +154,14 @@ public class DatasetServiceImpl extends BaseServiceImpl<DatasetEntity> implement
         }
 
         //保存数据集的关联表
-        List<DataSetRelatedTableVo> relatedTableVoList = record.getRelatedTableVoList();
+        List<DataSetRelatedTablePO> relatedTableVoList = record.getRelatedTableVoList();
         for (int i = 0; i < relatedTableVoList.size(); i++) {
-            DataSetRelatedTableVo dataSetRelatedTableVo = relatedTableVoList.get(i);
-            dataSetRelatedTableVo.setRtOrderNum(i+1);
-            if(StringUtility.isEmpty(dataSetRelatedTableVo.getRtId())){
+            DataSetRelatedTablePO dataSetRelatedTablePO = relatedTableVoList.get(i);
+            dataSetRelatedTablePO.setRtOrderNum(i+1);
+            if(StringUtility.isEmpty(dataSetRelatedTablePO.getRtId())){
                 throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_BUILDER_CODE,"DataSetRelatedTableVo:请在客户端设置DataSetRelatedTableVo的RTId");
             }
-            datasetRelatedTableService.save(jb4DCSession, dataSetRelatedTableVo.getRtId(), dataSetRelatedTableVo, (jb4DCSession13, sourceEntity) -> {
+            datasetRelatedTableService.save(jb4DCSession, dataSetRelatedTablePO.getRtId(), dataSetRelatedTablePO, (jb4DCSession13, sourceEntity) -> {
                 sourceEntity.setRtDsId(record.getDsId());
                 return sourceEntity;
             });
@@ -189,26 +188,26 @@ public class DatasetServiceImpl extends BaseServiceImpl<DatasetEntity> implement
     }
 
     @Override
-    public DataSetVo resolveSQLToDataSet(JB4DCSession jb4DCSession,String sql) throws JBuild4DCGenerallyException, SAXException, ParserConfigurationException, XPathExpressionException, IOException, PropertyVetoException {
+    public DataSetPO resolveSQLToDataSet(JB4DCSession jb4DCSession, String sql) throws JBuild4DCGenerallyException, SAXException, ParserConfigurationException, XPathExpressionException, IOException, PropertyVetoException {
         if(builderConfigService.getResolveSQLEnable()) {
 
             if(validateResolveSqlWithKeyWord(sql)) {
                 SQLDataSetBuilder sqlDataSetBuilder = new SQLDataSetBuilder();
                 autowireCapableBeanFactory.autowireBean(sqlDataSetBuilder);
                 //sqlDataSetBuilder.setJdbcOperations(jdbcOperations);
-                DataSetVo resultVo = sqlDataSetBuilder.resolveSQLToDataSet(jb4DCSession, sql);
+                DataSetPO resultVo = sqlDataSetBuilder.resolveSQLToDataSet(jb4DCSession, sql);
                 //进行返回前的结果验证
                 if (validateResolveResult(resultVo)) {
                     //尝试补充上字段标题
-                    List<DataSetColumnVo> dataSetColumnVoList=resultVo.getColumnVoList();
+                    List<DataSetColumnPO> dataSetColumnVoList=resultVo.getColumnVoList();
                     //从dbo.TBUILD_TABLE和dbo.TBUILD_TABLE_FIELD中尝试查找
-                    for (DataSetRelatedTableVo dataSetRelatedTableVo : resultVo.getRelatedTableVoList()) {
-                        List<TableFieldVO> tableFieldEntityList=tableFieldService.getTableFieldsByTableName(dataSetRelatedTableVo.getRtTableName());
+                    for (DataSetRelatedTablePO dataSetRelatedTablePO : resultVo.getRelatedTableVoList()) {
+                        List<TableFieldPO> tableFieldEntityList=tableFieldService.getTableFieldsByTableName(dataSetRelatedTablePO.getRtTableName());
                         if(tableFieldEntityList!=null&&tableFieldEntityList.size()>0){
-                            for (DataSetColumnVo columnVo : dataSetColumnVoList) {
-                                TableFieldVO fieldVO= ListUtility.WhereSingle(tableFieldEntityList, new IListWhereCondition<TableFieldVO>() {
+                            for (DataSetColumnPO columnVo : dataSetColumnVoList) {
+                                TableFieldPO fieldVO= ListUtility.WhereSingle(tableFieldEntityList, new IListWhereCondition<TableFieldPO>() {
                                     @Override
-                                    public boolean Condition(TableFieldVO item) {
+                                    public boolean Condition(TableFieldPO item) {
                                         return item.getFieldName().toLowerCase().equals(columnVo.getColumnName().toLowerCase());
                                     }
                                 });
@@ -222,14 +221,14 @@ public class DatasetServiceImpl extends BaseServiceImpl<DatasetEntity> implement
 
                     //从配置文件中尝试查找
                     IDataSetColumnCaptionConfigService builderDataSetColumnCaptionConfigService=new DataSetColumnCaptionConfigServiceImpl();
-                    for (DataSetColumnVo columnVo : dataSetColumnVoList) {
+                    for (DataSetColumnPO columnVo : dataSetColumnVoList) {
                         if(StringUtility.isEmpty(columnVo.getColumnCaption())){
                             columnVo.setColumnCaption(builderDataSetColumnCaptionConfigService.getCaption(columnVo.getColumnName()));
                         }
                     }
 
                     //无法确认列名,设置为未知,并输入日志
-                    for (DataSetColumnVo columnVo : dataSetColumnVoList) {
+                    for (DataSetColumnPO columnVo : dataSetColumnVoList) {
                         if(StringUtility.isEmpty(columnVo.getColumnCaption())){
                             columnVo.setColumnCaption("无法解析出列的标题");
                             logger.warn("["+columnVo.getColumnName()+"]:无法解析出列的标题");
@@ -237,11 +236,11 @@ public class DatasetServiceImpl extends BaseServiceImpl<DatasetEntity> implement
                     }
 
                     //尝试补充表的标题
-                    List<DataSetRelatedTableVo> dataSetRelatedTableVoList=resultVo.getRelatedTableVoList();
-                    for (DataSetRelatedTableVo dataSetRelatedTableVo : dataSetRelatedTableVoList) {
-                        TableEntity tableEntity=tableService.getByTableName(jb4DCSession,dataSetRelatedTableVo.getRtTableName());
+                    List<DataSetRelatedTablePO> dataSetRelatedTablePOList =resultVo.getRelatedTableVoList();
+                    for (DataSetRelatedTablePO dataSetRelatedTablePO : dataSetRelatedTablePOList) {
+                        TableEntity tableEntity=tableService.getByTableName(jb4DCSession, dataSetRelatedTablePO.getRtTableName());
                         if(tableEntity!=null){
-                            dataSetRelatedTableVo.setRtTableCaption(tableEntity.getTableCaption());
+                            dataSetRelatedTablePO.setRtTableCaption(tableEntity.getTableCaption());
                         }
                     }
 
@@ -338,8 +337,8 @@ public class DatasetServiceImpl extends BaseServiceImpl<DatasetEntity> implement
     }
 
     @Override
-    public SQLResolveToDataSetVo sqlResolveToDataSetVo(JB4DCSession jb4DCSession, String sqlWithEnvText) throws XPathExpressionException, JBuild4DCGenerallyException, IOException, SAXException, ParserConfigurationException, PropertyVetoException {
-        SQLResolveToDataSetVo resolveToDataSetVo=new SQLResolveToDataSetVo();
+    public SQLResolveToDataSetPO sqlResolveToDataSetVo(JB4DCSession jb4DCSession, String sqlWithEnvText) throws XPathExpressionException, JBuild4DCGenerallyException, IOException, SAXException, ParserConfigurationException, PropertyVetoException {
+        SQLResolveToDataSetPO resolveToDataSetVo=new SQLResolveToDataSetPO();
         resolveToDataSetVo.setSqlWithEnvText(sqlWithEnvText);
         String sqlReplaceEnvTextToEnvValue=sqlReplaceEnvTextToEnvValue(jb4DCSession,sqlWithEnvText);
         resolveToDataSetVo.setSqlWithEnvValue(sqlReplaceEnvTextToEnvValue);
@@ -347,10 +346,10 @@ public class DatasetServiceImpl extends BaseServiceImpl<DatasetEntity> implement
         resolveToDataSetVo.setSqlWithEnvRunningValue(setSqlWithEnvRunningValue);
         String sqlReplaceRunningValueToEmptyFilter=sqlReplaceRunningValueToEmptyFilter(jb4DCSession,setSqlWithEnvRunningValue);
         resolveToDataSetVo.setSqlWithEmptyData(sqlReplaceRunningValueToEmptyFilter);
-        DataSetVo dataSetVo=resolveSQLToDataSet(jb4DCSession,sqlReplaceRunningValueToEmptyFilter);
+        DataSetPO dataSetPO =resolveSQLToDataSet(jb4DCSession,sqlReplaceRunningValueToEmptyFilter);
 
         //验证字段中是否都是大写
-        for (DataSetColumnVo dataSetColumnVo : dataSetVo.getColumnVoList()) {
+        for (DataSetColumnPO dataSetColumnVo : dataSetPO.getColumnVoList()) {
             String columnName=dataSetColumnVo.getColumnName();
             Pattern p=Pattern.compile("[a-z]*");
             Matcher m=p.matcher(columnName);
@@ -361,7 +360,7 @@ public class DatasetServiceImpl extends BaseServiceImpl<DatasetEntity> implement
             }
         }
 
-        resolveToDataSetVo.setDataSetVo(dataSetVo);
+        resolveToDataSetVo.setDataSetPO(dataSetPO);
         return resolveToDataSetVo;
     }
 
@@ -376,7 +375,7 @@ public class DatasetServiceImpl extends BaseServiceImpl<DatasetEntity> implement
     }
 
     @Override
-    public DataSetVo getApiDataSetVoStructure(JB4DCSession session, String recordId, String op, String groupId, String fullClassName) throws IllegalAccessException, InstantiationException {
+    public DataSetPO getApiDataSetVoStructure(JB4DCSession session, String recordId, String op, String groupId, String fullClassName) throws IllegalAccessException, InstantiationException {
         IDataSetAPI dataSetAPI=(IDataSetAPI) ClassUtility.loadClass(fullClassName).newInstance();
         return dataSetAPI.getDataSetStructure(session,recordId,op,groupId,"");
     }
@@ -409,16 +408,16 @@ public class DatasetServiceImpl extends BaseServiceImpl<DatasetEntity> implement
         return true;
     }
 
-    private boolean validateResolveResult(DataSetVo resultVo) throws JBuild4DCGenerallyException {
+    private boolean validateResolveResult(DataSetPO resultVo) throws JBuild4DCGenerallyException {
         //列中不能存在多个同名列
-        List<DataSetColumnVo> dataSetColumnVoList=resultVo.getColumnVoList();
+        List<DataSetColumnPO> dataSetColumnVoList=resultVo.getColumnVoList();
         if(dataSetColumnVoList==null||dataSetColumnVoList.size()==0){
             throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_BUILDER_CODE,"解析结果中不存在列！");
         }
-        for (DataSetColumnVo columnVo : dataSetColumnVoList) {
-            if(ListUtility.Where(dataSetColumnVoList, new IListWhereCondition<DataSetColumnVo>() {
+        for (DataSetColumnPO columnVo : dataSetColumnVoList) {
+            if(ListUtility.Where(dataSetColumnVoList, new IListWhereCondition<DataSetColumnPO>() {
                 @Override
-                public boolean Condition(DataSetColumnVo item) {
+                public boolean Condition(DataSetColumnPO item) {
                     return item.getColumnName().equals(columnVo.getColumnName());
                 }
             }).size()>1){

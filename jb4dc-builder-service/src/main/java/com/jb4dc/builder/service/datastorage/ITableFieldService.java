@@ -3,7 +3,7 @@ package com.jb4dc.builder.service.datastorage;
 
 import com.jb4dc.base.service.IBaseService;
 import com.jb4dc.builder.dbentities.datastorage.TableFieldEntity;
-import com.jb4dc.builder.po.TableFieldVO;
+import com.jb4dc.builder.po.TableFieldPO;
 import com.jb4dc.core.base.session.JB4DCSession;
 
 import java.io.IOException;
@@ -18,13 +18,13 @@ import java.util.List;
 public interface ITableFieldService extends IBaseService<TableFieldEntity> {
     List<String> getFieldTemplateName();
 
-    List<TableFieldVO> getTemplateFieldsByName(String templateName) throws IOException;
+    List<TableFieldPO> getTemplateFieldsByName(String templateName) throws IOException;
 
     void createTableFieldTemplates(JB4DCSession jb4DCSession);
 
-    List<TableFieldVO> getTableFieldsByTableId(String tableId) throws IOException;
+    List<TableFieldPO> getTableFieldsByTableId(String tableId) throws IOException;
 
-    List<TableFieldVO> getTableFieldsByTableName(String rtTableName) throws IOException;
+    List<TableFieldPO> getTableFieldsByTableName(String rtTableName) throws IOException;
 
     void deleteByTableId(JB4DCSession session, String tableId);
 

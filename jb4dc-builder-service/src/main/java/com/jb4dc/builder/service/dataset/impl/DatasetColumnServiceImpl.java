@@ -1,15 +1,13 @@
 package com.jb4dc.builder.service.dataset.impl;
 
 import com.jb4dc.base.service.IAddBefore;
-import com.jb4dc.base.service.ISQLBuilderService;
 import com.jb4dc.base.service.impl.BaseServiceImpl;
 import com.jb4dc.builder.dao.dataset.DatasetColumnMapper;
 import com.jb4dc.builder.dbentities.dataset.DatasetColumnEntity;
-import com.jb4dc.builder.po.DataSetColumnVo;
+import com.jb4dc.builder.po.DataSetColumnPO;
 import com.jb4dc.builder.service.dataset.IDatasetColumnService;
 import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
 import com.jb4dc.core.base.session.JB4DCSession;
-import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -51,8 +49,8 @@ public class DatasetColumnServiceImpl extends BaseServiceImpl<DatasetColumnEntit
     }
 
     @Override
-    public List<DataSetColumnVo> getByDataSetId(JB4DCSession jb4DCSession, String dataSetId) throws IOException {
+    public List<DataSetColumnPO> getByDataSetId(JB4DCSession jb4DCSession, String dataSetId) throws IOException {
         List<DatasetColumnEntity> datasetColumnEntities=datasetColumnMapper.selectByDataSetId(dataSetId);
-        return DataSetColumnVo.EntityListToVoList(datasetColumnEntities);
+        return DataSetColumnPO.EntityListToVoList(datasetColumnEntities);
     }
 }

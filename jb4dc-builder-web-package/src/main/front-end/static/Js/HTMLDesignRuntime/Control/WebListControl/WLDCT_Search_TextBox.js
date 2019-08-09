@@ -1,3 +1,4 @@
 var WLDCT_Search_TextBox= {
-    RendererChain: HTMLControl.RendererChain
+    RendererChain: HTMLControl.RendererChain,
+    RendererDataChain:HTMLControl.RendererDataChain
 }

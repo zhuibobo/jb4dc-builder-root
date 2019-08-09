@@ -4,9 +4,9 @@ package com.jb4dc.builder.extend.impl;
 import com.jb4dc.base.service.exenum.EnableTypeEnum;
 import com.jb4dc.base.service.exenum.TrueFalseEnum;
 import com.jb4dc.builder.extend.IDataSetAPI;
-import com.jb4dc.builder.po.DataSetColumnVo;
-import com.jb4dc.builder.po.DataSetRelatedTableVo;
-import com.jb4dc.builder.po.DataSetVo;
+import com.jb4dc.builder.po.DataSetColumnPO;
+import com.jb4dc.builder.po.DataSetPO;
+import com.jb4dc.builder.po.DataSetRelatedTablePO;
 import com.jb4dc.core.base.session.JB4DCSession;
 import com.jb4dc.core.base.tools.UUIDUtility;
 
@@ -22,35 +22,35 @@ import java.util.List;
  */
 public class DemoDataSetAPI implements IDataSetAPI {
     @Override
-    public DataSetVo getDataSetStructure(JB4DCSession session, String dsId, String op, String groupId, String paras) {
-        DataSetVo dataSetVo= new DataSetVo();
+    public DataSetPO getDataSetStructure(JB4DCSession session, String dsId, String op, String groupId, String paras) {
+        DataSetPO dataSetPO = new DataSetPO();
 
-        dataSetVo.setDsId(UUIDUtility.getUUID());
-        dataSetVo.setDsCaption("测试API结果集");
-        dataSetVo.setDsName("DemoDataSetAPI");
-        dataSetVo.setDsOrganId(session.getOrganId());
-        dataSetVo.setDsCreateTime(new Date());
-        dataSetVo.setDsCreator(session.getUserName());
-        dataSetVo.setDsUpdateTime(new Date());
-        dataSetVo.setDsUpdater(session.getUserName());
-        dataSetVo.setDsType("APIDataSet");
-        dataSetVo.setDsIsSystem(TrueFalseEnum.False.getDisplayName());
-        dataSetVo.setDsOrderNum(0);
-        dataSetVo.setDsDesc("");
-        dataSetVo.setDsGroupId(groupId);
-        dataSetVo.setDsStatus(EnableTypeEnum.enable.getDisplayName());
-        dataSetVo.setDsSqlSelectText("");
-        dataSetVo.setDsSqlSelectValue("");
-        dataSetVo.setDsClassName("com.jbuild4d.platform.builder.extend.impl.DemoDataSetAPI");
-        dataSetVo.setDsRestStructureUrl("");
-        dataSetVo.setDsRestDataUrl("");
+        dataSetPO.setDsId(UUIDUtility.getUUID());
+        dataSetPO.setDsCaption("测试API结果集");
+        dataSetPO.setDsName("DemoDataSetAPI");
+        dataSetPO.setDsOrganId(session.getOrganId());
+        dataSetPO.setDsCreateTime(new Date());
+        dataSetPO.setDsCreator(session.getUserName());
+        dataSetPO.setDsUpdateTime(new Date());
+        dataSetPO.setDsUpdater(session.getUserName());
+        dataSetPO.setDsType("APIDataSet");
+        dataSetPO.setDsIsSystem(TrueFalseEnum.False.getDisplayName());
+        dataSetPO.setDsOrderNum(0);
+        dataSetPO.setDsDesc("");
+        dataSetPO.setDsGroupId(groupId);
+        dataSetPO.setDsStatus(EnableTypeEnum.enable.getDisplayName());
+        dataSetPO.setDsSqlSelectText("");
+        dataSetPO.setDsSqlSelectValue("");
+        dataSetPO.setDsClassName("com.jbuild4d.platform.builder.extend.impl.DemoDataSetAPI");
+        dataSetPO.setDsRestStructureUrl("");
+        dataSetPO.setDsRestDataUrl("");
 
-        List<DataSetColumnVo> dataSetColumnVoList=new ArrayList<>();
+        List<DataSetColumnPO> dataSetColumnVoList=new ArrayList<>();
 
         for(int i=0;i<10;i++){
-            DataSetColumnVo dataSetColumnVo=new DataSetColumnVo();
+            DataSetColumnPO dataSetColumnVo=new DataSetColumnPO();
             dataSetColumnVo.setColumnId(UUIDUtility.getUUID());
-            dataSetColumnVo.setColumnDsId(dataSetVo.getDsId());
+            dataSetColumnVo.setColumnDsId(dataSetPO.getDsId());
             dataSetColumnVo.setColumnCaption("标题"+i);
             dataSetColumnVo.setColumnName("NAME"+i);
             dataSetColumnVo.setColumnIsCustom("否");
@@ -59,11 +59,11 @@ public class DemoDataSetAPI implements IDataSetAPI {
             dataSetColumnVoList.add(dataSetColumnVo);
         }
 
-        List<DataSetRelatedTableVo> dataSetRelatedTableVoList=new ArrayList<>();
+        List<DataSetRelatedTablePO> dataSetRelatedTablePOList =new ArrayList<>();
 
-        dataSetVo.setColumnVoList(dataSetColumnVoList);
-        dataSetVo.setRelatedTableVoList(dataSetRelatedTableVoList);
+        dataSetPO.setColumnVoList(dataSetColumnVoList);
+        dataSetPO.setRelatedTableVoList(dataSetRelatedTablePOList);
 
-        return dataSetVo;
+        return dataSetPO;
     }
 }

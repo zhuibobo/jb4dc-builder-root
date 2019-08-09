@@ -7,10 +7,10 @@ import com.jb4dc.base.tools.JsonUtility;
 import com.jb4dc.base.ymls.JBuild4DCYaml;
 import com.jb4dc.builder.dbentities.dataset.DatasetEntity;
 import com.jb4dc.builder.exenum.DataSetTypeEnum;
-import com.jb4dc.builder.po.DataSetColumnVo;
-import com.jb4dc.builder.po.DataSetRelatedTableVo;
-import com.jb4dc.builder.po.DataSetVo;
-import com.jb4dc.builder.po.SQLResolveToDataSetVo;
+import com.jb4dc.builder.po.DataSetColumnPO;
+import com.jb4dc.builder.po.DataSetPO;
+import com.jb4dc.builder.po.DataSetRelatedTablePO;
+import com.jb4dc.builder.po.SQLResolveToDataSetPO;
 import com.jb4dc.builder.service.dataset.IDatasetService;
 import com.jb4dc.core.base.session.JB4DCSession;
 import com.jb4dc.core.base.tools.UUIDUtility;
@@ -58,42 +58,42 @@ public class DataSetMainRestTest extends DataSetSQLDesignerRestTest {
         //if(existDataSet==null) {
             //DataSetSQLDesignerRestTest dataSetSQLDesignerControllerTest = new DataSetSQLDesignerRestTest();
             JBuild4DCResponseVo jBuild4DResponseVo = this.validateSQLEnable(sql);
-            SQLResolveToDataSetVo resolveToDataSetVo = (SQLResolveToDataSetVo) jBuild4DResponseVo.getData();
+            SQLResolveToDataSetPO resolveToDataSetVo = (SQLResolveToDataSetPO) jBuild4DResponseVo.getData();
             JB4DCSession jb4DCSession=getSession();
-            DataSetVo dataSetVo = new DataSetVo();
-            dataSetVo.setDsId(dataSetId);
-            dataSetVo.setDsCaption("单元测试数据集");
-            dataSetVo.setDsName("单元测试数据集");
-            dataSetVo.setDsOrganId("0");
-            dataSetVo.setDsCreateTime(new Date());
-            dataSetVo.setDsCreator(jb4DCSession.getUserName());
-            dataSetVo.setDsUpdateTime(new Date());
-            dataSetVo.setDsUpdater(jb4DCSession.getUserName());
-            dataSetVo.setDsType(DataSetTypeEnum.SQLDataSet.getText());
-            dataSetVo.setDsIsSystem(TrueFalseEnum.False.getDisplayName());
-            dataSetVo.setDsGroupId(dataSetGroupId);
-            dataSetVo.setDsStatus(EnableTypeEnum.enable.getDisplayName());
-            dataSetVo.setDsSqlSelectText(resolveToDataSetVo.getSqlWithEnvText());
-            dataSetVo.setDsSqlSelectValue(resolveToDataSetVo.getSqlWithEnvValue());
-            dataSetVo.setDsClassName("");
-            dataSetVo.setDsRestStructureUrl("");
-            dataSetVo.setDsRestDataUrl("");
+            DataSetPO dataSetPO = new DataSetPO();
+            dataSetPO.setDsId(dataSetId);
+            dataSetPO.setDsCaption("单元测试数据集");
+            dataSetPO.setDsName("单元测试数据集");
+            dataSetPO.setDsOrganId("0");
+            dataSetPO.setDsCreateTime(new Date());
+            dataSetPO.setDsCreator(jb4DCSession.getUserName());
+            dataSetPO.setDsUpdateTime(new Date());
+            dataSetPO.setDsUpdater(jb4DCSession.getUserName());
+            dataSetPO.setDsType(DataSetTypeEnum.SQLDataSet.getText());
+            dataSetPO.setDsIsSystem(TrueFalseEnum.False.getDisplayName());
+            dataSetPO.setDsGroupId(dataSetGroupId);
+            dataSetPO.setDsStatus(EnableTypeEnum.enable.getDisplayName());
+            dataSetPO.setDsSqlSelectText(resolveToDataSetVo.getSqlWithEnvText());
+            dataSetPO.setDsSqlSelectValue(resolveToDataSetVo.getSqlWithEnvValue());
+            dataSetPO.setDsClassName("");
+            dataSetPO.setDsRestStructureUrl("");
+            dataSetPO.setDsRestDataUrl("");
 
-            for (DataSetColumnVo dataSetColumnVo : resolveToDataSetVo.getDataSetVo().getColumnVoList()) {
+            for (DataSetColumnPO dataSetColumnVo : resolveToDataSetVo.getDataSetPO().getColumnVoList()) {
                 dataSetColumnVo.setColumnId(UUIDUtility.getUUID());
             }
 
-            for (DataSetRelatedTableVo dataSetRelatedTableVo : resolveToDataSetVo.getDataSetVo().getRelatedTableVoList()) {
-                dataSetRelatedTableVo.setRtId(UUIDUtility.getUUID());
+            for (DataSetRelatedTablePO dataSetRelatedTablePO : resolveToDataSetVo.getDataSetPO().getRelatedTableVoList()) {
+                dataSetRelatedTablePO.setRtId(UUIDUtility.getUUID());
             }
 
-            dataSetVo.setColumnVoList(resolveToDataSetVo.getDataSetVo().getColumnVoList());
-            dataSetVo.setRelatedTableVoList(resolveToDataSetVo.getDataSetVo().getRelatedTableVoList());
+            dataSetPO.setColumnVoList(resolveToDataSetVo.getDataSetPO().getColumnVoList());
+            dataSetPO.setRelatedTableVoList(resolveToDataSetVo.getDataSetPO().getRelatedTableVoList());
 
             MockHttpServletRequestBuilder requestBuilder = post("/Rest/Builder/DataSet/DataSetMain/SaveDataSetEdit");
             requestBuilder.sessionAttr(JB4DCSessionUtility.UserLoginSessionKey, getSession());
             requestBuilder.param("op","add");
-            requestBuilder.param("dataSetVoJson", JsonUtility.toObjectString(dataSetVo));
+            requestBuilder.param("dataSetVoJson", JsonUtility.toObjectString(dataSetPO));
             requestBuilder.param("dataSetId",dataSetId);
             MvcResult result = mockMvc.perform(requestBuilder).andReturn();
             String json = result.getResponse().getContentAsString();

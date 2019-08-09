@@ -4,7 +4,7 @@ import com.jb4dc.base.service.IBaseService;
 import com.jb4dc.base.service.general.JB4DCSessionUtility;
 import com.jb4dc.builder.dbentities.module.ModuleEntity;
 import com.jb4dc.builder.dbentities.webform.FormResourceEntity;
-import com.jb4dc.builder.po.TableFieldVO;
+import com.jb4dc.builder.po.TableFieldPO;
 import com.jb4dc.builder.po.ZTreeNodePOConvert;
 import com.jb4dc.builder.service.datastorage.ITableFieldService;
 import com.jb4dc.builder.service.module.IModuleService;
@@ -68,7 +68,7 @@ public class FormRest extends GeneralRest<FormResourceEntity> {
     @RequestMapping(value = "GetFormMainTableFields",method = RequestMethod.POST)
     public JBuild4DCResponseVo getFormMainTableFields(String formId) throws JBuild4DCGenerallyException, IOException {
         FormResourceEntity formResourceEntity=formResourceService.getByPrimaryKey(JB4DCSessionUtility.getSession(),formId);
-        List<TableFieldVO> tableFieldVOList=tableFieldService.getTableFieldsByTableName(formResourceEntity.getFormMainTableName());
-        return JBuild4DCResponseVo.getDataSuccess(tableFieldVOList);
+        List<TableFieldPO> tableFieldPOList =tableFieldService.getTableFieldsByTableName(formResourceEntity.getFormMainTableName());
+        return JBuild4DCResponseVo.getDataSuccess(tableFieldPOList);
     }
 }

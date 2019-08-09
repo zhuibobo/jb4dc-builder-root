@@ -19,5 +19,6 @@ var WLDCT_ListSimpleSearchContainer={
         $singleControlElem.append($searchButtonsWrap);
 
         HTMLControl.RendererChain(_rendererChainParas);
-    }
+    },
+    RendererDataChain:HTMLControl.RendererDataChain
 }

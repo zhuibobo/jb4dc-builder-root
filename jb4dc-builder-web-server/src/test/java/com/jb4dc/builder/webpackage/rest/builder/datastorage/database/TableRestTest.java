@@ -7,7 +7,7 @@ import com.jb4dc.base.tools.JsonUtility;
 import com.jb4dc.base.ymls.JBuild4DCYaml;
 import com.jb4dc.builder.dbentities.datastorage.TableEntity;
 import com.jb4dc.builder.exenum.TableFieldTypeEnum;
-import com.jb4dc.builder.po.TableFieldVO;
+import com.jb4dc.builder.po.TableFieldPO;
 import com.jb4dc.builder.service.datastorage.ITableFieldService;
 import com.jb4dc.builder.service.datastorage.ITableService;
 import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
@@ -58,27 +58,27 @@ public class TableRestTest extends TableGroupRestTest {
 
         saveTableEdit_Add("TDEV_TEST_1","开发测试表1",null,devMockTableGroupId1);
 
-        List<TableFieldVO> appendTableFieldVO=new ArrayList<>();
-        TableFieldVO ntextField1 = newFiled(getSession(), "TDEV_TEST_2", "F_TABLE1_ID", "F_TABLE1_ID",
+        List<TableFieldPO> appendTableFieldPO =new ArrayList<>();
+        TableFieldPO ntextField1 = newFiled(getSession(), "TDEV_TEST_2", "F_TABLE1_ID", "F_TABLE1_ID",
                 TrueFalseEnum.False, TrueFalseEnum.True,
                 TableFieldTypeEnum.NVarCharType, 50, 0,
                 "", "", "", "");
-        appendTableFieldVO.add(ntextField1);
+        appendTableFieldPO.add(ntextField1);
 
-        saveTableEdit_Add("TDEV_TEST_2","开发测试表1",appendTableFieldVO,devMockTableGroupId1);
+        saveTableEdit_Add("TDEV_TEST_2","开发测试表1", appendTableFieldPO,devMockTableGroupId1);
 
         saveTableEdit_Update(devMockTableGroupId1);
 
         saveTableEdit_Add("TDEV_TEST_3","开发测试表3",null,builderDevTableGroupId);
 
-        List<TableFieldVO> appendTableFieldVO1=new ArrayList<>();
-        TableFieldVO ntextField2 = newFiled(getSession(), "TDEV_TEST_4", "F_TABLE3_ID", "F_TABLE3_ID",
+        List<TableFieldPO> appendTableFieldPO1 =new ArrayList<>();
+        TableFieldPO ntextField2 = newFiled(getSession(), "TDEV_TEST_4", "F_TABLE3_ID", "F_TABLE3_ID",
                 TrueFalseEnum.False, TrueFalseEnum.True,
                 TableFieldTypeEnum.NVarCharType, 50, 0,
                 "", "", "", "");
-        appendTableFieldVO1.add(ntextField2);
+        appendTableFieldPO1.add(ntextField2);
 
-        saveTableEdit_Add("TDEV_TEST_4","开发测试表4",appendTableFieldVO1,builderDevTableGroupId);
+        saveTableEdit_Add("TDEV_TEST_4","开发测试表4", appendTableFieldPO1,builderDevTableGroupId);
 
         createTableData();
     }
@@ -170,7 +170,7 @@ public class TableRestTest extends TableGroupRestTest {
     }
 
 
-    private void saveTableEdit_Add(String tableName,String tableCaption,List<TableFieldVO> appendTableFieldVO,String tableGroupId) throws Exception {
+    private void saveTableEdit_Add(String tableName, String tableCaption, List<TableFieldPO> appendTableFieldPO, String tableGroupId) throws Exception {
         TableEntity newTable = getTableEntity(getSession(), tableName, tableCaption, tableName,tableGroupId);
 
         //验证是否存在同名的表，存在则删除表
@@ -192,27 +192,27 @@ public class TableRestTest extends TableGroupRestTest {
         String tableEntityJson = URLEncoder.encode(URLEncoder.encode(JsonUtility.toObjectString(newTable), "utf-8"), "utf-8");
 
         //调用接口，获取通用模版
-        List<TableFieldVO> templateFieldVoList = getFieldVoListGeneralTemplate(tableGroupId);
-        TableFieldVO ntextField1 = newFiled(getSession(), newTable.getTableId(), "F_NTEXT_1", "F_NTEXT_1",
+        List<TableFieldPO> templateFieldVoList = getFieldVoListGeneralTemplate(tableGroupId);
+        TableFieldPO ntextField1 = newFiled(getSession(), newTable.getTableId(), "F_NTEXT_1", "F_NTEXT_1",
                 TrueFalseEnum.False, TrueFalseEnum.True,
                 TableFieldTypeEnum.TextType, 0, 0,
                 "", "", "", "");
         templateFieldVoList.add(ntextField1);
 
-        TableFieldVO ntextField2 = newFiled(getSession(), newTable.getTableId(), "F_NTEXT_2", "F_NTEXT_2",
+        TableFieldPO ntextField2 = newFiled(getSession(), newTable.getTableId(), "F_NTEXT_2", "F_NTEXT_2",
                 TrueFalseEnum.False, TrueFalseEnum.True,
                 TableFieldTypeEnum.TextType, 0, 0,
                 "", "", "", "");
         templateFieldVoList.add(ntextField2);
 
-        TableFieldVO ntextField3 = newFiled(getSession(), newTable.getTableId(), "F_NTEXT_3", "F_NTEXT_3",
+        TableFieldPO ntextField3 = newFiled(getSession(), newTable.getTableId(), "F_NTEXT_3", "F_NTEXT_3",
                 TrueFalseEnum.False, TrueFalseEnum.True,
                 TableFieldTypeEnum.TextType, 0, 0,
                 "", "", "", "");
         templateFieldVoList.add(ntextField3);
 
-        if(appendTableFieldVO!=null) {
-            templateFieldVoList.addAll(appendTableFieldVO);
+        if(appendTableFieldPO !=null) {
+            templateFieldVoList.addAll(appendTableFieldPO);
         }
 
         String fieldVoListJson = URLEncoder.encode(URLEncoder.encode(JsonUtility.toObjectString(templateFieldVoList), "utf-8"), "utf-8");
@@ -232,32 +232,32 @@ public class TableRestTest extends TableGroupRestTest {
     private void saveTableEdit_Update(String tableGroupId) throws Exception {
         TableEntity tableEntity=tableService.getByTableName(getSession(),"TDEV_TEST_1");
         JBuild4DCResponseVo responseVo=getEditTableData("update",tableEntity.getTableId(),tableGroupId);
-        List<TableFieldVO> tableFieldVOList=new ArrayList<>();
+        List<TableFieldPO> tableFieldPOList =new ArrayList<>();
         List<Map> mapList=(List<Map>)responseVo.getExKVData().get("tableFieldsData");
         for (Map mapVo : mapList) {
             String recordString=JsonUtility.toObjectString(mapVo);
-            tableFieldVOList.add(JsonUtility.toObject(recordString,TableFieldVO.class));
+            tableFieldPOList.add(JsonUtility.toObject(recordString, TableFieldPO.class));
         }
 
         //新增列
-        TableFieldVO ntextField = newFiled(getSession(), tableEntity.getTableId(), "F_NTEXT_N_1", "F_NTEXT_N_1",
+        TableFieldPO ntextField = newFiled(getSession(), tableEntity.getTableId(), "F_NTEXT_N_1", "F_NTEXT_N_1",
                 TrueFalseEnum.False, TrueFalseEnum.True,
                 TableFieldTypeEnum.TextType, 0, 0,
                 "", "", "", "");
-        tableFieldVOList.add(ntextField);
+        tableFieldPOList.add(ntextField);
 
         //删除列
-        tableFieldVOList.remove(ListUtility.WhereSingle(tableFieldVOList, new IListWhereCondition<TableFieldVO>() {
+        tableFieldPOList.remove(ListUtility.WhereSingle(tableFieldPOList, new IListWhereCondition<TableFieldPO>() {
             @Override
-            public boolean Condition(TableFieldVO item) {
+            public boolean Condition(TableFieldPO item) {
                 return item.getFieldName().equals("F_NTEXT_1");
             }
         }));
 
         //修改列
-        TableFieldVO ntextField2= ListUtility.WhereSingle(tableFieldVOList, new IListWhereCondition<TableFieldVO>() {
+        TableFieldPO ntextField2= ListUtility.WhereSingle(tableFieldPOList, new IListWhereCondition<TableFieldPO>() {
             @Override
-            public boolean Condition(TableFieldVO item) {
+            public boolean Condition(TableFieldPO item) {
                 return item.getFieldName().equals("F_NTEXT_2");
             }
         });
@@ -269,7 +269,7 @@ public class TableRestTest extends TableGroupRestTest {
         MockHttpServletRequestBuilder requestBuilder = post("/Rest/Builder/DataStorage/DataBase/Table/SaveTableEdit");
         requestBuilder.sessionAttr(JB4DCSessionUtility.UserLoginSessionKey, getSession());
         String tableEntityJson = URLEncoder.encode(URLEncoder.encode(JsonUtility.toObjectString(tableEntity), "utf-8"), "utf-8");
-        String fieldVoListJson =  URLEncoder.encode(URLEncoder.encode(JsonUtility.toObjectString(tableFieldVOList), "utf-8"), "utf-8");
+        String fieldVoListJson =  URLEncoder.encode(URLEncoder.encode(JsonUtility.toObjectString(tableFieldPOList), "utf-8"), "utf-8");
         requestBuilder.param("op", "update");
         requestBuilder.param("tableEntityJson", tableEntityJson);
         requestBuilder.param("fieldVoListJson", fieldVoListJson);
@@ -323,12 +323,12 @@ public class TableRestTest extends TableGroupRestTest {
         return tableEntity;
     }
 
-    private TableFieldVO newFiled(JB4DCSession jb4DCSession, String tableId, String fieldName, String fieldCaption,
+    private TableFieldPO newFiled(JB4DCSession jb4DCSession, String tableId, String fieldName, String fieldCaption,
                                   TrueFalseEnum pk, TrueFalseEnum allowNull,
                                   TableFieldTypeEnum fieldDataType, int dataLength, int decimalLength,
                                   String fieldDefaultValue, String fieldDefaultText, String fieldDesc, String templateName
     ){
-        TableFieldVO fieldVO=new TableFieldVO();
+        TableFieldPO fieldVO=new TableFieldPO();
         fieldVO.setFieldId(UUIDUtility.getUUIDNotSplit());
         fieldVO.setFieldTableId(tableId);
         fieldVO.setFieldName(fieldName);
@@ -349,18 +349,18 @@ public class TableRestTest extends TableGroupRestTest {
         return fieldVO;
     }
 
-    private List<TableFieldVO> getFieldVoListGeneralTemplate(String tableGroupId) throws Exception {
+    private List<TableFieldPO> getFieldVoListGeneralTemplate(String tableGroupId) throws Exception {
         JBuild4DCResponseVo responseVo = getEditTableData("add","Empty",tableGroupId);
         System.out.println(responseVo);
         //JBuild4DResponseVo responseVo= tableController.GetEditTableData("xxx","add","DevGroup");
 
-        List<TableFieldVO> tableFieldVOList=new ArrayList<>();
+        List<TableFieldPO> tableFieldPOList =new ArrayList<>();
         List<Map> mapList=((Map<String,List<Map>>)responseVo.getExKVData().get("templateFieldGroup")).get("新闻类模版");
         for (Map mapVo : mapList) {
             String recordString=JsonUtility.toObjectString(mapVo);
-            tableFieldVOList.add(JsonUtility.toObject(recordString,TableFieldVO.class));
+            tableFieldPOList.add(JsonUtility.toObject(recordString, TableFieldPO.class));
         }
-        return tableFieldVOList;
+        return tableFieldPOList;
     }
 
     private JBuild4DCResponseVo getEditTableData(String op,String recordId,String tableGroupId) throws Exception {

@@ -14,7 +14,7 @@ import java.util.List;
  * Date: 2018/8/1
  * To change this template use File | Settings | File Templates.
  */
-public class TableFieldVO extends TableFieldEntity {
+public class TableFieldPO extends TableFieldEntity {
     public String oldFieldName;
 
     public boolean isUpdateLogicOnly;
@@ -50,43 +50,43 @@ public class TableFieldVO extends TableFieldEntity {
         return super.toString();
     }
 
-    public static List<TableFieldEntity> VoListToEntityList(List<TableFieldVO> tableFieldVOList) throws IOException {
-        if(tableFieldVOList==null)
+    public static List<TableFieldEntity> VoListToEntityList(List<TableFieldPO> tableFieldPOList) throws IOException {
+        if(tableFieldPOList ==null)
             return null;
-        else if(tableFieldVOList.size()==0){
+        else if(tableFieldPOList.size()==0){
             return new ArrayList<>();
         }
-        String json= JsonUtility.toObjectString(tableFieldVOList);
+        String json= JsonUtility.toObjectString(tableFieldPOList);
         List<TableFieldEntity> entityList= JsonUtility.toObjectListIgnoreProp(json,TableFieldEntity.class);
         return entityList;
     }
 
-    public static List<TableFieldVO> EntityListToVoList(String tableName,List<TableFieldEntity> source) throws IOException {
+    public static List<TableFieldPO> EntityListToVoList(String tableName, List<TableFieldEntity> source) throws IOException {
         if(source==null)
             return null;
         else if(source.size()==0){
             return new ArrayList<>();
         }
         String json= JsonUtility.toObjectString(source);
-        List<TableFieldVO> result=JsonUtility.toObjectListIgnoreProp(json,TableFieldVO.class);
-        for (TableFieldVO tableFieldVO : result) {
-            tableFieldVO.setTableName(tableName);
+        List<TableFieldPO> result=JsonUtility.toObjectListIgnoreProp(json, TableFieldPO.class);
+        for (TableFieldPO tableFieldPO : result) {
+            tableFieldPO.setTableName(tableName);
         }
 
         return result;
     }
 
-    public static TableFieldVO parseToVo(TableFieldEntity entity) throws IOException {
+    public static TableFieldPO parseToVo(TableFieldEntity entity) throws IOException {
         String jsonStr=JsonUtility.toObjectString(entity);
-        return JsonUtility.toObject(jsonStr,TableFieldVO.class);
+        return JsonUtility.toObject(jsonStr, TableFieldPO.class);
     }
 
-    public static TableFieldEntity parseToEntity(TableFieldVO vo) throws IOException {
+    public static TableFieldEntity parseToEntity(TableFieldPO vo) throws IOException {
         String jsonStr=JsonUtility.toObjectString(vo);
         return JsonUtility.toObject(jsonStr,TableFieldEntity.class);
     }
 
-    public static boolean isUpdate(TableFieldVO oldVo,TableFieldVO newVo) throws JBuild4DCGenerallyException {
+    public static boolean isUpdate(TableFieldPO oldVo, TableFieldPO newVo) throws JBuild4DCGenerallyException {
         if(oldVo.getFieldId().equals(newVo.getFieldId())){
             if(!newVo.getFieldName().equals(oldVo.getFieldName())){
                 return true;
@@ -111,7 +111,7 @@ public class TableFieldVO extends TableFieldEntity {
         }
     }
 
-    public static boolean isUpdateLogicOnly(TableFieldVO oldVo,TableFieldVO newVo) throws JBuild4DCGenerallyException {
+    public static boolean isUpdateLogicOnly(TableFieldPO oldVo, TableFieldPO newVo) throws JBuild4DCGenerallyException {
         if(oldVo.getFieldId().equals(newVo.getFieldId())){
             if(!newVo.getFieldDefaultValue().equals(oldVo.getFieldDefaultValue())){
                 return true;

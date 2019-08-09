@@ -14,7 +14,7 @@ import com.jb4dc.base.service.search.GeneralSearchUtility;
 import com.jb4dc.base.tools.JsonUtility;
 import com.jb4dc.builder.dbentities.dataset.DatasetEntity;
 import com.jb4dc.builder.dbentities.dataset.DatasetGroupEntity;
-import com.jb4dc.builder.po.DataSetVo;
+import com.jb4dc.builder.po.DataSetPO;
 import com.jb4dc.builder.po.ZTreeNodePOConvert;
 import com.jb4dc.builder.service.dataset.IDatasetGroupService;
 import com.jb4dc.builder.service.dataset.IDatasetService;
@@ -42,20 +42,20 @@ public class DataSetMainRest  {
 
     @RequestMapping(value = "/GetDataSetData")
     public JBuild4DCResponseVo getDataSetData(String op, String recordId) throws JBuild4DCGenerallyException, IOException {
-        DataSetVo dataSetVo = datasetService.getVoByPrimaryKey(JB4DCSessionUtility.getSession(),recordId);
-        return JBuild4DCResponseVo.success("获取数据成功!",dataSetVo);
+        DataSetPO dataSetPO = datasetService.getVoByPrimaryKey(JB4DCSessionUtility.getSession(),recordId);
+        return JBuild4DCResponseVo.success("获取数据成功!", dataSetPO);
     }
 
     @RequestMapping(value = "/GetApiDataSetVoStructure")
     public JBuild4DCResponseVo getApiDataSetVoStructure(String op,String recordId,String groupId,String fullClassName) throws InstantiationException, IllegalAccessException {
-        DataSetVo dataSetVo = datasetService.getApiDataSetVoStructure(JB4DCSessionUtility.getSession(),recordId,op,groupId,fullClassName);
-        return JBuild4DCResponseVo.success("获取数据成功!",dataSetVo);
+        DataSetPO dataSetPO = datasetService.getApiDataSetVoStructure(JB4DCSessionUtility.getSession(),recordId,op,groupId,fullClassName);
+        return JBuild4DCResponseVo.success("获取数据成功!", dataSetPO);
     }
 
     @RequestMapping(value = "/SaveDataSetEdit")
     public JBuild4DCResponseVo saveDataSetEdit(String op,String dataSetId, String dataSetVoJson) throws JBuild4DCGenerallyException, IOException {
-        DataSetVo dataSetVo = JsonUtility.toObjectIgnoreProp(dataSetVoJson, DataSetVo.class);
-        datasetService.saveDataSetVo(JB4DCSessionUtility.getSession(), dataSetId, dataSetVo);
+        DataSetPO dataSetPO = JsonUtility.toObjectIgnoreProp(dataSetVoJson, DataSetPO.class);
+        datasetService.saveDataSetVo(JB4DCSessionUtility.getSession(), dataSetId, dataSetPO);
         return JBuild4DCResponseVo.opSuccess();
     }
 

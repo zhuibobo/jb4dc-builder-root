@@ -16,11 +16,19 @@ let HTMLControl={
         return instance;
     },
     RendererChainParas:{
+        listEntity:null,
+        sourceHTML:null,
+        $rootElem:null,
+        $parentControlElem:null,
+        $singleControlElem:null
+    },
+    RendererDataChainParas:{
+        listEntity:null,
         sourceHTML:null,
         $rootElem:null,
         $parentControlElem:null,
         $singleControlElem:null,
-        allData:null
+        topDataSet:null
     },
     RendererChain:function (_rendererChainParas) {
         var $singleControlElem=_rendererChainParas.$singleControlElem;
@@ -33,19 +41,47 @@ let HTMLControl={
                 var clientResolveInstanceName=$childSingleElem.attr(HTMLControlAttrs.CLIENT_RESOLVE);
                 var instance=HTMLControl.GetInstance(clientResolveInstanceName);
                 instance.RendererChain({
+                    listEntity:_rendererChainParas.listEntity,
                     sourceHTML:_rendererChainParas.sourceHTML,
                     $rootElem:_rendererChainParas.$rootElem,
                     $parentControlElem:_rendererChainParas.$singleControlElem,
-                    $singleControlElem:$childSingleElem,
-                    allData:_rendererChainParas.allData
+                    $singleControlElem:$childSingleElem
                 });
             } else {
                 HTMLControl.RendererChain({
+                    listEntity:_rendererChainParas.listEntity,
                     sourceHTML:_rendererChainParas.sourceHTML,
                     $rootElem:_rendererChainParas.$rootElem,
                     $parentControlElem:_rendererChainParas.$singleControlElem,
+                    $singleControlElem:$childSingleElem
+                });
+            }
+        }
+    },
+    RendererDataChain:function (_rendererDataChainParas) {
+        var $singleControlElem=_rendererDataChainParas.$singleControlElem;
+        //debugger;
+        for (var i = 0; i < $singleControlElem.children().length; i++) {
+            var $childSingleElem = $($singleControlElem.children()[i]);
+            //console.log($childSingleElem.html());
+            if ($childSingleElem.attr(HTMLControlAttrs.JBUILD4DC_CUSTOM)=="true"&&$childSingleElem.attr(HTMLControlAttrs.CLIENT_RESOLVE)) {
+                //debugger;
+                var clientResolveInstanceName=$childSingleElem.attr(HTMLControlAttrs.CLIENT_RESOLVE);
+                var instance=HTMLControl.GetInstance(clientResolveInstanceName);
+                instance.RendererDataChain({
+                    sourceHTML:_rendererDataChainParas.sourceHTML,
+                    $rootElem:_rendererDataChainParas.$rootElem,
+                    $parentControlElem:_rendererDataChainParas.$singleControlElem,
                     $singleControlElem:$childSingleElem,
-                    allData:_rendererChainParas.allData
+                    topDataSet:_rendererDataChainParas.topDataSet
+                });
+            } else {
+                HTMLControl.RendererDataChain({
+                    sourceHTML:_rendererDataChainParas.sourceHTML,
+                    $rootElem:_rendererDataChainParas.$rootElem,
+                    $parentControlElem:_rendererDataChainParas.$singleControlElem,
+                    $singleControlElem:$childSingleElem,
+                    topDataSet:_rendererDataChainParas.topDataSet
                 });
             }
         }

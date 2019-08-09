@@ -12,9 +12,9 @@ import java.util.List;
         "name",
         "id",
         "className",
-        "buttonAPIParaVoList"
+        "buttonAPIParaPOList"
 })
-public class ButtonAPIVo {
+public class ButtonAPIPO {
 
     @XmlAttribute(name = "name")
     private String name;
@@ -26,7 +26,7 @@ public class ButtonAPIVo {
     private String className;
 
     @XmlElement(name="Para")
-    private List<ButtonAPIParaVo> buttonAPIParaVoList;
+    private List<ButtonAPIParaPO> buttonAPIParaPOList;
 
     public String getName() {
         return name;
@@ -52,11 +52,11 @@ public class ButtonAPIVo {
         this.className = className;
     }
 
-    public List<ButtonAPIParaVo> getButtonAPIParaVoList() {
-        return buttonAPIParaVoList;
+    public List<ButtonAPIParaPO> getButtonAPIParaPOList() {
+        return buttonAPIParaPOList;
     }
 
-    public void setButtonAPIParaVoList(List<ButtonAPIParaVo> buttonAPIParaVoList) {
-        this.buttonAPIParaVoList = buttonAPIParaVoList;
+    public void setButtonAPIParaPOList(List<ButtonAPIParaPO> buttonAPIParaPOList) {
+        this.buttonAPIParaPOList = buttonAPIParaPOList;
     }
 }

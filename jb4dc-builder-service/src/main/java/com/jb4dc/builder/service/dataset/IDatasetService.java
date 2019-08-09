@@ -3,8 +3,8 @@ package com.jb4dc.builder.service.dataset;
 import com.github.pagehelper.PageInfo;
 import com.jb4dc.base.service.IBaseService;
 import com.jb4dc.builder.dbentities.dataset.DatasetEntity;
-import com.jb4dc.builder.po.DataSetVo;
-import com.jb4dc.builder.po.SQLResolveToDataSetVo;
+import com.jb4dc.builder.po.DataSetPO;
+import com.jb4dc.builder.po.SQLResolveToDataSetPO;
 import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
 import com.jb4dc.core.base.session.JB4DCSession;
 import org.xml.sax.SAXException;
@@ -21,11 +21,11 @@ import java.io.IOException;
  * To change this template use File | Settings | File Templates.
  */
 public interface IDatasetService extends IBaseService<DatasetEntity> {
-    DataSetVo getVoByPrimaryKey(JB4DCSession jb4DCSession, String id) throws JBuild4DCGenerallyException, IOException;
+    DataSetPO getVoByPrimaryKey(JB4DCSession jb4DCSession, String id) throws JBuild4DCGenerallyException, IOException;
 
-    int saveDataSetVo(JB4DCSession jb4DCSession, String id, DataSetVo record) throws JBuild4DCGenerallyException, IOException;
+    int saveDataSetVo(JB4DCSession jb4DCSession, String id, DataSetPO record) throws JBuild4DCGenerallyException, IOException;
 
-    DataSetVo resolveSQLToDataSet(JB4DCSession jb4DCSession, String sql) throws JBuild4DCGenerallyException, SAXException, ParserConfigurationException, XPathExpressionException, IOException, PropertyVetoException;
+    DataSetPO resolveSQLToDataSet(JB4DCSession jb4DCSession, String sql) throws JBuild4DCGenerallyException, SAXException, ParserConfigurationException, XPathExpressionException, IOException, PropertyVetoException;
 
     String sqlReplaceEnvTextToEnvValue(JB4DCSession jb4DCSession, String sqlText) throws JBuild4DCGenerallyException, XPathExpressionException, IOException, SAXException, ParserConfigurationException;
 
@@ -33,9 +33,9 @@ public interface IDatasetService extends IBaseService<DatasetEntity> {
 
     String sqlReplaceRunningValueToEmptyFilter(JB4DCSession jb4DCSession, String sqlRunValue);
 
-    SQLResolveToDataSetVo sqlResolveToDataSetVo(JB4DCSession jb4DCSession, String sqlWithEnvText) throws XPathExpressionException, JBuild4DCGenerallyException, IOException, SAXException, ParserConfigurationException, PropertyVetoException;
+    SQLResolveToDataSetPO sqlResolveToDataSetVo(JB4DCSession jb4DCSession, String sqlWithEnvText) throws XPathExpressionException, JBuild4DCGenerallyException, IOException, SAXException, ParserConfigurationException, PropertyVetoException;
 
     PageInfo<DatasetEntity> getPageByGroupId(JB4DCSession jb4DCSession, Integer pageNum, Integer pageSize, String groupId);
 
-    DataSetVo getApiDataSetVoStructure(JB4DCSession session, String recordId, String op, String groupId, String fullClassName) throws IllegalAccessException, InstantiationException;
+    DataSetPO getApiDataSetVoStructure(JB4DCSession session, String recordId, String op, String groupId, String fullClassName) throws IllegalAccessException, InstantiationException;
 }

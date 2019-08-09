@@ -4,7 +4,7 @@ package com.jb4dc.builder.service.webform;
 import com.jb4dc.base.service.IBaseService;
 import com.jb4dc.builder.dbentities.webform.FormResourceEntity;
 import com.jb4dc.builder.po.FormResourcePO;
-import com.jb4dc.builder.po.RecordDataVo;
+import com.jb4dc.builder.po.RecordDataPO;
 import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
 import com.jb4dc.core.base.session.JB4DCSession;
 
@@ -17,5 +17,5 @@ import com.jb4dc.core.base.session.JB4DCSession;
 public interface IFormResourceService extends IBaseService<FormResourceEntity> {
     FormResourcePO getFormPreviewHTMLContent(JB4DCSession jb4DCSession, String id) throws JBuild4DCGenerallyException;
 
-    FormResourcePO getFormRuntimePageContent(JB4DCSession jb4DCSession, String id, RecordDataVo recordDataVo) throws JBuild4DCGenerallyException;
+    FormResourcePO getFormRuntimePageContent(JB4DCSession jb4DCSession, String id, RecordDataPO recordDataVo) throws JBuild4DCGenerallyException;
 }

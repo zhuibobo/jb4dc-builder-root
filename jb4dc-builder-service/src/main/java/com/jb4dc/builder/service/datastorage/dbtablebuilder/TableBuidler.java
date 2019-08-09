@@ -5,7 +5,7 @@ import com.jb4dc.builder.dbentities.datastorage.DbLinkEntity;
 import com.jb4dc.builder.dbentities.datastorage.TableEntity;
 import com.jb4dc.builder.dbentities.datastorage.TableFieldEntity;
 import com.jb4dc.builder.dbentities.datastorage.TableGroupEntity;
-import com.jb4dc.builder.po.TableFieldVO;
+import com.jb4dc.builder.po.TableFieldPO;
 import com.jb4dc.core.base.exception.JBuild4DCPhysicalTableException;
 
 import java.beans.PropertyVetoException;
@@ -29,7 +29,7 @@ public abstract class TableBuidler {
         this.sqlBuilderService = sqlBuilderService;
     }*/
 
-    public boolean newTable(TableEntity tableEntity, List<TableFieldVO> fieldVos, TableGroupEntity tableGroupEntity, DbLinkEntity dbLinkEntity) throws JBuild4DCPhysicalTableException, PropertyVetoException {
+    public boolean newTable(TableEntity tableEntity, List<TableFieldPO> fieldVos, TableGroupEntity tableGroupEntity, DbLinkEntity dbLinkEntity) throws JBuild4DCPhysicalTableException, PropertyVetoException {
         try{
             if(fieldVos==null||fieldVos.size()==0){
                 throw JBuild4DCPhysicalTableException.getFieldsCannotBeNullError();
@@ -86,7 +86,7 @@ public abstract class TableBuidler {
         }
     }
 
-    public boolean updateTable(TableEntity tableEntity,List<TableFieldVO> newFields,List<TableFieldVO> updateFields,List<TableFieldVO> deleteFields, TableGroupEntity tableGroupEntity, DbLinkEntity dbLinkEntity) throws JBuild4DCPhysicalTableException {
+    public boolean updateTable(TableEntity tableEntity, List<TableFieldPO> newFields, List<TableFieldPO> updateFields, List<TableFieldPO> deleteFields, TableGroupEntity tableGroupEntity, DbLinkEntity dbLinkEntity) throws JBuild4DCPhysicalTableException {
         try{
             //判断是否存在表
             if(!isExistTable(tableEntity,dbLinkEntity)){
@@ -102,7 +102,7 @@ public abstract class TableBuidler {
 
             //修改字段,暂时只是支持修改类型和名称
             if(updateFields!=null) {
-                for (TableFieldVO updateField : updateFields) {
+                for (TableFieldPO updateField : updateFields) {
                     if(!updateField.isUpdateLogicOnly) {
                         /*if(this.recordCount(tableEntity)>10000){
                             throw JBuild4DPhysicalTableException.getUpdateFieldNoAllowOverCount(10000);
@@ -114,7 +114,7 @@ public abstract class TableBuidler {
 
             //删除字段
             if(deleteFields!=null) {
-                for (TableFieldVO deleteField : deleteFields) {
+                for (TableFieldPO deleteField : deleteFields) {
                     deleteField(tableEntity, deleteField,tableGroupEntity,dbLinkEntity);
                 }
             }
@@ -152,9 +152,9 @@ public abstract class TableBuidler {
 
     protected abstract String buildDeleteTableSQL(TableEntity tableEntity);
 
-    protected abstract boolean deleteField(TableEntity tableEntity, TableFieldVO deleteField, TableGroupEntity tableGroupEntity, DbLinkEntity dbLinkEntity) throws PropertyVetoException;
+    protected abstract boolean deleteField(TableEntity tableEntity, TableFieldPO deleteField, TableGroupEntity tableGroupEntity, DbLinkEntity dbLinkEntity) throws PropertyVetoException;
 
-    protected abstract boolean updateField(TableEntity tableEntity, TableFieldVO updateField, TableGroupEntity tableGroupEntity, DbLinkEntity dbLinkEntity) throws JBuild4DCPhysicalTableException;
+    protected abstract boolean updateField(TableEntity tableEntity, TableFieldPO updateField, TableGroupEntity tableGroupEntity, DbLinkEntity dbLinkEntity) throws JBuild4DCPhysicalTableException;
 
     protected abstract boolean newField(TableEntity tableEntity, TableFieldEntity fieldEntity, TableGroupEntity tableGroupEntity, DbLinkEntity dbLinkEntity) throws JBuild4DCPhysicalTableException;
 

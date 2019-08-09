@@ -11,7 +11,7 @@ import com.jb4dc.builder.dbentities.datastorage.TableEntity;
 import com.jb4dc.builder.dbentities.datastorage.TableFieldEntity;
 import com.jb4dc.builder.dbentities.datastorage.TableGroupEntity;
 import com.jb4dc.builder.exenum.TableFieldTypeEnum;
-import com.jb4dc.builder.po.TableFieldVO;
+import com.jb4dc.builder.po.TableFieldPO;
 import com.jb4dc.builder.po.ZTreeNodePOConvert;
 import com.jb4dc.builder.service.datastorage.IDbLinkService;
 import com.jb4dc.builder.service.datastorage.ITableFieldService;
@@ -78,10 +78,10 @@ public class TableRest {
         responseVo.setSuccess(true);
         responseVo.setMessage("获取数据成功！");
         List<String> templateNames=tableFieldService.getFieldTemplateName();
-        Map<String,List<TableFieldVO>> templateFieldMap=new HashMap<>();
+        Map<String,List<TableFieldPO>> templateFieldMap=new HashMap<>();
         for (String templateName : templateNames) {
-            List<TableFieldVO> templateFields=tableFieldService.getTemplateFieldsByName(templateName);
-            for (TableFieldVO templateField : templateFields) { //修改模版的字段ID,避免重复
+            List<TableFieldPO> templateFields=tableFieldService.getTemplateFieldsByName(templateName);
+            for (TableFieldPO templateField : templateFields) { //修改模版的字段ID,避免重复
                 templateField.setFieldId(UUIDUtility.getUUID());
                 templateField.setFieldTemplateName("FromTemplate:"+templateField.getFieldTemplateName());
             }
@@ -100,9 +100,9 @@ public class TableRest {
         else {
             //modelAndView.addObject("tableEntity",tableService.getByPrimaryKey(JB4DCSessionUtility.getSession(),recordId));
             responseVo.setData(tableService.getByPrimaryKey(JB4DCSessionUtility.getSession(),recordId));
-            List<TableFieldVO> tableFieldVOList=tableFieldService.getTableFieldsByTableId(recordId);
+            List<TableFieldPO> tableFieldPOList =tableFieldService.getTableFieldsByTableId(recordId);
             //modelAndView.addObject("tableFieldsData",JsonUtility.toObjectString(tableFieldVOList));
-            responseVo.addExKVData("tableFieldsData",tableFieldVOList);
+            responseVo.addExKVData("tableFieldsData", tableFieldPOList);
         }
         //modelAndView.addObject("templateFieldGroup",JsonUtility.toObjectString(templateFieldMap));
         //modelAndView.addObject("tablePrefix",builderConfigService.getTablePrefix());
@@ -129,7 +129,7 @@ public class TableRest {
 
     @RequestMapping(value = "/GetTemplateFieldsByName")
     public JBuild4DCResponseVo getTemplateFieldsByName(String templateName) throws IOException {
-        List<TableFieldVO> tableFieldEntityList=tableFieldService.getTemplateFieldsByName(templateName);
+        List<TableFieldPO> tableFieldEntityList=tableFieldService.getTemplateFieldsByName(templateName);
         return JBuild4DCResponseVo.success("",tableFieldEntityList);
     }
 
@@ -139,14 +139,14 @@ public class TableRest {
             tableEntityJson = URLDecoder.decode(URLDecoder.decode(tableEntityJson, "utf-8"),"utf-8");
             fieldVoListJson = URLDecoder.decode(URLDecoder.decode(fieldVoListJson, "utf-8"),"utf-8");
             TableEntity tableEntity = JsonUtility.toObject(tableEntityJson, TableEntity.class);
-            List<TableFieldVO> tableFieldVOList = JsonUtility.toObjectListIgnoreProp(fieldVoListJson, TableFieldVO.class);
+            List<TableFieldPO> tableFieldPOList = JsonUtility.toObjectListIgnoreProp(fieldVoListJson, TableFieldPO.class);
             if (op.equals("add")) {
                 if(groupId==null||groupId.equals("")){
                     throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_BUILDER_CODE,"groupId不能为空!");
                 }
-                tableService.newTable(JB4DCSessionUtility.getSession(), tableEntity, tableFieldVOList,groupId);
+                tableService.newTable(JB4DCSessionUtility.getSession(), tableEntity, tableFieldPOList,groupId);
             } else if (op.equals("update")) {
-                tableService.updateTable(JB4DCSessionUtility.getSession(), tableEntity, tableFieldVOList, ignorePhysicalError);
+                tableService.updateTable(JB4DCSessionUtility.getSession(), tableEntity, tableFieldPOList, ignorePhysicalError);
             }
             return JBuild4DCResponseVo.opSuccess();
         }

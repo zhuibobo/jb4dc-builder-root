@@ -2,8 +2,8 @@ package com.jb4dc.builder.htmldesign.control;
 
 import com.jb4dc.builder.htmldesign.HTMLControlAttrs;
 import com.jb4dc.builder.htmldesign.ICKEditorPluginsService;
-import com.jb4dc.builder.po.HtmlControlDefinitionVo;
-import com.jb4dc.builder.po.ResolveHTMLControlContextVo;
+import com.jb4dc.builder.po.HtmlControlDefinitionPO;
+import com.jb4dc.builder.po.ResolveHTMLControlContextPO;
 import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
 import com.jb4dc.core.base.session.JB4DCSession;
 import com.jb4dc.core.base.tools.ClassUtility;
@@ -39,14 +39,14 @@ public abstract class HTMLControl implements IHTMLControl {
     }
 
     @Override
-    public void rendererChain(JB4DCSession jb4DCSession, String sourceHTML, Document doc, Element singleControlElem, Element parentElem, Element lastParentJbuild4dCustomElem, ResolveHTMLControlContextVo resolveHTMLControlContextVo) throws JBuild4DCGenerallyException {
+    public void rendererChain(JB4DCSession jb4DCSession, String sourceHTML, Document doc, Element singleControlElem, Element parentElem, Element lastParentJbuild4dCustomElem, ResolveHTMLControlContextPO resolveHTMLControlContextPO) throws JBuild4DCGenerallyException {
         for (Element singleElem : singleControlElem.children()) {
 
             if(singleElem.attr(HTMLControlAttrs.JBUILD4DC_CUSTOM).equals("true")){
                 //String serverResolveFullClassName = singleElem.attr(HTMLControlAttrs.SERVERRESOLVE);
                 String singleName=singleElem.attr(HTMLControlAttrs.SINGLENAME);
-                HtmlControlDefinitionVo htmlControlDefinitionVo=ckEditorPluginsService.getVo(singleName);
-                String serverResolveFullClassName = htmlControlDefinitionVo.getServerResolve();
+                HtmlControlDefinitionPO htmlControlDefinitionPO =ckEditorPluginsService.getVo(singleName);
+                String serverResolveFullClassName = htmlControlDefinitionPO.getServerResolve();
 
                 lastParentJbuild4dCustomElem=singleElem;
 
@@ -54,10 +54,10 @@ public abstract class HTMLControl implements IHTMLControl {
                     try {
                         IHTMLControl htmlControl = this.getHTMLControlInstance(serverResolveFullClassName);
 
-                        htmlControl.resolveDefAttr(jb4DCSession, sourceHTML, doc, singleElem, parentElem, lastParentJbuild4dCustomElem, resolveHTMLControlContextVo, htmlControlDefinitionVo);
-                        htmlControl.resolveSelf(jb4DCSession, sourceHTML, doc, singleElem, parentElem, lastParentJbuild4dCustomElem, resolveHTMLControlContextVo, htmlControlDefinitionVo);
+                        htmlControl.resolveDefAttr(jb4DCSession, sourceHTML, doc, singleElem, parentElem, lastParentJbuild4dCustomElem, resolveHTMLControlContextPO, htmlControlDefinitionPO);
+                        htmlControl.resolveSelf(jb4DCSession, sourceHTML, doc, singleElem, parentElem, lastParentJbuild4dCustomElem, resolveHTMLControlContextPO, htmlControlDefinitionPO);
 
-                        htmlControl.rendererChain(jb4DCSession, sourceHTML, doc, singleElem, parentElem, lastParentJbuild4dCustomElem, resolveHTMLControlContextVo);
+                        htmlControl.rendererChain(jb4DCSession, sourceHTML, doc, singleElem, parentElem, lastParentJbuild4dCustomElem, resolveHTMLControlContextPO);
                     }
                     catch (Exception ex){
                         singleElem.html("控件解析出错！【"+ex.getMessage()+"】");
@@ -65,13 +65,13 @@ public abstract class HTMLControl implements IHTMLControl {
                 }
                 else
                 {
-                    rendererChain(jb4DCSession, sourceHTML, doc, singleElem, singleElem, lastParentJbuild4dCustomElem, resolveHTMLControlContextVo);
+                    rendererChain(jb4DCSession, sourceHTML, doc, singleElem, singleElem, lastParentJbuild4dCustomElem, resolveHTMLControlContextPO);
                 }
             }
             else{
                 //如果是普通html元素则直接递归处理,如果是自定义控件,则由控件显示调用
                 if(singleElem.childNodeSize()>0){
-                    rendererChain(jb4DCSession, sourceHTML, doc, singleElem, singleElem, lastParentJbuild4dCustomElem, resolveHTMLControlContextVo);
+                    rendererChain(jb4DCSession, sourceHTML, doc, singleElem, singleElem, lastParentJbuild4dCustomElem, resolveHTMLControlContextPO);
                 }
             }
         }
@@ -79,14 +79,14 @@ public abstract class HTMLControl implements IHTMLControl {
 
     //todo 绑定默认值
     @Override
-    public void bindDefaultValue(JB4DCSession jb4DCSession, String sourceHTML, Document doc, Element singleControlElem, Element parentElem, Element lastParentJbuild4dCustomElem, ResolveHTMLControlContextVo resolveHTMLControlContextVo, HtmlControlDefinitionVo htmlControlDefinitionVo) {
+    public void bindDefaultValue(JB4DCSession jb4DCSession, String sourceHTML, Document doc, Element singleControlElem, Element parentElem, Element lastParentJbuild4dCustomElem, ResolveHTMLControlContextPO resolveHTMLControlContextPO, HtmlControlDefinitionPO htmlControlDefinitionPO) {
 
     }
 
     @Override
-    public void resolveDefAttr(JB4DCSession jb4DCSession, String sourceHTML, Document doc, Element singleControlElem, Element parentElem, Element lastParentJbuild4dCustomElem, ResolveHTMLControlContextVo resolveHTMLControlContextVo, HtmlControlDefinitionVo htmlControlDefinitionVo) {
+    public void resolveDefAttr(JB4DCSession jb4DCSession, String sourceHTML, Document doc, Element singleControlElem, Element parentElem, Element lastParentJbuild4dCustomElem, ResolveHTMLControlContextPO resolveHTMLControlContextPO, HtmlControlDefinitionPO htmlControlDefinitionPO) {
         //附件上客户端解析对象,适用于简单控件
-        singleControlElem.attr("client_resolve",htmlControlDefinitionVo.getClientResolve());
+        singleControlElem.attr("client_resolve", htmlControlDefinitionPO.getClientResolve());
 
         //移除掉编辑模式下的样式
         for (String className : singleControlElem.classNames()) {
@@ -119,7 +119,7 @@ public abstract class HTMLControl implements IHTMLControl {
     }
 
     @Override
-    public String parseToJson(JB4DCSession jb4DCSession, String sourceHTML, Document doc, Element singleControlElem, Element parentElem, Element lastParentJbuild4dCustomElem, ResolveHTMLControlContextVo resolveHTMLControlContextVo, HtmlControlDefinitionVo htmlControlDefinitionVo) {
+    public String parseToJson(JB4DCSession jb4DCSession, String sourceHTML, Document doc, Element singleControlElem, Element parentElem, Element lastParentJbuild4dCustomElem, ResolveHTMLControlContextPO resolveHTMLControlContextPO, HtmlControlDefinitionPO htmlControlDefinitionPO) {
         return "{}";
     }
 }

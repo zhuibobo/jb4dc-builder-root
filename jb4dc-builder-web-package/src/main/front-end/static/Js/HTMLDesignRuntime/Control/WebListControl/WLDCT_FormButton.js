@@ -8,5 +8,6 @@ var WLDCT_FormButton= {
             alert(caption);
         });
         return $button;
-    }
+    },
+    RendererDataChain:HTMLControl.RendererDataChain
 }

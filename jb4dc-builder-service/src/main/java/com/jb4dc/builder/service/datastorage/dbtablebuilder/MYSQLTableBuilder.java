@@ -6,7 +6,7 @@ import com.jb4dc.builder.dbentities.datastorage.TableEntity;
 import com.jb4dc.builder.dbentities.datastorage.TableFieldEntity;
 import com.jb4dc.builder.dbentities.datastorage.TableGroupEntity;
 import com.jb4dc.builder.exenum.TableFieldTypeEnum;
-import com.jb4dc.builder.po.TableFieldVO;
+import com.jb4dc.builder.po.TableFieldPO;
 import com.jb4dc.core.base.exception.JBuild4DCPhysicalTableException;
 
 import java.beans.PropertyVetoException;
@@ -27,7 +27,7 @@ public class MYSQLTableBuilder extends TableBuidler {
     }
 
     @Override
-    protected boolean deleteField(TableEntity tableEntity, TableFieldVO deleteField, TableGroupEntity tableGroupEntity, DbLinkEntity dbLinkEntity) throws PropertyVetoException {
+    protected boolean deleteField(TableEntity tableEntity, TableFieldPO deleteField, TableGroupEntity tableGroupEntity, DbLinkEntity dbLinkEntity) throws PropertyVetoException {
         String dropTempFieldSQL="alter table "+tableEntity.getTableName()+" drop column "+deleteField.getFieldName();
         //sqlBuilderService.execute(dropTempFieldSQL);
         ClientDataSourceManager.execute(dbLinkEntity,dropTempFieldSQL);
@@ -35,7 +35,7 @@ public class MYSQLTableBuilder extends TableBuidler {
     }
 
     @Override
-    protected boolean updateField(TableEntity tableEntity, TableFieldVO updateField, TableGroupEntity tableGroupEntity, DbLinkEntity dbLinkEntity) throws JBuild4DCPhysicalTableException {
+    protected boolean updateField(TableEntity tableEntity, TableFieldPO updateField, TableGroupEntity tableGroupEntity, DbLinkEntity dbLinkEntity) throws JBuild4DCPhysicalTableException {
         try
         {
             //修改列类型

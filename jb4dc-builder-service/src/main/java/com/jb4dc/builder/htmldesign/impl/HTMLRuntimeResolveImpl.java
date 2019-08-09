@@ -4,7 +4,7 @@ import com.jb4dc.builder.htmldesign.HTMLControlAttrs;
 import com.jb4dc.builder.htmldesign.ICKEditorPluginsService;
 import com.jb4dc.builder.htmldesign.IHTMLRuntimeResolve;
 import com.jb4dc.builder.htmldesign.control.VirtualBodyControl;
-import com.jb4dc.builder.po.ResolveHTMLControlContextVo;
+import com.jb4dc.builder.po.ResolveHTMLControlContextPO;
 import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
 import com.jb4dc.core.base.session.JB4DCSession;
 import org.jsoup.Jsoup;
@@ -31,7 +31,7 @@ public class HTMLRuntimeResolveImpl implements IHTMLRuntimeResolve {
             //获取并解析HTML
             Document doc= Jsoup.parseBodyFragment(sourceHTML);
 
-            ResolveHTMLControlContextVo resolveHTMLControlContextVo=new ResolveHTMLControlContextVo();
+            ResolveHTMLControlContextPO resolveHTMLControlContextPO =new ResolveHTMLControlContextPO();
 
             //将标识为runtime_auto_remove的标签移除掉
             Elements removeElems = doc.getElementsByAttribute(HTMLControlAttrs.RUNTIME_AUTO_REMOVE);
@@ -43,7 +43,7 @@ public class HTMLRuntimeResolveImpl implements IHTMLRuntimeResolve {
 
             VirtualBodyControl bodyControl= VirtualBodyControl.getInstance();
             autowireCapableBeanFactory.autowireBean(bodyControl);
-            bodyControl.rendererChain(jb4DCSession,htmlSource,doc,doc,doc,null,resolveHTMLControlContextVo);
+            bodyControl.rendererChain(jb4DCSession,htmlSource,doc,doc,doc,null, resolveHTMLControlContextPO);
             //this.loopResolveElem(jb4DCSession,doc,doc,sourceHTML,null,resolveHTMLControlContextVo);
 
             return doc.getElementsByTag("body").html();

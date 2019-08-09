@@ -12,16 +12,16 @@ import java.util.List;
 @XmlType(propOrder = {
         "buttonAPIGroupVoList"
 })
-public class ButtonAPIConfigVo {
+public class ButtonAPIConfigPO {
 
     @XmlElement(name = "Group")
-    private List<ButtonAPIGroupVo> buttonAPIGroupVoList;
+    private List<ButtonAPIGroupPO> buttonAPIGroupVoList;
 
-    public List<ButtonAPIGroupVo> getButtonAPIGroupVoList() {
+    public List<ButtonAPIGroupPO> getButtonAPIGroupVoList() {
         return buttonAPIGroupVoList;
     }
 
-    public void setButtonAPIGroupVoList(List<ButtonAPIGroupVo> buttonAPIGroupVoList) {
+    public void setButtonAPIGroupVoList(List<ButtonAPIGroupPO> buttonAPIGroupVoList) {
         this.buttonAPIGroupVoList = buttonAPIGroupVoList;
     }
 }

@@ -262,5 +262,6 @@ var WLDCT_ListTableContainer= {
             "searching": false,
             "info": false
         } );
-    }
+    },
+    RendererDataChain:HTMLControl.RendererDataChain
 }

@@ -22,5 +22,6 @@ var WLDCT_ListButtonContainer= {
         }
         innerWrap.append(innerInsideWrapDiv);
         innerWrap.append("<div style=\"clear: both;\"></div>");
-    }
+    },
+    RendererDataChain:HTMLControl.RendererDataChain
 }

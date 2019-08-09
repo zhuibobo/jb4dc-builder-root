@@ -2,8 +2,7 @@ package com.jb4dc.builder.webpackage.rest.builder.dataset;
 
 import com.jb4dc.base.service.general.JB4DCSessionUtility;
 import com.jb4dc.base.tools.JsonUtility;
-import com.jb4dc.builder.po.SQLResolveToDataSetVo;
-import com.jb4dc.builder.webpackage.RestTestBase;
+import com.jb4dc.builder.po.SQLResolveToDataSetPO;
 import com.jb4dc.core.base.vo.JBuild4DCResponseVo;
 import org.junit.Assert;
 import org.junit.Test;
@@ -31,7 +30,7 @@ public class DataSetSQLDesignerRestTest extends DataSetGroupRestTest {
 
         Object obj=responseVo.getData();
         String temp=JsonUtility.toObjectString(obj);
-        SQLResolveToDataSetVo vo=JsonUtility.toObject(temp,SQLResolveToDataSetVo.class);
+        SQLResolveToDataSetPO vo=JsonUtility.toObject(temp, SQLResolveToDataSetPO.class);
 
         responseVo.setData(vo);
         System.out.println(json);

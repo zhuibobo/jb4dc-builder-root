@@ -99,8 +99,8 @@
                 },
                 bindDataSetFieldTree:function(){
                     if(this.dataSetId){
-                        var dataSetVo=window.parent.listDesign.getDataSet(this.dataSetId);
-                        this.$refs.listTableLabelBindToComp.init(dataSetVo,this.buttons);
+                        var dataSetPO=window.parent.listDesign.getDataSet(this.dataSetId);
+                        this.$refs.listTableLabelBindToComp.init(dataSetPO,this.buttons);
                     }
                     else {
                         DialogUtility.AlertText("请先设定DataSet");

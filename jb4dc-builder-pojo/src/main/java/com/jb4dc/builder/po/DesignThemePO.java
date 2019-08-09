@@ -15,7 +15,7 @@ import java.util.List;
         "rootElemClass",
         "refs"
 })
-public class DesignThemeVo {
+public class DesignThemePO {
 
     @XmlAttribute(name = "value")
     private String value;
@@ -30,7 +30,7 @@ public class DesignThemeVo {
     private String rootElemClass;
 
     @XmlElement(name = "Ref")
-    private List<DesignThemeRefVo> refs;
+    private List<DesignThemeRefPO> refs;
 
     public String getName() {
         return name;
@@ -64,7 +64,7 @@ public class DesignThemeVo {
         this.value = value;
     }
 
-    public void setRefs(List<DesignThemeRefVo> refs) {
+    public void setRefs(List<DesignThemeRefPO> refs) {
         this.refs = refs;
     }
 

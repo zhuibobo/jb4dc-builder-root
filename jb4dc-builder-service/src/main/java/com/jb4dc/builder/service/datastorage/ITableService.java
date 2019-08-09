@@ -4,9 +4,9 @@ import com.jb4dc.base.service.IBaseService;
 import com.jb4dc.builder.dbentities.datastorage.DbLinkEntity;
 import com.jb4dc.builder.dbentities.datastorage.TableEntity;
 import com.jb4dc.builder.dbentities.datastorage.TableGroupEntity;
-import com.jb4dc.builder.po.TableFieldVO;
-import com.jb4dc.builder.po.UpdateTableResolveVo;
-import com.jb4dc.builder.po.ValidateTableUpdateResultVo;
+import com.jb4dc.builder.po.TableFieldPO;
+import com.jb4dc.builder.po.UpdateTableResolvePO;
+import com.jb4dc.builder.po.ValidateTableUpdateResultPO;
 import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
 import com.jb4dc.core.base.exception.JBuild4DCPhysicalTableException;
 import com.jb4dc.core.base.exception.JBuild4DCSQLKeyWordException;
@@ -25,16 +25,16 @@ import java.util.List;
  */
 public interface ITableService extends IBaseService<TableEntity> {
     @Transactional(rollbackFor= JBuild4DCGenerallyException.class)
-    void newTable(JB4DCSession jb4DCSession, TableEntity tableEntity, List<TableFieldVO> tableFieldVOList, String groupId) throws JBuild4DCGenerallyException;
+    void newTable(JB4DCSession jb4DCSession, TableEntity tableEntity, List<TableFieldPO> tableFieldPOList, String groupId) throws JBuild4DCGenerallyException;
 
-    UpdateTableResolveVo updateTableResolve(JB4DCSession jb4DCSession, TableEntity newTableEntity, List<TableFieldVO> newTableFieldVOList) throws IOException, JBuild4DCGenerallyException;
+    UpdateTableResolvePO updateTableResolve(JB4DCSession jb4DCSession, TableEntity newTableEntity, List<TableFieldPO> newTableFieldPOList) throws IOException, JBuild4DCGenerallyException;
 
-    ValidateTableUpdateResultVo validateTableUpdateEnable(JB4DCSession jb4DCSession, TableEntity newTableEntity, List<TableFieldVO> newTableFieldVOList) throws JBuild4DCGenerallyException, IOException, PropertyVetoException;
+    ValidateTableUpdateResultPO validateTableUpdateEnable(JB4DCSession jb4DCSession, TableEntity newTableEntity, List<TableFieldPO> newTableFieldPOList) throws JBuild4DCGenerallyException, IOException, PropertyVetoException;
 
-    ValidateTableUpdateResultVo validateTableUpdateEnable(JB4DCSession jb4DCSession, UpdateTableResolveVo resolveVo) throws JBuild4DCGenerallyException, PropertyVetoException;
+    ValidateTableUpdateResultPO validateTableUpdateEnable(JB4DCSession jb4DCSession, UpdateTableResolvePO resolveVo) throws JBuild4DCGenerallyException, PropertyVetoException;
 
     @Transactional(rollbackFor=JBuild4DCGenerallyException.class)
-    List<String> updateTable(JB4DCSession jb4DCSession, TableEntity tableEntity, List<TableFieldVO> tableFieldVOList, boolean ignorePhysicalError) throws JBuild4DCGenerallyException, IOException, PropertyVetoException;
+    List<String> updateTable(JB4DCSession jb4DCSession, TableEntity tableEntity, List<TableFieldPO> tableFieldPOList, boolean ignorePhysicalError) throws JBuild4DCGenerallyException, IOException, PropertyVetoException;
 
     boolean existLogicTableName(JB4DCSession jb4DCSession, String tableName);
 

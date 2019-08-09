@@ -6,7 +6,7 @@ package com.jb4dc.builder.po;
  * Date: 2019/2/11
  * To change this template use File | Settings | File Templates.
  */
-public class FlowModelerConfigVo {
+public class FlowModelerConfigPO {
     private String baseUrl;
     private String modelRest;
     private String importModelRest;

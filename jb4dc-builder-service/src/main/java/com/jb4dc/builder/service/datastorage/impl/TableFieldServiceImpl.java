@@ -3,19 +3,17 @@ package com.jb4dc.builder.service.datastorage.impl;
 import com.jb4dc.base.dbaccess.dao.BaseMapper;
 import com.jb4dc.base.service.exenum.TrueFalseEnum;
 import com.jb4dc.base.service.IAddBefore;
-import com.jb4dc.base.service.ISQLBuilderService;
 import com.jb4dc.base.service.impl.BaseServiceImpl;
 import com.jb4dc.builder.dao.datastorage.TableFieldMapper;
 import com.jb4dc.builder.dao.datastorage.TableMapper;
 import com.jb4dc.builder.dbentities.datastorage.TableEntity;
 import com.jb4dc.builder.dbentities.datastorage.TableFieldEntity;
 import com.jb4dc.builder.exenum.TableFieldTypeEnum;
-import com.jb4dc.builder.po.TableFieldVO;
+import com.jb4dc.builder.po.TableFieldPO;
 import com.jb4dc.builder.service.datastorage.ITableFieldService;
 import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
 import com.jb4dc.core.base.session.JB4DCSession;
 import com.jb4dc.core.base.tools.UUIDUtility;
-import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -61,8 +59,8 @@ public class TableFieldServiceImpl extends BaseServiceImpl<TableFieldEntity> imp
     }
 
     @Override
-    public List<TableFieldVO> getTemplateFieldsByName(String templateName) throws IOException {
-        return TableFieldVO.EntityListToVoList(templateName,tableFieldMapper.selectTemplateFieldsByName(templateName));
+    public List<TableFieldPO> getTemplateFieldsByName(String templateName) throws IOException {
+        return TableFieldPO.EntityListToVoList(templateName,tableFieldMapper.selectTemplateFieldsByName(templateName));
     }
 
     @Override
@@ -229,17 +227,17 @@ public class TableFieldServiceImpl extends BaseServiceImpl<TableFieldEntity> imp
     }
 
     @Override
-    public List<TableFieldVO> getTableFieldsByTableId(String tableId) throws IOException {
+    public List<TableFieldPO> getTableFieldsByTableId(String tableId) throws IOException {
         TableEntity tableEntity=tableMapper.selectByPrimaryKey(tableId);
         if(tableEntity==null){
             return null;
         }
-        return TableFieldVO.EntityListToVoList(tableEntity.getTableName(),tableFieldMapper.selectByTableId(tableId));
+        return TableFieldPO.EntityListToVoList(tableEntity.getTableName(),tableFieldMapper.selectByTableId(tableId));
     }
 
     @Override
-    public List<TableFieldVO> getTableFieldsByTableName(String rtTableName) throws IOException {
-        return TableFieldVO.EntityListToVoList(rtTableName,tableFieldMapper.selectByTableName(rtTableName));
+    public List<TableFieldPO> getTableFieldsByTableName(String rtTableName) throws IOException {
+        return TableFieldPO.EntityListToVoList(rtTableName,tableFieldMapper.selectByTableName(rtTableName));
     }
 
     @Override

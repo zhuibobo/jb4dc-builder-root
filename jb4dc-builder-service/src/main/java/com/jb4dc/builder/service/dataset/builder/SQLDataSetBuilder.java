@@ -2,9 +2,9 @@ package com.jb4dc.builder.service.dataset.builder;
 
 import com.jb4dc.builder.dbentities.datastorage.DbLinkEntity;
 import com.jb4dc.builder.exenum.TableFieldTypeEnum;
-import com.jb4dc.builder.po.DataSetColumnVo;
-import com.jb4dc.builder.po.DataSetRelatedTableVo;
-import com.jb4dc.builder.po.DataSetVo;
+import com.jb4dc.builder.po.DataSetColumnPO;
+import com.jb4dc.builder.po.DataSetPO;
+import com.jb4dc.builder.po.DataSetRelatedTablePO;
 import com.jb4dc.builder.service.datastorage.IDbLinkService;
 import com.jb4dc.builder.service.datastorage.ITableService;
 import com.jb4dc.builder.service.datastorage.dbtablebuilder.ClientDataSourceManager;
@@ -55,10 +55,10 @@ public class SQLDataSetBuilder {
     @Autowired
     private ITableService tableService;
 
-    public DataSetVo resolveSQLToDataSet(JB4DCSession jb4DCSession, String sql) throws PropertyVetoException, JBuild4DCGenerallyException {
-        DataSetVo dataSetVo=new DataSetVo();
-        List<DataSetColumnVo> dataSetColumnVoList=new ArrayList<>();
-        List<DataSetRelatedTableVo> dataSetRelatedTableVoList=new ArrayList<>();
+    public DataSetPO resolveSQLToDataSet(JB4DCSession jb4DCSession, String sql) throws PropertyVetoException, JBuild4DCGenerallyException {
+        DataSetPO dataSetPO =new DataSetPO();
+        List<DataSetColumnPO> dataSetColumnVoList=new ArrayList<>();
+        List<DataSetRelatedTablePO> dataSetRelatedTablePOList =new ArrayList<>();
 
         CCJSqlParserManager pm = new CCJSqlParserManager();
         Statement statement = null;
@@ -76,9 +76,9 @@ public class SQLDataSetBuilder {
             TablesNamesFinder tablesNamesFinder = new TablesNamesFinder();
             List tableList = tablesNamesFinder.getTableList(selectStatement);
             for (Object o : tableList) {
-                DataSetRelatedTableVo dataSetRelatedTableVo=new DataSetRelatedTableVo();
-                dataSetRelatedTableVo.setRtTableName(o.toString());
-                dataSetRelatedTableVoList.add(dataSetRelatedTableVo);
+                DataSetRelatedTablePO dataSetRelatedTablePO =new DataSetRelatedTablePO();
+                dataSetRelatedTablePO.setRtTableName(o.toString());
+                dataSetRelatedTablePOList.add(dataSetRelatedTablePO);
             }
 
             //判断表是否来自一个数据库
@@ -91,7 +91,7 @@ public class SQLDataSetBuilder {
             }
 
             DbLinkEntity dbLinkEntity=tableService.getDBLinkByTableName(jb4DCSession,tableList.get(0).toString());
-            dataSetVo.setDsSqlDbLinkId(dbLinkEntity.getDbId());
+            dataSetPO.setDsSqlDbLinkId(dbLinkEntity.getDbId());
 
             //解析相关的字段
             //jdbcOperations.execute(sql, new PreparedStatementCallback<Object>() {
@@ -100,7 +100,7 @@ public class SQLDataSetBuilder {
                 public Object doInPreparedStatement(PreparedStatement ps) throws SQLException, DataAccessException {
                     ResultSetMetaData resultSetMetaData=ps.getMetaData();
                     for(int i=1;i<=resultSetMetaData.getColumnCount();i++){
-                        DataSetColumnVo columnVo=new DataSetColumnVo();
+                        DataSetColumnPO columnVo=new DataSetColumnPO();
                         //System.out.println(resultSetMetaData.getColumnLabel(i));
                         //System.out.println(resultSetMetaData.getColumnName(i));
                         //System.out.println(resultSetMetaData.getTableName(i));
@@ -121,11 +121,11 @@ public class SQLDataSetBuilder {
                 }
             });
 
-            dataSetVo.setRelatedTableVoList(dataSetRelatedTableVoList);
-            dataSetVo.setColumnVoList(dataSetColumnVoList);
+            dataSetPO.setRelatedTableVoList(dataSetRelatedTablePOList);
+            dataSetPO.setColumnVoList(dataSetColumnVoList);
         }
 
-        return dataSetVo;
+        return dataSetPO;
     }
 
     /**

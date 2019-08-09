@@ -15,16 +15,16 @@ import java.util.List;
  * Date: 2018/8/8
  * To change this template use File | Settings | File Templates.
  */
-public class DataSetColumnVo extends DatasetColumnEntity {
+public class DataSetColumnPO extends DatasetColumnEntity {
 
-    public static List<DataSetColumnVo> EntityListToVoList(List<DatasetColumnEntity> source) throws IOException {
+    public static List<DataSetColumnPO> EntityListToVoList(List<DatasetColumnEntity> source) throws IOException {
         if(source==null)
             return null;
         else if(source.size()==0){
             return new ArrayList<>();
         }
         String json= JsonUtility.toObjectString(source);
-        List<DataSetColumnVo> result=JsonUtility.toObjectListIgnoreProp(json,DataSetColumnVo.class);
+        List<DataSetColumnPO> result=JsonUtility.toObjectListIgnoreProp(json, DataSetColumnPO.class);
         return result;
     }
 }

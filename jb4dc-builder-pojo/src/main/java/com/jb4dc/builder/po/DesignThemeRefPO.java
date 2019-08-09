@@ -10,7 +10,7 @@ import javax.xml.bind.annotation.*;
         "type",
         "path"
 })
-public class DesignThemeRefVo {
+public class DesignThemeRefPO {
 
     @XmlAttribute(name="type")
     private String type;

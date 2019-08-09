@@ -9,15 +9,15 @@ import java.util.List;
 // 控制JAXB 绑定类中属性和字段的排序
 @XmlType(propOrder = {
         "name",
-        "buttonAPIVoList"
+        "buttonAPIPOList"
 })
-public class ButtonAPIGroupVo {
+public class ButtonAPIGroupPO {
 
     @XmlAttribute(name = "name")
     private String name;
 
     @XmlElement(name = "API")
-    private List<ButtonAPIVo> buttonAPIVoList;
+    private List<ButtonAPIPO> buttonAPIPOList;
 
     public String getName() {
         return name;
@@ -27,11 +27,11 @@ public class ButtonAPIGroupVo {
         this.name = name;
     }
 
-    public List<ButtonAPIVo> getButtonAPIVoList() {
-        return buttonAPIVoList;
+    public List<ButtonAPIPO> getButtonAPIPOList() {
+        return buttonAPIPOList;
     }
 
-    public void setButtonAPIVoList(List<ButtonAPIVo> buttonAPIVoList) {
-        this.buttonAPIVoList = buttonAPIVoList;
+    public void setButtonAPIPOList(List<ButtonAPIPO> buttonAPIPOList) {
+        this.buttonAPIPOList = buttonAPIPOList;
     }
 }

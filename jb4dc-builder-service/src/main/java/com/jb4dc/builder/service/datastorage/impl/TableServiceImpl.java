@@ -1,16 +1,10 @@
 package com.jb4dc.builder.service.datastorage.impl;
 
-import com.jb4dc.base.dbaccess.dynamic.ISQLBuilderMapper;
-import com.jb4dc.base.dbaccess.dynamic.impl.SQLBuilderMapper;
-import com.jb4dc.base.dbaccess.dynamic.impl.TemporarySqlSessionFactoryBuilder;
 import com.jb4dc.base.service.exenum.EnableTypeEnum;
 import com.jb4dc.base.service.exenum.TrueFalseEnum;
 import com.jb4dc.base.service.IMetadataService;
-import com.jb4dc.base.service.ISQLBuilderService;
 import com.jb4dc.base.service.impl.BaseServiceImpl;
 import com.jb4dc.base.service.impl.MetadataServiceImpl;
-import com.jb4dc.base.service.impl.SQLBuilderServiceImpl;
-import com.jb4dc.base.ymls.DBYaml;
 import com.jb4dc.base.ymls.JBuild4DCYaml;
 import com.jb4dc.builder.dao.datastorage.TableFieldMapper;
 import com.jb4dc.builder.dao.datastorage.TableMapper;
@@ -20,9 +14,9 @@ import com.jb4dc.builder.dbentities.datastorage.TableFieldEntity;
 import com.jb4dc.builder.dbentities.datastorage.TableGroupEntity;
 import com.jb4dc.builder.exenum.TableFieldTypeEnum;
 import com.jb4dc.builder.exenum.TableTypeEnum;
-import com.jb4dc.builder.po.TableFieldVO;
-import com.jb4dc.builder.po.UpdateTableResolveVo;
-import com.jb4dc.builder.po.ValidateTableUpdateResultVo;
+import com.jb4dc.builder.po.TableFieldPO;
+import com.jb4dc.builder.po.UpdateTableResolvePO;
+import com.jb4dc.builder.po.ValidateTableUpdateResultPO;
 import com.jb4dc.builder.service.datastorage.IDbLinkService;
 import com.jb4dc.builder.service.datastorage.ITableGroupService;
 import com.jb4dc.builder.service.datastorage.ITableService;
@@ -37,8 +31,6 @@ import com.jb4dc.core.base.list.ListUtility;
 import com.jb4dc.core.base.session.JB4DCSession;
 import com.jb4dc.core.base.tools.StringUtility;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.ibatis.session.SqlSession;
-import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.generatorex.api.IntrospectedColumn;
 import org.mybatis.generatorex.api.IntrospectedTable;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -111,7 +103,7 @@ public class TableServiceImpl extends BaseServiceImpl<TableEntity> implements IT
 
     @Override
     @Transactional(rollbackFor=JBuild4DCGenerallyException.class)
-    public void newTable(JB4DCSession jb4DCSession, TableEntity tableEntity, List<TableFieldVO> tableFieldVOList, String groupId) throws JBuild4DCGenerallyException {
+    public void newTable(JB4DCSession jb4DCSession, TableEntity tableEntity, List<TableFieldPO> tableFieldPOList, String groupId) throws JBuild4DCGenerallyException {
         try {
             if (this.existLogicTableName(jb4DCSession,tableEntity.getTableName())) {
                 throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_BUILDER_CODE,"TBUILD_TABLE中已经存在表名为" + tableEntity.getTableName() + "的逻辑表!");
@@ -120,7 +112,7 @@ public class TableServiceImpl extends BaseServiceImpl<TableEntity> implements IT
                 DbLinkEntity dbLinkEntity=dbLinkService.getByPrimaryKey(jb4DCSession,tableGroupEntity.getTableGroupLinkId());
 
                 //创建物理表
-                boolean createPhysicalTable = tableBuilederFace.newTable(tableEntity, tableFieldVOList,tableGroupEntity,dbLinkEntity);
+                boolean createPhysicalTable = tableBuilederFace.newTable(tableEntity, tableFieldPOList,tableGroupEntity,dbLinkEntity);
                 if (createPhysicalTable) {
 
                     try {
@@ -142,7 +134,7 @@ public class TableServiceImpl extends BaseServiceImpl<TableEntity> implements IT
                         }
                         tableMapper.insertSelective(tableEntity);
                         //写入字段
-                        List<TableFieldEntity> tableFieldEntityList = TableFieldVO.VoListToEntityList(tableFieldVOList);
+                        List<TableFieldEntity> tableFieldEntityList = TableFieldPO.VoListToEntityList(tableFieldPOList);
                         for (TableFieldEntity fieldEntity : tableFieldEntityList) {
                             fieldEntity.setFieldOrderNum(tableFieldMapper.nextOrderNumInTable(tableEntity.getTableId()));
                             fieldEntity.setFieldTableId(tableEntity.getTableId());
@@ -170,8 +162,8 @@ public class TableServiceImpl extends BaseServiceImpl<TableEntity> implements IT
     }
 
     @Override
-    public UpdateTableResolveVo updateTableResolve(JB4DCSession jb4DCSession, TableEntity newTableEntity, List<TableFieldVO> newTableFieldVOList) throws IOException, JBuild4DCGenerallyException {
-        UpdateTableResolveVo resolveVo=new UpdateTableResolveVo();
+    public UpdateTableResolvePO updateTableResolve(JB4DCSession jb4DCSession, TableEntity newTableEntity, List<TableFieldPO> newTableFieldPOList) throws IOException, JBuild4DCGenerallyException {
+        UpdateTableResolvePO resolveVo=new UpdateTableResolvePO();
 
         TableEntity oldTableEntity=tableMapper.selectByPrimaryKey(newTableEntity.getTableId());
 
@@ -179,16 +171,16 @@ public class TableServiceImpl extends BaseServiceImpl<TableEntity> implements IT
         List<TableFieldEntity> oldTableFieldEntityList=tableFieldMapper.selectByTableId(newTableEntity.getTableId());
 
         //待删除的字段
-        List<TableFieldVO> deleteFields=new ArrayList<>();
+        List<TableFieldPO> deleteFields=new ArrayList<>();
         for (TableFieldEntity tableFieldEntity : oldTableFieldEntityList) {
-            if(!ListUtility.Exist(newTableFieldVOList, new IListWhereCondition<TableFieldVO>() {
+            if(!ListUtility.Exist(newTableFieldPOList, new IListWhereCondition<TableFieldPO>() {
                 @Override
-                public boolean Condition(TableFieldVO item) {
+                public boolean Condition(TableFieldPO item) {
                     return item.getFieldId().equals(tableFieldEntity.getFieldId());
                 }
             })){
                 try {
-                    deleteFields.add(TableFieldVO.parseToVo(tableFieldEntity));
+                    deleteFields.add(TableFieldPO.parseToVo(tableFieldEntity));
                 } catch (IOException ex) {
                     ex.printStackTrace();
                     throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_BUILDER_CODE,ex.getMessage());
@@ -197,34 +189,34 @@ public class TableServiceImpl extends BaseServiceImpl<TableEntity> implements IT
         }
 
         //新增的字段
-        List<TableFieldVO> newFields=new ArrayList<>();
-        for (TableFieldVO tableFieldVO : newTableFieldVOList) {
+        List<TableFieldPO> newFields=new ArrayList<>();
+        for (TableFieldPO tableFieldPO : newTableFieldPOList) {
             if(!ListUtility.Exist(oldTableFieldEntityList, new IListWhereCondition<TableFieldEntity>() {
                 @Override
                 public boolean Condition(TableFieldEntity item) {
-                    return item.getFieldId().equals(tableFieldVO.getFieldId());
+                    return item.getFieldId().equals(tableFieldPO.getFieldId());
                 }
             })){
-                newFields.add(tableFieldVO);
+                newFields.add(tableFieldPO);
             }
         }
 
         //修改的字段
-        List<TableFieldVO> updateFields=new ArrayList<>();
+        List<TableFieldPO> updateFields=new ArrayList<>();
         for (TableFieldEntity tableFieldEntity : oldTableFieldEntityList) {
-            TableFieldVO newVo = ListUtility.WhereSingle(newTableFieldVOList, new IListWhereCondition<TableFieldVO>() {
+            TableFieldPO newVo = ListUtility.WhereSingle(newTableFieldPOList, new IListWhereCondition<TableFieldPO>() {
                 @Override
-                public boolean Condition(TableFieldVO item) {
+                public boolean Condition(TableFieldPO item) {
                     return item.getFieldId().equals(tableFieldEntity.getFieldId());
                 }
             });
             try {
                 if(newVo!=null) {
-                    if (TableFieldVO.isUpdate(TableFieldVO.parseToVo(tableFieldEntity), newVo)) {
+                    if (TableFieldPO.isUpdate(TableFieldPO.parseToVo(tableFieldEntity), newVo)) {
                         newVo.setOldFieldName(tableFieldEntity.getFieldName());
                         updateFields.add(newVo);
                     }
-                    else if (TableFieldVO.isUpdateLogicOnly(TableFieldVO.parseToVo(tableFieldEntity), newVo)) {
+                    else if (TableFieldPO.isUpdateLogicOnly(TableFieldPO.parseToVo(tableFieldEntity), newVo)) {
                         newVo.setOldFieldName(tableFieldEntity.getFieldName());
                         newVo.setUpdateLogicOnly(true);
                         updateFields.add(newVo);
@@ -241,54 +233,54 @@ public class TableServiceImpl extends BaseServiceImpl<TableEntity> implements IT
         resolveVo.setNewFields(newFields);
         resolveVo.setUpdateFields(updateFields);
         resolveVo.setDeleteFields(deleteFields);
-        resolveVo.setNewTableFieldVOList(newTableFieldVOList);
-        resolveVo.setOldTableFieldVOList(TableFieldVO.EntityListToVoList(newTableEntity.getTableName(),oldTableFieldEntityList));
+        resolveVo.setNewTableFieldPOList(newTableFieldPOList);
+        resolveVo.setOldTableFieldPOList(TableFieldPO.EntityListToVoList(newTableEntity.getTableName(),oldTableFieldEntityList));
 
         return resolveVo;
     }
 
     @Override
-    public ValidateTableUpdateResultVo validateTableUpdateEnable(JB4DCSession jb4DCSession, TableEntity newTableEntity, List<TableFieldVO> newTableFieldVOList) throws JBuild4DCGenerallyException, IOException, PropertyVetoException {
-        UpdateTableResolveVo updateTableResolveVo=updateTableResolve(jb4DCSession,newTableEntity,newTableFieldVOList);
-        return validateTableUpdateEnable(jb4DCSession,updateTableResolveVo);
+    public ValidateTableUpdateResultPO validateTableUpdateEnable(JB4DCSession jb4DCSession, TableEntity newTableEntity, List<TableFieldPO> newTableFieldPOList) throws JBuild4DCGenerallyException, IOException, PropertyVetoException {
+        UpdateTableResolvePO updateTableResolvePO =updateTableResolve(jb4DCSession,newTableEntity, newTableFieldPOList);
+        return validateTableUpdateEnable(jb4DCSession, updateTableResolvePO);
     }
 
     @Override
-    public ValidateTableUpdateResultVo validateTableUpdateEnable(JB4DCSession jb4DCSession, UpdateTableResolveVo resolveVo) throws JBuild4DCGenerallyException, PropertyVetoException {
-        ValidateTableUpdateResultVo validateTableUpdateResultVo=new ValidateTableUpdateResultVo();
+    public ValidateTableUpdateResultPO validateTableUpdateEnable(JB4DCSession jb4DCSession, UpdateTableResolvePO resolveVo) throws JBuild4DCGenerallyException, PropertyVetoException {
+        ValidateTableUpdateResultPO validateTableUpdateResultPO =new ValidateTableUpdateResultPO();
 
         DbLinkEntity dbLinkEntity=dbLinkService.getByPrimaryKey(jb4DCSession,resolveVo.getNewTableEntity().getTableLinkId());
 
         if(!resolveVo.getOldTableEntity().getTableName().equals(resolveVo.getNewTableEntity().getTableName())){
-            validateTableUpdateResultVo.setEnable(false);
-            validateTableUpdateResultVo.setMessage("表名不能修改!");
-            return validateTableUpdateResultVo;
+            validateTableUpdateResultPO.setEnable(false);
+            validateTableUpdateResultPO.setMessage("表名不能修改!");
+            return validateTableUpdateResultPO;
         }
         int limitNum=1000;
         if(tableBuilederFace.recordCount(resolveVo.getOldTableEntity(),dbLinkEntity)>limitNum){
             if(resolveVo.getUpdateFields().size()>0){
-                validateTableUpdateResultVo.setEnable(false);
-                validateTableUpdateResultVo.setMessage("表"+resolveVo.getOldTableEntity().getTableName()+"的记录条数>"+limitNum+",不允许进行字段的修改,如需修改,请手动修改!");
-                return validateTableUpdateResultVo;
+                validateTableUpdateResultPO.setEnable(false);
+                validateTableUpdateResultPO.setMessage("表"+resolveVo.getOldTableEntity().getTableName()+"的记录条数>"+limitNum+",不允许进行字段的修改,如需修改,请手动修改!");
+                return validateTableUpdateResultPO;
             }
             else if(resolveVo.getDeleteFields().size()>0){
-                validateTableUpdateResultVo.setEnable(false);
-                validateTableUpdateResultVo.setMessage("表"+resolveVo.getOldTableEntity().getTableName()+"的记录条数>"+limitNum+",不允许进行字段的删除,如需修改,请手动修改!");
-                return validateTableUpdateResultVo;
+                validateTableUpdateResultPO.setEnable(false);
+                validateTableUpdateResultPO.setMessage("表"+resolveVo.getOldTableEntity().getTableName()+"的记录条数>"+limitNum+",不允许进行字段的删除,如需修改,请手动修改!");
+                return validateTableUpdateResultPO;
             }
         }
 
-        validateTableUpdateResultVo.setEnable(true);
-        validateTableUpdateResultVo.setMessage("");
-        return validateTableUpdateResultVo;
+        validateTableUpdateResultPO.setEnable(true);
+        validateTableUpdateResultPO.setMessage("");
+        return validateTableUpdateResultPO;
     }
 
     @Override
     @Transactional(rollbackFor=JBuild4DCGenerallyException.class)
-    public List<String> updateTable(JB4DCSession jb4DCSession, TableEntity newTableEntity, List<TableFieldVO> newTableFieldVOList,boolean ignorePhysicalError) throws JBuild4DCGenerallyException, IOException, PropertyVetoException {
+    public List<String> updateTable(JB4DCSession jb4DCSession, TableEntity newTableEntity, List<TableFieldPO> newTableFieldPOList, boolean ignorePhysicalError) throws JBuild4DCGenerallyException, IOException, PropertyVetoException {
         List<String> resultMessage=new ArrayList<>();
 
-        UpdateTableResolveVo updateTableResolveVo=updateTableResolve(jb4DCSession,newTableEntity,newTableFieldVOList);
+        UpdateTableResolvePO updateTableResolvePO =updateTableResolve(jb4DCSession,newTableEntity, newTableFieldPOList);
 
         if(newTableEntity.getTableGroupId()==null||newTableEntity.getTableGroupId().equals("")) {
             throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_BUILDER_CODE,"newTableEntity中的TableGroupId不能为空!");
@@ -300,9 +292,9 @@ public class TableServiceImpl extends BaseServiceImpl<TableEntity> implements IT
         DbLinkEntity dbLinkEntity=dbLinkService.getByPrimaryKey(jb4DCSession,newTableEntity.getTableLinkId());
 
         //判断能否进行表的修改
-        ValidateTableUpdateResultVo validateTableUpdateResultVo=this.validateTableUpdateEnable(jb4DCSession,updateTableResolveVo);
-        if(!validateTableUpdateResultVo.isEnable()){
-            throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_BUILDER_CODE,validateTableUpdateResultVo.getMessage());
+        ValidateTableUpdateResultPO validateTableUpdateResultPO =this.validateTableUpdateEnable(jb4DCSession, updateTableResolvePO);
+        if(!validateTableUpdateResultPO.isEnable()){
+            throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_BUILDER_CODE, validateTableUpdateResultPO.getMessage());
         }
 
         try
@@ -310,7 +302,7 @@ public class TableServiceImpl extends BaseServiceImpl<TableEntity> implements IT
 
             //修改物理表结构
             try {
-                tableBuilederFace.updateTable(newTableEntity,updateTableResolveVo.getNewFields(),updateTableResolveVo.getUpdateFields(),updateTableResolveVo.getDeleteFields(),tableGroupEntity,dbLinkEntity);
+                tableBuilederFace.updateTable(newTableEntity, updateTableResolvePO.getNewFields(), updateTableResolvePO.getUpdateFields(), updateTableResolvePO.getDeleteFields(),tableGroupEntity,dbLinkEntity);
             }
             catch (Exception ex){
                 if(ignorePhysicalError){
@@ -327,7 +319,7 @@ public class TableServiceImpl extends BaseServiceImpl<TableEntity> implements IT
             newTableEntity.setTableUpdateTime(new Date());
             tableMapper.updateByPrimaryKeySelective(newTableEntity);
             //新增字段
-            for (TableFieldEntity newfieldEntity : updateTableResolveVo.getNewFields()) {
+            for (TableFieldEntity newfieldEntity : updateTableResolvePO.getNewFields()) {
                 newfieldEntity.setFieldOrderNum(tableFieldMapper.nextOrderNumInTable(newTableEntity.getTableId()));
                 newfieldEntity.setFieldTableId(newTableEntity.getTableId());
                 newfieldEntity.setFieldCreator(jb4DCSession.getUserName());
@@ -338,13 +330,13 @@ public class TableServiceImpl extends BaseServiceImpl<TableEntity> implements IT
                 tableFieldMapper.insertSelective(newfieldEntity);
             }
             //修改字段
-            for (TableFieldEntity updateField : updateTableResolveVo.getUpdateFields()) {
+            for (TableFieldEntity updateField : updateTableResolvePO.getUpdateFields()) {
                 updateField.setFieldUpdater(jb4DCSession.getUserName());
                 updateField.setFieldUpdateTime(new Date());
                 tableFieldMapper.updateByPrimaryKeySelective(updateField);
             }
             //删除字段
-            for (TableFieldEntity fieldEntity : updateTableResolveVo.getDeleteFields()) {
+            for (TableFieldEntity fieldEntity : updateTableResolvePO.getDeleteFields()) {
                 tableFieldMapper.deleteByPrimaryKey(fieldEntity.getFieldId());
             }
             return resultMessage;

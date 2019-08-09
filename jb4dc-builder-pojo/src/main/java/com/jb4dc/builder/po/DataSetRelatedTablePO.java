@@ -13,15 +13,15 @@ import java.util.List;
  * Date: 2018/8/9
  * To change this template use File | Settings | File Templates.
  */
-public class DataSetRelatedTableVo extends DatasetRelatedTableEntity {
-    public static List<DataSetRelatedTableVo> EntityListToVoList(List<DatasetRelatedTableEntity> source) throws IOException {
+public class DataSetRelatedTablePO extends DatasetRelatedTableEntity {
+    public static List<DataSetRelatedTablePO> EntityListToVoList(List<DatasetRelatedTableEntity> source) throws IOException {
         if(source==null)
             return null;
         else if(source.size()==0){
             return new ArrayList<>();
         }
         String json= JsonUtility.toObjectString(source);
-        List<DataSetRelatedTableVo> result=JsonUtility.toObjectListIgnoreProp(json,DataSetRelatedTableVo.class);
+        List<DataSetRelatedTablePO> result=JsonUtility.toObjectListIgnoreProp(json, DataSetRelatedTablePO.class);
         return result;
     }
 }

@@ -1,15 +1,13 @@
 package com.jb4dc.builder.service.dataset.impl;
 
 import com.jb4dc.base.service.IAddBefore;
-import com.jb4dc.base.service.ISQLBuilderService;
 import com.jb4dc.base.service.impl.BaseServiceImpl;
 import com.jb4dc.builder.dao.dataset.DatasetRelatedTableMapper;
 import com.jb4dc.builder.dbentities.dataset.DatasetRelatedTableEntity;
-import com.jb4dc.builder.po.DataSetRelatedTableVo;
+import com.jb4dc.builder.po.DataSetRelatedTablePO;
 import com.jb4dc.builder.service.dataset.IDatasetRelatedTableService;
 import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
 import com.jb4dc.core.base.session.JB4DCSession;
-import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -50,9 +48,9 @@ public class DatasetRelatedTableServiceImpl extends BaseServiceImpl<DatasetRelat
     }
 
     @Override
-    public List<DataSetRelatedTableVo> getByDataSetId(JB4DCSession jb4DCSession, String dataSetId) throws IOException {
+    public List<DataSetRelatedTablePO> getByDataSetId(JB4DCSession jb4DCSession, String dataSetId) throws IOException {
         List<DatasetRelatedTableEntity> datasetRelatedTableEntities=datasetRelatedTableMapper.selectByDataSetId(dataSetId);
-        return DataSetRelatedTableVo.EntityListToVoList(datasetRelatedTableEntities);
+        return DataSetRelatedTablePO.EntityListToVoList(datasetRelatedTableEntities);
     }
 }
 

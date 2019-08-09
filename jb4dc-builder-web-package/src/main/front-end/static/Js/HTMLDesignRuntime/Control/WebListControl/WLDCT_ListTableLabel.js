@@ -1,3 +1,4 @@
 var WLDCT_ListTableLabel= {
-    RendererChain: HTMLControl.RendererChain
+    RendererChain: HTMLControl.RendererChain,
+    RendererDataChain:HTMLControl.RendererDataChain
 }

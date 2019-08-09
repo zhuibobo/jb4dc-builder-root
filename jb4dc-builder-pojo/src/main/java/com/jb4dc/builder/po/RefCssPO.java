@@ -1,6 +1,6 @@
 package com.jb4dc.builder.po;
 
-public class RefCssVo {
+public class RefCssPO {
 
     private String path;
 

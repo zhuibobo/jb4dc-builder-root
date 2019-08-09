@@ -11,8 +11,8 @@ import com.jb4dc.base.service.general.JB4DCSessionUtility;
 import com.jb4dc.builder.dbentities.datastorage.TableEntity;
 import com.jb4dc.builder.dbentities.datastorage.TableGroupEntity;
 import com.jb4dc.builder.po.EnvVariableVo;
-import com.jb4dc.builder.po.SQLResolveToDataSetVo;
-import com.jb4dc.builder.po.TableFieldVO;
+import com.jb4dc.builder.po.SQLResolveToDataSetPO;
+import com.jb4dc.builder.po.TableFieldPO;
 import com.jb4dc.builder.po.ZTreeNodePOConvert;
 import com.jb4dc.builder.service.dataset.IDatasetService;
 import com.jb4dc.builder.service.datastorage.ITableFieldService;
@@ -85,9 +85,9 @@ public class DataSetSQLDesignerRest {
             //String sqlValue=datasetService.sqlReplaceEnvTextToEnvValue(jb4DCSession,sqlText);
             //String sqlWithEnvText=sqlText;
             sqlText= URLDecoder.decode(sqlText,"utf-8");
-            SQLResolveToDataSetVo sqlResolveToDataSetVo=datasetService.sqlResolveToDataSetVo(jb4DCSession,sqlText);
+            SQLResolveToDataSetPO sqlResolveToDataSetPO =datasetService.sqlResolveToDataSetVo(jb4DCSession,sqlText);
             //List<TableFieldVO> tableFieldVOList=tableFieldService.getTableFieldsByTableId(tableId);
-            return JBuild4DCResponseVo.success("校验成功！",sqlResolveToDataSetVo);
+            return JBuild4DCResponseVo.success("校验成功！", sqlResolveToDataSetPO);
         }
         catch (Exception ex){
             return JBuild4DCResponseVo.error(ex.getMessage());
@@ -98,8 +98,8 @@ public class DataSetSQLDesignerRest {
     public JBuild4DCResponseVo getTableField(String tableId) {
         try {
             JB4DCSession jb4DCSession = JB4DCSessionUtility.getSession();
-            List<TableFieldVO> tableFieldVOList=tableFieldService.getTableFieldsByTableId(tableId);
-            return JBuild4DCResponseVo.success("获取成功", tableFieldVOList);
+            List<TableFieldPO> tableFieldPOList =tableFieldService.getTableFieldsByTableId(tableId);
+            return JBuild4DCResponseVo.success("获取成功", tableFieldPOList);
         }
         catch (Exception ex){
             return JBuild4DCResponseVo.error(ex.getMessage());

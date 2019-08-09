@@ -8,7 +8,7 @@ import com.jb4dc.builder.dbentities.datastorage.TableEntity;
 import com.jb4dc.builder.dbentities.datastorage.TableFieldEntity;
 import com.jb4dc.builder.dbentities.datastorage.TableGroupEntity;
 import com.jb4dc.builder.exenum.TableFieldTypeEnum;
-import com.jb4dc.builder.po.TableFieldVO;
+import com.jb4dc.builder.po.TableFieldPO;
 import com.jb4dc.core.base.exception.JBuild4DCPhysicalTableException;
 
 import java.beans.PropertyVetoException;
@@ -92,7 +92,7 @@ public class MSSQLTableBuilder extends TableBuidler {
         }
     }
 
-    protected boolean updateField(TableEntity tableEntity, TableFieldVO fieldVO, TableGroupEntity tableGroupEntity, DbLinkEntity dbLinkEntity) throws JBuild4DCPhysicalTableException {
+    protected boolean updateField(TableEntity tableEntity, TableFieldPO fieldVO, TableGroupEntity tableGroupEntity, DbLinkEntity dbLinkEntity) throws JBuild4DCPhysicalTableException {
         try
         {
             //throw JBuild4DCPhysicalTableException.getFieldUpdateError();
@@ -111,7 +111,7 @@ public class MSSQLTableBuilder extends TableBuidler {
     }
 
     @Override
-    public boolean deleteField(TableEntity tableEntity,TableFieldVO fieldVO, TableGroupEntity tableGroupEntity, DbLinkEntity dbLinkEntity) throws PropertyVetoException {
+    public boolean deleteField(TableEntity tableEntity, TableFieldPO fieldVO, TableGroupEntity tableGroupEntity, DbLinkEntity dbLinkEntity) throws PropertyVetoException {
         String dropTempFieldSQL="alter table "+tableEntity.getTableName()+" drop column "+fieldVO.getFieldName();
         //sqlBuilderService.execute(dropTempFieldSQL);
         ClientDataSourceManager.execute(dbLinkEntity,dropTempFieldSQL);

@@ -3,8 +3,8 @@ package com.jb4dc.builder.htmldesign.impl;
 
 import com.jb4dc.base.tools.XMLUtility;
 import com.jb4dc.builder.htmldesign.IHTMLDesignThemesService;
-import com.jb4dc.builder.po.DesignThemeConfigVo;
-import com.jb4dc.builder.po.DesignThemeVo;
+import com.jb4dc.builder.po.DesignThemeConfigPO;
+import com.jb4dc.builder.po.DesignThemePO;
 import org.springframework.stereotype.Service;
 
 import javax.xml.bind.JAXBException;
@@ -15,8 +15,8 @@ import java.util.List;
 public class HTMLDesignThemesServiceImpl implements IHTMLDesignThemesService {
 
     @Override
-    public List<DesignThemeVo> getDesignThemeList() throws JAXBException {
+    public List<DesignThemePO> getDesignThemeList() throws JAXBException {
         InputStream is = getClass().getResourceAsStream("/config/builder/htmldesign/design-themes-config.xml");
-        return XMLUtility.toObject(is, DesignThemeConfigVo.class).getThemes();
+        return XMLUtility.toObject(is, DesignThemeConfigPO.class).getThemes();
     }
 }

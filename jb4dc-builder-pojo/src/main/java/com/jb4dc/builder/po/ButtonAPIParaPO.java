@@ -12,7 +12,7 @@ import javax.xml.bind.annotation.*;
         "key",
         "value"
 })
-public class ButtonAPIParaVo {
+public class ButtonAPIParaPO {
 
     @XmlAttribute(name = "key")
     private String key;

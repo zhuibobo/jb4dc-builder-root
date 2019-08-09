@@ -7,7 +7,7 @@ import com.jb4dc.builder.dao.webform.FormResourceMapper;
 import com.jb4dc.builder.dbentities.webform.FormResourceEntity;
 import com.jb4dc.builder.htmldesign.IHTMLRuntimeResolve;
 import com.jb4dc.builder.po.FormResourcePO;
-import com.jb4dc.builder.po.RecordDataVo;
+import com.jb4dc.builder.po.RecordDataPO;
 import com.jb4dc.builder.service.module.IModuleService;
 import com.jb4dc.builder.service.webform.IFormResourceService;
 import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
@@ -97,7 +97,7 @@ public class FormResourceServiceImpl extends BaseServiceImpl<FormResourceEntity>
     }
 
     @Override
-    public FormResourcePO getFormRuntimePageContent(JB4DCSession jb4DCSession, String id, RecordDataVo recordDataVo) throws JBuild4DCGenerallyException {
+    public FormResourcePO getFormRuntimePageContent(JB4DCSession jb4DCSession, String id, RecordDataPO recordDataVo) throws JBuild4DCGenerallyException {
         FormResourceEntity formResourceEntity=getByPrimaryKey(jb4DCSession,id);
         String formHtmlRuntime=htmlRuntimeResolve.dynamicBind(jb4DCSession,id,formResourceEntity.getFormHtmlResolve());
         return new FormResourcePO(formResourceEntity,formHtmlRuntime);
