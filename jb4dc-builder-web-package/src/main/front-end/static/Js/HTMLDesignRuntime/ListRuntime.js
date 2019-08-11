@@ -44,7 +44,17 @@ var ListRuntime={
 
             //获取绑定的数据集合之后
             var topDataSetId=result.data.listDatasetId;
-            AjaxUtility.Get("",{},function (result) {
+            var sendData = JSON.stringify({
+                dataSetId:topDataSetId,
+                pageSize:10,
+                pageNum:1,
+                queryValue:"",
+                exValue1:"",
+                exValue2:"",
+                exValue3:""
+            });
+            AjaxUtility.PostRequestBody("/Rest/Builder/RunTime/ListRuntime/GetDataSetData",sendData,function (getDataSetResult) {
+                console.log(getDataSetResult);
                 //进行数据渲染
                 VirtualBodyControl.RendererDataChain({
                     listEntity:result.data,
@@ -52,7 +62,7 @@ var ListRuntime={
                     $rootElem:this._$RendererToElem,
                     $parentControlElem:this._$RendererToElem,
                     $singleControlElem:this._$RendererToElem,
-                    topDataSet:null
+                    topDataSet:getDataSetResult.data
                 });
             },this);
 

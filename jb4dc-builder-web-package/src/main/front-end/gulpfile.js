@@ -148,11 +148,11 @@ gulp.task('html-template-web-package',()=>{
 
 gulp.task('all', gulp.series('html-design-all','html-template-web-package','js-vue-ex-component','js-ui-component'));
 
-gulp.task('all-debug',done =>{
+/*gulp.task('all-debug',done =>{
      var isdebug=true;
      gulp.series('all');
      done();
-});
+});*/
 
 gulp.task('dist-watch', function() {
     //gulp.watch(sourcePath+"/HTML/**/*", gulp.series('html-only'));
@@ -164,7 +164,8 @@ gulp.task('dist-watch', function() {
 gulp.task('dist-watch-debug', function() {
     //gulp.watch(sourcePath+"/HTML/**/*", gulp.series('html-only'));
     //gulp.watch(sourcePath + "/Js/VueComponent/**/*.js", gulp.series('js-vue-ex-component'));
-    gulp.watch(sourcePath+"/**/*", gulp.series('all-debug'));
+    var isdebug=true;
+    gulp.watch(sourcePath+"/**/*", gulp.series('all'));
 });
 
 //endregion

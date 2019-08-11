@@ -1,9 +1,11 @@
 package com.jb4dc.builder.service.dataset;
 
+import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
 import com.jb4dc.base.service.IBaseService;
 import com.jb4dc.builder.dbentities.dataset.DatasetEntity;
 import com.jb4dc.builder.po.DataSetPO;
+import com.jb4dc.builder.po.QueryDataSetPO;
 import com.jb4dc.builder.po.SQLResolveToDataSetPO;
 import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
 import com.jb4dc.core.base.session.JB4DCSession;
@@ -13,6 +15,8 @@ import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.xpath.XPathExpressionException;
 import java.beans.PropertyVetoException;
 import java.io.IOException;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Created with IntelliJ IDEA.
@@ -38,4 +42,6 @@ public interface IDatasetService extends IBaseService<DatasetEntity> {
     PageInfo<DatasetEntity> getPageByGroupId(JB4DCSession jb4DCSession, Integer pageNum, Integer pageSize, String groupId);
 
     DataSetPO getApiDataSetVoStructure(JB4DCSession session, String recordId, String op, String groupId, String fullClassName) throws IllegalAccessException, InstantiationException;
+
+    PageInfo<List<Map<String, Object>>> getDataSetData(JB4DCSession session, QueryDataSetPO queryDataSetPO) throws JBuild4DCGenerallyException;
 }

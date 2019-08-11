@@ -250,10 +250,10 @@ var WLDCT_ListTableContainer= {
     RendererChain: function (_rendererChainParas) {
         //$singleControlElem.hide();
         var $singleControlElem=_rendererChainParas.$singleControlElem;
-        var $buttonDivElemList=$singleControlElem.find("div"+HTMLControlAttrs.SELECTED_JBUILD4DC_CUSTOM);
+        //var $buttonDivElemList=$singleControlElem.find("div"+HTMLControlAttrs.SELECTED_JBUILD4DC_CUSTOM);
         //$singleControlElem.find("[is-op-button-wrap-table='true']").hide();
-        $singleControlElem.find(".wldct-list-table-inner-wrap").html(this.GetHTML());
-        $singleControlElem.find(".wldct-list-table-inner-wrap").width("500px");
+        /*$singleControlElem.find(".wldct-list-table-inner-wrap").html(this.GetHTML());
+        $singleControlElem.find(".wldct-list-table-inner-wrap").width("2200px");
         var table = $('#example').DataTable( {
             scrollY:        "400px",
             scrollX:        true,
@@ -261,7 +261,57 @@ var WLDCT_ListTableContainer= {
             "ordering": false,
             "searching": false,
             "info": false
-        } );
+        } );*/
     },
-    RendererDataChain:HTMLControl.RendererDataChain
+    RendererDataChain:function (_rendererDataChainParas){
+        //return
+        //debugger;
+        var usedTopDataSet=true;
+        var $singleControlElem=_rendererDataChainParas.$singleControlElem;
+        if(usedTopDataSet){
+            var dataSet=_rendererDataChainParas.topDataSet;
+            var $templateTable=$singleControlElem.find("table");
+            var $templateTableRow=$singleControlElem.find("table tbody tr");
+            if($templateTableRow.length>0) {
+                var $templateTableBody=$singleControlElem.find("table tbody");
+                for(var i=0;i<dataSet.list.length;i++){
+                    $templateTableBody.append(this.RendererSingleRow($templateTableRow,dataSet,dataSet.list[i]));
+                    $templateTableBody.append(this.RendererSingleRow($templateTableRow,dataSet,dataSet.list[i]));
+                    $templateTableBody.append(this.RendererSingleRow($templateTableRow,dataSet,dataSet.list[i]));
+                }
+                $templateTableRow.remove();
+            }
+            //alert(PageStyleUtility.GetWindowWidth());
+            $singleControlElem.find(".wldct-list-table-inner-wrap").width(PageStyleUtility.GetWindowWidth()-20);
+            $templateTable.addClass("stripe row-border order-column");
+            $templateTable.width("100%");
+            var scrollY=PageStyleUtility.GetWindowHeight()-$(".wldct-list-simple-search-outer-wrap").height()-$(".wldct-list-button-outer-wrap").height()-120;
+            //alert(PageStyleUtility.GetWindowHeight()+"|"+$(".wldct-list-simple-search-outer-wrap").height()+"|"+scrollY);
+            var table = $templateTable.DataTable( {
+                scrollY:        scrollY,
+                scrollX:        true,
+                paging:         false,
+                "ordering": false,
+                "searching": false,
+                "info": false
+            } );
+        }
+    },
+    RendererSingleRow:function ($templateTableRow, dataSet, rowData) {
+        var $cloneRow=$templateTableRow.clone();
+        console.log($cloneRow);
+        var $tds=$cloneRow.find("td");
+        for (let i = 0; i < $tds.length; i++) {
+            var $td = $($tds[i]);
+            var $divCTElem = $td.find("div" + HTMLControlAttrs.SELECTED_JBUILD4DC_CUSTOM);
+            var bindToField = $divCTElem.attr("columnname");
+            var val = rowData[bindToField];
+            this.RendererSingleCell($templateTableRow, dataSet, rowData, $cloneRow, $td, val);
+        }
+        return $cloneRow;
+    },
+    RendererSingleCell:function ($templateTableRow, dataSet, rowData,$row,$td,value) {
+        $td.css("textAlign","center");
+        $td.html(value);
+    }
 }

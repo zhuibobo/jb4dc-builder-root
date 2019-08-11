@@ -1,7 +1,9 @@
 package com.jb4dc.builder.service.dataset.impl;
 
+import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.jb4dc.base.dbaccess.dynamic.ISQLBuilderMapper;
 import com.jb4dc.base.service.IAddBefore;
 import com.jb4dc.base.service.IUpdateBefore;
 import com.jb4dc.base.service.impl.BaseServiceImpl;
@@ -62,6 +64,7 @@ public class DatasetServiceImpl extends BaseServiceImpl<DatasetEntity> implement
     ITableService tableService;
     ITableFieldService tableFieldService;
     IEnvVariableService envVariableService;
+    ISQLBuilderMapper sqlBuilderMapper;
 
     Logger logger = LoggerFactory.getLogger(DatasetServiceImpl.class);
 
@@ -72,7 +75,7 @@ public class DatasetServiceImpl extends BaseServiceImpl<DatasetEntity> implement
     public DatasetServiceImpl(DatasetMapper _defaultBaseMapper,
                               SqlSessionTemplate _sqlSessionTemplate, JdbcOperations _jdbcOperations,
                               IBuilderConfigService _builderConfigService, ITableService _tableService, ITableFieldService _tableFieldService,
-                              IEnvVariableService _envVariableService, IDatasetRelatedTableService _datasetRelatedTableService, IDatasetColumnService _datasetColumnService){
+                              IEnvVariableService _envVariableService, IDatasetRelatedTableService _datasetRelatedTableService, IDatasetColumnService _datasetColumnService,ISQLBuilderMapper _sqlBuilderMapper){
         super(_defaultBaseMapper);
         datasetMapper=_defaultBaseMapper;
         jdbcOperations=_jdbcOperations;
@@ -82,6 +85,7 @@ public class DatasetServiceImpl extends BaseServiceImpl<DatasetEntity> implement
         envVariableService=_envVariableService;
         datasetRelatedTableService=_datasetRelatedTableService;
         datasetColumnService=_datasetColumnService;
+        sqlBuilderMapper=_sqlBuilderMapper;
     }
 
     @Override
@@ -328,10 +332,14 @@ public class DatasetServiceImpl extends BaseServiceImpl<DatasetEntity> implement
 
     @Override
     public String sqlReplaceRunningValueToEmptyFilter(JB4DCSession jb4DCSession, String sqlRunValue) {
-        if (sqlRunValue.indexOf("where") > 0) {
-            return sqlRunValue.replaceAll("(?i)where", "where 1=2 and");
+        sqlRunValue=sqlRunValue.toUpperCase();
+        if (sqlRunValue.indexOf("WHERE") > 0) {
+            return sqlRunValue.replaceAll("(?i)WHERE", "WHERE 1=2 AND");
         } else {
-            sqlRunValue = sqlRunValue + " where 1=2";
+            if(sqlRunValue.indexOf(" ORDER BY ")>0){
+                return sqlRunValue.replaceAll("(?i)ORDER BY", "WHERE 1=2 ORDER BY");
+            }
+            sqlRunValue = sqlRunValue + " WHERE 1=2";
             return sqlRunValue;
         }
     }
@@ -378,6 +386,19 @@ public class DatasetServiceImpl extends BaseServiceImpl<DatasetEntity> implement
     public DataSetPO getApiDataSetVoStructure(JB4DCSession session, String recordId, String op, String groupId, String fullClassName) throws IllegalAccessException, InstantiationException {
         IDataSetAPI dataSetAPI=(IDataSetAPI) ClassUtility.loadClass(fullClassName).newInstance();
         return dataSetAPI.getDataSetStructure(session,recordId,op,groupId,"");
+    }
+
+    @Override
+    public PageInfo<List<Map<String, Object>>> getDataSetData(JB4DCSession session,QueryDataSetPO queryDataSetPO) throws JBuild4DCGenerallyException {
+        DatasetEntity datasetEntity=datasetMapper.selectByPrimaryKey(queryDataSetPO.getDataSetId());
+
+        PageHelper.startPage(queryDataSetPO.getPageNum(), queryDataSetPO.getPageSize());
+        String sql=datasetEntity.getDsSqlSelectValue();
+        sql=sqlReplaceEnvValueToRunningValue(session,sql);
+        List<Map<String, Object>> list=sqlBuilderMapper.selectList(sql);
+
+        PageInfo<List<Map<String, Object>>> pageInfo = new PageInfo(list);
+        return pageInfo;
     }
 
     private boolean validateResolveSqlWithKeyWord(String sql) throws JBuild4DCGenerallyException {
