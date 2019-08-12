@@ -1,4 +1,4 @@
-var WLDCT_ListTableLabel= {
+var WLDCT_ListTableCheckBox={
     RendererChain: HTMLControl.RendererChain,
     RendererDataChain:function (_rendererDataChainParas) {
         /*{
@@ -13,6 +13,6 @@ var WLDCT_ListTableLabel= {
         var value=_rendererDataChainParas.val;
         var $td=_rendererDataChainParas.$td;
         $td.css("textAlign","center");
-        $td.html(value);
+        $td.html("<input isrow_checkbox=\"true\" type=\"checkbox\" class=\"list-checkbox-c\" value=\""+value+"\">");
     }
 }

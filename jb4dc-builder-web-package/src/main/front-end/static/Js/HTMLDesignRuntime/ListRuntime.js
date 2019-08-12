@@ -46,7 +46,7 @@ var ListRuntime={
             var topDataSetId=result.data.listDatasetId;
             var sendData = JSON.stringify({
                 dataSetId:topDataSetId,
-                pageSize:10,
+                pageSize:result.data.listDatasetPageSize,
                 pageNum:1,
                 queryValue:"",
                 exValue1:"",

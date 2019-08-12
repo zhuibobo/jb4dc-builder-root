@@ -247,6 +247,17 @@ var WLDCT_ListTableContainer= {
             "        </tbody>\n" +
             "    </table>"
     },
+    _InstanceMap:{},
+    GetInstance:function(name){
+        for(var key in this._InstanceMap){
+            if(key==name){
+                return this._InstanceMap[key];
+            }
+        }
+        var instance=eval(name);
+        this._InstanceMap[name]=instance;
+        return instance;
+    },
     RendererChain: function (_rendererChainParas) {
         //$singleControlElem.hide();
         var $singleControlElem=_rendererChainParas.$singleControlElem;
@@ -268,49 +279,101 @@ var WLDCT_ListTableContainer= {
         //debugger;
         var usedTopDataSet=true;
         var $singleControlElem=_rendererDataChainParas.$singleControlElem;
-        if(usedTopDataSet){
-            var dataSet=_rendererDataChainParas.topDataSet;
-            var $templateTable=$singleControlElem.find("table");
-            var $templateTableRow=$singleControlElem.find("table tbody tr");
-            if($templateTableRow.length>0) {
-                var $templateTableBody=$singleControlElem.find("table tbody");
-                for(var i=0;i<dataSet.list.length;i++){
-                    $templateTableBody.append(this.RendererSingleRow($templateTableRow,dataSet,dataSet.list[i]));
-                    $templateTableBody.append(this.RendererSingleRow($templateTableRow,dataSet,dataSet.list[i]));
-                    $templateTableBody.append(this.RendererSingleRow($templateTableRow,dataSet,dataSet.list[i]));
-                }
-                $templateTableRow.remove();
-            }
-            //alert(PageStyleUtility.GetWindowWidth());
-            $singleControlElem.find(".wldct-list-table-inner-wrap").width(PageStyleUtility.GetWindowWidth()-20);
-            $templateTable.addClass("stripe row-border order-column");
-            $templateTable.width("100%");
-            var scrollY=PageStyleUtility.GetWindowHeight()-$(".wldct-list-simple-search-outer-wrap").height()-$(".wldct-list-button-outer-wrap").height()-120;
-            //alert(PageStyleUtility.GetWindowHeight()+"|"+$(".wldct-list-simple-search-outer-wrap").height()+"|"+scrollY);
-            var table = $templateTable.DataTable( {
-                scrollY:        scrollY,
-                scrollX:        true,
-                paging:         false,
-                "ordering": false,
-                "searching": false,
-                "info": false
-            } );
+        var dataSet;
+        if(usedTopDataSet) {
+            dataSet = _rendererDataChainParas.topDataSet;
         }
+
+        var $templateTable = $singleControlElem.find("table");
+        var $templateTableRow = $singleControlElem.find("table tbody tr");
+        var $templateTableHeaderRows = $singleControlElem.find("table thead tr");
+        this.AppendCheckBoxColumnTemplate($templateTable,$templateTableHeaderRows,$templateTableRow);
+        if ($templateTableRow.length > 0) {
+            var $templateTableBody = $singleControlElem.find("table tbody");
+            for (var i = 0; i < dataSet.list.length; i++) {
+                $templateTableBody.append(this.RendererSingleRow($templateTable,$templateTableRow, dataSet, dataSet.list[i]));
+            }
+            $templateTableRow.remove();
+        }
+
+        //alert(PageStyleUtility.GetWindowWidth());
+        $singleControlElem.find(".wldct-list-table-inner-wrap").width(PageStyleUtility.GetWindowWidth() - 20);
+        $templateTable.addClass("stripe row-border order-column");
+        $templateTable.width("100%");
+        var scrollY = PageStyleUtility.GetWindowHeight() - $(".wldct-list-simple-search-outer-wrap").height() - $(".wldct-list-button-outer-wrap").height() - 120;
+        //alert(PageStyleUtility.GetWindowHeight()+"|"+$(".wldct-list-simple-search-outer-wrap").height()+"|"+scrollY);
+        //return;
+        var table = $templateTable.DataTable({
+            scrollY: scrollY,
+            scrollX: true,
+            paging: false,
+            "ordering": false,
+            "searching": false,
+            "info": false
+        });
     },
-    RendererSingleRow:function ($templateTableRow, dataSet, rowData) {
+    AppendCheckBoxColumnTemplate:function($templateTable,$templateTableHeaderRows,$templateTableRow){
+        var $th=$("<th>选择</th>");
+        if($templateTableHeaderRows.length>1){
+            $th.attr("rowspan",$templateTableHeaderRows.length);
+        }
+        $($templateTableHeaderRows[0]).prepend($th);
+        $templateTableRow.prepend(`<td>
+                                    <div 
+                                    columnalign="居中对齐" 
+                                    columncaption="组织名称" 
+                                    columndatatypename="字符串" 
+                                    columnname="ID" 
+                                    columntablename="" 
+                                    control_category="InputControl" 
+                                    custclientrenderermethod="" 
+                                    custclientrenderermethodpara="" 
+                                    custserverresolvemethod="" 
+                                    custserverresolvemethodpara="" 
+                                    defaulttext="" 
+                                    defaulttype="" 
+                                    defaultvalue="" 
+                                    desc="" 
+                                    id="check_box_template" 
+                                    is_jbuild4dc_data="true" 
+                                    jbuild4dc_custom="true" 
+                                    name="check_box_template" 
+                                    placeholder="" 
+                                    serialize="true" 
+                                    show_remove_button="true" 
+                                    singlename="WLDCT_ListTableCheckBox" 
+                                    style="" 
+                                    targetbuttonid="" 
+                                    client_resolve="WLDCT_ListTableCheckBox">
+                                        组织名称[默认值:]
+                                    </div>
+                                  </td>`);
+    },
+    RendererSingleRow:function ($templateTable,$templateTableRow, dataSet, rowData) {
         var $cloneRow=$templateTableRow.clone();
-        console.log($cloneRow);
+        //console.log($cloneRow);
         var $tds=$cloneRow.find("td");
         for (let i = 0; i < $tds.length; i++) {
             var $td = $($tds[i]);
             var $divCTElem = $td.find("div" + HTMLControlAttrs.SELECTED_JBUILD4DC_CUSTOM);
             var bindToField = $divCTElem.attr("columnname");
             var val = rowData[bindToField];
-            this.RendererSingleCell($templateTableRow, dataSet, rowData, $cloneRow, $td, val);
+            var clientResolveInstanceName=$divCTElem.attr(HTMLControlAttrs.CLIENT_RESOLVE);
+            var instance=WLDCT_ListTableContainer.GetInstance(clientResolveInstanceName);
+            instance.RendererDataChain({
+                $templateTable:$templateTable,
+                $templateTableRow:$templateTableRow,
+                dataSet:dataSet,
+                rowData:rowData,
+                $cloneRow:$cloneRow,
+                $td:$td,
+                val:val
+            });
+            //this.RendererSingleCell($templateTable,$templateTableRow, dataSet, rowData, $cloneRow, $td, val);
         }
         return $cloneRow;
     },
-    RendererSingleCell:function ($templateTableRow, dataSet, rowData,$row,$td,value) {
+    RendererSingleCell:function ($templateTable,$templateTableRow, dataSet, rowData,$row,$td,value) {
         $td.css("textAlign","center");
         $td.html(value);
     }

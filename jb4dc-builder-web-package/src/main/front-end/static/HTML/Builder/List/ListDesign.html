@@ -52,7 +52,7 @@
                             </radio-group>
                         </form-item>
                         <form-item label="每页条数：">
-                            <input-number :max="50" :min="5" v-model="listResourceEntity.listDatasetPageSize"></input-number>
+                            <input-number v-model="listResourceEntity.listDatasetPageSize"></input-number>
                         </form-item>
                         <form-item label="主题：">
                             <i-select v-model="listResourceEntity.listTheme" @on-change="changeTheme">
