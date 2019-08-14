@@ -2,6 +2,7 @@ package com.jb4dc.builder.po;
 
 import com.jb4dc.base.tools.JsonUtility;
 import com.jb4dc.builder.dbentities.dataset.DatasetRelatedTableEntity;
+import com.jb4dc.builder.dbentities.datastorage.TableFieldEntity;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -23,5 +24,15 @@ public class DataSetRelatedTablePO extends DatasetRelatedTableEntity {
         String json= JsonUtility.toObjectString(source);
         List<DataSetRelatedTablePO> result=JsonUtility.toObjectListIgnoreProp(json, DataSetRelatedTablePO.class);
         return result;
+    }
+
+    public List<TableFieldPO> tableFieldPOList;
+
+    public List<TableFieldPO> getTableFieldPOList() {
+        return tableFieldPOList;
+    }
+
+    public void setTableFieldPOList(List<TableFieldPO> tableFieldPOList) {
+        this.tableFieldPOList = tableFieldPOList;
     }
 }
