@@ -81,31 +81,52 @@ Vue.component("list-search-control-bind-to-comp", {
         //var dataset=window.parent.listDesign.getDataSet();
     },
     methods:{
-        init:function(dataSetVo){
-            console.log(dataSetVo);
+        init:function(dataSetPO){
+            console.log(dataSetPO);
             //return;
             var treeNodeArray=[];
             //处理column数据为树数据
-            var treeNodeData=dataSetVo.columnVoList;
+            /*var treeNodeData=dataSetPO.columnVoList;
             for(var i=0;i<treeNodeData.length;i++) {
                 var singleNode = treeNodeData[i];
-                singleNode.pid = dataSetVo.dsId;
+                singleNode.pid = dataSetPO.dsId;
                 singleNode.text = singleNode.columnCaption + "[" + singleNode.columnName + "]";
                 singleNode.nodeType = "DataSetColumn";
                 singleNode.id = singleNode.columnId;
                 singleNode.icon = BaseUtility.GetRootPath()+"/Themes/Png16X16/page.png";
                 treeNodeArray.push(singleNode);
-            }
+            }*/
 
             //创建一个根节点
             var rootNode={
                 pid:"-1",
-                text:dataSetVo.dsName,
-                id:dataSetVo.dsId,
+                text:dataSetPO.dsName,
+                id:dataSetPO.dsId,
                 nodeType:"DataSet"
             };
 
+
+
             treeNodeArray.push(rootNode);
+
+            for(var i=0;i<dataSetPO.relatedTableVoList.length;i++){
+                treeNodeArray.push({
+                    pid:dataSetPO.dsId,
+                    text:dataSetPO.relatedTableVoList[i].rtTableCaption,
+                    id:dataSetPO.relatedTableVoList[i].rtTableId,
+                    nodeType:"Table"
+                });
+
+                for(var j=0;j<dataSetPO.relatedTableVoList[i].tableFieldPOList.length;j++) {
+                    var singleNode = dataSetPO.relatedTableVoList[i].tableFieldPOList[j];
+                    singleNode.pid = dataSetPO.relatedTableVoList[i].rtTableId;
+                    singleNode.text = singleNode.fieldCaption + "[" + singleNode.fieldName + "]";
+                    singleNode.nodeType = "TableField";
+                    singleNode.id = singleNode.fieldId;
+                    singleNode.icon = BaseUtility.GetRootPath()+"/Themes/Png16X16/page.png";
+                    treeNodeArray.push(singleNode);
+                }
+            }
 
             this.tree.treeObj=$.fn.zTree.init($(this.$refs.zTreeUL), this.tree.treeSetting,treeNodeArray);
             this.tree.treeObj.expandAll(true);
@@ -165,7 +186,7 @@ Vue.component("list-search-control-bind-to-comp", {
                                 <input type="text" v-model="bindToSearchField.columnTitle" />
                             </td>
                             <td rowspan="9" valign="top">
-                                <ul ref="zTreeUL" class="ztree"></ul>
+                                <ul ref="zTreeUL" class="ztree" style="height: 460px;overflow-x:hidden;overflow-y: scroll"></ul>
                             </td>
                         </tr>
                         <tr>

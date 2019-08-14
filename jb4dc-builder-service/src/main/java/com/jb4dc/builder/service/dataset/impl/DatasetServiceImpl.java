@@ -245,6 +245,7 @@ public class DatasetServiceImpl extends BaseServiceImpl<DatasetEntity> implement
                         TableEntity tableEntity=tableService.getByTableName(jb4DCSession, dataSetRelatedTablePO.getRtTableName());
                         if(tableEntity!=null){
                             dataSetRelatedTablePO.setRtTableCaption(tableEntity.getTableCaption());
+                            dataSetRelatedTablePO.setRtTableId(tableEntity.getTableId());
                         }
                     }
 
