@@ -248,6 +248,11 @@ var WLDCT_ListTableContainer= {
             "    </table>"
     },
     _InstanceMap:{},
+    _CurrentPageNum:1,
+    _DataSet:null,
+    _DataSetRuntimeInstance:null,
+    _Cache$SingleControlElem:null,
+    _CacheRendererDataChainParas:null,
     GetInstance:function(name){
         for(var key in this._InstanceMap){
             if(key==name){
@@ -257,6 +262,9 @@ var WLDCT_ListTableContainer= {
         var instance=eval(name);
         this._InstanceMap[name]=instance;
         return instance;
+    },
+    Initialize:function(){
+        this._DataSetRuntimeInstance=Object.create(DataSetRuntime);
     },
     RendererChain: function (_rendererChainParas) {
         //$singleControlElem.hide();
@@ -274,19 +282,51 @@ var WLDCT_ListTableContainer= {
             "info": false
         } );*/
     },
-    RendererDataChain:function (_rendererDataChainParas){
+    RendererDataChain:function (_rendererDataChainParas,isReRenderer){
         //return
         //debugger;
         var usedTopDataSet=true;
-        var $singleControlElem=_rendererDataChainParas.$singleControlElem;
-        var dataSet;
+
+        var dataSetId;
+        var pageSize;
         if(usedTopDataSet) {
-            dataSet = _rendererDataChainParas.topDataSet;
+            dataSetId = _rendererDataChainParas.topDataSetId;
+            pageSize = _rendererDataChainParas.listEntity.listDatasetPageSize;
         }
 
+        if(!this._CacheRendererDataChainParas){
+            this._CacheRendererDataChainParas=_rendererDataChainParas;
+            this._Cache$SingleControlElem=_rendererDataChainParas.$singleControlElem.clone();
+        }
+        if(isReRenderer){
+            _rendererDataChainParas.$singleControlElem.html(this._Cache$SingleControlElem.html());
+        }
+        DialogUtility.AlertLoading(window,DialogUtility.DialogLoadingId,{ title:"系统提示" },"数据加载中,请稍候....");
+        this._DataSetRuntimeInstance.GetDataSetData({
+            dataSetId:dataSetId,
+            pageSize:pageSize,
+            pageNum:this._CurrentPageNum,
+            queryValue:"",
+            exValue1:"",
+            exValue2:"",
+            exValue3:""
+        },function (result) {
+            console.log(result);
+            _rendererDataChainParas.dataSet=result.data;
+            this._DataSet=result.data;
+            this.CreateTable(_rendererDataChainParas.$singleControlElem,this._DataSet);
+            window.setTimeout(function () {
+                DialogUtility.CloseDialog(DialogUtility.DialogLoadingId);
+            },1000);
+        },this);
+    },
+    CreateTable:function($singleControlElem,dataSet){
+        //var $singleControlElem=_rendererDataChainParas.$singleControlElem;
         var $templateTable = $singleControlElem.find("table");
         var $templateTableRow = $singleControlElem.find("table tbody tr");
         var $templateTableHeaderRows = $singleControlElem.find("table thead tr");
+        //var dataSet=_rendererDataChainParas.dataSet;
+
         this.AppendCheckBoxColumnTemplate($templateTable,$templateTableHeaderRows,$templateTableRow);
         if ($templateTableRow.length > 0) {
             var $templateTableBody = $singleControlElem.find("table tbody");
@@ -296,11 +336,14 @@ var WLDCT_ListTableContainer= {
             $templateTableRow.remove();
         }
 
+        //创建分页操作区域
+        //debugger;
+        $singleControlElem.find(".wldct-list-table-inner-wrap").append(this.CreatePaging());
         //alert(PageStyleUtility.GetWindowWidth());
         $singleControlElem.find(".wldct-list-table-inner-wrap").width(PageStyleUtility.GetWindowWidth() - 20);
         $templateTable.addClass("stripe row-border order-column");
         $templateTable.width("100%");
-        var scrollY = PageStyleUtility.GetWindowHeight() - $(".wldct-list-simple-search-outer-wrap").height() - $(".wldct-list-button-outer-wrap").height() - 120;
+        var scrollY = PageStyleUtility.GetWindowHeight() - $(".wldct-list-simple-search-outer-wrap").height() - $(".wldct-list-button-outer-wrap").height() - 160;
         //alert(PageStyleUtility.GetWindowHeight()+"|"+$(".wldct-list-simple-search-outer-wrap").height()+"|"+scrollY);
         //return;
         var table = $templateTable.DataTable({
@@ -350,6 +393,7 @@ var WLDCT_ListTableContainer= {
                                   </td>`);
     },
     RendererSingleRow:function ($templateTable,$templateTableRow, dataSet, rowData) {
+
         var $cloneRow=$templateTableRow.clone();
         //console.log($cloneRow);
         var $tds=$cloneRow.find("td");
@@ -373,8 +417,44 @@ var WLDCT_ListTableContainer= {
         }
         return $cloneRow;
     },
-    RendererSingleCell:function ($templateTable,$templateTableRow, dataSet, rowData,$row,$td,value) {
-        $td.css("textAlign","center");
-        $td.html(value);
+    CreatePaging:function ($templateTable,$templateTableRow, dataSet, rowData,$row,$td,value) {
+        //$td.css("textAlign","center");
+        //$td.html(value);
+        var _self=this;
+        var pagingOuterElem=$("<div class='table-paging-outer'><div class='table-paging-inner'></div></div>")
+        var pagingInnerElem=pagingOuterElem.find("div");
+        var firstPage=$("<div class='table-paging-button'>第一页</div>");
+        firstPage.click(function () {
+            _self.ChangePageNum(1);
+        });
+        var prePage=$("<div class='table-paging-button'>上一页</div>");
+        prePage.click(function () {
+            //console.log(_self._CurrentPageNum);
+            if(_self._CurrentPageNum>1) {
+                _self.ChangePageNum(_self._CurrentPageNum - 1);
+            }
+            else {
+                DialogUtility.AlertText("已经到达第一页!");
+            }
+        });
+        var lastPage=$("<div class='table-paging-button'>末页</div>");
+        lastPage.click(function () {
+            _self.ChangePageNum(_self._DataSet.pages);
+        });
+        var nextPage=$("<div class='table-paging-button'>下一页</div>");
+        nextPage.click(function () {
+            if(_self._CurrentPageNum<_self._DataSet.pages) {
+                _self.ChangePageNum(_self._CurrentPageNum + 1);
+            }
+            else {
+                DialogUtility.AlertText("已经到达最末页!");
+            }
+        });
+        pagingInnerElem.append(firstPage).append(prePage).append(nextPage).append(lastPage);
+        return pagingOuterElem;
+    },
+    ChangePageNum:function (pageNum) {
+        this._CurrentPageNum=pageNum;
+        this.RendererDataChain(this._CacheRendererDataChainParas,true);
     }
 }

@@ -40,6 +40,9 @@ let HTMLControl={
                 //debugger;
                 var clientResolveInstanceName=$childSingleElem.attr(HTMLControlAttrs.CLIENT_RESOLVE);
                 var instance=HTMLControl.GetInstance(clientResolveInstanceName);
+                if(typeof(instance.Initialize)=="function"){
+                    instance.Initialize();
+                }
                 instance.RendererChain({
                     listEntity:_rendererChainParas.listEntity,
                     sourceHTML:_rendererChainParas.sourceHTML,
@@ -69,19 +72,21 @@ let HTMLControl={
                 var clientResolveInstanceName=$childSingleElem.attr(HTMLControlAttrs.CLIENT_RESOLVE);
                 var instance=HTMLControl.GetInstance(clientResolveInstanceName);
                 instance.RendererDataChain({
+                    listEntity:_rendererDataChainParas.listEntity,
                     sourceHTML:_rendererDataChainParas.sourceHTML,
                     $rootElem:_rendererDataChainParas.$rootElem,
                     $parentControlElem:_rendererDataChainParas.$singleControlElem,
                     $singleControlElem:$childSingleElem,
-                    topDataSet:_rendererDataChainParas.topDataSet
+                    topDataSetId:_rendererDataChainParas.topDataSetId
                 });
             } else {
                 HTMLControl.RendererDataChain({
+                    listEntity:_rendererDataChainParas.listEntity,
                     sourceHTML:_rendererDataChainParas.sourceHTML,
                     $rootElem:_rendererDataChainParas.$rootElem,
                     $parentControlElem:_rendererDataChainParas.$singleControlElem,
                     $singleControlElem:$childSingleElem,
-                    topDataSet:_rendererDataChainParas.topDataSet
+                    topDataSetId:_rendererDataChainParas.topDataSetId
                 });
             }
         }

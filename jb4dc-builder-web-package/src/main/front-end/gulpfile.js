@@ -18,7 +18,7 @@ const replaceBlockObj=require("./replaceBlock.js");
 const sourcePath = "static";
 const distPath = "../resources/static";
 
-const isdebug=false;
+let isdebug=false;
 
 /*编译Vue的扩展插件*/
 gulp.task('js-vue-ex-component',()=>{
@@ -50,12 +50,18 @@ gulp.task('js-ui-component',()=>{
 
 /*HTML设计的基础的工具类*/
 gulp.task('html-design-utility',()=> {
-    return gulp.src([
+    var obj= gulp.src([
         sourcePath + "/Js/HTMLDesign/*.js"
     ])
         .pipe(babel())
         .pipe(sourcemaps.init())
         .pipe(concat('HTMLDesignUtility.js'))
+
+    if(!isdebug){
+        obj=obj.pipe(uglify());
+    }
+
+    return  obj
         .pipe(sourcemaps.write())
         .pipe(gulp.dest(distPath + "/Js/HTMLDesign"));
 });
@@ -102,18 +108,22 @@ gulp.task('html-design-plugins-less',()=>{
 /*表单设计器的运行时JS库*/
 const html_design_runtime_distPath = "../../../../jb4dc-builder-client/src/main/resources/static";
 gulp.task('html-design-runtime-full-js',()=>{
-    return gulp.src([sourcePath + '/Js/HTMLDesignRuntime/**/*.js'])
+    var obj= gulp.src([sourcePath + '/Js/HTMLDesignRuntime/**/*.js'])
         .pipe(babel({
             presets: ['@babel/env'],
         }))
         .pipe(sourcemaps.init())
-        .pipe(concat('HTMLDesignRuntimeFull.js'))
+        .pipe(concat('HTMLDesignRuntimeFull.js'));
+
+    if(!isdebug){
+        obj=obj.pipe(uglify());
+    }
         /*.pipe(uglify(
             {
                 compress: {drop_debugger: false}
             }
         ))*/
-        .pipe(sourcemaps.write())
+    return  obj.pipe(sourcemaps.write())
         .pipe(gulp.dest(html_design_runtime_distPath + "/Js"));
 });
 
@@ -157,14 +167,14 @@ gulp.task('all', gulp.series('html-design-all','html-template-web-package','js-v
 gulp.task('dist-watch', function() {
     //gulp.watch(sourcePath+"/HTML/**/*", gulp.series('html-only'));
     //gulp.watch(sourcePath + "/Js/VueComponent/**/*.js", gulp.series('js-vue-ex-component'));
-    var isdebug=false;
+    //var isdebug=false;
     gulp.watch(sourcePath+"/**/*", gulp.series('all'));
 });
 
 gulp.task('dist-watch-debug', function() {
     //gulp.watch(sourcePath+"/HTML/**/*", gulp.series('html-only'));
     //gulp.watch(sourcePath + "/Js/VueComponent/**/*.js", gulp.series('js-vue-ex-component'));
-    var isdebug=true;
+    isdebug=true;
     gulp.watch(sourcePath+"/**/*", gulp.series('all'));
 });
 
@@ -191,7 +201,7 @@ function copyAndResolveHtml(sourcePath,base,toPath) {
             collapseWhitespace: true,
             minifyCSS:true,
             minifyJS:false,
-            removeComments:true
+            removeComments:false
         }));
     }
     else{

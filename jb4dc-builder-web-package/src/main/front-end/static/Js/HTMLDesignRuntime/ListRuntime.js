@@ -41,10 +41,17 @@ var ListRuntime={
                 $singleControlElem:this._$RendererToElem
             });
 
-
             //获取绑定的数据集合之后
             var topDataSetId=result.data.listDatasetId;
-            var sendData = JSON.stringify({
+            VirtualBodyControl.RendererDataChain({
+                listEntity:result.data,
+                sourceHTML:result.data.listHtmlRuntime,
+                $rootElem:this._$RendererToElem,
+                $parentControlElem:this._$RendererToElem,
+                $singleControlElem:this._$RendererToElem,
+                topDataSetId:topDataSetId
+            });
+            /*var sendData = JSON.stringify({
                 dataSetId:topDataSetId,
                 pageSize:result.data.listDatasetPageSize,
                 pageNum:1,
@@ -64,7 +71,7 @@ var ListRuntime={
                     $singleControlElem:this._$RendererToElem,
                     topDataSet:getDataSetResult.data
                 });
-            },this);
+            },this);*/
 
         },this);
     }
