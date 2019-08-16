@@ -105,8 +105,6 @@ Vue.component("list-search-control-bind-to-comp", {
                 nodeType:"DataSet"
             };
 
-
-
             treeNodeArray.push(rootNode);
 
             for(var i=0;i<dataSetPO.relatedTableVoList.length;i++){
@@ -130,12 +128,15 @@ Vue.component("list-search-control-bind-to-comp", {
 
             this.tree.treeObj=$.fn.zTree.init($(this.$refs.zTreeUL), this.tree.treeSetting,treeNodeArray);
             this.tree.treeObj.expandAll(true);
+            fuzzySearchTreeObj(this.tree.treeObj,this.$refs.txt_search_text.$refs.input,null,true);
         },
-        selectColumn:function (columnVo) {
-            this.bindToSearchField.columnTableName=columnVo.columnTableName;
-            this.bindToSearchField.columnName=columnVo.columnName;
-            this.bindToSearchField.columnCaption=columnVo.columnCaption;
-            this.bindToSearchField.columnDataTypeName=columnVo.columnDataTypeName;
+        selectColumn:function (fieldPO) {
+            if(fieldPO.nodeType=="TableField"){
+                this.bindToSearchField.columnTableName=fieldPO.tableName;
+                this.bindToSearchField.columnName=fieldPO.fieldName;
+                this.bindToSearchField.columnCaption=fieldPO.fieldCaption;
+                this.bindToSearchField.columnDataTypeName=fieldPO.fieldDataType;
+            }
         },
         getData:function(){
             console.log(this.bindToSearchField);
@@ -186,7 +187,8 @@ Vue.component("list-search-control-bind-to-comp", {
                                 <input type="text" v-model="bindToSearchField.columnTitle" />
                             </td>
                             <td rowspan="9" valign="top">
-                                <ul ref="zTreeUL" class="ztree" style="height: 460px;overflow-x:hidden;overflow-y: scroll"></ul>
+                                <i-input search class="input_border_bottom" ref="txt_search_text" placeholder="请输入列名或者标题"></i-input>\
+                                <ul ref="zTreeUL" class="ztree div-custom-scroll" style="height: 430px;overflow-x:hidden;overflow-y: scroll"></ul>
                             </td>
                         </tr>
                         <tr>

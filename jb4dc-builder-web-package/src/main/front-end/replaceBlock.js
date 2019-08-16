@@ -118,6 +118,7 @@ let replaceBlock = {
         replaceArray.push(refCss(levelPath + 'Themes/Default/JQueryUI/jquery-ui.css'));
         replaceArray.push(refCss(levelPath + 'Themes/Default/JQueryUI/jquery-ui-important.css'));
         replaceArray.push(refCss(levelPath + 'Themes/Default/ZTree/zTreeStyle/zTreeStyle.css'));
+        replaceArray.push(refCss(levelPath + 'Themes/Default/Css/JBuild4DCBuilder.css?refVersion=' + refVersion));
         return replaceArray.join("\n\t");
 
         /*replaceArray.push("<script>");

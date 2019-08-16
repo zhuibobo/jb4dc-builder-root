@@ -22,27 +22,37 @@ let isdebug=false;
 
 /*编译Vue的扩展插件*/
 gulp.task('js-vue-ex-component',()=>{
-    return gulp.src([sourcePath + '/Js/VueComponent/**/*.js'])
+    var obj= gulp.src([sourcePath + '/Js/VueComponent/**/*.js'])
         .pipe(babel({
             presets: ['@babel/env']
         }))
         .pipe(sourcemaps.init())
         //.pipe(sourcemaps.identityMap())
         .pipe(concat('SSOVueEXComponent.js'))
-        //.pipe(uglify())
+
+    if(!isdebug){
+        obj=obj.pipe(uglify());
+    }
+
+    return  obj
         .pipe(sourcemaps.write())
         .pipe(gulp.dest(distPath + "/Js"));
 });
 
 /*编译Js下旧的UI的组件*/
 gulp.task('js-ui-component',()=>{
-    return gulp.src([sourcePath + '/Js/EditTable/**/*.js',sourcePath + '/Js/TreeTable/**/*.js'])
+    var obj= gulp.src([sourcePath + '/Js/EditTable/**/*.js',sourcePath + '/Js/TreeTable/**/*.js'])
         .pipe(babel({
             presets: ['@babel/env']
         }))
         .pipe(sourcemaps.init())
         .pipe(concat('UIEXComponentForBuilder.js'))
-        //.pipe(uglify())
+
+    if(!isdebug){
+        obj=obj.pipe(uglify());
+    }
+
+    return  obj
         .pipe(sourcemaps.write())
         .pipe(gulp.dest(distPath + "/Js"));
 });
