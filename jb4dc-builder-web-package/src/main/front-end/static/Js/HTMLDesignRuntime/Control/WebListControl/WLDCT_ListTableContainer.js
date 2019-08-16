@@ -253,6 +253,9 @@ var WLDCT_ListTableContainer= {
     _DataSetRuntimeInstance:null,
     _Cache$SingleControlElem:null,
     _CacheRendererDataChainParas:null,
+    _SimpleSearchContainerInstance:null,
+    _ComplexSearchContainerInstance:null,
+    _QueryPOList:[],
     GetInstance:function(name){
         for(var key in this._InstanceMap){
             if(key==name){
@@ -269,6 +272,13 @@ var WLDCT_ListTableContainer= {
     RendererChain: function (_rendererChainParas) {
         //$singleControlElem.hide();
         var $singleControlElem=_rendererChainParas.$singleControlElem;
+        //console.log($singleControlElem);
+        //console.log($singleControlElem.prevAll("[client_resolve='WLDCT_ListSimpleSearchContainer']"));
+        var $simpleSearchContainerElem=$singleControlElem.prevAll("[client_resolve='WLDCT_ListSimpleSearchContainer']");
+        this._SimpleSearchContainerInstance=HTMLControl.GetControlInstanceByElem($simpleSearchContainerElem);
+
+        this._SimpleSearchContainerInstance._$SimpleSearchButton.bind("click",{"listInstance":this,"simpleSearchContainerInstance": this._SimpleSearchContainerInstance},this.SimpleSearchClickEvent);
+
         //var $buttonDivElemList=$singleControlElem.find("div"+HTMLControlAttrs.SELECTED_JBUILD4DC_CUSTOM);
         //$singleControlElem.find("[is-op-button-wrap-table='true']").hide();
         /*$singleControlElem.find(".wldct-list-table-inner-wrap").html(this.GetHTML());
@@ -306,7 +316,7 @@ var WLDCT_ListTableContainer= {
             dataSetId:dataSetId,
             pageSize:pageSize,
             pageNum:this._CurrentPageNum,
-            queryValue:"",
+            listQueryPOList:this._QueryPOList,
             exValue1:"",
             exValue2:"",
             exValue3:""
@@ -456,5 +466,16 @@ var WLDCT_ListTableContainer= {
     ChangePageNum:function (pageNum) {
         this._CurrentPageNum=pageNum;
         this.RendererDataChain(this._CacheRendererDataChainParas,true);
+    },
+    SimpleSearchClickEvent:function (sender) {
+        var _self=sender.data.listInstance;
+        console.log("开始进行查询!");
+        console.log(_self);
+        var conditions=_self._SimpleSearchContainerInstance.BuilderSearchCondition();
+        console.log(conditions);
+        //console.log(this);
+
+        _self._QueryPOList=conditions;
+        _self.RendererDataChain(_self._CacheRendererDataChainParas,true);
     }
 }

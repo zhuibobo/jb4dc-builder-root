@@ -229,16 +229,16 @@ Vue.component("list-search-control-bind-to-comp", {
                             </td>
                             <td>
                                 <i-select v-model="bindToSearchField.columnOperator" style="width:260px">
-                                    <i-option value="等于">等于</i-option>
-                                    <i-option value="匹配">匹配</i-option>
-                                    <i-option value="不等于">不等于</i-option>
-                                    <i-option value="大于">大于</i-option>
-                                    <i-option value="大于等于">大于等于</i-option>
-                                    <i-option value="小于">小于</i-option>
-                                    <i-option value="小于等于">小于等于</i-option>
-                                    <i-option value="左匹配">左匹配</i-option>
-                                    <i-option value="右匹配">右匹配</i-option>
-                                    <i-option value="包含">包含</i-option>
+                                    <i-option value="eq">等于</i-option>
+                                    <i-option value="like">匹配</i-option>
+                                    <i-option value="not_eq">不等于</i-option>
+                                    <i-option value="gt">大于</i-option>
+                                    <i-option value="gt_eq">大于等于</i-option>
+                                    <i-option value="lt">小于</i-option>
+                                    <i-option value="lt_eq">小于等于</i-option>
+                                    <i-option value="left_like">左匹配</i-option>
+                                    <i-option value="right_like">右匹配</i-option>
+                                    <i-option value="include">包含</i-option>
                                 </i-select>
                             </td>
                         </tr>

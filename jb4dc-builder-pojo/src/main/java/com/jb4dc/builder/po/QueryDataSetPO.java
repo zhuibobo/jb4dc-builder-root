@@ -1,5 +1,6 @@
 package com.jb4dc.builder.po;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -12,7 +13,7 @@ public class QueryDataSetPO {
     String dataSetId;
     int pageSize;
     int pageNum;
-    String queryValue;
+    List<ListQueryPO> listQueryPOList;
     String exValue1;
     String exValue2;
     String exValue3;
@@ -41,12 +42,12 @@ public class QueryDataSetPO {
         this.pageNum = pageNum;
     }
 
-    public String getQueryValue() {
-        return queryValue;
+    public List<ListQueryPO> getListQueryPOList() {
+        return listQueryPOList;
     }
 
-    public void setQueryValue(String queryValue) {
-        this.queryValue = queryValue;
+    public void setListQueryPOList(List<ListQueryPO> listQueryPOList) {
+        this.listQueryPOList = listQueryPOList;
     }
 
     public String getExValue1() {

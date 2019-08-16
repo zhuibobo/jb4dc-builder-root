@@ -15,6 +15,29 @@ let HTMLControl={
         this._InstanceMap[name]=instance;
         return instance;
     },
+    SaveControlNewInstanceToPool:function($elem,instance){
+        var instanceName=$elem.attr("client_resolve")+"_"+StringUtility.GuidSplit("");
+        //HTMLControl.SaveControlInstancePool(instanceName,instance);
+        $elem.attr("client_instance_name",instanceName);
+        this._InstanceMap[instanceName]=instance;
+    },
+    GetControlInstance:function(name){
+        return this._InstanceMap[name];
+    },
+    GetControlInstanceByElem:function($elem){
+        //console.log($elem);
+        //console.log($elem.attr("client_instance_name"));
+        var instanceName="";
+        if($elem.attr("client_instance_name")&&$elem.attr("client_instance_name").length>0){
+            instanceName=$elem.attr("client_instance_name");
+        }
+        else {
+            instanceName=$elem.attr("client_resolve");
+        }
+        //console.log(instanceName);
+        //console.log(this._InstanceMap);
+        return this._InstanceMap[instanceName];
+    },
     RendererChainParas:{
         listEntity:null,
         sourceHTML:null,
@@ -38,8 +61,8 @@ let HTMLControl={
             //console.log($childSingleElem.html());
             if ($childSingleElem.attr(HTMLControlAttrs.JBUILD4DC_CUSTOM)=="true"&&$childSingleElem.attr(HTMLControlAttrs.CLIENT_RESOLVE)) {
                 //debugger;
-                var clientResolveInstanceName=$childSingleElem.attr(HTMLControlAttrs.CLIENT_RESOLVE);
-                var instance=HTMLControl.GetInstance(clientResolveInstanceName);
+                var clientResolveName=$childSingleElem.attr(HTMLControlAttrs.CLIENT_RESOLVE);
+                var instance=HTMLControl.GetInstance(clientResolveName);
                 if(typeof(instance.Initialize)=="function"){
                     instance.Initialize();
                 }
@@ -90,5 +113,13 @@ let HTMLControl={
                 });
             }
         }
+    },
+    GetValue:function ($elem, paras) {
+        var result = {};
+        result.result = true;
+        result.message = "";
+        result.value = $elem.val();
+        result.text = $elem.val();
+        return result;
     }
 }

@@ -21,6 +21,7 @@ var ListRuntime={
         /*$(this._Prop_Config.RendererTo).load(BaseUtility.GetRootPath()+"/Rest/Builder/ListRuntime/ListPreview?listId="+this._Prop_Config.ListId, function() {
             console.log("加载预览列表成功!!");
         });*/
+        //window._ListInstancePool={};
         RuntimeGeneralInstance.LoadHtmlDesignContent(BaseUtility.GetRootPath()+"/Rest/Builder/RunTime/ListRuntime/ListPreview?listId="+this._Prop_Config.ListId,this._Prop_Config.RendererTo, {}, function (result) {
             //alert( "Load was performed.");
             //debugger;
