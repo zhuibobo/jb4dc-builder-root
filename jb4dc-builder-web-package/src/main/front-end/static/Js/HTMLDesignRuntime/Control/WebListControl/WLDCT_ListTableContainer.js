@@ -430,6 +430,7 @@ var WLDCT_ListTableContainer= {
     CreatePaging:function ($templateTable,$templateTableRow, dataSet, rowData,$row,$td,value) {
         //$td.css("textAlign","center");
         //$td.html(value);
+
         var _self=this;
         var pagingOuterElem=$("<div class='table-paging-outer'><div class='table-paging-inner'></div></div>")
         var pagingInnerElem=pagingOuterElem.find("div");
@@ -460,7 +461,9 @@ var WLDCT_ListTableContainer= {
                 DialogUtility.AlertText("已经到达最末页!");
             }
         });
-        pagingInnerElem.append(firstPage).append(prePage).append(nextPage).append(lastPage);
+        console.log(_self._DataSet);
+        var info=$("<div class='table-paging-info'>总条数【"+_self._DataSet.total+"】&nbsp;&nbsp;页数【"+_self._CurrentPageNum+"/"+_self._DataSet.pages+"】</div>")
+        pagingInnerElem.append(firstPage).append(prePage).append(nextPage).append(lastPage).append(info);
         return pagingOuterElem;
     },
     ChangePageNum:function (pageNum) {
@@ -469,10 +472,10 @@ var WLDCT_ListTableContainer= {
     },
     SimpleSearchClickEvent:function (sender) {
         var _self=sender.data.listInstance;
-        console.log("开始进行查询!");
-        console.log(_self);
+        //console.log("开始进行查询!");
+        //console.log(_self);
         var conditions=_self._SimpleSearchContainerInstance.BuilderSearchCondition();
-        console.log(conditions);
+        //console.log(conditions);
         //console.log(this);
 
         _self._QueryPOList=conditions;

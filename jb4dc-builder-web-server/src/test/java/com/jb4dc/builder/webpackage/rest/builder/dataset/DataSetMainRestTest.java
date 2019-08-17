@@ -45,7 +45,7 @@ public class DataSetMainRestTest extends DataSetSQLDesignerRestTest {
         createDataSet("select TDEV_TEST_1.*,TDEV_TEST_2.F_TABLE1_ID,'ADDRESS' ADDRESS,'SEX' SEX from TDEV_TEST_1 join TDEV_TEST_2 on TDEV_TEST_1.ID=TDEV_TEST_2.F_TABLE1_ID where TDEV_TEST_1.ID='#{ApiVar.当前用户所在组织ID}'",
                 devMockGroupId,devMockDataSetId);
 
-        createDataSet("select TDEV_TEST_3.*,TDEV_TEST_4.F_TABLE3_ID,'ADDRESS' ADDRESS,'SEX' SEX from TDEV_TEST_3 join TDEV_TEST_4 on TDEV_TEST_3.ID=TDEV_TEST_4.F_TABLE3_ID order by TDEV_TEST_3.F_ORDER_NUM",
+        createDataSet("select TDEV_TEST_3.*,TDEV_TEST_4.F_TABLE3_ID,'ADDRESS' ADDRESS,'SEX' SEX from TDEV_TEST_3 join TDEV_TEST_4 on TDEV_TEST_3.ID=TDEV_TEST_4.F_TABLE3_ID where 2=2 order by TDEV_TEST_3.F_ORDER_NUM",
                 builderGroupId,builderDataSetId);
     }
 

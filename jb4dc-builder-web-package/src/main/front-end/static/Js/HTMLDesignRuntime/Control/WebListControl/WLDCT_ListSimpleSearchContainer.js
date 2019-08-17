@@ -40,12 +40,14 @@ var WLDCT_ListSimpleSearchContainer={
             var instance=HTMLControl.GetControlInstanceByElem($elem);
             var valObj=instance.GetValue($elem,{});
             var value=valObj.value;
-            result.push({
-                operator:$elem.attr("columnoperator"),
-                value:value,
-                tableName:$elem.attr("columntablename"),
-                fieldName:$elem.attr("columnname")
-            })
+            if(value) {
+                result.push({
+                    operator: $elem.attr("columnoperator"),
+                    value: value,
+                    tableName: $elem.attr("columntablename"),
+                    fieldName: $elem.attr("columnname")
+                })
+            }
             //console.log(valObj);
         }
 

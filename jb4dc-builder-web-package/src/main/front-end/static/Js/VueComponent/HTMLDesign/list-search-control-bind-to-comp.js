@@ -238,7 +238,7 @@ Vue.component("list-search-control-bind-to-comp", {
                                     <i-option value="lt_eq">小于等于</i-option>
                                     <i-option value="left_like">左匹配</i-option>
                                     <i-option value="right_like">右匹配</i-option>
-                                    <i-option value="include">包含</i-option>
+                                    <i-option value="include">包含[暂时不支持]</i-option>
                                 </i-select>
                             </td>
                         </tr>
