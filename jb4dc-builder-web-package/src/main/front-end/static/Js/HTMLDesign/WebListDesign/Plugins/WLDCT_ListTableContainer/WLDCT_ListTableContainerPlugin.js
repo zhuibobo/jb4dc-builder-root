@@ -10,16 +10,6 @@
                 CKEditorPluginUtility.BuildGeneralElemToCKWysiwyg("<div class=\"wysiwyg-wldct-list-table-outer-wrap wldct-list-table-outer-wrap\">" + tip +
                     "   <div class=\"wysiwyg-wldct-list-table-inner-wrap wldct-list-table-inner-wrap\">" +
                     "       <table is-op-button-wrap-table=\"true\">" +
-                    "           <colgroup>" +
-                    "               <col style=\"width: 10%\" />" +
-                    "               <col style=\"width: 10%\" />" +
-                    "               <col style=\"width: 10%\" />" +
-                    "               <col style=\"width: 10%\" />" +
-                    "               <col style=\"width: 10%\" />" +
-                    "               <col style=\"width: 10%\" />" +
-                    "               <col style=\"width: 10%\" />" +
-                    "               <col style=\"width: 10%\" />" +
-                    "           </colgroup>" +
                     "           <thead>" +
                     "               <tr>" +
                     "                   <th></th>" +
