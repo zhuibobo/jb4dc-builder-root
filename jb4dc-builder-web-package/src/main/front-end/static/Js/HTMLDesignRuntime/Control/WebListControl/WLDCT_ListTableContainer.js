@@ -282,6 +282,7 @@ var WLDCT_ListTableContainer= {
         this._SimpleSearchContainerInstance._$SimpleSearchButton.bind("click", {"listInstance": this}, this.SimpleSearchClickEvent);
         this._SimpleSearchContainerInstance._$ShowComplexSearchButton.bind("click", {"listInstance": this}, this.ShowComplexSearchClickEvent);
         this._ComplexSearchContainerInstance._$ComplexSearchButton.bind("click", {"listInstance": this}, this.ComplexSearchClickEvent);
+        this._ComplexSearchContainerInstance._$ClearButton.bind("click", {"listInstance": this}, this.ComplexSearchClearClickEvent);
         this._ComplexSearchContainerInstance._$CloseButton.bind("click", {"listInstance": this}, this.ComplexSearchCloseClickEvent);
         //var $buttonDivElemList=$singleControlElem.find("div"+HTMLControlAttrs.SELECTED_JBUILD4DC_CUSTOM);
         //$singleControlElem.find("[is-op-button-wrap-table='true']").hide();
@@ -502,5 +503,9 @@ var WLDCT_ListTableContainer= {
     ComplexSearchCloseClickEvent:function(sender){
         var _self=sender.data.listInstance;
         DialogUtility.CloseDialogElem(_self._ComplexSearchContainerInstance._$SingleControlElem)
+    },
+    ComplexSearchClearClickEvent:function (sender) {
+        var _self=sender.data.listInstance;
+        DialogUtility.AlertText("未实现!");
     }
 }

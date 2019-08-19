@@ -1,6 +1,7 @@
 var WLDCT_ListComplexSearchContainer= {
     _$SingleControlElem:null,
     _$ComplexSearchButton:null,
+    _$ClearButton:null,
     _$CloseButton:null,
     RendererChain: function (_rendererChainParas) {
         var $singleControlElem=_rendererChainParas.$singleControlElem;
@@ -15,10 +16,11 @@ var WLDCT_ListComplexSearchContainer= {
         var $searchButtonsWrap=$("<div class='wldct-list-complex-search-button-inner-wrap'><div class='button-inner-wrap'></div></div>");
 
         this._$ComplexSearchButton=$("<button>查询</button>");
+        this._$ClearButton=$("<button>清空</button>");
         this._$CloseButton=$("<button>关闭</button>");
 
-        $searchButtonsWrap.find(".button-inner-wrap").append(this._$ComplexSearchButton);
-        $searchButtonsWrap.find(".button-inner-wrap").append(this._$CloseButton);
+        $searchButtonsWrap.find(".button-inner-wrap").append(this._$ComplexSearchButton).append(this._$ClearButton).append(this._$CloseButton);
+        //$searchButtonsWrap.find(".button-inner-wrap").append(this._$CloseButton);
 
         $singleControlElem.append($searchButtonsWrap);
 
