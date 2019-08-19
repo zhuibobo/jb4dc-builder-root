@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jb4dc.builder.dao.weblist.ListButtonMapper">
+    <select id="selectAll" resultMap="BaseResultMap">select<include refid="Base_Column_List"/> from TBUILD_LIST_BUTTON ORDER by  DESC</select>
+    <select id="selectAllASC" resultMap="BaseResultMap">select<include refid="Base_Column_List"/> from TBUILD_LIST_BUTTON ORDER by  ASC</select>
+    <delete id="deleteAll">delete from TBUILD_LIST_BUTTON</delete>
+    <select id="nextOrderNum" resultType="integer">select case when max() is null then 1 else max()+1 end ORDERNUM from TBUILD_LIST_BUTTON</select>
+    <select id="selectBySearch" parameterType="java.util.Map" resultMap="BaseResultMap">select<include refid="Base_Column_List"/>from TBUILD_LIST_BUTTON<where>
+        <if test="buttonListId !=null and buttonListId !=''"> and BUTTON_LIST_ID like #{buttonListId} </if>
+        <if test="buttonListElemId !=null and buttonListElemId !=''"> and BUTTON_LIST_ELEM_ID like #{buttonListElemId} </if>
+        <if test="buttonCaption !=null and buttonCaption !=''"> and BUTTON_CAPTION like #{buttonCaption} </if>
+        <if test="buttonContent !=null and buttonContent !=''"> and BUTTON_CONTENT like #{buttonContent} </if>
+        <if test="buttonAuth !=null and buttonAuth !=''"> and BUTTON_AUTH like #{buttonAuth} </if>
+        <if test="buttonDesc !=null and buttonDesc !=''"> and BUTTON_DESC like #{buttonDesc} </if>
+    </where>ORDER by  DESC</select>
+</mapper>

@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jb4dc.builder.dao.weblist.ListButtonMapper">
+    <resultMap id="BaseResultMap" type="com.jb4dc.builder.dbentities.weblist.ListButtonEntity">
+        <constructor>
+            <idArg column="BUTTON_ID" javaType="java.lang.String" jdbcType="NVARCHAR" />
+            <arg column="BUTTON_LIST_ID" javaType="java.lang.String" jdbcType="NVARCHAR" />
+            <arg column="BUTTON_LIST_ELEM_ID" javaType="java.lang.String" jdbcType="NVARCHAR" />
+            <arg column="BUTTON_CAPTION" javaType="java.lang.String" jdbcType="NVARCHAR" />
+            <arg column="BUTTON_CONTENT" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="BUTTON_AUTH" javaType="java.lang.String" jdbcType="NVARCHAR" />
+            <arg column="BUTTON_DESC" javaType="java.lang.String" jdbcType="NVARCHAR" />
+        </constructor>
+    </resultMap>
+    <sql id="Base_Column_List">
+    BUTTON_ID, BUTTON_LIST_ID, BUTTON_LIST_ELEM_ID, BUTTON_CAPTION, BUTTON_CONTENT, BUTTON_AUTH,
+    BUTTON_DESC
+  </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from TBUILD_LIST_BUTTON
+        where BUTTON_ID = #{buttonId,jdbcType=NVARCHAR}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from TBUILD_LIST_BUTTON
+    where BUTTON_ID = #{buttonId,jdbcType=NVARCHAR}
+  </delete>
+    <insert id="insert" parameterType="com.jb4dc.builder.dbentities.weblist.ListButtonEntity">
+    insert into TBUILD_LIST_BUTTON (BUTTON_ID, BUTTON_LIST_ID, BUTTON_LIST_ELEM_ID,
+      BUTTON_CAPTION, BUTTON_CONTENT, BUTTON_AUTH,
+      BUTTON_DESC)
+    values (#{buttonId,jdbcType=NVARCHAR}, #{buttonListId,jdbcType=NVARCHAR}, #{buttonListElemId,jdbcType=NVARCHAR},
+      #{buttonCaption,jdbcType=NVARCHAR}, #{buttonContent,jdbcType=VARCHAR}, #{buttonAuth,jdbcType=NVARCHAR},
+      #{buttonDesc,jdbcType=NVARCHAR})
+  </insert>
+    <insert id="insertSelective" parameterType="com.jb4dc.builder.dbentities.weblist.ListButtonEntity">
+        insert into TBUILD_LIST_BUTTON
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="buttonId != null">
+                BUTTON_ID,
+            </if>
+            <if test="buttonListId != null">
+                BUTTON_LIST_ID,
+            </if>
+            <if test="buttonListElemId != null">
+                BUTTON_LIST_ELEM_ID,
+            </if>
+            <if test="buttonCaption != null">
+                BUTTON_CAPTION,
+            </if>
+            <if test="buttonContent != null">
+                BUTTON_CONTENT,
+            </if>
+            <if test="buttonAuth != null">
+                BUTTON_AUTH,
+            </if>
+            <if test="buttonDesc != null">
+                BUTTON_DESC,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="buttonId != null">
+                #{buttonId,jdbcType=NVARCHAR},
+            </if>
+            <if test="buttonListId != null">
+                #{buttonListId,jdbcType=NVARCHAR},
+            </if>
+            <if test="buttonListElemId != null">
+                #{buttonListElemId,jdbcType=NVARCHAR},
+            </if>
+            <if test="buttonCaption != null">
+                #{buttonCaption,jdbcType=NVARCHAR},
+            </if>
+            <if test="buttonContent != null">
+                #{buttonContent,jdbcType=VARCHAR},
+            </if>
+            <if test="buttonAuth != null">
+                #{buttonAuth,jdbcType=NVARCHAR},
+            </if>
+            <if test="buttonDesc != null">
+                #{buttonDesc,jdbcType=NVARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.jb4dc.builder.dbentities.weblist.ListButtonEntity">
+        update TBUILD_LIST_BUTTON
+        <set>
+            <if test="buttonListId != null">
+                BUTTON_LIST_ID = #{buttonListId,jdbcType=NVARCHAR},
+            </if>
+            <if test="buttonListElemId != null">
+                BUTTON_LIST_ELEM_ID = #{buttonListElemId,jdbcType=NVARCHAR},
+            </if>
+            <if test="buttonCaption != null">
+                BUTTON_CAPTION = #{buttonCaption,jdbcType=NVARCHAR},
+            </if>
+            <if test="buttonContent != null">
+                BUTTON_CONTENT = #{buttonContent,jdbcType=VARCHAR},
+            </if>
+            <if test="buttonAuth != null">
+                BUTTON_AUTH = #{buttonAuth,jdbcType=NVARCHAR},
+            </if>
+            <if test="buttonDesc != null">
+                BUTTON_DESC = #{buttonDesc,jdbcType=NVARCHAR},
+            </if>
+        </set>
+        where BUTTON_ID = #{buttonId,jdbcType=NVARCHAR}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.jb4dc.builder.dbentities.weblist.ListButtonEntity">
+    update TBUILD_LIST_BUTTON
+    set BUTTON_LIST_ID = #{buttonListId,jdbcType=NVARCHAR},
+      BUTTON_LIST_ELEM_ID = #{buttonListElemId,jdbcType=NVARCHAR},
+      BUTTON_CAPTION = #{buttonCaption,jdbcType=NVARCHAR},
+      BUTTON_CONTENT = #{buttonContent,jdbcType=VARCHAR},
+      BUTTON_AUTH = #{buttonAuth,jdbcType=NVARCHAR},
+      BUTTON_DESC = #{buttonDesc,jdbcType=NVARCHAR}
+    where BUTTON_ID = #{buttonId,jdbcType=NVARCHAR}
+  </update>
+</mapper>

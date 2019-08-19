@@ -441,6 +441,23 @@
             <column name="LIST_CUST_CLIENT_RENDERER" type="NVARCHAR(200)" remarks="客户端自定义的渲染方法:需要指明具体的方法名称" />
             <column name="LIST_CUST_DESC" type="NVARCHAR(400)" remarks="自定义设置备注:使用了自定义设置相关方法的备注说明" />
         </createTable>
+
+        <createTable tableName="TBUILD_LIST_BUTTON" remarks="列表按钮配置表:用于存储列表相关的按钮的配置,在保存列表时从html中解析形成,主要用于后续的详细页" >
+            <column name="BUTTON_ID" type="NVARCHAR(100)" remarks="主键:使用列表ID与元素的ID合并形成">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="BUTTON_LIST_ID" type="NVARCHAR(100)" remarks="所属的列表ID">
+            </column>
+            <column name="BUTTON_LIST_ELEM_ID" type="NVARCHAR(100)" remarks="所属的列表ID">
+            </column>
+            <column name="BUTTON_CAPTION" type="NVARCHAR(100)" remarks="按钮的标题">
+            </column>
+            <column name="BUTTON_CONTENT" type="CLOB" remarks="按钮的配置内容">
+            </column>
+            <column name="BUTTON_AUTH" type="NVARCHAR(100)" remarks="按钮绑定的权限ID">
+            </column>
+            <column name="BUTTON_DESC" type="NVARCHAR(400)" remarks="备注" />
+        </createTable>
     </changeSet>
 
 </databaseChangeLog>
