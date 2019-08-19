@@ -32,6 +32,7 @@ public class HTMLRuntimeResolveImpl implements IHTMLRuntimeResolve {
             Document doc= Jsoup.parseBodyFragment(sourceHTML);
 
             ResolveHTMLControlContextPO resolveHTMLControlContextPO =new ResolveHTMLControlContextPO();
+            resolveHTMLControlContextPO.setRecordId(id);
 
             //将标识为runtime_auto_remove的标签移除掉
             Elements removeElems = doc.getElementsByAttribute(HTMLControlAttrs.RUNTIME_AUTO_REMOVE);

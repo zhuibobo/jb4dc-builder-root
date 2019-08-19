@@ -1,14 +1,18 @@
 package com.jb4dc.builder.htmldesign.control.weblist;
 
+import com.jb4dc.builder.dbentities.weblist.ListButtonEntity;
+import com.jb4dc.builder.htmldesign.HTMLControlAttrs;
 import com.jb4dc.builder.htmldesign.control.HTMLControl;
 import com.jb4dc.builder.htmldesign.control.IHTMLControl;
 import com.jb4dc.builder.po.DynamicBindHTMLControlContextPO;
 import com.jb4dc.builder.po.HtmlControlDefinitionPO;
 import com.jb4dc.builder.po.ResolveHTMLControlContextPO;
 import com.jb4dc.builder.service.weblist.IListButtonService;
+import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
 import com.jb4dc.core.base.session.JB4DCSession;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 import org.springframework.beans.factory.annotation.Autowired;
 
 public class WebListListButtonContainer  extends HTMLControl implements IHTMLControl {
@@ -54,8 +58,35 @@ public class WebListListButtonContainer  extends HTMLControl implements IHTMLCon
     }*/
 
     @Override
-    public void resolveSelf(JB4DCSession jb4DCSession, String sourceHTML, Document doc, Element singleControlElem, Element parentElem, Element lastParentJbuild4dCustomElem, ResolveHTMLControlContextPO resolveHTMLControlContextPO, HtmlControlDefinitionPO htmlControlDefinitionPO) {
+    public void resolveSelf(JB4DCSession jb4DCSession, String sourceHTML, Document doc, Element singleControlElem, Element parentElem, Element lastParentJbuild4dCustomElem, ResolveHTMLControlContextPO resolveHTMLControlContextPO, HtmlControlDefinitionPO htmlControlDefinitionPO) throws JBuild4DCGenerallyException {
+        //获取所有的自定义控件
+        Elements allElems=singleControlElem.getElementsByTag("div");
+        for (Element singleInnerElem : allElems) {
+            if (singleInnerElem.attr("jbuild4dc_custom").equals("true")) {
+                String singleName=singleInnerElem.attr(HTMLControlAttrs.SINGLENAME);
+                if(!singleName.equals("WLDCT_ListButtonContainer")) {
+                    HtmlControlDefinitionPO htmlControlDefinitionVo = ckEditorPluginsService.getVo(singleName);
+                    System.out.println(singleInnerElem.outerHtml());
 
+                    String buttonElemId=singleInnerElem.id();
+                    String listId=resolveHTMLControlContextPO.getRecordId();
+                    String buttonId=listId+"-"+buttonElemId;
+
+                    listButtonService.deleteByKey(jb4DCSession,buttonId);
+                    ListButtonEntity listButtonEntity=new ListButtonEntity();
+                    listButtonEntity.setButtonId(buttonId);
+                    listButtonEntity.setButtonListId(listId);
+                    listButtonEntity.setButtonListElemId(buttonElemId);
+                    listButtonEntity.setButtonSingleName(singleName);
+                    listButtonEntity.setButtonCaption(singleInnerElem.attr("buttoncaption"));
+                    listButtonEntity.setButtonContent(singleInnerElem.outerHtml());
+                    listButtonEntity.setButtonAuth(singleInnerElem.attr("bindauthority"));
+                    listButtonEntity.setButtonRtContentRenderer("");
+                    listButtonEntity.setButtonDesc("");
+                    listButtonService.saveSimple(jb4DCSession,buttonId,listButtonEntity);
+                }
+            }
+        }
     }
 
     @Override

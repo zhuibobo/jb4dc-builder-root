@@ -450,11 +450,15 @@
             </column>
             <column name="BUTTON_LIST_ELEM_ID" type="NVARCHAR(100)" remarks="所属的列表ID">
             </column>
+            <column name="BUTTON_SINGLE_NAME" type="NVARCHAR(100)" remarks="控件定义的唯一名称">
+            </column>
             <column name="BUTTON_CAPTION" type="NVARCHAR(100)" remarks="按钮的标题">
             </column>
             <column name="BUTTON_CONTENT" type="CLOB" remarks="按钮的配置内容">
             </column>
             <column name="BUTTON_AUTH" type="NVARCHAR(100)" remarks="按钮绑定的权限ID">
+            </column>
+            <column name="BUTTON_RT_CONTENT_RENDERER" type="NVARCHAR(200)" remarks="运行时的内容解析方法:继承IListButtonRTSeverRenderer">
             </column>
             <column name="BUTTON_DESC" type="NVARCHAR(400)" remarks="备注" />
         </createTable>

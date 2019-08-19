@@ -51,8 +51,8 @@ public class TableRestTest extends TableGroupRestTest {
     @Test
     public void saveTableEdit() throws Exception {
 
-        sqlBuilderService.execute("delete TDEV_TEST_3");
-        sqlBuilderService.execute("delete TDEV_TEST_4");
+        //sqlBuilderService.execute("delete TDEV_TEST_3");
+        //sqlBuilderService.execute("delete TDEV_TEST_4");
 
         CreateTestTableGroup();
 

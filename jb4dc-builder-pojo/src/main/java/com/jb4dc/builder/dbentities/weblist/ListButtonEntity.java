@@ -21,6 +21,9 @@ public class ListButtonEntity {
     //BUTTON_LIST_ELEM_ID:所属的列表ID
     private String buttonListElemId;
 
+    //BUTTON_SINGLE_NAME:控件定义的唯一名称
+    private String buttonSingleName;
+
     //BUTTON_CAPTION:按钮的标题
     private String buttonCaption;
 
@@ -30,6 +33,9 @@ public class ListButtonEntity {
     //BUTTON_AUTH:按钮绑定的权限ID
     private String buttonAuth;
 
+    //BUTTON_RT_CONTENT_RENDERER:运行时的内容解析方法:继承IListButtonRTSeverRenderer
+    private String buttonRtContentRenderer;
+
     //BUTTON_DESC:备注
     private String buttonDesc;
 
@@ -38,18 +44,22 @@ public class ListButtonEntity {
      * @param buttonId 主键
      * @param buttonListId 所属的列表ID
      * @param buttonListElemId 所属的列表ID
+     * @param buttonSingleName 控件定义的唯一名称
      * @param buttonCaption 按钮的标题
      * @param buttonContent 按钮的配置内容
      * @param buttonAuth 按钮绑定的权限ID
+     * @param buttonRtContentRenderer 运行时的内容解析方法
      * @param buttonDesc 备注
      **/
-    public ListButtonEntity(String buttonId, String buttonListId, String buttonListElemId, String buttonCaption, String buttonContent, String buttonAuth, String buttonDesc) {
+    public ListButtonEntity(String buttonId, String buttonListId, String buttonListElemId, String buttonSingleName, String buttonCaption, String buttonContent, String buttonAuth, String buttonRtContentRenderer, String buttonDesc) {
         this.buttonId = buttonId;
         this.buttonListId = buttonListId;
         this.buttonListElemId = buttonListElemId;
+        this.buttonSingleName = buttonSingleName;
         this.buttonCaption = buttonCaption;
         this.buttonContent = buttonContent;
         this.buttonAuth = buttonAuth;
+        this.buttonRtContentRenderer = buttonRtContentRenderer;
         this.buttonDesc = buttonDesc;
     }
 
@@ -106,6 +116,22 @@ public class ListButtonEntity {
     }
 
     /**
+     * 控件定义的唯一名称
+     * @return java.lang.String
+     **/
+    public String getButtonSingleName() {
+        return buttonSingleName;
+    }
+
+    /**
+     * 控件定义的唯一名称
+     * @param buttonSingleName 控件定义的唯一名称
+     **/
+    public void setButtonSingleName(String buttonSingleName) {
+        this.buttonSingleName = buttonSingleName == null ? null : buttonSingleName.trim();
+    }
+
+    /**
      * 按钮的标题
      * @return java.lang.String
      **/
@@ -151,6 +177,22 @@ public class ListButtonEntity {
      **/
     public void setButtonAuth(String buttonAuth) {
         this.buttonAuth = buttonAuth == null ? null : buttonAuth.trim();
+    }
+
+    /**
+     * 运行时的内容解析方法:继承IListButtonRTSeverRenderer
+     * @return java.lang.String
+     **/
+    public String getButtonRtContentRenderer() {
+        return buttonRtContentRenderer;
+    }
+
+    /**
+     * 运行时的内容解析方法:继承IListButtonRTSeverRenderer
+     * @param buttonRtContentRenderer 运行时的内容解析方法
+     **/
+    public void setButtonRtContentRenderer(String buttonRtContentRenderer) {
+        this.buttonRtContentRenderer = buttonRtContentRenderer == null ? null : buttonRtContentRenderer.trim();
     }
 
     /**

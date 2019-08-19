@@ -17,7 +17,7 @@ public interface IHTMLControl {
                      Element parentElem,
                      Element lastParentJbuild4dCustomElem,
                      ResolveHTMLControlContextPO resolveHTMLControlContextPO,
-                     HtmlControlDefinitionPO htmlControlDefinitionPO);
+                     HtmlControlDefinitionPO htmlControlDefinitionPO) throws JBuild4DCGenerallyException;
 
     void resolveDefAttr(JB4DCSession jb4DCSession,
                         String sourceHTML,
@@ -26,7 +26,7 @@ public interface IHTMLControl {
                         Element parentElem,
                         Element lastParentJbuild4dCustomElem,
                         ResolveHTMLControlContextPO resolveHTMLControlContextPO,
-                        HtmlControlDefinitionPO htmlControlDefinitionPO);
+                        HtmlControlDefinitionPO htmlControlDefinitionPO) throws JBuild4DCGenerallyException;
 
     void bindDefaultValue(JB4DCSession jb4DCSession,
                           String sourceHTML,
@@ -35,9 +35,9 @@ public interface IHTMLControl {
                           Element parentElem,
                           Element lastParentJbuild4dCustomElem,
                           ResolveHTMLControlContextPO resolveHTMLControlContextPO,
-                          HtmlControlDefinitionPO htmlControlDefinitionPO);
+                          HtmlControlDefinitionPO htmlControlDefinitionPO) throws JBuild4DCGenerallyException;
 
-    void dynamicBind(JB4DCSession jb4DCSession, String sourceHTML, String resolveHTML, Document doc, Element singleControlElem, DynamicBindHTMLControlContextPO dynamicBindHTMLControlContextPO, HtmlControlDefinitionPO htmlControlPluginDefinitionVo);
+    void dynamicBind(JB4DCSession jb4DCSession, String sourceHTML, String resolveHTML, Document doc, Element singleControlElem, DynamicBindHTMLControlContextPO dynamicBindHTMLControlContextPO, HtmlControlDefinitionPO htmlControlPluginDefinitionVo) throws JBuild4DCGenerallyException;
 
     void rendererChain(JB4DCSession jb4DCSession, String sourceHTML, Document doc, Element singleControlElem, Element parentElem, Element lastParentJbuild4dCustomElem, ResolveHTMLControlContextPO resolveHTMLControlContextPO) throws JBuild4DCGenerallyException;
 
@@ -48,5 +48,5 @@ public interface IHTMLControl {
                        Element parentElem,
                        Element lastParentJbuild4dCustomElem,
                        ResolveHTMLControlContextPO resolveHTMLControlContextPO,
-                       HtmlControlDefinitionPO htmlControlDefinitionPO);
+                       HtmlControlDefinitionPO htmlControlDefinitionPO) throws JBuild4DCGenerallyException;
 }

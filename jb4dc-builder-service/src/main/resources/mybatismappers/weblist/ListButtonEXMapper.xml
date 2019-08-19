@@ -8,9 +8,11 @@
     <select id="selectBySearch" parameterType="java.util.Map" resultMap="BaseResultMap">select<include refid="Base_Column_List"/>from TBUILD_LIST_BUTTON<where>
         <if test="buttonListId !=null and buttonListId !=''"> and BUTTON_LIST_ID like #{buttonListId} </if>
         <if test="buttonListElemId !=null and buttonListElemId !=''"> and BUTTON_LIST_ELEM_ID like #{buttonListElemId} </if>
+        <if test="buttonSingleName !=null and buttonSingleName !=''"> and BUTTON_SINGLE_NAME like #{buttonSingleName} </if>
         <if test="buttonCaption !=null and buttonCaption !=''"> and BUTTON_CAPTION like #{buttonCaption} </if>
         <if test="buttonContent !=null and buttonContent !=''"> and BUTTON_CONTENT like #{buttonContent} </if>
         <if test="buttonAuth !=null and buttonAuth !=''"> and BUTTON_AUTH like #{buttonAuth} </if>
+        <if test="buttonRtContentRenderer !=null and buttonRtContentRenderer !=''"> and BUTTON_RT_CONTENT_RENDERER like #{buttonRtContentRenderer} </if>
         <if test="buttonDesc !=null and buttonDesc !=''"> and BUTTON_DESC like #{buttonDesc} </if>
     </where>ORDER by  DESC</select>
 </mapper>

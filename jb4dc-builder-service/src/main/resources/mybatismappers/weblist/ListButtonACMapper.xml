@@ -6,15 +6,17 @@
             <idArg column="BUTTON_ID" javaType="java.lang.String" jdbcType="NVARCHAR" />
             <arg column="BUTTON_LIST_ID" javaType="java.lang.String" jdbcType="NVARCHAR" />
             <arg column="BUTTON_LIST_ELEM_ID" javaType="java.lang.String" jdbcType="NVARCHAR" />
+            <arg column="BUTTON_SINGLE_NAME" javaType="java.lang.String" jdbcType="NVARCHAR" />
             <arg column="BUTTON_CAPTION" javaType="java.lang.String" jdbcType="NVARCHAR" />
             <arg column="BUTTON_CONTENT" javaType="java.lang.String" jdbcType="VARCHAR" />
             <arg column="BUTTON_AUTH" javaType="java.lang.String" jdbcType="NVARCHAR" />
+            <arg column="BUTTON_RT_CONTENT_RENDERER" javaType="java.lang.String" jdbcType="NVARCHAR" />
             <arg column="BUTTON_DESC" javaType="java.lang.String" jdbcType="NVARCHAR" />
         </constructor>
     </resultMap>
     <sql id="Base_Column_List">
-    BUTTON_ID, BUTTON_LIST_ID, BUTTON_LIST_ELEM_ID, BUTTON_CAPTION, BUTTON_CONTENT, BUTTON_AUTH,
-    BUTTON_DESC
+    BUTTON_ID, BUTTON_LIST_ID, BUTTON_LIST_ELEM_ID, BUTTON_SINGLE_NAME, BUTTON_CAPTION,
+    BUTTON_CONTENT, BUTTON_AUTH, BUTTON_RT_CONTENT_RENDERER, BUTTON_DESC
   </sql>
     <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
         select
@@ -28,10 +30,12 @@
   </delete>
     <insert id="insert" parameterType="com.jb4dc.builder.dbentities.weblist.ListButtonEntity">
     insert into TBUILD_LIST_BUTTON (BUTTON_ID, BUTTON_LIST_ID, BUTTON_LIST_ELEM_ID,
-      BUTTON_CAPTION, BUTTON_CONTENT, BUTTON_AUTH,
+      BUTTON_SINGLE_NAME, BUTTON_CAPTION, BUTTON_CONTENT,
+      BUTTON_AUTH, BUTTON_RT_CONTENT_RENDERER,
       BUTTON_DESC)
     values (#{buttonId,jdbcType=NVARCHAR}, #{buttonListId,jdbcType=NVARCHAR}, #{buttonListElemId,jdbcType=NVARCHAR},
-      #{buttonCaption,jdbcType=NVARCHAR}, #{buttonContent,jdbcType=VARCHAR}, #{buttonAuth,jdbcType=NVARCHAR},
+      #{buttonSingleName,jdbcType=NVARCHAR}, #{buttonCaption,jdbcType=NVARCHAR}, #{buttonContent,jdbcType=VARCHAR},
+      #{buttonAuth,jdbcType=NVARCHAR}, #{buttonRtContentRenderer,jdbcType=NVARCHAR},
       #{buttonDesc,jdbcType=NVARCHAR})
   </insert>
     <insert id="insertSelective" parameterType="com.jb4dc.builder.dbentities.weblist.ListButtonEntity">
@@ -46,6 +50,9 @@
             <if test="buttonListElemId != null">
                 BUTTON_LIST_ELEM_ID,
             </if>
+            <if test="buttonSingleName != null">
+                BUTTON_SINGLE_NAME,
+            </if>
             <if test="buttonCaption != null">
                 BUTTON_CAPTION,
             </if>
@@ -54,6 +61,9 @@
             </if>
             <if test="buttonAuth != null">
                 BUTTON_AUTH,
+            </if>
+            <if test="buttonRtContentRenderer != null">
+                BUTTON_RT_CONTENT_RENDERER,
             </if>
             <if test="buttonDesc != null">
                 BUTTON_DESC,
@@ -69,6 +79,9 @@
             <if test="buttonListElemId != null">
                 #{buttonListElemId,jdbcType=NVARCHAR},
             </if>
+            <if test="buttonSingleName != null">
+                #{buttonSingleName,jdbcType=NVARCHAR},
+            </if>
             <if test="buttonCaption != null">
                 #{buttonCaption,jdbcType=NVARCHAR},
             </if>
@@ -77,6 +90,9 @@
             </if>
             <if test="buttonAuth != null">
                 #{buttonAuth,jdbcType=NVARCHAR},
+            </if>
+            <if test="buttonRtContentRenderer != null">
+                #{buttonRtContentRenderer,jdbcType=NVARCHAR},
             </if>
             <if test="buttonDesc != null">
                 #{buttonDesc,jdbcType=NVARCHAR},
@@ -92,6 +108,9 @@
             <if test="buttonListElemId != null">
                 BUTTON_LIST_ELEM_ID = #{buttonListElemId,jdbcType=NVARCHAR},
             </if>
+            <if test="buttonSingleName != null">
+                BUTTON_SINGLE_NAME = #{buttonSingleName,jdbcType=NVARCHAR},
+            </if>
             <if test="buttonCaption != null">
                 BUTTON_CAPTION = #{buttonCaption,jdbcType=NVARCHAR},
             </if>
@@ -100,6 +119,9 @@
             </if>
             <if test="buttonAuth != null">
                 BUTTON_AUTH = #{buttonAuth,jdbcType=NVARCHAR},
+            </if>
+            <if test="buttonRtContentRenderer != null">
+                BUTTON_RT_CONTENT_RENDERER = #{buttonRtContentRenderer,jdbcType=NVARCHAR},
             </if>
             <if test="buttonDesc != null">
                 BUTTON_DESC = #{buttonDesc,jdbcType=NVARCHAR},
@@ -111,9 +133,11 @@
     update TBUILD_LIST_BUTTON
     set BUTTON_LIST_ID = #{buttonListId,jdbcType=NVARCHAR},
       BUTTON_LIST_ELEM_ID = #{buttonListElemId,jdbcType=NVARCHAR},
+      BUTTON_SINGLE_NAME = #{buttonSingleName,jdbcType=NVARCHAR},
       BUTTON_CAPTION = #{buttonCaption,jdbcType=NVARCHAR},
       BUTTON_CONTENT = #{buttonContent,jdbcType=VARCHAR},
       BUTTON_AUTH = #{buttonAuth,jdbcType=NVARCHAR},
+      BUTTON_RT_CONTENT_RENDERER = #{buttonRtContentRenderer,jdbcType=NVARCHAR},
       BUTTON_DESC = #{buttonDesc,jdbcType=NVARCHAR}
     where BUTTON_ID = #{buttonId,jdbcType=NVARCHAR}
   </update>
