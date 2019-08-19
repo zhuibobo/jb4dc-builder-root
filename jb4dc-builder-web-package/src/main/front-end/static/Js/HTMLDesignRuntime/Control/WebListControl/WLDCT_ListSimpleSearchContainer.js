@@ -1,6 +1,6 @@
 var WLDCT_ListSimpleSearchContainer={
     _$SimpleSearchButton:null,
-    _$ComplexSearchButton:null,
+    _$ShowComplexSearchButton:null,
     _$SingleControlElem:null,
     RendererChain:function (_rendererChainParas) {
         var $singleControlElem = _rendererChainParas.$singleControlElem;
@@ -18,10 +18,10 @@ var WLDCT_ListSimpleSearchContainer={
         $searchButtonsWrap.width(buttonWrapWidth-40);
 
         this._$SimpleSearchButton=$("<button>查询</button>");
-        this._$ComplexSearchButton=$("<button>高级查询</button>");
+        this._$ShowComplexSearchButton=$("<button>高级查询</button>");
 
         $searchButtonsWrap.append(this._$SimpleSearchButton);
-        $searchButtonsWrap.append(this._$ComplexSearchButton);
+        $searchButtonsWrap.append(this._$ShowComplexSearchButton);
 
         $singleControlElem.append($searchButtonsWrap);
 

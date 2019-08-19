@@ -120,16 +120,19 @@ class CKEditorUtility {
                 }*/
                 //alert(event.data.dataValue);
                 //CKEditorUtility.ClearALLForDivElemButton();
+                //debugger;
                 var $sourceHTML = $(sourceHTML);
                 $sourceHTML.find(".del-button").remove();
+                //$sourceHTML
                 //alert($sourceHTML.find(".del-button").outerHTML());
                 //如果其中包含一个用于显示控件呈现的div,取其进行替换
                 if($sourceHTML.find("div").length==1){
-                    event.data.dataValue = $sourceHTML.find("div").outerHTML();
+                    event.data.dataValue = $sourceHTML.find("div").attr("id", "ct_copy_"+StringUtility.Timestamp()).outerHTML();
                 }
             }
             catch (e) {
                 //还原html
+                console.log("黏贴异常,还原HTML");
                 event.data.dataValue = sourceHTML;
             }
         });

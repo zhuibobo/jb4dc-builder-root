@@ -271,14 +271,18 @@ var WLDCT_ListTableContainer= {
     },
     RendererChain: function (_rendererChainParas) {
         //$singleControlElem.hide();
-        var $singleControlElem=_rendererChainParas.$singleControlElem;
+        var $singleControlElem = _rendererChainParas.$singleControlElem;
         //console.log($singleControlElem);
         //console.log($singleControlElem.prevAll("[client_resolve='WLDCT_ListSimpleSearchContainer']"));
-        var $simpleSearchContainerElem=$singleControlElem.prevAll("[client_resolve='WLDCT_ListSimpleSearchContainer']");
-        this._SimpleSearchContainerInstance=HTMLControl.GetControlInstanceByElem($simpleSearchContainerElem);
+        var $simpleSearchContainerElem = $singleControlElem.prevAll("[client_resolve='WLDCT_ListSimpleSearchContainer']");
+        var $complexSearchContainerElem = $singleControlElem.prevAll("[client_resolve='WLDCT_ListComplexSearchContainer']");
+        this._SimpleSearchContainerInstance = HTMLControl.GetControlInstanceByElem($simpleSearchContainerElem);
+        this._ComplexSearchContainerInstance = HTMLControl.GetControlInstanceByElem($complexSearchContainerElem);
 
-        this._SimpleSearchContainerInstance._$SimpleSearchButton.bind("click",{"listInstance":this,"simpleSearchContainerInstance": this._SimpleSearchContainerInstance},this.SimpleSearchClickEvent);
-
+        this._SimpleSearchContainerInstance._$SimpleSearchButton.bind("click", {"listInstance": this}, this.SimpleSearchClickEvent);
+        this._SimpleSearchContainerInstance._$ShowComplexSearchButton.bind("click", {"listInstance": this}, this.ShowComplexSearchClickEvent);
+        this._ComplexSearchContainerInstance._$ComplexSearchButton.bind("click", {"listInstance": this}, this.ComplexSearchClickEvent);
+        this._ComplexSearchContainerInstance._$CloseButton.bind("click", {"listInstance": this}, this.ComplexSearchCloseClickEvent);
         //var $buttonDivElemList=$singleControlElem.find("div"+HTMLControlAttrs.SELECTED_JBUILD4DC_CUSTOM);
         //$singleControlElem.find("[is-op-button-wrap-table='true']").hide();
         /*$singleControlElem.find(".wldct-list-table-inner-wrap").html(this.GetHTML());
@@ -311,7 +315,7 @@ var WLDCT_ListTableContainer= {
         if(isReRenderer){
             _rendererDataChainParas.$singleControlElem.html(this._Cache$SingleControlElem.html());
         }
-        DialogUtility.AlertLoading(window,DialogUtility.DialogLoadingId,{ title:"系统提示" },"数据加载中,请稍候....");
+        DialogUtility.AlertLoading(window,DialogUtility.DialogLoadingId,{ title:"系统提示",hide: { effect: "fade", duration: 500 } },"数据加载中,请稍候....");
         this._DataSetRuntimeInstance.GetDataSetData({
             dataSetId:dataSetId,
             pageSize:pageSize,
@@ -321,13 +325,13 @@ var WLDCT_ListTableContainer= {
             exValue2:"",
             exValue3:""
         },function (result) {
-            console.log(result);
+            //console.log(result);
             _rendererDataChainParas.dataSet=result.data;
             this._DataSet=result.data;
             this.CreateTable(_rendererDataChainParas.$singleControlElem,this._DataSet);
             window.setTimeout(function () {
                 DialogUtility.CloseDialog(DialogUtility.DialogLoadingId);
-            },1000);
+            },500);
         },this);
     },
     CreateTable:function($singleControlElem,dataSet){
@@ -366,7 +370,7 @@ var WLDCT_ListTableContainer= {
         });
     },
     AppendCheckBoxColumnTemplate:function($templateTable,$templateTableHeaderRows,$templateTableRow){
-        var $th=$("<th>选择</th>");
+        var $th=$("<th style='width: 50px'>选择</th>");
         if($templateTableHeaderRows.length>1){
             $th.attr("rowspan",$templateTableHeaderRows.length);
         }
@@ -461,7 +465,7 @@ var WLDCT_ListTableContainer= {
                 DialogUtility.AlertText("已经到达最末页!");
             }
         });
-        console.log(_self._DataSet);
+        //console.log(_self._DataSet);
         var info=$("<div class='table-paging-info'>总条数【"+_self._DataSet.total+"】&nbsp;&nbsp;页数【"+_self._CurrentPageNum+"/"+_self._DataSet.pages+"】</div>")
         pagingInnerElem.append(firstPage).append(prePage).append(nextPage).append(lastPage).append(info);
         return pagingOuterElem;
@@ -472,13 +476,31 @@ var WLDCT_ListTableContainer= {
     },
     SimpleSearchClickEvent:function (sender) {
         var _self=sender.data.listInstance;
-        //console.log("开始进行查询!");
-        //console.log(_self);
         var conditions=_self._SimpleSearchContainerInstance.BuilderSearchCondition();
-        //console.log(conditions);
-        //console.log(this);
-
         _self._QueryPOList=conditions;
         _self.RendererDataChain(_self._CacheRendererDataChainParas,true);
+    },
+    ShowComplexSearchClickEvent:function (sender) {
+        var _self=sender.data.listInstance;
+        //console.log(_self._ComplexSearchContainerInstance);
+        DialogUtility.DialogElemObj(_self._ComplexSearchContainerInstance._$SingleControlElem,{
+            title:"高级查询",
+            height: 410,
+            width: 800,
+            modal: true
+        })
+    },
+    ComplexSearchClickEvent:function (sender) {
+        console.log("高级查询.");
+        var _self=sender.data.listInstance;
+        var simpleConditions=_self._SimpleSearchContainerInstance.BuilderSearchCondition();
+        var complexConditions=_self._ComplexSearchContainerInstance.BuilderSearchCondition();
+        _self._QueryPOList=complexConditions.concat(simpleConditions);
+        _self.RendererDataChain(_self._CacheRendererDataChainParas,true);
+        DialogUtility.CloseDialogElem(_self._ComplexSearchContainerInstance._$SingleControlElem)
+    },
+    ComplexSearchCloseClickEvent:function(sender){
+        var _self=sender.data.listInstance;
+        DialogUtility.CloseDialogElem(_self._ComplexSearchContainerInstance._$SingleControlElem)
     }
 }

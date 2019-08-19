@@ -25,8 +25,8 @@ var ListRuntime={
         RuntimeGeneralInstance.LoadHtmlDesignContent(BaseUtility.GetRootPath()+"/Rest/Builder/RunTime/ListRuntime/ListPreview?listId="+this._Prop_Config.ListId,this._Prop_Config.RendererTo, {}, function (result) {
             //alert( "Load was performed.");
             //debugger;
-            console.log("加载列表设置成功!!");
-            console.log(result);
+            //console.log("加载列表设置成功!!");
+            //console.log(result);
 
             //console.log(result.data.listHtmlRuntime);
             //var $rootElem=$(result.data.formHtmlRuntime);
