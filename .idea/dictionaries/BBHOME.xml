@@ -4,6 +4,7 @@
       <w>apivariable</w>
       <w>bindauthority</w>
       <w>buttoncaption</w>
+      <w>buttonid</w>
       <w>buttontype</w>
       <w>ckeditor</w>
       <w>cust</w>
@@ -19,6 +20,7 @@
       <w>custsinglename</w>
       <w>datastorage</w>
       <w>dbentities</w>
+      <w>elemid</w>
       <w>envvariable</w>
       <w>fconfig</w>
       <w>formcode</w>

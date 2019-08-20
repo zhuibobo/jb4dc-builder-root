@@ -73,6 +73,7 @@ public class WebListListButtonContainer  extends HTMLControl implements IHTMLCon
                     String listId=resolveHTMLControlContextPO.getRecordId();
                     String buttonId=listId+"-"+buttonElemId;
 
+                    singleInnerElem.attr("buttonid",buttonId);
                     listButtonService.deleteByKey(jb4DCSession,buttonId);
 
                     String custSingleName=singleInnerElem.attr("custsinglename");

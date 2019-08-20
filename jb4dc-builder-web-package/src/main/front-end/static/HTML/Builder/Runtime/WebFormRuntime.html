@@ -10,7 +10,9 @@
         $(function () {
             var ListRuntimeInst = Object.create(FormRuntime);
             var formId=BaseUtility.GetUrlParaValue("formId");
-            $("#htmlDesignRuntimeWrap").html(formId);
+            var buttonid=BaseUtility.GetUrlParaValue("buttonid");
+            var elemid=BaseUtility.GetUrlParaValue("elemid");
+            $("#htmlDesignRuntimeWrap").html(formId+"||"+buttonid+"||"+elemid);
             /*ListRuntimeInst.Initialization({
                 RendererToId: "htmlDesignRuntimeWrap",
                 ListId:listId

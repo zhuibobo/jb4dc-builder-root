@@ -35,7 +35,8 @@ var WLDCT_FormButton= {
         var formmoduleid=$button.attr("formmoduleid");
         var formmodulename=$button.attr("formmodulename");
         var formname=$button.attr("formname");
-        var id=$button.attr("id");
+        var elemid=$button.attr("id");
+        var buttonid=$button.attr("buttonid");
         var innerbuttonjsonstring=$button.attr("innerbuttonjsonstring");
         var opentype=$button.attr("opentype");
         var operation=$button.attr("operation");
@@ -46,7 +47,9 @@ var WLDCT_FormButton= {
         var client_resolve=$button.attr("client_resolve");
         //debugger;
         DialogUtility.Frame_OpenIframeWindow(window,DialogUtility.DialogId,BaseUtility.BuildView("/HTML/Builder/Runtime/WebFormRuntime.html",{
-            formId:formid
+            formId:formid,
+            buttonid:buttonid,
+            elemid:elemid
         }), {
             width: windowwidth,
             height: windowheight,

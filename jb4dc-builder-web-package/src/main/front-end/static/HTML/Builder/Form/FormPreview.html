@@ -15,7 +15,9 @@
     <script>
         $(function () {
             var FormRuntimeInst = Object.create(FormRuntime);
-            var formId=BaseUtility.GetUrlParaValue("FormId");
+            var formId=BaseUtility.GetUrlParaValue("formId");
+            var buttonid=BaseUtility.GetUrlParaValue("buttonid");
+            var elemid=BaseUtility.GetUrlParaValue("elemid");
             FormRuntimeInst.Initialization({
                 RendererToId: "htmlDesignRuntimeWrap",
                 FormId:formId
