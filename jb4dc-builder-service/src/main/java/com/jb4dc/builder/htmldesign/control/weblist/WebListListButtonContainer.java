@@ -82,10 +82,15 @@ public class WebListListButtonContainer  extends HTMLControl implements IHTMLCon
                     String custProp3=singleInnerElem.attr("custprop3");
                     String custProp4=singleInnerElem.attr("custprop4");
 
+                    String outerId="";
+                    if(singleInnerElem.attr("singlename").equals("WLDCT_FormButton")) {
+                        outerId=singleInnerElem.attr("formmoduleid");
+                    }
+
                     if(StringUtility.isNotEmpty(custSingleName)){
                         ListButtonEntity listButtonEntity=listButtonService.getByCustSingleName(jb4DCSession,custSingleName);
                         if(listButtonEntity!=null){
-                            throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_BUILDER_CODE,"按钮["+buttonCaption+"]在开发属性中定义了唯一名,但是改名称已经被使用,请修改名称!");
+                            throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_BUILDER_CODE,"按钮【"+buttonCaption+"】在开发属性中定义了唯一名【"+custSingleName+"】,但是该名称已经被使用,请修改名称!");
                         }
                     }
 
@@ -104,6 +109,7 @@ public class WebListListButtonContainer  extends HTMLControl implements IHTMLCon
                     listButtonEntity.setButtonCustProp1(custProp2);
                     listButtonEntity.setButtonCustProp1(custProp3);
                     listButtonEntity.setButtonCustProp1(custProp4);
+                    listButtonEntity.setButtonOuterId(outerId);
                     listButtonService.saveSimple(jb4DCSession,buttonId,listButtonEntity);
                 }
             }
