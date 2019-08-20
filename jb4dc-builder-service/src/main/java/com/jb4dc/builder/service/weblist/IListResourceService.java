@@ -14,7 +14,7 @@ import com.jb4dc.core.base.session.JB4DCSession;
  * To change this template use File | Settings | File Templates.
  */
 public interface IListResourceService extends IBaseService<ListResourceEntity> {
-    ListResourcePO getFormPreviewHTMLContent(JB4DCSession session, String listId) throws JBuild4DCGenerallyException;
+    //ListResourcePO getFormPreviewHTMLContent(JB4DCSession session, String listId) throws JBuild4DCGenerallyException;
 
     ListResourcePO getListRuntimeHTMLContent(JB4DCSession jb4DCSession, String id) throws JBuild4DCGenerallyException;
 }

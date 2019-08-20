@@ -79,6 +79,10 @@ let replaceBlock = {
         replaceArray.push(refJs(levelPath + "Js/External/Codemirror-5.48.0/addon/search/search.js"));
         replaceArray.push(refJs(levelPath + "Js/External/Codemirror-5.48.0/addon/search/searchcursor.js"));
 
+        //replaceArray.push(refJs(levelPath + "Js/External/Codemirror-5.48.0/addon/hint/show-hint.js"));
+        //replaceArray.push(refJs(levelPath + "Js/External/Codemirror-5.48.0/addon/hint/javascript-hint.js"));
+        //replaceArray.push(refCss(levelPath + 'Js/External/Codemirror-5.48.0/addon/hint/show-hint.css'));
+
         return replaceArray.join("\n\t");
     },
     replaceFormDesignLib: function (search, file) {

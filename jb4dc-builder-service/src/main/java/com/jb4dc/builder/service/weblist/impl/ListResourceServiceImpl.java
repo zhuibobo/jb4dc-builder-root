@@ -66,15 +66,15 @@ public class ListResourceServiceImpl extends BaseServiceImpl<ListResourceEntity>
         });
     }
 
-    @Override
+    /*@Override
     public ListResourcePO getFormPreviewHTMLContent(JB4DCSession session, String listId) throws JBuild4DCGenerallyException {
         return getListRuntimeHTMLContent(session,listId);
-    }
+    }*/
 
     @Override
     public ListResourcePO getListRuntimeHTMLContent(JB4DCSession jb4DCSession, String id) throws JBuild4DCGenerallyException {
         ListResourceEntity listResourceEntity=getByPrimaryKey(jb4DCSession,id);
         String runtimeForm=htmlRuntimeResolve.dynamicBind(jb4DCSession,id,listResourceEntity.getListHtmlResolve());
-        return new ListResourcePO(listResourceEntity,runtimeForm);
+        return new ListResourcePO(listResourceEntity,runtimeForm,listResourceEntity.getListJsContent());
     }
 }

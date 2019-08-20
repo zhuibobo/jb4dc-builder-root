@@ -252,11 +252,27 @@
                         //console.log(themeVo);
                         //初始化表单编辑器
                         CKEditorUtility.InitializeCKEditor('html_design',_self.pluginVoList,function () {
-
-                            HTMLEditorUtility.SetHTMLEditorHTML(_self.listResourceEntity.listHtmlSource);
-                            CKEditorUtility.SetCKEditorHTML(_self.listResourceEntity.listHtmlSource);
-                            JsEditorUtility.SetJsEditorJs(_self.listResourceEntity.listJsContent);
-
+                            if(_self.status=="update") {
+                                HTMLEditorUtility.SetHTMLEditorHTML(_self.listResourceEntity.listHtmlSource);
+                                CKEditorUtility.SetCKEditorHTML(_self.listResourceEntity.listHtmlSource);
+                                JsEditorUtility.SetJsEditorJs(_self.listResourceEntity.listJsContent);
+                            }
+                            else{
+                                JsEditorUtility.SetJsEditorJs("var BuilderListPageRuntimeInstance={\n" +
+                                    "    PageReady:function(){\n" +
+                                    "        //页面加载html完成,未进行客户端控件的渲染\n" +
+                                    "        console.log(\"页面加载html完成1\");\n" +
+                                    "    },\n" +
+                                    "    RendererChainCompleted:function(){\n" +
+                                    "        //客户端控件渲染完成.\n" +
+                                    "        console.log(\"客户端控件渲染完成\");\n" +
+                                    "    },\n" +
+                                    "    RendererDataChainCompleted:function(){\n" +
+                                    "        //客户端控件渲染并绑定完数据.\n" +
+                                    "        console.log(\"客户端控件渲染并绑定完数据\");\n" +
+                                    "    }\n" +
+                                    "}");
+                            }
                             _self.isLoading=false;
                         },"../../HTMLDesign/CKEditorConfig/CKEditorConfig.js","../../HTMLDesign/WebListDesign/Plugins/",themeVo);
 
@@ -338,6 +354,11 @@
                         window.opener._modulelistweblistcomp.reloadData();
                         if(typeof(successFunc)=="function") {
                             successFunc.call(this,result);
+                        }
+                        else{
+                            if(result.success){
+                                DialogUtility.AlertText(result.message);
+                            }
                         }
                         //debugger;
                         /*DialogUtility.Alert(window, DialogUtility.DialogAlertId, {}, result.message, function () {

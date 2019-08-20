@@ -20,7 +20,17 @@ public class ListResourcePO extends ListResourceEntity {
         this.listHtmlRuntime = listHtmlRuntime;
     }
 
-    public ListResourcePO(ListResourceEntity source,String listHtmlRuntime) {
+    private String listJsRuntime;
+
+    public String getListJsRuntime() {
+        return listJsRuntime;
+    }
+
+    public void setListJsRuntime(String listJsRuntime) {
+        this.listJsRuntime = listJsRuntime;
+    }
+
+    public ListResourcePO(ListResourceEntity source, String listHtmlRuntime,String listJsRuntime) {
 
         this.setListId(source.getListId());
         this.setListCode(source.getListCode());
@@ -57,5 +67,6 @@ public class ListResourcePO extends ListResourceEntity {
         this.setListCustDesc(source.getListCustDesc());
 
         this.listHtmlRuntime = listHtmlRuntime;
+        this.listJsRuntime=listJsRuntime;
     }
 }

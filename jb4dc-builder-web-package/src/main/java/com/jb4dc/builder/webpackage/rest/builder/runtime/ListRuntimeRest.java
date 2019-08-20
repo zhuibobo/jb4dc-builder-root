@@ -33,9 +33,9 @@ public class ListRuntimeRest {
     @Autowired
     IDatasetService datasetService;
 
-    @RequestMapping("/ListPreview")
-    public JBuild4DCResponseVo<ListResourcePO> getListPreviewHTMLContent(String listId) throws JBuild4DCGenerallyException {
-        ListResourcePO listResourcePO=listResourceService.getFormPreviewHTMLContent(JB4DCSessionUtility.getSession(),listId);
+    @RequestMapping("/LoadHTML")
+    public JBuild4DCResponseVo<ListResourcePO> loadHTML(String listId) throws JBuild4DCGenerallyException {
+        ListResourcePO listResourcePO=listResourceService.getListRuntimeHTMLContent(JB4DCSessionUtility.getSession(),listId);
         return JBuild4DCResponseVo.getDataSuccess(listResourcePO);
     }
 
