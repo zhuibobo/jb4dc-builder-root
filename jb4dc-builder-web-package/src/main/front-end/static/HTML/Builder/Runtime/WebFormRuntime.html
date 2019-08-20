@@ -2,18 +2,19 @@
 <html lang="zh" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>列表预览</title>
+    <title>表单</title>
     <th:block th:replace="Fragment/GeneralLib::GeneralLib"></th:block>
     <th:block th:replace="Fragment/GeneralLib::ThemesLib"></th:block>
     <th:block th:replace="Fragment/GeneralLib::HTMLDesignRuntimeLib"></th:block>
     <script>
         $(function () {
-            var ListRuntimeInst = Object.create(ListRuntime);
-            var listId=BaseUtility.GetUrlParaValue("menuOuterId");
-            ListRuntimeInst.Initialization({
+            var ListRuntimeInst = Object.create(FormRuntime);
+            var formId=BaseUtility.GetUrlParaValue("formId");
+            $("#htmlDesignRuntimeWrap").html(formId);
+            /*ListRuntimeInst.Initialization({
                 RendererToId: "htmlDesignRuntimeWrap",
                 ListId:listId
-            })
+            })*/
         });
     </script>
 </head>

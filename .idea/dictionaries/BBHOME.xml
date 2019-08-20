@@ -2,20 +2,42 @@
   <dictionary name="BBHOME">
     <words>
       <w>apivariable</w>
+      <w>bindauthority</w>
+      <w>buttoncaption</w>
+      <w>buttontype</w>
       <w>ckeditor</w>
       <w>cust</w>
+      <w>custclientclickbeforemethod</w>
+      <w>custclientclickbeforemethodpara</w>
+      <w>custclientrendereraftermethodpara</w>
+      <w>custclientrendereraftermethodparapara</w>
+      <w>custclientrenderermethod</w>
+      <w>custclientrenderermethodpara</w>
+      <w>custserverresolvemethod</w>
+      <w>custserverresolvemethodpara</w>
       <w>datastorage</w>
       <w>dbentities</w>
       <w>envvariable</w>
       <w>fconfig</w>
+      <w>formcode</w>
+      <w>formid</w>
+      <w>formmoduleid</w>
+      <w>formmodulename</w>
+      <w>formname</w>
       <w>htmldesign</w>
+      <w>innerbuttonjsonstring</w>
       <w>jbuild</w>
+      <w>opentype</w>
+      <w>singlename</w>
       <w>sqlserver</w>
       <w>tbuild</w>
       <w>tsso</w>
       <w>tsys</w>
       <w>webform</w>
       <w>weblist</w>
+      <w>windowcaption</w>
+      <w>windowheight</w>
+      <w>windowwidth</w>
       <w>wldct</w>
       <w>zhuangrb</w>
     </words>
