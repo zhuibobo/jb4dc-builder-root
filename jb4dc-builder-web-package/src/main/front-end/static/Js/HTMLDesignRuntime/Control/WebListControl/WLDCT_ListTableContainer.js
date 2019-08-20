@@ -279,6 +279,8 @@ var WLDCT_ListTableContainer= {
         this._SimpleSearchContainerInstance = HTMLControl.GetControlInstanceByElem($simpleSearchContainerElem);
         this._ComplexSearchContainerInstance = HTMLControl.GetControlInstanceByElem($complexSearchContainerElem);
 
+        HTMLControl.SaveControlNewInstanceToPool($singleControlElem,this);
+
         this._SimpleSearchContainerInstance._$SimpleSearchButton.bind("click", {"listInstance": this}, this.SimpleSearchClickEvent);
         this._SimpleSearchContainerInstance._$ShowComplexSearchButton.bind("click", {"listInstance": this}, this.ShowComplexSearchClickEvent);
         this._ComplexSearchContainerInstance._$ComplexSearchButton.bind("click", {"listInstance": this}, this.ComplexSearchClickEvent);
@@ -507,5 +509,8 @@ var WLDCT_ListTableContainer= {
     ComplexSearchClearClickEvent:function (sender) {
         var _self=sender.data.listInstance;
         DialogUtility.AlertText("未实现!");
+    },
+    GetLastCheckedRecordId:function () {
+        alert(1);
     }
 }

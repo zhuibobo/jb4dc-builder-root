@@ -1,4 +1,5 @@
 var WLDCT_FormButton= {
+    _ListTableContainerInstance:null,
     RendererChain: HTMLControl.RendererChain,
     ResolveSelf:function (_rendererChainParas) {
         var $singleControlElem=_rendererChainParas.$singleControlElem;
@@ -12,12 +13,21 @@ var WLDCT_FormButton= {
             $button.attr(this.name, this.value);
         });
 
-        $button.bind("click",{buttonElem:$button},this.ClickEvent);
+        $button.bind("click",{"buttonElem":$button,"selfInstance":this},this.ClickEvent);
+        //debugger;
+        //console.log($WLDCT_ListButtonContainer.html());
+
         return $button;
     },
-    RendererDataChain:HTMLControl.RendererDataChain,
+    RendererDataChain:function (_rendererDataChainParas) {
+        var $singleControlElem=_rendererDataChainParas.$singleControlElem;
+        var $WLDCT_ListButtonContainer = $singleControlElem.parents("[singlename='WLDCT_ListButtonContainer']");
+        var $WLDCT_ListTableContainerElem = $WLDCT_ListButtonContainer.nextAll("[client_resolve='WLDCT_ListTableContainer']");
+        this._ListTableContainerInstance = HTMLControl.GetControlInstanceByElem($WLDCT_ListTableContainerElem);
+    },
     ClickEvent:function (sender) {
         var $button=sender.data.buttonElem;
+        var _self=sender.data.selfInstance;
         console.log($button);
         var bindauthority=$button.attr("bindauthority");
         var buttoncaption=$button.attr("buttoncaption");
@@ -45,6 +55,13 @@ var WLDCT_FormButton= {
         var windowheight=$button.attr("windowheight");
         var windowwidth=$button.attr("windowwidth");
         var client_resolve=$button.attr("client_resolve");
+
+        var recordId="";
+        if(operation=="update"||operation=="view"){
+
+            recordId=_self._ListTableContainerInstance.GetLastCheckedRecordId();
+        }
+
         //debugger;
         DialogUtility.Frame_OpenIframeWindow(window,DialogUtility.DialogId,BaseUtility.BuildView("/HTML/Builder/Runtime/WebFormRuntime.html",{
             formId:formid,
