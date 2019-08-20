@@ -131,7 +131,7 @@
             <fd-control-base-info v-model="baseInfo">
             </fd-control-base-info>
         </tab-pane>
-        <tab-pane label="开发扩展">
+        <tab-pane label="开发方法扩展">
             <table cellpadding="0" cellspacing="0" border="0" class="html-design-plugin-dialog-table-wraper">
                 <colgroup>
                     <col style="width: 150px" />
@@ -205,6 +205,72 @@
                 </tbody>
             </table>
         </tab-pane>
+        <tab-pane label="开发属性扩展">
+            <table cellpadding="0" cellspacing="0" border="0" class="html-design-plugin-dialog-table-wraper">
+                <colgroup>
+                    <col style="width: 150px" />
+                    <col />
+                </colgroup>
+                <tbody>
+                    <tr>
+                        <td>
+                            唯一名：
+                        </td>
+                        <td>
+                            <i-input v-model="normalProps.custSingleName" placeholder="按钮的唯一名称,使用英文字母,可以为空,不为空时将检测是否唯一,将存入表TBUILD_LIST_BUTTON中" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            URL附加参数：
+                        </td>
+                        <td>
+                            <i-input v-model="normalProps.custUrlAppendPara" placeholder="打开表单时的url附加参数,eg:name=1&age=2,变量替换规则参考......." />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            URL格式化方法：
+                        </td>
+                        <td>
+                            <i-input v-model="normalProps.custUrlAppendParaFormat" placeholder="针对[URL附加参数]的格式化方法,使用返回值作为附加参数" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            自定义属性1：
+                        </td>
+                        <td>
+                            <i-input v-model="normalProps.custProp1" placeholder="自定义的属性1,将存入表TBUILD_LIST_BUTTON中" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            自定义属性2：
+                        </td>
+                        <td>
+                            <i-input v-model="normalProps.custProp2" placeholder="自定义的属性2,将存入表TBUILD_LIST_BUTTON中" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            自定义属性3：
+                        </td>
+                        <td>
+                            <i-input v-model="normalProps.custProp3" placeholder="自定义的属性3,将存入表TBUILD_LIST_BUTTON中" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            自定义属性4：
+                        </td>
+                        <td>
+                            <i-input v-model="normalProps.custProp4" placeholder="自定义的属性4,将存入表TBUILD_LIST_BUTTON中" />
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </tab-pane>
     </tabs>
 </div>
 <script>
@@ -230,7 +296,7 @@
                 isShow:"true",
                 operation:"add",
                 bindAuthority:"notAuth",
-                //开发扩展
+                //开发方法扩展
                 custServerResolveMethod:"",
                 custServerResolveMethodPara:"",
                 custClientRendererMethod:"",
@@ -239,6 +305,14 @@
                 custClientRendererAfterMethodParaPara:"",
                 custClientClickBeforeMethod:"",
                 custClientClickBeforeMethodPara:"",
+                //开发属性扩展
+                custSingleName:"",
+                custUrlAppendPara:"",
+                custUrlAppendParaFormat:"",
+                custProp1:"",
+                custProp2:"",
+                custProp3:"",
+                custProp4:"",
                 //内部按钮
                 innerButtonJsonString:""
             }
@@ -319,6 +393,14 @@
                 this.normalProps.custClientClickBeforeMethod = $elem.attr("custclientclickbeforemethod");
                 this.normalProps.custClientClickBeforeMethodPara = $elem.attr("custclientclickbeforemethodpara");
                 this.normalProps.innerButtonJsonString = $elem.attr("innerbuttonjsonstring");
+
+                this.normalProps.custSingleName = $elem.attr("custSingleName");
+                this.normalProps.custUrlAppendPara = $elem.attr("custUrlAppendPara");
+                this.normalProps.custUrlAppendParaFormat = $elem.attr("custUrlAppendParaFormat");
+                this.normalProps.custProp1 = $elem.attr("custProp1");
+                this.normalProps.custProp2 = $elem.attr("custProp2");
+                this.normalProps.custProp3 = $elem.attr("custProp3");
+                this.normalProps.custProp4 = $elem.attr("custProp4");
 
                 //this.bindToSearchField = props.bindToSearchField ? props.bindToSearchField : this.bindToSearchField;
                 //this.defaultValue = props.defaultValue ? props.defaultValue : this.defaultValue;

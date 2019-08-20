@@ -10,4 +10,5 @@ import com.jb4dc.builder.dbentities.weblist.ListButtonEntity;
  * To change this template use File | Settings | File Templates.
  */
 public interface ListButtonMapper  extends BaseMapper<ListButtonEntity> {
+    ListButtonEntity selectByCustSingleName(String custSingleName);
 }

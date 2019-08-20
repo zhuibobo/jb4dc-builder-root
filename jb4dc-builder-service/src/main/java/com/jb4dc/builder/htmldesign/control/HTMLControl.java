@@ -60,7 +60,8 @@ public abstract class HTMLControl implements IHTMLControl {
                         htmlControl.rendererChain(jb4DCSession, sourceHTML, doc, singleElem, parentElem, lastParentJbuild4dCustomElem, resolveHTMLControlContextPO);
                     }
                     catch (Exception ex){
-                        singleElem.html("控件解析出错！【"+ex.getMessage()+"】");
+                        singleElem.html("<div class=\"ResolveControllerErrorMsg\">"+htmlControlDefinitionPO.getSingleName()+"控件解析出错！【"+ex.getMessage()+"】</div>");
+                        //throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_BUILDER_CODE,ex);
                     }
                 }
                 else

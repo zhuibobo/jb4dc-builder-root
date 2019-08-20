@@ -36,6 +36,24 @@ public class ListButtonEntity {
     //BUTTON_RT_CONTENT_RENDERER:运行时的内容解析方法:继承IListButtonRTSeverRenderer
     private String buttonRtContentRenderer;
 
+    //BUTTON_OUTER_ID:按钮外部关联对象的ID:例如窗体
+    private String buttonOuterId;
+
+    //BUTTON_CUST_SINGLE_NAME:用户自定义的按钮唯一名称
+    private String buttonCustSingleName;
+
+    //BUTTON_CUST_PROP1:用户自定义属性1
+    private String buttonCustProp1;
+
+    //BUTTON_CUST_PROP2:用户自定义属性2
+    private String buttonCustProp2;
+
+    //BUTTON_CUST_PROP3:用户自定义属性3
+    private String buttonCustProp3;
+
+    //BUTTON_CUST_PROP4:用户自定义属性4
+    private String buttonCustProp4;
+
     //BUTTON_DESC:备注
     private String buttonDesc;
 
@@ -49,9 +67,15 @@ public class ListButtonEntity {
      * @param buttonContent 按钮的配置内容
      * @param buttonAuth 按钮绑定的权限ID
      * @param buttonRtContentRenderer 运行时的内容解析方法
+     * @param buttonOuterId 按钮外部关联对象的ID
+     * @param buttonCustSingleName 用户自定义的按钮唯一名称
+     * @param buttonCustProp1 用户自定义属性1
+     * @param buttonCustProp2 用户自定义属性2
+     * @param buttonCustProp3 用户自定义属性3
+     * @param buttonCustProp4 用户自定义属性4
      * @param buttonDesc 备注
      **/
-    public ListButtonEntity(String buttonId, String buttonListId, String buttonListElemId, String buttonSingleName, String buttonCaption, String buttonContent, String buttonAuth, String buttonRtContentRenderer, String buttonDesc) {
+    public ListButtonEntity(String buttonId, String buttonListId, String buttonListElemId, String buttonSingleName, String buttonCaption, String buttonContent, String buttonAuth, String buttonRtContentRenderer, String buttonOuterId, String buttonCustSingleName, String buttonCustProp1, String buttonCustProp2, String buttonCustProp3, String buttonCustProp4, String buttonDesc) {
         this.buttonId = buttonId;
         this.buttonListId = buttonListId;
         this.buttonListElemId = buttonListElemId;
@@ -60,6 +84,12 @@ public class ListButtonEntity {
         this.buttonContent = buttonContent;
         this.buttonAuth = buttonAuth;
         this.buttonRtContentRenderer = buttonRtContentRenderer;
+        this.buttonOuterId = buttonOuterId;
+        this.buttonCustSingleName = buttonCustSingleName;
+        this.buttonCustProp1 = buttonCustProp1;
+        this.buttonCustProp2 = buttonCustProp2;
+        this.buttonCustProp3 = buttonCustProp3;
+        this.buttonCustProp4 = buttonCustProp4;
         this.buttonDesc = buttonDesc;
     }
 
@@ -193,6 +223,102 @@ public class ListButtonEntity {
      **/
     public void setButtonRtContentRenderer(String buttonRtContentRenderer) {
         this.buttonRtContentRenderer = buttonRtContentRenderer == null ? null : buttonRtContentRenderer.trim();
+    }
+
+    /**
+     * 按钮外部关联对象的ID:例如窗体
+     * @return java.lang.String
+     **/
+    public String getButtonOuterId() {
+        return buttonOuterId;
+    }
+
+    /**
+     * 按钮外部关联对象的ID:例如窗体
+     * @param buttonOuterId 按钮外部关联对象的ID
+     **/
+    public void setButtonOuterId(String buttonOuterId) {
+        this.buttonOuterId = buttonOuterId == null ? null : buttonOuterId.trim();
+    }
+
+    /**
+     * 用户自定义的按钮唯一名称
+     * @return java.lang.String
+     **/
+    public String getButtonCustSingleName() {
+        return buttonCustSingleName;
+    }
+
+    /**
+     * 用户自定义的按钮唯一名称
+     * @param buttonCustSingleName 用户自定义的按钮唯一名称
+     **/
+    public void setButtonCustSingleName(String buttonCustSingleName) {
+        this.buttonCustSingleName = buttonCustSingleName == null ? null : buttonCustSingleName.trim();
+    }
+
+    /**
+     * 用户自定义属性1
+     * @return java.lang.String
+     **/
+    public String getButtonCustProp1() {
+        return buttonCustProp1;
+    }
+
+    /**
+     * 用户自定义属性1
+     * @param buttonCustProp1 用户自定义属性1
+     **/
+    public void setButtonCustProp1(String buttonCustProp1) {
+        this.buttonCustProp1 = buttonCustProp1 == null ? null : buttonCustProp1.trim();
+    }
+
+    /**
+     * 用户自定义属性2
+     * @return java.lang.String
+     **/
+    public String getButtonCustProp2() {
+        return buttonCustProp2;
+    }
+
+    /**
+     * 用户自定义属性2
+     * @param buttonCustProp2 用户自定义属性2
+     **/
+    public void setButtonCustProp2(String buttonCustProp2) {
+        this.buttonCustProp2 = buttonCustProp2 == null ? null : buttonCustProp2.trim();
+    }
+
+    /**
+     * 用户自定义属性3
+     * @return java.lang.String
+     **/
+    public String getButtonCustProp3() {
+        return buttonCustProp3;
+    }
+
+    /**
+     * 用户自定义属性3
+     * @param buttonCustProp3 用户自定义属性3
+     **/
+    public void setButtonCustProp3(String buttonCustProp3) {
+        this.buttonCustProp3 = buttonCustProp3 == null ? null : buttonCustProp3.trim();
+    }
+
+    /**
+     * 用户自定义属性4
+     * @return java.lang.String
+     **/
+    public String getButtonCustProp4() {
+        return buttonCustProp4;
+    }
+
+    /**
+     * 用户自定义属性4
+     * @param buttonCustProp4 用户自定义属性4
+     **/
+    public void setButtonCustProp4(String buttonCustProp4) {
+        this.buttonCustProp4 = buttonCustProp4 == null ? null : buttonCustProp4.trim();
     }
 
     /**

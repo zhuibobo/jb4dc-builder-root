@@ -37,4 +37,9 @@ public class ListButtonServiceImpl extends BaseServiceImpl<ListButtonEntity> imp
             }
         });
     }
+
+    @Override
+    public ListButtonEntity getByCustSingleName(JB4DCSession jb4DCSession, String custSingleName) {
+        return listButtonMapper.selectByCustSingleName(custSingleName);
+    }
 }

@@ -13,6 +13,15 @@
         <if test="buttonContent !=null and buttonContent !=''"> and BUTTON_CONTENT like #{buttonContent} </if>
         <if test="buttonAuth !=null and buttonAuth !=''"> and BUTTON_AUTH like #{buttonAuth} </if>
         <if test="buttonRtContentRenderer !=null and buttonRtContentRenderer !=''"> and BUTTON_RT_CONTENT_RENDERER like #{buttonRtContentRenderer} </if>
+        <if test="buttonOuterId !=null and buttonOuterId !=''"> and BUTTON_OUTER_ID like #{buttonOuterId} </if>
+        <if test="buttonCustSingleName !=null and buttonCustSingleName !=''"> and BUTTON_CUST_SINGLE_NAME like #{buttonCustSingleName} </if>
+        <if test="buttonCustProp1 !=null and buttonCustProp1 !=''"> and BUTTON_CUST_PROP1 like #{buttonCustProp1} </if>
+        <if test="buttonCustProp2 !=null and buttonCustProp2 !=''"> and BUTTON_CUST_PROP2 like #{buttonCustProp2} </if>
+        <if test="buttonCustProp3 !=null and buttonCustProp3 !=''"> and BUTTON_CUST_PROP3 like #{buttonCustProp3} </if>
+        <if test="buttonCustProp4 !=null and buttonCustProp4 !=''"> and BUTTON_CUST_PROP4 like #{buttonCustProp4} </if>
         <if test="buttonDesc !=null and buttonDesc !=''"> and BUTTON_DESC like #{buttonDesc} </if>
     </where>ORDER by  DESC</select>
+    <select id="selectByCustSingleName" resultMap="BaseResultMap">
+        select<include refid="Base_Column_List"/> from TBUILD_LIST_BUTTON where BUTTON_CUST_SINGLE_NAME=#{custSingleName}
+    </select>
 </mapper>

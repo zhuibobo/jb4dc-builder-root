@@ -10,6 +10,7 @@ import com.jb4dc.builder.po.ResolveHTMLControlContextPO;
 import com.jb4dc.builder.service.weblist.IListButtonService;
 import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
 import com.jb4dc.core.base.session.JB4DCSession;
+import com.jb4dc.core.base.tools.StringUtility;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
@@ -73,16 +74,36 @@ public class WebListListButtonContainer  extends HTMLControl implements IHTMLCon
                     String buttonId=listId+"-"+buttonElemId;
 
                     listButtonService.deleteByKey(jb4DCSession,buttonId);
+
+                    String custSingleName=singleInnerElem.attr("custsinglename");
+                    String buttonCaption=singleInnerElem.attr("buttoncaption");
+                    String custProp1=singleInnerElem.attr("custprop1");
+                    String custProp2=singleInnerElem.attr("custprop2");
+                    String custProp3=singleInnerElem.attr("custprop3");
+                    String custProp4=singleInnerElem.attr("custprop4");
+
+                    if(StringUtility.isNotEmpty(custSingleName)){
+                        ListButtonEntity listButtonEntity=listButtonService.getByCustSingleName(jb4DCSession,custSingleName);
+                        if(listButtonEntity!=null){
+                            throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_BUILDER_CODE,"按钮["+buttonCaption+"]在开发属性中定义了唯一名,但是改名称已经被使用,请修改名称!");
+                        }
+                    }
+
                     ListButtonEntity listButtonEntity=new ListButtonEntity();
                     listButtonEntity.setButtonId(buttonId);
                     listButtonEntity.setButtonListId(listId);
                     listButtonEntity.setButtonListElemId(buttonElemId);
                     listButtonEntity.setButtonSingleName(singleName);
-                    listButtonEntity.setButtonCaption(singleInnerElem.attr("buttoncaption"));
+                    listButtonEntity.setButtonCaption(buttonCaption);
                     listButtonEntity.setButtonContent(singleInnerElem.outerHtml());
                     listButtonEntity.setButtonAuth(singleInnerElem.attr("bindauthority"));
                     listButtonEntity.setButtonRtContentRenderer("");
                     listButtonEntity.setButtonDesc("");
+                    listButtonEntity.setButtonCustSingleName(custSingleName);
+                    listButtonEntity.setButtonCustProp1(custProp1);
+                    listButtonEntity.setButtonCustProp1(custProp2);
+                    listButtonEntity.setButtonCustProp1(custProp3);
+                    listButtonEntity.setButtonCustProp1(custProp4);
                     listButtonService.saveSimple(jb4DCSession,buttonId,listButtonEntity);
                 }
             }

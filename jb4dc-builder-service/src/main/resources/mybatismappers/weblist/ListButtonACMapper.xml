@@ -11,12 +11,19 @@
             <arg column="BUTTON_CONTENT" javaType="java.lang.String" jdbcType="VARCHAR" />
             <arg column="BUTTON_AUTH" javaType="java.lang.String" jdbcType="NVARCHAR" />
             <arg column="BUTTON_RT_CONTENT_RENDERER" javaType="java.lang.String" jdbcType="NVARCHAR" />
+            <arg column="BUTTON_OUTER_ID" javaType="java.lang.String" jdbcType="NVARCHAR" />
+            <arg column="BUTTON_CUST_SINGLE_NAME" javaType="java.lang.String" jdbcType="NVARCHAR" />
+            <arg column="BUTTON_CUST_PROP1" javaType="java.lang.String" jdbcType="NVARCHAR" />
+            <arg column="BUTTON_CUST_PROP2" javaType="java.lang.String" jdbcType="NVARCHAR" />
+            <arg column="BUTTON_CUST_PROP3" javaType="java.lang.String" jdbcType="NVARCHAR" />
+            <arg column="BUTTON_CUST_PROP4" javaType="java.lang.String" jdbcType="NVARCHAR" />
             <arg column="BUTTON_DESC" javaType="java.lang.String" jdbcType="NVARCHAR" />
         </constructor>
     </resultMap>
     <sql id="Base_Column_List">
     BUTTON_ID, BUTTON_LIST_ID, BUTTON_LIST_ELEM_ID, BUTTON_SINGLE_NAME, BUTTON_CAPTION,
-    BUTTON_CONTENT, BUTTON_AUTH, BUTTON_RT_CONTENT_RENDERER, BUTTON_DESC
+    BUTTON_CONTENT, BUTTON_AUTH, BUTTON_RT_CONTENT_RENDERER, BUTTON_OUTER_ID, BUTTON_CUST_SINGLE_NAME,
+    BUTTON_CUST_PROP1, BUTTON_CUST_PROP2, BUTTON_CUST_PROP3, BUTTON_CUST_PROP4, BUTTON_DESC
   </sql>
     <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
         select
@@ -32,11 +39,15 @@
     insert into TBUILD_LIST_BUTTON (BUTTON_ID, BUTTON_LIST_ID, BUTTON_LIST_ELEM_ID,
       BUTTON_SINGLE_NAME, BUTTON_CAPTION, BUTTON_CONTENT,
       BUTTON_AUTH, BUTTON_RT_CONTENT_RENDERER,
-      BUTTON_DESC)
+      BUTTON_OUTER_ID, BUTTON_CUST_SINGLE_NAME,
+      BUTTON_CUST_PROP1, BUTTON_CUST_PROP2, BUTTON_CUST_PROP3,
+      BUTTON_CUST_PROP4, BUTTON_DESC)
     values (#{buttonId,jdbcType=NVARCHAR}, #{buttonListId,jdbcType=NVARCHAR}, #{buttonListElemId,jdbcType=NVARCHAR},
       #{buttonSingleName,jdbcType=NVARCHAR}, #{buttonCaption,jdbcType=NVARCHAR}, #{buttonContent,jdbcType=VARCHAR},
       #{buttonAuth,jdbcType=NVARCHAR}, #{buttonRtContentRenderer,jdbcType=NVARCHAR},
-      #{buttonDesc,jdbcType=NVARCHAR})
+      #{buttonOuterId,jdbcType=NVARCHAR}, #{buttonCustSingleName,jdbcType=NVARCHAR},
+      #{buttonCustProp1,jdbcType=NVARCHAR}, #{buttonCustProp2,jdbcType=NVARCHAR}, #{buttonCustProp3,jdbcType=NVARCHAR},
+      #{buttonCustProp4,jdbcType=NVARCHAR}, #{buttonDesc,jdbcType=NVARCHAR})
   </insert>
     <insert id="insertSelective" parameterType="com.jb4dc.builder.dbentities.weblist.ListButtonEntity">
         insert into TBUILD_LIST_BUTTON
@@ -64,6 +75,24 @@
             </if>
             <if test="buttonRtContentRenderer != null">
                 BUTTON_RT_CONTENT_RENDERER,
+            </if>
+            <if test="buttonOuterId != null">
+                BUTTON_OUTER_ID,
+            </if>
+            <if test="buttonCustSingleName != null">
+                BUTTON_CUST_SINGLE_NAME,
+            </if>
+            <if test="buttonCustProp1 != null">
+                BUTTON_CUST_PROP1,
+            </if>
+            <if test="buttonCustProp2 != null">
+                BUTTON_CUST_PROP2,
+            </if>
+            <if test="buttonCustProp3 != null">
+                BUTTON_CUST_PROP3,
+            </if>
+            <if test="buttonCustProp4 != null">
+                BUTTON_CUST_PROP4,
             </if>
             <if test="buttonDesc != null">
                 BUTTON_DESC,
@@ -94,6 +123,24 @@
             <if test="buttonRtContentRenderer != null">
                 #{buttonRtContentRenderer,jdbcType=NVARCHAR},
             </if>
+            <if test="buttonOuterId != null">
+                #{buttonOuterId,jdbcType=NVARCHAR},
+            </if>
+            <if test="buttonCustSingleName != null">
+                #{buttonCustSingleName,jdbcType=NVARCHAR},
+            </if>
+            <if test="buttonCustProp1 != null">
+                #{buttonCustProp1,jdbcType=NVARCHAR},
+            </if>
+            <if test="buttonCustProp2 != null">
+                #{buttonCustProp2,jdbcType=NVARCHAR},
+            </if>
+            <if test="buttonCustProp3 != null">
+                #{buttonCustProp3,jdbcType=NVARCHAR},
+            </if>
+            <if test="buttonCustProp4 != null">
+                #{buttonCustProp4,jdbcType=NVARCHAR},
+            </if>
             <if test="buttonDesc != null">
                 #{buttonDesc,jdbcType=NVARCHAR},
             </if>
@@ -123,6 +170,24 @@
             <if test="buttonRtContentRenderer != null">
                 BUTTON_RT_CONTENT_RENDERER = #{buttonRtContentRenderer,jdbcType=NVARCHAR},
             </if>
+            <if test="buttonOuterId != null">
+                BUTTON_OUTER_ID = #{buttonOuterId,jdbcType=NVARCHAR},
+            </if>
+            <if test="buttonCustSingleName != null">
+                BUTTON_CUST_SINGLE_NAME = #{buttonCustSingleName,jdbcType=NVARCHAR},
+            </if>
+            <if test="buttonCustProp1 != null">
+                BUTTON_CUST_PROP1 = #{buttonCustProp1,jdbcType=NVARCHAR},
+            </if>
+            <if test="buttonCustProp2 != null">
+                BUTTON_CUST_PROP2 = #{buttonCustProp2,jdbcType=NVARCHAR},
+            </if>
+            <if test="buttonCustProp3 != null">
+                BUTTON_CUST_PROP3 = #{buttonCustProp3,jdbcType=NVARCHAR},
+            </if>
+            <if test="buttonCustProp4 != null">
+                BUTTON_CUST_PROP4 = #{buttonCustProp4,jdbcType=NVARCHAR},
+            </if>
             <if test="buttonDesc != null">
                 BUTTON_DESC = #{buttonDesc,jdbcType=NVARCHAR},
             </if>
@@ -138,6 +203,12 @@
       BUTTON_CONTENT = #{buttonContent,jdbcType=VARCHAR},
       BUTTON_AUTH = #{buttonAuth,jdbcType=NVARCHAR},
       BUTTON_RT_CONTENT_RENDERER = #{buttonRtContentRenderer,jdbcType=NVARCHAR},
+      BUTTON_OUTER_ID = #{buttonOuterId,jdbcType=NVARCHAR},
+      BUTTON_CUST_SINGLE_NAME = #{buttonCustSingleName,jdbcType=NVARCHAR},
+      BUTTON_CUST_PROP1 = #{buttonCustProp1,jdbcType=NVARCHAR},
+      BUTTON_CUST_PROP2 = #{buttonCustProp2,jdbcType=NVARCHAR},
+      BUTTON_CUST_PROP3 = #{buttonCustProp3,jdbcType=NVARCHAR},
+      BUTTON_CUST_PROP4 = #{buttonCustProp4,jdbcType=NVARCHAR},
       BUTTON_DESC = #{buttonDesc,jdbcType=NVARCHAR}
     where BUTTON_ID = #{buttonId,jdbcType=NVARCHAR}
   </update>

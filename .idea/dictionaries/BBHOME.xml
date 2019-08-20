@@ -13,8 +13,10 @@
       <w>custclientrendereraftermethodparapara</w>
       <w>custclientrenderermethod</w>
       <w>custclientrenderermethodpara</w>
+      <w>custprop</w>
       <w>custserverresolvemethod</w>
       <w>custserverresolvemethodpara</w>
+      <w>custsinglename</w>
       <w>datastorage</w>
       <w>dbentities</w>
       <w>envvariable</w>
@@ -39,6 +41,7 @@
       <w>windowheight</w>
       <w>windowwidth</w>
       <w>wldct</w>
+      <w>wraper</w>
       <w>zhuangrb</w>
     </words>
   </dictionary>
