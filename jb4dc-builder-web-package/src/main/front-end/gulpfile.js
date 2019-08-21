@@ -142,7 +142,7 @@ gulp.task('html-design-runtime-template',()=>{
 });
 
 /*编译Themes下的Less文件*/
-gulp.task('less',()=>{
+gulp.task('html-design-runtime-less',()=>{
     return gulp.src(sourcePath+"/Themes/Default/Css/*.less")
         .pipe(sourcemaps.init())
         .pipe(less({
@@ -153,7 +153,11 @@ gulp.task('less',()=>{
         .pipe(gulp.dest(html_design_runtime_distPath+'/Themes/Default/Css'));
 });
 
-gulp.task('html-design-all', gulp.series('html-design-utility','html-design-ckeditor-config','html-design-plugins','html-design-plugins-html','html-design-runtime-full-js','less','html-design-runtime-template'));
+gulp.task('html-design-runtime-images-builder-runtime',()=>{
+    return gulp.src(sourcePath+"/Themes/Default/Less/Images/BuilderRuntime/*", {base:sourcePath+"/Themes/Default/Less/Images/BuilderRuntime"}).pipe(gulp.dest(html_design_runtime_distPath+"/Themes/Default/Css/Images/BuilderRuntime"));
+});
+
+gulp.task('html-design-all', gulp.series('html-design-utility','html-design-ckeditor-config','html-design-plugins','html-design-plugins-html','html-design-runtime-full-js','html-design-runtime-less','html-design-runtime-template','html-design-runtime-images-builder-runtime'));
 
 gulp.task('html-template-web-package',()=>{
     //gulp.src(jarFromResourcePath+"/HTML/**/*", {base:jarFromResourcePath+"/HTML"}).pipe(gulp.dest(jarToResourcePath+"/HTML"))
