@@ -57,16 +57,24 @@ var WLDCT_FormButton= {
         var client_resolve=$button.attr("client_resolve");
 
         var recordId="";
-        if(operation=="update"||operation=="view"){
-
-            recordId=_self._ListTableContainerInstance.GetLastCheckedRecordId();
+        var checkedRecordObj="";
+        if(operation=="update"||operation=="view") {
+            checkedRecordObj = _self._ListTableContainerInstance.GetLastCheckedRecord();
+            if(checkedRecordObj==null){
+                DialogUtility.AlertText("请选择需要进行操作的记录!");
+                return;
+            }
+            else{
+                recordId=checkedRecordObj.Id;
+            }
         }
 
         //debugger;
         DialogUtility.Frame_OpenIframeWindow(window,DialogUtility.DialogId,BaseUtility.BuildView("/HTML/Builder/Runtime/WebFormRuntime.html",{
             formId:formid,
-            buttonid:buttonid,
-            elemid:elemid
+            buttonId:buttonid,
+            elemId:elemid,
+            recordId:recordId
         }), {
             width: windowwidth,
             height: windowheight,

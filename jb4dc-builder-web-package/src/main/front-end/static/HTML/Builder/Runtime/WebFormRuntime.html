@@ -7,12 +7,19 @@
     <th:block th:replace="Fragment/GeneralLib::ThemesLib"></th:block>
     <th:block th:replace="Fragment/GeneralLib::HTMLDesignRuntimeLib"></th:block>
     <script>
+        var webFormRTParas={
+            "formId":BaseUtility.GetUrlParaValue("formId"),
+            "buttonId":BaseUtility.GetUrlParaValue("buttonId"),
+            "elemId":BaseUtility.GetUrlParaValue("elemId"),
+            "recordId":BaseUtility.GetUrlParaValue("recordId")
+        };
         $(function () {
             var ListRuntimeInst = Object.create(FormRuntime);
-            var formId=BaseUtility.GetUrlParaValue("formId");
-            var buttonid=BaseUtility.GetUrlParaValue("buttonid");
-            var elemid=BaseUtility.GetUrlParaValue("elemid");
-            $("#htmlDesignRuntimeWrap").html(formId+"||"+buttonid+"||"+elemid);
+            /*var formId=BaseUtility.GetUrlParaValue("formId");
+            var buttonId=BaseUtility.GetUrlParaValue("buttonId");
+            var elemId=BaseUtility.GetUrlParaValue("elemId");
+            var recordId=BaseUtility.GetUrlParaValue("recordId");*/
+            $("#htmlDesignRuntimeWrap").html(JsonUtility.JsonToStringFormat(webFormRTParas));
             /*ListRuntimeInst.Initialization({
                 RendererToId: "htmlDesignRuntimeWrap",
                 ListId:listId

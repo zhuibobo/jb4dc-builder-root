@@ -256,6 +256,7 @@ var WLDCT_ListTableContainer= {
     _SimpleSearchContainerInstance:null,
     _ComplexSearchContainerInstance:null,
     _QueryPOList:[],
+    _CheckedRecordArray:[],
     GetInstance:function(name){
         for(var key in this._InstanceMap){
             if(key==name){
@@ -381,7 +382,7 @@ var WLDCT_ListTableContainer= {
         $templateTableRow.prepend(`<td>
                                     <div 
                                     columnalign="居中对齐" 
-                                    columncaption="组织名称" 
+                                    columncaption="ID" 
                                     columndatatypename="字符串" 
                                     columnname="ID" 
                                     columntablename="" 
@@ -510,7 +511,38 @@ var WLDCT_ListTableContainer= {
         var _self=sender.data.listInstance;
         DialogUtility.AlertText("未实现!");
     },
-    GetLastCheckedRecordId:function () {
-        alert(1);
+    GetRecordData:function(id){
+        console.log(this._DataSet);
+        for(var i=0;i<this._DataSet.list.length;i++){
+            var recordData=this._DataSet.list[i];
+            if(recordData.ID==id){
+                return recordData;
+            }
+        }
+        DialogUtility.AlertText("找不到ID为:"+id+"的记录!");
+        return null;
+    },
+    CheckedRow:function(id){
+        var record=this.GetRecordData(id);
+        if(record!=null) {
+            this._CheckedRecordArray.push({
+                "Id": id,
+                "Record": record
+            })
+        }
+    },
+    UnCheckedRow:function(id){
+        for (var i = 0; i < this._CheckedRecordArray.length; i++) {
+            if(this._CheckedRecordArray[i].Id==id){
+                ArrayUtility.Delete(this._CheckedRecordArray,i);
+            }
+        }
+    },
+    GetLastCheckedRecord:function () {
+        if(this._CheckedRecordArray.length>0){
+            return this._CheckedRecordArray[this._CheckedRecordArray.length-1];
+        }
+        return null;
+        //alert(1);
     }
 }
