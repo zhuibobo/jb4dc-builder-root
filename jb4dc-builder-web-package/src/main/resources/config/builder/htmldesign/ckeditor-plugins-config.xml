@@ -116,9 +116,17 @@
             <Config></Config>
             <Desc></Desc>
         </Control>
-        <Control SingleName="WLDCT_ListTableLabel" Text="列表-标签" ToolbarLocation="LC_Simple_G3,2"
+        <Control SingleName="WLDCT_ListTableLabel" Text="列表内标签" ToolbarLocation="LC_Simple_G3,2"
                  ServerResolve="com.jb4dc.builder.htmldesign.control.weblist.WebListListTableLabel"
                  ClientResolve="WLDCT_ListTableLabel"
+                 ClientResolveJs=""
+                 DialogWidth="780" DialogHeight="550" IsJBuild4DCData="true" ControlCategory="InputControl" ServerDynamicBind="false" ShowRemoveButton="true" ShowInEditorToolbar="true">
+            <Config></Config>
+            <Desc></Desc>
+        </Control>
+        <Control SingleName="WLDCT_ListTableInnerButton" Text="列表内按钮" ToolbarLocation="LC_Simple_G3,3"
+                 ServerResolve="com.jb4dc.builder.htmldesign.control.weblist.WebListListTableInnerButton"
+                 ClientResolve="WLDCT_ListTableInnerButton"
                  ClientResolveJs=""
                  DialogWidth="780" DialogHeight="550" IsJBuild4DCData="true" ControlCategory="InputControl" ServerDynamicBind="false" ShowRemoveButton="true" ShowInEditorToolbar="true">
             <Config></Config>
