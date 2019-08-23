@@ -25,20 +25,20 @@
                         <tr>
                             <td>触发按钮：</td>
                             <td>
-                                <i-select v-model="normalProps.targetButtonId" style="width:230px" :clearable="true">
+                                <i-select v-model="normalProps.targetButtonId" style="width:230px" :clearable="true" @on-change="changeTargetButton">
                                     <i-option :value="item.buttonId" v-for="item in buttons">{{item.buttonCaption}}</i-option>
                                 </i-select>
                             </td>
                             <td>标题：</td>
                             <td colspan="3">
-                                <input type="text" v-model="baseInfo.id" />
+                                <input type="text" v-model="normalProps.caption" />
                             </td>
                         </tr>
                         <tr>
                             <td>选定图标：</td>
                             <td colspan="5">
-                                <div class="list-row-button-wrap ">
-                                    <div class="list-row-button view"></div>
+                                <div class="wldct-list-table-row-button-wrap ">
+                                    <div :class="normalProps.selectedClass"></div>
                                 </div>
                             </td>
                         </tr>
@@ -46,46 +46,46 @@
                             <td>可选图标：</td>
                             <td colspan="5">
                                 <div class="wldct-list-table-row-button-wrap ">
-                                    <div class="wldct-list-table-row-inner-button view"></div>
-                                    <div class="wldct-list-table-row-inner-button edit"></div>
-                                    <div class="wldct-list-table-row-inner-button del"></div>
-                                    <div class="wldct-list-table-row-inner-button selected"></div>
-                                    <div class="wldct-list-table-row-inner-button listmanager"></div>
-                                    <div class="wldct-list-table-row-inner-button edit-model"></div>
-                                    <div class="wldct-list-table-row-inner-button view-model"></div>
-                                    <div class="wldct-list-table-row-inner-button move-up"></div>
-                                    <div class="wldct-list-table-row-inner-button move-down"></div>
-                                    <div class="wldct-list-table-row-inner-button kded"></div>
-                                    <div class="wldct-list-table-row-inner-button grade"></div>
-                                    <div class="wldct-list-table-row-inner-button image-cultured"></div>
-                                    <div class="wldct-list-table-row-inner-button page-white-edit"></div>
-                                    <div class="wldct-list-table-row-inner-button page-attach"></div>
-                                    <div class="wldct-list-table-row-inner-button page-go"></div>
-                                    <div class="wldct-list-table-row-inner-button script-go"></div>
-                                    <div class="wldct-list-table-row-inner-button script-key"></div>
-                                    <div class="wldct-list-table-row-inner-button wrench-orange"></div>
-                                    <div class="wldct-list-table-row-inner-button x-office-document-template"></div>
-                                    <div class="wldct-list-table-row-inner-button x-office-drawing"></div>
+                                    <div class="wldct-list-table-row-inner-button view" @click="changeSelectedClass('view')"></div>
+                                    <div class="wldct-list-table-row-inner-button edit" @click="changeSelectedClass('edit')"></div>
+                                    <div class="wldct-list-table-row-inner-button del" @click="changeSelectedClass('del')"></div>
+                                    <div class="wldct-list-table-row-inner-button selected" @click="changeSelectedClass('selected')"></div>
+                                    <div class="wldct-list-table-row-inner-button listmanager" @click="changeSelectedClass('listmanager')"></div>
+                                    <div class="wldct-list-table-row-inner-button edit-model" @click="changeSelectedClass('edit-model')"></div>
+                                    <div class="wldct-list-table-row-inner-button view-model" @click="changeSelectedClass('view-model')"></div>
+                                    <div class="wldct-list-table-row-inner-button move-up" @click="changeSelectedClass('move-up')"></div>
+                                    <div class="wldct-list-table-row-inner-button move-down" @click="changeSelectedClass('move-down')"></div>
+                                    <div class="wldct-list-table-row-inner-button kded" @click="changeSelectedClass('kded')"></div>
+                                    <div class="wldct-list-table-row-inner-button grade" @click="changeSelectedClass('grade')"></div>
+                                    <div class="wldct-list-table-row-inner-button image-cultured" @click="changeSelectedClass('image-cultured')"></div>
+                                    <div class="wldct-list-table-row-inner-button page-white-edit" @click="changeSelectedClass('page-white-edit')"></div>
+                                    <div class="wldct-list-table-row-inner-button page-attach" @click="changeSelectedClass('page-attach')"></div>
+                                    <div class="wldct-list-table-row-inner-button page-go" @click="changeSelectedClass('page-go')"></div>
+                                    <div class="wldct-list-table-row-inner-button script-go" @click="changeSelectedClass('script-go')"></div>
+                                    <div class="wldct-list-table-row-inner-button script-key" @click="changeSelectedClass('script-key')"></div>
+                                    <div class="wldct-list-table-row-inner-button wrench-orange" @click="changeSelectedClass('wrench-orange')"></div>
+                                    <div class="wldct-list-table-row-inner-button x-office-document-template" @click="changeSelectedClass('x-office-document-template')"></div>
+                                    <div class="wldct-list-table-row-inner-button x-office-drawing" @click="changeSelectedClass('x-office-drawing')"></div>
                                 </div>
                             </td>
                         </tr>
                         <tr>
                             <td>提示信息：</td>
                             <td colspan="5">
-                                <input type="text" v-model="baseInfo.id" />
+                                <input type="text" v-model="normalProps.alertMsg" />
                             </td>
                         </tr>
                         <tr>
                             <td>显示条件：</td>
                             <td colspan="5">
-                                <input type="text" v-model="baseInfo.id" />
+                                <input type="text" v-model="normalProps.displayCondition" />
                                 eg:record.字段="是"
                             </td>
                         </tr>
                         <tr>
                             <td>显示条件方法：</td>
                             <td colspan="5">
-                                <input type="text" v-model="baseInfo.id" />
+                                <input type="text" v-model="normalProps.displayConditionFunc" />
                             </td>
                         </tr>
                     </tbody>
@@ -147,6 +147,11 @@
                 defaultValue: CKEditorPluginUtility.DefaultProps.defaultValue,
                 normalProps:{
                     targetButtonId:"",
+                    selectedClass:"wldct-list-table-row-inner-button view",
+                    caption:"",
+                    alertMsg:"",
+                    displayCondition:"",
+                    displayConditionFunc:"",
                     //开发扩展
                     custServerResolveMethod:"",
                     custServerResolveMethodPara:"",
@@ -185,19 +190,18 @@
                         success: true,
                         baseInfo: this.baseInfo,
                         normalProps:{
-                            columnTableName: bindData.bindProp.columnTableName,
-                            columnName: bindData.bindProp.columnName,
-                            columnCaption: bindData.bindProp.columnCaption,
-                            columnDataTypeName: bindData.bindProp.columnDataTypeName,
-                            targetButtonId: bindData.bindProp.targetButtonId,
-                            columnAlign:bindData.bindProp.columnAlign,
+                            targetButtonId:this.normalProps.targetButtonId,
+                            selectedClass:this.normalProps.selectedClass,
+                            caption:this.normalProps.caption,
+                            alertMsg:this.normalProps.alertMsg,
+                            displayCondition:this.normalProps.displayCondition,
+                            displayConditionFunc:this.normalProps.displayConditionFunc,
                             //开发扩展
                             custServerResolveMethod:this.normalProps.custServerResolveMethod,
                             custServerResolveMethodPara:this.normalProps.custServerResolveMethodPara,
                             custClientRendererMethod:this.normalProps.custClientRendererMethod,
                             custClientRendererMethodPara:this.normalProps.custClientRendererMethodPara
-                        },
-                        defaultValue: bindData.defaultValue
+                        }
                     }
                     return result;
                 },
@@ -209,6 +213,11 @@
 
 
                     this.normalProps.targetButtonId=$elem.attr("targetbuttonid");
+                    this.normalProps.selectedClass=$elem.attr("selectedClass");
+                    this.normalProps.selectedClass=$elem.attr("selectedClass");
+                    this.normalProps.caption=$elem.attr("caption");
+                    this.normalProps.displayCondition=$elem.attr("displayCondition");
+                    this.normalProps.displayConditionFunc=$elem.attr("displayConditionFunc");
 
                     this.normalProps.custServerResolveMethod =$elem.attr("custserverresolvemethod");
                     this.normalProps.custServerResolveMethodPara = $elem.attr("custserverresolvemethodpara");
@@ -216,6 +225,35 @@
                     this.normalProps.custClientRendererMethodPara = $elem.attr("custclientrenderermethodpara");
 
                     //this.$refs.listTableLabelBindToComp.setData(this.normalProps,this.defaultValue);
+                },
+                changeSelectedClass:function (className) {
+                    this.normalProps.selectedClass="wldct-list-table-row-inner-button "+className;
+                },
+                changeTargetButton:function (buttonId) {
+                    //console.log(this.buttons);
+                    for(var i=0;i<this.buttons.length;i++){
+                        var item=this.buttons[i];
+                        if(item.buttonId==buttonId){
+                            //console.log(item);
+                            if(item.buttonCaption=="修改"){
+                                this.changeSelectedClass("edit");
+                                this.normalProps.caption="修改";
+                            }
+                            else if(item.buttonCaption=="查看"){
+                                this.changeSelectedClass("view");
+                                this.normalProps.caption="查看";
+                            }
+                            else if(item.buttonCaption=="删除"){
+                                this.changeSelectedClass("del");
+                                this.normalProps.caption="删除";
+                            }
+                            else if(item.buttonCaption=="处理"){
+                                this.changeSelectedClass("page-white-edit");
+                                this.normalProps.caption="处理";
+                            }
+                            break;
+                        }
+                    }
                 }
             }
         });
