@@ -414,6 +414,7 @@ var WLDCT_ListTableContainer= {
 
         var $cloneRow=$templateTableRow.clone();
         //console.log($cloneRow);
+        debugger;
         var $tds=$cloneRow.find("td");
         for (let i = 0; i < $tds.length; i++) {
             var $td = $($tds[i]);
@@ -426,6 +427,7 @@ var WLDCT_ListTableContainer= {
                 instance.RendererDataChain({
                     $templateTable: $templateTable,
                     $templateTableRow: $templateTableRow,
+                    $singleControlElem:$divCTElem,
                     dataSet: dataSet,
                     rowData: rowData,
                     $cloneRow: $cloneRow,
