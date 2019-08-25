@@ -29,20 +29,24 @@ class CKEditorPluginUtility {
     static _UseServerConfigCoverEmptyPluginProp(obj) {
         var coverObj = this.PluginsServerConfig[obj.SingleName];
         //debugger;
-        for (var prop in obj) {
-            if (typeof(obj[prop]) != "function") {
-                if (obj[prop] == "" || obj[prop] == null) {
-                    if (coverObj[prop]) {
-                        obj[prop] = coverObj[prop];
+        if(coverObj) {
+            for (var prop in obj) {
+                if (typeof (obj[prop]) != "function") {
+                    if (obj[prop] == "" || obj[prop] == null) {
+                        if (coverObj[prop]) {
+                            obj[prop] = coverObj[prop];
+                        }
                     }
                 }
             }
+            return obj;
         }
-        return obj;
+        return null;
     }
 
     static GetGeneralPluginInstance(pluginSingleName, exConfig) {
-        //设置为""时才会使用服务端的配置进行覆盖
+        //debugger;
+        //设置为""时才会使用服务端的配置进行覆盖1
         var defaultSetting = {
             //插件名称
             SingleName: pluginSingleName,
@@ -82,13 +86,18 @@ class CKEditorPluginUtility {
         defaultSetting = $.extend(true, {}, defaultSetting, exConfig);
         //使用服务端定义覆盖定义的空值;
         defaultSetting = CKEditorPluginUtility._UseServerConfigCoverEmptyPluginProp(defaultSetting);
-        defaultSetting.DialogName = defaultSetting.SingleName;
-        defaultSetting.ToolbarCommand = "JBuild4DC.FormDesign.Plugins." + defaultSetting.SingleName;
-        defaultSetting.DialogSettingTitle = defaultSetting.ToolbarLabel + "Web控件";
-        //debugger;
+        if(defaultSetting!=null) {
+            defaultSetting.DialogName = defaultSetting.SingleName;
+            defaultSetting.ToolbarCommand = "JBuild4DC.FormDesign.Plugins." + defaultSetting.SingleName;
+            defaultSetting.DialogSettingTitle = defaultSetting.ToolbarLabel + "Web控件";
+            //debugger;
+            return {
+                Setting: defaultSetting
+            };
+        }
         return {
-            Setting: defaultSetting
-        };
+
+        }
     }
 
     static RegGeneralPluginToEditor(ckEditor, path, pluginSetting, okFunc) {

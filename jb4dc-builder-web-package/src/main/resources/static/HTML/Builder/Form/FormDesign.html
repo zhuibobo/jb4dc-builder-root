@@ -1,2 +1,303 @@
-<!DOCTYPE html><html lang="zh" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"><head><meta charset="UTF-8"><title>表单设计</title><title>JBuild4D</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"><script type="text/javascript" src="../../../Js/External/JQuery-3.4.1/jquery-3.4.1.min.js"></script><script type="text/javascript" src="../../../Js/External/VUE-2.6.10/vue.js"></script><script type="text/javascript" src="../../../Js/External/IView-3.X/dist/iview.min.js"></script><script type="text/javascript" src="../../../Js/External/JQuery-UI-1.12.1/jquery-ui.js"></script><script type="text/javascript" src="../../../Js/External/ZTree-3.5.40/js/jquery.ztree.all.js"></script><script type="text/javascript" src="../../../Js/JBuild4DCLib.js?refVersion=1"></script><script type="text/javascript" src="../../../Js/UIEXComponent.js?refVersion=1"></script><script type="text/javascript" src="../../../Js/UIEXComponentForBuilder.js?refVersion=1"></script><script type="text/javascript" src="../../../Js/VueEXComponent.js?refVersion=1"></script><script type="text/javascript" src="../../../Js/SSOVueEXComponent.js?refVersion=1"></script><script type="text/javascript" src="../../../Js/External/ZTree-3.5.40/js/jquery.ztree.exhide.js"></script><script type="text/javascript" src="../../../Js/External/ZTree-3.5.40/js/fuzzysearch.js"></script><script type="text/javascript" src="../../../Js/External/Ckeditor-4.11.1-4Design/ckeditor.js"></script><script type="text/javascript" src="../../../Js/HTMLDesign/HTMLDesignUtility.js?refVersion=1"></script><script type="text/javascript" src="../../../Js/External/Codemirror-5.48.0/lib/codemirror.js"></script><link rel="stylesheet" type="text/css" href="../../../Js/External/Codemirror-5.48.0/lib/codemirror.css"><link rel="stylesheet" type="text/css" href="../../../Js/External/Codemirror-5.48.0/theme/monokai.css"><script type="text/javascript" src="../../../Js/External/Codemirror-5.48.0/mode/xml/xml.js"></script><script type="text/javascript" src="../../../Js/External/Codemirror-5.48.0/mode/javascript/javascript.js"></script><script type="text/javascript" src="../../../Js/External/Codemirror-5.48.0/mode/css/css.js"></script><script type="text/javascript" src="../../../Js/External/Codemirror-5.48.0/mode/sql/sql.js"></script><script type="text/javascript" src="../../../Js/External/Codemirror-5.48.0/mode/htmlmixed/htmlmixed.js"></script><script type="text/javascript" src="../../../Js/External/Codemirror-5.48.0/addon/fold/foldcode.js"></script><script type="text/javascript" src="../../../Js/External/Codemirror-5.48.0/addon/fold/foldgutter.js"></script><script type="text/javascript" src="../../../Js/External/Codemirror-5.48.0/addon/fold/brace-fold.js"></script><script type="text/javascript" src="../../../Js/External/Codemirror-5.48.0/addon/fold/xml-fold.js"></script><script type="text/javascript" src="../../../Js/External/Codemirror-5.48.0/addon/fold/markdown-fold.js"></script><script type="text/javascript" src="../../../Js/External/Codemirror-5.48.0/addon/fold/comment-fold.js"></script><script type="text/javascript" src="../../../Js/External/Codemirror-5.48.0/addon/fold/brace-fold.js"></script><script type="text/javascript" src="../../../Js/External/Codemirror-5.48.0/addon/util/formatting.js"></script><link rel="stylesheet" type="text/css" href="../../../Js/External/Codemirror-5.48.0/addon/fold/foldgutter.css"><script type="text/javascript" src="../../../Js/External/Codemirror-5.48.0/addon/search/search.js"></script><script type="text/javascript" src="../../../Js/External/Codemirror-5.48.0/addon/search/searchcursor.js"></script><link rel="stylesheet" type="text/css" href="../../../Themes/Default/Css/JBuild4DC.css?refVersion=1"><link rel="stylesheet" type="text/css" href="../../../Themes/Default/IView-3.X/iview.css"><link rel="stylesheet" type="text/css" href="../../../Themes/Default/JQueryUI/jquery-ui.css"><link rel="stylesheet" type="text/css" href="../../../Themes/Default/JQueryUI/jquery-ui-important.css"><link rel="stylesheet" type="text/css" href="../../../Themes/Default/ZTree/zTreeStyle/zTreeStyle.css"><link rel="stylesheet" type="text/css" href="../../../Themes/Default/Css/JBuild4DCBuilder.css?refVersion=1"><style>.cke_button_label{display:inline!important}.cm-s-monokai div.CodeMirror-selected{background:#69685d}.cm-s-monokai .CodeMirror-line::selection,.cm-s-monokai .CodeMirror-line>span::selection,.cm-s-monokai .CodeMirror-line>span>span::selection{background:rgba(255,210,77,.99)}.cm-s-monokai .CodeMirror-line::-moz-selection,.cm-s-monokai .CodeMirror-line>span::-moz-selection,.cm-s-monokai .CodeMirror-line>span>span::-moz-selection{background:rgba(255,210,77,.99)}</style></head><body><div id="appForm" v-cloak><spin size="large" fix v-if="isLoading"></spin><div style="position:absolute;right:10px;top:6px;z-index:100"><button-group size="small"><i-button icon="md-cloud-done" type="primary" @click="saveClose()">保存并关闭</i-button><i-button icon="md-search" type="primary" @click="savePreview()">保存并预览</i-button><i-button icon="md-checkmark" type="primary" @click="validateDesign()">校验窗体设置</i-button><i-button icon="md-search" type="primary" @click="savePreview()">历史版本</i-button></button-group></div><tabs @on-click="tabChange" v-model="selectedTabName"><tab-pane name="Info" label="Info"><div style="width:1024px;margin:auto"><div style="width:1024px;height:615px;border:#ddddf1 1px solid;border-radius:4px;padding:10px 20px 10px 10px"><divider orientation="left" :dashed="true" style="font-size:12px">表单信息</divider><i-form :model="formResourceEntity" :label-width="110"><form-item label="表单名称：" style="margin-bottom:12px"><row><i-col span="10"><i-input v-model="formResourceEntity.formName" placeholder="请输入表单名称"></i-input></i-col><i-col span="4" style="text-align:center">唯一名称：</i-col><i-col span="10"><i-input v-model="formResourceEntity.formSingleName" placeholder="可以为空"></i-input></i-col></row></form-item><form-item label="备注：" style="margin-bottom:12px"><i-input v-model="formResourceEntity.formDesc" type="textarea" :autosize="{minRows: 2,maxRows: 2}"></i-input></form-item><form-item label="每次解析：" style="margin-bottom:0"><row><i-col span="10"><radio-group v-model="formResourceEntity.formEveryTimeResolve" type="button"><radio label="是">是</radio><radio label="否">否</radio></radio-group></i-col><i-col span="4" style="text-align:center">主题：</i-col><i-col span="10"><i-select v-model="formResourceEntity.formTheme" @on-change="changeTheme"><i-option v-for="(item,key) in designThemes" :value="item.value" :key="key">{{item.name}}</i-option></i-select>如果风格重新引入CSS则必须在保存后再次打开才生效!</i-col></row></form-item></i-form><db-table-relation-comp ref="dbTableRelationComp"></db-table-relation-comp></div></div></tab-pane><tab-pane name="Design" label="Design"><div class="form-design-wraper"><div class="left-wraper" style="right:10px"><textarea name="html_design" id="html_design">
-                    </textarea></div></div></tab-pane><tab-pane name="HTML" label="HTML"><div class="html-design-wraper"><div class="left-wraper code_wraper"><div class="inner"><textarea id="TextAreaHTMLEditor" style="height:99%"></textarea></div></div><div class="right-wraper"><tabs><tab-pane label="CodeFragment"><div>Config</div></tab-pane><tab-pane label="Element"><div>Element</div></tab-pane></tabs></div></div></tab-pane><tab-pane name="JS" label="JS"><div class="js-design-wraper"><div class="left-wraper code_wraper"><div class="inner"><textarea id="TextAreaJsEditor"></textarea></div></div><div class="right-wraper"><tabs><tab-pane label="CodeFragment"><js-design-code-fragment ref="jsDesignCodeFragment"></js-design-code-fragment></tab-pane><tab-pane label="Element"><design-html-elem-list ref="designHtmlElemList"></design-html-elem-list></tab-pane></tabs></div></div></tab-pane><tab-pane name="EXProp" label="EXProp"><div style="width:1024px;margin:auto"><div style="width:1024px;height:615px;border:#ddddf1 1px solid;border-radius:4px;padding:10px 20px 10px 10px"><divider orientation="left" :dashed="true" style="font-size:12px">扩展信息</divider><i-form :label-width="150"><form-item label="服务端渲染方法："><i-input v-model="formResourceEntity.formCustServerRenderer" placeholder="服务端自定义的渲染方法:继承IFormSeverRenderer"></i-input></form-item><form-item label="客户端渲染方法："><i-input v-model="formResourceEntity.formCustClientRenderer" placeholder="客户端自定义的渲染方法:需要指明具体的方法名称"></i-input></form-item><form-item label="引入JS：" style="margin-bottom:12px"><i-input v-model="formResourceEntity.formCustRefJs" placeholder="引入的脚本:多个通过;分割" type="textarea" :autosize="{minRows: 2,maxRows: 2}"></i-input></form-item><form-item label="备注：" style="margin-bottom:12px"><i-input v-model="formResourceEntity.formCustDesc" type="textarea" :autosize="{minRows: 4,maxRows: 4}"></i-input></form-item></i-form></div></div></tab-pane><tab-pane name="ExDataSet" label="ExDataSet"></tab-pane><tab-pane name="BeReferred" label="BeReferred"></tab-pane><tab-pane name="Config" label="Config"></tab-pane></tabs><div><fd-control-select-bind-to-single-field-dialog @on-selected-bind-to-single-field="onSelectedBindToSingleField" ref="fdControlSelectBindToSingleFieldDialog"></fd-control-select-bind-to-single-field-dialog><select-default-value-dialog @on-selected-default-value="onSelectedDefaultValue" ref="selectDefaultValueDialog"></select-default-value-dialog><select-validate-rule-dialog @on-selected-validate-rule="onSelectedValidateRule" ref="selectValidateRuleDialog"></select-validate-rule-dialog></div></div><script>var IsTopFramePage=!0,appForm=new Vue({el:"#appForm",data:{isLoading:!1,acInterface:{getTablesDataUrl:"/Rest/Builder/DataStorage/DataBase/Table/GetTablesForZTreeNodeList",getPluginsConfig:"/Rest/Builder/HtmlDesign/WebFormDesign/GetPluginsConfig",saveDataUrl:"/Rest/Builder/Form/SaveEdit",getDataUrl:"/Rest/Builder/Form/GetDetailData"},currUserEntity:null,recordId:BaseUtility.GetUrlParaValue("recordId"),formResourceEntity:{formId:"",formName:"",formSingleName:"",formCreateTime:DateUtility.GetCurrentData(),formCreator:"",formUpdateTime:DateUtility.GetCurrentData(),formUpdater:"",formType:"",formIsSystem:"否",formDesc:"",formModuleId:"",formStatus:"启用",formOrganId:"",formOrganName:"",formMainTableId:"",formMainTableName:"",formMainTableCaption:"",formDataRelation:"",formIsTemplate:"否",formContentUrl:"",formIsResolve:"否",formHtmlSource:"",formHtmlResolve:"",formJsContent:"",formCssContent:"",formConfigContent:"",formEveryTimeResolve:"否",formSource:"Web设计器",formTheme:"ThemeDefault",formCustServerRenderer:"",formCustRefJs:"",formCustClientRenderer:"",formCustDesc:""},status:BaseUtility.GetUrlParaValue("op"),oldSelectedTabName:"",selectedTabName:"",designThemes:[],pluginVoList:null},mounted:function(){this.initPageUI(),BaseUtility.SetSystemFavicon()},methods:{selectBindToSingleFieldDialogBegin:function(e,t){var i=this.$refs.dbTableRelationComp.getValue();this.$refs.fdControlSelectBindToSingleFieldDialog.beginSelect(i.relationData,t),this.selectBindToSingleFieldTargetWindow=e},onSelectedBindToSingleField:function(e){this.selectBindToSingleFieldTargetWindow._SelectBindObj.setSelectFieldResultValue(e)},selectDefaultValueDialogBegin:function(e,t){this.$refs.selectDefaultValueDialog.beginSelect(t),this.selectDefaultValueTargetWindow=e},onSelectedDefaultValue:function(e){this.selectDefaultValueTargetWindow._SelectBindObj.setSelectEnvVariableResultValue(e)},selectValidateRuleDialogBegin:function(e,t){this.$refs.selectValidateRuleDialog.beginSelect(t),this.selectDefaultValueTargetWindow=e},onSelectedValidateRule:function(e){this.selectDefaultValueTargetWindow._SelectBindObj.setSelectValidateRuleResultValue(e)},initPageUI:function(){this.isLoading=!0,$(".form-design-wraper").height(PageStyleUtility.GetWindowHeight()-60);var i=this;AjaxUtility.Post(this.acInterface.getPluginsConfig,{},function(e){console.log(e),i.designThemes=e.exKVData.designThemes,i.pluginVoList=e.data,DetailPageUtility.BindFormData(i.acInterface.getDataUrl,i.formResourceEntity,i.recordId,i.status,null,function(e){"add"==i.status?(i.formResourceEntity.formType="业务表单",i.formResourceEntity.formModuleId=BaseUtility.GetUrlParaValue("moduleId"),i.oldSelectedTabName="Info"):(i.formResourceEntity.formId=BaseUtility.GetUrlParaValue("recordId"),i.formResourceEntity.formIsResolve="否",i.oldSelectedTabName="Design",i.selectedTabName="Design",i.$refs.dbTableRelationComp.setValue(i.formResourceEntity.formDataRelation));var t=i.getTheme(i.formResourceEntity.formTheme);CKEditorUtility.InitializeCKEditor("html_design",i.pluginVoList,function(){"update"==i.status&&(HTMLEditorUtility.SetHTMLEditorHTML(i.formResourceEntity.formHtmlSource),CKEditorUtility.SetCKEditorHTML(i.formResourceEntity.formHtmlSource),JsEditorUtility.SetJsEditorJs(i.formResourceEntity.formJsContent)),i.isLoading=!1},"../../HTMLDesign/CKEditorConfig/CKEditorConfig.js","../../HTMLDesign/WebFormDesign/Plugins/",t)}),HTMLEditorUtility.InitializeHTMLCodeDesign(),JsEditorUtility.InitializeJsCodeDesign(i.status),i.$refs.jsDesignCodeFragment.setJSEditorInstance(JsEditorUtility.GetJsEditorInst())},this)},getTheme:function(e){for(var t=0;t<this.designThemes.length;t++)if(this.designThemes[t].value==e)return this.designThemes[t];return null},changeTheme:function(e){var t=this.getTheme(e);CKEditorUtility.SetThemeVo(t)},getServerDataBind:function(){},bindStatusData:function(){},isHTMLToOther:function(e){return"HTML"==this.oldSelectedTabName},isDesignToOther:function(e){return"Design"==this.oldSelectedTabName},tabChange:function(e){if(this.isDesignToOther(e)){var t=CKEditorUtility.GetCKEditorHTML();HTMLEditorUtility.SetHTMLEditorHTML(t)}else if(this.isHTMLToOther(e)){t=HTMLEditorUtility.GetHtmlEditorHTML();CKEditorUtility.SetCKEditorHTML(t)}this.oldSelectedTabName=e},save:function(t){var e=this.$refs.dbTableRelationComp.getValue();this.formResourceEntity.formDataRelation=JsonUtility.JsonToString(e.relationData),this.formResourceEntity.formMainTableId=e.mainTableId,this.formResourceEntity.formMainTableName=e.mainTableName,this.formResourceEntity.formMainTableCaption=e.mainTableCaption,"HTML"==this.selectedTabName?this.formResourceEntity.formHtmlSource=HTMLEditorUtility.GetHtmlEditorHTML():this.formResourceEntity.formHtmlSource=CKEditorUtility.GetCKEditorHTML(),this.formResourceEntity.formJsContent=JsEditorUtility.GetJsEditorJs();var i=this.validateSaveEnable(this.formResourceEntity);if(i.result){var o=JSON.stringify(this.formResourceEntity);AjaxUtility.PostRequestBody(this.acInterface.saveDataUrl,o,function(e){DialogUtility.Alert(window,DialogUtility.DialogAlertId,{},e.message,function(){e.success&&(window.opener._modulelistwebformcomp.reloadData(),t(e))})},this)}else DialogUtility.AlertText(i.msg.join("<br />"))},saveClose:function(){this.save(function(){window.close()})},savePreview:function(){this.save(function(e){console.log(e),DialogUtility.Frame_OpenIframeWindow(window,DialogUtility.DialogId04,"FormPreview.html?FormId="+e.data.formId,{width:0,height:0,title:"表单预览"})})},validateSaveEnable:function(e){var t={result:!0,msg:[]};return""==e.formName&&(t.result=!1,t.msg.push("请填写表单名称!")),""==e.formMainTableId&&(t.result=!1,t.msg.push("请设置主表!")),t},validateDesign:function(e){this.validateSaveEnable(e)}}})</script></body></html>
+<!--
+  Created by IntelliJ IDEA.
+  User: zhuangrb
+  Date: 2019/1/26
+  To change this template use File | Settings | File Templates.
+--><!DOCTYPE html><html lang="zh" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"><head><meta charset="UTF-8"><title>表单设计</title><title>JBuild4D</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"><script type="text/javascript" src="../../../Js/External/JQuery-3.4.1/jquery-3.4.1.min.js"></script><script type="text/javascript" src="../../../Js/External/VUE-2.6.10/vue.js"></script><script type="text/javascript" src="../../../Js/External/IView-3.X/dist/iview.min.js"></script><script type="text/javascript" src="../../../Js/External/JQuery-UI-1.12.1/jquery-ui.js"></script><script type="text/javascript" src="../../../Js/External/ZTree-3.5.40/js/jquery.ztree.all.js"></script><script type="text/javascript" src="../../../Js/JBuild4DCLib.js?refVersion=1"></script><script type="text/javascript" src="../../../Js/UIEXComponent.js?refVersion=1"></script><script type="text/javascript" src="../../../Js/UIEXComponentForBuilder.js?refVersion=1"></script><script type="text/javascript" src="../../../Js/VueEXComponent.js?refVersion=1"></script><script type="text/javascript" src="../../../Js/SSOVueEXComponent.js?refVersion=1"></script><script type="text/javascript" src="../../../Js/External/ZTree-3.5.40/js/jquery.ztree.exhide.js"></script><script type="text/javascript" src="../../../Js/External/ZTree-3.5.40/js/fuzzysearch.js"></script><script type="text/javascript" src="../../../Js/External/Ckeditor-4.11.1-4Design/ckeditor.js"></script><script type="text/javascript" src="../../../Js/HTMLDesign/HTMLDesignUtility.js?refVersion=1"></script><script type="text/javascript" src="../../../Js/External/Codemirror-5.48.0/lib/codemirror.js"></script><link rel="stylesheet" type="text/css" href="../../../Js/External/Codemirror-5.48.0/lib/codemirror.css"><link rel="stylesheet" type="text/css" href="../../../Js/External/Codemirror-5.48.0/theme/monokai.css"><script type="text/javascript" src="../../../Js/External/Codemirror-5.48.0/mode/xml/xml.js"></script><script type="text/javascript" src="../../../Js/External/Codemirror-5.48.0/mode/javascript/javascript.js"></script><script type="text/javascript" src="../../../Js/External/Codemirror-5.48.0/mode/css/css.js"></script><script type="text/javascript" src="../../../Js/External/Codemirror-5.48.0/mode/sql/sql.js"></script><script type="text/javascript" src="../../../Js/External/Codemirror-5.48.0/mode/htmlmixed/htmlmixed.js"></script><script type="text/javascript" src="../../../Js/External/Codemirror-5.48.0/addon/fold/foldcode.js"></script><script type="text/javascript" src="../../../Js/External/Codemirror-5.48.0/addon/fold/foldgutter.js"></script><script type="text/javascript" src="../../../Js/External/Codemirror-5.48.0/addon/fold/brace-fold.js"></script><script type="text/javascript" src="../../../Js/External/Codemirror-5.48.0/addon/fold/xml-fold.js"></script><script type="text/javascript" src="../../../Js/External/Codemirror-5.48.0/addon/fold/markdown-fold.js"></script><script type="text/javascript" src="../../../Js/External/Codemirror-5.48.0/addon/fold/comment-fold.js"></script><script type="text/javascript" src="../../../Js/External/Codemirror-5.48.0/addon/fold/brace-fold.js"></script><script type="text/javascript" src="../../../Js/External/Codemirror-5.48.0/addon/util/formatting.js"></script><link rel="stylesheet" type="text/css" href="../../../Js/External/Codemirror-5.48.0/addon/fold/foldgutter.css"><script type="text/javascript" src="../../../Js/External/Codemirror-5.48.0/addon/search/search.js"></script><script type="text/javascript" src="../../../Js/External/Codemirror-5.48.0/addon/search/searchcursor.js"></script><link rel="stylesheet" type="text/css" href="../../../Themes/Default/Css/JBuild4DC.css?refVersion=1"><link rel="stylesheet" type="text/css" href="../../../Themes/Default/IView-3.X/iview.css"><link rel="stylesheet" type="text/css" href="../../../Themes/Default/JQueryUI/jquery-ui.css"><link rel="stylesheet" type="text/css" href="../../../Themes/Default/JQueryUI/jquery-ui-important.css"><link rel="stylesheet" type="text/css" href="../../../Themes/Default/ZTree/zTreeStyle/zTreeStyle.css"><link rel="stylesheet" type="text/css" href="../../../Themes/Default/Css/JBuild4DCBuilder.css?refVersion=1"><style>.cke_button_label{display:inline!important}.cm-s-monokai div.CodeMirror-selected{background:#69685d}.cm-s-monokai .CodeMirror-line::selection,.cm-s-monokai .CodeMirror-line>span::selection,.cm-s-monokai .CodeMirror-line>span>span::selection{background:rgba(255,210,77,.99)}.cm-s-monokai .CodeMirror-line::-moz-selection,.cm-s-monokai .CodeMirror-line>span::-moz-selection,.cm-s-monokai .CodeMirror-line>span>span::-moz-selection{background:rgba(255,210,77,.99)}</style></head><body><div id="appForm" v-cloak><spin size="large" fix v-if="isLoading"></spin><div style="position:absolute;right:10px;top:6px;z-index:100"><button-group size="small"><i-button icon="md-cloud-done" type="primary" @click="saveClose()">保存并关闭</i-button><i-button icon="md-search" type="primary" @click="savePreview()">保存并预览</i-button><i-button icon="md-checkmark" type="primary" @click="validateDesign()">校验窗体设置</i-button><i-button icon="md-search" type="primary" @click="savePreview()">历史版本</i-button></button-group></div><tabs @on-click="tabChange" v-model="selectedTabName"><tab-pane name="Info" label="Info"><div style="width:1024px;margin:auto"><div style="width:1024px;height:615px;border:#ddddf1 1px solid;border-radius:4px;padding:10px 20px 10px 10px"><divider orientation="left" :dashed="true" style="font-size:12px">表单信息</divider><i-form :model="formResourceEntity" :label-width="110"><form-item label="表单名称：" style="margin-bottom:12px"><row><i-col span="10"><i-input v-model="formResourceEntity.formName" placeholder="请输入表单名称"></i-input></i-col><i-col span="4" style="text-align:center">唯一名称：</i-col><i-col span="10"><i-input v-model="formResourceEntity.formSingleName" placeholder="可以为空"></i-input></i-col></row></form-item><form-item label="备注：" style="margin-bottom:12px"><i-input v-model="formResourceEntity.formDesc" type="textarea" :autosize="{minRows: 2,maxRows: 2}"></i-input></form-item><form-item label="每次解析：" style="margin-bottom:0"><row><i-col span="10"><radio-group v-model="formResourceEntity.formEveryTimeResolve" type="button"><radio label="是">是</radio><radio label="否">否</radio></radio-group></i-col><i-col span="4" style="text-align:center">主题：</i-col><i-col span="10"><i-select v-model="formResourceEntity.formTheme" @on-change="changeTheme"><i-option v-for="(item,key) in designThemes" :value="item.value" :key="key">{{item.name}}</i-option></i-select>如果风格重新引入CSS则必须在保存后再次打开才生效!</i-col></row></form-item></i-form><db-table-relation-comp ref="dbTableRelationComp"></db-table-relation-comp></div></div></tab-pane><tab-pane name="Design" label="Design"><div class="form-design-wraper"><div class="left-wraper" style="right:10px"><textarea name="html_design" id="html_design">
+                    </textarea></div></div></tab-pane><tab-pane name="HTML" label="HTML"><div class="html-design-wraper"><div class="left-wraper code_wraper"><div class="inner"><textarea id="TextAreaHTMLEditor" style="height:99%"></textarea></div></div><div class="right-wraper"><tabs><tab-pane label="CodeFragment"><div>Config</div></tab-pane><tab-pane label="Element"><div>Element</div></tab-pane></tabs></div></div></tab-pane><tab-pane name="JS" label="JS"><div class="js-design-wraper"><div class="left-wraper code_wraper"><div class="inner"><textarea id="TextAreaJsEditor"></textarea></div></div><div class="right-wraper"><tabs><tab-pane label="CodeFragment"><js-design-code-fragment ref="jsDesignCodeFragment"></js-design-code-fragment></tab-pane><tab-pane label="Element"><design-html-elem-list ref="designHtmlElemList"></design-html-elem-list></tab-pane></tabs></div></div></tab-pane><tab-pane name="EXProp" label="EXProp"><div style="width:1024px;margin:auto"><div style="width:1024px;height:615px;border:#ddddf1 1px solid;border-radius:4px;padding:10px 20px 10px 10px"><divider orientation="left" :dashed="true" style="font-size:12px">扩展信息</divider><i-form :label-width="150"><form-item label="服务端渲染方法："><i-input v-model="formResourceEntity.formCustServerRenderer" placeholder="服务端自定义的渲染方法:继承IFormSeverRenderer"></i-input></form-item><form-item label="客户端渲染方法："><i-input v-model="formResourceEntity.formCustClientRenderer" placeholder="客户端自定义的渲染方法:需要指明具体的方法名称"></i-input></form-item><form-item label="引入JS：" style="margin-bottom:12px"><i-input v-model="formResourceEntity.formCustRefJs" placeholder="引入的脚本:多个通过;分割" type="textarea" :autosize="{minRows: 2,maxRows: 2}"></i-input></form-item><form-item label="备注：" style="margin-bottom:12px"><i-input v-model="formResourceEntity.formCustDesc" type="textarea" :autosize="{minRows: 4,maxRows: 4}"></i-input></form-item></i-form></div></div></tab-pane><tab-pane name="ExDataSet" label="ExDataSet"></tab-pane><tab-pane name="BeReferred" label="BeReferred"></tab-pane><tab-pane name="Config" label="Config"></tab-pane></tabs><div><!--各类对话框的引用--><fd-control-select-bind-to-single-field-dialog @on-selected-bind-to-single-field="onSelectedBindToSingleField" ref="fdControlSelectBindToSingleFieldDialog"></fd-control-select-bind-to-single-field-dialog><select-default-value-dialog @on-selected-default-value="onSelectedDefaultValue" ref="selectDefaultValueDialog"></select-default-value-dialog><select-validate-rule-dialog @on-selected-validate-rule="onSelectedValidateRule" ref="selectValidateRuleDialog"></select-validate-rule-dialog></div></div><script>var IsTopFramePage=true;
+    var appForm = new Vue({
+        el:"#appForm",
+        data: {
+            isLoading:false,
+            acInterface:{
+                getTablesDataUrl:"/Rest/Builder/DataStorage/DataBase/Table/GetTablesForZTreeNodeList",
+                getPluginsConfig:"/Rest/Builder/HtmlDesign/WebFormDesign/GetPluginsConfig",
+                saveDataUrl:"/Rest/Builder/Form/SaveEdit",
+                getDataUrl:"/Rest/Builder/Form/GetDetailData"
+            },
+            currUserEntity:null,
+            recordId:BaseUtility.GetUrlParaValue("recordId"),
+            /*Js Bean*/
+            formResourceEntity:{
+                formId:"",
+                formName:"",
+                formSingleName:"",
+                formCreateTime:DateUtility.GetCurrentData(),
+                formCreator:"",
+                formUpdateTime:DateUtility.GetCurrentData(),
+                formUpdater:"",
+                formType:"",
+                formIsSystem:"否",
+                formDesc:"",
+                formModuleId:"",
+                formStatus:"启用",
+                formOrganId:"",
+                formOrganName:"",
+                formMainTableId:"",
+                formMainTableName:"",
+                formMainTableCaption:"",
+                formDataRelation:"",
+                formIsTemplate:"否",
+                formContentUrl:"",
+                formIsResolve:"否",
+                formHtmlSource:"",
+                formHtmlResolve:"",
+                formJsContent:"",
+                formCssContent:"",
+                formConfigContent:"",
+                formEveryTimeResolve:"否",
+                formSource:"Web设计器",
+                formTheme:"ThemeDefault",
+                formCustServerRenderer:"",
+                formCustRefJs:"",
+                formCustClientRenderer:"",
+                formCustDesc:""
+            },
+            status: BaseUtility.GetUrlParaValue("op"),
+            oldSelectedTabName:"",
+            selectedTabName:"",
+            designThemes:[],
+            pluginVoList:null
+        },
+        mounted:function () {
+            this.initPageUI();
+            BaseUtility.SetSystemFavicon();
+            //this.bindStatusData();
+        },
+        methods: {
+            /*Dialog*/
+            selectBindToSingleFieldDialogBegin:function(targetWindow,oldBindFieldData){
+                var relationConfig=this.$refs.dbTableRelationComp.getValue();
+                //将关联表设置提供给选择绑定字段的组件，判定是否需要重新加载控件的字段
+                this.$refs.fdControlSelectBindToSingleFieldDialog.beginSelect(relationConfig.relationData,oldBindFieldData);
+                this.selectBindToSingleFieldTargetWindow=targetWindow;
+            },
+            onSelectedBindToSingleField:function(result){
+                this.selectBindToSingleFieldTargetWindow._SelectBindObj.setSelectFieldResultValue(result);
+            },
+            selectDefaultValueDialogBegin:function(targetWindow,oldData){
+                this.$refs.selectDefaultValueDialog.beginSelect(oldData);
+                this.selectDefaultValueTargetWindow=targetWindow;
+            },
+            onSelectedDefaultValue:function(result){
+                this.selectDefaultValueTargetWindow._SelectBindObj.setSelectEnvVariableResultValue(result);
+            },
+            selectValidateRuleDialogBegin:function(targetWindow,oldData){
+                this.$refs.selectValidateRuleDialog.beginSelect(oldData);
+                this.selectDefaultValueTargetWindow=targetWindow;
+            },
+            onSelectedValidateRule:function(result){
+                this.selectDefaultValueTargetWindow._SelectBindObj.setSelectValidateRuleResultValue(result);
+            },
+            /*Base*/
+            //region
+            //#endregion
+            initPageUI:function(){
+                this.isLoading=true;
+                $(".form-design-wraper").height(PageStyleUtility.GetWindowHeight()-60);
+                var _self=this;
+
+                //加载表单插件
+                AjaxUtility.Post(this.acInterface.getPluginsConfig,{},function (result) {
+                    console.log(result);
+
+                    _self.designThemes=result.exKVData.designThemes;
+                    _self.pluginVoList=result.data;
+
+                    //加载表单数据
+                    DetailPageUtility.BindFormData(_self.acInterface.getDataUrl, _self.formResourceEntity, _self.recordId, _self.status,null,function (result) {
+
+                        if(_self.status=="add"){
+                            _self.formResourceEntity.formType="业务表单";
+                            _self.formResourceEntity.formModuleId=BaseUtility.GetUrlParaValue("moduleId");
+                            _self.oldSelectedTabName="Info";
+                        }
+                        else {
+                            _self.formResourceEntity.formId=BaseUtility.GetUrlParaValue("recordId");
+                            _self.formResourceEntity.formIsResolve="否";
+
+                            _self.oldSelectedTabName="Design";
+                            _self.selectedTabName="Design";
+
+                            _self.$refs.dbTableRelationComp.setValue(_self.formResourceEntity.formDataRelation);
+                        }
+
+                        //获取主题风格设置,传入表单设计器中进行引用!
+                        //console.log(_self.designThemes);
+                        var themeVo=_self.getTheme(_self.formResourceEntity.formTheme);
+
+                        //初始化表单编辑器
+                        CKEditorUtility.InitializeCKEditor('html_design',_self.pluginVoList,function () {
+
+                            if(_self.status=="update") {
+                                HTMLEditorUtility.SetHTMLEditorHTML(_self.formResourceEntity.formHtmlSource);
+                                CKEditorUtility.SetCKEditorHTML(_self.formResourceEntity.formHtmlSource);
+                                JsEditorUtility.SetJsEditorJs(_self.formResourceEntity.formJsContent);
+                            }
+                            _self.isLoading=false;
+                        },"../../HTMLDesign/CKEditorConfig/CKEditorConfig.js","../../HTMLDesign/WebFormDesign/Plugins/",themeVo);
+
+                    });
+
+                    HTMLEditorUtility.InitializeHTMLCodeDesign();
+                    JsEditorUtility.InitializeJsCodeDesign(_self.status);
+
+                    _self.$refs.jsDesignCodeFragment.setJSEditorInstance(JsEditorUtility.GetJsEditorInst());
+
+
+
+                },this);
+            },
+            getTheme:function(value){
+                for(var i=0;i<this.designThemes.length;i++){
+                    if(this.designThemes[i].value==value){
+                        return this.designThemes[i];
+                    }
+                }
+                return null;
+            },
+            changeTheme:function(value){
+                //alert(value);
+                var themeVo=this.getTheme(value);
+                CKEditorUtility.SetThemeVo(themeVo);
+            },
+            getServerDataBind:function(){
+                //获取数据并赋值
+                /*var _self=this;
+                DetailPageUtility.BindFormData(this.acInterface.getDataUrl, this.formResourceEntity, this.recordId, this.status,null,function (result) {
+                    //alert(_self.formResourceEntity.formDataRelation);
+                    //debugger;
+                    //_self.currUserEntity=CacheDataUtility.GetCurrentUserInfo();
+                    if(_self.status=="add"){
+                        //_self.formResourceEntity.formCreater=_self.currUserEntity.userName;
+                        //_self.formResourceEntity.formUpdater=_self.currUserEntity.userName;
+                        _self.formResourceEntity.formType="业务表单";
+                        _self.formResourceEntity.formModuleId=BaseUtility.GetUrlParaValue("moduleId");
+                        _self.oldSelectedTabName="Info";
+                    }
+                    else {
+                        _self.formResourceEntity.formId=BaseUtility.GetUrlParaValue("recordId");
+                        //_self.formResourceEntity.formUpdater=_self.currUserEntity.userName;
+                        _self.formResourceEntity.formIsResolve="否";
+
+                        _self.oldSelectedTabName="Design";
+                        _self.selectedTabName="Design";
+                        //JBuild4DC.FormDesign.SetCKEditorHTML("");
+
+                        _self.$refs.dbTableRelationComp.setValue(_self.formResourceEntity.formDataRelation);
+                        HTMLEditorUtility.SetHTMLEditorHTML(_self.formResourceEntity.formHtmlSource);
+                        CKEditorUtility.SetCKEditorHTML(_self.formResourceEntity.formHtmlSource);
+                        JsEditorUtility.SetJsEditorJs(_self.formResourceEntity.formJsContent);
+                    }
+
+                    /!*if(_self.status!="add") {
+
+                    }*!/
+                });*/
+            },
+            bindStatusData:function () {
+
+            },
+            isHTMLToOther:function(name){
+                if(this.oldSelectedTabName=="HTML"){
+                    //if(name=="Design"){
+                        return true;
+                    //}
+                }
+                return false;
+            },
+            isDesignToOther:function(name){
+                if(this.oldSelectedTabName=="Design"){
+                    //if(name=="HTML"){
+                        return true;
+                    //}
+                }
+                return false;
+            },
+            tabChange:function (name) {
+                if(this.isDesignToOther(name)){
+                    var html=CKEditorUtility.GetCKEditorHTML();
+                    //JBuild4DC.FormDesign.SetHTMLEditorHTML("<div id='aaa'><div><div><div>ssssssssss</div></div></div></div>");
+                    HTMLEditorUtility.SetHTMLEditorHTML(html);
+                }
+                else if(this.isHTMLToOther(name)){
+                    var html=HTMLEditorUtility.GetHtmlEditorHTML();
+                    //alert(html);
+                    CKEditorUtility.SetCKEditorHTML(html);
+                }
+                this.oldSelectedTabName=name;
+            },
+            save:function (successFunc) {
+                //debugger;
+                var relationConfig=this.$refs.dbTableRelationComp.getValue();
+                this.formResourceEntity.formDataRelation=JsonUtility.JsonToString(relationConfig.relationData);
+                this.formResourceEntity.formMainTableId=relationConfig.mainTableId;
+                this.formResourceEntity.formMainTableName=relationConfig.mainTableName;
+                this.formResourceEntity.formMainTableCaption=relationConfig.mainTableCaption;
+                if(this.selectedTabName=="HTML"){
+                    this.formResourceEntity.formHtmlSource = HTMLEditorUtility.GetHtmlEditorHTML();
+                }
+                else {
+                    this.formResourceEntity.formHtmlSource = CKEditorUtility.GetCKEditorHTML();
+                }
+                this.formResourceEntity.formJsContent=JsEditorUtility.GetJsEditorJs();
+
+                var validateResult=this.validateSaveEnable(this.formResourceEntity);
+                if(validateResult.result){
+                    var sendData = JSON.stringify(this.formResourceEntity);
+                    //debugger;
+                    AjaxUtility.PostRequestBody(this.acInterface.saveDataUrl, sendData, function (result) {
+                        //debugger;
+                        DialogUtility.Alert(window, DialogUtility.DialogAlertId, {}, result.message, function () {
+                            if (result.success) {
+                                //window.OpenerWindowObj.appList.reloadData();
+                                //DialogUtility.Frame_CloseDialog(window);
+                                window.opener._modulelistwebformcomp.reloadData();
+                                successFunc(result);
+                            }
+                        });
+                    },this);
+                }
+                else{
+                    DialogUtility.AlertText(validateResult.msg.join("<br />"));
+                }
+            },
+            saveClose:function () {
+                this.save(function () {
+                    window.close();
+                });
+            },
+            savePreview:function () {
+                this.save(function (result) {
+                    console.log(result);
+                    DialogUtility.Frame_OpenIframeWindow(window,DialogUtility.DialogId04,"FormPreview.html?FormId="+result.data.formId, {
+                            width:0,
+                            height:0,
+                            title:"表单预览"
+                        });
+                })
+            },
+            validateSaveEnable:function(formResourceEntity){
+                var resultMsg={
+                    result:true,
+                    msg:[]
+                }
+
+                if(formResourceEntity.formName==""){
+                    resultMsg.result=false;
+                    resultMsg.msg.push("请填写表单名称!");
+                }
+                //校验是否设置了主表
+                if(formResourceEntity.formMainTableId==""){
+                    resultMsg.result=false;
+                    resultMsg.msg.push("请设置主表!");
+                }
+                return resultMsg;
+            },
+            validateDesign:function (formResourceEntity) {
+                if(this.validateSaveEnable(formResourceEntity)){
+
+                }
+            }
+        }
+    });</script></body></html>

@@ -418,19 +418,21 @@ var WLDCT_ListTableContainer= {
         for (let i = 0; i < $tds.length; i++) {
             var $td = $($tds[i]);
             var $divCTElem = $td.find("div" + HTMLControlAttrs.SELECTED_JBUILD4DC_CUSTOM);
-            var bindToField = $divCTElem.attr("columnname");
-            var val = rowData[bindToField];
-            var clientResolveInstanceName=$divCTElem.attr(HTMLControlAttrs.CLIENT_RESOLVE);
-            var instance=WLDCT_ListTableContainer.GetInstance(clientResolveInstanceName);
-            instance.RendererDataChain({
-                $templateTable:$templateTable,
-                $templateTableRow:$templateTableRow,
-                dataSet:dataSet,
-                rowData:rowData,
-                $cloneRow:$cloneRow,
-                $td:$td,
-                val:val
-            });
+            if($divCTElem.length>0) {
+                var bindToField = $divCTElem.attr("columnname");
+                var val = rowData[bindToField];
+                var clientResolveInstanceName = $divCTElem.attr(HTMLControlAttrs.CLIENT_RESOLVE);
+                var instance = WLDCT_ListTableContainer.GetInstance(clientResolveInstanceName);
+                instance.RendererDataChain({
+                    $templateTable: $templateTable,
+                    $templateTableRow: $templateTableRow,
+                    dataSet: dataSet,
+                    rowData: rowData,
+                    $cloneRow: $cloneRow,
+                    $td: $td,
+                    val: val
+                });
+            }
             //this.RendererSingleCell($templateTable,$templateTableRow, dataSet, rowData, $cloneRow, $td, val);
         }
         return $cloneRow;

@@ -201,6 +201,14 @@ let replaceBlock = {
         replaceArray.push(refCss(levelPath + 'Themes/Default/Css/HTMLDesignWysiwygMain.css?refVersion=' + refVersion));
 
         return replaceArray.join("\n\t");
+    },
+    replaceHTMLDesignPluginLib:function (search, file) {
+        let replaceArray = new Array();
+        let levelPath = calculateFilePath(file);
+
+        replaceArray.push(refJs(levelPath + "Js/HTMLDesign/WebListDesign/Plugins/WLDCT_ListTableContainer/WLDCT_ListTableContainerPlugin.js"));
+
+        return replaceArray.join("\n\t");
     }
 }
 

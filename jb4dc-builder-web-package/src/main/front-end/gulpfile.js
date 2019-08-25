@@ -89,7 +89,20 @@ gulp.task('html-design-ckeditor-config',()=> {
 });
 
 /*WebForm相关的插件*/
-gulp.task('html-design-plugins',()=>{
+gulp.task('html-design-plugins-js',()=> {
+    var obj = gulp.src([
+        sourcePath + "/Js/HTMLDesign/**/Plugins/**/*.js"
+    ], {base: sourcePath + "/Js/HTMLDesign/**/Plugins"})
+        .pipe(babel({
+            presets: ['@babel/env']
+        }))
+
+    if (!isdebug) {
+        obj = obj.pipe(uglify());
+    }
+    return obj.pipe(gulp.dest(distPath + "/Js/HTMLDesign/**/Plugins"));
+});
+gulp.task('html-design-plugins-css-img',()=>{
     return gulp.src([
         sourcePath + "/Js/HTMLDesign/**/Plugins/**/*.js",
         sourcePath + "/Js/HTMLDesign/**/Plugins/**/*.css",
@@ -157,7 +170,7 @@ gulp.task('html-design-runtime-images-builder-runtime',()=>{
     return gulp.src(sourcePath+"/Themes/Default/Less/Images/BuilderRuntime/*", {base:sourcePath+"/Themes/Default/Less/Images/BuilderRuntime"}).pipe(gulp.dest(html_design_runtime_distPath+"/Themes/Default/Css/Images/BuilderRuntime"));
 });
 
-gulp.task('html-design-all', gulp.series('html-design-utility','html-design-ckeditor-config','html-design-plugins','html-design-plugins-html','html-design-runtime-full-js','html-design-runtime-less','html-design-runtime-template','html-design-runtime-images-builder-runtime'));
+gulp.task('html-design-all', gulp.series('html-design-utility','html-design-ckeditor-config','html-design-plugins-js','html-design-plugins-css-img','html-design-plugins-html','html-design-runtime-full-js','html-design-runtime-less','html-design-runtime-template','html-design-runtime-images-builder-runtime'));
 
 gulp.task('html-template-web-package',()=>{
     //gulp.src(jarFromResourcePath+"/HTML/**/*", {base:jarFromResourcePath+"/HTML"}).pipe(gulp.dest(jarToResourcePath+"/HTML"))
@@ -209,6 +222,7 @@ function copyAndResolveHtml(sourcePath,base,toPath) {
         .pipe(replacecust(replaceBlockObj.replaceBlock('Webix'), replaceBlockObj.replaceWebixLib))
         .pipe(replacecust(replaceBlockObj.replaceBlock('HTMLDesignRuntimeLib'), replaceBlockObj.replaceHTMLDesignRuntimeLib))
         .pipe(replacecust(replaceBlockObj.replaceBlock('HTMLDesignWysiwygLib'), replaceBlockObj.replaceHTMLDesignWysiwygLib))
+        .pipe(replacecust(replaceBlockObj.replaceBlock('HTMLDesignPluginLib'), replaceBlockObj.replaceHTMLDesignPluginLib))
 
     if(isdebug){
         obj=obj.pipe(htmlmin({

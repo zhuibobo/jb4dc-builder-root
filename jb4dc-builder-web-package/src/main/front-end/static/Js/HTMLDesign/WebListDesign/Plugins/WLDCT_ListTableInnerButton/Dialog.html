@@ -61,7 +61,6 @@
                                     <div class="wldct-list-table-row-inner-button page-white-edit" @click="changeSelectedClass('page-white-edit')"></div>
                                     <div class="wldct-list-table-row-inner-button page-attach" @click="changeSelectedClass('page-attach')"></div>
                                     <div class="wldct-list-table-row-inner-button page-go" @click="changeSelectedClass('page-go')"></div>
-                                    <div class="wldct-list-table-row-inner-button script-go" @click="changeSelectedClass('script-go')"></div>
                                     <div class="wldct-list-table-row-inner-button script-key" @click="changeSelectedClass('script-key')"></div>
                                     <div class="wldct-list-table-row-inner-button wrench-orange" @click="changeSelectedClass('wrench-orange')"></div>
                                     <div class="wldct-list-table-row-inner-button x-office-document-template" @click="changeSelectedClass('x-office-document-template')"></div>
@@ -79,7 +78,9 @@
                             <td>显示条件：</td>
                             <td colspan="5">
                                 <input type="text" v-model="normalProps.displayCondition" />
-                                eg:record.字段="是"
+                                <div class="eg-message">
+                                    eg:record.字段=="是1"
+                                </div>
                             </td>
                         </tr>
                         <tr>
