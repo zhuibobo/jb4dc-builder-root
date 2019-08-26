@@ -106,7 +106,16 @@
                  ServerResolve="com.jb4dc.builder.htmldesign.control.weblist.WebListListTableContainer"
                  ClientResolve="WLDCT_ListTableContainer"
                  ClientResolveJs=""
-                 EnableChildControls="WLDCT_ListTableLabel;WLDCT_ListTableInnerButton"
+                 EnableChildControls="WLDCT_ListTableLabel"
+                 DialogWidth="780" DialogHeight="550" IsJBuild4DCData="false" ControlCategory="ContainerControl" ServerDynamicBind="false"  ShowRemoveButton="false" ShowInEditorToolbar="true">
+            <Config></Config>
+            <Desc></Desc>
+        </Control>
+        <Control SingleName="WLDCT_ListTableInnerButtonContainer" Text="列表-表格内按钮区域" ToolbarLocation="LC_Template,8"
+                 ServerResolve="com.jb4dc.builder.htmldesign.control.weblist.WebListListTableInnerButtonContainer"
+                 ClientResolve="WLDCT_ListTableInnerButtonContainer"
+                 ClientResolveJs=""
+                 EnableChildControls="WLDCT_ListTableInnerButton"
                  DialogWidth="780" DialogHeight="550" IsJBuild4DCData="false" ControlCategory="ContainerControl" ServerDynamicBind="false"  ShowRemoveButton="false" ShowInEditorToolbar="true">
             <Config></Config>
             <Desc></Desc>
