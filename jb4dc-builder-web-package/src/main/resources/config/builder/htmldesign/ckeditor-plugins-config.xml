@@ -79,7 +79,7 @@
                  ServerResolve="com.jb4dc.builder.htmldesign.control.weblist.WebListListSimpleSearchContainer"
                  ClientResolve="WLDCT_ListSimpleSearchContainer"
                  ClientResolveJs=""
-                 EnableChildControls="*"
+                 EnableChildControls="WLDCT_Search_TextBox"
                  DialogWidth="780" DialogHeight="550" IsJBuild4DCData="false" ControlCategory="ContainerControl" ServerDynamicBind="false"  ShowRemoveButton="false" ShowInEditorToolbar="true">
             <Config></Config>
             <Desc></Desc>
@@ -88,7 +88,7 @@
                  ServerResolve="com.jb4dc.builder.htmldesign.control.weblist.WebListListComplexSearchContainer"
                  ClientResolve="WLDCT_ListComplexSearchContainer"
                  ClientResolveJs=""
-                 EnableChildControls="*"
+                 EnableChildControls="WLDCT_Search_TextBox"
                  DialogWidth="780" DialogHeight="550" IsJBuild4DCData="false" ControlCategory="ContainerControl" ServerDynamicBind="false"  ShowRemoveButton="false" ShowInEditorToolbar="true">
             <Config></Config>
             <Desc></Desc>
@@ -97,7 +97,7 @@
                  ServerResolve="com.jb4dc.builder.htmldesign.control.weblist.WebListListButtonContainer"
                  ClientResolve="WLDCT_ListButtonContainer"
                  ClientResolveJs=""
-                 EnableChildControls="*"
+                 EnableChildControls="WLDCT_FormButton"
                  DialogWidth="780" DialogHeight="550" IsJBuild4DCData="false" ControlCategory="ContainerControl" ServerDynamicBind="false"  ShowRemoveButton="false" ShowInEditorToolbar="true">
             <Config></Config>
             <Desc></Desc>
@@ -106,7 +106,7 @@
                  ServerResolve="com.jb4dc.builder.htmldesign.control.weblist.WebListListTableContainer"
                  ClientResolve="WLDCT_ListTableContainer"
                  ClientResolveJs=""
-                 EnableChildControls="*"
+                 EnableChildControls="WLDCT_ListTableLabel;WLDCT_ListTableInnerButton"
                  DialogWidth="780" DialogHeight="550" IsJBuild4DCData="false" ControlCategory="ContainerControl" ServerDynamicBind="false"  ShowRemoveButton="false" ShowInEditorToolbar="true">
             <Config></Config>
             <Desc></Desc>

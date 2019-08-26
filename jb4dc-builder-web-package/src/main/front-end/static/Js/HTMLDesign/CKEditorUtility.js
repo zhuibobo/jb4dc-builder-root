@@ -164,17 +164,20 @@ class CKEditorUtility {
             var elem = event.data.selection.getSelectedElement() ;
             //console.log(elem);
             //alert(selection.getType() );
-            var lastCustControlName="";
+            var lastCustSingleName="";
             for (var i = 0; i < event.data.path.elements.length; i++) {
                 var elem=event.data.path.elements[i];
                 var singleName=elem.getAttribute("singlename");
                 if (singleName){
-                    lastCustControlName=singleName;
+                    lastCustSingleName=singleName;
                     break;
                 }
             }
-            if(lastCustControlName){
-                console.log(lastCustControlName);
+            if(lastCustSingleName){
+                //console.log(lastCustSingleName);
+                //$(".cke_button").hide();
+                console.log(CKEditorPluginUtility.Plugins);
+                CKEditorUtility.DisplayPluginControls(CKEditorPluginUtility.GetEnableChildControls(lastCustSingleName));
             }
             //$(".cke_button__wldct_listtablecontainer").hide();
             //$(".cke_button__wldct_listsimplesearchcontainer").hide();
@@ -250,6 +253,33 @@ class CKEditorUtility {
             }
         });
 
+    }
+
+    static DisplayPluginControls(enableChildControls){
+        //debugger;
+        $(".cke_button").show();
+        if(enableChildControls=="*"){
+            return
+        }
+        //隐藏所有的自定义插件
+        console.log(enableChildControls);
+        var plugins=CKEditorPluginUtility.GetPlugins();
+        for (var key in plugins) {
+            var plugin=plugins[key];
+            var singleName=plugin.Setting.SingleName;
+            if (StringUtility.ToLowerCase(enableChildControls).indexOf(StringUtility.ToLowerCase(singleName))>=0){
+                $(".cke_button__"+StringUtility.ToLowerCase(singleName)).show();
+            }
+            else{
+                $(".cke_button__"+StringUtility.ToLowerCase(singleName)).hide();
+            }
+        }
+
+        /*var enablePlugins=enableChildControls.split(";");
+        for (var i = 0; i < enablePlugins.length; i++) {
+            var singleName=enablePlugins[i];
+            $(".cke_button__"+singleName).show();
+        }*/
     }
 
     static _ThemeVo=null;

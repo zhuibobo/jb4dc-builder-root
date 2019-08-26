@@ -81,7 +81,8 @@ class CKEditorPluginUtility {
             //是否显示移除按钮
             ShowRemoveButton:"",
             //是否显示在工具栏
-            ShowInEditorToolbar:""
+            ShowInEditorToolbar:"",
+            EnableChildControls:""
         };
         //使用方法参数覆盖默认值
         defaultSetting = $.extend(true, {}, defaultSetting, exConfig);
@@ -102,7 +103,11 @@ class CKEditorPluginUtility {
     }
 
     static GetEnableChildControls(singleName){
-        return this.PluginsServerConfig[singleName].EnableChildControls;
+        return this.Plugins[singleName].Setting.EnableChildControls;
+    }
+
+    static GetPlugins(){
+        return this.Plugins;
     }
 
     static RegGeneralPluginToEditor(ckEditor, path, pluginSetting, okFunc) {
