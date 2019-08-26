@@ -4,9 +4,9 @@
     /**
      * @return {string}
      */
-    CKEditorPluginUtility.Plugins[pluginName].GetHtmlTemplate=function(tipMsg) {
+    CKEditorPluginUtility.Plugins[pluginName].GetHtmlTemplate=function(tipMsg,addDefProp) {
         var tip = CKEditorPluginUtility.GetAutoRemoveTipLabel(tipMsg);
-        return `<div class="wysiwyg-wldct-list-table-outer-wrap wldct-list-table-outer-wrap">${tip}<div class="wysiwyg-wldct-list-table-inner-wrap wldct-list-table-inner-wrap wldct-list-table-row-button-wrap">
+        var template=`<div class="wysiwyg-wldct-list-table-outer-wrap wldct-list-table-outer-wrap">${tip}<div class="wysiwyg-wldct-list-table-inner-wrap wldct-list-table-inner-wrap wldct-list-table-row-button-wrap">
                      <table is-op-button-wrap-table="true" class="list-table">
                          <thead>
                              <tr>
@@ -45,6 +45,25 @@
                      </table>
                  </div>
               </div>`
+        if(addDefProp){
+            template=$(template);
+            template.attr("classname","");
+            template.attr("control_category","ContainerControl");
+            template.attr("custdisabled","nodisabled");
+            template.attr("custreadonly","noreadonly");
+            template.attr("desc","");
+            template.attr("id","list_table_wrap_788954467");
+            template.attr("is_jbuild4dc_data","false");
+            template.attr("jbuild4dc_custom","true");
+            template.attr("name","list_table_wrap_788954467");
+            template.attr("placeholder","");
+            template.attr("serialize","false");
+            template.attr("show_remove_button","false");
+            template.attr("singlename","WLDCT_ListTableContainer");
+            template.attr("style","");
+            return template.outerHTML();
+        }
+        return template;
     };
     if(CKEditorPluginUtility.Plugins[pluginName].Setting) {
         CKEDITOR.plugins.add(CKEditorPluginUtility.Plugins[pluginName].Setting.SingleName, {
@@ -54,7 +73,7 @@
                     //var controlDescText=CKEditorPluginUtility.GetControlDescText(pluginSetting,props);
                     //var tip = CKEditorPluginUtility.GetAutoRemoveTipLabel("表格显示区域[双击编辑该部件],在下边div中编辑查询内容");
                     var tip = "表格显示区域[双击编辑该部件],在下边div中编辑查询内容";
-                    CKEditorPluginUtility.BuildGeneralElemToCKWysiwyg(CKEditorPluginUtility.Plugins[pluginName].GetHtmlTemplate(tip), pluginSetting, props, contentWindow);
+                    CKEditorPluginUtility.BuildGeneralElemToCKWysiwyg(CKEditorPluginUtility.Plugins[pluginName].GetHtmlTemplate(tip,false), pluginSetting, props, contentWindow);
                 }
 
                 //注册常规插件的操作

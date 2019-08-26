@@ -64,7 +64,9 @@ class CKEditorUtility {
             var serverDynamicBind=singlePluginConfig.serverDynamicBind;
             var showRemoveButton=singlePluginConfig.showRemoveButton;
             var showInEditorToolbar=singlePluginConfig.showInEditorToolbar;
-            //debugger;
+            var enableChildControls=singlePluginConfig.enableChildControls;
+            //console.log(enableChildControls);
+            ////debugger;
             var pluginFileName = singleName + "Plugin.js";
             var pluginFolderName = pluginBasePath + singleName + "/";
             //注册扩展组件
@@ -72,7 +74,7 @@ class CKEditorUtility {
             extraPlugins.push(singleName);
 
             //设置默认值
-            CKEditorPluginUtility.AddPluginsServerConfig(singleName,toolbarLocation,text,clientResolve,serverResolve,clientResolveJs,dialogWidth,dialogHeight,isJBuild4DCData,controlCategory,serverDynamicBind,showRemoveButton,showInEditorToolbar);
+            CKEditorPluginUtility.AddPluginsServerConfig(singleName,toolbarLocation,text,clientResolve,serverResolve,clientResolveJs,dialogWidth,dialogHeight,isJBuild4DCData,controlCategory,serverDynamicBind,showRemoveButton,showInEditorToolbar,enableChildControls);
             /*CKEditorPluginUtility.PluginsServerConfig[singleName]={
                 SingleName:singleName,
                 ToolbarLocation:toolbarLocation,
@@ -147,13 +149,35 @@ class CKEditorUtility {
         });
 
         CKEDITOR.instances.html_design.on('insertElement', function (event) {
-            console.log("insertElement");
-            console.log(event);
+            //console.log("insertElement");
+            //console.log(event);
         });
 
         CKEDITOR.instances.html_design.on('insertHtml', function (event) {
-            console.log("insertHtml");
-            console.log(event);
+            //console.log("insertHtml");
+            //console.log(event);
+        });
+
+        CKEDITOR.instances.html_design.on('selectionChange', function (event) {
+            //console.log("selectionChange2");
+            //console.log(event);
+            var elem = event.data.selection.getSelectedElement() ;
+            //console.log(elem);
+            //alert(selection.getType() );
+            var lastCustControlName="";
+            for (var i = 0; i < event.data.path.elements.length; i++) {
+                var elem=event.data.path.elements[i];
+                var singleName=elem.getAttribute("singlename");
+                if (singleName){
+                    lastCustControlName=singleName;
+                    break;
+                }
+            }
+            if(lastCustControlName){
+                console.log(lastCustControlName);
+            }
+            //$(".cke_button__wldct_listtablecontainer").hide();
+            //$(".cke_button__wldct_listsimplesearchcontainer").hide();
         });
 
         //this._CKEditorInst = CKEDITOR.instances.html_design;

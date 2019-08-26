@@ -11,7 +11,7 @@
         init: function(editor) {
             //点击确认时候指定的操作
             function addToEditor(ckEditor, pluginSetting, props, contentWindow){
-                console.log(props);
+                //console.log(props);
                 var controlDescText=props.normalProps.columnCaption+"[默认值:"+props.defaultValue.defaultText+"]";
                 CKEditorPluginUtility.BuildGeneralElemToCKWysiwyg("<div class='wysiwyg-input-text'>"+controlDescText+"</div>", pluginSetting, props, contentWindow);
             }

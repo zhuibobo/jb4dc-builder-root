@@ -24,7 +24,7 @@
             },
             methods: {
                 ready:function(actionName,sel,parents){
-                    this.baseInfo.id="txt_search_"+StringUtility.Timestamp();
+                    this.baseInfo.id="lab_"+StringUtility.Timestamp();
                     this.baseInfo.name=this.baseInfo.id;
 
                     this.dataSetId=CKEditorPluginUtility.TryGetDataSetId(sel,parents);
@@ -65,7 +65,7 @@
                     return result;
                 },
                 setControlProps:function ($elem,props) {
-                    console.log(props);
+                    //console.log(props);
                     this.baseInfo = props.baseInfo ? props.baseInfo : this.baseInfo;
                     //this.bindToSearchField = props.bindToSearchField ? props.bindToSearchField : this.bindToSearchField;
                     this.defaultValue = props.defaultValue ? props.defaultValue : this.defaultValue;

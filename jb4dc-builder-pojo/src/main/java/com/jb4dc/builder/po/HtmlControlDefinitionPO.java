@@ -19,7 +19,15 @@ public class HtmlControlDefinitionPO {
     private String serverDynamicBind;
     private String showRemoveButton;
     private String showInEditorToolbar;
+    private String enableChildControls;
 
+    public String getEnableChildControls() {
+        return enableChildControls;
+    }
+
+    public void setEnableChildControls(String enableChildControls) {
+        this.enableChildControls = enableChildControls;
+    }
 
     public String getShowRemoveButton() {
         return showRemoveButton;
@@ -161,6 +169,7 @@ public class HtmlControlDefinitionPO {
         vo.setServerDynamicBind(XMLDocumentUtility.getAttribute(node,"ServerDynamicBind"));
         vo.setShowRemoveButton(XMLDocumentUtility.getAttribute(node,"ShowRemoveButton"));
         vo.setShowInEditorToolbar(XMLDocumentUtility.getAttribute(node,"ShowInEditorToolbar"));
+        vo.setEnableChildControls(XMLDocumentUtility.getAttribute(node,"EnableChildControls"));
         return vo;
     }
 }

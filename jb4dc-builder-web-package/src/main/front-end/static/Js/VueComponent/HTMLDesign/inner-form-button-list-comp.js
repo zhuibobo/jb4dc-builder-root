@@ -154,7 +154,7 @@ Vue.component("inner-form-button-list-comp", {
         },
         //region 列表按钮相关方法
         edit:function(id,params){
-            console.log(params);
+            //console.log(params);
             if(params.row["buttonType"]=="保存按钮"){
                 this.editInnerFormSaveButton(params);
             }
@@ -268,7 +268,7 @@ Vue.component("inner-form-button-list-comp", {
                 }
             }
 
-            console.log(singleInnerFormButtonData);
+            //console.log(singleInnerFormButtonData);
 
             this.handleClose("innerFormButtonEdit");
         },
@@ -282,7 +282,7 @@ Vue.component("inner-form-button-list-comp", {
         getTableFieldsAndBindToTable:function(){
             var _self=this;
             AjaxUtility.Post(this.field.acInterface.getFormMainTableFields,{formId:this.formId},function (result) {
-                console.log(result);
+                //console.log(result);
                 var fieldsData=[];
 
                 for(var i=0;i<result.data.length;i++) {
@@ -319,7 +319,7 @@ Vue.component("inner-form-button-list-comp", {
         getApiConfigAndBindToTable:function(){
             var _self=this;
             AjaxUtility.Post(this.api.acInterface.getButtonApiConfig,{},function (result) {
-                console.log(result);
+                //console.log(result);
                 //var apiSelectData
                 var apiSelectData=[];
 

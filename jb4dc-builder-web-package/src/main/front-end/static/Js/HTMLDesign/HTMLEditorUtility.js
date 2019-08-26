@@ -32,11 +32,11 @@ class HTMLEditorUtility{
                 searchHTML=selectedElem.outerHTML().split(">")[0];
                 //alert(searchHTML);
             }
-            console.log("-------------------------------");
+            //console.log("-------------------------------");
             var cursor=this.GetHTMLEditorInst().getSearchCursor(searchHTML);
             cursor.findNext();
-            console.log(cursor);
-            console.log(cursor.from()+"|"+cursor.to());
+            //console.log(cursor);
+            //console.log(cursor.from()+"|"+cursor.to());
             if(cursor.from()&&cursor.to()) {
                 this.GetHTMLEditorInst().getDoc().setSelection(cursor.from(), cursor.to());
             }

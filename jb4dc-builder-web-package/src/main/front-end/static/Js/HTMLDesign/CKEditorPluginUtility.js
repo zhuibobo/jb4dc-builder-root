@@ -4,7 +4,7 @@ class CKEditorPluginUtility {
         //来自服务端的插件的相关的配置,在初始的时候写入
     };
 
-    static AddPluginsServerConfig(singleName,toolbarLocation,text,clientResolve,serverResolve,clientResolveJs,dialogWidth,dialogHeight,isJBuild4DCData,controlCategory,serverDynamicBind,showRemoveButton,showInEditorToolbar){
+    static AddPluginsServerConfig(singleName,toolbarLocation,text,clientResolve,serverResolve,clientResolveJs,dialogWidth,dialogHeight,isJBuild4DCData,controlCategory,serverDynamicBind,showRemoveButton,showInEditorToolbar,enableChildControls){
         this.PluginsServerConfig[singleName]={
             SingleName:singleName,
             ToolbarLocation:toolbarLocation,
@@ -18,7 +18,8 @@ class CKEditorPluginUtility {
             ControlCategory:controlCategory,
             ServerDynamicBind:serverDynamicBind,
             ShowRemoveButton:showRemoveButton,
-            ShowInEditorToolbar:showInEditorToolbar
+            ShowInEditorToolbar:showInEditorToolbar,
+            EnableChildControls:enableChildControls
         }
     };
 
@@ -98,6 +99,10 @@ class CKEditorPluginUtility {
         return {
 
         }
+    }
+
+    static GetEnableChildControls(singleName){
+        return this.PluginsServerConfig[singleName].EnableChildControls;
     }
 
     static RegGeneralPluginToEditor(ckEditor, path, pluginSetting, okFunc) {

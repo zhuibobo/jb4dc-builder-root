@@ -247,8 +247,8 @@
         },
         mounted: function () {
             //alert(CKEditorPluginUtility.Plugins["WLDCT_ListTableContainer"].GetHtmlTemplate("表格显示区域[双击编辑该部件],在下边div中编辑查询内容"));
-            var tip = CKEditorPluginUtility.GetAutoRemoveTipLabel("表格显示区域[双击编辑该部件],在下边div中编辑查询内容");
-            $("#list-table-template-normal").append(CKEditorPluginUtility.Plugins["WLDCT_ListTableContainer"].GetHtmlTemplate(tip));
+            //var tip = CKEditorPluginUtility.GetAutoRemoveTipLabel("表格显示区域[双击编辑该部件],在下边div中编辑查询内容");
+            $("#list-table-template-normal").append(CKEditorPluginUtility.Plugins["WLDCT_ListTableContainer"].GetHtmlTemplate("表格显示区域[双击编辑该部件],在下边div中编辑查询内容",true));
         },
         methods: {
             selectTemplate: function (event) {

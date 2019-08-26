@@ -12,7 +12,7 @@
                         serialize:"false"
                     }
                 };
-                console.log(html);
+                //console.log(html);
                 CKEditorPluginUtility.BuildGeneralElemToCKWysiwyg(html, pluginSetting, props, contentWindow);
             }
             //注册常规插件的操作
