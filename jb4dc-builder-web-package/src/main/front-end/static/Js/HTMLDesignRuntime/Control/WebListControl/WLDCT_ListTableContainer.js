@@ -299,10 +299,19 @@ var WLDCT_ListTableContainer= {
             "searching": false,
             "info": false
         } );*/
+        var $templateTable = $singleControlElem.find("table");
+        var $templateTableRow = $singleControlElem.find("table tbody tr");
+        var $templateTableHeaderRows = $singleControlElem.find("table thead tr");
+
+        this.AppendCheckBoxColumnTemplate($templateTable,$templateTableHeaderRows,$templateTableRow);
+
+        HTMLControl.RendererChain(_rendererChainParas);
+        //console.log("2222222222");
     },
     RendererDataChain:function (_rendererDataChainParas,isReRenderer){
         //return
         //debugger;
+        //console.log(_rendererDataChainParas.$singleControlElem.html());
         var usedTopDataSet=true;
 
         var dataSetId;
@@ -345,13 +354,12 @@ var WLDCT_ListTableContainer= {
         var $templateTableHeaderRows = $singleControlElem.find("table thead tr");
         //var dataSet=_rendererDataChainParas.dataSet;
 
-        this.AppendCheckBoxColumnTemplate($templateTable,$templateTableHeaderRows,$templateTableRow);
         if ($templateTableRow.length > 0) {
             var $templateTableBody = $singleControlElem.find("table tbody");
             for (var i = 0; i < dataSet.list.length; i++) {
                 $templateTableBody.append(this.RendererSingleRow($templateTable,$templateTableRow, dataSet, dataSet.list[i]));
             }
-            $templateTableRow.remove();
+            //$templateTableRow.remove();
         }
 
         //创建分页操作区域
@@ -379,7 +387,7 @@ var WLDCT_ListTableContainer= {
             $th.attr("rowspan",$templateTableHeaderRows.length);
         }
         $($templateTableHeaderRows[0]).prepend($th);
-        $templateTableRow.prepend(`<td>
+        $($templateTableRow.eq(0)).prepend(`<td>
                                     <div 
                                     columnalign="居中对齐" 
                                     columncaption="ID" 
@@ -406,7 +414,7 @@ var WLDCT_ListTableContainer= {
                                     style="" 
                                     targetbuttonid="" 
                                     client_resolve="WLDCT_ListTableCheckBox">
-                                        组织名称[默认值:]
+                                        ID
                                     </div>
                                   </td>`);
     },
@@ -414,7 +422,7 @@ var WLDCT_ListTableContainer= {
 
         var $cloneRow=$templateTableRow.clone();
         //console.log($cloneRow);
-        debugger;
+        //debugger;
         var $tds=$cloneRow.find("td");
         for (let i = 0; i < $tds.length; i++) {
             var $td = $($tds[i]);
@@ -424,6 +432,7 @@ var WLDCT_ListTableContainer= {
                 var val = rowData[bindToField];
                 var clientResolveInstanceName = $divCTElem.attr(HTMLControlAttrs.CLIENT_RESOLVE);
                 var instance = WLDCT_ListTableContainer.GetInstance(clientResolveInstanceName);
+
                 instance.RendererDataChain({
                     $templateTable: $templateTable,
                     $templateTableRow: $templateTableRow,

@@ -7,7 +7,7 @@
     CKEditorPluginUtility.Plugins[pluginName].GetHtmlTemplate=function(tipMsg,addDefProp) {
         var tip = CKEditorPluginUtility.GetAutoRemoveTipLabel(tipMsg);
         var template=`<div class="wysiwyg-wldct-list-table-outer-wrap wldct-list-table-outer-wrap">${tip}<div class="wysiwyg-wldct-list-table-inner-wrap wldct-list-table-inner-wrap">
-                     <table is-op-button-wrap-table="true" class="list-table">
+                     <table class="list-table">
                          <thead>
                              <tr>
                                  <th></th>

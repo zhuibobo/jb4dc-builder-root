@@ -44,6 +44,10 @@
                 getControlProps:function () {
                     //var bindData=this.$refs.listTableLabelBindToComp.getData();
                     //for(var key in this.normalProps)
+                    if(this.normalProps.targetButtonId==""){
+                        DialogUtility.AlertText("请设定触发的按钮!1");
+                        return {success: false};
+                    }
                     var result = {
                         success: true,
                         baseInfo: this.baseInfo,

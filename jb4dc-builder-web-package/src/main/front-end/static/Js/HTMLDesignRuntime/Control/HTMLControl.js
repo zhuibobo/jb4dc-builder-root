@@ -58,6 +58,10 @@ let HTMLControl={
         //debugger;
         for (var i = 0; i < $singleControlElem.children().length; i++) {
             var $childSingleElem = $($singleControlElem.children()[i]);
+
+            var _cloneRendererDataChainParas = {};
+            JsonUtility.SimpleCloneAttr(_cloneRendererDataChainParas, _rendererChainParas);
+            _cloneRendererDataChainParas.$singleControlElem = $childSingleElem;
             //console.log($childSingleElem.html());
             if ($childSingleElem.attr(HTMLControlAttrs.JBUILD4DC_CUSTOM)=="true"&&$childSingleElem.attr(HTMLControlAttrs.CLIENT_RESOLVE)) {
                 //debugger;
@@ -66,21 +70,23 @@ let HTMLControl={
                 if(typeof(instance.Initialize)=="function"){
                     instance.Initialize();
                 }
-                instance.RendererChain({
+                instance.RendererChain(_cloneRendererDataChainParas);
+                /*instance.RendererChain({
                     listEntity:_rendererChainParas.listEntity,
                     sourceHTML:_rendererChainParas.sourceHTML,
                     $rootElem:_rendererChainParas.$rootElem,
                     $parentControlElem:_rendererChainParas.$singleControlElem,
                     $singleControlElem:$childSingleElem
-                });
+                });*/
             } else {
-                HTMLControl.RendererChain({
+                HTMLControl.RendererChain(_cloneRendererDataChainParas);
+                /*HTMLControl.RendererChain({
                     listEntity:_rendererChainParas.listEntity,
                     sourceHTML:_rendererChainParas.sourceHTML,
                     $rootElem:_rendererChainParas.$rootElem,
                     $parentControlElem:_rendererChainParas.$singleControlElem,
                     $singleControlElem:$childSingleElem
-                });
+                });*/
             }
         }
     },
@@ -89,28 +95,43 @@ let HTMLControl={
         //debugger;
         for (var i = 0; i < $singleControlElem.children().length; i++) {
             var $childSingleElem = $($singleControlElem.children()[i]);
+
+            var _cloneRendererDataChainParas = {};
+            JsonUtility.SimpleCloneAttr(_cloneRendererDataChainParas, _rendererDataChainParas);
+            _cloneRendererDataChainParas.$singleControlElem = $childSingleElem;
             //console.log($childSingleElem.html());
-            if ($childSingleElem.attr(HTMLControlAttrs.JBUILD4DC_CUSTOM)=="true"&&$childSingleElem.attr(HTMLControlAttrs.CLIENT_RESOLVE)) {
+            if ($childSingleElem.attr(HTMLControlAttrs.JBUILD4DC_CUSTOM) == "true" && $childSingleElem.attr(HTMLControlAttrs.CLIENT_RESOLVE)) {
                 //debugger;
-                var clientResolveInstanceName=$childSingleElem.attr(HTMLControlAttrs.CLIENT_RESOLVE);
-                var instance=HTMLControl.GetInstance(clientResolveInstanceName);
-                instance.RendererDataChain({
+                var clientResolveInstanceName = $childSingleElem.attr(HTMLControlAttrs.CLIENT_RESOLVE);
+                var instance = HTMLControl.GetInstance(clientResolveInstanceName);
+
+                instance.RendererDataChain(_cloneRendererDataChainParas);
+                /*instance.RendererDataChain({
                     listEntity:_rendererDataChainParas.listEntity,
                     sourceHTML:_rendererDataChainParas.sourceHTML,
                     $rootElem:_rendererDataChainParas.$rootElem,
                     $parentControlElem:_rendererDataChainParas.$singleControlElem,
                     $singleControlElem:$childSingleElem,
-                    topDataSetId:_rendererDataChainParas.topDataSetId
-                });
+                    topDataSetId:_rendererDataChainParas.topDataSetId,
+                    dataSet: _rendererDataChainParas.dataSet,
+                    rowData: _rendererDataChainParas.rowData,
+                    $cloneRow: _rendererDataChainParas.$cloneRow,
+                    $td: _rendererDataChainParas.$td
+                });*/
             } else {
-                HTMLControl.RendererDataChain({
+                HTMLControl.RendererDataChain(_cloneRendererDataChainParas);
+                /*HTMLControl.RendererDataChain({
                     listEntity:_rendererDataChainParas.listEntity,
                     sourceHTML:_rendererDataChainParas.sourceHTML,
                     $rootElem:_rendererDataChainParas.$rootElem,
                     $parentControlElem:_rendererDataChainParas.$singleControlElem,
                     $singleControlElem:$childSingleElem,
-                    topDataSetId:_rendererDataChainParas.topDataSetId
-                });
+                    topDataSetId:_rendererDataChainParas.topDataSetId,
+                    dataSet: _rendererDataChainParas.dataSet,
+                    rowData: _rendererDataChainParas.rowData,
+                    $cloneRow: _rendererDataChainParas.$cloneRow,
+                    $td: _rendererDataChainParas.$td
+                });*/
             }
         }
     },
