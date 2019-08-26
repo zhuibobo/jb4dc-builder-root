@@ -206,6 +206,10 @@ let replaceBlock = {
         let replaceArray = new Array();
         let levelPath = calculateFilePath(file);
 
+        replaceArray.push(refJs(levelPath + "Js/HTMLDesign/WebListDesign/Plugins/WLDCT_ListSimpleSearchContainer/WLDCT_ListSimpleSearchContainerPlugin.js"));
+        replaceArray.push(refJs(levelPath + "Js/HTMLDesign/WebListDesign/Plugins/WLDCT_ListComplexSearchContainer/WLDCT_ListComplexSearchContainerPlugin.js"));
+        replaceArray.push(refJs(levelPath + "Js/HTMLDesign/WebListDesign/Plugins/WLDCT_ListButtonContainer/WLDCT_ListButtonContainerPlugin.js"));
+        replaceArray.push(refJs(levelPath + "Js/HTMLDesign/WebListDesign/Plugins/WLDCT_ListTableContainer/WLDCT_ListTableContainerPlugin.js"));
         replaceArray.push(refJs(levelPath + "Js/HTMLDesign/WebListDesign/Plugins/WLDCT_ListTableContainer/WLDCT_ListTableContainerPlugin.js"));
 
         return replaceArray.join("\n\t");

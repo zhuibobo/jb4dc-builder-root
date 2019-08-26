@@ -267,19 +267,19 @@ class CKEditorUtility {
         for (var key in plugins) {
             var plugin=plugins[key];
             var singleName=plugin.Setting.SingleName;
-            if (StringUtility.ToLowerCase(enableChildControls).indexOf(StringUtility.ToLowerCase(singleName))>=0){
+            /*if (StringUtility.ToLowerCase(enableChildControls).indexOf(StringUtility.ToLowerCase(singleName))>=0){
                 $(".cke_button__"+StringUtility.ToLowerCase(singleName)).show();
             }
-            else{
+            else{*/
                 $(".cke_button__"+StringUtility.ToLowerCase(singleName)).hide();
-            }
+            //}
         }
 
-        /*var enablePlugins=enableChildControls.split(";");
+        var enablePlugins=enableChildControls.split(";");
         for (var i = 0; i < enablePlugins.length; i++) {
-            var singleName=enablePlugins[i];
-            $(".cke_button__"+singleName).show();
-        }*/
+            var singleName = enablePlugins[i];
+            $(".cke_button__" + StringUtility.ToLowerCase(singleName)).show();
+        }
     }
 
     static _ThemeVo=null;

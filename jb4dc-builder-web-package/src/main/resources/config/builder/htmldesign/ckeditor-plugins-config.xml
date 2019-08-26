@@ -106,7 +106,7 @@
                  ServerResolve="com.jb4dc.builder.htmldesign.control.weblist.WebListListTableContainer"
                  ClientResolve="WLDCT_ListTableContainer"
                  ClientResolveJs=""
-                 EnableChildControls="WLDCT_ListTableLabel"
+                 EnableChildControls="WLDCT_ListTableLabel;WLDCT_ListTableInnerButtonContainer"
                  DialogWidth="780" DialogHeight="550" IsJBuild4DCData="false" ControlCategory="ContainerControl" ServerDynamicBind="false"  ShowRemoveButton="false" ShowInEditorToolbar="true">
             <Config></Config>
             <Desc></Desc>

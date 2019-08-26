@@ -6,7 +6,7 @@
      */
     CKEditorPluginUtility.Plugins[pluginName].GetHtmlTemplate=function(tipMsg,addDefProp) {
         var tip = CKEditorPluginUtility.GetAutoRemoveTipLabel(tipMsg);
-        var template=`<div class="wysiwyg-wldct-list-table-outer-wrap wldct-list-table-outer-wrap">${tip}<div class="wysiwyg-wldct-list-table-inner-wrap wldct-list-table-inner-wrap wldct-list-table-row-button-wrap">
+        var template=`<div class="wysiwyg-wldct-list-table-outer-wrap wldct-list-table-outer-wrap">${tip}<div class="wysiwyg-wldct-list-table-inner-wrap wldct-list-table-inner-wrap">
                      <table is-op-button-wrap-table="true" class="list-table">
                          <thead>
                              <tr>
@@ -18,7 +18,7 @@
                                  <th></th>
                                  <th></th>
                                  <th></th>
-                                 <th>操作按钮</th>
+                                 <th>操作</th>
                              </tr>
                          </thead>
                          <tbody>
@@ -32,13 +32,6 @@
                                  <td></td>
                                  <td></td>
                                  <td style="width: 120px">
-                                    <table class="wysiwyg-table-inner-button-wrap">
-                                        <tr>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                        </tr>
-                                    </table> 
                                 </td>
                              </tr>
                          </tbody>
