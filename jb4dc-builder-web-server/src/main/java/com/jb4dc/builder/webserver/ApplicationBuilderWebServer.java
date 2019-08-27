@@ -1,11 +1,13 @@
 package com.jb4dc.builder.webserver;
 
+import com.jb4dc.builder.client.rest.ListRuntimeRest;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.FilterType;
 
 /**
  * Created with IntelliJ IDEA.
@@ -17,7 +19,7 @@ import org.springframework.context.annotation.ComponentScan;
 @SpringBootApplication(exclude= {DataSourceAutoConfiguration.class})
 @EnableDiscoveryClient
 @EnableFeignClients("com.jb4dc")
-@ComponentScan("com.jb4dc")
+@ComponentScan(basePackages = "com.jb4dc",excludeFilters = @ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE, classes = {ListRuntimeRest.class}) )
 public class ApplicationBuilderWebServer {
     public static void main(String[] args) {
         SpringApplication.run(ApplicationBuilderWebServer.class, args);

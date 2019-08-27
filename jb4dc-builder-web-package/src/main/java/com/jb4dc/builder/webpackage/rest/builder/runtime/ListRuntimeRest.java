@@ -33,7 +33,7 @@ public class ListRuntimeRest {
     @Autowired
     IDatasetService datasetService;
 
-    @RequestMapping("/LoadHTML")
+    @RequestMapping(value = "/LoadHTML",method = RequestMethod.POST)
     public JBuild4DCResponseVo<ListResourcePO> loadHTML(String listId) throws JBuild4DCGenerallyException {
         ListResourcePO listResourcePO=listResourceService.getListRuntimeHTMLContent(JB4DCSessionUtility.getSession(),listId);
         return JBuild4DCResponseVo.getDataSuccess(listResourcePO);

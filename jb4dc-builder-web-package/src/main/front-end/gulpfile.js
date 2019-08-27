@@ -28,7 +28,7 @@ gulp.task('js-vue-ex-component',()=>{
         }))
         .pipe(sourcemaps.init())
         //.pipe(sourcemaps.identityMap())
-        .pipe(concat('SSOVueEXComponent.js'))
+        .pipe(concat('BuilderVueEXComponent.js'))
 
     if(!isdebug){
         obj=obj.pipe(uglify());
