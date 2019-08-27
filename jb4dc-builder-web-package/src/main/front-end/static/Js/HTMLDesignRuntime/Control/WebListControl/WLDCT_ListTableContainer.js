@@ -257,6 +257,7 @@ var WLDCT_ListTableContainer= {
     _ComplexSearchContainerInstance:null,
     _QueryPOList:[],
     _CheckedRecordArray:[],
+    _$Elem:null,
     GetInstance:function(name){
         for(var key in this._InstanceMap){
             if(key==name){
@@ -273,6 +274,7 @@ var WLDCT_ListTableContainer= {
     RendererChain: function (_rendererChainParas) {
         //$singleControlElem.hide();
         var $singleControlElem = _rendererChainParas.$singleControlElem;
+        this._$Elem=$singleControlElem;
         //console.log($singleControlElem);
         //console.log($singleControlElem.prevAll("[client_resolve='WLDCT_ListSimpleSearchContainer']"));
         var $simpleSearchContainerElem = $singleControlElem.prevAll("[client_resolve='WLDCT_ListSimpleSearchContainer']");
@@ -359,7 +361,7 @@ var WLDCT_ListTableContainer= {
             for (var i = 0; i < dataSet.list.length; i++) {
                 $templateTableBody.append(this.RendererSingleRow($templateTable,$templateTableRow, dataSet, dataSet.list[i]));
             }
-            //$templateTableRow.remove();
+            $templateTableRow.remove();
         }
 
         //创建分页操作区域
@@ -535,7 +537,7 @@ var WLDCT_ListTableContainer= {
         DialogUtility.AlertText("找不到ID为:"+id+"的记录!");
         return null;
     },
-    CheckedRow:function(id){
+    SaveCheckedRowData:function(id){
         var record=this.GetRecordData(id);
         if(record!=null) {
             this._CheckedRecordArray.push({
@@ -544,12 +546,15 @@ var WLDCT_ListTableContainer= {
             })
         }
     },
-    UnCheckedRow:function(id){
+    DeleteCheckedRowData:function(id){
         for (var i = 0; i < this._CheckedRecordArray.length; i++) {
             if(this._CheckedRecordArray[i].Id==id){
                 ArrayUtility.Delete(this._CheckedRecordArray,i);
             }
         }
+    },
+    GetCheckedRecord:function(){
+        return this._CheckedRecordArray;
     },
     GetLastCheckedRecord:function () {
         if(this._CheckedRecordArray.length>0){
@@ -557,5 +562,18 @@ var WLDCT_ListTableContainer= {
         }
         return null;
         //alert(1);
+    },
+    ClearAllCheckBox:function(){
+        this._$Elem.find(":checkbox").prop('checked', false);
+        this._CheckedRecordArray=[];
+    },
+    SetCheckBoxToCheckedStatus:function(id){
+        this._$Elem.find("[row_checkbox_record_id='"+id+"']:checkbox").prop('checked', true);
+        this.SaveCheckedRowData(id);
+    },
+    __InnerElemGetInstance:function ($innerElem) {
+        var $WLDCT_ListTableContainer = $innerElem.parents("[singlename='WLDCT_ListTableContainer']");
+        var listTableContainerInstance = HTMLControl.GetControlInstanceByElem($WLDCT_ListTableContainer);
+        return listTableContainerInstance;
     }
 }

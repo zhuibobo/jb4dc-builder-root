@@ -57,15 +57,19 @@ var WLDCT_FormButton= {
         var client_resolve=$button.attr("client_resolve");
 
         var recordId="";
-        var checkedRecordObj="";
+        //var checkedRecordObjs="";
         if(operation=="update"||operation=="view") {
-            checkedRecordObj = _self._ListTableContainerInstance.GetLastCheckedRecord();
-            if(checkedRecordObj==null){
+            var checkedRecordObjs = _self._ListTableContainerInstance.GetCheckedRecord();
+            if(checkedRecordObjs.length==0){
                 DialogUtility.AlertText("请选择需要进行操作的记录!");
                 return;
             }
+            else if(checkedRecordObjs.length>1){
+                DialogUtility.AlertText("一次只能操作一条记录!");
+                return;
+            }
             else{
-                recordId=checkedRecordObj.Id;
+                recordId=checkedRecordObjs[0].Id;
             }
         }
 

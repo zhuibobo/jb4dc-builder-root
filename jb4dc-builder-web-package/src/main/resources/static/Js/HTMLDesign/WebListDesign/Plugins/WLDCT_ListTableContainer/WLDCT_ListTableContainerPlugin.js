@@ -31,7 +31,7 @@
                                  <td></td>
                                  <td></td>
                                  <td></td>
-                                 <td style="width: 120px">
+                                 <td class="op-button-container-outer-td">
                                 </td>
                              </tr>
                          </tbody>
