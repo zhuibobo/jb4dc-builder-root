@@ -1,7 +1,7 @@
 package com.jb4dc.builder.webpackage.rest.builder.envvariable;
 
-import com.jb4dc.builder.po.EnvVariableVo;
-import com.jb4dc.builder.service.envvariable.IEnvVariableService;
+import com.jb4dc.builder.client.service.IEnvVariableClientService;
+import com.jb4dc.builder.po.EnvVariablePO;
 import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
 import com.jb4dc.core.base.vo.JBuild4DCResponseVo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,13 +22,13 @@ import java.util.Map;
 public class EnvVariableRest {
 
     @Autowired
-    IEnvVariableService envVariableService;
+    IEnvVariableClientService envVariableService;
 
     @RequestMapping(value = "/GetSelectData",method = RequestMethod.POST)
     public JBuild4DCResponseVo getSelectData() throws XPathExpressionException, ParserConfigurationException, JBuild4DCGenerallyException, SAXException, IOException {
-        Map<String,List<EnvVariableVo>> resultData=new HashMap<>();
-        List<EnvVariableVo> dateTimeVoList=envVariableService.getDateTimeVars();
-        List<EnvVariableVo> apiVarVoList=envVariableService.getAPIVars();
+        Map<String,List<EnvVariablePO>> resultData=new HashMap<>();
+        List<EnvVariablePO> dateTimeVoList=envVariableService.getDateTimeVars();
+        List<EnvVariablePO> apiVarVoList=envVariableService.getAPIVars();
         resultData.put("datetimeTreeData",dateTimeVoList);
         resultData.put("envVarTreeData",apiVarVoList);
         return JBuild4DCResponseVo.success("获取成功!",resultData);

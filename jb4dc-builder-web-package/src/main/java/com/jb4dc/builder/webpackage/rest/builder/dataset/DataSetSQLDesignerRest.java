@@ -10,7 +10,7 @@ package com.jb4dc.builder.webpackage.rest.builder.dataset;
 import com.jb4dc.base.service.general.JB4DCSessionUtility;
 import com.jb4dc.builder.dbentities.datastorage.TableEntity;
 import com.jb4dc.builder.dbentities.datastorage.TableGroupEntity;
-import com.jb4dc.builder.po.EnvVariableVo;
+import com.jb4dc.builder.po.EnvVariablePO;
 import com.jb4dc.builder.po.SQLResolveToDataSetPO;
 import com.jb4dc.builder.po.TableFieldPO;
 import com.jb4dc.builder.po.ZTreeNodePOConvert;
@@ -18,7 +18,7 @@ import com.jb4dc.builder.service.dataset.IDatasetService;
 import com.jb4dc.builder.service.datastorage.ITableFieldService;
 import com.jb4dc.builder.service.datastorage.ITableGroupService;
 import com.jb4dc.builder.service.datastorage.ITableService;
-import com.jb4dc.builder.service.envvariable.IEnvVariableService;
+import com.jb4dc.builder.client.service.IEnvVariableClientService;
 import com.jb4dc.core.base.session.JB4DCSession;
 import com.jb4dc.core.base.vo.JBuild4DCResponseVo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +33,7 @@ import java.util.List;
 @RequestMapping(value = "/Rest/Builder/DataSet/DataSetSQLDesigner")
 public class DataSetSQLDesignerRest {
     @Autowired
-    IEnvVariableService envVariableService;
+    IEnvVariableClientService envVariableService;
 
     @Autowired
     ITableGroupService tableGroupService;
@@ -55,8 +55,8 @@ public class DataSetSQLDesignerRest {
             responseVo.setSuccess(true);
             responseVo.setMessage("获取数据成功！");
 
-            List<EnvVariableVo> dateTimeVoList=envVariableService.getDateTimeVars();
-            List<EnvVariableVo> apiVarVoList=envVariableService.getAPIVars();
+            List<EnvVariablePO> dateTimeVoList=envVariableService.getDateTimeVars();
+            List<EnvVariablePO> apiVarVoList=envVariableService.getAPIVars();
 
             JB4DCSession jb4DCSession= JB4DCSessionUtility.getSession();
 

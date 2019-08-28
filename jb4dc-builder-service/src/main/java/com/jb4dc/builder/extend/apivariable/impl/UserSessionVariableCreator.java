@@ -2,7 +2,7 @@ package com.jb4dc.builder.extend.apivariable.impl;
 
 
 import com.jb4dc.builder.extend.apivariable.IAPIVariableCreator;
-import com.jb4dc.builder.po.EnvVariableVo;
+import com.jb4dc.builder.po.EnvVariablePO;
 import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
 import com.jb4dc.core.base.session.JB4DCSession;
 
@@ -14,7 +14,7 @@ import com.jb4dc.core.base.session.JB4DCSession;
  */
 public class UserSessionVariableCreator implements IAPIVariableCreator {
     @Override
-    public String createVar(JB4DCSession jb4DCSession, EnvVariableVo vo) throws JBuild4DCGenerallyException {
+    public String createVar(JB4DCSession jb4DCSession, EnvVariablePO vo) throws JBuild4DCGenerallyException {
         if(vo.getPara().equals("ApiVarCurrentUserOrganId")){
             return jb4DCSession.getOrganId();
         }

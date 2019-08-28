@@ -10,7 +10,7 @@ import org.w3c.dom.Node;
  * Date: 2018/8/6
  * To change this template use File | Settings | File Templates.
  */
-public class EnvVariableVo {
+public class EnvVariablePO {
 
     private String id;
     private String type;
@@ -94,8 +94,8 @@ public class EnvVariableVo {
         isGroup = group;
     }
 
-    public static EnvVariableVo parseEnvVarNode(Node node,String parentId,String type) {
-        EnvVariableVo vo=new EnvVariableVo();
+    public static EnvVariablePO parseEnvVarNode(Node node,String parentId,String type) {
+        EnvVariablePO vo=new EnvVariablePO();
         vo.setText(XMLDocumentUtility.getAttribute(node,"Text"));
         vo.setValue(XMLDocumentUtility.getAttribute(node,"Value"));
         vo.setClassName(XMLDocumentUtility.getAttribute(node,"ClassName"));
@@ -108,8 +108,8 @@ public class EnvVariableVo {
         return vo;
     }
 
-    public static EnvVariableVo parseGroupNode(Node groupNode,String parentId,String type) {
-        EnvVariableVo vo=new EnvVariableVo();
+    public static EnvVariablePO parseGroupNode(Node groupNode,String parentId,String type) {
+        EnvVariablePO vo=new EnvVariablePO();
         vo.setId(UUIDUtility.getUUID());
         vo.setParentId(parentId);
         vo.setText(XMLDocumentUtility.getAttribute(groupNode,"Text"));

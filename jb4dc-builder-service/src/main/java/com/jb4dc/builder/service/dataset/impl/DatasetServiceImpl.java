@@ -1,6 +1,5 @@
 package com.jb4dc.builder.service.dataset.impl;
 
-import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.jb4dc.base.dbaccess.dynamic.ISQLBuilderMapper;
@@ -22,7 +21,7 @@ import com.jb4dc.builder.service.dataset.IDatasetService;
 import com.jb4dc.builder.service.dataset.builder.SQLDataSetBuilder;
 import com.jb4dc.builder.service.datastorage.ITableFieldService;
 import com.jb4dc.builder.service.datastorage.ITableService;
-import com.jb4dc.builder.service.envvariable.IEnvVariableService;
+import com.jb4dc.builder.client.service.IEnvVariableClientService;
 import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
 import com.jb4dc.core.base.list.IListWhereCondition;
 import com.jb4dc.core.base.list.ListUtility;
@@ -63,7 +62,7 @@ public class DatasetServiceImpl extends BaseServiceImpl<DatasetEntity> implement
     IBuilderConfigService builderConfigService;
     ITableService tableService;
     ITableFieldService tableFieldService;
-    IEnvVariableService envVariableService;
+    IEnvVariableClientService envVariableService;
     ISQLBuilderMapper sqlBuilderMapper;
 
     Logger logger = LoggerFactory.getLogger(DatasetServiceImpl.class);
@@ -75,7 +74,7 @@ public class DatasetServiceImpl extends BaseServiceImpl<DatasetEntity> implement
     public DatasetServiceImpl(DatasetMapper _defaultBaseMapper,
                               SqlSessionTemplate _sqlSessionTemplate, JdbcOperations _jdbcOperations,
                               IBuilderConfigService _builderConfigService, ITableService _tableService, ITableFieldService _tableFieldService,
-                              IEnvVariableService _envVariableService, IDatasetRelatedTableService _datasetRelatedTableService, IDatasetColumnService _datasetColumnService,ISQLBuilderMapper _sqlBuilderMapper){
+                              IEnvVariableClientService _envVariableService, IDatasetRelatedTableService _datasetRelatedTableService, IDatasetColumnService _datasetColumnService, ISQLBuilderMapper _sqlBuilderMapper){
         super(_defaultBaseMapper);
         datasetMapper=_defaultBaseMapper;
         jdbcOperations=_jdbcOperations;
