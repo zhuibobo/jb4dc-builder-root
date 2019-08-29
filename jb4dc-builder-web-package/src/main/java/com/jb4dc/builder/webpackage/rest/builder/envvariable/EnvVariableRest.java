@@ -18,7 +18,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping(value = "/Rest/Env/EnvVariable")
+@RequestMapping(value = "/Rest/Env/EnvVariable1")
 public class EnvVariableRest {
 
     @Autowired

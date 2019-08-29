@@ -97,10 +97,10 @@
             data:{
                 acInterface:{
                     <!--Tree -->
-                    getGroupTreeData:"/Rest/DevDemo/TreeAndList/DevDemoTLTree/GetTreeData",
+                    getGroupTreeData:"/Rest/Builder/EnvVariableGroup/GetTreeData",
                     groupEditView:"/HTML/DevDemo/TreeAndList/TreeEdit.html",
-                    deleteGroup:"/Rest/DevDemo/TreeAndList/DevDemoTLTree/Delete",
-                    moveGroup:"/Rest/DevDemo/TreeAndList/DevDemoTLTree/Move",
+                    deleteGroup:"/Rest/Builder/EnvVariableGroup/Delete",
+                    moveGroup:"/Rest/Builder/EnvVariableGroup/Move",
                     <!--List -->
                     listEditView:"/HTML/DevDemo/TreeAndList/ListEdit.html",
                     reloadListData:"/Rest/DevDemo/TreeAndList/DevDemoTLList/GetListData",
@@ -109,7 +109,7 @@
                     listMove:"/Rest/DevDemo/TreeAndList/DevDemoTLList/Move"
                 },
                 <!--Tree-->
-                treeIdFieldName:"ddttId",
+                treeIdFieldName:"envGroupId",
                 treeObj:null,
                 treeSelectedNode:null,
                 treeSetting:{
@@ -121,12 +121,12 @@
                     // 必须使用data
                     data:{
                         key:{
-                            name:"ddttName"
+                            name:"envGroupText"
                         },
                         simpleData : {
                             enable : true,
-                            idKey : "ddttId", // id编号命名
-                            pIdKey : "ddttParentId",  // 父id编号命名
+                            idKey : "envGroupId", // id编号命名
+                            pIdKey : "envGroupParentId",  // 父id编号命名
                             rootId : 0
                         }
                     },
@@ -219,11 +219,12 @@
             methods:{
                 <!--Tree-->
                 initTree:function () {
-                    this.treeSetting.async.url = BaseUtility.BuildAction(this.acInterface.getGroupTreeData, {});
-                    this.treeObj=$.fn.zTree.init($("#zTreeUL"), this.treeSetting);
+                    //this.treeSetting.async.url = BaseUtility.BuildAction(this.acInterface.getGroupTreeData, {});
+                    //this.treeObj=$.fn.zTree.init($("#zTreeUL"), this.treeSetting);
 
                     var _self=this;
                     AjaxUtility.Post(this.acInterface.getGroupTreeData, {}, function (result) {
+                        console.log(result);
                         if(result.success){
                             if(result.data!=null&&result.data.length>0){
                                 for(var i=0;i<result.data.length;i++) {
@@ -242,7 +243,7 @@
                             _self.treeObj.expandAll(true);
                         }
                         else {
-                            DialogUtility.Alert(window, DialogUtility.DialogAlertId, {}, result.message, function () {});
+                            DialogUtility.Alert(window, DialogUtility.DialogAlertId, {}, result.message+"111111111", function () {});
                         }
                     }, this);
                 },
