@@ -30,40 +30,6 @@
             </div>
         </div>
         <div class="right-outer-wrap iv-list-page-wrap" style="padding: 10px;left: 260px">
-            <div class="list-simple-search-wrap" id="list-simple-search-wrap">
-                <table class="ls-table">
-                    <colgroup>
-                        <col style="width: 80px">
-                        <col style="">
-                        <col style="width: 80px">
-                        <col style="">
-                        <col style="width: 100px">
-                        <col style="">
-                        <col style="width: 80px">
-                        <col style="">
-                        <col style="width: 80px">
-                    </colgroup>
-                    <tr class="ls-table-row">
-                        <td>ddtlName：</td>
-                        <td>
-                            <i-input v-model="searchCondition.ddtlName.value" placeholder=""></i-input>
-                        </td>
-                        <td>ddtlValue：</td>
-                        <td>
-                            <i-input v-model="searchCondition.ddtlValue.value" placeholder=""></i-input>
-                        </td>
-                        <td>ddtlCreatetime（从）：</td>
-                        <td>
-                            <date-picker v-model="searchCondition.ddtlCreatetime_s.value" type="date" placeholder="" style="width: 100%"></date-picker>
-                        </td>
-                        <td>（到）：</td>
-                        <td>
-                            <date-picker v-model="searchCondition.ddtlCreatetime_e.value" type="date" placeholder="" style="width: 100%"></date-picker>
-                        </td>
-                        <td><i-button type="primary" @click="search"><Icon type="android-search"></Icon> 查询 </i-button></td>
-                    </tr>
-                </table>
-            </div>
             <div id="list-button-wrap" class="list-button-outer-wrap">
                 <div class="list-button-inner-wrap">
                     <button-group>
@@ -98,15 +64,15 @@
                 acInterface:{
                     <!--Tree -->
                     getGroupTreeData:"/Rest/Builder/EnvVariableGroup/GetTreeData",
-                    groupEditView:"/HTML/DevDemo/TreeAndList/TreeEdit.html",
+                    groupEditView:"/HTML/Builder/EnvVar/GroupEdit.html",
                     deleteGroup:"/Rest/Builder/EnvVariableGroup/Delete",
                     moveGroup:"/Rest/Builder/EnvVariableGroup/Move",
                     <!--List -->
                     listEditView:"/HTML/DevDemo/TreeAndList/ListEdit.html",
-                    reloadListData:"/Rest/DevDemo/TreeAndList/DevDemoTLList/GetListData",
-                    deleteListRecord:"/Rest/DevDemo/TreeAndList/DevDemoTLList/Delete",
-                    listStatusChange:"/Rest/DevDemo/TreeAndList/DevDemoTLList/StatusChange",
-                    listMove:"/Rest/DevDemo/TreeAndList/DevDemoTLList/Move"
+                    reloadListData:"/Rest/Builder/EnvVariable/GetListData",
+                    deleteListRecord:"/Rest/Builder/EnvVariable/Delete",
+                    listStatusChange:"/Rest/Builder/EnvVariable/StatusChange",
+                    listMove:"/Rest/Builder/EnvVariable/Move"
                 },
                 <!--Tree-->
                 treeIdFieldName:"envGroupId",
@@ -147,22 +113,6 @@
                     groupId:{
                         value:"",
                         type:SearchUtility.SearchFieldType.StringType
-                    },
-                    ddtlName:{
-                        value:"",
-                        type:SearchUtility.SearchFieldType.LikeStringType
-                    },
-                    ddtlValue:{
-                        value:"",
-                        type:SearchUtility.SearchFieldType.LikeStringType
-                    },
-                    ddtlCreatetime_s:{
-                        value:"",
-                        type:SearchUtility.SearchFieldType.DataStringType
-                    },
-                    ddtlCreatetime_e:{
-                        value:"",
-                        type:SearchUtility.SearchFieldType.DataStringType
                     }
                 },
                 columnsConfig: [
@@ -265,7 +215,7 @@
                             "op": "add",
                             "parentId": this.treeSelectedNode[appList.treeIdFieldName]
                         });
-                        DialogUtility.Frame_OpenIframeWindow(window, DialogUtility.DialogId, url, {title: "分组"}, 2);
+                        DialogUtility.Frame_OpenIframeWindow(window, DialogUtility.DialogId, url, {title: "分组"}, 2,true);
                     }
                     else {
                         DialogUtility.Alert(window, DialogUtility.DialogAlertId, {}, "请选择父节点!", null);

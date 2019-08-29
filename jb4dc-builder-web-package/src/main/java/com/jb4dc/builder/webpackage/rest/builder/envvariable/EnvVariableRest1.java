@@ -19,7 +19,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping(value = "/Rest/Env/EnvVariable1")
-public class EnvVariableRest {
+public class EnvVariableRest1 {
 
     @Autowired
     IEnvVariableClientService envVariableService;

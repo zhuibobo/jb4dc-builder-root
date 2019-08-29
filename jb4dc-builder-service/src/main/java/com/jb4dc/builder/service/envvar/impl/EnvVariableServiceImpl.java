@@ -7,6 +7,10 @@ import com.jb4dc.builder.dbentities.envvar.EnvVariableEntity;
 import com.jb4dc.builder.service.envvar.IEnvVariableService;
 import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
 import com.jb4dc.core.base.session.JB4DCSession;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.Date;
 
 /**
  * Created with IntelliJ IDEA.
@@ -14,9 +18,12 @@ import com.jb4dc.core.base.session.JB4DCSession;
  * Date: 2019/8/29
  * To change this template use File | Settings | File Templates.
  */
+@Service
 public class EnvVariableServiceImpl extends BaseServiceImpl<EnvVariableEntity> implements IEnvVariableService
 {
     EnvVariableMapper envVariableMapper;
+
+    @Autowired
     public EnvVariableServiceImpl(EnvVariableMapper _defaultBaseMapper){
         super(_defaultBaseMapper);
         envVariableMapper=_defaultBaseMapper;
@@ -28,6 +35,13 @@ public class EnvVariableServiceImpl extends BaseServiceImpl<EnvVariableEntity> i
             @Override
             public EnvVariableEntity run(JB4DCSession jb4DCSession,EnvVariableEntity sourceEntity) throws JBuild4DCGenerallyException {
                 //设置排序,以及其他参数--nextOrderNum()
+
+                sourceEntity.setEnvVarOrderNum(envVariableMapper.nextOrderNum());
+                sourceEntity.setEnvVarCreateTime(new Date());
+                sourceEntity.setEnvVarUserId(jb4DCSession.getUserId());
+                sourceEntity.setEnvVarUserName(jb4DCSession.getUserName());
+                sourceEntity.setEnvVarOrganId(jb4DCSession.getOrganId());
+                sourceEntity.setEnvVarOrganName(jb4DCSession.getOrganName());
                 return sourceEntity;
             }
         });

@@ -32,12 +32,12 @@ import java.util.List;
  */
 
 @Service
-public class EnvVariableServiceImpl implements IEnvVariableClientService {
+public class EnvVariableServiceImpl1 implements IEnvVariableClientService {
 
     static String configResource= "/config/envvariable/env-variable-config.xml";
     //IJb4dCacheService jb4dCacheService;
 
-    public EnvVariableServiceImpl() {
+    public EnvVariableServiceImpl1() {
         //jb4dCacheService=_jb4dCacheService;
     }
 
