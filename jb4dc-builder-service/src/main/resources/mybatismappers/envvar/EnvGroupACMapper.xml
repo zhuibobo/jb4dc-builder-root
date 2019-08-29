@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jb4dc.builder.dao.envvar.EnvGroupMapper">
+    <resultMap id="BaseResultMap" type="com.jb4dc.builder.dbentities.envvar.EnvGroupEntity">
+        <constructor>
+            <idArg column="ENV_GROUP_ID" javaType="java.lang.String" jdbcType="NVARCHAR" />
+            <arg column="ENV_GROUP_VALUE" javaType="java.lang.String" jdbcType="NVARCHAR" />
+            <arg column="ENV_GROUP_TEXT" javaType="java.lang.String" jdbcType="NVARCHAR" />
+            <arg column="ENV_GROUP_ORDER_NUM" javaType="java.lang.Integer" jdbcType="INTEGER" />
+            <arg column="ENV_GROUP_CREATE_TIME" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+            <arg column="ENV_GROUP_DESC" javaType="java.lang.String" jdbcType="NVARCHAR" />
+            <arg column="ENV_GROUP_STATUS" javaType="java.lang.String" jdbcType="NVARCHAR" />
+            <arg column="ENV_GROUP_PARENT_ID" javaType="java.lang.String" jdbcType="NVARCHAR" />
+            <arg column="ENV_GROUP_IS_SYSTEM" javaType="java.lang.String" jdbcType="NVARCHAR" />
+            <arg column="ENV_GROUP_DEL_ENABLE" javaType="java.lang.String" jdbcType="NVARCHAR" />
+            <arg column="ENV_GROUP_PID_LIST" javaType="java.lang.String" jdbcType="NVARCHAR" />
+            <arg column="ENV_GROUP_CHILD_COUNT" javaType="java.lang.Integer" jdbcType="INTEGER" />
+            <arg column="ENV_GROUP_ORGAN_ID" javaType="java.lang.String" jdbcType="NVARCHAR" />
+            <arg column="ENV_GROUP_ORGAN_NAME" javaType="java.lang.String" jdbcType="NVARCHAR" />
+        </constructor>
+    </resultMap>
+    <sql id="Base_Column_List">
+    ENV_GROUP_ID, ENV_GROUP_VALUE, ENV_GROUP_TEXT, ENV_GROUP_ORDER_NUM, ENV_GROUP_CREATE_TIME,
+    ENV_GROUP_DESC, ENV_GROUP_STATUS, ENV_GROUP_PARENT_ID, ENV_GROUP_IS_SYSTEM, ENV_GROUP_DEL_ENABLE,
+    ENV_GROUP_PID_LIST, ENV_GROUP_CHILD_COUNT, ENV_GROUP_ORGAN_ID, ENV_GROUP_ORGAN_NAME
+  </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from TBUILD_ENV_GROUP
+        where ENV_GROUP_ID = #{envGroupId,jdbcType=NVARCHAR}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from TBUILD_ENV_GROUP
+    where ENV_GROUP_ID = #{envGroupId,jdbcType=NVARCHAR}
+  </delete>
+    <insert id="insert" parameterType="com.jb4dc.builder.dbentities.envvar.EnvGroupEntity">
+    insert into TBUILD_ENV_GROUP (ENV_GROUP_ID, ENV_GROUP_VALUE, ENV_GROUP_TEXT,
+      ENV_GROUP_ORDER_NUM, ENV_GROUP_CREATE_TIME,
+      ENV_GROUP_DESC, ENV_GROUP_STATUS, ENV_GROUP_PARENT_ID,
+      ENV_GROUP_IS_SYSTEM, ENV_GROUP_DEL_ENABLE,
+      ENV_GROUP_PID_LIST, ENV_GROUP_CHILD_COUNT, ENV_GROUP_ORGAN_ID,
+      ENV_GROUP_ORGAN_NAME)
+    values (#{envGroupId,jdbcType=NVARCHAR}, #{envGroupValue,jdbcType=NVARCHAR}, #{envGroupText,jdbcType=NVARCHAR},
+      #{envGroupOrderNum,jdbcType=INTEGER}, #{envGroupCreateTime,jdbcType=TIMESTAMP},
+      #{envGroupDesc,jdbcType=NVARCHAR}, #{envGroupStatus,jdbcType=NVARCHAR}, #{envGroupParentId,jdbcType=NVARCHAR},
+      #{envGroupIsSystem,jdbcType=NVARCHAR}, #{envGroupDelEnable,jdbcType=NVARCHAR},
+      #{envGroupPidList,jdbcType=NVARCHAR}, #{envGroupChildCount,jdbcType=INTEGER}, #{envGroupOrganId,jdbcType=NVARCHAR},
+      #{envGroupOrganName,jdbcType=NVARCHAR})
+  </insert>
+    <insert id="insertSelective" parameterType="com.jb4dc.builder.dbentities.envvar.EnvGroupEntity">
+        insert into TBUILD_ENV_GROUP
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="envGroupId != null">
+                ENV_GROUP_ID,
+            </if>
+            <if test="envGroupValue != null">
+                ENV_GROUP_VALUE,
+            </if>
+            <if test="envGroupText != null">
+                ENV_GROUP_TEXT,
+            </if>
+            <if test="envGroupOrderNum != null">
+                ENV_GROUP_ORDER_NUM,
+            </if>
+            <if test="envGroupCreateTime != null">
+                ENV_GROUP_CREATE_TIME,
+            </if>
+            <if test="envGroupDesc != null">
+                ENV_GROUP_DESC,
+            </if>
+            <if test="envGroupStatus != null">
+                ENV_GROUP_STATUS,
+            </if>
+            <if test="envGroupParentId != null">
+                ENV_GROUP_PARENT_ID,
+            </if>
+            <if test="envGroupIsSystem != null">
+                ENV_GROUP_IS_SYSTEM,
+            </if>
+            <if test="envGroupDelEnable != null">
+                ENV_GROUP_DEL_ENABLE,
+            </if>
+            <if test="envGroupPidList != null">
+                ENV_GROUP_PID_LIST,
+            </if>
+            <if test="envGroupChildCount != null">
+                ENV_GROUP_CHILD_COUNT,
+            </if>
+            <if test="envGroupOrganId != null">
+                ENV_GROUP_ORGAN_ID,
+            </if>
+            <if test="envGroupOrganName != null">
+                ENV_GROUP_ORGAN_NAME,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="envGroupId != null">
+                #{envGroupId,jdbcType=NVARCHAR},
+            </if>
+            <if test="envGroupValue != null">
+                #{envGroupValue,jdbcType=NVARCHAR},
+            </if>
+            <if test="envGroupText != null">
+                #{envGroupText,jdbcType=NVARCHAR},
+            </if>
+            <if test="envGroupOrderNum != null">
+                #{envGroupOrderNum,jdbcType=INTEGER},
+            </if>
+            <if test="envGroupCreateTime != null">
+                #{envGroupCreateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="envGroupDesc != null">
+                #{envGroupDesc,jdbcType=NVARCHAR},
+            </if>
+            <if test="envGroupStatus != null">
+                #{envGroupStatus,jdbcType=NVARCHAR},
+            </if>
+            <if test="envGroupParentId != null">
+                #{envGroupParentId,jdbcType=NVARCHAR},
+            </if>
+            <if test="envGroupIsSystem != null">
+                #{envGroupIsSystem,jdbcType=NVARCHAR},
+            </if>
+            <if test="envGroupDelEnable != null">
+                #{envGroupDelEnable,jdbcType=NVARCHAR},
+            </if>
+            <if test="envGroupPidList != null">
+                #{envGroupPidList,jdbcType=NVARCHAR},
+            </if>
+            <if test="envGroupChildCount != null">
+                #{envGroupChildCount,jdbcType=INTEGER},
+            </if>
+            <if test="envGroupOrganId != null">
+                #{envGroupOrganId,jdbcType=NVARCHAR},
+            </if>
+            <if test="envGroupOrganName != null">
+                #{envGroupOrganName,jdbcType=NVARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.jb4dc.builder.dbentities.envvar.EnvGroupEntity">
+        update TBUILD_ENV_GROUP
+        <set>
+            <if test="envGroupValue != null">
+                ENV_GROUP_VALUE = #{envGroupValue,jdbcType=NVARCHAR},
+            </if>
+            <if test="envGroupText != null">
+                ENV_GROUP_TEXT = #{envGroupText,jdbcType=NVARCHAR},
+            </if>
+            <if test="envGroupOrderNum != null">
+                ENV_GROUP_ORDER_NUM = #{envGroupOrderNum,jdbcType=INTEGER},
+            </if>
+            <if test="envGroupCreateTime != null">
+                ENV_GROUP_CREATE_TIME = #{envGroupCreateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="envGroupDesc != null">
+                ENV_GROUP_DESC = #{envGroupDesc,jdbcType=NVARCHAR},
+            </if>
+            <if test="envGroupStatus != null">
+                ENV_GROUP_STATUS = #{envGroupStatus,jdbcType=NVARCHAR},
+            </if>
+            <if test="envGroupParentId != null">
+                ENV_GROUP_PARENT_ID = #{envGroupParentId,jdbcType=NVARCHAR},
+            </if>
+            <if test="envGroupIsSystem != null">
+                ENV_GROUP_IS_SYSTEM = #{envGroupIsSystem,jdbcType=NVARCHAR},
+            </if>
+            <if test="envGroupDelEnable != null">
+                ENV_GROUP_DEL_ENABLE = #{envGroupDelEnable,jdbcType=NVARCHAR},
+            </if>
+            <if test="envGroupPidList != null">
+                ENV_GROUP_PID_LIST = #{envGroupPidList,jdbcType=NVARCHAR},
+            </if>
+            <if test="envGroupChildCount != null">
+                ENV_GROUP_CHILD_COUNT = #{envGroupChildCount,jdbcType=INTEGER},
+            </if>
+            <if test="envGroupOrganId != null">
+                ENV_GROUP_ORGAN_ID = #{envGroupOrganId,jdbcType=NVARCHAR},
+            </if>
+            <if test="envGroupOrganName != null">
+                ENV_GROUP_ORGAN_NAME = #{envGroupOrganName,jdbcType=NVARCHAR},
+            </if>
+        </set>
+        where ENV_GROUP_ID = #{envGroupId,jdbcType=NVARCHAR}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.jb4dc.builder.dbentities.envvar.EnvGroupEntity">
+    update TBUILD_ENV_GROUP
+    set ENV_GROUP_VALUE = #{envGroupValue,jdbcType=NVARCHAR},
+      ENV_GROUP_TEXT = #{envGroupText,jdbcType=NVARCHAR},
+      ENV_GROUP_ORDER_NUM = #{envGroupOrderNum,jdbcType=INTEGER},
+      ENV_GROUP_CREATE_TIME = #{envGroupCreateTime,jdbcType=TIMESTAMP},
+      ENV_GROUP_DESC = #{envGroupDesc,jdbcType=NVARCHAR},
+      ENV_GROUP_STATUS = #{envGroupStatus,jdbcType=NVARCHAR},
+      ENV_GROUP_PARENT_ID = #{envGroupParentId,jdbcType=NVARCHAR},
+      ENV_GROUP_IS_SYSTEM = #{envGroupIsSystem,jdbcType=NVARCHAR},
+      ENV_GROUP_DEL_ENABLE = #{envGroupDelEnable,jdbcType=NVARCHAR},
+      ENV_GROUP_PID_LIST = #{envGroupPidList,jdbcType=NVARCHAR},
+      ENV_GROUP_CHILD_COUNT = #{envGroupChildCount,jdbcType=INTEGER},
+      ENV_GROUP_ORGAN_ID = #{envGroupOrganId,jdbcType=NVARCHAR},
+      ENV_GROUP_ORGAN_NAME = #{envGroupOrganName,jdbcType=NVARCHAR}
+    where ENV_GROUP_ID = #{envGroupId,jdbcType=NVARCHAR}
+  </update>
+</mapper>

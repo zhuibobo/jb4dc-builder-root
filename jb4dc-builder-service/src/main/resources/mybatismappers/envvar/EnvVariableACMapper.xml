@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jb4dc.builder.dao.envvar.EnvVariableMapper">
+    <resultMap id="BaseResultMap" type="com.jb4dc.builder.dbentities.envvar.EnvVariableEntity">
+        <constructor>
+            <idArg column="ENV_VAR_ID" javaType="java.lang.String" jdbcType="NVARCHAR" />
+            <arg column="ENV_VAR_VALUE" javaType="java.lang.String" jdbcType="NVARCHAR" />
+            <arg column="ENV_VAR_TEXT" javaType="java.lang.String" jdbcType="NVARCHAR" />
+            <arg column="ENV_VAR_CLASS_NAME" javaType="java.lang.String" jdbcType="NVARCHAR" />
+            <arg column="ENV_VAR_CLASS_PARA" javaType="java.lang.String" jdbcType="NVARCHAR" />
+            <arg column="ENV_VAR_GROUP_ID" javaType="java.lang.String" jdbcType="NVARCHAR" />
+            <arg column="ENV_VAR_ORDER_NUM" javaType="java.lang.Integer" jdbcType="INTEGER" />
+            <arg column="ENV_VAR_CREATE_TIME" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+            <arg column="ENV_VAR_IS_SYSTEM" javaType="java.lang.String" jdbcType="NVARCHAR" />
+            <arg column="ENV_VAR_DEL_ENABLE" javaType="java.lang.String" jdbcType="NVARCHAR" />
+            <arg column="ENV_VAR_STATUS" javaType="java.lang.String" jdbcType="NVARCHAR" />
+            <arg column="ENV_VAR_DESC" javaType="java.lang.String" jdbcType="NVARCHAR" />
+            <arg column="ENV_VAR_EX_ATTR1" javaType="java.lang.String" jdbcType="NVARCHAR" />
+            <arg column="ENV_VAR_EX_ATTR2" javaType="java.lang.String" jdbcType="NVARCHAR" />
+            <arg column="ENV_VAR_EX_ATTR3" javaType="java.lang.String" jdbcType="NVARCHAR" />
+            <arg column="ENV_VAR_EX_ATTR4" javaType="java.lang.String" jdbcType="NVARCHAR" />
+            <arg column="ENV_VAR_USER_ID" javaType="java.lang.String" jdbcType="NVARCHAR" />
+            <arg column="ENV_VAR_USER_NAME" javaType="java.lang.String" jdbcType="NVARCHAR" />
+            <arg column="ENV_VAR_ORGAN_ID" javaType="java.lang.String" jdbcType="NVARCHAR" />
+            <arg column="ENV_VAR_ORGAN_NAME" javaType="java.lang.String" jdbcType="NVARCHAR" />
+        </constructor>
+    </resultMap>
+    <sql id="Base_Column_List">
+    ENV_VAR_ID, ENV_VAR_VALUE, ENV_VAR_TEXT, ENV_VAR_CLASS_NAME, ENV_VAR_CLASS_PARA,
+    ENV_VAR_GROUP_ID, ENV_VAR_ORDER_NUM, ENV_VAR_CREATE_TIME, ENV_VAR_IS_SYSTEM, ENV_VAR_DEL_ENABLE,
+    ENV_VAR_STATUS, ENV_VAR_DESC, ENV_VAR_EX_ATTR1, ENV_VAR_EX_ATTR2, ENV_VAR_EX_ATTR3,
+    ENV_VAR_EX_ATTR4, ENV_VAR_USER_ID, ENV_VAR_USER_NAME, ENV_VAR_ORGAN_ID, ENV_VAR_ORGAN_NAME
+  </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from TBUILD_ENV_VARIABLE
+        where ENV_VAR_ID = #{envVarId,jdbcType=NVARCHAR}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from TBUILD_ENV_VARIABLE
+    where ENV_VAR_ID = #{envVarId,jdbcType=NVARCHAR}
+  </delete>
+    <insert id="insert" parameterType="com.jb4dc.builder.dbentities.envvar.EnvVariableEntity">
+    insert into TBUILD_ENV_VARIABLE (ENV_VAR_ID, ENV_VAR_VALUE, ENV_VAR_TEXT,
+      ENV_VAR_CLASS_NAME, ENV_VAR_CLASS_PARA, ENV_VAR_GROUP_ID,
+      ENV_VAR_ORDER_NUM, ENV_VAR_CREATE_TIME, ENV_VAR_IS_SYSTEM,
+      ENV_VAR_DEL_ENABLE, ENV_VAR_STATUS, ENV_VAR_DESC,
+      ENV_VAR_EX_ATTR1, ENV_VAR_EX_ATTR2, ENV_VAR_EX_ATTR3,
+      ENV_VAR_EX_ATTR4, ENV_VAR_USER_ID, ENV_VAR_USER_NAME,
+      ENV_VAR_ORGAN_ID, ENV_VAR_ORGAN_NAME)
+    values (#{envVarId,jdbcType=NVARCHAR}, #{envVarValue,jdbcType=NVARCHAR}, #{envVarText,jdbcType=NVARCHAR},
+      #{envVarClassName,jdbcType=NVARCHAR}, #{envVarClassPara,jdbcType=NVARCHAR}, #{envVarGroupId,jdbcType=NVARCHAR},
+      #{envVarOrderNum,jdbcType=INTEGER}, #{envVarCreateTime,jdbcType=TIMESTAMP}, #{envVarIsSystem,jdbcType=NVARCHAR},
+      #{envVarDelEnable,jdbcType=NVARCHAR}, #{envVarStatus,jdbcType=NVARCHAR}, #{envVarDesc,jdbcType=NVARCHAR},
+      #{envVarExAttr1,jdbcType=NVARCHAR}, #{envVarExAttr2,jdbcType=NVARCHAR}, #{envVarExAttr3,jdbcType=NVARCHAR},
+      #{envVarExAttr4,jdbcType=NVARCHAR}, #{envVarUserId,jdbcType=NVARCHAR}, #{envVarUserName,jdbcType=NVARCHAR},
+      #{envVarOrganId,jdbcType=NVARCHAR}, #{envVarOrganName,jdbcType=NVARCHAR})
+  </insert>
+    <insert id="insertSelective" parameterType="com.jb4dc.builder.dbentities.envvar.EnvVariableEntity">
+        insert into TBUILD_ENV_VARIABLE
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="envVarId != null">
+                ENV_VAR_ID,
+            </if>
+            <if test="envVarValue != null">
+                ENV_VAR_VALUE,
+            </if>
+            <if test="envVarText != null">
+                ENV_VAR_TEXT,
+            </if>
+            <if test="envVarClassName != null">
+                ENV_VAR_CLASS_NAME,
+            </if>
+            <if test="envVarClassPara != null">
+                ENV_VAR_CLASS_PARA,
+            </if>
+            <if test="envVarGroupId != null">
+                ENV_VAR_GROUP_ID,
+            </if>
+            <if test="envVarOrderNum != null">
+                ENV_VAR_ORDER_NUM,
+            </if>
+            <if test="envVarCreateTime != null">
+                ENV_VAR_CREATE_TIME,
+            </if>
+            <if test="envVarIsSystem != null">
+                ENV_VAR_IS_SYSTEM,
+            </if>
+            <if test="envVarDelEnable != null">
+                ENV_VAR_DEL_ENABLE,
+            </if>
+            <if test="envVarStatus != null">
+                ENV_VAR_STATUS,
+            </if>
+            <if test="envVarDesc != null">
+                ENV_VAR_DESC,
+            </if>
+            <if test="envVarExAttr1 != null">
+                ENV_VAR_EX_ATTR1,
+            </if>
+            <if test="envVarExAttr2 != null">
+                ENV_VAR_EX_ATTR2,
+            </if>
+            <if test="envVarExAttr3 != null">
+                ENV_VAR_EX_ATTR3,
+            </if>
+            <if test="envVarExAttr4 != null">
+                ENV_VAR_EX_ATTR4,
+            </if>
+            <if test="envVarUserId != null">
+                ENV_VAR_USER_ID,
+            </if>
+            <if test="envVarUserName != null">
+                ENV_VAR_USER_NAME,
+            </if>
+            <if test="envVarOrganId != null">
+                ENV_VAR_ORGAN_ID,
+            </if>
+            <if test="envVarOrganName != null">
+                ENV_VAR_ORGAN_NAME,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="envVarId != null">
+                #{envVarId,jdbcType=NVARCHAR},
+            </if>
+            <if test="envVarValue != null">
+                #{envVarValue,jdbcType=NVARCHAR},
+            </if>
+            <if test="envVarText != null">
+                #{envVarText,jdbcType=NVARCHAR},
+            </if>
+            <if test="envVarClassName != null">
+                #{envVarClassName,jdbcType=NVARCHAR},
+            </if>
+            <if test="envVarClassPara != null">
+                #{envVarClassPara,jdbcType=NVARCHAR},
+            </if>
+            <if test="envVarGroupId != null">
+                #{envVarGroupId,jdbcType=NVARCHAR},
+            </if>
+            <if test="envVarOrderNum != null">
+                #{envVarOrderNum,jdbcType=INTEGER},
+            </if>
+            <if test="envVarCreateTime != null">
+                #{envVarCreateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="envVarIsSystem != null">
+                #{envVarIsSystem,jdbcType=NVARCHAR},
+            </if>
+            <if test="envVarDelEnable != null">
+                #{envVarDelEnable,jdbcType=NVARCHAR},
+            </if>
+            <if test="envVarStatus != null">
+                #{envVarStatus,jdbcType=NVARCHAR},
+            </if>
+            <if test="envVarDesc != null">
+                #{envVarDesc,jdbcType=NVARCHAR},
+            </if>
+            <if test="envVarExAttr1 != null">
+                #{envVarExAttr1,jdbcType=NVARCHAR},
+            </if>
+            <if test="envVarExAttr2 != null">
+                #{envVarExAttr2,jdbcType=NVARCHAR},
+            </if>
+            <if test="envVarExAttr3 != null">
+                #{envVarExAttr3,jdbcType=NVARCHAR},
+            </if>
+            <if test="envVarExAttr4 != null">
+                #{envVarExAttr4,jdbcType=NVARCHAR},
+            </if>
+            <if test="envVarUserId != null">
+                #{envVarUserId,jdbcType=NVARCHAR},
+            </if>
+            <if test="envVarUserName != null">
+                #{envVarUserName,jdbcType=NVARCHAR},
+            </if>
+            <if test="envVarOrganId != null">
+                #{envVarOrganId,jdbcType=NVARCHAR},
+            </if>
+            <if test="envVarOrganName != null">
+                #{envVarOrganName,jdbcType=NVARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.jb4dc.builder.dbentities.envvar.EnvVariableEntity">
+        update TBUILD_ENV_VARIABLE
+        <set>
+            <if test="envVarValue != null">
+                ENV_VAR_VALUE = #{envVarValue,jdbcType=NVARCHAR},
+            </if>
+            <if test="envVarText != null">
+                ENV_VAR_TEXT = #{envVarText,jdbcType=NVARCHAR},
+            </if>
+            <if test="envVarClassName != null">
+                ENV_VAR_CLASS_NAME = #{envVarClassName,jdbcType=NVARCHAR},
+            </if>
+            <if test="envVarClassPara != null">
+                ENV_VAR_CLASS_PARA = #{envVarClassPara,jdbcType=NVARCHAR},
+            </if>
+            <if test="envVarGroupId != null">
+                ENV_VAR_GROUP_ID = #{envVarGroupId,jdbcType=NVARCHAR},
+            </if>
+            <if test="envVarOrderNum != null">
+                ENV_VAR_ORDER_NUM = #{envVarOrderNum,jdbcType=INTEGER},
+            </if>
+            <if test="envVarCreateTime != null">
+                ENV_VAR_CREATE_TIME = #{envVarCreateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="envVarIsSystem != null">
+                ENV_VAR_IS_SYSTEM = #{envVarIsSystem,jdbcType=NVARCHAR},
+            </if>
+            <if test="envVarDelEnable != null">
+                ENV_VAR_DEL_ENABLE = #{envVarDelEnable,jdbcType=NVARCHAR},
+            </if>
+            <if test="envVarStatus != null">
+                ENV_VAR_STATUS = #{envVarStatus,jdbcType=NVARCHAR},
+            </if>
+            <if test="envVarDesc != null">
+                ENV_VAR_DESC = #{envVarDesc,jdbcType=NVARCHAR},
+            </if>
+            <if test="envVarExAttr1 != null">
+                ENV_VAR_EX_ATTR1 = #{envVarExAttr1,jdbcType=NVARCHAR},
+            </if>
+            <if test="envVarExAttr2 != null">
+                ENV_VAR_EX_ATTR2 = #{envVarExAttr2,jdbcType=NVARCHAR},
+            </if>
+            <if test="envVarExAttr3 != null">
+                ENV_VAR_EX_ATTR3 = #{envVarExAttr3,jdbcType=NVARCHAR},
+            </if>
+            <if test="envVarExAttr4 != null">
+                ENV_VAR_EX_ATTR4 = #{envVarExAttr4,jdbcType=NVARCHAR},
+            </if>
+            <if test="envVarUserId != null">
+                ENV_VAR_USER_ID = #{envVarUserId,jdbcType=NVARCHAR},
+            </if>
+            <if test="envVarUserName != null">
+                ENV_VAR_USER_NAME = #{envVarUserName,jdbcType=NVARCHAR},
+            </if>
+            <if test="envVarOrganId != null">
+                ENV_VAR_ORGAN_ID = #{envVarOrganId,jdbcType=NVARCHAR},
+            </if>
+            <if test="envVarOrganName != null">
+                ENV_VAR_ORGAN_NAME = #{envVarOrganName,jdbcType=NVARCHAR},
+            </if>
+        </set>
+        where ENV_VAR_ID = #{envVarId,jdbcType=NVARCHAR}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.jb4dc.builder.dbentities.envvar.EnvVariableEntity">
+    update TBUILD_ENV_VARIABLE
+    set ENV_VAR_VALUE = #{envVarValue,jdbcType=NVARCHAR},
+      ENV_VAR_TEXT = #{envVarText,jdbcType=NVARCHAR},
+      ENV_VAR_CLASS_NAME = #{envVarClassName,jdbcType=NVARCHAR},
+      ENV_VAR_CLASS_PARA = #{envVarClassPara,jdbcType=NVARCHAR},
+      ENV_VAR_GROUP_ID = #{envVarGroupId,jdbcType=NVARCHAR},
+      ENV_VAR_ORDER_NUM = #{envVarOrderNum,jdbcType=INTEGER},
+      ENV_VAR_CREATE_TIME = #{envVarCreateTime,jdbcType=TIMESTAMP},
+      ENV_VAR_IS_SYSTEM = #{envVarIsSystem,jdbcType=NVARCHAR},
+      ENV_VAR_DEL_ENABLE = #{envVarDelEnable,jdbcType=NVARCHAR},
+      ENV_VAR_STATUS = #{envVarStatus,jdbcType=NVARCHAR},
+      ENV_VAR_DESC = #{envVarDesc,jdbcType=NVARCHAR},
+      ENV_VAR_EX_ATTR1 = #{envVarExAttr1,jdbcType=NVARCHAR},
+      ENV_VAR_EX_ATTR2 = #{envVarExAttr2,jdbcType=NVARCHAR},
+      ENV_VAR_EX_ATTR3 = #{envVarExAttr3,jdbcType=NVARCHAR},
+      ENV_VAR_EX_ATTR4 = #{envVarExAttr4,jdbcType=NVARCHAR},
+      ENV_VAR_USER_ID = #{envVarUserId,jdbcType=NVARCHAR},
+      ENV_VAR_USER_NAME = #{envVarUserName,jdbcType=NVARCHAR},
+      ENV_VAR_ORGAN_ID = #{envVarOrganId,jdbcType=NVARCHAR},
+      ENV_VAR_ORGAN_NAME = #{envVarOrganName,jdbcType=NVARCHAR}
+    where ENV_VAR_ID = #{envVarId,jdbcType=NVARCHAR}
+  </update>
+</mapper>
