@@ -64,7 +64,7 @@ public class DatasetGroupServiceImpl extends BaseServiceImpl<DatasetGroupEntity>
     }
 
     @Override
-    public DatasetGroupEntity createRootNode(JB4DCSession jb4DCSession) throws JBuild4DCGenerallyException {
+    public DatasetGroupEntity initSystemData(JB4DCSession jb4DCSession) throws JBuild4DCGenerallyException {
         DatasetGroupEntity rootEntity=new DatasetGroupEntity();
         rootEntity.setDsGroupId(rootId);
         rootEntity.setDsGroupParentId(rootParentId);
