@@ -12,5 +12,5 @@ import com.jb4dc.core.base.session.JB4DCSession;
  * To change this template use File | Settings | File Templates.
  */
 public interface IEnvGroupService extends IBaseService<EnvGroupEntity> {
-    EnvGroupEntity initSystemData(JB4DCSession jb4DCSession) throws JBuild4DCGenerallyException;
+    void initSystemData(JB4DCSession jb4DCSession) throws JBuild4DCGenerallyException;
 }

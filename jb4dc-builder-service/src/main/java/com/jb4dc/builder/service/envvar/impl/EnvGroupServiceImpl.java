@@ -1,6 +1,7 @@
 package com.jb4dc.builder.service.envvar.impl;
 
 import com.jb4dc.base.service.IAddBefore;
+import com.jb4dc.base.service.IUpdateBefore;
 import com.jb4dc.base.service.exenum.TrueFalseEnum;
 import com.jb4dc.base.service.impl.BaseServiceImpl;
 import com.jb4dc.builder.dao.envvar.EnvGroupMapper;
@@ -36,41 +37,52 @@ public class EnvGroupServiceImpl extends BaseServiceImpl<EnvGroupEntity> impleme
 
     @Override
     public int saveSimple(JB4DCSession jb4DCSession, String id, EnvGroupEntity record) throws JBuild4DCGenerallyException {
-        return super.save(jb4DCSession,id, record, new IAddBefore<EnvGroupEntity>() {
-            @Override
-            public EnvGroupEntity run(JB4DCSession jb4DCSession,EnvGroupEntity sourceEntity) throws JBuild4DCGenerallyException {
-                //设置排序,以及其他参数--nextOrderNum()
-                sourceEntity.setEnvGroupOrderNum(envGroupMapper.nextOrderNum());
-                sourceEntity.setEnvGroupChildCount(0);
-                sourceEntity.setEnvGroupCreateTime(new Date());
-                sourceEntity.setEnvGroupOrganId(jb4DCSession.getOrganId());
-                sourceEntity.setEnvGroupOrganName(jb4DCSession.getOrganName());
-                String parentIdList;
-                if(sourceEntity.getEnvGroupId().equals(rootId)){
-                    parentIdList=rootParentId;
-                    sourceEntity.setEnvGroupParentId(rootParentId);
-                }
-                else
-                {
-                    EnvGroupEntity parentEntity=envGroupMapper.selectByPrimaryKey(sourceEntity.getEnvGroupParentId());
-                    parentIdList=parentEntity.getEnvGroupPidList();
-                    parentEntity.setEnvGroupChildCount(parentEntity.getEnvGroupChildCount()+1);
-                    envGroupMapper.updateByPrimaryKeySelective(parentEntity);
-                }
-                sourceEntity.setEnvGroupPidList(parentIdList+"*"+sourceEntity.getEnvGroupId());
-                return sourceEntity;
+        return super.save(jb4DCSession, id, record, (jb4DCSession1, sourceEntity) -> {
+            //
+            EnvGroupEntity tempEntity = envGroupMapper.selectByValue(sourceEntity.getEnvGroupValue());
+            if (tempEntity != null) {
+                throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_BUILDER_CODE, "Value必须唯一!");
             }
+
+            //设置排序,以及其他参数--nextOrderNum()
+            sourceEntity.setEnvGroupOrderNum(envGroupMapper.nextOrderNum());
+            sourceEntity.setEnvGroupChildCount(0);
+            sourceEntity.setEnvGroupCreateTime(new Date());
+            sourceEntity.setEnvGroupOrganId(jb4DCSession1.getOrganId());
+            sourceEntity.setEnvGroupOrganName(jb4DCSession1.getOrganName());
+            String parentIdList;
+            if (sourceEntity.getEnvGroupId().equals(rootId)) {
+                parentIdList = rootParentId;
+                sourceEntity.setEnvGroupParentId(rootParentId);
+            } else {
+                EnvGroupEntity parentEntity = envGroupMapper.selectByPrimaryKey(sourceEntity.getEnvGroupParentId());
+                parentIdList = parentEntity.getEnvGroupPidList();
+                parentEntity.setEnvGroupChildCount(parentEntity.getEnvGroupChildCount() + 1);
+                envGroupMapper.updateByPrimaryKeySelective(parentEntity);
+            }
+            sourceEntity.setEnvGroupPidList(parentIdList + "*" + sourceEntity.getEnvGroupId());
+            return sourceEntity;
+        }, (jb4DCSession12, sourceEntity) -> {
+            EnvGroupEntity tempEntity = envGroupMapper.selectByValue(sourceEntity.getEnvGroupValue());
+            if(tempEntity!=null&&!tempEntity.getEnvGroupId().equals(sourceEntity.getEnvGroupId())){
+                throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_BUILDER_CODE, "Value必须唯一!");
+            }
+            return sourceEntity;
         });
     }
 
     @Override
-    public EnvGroupEntity initSystemData(JB4DCSession jb4DCSession) throws JBuild4DCGenerallyException {
+    public void initSystemData(JB4DCSession jb4DCSession) throws JBuild4DCGenerallyException {
+        EnvGroupEntity rootGroupEntity=create(jb4DCSession,rootId,rootParentId,"环境变量分组","环境变量分组");
+    }
+
+    private EnvGroupEntity create(JB4DCSession jb4DCSession,String groupId,String parentId,String text,String value) throws JBuild4DCGenerallyException {
         EnvGroupEntity rootEntity=new EnvGroupEntity();
-        rootEntity.setEnvGroupId(rootId);
-        rootEntity.setEnvGroupParentId(rootParentId);
+        rootEntity.setEnvGroupId(groupId);
+        rootEntity.setEnvGroupParentId(parentId);
         rootEntity.setEnvGroupIsSystem(TrueFalseEnum.True.getDisplayName());
-        rootEntity.setEnvGroupText("环境变量分组");
-        rootEntity.setEnvGroupValue("环境变量分组");
+        rootEntity.setEnvGroupText(text);
+        rootEntity.setEnvGroupValue(value);
         this.saveSimple(jb4DCSession,rootEntity.getEnvGroupId(),rootEntity);
         return rootEntity;
     }

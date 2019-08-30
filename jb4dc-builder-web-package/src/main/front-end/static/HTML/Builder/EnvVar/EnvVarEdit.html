@@ -15,29 +15,29 @@
 <body>
     <div id="appForm" class="general-edit-page-wrap" v-cloak>
         <spin size="large" fix v-if="isSubmitting"></spin>
-        <i-form ref="formEntity" :model="formEntity" :rules="ruleValidate" :label-width="100">
-            <form-item label="ddtlGroupId：">
-                <i-input v-model="formEntity.ddtlGroupId"></i-input>
+        <i-form ref="formEntity" :model="formEntity" :rules="ruleValidate" :label-width="120">
+            <form-item label="环境变量值：" prop="envVarValue">
+                <i-input v-model="formEntity.envVarValue"></i-input>
             </form-item>
-            <form-item label="ddtlKey：" prop="ddtlKey">
-                <i-input v-model="formEntity.ddtlKey"></i-input>
+            <form-item label="环境变量名称：" prop="envVarText">
+                <i-input v-model="formEntity.envVarText"></i-input>
             </form-item>
-            <form-item label="ddtlValue：" prop="ddtlValue">
-                <i-input v-model="formEntity.ddtlValue"></i-input>
+            <form-item label="解析类全称：" prop="envVarClassName">
+                <i-input v-model="formEntity.envVarClassName"></i-input>
             </form-item>
-            <form-item label="ddtlName：" prop="ddtlName">
-                <i-input v-model="formEntity.ddtlName"></i-input>
+            <form-item label="解析参数：">
+                <i-input v-model="formEntity.envVarClassPara"></i-input>
             </form-item>
             <form-item label="创建时间：">
                 <row>
                     <i-col span="10">
-                        <date-picker type="date" placeholder="选择创建时间" v-model="formEntity.ddtlCreatetime" disabled
+                        <date-picker type="date" placeholder="选择创建时间" v-model="formEntity.envVarCreateTime" disabled
                                      readonly></date-picker>
                     </i-col>
                     <i-col span="4" style="text-align: center">状态：</i-col>
                     <i-col span="10">
                         <form-item>
-                            <radio-group v-model="formEntity.ddtlStatus">
+                            <radio-group v-model="formEntity.envVarStatus">
                                 <radio label="启用">启用</radio>
                                 <radio label="禁用">禁用</radio>
                             </radio-group>
@@ -45,8 +45,14 @@
                     </i-col>
                 </row>
             </form-item>
-            <form-item label="ddtlDesc：">
-                <i-input v-model="formEntity.ddtlDesc" type="textarea" :autosize="{minRows: 7,maxRows: 7}"></i-input>
+            <form-item label="扩展属性1：">
+                <i-input v-model="formEntity.envVarExAttr1"></i-input>
+            </form-item>
+            <form-item label="扩展属性2：">
+                <i-input v-model="formEntity.envVarExAttr2"></i-input>
+            </form-item>
+            <form-item label="备注：">
+                <i-input v-model="formEntity.envVarDesc" type="textarea" :autosize="{minRows: 2,maxRows: 2}"></i-input>
             </form-item>
         </i-form>
         <div class="button-outer-wrap">
@@ -72,29 +78,36 @@
             data: {
                 isSubmitting:false,
                 acInterface:{
-                    getDataUrl:"/Rest/DevDemo/TreeAndList/DevDemoTLList/GetDetailData",
-                    saveDataUrl:"/Rest/DevDemo/TreeAndList/DevDemoTLList/SaveEdit"
+                    getDataUrl:"/Rest/Builder/EnvVariable/GetDetailData",
+                    saveDataUrl:"/Rest/Builder/EnvVariable/SaveEdit"
                 },
                 recordId:BaseUtility.GetUrlParaValue("recordId"),
                 formEntity: {
-                    ddtlId: "",
-                    ddtlKey: "",
-                    ddtlValue:"",
-                    ddtlName: "",
-                    ddtlStatus:"启用",
-                    ddtlCreatetime: DateUtility.GetCurrentData(),
-                    ddtlDesc: "",
-                    ddtlGroupId:BaseUtility.GetUrlParaValue("groupId")
+                    envVarId: "",
+                    envVarValue: "",
+                    envVarText:"",
+                    envVarClassName: "",
+                    envVarClassPara:"",
+                    envVarStatus:"启用",
+                    envVarCreateTime: DateUtility.GetCurrentData(),
+                    envVarDesc: "",
+                    envVarIsSystem:"否",
+                    envVarDelEnable:"是",
+                    envVarExAttr1:"",
+                    envVarExAttr2:"",
+                    envVarExAttr3:"",
+                    envVarExAttr4:"",
+                    envVarGroupId:BaseUtility.GetUrlParaValue("groupId")
                 },
                 ruleValidate: {
-                    ddtlValue: [
-                        {required: true, message: '【ddtlValue】不能空！', trigger: 'blur'}
+                    envVarValue: [
+                        {required: true, message: '【值】不能空！', trigger: 'blur'}
                     ],
-                    ddtlName: [
-                        {required: true, message: '【ddtlName】不能空！', trigger: 'blur'}
+                    envVarText: [
+                        {required: true, message: '【环境变量名称】不能空！', trigger: 'blur'}
                     ],
-                    ddtlKey: [
-                        {required: true, message: '【ddtlKey】不能空！', trigger: 'blur'}
+                    envVarClassName: [
+                        {required: true, message: '【解析类全称】不能空！', trigger: 'blur'}
                     ]
                 },
                 status: BaseUtility.GetUrlParaValue("op")

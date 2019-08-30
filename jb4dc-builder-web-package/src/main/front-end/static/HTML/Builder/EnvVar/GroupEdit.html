@@ -127,20 +127,18 @@
                         if (valid) {
                             _self.isSubmitting=true;
                             var sendData = JSON.stringify(_self.formEntity);
-                            //debugger;
                             AjaxUtility.PostRequestBody(_self.acInterface.saveDataUrl, sendData, function (result) {
-                                DialogUtility.Alert(window, DialogUtility.DialogAlertId, {}, result.message, function () {
-                                    if(result.success) {
+                                if(result.success) {
+                                    DialogUtility.Alert(window, DialogUtility.DialogAlertId, {}, result.message, function () {
                                         if (appForm.status == "add") {
                                             window.OpenerWindowObj.appList.newTreeNode(_self.formEntity);
-                                        }
-                                        else if (appForm.status == "update") {
+                                        } else if (appForm.status == "update") {
                                             window.OpenerWindowObj.appList.updateNode(_self.formEntity);
                                         }
-                                    }
-                                    DialogUtility.Frame_CloseDialog(window);
-                                });
-                            }, this);
+                                        DialogUtility.Frame_CloseDialog(window);
+                                    });
+                                }
+                            }, _self);
                         } else {
                             this.$Message.error('Fail!');
                         }

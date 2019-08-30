@@ -21,4 +21,7 @@
  where ENV_GROUP_ORDER_NUM = (select max(ENV_GROUP_ORDER_NUM) from TBUILD_ENV_GROUP where ENV_GROUP_ORDER_NUM<(select ENV_GROUP_ORDER_NUM from TBUILD_ENV_GROUP where ENV_GROUP_ID=#{Id,jdbcType=NVARCHAR}))]]></select>
     <select id="selectGreaterThanRecord" parameterType="java.lang.String" resultMap="BaseResultMap"><![CDATA[select * from TBUILD_ENV_GROUP
  where ENV_GROUP_ORDER_NUM = (select min(ENV_GROUP_ORDER_NUM) from TBUILD_ENV_GROUP where ENV_GROUP_ORDER_NUM>(select ENV_GROUP_ORDER_NUM from TBUILD_ENV_GROUP where ENV_GROUP_ID=#{Id,jdbcType=NVARCHAR}))]]></select>
+    <select id="selectByValue" resultMap="BaseResultMap">
+        select<include refid="Base_Column_List"/> from TBUILD_ENV_GROUP where ENV_GROUP_VALUE=#{envGroupValue}
+    </select>
 </mapper>

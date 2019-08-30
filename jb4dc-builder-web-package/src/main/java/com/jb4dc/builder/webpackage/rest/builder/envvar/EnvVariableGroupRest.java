@@ -39,7 +39,7 @@ public class EnvVariableGroupRest extends GeneralRest<EnvGroupEntity> {
     @RequestMapping(value = "/GetTreeData", method = RequestMethod.POST)
     public JBuild4DCResponseVo<List<EnvGroupEntity>> getTreeData() {
         //dictionaryGroupService.moveUp(recordId);
-        List<EnvGroupEntity> groupEntityList=envGroupService.getALL(JB4DCSessionUtility.getSession());
+        List<EnvGroupEntity> groupEntityList=envGroupService.getALLASC(JB4DCSessionUtility.getSession());
         return JBuild4DCResponseVo.getDataSuccess(groupEntityList);
     }
 }

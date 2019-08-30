@@ -68,7 +68,7 @@
                     deleteGroup:"/Rest/Builder/EnvVariableGroup/Delete",
                     moveGroup:"/Rest/Builder/EnvVariableGroup/Move",
                     <!--List -->
-                    listEditView:"/HTML/DevDemo/TreeAndList/ListEdit.html",
+                    listEditView:"/HTML/Builder/EnvVar/EnvVarEdit.html",
                     reloadListData:"/Rest/Builder/EnvVariable/GetListData",
                     deleteListRecord:"/Rest/Builder/EnvVariable/Delete",
                     listStatusChange:"/Rest/Builder/EnvVariable/StatusChange",
@@ -108,9 +108,9 @@
                     }
                 },
                 <!--List-->
-                idFieldName:"ddtlId",
+                idFieldName:"envVarId",
                 searchCondition:{
-                    groupId:{
+                    envVarGroupId:{
                         value:"",
                         type:SearchUtility.SearchFieldType.StringType
                     }
@@ -122,32 +122,32 @@
                         align: 'center'
                     },
                     {
-                        title: 'ddtlKey',
-                        key: 'ddtlKey',
+                        title: '变量名称',
+                        key: 'envVarText',
                         align: "center"
                     }, {
-                        title: 'ddtlName',
-                        key: 'ddtlName',
+                        title: '变量值',
+                        key: 'envVarValue',
                         align: "center"
                     }, {
-                        title: 'ddtlDesc',
-                        key: 'ddtlDesc'
+                        title: '类名',
+                        key: 'envVarClassName'
                     }, {
-                        title: 'ddtlStatus',
+                        title: '状态',
                         width: 100,
                         align: "center",
-                        key: 'ddtlStatus'
+                        key: 'envVarStatus'
                     }, {
-                        title: 'CT',
-                        key: 'ddtlCreatetime',
+                        title: '创建时间',
+                        key: 'envVarCreateTime',
                         width: 100,
                         align: "center",
                         render: function (h, params) {
-                            return ListPageUtility.IViewTableRenderer.ToDateYYYY_MM_DD(h, params.row.ddtlCreatetime);
+                            return ListPageUtility.IViewTableRenderer.ToDateYYYY_MM_DD(h, params.row.envVarCreateTime);
                         }
                     }, {
                         title: '操作',
-                        key: 'dictGroupId',
+                        key: 'envVarId',
                         width: 120,
                         align: "center",
                         render: function (h, params) {
@@ -204,7 +204,7 @@
                     this.selectionRows=null;
                     this.pageNum=1;
                     this.clearSearchCondition();
-                    this.searchCondition.groupId.value=this.treeSelectedNode[this.treeIdFieldName];
+                    this.searchCondition.envVarGroupId.value=this.treeSelectedNode[this.treeIdFieldName];
                     this.reloadData();
                     //appList.reloadTreeTableData();
                     //}
