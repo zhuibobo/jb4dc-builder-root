@@ -71,9 +71,20 @@ public class EnvGroupServiceImpl extends BaseServiceImpl<EnvGroupEntity> impleme
         });
     }
 
+    public static String ENV_GROUP_STATIC="ENV_GROUP_STATIC";
+    public static String ENV_GROUP_DATETIME="ENV_GROUP_DATETIME";
+    public static String ENV_GROUP_SYSTEM="ENV_GROUP_SYSTEM";
+    public static String ENV_GROUP_NUMBER_CODE="ENV_GROUP_NUMBER_CODE";
+    public static String ENV_GROUP_ID_CODE="ENV_GROUP_ID_CODE";
+
     @Override
     public void initSystemData(JB4DCSession jb4DCSession) throws JBuild4DCGenerallyException {
         EnvGroupEntity rootGroupEntity=create(jb4DCSession,rootId,rootParentId,"环境变量分组","环境变量分组");
+        create(jb4DCSession,ENV_GROUP_STATIC,rootGroupEntity.getEnvGroupId(),"静态值",ENV_GROUP_STATIC);
+        create(jb4DCSession,ENV_GROUP_DATETIME,rootGroupEntity.getEnvGroupId(),"时间日期",ENV_GROUP_DATETIME);
+        create(jb4DCSession,ENV_GROUP_SYSTEM,rootGroupEntity.getEnvGroupId(),"系统变量",ENV_GROUP_SYSTEM);
+        create(jb4DCSession,ENV_GROUP_NUMBER_CODE,rootGroupEntity.getEnvGroupId(),"序号编码",ENV_GROUP_NUMBER_CODE);
+        create(jb4DCSession,ENV_GROUP_ID_CODE,rootGroupEntity.getEnvGroupId(),"主键生成",ENV_GROUP_ID_CODE);
     }
 
     private EnvGroupEntity create(JB4DCSession jb4DCSession,String groupId,String parentId,String text,String value) throws JBuild4DCGenerallyException {
@@ -81,6 +92,7 @@ public class EnvGroupServiceImpl extends BaseServiceImpl<EnvGroupEntity> impleme
         rootEntity.setEnvGroupId(groupId);
         rootEntity.setEnvGroupParentId(parentId);
         rootEntity.setEnvGroupIsSystem(TrueFalseEnum.True.getDisplayName());
+        rootEntity.setEnvGroupDelEnable(TrueFalseEnum.False.getDisplayName());
         rootEntity.setEnvGroupText(text);
         rootEntity.setEnvGroupValue(value);
         this.saveSimple(jb4DCSession,rootEntity.getEnvGroupId(),rootEntity);

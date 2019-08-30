@@ -28,4 +28,7 @@
  where ENV_VAR_ORDER_NUM = (select max(ENV_VAR_ORDER_NUM) from TBUILD_ENV_VARIABLE where ENV_VAR_ORDER_NUM<(select ENV_VAR_ORDER_NUM from TBUILD_ENV_VARIABLE where ENV_VAR_ID=#{Id,jdbcType=NVARCHAR}))]]></select>
     <select id="selectGreaterThanRecord" parameterType="java.lang.String" resultMap="BaseResultMap"><![CDATA[select * from TBUILD_ENV_VARIABLE
  where ENV_VAR_ORDER_NUM = (select min(ENV_VAR_ORDER_NUM) from TBUILD_ENV_VARIABLE where ENV_VAR_ORDER_NUM>(select ENV_VAR_ORDER_NUM from TBUILD_ENV_VARIABLE where ENV_VAR_ID=#{Id,jdbcType=NVARCHAR}))]]></select>
+    <select id="selectByValue" resultMap="BaseResultMap">
+        select<include refid="Base_Column_List"/> from TBUILD_ENV_VARIABLE where ENV_VAR_VALUE=${envVarValue}
+    </select>
 </mapper>

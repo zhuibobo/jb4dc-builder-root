@@ -9,6 +9,7 @@ import com.jb4dc.builder.service.datastorage.ITableFieldService;
 import com.jb4dc.builder.service.datastorage.ITableGroupService;
 import com.jb4dc.builder.service.datastorage.ITableRelationGroupService;
 import com.jb4dc.builder.service.envvar.IEnvGroupService;
+import com.jb4dc.builder.service.envvar.IEnvVariableService;
 import com.jb4dc.builder.service.module.IModuleService;
 import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
 import com.jb4dc.core.base.session.JB4DCSession;
@@ -51,12 +52,17 @@ public class InitializationSystemRest {
     @Autowired
     IEnvGroupService envGroupService;
 
+    @Autowired
+    IEnvVariableService envVariableService;
+
     @RequestMapping(value = "/Running", method = RequestMethod.POST)
     @ResponseBody
     public JBuild4DCResponseVo running(String createTestData) throws JBuild4DCGenerallyException, JsonProcessingException {
         JB4DCSession jb4DCSession= JB4DCSessionUtility.getInitSystemSession();
 
         envGroupService.initSystemData(jb4DCSession);
+
+        envVariableService.initSystemData(jb4DCSession);
 
         tableFieldService.createTableFieldTemplates(jb4DCSession);
 
