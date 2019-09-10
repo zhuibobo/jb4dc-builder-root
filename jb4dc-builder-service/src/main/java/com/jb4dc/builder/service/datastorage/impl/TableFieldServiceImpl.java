@@ -80,14 +80,14 @@ public class TableFieldServiceImpl extends BaseServiceImpl<TableFieldEntity> imp
         TableFieldEntity idField=newFiled(jb4DCSession,"Template","ID","ID",
                 TrueFalseEnum.True,TrueFalseEnum.False,
                 TableFieldTypeEnum.NVarCharType,50,0,
-                "IdCoder","UUID","通用唯一识别码",
+                "EnvVar","UUID","通用唯一识别码",
                 "表主键",templateName);
         tableFieldMapper.insert(idField);
 
         TableFieldEntity createTimeField=newFiled(jb4DCSession,"Template","F_CREATE_TIME","记录时间",
                 TrueFalseEnum.False,TrueFalseEnum.True,
                 TableFieldTypeEnum.DataTimeType,20,0,
-                "DateTime","yyyy-MM-dd HH:mm:ss","年年年年-月月-日日 时:分:秒",
+                "EnvVar","yyyy-MM-dd HH:mm:ss","年年年年-月月-日日 时:分:秒",
                 "",templateName);
         tableFieldMapper.insert(createTimeField);
 
@@ -101,28 +101,28 @@ public class TableFieldServiceImpl extends BaseServiceImpl<TableFieldEntity> imp
         TableFieldEntity organIdField=newFiled(jb4DCSession,"Template","F_ORGAN_ID","组织ID",
                 TrueFalseEnum.False,TrueFalseEnum.True,
                 TableFieldTypeEnum.NVarCharType,50,0,
-                "ApiVar","ApiVarCurrentUserOrganId","当前用户所在组织ID",
+                "EnvVar","ApiVarCurrentUserOrganId","当前用户所在组织ID",
                 "",templateName);
         tableFieldMapper.insert(organIdField);
 
         TableFieldEntity organNameField=newFiled(jb4DCSession,"Template","F_ORGAN_NAME","组织名称",
                 TrueFalseEnum.False,TrueFalseEnum.True,
                 TableFieldTypeEnum.NVarCharType,100,0,
-                "ApiVar","ApiVarCurrentUserOrganName","当前用户所在组织名称",
+                "EnvVar","ApiVarCurrentUserOrganName","当前用户所在组织名称",
                 "",templateName);
         tableFieldMapper.insert(organNameField);
 
         TableFieldEntity userIdField=newFiled(jb4DCSession,"Template","F_USER_ID","用户ID",
                 TrueFalseEnum.False,TrueFalseEnum.True,
                 TableFieldTypeEnum.NVarCharType,50,0,
-                "ApiVar","ApiVarCurrentUserId","当前用户ID",
+                "EnvVar","ApiVarCurrentUserId","当前用户ID",
                 "",templateName);
         tableFieldMapper.insert(userIdField);
 
         TableFieldEntity userNameField=newFiled(jb4DCSession,"Template","F_USER_NAME","用户名称",
                 TrueFalseEnum.False,TrueFalseEnum.True,
                 TableFieldTypeEnum.NVarCharType,50,0,
-                "ApiVar","ApiVarCurrentUserName","当前用户名称",
+                "EnvVar","ApiVarCurrentUserName","当前用户名称",
                 "",templateName);
         tableFieldMapper.insert(userNameField);
     }
