@@ -10,82 +10,86 @@ Vue.component("select-default-value-dialog", {
 
         return {
             acInterface:{
-                getSelectData:"/Rest/Env/EnvVariable/GetSelectData"
+                getGroupTreeData:"/Rest/Builder/EnvVariableGroup/GetTreeData",
+                reloadListData:"/Rest/Builder/EnvVariable/GetListData"
             },
             selectType:"Const",
             selectValue:"",
             selectText:"",
+            listHeight: 470,
             tree:{
-                datetimeTreeObj:null,
-                datetimeTreeSetting:{
-                    view: {
-                        dblClickExpand: false,//双击节点时，是否自动展开父节点的标识
-                        showLine: true,//是否显示节点之间的连线
-                        fontCss: {'color': 'black', 'font-weight': 'normal'}
+                treeIdFieldName:"envGroupId",
+                treeObj:null,
+                treeSelectedNode:null,
+                treeSetting:{
+                    async : {
+                        enable : true,
+                        // Ajax 获取数据的 URL 地址
+                        url :""
                     },
-                    data: {
-                        key: {
-                            name: "text",
+                    // 必须使用data
+                    data:{
+                        key:{
+                            name:"envGroupText"
                         },
-                        simpleData: {//简单数据模式
-                            enable: true,
-                            idKey: "id",
-                            pIdKey: "parentId",
-                            rootPId: "-1"// 1
+                        simpleData : {
+                            enable : true,
+                            idKey : "envGroupId", // id编号命名
+                            pIdKey : "envGroupParentId",  // 父id编号命名
+                            rootId : 0
                         }
                     },
-                    callback: {
-                        //点击树节点事件
-                        onClick: function (event, treeId, treeNode) {
-
-                        },
-                        onDblClick: function (event, treeId, treeNode) {
-
+                    // 回调函数
+                    callback : {
+                        onClick : function(event, treeId, treeNode) {
+                            var _self=this.getZTreeObj(treeId)._host;
+                            _self.treeNodeSelected(event,treeId,treeNode);
                         },
                         //成功的回调函数
-                        onAsyncSuccess: function (event, treeId, treeNode, msg) {
-
+                        onAsyncSuccess : function(event, treeId, treeNode, msg){
+                            appList.treeObj.expandAll(true);
                         }
                     }
                 },
-                datetimeTreeData:null,
-                envVarTreeObj:null,
-                envVarTreeSetting:{
-                    view: {
-                        dblClickExpand: false,//双击节点时，是否自动展开父节点的标识
-                        showLine: true,//是否显示节点之间的连线
-                        fontCss: {'color': 'black', 'font-weight': 'normal'}
-                    },
-                    data: {
-                        key: {
-                            name: "text",
-                        },
-                        simpleData: {//简单数据模式
-                            enable: true,
-                            idKey: "id",
-                            pIdKey: "parentId",
-                            rootPId: "-1"// 1
-                        }
-                    },
-                    callback: {
-                        //点击树节点事件
-                        onClick: function (event, treeId, treeNode) {
-
-                        },
-                        onDblClick: function (event, treeId, treeNode) {
-
-                        },
-                        //成功的回调函数
-                        onAsyncSuccess: function (event, treeId, treeNode, msg) {
-
-                        }
-                    }
+            },
+            tableData:[],
+            columnsConfig: [
+                {
+                    type: 'selection',
+                    width: 60,
+                    align: 'center'
                 },
-                envVarTreeData:null,
-                numberCodeTreeObj:null,
-                numberCodeTreeSetting:{},
-                numberCodeTreeData:{}
-            }
+                {
+                    title: '变量名称',
+                    key: 'envVarText',
+                    align: "center"
+                }, {
+                    title: '变量值',
+                    key: 'envVarValue',
+                    align: "center"
+                }, {
+                    title: '操作',
+                    key: 'envVarId',
+                    width: 120,
+                    align: "center",
+                    render: function (h, params) {
+                        return h('div',{class: "list-row-button-wrap"},[
+                            ListPageUtility.IViewTableInnerButton.ViewButton(h,params,appList.idFieldName,appList),
+                            ListPageUtility.IViewTableInnerButton.EditButton(h,params,appList.idFieldName,appList),
+                            ListPageUtility.IViewTableInnerButton.DeleteButton(h,params,appList.idFieldName,appList)
+                        ]);
+                    }
+                }
+            ],
+            searchCondition:{
+                envVarGroupId:{
+                    value:"",
+                    type:SearchUtility.SearchFieldType.StringType
+                }
+            },
+            pageTotal: 0,
+            pageSize: 100,
+            pageNum: 1
         }
     },
     mounted:function (){
@@ -119,15 +123,25 @@ Vue.component("select-default-value-dialog", {
             }
         },
         loadData:function(){
-            var _self=this;
-            AjaxUtility.Post(this.acInterface.getSelectData,{},function (result) {
-                _self.tree.datetimeTreeData=result.data.datetimeTreeData;
-                _self.tree.envVarTreeData=result.data.envVarTreeData;
-                _self.tree.datetimeTreeObj=$.fn.zTree.init($("#datetimeZTreeUL"), _self.tree.datetimeTreeSetting,_self.tree.datetimeTreeData);
-                _self.tree.datetimeTreeObj.expandAll(true);
-                _self.tree.envVarTreeObj=$.fn.zTree.init($("#envVarZTreeUL"), _self.tree.envVarTreeSetting,_self.tree.envVarTreeData);
-                _self.tree.envVarTreeObj.expandAll(true);
-            },this);
+            //var _self=this;
+            AjaxUtility.Post(this.acInterface.getGroupTreeData, {}, function (result) {
+                console.log(result);
+                if(result.success){
+                    if(result.data!=null&&result.data.length>0){
+                        for(var i=0;i<result.data.length;i++) {
+                            /*if(result.data[i].envGroupChildCount==0) {
+                                result.data[i].icon = "../../../Themes/Png16X16/app-view-columns.png";
+                            }*/
+                        }
+                    }
+                    this.tree.treeObj=$.fn.zTree.init($("#zTreeUL"), this.tree.treeSetting,result.data);
+                    this.tree.treeObj.expandAll(true);
+                    this.tree.treeObj._host=this;
+                }
+                else {
+                    DialogUtility.Alert(window, DialogUtility.DialogAlertId, {}, result.message, function () {});
+                }
+            }, this);
         },
         getSelectInstanceName:function () {
             return BaseUtility.GetUrlParaValue("instanceName");
@@ -197,28 +211,70 @@ Vue.component("select-default-value-dialog", {
                 DialogUtility.CloseOpenIframeWindow(window, DialogUtility.DialogId);
             }*/
             DialogUtility.CloseDialogElem(this.$refs.selectDefaultValueDialogWrap);
+        },
+        selectionChange:function () {
+
+        },
+        clearSearchCondition:function () {
+            for(var key in this.searchCondition){
+                this.searchCondition[key].value="";
+            }
+        },
+        treeNodeSelected:function (event, treeId, treeNode) {
+            // 根节点不触发任何事件1
+            //if(treeNode.level != 0) {
+            this.pageNum=1;
+            this.clearSearchCondition();
+            this.searchCondition.envVarGroupId.value=treeNode[this.tree.treeIdFieldName];
+            this.reloadData();
+            //appList.reloadTreeTableData();
+            //}
+        },
+        reloadData: function () {
+            //ListPageUtility.IViewTableLoadDataSearch(this.acInterface.reloadListData,this.pageNum,this.pageSize,this.searchCondition,this,this.idFieldName,true,null,false);
+            //this.selectionRows=null;
+            ListPageUtility.IViewTableBindDataBySearch({
+                url: this.acInterface.reloadListData,
+                pageNum: this.pageNum,
+                pageSize: this.pageSize,
+                searchCondition: this.searchCondition,
+                pageAppObj: this,
+                tableList: this,
+                idField: this.idFieldName,
+                autoSelectedOldRows: true,
+                successFunc: null,
+                loadDict: false,
+                custParas: {}
+            });
         }
     },
-    template: `<div  ref="selectDefaultValueDialogWrap" class="general-edit-page-wrap" style="display: none">
+    template: `<div  ref="selectDefaultValueDialogWrap" class="general-edit-page-wrap" style="display: none;margin-top: 0px">
                     <tabs :value="selectType" v-model="selectType">
-                        <tab-pane label="静态值" name="Const" >
+                        <tab-pane label="常量" name="Const" >
                             <i-form :label-width="80" style="width: 80%;margin: 50px auto auto;">
-                                <form-item label="静态值：">
+                                <form-item label="常量：">
                                     <i-input v-model="selectValue"></i-input>
                                 </form-item>
                             </i-form>
                         </tab-pane>
-                        <tab-pane label="日期时间" name="DateTime">
-                            <ul id="datetimeZTreeUL" class="ztree"></ul>
-                        </tab-pane>
-                        <tab-pane label="API变量" name="ApiVar">
-                            <ul id="envVarZTreeUL" class="ztree"></ul>
-                        </tab-pane>
-                        <tab-pane label="序号编码" name="NumberCode">
-                            <ul id="numberCodeZTreeUL" class="ztree"></ul>
-                        </tab-pane>
-                        <tab-pane label="主键生成" name="IdCoder">
-                            <ul id="numberCodeZTreeUL1" class="ztree"></ul>
+                        <tab-pane label="环境变量" name="EnvVar">
+                            <div style="height: 45px;border-bottom: dotted 1px #8a8a8a;margin-bottom: 10px;">
+                                <div style="float: right;padding: 8px;border-radius: 8px;color:orangered;border: solid 1px #adbed8;">已经选择：</div>
+                            </div>
+                            <div>
+                                <div style="width: 30%;float: left;height: 514px">
+                                    <div class="inner-wrap">
+                                        <div>
+                                            <ul id="zTreeUL" class="ztree"></ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div style="width: 68%;float: left;height: 514px">
+                                    <i-table :height="listHeight" stripe border :columns="columnsConfig" :data="tableData"
+                                             class="iv-list-table" :highlight-row="true"
+                                             @on-selection-change="selectionChange"></i-table>
+                                </div>
+                            </div>
                         </tab-pane>
                     </tabs>
                     <div class="button-outer-wrap">
