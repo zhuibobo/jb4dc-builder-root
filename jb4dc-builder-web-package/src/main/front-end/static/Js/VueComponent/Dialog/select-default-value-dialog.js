@@ -16,6 +16,7 @@ Vue.component("select-default-value-dialog", {
             selectType:"Const",
             selectValue:"",
             selectText:"",
+            constValue:"",
             listHeight: 470,
             tree:{
                 treeIdFieldName:"envGroupId",
@@ -55,11 +56,6 @@ Vue.component("select-default-value-dialog", {
             tableData:[],
             columnsConfig: [
                 {
-                    type: 'selection',
-                    width: 60,
-                    align: 'center'
-                },
-                {
                     title: '变量名称',
                     key: 'envVarText',
                     align: "center"
@@ -74,9 +70,7 @@ Vue.component("select-default-value-dialog", {
                     align: "center",
                     render: function (h, params) {
                         return h('div',{class: "list-row-button-wrap"},[
-                            ListPageUtility.IViewTableInnerButton.ViewButton(h,params,appList.idFieldName,appList),
-                            ListPageUtility.IViewTableInnerButton.EditButton(h,params,appList.idFieldName,appList),
-                            ListPageUtility.IViewTableInnerButton.DeleteButton(h,params,appList.idFieldName,appList)
+                            ListPageUtility.IViewTableInnerButton.SelectedButton(h, params, "envVarId", _self),
                         ]);
                     }
                 }
@@ -97,6 +91,7 @@ Vue.component("select-default-value-dialog", {
     },
     methods:{
         beginSelect:function(oldData){
+            console.log(oldData);
             var elem=this.$refs.selectDefaultValueDialogWrap;
             //debugger;
             //this.getTableDataInitTree();
@@ -149,16 +144,21 @@ Vue.component("select-default-value-dialog", {
         selectComplete:function () {
             var result={};
             if(this.selectType=="Const"){
-                if(this.selectValue==""){
+                if(this.constValue==""){
                     DialogUtility.Alert(window,DialogUtility.DialogAlertId,{},"请设置常量默认值！",null);
                     return;
                 }
 
                 result.Type="Const";
-                result.Value=this.selectValue;
-                result.Text=this.selectValue;
+                result.Value=this.constValue;
+                result.Text=this.constValue;
             }
-            else if(this.selectType=="DateTime"){
+            else {
+                result.Type = "EnvVar";
+                result.Value = this.selectValue;
+                result.Text = this.selectText;
+            }
+            /*else if(this.selectType=="DateTime"){
                 var selectNodes=this.tree.datetimeTreeObj.getSelectedNodes();
                 if(selectNodes.length==0){
                     DialogUtility.Alert(window,DialogUtility.DialogAlertId,{},"请选择一种时间类型！",null);
@@ -191,7 +191,7 @@ Vue.component("select-default-value-dialog", {
             }
             else if(this.selectType=="NumberCode"){
                 result.Type = "NumberCode";
-            }
+            }*/
 
             this.$emit('on-selected-default-value', result);
             //window.OpenerWindowObj[this.getSelectInstanceName()].setSelectEnvVariableResultValue(result);
@@ -246,6 +246,11 @@ Vue.component("select-default-value-dialog", {
                 loadDict: false,
                 custParas: {}
             });
+        },
+        selected:function (id,params) {
+            console.log(params);
+            this.selectValue=params.row.envVarValue;
+            this.selectText=params.row.envVarText;
         }
     },
     template: `<div  ref="selectDefaultValueDialogWrap" class="general-edit-page-wrap" style="display: none;margin-top: 0px">
@@ -253,13 +258,13 @@ Vue.component("select-default-value-dialog", {
                         <tab-pane label="常量" name="Const" >
                             <i-form :label-width="80" style="width: 80%;margin: 50px auto auto;">
                                 <form-item label="常量：">
-                                    <i-input v-model="selectValue"></i-input>
+                                    <i-input v-model="constValue"></i-input>
                                 </form-item>
                             </i-form>
                         </tab-pane>
                         <tab-pane label="环境变量" name="EnvVar">
                             <div style="height: 45px;border-bottom: dotted 1px #8a8a8a;margin-bottom: 10px;">
-                                <div style="float: right;padding: 8px;border-radius: 8px;color:orangered;border: solid 1px #adbed8;">已经选择：</div>
+                                <div style="float: right;padding: 8px;border-radius: 8px;color:orangered;border: solid 1px #adbed8;">已经选择：{{selectText}}</div>
                             </div>
                             <div>
                                 <div style="width: 30%;float: left;height: 514px">
@@ -269,7 +274,7 @@ Vue.component("select-default-value-dialog", {
                                         </div>
                                     </div>
                                 </div>
-                                <div style="width: 68%;float: left;height: 514px">
+                                <div style="width: 68%;float: left;height: 514px" class="iv-list-page-wrap">
                                     <i-table :height="listHeight" stripe border :columns="columnsConfig" :data="tableData"
                                              class="iv-list-table" :highlight-row="true"
                                              @on-selection-change="selectionChange"></i-table>
