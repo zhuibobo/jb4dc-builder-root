@@ -93,11 +93,20 @@
                             </div>
                         </div>
                     </tab-pane>
-                    <tab-pane label="API变量" name="ApiVar">
-                        <ul id="apiVarZTreeUL" class="ztree"></ul>
-                    </tab-pane>
-                    <tab-pane label="日期时间" name="DateTime">
-                        <ul id="datetimeZTreeUL" class="ztree"></ul>
+                    <tab-pane label="环境变量" name="EnvVar">
+                        <div>
+                            <div style="width: 30%;float: left;height: 360px">
+                                <div class="inner-wrap">
+                                    <div>
+                                        <ul id="envGroupZTreeUL" class="ztree"></ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="width: 68%;float: left;height: 360px" class="iv-list-page-wrap">
+                                <i-table :height="350" stripe border :columns="envVarColumnsConfig" :data="envVarTableData"
+                                         class="iv-list-table" :highlight-row="true"></i-table>
+                            </div>
+                        </div>
                     </tab-pane>
                     <tab-pane label="参考SQL" name="EgSQL">
                     </tab-pane>
@@ -141,92 +150,48 @@
             el:"#sqlDesignerForm",
             data:{
                 acInterface:{
-                    getDataUrl:"/Rest/Builder/DataSet/DataSetSQLDesigner/GetSqlDesignerViewData"
+                    getDataUrl:"/Rest/Builder/DataSet/DataSetSQLDesigner/GetSqlDesignerViewData",
+                    getEnvGroupTreeData:"/Rest/Builder/EnvVariableGroup/GetTreeData",
+                    reloadEnvListData:"/Rest/Builder/EnvVariable/GetListData"
                 },
                 formResourceEntity:{
                     formId:"",
 
                 },
                 tree:{
-                    datetimeTreeObj:null,
-                    datetimeTreeSetting:{
-                        view: {
-                            dblClickExpand: false,//双击节点时，是否自动展开父节点的标识
-                            showLine: true,//是否显示节点之间的连线
-                            fontCss: {'color': 'black', 'font-weight': 'normal'}
+                    envGroupTreeIdFieldName:"envGroupId",
+                    envGroupTreeObj:null,
+                    envGroupTreeSelectedNode:null,
+                    envGroupTreeSetting:{
+                        async : {
+                            enable : true,
+                            // Ajax 获取数据的 URL 地址
+                            url :""
                         },
-                        data: {
-                            key: {
-                                name: "text",
+                        // 必须使用data
+                        data:{
+                            key:{
+                                name:"envGroupText"
                             },
-                            simpleData: {//简单数据模式
-                                enable: true,
-                                idKey: "id",
-                                pIdKey: "parentId",
-                                rootPId: "-1"// 1
+                            simpleData : {
+                                enable : true,
+                                idKey : "envGroupId", // id编号命名
+                                pIdKey : "envGroupParentId",  // 父id编号命名
+                                rootId : 0
                             }
                         },
-                        callback: {
-                            //点击树节点事件
-                            onClick: function (event, treeId, treeNode) {
-                                if(treeNode.group==true){
-                                    DialogUtility.Alert(window,DialogUtility.DialogAlertId,{},"不能选择分组！",null);
-                                    return
-                                }
-                                else {
-                                    sqlDesignerForm.insertCodeAtCursor("#\{"+treeNode.type + "." + treeNode.text+"}");
-                                }
-                            },
-                            onDblClick: function (event, treeId, treeNode) {
-
+                        // 回调函数
+                        callback : {
+                            onClick : function(event, treeId, treeNode) {
+                                var _self=this.getZTreeObj(treeId)._host;
+                                _self.envGroupTreeNodeSelected(event,treeId,treeNode);
                             },
                             //成功的回调函数
-                            onAsyncSuccess: function (event, treeId, treeNode, msg) {
-
+                            onAsyncSuccess : function(event, treeId, treeNode, msg){
+                                appList.treeObj.expandAll(true);
                             }
                         }
                     },
-                    datetimeTreeData:null,//${datetimeTreeData},
-                    apiVarTreeObj:null,
-                    apiVarTreeSetting:{
-                        view: {
-                            dblClickExpand: false,//双击节点时，是否自动展开父节点的标识
-                            showLine: true,//是否显示节点之间的连线
-                            fontCss: {'color': 'black', 'font-weight': 'normal'}
-                        },
-                        data: {
-                            key: {
-                                name: "text",
-                            },
-                            simpleData: {//简单数据模式
-                                enable: true,
-                                idKey: "id",
-                                pIdKey: "parentId",
-                                rootPId: "-1"// 1
-                            }
-                        },
-                        callback: {
-                            //点击树节点事件
-                            onClick: function (event, treeId, treeNode) {
-                                //alert(treeNode.text);
-                                if(treeNode.group==true){
-                                    DialogUtility.Alert(window,DialogUtility.DialogAlertId,{},"不能选择分组！",null);
-                                    return
-                                }
-                                else {
-                                    sqlDesignerForm.insertCodeAtCursor("#\{"+treeNode.type + "." + treeNode.text+"}");
-                                }
-                            },
-                            onDblClick: function (event, treeId, treeNode) {
-
-                            },
-                            //成功的回调函数
-                            onAsyncSuccess: function (event, treeId, treeNode, msg) {
-
-                            }
-                        }
-                    },
-                    apiVarTreeData:null,//${apiVarTreeData},
                     tableTreeObj:null,
                     tableTreeSetting:{
                         view: {
@@ -294,7 +259,35 @@
                         }
                     ]
                 },
-                sqlCodeMirror:null
+                sqlCodeMirror:null,
+                envVarTableData:[],
+                envVarColumnsConfig: [
+                    {
+                        title: '变量名称',
+                        key: 'envVarText',
+                        align: "center"
+                    }, {
+                        title: '变量值',
+                        key: 'envVarValue',
+                        align: "center"
+                    }, {
+                        title: '操作',
+                        key: 'envVarId',
+                        width: 120,
+                        align: "center",
+                        render: function (h, params) {
+                            return h('div',{class: "list-row-button-wrap"},[
+                                ListPageUtility.IViewTableInnerButton.SelectedButton(h, params, "envVarId", _self),
+                            ]);
+                        }
+                    }
+                ],
+                envVarSearchCondition:{
+                    envVarGroupId:{
+                        value:"",
+                        type:SearchUtility.SearchFieldType.StringType
+                    }
+                }
             },
             mounted:function () {
                 this.sqlCodeMirror = CodeMirror.fromTextArea($("#TextAreaJsEditor")[0], {
@@ -317,15 +310,84 @@
                 if(PageStyleUtility.GetPageHeight()<550){
                     $("#tableWraper").height(190);
                 }
+
+                this.loadEnvGroupData();
             },
             methods:{
+                loadEnvGroupData:function(){
+                    //var _self=this;
+                    AjaxUtility.Post(this.acInterface.getEnvGroupTreeData, {}, function (result) {
+                        //console.log(result);
+                        if(result.success){
+                            if(result.data!=null&&result.data.length>0){
+                                for(var i=0;i<result.data.length;i++) {
+                                    /*if(result.data[i].envGroupChildCount==0) {
+                                        result.data[i].icon = "../../../Themes/Png16X16/app-view-columns.png";
+                                    }*/
+                                }
+                            }
+                            this.tree.envGroupTreeObj=$.fn.zTree.init($("#envGroupZTreeUL"), this.tree.envGroupTreeSetting,result.data);
+                            this.tree.envGroupTreeObj.expandAll(true);
+                            this.tree.envGroupTreeObj._host=this;
+                        }
+                        else {
+                            DialogUtility.Alert(window, DialogUtility.DialogAlertId, {}, result.message, function () {});
+                        }
+                    }, this);
+                },
+                envGroupTreeNodeSelected:function (event, treeId, treeNode) {
+                    // 根节点不触发任何事件1
+                    //if(treeNode.level != 0) {
+                    //this.pageNum=1;
+                    this.envVarClearSearchCondition();
+                    this.envVarSearchCondition.envVarGroupId.value=treeNode[this.tree.envGroupTreeIdFieldName];
+                    this.envVarReloadData();
+                    //appList.reloadTreeTableData();
+                    //}
+                },
+                envVarClearSearchCondition:function () {
+                    for(var key in this.envVarSearchCondition){
+                        this.envVarSearchCondition[key].value="";
+                    }
+                },
+                envVarReloadData: function () {
+                    //ListPageUtility.IViewTableLoadDataSearch(this.acInterface.reloadListData,this.pageNum,this.pageSize,this.searchCondition,this,this.idFieldName,true,null,false);
+                    //this.selectionRows=null;
+                    /*ListPageUtility.IViewTableBindDataBySearch({
+                        url: this.acInterface.reloadEnvListData,
+                        pageNum: 1,
+                        pageSize: 100,
+                        searchCondition: this.envVarSearchCondition,
+                        pageAppObj: this,
+                        tableList: this,
+                        idField: "envVarId",
+                        autoSelectedOldRows: true,
+                        successFunc: null,
+                        loadDict: false,
+                        custParas: {}
+                    });*/
+                    var _self=this;
+                    var url = this.acInterface.reloadEnvListData;
+                    var sendData = {
+                        "pageNum": 1,
+                        "pageSize": 100,
+                        "searchCondition": SearchUtility.SerializationSearchCondition(this.envVarSearchCondition),
+                        "loadDict": false
+                    };
+                    AjaxUtility.Post(url, sendData, function (result) {
+                        console.log(result);
+                        if(result.success){
+                            _self.envVarTableData=result.data.list;
+                        }
+                    }, this);
+                },
                 bindData:function(result){
-                    this.tree.datetimeTreeData=result.exKVData.datetimeTreeData;
-                    this.tree.datetimeTreeObj=$.fn.zTree.init($("#datetimeZTreeUL"), this.tree.datetimeTreeSetting,this.tree.datetimeTreeData);
-                    this.tree.datetimeTreeObj.expandAll(true);
-                    this.tree.apiVarTreeData=result.exKVData.apiVarTreeData;
-                    this.tree.apiVarTreeObj=$.fn.zTree.init($("#apiVarZTreeUL"), this.tree.apiVarTreeSetting,this.tree.apiVarTreeData);
-                    this.tree.apiVarTreeObj.expandAll(true);
+                    //this.tree.datetimeTreeData=result.exKVData.datetimeTreeData;
+                    //this.tree.datetimeTreeObj=$.fn.zTree.init($("#datetimeZTreeUL"), this.tree.datetimeTreeSetting,this.tree.datetimeTreeData);
+                    //this.tree.datetimeTreeObj.expandAll(true);
+                    //this.tree.apiVarTreeData=result.exKVData.apiVarTreeData;
+                    //this.tree.apiVarTreeObj=$.fn.zTree.init($("#apiVarZTreeUL"), this.tree.apiVarTreeSetting,this.tree.apiVarTreeData);
+                    //this.tree.apiVarTreeObj.expandAll(true);
                     this.tree.tableTreeData=result.exKVData.tableTreeData;
                     this.tree.tableTreeObj=$.fn.zTree.init($("#tableZTreeUL"), this.tree.tableTreeSetting,this.tree.tableTreeData);
                     this.tree.tableTreeObj.expandAll(true);

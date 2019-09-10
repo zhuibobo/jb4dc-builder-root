@@ -33,7 +33,7 @@ import java.util.List;
 @RequestMapping(value = "/Rest/Builder/DataSet/DataSetSQLDesigner")
 public class DataSetSQLDesignerRest {
     //@Autowired
-    IEnvVariableClientService envVariableService;
+    //IEnvVariableClientService envVariableService;
 
     @Autowired
     ITableGroupService tableGroupService;
@@ -51,12 +51,10 @@ public class DataSetSQLDesignerRest {
     @RequestMapping(value = "GetSqlDesignerViewData", method = RequestMethod.POST)
     public JBuild4DCResponseVo getSqlDesignerViewData() {
         try {
-            JBuild4DCResponseVo responseVo=new JBuild4DCResponseVo();
-            responseVo.setSuccess(true);
-            responseVo.setMessage("获取数据成功！");
 
-            List<EnvVariablePO> dateTimeVoList=envVariableService.getDateTimeVars();
-            List<EnvVariablePO> apiVarVoList=envVariableService.getAPIVars();
+
+            //List<EnvVariablePO> dateTimeVoList=envVariableService.getDateTimeVars();
+            //List<EnvVariablePO> apiVarVoList=envVariableService.getAPIVars();
 
             JB4DCSession jb4DCSession= JB4DCSessionUtility.getSession();
 
@@ -67,8 +65,13 @@ public class DataSetSQLDesignerRest {
             //modelAndView.addObject("apiVarTreeData",JsonUtility.toObjectString(apiVarVoList));
             //modelAndView.addObject("tableTreeData", JsonUtility.toObjectString(ZTreeNodeVo.parseTableToZTreeNodeList(tableGroupEntityList,tableEntityList)));
 
-            responseVo.addExKVData("datetimeTreeData",dateTimeVoList);
-            responseVo.addExKVData("apiVarTreeData",apiVarVoList);
+            //responseVo.addExKVData("datetimeTreeData",dateTimeVoList);
+            //responseVo.addExKVData("apiVarTreeData",apiVarVoList);
+
+            JBuild4DCResponseVo responseVo=new JBuild4DCResponseVo();
+            responseVo.setSuccess(true);
+            responseVo.setMessage("获取数据成功！");
+
             responseVo.addExKVData("tableTreeData", ZTreeNodePOConvert.parseTableToZTreeNodeList(tableGroupEntityList,tableEntityList));
 
             return responseVo;

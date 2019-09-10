@@ -112,10 +112,11 @@ Vue.component("select-default-value-dialog", {
             $(window.document).find(".ui-dialog").css("zIndex",10101);
 
             if(oldData==null){
-                this.selectType="Const";
+                //this.selectType="Const";
                 this.selectValue="";
                 this.selectText="";
-            }
+                this.constValue="";
+            };
         },
         loadData:function(){
             //var _self=this;
@@ -240,7 +241,7 @@ Vue.component("select-default-value-dialog", {
                 searchCondition: this.searchCondition,
                 pageAppObj: this,
                 tableList: this,
-                idField: this.idFieldName,
+                idField: "envVarId",
                 autoSelectedOldRows: true,
                 successFunc: null,
                 loadDict: false,
