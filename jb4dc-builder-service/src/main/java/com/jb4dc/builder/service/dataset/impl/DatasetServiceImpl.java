@@ -74,14 +74,14 @@ public class DatasetServiceImpl extends BaseServiceImpl<DatasetEntity> implement
     public DatasetServiceImpl(DatasetMapper _defaultBaseMapper,
                               SqlSessionTemplate _sqlSessionTemplate, JdbcOperations _jdbcOperations,
                               IBuilderConfigService _builderConfigService, ITableService _tableService, ITableFieldService _tableFieldService,
-                              IEnvVariableClientService _envVariableService, IDatasetRelatedTableService _datasetRelatedTableService, IDatasetColumnService _datasetColumnService, ISQLBuilderMapper _sqlBuilderMapper){
+                              IDatasetRelatedTableService _datasetRelatedTableService, IDatasetColumnService _datasetColumnService, ISQLBuilderMapper _sqlBuilderMapper){
         super(_defaultBaseMapper);
         datasetMapper=_defaultBaseMapper;
         jdbcOperations=_jdbcOperations;
         builderConfigService=_builderConfigService;
         tableService=_tableService;
         tableFieldService=_tableFieldService;
-        envVariableService=_envVariableService;
+        //envVariableService=_envVariableService;
         datasetRelatedTableService=_datasetRelatedTableService;
         datasetColumnService=_datasetColumnService;
         sqlBuilderMapper=_sqlBuilderMapper;

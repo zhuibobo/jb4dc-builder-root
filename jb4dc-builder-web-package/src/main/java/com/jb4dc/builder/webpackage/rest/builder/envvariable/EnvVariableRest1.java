@@ -21,7 +21,7 @@ import java.util.Map;
 @RequestMapping(value = "/Rest/Env/EnvVariable1")
 public class EnvVariableRest1 {
 
-    @Autowired
+    //@Autowired
     IEnvVariableClientService envVariableService;
 
     @RequestMapping(value = "/GetSelectData",method = RequestMethod.POST)

@@ -10,6 +10,8 @@
         <if test="envVarText !=null and envVarText !=''"> and ENV_VAR_TEXT like #{envVarText} </if>
         <if test="envVarClassName !=null and envVarClassName !=''"> and ENV_VAR_CLASS_NAME like #{envVarClassName} </if>
         <if test="envVarClassPara !=null and envVarClassPara !=''"> and ENV_VAR_CLASS_PARA like #{envVarClassPara} </if>
+        <if test="envVarRest !=null and envVarRest !=''"> and ENV_VAR_REST like #{envVarRest} </if>
+        <if test="envVarRestPara !=null and envVarRestPara !=''"> and ENV_VAR_REST_PARA like #{envVarRestPara} </if>
         <if test="envVarGroupId !=null and envVarGroupId !=''"> and ENV_VAR_GROUP_ID like #{envVarGroupId} </if>
         <if test="envVarIsSystem !=null and envVarIsSystem !=''"> and ENV_VAR_IS_SYSTEM like #{envVarIsSystem} </if>
         <if test="envVarDelEnable !=null and envVarDelEnable !=''"> and ENV_VAR_DEL_ENABLE like #{envVarDelEnable} </if>
@@ -29,6 +31,6 @@
     <select id="selectGreaterThanRecord" parameterType="java.lang.String" resultMap="BaseResultMap"><![CDATA[select * from TBUILD_ENV_VARIABLE
  where ENV_VAR_ORDER_NUM = (select min(ENV_VAR_ORDER_NUM) from TBUILD_ENV_VARIABLE where ENV_VAR_ORDER_NUM>(select ENV_VAR_ORDER_NUM from TBUILD_ENV_VARIABLE where ENV_VAR_ID=#{Id,jdbcType=NVARCHAR}))]]></select>
     <select id="selectByValue" resultMap="BaseResultMap">
-        select<include refid="Base_Column_List"/> from TBUILD_ENV_VARIABLE where ENV_VAR_VALUE=${envVarValue}
+        select<include refid="Base_Column_List"/> from TBUILD_ENV_VARIABLE where ENV_VAR_VALUE=#{envVarValue}
     </select>
 </mapper>

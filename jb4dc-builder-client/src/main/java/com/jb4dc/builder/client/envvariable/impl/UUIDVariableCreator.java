@@ -1,4 +1,4 @@
-package com.jb4dc.builder.extend.apivariable.impl;
+package com.jb4dc.builder.client.envvariable.impl;
 
 /**
  * Created with IntelliJ IDEA.

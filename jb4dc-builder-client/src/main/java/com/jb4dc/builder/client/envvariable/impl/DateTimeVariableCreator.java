@@ -1,7 +1,7 @@
-package com.jb4dc.builder.extend.apivariable.impl;
+package com.jb4dc.builder.client.envvariable.impl;
 
 
-import com.jb4dc.builder.extend.apivariable.IAPIVariableCreator;
+import com.jb4dc.builder.client.envvariable.IAPIVariableCreator;
 import com.jb4dc.builder.po.EnvVariablePO;
 import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
 import com.jb4dc.core.base.session.JB4DCSession;
@@ -23,7 +23,7 @@ public class DateTimeVariableCreator implements IAPIVariableCreator {
             String result;
             Date date = new Date();
             SimpleDateFormat formatter = new SimpleDateFormat();
-            formatter.applyPattern(vo.getPara());
+            formatter.applyPattern(vo.getEnvVarClassPara());
             result = formatter.format(date);
             return result;
         }

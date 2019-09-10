@@ -1,4 +1,4 @@
-package com.jb4dc.builder.extend.apivariable;
+package com.jb4dc.builder.client.envvariable;
 
 import com.jb4dc.builder.po.EnvVariablePO;
 import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;

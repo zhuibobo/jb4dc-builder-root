@@ -1,7 +1,7 @@
 package com.jb4dc.builder.service.envvariable.impl;
 
 import com.jb4dc.builder.client.service.IEnvVariableClientService;
-import com.jb4dc.builder.extend.apivariable.IAPIVariableCreator;
+import com.jb4dc.builder.client.envvariable.IAPIVariableCreator;
 import com.jb4dc.builder.po.EnvVariablePO;
 import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
 import com.jb4dc.core.base.list.IListWhereCondition;
@@ -31,7 +31,7 @@ import java.util.List;
  * To change this template use File | Settings | File Templates.
  */
 
-@Service
+/*@Service
 public class EnvVariableServiceImpl1 implements IEnvVariableClientService {
 
     static String configResource= "/config/envvariable/env-variable-config.xml";
@@ -113,7 +113,7 @@ public class EnvVariableServiceImpl1 implements IEnvVariableClientService {
     }
 
     private List<EnvVariablePO> getVoListFromCache() throws JBuild4DCGenerallyException {
-        /*List<EnvVariableVo> allEnvVariableVoList=null;
+        *//*List<EnvVariableVo> allEnvVariableVoList=null;
         if(jb4dCacheService.sysRunStatusIsDebug()){
             allEnvVariableVoList=loadDocumentToVoList();
             return allEnvVariableVoList;
@@ -126,7 +126,7 @@ public class EnvVariableServiceImpl1 implements IEnvVariableClientService {
                 return allEnvVariableVoList;
             }
             return allEnvVariableVoList;
-        }*/
+        }*//*
         return loadDocumentToVoList();
     }
 
@@ -138,10 +138,10 @@ public class EnvVariableServiceImpl1 implements IEnvVariableClientService {
             xmlDocument = XMLDocumentUtility.parseForDoc(inputStream);
             validateDocumentEnable(xmlDocument);
             allEnvVariableVoList = new ArrayList<>();
-            /*List<Node> nodes = XMLUtility.parseForNodeList(xmlDocument, "//EnvVariable");
+            *//*List<Node> nodes = XMLUtility.parseForNodeList(xmlDocument, "//EnvVariable");
             for (Node node : nodes) {
                 allEnvVariableVoList.add(EnvVariableVo.parseEnvVarNode(node, "", ""));
-            }*/
+            }*//*
             Node groupRootNode = XMLDocumentUtility.parseForNode(xmlDocument, "/Config/Type[@Value='DateTime']/Group");
             EnvVariablePO groupRootVo = EnvVariablePO.parseGroupNode(groupRootNode, "-1", "DateTime");
             allEnvVariableVoList.add(groupRootVo);
@@ -203,4 +203,4 @@ public class EnvVariableServiceImpl1 implements IEnvVariableClientService {
             voList.add(vo);
         }
     }
-}
+}*/

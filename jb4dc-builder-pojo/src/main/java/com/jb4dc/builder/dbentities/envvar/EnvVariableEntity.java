@@ -28,6 +28,12 @@ public class EnvVariableEntity {
     //ENV_VAR_CLASS_PARA:处理方法参数
     private String envVarClassPara;
 
+    //ENV_VAR_REST:REST环境变量
+    private String envVarRest;
+
+    //ENV_VAR_REST_PARA:REST环境变量
+    private String envVarRestPara;
+
     //ENV_VAR_GROUP_ID:分组ID:环境变量所属的分组的ID
     private String envVarGroupId;
 
@@ -81,6 +87,8 @@ public class EnvVariableEntity {
      * @param envVarText 环境变量的显示文本
      * @param envVarClassName 处理类名称
      * @param envVarClassPara 处理方法参数
+     * @param envVarRest REST环境变量
+     * @param envVarRestPara REST环境变量
      * @param envVarGroupId 分组ID
      * @param envVarOrderNum 排序号
      * @param envVarCreateTime 创建时间
@@ -97,12 +105,14 @@ public class EnvVariableEntity {
      * @param envVarOrganId 创建组织ID
      * @param envVarOrganName 创建组织名称
      **/
-    public EnvVariableEntity(String envVarId, String envVarValue, String envVarText, String envVarClassName, String envVarClassPara, String envVarGroupId, Integer envVarOrderNum, Date envVarCreateTime, String envVarIsSystem, String envVarDelEnable, String envVarStatus, String envVarDesc, String envVarExAttr1, String envVarExAttr2, String envVarExAttr3, String envVarExAttr4, String envVarUserId, String envVarUserName, String envVarOrganId, String envVarOrganName) {
+    public EnvVariableEntity(String envVarId, String envVarValue, String envVarText, String envVarClassName, String envVarClassPara, String envVarRest, String envVarRestPara, String envVarGroupId, Integer envVarOrderNum, Date envVarCreateTime, String envVarIsSystem, String envVarDelEnable, String envVarStatus, String envVarDesc, String envVarExAttr1, String envVarExAttr2, String envVarExAttr3, String envVarExAttr4, String envVarUserId, String envVarUserName, String envVarOrganId, String envVarOrganName) {
         this.envVarId = envVarId;
         this.envVarValue = envVarValue;
         this.envVarText = envVarText;
         this.envVarClassName = envVarClassName;
         this.envVarClassPara = envVarClassPara;
+        this.envVarRest = envVarRest;
+        this.envVarRestPara = envVarRestPara;
         this.envVarGroupId = envVarGroupId;
         this.envVarOrderNum = envVarOrderNum;
         this.envVarCreateTime = envVarCreateTime;
@@ -202,6 +212,38 @@ public class EnvVariableEntity {
      **/
     public void setEnvVarClassPara(String envVarClassPara) {
         this.envVarClassPara = envVarClassPara == null ? null : envVarClassPara.trim();
+    }
+
+    /**
+     * REST环境变量
+     * @return java.lang.String
+     **/
+    public String getEnvVarRest() {
+        return envVarRest;
+    }
+
+    /**
+     * REST环境变量
+     * @param envVarRest REST环境变量
+     **/
+    public void setEnvVarRest(String envVarRest) {
+        this.envVarRest = envVarRest == null ? null : envVarRest.trim();
+    }
+
+    /**
+     * REST环境变量
+     * @return java.lang.String
+     **/
+    public String getEnvVarRestPara() {
+        return envVarRestPara;
+    }
+
+    /**
+     * REST环境变量
+     * @param envVarRestPara REST环境变量
+     **/
+    public void setEnvVarRestPara(String envVarRestPara) {
+        this.envVarRestPara = envVarRestPara == null ? null : envVarRestPara.trim();
     }
 
     /**

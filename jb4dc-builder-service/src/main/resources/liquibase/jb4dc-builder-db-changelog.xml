@@ -504,6 +504,8 @@
             <column name="ENV_VAR_CLASS_PARA" type="NVARCHAR(400)" remarks="处理方法参数">
                 <constraints nullable="false"/>
             </column>
+            <column name="ENV_VAR_REST" type="NVARCHAR(400)" remarks="REST环境变量" />
+            <column name="ENV_VAR_REST_PARA" type="NVARCHAR(400)" remarks="REST环境变量" />
             <column name="ENV_VAR_GROUP_ID" type="NVARCHAR(100)" remarks="分组ID:环境变量所属的分组的ID">
                 <constraints nullable="false"/>
             </column>

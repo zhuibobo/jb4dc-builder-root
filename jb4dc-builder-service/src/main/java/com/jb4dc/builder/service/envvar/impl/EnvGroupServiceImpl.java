@@ -41,7 +41,7 @@ public class EnvGroupServiceImpl extends BaseServiceImpl<EnvGroupEntity> impleme
             //
             EnvGroupEntity tempEntity = envGroupMapper.selectByValue(sourceEntity.getEnvGroupValue());
             if (tempEntity != null) {
-                throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_BUILDER_CODE, "Value必须唯一!");
+                throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_BUILDER_CODE, "["+tempEntity.getEnvGroupValue()+"]Value必须唯一!");
             }
 
             //设置排序,以及其他参数--nextOrderNum()
@@ -65,7 +65,7 @@ public class EnvGroupServiceImpl extends BaseServiceImpl<EnvGroupEntity> impleme
         }, (jb4DCSession12, sourceEntity) -> {
             EnvGroupEntity tempEntity = envGroupMapper.selectByValue(sourceEntity.getEnvGroupValue());
             if(tempEntity!=null&&!tempEntity.getEnvGroupId().equals(sourceEntity.getEnvGroupId())){
-                throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_BUILDER_CODE, "Value必须唯一!");
+                throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_BUILDER_CODE, "["+tempEntity.getEnvGroupValue()+"]Value必须唯一!");
             }
             return sourceEntity;
         });
@@ -76,15 +76,24 @@ public class EnvGroupServiceImpl extends BaseServiceImpl<EnvGroupEntity> impleme
     public static String ENV_GROUP_SYSTEM="ENV_GROUP_SYSTEM";
     public static String ENV_GROUP_NUMBER_CODE="ENV_GROUP_NUMBER_CODE";
     public static String ENV_GROUP_ID_CODE="ENV_GROUP_ID_CODE";
+    public static String ENV_GROUP_DEV_MOCK="ENV_GROUP_DEV_MOCK";
 
     @Override
     public void initSystemData(JB4DCSession jb4DCSession) throws JBuild4DCGenerallyException {
         EnvGroupEntity rootGroupEntity=create(jb4DCSession,rootId,rootParentId,"环境变量分组","环境变量分组");
-        create(jb4DCSession,ENV_GROUP_STATIC,rootGroupEntity.getEnvGroupId(),"静态值",ENV_GROUP_STATIC);
-        create(jb4DCSession,ENV_GROUP_DATETIME,rootGroupEntity.getEnvGroupId(),"时间日期",ENV_GROUP_DATETIME);
-        create(jb4DCSession,ENV_GROUP_SYSTEM,rootGroupEntity.getEnvGroupId(),"系统变量",ENV_GROUP_SYSTEM);
-        create(jb4DCSession,ENV_GROUP_NUMBER_CODE,rootGroupEntity.getEnvGroupId(),"序号编码",ENV_GROUP_NUMBER_CODE);
-        create(jb4DCSession,ENV_GROUP_ID_CODE,rootGroupEntity.getEnvGroupId(),"主键生成",ENV_GROUP_ID_CODE);
+
+        EnvGroupEntity generalGroupEntity=create(jb4DCSession,"ENV_GROUP_GENERAL",rootGroupEntity.getEnvGroupId(),"通用变量分组","通用变量分组");
+
+        create(jb4DCSession,ENV_GROUP_STATIC,generalGroupEntity.getEnvGroupId(),"静态值",ENV_GROUP_STATIC);
+        create(jb4DCSession,ENV_GROUP_DATETIME,generalGroupEntity.getEnvGroupId(),"时间日期",ENV_GROUP_DATETIME);
+        create(jb4DCSession,ENV_GROUP_SYSTEM,generalGroupEntity.getEnvGroupId(),"系统变量",ENV_GROUP_SYSTEM);
+        create(jb4DCSession,ENV_GROUP_NUMBER_CODE,generalGroupEntity.getEnvGroupId(),"序号编码",ENV_GROUP_NUMBER_CODE);
+        create(jb4DCSession,ENV_GROUP_ID_CODE,generalGroupEntity.getEnvGroupId(),"主键生成",ENV_GROUP_ID_CODE);
+        create(jb4DCSession,ENV_GROUP_DEV_MOCK,generalGroupEntity.getEnvGroupId(),"开发模拟系统",ENV_GROUP_DEV_MOCK);
+
+        EnvGroupEntity businessGroupEntity=create(jb4DCSession,"ENV_GROUP_BUSINESS",rootGroupEntity.getEnvGroupId(),"业务系统分组","业务系统分组");
+
+        EnvGroupEntity mockDevGroupEntity=create(jb4DCSession,"ENV_GROUP_BUSINESS_MOCK_DEV",businessGroupEntity.getEnvGroupId(),"开发模拟系统","开发模拟系统");
     }
 
     private EnvGroupEntity create(JB4DCSession jb4DCSession,String groupId,String parentId,String text,String value) throws JBuild4DCGenerallyException {

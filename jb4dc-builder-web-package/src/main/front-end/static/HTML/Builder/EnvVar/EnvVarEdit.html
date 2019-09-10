@@ -28,6 +28,12 @@
             <form-item label="解析参数：">
                 <i-input v-model="formEntity.envVarClassPara"></i-input>
             </form-item>
+            <form-item label="REST接口地址：">
+                <i-input v-model="formEntity.envVarRest"></i-input>
+            </form-item>
+            <form-item label="REST接口参数：">
+                <i-input v-model="formEntity.envVarRestPara"></i-input>
+            </form-item>
             <form-item label="创建时间：">
                 <row>
                     <i-col span="10">
@@ -97,7 +103,9 @@
                     envVarExAttr2:"",
                     envVarExAttr3:"",
                     envVarExAttr4:"",
-                    envVarGroupId:BaseUtility.GetUrlParaValue("groupId")
+                    envVarGroupId:BaseUtility.GetUrlParaValue("groupId"),
+                    envVarRest:"",
+                    envVarRestPara:""
                 },
                 ruleValidate: {
                     envVarValue: [

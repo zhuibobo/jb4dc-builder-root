@@ -178,6 +178,9 @@
                         if(result.success){
                             if(result.data!=null&&result.data.length>0){
                                 for(var i=0;i<result.data.length;i++) {
+                                    if(result.data[i].envGroupChildCount==0) {
+                                        result.data[i].icon = "../../../Themes/Png16X16/app-view-columns.png";
+                                    }
                                     /*if(result.data[i].dsGroupIssystem=="是"&&result.data[i].dsGroupChildCount==0) {
                                         result.data[i].icon = "../../../Themes/Png16X16/table_key.png";
                                     }

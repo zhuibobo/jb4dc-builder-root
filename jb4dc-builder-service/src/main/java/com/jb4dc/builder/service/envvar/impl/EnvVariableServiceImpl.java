@@ -2,6 +2,8 @@ package com.jb4dc.builder.service.envvar.impl;
 
 import com.jb4dc.base.service.IAddBefore;
 import com.jb4dc.base.service.IUpdateBefore;
+import com.jb4dc.base.service.exenum.EnableTypeEnum;
+import com.jb4dc.base.service.exenum.TrueFalseEnum;
 import com.jb4dc.base.service.impl.BaseServiceImpl;
 import com.jb4dc.builder.dao.envvar.EnvVariableMapper;
 import com.jb4dc.builder.dbentities.envvar.EnvVariableEntity;
@@ -38,7 +40,7 @@ public class EnvVariableServiceImpl extends BaseServiceImpl<EnvVariableEntity> i
                 //设置排序,以及其他参数--nextOrderNum()
                 EnvVariableEntity tempEntity = envVariableMapper.selectByValue(sourceEntity.getEnvVarValue());
                 if (tempEntity != null) {
-                    throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_BUILDER_CODE, "Value必须唯一!");
+                    throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_BUILDER_CODE, "["+tempEntity.getEnvVarValue()+"]Value必须唯一!");
                 }
 
                 sourceEntity.setEnvVarOrderNum(envVariableMapper.nextOrderNum());
@@ -54,7 +56,7 @@ public class EnvVariableServiceImpl extends BaseServiceImpl<EnvVariableEntity> i
             public EnvVariableEntity run(JB4DCSession jb4DCSession, EnvVariableEntity sourceEntity) throws JBuild4DCGenerallyException {
                 EnvVariableEntity tempEntity = envVariableMapper.selectByValue(sourceEntity.getEnvVarValue());
                 if(tempEntity!=null&&!tempEntity.getEnvVarId().equals(sourceEntity.getEnvVarId())){
-                    throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_BUILDER_CODE, "Value必须唯一!");
+                    throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_BUILDER_CODE, "["+tempEntity.getEnvVarValue()+"]Value必须唯一!");
                 }
                 return sourceEntity;
             }
@@ -63,6 +65,47 @@ public class EnvVariableServiceImpl extends BaseServiceImpl<EnvVariableEntity> i
 
     @Override
     public void initSystemData(JB4DCSession jb4DCSession) throws JBuild4DCGenerallyException {
+        create(jb4DCSession,"ENV_STATIC_YES",EnvGroupServiceImpl.ENV_GROUP_STATIC,"是","ENV_STATIC_YES","com.jb4dc.builder.client.envvariable.impl.StaticVariableCreater","是","","");
+        create(jb4DCSession,"ENV_STATIC_NO",EnvGroupServiceImpl.ENV_GROUP_STATIC,"否","ENV_STATIC_NO","com.jb4dc.builder.client.envvariable.impl.StaticVariableCreater","否","","");
+        create(jb4DCSession,"ENV_STATIC_ENABLE",EnvGroupServiceImpl.ENV_GROUP_STATIC,"启用","ENV_STATIC_ENABLE","com.jb4dc.builder.client.envvariable.impl.StaticVariableCreater","启用","","");
+        create(jb4DCSession,"ENV_STATIC_DISABLE",EnvGroupServiceImpl.ENV_GROUP_STATIC,"禁用","ENV_STATIC_DISABLE","com.jb4dc.builder.client.envvariable.impl.StaticVariableCreater","禁用","","");
+        create(jb4DCSession,"ENV_STATIC_DEL",EnvGroupServiceImpl.ENV_GROUP_STATIC,"删除","ENV_STATIC_DEL","com.jb4dc.builder.client.envvariable.impl.StaticVariableCreater","删除","","");
+        create(jb4DCSession,"ENV_STATIC_PROCESS",EnvGroupServiceImpl.ENV_GROUP_STATIC,"待处理","ENV_STATIC_PROCESS","com.jb4dc.builder.client.envvariable.impl.StaticVariableCreater","待处理","","");
+        create(jb4DCSession,"ENV_STATIC_PROCESSED",EnvGroupServiceImpl.ENV_GROUP_STATIC,"已处理","ENV_STATIC_PROCESSED","com.jb4dc.builder.client.envvariable.impl.StaticVariableCreater","已处理","","");
 
+
+        create(jb4DCSession,"ENV_DATETIME_YYYY_MM_DD",EnvGroupServiceImpl.ENV_GROUP_DATETIME,"年年年年-月月-日日","ENV_DATETIME_YYYY_MM_DD","com.jb4dc.builder.client.envvariable.impl.DateTimeVariableCreator","yyyy-MM-dd","","");
+        create(jb4DCSession,"ENV_DATETIME_YYYY_MM_DD_HH_MM_SS",EnvGroupServiceImpl.ENV_GROUP_DATETIME,"年年年年-月月-日日 时:分:秒","ENV_DATETIME_YYYY_MM_DD_HH_MM_SS","com.jb4dc.builder.client.envvariable.impl.DateTimeVariableCreator","yyyy-MM-dd HH:mm:ss","","");
+        create(jb4DCSession,"ENV_DATETIME_YYYY_SMM_SDD",EnvGroupServiceImpl.ENV_GROUP_DATETIME,"年年年年/月月/日日","ENV_DATETIME_YYYY_SMM_SDD","com.jb4dc.builder.client.envvariable.impl.DateTimeVariableCreator","yyyy/MM/dd","","");
+
+        create(jb4DCSession,"ENV_SYSTEM_CURRENT_USER_ORGAN_ID",EnvGroupServiceImpl.ENV_GROUP_SYSTEM,"当前用户所在组织ID","ENV_SYSTEM_CURRENT_USER_ORGAN_ID","com.jb4dc.builder.client.envvariable.impl.UserSessionVariableCreator","ApiVarCurrentUserOrganId","","");
+        create(jb4DCSession,"ENV_SYSTEM_CURRENT_USER_ORGAN_NAME",EnvGroupServiceImpl.ENV_GROUP_SYSTEM,"当前用户所在组织名称","ENV_SYSTEM_CURRENT_USER_ORGAN_NAME","com.jb4dc.builder.client.envvariable.impl.UserSessionVariableCreator","ApiVarCurrentUserOrganName","","");
+        create(jb4DCSession,"ENV_SYSTEM_CURRENT_USER_ID",EnvGroupServiceImpl.ENV_GROUP_SYSTEM,"当前用户ID","ENV_SYSTEM_CURRENT_USER_ID","com.jb4dc.builder.client.envvariable.impl.UserSessionVariableCreator","ApiVarCurrentUserId","","");
+        create(jb4DCSession,"ENV_SYSTEM_CURRENT_USER_NAME",EnvGroupServiceImpl.ENV_GROUP_SYSTEM,"当前用户名称","ENV_SYSTEM_CURRENT_USER_NAME","com.jb4dc.builder.client.envvariable.impl.UserSessionVariableCreator","ApiVarCurrentUserName","","");
+
+        create(jb4DCSession,"ENV_ID_CODE_UUID",EnvGroupServiceImpl.ENV_GROUP_ID_CODE,"通用唯一识别码","ENV_ID_CODE_UUID","com.jb4dc.builder.client.envvariable.impl.UUIDVariableCreater","","","");
+    }
+
+    private EnvVariableEntity create(JB4DCSession jb4DCSession,String envVarId,String groupId,String text,String value,String className,String classPara,String rest,String restPara) throws JBuild4DCGenerallyException {
+        EnvVariableEntity envVariableEntity=new EnvVariableEntity();
+        envVariableEntity.setEnvVarId(envVarId);
+        envVariableEntity.setEnvVarValue(value);
+        envVariableEntity.setEnvVarText(text);
+        envVariableEntity.setEnvVarClassName(className);
+        envVariableEntity.setEnvVarClassPara(classPara);
+        envVariableEntity.setEnvVarRest(rest);
+        envVariableEntity.setEnvVarRestPara(restPara);
+        envVariableEntity.setEnvVarGroupId(groupId);
+        envVariableEntity.setEnvVarIsSystem(TrueFalseEnum.True.getDisplayName());
+        envVariableEntity.setEnvVarDelEnable(TrueFalseEnum.False.getDisplayName());
+        envVariableEntity.setEnvVarStatus(EnableTypeEnum.enable.getDisplayName());
+        envVariableEntity.setEnvVarDesc("");
+        envVariableEntity.setEnvVarExAttr1("");
+        envVariableEntity.setEnvVarExAttr2("");
+        envVariableEntity.setEnvVarExAttr3("");
+        envVariableEntity.setEnvVarExAttr4("");
+
+        this.saveSimple(jb4DCSession,envVariableEntity.getEnvVarId(),envVariableEntity);
+        return envVariableEntity;
     }
 }

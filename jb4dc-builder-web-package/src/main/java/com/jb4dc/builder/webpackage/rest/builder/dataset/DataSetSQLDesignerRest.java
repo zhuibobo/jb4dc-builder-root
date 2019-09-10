@@ -32,7 +32,7 @@ import java.util.List;
 @RestController
 @RequestMapping(value = "/Rest/Builder/DataSet/DataSetSQLDesigner")
 public class DataSetSQLDesignerRest {
-    @Autowired
+    //@Autowired
     IEnvVariableClientService envVariableService;
 
     @Autowired
