@@ -29,6 +29,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.xml.xpath.XPathExpressionException;
+import java.beans.PropertyVetoException;
 import java.io.IOException;
 import java.net.URLDecoder;
 import java.text.ParseException;
@@ -57,14 +58,14 @@ public class TableRest {
     IDbLinkService dbLinkService;
 
     @RequestMapping(value = "/ValidateTableIsNoExist")
-    public JBuild4DCResponseVo validateTableIsExist(String tableName){
+    public JBuild4DCResponseVo validateTableIsExist(String tableName) throws PropertyVetoException, JBuild4DCGenerallyException {
         //TableEntity tableEntity=tableService.getByTableName(tableName);
         JB4DCSession jb4DCSession= JB4DCSessionUtility.getSession();
         if(tableService.existLogicTableName(jb4DCSession,tableName)){
             return JBuild4DCResponseVo.error("已经存在名称为"+tableName+"的逻辑表！");
         }
         else{
-            if(tableService.existLogicTableName(jb4DCSession,tableName)){
+            if(tableService.existPhysicsTableName(jb4DCSession,tableName)){
                 return JBuild4DCResponseVo.error("已经存在名称为"+tableName+"的物理表！");
             }
         }

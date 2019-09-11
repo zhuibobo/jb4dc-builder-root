@@ -86,15 +86,15 @@ public class TableBuilederFace {
         return dbBuidler.updateTable(tableEntity,newFields,updateFields,deleteFields,tableGroupEntity,dbLinkEntity);
     }
 
-    public boolean deleteTable(String tableName, DbLinkEntity dbLinkEntity) throws JBuild4DCSQLKeyWordException, JBuild4DCPhysicalTableException, PropertyVetoException {
+    public boolean deleteTable(String tableName, DbLinkEntity dbLinkEntity,boolean validateDeleteEnable) throws JBuild4DCSQLKeyWordException, JBuild4DCPhysicalTableException, PropertyVetoException {
         TableEntity tableEntity=new TableEntity();
         tableEntity.setTableName(tableName);
-        return dbBuidler.deleteTable(tableEntity,dbLinkEntity);
+        return dbBuidler.deleteTable(tableEntity,dbLinkEntity,validateDeleteEnable);
     }
 
     public boolean deleteTable(TableEntity tableEntity, DbLinkEntity dbLinkEntity) throws JBuild4DCSQLKeyWordException, JBuild4DCPhysicalTableException, PropertyVetoException {
         this.validateTableEntity(tableEntity);
-        return dbBuidler.deleteTable(tableEntity,dbLinkEntity);
+        return dbBuidler.deleteTable(tableEntity,dbLinkEntity,true);
     }
 
     public int recordCount(TableEntity oldTableEntity, DbLinkEntity dbLinkEntity) throws PropertyVetoException {

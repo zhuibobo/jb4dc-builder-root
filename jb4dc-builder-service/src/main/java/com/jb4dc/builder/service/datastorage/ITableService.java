@@ -42,7 +42,7 @@ public interface ITableService extends IBaseService<TableEntity> {
 
     boolean existPhysicsTableName(JB4DCSession jb4DCSession, String tableName) throws JBuild4DCGenerallyException, PropertyVetoException;
 
-    boolean deletePhysicsTable(JB4DCSession jb4DCSession, String tableName, String warningOperationCode) throws JBuild4DCSQLKeyWordException, JBuild4DCPhysicalTableException, JBuild4DCGenerallyException, PropertyVetoException;
+    boolean deletePhysicsTable(JB4DCSession jb4DCSession, String tableName, String warningOperationCode, boolean validateDeleteEnable) throws JBuild4DCSQLKeyWordException, JBuild4DCPhysicalTableException, JBuild4DCGenerallyException, PropertyVetoException;
 
     boolean deleteLogicTableAndFields(JB4DCSession jb4DCSession, String tableName, String warningOperationCode) throws JBuild4DCGenerallyException;
 

@@ -363,11 +363,11 @@ public class TableServiceImpl extends BaseServiceImpl<TableEntity> implements IT
     }
 
     @Override
-    public boolean deletePhysicsTable(JB4DCSession jb4DCSession, String tableName, String warningOperationCode) throws JBuild4DCSQLKeyWordException, JBuild4DCPhysicalTableException, JBuild4DCGenerallyException, PropertyVetoException {
+    public boolean deletePhysicsTable(JB4DCSession jb4DCSession, String tableName, String warningOperationCode, boolean validateDeleteEnable) throws JBuild4DCSQLKeyWordException, JBuild4DCPhysicalTableException, JBuild4DCGenerallyException, PropertyVetoException {
         if(JBuild4DCYaml.getWarningOperationCode().equals(warningOperationCode)) {
             TableEntity tableEntity=tableMapper.selectByTableName(tableName);
             DbLinkEntity dbLinkEntity=dbLinkService.getByPrimaryKey(jb4DCSession,tableEntity.getTableLinkId());
-            return tableBuilederFace.deleteTable(tableName,dbLinkEntity);
+            return tableBuilederFace.deleteTable(tableName,dbLinkEntity,validateDeleteEnable);
         }
         throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_BUILDER_CODE,"删除失败WarningOperationCode错误");
     }

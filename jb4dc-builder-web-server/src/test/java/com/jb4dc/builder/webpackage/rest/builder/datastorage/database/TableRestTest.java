@@ -182,7 +182,7 @@ public class TableRestTest extends TableGroupRestTest {
         JBuild4DCResponseVo responseVo = JsonUtility.toObject(json, JBuild4DCResponseVo.class);
         if (!responseVo.isSuccess()) {
             TableEntity tempTableEntity=tableService.getByTableName(getSession(),newTable.getTableName());
-            tableService.deletePhysicsTable(getSession(),newTable.getTableName(),JBuild4DCYaml.getWarningOperationCode());
+            tableService.deletePhysicsTable(getSession(),newTable.getTableName(),JBuild4DCYaml.getWarningOperationCode(), false);
             tableService.deleteByKeyNotValidate(getSession(),tempTableEntity.getTableId(), JBuild4DCYaml.getWarningOperationCode());
             tableFieldService.deleteByTableId(getSession(),tempTableEntity.getTableId());
         }

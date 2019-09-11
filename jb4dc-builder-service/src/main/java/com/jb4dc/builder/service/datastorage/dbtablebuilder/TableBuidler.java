@@ -76,12 +76,12 @@ public abstract class TableBuidler {
         catch (JBuild4DCPhysicalTableException ex){
             //删除表
             ex.printStackTrace();
-            deleteTable(tableEntity,dbLinkEntity);
+            deleteTable(tableEntity,dbLinkEntity,true);
             throw ex;
         }
         catch (Exception ex){
             ex.printStackTrace();
-            deleteTable(tableEntity,dbLinkEntity);
+            deleteTable(tableEntity,dbLinkEntity,true);
             throw JBuild4DCPhysicalTableException.getCreateTableError(ex);
         }
     }
@@ -131,13 +131,17 @@ public abstract class TableBuidler {
         }
     }
 
-    public boolean deleteTable(TableEntity tableEntity, DbLinkEntity dbLinkEntity) throws JBuild4DCPhysicalTableException, PropertyVetoException {
+    public boolean deleteTable(TableEntity tableEntity, DbLinkEntity dbLinkEntity,boolean validateDeleteEnable) throws JBuild4DCPhysicalTableException, PropertyVetoException {
         //DbLinkEntity dbLinkEntity=db
         //如果表中已经存在数据,提示需要先手工删除数据后,才能删除物理表.
-        if(isExistRecord(tableEntity,dbLinkEntity)){
-            //return BuilderResultMessage.getTableExistRecordError(tableEntity.getTableName());
-            throw JBuild4DCPhysicalTableException.getTableExistRecordError(tableEntity.getTableName());
+
+        if(validateDeleteEnable) {
+            if (isExistRecord(tableEntity, dbLinkEntity)) {
+                //return BuilderResultMessage.getTableExistRecordError(tableEntity.getTableName());
+                throw JBuild4DCPhysicalTableException.getTableExistRecordError(tableEntity.getTableName());
+            }
         }
+
         String dropSQL=buildDeleteTableSQL(tableEntity);
                 //"drop table "+tableEntity.getTableName();
         try{
