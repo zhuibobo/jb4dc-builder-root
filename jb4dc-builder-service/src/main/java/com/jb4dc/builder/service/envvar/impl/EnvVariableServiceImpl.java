@@ -42,6 +42,10 @@ public class EnvVariableServiceImpl extends BaseServiceImpl<EnvVariableEntity> i
                 if (tempEntity != null) {
                     throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_BUILDER_CODE, "["+tempEntity.getEnvVarValue()+"]Value必须唯一!");
                 }
+                tempEntity = envVariableMapper.selectByText(sourceEntity.getEnvVarText());
+                if (tempEntity != null) {
+                    throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_BUILDER_CODE, "["+tempEntity.getEnvVarText()+"]Text必须唯一!");
+                }
 
                 sourceEntity.setEnvVarOrderNum(envVariableMapper.nextOrderNum());
                 sourceEntity.setEnvVarCreateTime(new Date());
@@ -58,6 +62,10 @@ public class EnvVariableServiceImpl extends BaseServiceImpl<EnvVariableEntity> i
                 if(tempEntity!=null&&!tempEntity.getEnvVarId().equals(sourceEntity.getEnvVarId())){
                     throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_BUILDER_CODE, "["+tempEntity.getEnvVarValue()+"]Value必须唯一!");
                 }
+                tempEntity = envVariableMapper.selectByValue(sourceEntity.getEnvVarValue());
+                if(tempEntity!=null&&!tempEntity.getEnvVarId().equals(sourceEntity.getEnvVarId())){
+                    throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_BUILDER_CODE, "["+tempEntity.getEnvVarText()+"]Text必须唯一!");
+                }
                 return sourceEntity;
             }
         });
@@ -65,13 +73,13 @@ public class EnvVariableServiceImpl extends BaseServiceImpl<EnvVariableEntity> i
 
     @Override
     public void initSystemData(JB4DCSession jb4DCSession) throws JBuild4DCGenerallyException {
-        create(jb4DCSession,"ENV_STATIC_YES",EnvGroupServiceImpl.ENV_GROUP_STATIC,"是","ENV_STATIC_YES","com.jb4dc.builder.client.envvariable.impl.StaticVariableCreater","是","","");
-        create(jb4DCSession,"ENV_STATIC_NO",EnvGroupServiceImpl.ENV_GROUP_STATIC,"否","ENV_STATIC_NO","com.jb4dc.builder.client.envvariable.impl.StaticVariableCreater","否","","");
-        create(jb4DCSession,"ENV_STATIC_ENABLE",EnvGroupServiceImpl.ENV_GROUP_STATIC,"启用","ENV_STATIC_ENABLE","com.jb4dc.builder.client.envvariable.impl.StaticVariableCreater","启用","","");
-        create(jb4DCSession,"ENV_STATIC_DISABLE",EnvGroupServiceImpl.ENV_GROUP_STATIC,"禁用","ENV_STATIC_DISABLE","com.jb4dc.builder.client.envvariable.impl.StaticVariableCreater","禁用","","");
-        create(jb4DCSession,"ENV_STATIC_DEL",EnvGroupServiceImpl.ENV_GROUP_STATIC,"删除","ENV_STATIC_DEL","com.jb4dc.builder.client.envvariable.impl.StaticVariableCreater","删除","","");
-        create(jb4DCSession,"ENV_STATIC_PROCESS",EnvGroupServiceImpl.ENV_GROUP_STATIC,"待处理","ENV_STATIC_PROCESS","com.jb4dc.builder.client.envvariable.impl.StaticVariableCreater","待处理","","");
-        create(jb4DCSession,"ENV_STATIC_PROCESSED",EnvGroupServiceImpl.ENV_GROUP_STATIC,"已处理","ENV_STATIC_PROCESSED","com.jb4dc.builder.client.envvariable.impl.StaticVariableCreater","已处理","","");
+        create(jb4DCSession,"ENV_STATIC_YES",EnvGroupServiceImpl.ENV_GROUP_STATIC,"静态值-是","ENV_STATIC_YES","com.jb4dc.builder.client.envvariable.impl.StaticVariableCreater","是","","");
+        create(jb4DCSession,"ENV_STATIC_NO",EnvGroupServiceImpl.ENV_GROUP_STATIC,"静态值-否","ENV_STATIC_NO","com.jb4dc.builder.client.envvariable.impl.StaticVariableCreater","否","","");
+        create(jb4DCSession,"ENV_STATIC_ENABLE",EnvGroupServiceImpl.ENV_GROUP_STATIC,"静态值-启用","ENV_STATIC_ENABLE","com.jb4dc.builder.client.envvariable.impl.StaticVariableCreater","启用","","");
+        create(jb4DCSession,"ENV_STATIC_DISABLE",EnvGroupServiceImpl.ENV_GROUP_STATIC,"静态值-禁用","ENV_STATIC_DISABLE","com.jb4dc.builder.client.envvariable.impl.StaticVariableCreater","禁用","","");
+        create(jb4DCSession,"ENV_STATIC_DEL",EnvGroupServiceImpl.ENV_GROUP_STATIC,"静态值-删除","ENV_STATIC_DEL","com.jb4dc.builder.client.envvariable.impl.StaticVariableCreater","删除","","");
+        create(jb4DCSession,"ENV_STATIC_PROCESS",EnvGroupServiceImpl.ENV_GROUP_STATIC,"静态值-待处理","ENV_STATIC_PROCESS","com.jb4dc.builder.client.envvariable.impl.StaticVariableCreater","待处理","","");
+        create(jb4DCSession,"ENV_STATIC_PROCESSED",EnvGroupServiceImpl.ENV_GROUP_STATIC,"静态值-已处理","ENV_STATIC_PROCESSED","com.jb4dc.builder.client.envvariable.impl.StaticVariableCreater","已处理","","");
 
 
         create(jb4DCSession,"ENV_DATETIME_YYYY_MM_DD",EnvGroupServiceImpl.ENV_GROUP_DATETIME,"年年年年-月月-日日","ENV_DATETIME_YYYY_MM_DD","com.jb4dc.builder.client.envvariable.impl.DateTimeVariableCreator","yyyy-MM-dd","","");

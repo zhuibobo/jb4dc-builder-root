@@ -33,4 +33,7 @@
     <select id="selectByValue" resultMap="BaseResultMap">
         select<include refid="Base_Column_List"/> from TBUILD_ENV_VARIABLE where ENV_VAR_VALUE=#{envVarValue}
     </select>
+    <select id="selectByText" resultMap="BaseResultMap">
+        select<include refid="Base_Column_List"/> from TBUILD_ENV_VARIABLE where ENV_VAR_TEXT=#{envVarText}
+    </select>
 </mapper>

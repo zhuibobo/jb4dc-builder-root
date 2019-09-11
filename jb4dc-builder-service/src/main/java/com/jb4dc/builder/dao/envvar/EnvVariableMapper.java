@@ -12,4 +12,6 @@ import org.apache.ibatis.annotations.Param;
  */
 public interface EnvVariableMapper extends BaseMapper<EnvVariableEntity> {
     EnvVariableEntity selectByValue(@Param("envVarValue") String envVarValue);
+
+    EnvVariableEntity selectByText(@Param("envVarText") String envVarText);
 }
