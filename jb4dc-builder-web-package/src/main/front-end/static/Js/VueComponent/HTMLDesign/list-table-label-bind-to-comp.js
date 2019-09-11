@@ -79,7 +79,7 @@ Vue.component("list-table-label-bind-to-comp", {
         defaultValueProp:function (newValue) {
             this.defaultValue=newValue;
             if(!StringUtility.IsNullOrEmpty(this.defaultValue.defaultType)){
-                this.tempData.defaultDisplayText=JBuild4DSelectView.SelectEnvVariable.formatText(this.defaultValue.defaultType,this.defaultValue.defaultText);
+                this.tempData.defaultDisplayText=DefaultValueUtility.formatText(this.defaultValue.defaultType,this.defaultValue.defaultText);
             }
         }
     },
@@ -139,7 +139,7 @@ Vue.component("list-table-label-bind-to-comp", {
             console.log(bindProp);
             this.bindProp = bindProp;
             this.defaultValue = defaultValue;
-            this.tempData.defaultDisplayText = JBuild4DSelectView.SelectEnvVariable.formatText(this.defaultValue.defaultType, this.defaultValue.defaultText);
+            this.tempData.defaultDisplayText = DefaultValueUtility.formatText(this.defaultValue.defaultType, this.defaultValue.defaultText);
         },
         /*绑定默认值*/
         selectDefaultValueView:function () {
@@ -151,7 +151,7 @@ Vue.component("list-table-label-bind-to-comp", {
                 this.defaultValue.defaultType = result.Type;
                 this.defaultValue.defaultValue = result.Value;
                 this.defaultValue.defaultText = result.Text;
-                this.tempData.defaultDisplayText = JBuild4DSelectView.SelectEnvVariable.formatText(this.defaultValue.defaultType, this.defaultValue.defaultText);
+                this.tempData.defaultDisplayText = DefaultValueUtility.formatText(this.defaultValue.defaultType, this.defaultValue.defaultText);
             }
             else {
                 this.defaultValue.defaultType = "";

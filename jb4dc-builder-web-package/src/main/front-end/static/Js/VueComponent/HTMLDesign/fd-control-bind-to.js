@@ -38,7 +38,7 @@ Vue.component("fd-control-bind-to", {
         defaultValueProp:function (newValue) {
             this.defaultValue=newValue;
             if(!StringUtility.IsNullOrEmpty(this.defaultValue.defaultType)){
-                this.tempData.defaultDisplayText=JBuild4DSelectView.SelectEnvVariable.formatText(this.defaultValue.defaultType,this.defaultValue.defaultText);
+                this.tempData.defaultDisplayText=DefaultValueUtility.formatText(this.defaultValue.defaultType,this.defaultValue.defaultText);
             }
         },
         validateRulesProp:function (newValue) {
@@ -108,7 +108,7 @@ Vue.component("fd-control-bind-to", {
                 this.defaultValue.defaultType = result.Type;
                 this.defaultValue.defaultValue = result.Value;
                 this.defaultValue.defaultText = result.Text;
-                this.tempData.defaultDisplayText = JBuild4DSelectView.SelectEnvVariable.formatText(this.defaultValue.defaultType, this.defaultValue.defaultText);
+                this.tempData.defaultDisplayText = DefaultValueUtility.formatText(this.defaultValue.defaultType, this.defaultValue.defaultText);
             }
             else {
                 this.defaultValue.defaultType = "";
