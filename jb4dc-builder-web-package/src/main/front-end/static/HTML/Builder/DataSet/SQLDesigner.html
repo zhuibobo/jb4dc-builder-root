@@ -277,7 +277,7 @@
                         align: "center",
                         render: function (h, params) {
                             return h('div',{class: "list-row-button-wrap"},[
-                                ListPageUtility.IViewTableInnerButton.SelectedButton(h, params, "envVarId", _self),
+                                ListPageUtility.IViewTableInnerButton.SelectedButton(h, params, "envVarId", sqlDesignerForm,sqlDesignerForm.insertEnvVarToEditor)
                             ]);
                         }
                     }
@@ -380,6 +380,10 @@
                             _self.envVarTableData=result.data.list;
                         }
                     }, this);
+                },
+                insertEnvVarToEditor:function(id,para) {
+                    console.log(para);
+                    sqlDesignerForm.insertCodeAtCursor("#\{EnvVar." + para.row.envVarText + "}");
                 },
                 bindData:function(result){
                     //this.tree.datetimeTreeData=result.exKVData.datetimeTreeData;
