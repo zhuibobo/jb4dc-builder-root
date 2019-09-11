@@ -7,7 +7,7 @@ import com.jb4dc.base.service.exenum.TrueFalseEnum;
 import com.jb4dc.base.service.impl.BaseServiceImpl;
 import com.jb4dc.builder.dao.envvar.EnvVariableMapper;
 import com.jb4dc.builder.dbentities.envvar.EnvVariableEntity;
-import com.jb4dc.builder.service.envvar.IEnvVariableService;
+import com.jb4dc.builder.client.service.IEnvVariableService;
 import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
 import com.jb4dc.core.base.session.JB4DCSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -115,5 +115,19 @@ public class EnvVariableServiceImpl extends BaseServiceImpl<EnvVariableEntity> i
 
         this.saveSimple(jb4DCSession,envVariableEntity.getEnvVarId(),envVariableEntity);
         return envVariableEntity;
+    }
+
+    @Override
+    public String getValueByText(String name){
+        EnvVariableEntity tempEntity = envVariableMapper.selectByText(name);
+        if (tempEntity != null) {
+            return tempEntity.getEnvVarValue();
+        }
+        return "";
+    }
+
+    @Override
+    public EnvVariableEntity getEntityByValue(String value) {
+        return envVariableMapper.selectByValue(value);
     }
 }

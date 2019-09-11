@@ -1,5 +1,6 @@
 package com.jb4dc.builder.client.envvariable;
 
+import com.jb4dc.builder.dbentities.envvar.EnvVariableEntity;
 import com.jb4dc.builder.po.EnvVariablePO;
 import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
 import com.jb4dc.core.base.session.JB4DCSession;
@@ -16,5 +17,5 @@ public interface IAPIVariableCreator {
     Document doc=null;
     Node node=null;
 
-    String createVar(JB4DCSession jb4DCSession, EnvVariablePO vo) throws JBuild4DCGenerallyException;
+    String createVar(JB4DCSession jb4DCSession, EnvVariableEntity envVariableEntity) throws JBuild4DCGenerallyException;
 }

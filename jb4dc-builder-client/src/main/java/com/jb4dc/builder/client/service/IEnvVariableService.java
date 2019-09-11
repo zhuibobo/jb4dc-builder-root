@@ -1,4 +1,4 @@
-package com.jb4dc.builder.service.envvar;
+package com.jb4dc.builder.client.service;
 
 import com.jb4dc.base.service.IBaseService;
 import com.jb4dc.builder.dbentities.envvar.EnvVariableEntity;
@@ -13,4 +13,8 @@ import com.jb4dc.core.base.session.JB4DCSession;
  */
 public interface IEnvVariableService extends IBaseService<EnvVariableEntity> {
     void initSystemData(JB4DCSession jb4DCSession) throws JBuild4DCGenerallyException;
+
+    String getValueByText(String name);
+
+    EnvVariableEntity getEntityByValue(String value);
 }

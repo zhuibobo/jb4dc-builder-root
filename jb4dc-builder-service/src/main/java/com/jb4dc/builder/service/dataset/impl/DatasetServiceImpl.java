@@ -21,7 +21,8 @@ import com.jb4dc.builder.service.dataset.IDatasetService;
 import com.jb4dc.builder.service.dataset.builder.SQLDataSetBuilder;
 import com.jb4dc.builder.service.datastorage.ITableFieldService;
 import com.jb4dc.builder.service.datastorage.ITableService;
-import com.jb4dc.builder.client.service.IEnvVariableClientService;
+import com.jb4dc.builder.client.service.IEnvVariableClientResolveService;
+import com.jb4dc.builder.client.service.IEnvVariableService;
 import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
 import com.jb4dc.core.base.list.IListWhereCondition;
 import com.jb4dc.core.base.list.ListUtility;
@@ -62,8 +63,9 @@ public class DatasetServiceImpl extends BaseServiceImpl<DatasetEntity> implement
     IBuilderConfigService builderConfigService;
     ITableService tableService;
     ITableFieldService tableFieldService;
-    IEnvVariableClientService envVariableService;
+    IEnvVariableClientResolveService envVariableClientResolveService;
     ISQLBuilderMapper sqlBuilderMapper;
+    IEnvVariableService envVariableService;
 
     Logger logger = LoggerFactory.getLogger(DatasetServiceImpl.class);
 
@@ -74,7 +76,7 @@ public class DatasetServiceImpl extends BaseServiceImpl<DatasetEntity> implement
     public DatasetServiceImpl(DatasetMapper _defaultBaseMapper,
                               SqlSessionTemplate _sqlSessionTemplate, JdbcOperations _jdbcOperations,
                               IBuilderConfigService _builderConfigService, ITableService _tableService, ITableFieldService _tableFieldService,
-                              IDatasetRelatedTableService _datasetRelatedTableService, IDatasetColumnService _datasetColumnService, ISQLBuilderMapper _sqlBuilderMapper){
+                              IDatasetRelatedTableService _datasetRelatedTableService, IDatasetColumnService _datasetColumnService, ISQLBuilderMapper _sqlBuilderMapper, IEnvVariableService _envVariableService, IEnvVariableClientResolveService _envVariableClientResolveService){
         super(_defaultBaseMapper);
         datasetMapper=_defaultBaseMapper;
         jdbcOperations=_jdbcOperations;
@@ -85,6 +87,8 @@ public class DatasetServiceImpl extends BaseServiceImpl<DatasetEntity> implement
         datasetRelatedTableService=_datasetRelatedTableService;
         datasetColumnService=_datasetColumnService;
         sqlBuilderMapper=_sqlBuilderMapper;
+        envVariableClientResolveService=_envVariableClientResolveService;
+        envVariableService=_envVariableService;
     }
 
     @Override
@@ -282,14 +286,14 @@ public class DatasetServiceImpl extends BaseServiceImpl<DatasetEntity> implement
             for (Map.Entry<String, String> textPara : aboutTextParas.entrySet()) {
                 String fullValue=textPara.getKey().split("\\.")[0];
                 String envName=textPara.getKey().substring(textPara.getKey().indexOf(".")+1).replace("}","");
-                String envValue=envVariableService.getValueByName(envName);
+                String envValue=envVariableService.getValueByText(envName);
                 if(envValue.equals("")){
                     throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_BUILDER_CODE,"将变量从"+envValue+"装换为Value时，找不到对应的数据！");
                 }
 
                 fullValue=fullValue+"."+envValue+"}";
                 try {
-                    aboutValueParas.put(fullValue,envVariableService.execEnvVarResult(jb4DCSession,envValue));
+                    aboutValueParas.put(fullValue,envVariableClientResolveService.execEnvVarResult(jb4DCSession,envValue));
                     textPara.setValue(fullValue);
                 }
                 catch (Exception ex){
@@ -317,7 +321,7 @@ public class DatasetServiceImpl extends BaseServiceImpl<DatasetEntity> implement
                 //将变量的Value转换为运行时的值
                 String envValue = m.group().substring(m.group().indexOf(".")+1).replace("}","");
                 try {
-                    String runValue=envVariableService.execEnvVarResult(jb4DCSession,envValue);
+                    String runValue=envVariableClientResolveService.execEnvVarResult(jb4DCSession,envValue);
                     String t1=m.group().replace("{","\\{");
                     sqlRunValue=sqlRunValue.replaceAll(t1,runValue);
                 } catch (Exception ex) {

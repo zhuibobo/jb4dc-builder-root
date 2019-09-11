@@ -22,7 +22,7 @@ import java.util.Map;
  * Created with IntelliJ IDEA.
  * User: zhuangrb
  * Date: 2019/8/28
- * To change this template use File | Settings | File Templates.
+ * jb4dc-builder-web-package中存在相同url的bean,在构件系统本身启用时排除掉当前的bean
  */
 @RestController
 @RequestMapping(value = "/Rest/Builder/RunTime/DataSetRuntime")

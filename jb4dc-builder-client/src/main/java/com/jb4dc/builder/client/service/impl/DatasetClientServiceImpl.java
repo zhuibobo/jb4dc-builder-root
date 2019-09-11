@@ -3,7 +3,7 @@ package com.jb4dc.builder.client.service.impl;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.jb4dc.builder.client.service.IDatasetClientService;
-import com.jb4dc.builder.client.service.IEnvVariableClientService;
+import com.jb4dc.builder.client.service.IEnvVariableClientResolveService;
 import com.jb4dc.builder.po.DataSetPO;
 import com.jb4dc.builder.po.QueryDataSetPO;
 import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
@@ -24,9 +24,10 @@ import java.util.regex.Pattern;
  * Date: 2019/8/28
  * To change this template use File | Settings | File Templates.
  */
-public class DatasetClientService implements IDatasetClientService {
+/*
+public class DatasetClientServiceImpl implements IDatasetClientService {
 
-    IEnvVariableClientService envVariableClientService;
+    IEnvVariableClientResolveService envVariableClientService;
 
     protected boolean validateResolveSqlWithKeyWord(String sql) throws JBuild4DCGenerallyException {
         if(sql.indexOf(";")>0){
@@ -97,3 +98,4 @@ public class DatasetClientService implements IDatasetClientService {
         return null;
     }
 }
+*/

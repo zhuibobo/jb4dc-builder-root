@@ -2,6 +2,7 @@ package com.jb4dc.builder.client.envvariable.impl;
 
 
 import com.jb4dc.builder.client.envvariable.IAPIVariableCreator;
+import com.jb4dc.builder.dbentities.envvar.EnvVariableEntity;
 import com.jb4dc.builder.po.EnvVariablePO;
 import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
 import com.jb4dc.core.base.session.JB4DCSession;
@@ -18,12 +19,12 @@ import java.util.Date;
 public class DateTimeVariableCreator implements IAPIVariableCreator {
 
     @Override
-    public String createVar(JB4DCSession jb4DCSession, EnvVariablePO vo) throws JBuild4DCGenerallyException {
+    public String createVar(JB4DCSession jb4DCSession, EnvVariableEntity envVariableEntity) throws JBuild4DCGenerallyException {
         try {
             String result;
             Date date = new Date();
             SimpleDateFormat formatter = new SimpleDateFormat();
-            formatter.applyPattern(vo.getEnvVarClassPara());
+            formatter.applyPattern(envVariableEntity.getEnvVarClassPara());
             result = formatter.format(date);
             return result;
         }

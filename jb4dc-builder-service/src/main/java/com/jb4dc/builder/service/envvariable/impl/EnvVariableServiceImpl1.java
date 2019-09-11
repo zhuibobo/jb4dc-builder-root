@@ -1,29 +1,5 @@
 package com.jb4dc.builder.service.envvariable.impl;
 
-import com.jb4dc.builder.client.service.IEnvVariableClientService;
-import com.jb4dc.builder.client.envvariable.IAPIVariableCreator;
-import com.jb4dc.builder.po.EnvVariablePO;
-import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
-import com.jb4dc.core.base.list.IListWhereCondition;
-import com.jb4dc.core.base.list.ListUtility;
-import com.jb4dc.core.base.session.JB4DCSession;
-import com.jb4dc.core.base.tools.ClassUtility;
-import com.jb4dc.core.base.tools.FileUtility;
-import com.jb4dc.core.base.tools.StringUtility;
-import com.jb4dc.core.base.tools.XMLDocumentUtility;
-import org.springframework.stereotype.Service;
-import org.w3c.dom.Document;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
-import org.xml.sax.SAXException;
-
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.xpath.XPathExpressionException;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * Created with IntelliJ IDEA.
  * User: zhuangrb
