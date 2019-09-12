@@ -2,6 +2,7 @@ package com.jb4dc.builder.client.service.impl;
 
 import com.jb4dc.base.tools.BeanUtility;
 import com.jb4dc.builder.client.envvariable.IAPIVariableCreator;
+import com.jb4dc.builder.client.remote.EnvVariableRuntimeRemote;
 import com.jb4dc.builder.client.service.IEnvVariableClientResolveService;
 import com.jb4dc.builder.client.service.IEnvVariableService;
 import com.jb4dc.builder.dbentities.envvar.EnvVariableEntity;
@@ -28,6 +29,9 @@ public class EnvVariableClientResolveServiceImpl implements IEnvVariableClientRe
     @Autowired(required = false)
     IEnvVariableService envVariableService;
 
+    @Autowired
+    EnvVariableRuntimeRemote envVariableRuntimeRemote;
+
     @Override
     public String execEnvVarResult(JB4DCSession jb4DCSession, String value) throws JBuild4DCGenerallyException {
         EnvVariableEntity envVariableEntity;
@@ -38,6 +42,7 @@ public class EnvVariableClientResolveServiceImpl implements IEnvVariableClientRe
         else{
             //envVariableEntity=new EnvVariableEntity();
             //则通过rest接口远程获取.
+            envVariableEntity=envVariableRuntimeRemote.getEnvVariableByEnvValue(value).getData();
         }
 
         IAPIVariableCreator varCreater=null;

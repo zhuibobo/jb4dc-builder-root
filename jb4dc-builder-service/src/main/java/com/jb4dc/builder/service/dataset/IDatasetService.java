@@ -43,5 +43,5 @@ public interface IDatasetService extends IBaseService<DatasetEntity> {
 
     DataSetPO getApiDataSetVoStructure(JB4DCSession session, String recordId, String op, String groupId, String fullClassName) throws IllegalAccessException, InstantiationException;
 
-    PageInfo<List<Map<String, Object>>> getDataSetData(JB4DCSession session, QueryDataSetPO queryDataSetPO) throws JBuild4DCGenerallyException;
+    PageInfo<List<Map<String, Object>>> getDataSetData(JB4DCSession session, QueryDataSetPO queryDataSetPO) throws JBuild4DCGenerallyException, IOException;
 }

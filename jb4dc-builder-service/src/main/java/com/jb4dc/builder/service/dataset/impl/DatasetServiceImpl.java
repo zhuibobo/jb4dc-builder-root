@@ -377,72 +377,9 @@ public class DatasetServiceImpl extends BaseServiceImpl<DatasetEntity> implement
     }
 
     @Override
-    public PageInfo<List<Map<String, Object>>> getDataSetData(JB4DCSession session,QueryDataSetPO queryDataSetPO) throws JBuild4DCGenerallyException {
-        DatasetEntity datasetEntity = datasetMapper.selectByPrimaryKey(queryDataSetPO.getDataSetId());
-
-        PageHelper.startPage(queryDataSetPO.getPageNum(), queryDataSetPO.getPageSize());
-        String sql = datasetEntity.getDsSqlSelectValue();
-        sql = sql.toUpperCase();
-        sql = sqlReplaceEnvValueToRunningValue(session, sql);
-        /*sql="select TDEV_TEST_3.*,TDEV_TEST_4.F_TABLE3_ID,'ADDRESS' ADDRESS,'SEX' SEX from TDEV_TEST_3 join TDEV_TEST_4 on TDEV_TEST_3.ID=TDEV_TEST_4.F_TABLE3_ID where TDEV_TEST_3.ID like #{q1} or TDEV_TEST_3.ID like #{q3} order by TDEV_TEST_3.F_ORDER_NUM;";
-
-        Map<String,Object> queryMap=new HashMap<>();
-        queryMap.put("q1","%ID10%");
-        queryMap.put("q2","%ID20%");
-        queryMap.put("q3","%ID20%");*/
-        ResolvedQueryStringPO resolvedQueryStringPO = resolveQueryString(queryDataSetPO);
-        if (StringUtility.isNotEmpty(resolvedQueryStringPO.getWhereString())) {
-            if (sql.indexOf("WHERE") > 0) {
-                sql = sql.replaceAll("(?i)WHERE", "WHERE " + resolvedQueryStringPO.getWhereString() + " AND ");
-            } else {
-                if (sql.indexOf(" ORDER BY ") > 0) {
-                    sql = sql.replaceAll("(?i)ORDER BY", "WHERE " + resolvedQueryStringPO.getWhereString() + " ORDER BY");
-                }
-                sql = sql + " WHERE " + resolvedQueryStringPO.getWhereString();
-            }
-        }
-
-        List<Map<String, Object>> list;
-        if (StringUtility.isNotEmpty(resolvedQueryStringPO.getWhereString())) {
-            list = sqlBuilderMapper.selectList(sql, resolvedQueryStringPO.getQueryMap());
-        } else {
-            list = sqlBuilderMapper.selectList(sql);
-        }
-
-        PageInfo<List<Map<String, Object>>> pageInfo = new PageInfo(list);
-        return pageInfo;
-    }
-
-    private ResolvedQueryStringPO resolveQueryString(QueryDataSetPO queryDataSetPO){
-        ResolvedQueryStringPO resolvedQueryStringPO=new ResolvedQueryStringPO();
-
-        StringBuilder sql=new StringBuilder();
-        Map<String,Object> paras=new HashMap<>();
-        resolvedQueryStringPO.setQueryMap(paras);
-        if(queryDataSetPO.getListQueryPOList()!=null&&queryDataSetPO.getListQueryPOList().size()>0){
-            sql.append("(");
-            List<ListQueryPO> listQueryPOList = queryDataSetPO.getListQueryPOList();
-            for (int i = 0; i < listQueryPOList.size(); i++) {
-                ListQueryPO listQueryPO = listQueryPOList.get(i);
-                if(StringUtility.isNotEmpty(listQueryPO.getValue())) {
-                    String tableName = listQueryPO.getTableName();
-                    String fieldName = listQueryPO.getFieldName();
-                    String value = listQueryPO.getValue();
-                    String operation = listQueryPO.getOperator();
-                    sql.append(tableName + "." + fieldName);
-                    sql.append(ListQueryPO.ConvertSQLOperation(listQueryPO));
-                    String paraName = "P" + i;
-                    sql.append("#{" + paraName + "}");
-                    paras.put(paraName, ListQueryPO.ConvertSQLValue(listQueryPO));
-                    sql.append(" AND ");
-                }
-            }
-            sql=sql.delete(sql.length()-4,sql.length());
-            sql.append(")");
-            resolvedQueryStringPO.setWhereString(sql.toString());
-        }
-
-        return resolvedQueryStringPO;
+    public PageInfo<List<Map<String, Object>>> getDataSetData(JB4DCSession jb4DCSession,QueryDataSetPO queryDataSetPO) throws JBuild4DCGenerallyException, IOException {
+        DataSetPO dataSetPO=getVoByPrimaryKey(jb4DCSession,queryDataSetPO.getDataSetId());
+        return datasetClientService.getDataSetData(jb4DCSession,queryDataSetPO,dataSetPO);
     }
 
     private boolean validateResolveResult(DataSetPO resultVo) throws JBuild4DCGenerallyException {

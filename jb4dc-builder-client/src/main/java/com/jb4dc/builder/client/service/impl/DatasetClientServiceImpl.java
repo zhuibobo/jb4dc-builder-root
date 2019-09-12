@@ -2,14 +2,19 @@ package com.jb4dc.builder.client.service.impl;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.jb4dc.base.dbaccess.dynamic.ISQLBuilderMapper;
 import com.jb4dc.builder.client.service.IDatasetClientService;
 import com.jb4dc.builder.client.service.IEnvVariableClientResolveService;
+import com.jb4dc.builder.dbentities.dataset.DatasetEntity;
 import com.jb4dc.builder.po.DataSetPO;
+import com.jb4dc.builder.po.ListQueryPO;
 import com.jb4dc.builder.po.QueryDataSetPO;
+import com.jb4dc.builder.po.ResolvedQueryStringPO;
 import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
 import com.jb4dc.core.base.list.IListWhereCondition;
 import com.jb4dc.core.base.list.ListUtility;
 import com.jb4dc.core.base.session.JB4DCSession;
+import com.jb4dc.core.base.tools.StringUtility;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.xml.sax.SAXException;
@@ -32,6 +37,13 @@ public class DatasetClientServiceImpl implements IDatasetClientService {
 
     @Autowired
     IEnvVariableClientResolveService envVariableClientResolveService;
+
+    ISQLBuilderMapper sqlBuilderMapper;
+
+    @Autowired
+    public DatasetClientServiceImpl(ISQLBuilderMapper _sqlBuilderMapper) {
+        sqlBuilderMapper=_sqlBuilderMapper;
+    }
 
     @Override
     public boolean validateResolveSqlWithKeyWord(String sql) throws JBuild4DCGenerallyException {
@@ -88,18 +100,72 @@ public class DatasetClientServiceImpl implements IDatasetClientService {
         return sqlRunValue;
     }
 
+    private ResolvedQueryStringPO resolveQueryString(QueryDataSetPO queryDataSetPO){
+        ResolvedQueryStringPO resolvedQueryStringPO=new ResolvedQueryStringPO();
+
+        StringBuilder sql=new StringBuilder();
+        Map<String,Object> paras=new HashMap<>();
+        resolvedQueryStringPO.setQueryMap(paras);
+        if(queryDataSetPO.getListQueryPOList()!=null&&queryDataSetPO.getListQueryPOList().size()>0){
+            sql.append("(");
+            List<ListQueryPO> listQueryPOList = queryDataSetPO.getListQueryPOList();
+            for (int i = 0; i < listQueryPOList.size(); i++) {
+                ListQueryPO listQueryPO = listQueryPOList.get(i);
+                if(StringUtility.isNotEmpty(listQueryPO.getValue())) {
+                    String tableName = listQueryPO.getTableName();
+                    String fieldName = listQueryPO.getFieldName();
+                    String value = listQueryPO.getValue();
+                    String operation = listQueryPO.getOperator();
+                    sql.append(tableName + "." + fieldName);
+                    sql.append(ListQueryPO.ConvertSQLOperation(listQueryPO));
+                    String paraName = "P" + i;
+                    sql.append("#{" + paraName + "}");
+                    paras.put(paraName, ListQueryPO.ConvertSQLValue(listQueryPO));
+                    sql.append(" AND ");
+                }
+            }
+            sql=sql.delete(sql.length()-4,sql.length());
+            sql.append(")");
+            resolvedQueryStringPO.setWhereString(sql.toString());
+        }
+
+        return resolvedQueryStringPO;
+    }
+
     @Override
     public PageInfo<List<Map<String, Object>>> getDataSetData(JB4DCSession session, QueryDataSetPO queryDataSetPO, DataSetPO dataSetPO) throws JBuild4DCGenerallyException {
-        //获取sql语句
-        String sql=dataSetPO.getDsSqlSelectValue();
+        //DatasetEntity datasetEntity = datasetMapper.selectByPrimaryKey(queryDataSetPO.getDataSetId());
 
-        //进行sql语句的解析
+        PageHelper.startPage(queryDataSetPO.getPageNum(), queryDataSetPO.getPageSize());
+        String sql = dataSetPO.getDsSqlSelectValue();
         sql = sql.toUpperCase();
         sql = sqlReplaceEnvValueToRunningValue(session, sql);
+        /*sql="select TDEV_TEST_3.*,TDEV_TEST_4.F_TABLE3_ID,'ADDRESS' ADDRESS,'SEX' SEX from TDEV_TEST_3 join TDEV_TEST_4 on TDEV_TEST_3.ID=TDEV_TEST_4.F_TABLE3_ID where TDEV_TEST_3.ID like #{q1} or TDEV_TEST_3.ID like #{q3} order by TDEV_TEST_3.F_ORDER_NUM;";
 
-        //执行sql语句
-        PageHelper.startPage(queryDataSetPO.getPageNum(), queryDataSetPO.getPageSize());
+        Map<String,Object> queryMap=new HashMap<>();
+        queryMap.put("q1","%ID10%");
+        queryMap.put("q2","%ID20%");
+        queryMap.put("q3","%ID20%");*/
+        ResolvedQueryStringPO resolvedQueryStringPO = resolveQueryString(queryDataSetPO);
+        if (StringUtility.isNotEmpty(resolvedQueryStringPO.getWhereString())) {
+            if (sql.indexOf("WHERE") > 0) {
+                sql = sql.replaceAll("(?i)WHERE", "WHERE " + resolvedQueryStringPO.getWhereString() + " AND ");
+            } else {
+                if (sql.indexOf(" ORDER BY ") > 0) {
+                    sql = sql.replaceAll("(?i)ORDER BY", "WHERE " + resolvedQueryStringPO.getWhereString() + " ORDER BY");
+                }
+                sql = sql + " WHERE " + resolvedQueryStringPO.getWhereString();
+            }
+        }
 
-        return null;
+        List<Map<String, Object>> list;
+        if (StringUtility.isNotEmpty(resolvedQueryStringPO.getWhereString())) {
+            list = sqlBuilderMapper.selectList(sql, resolvedQueryStringPO.getQueryMap());
+        } else {
+            list = sqlBuilderMapper.selectList(sql);
+        }
+
+        PageInfo<List<Map<String, Object>>> pageInfo = new PageInfo(list);
+        return pageInfo;
     }
 }
