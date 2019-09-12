@@ -7,6 +7,7 @@ import com.jb4dc.base.service.IAddBefore;
 import com.jb4dc.base.service.IUpdateBefore;
 import com.jb4dc.base.service.impl.BaseServiceImpl;
 import com.jb4dc.base.ymls.JBuild4DCYaml;
+import com.jb4dc.builder.client.service.IDatasetClientService;
 import com.jb4dc.builder.config.IBuilderConfigService;
 import com.jb4dc.builder.config.IDataSetColumnCaptionConfigService;
 import com.jb4dc.builder.config.impl.DataSetColumnCaptionConfigServiceImpl;
@@ -66,6 +67,7 @@ public class DatasetServiceImpl extends BaseServiceImpl<DatasetEntity> implement
     IEnvVariableClientResolveService envVariableClientResolveService;
     ISQLBuilderMapper sqlBuilderMapper;
     IEnvVariableService envVariableService;
+    IDatasetClientService datasetClientService;
 
     Logger logger = LoggerFactory.getLogger(DatasetServiceImpl.class);
 
@@ -76,7 +78,8 @@ public class DatasetServiceImpl extends BaseServiceImpl<DatasetEntity> implement
     public DatasetServiceImpl(DatasetMapper _defaultBaseMapper,
                               SqlSessionTemplate _sqlSessionTemplate, JdbcOperations _jdbcOperations,
                               IBuilderConfigService _builderConfigService, ITableService _tableService, ITableFieldService _tableFieldService,
-                              IDatasetRelatedTableService _datasetRelatedTableService, IDatasetColumnService _datasetColumnService, ISQLBuilderMapper _sqlBuilderMapper, IEnvVariableService _envVariableService, IEnvVariableClientResolveService _envVariableClientResolveService){
+                              IDatasetRelatedTableService _datasetRelatedTableService, IDatasetColumnService _datasetColumnService, ISQLBuilderMapper _sqlBuilderMapper,
+                              IEnvVariableService _envVariableService, IEnvVariableClientResolveService _envVariableClientResolveService,IDatasetClientService _datasetClientService){
         super(_defaultBaseMapper);
         datasetMapper=_defaultBaseMapper;
         jdbcOperations=_jdbcOperations;
@@ -89,6 +92,7 @@ public class DatasetServiceImpl extends BaseServiceImpl<DatasetEntity> implement
         sqlBuilderMapper=_sqlBuilderMapper;
         envVariableClientResolveService=_envVariableClientResolveService;
         envVariableService=_envVariableService;
+        datasetClientService=_datasetClientService;
     }
 
     @Override
@@ -198,7 +202,7 @@ public class DatasetServiceImpl extends BaseServiceImpl<DatasetEntity> implement
     public DataSetPO resolveSQLToDataSet(JB4DCSession jb4DCSession, String sql) throws JBuild4DCGenerallyException, SAXException, ParserConfigurationException, XPathExpressionException, IOException, PropertyVetoException {
         if(builderConfigService.getResolveSQLEnable()) {
 
-            if(validateResolveSqlWithKeyWord(sql)) {
+            if(datasetClientService.validateResolveSqlWithKeyWord(sql)) {
                 SQLDataSetBuilder sqlDataSetBuilder = new SQLDataSetBuilder();
                 autowireCapableBeanFactory.autowireBean(sqlDataSetBuilder);
                 //sqlDataSetBuilder.setJdbcOperations(jdbcOperations);
@@ -268,14 +272,14 @@ public class DatasetServiceImpl extends BaseServiceImpl<DatasetEntity> implement
     }
 
     @Override
-    public String sqlReplaceEnvTextToEnvValue(JB4DCSession jb4DCSession, String sqlText) throws JBuild4DCGenerallyException, XPathExpressionException, IOException, SAXException, ParserConfigurationException {
+    public String sqlReplaceEnvTextToEnvValue(JB4DCSession jb4DCSession, String sqlText) throws JBuild4DCGenerallyException {
         String sqlValue=sqlText;
         //进行关键字校验
-        if(validateResolveSqlWithKeyWord(sqlText)){
+        if(datasetClientService.validateResolveSqlWithKeyWord(sqlText)){
             Map<String,String> aboutTextParas=new HashMap<>();
             Map<String,String> aboutValueParas=new HashMap<>();
             //进行正则匹配，替换为Value。
-            Pattern p=Pattern.compile("#\\{ApiVar.*?}|#\\{DateTime.*?}|#\\{NumberCode.*?}");
+            Pattern p=Pattern.compile("#\\{EnvVar.*?}|#\\{DateTime.*?}|#\\{NumberCode.*?}");
             Matcher m =p.matcher(sqlText);
             while (m.find()){
                 System.out.println("Found value: " + m.group());
@@ -310,29 +314,9 @@ public class DatasetServiceImpl extends BaseServiceImpl<DatasetEntity> implement
 
     @Override
     public String sqlReplaceEnvValueToRunningValue(JB4DCSession jb4DCSession, String sqlValue) throws JBuild4DCGenerallyException {
-        String sqlRunValue=sqlValue;
-        if(validateResolveSqlWithKeyWord(sqlValue)) {
-            //Map<String,String> aboutValueParas=new HashMap<>();
-            //进行正则匹配，替换为Value。
-            Pattern p=Pattern.compile("#\\{ApiVar.*?}|#\\{DateTime.*?}|#\\{NumberCode.*?}");
-            Matcher m =p.matcher(sqlValue);
-            while (m.find()){
-                System.out.println("Found value: " + m.group());
-                //将变量的Value转换为运行时的值
-                String envValue = m.group().substring(m.group().indexOf(".")+1).replace("}","");
-                try {
-                    String runValue=envVariableClientResolveService.execEnvVarResult(jb4DCSession,envValue);
-                    String t1=m.group().replace("{","\\{");
-                    sqlRunValue=sqlRunValue.replaceAll(t1,runValue);
-                } catch (Exception ex) {
-                    ex.printStackTrace();
-                    throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_BUILDER_CODE,"获取变量：" + envValue + "的运行时值失败！" + ex.getMessage());
-                }
-            }
-
-        }
-        return sqlRunValue;
+        return datasetClientService.sqlReplaceEnvValueToRunningValue(jb4DCSession,sqlValue);
     }
+
 
     @Override
     public String sqlReplaceRunningValueToEmptyFilter(JB4DCSession jb4DCSession, String sqlRunValue) {
@@ -354,9 +338,9 @@ public class DatasetServiceImpl extends BaseServiceImpl<DatasetEntity> implement
         resolveToDataSetVo.setSqlWithEnvText(sqlWithEnvText);
         String sqlReplaceEnvTextToEnvValue=sqlReplaceEnvTextToEnvValue(jb4DCSession,sqlWithEnvText);
         resolveToDataSetVo.setSqlWithEnvValue(sqlReplaceEnvTextToEnvValue);
-        String setSqlWithEnvRunningValue=sqlReplaceEnvValueToRunningValue(jb4DCSession,sqlReplaceEnvTextToEnvValue);
-        resolveToDataSetVo.setSqlWithEnvRunningValue(setSqlWithEnvRunningValue);
-        String sqlReplaceRunningValueToEmptyFilter=sqlReplaceRunningValueToEmptyFilter(jb4DCSession,setSqlWithEnvRunningValue);
+        //String setSqlWithEnvRunningValue=sqlReplaceEnvValueToRunningValue(jb4DCSession,sqlReplaceEnvTextToEnvValue);
+        //resolveToDataSetVo.setSqlWithEnvRunningValue(setSqlWithEnvRunningValue);
+        String sqlReplaceRunningValueToEmptyFilter=sqlReplaceRunningValueToEmptyFilter(jb4DCSession,sqlWithEnvText);
         resolveToDataSetVo.setSqlWithEmptyData(sqlReplaceRunningValueToEmptyFilter);
         DataSetPO dataSetPO =resolveSQLToDataSet(jb4DCSession,sqlReplaceRunningValueToEmptyFilter);
 
@@ -459,34 +443,6 @@ public class DatasetServiceImpl extends BaseServiceImpl<DatasetEntity> implement
         }
 
         return resolvedQueryStringPO;
-    }
-
-    private boolean validateResolveSqlWithKeyWord(String sql) throws JBuild4DCGenerallyException {
-        if(sql.indexOf(";")>0){
-            throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_BUILDER_CODE,"SQL语句【"+sql+"】中不能存在符号【;】");
-        }
-
-        List<String> singleKeyWord=new ArrayList<>();
-        singleKeyWord.add("delete");
-        singleKeyWord.add("drop");
-        singleKeyWord.add("alter");
-        singleKeyWord.add("truncate");
-        singleKeyWord.add("insert");
-        singleKeyWord.add("update");
-        singleKeyWord.add("exec");
-
-        List<String> sqlSingleWord= Arrays.asList(sql.split(" "));
-        for (String s : sqlSingleWord) {
-            if(ListUtility.Where(singleKeyWord, new IListWhereCondition<String>() {
-                @Override
-                public boolean Condition(String item) {
-                    return item.toLowerCase().equals(s);
-                }
-            }).size()>0){
-                throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_BUILDER_CODE,"SQL语句【"+sql+"】中不能存在符号【"+s+"】");
-            }
-        }
-        return true;
     }
 
     private boolean validateResolveResult(DataSetPO resultVo) throws JBuild4DCGenerallyException {

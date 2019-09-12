@@ -330,24 +330,53 @@ var WLDCT_ListTableContainer= {
         if(isReRenderer){
             _rendererDataChainParas.$singleControlElem.html(this._Cache$SingleControlElem.html());
         }
-        DialogUtility.AlertLoading(window,DialogUtility.DialogLoadingId,{ title:"系统提示",hide: { effect: "fade", duration: 500 } },"数据加载中,请稍候....");
-        this._DataSetRuntimeInstance.GetDataSetData({
-            dataSetId:dataSetId,
-            pageSize:pageSize,
-            pageNum:this._CurrentPageNum,
-            listQueryPOList:this._QueryPOList,
-            exValue1:"",
-            exValue2:"",
-            exValue3:""
-        },function (result) {
-            //console.log(result);
-            _rendererDataChainParas.dataSet=result.data;
-            this._DataSet=result.data;
-            this.CreateTable(_rendererDataChainParas.$singleControlElem,this._DataSet);
-            window.setTimeout(function () {
-                DialogUtility.CloseDialog(DialogUtility.DialogLoadingId);
-            },500);
-        },this);
+
+        if(_rendererDataChainParas.listRuntimeInstance.IsPreview()){
+            //alert("预览不会加载数据");
+            var mockDataSet={"total":1000,"list":[],"pageNum":1,"pageSize":5,"size":5,"startRow":1,"endRow":5,"pages":200,"prePage":0,"nextPage":2,"isFirstPage":true,"isLastPage":false,"hasPreviousPage":false,"hasNextPage":true,"navigatePages":8,"navigatepageNums":[1,2,3,4,5,6,7,8],"navigateFirstPage":1,"navigateLastPage":8,"firstPage":1,"lastPage":8};
+            this._DataSet = mockDataSet;
+            this.CreateTable(_rendererDataChainParas.$singleControlElem, mockDataSet);
+            /*this._DataSetRuntimeInstance.GetDataSetData({
+                dataSetId: dataSetId,
+                pageSize: pageSize,
+                pageNum: this._CurrentPageNum,
+                listQueryPOList: this._QueryPOList,
+                exValue1: "",
+                exValue2: "",
+                exValue3: ""
+            }, function (result) {
+                console.log(JsonUtility.JsonToString(result.data));
+                _rendererDataChainParas.dataSet = result.data;
+                this._DataSet = result.data;
+                this.CreateTable(_rendererDataChainParas.$singleControlElem, this._DataSet);
+                window.setTimeout(function () {
+                    DialogUtility.CloseDialog(DialogUtility.DialogLoadingId);
+                }, 500);
+            }, this);*/
+        }
+        else {
+            DialogUtility.AlertLoading(window, DialogUtility.DialogLoadingId, {
+                title: "系统提示",
+                hide: {effect: "fade", duration: 500}
+            }, "数据加载中,请稍候....");
+            this._DataSetRuntimeInstance.GetDataSetData({
+                dataSetId: dataSetId,
+                pageSize: pageSize,
+                pageNum: this._CurrentPageNum,
+                listQueryPOList: this._QueryPOList,
+                exValue1: "",
+                exValue2: "",
+                exValue3: ""
+            }, function (result) {
+                //console.log(result);
+                _rendererDataChainParas.dataSet = result.data;
+                this._DataSet = result.data;
+                this.CreateTable(_rendererDataChainParas.$singleControlElem, this._DataSet);
+                window.setTimeout(function () {
+                    DialogUtility.CloseDialog(DialogUtility.DialogLoadingId);
+                }, 500);
+            }, this);
+        }
     },
     CreateTable:function($singleControlElem,dataSet){
         //var $singleControlElem=_rendererDataChainParas.$singleControlElem;

@@ -8,7 +8,8 @@ var ListRuntime={
     _Prop_Status:"Edit",
     _Prop_Config:{
         RendererToId:null,
-        ListId:""
+        ListId:"",
+        IsPreview:false
     },
     _$RendererToElem:null,
     Initialization:function (_config) {
@@ -106,6 +107,9 @@ var ListRuntime={
             },this);*/
 
         },this);
+    },
+    IsPreview:function () {
+        return this._Prop_Config.IsPreview;
     }
 }
 

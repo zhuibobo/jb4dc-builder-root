@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jb4dc.devmock.dao.DemoGenListMapper">
+    <select id="selectAll" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from TDEV_DEMO_GEN_LIST ORDER by DDGL_ORDER_NUM DESC
+    </select>
+    <select id="selectBySearch" parameterType="java.util.Map" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from TDEV_DEMO_GEN_LIST
+        <where>
+            <if test="ddglKey != null and ddglKey != ''">
+                DDGL_KEY like #{ddglKey}
+            </if>
+            <if test="ddglName != null and ddglName != ''">
+                and DDGL_NAME like #{ddglName}
+            </if>
+            <if test="ddglCreatetime_s != null and ddglCreatetime_s != ''">
+                and DDGL_CREATETIME >= #{ddglCreatetime_s}
+            </if>
+            <if test="ddglCreatetime_e != null and ddglCreatetime_e != ''">
+                and DDGL_CREATETIME &lt;= #{orgCreateTime_e}
+            </if>
+            <if test="ddglBindDicSelected != null and ddglBindDicSelected != ''">
+                and DDGL_BIND_DIC_SELECTED = #{ddglBindDicSelected}
+            </if>
+            <if test="ddglBindDicRadio != null and ddglBindDicRadio != ''">
+                and DDGL_BIND_DIC_RADIO = #{ddglBindDicRadio}
+            </if>
+            <if test="ddglBindDicMucheckbox != null and ddglBindDicMucheckbox != ''">
+                and DDGL_BIND_DIC_MUCHECKBOX like #{ddglBindDicMucheckbox}
+            </if>
+        </where>
+        ORDER by DDGL_ORDER_NUM DESC
+    </select>
+    <delete id="deleteAll">
+        delete from TDEV_DEMO_GEN_LIST
+    </delete>
+    <select id="nextOrderNum" resultType="integer">
+        select case when max(DDGL_ORDER_NUM) is null then 1 else max(DDGL_ORDER_NUM)+1 end ORDERNUM from TDEV_DEMO_GEN_LIST
+    </select>
+    <select id="selectLessThanRecord" parameterType="java.lang.String" resultMap="BaseResultMap">
+        <![CDATA[
+            select
+            *
+            from TDEV_DEMO_GEN_LIST
+            where DDGL_ORDER_NUM = (select max(DDGL_ORDER_NUM) from TDEV_DEMO_GEN_LIST where DDGL_ORDER_NUM<(select DDGL_ORDER_NUM from TDEV_DEMO_GEN_LIST where DDGL_ID=#{ddglId,jdbcType=NVARCHAR}))
+        ]]>
+    </select>
+    <select id="selectGreaterThanRecord" parameterType="java.lang.String" resultMap="BaseResultMap">
+        <![CDATA[
+            select
+            *
+            from TDEV_DEMO_GEN_LIST
+            where DDGL_ORDER_NUM = (select min(DDGL_ORDER_NUM) from TDEV_DEMO_GEN_LIST where DDGL_ORDER_NUM>(select DDGL_ORDER_NUM from TDEV_DEMO_GEN_LIST where DDGL_ID=#{ddglId,jdbcType=NVARCHAR}))
+        ]]>
+    </select>
+</mapper>

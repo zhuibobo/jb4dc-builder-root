@@ -6,11 +6,13 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="jb4dc-builder-pojo" />
-        <module name="jb4dc-builder-web-package" />
-        <module name="jb4dc-builder-web-server" />
-        <module name="jb4dc-builder-service" />
         <module name="jb4dc-builder-client" />
+        <module name="jb4dc-builder-web-package" />
+        <module name="jb4dc-dev-mock-service" />
+        <module name="jb4dc-dev-mock-web-server" />
+        <module name="jb4dc-builder-web-server" />
+        <module name="jb4dc-builder-pojo" />
+        <module name="jb4dc-builder-service" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
@@ -20,6 +22,8 @@
       <module name="jb4dc-builder-service" target="1.8" />
       <module name="jb4dc-builder-web-package" target="1.8" />
       <module name="jb4dc-builder-web-server" target="1.8" />
+      <module name="jb4dc-dev-mock-service" target="1.8" />
+      <module name="jb4dc-dev-mock-web-server" target="1.8" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
@@ -29,6 +33,8 @@
       <module name="jb4dc-builder-service" options="-parameters" />
       <module name="jb4dc-builder-web-package" options="-parameters" />
       <module name="jb4dc-builder-web-server" options="-parameters" />
+      <module name="jb4dc-dev-mock-service" options="-parameters" />
+      <module name="jb4dc-dev-mock-web-server" options="-parameters" />
     </option>
   </component>
 </project>

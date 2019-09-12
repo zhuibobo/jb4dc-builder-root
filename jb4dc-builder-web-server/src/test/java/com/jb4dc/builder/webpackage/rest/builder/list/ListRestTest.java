@@ -367,11 +367,11 @@ public class ListRestTest extends ModuleRestTest {
                 "            <td>\n" +
                 "            </td>\n" +
                 "            <td>\n" +
-                "              <div bindauthority=\"notAuth\" buttoncaption=\"新增\" buttontype=\"ListFormButton\" class=\"wysiwyg-input-text\" classname=\"\" control_category=\"InputControl\" custclientclickbeforemethod=\"\" custclientclickbeforemethodpara=\"\" custclientrendereraftermethodpara=\"\" custclientrendereraftermethodparapara=\"\" custclientrenderermethod=\"\" custclientrenderermethodpara=\"\" custdisabled=\"nodisabled\" custprop1=\"\" custprop2=\"\" custprop3=\"\" custprop4=\"\" custreadonly=\"noreadonly\" custserverresolvemethod=\"\" custserverresolvemethodpara=\"\" custsinglename=\"1\" custurlappendpara=\"\" custurlappendparaformat=\"\" desc=\"\" formcode=\"100003\" formid=\"BuilderFormIdTest0001\" formmoduleid=\"BuilderModuleId001\" formmodulename=\"构建库-开发测试分组\" formname=\"构建库-开发测试窗体\" id=\"form_button_321027724\" innerbuttonjsonstring=\"[]\" is_jbuild4dc_data=\"true\" isshow=\"true\" jbuild4dc_custom=\"true\" name=\"form_button_321027724\" opentype=\"Dialog\" operation=\"add\" placeholder=\"\" serialize=\"false\" show_remove_button=\"true\" singlename=\"WLDCT_FormButton\" style=\"\" windowcaption=\"JBUILD4D\" windowheight=\"0\" windowwidth=\"0\">新增[窗体按钮]\n" +
+                "              <div bindauthority=\"notAuth\" buttoncaption=\"新增\" buttontype=\"ListFormButton\" class=\"wysiwyg-input-text\" classname=\"\" control_category=\"InputControl\" custclientclickbeforemethod=\"\" custclientclickbeforemethodpara=\"\" custclientrendereraftermethodpara=\"\" custclientrendereraftermethodparapara=\"\" custclientrenderermethod=\"\" custclientrenderermethodpara=\"\" custdisabled=\"nodisabled\" custprop1=\"\" custprop2=\"\" custprop3=\"\" custprop4=\"\" custreadonly=\"noreadonly\" custserverresolvemethod=\"\" custserverresolvemethodpara=\"\" custsinglename=\"\" custurlappendpara=\"\" custurlappendparaformat=\"\" desc=\"\" formcode=\"100003\" formid=\"BuilderFormIdTest0001\" formmoduleid=\"BuilderModuleId001\" formmodulename=\"构建库-开发测试分组\" formname=\"构建库-开发测试窗体\" id=\"form_button_321027724\" innerbuttonjsonstring=\"[]\" is_jbuild4dc_data=\"true\" isshow=\"true\" jbuild4dc_custom=\"true\" name=\"form_button_321027724\" opentype=\"Dialog\" operation=\"add\" placeholder=\"\" serialize=\"false\" show_remove_button=\"true\" singlename=\"WLDCT_FormButton\" style=\"\" windowcaption=\"JBUILD4D\" windowheight=\"0\" windowwidth=\"0\">新增[窗体按钮]\n" +
                 "              </div>\n" +
                 "            </td>\n" +
                 "            <td>\n" +
-                "              <div bindauthority=\"notAuth\" buttoncaption=\"修改\" buttontype=\"ListFormButton\" class=\"wysiwyg-input-text\" classname=\"\" control_category=\"InputControl\" custclientclickbeforemethod=\"\" custclientclickbeforemethodpara=\"\" custclientrendereraftermethodpara=\"\" custclientrendereraftermethodparapara=\"\" custclientrenderermethod=\"\" custclientrenderermethodpara=\"\" custdisabled=\"nodisabled\" custprop1=\"\" custprop2=\"\" custprop3=\"\" custprop4=\"\" custreadonly=\"noreadonly\" custserverresolvemethod=\"\" custserverresolvemethodpara=\"\" custsinglename=\"2\" custurlappendpara=\"\" custurlappendparaformat=\"\" desc=\"\" formcode=\"100003\" formid=\"BuilderFormIdTest0001\" formmoduleid=\"BuilderModuleId001\" formmodulename=\"构建库-开发测试分组\" formname=\"构建库-开发测试窗体\" id=\"form_button_321039610\" innerbuttonjsonstring=\"[]\" is_jbuild4dc_data=\"true\" isshow=\"true\" jbuild4dc_custom=\"true\" name=\"form_button_321039610\" opentype=\"Dialog\" operation=\"update\" placeholder=\"\" serialize=\"false\" show_remove_button=\"true\" singlename=\"WLDCT_FormButton\" style=\"\" windowcaption=\"JBUILD4D\" windowheight=\"640\" windowwidth=\"800\">修改[窗体按钮]\n" +
+                "              <div bindauthority=\"notAuth\" buttoncaption=\"修改\" buttontype=\"ListFormButton\" class=\"wysiwyg-input-text\" classname=\"\" control_category=\"InputControl\" custclientclickbeforemethod=\"\" custclientclickbeforemethodpara=\"\" custclientrendereraftermethodpara=\"\" custclientrendereraftermethodparapara=\"\" custclientrenderermethod=\"\" custclientrenderermethodpara=\"\" custdisabled=\"nodisabled\" custprop1=\"\" custprop2=\"\" custprop3=\"\" custprop4=\"\" custreadonly=\"noreadonly\" custserverresolvemethod=\"\" custserverresolvemethodpara=\"\" custsinglename=\"\" custurlappendpara=\"\" custurlappendparaformat=\"\" desc=\"\" formcode=\"100003\" formid=\"BuilderFormIdTest0001\" formmoduleid=\"BuilderModuleId001\" formmodulename=\"构建库-开发测试分组\" formname=\"构建库-开发测试窗体\" id=\"form_button_321039610\" innerbuttonjsonstring=\"[]\" is_jbuild4dc_data=\"true\" isshow=\"true\" jbuild4dc_custom=\"true\" name=\"form_button_321039610\" opentype=\"Dialog\" operation=\"update\" placeholder=\"\" serialize=\"false\" show_remove_button=\"true\" singlename=\"WLDCT_FormButton\" style=\"\" windowcaption=\"JBUILD4D\" windowheight=\"640\" windowwidth=\"800\">修改[窗体按钮]\n" +
                 "              </div>\n" +
                 "            </td>\n" +
                 "            <td>\n" +
@@ -387,7 +387,7 @@ public class ListRestTest extends ModuleRestTest {
                 "    <div class=\"wysiwyg-auto-remove-tip\" runtime_auto_remove=\"true\">表格显示区域[双击编辑该部件],在下边div中编辑查询内容\n" +
                 "    </div>\n" +
                 "    <div class=\"wysiwyg-wldct-list-table-inner-wrap wldct-list-table-inner-wrap\">\n" +
-                "      <table is-op-button-wrap-table=\"true\">\n" +
+                "      <table is-op-button-wrap-table=\"true\" class=\"list-table\">\n" +
                 "        <thead>\n" +
                 "          <tr>\n" +
                 "            <th colspan=\"2\" rowspan=\"1\">组织&amp;用户\n" +
@@ -459,10 +459,11 @@ public class ListRestTest extends ModuleRestTest {
                 "  </div>\n" +
                 "</div>\n");
         listEntity.setListHtmlResolve("");
-        listEntity.setListJsContent("var BuilderListPageRuntimeInstance={\n" +
+        listEntity.setListJsContent("<script>\n" +
+                "var BuilderListPageRuntimeInstance={\n" +
                 "    PageReady:function(){\n" +
                 "        //页面加载html完成,未进行客户端控件的渲染\n" +
-                "        console.log(\"页面加载html完成1\");\n" +
+                "        console.log(\"页面加载html完成\");\n" +
                 "    },\n" +
                 "    RendererChainCompleted:function(){\n" +
                 "        //客户端控件渲染完成.\n" +
@@ -472,7 +473,8 @@ public class ListRestTest extends ModuleRestTest {
                 "        //客户端控件渲染并绑定完数据.\n" +
                 "        console.log(\"客户端控件渲染并绑定完数据\");\n" +
                 "    }\n" +
-                "}");
+                "}\n" +
+                "</script>");
         listEntity.setListCssContent("");
         listEntity.setListConfigContent("");
         listEntity.setListEnableSSear("");

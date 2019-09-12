@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
  * Date: 2019/8/28
  * To change this template use File | Settings | File Templates.
  */
-@FeignClient(name= "${jb4dc.builder.server.name}",contextId = "DataSetRuntimeRemote",configuration = { BuilderClientFeignClientConfig.class },path = "${jb4dc.builder.server.context-path}/Rest/Builder/RunTime/ListRuntime")
+@FeignClient(name= "${jb4dc.builder.server.name}",contextId = "DataSetRuntimeRemote",configuration = { BuilderClientFeignClientConfig.class },path = "${jb4dc.builder.server.context-path}/Rest/Builder/RunTime/DataSetRuntime")
 public interface DataSetRuntimeRemote {
 
     @RequestMapping(value = "/GetByDataSetId",method = RequestMethod.POST)

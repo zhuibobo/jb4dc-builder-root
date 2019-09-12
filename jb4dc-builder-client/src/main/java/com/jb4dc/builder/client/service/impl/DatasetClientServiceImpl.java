@@ -10,11 +10,14 @@ import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
 import com.jb4dc.core.base.list.IListWhereCondition;
 import com.jb4dc.core.base.list.ListUtility;
 import com.jb4dc.core.base.session.JB4DCSession;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.xml.sax.SAXException;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.xpath.XPathExpressionException;
+import java.io.IOException;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -24,12 +27,14 @@ import java.util.regex.Pattern;
  * Date: 2019/8/28
  * To change this template use File | Settings | File Templates.
  */
-/*
+@Service
 public class DatasetClientServiceImpl implements IDatasetClientService {
 
-    IEnvVariableClientResolveService envVariableClientService;
+    @Autowired
+    IEnvVariableClientResolveService envVariableClientResolveService;
 
-    protected boolean validateResolveSqlWithKeyWord(String sql) throws JBuild4DCGenerallyException {
+    @Override
+    public boolean validateResolveSqlWithKeyWord(String sql) throws JBuild4DCGenerallyException {
         if(sql.indexOf(";")>0){
             throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_BUILDER_CODE,"SQL语句【"+sql+"】中不能存在符号【;】");
         }
@@ -63,14 +68,14 @@ public class DatasetClientServiceImpl implements IDatasetClientService {
         if(validateResolveSqlWithKeyWord(sqlValue)) {
             //Map<String,String> aboutValueParas=new HashMap<>();
             //进行正则匹配，替换为Value。
-            Pattern p=Pattern.compile("#\\{ApiVar.*?}|#\\{DateTime.*?}|#\\{NumberCode.*?}");
+            Pattern p=Pattern.compile("#\\{ENVVAR.*?}|#\\{DATETIME.*?}|#\\{NUMBERCODE.*?}");
             Matcher m =p.matcher(sqlValue);
             while (m.find()){
                 System.out.println("Found value: " + m.group());
                 //将变量的Value转换为运行时的值
                 String envValue = m.group().substring(m.group().indexOf(".")+1).replace("}","");
                 try {
-                    String runValue=envVariableClientService.execEnvVarResult(jb4DCSession,envValue);
+                    String runValue=envVariableClientResolveService.execEnvVarResult(jb4DCSession,envValue);
                     String t1=m.group().replace("{","\\{");
                     sqlRunValue=sqlRunValue.replaceAll(t1,runValue);
                 } catch (Exception ex) {
@@ -98,4 +103,3 @@ public class DatasetClientServiceImpl implements IDatasetClientService {
         return null;
     }
 }
-*/

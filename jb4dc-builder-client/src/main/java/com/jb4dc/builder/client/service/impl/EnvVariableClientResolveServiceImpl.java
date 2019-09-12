@@ -36,7 +36,8 @@ public class EnvVariableClientResolveServiceImpl implements IEnvVariableClientRe
             envVariableEntity=envVariableService.getEntityByValue(value);
         }
         else{
-            envVariableEntity=new EnvVariableEntity();
+            //envVariableEntity=new EnvVariableEntity();
+            //则通过rest接口远程获取.
         }
 
         IAPIVariableCreator varCreater=null;
