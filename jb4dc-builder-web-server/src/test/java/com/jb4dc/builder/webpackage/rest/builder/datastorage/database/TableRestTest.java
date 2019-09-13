@@ -65,7 +65,7 @@ public class TableRestTest extends TableGroupRestTest {
                 "", "", "", "");
         appendTableFieldPO.add(ntextField1);
 
-        saveTableEdit_Add("TDEV_TEST_2","开发测试表1", appendTableFieldPO,devMockTableGroupId1);
+        saveTableEdit_Add("TDEV_TEST_2","开发测试表2", appendTableFieldPO,devMockTableGroupId1);
 
         saveTableEdit_Update(devMockTableGroupId1);
 
