@@ -12,7 +12,8 @@ Vue.component("fd-control-base-info", {
                 custReadonly: "",
                 custDisabled: "",
                 style: "",
-                desc: ""
+                desc: "",
+                status:""
             }
         }
     },
@@ -30,6 +31,9 @@ Vue.component("fd-control-base-info", {
     mounted: function () {
         //debugger;
         this.baseInfo = this.value;
+        if(!this.baseInfo.status){
+            this.baseInfo.status="enable";
+        }
     },
     methods: {},
     template: `<table class="html-design-plugin-dialog-table-wraper" cellpadding="0" cellspacing="0" border="0">
@@ -48,10 +52,17 @@ Vue.component("fd-control-base-info", {
                                 <input type="text" v-model="baseInfo.id" />
                             </td>
                             <td>Serialize：</td>
-                            <td colspan="3">
+                            <td style="text-align: center">
                                 <radio-group type="button" style="margin: auto" v-model="baseInfo.serialize">
                                     <radio label="true">是</radio>
                                     <radio label="false">否</radio>
+                                </radio-group>
+                            </td>
+                            <td>启用：</td>
+                            <td style="text-align: center">
+                                <radio-group type="button" style="margin: auto" v-model="baseInfo.status">
+                                    <radio label="enable">是</radio>
+                                    <radio label="disable">否</radio>
                                 </radio-group>
                             </td>
                         </tr>

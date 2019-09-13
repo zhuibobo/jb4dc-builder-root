@@ -50,5 +50,15 @@ var WLDCT_ListComplexSearchContainer= {
         }
 
         return result;
+    },
+    GetStatus:function () {
+        var status = this._$SingleControlElem.attr("status");
+        if(status=="") {
+            status = "enable";
+        }
+        return status
+    },
+    Hide:function () {
+        this._$SingleControlElem.hide();
     }
 }

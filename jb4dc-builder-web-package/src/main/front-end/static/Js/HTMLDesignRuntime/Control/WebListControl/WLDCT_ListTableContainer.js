@@ -289,6 +289,13 @@ var WLDCT_ListTableContainer= {
         this._ComplexSearchContainerInstance._$ComplexSearchButton.bind("click", {"listInstance": this}, this.ComplexSearchClickEvent);
         this._ComplexSearchContainerInstance._$ClearButton.bind("click", {"listInstance": this}, this.ComplexSearchClearClickEvent);
         this._ComplexSearchContainerInstance._$CloseButton.bind("click", {"listInstance": this}, this.ComplexSearchCloseClickEvent);
+
+        if(this._SimpleSearchContainerInstance.GetStatus()=="disable"){
+            this._SimpleSearchContainerInstance.Hide();
+        }
+        if(this._ComplexSearchContainerInstance.GetStatus()=="disable"){
+            this._SimpleSearchContainerInstance.HideComplexButton();
+        }
         //var $buttonDivElemList=$singleControlElem.find("div"+HTMLControlAttrs.SELECTED_JBUILD4DC_CUSTOM);
         //$singleControlElem.find("[is-op-button-wrap-table='true']").hide();
         /*$singleControlElem.find(".wldct-list-table-inner-wrap").html(this.GetHTML());

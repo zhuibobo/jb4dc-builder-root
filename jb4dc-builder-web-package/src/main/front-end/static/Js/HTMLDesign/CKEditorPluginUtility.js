@@ -195,7 +195,8 @@ class CKEditorPluginUtility {
             custReadonly:"noreadonly",
             custDisabled:"nodisabled",
             style:"",
-            desc:""
+            desc:"",
+            status:"enable"
         },
         bindToSearchField:{
             columnTitle:"",

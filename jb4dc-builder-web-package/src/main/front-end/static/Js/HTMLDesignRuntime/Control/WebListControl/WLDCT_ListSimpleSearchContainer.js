@@ -25,6 +25,7 @@ var WLDCT_ListSimpleSearchContainer={
 
         $singleControlElem.append($searchButtonsWrap);
 
+
         HTMLControl.RendererChain(_rendererChainParas);
     },
     RendererDataChain:HTMLControl.RendererDataChain,
@@ -52,5 +53,21 @@ var WLDCT_ListSimpleSearchContainer={
         }
 
         return result;
+    },
+    GetStatus:function () {
+        var status = this._$SingleControlElem.attr("status");
+        if(status=="") {
+            status = "enable";
+        }
+        return status
+    },
+    Hide:function () {
+        this._$SingleControlElem.hide();
+    },
+    HideComplexButton:function () {
+        this._$ShowComplexSearchButton.remove();
+        this._$SimpleSearchButton.parent().width("80px");
+        var pageWidth = PageStyleUtility.GetPageWidth();
+        this._$SingleControlElem.find("table:first").width(pageWidth-120);
     }
 }
