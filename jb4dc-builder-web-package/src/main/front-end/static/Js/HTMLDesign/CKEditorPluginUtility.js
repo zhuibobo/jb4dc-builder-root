@@ -452,4 +452,22 @@ class CKEditorPluginUtility {
             this.bindDataSetFieldTree(this.dataSetId);
         }*/
     }
+
+    static TemplateAddDefProp($templateElem,id,show_remove_button,singleName){
+        $templateElem.attr("classname","");
+        $templateElem.attr("control_category","ContainerControl");
+        $templateElem.attr("custdisabled","nodisabled");
+        $templateElem.attr("custreadonly","noreadonly");
+        $templateElem.attr("desc","");
+        $templateElem.attr("id",id);
+        $templateElem.attr("is_jbuild4dc_data","false");
+        $templateElem.attr("jbuild4dc_custom","true");
+        $templateElem.attr("name",id);
+        $templateElem.attr("placeholder","");
+        $templateElem.attr("serialize","false");
+        $templateElem.attr("show_remove_button",show_remove_button);
+        $templateElem.attr("singlename",singleName);
+        $templateElem.attr("style","");
+        $templateElem.attr("status","enable");
+    }
 }

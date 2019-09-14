@@ -1,1 +1,87 @@
-<!DOCTYPE html><html lang="zh" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"><head><meta charset="UTF-8"><title>Title</title><title>JBuild4D</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"><script type="text/javascript" src="../../../../../Js/External/JQuery-3.4.1/jquery-3.4.1.min.js"></script><script type="text/javascript" src="../../../../../Js/External/VUE-2.6.10/vue.js"></script><script type="text/javascript" src="../../../../../Js/External/IView-3.X/dist/iview.min.js"></script><script type="text/javascript" src="../../../../../Js/External/JQuery-UI-1.12.1/jquery-ui.js"></script><script type="text/javascript" src="../../../../../Js/External/ZTree-3.5.40/js/jquery.ztree.all.js"></script><script type="text/javascript" src="../../../../../Js/JBuild4DCLib.js?refVersion=1"></script><script type="text/javascript" src="../../../../../Js/UIEXComponent.js?refVersion=1"></script><script type="text/javascript" src="../../../../../Js/UIEXComponentForBuilder.js?refVersion=1"></script><script type="text/javascript" src="../../../../../Js/VueEXComponent.js?refVersion=1"></script><script type="text/javascript" src="../../../../../Js/BuilderVueEXComponent.js?refVersion=1"></script><script type="text/javascript" src="../../../../../Js/HTMLDesign/HTMLDesignUtility.js?refVersion=1"></script><link rel="stylesheet" type="text/css" href="../../../../../Themes/Default/Css/JBuild4DC.css?refVersion=1"><link rel="stylesheet" type="text/css" href="../../../../../Themes/Default/IView-3.X/iview.css"><link rel="stylesheet" type="text/css" href="../../../../../Themes/Default/JQueryUI/jquery-ui.css"><link rel="stylesheet" type="text/css" href="../../../../../Themes/Default/JQueryUI/jquery-ui-important.css"><link rel="stylesheet" type="text/css" href="../../../../../Themes/Default/ZTree/zTreeStyle/zTreeStyle.css"><link rel="stylesheet" type="text/css" href="../../../../../Themes/Default/Css/JBuild4DCBuilder.css?refVersion=1"></head><body><div class="html-design-plugin-dialog-wraper" id="dialogApp" v-cloak><tabs size="small"><tab-pane label="绑定信息"><list-table-label-bind-to-comp ref="listTableLabelBindToComp"></list-table-label-bind-to-comp></tab-pane><tab-pane label="基础信息"><fd-control-base-info v-model="baseInfo"></fd-control-base-info></tab-pane><tab-pane label="开发扩展"><table cellpadding="0" cellspacing="0" border="0" class="html-design-plugin-dialog-table-wraper"><colgroup><col style="width:150px"><col></colgroup><tbody><tr><td>服务端解析类：</td><td><i-input v-model="normalProps.custServerResolveMethod" placeholder="按钮进行服务端解析时,保存模版时候调用,类全称,需要实现接口IListTableLabelCustResolve"></td></tr><tr><td>参数：</td><td><i-input v-model="normalProps.custServerResolveMethodPara" placeholder="服务端解析类的参数"></td></tr><tr><td>客户端渲染方法：</td><td><i-input v-model="normalProps.custClientRendererMethod" placeholder="客户端渲染方法,生成前端页面时调动,最终形成页面元素,需要返回最终元素的HTML对象"></td></tr><tr><td>参数：</td><td><i-input v-model="normalProps.custClientRendererMethodPara" placeholder="客户端渲染方法的参数"></td></tr></tbody></table></tab-pane></tabs></div><script>var DialogApp=new Vue({el:"#dialogApp",data:{baseInfo:CKEditorPluginUtility.DefaultProps.baseInfo,defaultValue:CKEditorPluginUtility.DefaultProps.defaultValue,normalProps:{columnTableName:"",columnName:"",columnCaption:"",columnDataTypeName:"",targetButtonId:"",columnAlign:"",custServerResolveMethod:"",custServerResolveMethodPara:"",custClientRendererMethod:"",custClientRendererMethodPara:""},dataSetId:null,buttons:[]},mounted:function(){},methods:{ready:function(t,e,a){this.baseInfo.id="lab_"+StringUtility.Timestamp(),this.baseInfo.name=this.baseInfo.id,this.dataSetId=CKEditorPluginUtility.TryGetDataSetId(e,a),this.buttons=CKEditorPluginUtility.TryGetListButtonsInPluginPage(),this.bindDataSetFieldTree()},bindDataSetFieldTree:function(){if(this.dataSetId){var t=window.parent.listDesign.getDataSet(this.dataSetId);this.$refs.listTableLabelBindToComp.init(t,this.buttons)}else DialogUtility.AlertText("请先设定DataSet")},getControlProps:function(){var t=this.$refs.listTableLabelBindToComp.getData();return{success:!0,baseInfo:this.baseInfo,normalProps:{columnTableName:t.bindProp.columnTableName,columnName:t.bindProp.columnName,columnCaption:t.bindProp.columnCaption,columnDataTypeName:t.bindProp.columnDataTypeName,targetButtonId:t.bindProp.targetButtonId,columnAlign:t.bindProp.columnAlign,custServerResolveMethod:this.normalProps.custServerResolveMethod,custServerResolveMethodPara:this.normalProps.custServerResolveMethodPara,custClientRendererMethod:this.normalProps.custClientRendererMethod,custClientRendererMethodPara:this.normalProps.custClientRendererMethodPara},defaultValue:t.defaultValue}},setControlProps:function(t,e){this.baseInfo=e.baseInfo?e.baseInfo:this.baseInfo,this.defaultValue=e.defaultValue?e.defaultValue:this.defaultValue,this.normalProps.columnTableName=t.attr("columntablename"),this.normalProps.columnName=t.attr("columnname"),this.normalProps.columnCaption=t.attr("columncaption"),this.normalProps.columnDataTypeName=t.attr("columndatatypename"),this.normalProps.targetButtonId=t.attr("targetbuttonid"),this.normalProps.columnAlign=t.attr("columnalign"),this.normalProps.custServerResolveMethod=t.attr("custserverresolvemethod"),this.normalProps.custServerResolveMethodPara=t.attr("custserverresolvemethodpara"),this.normalProps.custClientRendererMethod=t.attr("custclientrenderermethod"),this.normalProps.custClientRendererMethodPara=t.attr("custclientrenderermethodpara"),this.$refs.listTableLabelBindToComp.setData(this.normalProps,this.defaultValue)}}})</script></body></html>
+<!DOCTYPE html><html lang="zh" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"><head><meta charset="UTF-8"><title>Title</title><title>JBuild4D</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"><script type="text/javascript" src="../../../../../Js/External/JQuery-3.4.1/jquery-3.4.1.min.js"></script><script type="text/javascript" src="../../../../../Js/External/VUE-2.6.10/vue.js"></script><script type="text/javascript" src="../../../../../Js/External/IView-3.X/dist/iview.min.js"></script><script type="text/javascript" src="../../../../../Js/External/JQuery-UI-1.12.1/jquery-ui.js"></script><script type="text/javascript" src="../../../../../Js/External/ZTree-3.5.40/js/jquery.ztree.all.js"></script><script type="text/javascript" src="../../../../../Js/JBuild4DCLib.js?refVersion=1"></script><script type="text/javascript" src="../../../../../Js/UIEXComponent.js?refVersion=1"></script><script type="text/javascript" src="../../../../../Js/UIEXComponentForBuilder.js?refVersion=1"></script><script type="text/javascript" src="../../../../../Js/VueEXComponent.js?refVersion=1"></script><script type="text/javascript" src="../../../../../Js/BuilderVueEXComponent.js?refVersion=1"></script><script type="text/javascript" src="../../../../../Js/HTMLDesign/HTMLDesignUtility.js?refVersion=1"></script><link rel="stylesheet" type="text/css" href="../../../../../Themes/Default/Css/JBuild4DC.css?refVersion=1"><link rel="stylesheet" type="text/css" href="../../../../../Themes/Default/IView-3.X/iview.css"><link rel="stylesheet" type="text/css" href="../../../../../Themes/Default/JQueryUI/jquery-ui.css"><link rel="stylesheet" type="text/css" href="../../../../../Themes/Default/JQueryUI/jquery-ui-important.css"><link rel="stylesheet" type="text/css" href="../../../../../Themes/Default/ZTree/zTreeStyle/zTreeStyle.css"><link rel="stylesheet" type="text/css" href="../../../../../Themes/Default/Css/JBuild4DCBuilder.css?refVersion=1"></head><body><div class="html-design-plugin-dialog-wraper" id="dialogApp" v-cloak><tabs size="small"><tab-pane label="绑定信息"><list-table-label-bind-to-comp ref="listTableLabelBindToComp"></list-table-label-bind-to-comp></tab-pane><tab-pane label="基础信息"><fd-control-base-info v-model="baseInfo"></fd-control-base-info></tab-pane><tab-pane label="开发扩展"><table cellpadding="0" cellspacing="0" border="0" class="html-design-plugin-dialog-table-wraper"><colgroup><col style="width:150px"><col></colgroup><tbody><tr><td>服务端解析类：</td><td><i-input v-model="normalProps.custServerResolveMethod" placeholder="按钮进行服务端解析时,保存模版时候调用,类全称,需要实现接口IListTableLabelCustResolve"></td></tr><tr><td>参数：</td><td><i-input v-model="normalProps.custServerResolveMethodPara" placeholder="服务端解析类的参数"></td></tr><tr><td>客户端渲染方法：</td><td><i-input v-model="normalProps.custClientRendererMethod" placeholder="客户端渲染方法,生成前端页面时调动,最终形成页面元素,需要返回最终元素的HTML对象"></td></tr><tr><td>参数：</td><td><i-input v-model="normalProps.custClientRendererMethodPara" placeholder="客户端渲染方法的参数"></td></tr></tbody></table></tab-pane></tabs></div><script>var DialogApp=new Vue({
+            el:"#dialogApp",
+            data: {
+                baseInfo:CKEditorPluginUtility.DefaultProps.baseInfo,
+                defaultValue: CKEditorPluginUtility.DefaultProps.defaultValue,
+                normalProps:{
+                    columnTableName: "",
+                    columnName: "",
+                    columnCaption: "",
+                    columnDataTypeName: "",
+                    targetButtonId: "",
+                    columnAlign:"",
+                    //开发扩展
+                    custServerResolveMethod:"",
+                    custServerResolveMethodPara:"",
+                    custClientRendererMethod:"",
+                    custClientRendererMethodPara:""
+                },
+                dataSetId:null,
+                buttons:[]
+            },
+            mounted:function () {
+
+            },
+            methods: {
+                ready:function(actionName,sel,parents){
+                    this.baseInfo.id="lab_"+StringUtility.Timestamp();
+                    this.baseInfo.name=this.baseInfo.id;
+
+                    this.dataSetId=CKEditorPluginUtility.TryGetDataSetId(sel,parents);
+                    this.buttons=CKEditorPluginUtility.TryGetListButtonsInPluginPage();
+
+                    this.bindDataSetFieldTree();
+                },
+                bindDataSetFieldTree:function(){
+                    if(this.dataSetId){
+                        var dataSetPO=window.parent.listDesign.getDataSet(this.dataSetId);
+                        this.$refs.listTableLabelBindToComp.init(dataSetPO,this.buttons);
+                    }
+                    else {
+                        DialogUtility.AlertText("请先设定DataSet");
+                    }
+                },
+                getControlProps:function () {
+                    var bindData=this.$refs.listTableLabelBindToComp.getData();
+                    //for(var key in this.normalProps)
+                    var result = {
+                        success: true,
+                        baseInfo: this.baseInfo,
+                        normalProps:{
+                            columnTableName: bindData.bindProp.columnTableName,
+                            columnName: bindData.bindProp.columnName,
+                            columnCaption: bindData.bindProp.columnCaption,
+                            columnDataTypeName: bindData.bindProp.columnDataTypeName,
+                            targetButtonId: bindData.bindProp.targetButtonId,
+                            columnAlign:bindData.bindProp.columnAlign,
+                            //开发扩展
+                            custServerResolveMethod:this.normalProps.custServerResolveMethod,
+                            custServerResolveMethodPara:this.normalProps.custServerResolveMethodPara,
+                            custClientRendererMethod:this.normalProps.custClientRendererMethod,
+                            custClientRendererMethodPara:this.normalProps.custClientRendererMethodPara
+                        },
+                        defaultValue: bindData.defaultValue
+                    }
+                    return result;
+                },
+                setControlProps:function ($elem,props) {
+                    //console.log(props);
+                    this.baseInfo = props.baseInfo ? props.baseInfo : this.baseInfo;
+                    //this.bindToSearchField = props.bindToSearchField ? props.bindToSearchField : this.bindToSearchField;
+                    this.defaultValue = props.defaultValue ? props.defaultValue : this.defaultValue;
+
+                    this.normalProps.columnTableName=$elem.attr("columntablename");
+                    this.normalProps.columnName=$elem.attr("columnname");
+                    this.normalProps.columnCaption=$elem.attr("columncaption");
+                    this.normalProps.columnDataTypeName=$elem.attr("columndatatypename");
+                    this.normalProps.targetButtonId=$elem.attr("targetbuttonid");
+                    this.normalProps.columnAlign=$elem.attr("columnalign");
+                    this.normalProps.custServerResolveMethod =$elem.attr("custserverresolvemethod");
+                    this.normalProps.custServerResolveMethodPara = $elem.attr("custserverresolvemethodpara");
+                    this.normalProps.custClientRendererMethod =$elem.attr("custclientrenderermethod");
+                    this.normalProps.custClientRendererMethodPara = $elem.attr("custclientrenderermethodpara");
+
+                    this.$refs.listTableLabelBindToComp.setData(this.normalProps,this.defaultValue);
+                }
+            }
+        });</script></body></html>

@@ -46,7 +46,7 @@
         //console.log(template);
         if(addDefProp){
             template=$(template);
-            template.attr("classname","");
+            /*template.attr("classname","");
             template.attr("control_category","ContainerControl");
             template.attr("custdisabled","nodisabled");
             template.attr("custreadonly","noreadonly");
@@ -59,7 +59,8 @@
             template.attr("serialize","false");
             template.attr("show_remove_button","false");
             template.attr("singlename","WLDCT_ListComplexSearchContainer");
-            template.attr("style","");
+            template.attr("style","");*/
+            CKEditorPluginUtility.TemplateAddDefProp(template,"list_c_search_wrap_"+StringUtility.Timestamp(),"false","WLDCT_ListComplexSearchContainer");
             return template.outerHTML();
         }
         return template;

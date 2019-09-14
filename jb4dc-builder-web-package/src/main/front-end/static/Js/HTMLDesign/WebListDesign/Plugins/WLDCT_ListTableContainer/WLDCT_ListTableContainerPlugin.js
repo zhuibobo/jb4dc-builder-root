@@ -40,20 +40,7 @@
               </div>`
         if(addDefProp){
             template=$(template);
-            template.attr("classname","");
-            template.attr("control_category","ContainerControl");
-            template.attr("custdisabled","nodisabled");
-            template.attr("custreadonly","noreadonly");
-            template.attr("desc","");
-            template.attr("id","list_table_wrap_788954467");
-            template.attr("is_jbuild4dc_data","false");
-            template.attr("jbuild4dc_custom","true");
-            template.attr("name","list_table_wrap_788954467");
-            template.attr("placeholder","");
-            template.attr("serialize","false");
-            template.attr("show_remove_button","false");
-            template.attr("singlename","WLDCT_ListTableContainer");
-            template.attr("style","");
+            CKEditorPluginUtility.TemplateAddDefProp(template,"list_table_wrap_"+StringUtility.Timestamp(),"false","WLDCT_ListTableContainer");
             return template.outerHTML();
         }
         return template;
