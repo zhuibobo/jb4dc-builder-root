@@ -453,7 +453,10 @@ class CKEditorPluginUtility {
         }*/
     }
 
-    static TemplateAddDefProp($templateElem,id,show_remove_button,singleName){
+    static TemplateAddDefProp($templateElem,id,show_remove_button,singleName,status){
+        /*if(!status){
+            status="enable";
+        }*/
         $templateElem.attr("classname","");
         $templateElem.attr("control_category","ContainerControl");
         $templateElem.attr("custdisabled","nodisabled");
@@ -468,6 +471,6 @@ class CKEditorPluginUtility {
         $templateElem.attr("show_remove_button",show_remove_button);
         $templateElem.attr("singlename",singleName);
         $templateElem.attr("style","");
-        $templateElem.attr("status","enable");
+        $templateElem.attr("status",status);
     }
 }

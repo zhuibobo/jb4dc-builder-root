@@ -27,6 +27,7 @@ class HTMLEditorUtility{
 
             //尝试获取CKEditor编辑器中选中的元素
             var selectedElem=CKEditorUtility.GetSelectedElem();
+            console.log(selectedElem);
             var searchHTML="";
             if(selectedElem) {
                 searchHTML=selectedElem.outerHTML().split(">")[0];

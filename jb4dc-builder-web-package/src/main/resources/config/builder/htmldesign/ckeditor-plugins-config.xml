@@ -42,7 +42,16 @@
 
     <!--WebList设计相关插件-->
     <WebListControls>
-        <Control SingleName="WLDCT_LayoutTemplate" Text="布局模版" ToolbarLocation="LC_Template,1"
+        <Control SingleName="WLDCT_HideContainer" Text="隐藏区域" ToolbarLocation="LC_Template,1"
+                 ServerResolve="com.jb4dc.builder.htmldesign.control.weblist.WebListListHideContainer"
+                 ClientResolve=""
+                 ClientResolveJs=""
+                 EnableChildControls="*"
+                 DialogWidth="780" DialogHeight="550" IsJBuild4DCData="false" ControlCategory="ContainerControl" ServerDynamicBind="false"  ShowRemoveButton="false" ShowInEditorToolbar="true">
+            <Config></Config>
+            <Desc></Desc>
+        </Control>
+        <Control SingleName="WLDCT_LayoutTemplate" Text="布局模版" ToolbarLocation="LC_Template,2"
                  ServerResolve=""
                  ClientResolve=""
                  ClientResolveJs=""
@@ -51,7 +60,7 @@
             <Config></Config>
             <Desc></Desc>
         </Control>
-        <Control SingleName="WLDCT_LayoutContainer" Text="布局区域" ToolbarLocation="LC_Template,2"
+        <Control SingleName="WLDCT_LayoutContainer" Text="布局区域" ToolbarLocation="LC_Template,3"
                  ServerResolve="com.jb4dc.builder.htmldesign.control.weblist.WebListLayoutContainer"
                  ClientResolve="WLDCT_LayoutContainer"
                  ClientResolveJs=""
@@ -62,11 +71,11 @@
                  ControlCategory="ContainerControl"
                  ServerDynamicBind="false"
                  ShowRemoveButton="false"
-                 ShowInEditorToolbar="true">
+                 ShowInEditorToolbar="false">
             <Config></Config>
             <Desc></Desc>
         </Control>
-        <Control SingleName="WLDCT_ListTemplate" Text="列表模版" ToolbarLocation="LC_Template,3"
+        <Control SingleName="WLDCT_ListTemplate" Text="列表模版" ToolbarLocation="LC_Template,4"
                  ServerResolve=""
                  ClientResolve=""
                  ClientResolveJs=""
@@ -75,7 +84,7 @@
             <Config></Config>
             <Desc></Desc>
         </Control>
-        <Control SingleName="WLDCT_ListSimpleSearchContainer" Text="列表-简单查询区域" ToolbarLocation="LC_Template,4"
+        <Control SingleName="WLDCT_ListSimpleSearchContainer" Text="列表-简单查询区域" ToolbarLocation="LC_Template,5"
                  ServerResolve="com.jb4dc.builder.htmldesign.control.weblist.WebListListSimpleSearchContainer"
                  ClientResolve="WLDCT_ListSimpleSearchContainer"
                  ClientResolveJs=""
@@ -84,7 +93,7 @@
             <Config></Config>
             <Desc></Desc>
         </Control>
-        <Control SingleName="WLDCT_ListComplexSearchContainer" Text="列表-弹出查询区域" ToolbarLocation="LC_Template,5"
+        <Control SingleName="WLDCT_ListComplexSearchContainer" Text="列表-弹出查询区域" ToolbarLocation="LC_Template,6"
                  ServerResolve="com.jb4dc.builder.htmldesign.control.weblist.WebListListComplexSearchContainer"
                  ClientResolve="WLDCT_ListComplexSearchContainer"
                  ClientResolveJs=""
@@ -93,7 +102,7 @@
             <Config></Config>
             <Desc></Desc>
         </Control>
-        <Control SingleName="WLDCT_ListButtonContainer" Text="列表-按钮区域" ToolbarLocation="LC_Template,6"
+        <Control SingleName="WLDCT_ListButtonContainer" Text="列表-按钮区域" ToolbarLocation="LC_Template,7"
                  ServerResolve="com.jb4dc.builder.htmldesign.control.weblist.WebListListButtonContainer"
                  ClientResolve="WLDCT_ListButtonContainer"
                  ClientResolveJs=""
@@ -102,7 +111,7 @@
             <Config></Config>
             <Desc></Desc>
         </Control>
-        <Control SingleName="WLDCT_ListTableContainer" Text="列表-表格区域" ToolbarLocation="LC_Template,7"
+        <Control SingleName="WLDCT_ListTableContainer" Text="列表-表格区域" ToolbarLocation="LC_Template,8"
                  ServerResolve="com.jb4dc.builder.htmldesign.control.weblist.WebListListTableContainer"
                  ClientResolve="WLDCT_ListTableContainer"
                  ClientResolveJs=""
@@ -111,7 +120,7 @@
             <Config></Config>
             <Desc></Desc>
         </Control>
-        <Control SingleName="WLDCT_ListTableInnerButtonContainer" Text="列表-表格内按钮区域" ToolbarLocation="LC_Template,8"
+        <Control SingleName="WLDCT_ListTableInnerButtonContainer" Text="列表-表格内按钮区域" ToolbarLocation="LC_Template,9"
                  ServerResolve="com.jb4dc.builder.htmldesign.control.weblist.WebListListTableInnerButtonContainer"
                  ClientResolve="WLDCT_ListTableInnerButtonContainer"
                  ClientResolveJs=""

@@ -60,7 +60,7 @@
             template.attr("show_remove_button","false");
             template.attr("singlename","WLDCT_ListComplexSearchContainer");
             template.attr("style","");*/
-            CKEditorPluginUtility.TemplateAddDefProp(template,"list_c_search_wrap_"+StringUtility.Timestamp(),"false","WLDCT_ListComplexSearchContainer");
+            CKEditorPluginUtility.TemplateAddDefProp(template,"list_c_search_wrap_"+StringUtility.Timestamp(),"false","WLDCT_ListComplexSearchContainer","disable");
             return template.outerHTML();
         }
         return template;

@@ -45,7 +45,7 @@
             template.attr("show_remove_button","false");
             template.attr("singlename","WLDCT_ListSimpleSearchContainer");
             template.attr("style","");*/
-            CKEditorPluginUtility.TemplateAddDefProp(template,"list_s_search_wrap_"+StringUtility.Timestamp(),"false","WLDCT_ListSimpleSearchContainer");
+            CKEditorPluginUtility.TemplateAddDefProp(template,"list_s_search_wrap_"+StringUtility.Timestamp(),"false","WLDCT_ListSimpleSearchContainer","enable");
             return template.outerHTML();
         }
         return template;

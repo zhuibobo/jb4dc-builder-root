@@ -31,7 +31,7 @@
                                  <td></td>
                                  <td></td>
                                  <td></td>
-                                 <td class="op-button-container-outer-td">
+                                 <td class="op-button-container-outer-td">`+CKEditorPluginUtility.Plugins["WLDCT_ListTableInnerButtonContainer"].GetHtmlTemplate("操作按钮区域",true)+`
                                 </td>
                              </tr>
                          </tbody>
@@ -40,7 +40,7 @@
               </div>`
         if(addDefProp){
             template=$(template);
-            CKEditorPluginUtility.TemplateAddDefProp(template,"list_table_wrap_"+StringUtility.Timestamp(),"false","WLDCT_ListTableContainer");
+            CKEditorPluginUtility.TemplateAddDefProp(template,"list_table_wrap_"+StringUtility.Timestamp(),"false","WLDCT_ListTableContainer","enable");
             return template.outerHTML();
         }
         return template;

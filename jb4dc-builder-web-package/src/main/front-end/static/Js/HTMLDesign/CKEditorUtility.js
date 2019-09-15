@@ -168,15 +168,18 @@ class CKEditorUtility {
             for (var i = 0; i < event.data.path.elements.length; i++) {
                 var elem=event.data.path.elements[i];
                 var singleName=elem.getAttribute("singlename");
+                //console.log(elem);
                 if (singleName){
                     lastCustSingleName=singleName;
+                    //将元素设置为选中元素,该处主要用于切换到html的自动选中的辅助功能
+                    CKEditorUtility.SetSelectedElem(elem.getOuterHtml());
                     break;
                 }
             }
             if(lastCustSingleName){
                 //console.log(lastCustSingleName);
                 //$(".cke_button").hide();
-                console.log(CKEditorPluginUtility.Plugins);
+                //console.log(CKEditorPluginUtility.Plugins);
                 CKEditorUtility.DisplayPluginControls(CKEditorPluginUtility.GetEnableChildControls(lastCustSingleName));
             }
             //$(".cke_button__wldct_listtablecontainer").hide();
@@ -262,7 +265,7 @@ class CKEditorUtility {
             return
         }
         //隐藏所有的自定义插件
-        console.log(enableChildControls);
+        //console.log(enableChildControls);
         var plugins=CKEditorPluginUtility.GetPlugins();
         for (var key in plugins) {
             var plugin=plugins[key];

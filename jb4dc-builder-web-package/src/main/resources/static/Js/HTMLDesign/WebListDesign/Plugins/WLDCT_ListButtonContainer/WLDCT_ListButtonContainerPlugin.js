@@ -44,7 +44,7 @@
             template.attr("show_remove_button","false");
             template.attr("singlename","WLDCT_ListButtonContainer");
             template.attr("style","");*/
-            CKEditorPluginUtility.TemplateAddDefProp(template,"list_button_wrap_"+StringUtility.Timestamp(),"false","WLDCT_ListButtonContainer");
+            CKEditorPluginUtility.TemplateAddDefProp(template,"list_button_wrap_"+StringUtility.Timestamp(),"false","WLDCT_ListButtonContainer","enable");
             return template.outerHTML();
         }
         return template;
