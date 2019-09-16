@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jb4dc.builder.dao.api.ApiItemMapper">
+    <select id="selectAll" resultMap="BaseResultMap">select<include refid="Base_Column_List"/> from TBUILD_API_ITEM ORDER by API_ITEM_ORDER_NUM DESC</select>
+    <select id="selectAllASC" resultMap="BaseResultMap">select<include refid="Base_Column_List"/> from TBUILD_API_ITEM ORDER by API_ITEM_ORDER_NUM ASC</select>
+    <delete id="deleteAll">delete from TBUILD_API_ITEM</delete>
+    <select id="nextOrderNum" resultType="integer">select case when max(API_ITEM_ORDER_NUM) is null then 1 else max(API_ITEM_ORDER_NUM)+1 end ORDERNUM from TBUILD_API_ITEM</select>
+    <select id="selectBySearch" parameterType="java.util.Map" resultMap="BaseResultMap">select<include refid="Base_Column_List"/>from TBUILD_API_ITEM<where>
+        <if test="apiItemValue !=null and apiItemValue !=''"> and API_ITEM_VALUE like #{apiItemValue} </if>
+        <if test="apiItemText !=null and apiItemText !=''"> and API_ITEM_TEXT like #{apiItemText} </if>
+        <if test="apiItemClassName !=null and apiItemClassName !=''"> and API_ITEM_CLASS_NAME like #{apiItemClassName} </if>
+        <if test="apiItemClassPara !=null and apiItemClassPara !=''"> and API_ITEM_CLASS_PARA like #{apiItemClassPara} </if>
+        <if test="apiItemRest !=null and apiItemRest !=''"> and API_ITEM_REST like #{apiItemRest} </if>
+        <if test="apiItemRestPara !=null and apiItemRestPara !=''"> and API_ITEM_REST_PARA like #{apiItemRestPara} </if>
+        <if test="apiItemGroupId !=null and apiItemGroupId !=''"> and API_ITEM_GROUP_ID like #{apiItemGroupId} </if>
+        <if test="apiItemIsSystem !=null and apiItemIsSystem !=''"> and API_ITEM_IS_SYSTEM like #{apiItemIsSystem} </if>
+        <if test="apiItemDelEnable !=null and apiItemDelEnable !=''"> and API_ITEM_DEL_ENABLE like #{apiItemDelEnable} </if>
+        <if test="apiItemStatus !=null and apiItemStatus !=''"> and API_ITEM_STATUS like #{apiItemStatus} </if>
+        <if test="apiItemDesc !=null and apiItemDesc !=''"> and API_ITEM_DESC like #{apiItemDesc} </if>
+        <if test="apiItemExAttr1 !=null and apiItemExAttr1 !=''"> and API_ITEM_EX_ATTR1 like #{apiItemExAttr1} </if>
+        <if test="apiItemExAttr2 !=null and apiItemExAttr2 !=''"> and API_ITEM_EX_ATTR2 like #{apiItemExAttr2} </if>
+        <if test="apiItemExAttr3 !=null and apiItemExAttr3 !=''"> and API_ITEM_EX_ATTR3 like #{apiItemExAttr3} </if>
+        <if test="apiItemExAttr4 !=null and apiItemExAttr4 !=''"> and API_ITEM_EX_ATTR4 like #{apiItemExAttr4} </if>
+        <if test="apiItemUserId !=null and apiItemUserId !=''"> and API_ITEM_USER_ID like #{apiItemUserId} </if>
+        <if test="apiItemUserName !=null and apiItemUserName !=''"> and API_ITEM_USER_NAME like #{apiItemUserName} </if>
+        <if test="apiItemOrganId !=null and apiItemOrganId !=''"> and API_ITEM_ORGAN_ID like #{apiItemOrganId} </if>
+        <if test="apiItemOrganName !=null and apiItemOrganName !=''"> and API_ITEM_ORGAN_NAME like #{apiItemOrganName} </if>
+    </where>ORDER by API_ITEM_ORDER_NUM DESC</select>
+    <select id="selectLessThanRecord" parameterType="java.lang.String" resultMap="BaseResultMap"><![CDATA[select * from TBUILD_API_ITEM
+ where API_ITEM_ORDER_NUM = (select max(API_ITEM_ORDER_NUM) from TBUILD_API_ITEM where API_ITEM_ORDER_NUM<(select API_ITEM_ORDER_NUM from TBUILD_API_ITEM where API_ITEM_ID=#{Id,jdbcType=NVARCHAR}))]]></select>
+    <select id="selectGreaterThanRecord" parameterType="java.lang.String" resultMap="BaseResultMap"><![CDATA[select * from TBUILD_API_ITEM
+ where API_ITEM_ORDER_NUM = (select min(API_ITEM_ORDER_NUM) from TBUILD_API_ITEM where API_ITEM_ORDER_NUM>(select API_ITEM_ORDER_NUM from TBUILD_API_ITEM where API_ITEM_ID=#{Id,jdbcType=NVARCHAR}))]]></select>
+    <select id="selectByValue" resultMap="BaseResultMap">
+        select<include refid="Base_Column_List"/> from TBUILD_API_ITEM where API_ITEM_VALUE=#{apiItemValue}
+    </select>
+    <select id="selectByText" resultMap="BaseResultMap">
+        select<include refid="Base_Column_List"/> from TBUILD_API_ITEM where API_ITEM_TEXT=#{apiItemText}
+    </select>
+</mapper>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jb4dc.builder.dao.api.ApiGroupMapper">
+    <select id="selectAll" resultMap="BaseResultMap">select<include refid="Base_Column_List"/> from TBUILD_API_GROUP ORDER by API_GROUP_ORDER_NUM DESC</select>
+    <select id="selectAllASC" resultMap="BaseResultMap">select<include refid="Base_Column_List"/> from TBUILD_API_GROUP ORDER by API_GROUP_ORDER_NUM ASC</select>
+    <delete id="deleteAll">delete from TBUILD_API_GROUP</delete>
+    <select id="nextOrderNum" resultType="integer">select case when max(API_GROUP_ORDER_NUM) is null then 1 else max(API_GROUP_ORDER_NUM)+1 end ORDERNUM from TBUILD_API_GROUP</select>
+    <select id="selectBySearch" parameterType="java.util.Map" resultMap="BaseResultMap">select<include refid="Base_Column_List"/>from TBUILD_API_GROUP<where>
+        <if test="apiGroupValue !=null and apiGroupValue !=''"> and API_GROUP_VALUE like #{apiGroupValue} </if>
+        <if test="apiGroupText !=null and apiGroupText !=''"> and API__GROUP_TEXT like #{apiGroupText} </if>
+        <if test="apiGroupDesc !=null and apiGroupDesc !=''"> and API_GROUP_DESC like #{apiGroupDesc} </if>
+        <if test="apiGroupStatus !=null and apiGroupStatus !=''"> and API_GROUP_STATUS like #{apiGroupStatus} </if>
+        <if test="apiGroupParentId !=null and apiGroupParentId !=''"> and API_GROUP_PARENT_ID like #{apiGroupParentId} </if>
+        <if test="apiGroupIsSystem !=null and apiGroupIsSystem !=''"> and API_GROUP_IS_SYSTEM like #{apiGroupIsSystem} </if>
+        <if test="apiGroupDelEnable !=null and apiGroupDelEnable !=''"> and API_GROUP_DEL_ENABLE like #{apiGroupDelEnable} </if>
+        <if test="apiGroupPidList !=null and apiGroupPidList !=''"> and API_GROUP_PID_LIST like #{apiGroupPidList} </if>
+        <if test="apiGroupOrganId !=null and apiGroupOrganId !=''"> and API_GROUP_ORGAN_ID like #{apiGroupOrganId} </if>
+        <if test="apiGroupOrganName !=null and apiGroupOrganName !=''"> and API_GROUP_ORGAN_NAME like #{apiGroupOrganName} </if>
+    </where>ORDER by API_GROUP_ORDER_NUM DESC</select>
+    <select id="selectLessThanRecord" parameterType="java.lang.String" resultMap="BaseResultMap"><![CDATA[select * from TBUILD_API_GROUP
+ where API_GROUP_ORDER_NUM = (select max(API_GROUP_ORDER_NUM) from TBUILD_API_GROUP where API_GROUP_ORDER_NUM<(select API_GROUP_ORDER_NUM from TBUILD_API_GROUP where API_GROUP_ID=#{Id,jdbcType=NVARCHAR}))]]></select>
+    <select id="selectGreaterThanRecord" parameterType="java.lang.String" resultMap="BaseResultMap"><![CDATA[select * from TBUILD_API_GROUP
+ where API_GROUP_ORDER_NUM = (select min(API_GROUP_ORDER_NUM) from TBUILD_API_GROUP where API_GROUP_ORDER_NUM>(select API_GROUP_ORDER_NUM from TBUILD_API_GROUP where API_GROUP_ID=#{Id,jdbcType=NVARCHAR}))]]></select>
+    <select id="selectByValue" resultMap="BaseResultMap">
+        select<include refid="Base_Column_List"/> from TBUILD_API_GROUP where API_GROUP_VALUE=#{apiGroupValue}
+    </select>
+</mapper>

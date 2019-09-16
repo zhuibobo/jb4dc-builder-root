@@ -20,6 +20,28 @@ class CKEditorUtility {
         return null;
     }
 
+    //用于与拖拽内容进行比较,从中恢复原始信息
+    static _LastSelectedTempHTML=null;
+    static SetLastSelectedTempHTML(html){
+        this._LastSelectedTempHTML=html;
+    }
+    static GetLastSelectedTempHTML(){
+        return this._LastSelectedTempHTML;
+    }
+    static TryGetIdFromLastSelectedTempHTML(newHTML){
+        if(!this._LastSelectedTempHTML){
+            return "";
+        }
+        else{
+            var name=$(newHTML).attr("name");
+            var lastHtmlName=$(this.GetLastSelectedTempHTML()).attr("name");
+            if(name==lastHtmlName){
+                return $(this.GetLastSelectedTempHTML()).attr("id");
+            }
+        }
+        return "";
+    }
+
     static _CKEditorInst=null;
     static GetCKEditorInst() {
         return this._CKEditorInst;
@@ -30,6 +52,7 @@ class CKEditorUtility {
 
     static GetCKEditorHTML(){
         this.ClearALLForDivElemButton();
+        this.ClearALLPluginInnerPanel();
         return this.GetCKEditorInst().getData();
     }
     static SetCKEditorHTML(html){
@@ -102,11 +125,15 @@ class CKEditorUtility {
 
         CKEDITOR.instances.html_design.on("beforePaste", function (event) {
             //CKEditorUtility.ALLElemBindDefaultEvent();
+            //console.log(event);
+            //console.log("....");
         });
 
         //注册在编辑器中粘贴的处理事件
         CKEDITOR.instances.html_design.on("paste", function (event) {
+            //alert(1);
             var sourceHTML = event.data.dataValue;
+            console.log(sourceHTML);
             try {
                 /*alert("暂时不支持!");
                 var copyData = event.data.dataValue;
@@ -124,12 +151,30 @@ class CKEditorUtility {
                 //CKEditorUtility.ClearALLForDivElemButton();
                 //debugger;
                 var $sourceHTML = $(sourceHTML);
-                $sourceHTML.find(".del-button").remove();
+                $sourceHTML.find(".pluginInnerPanelWrap").remove();
                 //$sourceHTML
                 //alert($sourceHTML.find(".del-button").outerHTML());
                 //如果其中包含一个用于显示控件呈现的div,取其进行替换
+                //如果是拖动的元素,不使用方法自带的内容,使用selectionChange中设定的内容进行设置.
                 if($sourceHTML.find("div").length==1){
-                    event.data.dataValue = $sourceHTML.find("div").attr("id", "ct_copy_"+StringUtility.Timestamp()).outerHTML();
+                    var $innerElem=$($sourceHTML.find("div").eq(0));
+                    //判断是否存在ID
+                    var id=CKEditorUtility.TryGetIdFromLastSelectedTempHTML($innerElem);
+                    console.log(id);
+                    if(id){
+                        var oldElem=CKEditorUtility.GetCKEditorInst().document.getById(id);
+                        if(oldElem){
+                            id="ct_copy_"+StringUtility.Timestamp();
+                        }
+                    }
+                    else{
+                        id="ct_copy_"+StringUtility.Timestamp();
+                    }
+                    //var oldElemId=$innerElem.attr("id");
+                    //console.log(oldElemId);
+                    //var oldElem=CKEditorUtility.GetCKEditorInst().document.getById(oldElemId);
+                    //console.log(oldElem);
+                    event.data.dataValue = $innerElem.attr("id", id).outerHTML();
                 }
             }
             catch (e) {
@@ -141,7 +186,7 @@ class CKEditorUtility {
 
         CKEDITOR.instances.html_design.on("afterPaste", function (event) {
             //try {
-                CKEditorUtility.ALLElemBindDefaultEvent();
+                //CKEditorUtility.ALLElemBindDefaultEvent();
             /*}
             catch (e) {
                 alert("粘贴操作失败!")
@@ -168,11 +213,21 @@ class CKEditorUtility {
             for (var i = 0; i < event.data.path.elements.length; i++) {
                 var elem=event.data.path.elements[i];
                 var singleName=elem.getAttribute("singlename");
-                //console.log(elem);
+                //console.log(singleName);
                 if (singleName){
                     lastCustSingleName=singleName;
                     //将元素设置为选中元素,该处主要用于切换到html的自动选中的辅助功能
                     CKEditorUtility.SetSelectedElem(elem.getOuterHtml());
+                    CKEditorUtility.SetLastSelectedTempHTML(elem.getOuterHtml());
+                    var innerHtml = elem.getHtml();
+                    if (innerHtml.indexOf("<") < 0) {
+                        console.log(elem);
+                        CKEditorUtility.GetCKEditorInst().getSelection().selectElement(elem);
+                    }
+
+                    //显示元素专有的toolPanel;
+                    CKEditorUtility.CreatePluginInnerPanel(elem);
+
                     break;
                 }
             }
@@ -331,17 +386,97 @@ class CKEditorUtility {
             oldDelButtons.getItem(i).remove();
         }
     }
+    static CreatePluginInnerPanel(elem){
+        CKEditorUtility.ClearALLPluginInnerPanel();
+        var pluginInnerPanel = new CKEDITOR.dom.element('div');
+        pluginInnerPanel.addClass("pluginInnerPanelWrap");
+        elem.append(pluginInnerPanel);
+
+        var selectAllButton = new CKEDITOR.dom.element('div');
+        selectAllButton.addClass("button");
+        selectAllButton.addClass("select-img");
+        selectAllButton.setAttribute( 'title', '选中' );
+        pluginInnerPanel.append(selectAllButton);
+        selectAllButton.on('click', function (ev) {
+            alert("暂不支持!");
+            //The DOM event object is passed by the 'data' property.
+            var domEvent = ev.data;
+            //Prevent the click to chave any effect in the element.
+            domEvent.preventDefault();
+            domEvent.stopPropagation();
+        });
+
+        var delButton = new CKEDITOR.dom.element('div');
+        delButton.addClass("button");
+        delButton.addClass("del-img");
+        delButton.setAttribute( 'title', '删除' );
+        pluginInnerPanel.append(delButton);
+        delButton.on('click', function (ev) {
+            elem.remove();
+            //The DOM event object is passed by the 'data' property.
+            var domEvent = ev.data;
+            //Prevent the click to chave any effect in the element.
+            domEvent.preventDefault();
+            domEvent.stopPropagation();
+        });
+
+        var copyIdButton = new CKEDITOR.dom.element('div');
+        copyIdButton.addClass("button");
+        copyIdButton.addClass("copy-id-img");
+        copyIdButton.setAttribute( 'title', '复制ID' );
+        pluginInnerPanel.append(copyIdButton);
+        copyIdButton.on('click', function (ev) {
+            alert("暂不支持!");
+            //The DOM event object is passed by the 'data' property.
+            var domEvent = ev.data;
+            //Prevent the click to chave any effect in the element.
+            domEvent.preventDefault();
+            domEvent.stopPropagation();
+        });
+        /*newDelButton.addClass("del-button");
+        elem.append(newDelButton);
+        newDelButton.on('click', function (ev) {
+            elem.remove();
+            //The DOM event object is passed by the 'data' property.
+            var domEvent = ev.data;
+            //Prevent the click to chave any effect in the element.
+            domEvent.preventDefault();
+            domEvent.stopPropagation();
+        });*/
+    }
+    static ClearALLPluginInnerPanel(){
+        var oldDelButtons=CKEditorUtility.GetCKEditorInst().document.find(".pluginInnerPanelWrap");
+        for(var i=0;i<oldDelButtons.count();i++){
+            oldDelButtons.getItem(i).remove();
+        }
+    }
     //点击的时候自动选中元素,主要用于实现位置拖拽
     static SingleElemBindDefaultEvent(elem){
-        if(elem.getAttribute("show_remove_button")=="true") {
-            //console.log(elem.getName());
-            //var elem = elements.getItem(i);
+        //如果不存在子元素,则默认设置为选中状态
+        var singleName=elem.getAttribute("singlename");
+        var innerHtml = elem.getHtml();
+        if (innerHtml.indexOf("<") < 0) {
+            if (singleName) {
+                elem.on('click', function (ev) {
+                    //console.log(this);
+                    //debugger;
+                    console.log(this);
+                    CKEditorUtility.GetCKEditorInst().getSelection().selectElement(this);
+                    CKEditorUtility.SetSelectedElem(this.getOuterHtml());
+
+                    //The DOM event object is passed by the 'data' property.
+                    var domEvent = ev.data;
+                    //Prevent the click to chave any effect in the element.
+                    domEvent.preventDefault();
+                    domEvent.stopPropagation();
+                });
+            }
+        }
+        //取消点击时产生移除按钮的配置与功能,迁移到,selectionChange的事件中生成面板
+        /*if(elem.getAttribute("show_remove_button")=="true") {
             elem.on('click', function () {
-                //alert( this == elem );        // true
-                //debugger;
                 CKEditorUtility.GetCKEditorInst().getSelection().selectElement(this);
                 CKEditorUtility.SetSelectedElem(this.getOuterHtml());
-
                 //创建临时用于删除按钮的元素
                 CKEditorUtility.ClearALLForDivElemButton();
                 var newDelButton = new CKEDITOR.dom.element('div');
@@ -349,23 +484,23 @@ class CKEditorUtility {
                 elem.append(newDelButton);
                 newDelButton.on('click', function (ev) {
                     elem.remove();
-                    //debugger;
-                    // The DOM event object is passed by the 'data' property.
+                    //The DOM event object is passed by the 'data' property.
                     var domEvent = ev.data;
-                    // Prevent the click to chave any effect in the element.
+                    //Prevent the click to chave any effect in the element.
                     domEvent.preventDefault();
                     domEvent.stopPropagation();
                 });
             });
-        }
+        }*/
     }
     static ALLElemBindDefaultEvent(){
+        console.log("取消使用点击进行元素选择和删除的功能,迁移为selectionChange事件进行!")
         //console.log(CKEditorUtility.GetCKEditorInst());
-        var elements = CKEditorUtility.GetCKEditorInst().document.getBody().getElementsByTag( '*' );
-        for ( var i = 0; i < elements.count(); ++i ) {
-            var elem = elements.getItem(i);
-            this.SingleElemBindDefaultEvent(elem);
-        }
+        //var elements = CKEditorUtility.GetCKEditorInst().document.getBody().getElementsByTag( '*' );
+        //for ( var i = 0; i < elements.count(); ++i ) {
+        //    var elem = elements.getItem(i);
+        //    this.SingleElemBindDefaultEvent(elem);
+        //}
     }
 
 }

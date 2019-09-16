@@ -6,7 +6,7 @@
     <th:block th:replace="Fragment/GeneralLib::GeneralLib"></th:block>
     <th:block th:replace="Fragment/GeneralLib::JBuild4DFormDesignLib"></th:block>
     <th:block th:replace="Fragment/GeneralLib::ThemesLib"></th:block>
-    <th:block th:replace="Fragment/GeneralLib::HTMLDesignRuntimeLib"></th:block>
+    <link rel="stylesheet" type="text/css" href="../../../../../Themes/Default/Css/HTMLDesignRuntimeMain.css?refVersion=2">
 </head>
 <body>
     <div class="html-design-plugin-dialog-wraper" id="dialogApp" v-cloak>
@@ -167,6 +167,7 @@
             },
             methods: {
                 ready:function(actionName,sel,parents){
+                    //debugger;
                     this.baseInfo.id="btn_lt_inner_"+StringUtility.Timestamp();
                     this.baseInfo.name=this.baseInfo.id;
 
@@ -211,7 +212,8 @@
                     return result;
                 },
                 setControlProps:function ($elem,props) {
-                    console.log(props);
+                    //debugger;
+                    //console.log(props);
                     this.baseInfo = props.baseInfo ? props.baseInfo : this.baseInfo;
                     //this.bindToSearchField = props.bindToSearchField ? props.bindToSearchField : this.bindToSearchField;
                     this.defaultValue = props.defaultValue ? props.defaultValue : this.defaultValue;

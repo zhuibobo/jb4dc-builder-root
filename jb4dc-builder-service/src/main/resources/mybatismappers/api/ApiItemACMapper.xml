@@ -1,0 +1,298 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jb4dc.builder.dao.api.ApiItemMapper">
+    <resultMap id="BaseResultMap" type="com.jb4dc.builder.dbentities.api.ApiItemEntity">
+        <constructor>
+            <idArg column="API_ITEM_ID" javaType="java.lang.String" jdbcType="NVARCHAR" />
+            <arg column="API_ITEM_VALUE" javaType="java.lang.String" jdbcType="NVARCHAR" />
+            <arg column="API_ITEM_TEXT" javaType="java.lang.String" jdbcType="NVARCHAR" />
+            <arg column="API_ITEM_CLASS_NAME" javaType="java.lang.String" jdbcType="NVARCHAR" />
+            <arg column="API_ITEM_CLASS_PARA" javaType="java.lang.String" jdbcType="NVARCHAR" />
+            <arg column="API_ITEM_REST" javaType="java.lang.String" jdbcType="NVARCHAR" />
+            <arg column="API_ITEM_REST_PARA" javaType="java.lang.String" jdbcType="NVARCHAR" />
+            <arg column="API_ITEM_GROUP_ID" javaType="java.lang.String" jdbcType="NVARCHAR" />
+            <arg column="API_ITEM_ORDER_NUM" javaType="java.lang.Integer" jdbcType="INTEGER" />
+            <arg column="API_ITEM_CREATE_TIME" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+            <arg column="API_ITEM_IS_SYSTEM" javaType="java.lang.String" jdbcType="NVARCHAR" />
+            <arg column="API_ITEM_DEL_ENABLE" javaType="java.lang.String" jdbcType="NVARCHAR" />
+            <arg column="API_ITEM_STATUS" javaType="java.lang.String" jdbcType="NVARCHAR" />
+            <arg column="API_ITEM_DESC" javaType="java.lang.String" jdbcType="NVARCHAR" />
+            <arg column="API_ITEM_EX_ATTR1" javaType="java.lang.String" jdbcType="NVARCHAR" />
+            <arg column="API_ITEM_EX_ATTR2" javaType="java.lang.String" jdbcType="NVARCHAR" />
+            <arg column="API_ITEM_EX_ATTR3" javaType="java.lang.String" jdbcType="NVARCHAR" />
+            <arg column="API_ITEM_EX_ATTR4" javaType="java.lang.String" jdbcType="NVARCHAR" />
+            <arg column="API_ITEM_USER_ID" javaType="java.lang.String" jdbcType="NVARCHAR" />
+            <arg column="API_ITEM_USER_NAME" javaType="java.lang.String" jdbcType="NVARCHAR" />
+            <arg column="API_ITEM_ORGAN_ID" javaType="java.lang.String" jdbcType="NVARCHAR" />
+            <arg column="API_ITEM_ORGAN_NAME" javaType="java.lang.String" jdbcType="NVARCHAR" />
+        </constructor>
+    </resultMap>
+    <sql id="Base_Column_List">
+    API_ITEM_ID, API_ITEM_VALUE, API_ITEM_TEXT, API_ITEM_CLASS_NAME, API_ITEM_CLASS_PARA,
+    API_ITEM_REST, API_ITEM_REST_PARA, API_ITEM_GROUP_ID, API_ITEM_ORDER_NUM, API_ITEM_CREATE_TIME,
+    API_ITEM_IS_SYSTEM, API_ITEM_DEL_ENABLE, API_ITEM_STATUS, API_ITEM_DESC, API_ITEM_EX_ATTR1,
+    API_ITEM_EX_ATTR2, API_ITEM_EX_ATTR3, API_ITEM_EX_ATTR4, API_ITEM_USER_ID, API_ITEM_USER_NAME,
+    API_ITEM_ORGAN_ID, API_ITEM_ORGAN_NAME
+  </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from TBUILD_API_ITEM
+        where API_ITEM_ID = #{apiItemId,jdbcType=NVARCHAR}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from TBUILD_API_ITEM
+    where API_ITEM_ID = #{apiItemId,jdbcType=NVARCHAR}
+  </delete>
+    <insert id="insert" parameterType="com.jb4dc.builder.dbentities.api.ApiItemEntity">
+    insert into TBUILD_API_ITEM (API_ITEM_ID, API_ITEM_VALUE, API_ITEM_TEXT,
+      API_ITEM_CLASS_NAME, API_ITEM_CLASS_PARA, API_ITEM_REST,
+      API_ITEM_REST_PARA, API_ITEM_GROUP_ID, API_ITEM_ORDER_NUM,
+      API_ITEM_CREATE_TIME, API_ITEM_IS_SYSTEM,
+      API_ITEM_DEL_ENABLE, API_ITEM_STATUS, API_ITEM_DESC,
+      API_ITEM_EX_ATTR1, API_ITEM_EX_ATTR2, API_ITEM_EX_ATTR3,
+      API_ITEM_EX_ATTR4, API_ITEM_USER_ID, API_ITEM_USER_NAME,
+      API_ITEM_ORGAN_ID, API_ITEM_ORGAN_NAME)
+    values (#{apiItemId,jdbcType=NVARCHAR}, #{apiItemValue,jdbcType=NVARCHAR}, #{apiItemText,jdbcType=NVARCHAR},
+      #{apiItemClassName,jdbcType=NVARCHAR}, #{apiItemClassPara,jdbcType=NVARCHAR}, #{apiItemRest,jdbcType=NVARCHAR},
+      #{apiItemRestPara,jdbcType=NVARCHAR}, #{apiItemGroupId,jdbcType=NVARCHAR}, #{apiItemOrderNum,jdbcType=INTEGER},
+      #{apiItemCreateTime,jdbcType=TIMESTAMP}, #{apiItemIsSystem,jdbcType=NVARCHAR},
+      #{apiItemDelEnable,jdbcType=NVARCHAR}, #{apiItemStatus,jdbcType=NVARCHAR}, #{apiItemDesc,jdbcType=NVARCHAR},
+      #{apiItemExAttr1,jdbcType=NVARCHAR}, #{apiItemExAttr2,jdbcType=NVARCHAR}, #{apiItemExAttr3,jdbcType=NVARCHAR},
+      #{apiItemExAttr4,jdbcType=NVARCHAR}, #{apiItemUserId,jdbcType=NVARCHAR}, #{apiItemUserName,jdbcType=NVARCHAR},
+      #{apiItemOrganId,jdbcType=NVARCHAR}, #{apiItemOrganName,jdbcType=NVARCHAR})
+  </insert>
+    <insert id="insertSelective" parameterType="com.jb4dc.builder.dbentities.api.ApiItemEntity">
+        insert into TBUILD_API_ITEM
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="apiItemId != null">
+                API_ITEM_ID,
+            </if>
+            <if test="apiItemValue != null">
+                API_ITEM_VALUE,
+            </if>
+            <if test="apiItemText != null">
+                API_ITEM_TEXT,
+            </if>
+            <if test="apiItemClassName != null">
+                API_ITEM_CLASS_NAME,
+            </if>
+            <if test="apiItemClassPara != null">
+                API_ITEM_CLASS_PARA,
+            </if>
+            <if test="apiItemRest != null">
+                API_ITEM_REST,
+            </if>
+            <if test="apiItemRestPara != null">
+                API_ITEM_REST_PARA,
+            </if>
+            <if test="apiItemGroupId != null">
+                API_ITEM_GROUP_ID,
+            </if>
+            <if test="apiItemOrderNum != null">
+                API_ITEM_ORDER_NUM,
+            </if>
+            <if test="apiItemCreateTime != null">
+                API_ITEM_CREATE_TIME,
+            </if>
+            <if test="apiItemIsSystem != null">
+                API_ITEM_IS_SYSTEM,
+            </if>
+            <if test="apiItemDelEnable != null">
+                API_ITEM_DEL_ENABLE,
+            </if>
+            <if test="apiItemStatus != null">
+                API_ITEM_STATUS,
+            </if>
+            <if test="apiItemDesc != null">
+                API_ITEM_DESC,
+            </if>
+            <if test="apiItemExAttr1 != null">
+                API_ITEM_EX_ATTR1,
+            </if>
+            <if test="apiItemExAttr2 != null">
+                API_ITEM_EX_ATTR2,
+            </if>
+            <if test="apiItemExAttr3 != null">
+                API_ITEM_EX_ATTR3,
+            </if>
+            <if test="apiItemExAttr4 != null">
+                API_ITEM_EX_ATTR4,
+            </if>
+            <if test="apiItemUserId != null">
+                API_ITEM_USER_ID,
+            </if>
+            <if test="apiItemUserName != null">
+                API_ITEM_USER_NAME,
+            </if>
+            <if test="apiItemOrganId != null">
+                API_ITEM_ORGAN_ID,
+            </if>
+            <if test="apiItemOrganName != null">
+                API_ITEM_ORGAN_NAME,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="apiItemId != null">
+                #{apiItemId,jdbcType=NVARCHAR},
+            </if>
+            <if test="apiItemValue != null">
+                #{apiItemValue,jdbcType=NVARCHAR},
+            </if>
+            <if test="apiItemText != null">
+                #{apiItemText,jdbcType=NVARCHAR},
+            </if>
+            <if test="apiItemClassName != null">
+                #{apiItemClassName,jdbcType=NVARCHAR},
+            </if>
+            <if test="apiItemClassPara != null">
+                #{apiItemClassPara,jdbcType=NVARCHAR},
+            </if>
+            <if test="apiItemRest != null">
+                #{apiItemRest,jdbcType=NVARCHAR},
+            </if>
+            <if test="apiItemRestPara != null">
+                #{apiItemRestPara,jdbcType=NVARCHAR},
+            </if>
+            <if test="apiItemGroupId != null">
+                #{apiItemGroupId,jdbcType=NVARCHAR},
+            </if>
+            <if test="apiItemOrderNum != null">
+                #{apiItemOrderNum,jdbcType=INTEGER},
+            </if>
+            <if test="apiItemCreateTime != null">
+                #{apiItemCreateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="apiItemIsSystem != null">
+                #{apiItemIsSystem,jdbcType=NVARCHAR},
+            </if>
+            <if test="apiItemDelEnable != null">
+                #{apiItemDelEnable,jdbcType=NVARCHAR},
+            </if>
+            <if test="apiItemStatus != null">
+                #{apiItemStatus,jdbcType=NVARCHAR},
+            </if>
+            <if test="apiItemDesc != null">
+                #{apiItemDesc,jdbcType=NVARCHAR},
+            </if>
+            <if test="apiItemExAttr1 != null">
+                #{apiItemExAttr1,jdbcType=NVARCHAR},
+            </if>
+            <if test="apiItemExAttr2 != null">
+                #{apiItemExAttr2,jdbcType=NVARCHAR},
+            </if>
+            <if test="apiItemExAttr3 != null">
+                #{apiItemExAttr3,jdbcType=NVARCHAR},
+            </if>
+            <if test="apiItemExAttr4 != null">
+                #{apiItemExAttr4,jdbcType=NVARCHAR},
+            </if>
+            <if test="apiItemUserId != null">
+                #{apiItemUserId,jdbcType=NVARCHAR},
+            </if>
+            <if test="apiItemUserName != null">
+                #{apiItemUserName,jdbcType=NVARCHAR},
+            </if>
+            <if test="apiItemOrganId != null">
+                #{apiItemOrganId,jdbcType=NVARCHAR},
+            </if>
+            <if test="apiItemOrganName != null">
+                #{apiItemOrganName,jdbcType=NVARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.jb4dc.builder.dbentities.api.ApiItemEntity">
+        update TBUILD_API_ITEM
+        <set>
+            <if test="apiItemValue != null">
+                API_ITEM_VALUE = #{apiItemValue,jdbcType=NVARCHAR},
+            </if>
+            <if test="apiItemText != null">
+                API_ITEM_TEXT = #{apiItemText,jdbcType=NVARCHAR},
+            </if>
+            <if test="apiItemClassName != null">
+                API_ITEM_CLASS_NAME = #{apiItemClassName,jdbcType=NVARCHAR},
+            </if>
+            <if test="apiItemClassPara != null">
+                API_ITEM_CLASS_PARA = #{apiItemClassPara,jdbcType=NVARCHAR},
+            </if>
+            <if test="apiItemRest != null">
+                API_ITEM_REST = #{apiItemRest,jdbcType=NVARCHAR},
+            </if>
+            <if test="apiItemRestPara != null">
+                API_ITEM_REST_PARA = #{apiItemRestPara,jdbcType=NVARCHAR},
+            </if>
+            <if test="apiItemGroupId != null">
+                API_ITEM_GROUP_ID = #{apiItemGroupId,jdbcType=NVARCHAR},
+            </if>
+            <if test="apiItemOrderNum != null">
+                API_ITEM_ORDER_NUM = #{apiItemOrderNum,jdbcType=INTEGER},
+            </if>
+            <if test="apiItemCreateTime != null">
+                API_ITEM_CREATE_TIME = #{apiItemCreateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="apiItemIsSystem != null">
+                API_ITEM_IS_SYSTEM = #{apiItemIsSystem,jdbcType=NVARCHAR},
+            </if>
+            <if test="apiItemDelEnable != null">
+                API_ITEM_DEL_ENABLE = #{apiItemDelEnable,jdbcType=NVARCHAR},
+            </if>
+            <if test="apiItemStatus != null">
+                API_ITEM_STATUS = #{apiItemStatus,jdbcType=NVARCHAR},
+            </if>
+            <if test="apiItemDesc != null">
+                API_ITEM_DESC = #{apiItemDesc,jdbcType=NVARCHAR},
+            </if>
+            <if test="apiItemExAttr1 != null">
+                API_ITEM_EX_ATTR1 = #{apiItemExAttr1,jdbcType=NVARCHAR},
+            </if>
+            <if test="apiItemExAttr2 != null">
+                API_ITEM_EX_ATTR2 = #{apiItemExAttr2,jdbcType=NVARCHAR},
+            </if>
+            <if test="apiItemExAttr3 != null">
+                API_ITEM_EX_ATTR3 = #{apiItemExAttr3,jdbcType=NVARCHAR},
+            </if>
+            <if test="apiItemExAttr4 != null">
+                API_ITEM_EX_ATTR4 = #{apiItemExAttr4,jdbcType=NVARCHAR},
+            </if>
+            <if test="apiItemUserId != null">
+                API_ITEM_USER_ID = #{apiItemUserId,jdbcType=NVARCHAR},
+            </if>
+            <if test="apiItemUserName != null">
+                API_ITEM_USER_NAME = #{apiItemUserName,jdbcType=NVARCHAR},
+            </if>
+            <if test="apiItemOrganId != null">
+                API_ITEM_ORGAN_ID = #{apiItemOrganId,jdbcType=NVARCHAR},
+            </if>
+            <if test="apiItemOrganName != null">
+                API_ITEM_ORGAN_NAME = #{apiItemOrganName,jdbcType=NVARCHAR},
+            </if>
+        </set>
+        where API_ITEM_ID = #{apiItemId,jdbcType=NVARCHAR}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.jb4dc.builder.dbentities.api.ApiItemEntity">
+    update TBUILD_API_ITEM
+    set API_ITEM_VALUE = #{apiItemValue,jdbcType=NVARCHAR},
+      API_ITEM_TEXT = #{apiItemText,jdbcType=NVARCHAR},
+      API_ITEM_CLASS_NAME = #{apiItemClassName,jdbcType=NVARCHAR},
+      API_ITEM_CLASS_PARA = #{apiItemClassPara,jdbcType=NVARCHAR},
+      API_ITEM_REST = #{apiItemRest,jdbcType=NVARCHAR},
+      API_ITEM_REST_PARA = #{apiItemRestPara,jdbcType=NVARCHAR},
+      API_ITEM_GROUP_ID = #{apiItemGroupId,jdbcType=NVARCHAR},
+      API_ITEM_ORDER_NUM = #{apiItemOrderNum,jdbcType=INTEGER},
+      API_ITEM_CREATE_TIME = #{apiItemCreateTime,jdbcType=TIMESTAMP},
+      API_ITEM_IS_SYSTEM = #{apiItemIsSystem,jdbcType=NVARCHAR},
+      API_ITEM_DEL_ENABLE = #{apiItemDelEnable,jdbcType=NVARCHAR},
+      API_ITEM_STATUS = #{apiItemStatus,jdbcType=NVARCHAR},
+      API_ITEM_DESC = #{apiItemDesc,jdbcType=NVARCHAR},
+      API_ITEM_EX_ATTR1 = #{apiItemExAttr1,jdbcType=NVARCHAR},
+      API_ITEM_EX_ATTR2 = #{apiItemExAttr2,jdbcType=NVARCHAR},
+      API_ITEM_EX_ATTR3 = #{apiItemExAttr3,jdbcType=NVARCHAR},
+      API_ITEM_EX_ATTR4 = #{apiItemExAttr4,jdbcType=NVARCHAR},
+      API_ITEM_USER_ID = #{apiItemUserId,jdbcType=NVARCHAR},
+      API_ITEM_USER_NAME = #{apiItemUserName,jdbcType=NVARCHAR},
+      API_ITEM_ORGAN_ID = #{apiItemOrganId,jdbcType=NVARCHAR},
+      API_ITEM_ORGAN_NAME = #{apiItemOrganName,jdbcType=NVARCHAR}
+    where API_ITEM_ID = #{apiItemId,jdbcType=NVARCHAR}
+  </update>
+</mapper>

@@ -3,6 +3,8 @@ package com.jb4dc.builder.webpackage.rest.builder;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.jb4dc.base.service.general.JB4DCSessionUtility;
 import com.jb4dc.builder.dbentities.datastorage.TableRelationGroupEntity;
+import com.jb4dc.builder.service.api.IApiGroupService;
+import com.jb4dc.builder.service.api.IApiItemService;
 import com.jb4dc.builder.service.dataset.IDatasetGroupService;
 import com.jb4dc.builder.service.datastorage.IDbLinkService;
 import com.jb4dc.builder.service.datastorage.ITableFieldService;
@@ -55,6 +57,12 @@ public class InitializationSystemRest {
     @Autowired
     IEnvVariableService envVariableService;
 
+    @Autowired
+    IApiGroupService apiGroupService;
+
+    @Autowired
+    IApiItemService apiItemService;
+
     @RequestMapping(value = "/Running", method = RequestMethod.POST)
     @ResponseBody
     public JBuild4DCResponseVo running(String createTestData) throws JBuild4DCGenerallyException, JsonProcessingException {
@@ -63,6 +71,10 @@ public class InitializationSystemRest {
         envGroupService.initSystemData(jb4DCSession);
 
         envVariableService.initSystemData(jb4DCSession);
+
+        apiGroupService.initSystemData(jb4DCSession);
+
+        apiItemService.initSystemData(jb4DCSession);
 
         tableFieldService.createTableFieldTemplates(jb4DCSession);
 

@@ -62,7 +62,7 @@ public class EnvVariableServiceImpl extends BaseServiceImpl<EnvVariableEntity> i
                 if(tempEntity!=null&&!tempEntity.getEnvVarId().equals(sourceEntity.getEnvVarId())){
                     throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_BUILDER_CODE, "["+tempEntity.getEnvVarValue()+"]Value必须唯一!");
                 }
-                tempEntity = envVariableMapper.selectByValue(sourceEntity.getEnvVarValue());
+                tempEntity = envVariableMapper.selectByText(sourceEntity.getEnvVarText());
                 if(tempEntity!=null&&!tempEntity.getEnvVarId().equals(sourceEntity.getEnvVarId())){
                     throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_BUILDER_CODE, "["+tempEntity.getEnvVarText()+"]Text必须唯一!");
                 }

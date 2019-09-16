@@ -2,6 +2,7 @@ package com.jb4dc.builder.service.envvar.impl;
 
 import com.jb4dc.base.service.IAddBefore;
 import com.jb4dc.base.service.IUpdateBefore;
+import com.jb4dc.base.service.exenum.EnableTypeEnum;
 import com.jb4dc.base.service.exenum.TrueFalseEnum;
 import com.jb4dc.base.service.impl.BaseServiceImpl;
 import com.jb4dc.builder.dao.envvar.EnvGroupMapper;
@@ -104,6 +105,7 @@ public class EnvGroupServiceImpl extends BaseServiceImpl<EnvGroupEntity> impleme
         rootEntity.setEnvGroupDelEnable(TrueFalseEnum.False.getDisplayName());
         rootEntity.setEnvGroupText(text);
         rootEntity.setEnvGroupValue(value);
+        rootEntity.setEnvGroupStatus(EnableTypeEnum.enable.getDisplayName());
         this.saveSimple(jb4DCSession,rootEntity.getEnvGroupId(),rootEntity);
         return rootEntity;
     }
