@@ -68,11 +68,11 @@
                     deleteGroup:"/Rest/Builder/APIGroup/Delete",
                     moveGroup:"/Rest/Builder/APIGroup/Move",
                     <!--List -->
-                    listEditView:"/HTML/Builder/EnvVar/EnvVarEdit.html",
-                    reloadListData:"/Rest/Builder/EnvVariable/GetListData",
-                    deleteListRecord:"/Rest/Builder/EnvVariable/Delete",
-                    listStatusChange:"/Rest/Builder/EnvVariable/StatusChange",
-                    listMove:"/Rest/Builder/EnvVariable/Move"
+                    listEditView:"/HTML/Builder/API/ApiItemEdit.html",
+                    reloadListData:"/Rest/Builder/ApiItem/GetListData",
+                    deleteListRecord:"/Rest/Builder/ApiItem/Delete",
+                    listStatusChange:"/Rest/Builder/ApiItem/StatusChange",
+                    listMove:"/Rest/Builder/ApiItem/Move"
                 },
                 <!--Tree-->
                 treeIdFieldName:"apiGroupId",
@@ -108,7 +108,7 @@
                     }
                 },
                 <!--List-->
-                idFieldName:"apiVarId",
+                idFieldName:"apiItemId",
                 searchCondition:{
                     apiVarGroupId:{
                         value:"",
@@ -123,31 +123,31 @@
                     },
                     {
                         title: '变量名称',
-                        key: 'envVarText',
+                        key: 'apiItemText',
                         align: "center"
                     }, {
                         title: '变量值',
-                        key: 'envVarValue',
+                        key: 'apiItemValue',
                         align: "center"
                     }, {
                         title: '类名',
-                        key: 'envVarClassName'
+                        key: 'apiItemClassName'
                     }, {
                         title: '状态',
                         width: 100,
                         align: "center",
-                        key: 'envVarStatus'
+                        key: 'apiItemStatus'
                     }, {
                         title: '创建时间',
-                        key: 'envVarCreateTime',
+                        key: 'apiItemCreateTime',
                         width: 100,
                         align: "center",
                         render: function (h, params) {
-                            return ListPageUtility.IViewTableRenderer.ToDateYYYY_MM_DD(h, params.row.envVarCreateTime);
+                            return ListPageUtility.IViewTableRenderer.ToDateYYYY_MM_DD(h, params.row.apiItemCreateTime);
                         }
                     }, {
                         title: '操作',
-                        key: 'envVarId',
+                        key: 'apiItemId',
                         width: 120,
                         align: "center",
                         render: function (h, params) {

@@ -18,34 +18,34 @@
         <div class="general-edit-page-scroll-outer">
             <div class="general-edit-page-scroll-inner">
                 <i-form ref="formEntity" :model="formEntity" :rules="ruleValidate" :label-width="120">
-            <form-item label="环境变量值：" prop="envVarValue">
-                <i-input v-model="formEntity.envVarValue"></i-input>
+            <form-item label="API值：" prop="apiItemValue">
+                <i-input v-model="formEntity.apiItemValue"></i-input>
             </form-item>
-            <form-item label="环境变量名称：" prop="envVarText">
-                <i-input v-model="formEntity.envVarText"></i-input>
+            <form-item label="API名称：" prop="apiItemText">
+                <i-input v-model="formEntity.apiItemText"></i-input>
             </form-item>
-            <form-item label="解析类全称：" prop="envVarClassName">
-                <i-input v-model="formEntity.envVarClassName"></i-input>
+            <form-item label="解析类全称：" prop="apiItemClassName">
+                <i-input v-model="formEntity.apiItemClassName"></i-input>
             </form-item>
             <form-item label="解析参数：">
-                <i-input v-model="formEntity.envVarClassPara"></i-input>
+                <i-input v-model="formEntity.apiItemClassPara"></i-input>
             </form-item>
             <form-item label="REST接口地址：">
-                <i-input v-model="formEntity.envVarRest"></i-input>
+                <i-input v-model="formEntity.apiItemRest"></i-input>
             </form-item>
             <form-item label="REST接口参数：">
-                <i-input v-model="formEntity.envVarRestPara"></i-input>
+                <i-input v-model="formEntity.apiItemRestPara"></i-input>
             </form-item>
             <form-item label="创建时间：">
                 <row>
                     <i-col span="10">
-                        <date-picker type="date" placeholder="选择创建时间" v-model="formEntity.envVarCreateTime" disabled
+                        <date-picker type="date" placeholder="选择创建时间" v-model="formEntity.apiItemCreateTime" disabled
                                      readonly></date-picker>
                     </i-col>
                     <i-col span="4" style="text-align: center">状态：</i-col>
                     <i-col span="10">
                         <form-item>
-                            <radio-group v-model="formEntity.envVarStatus">
+                            <radio-group v-model="formEntity.apiItemStatus">
                                 <radio label="启用">启用</radio>
                                 <radio label="禁用">禁用</radio>
                             </radio-group>
@@ -54,13 +54,13 @@
                 </row>
             </form-item>
             <form-item label="扩展属性1：">
-                <i-input v-model="formEntity.envVarExAttr1"></i-input>
+                <i-input v-model="formEntity.apiItemExAttr1"></i-input>
             </form-item>
             <form-item label="扩展属性2：">
-                <i-input v-model="formEntity.envVarExAttr2"></i-input>
+                <i-input v-model="formEntity.apiItemExAttr2"></i-input>
             </form-item>
             <form-item label="备注：">
-                <i-input v-model="formEntity.envVarDesc" type="textarea" :autosize="{minRows: 2,maxRows: 2}"></i-input>
+                <i-input v-model="formEntity.apiItemDesc" type="textarea" :autosize="{minRows: 2,maxRows: 2}"></i-input>
             </form-item>
         </i-form>
             </div>
@@ -88,37 +88,37 @@
             data: {
                 isSubmitting:false,
                 acInterface:{
-                    getDataUrl:"/Rest/Builder/EnvVariable/GetDetailData",
-                    saveDataUrl:"/Rest/Builder/EnvVariable/SaveEdit"
+                    getDataUrl:"/Rest/Builder/ApiItem/GetDetailData",
+                    saveDataUrl:"/Rest/Builder/ApiItem/SaveEdit"
                 },
                 recordId:BaseUtility.GetUrlParaValue("recordId"),
                 formEntity: {
-                    envVarId: "",
-                    envVarValue: "",
-                    envVarText:"",
-                    envVarClassName: "",
-                    envVarClassPara:"",
-                    envVarStatus:"启用",
-                    envVarCreateTime: DateUtility.GetCurrentData(),
-                    envVarDesc: "",
-                    envVarIsSystem:"否",
-                    envVarDelEnable:"是",
-                    envVarExAttr1:"",
-                    envVarExAttr2:"",
-                    envVarExAttr3:"",
-                    envVarExAttr4:"",
-                    envVarGroupId:BaseUtility.GetUrlParaValue("groupId"),
-                    envVarRest:"",
-                    envVarRestPara:""
+                    apiItemId: "",
+                    apiItemValue: "",
+                    apiItemText:"",
+                    apiItemClassName: "",
+                    apiItemClassPara:"",
+                    apiItemStatus:"启用",
+                    apiItemCreateTime: DateUtility.GetCurrentData(),
+                    apiItemDesc: "",
+                    apiItemIsSystem:"否",
+                    apiItemDelEnable:"是",
+                    apiItemExAttr1:"",
+                    apiItemExAttr2:"",
+                    apiItemExAttr3:"",
+                    apiItemExAttr4:"",
+                    apiItemGroupId:BaseUtility.GetUrlParaValue("groupId"),
+                    apiItemRest:"",
+                    apiItemRestPara:""
                 },
                 ruleValidate: {
-                    envVarValue: [
-                        {required: true, message: '【值】不能空！', trigger: 'blur'}
+                    apiItemValue: [
+                        {required: true, message: '【API值】不能空！', trigger: 'blur'}
                     ],
-                    envVarText: [
-                        {required: true, message: '【环境变量名称】不能空！', trigger: 'blur'}
+                    apiItemText: [
+                        {required: true, message: '【API名称】不能空！', trigger: 'blur'}
                     ],
-                    envVarClassName: [
+                    apiItemClassName: [
                         {required: true, message: '【解析类全称】不能空！', trigger: 'blur'}
                     ]
                 },

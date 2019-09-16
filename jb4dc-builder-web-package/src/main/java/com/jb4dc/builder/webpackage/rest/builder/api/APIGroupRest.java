@@ -29,7 +29,7 @@ public class APIGroupRest extends GeneralRest<ApiGroupEntity> {
 
     @Override
     public String getModuleName() {
-        return "API";
+        return "API分组";
     }
 
     @Override
