@@ -65,13 +65,46 @@ Vue.component("inner-form-button-list-comp", {
                 custClientClickBeforeMethod:"",
                 custClientClickBeforeMethodPara:"",
             },
-            api:{
+            api: {
                 acInterface: {
-                    getButtonApiConfig: "/Rest/Builder/Button/ButtonApi/GetButtonApiConfig",
+                    getAPIData: "/Rest/Builder/ApiItem/GetAPISForZTreeNodeList"
                 },
-                apiSelectData:null,
-                editTableObject:null,
-                editTableConfig:{
+                apiTreeObj: null,
+                apiTreeSetting: {
+                    view: {
+                        dblClickExpand: false,//双击节点时，是否自动展开父节点的标识
+                        showLine: true,//是否显示节点之间的连线
+                        fontCss: {'color': 'black', 'font-weight': 'normal'}
+                    },
+                    check: {
+                        enable: false,
+                        nocheckInherit: false,
+                        chkStyle: "radio",
+                        radioType: "all"
+                    },
+                    data: {
+                        key: {
+                            name: "text"
+                        },
+                        simpleData: {//简单数据模式
+                            enable: true,
+                            idKey: "id",
+                            pIdKey: "parentId",
+                            rootPId: "-1"// 1
+                        }
+                    },
+                    callback: {
+                        //点击树节点事件
+                        onClick: function (event, treeId, treeNode) {
+                            if (treeNode.nodeTypeName == "DataSet") {
+                                _self.selectedNode(treeNode);
+                            }
+                        }
+                    }
+                },
+                apiSelectData: null,
+                editTableObject: null,
+                editTableConfig: {
                     Status: "Edit",
                     AddAfterRowEvent: null,
                     DataField: "fieldName",
@@ -136,8 +169,9 @@ Vue.component("inner-form-button-list-comp", {
     mounted:function(){
         //alert(1);
 
-        this.getApiConfigAndBindToTable();
+        //this.getApiConfigAndBindToTable();
         //this.getTableFieldsAndBindToTable();
+        this.bindAPITree();
     },
     methods:{
         getJson:function () {
@@ -242,10 +276,10 @@ Vue.component("inner-form-button-list-comp", {
                     custClientClickBeforeMethod:"",
                     custClientClickBeforeMethodPara:"",
             };
-            this.api.editTableObject.RemoveAllRow();
-            if(this.field.editTableObject) {
-                this.field.editTableObject.RemoveAllRow();
-            }
+            //this.api.editTableObject.RemoveAllRow();
+            //if(this.field.editTableObject) {
+            //    this.field.editTableObject.RemoveAllRow();
+            //}
         },
         saveInnerSaveButtonToList:function(){
             //保存到列表
@@ -316,6 +350,31 @@ Vue.component("inner-form-button-list-comp", {
             this.tableData.push(closeButtonData);
         },
         //region api列表
+        bindAPITree: function () {
+            var _self = this;
+            AjaxUtility.Post(this.api.acInterface.getAPIData, {}, function (result) {
+                if (result.success) {
+                    if(result.data!=null&&result.data.length>0){
+                        for(var i=0;i<result.data.length;i++) {
+                            if(result.data[i].nodeTypeName=="Group"){
+                                result.data[i].icon = BaseUtility.GetRootPath()+"/Themes/Png16X16/package.png";
+                            }
+                            else {
+                                result.data[i].icon = BaseUtility.GetRootPath()+"/Themes/Png16X16/application_view_columns.png";
+                            }
+                        }
+                    }
+
+                   // _self.api.treeData = result.data;
+                    _self.api.apiTreeObj = $.fn.zTree.init($("#apiZTreeUL"), _self.api.apiTreeSetting, result.data);
+                    _self.api.apiTreeObj.expandAll(true);
+                   // fuzzySearchTreeObj(_self.dataSetTree.treeObj,_self.$refs.txt_search_text.$refs.input,null,true);
+                }
+                else {
+                    DialogUtility.Alert(window, DialogUtility.DialogAlertId, {}, result.message, null);
+                }
+            }, this);
+        },
         getApiConfigAndBindToTable:function(){
             var _self=this;
             AjaxUtility.Post(this.api.acInterface.getButtonApiConfig,{},function (result) {
@@ -372,7 +431,7 @@ Vue.component("inner-form-button-list-comp", {
         //endregion
     },
     template: `<div style="height: 210px" class="iv-list-page-wrap">
-                    <div ref="innerFormButtonEdit" class="html-design-plugin-dialog-wraper general-edit-page-wrap" style="display: none">
+                    <div ref="innerFormButtonEdit" class="html-design-plugin-dialog-wraper general-edit-page-wrap" style="display: none;margin-top: 0px">
                         <tabs size="small">
                             <tab-pane label="绑定信息">
                                 <table cellpadding="0" cellspacing="0" border="0" class="html-design-plugin-dialog-table-wraper">
@@ -397,33 +456,50 @@ Vue.component("inner-form-button-list-comp", {
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td>API：</td>
-                                            <td colspan="3">
-                                                <div style="height: 140px">
-                                                    <div style="float: left;width: 94%">
-                                                        <div id="apiContainer" class="edit-table-wrap" style="height: 140px;overflow: auto;width: 98%;margin: auto"></div>
-                                                    </div>
-                                                    <div style="float: right;width: 5%">
-                                                        <button-group vertical>
-                                                            <i-button size="small" type="success" icon="md-add" @click="addAPI"></i-button>
-                                                            <i-button size="small" type="primary" icon="md-close" @click="removeAPI"></i-button>
-                                                        </button-group>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
                                             <td>字段：</td>
                                             <td colspan="3">
                                                 <div style="height: 140px">
                                                     <div style="float: left;width: 94%">
-                                                        <div id="fieldContainer" class="edit-table-wrap" style="height: 140px;overflow: auto;width: 98%;margin: auto"></div>
+                                                        <div id="fieldContainer" class="edit-table-wrap" style="height: 320px;overflow: auto;width: 98%;margin: auto"></div>
                                                     </div>
                                                     <div style="float: right;width: 5%">
                                                         <button-group vertical>
                                                             <i-button size="small" type="success" icon="md-add" @click="addField"></i-button>
                                                             <i-button size="small" type="primary" icon="md-close" @click="removeField"></i-button>
                                                         </button-group>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </tab-pane>
+                            <tab-pane label="API设置">
+                                <table cellpadding="0" cellspacing="0" border="0" class="html-design-plugin-dialog-table-wraper">
+                                    <colgroup>
+                                        <col style="width: 320px" />
+                                        <col style="width: 60px" />
+                                        <col />
+                                    </colgroup>
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                <i-input search class="input_border_bottom" ref="txt_search_text" placeholder="请输入表名或者标题"></i-input>
+                                                <ul id="apiZTreeUL" class="ztree" style="height: 320px;overflow: auto"></ul>
+                                            </td>
+                                            <td style="text-align: center">
+                                                <button-group vertical>
+                                                    <i-button size="small" type="success" icon="md-add" @click="addAPI"></i-button>
+                                                    <i-button size="small" type="primary" icon="md-close" @click="removeAPI"></i-button>
+                                                </button-group>
+                                            </td>
+                                            <td>
+                                                <div style="height: 140px">
+                                                    <div style="float: left;width: 94%">
+                                                        <div id="apiContainer" class="edit-table-wrap" style="height: 140px;overflow: auto;width: 98%;margin: auto"></div>
+                                                    </div>
+                                                    <div style="float: right;width: 5%">
+                                                       
                                                     </div>
                                                 </div>
                                             </td>

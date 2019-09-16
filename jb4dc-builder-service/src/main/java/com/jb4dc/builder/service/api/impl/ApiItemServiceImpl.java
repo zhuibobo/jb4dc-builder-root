@@ -72,7 +72,25 @@ public class ApiItemServiceImpl extends BaseServiceImpl<ApiItemEntity> implement
     @Override
     public void initSystemData(JB4DCSession jb4DCSession) throws JBuild4DCGenerallyException {
         create(jb4DCSession,"API_GLOBAL_DELETE",ApiGroupServiceImpl.API_GROUP_GLOBAL,"备份并删除","API_GLOBAL_DELETE","","","","");
-
+        create(jb4DCSession,"API_GLOBAL_DELETE1",ApiGroupServiceImpl.API_GROUP_GLOBAL,"备份并删除1","API_GLOBAL_DELETE1","","","","");
+        create(jb4DCSession,"API_GLOBAL_DELETE2",ApiGroupServiceImpl.API_GROUP_GLOBAL,"备份并删除2","API_GLOBAL_DELETE2","","","","");
+        create(jb4DCSession,"API_GLOBAL_DELETE3",ApiGroupServiceImpl.API_GROUP_GLOBAL,"备份并删除3","API_GLOBAL_DELETE3","","","","");
+        create(jb4DCSession,"API_GLOBAL_DELETE4",ApiGroupServiceImpl.API_GROUP_GLOBAL,"备份并删除4","API_GLOBAL_DELETE4","","","","");
+        create(jb4DCSession,"API_GLOBAL_DELETE5",ApiGroupServiceImpl.API_GROUP_GLOBAL,"备份并删除5","API_GLOBAL_DELETE5","","","","");
+        create(jb4DCSession,"API_GLOBAL_DELETE6",ApiGroupServiceImpl.API_GROUP_GLOBAL,"备份并删除6","API_GLOBAL_DELETE6","","","","");
+        create(jb4DCSession,"API_GLOBAL_DELETE7",ApiGroupServiceImpl.API_GROUP_GLOBAL,"备份并删除7","API_GLOBAL_DELETE7","","","","");
+        create(jb4DCSession,"API_GLOBAL_DELETE8",ApiGroupServiceImpl.API_GROUP_GLOBAL,"备份并删除8","API_GLOBAL_DELETE8","","","","");
+        create(jb4DCSession,"API_GLOBAL_DELETE9",ApiGroupServiceImpl.API_GROUP_GLOBAL,"备份并删除9","API_GLOBAL_DELETE9","","","","");
+        create(jb4DCSession,"API_GLOBAL_DELETE10",ApiGroupServiceImpl.API_GROUP_GLOBAL,"备份并删除10","API_GLOBAL_DELETE10","","","","");
+        create(jb4DCSession,"API_GLOBAL_DELETE11",ApiGroupServiceImpl.API_GROUP_GLOBAL,"备份并删除11","API_GLOBAL_DELETE11","","","","");
+        create(jb4DCSession,"API_GLOBAL_DELETE12",ApiGroupServiceImpl.API_GROUP_GLOBAL,"备份并删除12","API_GLOBAL_DELETE12","","","","");
+        create(jb4DCSession,"API_GLOBAL_DELETE13",ApiGroupServiceImpl.API_GROUP_GLOBAL,"备份并删除13","API_GLOBAL_DELETE13","","","","");
+        create(jb4DCSession,"API_GLOBAL_DELETE14",ApiGroupServiceImpl.API_GROUP_GLOBAL,"备份并删除14","API_GLOBAL_DELETE14","","","","");
+        create(jb4DCSession,"API_GLOBAL_DELETE15",ApiGroupServiceImpl.API_GROUP_GLOBAL,"备份并删除15","API_GLOBAL_DELETE15","","","","");
+        create(jb4DCSession,"API_GLOBAL_DELETE16",ApiGroupServiceImpl.API_GROUP_GLOBAL,"备份并删除16","API_GLOBAL_DELETE16","","","","");
+        create(jb4DCSession,"API_GLOBAL_DELETE17",ApiGroupServiceImpl.API_GROUP_GLOBAL,"备份并删除17","API_GLOBAL_DELETE17","","","","");
+        create(jb4DCSession,"API_GLOBAL_DELETE18",ApiGroupServiceImpl.API_GROUP_GLOBAL,"备份并删除18","API_GLOBAL_DELETE18","","","","");
+        create(jb4DCSession,"API_GLOBAL_DELETE19",ApiGroupServiceImpl.API_GROUP_GLOBAL,"备份并删除19","API_GLOBAL_DELETE19","","","","");
     }
 
     private ApiItemEntity create(JB4DCSession jb4DCSession,String envVarId,String groupId,String text,String value,String className,String classPara,String rest,String restPara) throws JBuild4DCGenerallyException {

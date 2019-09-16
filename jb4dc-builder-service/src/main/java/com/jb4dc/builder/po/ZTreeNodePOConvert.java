@@ -1,6 +1,8 @@
 package com.jb4dc.builder.po;
 
 import com.jb4dc.base.service.po.ZTreeNodePO;
+import com.jb4dc.builder.dbentities.api.ApiGroupEntity;
+import com.jb4dc.builder.dbentities.api.ApiItemEntity;
 import com.jb4dc.builder.dbentities.dataset.DatasetEntity;
 import com.jb4dc.builder.dbentities.dataset.DatasetGroupEntity;
 import com.jb4dc.builder.dbentities.datastorage.TableEntity;
@@ -113,6 +115,32 @@ public class ZTreeNodePOConvert extends ZTreeNodePO {
             result.add(nodeVo);
         }
 
+        return result;
+    }
+
+    public static List<ZTreeNodePO> parseApiToZTreeNodeList(List<ApiGroupEntity> apiGroupEntityList, List<ApiItemEntity> apiItemEntityList) {
+        List<ZTreeNodePO> result=new ArrayList<>();
+
+        for (ApiGroupEntity groupEntity : apiGroupEntityList) {
+            ZTreeNodePO nodeVo=new ZTreeNodePO();
+            nodeVo.setId(groupEntity.getApiGroupId());
+            nodeVo.setValue(groupEntity.getApiGroupValue());
+            nodeVo.setText(groupEntity.getApiGroupText());
+            nodeVo.setParentId(groupEntity.getApiGroupParentId());
+            nodeVo.setNocheck(true);
+            nodeVo.setNodeTypeName("Group");
+            result.add(nodeVo);
+        }
+        for (ApiItemEntity apiEntity : apiItemEntityList) {
+            ZTreeNodePO nodeVo=new ZTreeNodePO();
+            nodeVo.setId(apiEntity.getApiItemId());
+            nodeVo.setValue(apiEntity.getApiItemValue());
+            nodeVo.setText(apiEntity.getApiItemText());
+            nodeVo.setParentId(apiEntity.getApiItemGroupId());
+            nodeVo.setNodeTypeName("API");
+            nodeVo.setNocheck(false);
+            result.add(nodeVo);
+        }
         return result;
     }
 }
