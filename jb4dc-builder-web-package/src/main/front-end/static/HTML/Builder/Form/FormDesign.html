@@ -31,8 +31,9 @@
     <spin size="large" fix v-if="isLoading"></spin>
     <div style="position: absolute;right: 10px;top: 6px;z-index: 100">
         <button-group size="small">
-            <i-button icon="md-cloud-done" type="primary" @click="saveClose()">保存并关闭</i-button>
-            <i-button icon="md-search" type="primary" @click="savePreview()">保存并预览</i-button>
+            <i-button icon="md-cloud-done" type="primary" @click="save()">保存并发布</i-button>
+            <i-button icon="md-cloud-done" type="primary" @click="saveClose()">发布并关闭</i-button>
+            <i-button icon="md-search" type="primary" @click="savePreview()">发布并预览</i-button>
             <i-button icon="md-checkmark" type="primary" @click="validateDesign()">校验窗体设置</i-button>
             <i-button icon="md-search" type="primary" @click="savePreview()">历史版本</i-button>
         </button-group>
@@ -403,14 +404,24 @@
                     //debugger;
                     AjaxUtility.PostRequestBody(this.acInterface.saveDataUrl, sendData, function (result) {
                         //debugger;
-                        DialogUtility.Alert(window, DialogUtility.DialogAlertId, {}, result.message, function () {
+                        window.opener._modulelistwebformcomp.reloadData();
+                        if(typeof(successFunc)=="function") {
+                            successFunc.call(this,result);
+                        }
+                        else{
+                            if(result.success){
+                                DialogUtility.AlertText(result.message);
+                            }
+                        }
+
+                        /*DialogUtility.Alert(window, DialogUtility.DialogAlertId, {}, result.message, function () {
                             if (result.success) {
                                 //window.OpenerWindowObj.appList.reloadData();
                                 //DialogUtility.Frame_CloseDialog(window);
                                 window.opener._modulelistwebformcomp.reloadData();
                                 successFunc(result);
                             }
-                        });
+                        });*/
                     },this);
                 }
                 else{

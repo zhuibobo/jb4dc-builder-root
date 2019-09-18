@@ -2,7 +2,7 @@
     CKEditorPluginUtility.Plugins[pluginName]=CKEditorPluginUtility.GetGeneralPluginInstance(pluginName,{});
     CKEditorPluginUtility.Plugins[pluginName].GetHtmlTemplate=function(tipMsg,addDefProp) {
         var tip = CKEditorPluginUtility.GetAutoRemoveTipLabel(tipMsg);
-        var template=`<div class="wysiwyg-wldct-list-table-inner-button-outer-wrap">${tip}
+        var template=`<div class="wysiwyg-wldct-list-table-inner-button-outer-wrap wldct-list-table-row-button-wrap">${tip}
                         <div class="wysiwyg-wldct-list-table-inner-button-inner-wrap">
                             <table is-inner-op-button-wrap-table="true">
                                 <colgroup>

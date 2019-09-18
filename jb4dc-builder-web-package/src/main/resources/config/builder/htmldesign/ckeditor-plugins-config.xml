@@ -17,12 +17,23 @@
             CKEditorUtility.js 中的InitializeCKEditor
 
         -->
-        <Control SingleName="WFDCT_Template" Text="表格模版" ToolbarLocation="LC_Template,1"
+        <Control SingleName="WFDCT_HideContainer" Text="隐藏区域" ToolbarLocation="LC_Template,1"
+                 ServerResolve="com.jb4dc.builder.htmldesign.control.weblist.WebListListHideContainer"
+                 ClientResolve=""
+                 ClientResolveJs=""
+                 EnableChildControls="*"
+                 DialogWidth="780" DialogHeight="550" IsJBuild4DCData="false" ControlCategory="ContainerControl" ServerDynamicBind="false"
+                 ShowRemoveButton="false" ShowInEditorToolbar="true">
+            <Config></Config>
+            <Desc></Desc>
+        </Control>
+        <Control SingleName="WFDCT_Template" Text="表格模版" ToolbarLocation="LC_Template,2"
                  ServerResolve=""
                  ClientResolve="2"
                  ClientResolveJs="3"
                  EnableChildControls="*"
-                 DialogWidth="780" DialogHeight="550" IsJBuild4DCData="false" ControlCategory="ContainerControl" ServerDynamicBind="false" ShowRemoveButton="false" ShowInEditorToolbar="true">
+                 DialogWidth="780" DialogHeight="550" IsJBuild4DCData="false" ControlCategory="ContainerControl" ServerDynamicBind="false"
+                 ShowRemoveButton="false" ShowInEditorToolbar="true">
             <Config></Config>
             <Desc></Desc>
         </Control>
@@ -128,7 +139,7 @@
                  ServerResolve="com.jb4dc.builder.htmldesign.control.weblist.WebListListTableInnerButtonContainer"
                  ClientResolve="WLDCT_ListTableInnerButtonContainer"
                  ClientResolveJs=""
-                 EnableChildControls="WLDCT_ListTableInnerButton"
+                 EnableChildControls="WLDCT_ListTableInnerButtonSingle"
                  DialogWidth="780" DialogHeight="550" IsJBuild4DCData="false" ControlCategory="ContainerControl" ServerDynamicBind="false"
                  ShowRemoveButton="false" ShowInEditorToolbar="true">
             <Config></Config>
