@@ -167,26 +167,33 @@ Vue.component("inner-form-button-list-comp", {
                     TableId: "fieldContainerTable",
                     TableAttrs: {cellpadding: "1", cellspacing: "1", border: "1"}
                 }
-            }
+            },
+            oldFormId:""
         }
     },
     mounted:function(){
-        //alert(1);
 
-        //this.getApiConfigAndBindToTable();
-        //this.getTableFieldsAndBindToTable();
-        this.bindAPITreeAndInitEditTable(null);
     },
     methods:{
+        ready:function(tableDataJson){
+            if(tableDataJson!=null&&tableDataJson!=""){
+                this.tableData=JsonUtility.StringToJson(tableDataJson);
+            }
+
+            //由于切换绑定窗体时,绑定的主表可能不一样,所以不在页面初始化时绑定字段选择的表.
+            //this.bindTableFields(null);
+
+            this.bindAPITreeAndInitEditTable(null);
+        },
         getJson:function () {
             //debugger;
             return JsonUtility.JsonToString(this.tableData);
         },
-        setJson:function (tableDataJson) {
+        /*setJson:function (tableDataJson) {
             if(tableDataJson!=null&&tableDataJson!=""){
                 this.tableData=JsonUtility.StringToJson(tableDataJson);
             }
-        },
+        },*/
         handleClose:function(dialogElem){
             DialogUtility.CloseDialogElem(this.$refs[dialogElem]);
         },
@@ -246,11 +253,11 @@ Vue.component("inner-form-button-list-comp", {
 
                 this.innerSaveButtonEditData.id = "inner_form_button_" + StringUtility.Timestamp();
 
-                if(!this.isLoadTableField||this.formId!=this.oldformId){
-                    this.getTableFieldsAndBindToTable(this.innerSaveButtonEditData.fields);
-                    this.oldformId=this.formId;
-                    this.isLoadTableField=true;
-                }
+
+                //if(this.formId!=this.oldformId){
+                    this.bindTableFields(null);
+                //    this.oldformId=this.formId;
+                //}
             }
             else{
                 DialogUtility.AlertText("请先设置绑定的窗体!");
@@ -261,15 +268,12 @@ Vue.component("inner-form-button-list-comp", {
             this.innerSaveButtonEditData=JsonUtility.CloneStringify(params.row);
             this.editSaveButtonStatuc="edit";
 
-            //debugger;
-            //this.field.editTableObject.LoadJsonData(this.innerSaveButtonEditData.fields);
-            //this.getTableFieldsAndBindToTable(this.innerSaveButtonEditData.fields);
-            if(this.isLoadTableField){
-                this.field.editTableObject.RemoveAllRow();
-                this.field.editTableObject.LoadJsonData(this.innerSaveButtonEditData.fields);
-            }
+            //if(this.isLoadTableField){
+            //    this.field.editTableObject.RemoveAllRow();
+            //    this.field.editTableObject.LoadJsonData(this.innerSaveButtonEditData.fields);
+            //}
             this.bindAPITreeAndInitEditTable(this.innerSaveButtonEditData.apis);
-
+            this.bindTableFields(this.innerSaveButtonEditData.fields);
         },
         resetInnerSaveButtonData:function(){
             this.innerSaveButtonEditData={
@@ -325,10 +329,9 @@ Vue.component("inner-form-button-list-comp", {
         //endregion
 
         //region 字段列表
-        getTableFieldsAndBindToTable:function(oldData){
-            var _self=this;
-            //debugger;
-            if(!this.field.editTableObject) {
+        bindTableFields:function(oldData) {
+
+            if(this.oldFormId!=this.formId) {
                 AjaxUtility.Post(this.field.acInterface.getFormMainTableFields, {formId: this.formId}, function (result) {
                     //console.log(result);
                     var fieldsData = [];
@@ -345,16 +348,25 @@ Vue.component("inner-form-button-list-comp", {
                     };
 
                     this.field.editTableConfig.Templates[1].ClientDataSource = fieldsData;
-                    this.field.editTableObject = Object.create(EditTable);
-                    this.field.editTableObject.Initialization(this.field.editTableConfig);
 
-                    this.field.editTableObject.RemoveAllRow();
-                    if (oldData) {
+                    if(!this.field.editTableObject) {
+                        this.field.editTableObject = Object.create(EditTable);
+                        this.field.editTableObject.Initialization(this.field.editTableConfig);
+                    }
+
+                    this.oldFormId = this.formId;
+
+                    if(oldData){
                         this.field.editTableObject.LoadJsonData(oldData);
                     }
+
                 }, this);
             }
-            else {
+            if(this.field.editTableObject){
+                this.field.editTableObject.RemoveAllRow();
+            }
+            if(oldData&&this.field.editTableObject){
+                this.field.editTableObject.LoadJsonData(oldData);
             }
         },
         addField:function(){

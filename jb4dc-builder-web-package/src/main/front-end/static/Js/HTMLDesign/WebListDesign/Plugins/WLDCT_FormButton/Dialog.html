@@ -315,7 +315,8 @@
                 custProp4:"",
                 //内部按钮
                 innerButtonJsonString:""
-            }
+            },
+            actionName:""
         },
         mounted:function () {
 
@@ -340,8 +341,15 @@
                 console.log(this.normalProps);
             },
             ready:function(actionName,sel,parents){
+                //debugger;
                 this.baseInfo.id="form_button_"+StringUtility.Timestamp();
                 this.baseInfo.name=this.baseInfo.id;
+                //console.log(actionName);
+
+                this.actionName=actionName;
+                if(actionName=="Insert"){
+                    this.$refs.innerFormButtonListComp.ready(null);
+                }
             },
             getControlProps:function () {
                 //var bindData=this.$refs.listSearchControlBindToComp.getData();
@@ -368,6 +376,7 @@
             },
             setControlProps:function ($elem,props) {
                 //console.log($elem);
+                //debugger;
                 this.baseInfo = props.baseInfo ? props.baseInfo : this.baseInfo;
                 this.normalProps.buttonType = "ListFormButton";
                 //绑定窗体信息
@@ -402,8 +411,11 @@
                 this.normalProps.custProp3 = $elem.attr("custProp3");
                 this.normalProps.custProp4 = $elem.attr("custProp4");
 
-                this.$refs.innerFormButtonListComp.setJson(this.normalProps.innerButtonJsonString);
-                console.log(this.normalProps.innerButtonJsonString);
+                //console.log(this.actionName);
+                if(this.actionName=="Edit") {
+                    this.$refs.innerFormButtonListComp.ready(this.normalProps.innerButtonJsonString);
+                    console.log(this.normalProps.innerButtonJsonString);
+                }
                 //this.bindToSearchField = props.bindToSearchField ? props.bindToSearchField : this.bindToSearchField;
                 //this.defaultValue = props.defaultValue ? props.defaultValue : this.defaultValue;
                 //this.$refs.listSearchControlBindToComp.setData(this.bindToSearchField,this.defaultValue);
