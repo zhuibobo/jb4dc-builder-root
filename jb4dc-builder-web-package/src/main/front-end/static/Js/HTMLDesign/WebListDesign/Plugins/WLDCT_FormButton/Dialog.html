@@ -363,11 +363,11 @@
                     baseInfo: this.baseInfo,
                     normalProps: this.normalProps
                 };
-                console.log(result);
+                //console.log(result);
                 return result;
             },
             setControlProps:function ($elem,props) {
-                console.log($elem);
+                //console.log($elem);
                 this.baseInfo = props.baseInfo ? props.baseInfo : this.baseInfo;
                 this.normalProps.buttonType = "ListFormButton";
                 //绑定窗体信息
@@ -402,6 +402,8 @@
                 this.normalProps.custProp3 = $elem.attr("custProp3");
                 this.normalProps.custProp4 = $elem.attr("custProp4");
 
+                this.$refs.innerFormButtonListComp.setJson(this.normalProps.innerButtonJsonString);
+                console.log(this.normalProps.innerButtonJsonString);
                 //this.bindToSearchField = props.bindToSearchField ? props.bindToSearchField : this.bindToSearchField;
                 //this.defaultValue = props.defaultValue ? props.defaultValue : this.defaultValue;
                 //this.$refs.listSearchControlBindToComp.setData(this.bindToSearchField,this.defaultValue);

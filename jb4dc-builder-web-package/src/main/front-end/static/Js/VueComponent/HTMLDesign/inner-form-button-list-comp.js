@@ -96,12 +96,13 @@ Vue.component("inner-form-button-list-comp", {
                     callback: {
                         //点击树节点事件
                         onClick: function (event, treeId, treeNode) {
-                            if (treeNode.nodeTypeName == "DataSet") {
-                                _self.selectedNode(treeNode);
-                            }
+                            //if (treeNode.nodeTypeName == "DataSet") {
+                                _self.api.apiSelectData=treeNode;
+                            //}
                         }
                     }
                 },
+                apiData:null,
                 apiSelectData: null,
                 editTableObject: null,
                 editTableConfig: {
@@ -112,8 +113,11 @@ Vue.component("inner-form-button-list-comp", {
                         {
                             Title: "API名称",
                             BindName: "Value",
-                            Renderer: "EditTable_Select",
-                            TitleCellClassName: "TitleCell"
+                            Renderer: "EditTable_Label",
+                            TitleCellClassName: "TitleCell",
+                            Formater:function (value) {
+                                return _self.getAPIText(value);
+                            }
                             /*ClientDataSource: _self.api.apiSelectData*/
                         }, {
                             Title: "调用顺序",
@@ -171,7 +175,7 @@ Vue.component("inner-form-button-list-comp", {
 
         //this.getApiConfigAndBindToTable();
         //this.getTableFieldsAndBindToTable();
-        this.bindAPITree();
+        this.bindAPITreeAndInitEditTable(null);
     },
     methods:{
         getJson:function () {
@@ -243,7 +247,7 @@ Vue.component("inner-form-button-list-comp", {
                 this.innerSaveButtonEditData.id = "inner_form_button_" + StringUtility.Timestamp();
 
                 if(!this.isLoadTableField||this.formId!=this.oldformId){
-                    this.getTableFieldsAndBindToTable();
+                    this.getTableFieldsAndBindToTable(this.innerSaveButtonEditData.fields);
                     this.oldformId=this.formId;
                     this.isLoadTableField=true;
                 }
@@ -254,10 +258,18 @@ Vue.component("inner-form-button-list-comp", {
         },
         editInnerFormSaveButton:function(params){
             this.addInnerFormSaveButton();
-            this.editSaveButtonStatuc="edit";
             this.innerSaveButtonEditData=JsonUtility.CloneStringify(params.row);
-            this.api.editTableObject.LoadJsonData(this.innerSaveButtonEditData.apis);
-            this.field.editTableObject.LoadJsonData(this.innerSaveButtonEditData.fields);
+            this.editSaveButtonStatuc="edit";
+
+            //debugger;
+            //this.field.editTableObject.LoadJsonData(this.innerSaveButtonEditData.fields);
+            //this.getTableFieldsAndBindToTable(this.innerSaveButtonEditData.fields);
+            if(this.isLoadTableField){
+                this.field.editTableObject.RemoveAllRow();
+                this.field.editTableObject.LoadJsonData(this.innerSaveButtonEditData.fields);
+            }
+            this.bindAPITreeAndInitEditTable(this.innerSaveButtonEditData.apis);
+
         },
         resetInnerSaveButtonData:function(){
             this.innerSaveButtonEditData={
@@ -313,26 +325,37 @@ Vue.component("inner-form-button-list-comp", {
         //endregion
 
         //region 字段列表
-        getTableFieldsAndBindToTable:function(){
+        getTableFieldsAndBindToTable:function(oldData){
             var _self=this;
-            AjaxUtility.Post(this.field.acInterface.getFormMainTableFields,{formId:this.formId},function (result) {
-                //console.log(result);
-                var fieldsData=[];
+            //debugger;
+            if(!this.field.editTableObject) {
+                AjaxUtility.Post(this.field.acInterface.getFormMainTableFields, {formId: this.formId}, function (result) {
+                    //console.log(result);
+                    var fieldsData = [];
 
-                for(var i=0;i<result.data.length;i++) {
-                    fieldsData.push({
-                        Value: result.data[i].fieldName,
-                        Text: result.data[i].fieldCaption
-                    });
-                }
-                _self.field.editTableConfig.Templates[0].DefaultValue={
-                    Type:"Const",
-                    Value:result.data[0].tableName
-                },
-                _self.field.editTableConfig.Templates[1].ClientDataSource=fieldsData;
-                _self.field.editTableObject = Object.create(EditTable);
-                _self.field.editTableObject.Initialization(_self.field.editTableConfig);
-            },this);
+                    for (var i = 0; i < result.data.length; i++) {
+                        fieldsData.push({
+                            Value: result.data[i].fieldName,
+                            Text: result.data[i].fieldCaption
+                        });
+                    }
+                    this.field.editTableConfig.Templates[0].DefaultValue = {
+                        Type: "Const",
+                        Value: result.data[0].tableName
+                    };
+
+                    this.field.editTableConfig.Templates[1].ClientDataSource = fieldsData;
+                    this.field.editTableObject = Object.create(EditTable);
+                    this.field.editTableObject.Initialization(this.field.editTableConfig);
+
+                    this.field.editTableObject.RemoveAllRow();
+                    if (oldData) {
+                        this.field.editTableObject.LoadJsonData(oldData);
+                    }
+                }, this);
+            }
+            else {
+            }
         },
         addField:function(){
             this.field.editTableObject.AddEditingRowByTemplate();
@@ -350,32 +373,40 @@ Vue.component("inner-form-button-list-comp", {
             this.tableData.push(closeButtonData);
         },
         //region api列表
-        bindAPITree: function () {
-            var _self = this;
-            AjaxUtility.Post(this.api.acInterface.getAPIData, {}, function (result) {
-                if (result.success) {
-                    if(result.data!=null&&result.data.length>0){
-                        for(var i=0;i<result.data.length;i++) {
-                            if(result.data[i].nodeTypeName=="Group"){
-                                result.data[i].icon = BaseUtility.GetRootPath()+"/Themes/Png16X16/package.png";
-                            }
-                            else {
-                                result.data[i].icon = BaseUtility.GetRootPath()+"/Themes/Png16X16/application_view_columns.png";
+        bindAPITreeAndInitEditTable: function (oldData) {
+            //var _self = this;
+            if(!this.api.apiData) {
+                AjaxUtility.Post(this.api.acInterface.getAPIData, {}, function (result) {
+                    if (result.success) {
+                        this.api.apiData = result.data;
+                        if (result.data != null && result.data.length > 0) {
+                            for (var i = 0; i < result.data.length; i++) {
+                                if (result.data[i].nodeTypeName == "Group") {
+                                    result.data[i].icon = BaseUtility.GetRootPath() + "/Themes/Png16X16/package.png";
+                                } else {
+                                    result.data[i].icon = BaseUtility.GetRootPath() + "/Themes/Png16X16/application_view_columns.png";
+                                }
                             }
                         }
-                    }
 
-                   // _self.api.treeData = result.data;
-                    _self.api.apiTreeObj = $.fn.zTree.init($("#apiZTreeUL"), _self.api.apiTreeSetting, result.data);
-                    _self.api.apiTreeObj.expandAll(true);
-                   // fuzzySearchTreeObj(_self.dataSetTree.treeObj,_self.$refs.txt_search_text.$refs.input,null,true);
-                }
-                else {
-                    DialogUtility.Alert(window, DialogUtility.DialogAlertId, {}, result.message, null);
-                }
-            }, this);
+                        // _self.api.treeData = result.data;
+                        this.api.apiTreeObj = $.fn.zTree.init($("#apiZTreeUL"), this.api.apiTreeSetting, result.data);
+                        this.api.apiTreeObj.expandAll(true);
+                        fuzzySearchTreeObj(this.api.apiTreeObj, this.$refs.txt_search_api_text.$refs.input, null, true);
+                    } else {
+                        DialogUtility.Alert(window, DialogUtility.DialogAlertId, {}, result.message, null);
+                    }
+                }, this);
+                this.api.editTableObject = Object.create(EditTable);
+                this.api.editTableObject.Initialization(this.api.editTableConfig);
+            }
+            this.api.editTableObject.RemoveAllRow();
+            if(oldData) {
+                this.api.editTableObject.LoadJsonData(oldData);
+            }
         },
         getApiConfigAndBindToTable:function(){
+            return;
             var _self=this;
             AjaxUtility.Post(this.api.acInterface.getButtonApiConfig,{},function (result) {
                 //console.log(result);
@@ -423,10 +454,32 @@ Vue.component("inner-form-button-list-comp", {
             },this);
         },
         addAPI:function () {
-            this.api.editTableObject.AddEditingRowByTemplate();
+            //console.log(this.api.apiSelectData);
+            if(this.api.apiSelectData.nodeTypeName=="API") {
+                this.api.editTableObject.AddEditingRowByTemplate([], {
+                    Value: this.api.apiSelectData.value,
+                    RunTime: "之后"
+                });
+            }
+            else {
+                DialogUtility.AlertText("请选择需要添加的API!");
+            }
         },
         removeAPI:function () {
             this.api.editTableObject.RemoveRow();
+        },
+        getAPIText:function (value) {
+            //console.log(value);
+            for (var i = 0; i < this.api.apiData.length; i++) {
+                //debugger;
+                //console.log(this.api.apiData[i]);
+                if(this.api.apiData[i].nodeTypeName=="API"){
+                    if(this.api.apiData[i].value==value){
+                        return this.api.apiData[i].text;
+                    }
+                }
+            }
+            return "";
         }
         //endregion
     },
@@ -483,25 +536,18 @@ Vue.component("inner-form-button-list-comp", {
                                     </colgroup>
                                     <tbody>
                                         <tr>
-                                            <td>
-                                                <i-input search class="input_border_bottom" ref="txt_search_text" placeholder="请输入表名或者标题"></i-input>
+                                            <td style="background: #ffffff">
+                                                <i-input search class="input_border_bottom" ref="txt_search_api_text" placeholder="请输入API名称"></i-input>
                                                 <ul id="apiZTreeUL" class="ztree" style="height: 320px;overflow: auto"></ul>
                                             </td>
-                                            <td style="text-align: center">
+                                            <td style="text-align: center;background-color: #f8f8f8">
                                                 <button-group vertical>
                                                     <i-button size="small" type="success" icon="md-add" @click="addAPI"></i-button>
                                                     <i-button size="small" type="primary" icon="md-close" @click="removeAPI"></i-button>
                                                 </button-group>
                                             </td>
-                                            <td>
-                                                <div style="height: 140px">
-                                                    <div style="float: left;width: 94%">
-                                                        <div id="apiContainer" class="edit-table-wrap" style="height: 140px;overflow: auto;width: 98%;margin: auto"></div>
-                                                    </div>
-                                                    <div style="float: right;width: 5%">
-                                                       
-                                                    </div>
-                                                </div>
+                                            <td style="background: #ffffff;" valign="top">
+                                                <div id="apiContainer" class="edit-table-wrap" style="height: 340px;overflow: auto;width: 98%;margin: auto"></div>
                                             </td>
                                         </tr>
                                     </tbody>
@@ -515,73 +561,55 @@ Vue.component("inner-form-button-list-comp", {
                                     </colgroup>
                                     <tbody>
                                         <tr>
-                                            <td>
-                                                ID：
-                                            </td>
+                                            <td>ID：</td>
                                             <td>
                                                 <i-input v-model="innerSaveButtonEditData.id" size="small" placeholder="" />
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td>
-                                                服务端解析类：
-                                            </td>
+                                            <td>服务端解析类：</td>
                                             <td>
                                                 <i-input v-model="innerSaveButtonEditData.custServerResolveMethod" size="small" placeholder="按钮进行服务端解析时,类全称,将调用该类,需要实现接口IFormButtonCustResolve" />
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td>
-                                                参数：
-                                            </td>
+                                            <td>参数：</td>
                                             <td>
                                                 <i-input v-model="innerSaveButtonEditData.custServerResolveMethodPara" size="small" placeholder="服务端解析类的参数" />
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td>
-                                                客户端渲染方法：
-                                            </td>
+                                            <td>客户端渲染方法：</td>
                                             <td>
                                                 <i-input v-model="innerSaveButtonEditData.custClientRendererMethod" size="small" placeholder="客户端渲染方法,按钮将经由该方法渲染,最终形成页面元素,需要返回最终元素的HTML对象" />
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td>
-                                                参数：
-                                            </td>
+                                            <td>参数：</td>
                                             <td>
                                                 <i-input v-model="innerSaveButtonEditData.custClientRendererMethodPara" size="small" placeholder="客户端渲染方法的参数" />
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td>
-                                                客户端渲染后方法：
-                                            </td>
+                                            <td>客户端渲染后方法：</td>
                                             <td>
                                                 <i-input v-model="innerSaveButtonEditData.custClientRendererAfterMethod" size="small" placeholder="客户端渲染后调用方法,经过默认的渲染,无返回值" />
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td>
-                                                参数：
-                                            </td>
+                                            <td>参数：</td>
                                             <td>
                                                 <i-input v-model="innerSaveButtonEditData.custClientRendererAfterMethodPara" size="small" placeholder="客户端渲染后方法的参数" />
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td>
-                                                客户端点击前方法：
-                                            </td>
+                                            <td>客户端点击前方法：</td>
                                             <td>
                                                 <i-input v-model="innerSaveButtonEditData.custClientClickBeforeMethod" size="small" placeholder="客户端点击该按钮时的前置方法,如果返回false将阻止默认调用" />
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td>
-                                                参数：
-                                            </td>
+                                            <td>参数：</td>
                                             <td>
                                                 <i-input v-model="innerSaveButtonEditData.custClientClickBeforeMethodPara" size="small" placeholder="客户端点击前方法的参数" />
                                             </td>
