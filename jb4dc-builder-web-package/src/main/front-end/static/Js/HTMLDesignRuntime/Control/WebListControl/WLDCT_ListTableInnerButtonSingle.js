@@ -1,4 +1,4 @@
-var WLDCT_ListTableInnerButton= {
+var WLDCT_ListTableInnerButtonSingle= {
     RendererChain: HTMLControl.RendererChain,
     RendererDataChain:function (_rendererDataChainParas){
         var $singleControlElem=_rendererDataChainParas.$singleControlElem;

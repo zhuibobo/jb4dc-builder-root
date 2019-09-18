@@ -41,6 +41,7 @@
     </AppControls>
 
     <!--WebList设计相关插件-->
+    <!--SingleName的名称必须唯一,并且不能是部分完全匹配其他插件名称,例如WLDCT_Hide则为错误的命名,因为已经存在WLDCT_HideContainer的插件!-->
     <!--ShowRemoveButton属性已经移除-->
     <WebListControls>
         <Control SingleName="WLDCT_HideContainer" Text="隐藏区域" ToolbarLocation="LC_Template,1"
@@ -163,9 +164,9 @@
             <Config></Config>
             <Desc></Desc>
         </Control>
-        <Control SingleName="WLDCT_ListTableInnerButton" Text="列表内按钮" ToolbarLocation="LC_Simple_G3,3"
-                 ServerResolve="com.jb4dc.builder.htmldesign.control.weblist.WebListListTableInnerButton"
-                 ClientResolve="WLDCT_ListTableInnerButton"
+        <Control SingleName="WLDCT_ListTableInnerButtonSingle" Text="列表内按钮" ToolbarLocation="LC_Simple_G3,3"
+                 ServerResolve="com.jb4dc.builder.htmldesign.control.weblist.WebListListTableInnerButtonSingle"
+                 ClientResolve="WLDCT_ListTableInnerButtonSingle"
                  ClientResolveJs=""
                  EnableChildControls="*"
                  DialogWidth="780" DialogHeight="550" IsJBuild4DCData="true" ControlCategory="InputControl" ServerDynamicBind="false"

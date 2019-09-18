@@ -1,5 +1,5 @@
-var WLDCT_ListTableContainer= {
-    GetHTML:function(){
+var WLDCT_ListTableContainer = {
+    GetHTML: function () {
         return "<table id=\"example\" class=\"stripe row-border order-column\" style=\"width:100%\">\n" +
             "        <thead>\n" +
             "            <tr>\n" +
@@ -247,34 +247,34 @@ var WLDCT_ListTableContainer= {
             "        </tbody>\n" +
             "    </table>"
     },
-    _InstanceMap:{},
-    _CurrentPageNum:1,
-    _DataSet:null,
-    _DataSetRuntimeInstance:null,
-    _Cache$SingleControlElem:null,
-    _CacheRendererDataChainParas:null,
-    _SimpleSearchContainerInstance:null,
-    _ComplexSearchContainerInstance:null,
-    _QueryPOList:[],
-    _CheckedRecordArray:[],
-    _$Elem:null,
-    GetInstance:function(name){
-        for(var key in this._InstanceMap){
-            if(key==name){
+    _InstanceMap: {},
+    _CurrentPageNum: 1,
+    _DataSet: null,
+    _DataSetRuntimeInstance: null,
+    _Cache$SingleControlElem: null,
+    _CacheRendererDataChainParas: null,
+    _SimpleSearchContainerInstance: null,
+    _ComplexSearchContainerInstance: null,
+    _QueryPOList: [],
+    _CheckedRecordArray: [],
+    _$Elem: null,
+    GetInstance: function (name) {
+        for (var key in this._InstanceMap) {
+            if (key == name) {
                 return this._InstanceMap[key];
             }
         }
-        var instance=eval(name);
-        this._InstanceMap[name]=instance;
+        var instance = eval(name);
+        this._InstanceMap[name] = instance;
         return instance;
     },
-    Initialize:function(){
-        this._DataSetRuntimeInstance=Object.create(DataSetRuntime);
+    Initialize: function () {
+        this._DataSetRuntimeInstance = Object.create(DataSetRuntime);
     },
     RendererChain: function (_rendererChainParas) {
         //$singleControlElem.hide();
         var $singleControlElem = _rendererChainParas.$singleControlElem;
-        this._$Elem=$singleControlElem;
+        this._$Elem = $singleControlElem;
         //console.log($singleControlElem);
         //console.log($singleControlElem.prevAll("[client_resolve='WLDCT_ListSimpleSearchContainer']"));
         var $simpleSearchContainerElem = $singleControlElem.prevAll("[client_resolve='WLDCT_ListSimpleSearchContainer']");
@@ -282,7 +282,7 @@ var WLDCT_ListTableContainer= {
         this._SimpleSearchContainerInstance = HTMLControl.GetControlInstanceByElem($simpleSearchContainerElem);
         this._ComplexSearchContainerInstance = HTMLControl.GetControlInstanceByElem($complexSearchContainerElem);
 
-        HTMLControl.SaveControlNewInstanceToPool($singleControlElem,this);
+        HTMLControl.SaveControlNewInstanceToPool($singleControlElem, this);
 
         this._SimpleSearchContainerInstance._$SimpleSearchButton.bind("click", {"listInstance": this}, this.SimpleSearchClickEvent);
         this._SimpleSearchContainerInstance._$ShowComplexSearchButton.bind("click", {"listInstance": this}, this.ShowComplexSearchClickEvent);
@@ -290,10 +290,10 @@ var WLDCT_ListTableContainer= {
         this._ComplexSearchContainerInstance._$ClearButton.bind("click", {"listInstance": this}, this.ComplexSearchClearClickEvent);
         this._ComplexSearchContainerInstance._$CloseButton.bind("click", {"listInstance": this}, this.ComplexSearchCloseClickEvent);
 
-        if(this._SimpleSearchContainerInstance.GetStatus()=="disable"){
+        if (this._SimpleSearchContainerInstance.GetStatus() == "disable") {
             this._SimpleSearchContainerInstance.Hide();
         }
-        if(this._ComplexSearchContainerInstance.GetStatus()=="disable"){
+        if (this._ComplexSearchContainerInstance.GetStatus() == "disable") {
             this._SimpleSearchContainerInstance.HideComplexButton();
         }
         //var $buttonDivElemList=$singleControlElem.find("div"+HTMLControlAttrs.SELECTED_JBUILD4DC_CUSTOM);
@@ -312,37 +312,58 @@ var WLDCT_ListTableContainer= {
         var $templateTableRow = $singleControlElem.find("table tbody tr");
         var $templateTableHeaderRows = $singleControlElem.find("table thead tr");
 
-        this.AppendCheckBoxColumnTemplate($templateTable,$templateTableHeaderRows,$templateTableRow);
+        this.AppendCheckBoxColumnTemplate($templateTable, $templateTableHeaderRows, $templateTableRow);
 
         HTMLControl.RendererChain(_rendererChainParas);
         //console.log("2222222222");
     },
-    RendererDataChain:function (_rendererDataChainParas,isReRenderer){
+    RendererDataChain: function (_rendererDataChainParas, isReRenderer) {
         //return
         //debugger;
         //console.log(_rendererDataChainParas.$singleControlElem.html());
-        var usedTopDataSet=true;
+        var usedTopDataSet = true;
 
         var dataSetId;
         var pageSize;
-        if(usedTopDataSet) {
+        if (usedTopDataSet) {
             dataSetId = _rendererDataChainParas.topDataSetId;
             pageSize = _rendererDataChainParas.listEntity.listDatasetPageSize;
         }
 
-        if(!this._CacheRendererDataChainParas){
-            this._CacheRendererDataChainParas=_rendererDataChainParas;
-            this._Cache$SingleControlElem=_rendererDataChainParas.$singleControlElem.clone();
+        if (!this._CacheRendererDataChainParas) {
+            this._CacheRendererDataChainParas = _rendererDataChainParas;
+            this._Cache$SingleControlElem = _rendererDataChainParas.$singleControlElem.clone();
         }
-        if(isReRenderer){
+        if (isReRenderer) {
             _rendererDataChainParas.$singleControlElem.html(this._Cache$SingleControlElem.html());
         }
 
-        if(_rendererDataChainParas.listRuntimeInstance.IsPreview()){
+        if (_rendererDataChainParas.listRuntimeInstance.IsPreview()) {
             //alert("预览不会加载数据");
-            var mockDataSet={"total":1000,"list":[],"pageNum":1,"pageSize":5,"size":5,"startRow":1,"endRow":5,"pages":200,"prePage":0,"nextPage":2,"isFirstPage":true,"isLastPage":false,"hasPreviousPage":false,"hasNextPage":true,"navigatePages":8,"navigatepageNums":[1,2,3,4,5,6,7,8],"navigateFirstPage":1,"navigateLastPage":8,"firstPage":1,"lastPage":8};
+            var mockDataSet = {
+                "total": 1000,
+                "list": [],
+                "pageNum": 1,
+                "pageSize": 5,
+                "size": 5,
+                "startRow": 1,
+                "endRow": 5,
+                "pages": 200,
+                "prePage": 0,
+                "nextPage": 2,
+                "isFirstPage": true,
+                "isLastPage": false,
+                "hasPreviousPage": false,
+                "hasNextPage": true,
+                "navigatePages": 8,
+                "navigatepageNums": [1, 2, 3, 4, 5, 6, 7, 8],
+                "navigateFirstPage": 1,
+                "navigateLastPage": 8,
+                "firstPage": 1,
+                "lastPage": 8
+            };
             this._DataSet = mockDataSet;
-            this.CreateTable(_rendererDataChainParas.$singleControlElem, mockDataSet);
+            this.CreateTable(_rendererDataChainParas.$singleControlElem, mockDataSet,true);
             /*this._DataSetRuntimeInstance.GetDataSetData({
                 dataSetId: dataSetId,
                 pageSize: pageSize,
@@ -360,8 +381,7 @@ var WLDCT_ListTableContainer= {
                     DialogUtility.CloseDialog(DialogUtility.DialogLoadingId);
                 }, 500);
             }, this);*/
-        }
-        else {
+        } else {
             DialogUtility.AlertLoading(window, DialogUtility.DialogLoadingId, {
                 title: "系统提示",
                 hide: {effect: "fade", duration: 500}
@@ -378,14 +398,14 @@ var WLDCT_ListTableContainer= {
                 //console.log(result);
                 _rendererDataChainParas.dataSet = result.data;
                 this._DataSet = result.data;
-                this.CreateTable(_rendererDataChainParas.$singleControlElem, this._DataSet);
+                this.CreateTable(_rendererDataChainParas.$singleControlElem, this._DataSet,false);
                 window.setTimeout(function () {
                     DialogUtility.CloseDialog(DialogUtility.DialogLoadingId);
                 }, 500);
             }, this);
         }
     },
-    CreateTable:function($singleControlElem,dataSet){
+    CreateTable: function ($singleControlElem, dataSet,isPreview) {
         //var $singleControlElem=_rendererDataChainParas.$singleControlElem;
         var $templateTable = $singleControlElem.find("table");
         var $templateTableRow = $singleControlElem.find("table tbody tr");
@@ -395,9 +415,13 @@ var WLDCT_ListTableContainer= {
         if ($templateTableRow.length > 0) {
             var $templateTableBody = $singleControlElem.find("table tbody");
             for (var i = 0; i < dataSet.list.length; i++) {
-                $templateTableBody.append(this.RendererSingleRow($templateTable,$templateTableRow, dataSet, dataSet.list[i]));
+                $templateTableBody.append(this.RendererSingleRow($templateTable, $templateTableRow, dataSet, dataSet.list[i]));
             }
             $templateTableRow.remove();
+
+            if(isPreview){
+                $templateTable.find("[singlename='WLDCT_ListTableInnerButtonContainer']").remove();
+            }//$templateTable.find("")
         }
 
         //创建分页操作区域
@@ -419,10 +443,10 @@ var WLDCT_ListTableContainer= {
             "info": false
         });
     },
-    AppendCheckBoxColumnTemplate:function($templateTable,$templateTableHeaderRows,$templateTableRow){
-        var $th=$("<th style='width: 50px'>选择</th>");
-        if($templateTableHeaderRows.length>1){
-            $th.attr("rowspan",$templateTableHeaderRows.length);
+    AppendCheckBoxColumnTemplate: function ($templateTable, $templateTableHeaderRows, $templateTableRow) {
+        var $th = $("<th style='width: 50px'>选择</th>");
+        if ($templateTableHeaderRows.length > 1) {
+            $th.attr("rowspan", $templateTableHeaderRows.length);
         }
         $($templateTableHeaderRows[0]).prepend($th);
         $($templateTableRow.eq(0)).prepend(`<td>
@@ -456,16 +480,16 @@ var WLDCT_ListTableContainer= {
                                     </div>
                                   </td>`);
     },
-    RendererSingleRow:function ($templateTable,$templateTableRow, dataSet, rowData) {
+    RendererSingleRow: function ($templateTable, $templateTableRow, dataSet, rowData) {
 
-        var $cloneRow=$templateTableRow.clone();
+        var $cloneRow = $templateTableRow.clone();
         //console.log($cloneRow);
         //debugger;
-        var $tds=$cloneRow.find("td");
+        var $tds = $cloneRow.find("td");
         for (let i = 0; i < $tds.length; i++) {
             var $td = $($tds[i]);
             var $divCTElem = $td.find("div" + HTMLControlAttrs.SELECTED_JBUILD4DC_CUSTOM);
-            if($divCTElem.length>0) {
+            if ($divCTElem.length > 0) {
                 var bindToField = $divCTElem.attr("columnname");
                 var val = rowData[bindToField];
                 var clientResolveInstanceName = $divCTElem.attr(HTMLControlAttrs.CLIENT_RESOLVE);
@@ -474,7 +498,7 @@ var WLDCT_ListTableContainer= {
                 instance.RendererDataChain({
                     $templateTable: $templateTable,
                     $templateTableRow: $templateTableRow,
-                    $singleControlElem:$divCTElem,
+                    $singleControlElem: $divCTElem,
                     dataSet: dataSet,
                     rowData: rowData,
                     $cloneRow: $cloneRow,
@@ -486,128 +510,126 @@ var WLDCT_ListTableContainer= {
         }
         return $cloneRow;
     },
-    CreatePaging:function ($templateTable,$templateTableRow, dataSet, rowData,$row,$td,value) {
+    CreatePaging: function ($templateTable, $templateTableRow, dataSet, rowData, $row, $td, value) {
         //$td.css("textAlign","center");
         //$td.html(value);
 
-        var _self=this;
-        var pagingOuterElem=$("<div class='table-paging-outer'><div class='table-paging-inner'></div></div>")
-        var pagingInnerElem=pagingOuterElem.find("div");
-        var firstPage=$("<div class='table-paging-button'>第一页</div>");
+        var _self = this;
+        var pagingOuterElem = $("<div class='table-paging-outer'><div class='table-paging-inner'></div></div>")
+        var pagingInnerElem = pagingOuterElem.find("div");
+        var firstPage = $("<div class='table-paging-button'>第一页</div>");
         firstPage.click(function () {
             _self.ChangePageNum(1);
         });
-        var prePage=$("<div class='table-paging-button'>上一页</div>");
+        var prePage = $("<div class='table-paging-button'>上一页</div>");
         prePage.click(function () {
             //console.log(_self._CurrentPageNum);
-            if(_self._CurrentPageNum>1) {
+            if (_self._CurrentPageNum > 1) {
                 _self.ChangePageNum(_self._CurrentPageNum - 1);
-            }
-            else {
+            } else {
                 DialogUtility.AlertText("已经到达第一页!");
             }
         });
-        var lastPage=$("<div class='table-paging-button'>末页</div>");
+        var lastPage = $("<div class='table-paging-button'>末页</div>");
         lastPage.click(function () {
             _self.ChangePageNum(_self._DataSet.pages);
         });
-        var nextPage=$("<div class='table-paging-button'>下一页</div>");
+        var nextPage = $("<div class='table-paging-button'>下一页</div>");
         nextPage.click(function () {
-            if(_self._CurrentPageNum<_self._DataSet.pages) {
+            if (_self._CurrentPageNum < _self._DataSet.pages) {
                 _self.ChangePageNum(_self._CurrentPageNum + 1);
-            }
-            else {
+            } else {
                 DialogUtility.AlertText("已经到达最末页!");
             }
         });
         //console.log(_self._DataSet);
-        var info=$("<div class='table-paging-info'>总条数【"+_self._DataSet.total+"】&nbsp;&nbsp;页数【"+_self._CurrentPageNum+"/"+_self._DataSet.pages+"】</div>")
+        var info = $("<div class='table-paging-info'>总条数【" + _self._DataSet.total + "】&nbsp;&nbsp;页数【" + _self._CurrentPageNum + "/" + _self._DataSet.pages + "】</div>")
         pagingInnerElem.append(firstPage).append(prePage).append(nextPage).append(lastPage).append(info);
         return pagingOuterElem;
     },
-    ChangePageNum:function (pageNum) {
-        this._CurrentPageNum=pageNum;
-        this.RendererDataChain(this._CacheRendererDataChainParas,true);
+    ChangePageNum: function (pageNum) {
+        this._CurrentPageNum = pageNum;
+        this.RendererDataChain(this._CacheRendererDataChainParas, true);
     },
-    SimpleSearchClickEvent:function (sender) {
-        var _self=sender.data.listInstance;
-        var conditions=_self._SimpleSearchContainerInstance.BuilderSearchCondition();
-        _self._QueryPOList=conditions;
-        _self.RendererDataChain(_self._CacheRendererDataChainParas,true);
+    SimpleSearchClickEvent: function (sender) {
+        var _self = sender.data.listInstance;
+        var conditions = _self._SimpleSearchContainerInstance.BuilderSearchCondition();
+        _self._QueryPOList = conditions;
+        _self.RendererDataChain(_self._CacheRendererDataChainParas, true);
     },
-    ShowComplexSearchClickEvent:function (sender) {
-        var _self=sender.data.listInstance;
+    ShowComplexSearchClickEvent: function (sender) {
+        var _self = sender.data.listInstance;
         //console.log(_self._ComplexSearchContainerInstance);
-        DialogUtility.DialogElemObj(_self._ComplexSearchContainerInstance._$SingleControlElem,{
-            title:"高级查询",
+        DialogUtility.DialogElemObj(_self._ComplexSearchContainerInstance._$SingleControlElem, {
+            title: "高级查询",
             height: 410,
             width: 800,
             modal: true
         })
     },
-    ComplexSearchClickEvent:function (sender) {
+    ComplexSearchClickEvent: function (sender) {
         console.log("高级查询.");
-        var _self=sender.data.listInstance;
-        var simpleConditions=_self._SimpleSearchContainerInstance.BuilderSearchCondition();
-        var complexConditions=_self._ComplexSearchContainerInstance.BuilderSearchCondition();
-        _self._QueryPOList=complexConditions.concat(simpleConditions);
-        _self.RendererDataChain(_self._CacheRendererDataChainParas,true);
+        var _self = sender.data.listInstance;
+        var simpleConditions = _self._SimpleSearchContainerInstance.BuilderSearchCondition();
+        var complexConditions = _self._ComplexSearchContainerInstance.BuilderSearchCondition();
+        _self._QueryPOList = complexConditions.concat(simpleConditions);
+        _self.RendererDataChain(_self._CacheRendererDataChainParas, true);
         DialogUtility.CloseDialogElem(_self._ComplexSearchContainerInstance._$SingleControlElem)
     },
-    ComplexSearchCloseClickEvent:function(sender){
-        var _self=sender.data.listInstance;
+    ComplexSearchCloseClickEvent: function (sender) {
+        var _self = sender.data.listInstance;
         DialogUtility.CloseDialogElem(_self._ComplexSearchContainerInstance._$SingleControlElem)
     },
-    ComplexSearchClearClickEvent:function (sender) {
-        var _self=sender.data.listInstance;
+    ComplexSearchClearClickEvent: function (sender) {
+        var _self = sender.data.listInstance;
         DialogUtility.AlertText("未实现!");
     },
-    GetRecordData:function(id){
+    GetRecordData: function (id) {
         console.log(this._DataSet);
-        for(var i=0;i<this._DataSet.list.length;i++){
-            var recordData=this._DataSet.list[i];
-            if(recordData.ID==id){
+        for (var i = 0; i < this._DataSet.list.length; i++) {
+            var recordData = this._DataSet.list[i];
+            if (recordData.ID == id) {
                 return recordData;
             }
         }
-        DialogUtility.AlertText("找不到ID为:"+id+"的记录!");
+        DialogUtility.AlertText("找不到ID为:" + id + "的记录!");
         return null;
     },
-    SaveCheckedRowData:function(id){
-        var record=this.GetRecordData(id);
-        if(record!=null) {
+    SaveCheckedRowData: function (id) {
+        var record = this.GetRecordData(id);
+        if (record != null) {
             this._CheckedRecordArray.push({
                 "Id": id,
                 "Record": record
             })
         }
     },
-    DeleteCheckedRowData:function(id){
+    DeleteCheckedRowData: function (id) {
         for (var i = 0; i < this._CheckedRecordArray.length; i++) {
-            if(this._CheckedRecordArray[i].Id==id){
-                ArrayUtility.Delete(this._CheckedRecordArray,i);
+            if (this._CheckedRecordArray[i].Id == id) {
+                ArrayUtility.Delete(this._CheckedRecordArray, i);
             }
         }
     },
-    GetCheckedRecord:function(){
+    GetCheckedRecord: function () {
         return this._CheckedRecordArray;
     },
-    GetLastCheckedRecord:function () {
-        if(this._CheckedRecordArray.length>0){
-            return this._CheckedRecordArray[this._CheckedRecordArray.length-1];
+    GetLastCheckedRecord: function () {
+        if (this._CheckedRecordArray.length > 0) {
+            return this._CheckedRecordArray[this._CheckedRecordArray.length - 1];
         }
         return null;
         //alert(1);
     },
-    ClearAllCheckBox:function(){
+    ClearAllCheckBox: function () {
         this._$Elem.find(":checkbox").prop('checked', false);
-        this._CheckedRecordArray=[];
+        this._CheckedRecordArray = [];
     },
-    SetCheckBoxToCheckedStatus:function(id){
-        this._$Elem.find("[row_checkbox_record_id='"+id+"']:checkbox").prop('checked', true);
+    SetCheckBoxToCheckedStatus: function (id) {
+        this._$Elem.find("[row_checkbox_record_id='" + id + "']:checkbox").prop('checked', true);
         this.SaveCheckedRowData(id);
     },
-    __InnerElemGetInstance:function ($innerElem) {
+    __InnerElemGetInstance: function ($innerElem) {
         var $WLDCT_ListTableContainer = $innerElem.parents("[singlename='WLDCT_ListTableContainer']");
         var listTableContainerInstance = HTMLControl.GetControlInstanceByElem($WLDCT_ListTableContainer);
         return listTableContainerInstance;

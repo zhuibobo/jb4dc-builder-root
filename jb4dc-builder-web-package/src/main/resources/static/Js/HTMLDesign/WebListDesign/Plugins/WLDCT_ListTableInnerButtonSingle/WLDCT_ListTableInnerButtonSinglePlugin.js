@@ -9,7 +9,7 @@
 
     CKEDITOR.plugins.add(CKEditorPluginUtility.Plugins[pluginName].Setting.SingleName, {
         init: function(editor) {
-            //点击确认时候指定的操作
+            //点击确认时候指定的操作1
             function addToEditor(ckEditor, pluginSetting, props, contentWindow){
                 console.log(props);
                 var controlDescText=props.normalProps.caption;
@@ -19,4 +19,4 @@
             CKEditorPluginUtility.RegGeneralPluginToEditor(editor, this.path, CKEditorPluginUtility.Plugins[pluginName].Setting,addToEditor);
         }
     });
-})("WLDCT_ListTableInnerButton");
+})("WLDCT_ListTableInnerButtonSingle");
