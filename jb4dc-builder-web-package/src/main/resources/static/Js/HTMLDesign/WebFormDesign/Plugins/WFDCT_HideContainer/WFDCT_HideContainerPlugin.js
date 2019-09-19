@@ -8,19 +8,13 @@
         var template=`<div class="wysiwyg-wfdct-hide-outer-wrap">${tip}<div class="wysiwyg-wfdct-hide-inner-wrap">
                             <table>
                                 <tr>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
+                                    <td style="width: 20%;"></td>
+                                    <td style="width: 20%;"></td>
+                                    <td style="width: 20%;"></td>
+                                    <td style="width: 20%;"></td>
+                                    <td style="width: 20%;"></td>
                                 </tr>
                                 <tr>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
                                     <td></td>
                                     <td></td>
                                     <td></td>

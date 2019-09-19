@@ -107,7 +107,8 @@ Vue.component("select-validate-rule-dialog", {
             }
         },
         clearComplete:function(){
-            window.OpenerWindowObj[this.getSelectInstanceName()].setSelectValidateRuleResultValue(null);
+            //window.OpenerWindowObj[this.getSelectInstanceName()].setSelectValidateRuleResultValue(null);
+            this.$emit('on-clear-validate-rule');
             this.handleClose();
         },
         handleClose:function(){
@@ -148,6 +149,7 @@ Vue.component("select-validate-rule-dialog", {
         },
         delValidate:function (validateId) {
             //debugger;
+            //console.log(this.addedValidateRule);
             for(var i=0;i<this.addedValidateRule.length;i++){
                 if(this.addedValidateRule[i].validateId==validateId){
                     this.addedValidateRule.splice(i,1);
@@ -160,7 +162,7 @@ Vue.component("select-validate-rule-dialog", {
                         <p slot="title">设置验证规则</p>
                         <div>
                             <radio-group type="button" style="margin: auto" v-model="selectValidateType">
-                                <radio label="NoEmpty">不能为空</radio>
+                                <radio label="NoEmpty">不为空</radio>
                                 <radio label="Number">数字</radio>
                                 <radio label="Mobile">手机</radio>
                                 <radio label="Date">日期</radio>
@@ -238,10 +240,10 @@ Vue.component("select-validate-rule-dialog", {
                                 </form-item>
                             </i-form>
                         </div>
-                        <div style="margin-bottom: 10px;max-height: 220px;overflow: auto" class="iv-list-page-wrap">
+                        <div style="margin-bottom: 10px;overflow: auto" class="iv-list-page-wrap">
                             <divider orientation="left" :dashed="true" style="font-size: 12px;margin-top: 0px;margin-bottom: 6px">验证规则</divider>
                             <i-table border :columns="validateColumnsConfig" :data="addedValidateRule"
-                                     class="iv-list-table" :highlight-row="true" size="small" no-data-text="请添加验证规则"></i-table>
+                                     class="iv-list-table" size="small" no-data-text="请添加验证规则" :height="130"></i-table>
                         </div>
                     </card>
                     <div class="button-outer-wrap">

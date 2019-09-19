@@ -155,7 +155,7 @@
         <!--各类对话框的引用-->
         <fd-control-select-bind-to-single-field-dialog @on-selected-bind-to-single-field="onSelectedBindToSingleField" ref="fdControlSelectBindToSingleFieldDialog"></fd-control-select-bind-to-single-field-dialog>
         <select-default-value-dialog @on-selected-default-value="onSelectedDefaultValue" ref="selectDefaultValueDialog"></select-default-value-dialog>
-        <select-validate-rule-dialog @on-selected-validate-rule="onSelectedValidateRule" ref="selectValidateRuleDialog"></select-validate-rule-dialog>
+        <select-validate-rule-dialog @on-clear-validate-rule="onClearValidateRule" @on-selected-validate-rule="onSelectedValidateRule" ref="selectValidateRuleDialog"></select-validate-rule-dialog>
     </div>
 </div>
 
@@ -244,6 +244,9 @@
             },
             onSelectedValidateRule:function(result){
                 this.selectDefaultValueTargetWindow._SelectBindObj.setSelectValidateRuleResultValue(result);
+            },
+            onClearValidateRule:function(){
+                this.selectDefaultValueTargetWindow._SelectBindObj.setSelectValidateRuleResultValue(null);
             },
             /*Base*/
             //region

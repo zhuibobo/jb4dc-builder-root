@@ -16,10 +16,13 @@ import org.jsoup.nodes.Element;
  * Date: 2019/9/15
  * To change this template use File | Settings | File Templates.
  */
-public class WebListListHideContainer  extends HTMLControl implements IHTMLControl {
+public class WebListHideContainer extends HTMLControl implements IHTMLControl {
     @Override
     public void resolveSelf(JB4DCSession jb4DCSession, String sourceHTML, Document doc, Element singleControlElem, Element parentElem, Element lastParentJbuild4dCustomElem, ResolveHTMLControlContextPO resolveHTMLControlContextPO, HtmlControlDefinitionPO htmlControlDefinitionPO) throws JBuild4DCGenerallyException {
-        singleControlElem.addClass("wraper-hide");
+        String status=singleControlElem.attr("status");
+        if(status.equals("enable")){
+            singleControlElem.addClass("wraper-hide");
+        }
     }
 
     @Override

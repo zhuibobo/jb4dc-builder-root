@@ -5,22 +5,16 @@
     };
     CKEditorPluginUtility.Plugins[pluginName].GetHtmlTemplate=function(tipMsg,addDefProp) {
         var tip = CKEditorPluginUtility.GetAutoRemoveTipLabel(tipMsg);
-        var template=`<div class="wysiwyg-wldct-hide-outer-wrap">${tip}<div class="wysiwyg-wldct-hide-inner-wrap">
+        var template=`<div class="wysiwyg-wldct-hide-outer-wrap wldct-list-hide-outer-wrap">${tip}<div class="wysiwyg-wldct-hide-inner-wrap wldct-list-hide-inner-wrap">
                             <table>
                                 <tr>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
+                                    <td style="width: 20%;"></td>
+                                    <td style="width: 20%;"></td>
+                                    <td style="width: 20%;"></td>
+                                    <td style="width: 20%;"></td>
+                                    <td style="width: 20%;"></td>
                                 </tr>
                                 <tr>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
                                     <td></td>
                                     <td></td>
                                     <td></td>

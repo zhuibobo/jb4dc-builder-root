@@ -103,6 +103,7 @@ class CKEditorPluginUtility {
     }
 
     static GetEnableChildControls(singleName){
+        //debugger;
         return this.Plugins[singleName].Setting.EnableChildControls;
     }
 
@@ -398,7 +399,27 @@ class CKEditorPluginUtility {
     static GetControlDescText(pluginSetting,props){
         //console.log(pluginSetting);
         //console.log(props);
-        return "["+pluginSetting.ToolbarLabel+"] 绑定:["+props.bindToField.tableCaption+"-"+props.bindToField.fieldCaption+"]"
+        console.log(props);
+        var result="【"+pluginSetting.ToolbarLabel+"】绑定:["+props.bindToField.tableCaption+"-"+props.bindToField.fieldCaption+"]";
+        if(props.defaultValue) {
+            if (props.defaultValue.defaultText) {
+                result += "默认值:[" + props.defaultValue.defaultType + ":" + props.defaultValue.defaultText + "]";
+            }
+        }
+        //debugger;
+        if(props.validateRules){
+            if(props.validateRules.rules){
+                if(props.validateRules.rules.length>0) {
+                    result += "验证:["
+                    for (var i = 0; i < props.validateRules.rules.length; i++) {
+                        result += props.validateRules.rules[i].validateType + ";";
+                    }
+                    result = StringUtility.RemoveLastChar(result);
+                    result += "]"
+                }
+            }
+        }
+        return result;
     }
     static GetSearchControlDescText(pluginSetting,props){
         return "["+pluginSetting.ToolbarLabel+"] 绑定:["+props.bindToSearchField.columnCaption+"]("+props.bindToSearchField.columnOperator+")"

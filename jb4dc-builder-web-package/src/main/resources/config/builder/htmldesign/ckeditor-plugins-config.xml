@@ -18,7 +18,7 @@
 
         -->
         <Control SingleName="WFDCT_HideContainer" Text="隐藏区域" ToolbarLocation="LC_Template,1"
-                 ServerResolve="com.jb4dc.builder.htmldesign.control.weblist.WebListListHideContainer"
+                 ServerResolve="com.jb4dc.builder.htmldesign.control.webform.WebFormHideContainer"
                  ClientResolve=""
                  ClientResolveJs=""
                  EnableChildControls="*"
@@ -29,8 +29,8 @@
         </Control>
         <Control SingleName="WFDCT_Template" Text="表格模版" ToolbarLocation="LC_Template,2"
                  ServerResolve=""
-                 ClientResolve="2"
-                 ClientResolveJs="3"
+                 ClientResolve=""
+                 ClientResolveJs=""
                  EnableChildControls="*"
                  DialogWidth="780" DialogHeight="550" IsJBuild4DCData="false" ControlCategory="ContainerControl" ServerDynamicBind="false"
                  ShowRemoveButton="false" ShowInEditorToolbar="true">
@@ -56,7 +56,7 @@
     <!--ShowRemoveButton属性已经移除-->
     <WebListControls>
         <Control SingleName="WLDCT_HideContainer" Text="隐藏区域" ToolbarLocation="LC_Template,1"
-                 ServerResolve="com.jb4dc.builder.htmldesign.control.weblist.WebListListHideContainer"
+                 ServerResolve="com.jb4dc.builder.htmldesign.control.weblist.WebListHideContainer"
                  ClientResolve=""
                  ClientResolveJs=""
                  EnableChildControls="*"

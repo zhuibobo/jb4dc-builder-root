@@ -7,6 +7,8 @@
     <th:block th:replace="Fragment/GeneralLib::JBuild4DFormDesignLib"></th:block>
     <th:block th:replace="Fragment/GeneralLib::ThemesLib"></th:block>
     <th:block th:replace="Fragment/GeneralLib::HTMLDesignRuntimeLib"></th:block>
+    <th:block th:replace="Fragment/GeneralLib::HTMLDesignWysiwygLib"></th:block>
+    <th:block th:replace="Fragment/GeneralLib::HTMLDesignPluginLib"></th:block>
     <style>
         .table-width-wraper-1024{
             width: 720px !important;
@@ -25,9 +27,11 @@
     </style>
     <script>
         $(function(){
-            console.log("----对话框----");
+            console.log("----对话框11----");
             console.log(window.parent.CKEditorUtility.GetThemeVo());
             $("div[name='template']>div").addClass(window.parent.CKEditorUtility.GetThemeVo().rootElemClass);
+
+            $("div[name='template']>div").append(CKEditorPluginUtility.Plugins["WFDCT_HideContainer"].GetHtmlTemplate(CKEditorPluginUtility.Plugins["WFDCT_HideContainer"].GetTipMessage(),true));
         })
     </script>
 </head>

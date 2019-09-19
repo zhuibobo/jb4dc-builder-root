@@ -222,7 +222,7 @@ let replaceBlock = {
         replaceArray.push(refJs(levelPath + "Js/HTMLDesign/WebListDesign/Plugins/WLDCT_ListTableContainer/WLDCT_ListTableContainerPlugin.js"));
         replaceArray.push(refJs(levelPath + "Js/HTMLDesign/WebListDesign/Plugins/WLDCT_ListTableInnerButtonContainer/WLDCT_ListTableInnerButtonContainerPlugin.js"));
         replaceArray.push(refJs(levelPath + "Js/HTMLDesign/WebListDesign/Plugins/WLDCT_HideContainer/WLDCT_HideContainerPlugin.js"));
-
+        replaceArray.push(refJs(levelPath + "Js/HTMLDesign/WebFormDesign/Plugins/WFDCT_HideContainer/WFDCT_HideContainerPlugin.js"));
         return replaceArray.join("\n\t");
     }
 }
