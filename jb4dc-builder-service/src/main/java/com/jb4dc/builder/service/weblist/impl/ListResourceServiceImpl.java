@@ -6,7 +6,7 @@ import com.jb4dc.base.service.IAddBefore;
 import com.jb4dc.base.service.impl.BaseServiceImpl;
 import com.jb4dc.builder.dao.weblist.ListResourceMapper;
 import com.jb4dc.builder.dbentities.weblist.ListResourceEntity;
-import com.jb4dc.builder.htmldesign.IHTMLRuntimeResolve;
+import com.jb4dc.builder.client.htmldesign.IHTMLRuntimeResolve;
 import com.jb4dc.builder.po.ListResourcePO;
 import com.jb4dc.builder.service.module.IModuleService;
 import com.jb4dc.builder.service.weblist.IListResourceService;

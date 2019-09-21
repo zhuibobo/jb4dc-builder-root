@@ -11,7 +11,7 @@ import com.jb4dc.builder.service.datastorage.ITableFieldService;
 import com.jb4dc.builder.service.datastorage.ITableGroupService;
 import com.jb4dc.builder.service.datastorage.ITableRelationGroupService;
 import com.jb4dc.builder.service.envvar.IEnvGroupService;
-import com.jb4dc.builder.client.service.IEnvVariableService;
+import com.jb4dc.builder.client.service.envvar.IEnvVariableService;
 import com.jb4dc.builder.service.module.IModuleService;
 import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
 import com.jb4dc.core.base.session.JB4DCSession;

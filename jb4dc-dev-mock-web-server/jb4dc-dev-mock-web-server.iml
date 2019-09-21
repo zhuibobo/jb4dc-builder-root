@@ -95,6 +95,7 @@
     <orderEntry type="library" name="Maven: commons-codec:commons-codec:1.11" level="project" />
     <orderEntry type="module" module-name="jb4dc-builder-pojo" />
     <orderEntry type="module" module-name="jb4dc-builder-client" />
+    <orderEntry type="library" name="Maven: org.jsoup:jsoup:1.11.3" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.cloud:spring-cloud-starter-openfeign:2.1.2.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.cloud:spring-cloud-starter:2.1.0.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.cloud:spring-cloud-context:2.1.0.RELEASE" level="project" />

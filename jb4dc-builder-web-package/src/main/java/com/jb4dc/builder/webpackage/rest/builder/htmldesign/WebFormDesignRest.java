@@ -1,7 +1,7 @@
 package com.jb4dc.builder.webpackage.rest.builder.htmldesign;
 
-import com.jb4dc.builder.htmldesign.ICKEditorPluginsService;
-import com.jb4dc.builder.htmldesign.IHTMLDesignThemesService;
+import com.jb4dc.builder.client.htmldesign.ICKEditorPluginsService;
+import com.jb4dc.builder.client.htmldesign.IHTMLDesignThemesService;
 import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
 import com.jb4dc.core.base.vo.JBuild4DCResponseVo;
 import org.springframework.beans.factory.annotation.Autowired;

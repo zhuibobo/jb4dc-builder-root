@@ -4,7 +4,7 @@ import com.jb4dc.base.service.IAddBefore;
 import com.jb4dc.base.service.impl.BaseServiceImpl;
 import com.jb4dc.builder.dao.weblist.ListButtonMapper;
 import com.jb4dc.builder.dbentities.weblist.ListButtonEntity;
-import com.jb4dc.builder.service.weblist.IListButtonService;
+import com.jb4dc.builder.client.service.weblist.IListButtonService;
 import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
 import com.jb4dc.core.base.session.JB4DCSession;
 import org.springframework.beans.factory.annotation.Autowired;

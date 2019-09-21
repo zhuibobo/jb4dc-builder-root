@@ -3,7 +3,7 @@ package com.jb4dc.builder.client.rest;
 import com.github.pagehelper.PageInfo;
 import com.jb4dc.base.service.general.JB4DCSessionUtility;
 import com.jb4dc.builder.client.remote.DataSetRuntimeRemote;
-import com.jb4dc.builder.client.service.IDatasetClientService;
+import com.jb4dc.builder.client.service.dataset.IDatasetClientService;
 import com.jb4dc.builder.po.DataSetPO;
 import com.jb4dc.builder.po.QueryDataSetPO;
 import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
