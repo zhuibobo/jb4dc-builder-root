@@ -15,7 +15,12 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.springframework.beans.factory.annotation.Autowired;
-
+/**
+ * Created with IntelliJ IDEA.
+ * User: zhuangrb
+ * Date: 2019/9/15
+ * To change this template use File | Settings | File Templates.
+ */
 public class WebListListButtonContainer  extends HTMLControl implements IHTMLControl {
 
     @Autowired(required = false)

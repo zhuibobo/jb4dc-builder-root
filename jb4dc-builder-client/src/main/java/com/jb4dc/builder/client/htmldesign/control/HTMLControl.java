@@ -17,7 +17,12 @@ import org.springframework.beans.factory.config.AutowireCapableBeanFactory;
 
 import java.util.HashMap;
 import java.util.Map;
-
+/**
+ * Created with IntelliJ IDEA.
+ * User: zhuangrb
+ * Date: 2019/9/15
+ * To change this template use File | Settings | File Templates.
+ */
 public abstract class HTMLControl implements IHTMLControl {
 
     private static Map<String,IHTMLControl> controlInstanceMap=new HashMap<String,IHTMLControl>();
