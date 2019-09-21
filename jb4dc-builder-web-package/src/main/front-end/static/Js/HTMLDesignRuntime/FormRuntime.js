@@ -24,11 +24,21 @@ let FormRuntime={
             //alert( "Load was performed.");
             console.log("加载预览窗体成功!!");
             //console.log(result);
-            console.log(result.data.formHtmlRuntime);
+            //console.log(result.data.formHtmlRuntime);
             //var $rootElem=$(result.data.formHtmlRuntime);
             //if($rootElem.)
             this._$RendererToElem.append(result.data.formHtmlRuntime);
-            VirtualBodyControl.RendererChain(result.data.formHtmlRuntime,this._$RendererToElem,this._$RendererToElem);
+            //VirtualBodyControl.RendererChain(result.data.formHtmlRuntime,this._$RendererToElem,this._$RendererToElem);
+
+            //进行元素渲染
+            VirtualBodyControl.RendererChain({
+                listEntity:result.data,
+                sourceHTML:result.data.formHtmlRuntime,
+                $rootElem:this._$RendererToElem,
+                $parentControlElem:this._$RendererToElem,
+                $singleControlElem:this._$RendererToElem,
+                listRuntimeInstance:this
+            });
         },this);
     }
 }

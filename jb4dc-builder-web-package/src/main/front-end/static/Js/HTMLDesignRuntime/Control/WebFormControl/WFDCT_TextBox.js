@@ -1,6 +1,7 @@
 var WFDCT_TextBox={
-    RendererChain:function (sourceHTML,$rootElem,$singleControlElem,allData) {
+    RendererChain:function (_rendererChainParas) {
         //debugger;
+        var $singleControlElem=_rendererChainParas.$singleControlElem;
         $singleControlElem.val("22222");
     }
 }
