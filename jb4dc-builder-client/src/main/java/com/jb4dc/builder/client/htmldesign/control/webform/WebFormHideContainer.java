@@ -25,4 +25,9 @@ public class WebFormHideContainer  extends HTMLControl implements IHTMLControl {
         }
     }
 
+    @Override
+    public void dynamicBind(JB4DCSession jb4DCSession, String sourceHTML, Document doc, Element singleControlElem, Element parentElem, Element lastParentJbuild4dCustomElem, DynamicBindHTMLControlContextPO dynamicBindHTMLControlContextPO) throws JBuild4DCGenerallyException {
+
+    }
+
 }
