@@ -2,7 +2,8 @@ let FormRuntime={
     _Prop_Status:"Edit",
     _Prop_Config:{
         RendererToId:null,
-        FormId:""
+        FormId:"",
+        IsPreview:false
     },
     _$RendererToElem:null,
     Initialization:function (_config) {
@@ -10,13 +11,16 @@ let FormRuntime={
         this._$RendererToElem=$("#"+this._Prop_Config.RendererToId);
         this._LoadHTMLToEl();
     },
+    //用于控制BuilderListPageRuntimeInstance.RendererChainComplete的调用时间
+    _RendererChainIsCompleted:true,
+    _RendererDataChainIsCompleted:true,
     _LoadHTMLToEl:function () {
         //debugger;
         /*$(this._Prop_Config.RendererTo).loadHtmlDesignContent(BaseUtility.GetRootPath()+"/Rest/Builder/FormRuntime/FormPreview?formId="+this._Prop_Config.FormId, function() {
             //alert( "Load was performed." );
             console.log("加载预览窗体成功!!");
         });*/
-        RuntimeGeneralInstance.LoadHtmlDesignContent(BaseUtility.GetRootPath() + "/Rest/Builder/FormRuntime/FormPreview?formId=" + this._Prop_Config.FormId,this._Prop_Config.RendererTo, {}, function (result) {
+        RuntimeGeneralInstance.LoadHtmlDesignContent(BaseUtility.GetRootPath() + "/Rest/Builder/RunTime/FormRuntime/LoadHTML?formId=" + this._Prop_Config.FormId,this._Prop_Config.RendererTo, {}, function (result) {
             //alert( "Load was performed.");
             console.log("加载预览窗体成功!!");
             //console.log(result);

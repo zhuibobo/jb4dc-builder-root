@@ -25,6 +25,6 @@ public class WebFormTextBox extends HTMLControl implements IHTMLControl {
 
     @Override
     public void dynamicBind(JB4DCSession jb4DCSession, String sourceHTML, String resolveHTML, Document doc, Element singleControlElem, DynamicBindHTMLControlContextPO dynamicBindHTMLControlContextPO, HtmlControlDefinitionPO htmlControlPluginDefinitionVo) {
-
+        System.out.println("11111111111111111111111");
     }
 }

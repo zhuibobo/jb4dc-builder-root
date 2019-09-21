@@ -407,7 +407,7 @@
                     //debugger;
                     AjaxUtility.PostRequestBody(this.acInterface.saveDataUrl, sendData, function (result) {
                         //debugger;
-                        window.opener._modulelistwebformcomp.reloadData();
+
                         if(typeof(successFunc)=="function") {
                             successFunc.call(this,result);
                         }
@@ -416,7 +416,7 @@
                                 DialogUtility.AlertText(result.message);
                             }
                         }
-
+                        window.opener._modulelistwebformcomp.reloadData();
                         /*DialogUtility.Alert(window, DialogUtility.DialogAlertId, {}, result.message, function () {
                             if (result.success) {
                                 //window.OpenerWindowObj.appList.reloadData();

@@ -17,5 +17,5 @@ import com.jb4dc.core.base.session.JB4DCSession;
 public interface IFormResourceService extends IBaseService<FormResourceEntity> {
     FormResourcePO getFormPreviewHTMLContent(JB4DCSession jb4DCSession, String id) throws JBuild4DCGenerallyException;
 
-    FormResourcePO getFormRuntimePageContent(JB4DCSession jb4DCSession, String id, RecordDataPO recordDataVo) throws JBuild4DCGenerallyException;
+    FormResourcePO getFormRuntimePageContent(JB4DCSession jb4DCSession, String id) throws JBuild4DCGenerallyException;
 }

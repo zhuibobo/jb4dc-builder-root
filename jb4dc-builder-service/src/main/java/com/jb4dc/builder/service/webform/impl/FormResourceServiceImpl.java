@@ -93,11 +93,11 @@ public class FormResourceServiceImpl extends BaseServiceImpl<FormResourceEntity>
 
     @Override
     public FormResourcePO getFormPreviewHTMLContent(JB4DCSession jb4DCSession, String id) throws JBuild4DCGenerallyException {
-        return getFormRuntimePageContent(jb4DCSession,id,null);
+        return getFormRuntimePageContent(jb4DCSession,id);
     }
 
     @Override
-    public FormResourcePO getFormRuntimePageContent(JB4DCSession jb4DCSession, String id, RecordDataPO recordDataVo) throws JBuild4DCGenerallyException {
+    public FormResourcePO getFormRuntimePageContent(JB4DCSession jb4DCSession, String id) throws JBuild4DCGenerallyException {
         FormResourceEntity formResourceEntity=getByPrimaryKey(jb4DCSession,id);
         String formHtmlRuntime=htmlRuntimeResolve.dynamicBind(jb4DCSession,id,formResourceEntity.getFormHtmlResolve());
         return new FormResourcePO(formResourceEntity,formHtmlRuntime);

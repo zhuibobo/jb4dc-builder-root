@@ -353,7 +353,7 @@
                     var sendData = JSON.stringify(this.listResourceEntity);
                     //debugger;
                     AjaxUtility.PostRequestBody(this.acInterface.saveDataUrl, sendData, function (result) {
-                        window.opener._modulelistweblistcomp.reloadData();
+
                         if(typeof(successFunc)=="function") {
                             successFunc.call(this,result);
                         }
@@ -362,6 +362,7 @@
                                 DialogUtility.AlertText(result.message);
                             }
                         }
+                        window.opener._modulelistweblistcomp.reloadData();
                         //debugger;
                         /*DialogUtility.Alert(window, DialogUtility.DialogAlertId, {}, result.message, function () {
                             if (result.success) {
