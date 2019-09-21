@@ -117,8 +117,4 @@ public class WebListListButtonContainer  extends HTMLControl implements IHTMLCon
         }
     }
 
-    @Override
-    public void dynamicBind(JB4DCSession jb4DCSession, String resolveHTML, Document doc, Element singleControlElem, DynamicBindHTMLControlContextPO dynamicBindHTMLControlContextPO) {
-
-    }
 }

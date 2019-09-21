@@ -28,16 +28,16 @@ public interface IHTMLControl {
                         ResolveHTMLControlContextPO resolveHTMLControlContextPO,
                         HtmlControlDefinitionPO htmlControlDefinitionPO) throws JBuild4DCGenerallyException;
 
-    void bindDefaultValue(JB4DCSession jb4DCSession,
+    String getDefaultValue(JB4DCSession jb4DCSession,
                           String sourceHTML,
                           Document doc,
                           Element singleControlElem,
                           Element parentElem,
                           Element lastParentJbuild4dCustomElem,
-                          ResolveHTMLControlContextPO resolveHTMLControlContextPO,
+                           DynamicBindHTMLControlContextPO dynamicBindHTMLControlContextPO,
                           HtmlControlDefinitionPO htmlControlDefinitionPO) throws JBuild4DCGenerallyException;
 
-    void dynamicBind(JB4DCSession jb4DCSession, String resolveHTML, Document doc, Element singleControlElem, DynamicBindHTMLControlContextPO dynamicBindHTMLControlContextPO) throws JBuild4DCGenerallyException;
+    void dynamicBind(JB4DCSession jb4DCSession, String sourceHTML, Document doc, Element singleControlElem, Element parentElem, Element lastParentJbuild4dCustomElem, DynamicBindHTMLControlContextPO dynamicBindHTMLControlContextPO) throws JBuild4DCGenerallyException;
 
     void rendererChain(JB4DCSession jb4DCSession, String sourceHTML, Document doc, Element singleControlElem, Element parentElem, Element lastParentJbuild4dCustomElem, ResolveHTMLControlContextPO resolveHTMLControlContextPO) throws JBuild4DCGenerallyException;
 

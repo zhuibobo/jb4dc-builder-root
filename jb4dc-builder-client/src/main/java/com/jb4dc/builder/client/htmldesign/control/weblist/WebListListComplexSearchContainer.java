@@ -15,8 +15,4 @@ public class WebListListComplexSearchContainer  extends HTMLControl implements I
 
     }
 
-    @Override
-    public void dynamicBind(JB4DCSession jb4DCSession, String resolveHTML, Document doc, Element singleControlElem, DynamicBindHTMLControlContextPO dynamicBindHTMLControlContextPO) {
-
-    }
 }

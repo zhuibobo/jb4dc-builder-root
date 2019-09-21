@@ -15,8 +15,4 @@ public class WebListListSimpleSearchContainer  extends HTMLControl implements IH
 
     }
 
-    @Override
-    public void dynamicBind(JB4DCSession jb4DCSession, String resolveHTML, Document doc, Element singleControlElem, DynamicBindHTMLControlContextPO dynamicBindHTMLControlContextPO) {
-
-    }
 }

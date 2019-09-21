@@ -16,9 +16,4 @@ public class WebListSearchTextBox  extends HTMLControl implements IHTMLControl {
         singleControlElem.text("");
         singleControlElem.attr("type","text");
     }
-
-    @Override
-    public void dynamicBind(JB4DCSession jb4DCSession, String resolveHTML, Document doc, Element singleControlElem, DynamicBindHTMLControlContextPO dynamicBindHTMLControlContextPO) {
-
-    }
 }

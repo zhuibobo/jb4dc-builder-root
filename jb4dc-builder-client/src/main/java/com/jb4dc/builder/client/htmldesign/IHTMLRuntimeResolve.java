@@ -10,5 +10,5 @@ public interface IHTMLRuntimeResolve {
     //Element lastParentJbuild4dCustomElem=null;
     //void loopResolveElem(JB4DCSession jb4DCSession, Document doc, Element parentElem, String sourceHTML, Element lastParentJbuild4dCustomElem, ResolveHTMLControlContextVo resolveHTMLControlContextVo) throws JBuild4DGenerallyException;
 
-    String dynamicBind(JB4DCSession jb4DCSession, String id, String resolveHtml);
+    String dynamicBind(JB4DCSession jb4DCSession, String id, String resolveHtml) throws JBuild4DCGenerallyException;
 }

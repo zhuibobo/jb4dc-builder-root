@@ -24,9 +24,4 @@ public class WebListHideContainer extends HTMLControl implements IHTMLControl {
             singleControlElem.addClass("wraper-hide");
         }
     }
-
-    @Override
-    public void dynamicBind(JB4DCSession jb4DCSession, String resolveHTML, Document doc, Element singleControlElem, DynamicBindHTMLControlContextPO dynamicBindHTMLControlContextPO) throws JBuild4DCGenerallyException {
-
-    }
 }

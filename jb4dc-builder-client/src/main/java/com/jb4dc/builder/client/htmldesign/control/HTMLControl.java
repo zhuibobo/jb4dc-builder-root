@@ -2,12 +2,14 @@ package com.jb4dc.builder.client.htmldesign.control;
 
 import com.jb4dc.builder.client.htmldesign.HTMLControlAttrs;
 import com.jb4dc.builder.client.htmldesign.ICKEditorPluginsService;
+import com.jb4dc.builder.client.service.envvar.IEnvVariableClientResolveService;
 import com.jb4dc.builder.po.DynamicBindHTMLControlContextPO;
 import com.jb4dc.builder.po.HtmlControlDefinitionPO;
 import com.jb4dc.builder.po.ResolveHTMLControlContextPO;
 import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
 import com.jb4dc.core.base.session.JB4DCSession;
 import com.jb4dc.core.base.tools.ClassUtility;
+import com.jb4dc.core.base.tools.StringUtility;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +27,9 @@ public abstract class HTMLControl implements IHTMLControl {
 
     @Autowired
     protected AutowireCapableBeanFactory autowireCapableBeanFactory;
+
+    @Autowired
+    protected IEnvVariableClientResolveService envVariableClientResolveService;
 
     public IHTMLControl getHTMLControlInstance(String fullClassName) throws IllegalAccessException, InstantiationException,ClassNotFoundException {
 
@@ -98,6 +103,7 @@ public abstract class HTMLControl implements IHTMLControl {
 
                         //htmlControl.resolveDefAttr(jb4DCSession, sourceHTML, doc, singleElem, parentElem, lastParentJbuild4dCustomElem, dynamicBindHTMLControlContextPO, htmlControlDefinitionPO);
                         //htmlControl.resolveSelf(jb4DCSession, sourceHTML, doc, singleElem, parentElem, lastParentJbuild4dCustomElem, dynamicBindHTMLControlContextPO, htmlControlDefinitionPO);
+                        htmlControl.dynamicBind(jb4DCSession, sourceHTML, doc, singleElem, parentElem, lastParentJbuild4dCustomElem, dynamicBindHTMLControlContextPO);
 
                         htmlControl.dynamicBindChain(jb4DCSession, sourceHTML, doc, singleElem, parentElem, lastParentJbuild4dCustomElem, dynamicBindHTMLControlContextPO);
                     }
@@ -120,11 +126,28 @@ public abstract class HTMLControl implements IHTMLControl {
         }
     }
 
-
-    //todo 绑定默认值
     @Override
-    public void bindDefaultValue(JB4DCSession jb4DCSession, String sourceHTML, Document doc, Element singleControlElem, Element parentElem, Element lastParentJbuild4dCustomElem, ResolveHTMLControlContextPO resolveHTMLControlContextPO, HtmlControlDefinitionPO htmlControlDefinitionPO) {
+    public void dynamicBind(JB4DCSession jb4DCSession, String sourceHTML, Document doc, Element singleControlElem, Element parentElem, Element lastParentJbuild4dCustomElem, DynamicBindHTMLControlContextPO dynamicBindHTMLControlContextPO) throws JBuild4DCGenerallyException {
+        String defaultValue=getDefaultValue(jb4DCSession,sourceHTML,doc,singleControlElem,parentElem,lastParentJbuild4dCustomElem,dynamicBindHTMLControlContextPO,null);
+        String value="";
+        if (StringUtility.isNotEmpty(defaultValue)){
+            value=defaultValue;
+        }
+        singleControlElem.val(value);
+    }
 
+    @Override
+    public String getDefaultValue(JB4DCSession jb4DCSession, String sourceHTML, Document doc, Element singleControlElem, Element parentElem, Element lastParentJbuild4dCustomElem, DynamicBindHTMLControlContextPO dynamicBindHTMLControlContextPO, HtmlControlDefinitionPO htmlControlDefinitionPO) throws JBuild4DCGenerallyException {
+        String valueType = singleControlElem.attr("defaulttype");
+        String value = singleControlElem.attr("defaultvalue");
+        if (StringUtility.isNotEmpty(valueType)) {
+            if (valueType.toUpperCase().equals("ENVVAR")) {
+                return envVariableClientResolveService.execEnvVarResult(jb4DCSession, value);
+            } else {
+                return value;
+            }
+        }
+        return "";
     }
 
     @Override

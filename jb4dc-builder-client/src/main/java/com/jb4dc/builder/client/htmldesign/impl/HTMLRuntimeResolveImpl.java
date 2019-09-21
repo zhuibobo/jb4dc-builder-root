@@ -91,7 +91,7 @@ public class HTMLRuntimeResolveImpl implements IHTMLRuntimeResolve {
 
     //控件是否动态绑定,交由控件解析时,控件本身解析自行设定,动态绑定完成字后,需要控件自身移除敏感属性.
     @Override
-    public String dynamicBind(JB4DCSession jb4DCSession, String id, String resolveHtml) {
+    public String dynamicBind(JB4DCSession jb4DCSession, String id, String resolveHtml) throws JBuild4DCGenerallyException {
         String sourceHTML=resolveHtml;
         if(sourceHTML!=null&&!sourceHTML.equals("")){
             //获取并解析HTML
@@ -102,7 +102,7 @@ public class HTMLRuntimeResolveImpl implements IHTMLRuntimeResolve {
 
             VirtualBodyControl bodyControl= VirtualBodyControl.getInstance();
             autowireCapableBeanFactory.autowireBean(bodyControl);
-            bodyControl.dynamicBind(jb4DCSession,sourceHTML,doc,doc,dynamicBindHTMLControlContextPO);
+            bodyControl.dynamicBindChain(jb4DCSession,resolveHtml,doc,doc,doc,null, dynamicBindHTMLControlContextPO);
             //this.loopResolveElem(jb4DCSession,doc,doc,sourceHTML,null,resolveHTMLControlContextVo);
 
             return doc.getElementsByTag("body").html();
