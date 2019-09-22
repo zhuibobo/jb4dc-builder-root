@@ -18,12 +18,15 @@
             <arg column="BUTTON_CUST_PROP3" javaType="java.lang.String" jdbcType="NVARCHAR" />
             <arg column="BUTTON_CUST_PROP4" javaType="java.lang.String" jdbcType="NVARCHAR" />
             <arg column="BUTTON_DESC" javaType="java.lang.String" jdbcType="NVARCHAR" />
+            <arg column="BUTTON_INNER_CONFIG" javaType="java.lang.String" jdbcType="NVARCHAR" />
+            <arg column="BUTTON_OPERATION_TYPE" javaType="java.lang.String" jdbcType="NVARCHAR" />
         </constructor>
     </resultMap>
     <sql id="Base_Column_List">
     BUTTON_ID, BUTTON_LIST_ID, BUTTON_LIST_ELEM_ID, BUTTON_SINGLE_NAME, BUTTON_CAPTION,
     BUTTON_CONTENT, BUTTON_AUTH, BUTTON_RT_CONTENT_RENDERER, BUTTON_OUTER_ID, BUTTON_CUST_SINGLE_NAME,
-    BUTTON_CUST_PROP1, BUTTON_CUST_PROP2, BUTTON_CUST_PROP3, BUTTON_CUST_PROP4, BUTTON_DESC
+    BUTTON_CUST_PROP1, BUTTON_CUST_PROP2, BUTTON_CUST_PROP3, BUTTON_CUST_PROP4, BUTTON_DESC,
+    BUTTON_INNER_CONFIG, BUTTON_OPERATION_TYPE
   </sql>
     <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
         select
@@ -41,13 +44,15 @@
       BUTTON_AUTH, BUTTON_RT_CONTENT_RENDERER,
       BUTTON_OUTER_ID, BUTTON_CUST_SINGLE_NAME,
       BUTTON_CUST_PROP1, BUTTON_CUST_PROP2, BUTTON_CUST_PROP3,
-      BUTTON_CUST_PROP4, BUTTON_DESC)
+      BUTTON_CUST_PROP4, BUTTON_DESC, BUTTON_INNER_CONFIG,
+      BUTTON_OPERATION_TYPE)
     values (#{buttonId,jdbcType=NVARCHAR}, #{buttonListId,jdbcType=NVARCHAR}, #{buttonListElemId,jdbcType=NVARCHAR},
       #{buttonSingleName,jdbcType=NVARCHAR}, #{buttonCaption,jdbcType=NVARCHAR}, #{buttonContent,jdbcType=VARCHAR},
       #{buttonAuth,jdbcType=NVARCHAR}, #{buttonRtContentRenderer,jdbcType=NVARCHAR},
       #{buttonOuterId,jdbcType=NVARCHAR}, #{buttonCustSingleName,jdbcType=NVARCHAR},
       #{buttonCustProp1,jdbcType=NVARCHAR}, #{buttonCustProp2,jdbcType=NVARCHAR}, #{buttonCustProp3,jdbcType=NVARCHAR},
-      #{buttonCustProp4,jdbcType=NVARCHAR}, #{buttonDesc,jdbcType=NVARCHAR})
+      #{buttonCustProp4,jdbcType=NVARCHAR}, #{buttonDesc,jdbcType=NVARCHAR}, #{buttonInnerConfig,jdbcType=NVARCHAR},
+      #{buttonOperationType,jdbcType=NVARCHAR})
   </insert>
     <insert id="insertSelective" parameterType="com.jb4dc.builder.dbentities.weblist.ListButtonEntity">
         insert into TBUILD_LIST_BUTTON
@@ -97,6 +102,12 @@
             <if test="buttonDesc != null">
                 BUTTON_DESC,
             </if>
+            <if test="buttonInnerConfig != null">
+                BUTTON_INNER_CONFIG,
+            </if>
+            <if test="buttonOperationType != null">
+                BUTTON_OPERATION_TYPE,
+            </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="buttonId != null">
@@ -143,6 +154,12 @@
             </if>
             <if test="buttonDesc != null">
                 #{buttonDesc,jdbcType=NVARCHAR},
+            </if>
+            <if test="buttonInnerConfig != null">
+                #{buttonInnerConfig,jdbcType=NVARCHAR},
+            </if>
+            <if test="buttonOperationType != null">
+                #{buttonOperationType,jdbcType=NVARCHAR},
             </if>
         </trim>
     </insert>
@@ -191,6 +208,12 @@
             <if test="buttonDesc != null">
                 BUTTON_DESC = #{buttonDesc,jdbcType=NVARCHAR},
             </if>
+            <if test="buttonInnerConfig != null">
+                BUTTON_INNER_CONFIG = #{buttonInnerConfig,jdbcType=NVARCHAR},
+            </if>
+            <if test="buttonOperationType != null">
+                BUTTON_OPERATION_TYPE = #{buttonOperationType,jdbcType=NVARCHAR},
+            </if>
         </set>
         where BUTTON_ID = #{buttonId,jdbcType=NVARCHAR}
     </update>
@@ -209,7 +232,9 @@
       BUTTON_CUST_PROP2 = #{buttonCustProp2,jdbcType=NVARCHAR},
       BUTTON_CUST_PROP3 = #{buttonCustProp3,jdbcType=NVARCHAR},
       BUTTON_CUST_PROP4 = #{buttonCustProp4,jdbcType=NVARCHAR},
-      BUTTON_DESC = #{buttonDesc,jdbcType=NVARCHAR}
+      BUTTON_DESC = #{buttonDesc,jdbcType=NVARCHAR},
+      BUTTON_INNER_CONFIG = #{buttonInnerConfig,jdbcType=NVARCHAR},
+      BUTTON_OPERATION_TYPE = #{buttonOperationType,jdbcType=NVARCHAR}
     where BUTTON_ID = #{buttonId,jdbcType=NVARCHAR}
   </update>
 </mapper>

@@ -594,4 +594,9 @@
             <column name="BUTTON_INNER_CONFIG" type="NVARCHAR(4000)" remarks="按钮的内部配置:例如窗体按钮的innerbuttonjsonstring属性"/>
         </addColumn>
     </changeSet>
+    <changeSet author="zhuangrb" id="changeSet-Builder-0005" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
+        <addColumn tableName="TBUILD_LIST_BUTTON">
+            <column name="BUTTON_OPERATION_TYPE" type="NVARCHAR(20)" remarks="操作类型:add,update,view"/>
+        </addColumn>
+    </changeSet>
 </databaseChangeLog>

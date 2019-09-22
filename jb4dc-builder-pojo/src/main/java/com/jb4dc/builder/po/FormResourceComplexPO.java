@@ -3,6 +3,8 @@ package com.jb4dc.builder.po;
 import com.jb4dc.builder.dbentities.webform.FormResourceEntity;
 import com.jb4dc.builder.dbentities.weblist.ListButtonEntity;
 
+import java.util.Map;
+
 /**
  * Created with IntelliJ IDEA.
  * User: zhuangrb
@@ -14,22 +16,22 @@ public class FormResourceComplexPO extends FormResourcePO {
         super(source, formHtmlRuntime);
     }
 
-    public FormResourceComplexPO(FormResourceEntity source, String formHtmlRuntime, String recordDataJsonString, ListButtonEntity listButtonEntity) {
+    public FormResourceComplexPO(FormResourceEntity source, String formHtmlRuntime, Map recordData, ListButtonEntity listButtonEntity) {
         super(source, formHtmlRuntime);
-        this.recordDataJsonString = recordDataJsonString;
+        this.recordData = recordData;
         this.listButtonEntity = listButtonEntity;
     }
 
-    String recordDataJsonString;
+    Map recordData;
 
     ListButtonEntity listButtonEntity;
 
-    public String getRecordDataJsonString() {
-        return recordDataJsonString;
+    public Map getRecordData() {
+        return recordData;
     }
 
-    public void setRecordDataJsonString(String recordDataJsonString) {
-        this.recordDataJsonString = recordDataJsonString;
+    public void setRecordData(Map recordData) {
+        this.recordData = recordData;
     }
 
     public ListButtonEntity getListButtonEntity() {

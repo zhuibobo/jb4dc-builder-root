@@ -1,5 +1,6 @@
 package com.jb4dc.builder.client.service.webform;
 
+import com.jb4dc.builder.dbentities.weblist.ListButtonEntity;
 import com.jb4dc.builder.po.FormResourceComplexPO;
 import com.jb4dc.builder.po.FormResourcePO;
 import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
@@ -14,5 +15,5 @@ import java.io.IOException;
  * To change this template use File | Settings | File Templates.
  */
 public interface IWebFormRuntimeService {
-    FormResourceComplexPO resolveFormResourceComplex(JB4DCSession session, FormResourcePO data) throws IOException, JBuild4DCGenerallyException;
+    FormResourceComplexPO resolveFormResourceComplex(JB4DCSession session,String recordId, FormResourcePO data, ListButtonEntity listButtonEntity) throws IOException, JBuild4DCGenerallyException;
 }

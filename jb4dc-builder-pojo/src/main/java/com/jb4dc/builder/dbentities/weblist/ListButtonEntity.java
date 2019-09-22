@@ -57,6 +57,12 @@ public class ListButtonEntity {
     //BUTTON_DESC:备注
     private String buttonDesc;
 
+    //BUTTON_INNER_CONFIG:按钮的内部配置:例如窗体按钮的innerbuttonjsonstring属性
+    private String buttonInnerConfig;
+
+    //BUTTON_OPERATION_TYPE:操作类型:add,update,view
+    private String buttonOperationType;
+
     /**
      * 构造函数
      * @param buttonId 主键
@@ -74,8 +80,10 @@ public class ListButtonEntity {
      * @param buttonCustProp3 用户自定义属性3
      * @param buttonCustProp4 用户自定义属性4
      * @param buttonDesc 备注
+     * @param buttonInnerConfig 按钮的内部配置
+     * @param buttonOperationType 操作类型
      **/
-    public ListButtonEntity(String buttonId, String buttonListId, String buttonListElemId, String buttonSingleName, String buttonCaption, String buttonContent, String buttonAuth, String buttonRtContentRenderer, String buttonOuterId, String buttonCustSingleName, String buttonCustProp1, String buttonCustProp2, String buttonCustProp3, String buttonCustProp4, String buttonDesc) {
+    public ListButtonEntity(String buttonId, String buttonListId, String buttonListElemId, String buttonSingleName, String buttonCaption, String buttonContent, String buttonAuth, String buttonRtContentRenderer, String buttonOuterId, String buttonCustSingleName, String buttonCustProp1, String buttonCustProp2, String buttonCustProp3, String buttonCustProp4, String buttonDesc, String buttonInnerConfig, String buttonOperationType) {
         this.buttonId = buttonId;
         this.buttonListId = buttonListId;
         this.buttonListElemId = buttonListElemId;
@@ -91,6 +99,8 @@ public class ListButtonEntity {
         this.buttonCustProp3 = buttonCustProp3;
         this.buttonCustProp4 = buttonCustProp4;
         this.buttonDesc = buttonDesc;
+        this.buttonInnerConfig = buttonInnerConfig;
+        this.buttonOperationType = buttonOperationType;
     }
 
     public ListButtonEntity() {
@@ -335,5 +345,37 @@ public class ListButtonEntity {
      **/
     public void setButtonDesc(String buttonDesc) {
         this.buttonDesc = buttonDesc == null ? null : buttonDesc.trim();
+    }
+
+    /**
+     * 按钮的内部配置:例如窗体按钮的innerbuttonjsonstring属性
+     * @return java.lang.String
+     **/
+    public String getButtonInnerConfig() {
+        return buttonInnerConfig;
+    }
+
+    /**
+     * 按钮的内部配置:例如窗体按钮的innerbuttonjsonstring属性
+     * @param buttonInnerConfig 按钮的内部配置
+     **/
+    public void setButtonInnerConfig(String buttonInnerConfig) {
+        this.buttonInnerConfig = buttonInnerConfig == null ? null : buttonInnerConfig.trim();
+    }
+
+    /**
+     * 操作类型:add,update,view
+     * @return java.lang.String
+     **/
+    public String getButtonOperationType() {
+        return buttonOperationType;
+    }
+
+    /**
+     * 操作类型:add,update,view
+     * @param buttonOperationType 操作类型
+     **/
+    public void setButtonOperationType(String buttonOperationType) {
+        this.buttonOperationType = buttonOperationType == null ? null : buttonOperationType.trim();
     }
 }

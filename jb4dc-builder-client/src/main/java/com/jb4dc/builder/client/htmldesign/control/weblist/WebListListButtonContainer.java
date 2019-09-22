@@ -15,6 +15,10 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+
 /**
  * Created with IntelliJ IDEA.
  * User: zhuangrb
@@ -89,8 +93,16 @@ public class WebListListButtonContainer  extends HTMLControl implements IHTMLCon
                     String custProp4=singleInnerElem.attr("custprop4");
 
                     String outerId="";
+                    String innerConfig="";
+                    String operationType="";
                     if(singleInnerElem.attr("singlename").equals("WLDCT_FormButton")) {
-                        outerId=singleInnerElem.attr("formmoduleid");
+                        outerId=singleInnerElem.attr("formid");
+                        operationType=singleInnerElem.attr("operation");
+                        try {
+                            innerConfig= URLDecoder.decode(singleInnerElem.attr("innerbuttonjsonstring"),"utf-8");
+                        } catch (UnsupportedEncodingException e) {
+                            throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_BUILDER_CODE,"解析内部innerbuttonjsonstring出错!"+e.getMessage());
+                        }
                     }
 
                     if(StringUtility.isNotEmpty(custSingleName)){
@@ -116,6 +128,8 @@ public class WebListListButtonContainer  extends HTMLControl implements IHTMLCon
                     listButtonEntity.setButtonCustProp1(custProp3);
                     listButtonEntity.setButtonCustProp1(custProp4);
                     listButtonEntity.setButtonOuterId(outerId);
+                    listButtonEntity.setButtonInnerConfig(innerConfig);
+                    listButtonEntity.setButtonOperationType(operationType);
                     listButtonService.saveSimple(jb4DCSession,buttonId,listButtonEntity);
                 }
             }
