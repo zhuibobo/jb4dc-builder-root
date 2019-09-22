@@ -7,7 +7,7 @@ import com.jb4dc.base.service.IAddBefore;
 import com.jb4dc.base.service.IUpdateBefore;
 import com.jb4dc.base.service.impl.BaseServiceImpl;
 import com.jb4dc.base.ymls.JBuild4DCYaml;
-import com.jb4dc.builder.client.service.dataset.IDatasetClientService;
+import com.jb4dc.builder.client.service.dataset.IDatasetRuntimeService;
 import com.jb4dc.builder.config.IBuilderConfigService;
 import com.jb4dc.builder.config.IDataSetColumnCaptionConfigService;
 import com.jb4dc.builder.config.impl.DataSetColumnCaptionConfigServiceImpl;
@@ -22,7 +22,7 @@ import com.jb4dc.builder.service.dataset.IDatasetService;
 import com.jb4dc.builder.service.dataset.builder.SQLDataSetBuilder;
 import com.jb4dc.builder.service.datastorage.ITableFieldService;
 import com.jb4dc.builder.service.datastorage.ITableService;
-import com.jb4dc.builder.client.service.envvar.IEnvVariableClientResolveService;
+import com.jb4dc.builder.client.service.envvar.IEnvVariableRuntimeResolveService;
 import com.jb4dc.builder.client.service.envvar.IEnvVariableService;
 import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
 import com.jb4dc.core.base.list.IListWhereCondition;
@@ -64,10 +64,10 @@ public class DatasetServiceImpl extends BaseServiceImpl<DatasetEntity> implement
     IBuilderConfigService builderConfigService;
     ITableService tableService;
     ITableFieldService tableFieldService;
-    IEnvVariableClientResolveService envVariableClientResolveService;
+    IEnvVariableRuntimeResolveService envVariableClientResolveService;
     ISQLBuilderMapper sqlBuilderMapper;
     IEnvVariableService envVariableService;
-    IDatasetClientService datasetClientService;
+    IDatasetRuntimeService datasetClientService;
 
     Logger logger = LoggerFactory.getLogger(DatasetServiceImpl.class);
 
@@ -79,7 +79,7 @@ public class DatasetServiceImpl extends BaseServiceImpl<DatasetEntity> implement
                               SqlSessionTemplate _sqlSessionTemplate, JdbcOperations _jdbcOperations,
                               IBuilderConfigService _builderConfigService, ITableService _tableService, ITableFieldService _tableFieldService,
                               IDatasetRelatedTableService _datasetRelatedTableService, IDatasetColumnService _datasetColumnService, ISQLBuilderMapper _sqlBuilderMapper,
-                              IEnvVariableService _envVariableService, IEnvVariableClientResolveService _envVariableClientResolveService,IDatasetClientService _datasetClientService){
+                              IEnvVariableService _envVariableService, IEnvVariableRuntimeResolveService _envVariableClientResolveService, IDatasetRuntimeService _datasetClientService){
         super(_defaultBaseMapper);
         datasetMapper=_defaultBaseMapper;
         jdbcOperations=_jdbcOperations;

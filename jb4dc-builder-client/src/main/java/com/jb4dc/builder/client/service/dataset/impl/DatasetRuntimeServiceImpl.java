@@ -3,8 +3,8 @@ package com.jb4dc.builder.client.service.dataset.impl;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.jb4dc.base.dbaccess.dynamic.ISQLBuilderMapper;
-import com.jb4dc.builder.client.service.dataset.IDatasetClientService;
-import com.jb4dc.builder.client.service.envvar.IEnvVariableClientResolveService;
+import com.jb4dc.builder.client.service.dataset.IDatasetRuntimeService;
+import com.jb4dc.builder.client.service.envvar.IEnvVariableRuntimeResolveService;
 import com.jb4dc.builder.po.DataSetPO;
 import com.jb4dc.builder.po.ListQueryPO;
 import com.jb4dc.builder.po.QueryDataSetPO;
@@ -28,15 +28,15 @@ import java.util.regex.Pattern;
  * To change this template use File | Settings | File Templates.
  */
 @Service
-public class DatasetClientServiceImpl implements IDatasetClientService {
+public class DatasetRuntimeServiceImpl implements IDatasetRuntimeService {
 
     @Autowired
-    IEnvVariableClientResolveService envVariableClientResolveService;
+    IEnvVariableRuntimeResolveService envVariableClientResolveService;
 
     ISQLBuilderMapper sqlBuilderMapper;
 
     @Autowired
-    public DatasetClientServiceImpl(ISQLBuilderMapper _sqlBuilderMapper) {
+    public DatasetRuntimeServiceImpl(ISQLBuilderMapper _sqlBuilderMapper) {
         sqlBuilderMapper=_sqlBuilderMapper;
     }
 

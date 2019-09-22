@@ -3,7 +3,7 @@ package com.jb4dc.builder.client.rest;
 import com.github.pagehelper.PageInfo;
 import com.jb4dc.base.service.general.JB4DCSessionUtility;
 import com.jb4dc.builder.client.remote.DataSetRuntimeRemote;
-import com.jb4dc.builder.client.service.dataset.IDatasetClientService;
+import com.jb4dc.builder.client.service.dataset.IDatasetRuntimeService;
 import com.jb4dc.builder.po.DataSetPO;
 import com.jb4dc.builder.po.QueryDataSetPO;
 import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
@@ -32,7 +32,7 @@ public class DataSetRuntimeRest {
     DataSetRuntimeRemote dataSetRuntimeRemote;
 
     @Autowired
-    IDatasetClientService datasetClientService;
+    IDatasetRuntimeService datasetClientService;
 
     @RequestMapping(value = "/GetByDataSetId",method = RequestMethod.POST)
     public JBuild4DCResponseVo<DataSetPO> getByDataSetId(String dataSetId) throws JBuild4DCGenerallyException, IOException {

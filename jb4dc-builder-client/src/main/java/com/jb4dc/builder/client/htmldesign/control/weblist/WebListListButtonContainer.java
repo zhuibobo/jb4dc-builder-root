@@ -1,6 +1,6 @@
 package com.jb4dc.builder.client.htmldesign.control.weblist;
 
-import com.jb4dc.builder.client.service.weblist.IListButtonService;
+import com.jb4dc.builder.client.service.weblist.IWebListButtonService;
 import com.jb4dc.builder.dbentities.weblist.ListButtonEntity;
 import com.jb4dc.builder.client.htmldesign.HTMLControlAttrs;
 import com.jb4dc.builder.client.htmldesign.control.HTMLControl;
@@ -24,7 +24,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 public class WebListListButtonContainer  extends HTMLControl implements IHTMLControl {
 
     @Autowired(required = false)
-    IListButtonService listButtonService;
+    IWebListButtonService listButtonService;
 
     /*@Override
     public void rendererChain(JB4DCSession jb4DCSession, String sourceHTML, Document doc, Element singleControlElem, Element parentElem, Element lastParentJbuild4dCustomElem, ResolveHTMLControlContextVo resolveHTMLControlContextVo) throws JBuild4DGenerallyException {

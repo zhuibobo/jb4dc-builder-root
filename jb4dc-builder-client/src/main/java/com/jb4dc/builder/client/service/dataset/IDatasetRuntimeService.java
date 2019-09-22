@@ -15,7 +15,7 @@ import java.util.Map;
  * Date: 2019/8/28
  * To change this template use File | Settings | File Templates.
  */
-public interface IDatasetClientService {
+public interface IDatasetRuntimeService {
 
     boolean validateResolveSqlWithKeyWord(String sql) throws JBuild4DCGenerallyException;
 

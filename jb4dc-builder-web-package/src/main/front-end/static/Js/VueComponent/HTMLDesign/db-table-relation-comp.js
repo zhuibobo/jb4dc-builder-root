@@ -384,6 +384,7 @@ Vue.component("db-table-relation-comp", {
                     return;
                 }
             }
+            //debugger;
             this.relationTableTree.treeObj.addNodes(this.relationTableTree.currentSelectedNode, -1, newNode, false);
             //将当前的节点加入结果集合
             var newResultItem = this.getEmptyResultItem();
@@ -406,8 +407,10 @@ Vue.component("db-table-relation-comp", {
             if(this.isSelectedRootRelationTableNode()){
                 return
             }
+            //debugger;
             //绑定主键的下拉列表
             //alert(node.id);
+            //var parentNode=node.getParentNode();
             this.relationTableEditorView.selPKData=this.getTableFieldsByTableId(node.tableId)!=null?this.getTableFieldsByTableId(node.tableId):[];
             //console.log(this.relationTableEditorView.selPKData);
             //绑定本身关联字段的下拉列表
@@ -473,7 +476,11 @@ Vue.component("db-table-relation-comp", {
                     "attr1":tempData[i].tableCaption,
                     "text":"【"+tempData[i].tableCode+"】"+tempData[i].tableCaption+"【"+tempData[i].tableName+"】",
                     "id":tempData[i].id,
-                    "parentId":tempData[i].parentId
+                    "parentId":tempData[i].parentId,
+                    "tableId":tempData[i].tableId,
+                    "tableName":tempData[i].tableName,
+                    "tableCaption":tempData[i].tableCaption,
+                    "tableCode":tempData[i].tableCode
                 }
                 if(tempData[i].parentId=="-1"){
                     this.appendMainTableNodeProp(treeNode);
@@ -568,7 +575,7 @@ Vue.component("db-table-relation-comp", {
                                 <td class="label">外联字段：</td>
                                 <td>
                                      <i-select placeholder="默认使用Id字段" v-model="currentEditorData.outerKeyFieldName" size="small" style="width:199px">
-                                        <i-option v-for="item in relationTableEditorView.selPKData" :value="item.fieldName" :key="item.fieldName">{{item.fieldCaption}}</i-option>
+                                        <i-option v-for="item in relationTableEditorView.selForeignKeyData" :value="item.fieldName" :key="item.fieldName">{{item.fieldCaption}}</i-option>
                                     </i-select>
                                 </td>
                             </tr>

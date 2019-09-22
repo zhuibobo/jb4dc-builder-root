@@ -20,6 +20,8 @@ public class FormResourcePO extends FormResourceEntity {
 
     private String formHtmlRuntime;
 
+    public FormResourcePO() {
+    }
 
     public FormResourcePO(FormResourceEntity source,String formHtmlRuntime){
         this.setFormId(source.getFormId());

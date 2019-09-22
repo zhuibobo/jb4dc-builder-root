@@ -2,7 +2,7 @@ package com.jb4dc.builder.client.service.envvar.impl;
 
 import com.jb4dc.builder.client.envvariable.IAPIVariableCreator;
 import com.jb4dc.builder.client.remote.EnvVariableRuntimeRemote;
-import com.jb4dc.builder.client.service.envvar.IEnvVariableClientResolveService;
+import com.jb4dc.builder.client.service.envvar.IEnvVariableRuntimeResolveService;
 import com.jb4dc.builder.client.service.envvar.IEnvVariableService;
 import com.jb4dc.builder.dbentities.envvar.EnvVariableEntity;
 import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
@@ -18,7 +18,7 @@ import org.springframework.stereotype.Service;
  * To change this template use File | Settings | File Templates.
  */
 @Service
-public class EnvVariableClientResolveServiceImpl implements IEnvVariableClientResolveService {
+public class EnvVariableRuntimeResolveServiceImpl implements IEnvVariableRuntimeResolveService {
 
     @Autowired(required = false)
     IEnvVariableService envVariableService;

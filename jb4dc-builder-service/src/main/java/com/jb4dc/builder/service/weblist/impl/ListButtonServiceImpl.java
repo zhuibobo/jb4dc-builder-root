@@ -4,7 +4,7 @@ import com.jb4dc.base.service.IAddBefore;
 import com.jb4dc.base.service.impl.BaseServiceImpl;
 import com.jb4dc.builder.dao.weblist.ListButtonMapper;
 import com.jb4dc.builder.dbentities.weblist.ListButtonEntity;
-import com.jb4dc.builder.client.service.weblist.IListButtonService;
+import com.jb4dc.builder.client.service.weblist.IWebListButtonService;
 import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
 import com.jb4dc.core.base.session.JB4DCSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +17,7 @@ import org.springframework.stereotype.Service;
  * To change this template use File | Settings | File Templates.
  */
 @Service
-public class ListButtonServiceImpl extends BaseServiceImpl<ListButtonEntity> implements IListButtonService
+public class ListButtonServiceImpl extends BaseServiceImpl<ListButtonEntity> implements IWebListButtonService
 {
     ListButtonMapper listButtonMapper;
 

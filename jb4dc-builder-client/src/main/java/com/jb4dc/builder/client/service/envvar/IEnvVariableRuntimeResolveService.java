@@ -16,7 +16,7 @@ import java.util.List;
  * Date: 2018/8/3
  * To change this template use File | Settings | File Templates.
  */
-public interface IEnvVariableClientResolveService {
+public interface IEnvVariableRuntimeResolveService {
     /*List<EnvVariablePO> getDateTimeVars() throws JBuild4DCGenerallyException;
 
     List<EnvVariablePO> getAPIVars() throws XPathExpressionException, ParserConfigurationException, IOException, SAXException, JBuild4DCGenerallyException;*/

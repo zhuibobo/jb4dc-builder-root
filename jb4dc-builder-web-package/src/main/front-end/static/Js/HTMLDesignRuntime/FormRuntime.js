@@ -3,6 +3,8 @@ let FormRuntime={
     _Prop_Config:{
         RendererToId:null,
         FormId:"",
+        RecordId:"",
+        ButtonId:"",
         IsPreview:false
     },
     _$RendererToElem:null,
@@ -20,13 +22,18 @@ let FormRuntime={
             //alert( "Load was performed." );
             console.log("加载预览窗体成功!!");
         });*/
-        RuntimeGeneralInstance.LoadHtmlDesignContent(BaseUtility.GetRootPath() + "/Rest/Builder/RunTime/FormRuntime/LoadHTML?formId=" + this._Prop_Config.FormId,this._Prop_Config.RendererTo, {}, function (result) {
+        RuntimeGeneralInstance.LoadHtmlDesignContent(BaseUtility.GetRootPath() + "/Rest/Builder/RunTime/FormRuntime/LoadHTML",this._Prop_Config.RendererTo, {
+            formId:this._Prop_Config.FormId,
+            recordId:this._Prop_Config.RecordId,
+            buttonId:this._Prop_Config.ButtonId
+        }, function (result) {
             //alert( "Load was performed.");
             console.log("加载预览窗体成功!!");
             //console.log(result);
             //console.log(result.data.formHtmlRuntime);
             //var $rootElem=$(result.data.formHtmlRuntime);
             //if($rootElem.)
+            console.log(result);
             this._$RendererToElem.append(result.data.formHtmlRuntime);
             //VirtualBodyControl.RendererChain(result.data.formHtmlRuntime,this._$RendererToElem,this._$RendererToElem);
 

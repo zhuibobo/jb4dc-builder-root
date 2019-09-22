@@ -25,7 +25,7 @@ public class FormRuntimeRest {
     IFormResourceService formResourceService;
 
     @RequestMapping(value = "/LoadHTML",method = RequestMethod.POST)
-    public JBuild4DCResponseVo<ListResourcePO> loadHTML(String formId) throws JBuild4DCGenerallyException {
+    public JBuild4DCResponseVo<FormResourcePO> loadHTML(String formId) throws JBuild4DCGenerallyException {
         FormResourcePO formResourcePO=formResourceService.getFormRuntimePageContent(JB4DCSessionUtility.getSession(),formId);
         return JBuild4DCResponseVo.getDataSuccess(formResourcePO);
     }
