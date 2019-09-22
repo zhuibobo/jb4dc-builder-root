@@ -13,5 +13,5 @@ import java.util.Map;
  * To change this template use File | Settings | File Templates.
  */
 public interface IDataStorageRuntimeService {
-    Map getStorageDate(JB4DCSession session, String recordId, List<FormDataRelationPO> formDataRelationPOList);
+    List<FormDataRelationPO> getStorageDate(JB4DCSession session, String recordId, List<FormDataRelationPO> formDataRelationPOList);
 }

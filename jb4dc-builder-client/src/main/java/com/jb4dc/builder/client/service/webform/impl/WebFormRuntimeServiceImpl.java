@@ -4,6 +4,7 @@ import com.jb4dc.base.service.general.JB4DCSessionUtility;
 import com.jb4dc.base.tools.JsonUtility;
 import com.jb4dc.builder.client.htmldesign.IHTMLRuntimeResolve;
 import com.jb4dc.builder.client.service.datastorage.IDataStorageRuntimeService;
+import com.jb4dc.builder.client.service.datastorage.IFormDataRelationService;
 import com.jb4dc.builder.client.service.datastorage.impl.DataStorageRuntimeServiceImpl;
 import com.jb4dc.builder.client.service.webform.IWebFormRuntimeService;
 import com.jb4dc.builder.dbentities.weblist.ListButtonEntity;
@@ -37,18 +38,21 @@ public class WebFormRuntimeServiceImpl implements IWebFormRuntimeService {
     @Autowired
     IDataStorageRuntimeService dataStorageRuntimeService;
 
+    @Autowired
+    IFormDataRelationService formDataRelationService;
+
     @Override
     public FormResourceComplexPO resolveFormResourceComplex(JB4DCSession session,String recordId, FormResourcePO remoteSourcePO, ListButtonEntity listButtonEntity) throws IOException, JBuild4DCGenerallyException {
 
-        List<FormDataRelationPO> formDataRelationPOList;
-        Map recordData=null;
+        List<FormDataRelationPO> formDataRelationPOList=null;
+        //List<FormDataRelationPO> recordData=null;
 
         if(!listButtonEntity.getButtonOperationType().toUpperCase().equals("ADD")) {
 
             if (StringUtility.isNotEmpty(remoteSourcePO.getFormDataRelation())) {
                 formDataRelationPOList = JsonUtility.toObjectList(remoteSourcePO.getFormDataRelation(), FormDataRelationPO.class);
 
-                recordData=dataStorageRuntimeService.getStorageDate(session,recordId,formDataRelationPOList);
+                formDataRelationPOList=dataStorageRuntimeService.getStorageDate(session,recordId,formDataRelationPOList);
 
             } else {
                 throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_BUILDER_CODE, "该表单未设置数据关系!");
@@ -59,12 +63,12 @@ public class WebFormRuntimeServiceImpl implements IWebFormRuntimeService {
         dynamicBindHTMLControlContextPO.setRecordId(recordId);
         dynamicBindHTMLControlContextPO.setRemoteSourcePO(remoteSourcePO);
         dynamicBindHTMLControlContextPO.setListButtonEntity(listButtonEntity);
-        dynamicBindHTMLControlContextPO.setFullRecordData(recordData);
-        dynamicBindHTMLControlContextPO.setMainRecordData((Map) recordData.get(DataStorageRuntimeServiceImpl.MAIN_RECORD_KEY));
+        dynamicBindHTMLControlContextPO.setFormDataRelationPOList(formDataRelationPOList);
+        dynamicBindHTMLControlContextPO.setMainRecordData(formDataRelationService.findMainRecordData(formDataRelationPOList));
 
         String formHtmlRuntime=htmlRuntimeResolve.dynamicBind(JB4DCSessionUtility.getSession(),remoteSourcePO.getFormId(),remoteSourcePO.getFormHtmlResolve(),dynamicBindHTMLControlContextPO);
 
-        FormResourceComplexPO formResourceComplexPO=new FormResourceComplexPO(remoteSourcePO,formHtmlRuntime,recordData,listButtonEntity);
+        FormResourceComplexPO formResourceComplexPO=new FormResourceComplexPO(remoteSourcePO,formHtmlRuntime,formDataRelationPOList,listButtonEntity);
 
         return formResourceComplexPO;
     }

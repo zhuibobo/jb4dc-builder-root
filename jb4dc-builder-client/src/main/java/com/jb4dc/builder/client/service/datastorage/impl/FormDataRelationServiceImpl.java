@@ -7,6 +7,7 @@ import com.jb4dc.core.base.list.ListUtility;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created with IntelliJ IDEA.
@@ -46,6 +47,16 @@ public class FormDataRelationServiceImpl implements IFormDataRelationService {
                     return item.getParentId().equals(id);
                 }
             });
+        }
+        return null;
+    }
+
+    @Override
+    public Map findMainRecordData(List<FormDataRelationPO> formDataRelationPOList){
+        FormDataRelationPO formDataRelationPO=getMainPO(formDataRelationPOList);
+        List<Map> recordList=formDataRelationPO.getDataRecordList();
+        if(recordList!=null&&recordList.size()>0){
+            return recordList.get(0);
         }
         return null;
     }

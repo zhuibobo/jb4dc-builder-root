@@ -1,5 +1,9 @@
 package com.jb4dc.builder.po;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
 /**
  * Created with IntelliJ IDEA.
  * User: zhuangrb
@@ -23,6 +27,16 @@ public class FormDataRelationPO {
     String tableCode;
     String displayText;
     String icon;
+
+    List<Map> dataRecordList=new ArrayList<>();
+
+    public void addDataRecord(Map record){
+        this.dataRecordList.add(record);
+    }
+
+    public List<Map> getDataRecordList() {
+        return dataRecordList;
+    }
 
     public String getId() {
         return id;

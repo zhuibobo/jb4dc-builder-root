@@ -3,6 +3,7 @@ package com.jb4dc.builder.client.service.datastorage;
 import com.jb4dc.builder.po.FormDataRelationPO;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created with IntelliJ IDEA.
@@ -16,4 +17,6 @@ public interface IFormDataRelationService {
     boolean hasChild(List<FormDataRelationPO> formDataRelationPOList, String id);
 
     List<FormDataRelationPO> getChildPOList(List<FormDataRelationPO> formDataRelationPOList, String id);
+
+    Map findMainRecordData(List<FormDataRelationPO> formDataRelationPOList);
 }

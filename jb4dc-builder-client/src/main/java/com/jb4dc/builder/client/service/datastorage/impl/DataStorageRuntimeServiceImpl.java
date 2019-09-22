@@ -33,15 +33,16 @@ public class DataStorageRuntimeServiceImpl implements IDataStorageRuntimeService
     }
 
     @Override
-    public Map getStorageDate(JB4DCSession session, String recordId, List<FormDataRelationPO> formDataRelationPOList) {
-        Map result=new HashMap();
+    public List<FormDataRelationPO> getStorageDate(JB4DCSession session, String recordId, List<FormDataRelationPO> formDataRelationPOList) {
+        //Map result=new HashMap();
 
         FormDataRelationPO mainDataPO=formDataRelationService.getMainPO(formDataRelationPOList);
 
         String sql="select * from "+mainDataPO.getTableName()+" where ID=#{ID}";
         Map mainRecord=sqlBuilderMapper.selectOne(sql,recordId);
 
-        result.put(MAIN_RECORD_KEY,mainRecord);
-        return result;
+        mainDataPO.addDataRecord(mainRecord);
+
+        return formDataRelationPOList;
     }
 }

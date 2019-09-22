@@ -3,6 +3,7 @@ package com.jb4dc.builder.po;
 import com.jb4dc.builder.dbentities.webform.FormResourceEntity;
 import com.jb4dc.builder.dbentities.weblist.ListButtonEntity;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -16,22 +17,22 @@ public class FormResourceComplexPO extends FormResourcePO {
         super(source, formHtmlRuntime);
     }
 
-    public FormResourceComplexPO(FormResourceEntity source, String formHtmlRuntime, Map recordData, ListButtonEntity listButtonEntity) {
+    public FormResourceComplexPO(FormResourceEntity source, String formHtmlRuntime, List<FormDataRelationPO> _formDataRelationPOList, ListButtonEntity _listButtonEntity) {
         super(source, formHtmlRuntime);
-        this.recordData = recordData;
-        this.listButtonEntity = listButtonEntity;
+        this.formDataRelationPOList = _formDataRelationPOList;
+        this.listButtonEntity = _listButtonEntity;
     }
 
-    Map recordData;
+    List<FormDataRelationPO> formDataRelationPOList;
 
     ListButtonEntity listButtonEntity;
 
-    public Map getRecordData() {
-        return recordData;
+    public List<FormDataRelationPO> getFormDataRelationPOList() {
+        return formDataRelationPOList;
     }
 
-    public void setRecordData(Map recordData) {
-        this.recordData = recordData;
+    public void setFormDataRelationPOList(List<FormDataRelationPO> formDataRelationPOList) {
+        this.formDataRelationPOList = formDataRelationPOList;
     }
 
     public ListButtonEntity getListButtonEntity() {

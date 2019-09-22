@@ -2,6 +2,7 @@ package com.jb4dc.builder.po;
 
 import com.jb4dc.builder.dbentities.weblist.ListButtonEntity;
 
+import java.util.List;
 import java.util.Map;
 
 public class DynamicBindHTMLControlContextPO {
@@ -9,7 +10,7 @@ public class DynamicBindHTMLControlContextPO {
     String recordId;
     FormResourcePO remoteSourcePO;
     ListButtonEntity listButtonEntity;
-    Map fullRecordData;
+    List<FormDataRelationPO> formDataRelationPOList;
     Map mainRecordData;
 
     public String getRecordId() {
@@ -36,12 +37,12 @@ public class DynamicBindHTMLControlContextPO {
         this.listButtonEntity = listButtonEntity;
     }
 
-    public Map getFullRecordData() {
-        return fullRecordData;
+    public List<FormDataRelationPO> getFormDataRelationPOList() {
+        return formDataRelationPOList;
     }
 
-    public void setFullRecordData(Map fullRecordData) {
-        this.fullRecordData = fullRecordData;
+    public void setFormDataRelationPOList(List<FormDataRelationPO> formDataRelationPOList) {
+        this.formDataRelationPOList = formDataRelationPOList;
     }
 
     public Map getMainRecordData() {
