@@ -1,6 +1,8 @@
 package com.jb4dc.builder.webpackage.rest.builder.runtime;
 
 import com.jb4dc.base.service.general.JB4DCSessionUtility;
+import com.jb4dc.builder.client.htmldesign.IHTMLRuntimeResolve;
+import com.jb4dc.builder.po.DynamicBindHTMLControlContextPO;
 import com.jb4dc.builder.po.FormResourcePO;
 import com.jb4dc.builder.po.ListResourcePO;
 import com.jb4dc.builder.service.webform.IFormResourceService;
@@ -24,10 +26,21 @@ public class FormRuntimeRest {
     @Autowired
     IFormResourceService formResourceService;
 
+    @Autowired
+    IHTMLRuntimeResolve htmlRuntimeResolve;
+
     @RequestMapping(value = "/LoadHTML",method = RequestMethod.POST)
     public JBuild4DCResponseVo<FormResourcePO> loadHTML(String formId) throws JBuild4DCGenerallyException {
         FormResourcePO formResourcePO=formResourceService.getFormRuntimePageContent(JB4DCSessionUtility.getSession(),formId);
         return JBuild4DCResponseVo.getDataSuccess(formResourcePO);
     }
 
+    @RequestMapping(value = "/LoadHTMLForPreView",method = RequestMethod.POST)
+    public JBuild4DCResponseVo<FormResourcePO> loadHTMLForPreView(String formId) throws JBuild4DCGenerallyException {
+        FormResourcePO formResourcePO=formResourceService.getFormRuntimePageContent(JB4DCSessionUtility.getSession(),formId);
+        DynamicBindHTMLControlContextPO dynamicBindHTMLControlContextPO=new DynamicBindHTMLControlContextPO();
+        String runTimeHtml=htmlRuntimeResolve.dynamicBind(JB4DCSessionUtility.getSession(),formId,formResourcePO.getFormHtmlResolve(),dynamicBindHTMLControlContextPO);
+        formResourcePO.setFormHtmlRuntime(runTimeHtml);
+        return JBuild4DCResponseVo.getDataSuccess(formResourcePO);
+    }
 }

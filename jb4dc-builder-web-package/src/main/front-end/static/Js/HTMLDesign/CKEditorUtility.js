@@ -433,6 +433,7 @@ class CKEditorUtility {
             domEvent.preventDefault();
             domEvent.stopPropagation();
         });
+
         /*newDelButton.addClass("del-button");
         elem.append(newDelButton);
         newDelButton.on('click', function (ev) {

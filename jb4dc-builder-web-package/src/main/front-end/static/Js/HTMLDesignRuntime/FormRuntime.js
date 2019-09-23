@@ -22,10 +22,15 @@ let FormRuntime={
             //alert( "Load was performed." );
             console.log("加载预览窗体成功!!");
         });*/
-        RuntimeGeneralInstance.LoadHtmlDesignContent(BaseUtility.GetRootPath() + "/Rest/Builder/RunTime/FormRuntime/LoadHTML",this._Prop_Config.RendererTo, {
-            formId:this._Prop_Config.FormId,
-            recordId:this._Prop_Config.RecordId,
-            buttonId:this._Prop_Config.ButtonId
+        var url = BaseUtility.GetRootPath() + "/Rest/Builder/RunTime/FormRuntime/LoadHTML";
+        if (this._Prop_Config.IsPreview) {
+            url = BaseUtility.GetRootPath() + "/Rest/Builder/RunTime/FormRuntime/LoadHTMLForPreView";
+        }
+
+        RuntimeGeneralInstance.LoadHtmlDesignContent(url, this._Prop_Config.RendererTo, {
+            formId: this._Prop_Config.FormId,
+            recordId: this._Prop_Config.RecordId,
+            buttonId: this._Prop_Config.ButtonId
         }, function (result) {
             //alert( "Load was performed.");
             console.log("加载预览窗体成功!!");
@@ -34,18 +39,20 @@ let FormRuntime={
             //var $rootElem=$(result.data.formHtmlRuntime);
             //if($rootElem.)
             console.log(result);
+
             this._$RendererToElem.append(result.data.formHtmlRuntime);
+
             //VirtualBodyControl.RendererChain(result.data.formHtmlRuntime,this._$RendererToElem,this._$RendererToElem);
 
             //进行元素渲染
             VirtualBodyControl.RendererChain({
-                listEntity:result.data,
-                sourceHTML:result.data.formHtmlRuntime,
-                $rootElem:this._$RendererToElem,
-                $parentControlElem:this._$RendererToElem,
-                $singleControlElem:this._$RendererToElem,
-                listRuntimeInstance:this
+                listEntity: result.data,
+                sourceHTML: result.data.formHtmlRuntime,
+                $rootElem: this._$RendererToElem,
+                $parentControlElem: this._$RendererToElem,
+                $singleControlElem: this._$RendererToElem,
+                listRuntimeInstance: this
             });
-        },this);
+        }, this);
     }
 }

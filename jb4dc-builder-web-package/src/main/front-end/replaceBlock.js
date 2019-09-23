@@ -194,6 +194,7 @@ let replaceBlock = {
         replaceArray.push(refJs(levelPath + "Js/External/IView-3.X/dist/iview.min.js"));
         replaceArray.push(refJs(levelPath + "Js/External/JQuery-UI-1.12.1/jquery-ui.js"));
         replaceArray.push(refJs(levelPath + "Js/External/ZTree-3.5.40/js/jquery.ztree.all.js"));
+        replaceArray.push(refJs(levelPath + "Js/External/My97DatePicker/WdatePicker.js"));
         //replaceArray.push(refJs(levelPath + "Js/External/perfect-scrollbar-14/perfect-scrollbar.js"));
         replaceArray.push(refJs(levelPath + "Js/JBuild4DCLib.js?refVersion=" + refVersion));
         replaceArray.push(refJs(levelPath + "Js/UIEXComponent.js?refVersion=" + refVersion));
