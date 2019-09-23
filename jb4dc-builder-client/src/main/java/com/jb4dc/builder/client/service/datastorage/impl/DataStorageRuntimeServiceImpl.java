@@ -43,6 +43,13 @@ public class DataStorageRuntimeServiceImpl implements IDataStorageRuntimeService
 
         mainDataPO.addDataRecord(mainRecord);
 
+        for (FormDataRelationPO formDataRelationPO : formDataRelationPOList) {
+            if(formDataRelationService.isNotMain(formDataRelationPO)){
+                String selfKeyFieldName=formDataRelationPO.getSelfKeyFieldName();
+                String outerKeyFieldName=formDataRelationPO.getOuterKeyFieldName();
+            }
+        }
+
         return formDataRelationPOList;
     }
 }

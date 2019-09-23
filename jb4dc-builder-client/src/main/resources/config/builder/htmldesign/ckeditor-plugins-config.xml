@@ -40,7 +40,16 @@
         <Control SingleName="WFDCT_TextBox" Text="单行输入框" ToolbarLocation="LC_Simple_G1,1"
                  ServerResolve="com.jb4dc.builder.client.htmldesign.control.webform.WebFormTextBox"
                  ClientResolve="WFDCT_TextBox"
-                 ClientResolveJs="3"
+                 ClientResolveJs=""
+                 EnableChildControls="*"
+                 DialogWidth="780" DialogHeight="550" IsJBuild4DCData="true" ControlCategory="InputControl" ServerDynamicBind="false" ShowRemoveButton="true" ShowInEditorToolbar="true">
+            <Config></Config>
+            <Desc></Desc>
+        </Control>
+        <Control SingleName="WFDCT_TextDateTime" Text="日期时间" ToolbarLocation="LC_Simple_G1,2"
+                 ServerResolve="com.jb4dc.builder.client.htmldesign.control.webform.WebFormTextDateTime"
+                 ClientResolve="WFDCT_TextDateTime"
+                 ClientResolveJs=""
                  EnableChildControls="*"
                  DialogWidth="780" DialogHeight="550" IsJBuild4DCData="true" ControlCategory="InputControl" ServerDynamicBind="false" ShowRemoveButton="true" ShowInEditorToolbar="true">
             <Config></Config>

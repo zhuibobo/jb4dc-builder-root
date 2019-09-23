@@ -21,11 +21,37 @@ public class FormDataRelationServiceImpl implements IFormDataRelationService {
     @Override
     public FormDataRelationPO getMainPO(List<FormDataRelationPO> formDataRelationPOList){
         for (FormDataRelationPO formDataRelationPO : formDataRelationPOList) {
-            if(formDataRelationPO.getParentId().equals("-1")){
+            if(this.isMain(formDataRelationPO)){
                 return formDataRelationPO;
             }
         }
         return null;
+    }
+
+    @Override
+    public FormDataRelationPO getPO(List<FormDataRelationPO> formDataRelationPOList,String id){
+        for (FormDataRelationPO formDataRelationPO : formDataRelationPOList) {
+            if(formDataRelationPO.getId().equals(id)){
+                return formDataRelationPO;
+            }
+        }
+        return null;
+    }
+
+    @Override
+    public FormDataRelationPO getParentPO(List<FormDataRelationPO> formDataRelationPOList,FormDataRelationPO formDataRelationPO){
+        String parentId=formDataRelationPO.getParentId();
+        return this.getPO(formDataRelationPOList,parentId);
+    }
+
+    @Override
+    public boolean isMain(FormDataRelationPO formDataRelationPO){
+        return formDataRelationPO.getParentId().equals("-1");
+    }
+
+    @Override
+    public boolean isNotMain(FormDataRelationPO formDataRelationPO){
+        return !this.isMain(formDataRelationPO);
     }
 
     @Override
