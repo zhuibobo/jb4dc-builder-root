@@ -46,9 +46,18 @@
             <Config></Config>
             <Desc></Desc>
         </Control>
-        <Control SingleName="WFDCT_TextDateTime" Text="日期时间" ToolbarLocation="LC_Simple_G1,2"
+        <Control SingleName="WFDCT_TextDateTime" Text="日期时间框" ToolbarLocation="LC_Simple_G1,2"
                  ServerResolve="com.jb4dc.builder.client.htmldesign.control.webform.WebFormTextDateTime"
                  ClientResolve="WFDCT_TextDateTime"
+                 ClientResolveJs=""
+                 EnableChildControls="*"
+                 DialogWidth="780" DialogHeight="550" IsJBuild4DCData="true" ControlCategory="InputControl" ServerDynamicBind="false" ShowRemoveButton="true" ShowInEditorToolbar="true">
+            <Config></Config>
+            <Desc></Desc>
+        </Control>
+        <Control SingleName="WFDCT_Select" Text="下拉选择框" ToolbarLocation="LC_Simple_G1,3"
+                 ServerResolve="com.jb4dc.builder.client.htmldesign.control.webform.WebFormSelect"
+                 ClientResolve="WFDCT_Select"
                  ClientResolveJs=""
                  EnableChildControls="*"
                  DialogWidth="780" DialogHeight="550" IsJBuild4DCData="true" ControlCategory="InputControl" ServerDynamicBind="false" ShowRemoveButton="true" ShowInEditorToolbar="true">
