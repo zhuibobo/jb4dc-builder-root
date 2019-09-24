@@ -41,11 +41,14 @@ Vue.component("fd-control-datasource", {
                             <td>
                                 默认空：
                             </td>
-                            <td colspan="3">
+                            <td>
                                 <radio-group type="button" style="margin: auto" v-model="normalDataSource.defaultIsNull">
                                     <radio label="true">是</radio>
                                     <radio label="false">否</radio>
                                 </radio-group>
+                            </td>
+                            <td colspan="2">
+                                获取数据源优先级别->Rest接口->本地接口->sql->静态值
                             </td>
                         </tr>
                         <tr>
@@ -69,7 +72,7 @@ Vue.component("fd-control-datasource", {
                                 SQL数据源：
                             </td>
                             <td colspan="3">
-                                eg:select '1' itext,'2' ivalue
+                                <span style="color: red">[ITEXT与IVALUE请使用大写]</span>示例:【SELECT '1' ITEXT,'2' IVALUE】
                             </td>
                         </tr>
                         <tr>

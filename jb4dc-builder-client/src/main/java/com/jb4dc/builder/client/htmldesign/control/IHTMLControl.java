@@ -7,6 +7,10 @@ import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
 import com.jb4dc.core.base.session.JB4DCSession;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
+
+import java.util.List;
+import java.util.Map;
+
 /**
  * Created with IntelliJ IDEA.
  * User: zhuangrb
@@ -32,15 +36,6 @@ public interface IHTMLControl {
                         Element lastParentJbuild4dCustomElem,
                         ResolveHTMLControlContextPO resolveHTMLControlContextPO,
                         HtmlControlDefinitionPO htmlControlDefinitionPO) throws JBuild4DCGenerallyException;
-
-    String getDefaultValue(JB4DCSession jb4DCSession,
-                          String sourceHTML,
-                          Document doc,
-                          Element singleControlElem,
-                          Element parentElem,
-                          Element lastParentJbuild4dCustomElem,
-                           DynamicBindHTMLControlContextPO dynamicBindHTMLControlContextPO,
-                          HtmlControlDefinitionPO htmlControlDefinitionPO) throws JBuild4DCGenerallyException;
 
     void dynamicBind(JB4DCSession jb4DCSession, String sourceHTML, Document doc, Element singleControlElem, Element parentElem, Element lastParentJbuild4dCustomElem, DynamicBindHTMLControlContextPO dynamicBindHTMLControlContextPO) throws JBuild4DCGenerallyException;
 

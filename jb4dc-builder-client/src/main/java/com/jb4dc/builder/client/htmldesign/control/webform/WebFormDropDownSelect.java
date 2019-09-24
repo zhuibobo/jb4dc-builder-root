@@ -25,8 +25,7 @@ import java.util.Map;
  * To change this template use File | Settings | File Templates.
  */
 public class WebFormDropDownSelect extends HTMLControl implements IHTMLControl {
-    @Autowired
-    SQLBuilderMapper sqlBuilderMapper;
+
 
     @Override
     public void resolveSelf(JB4DCSession jb4DCSession, String sourceHTML, Document doc, Element singleControlElem, Element parentElem, Element lastParentJbuild4dCustomElem, ResolveHTMLControlContextPO resolveHTMLControlContextPO, HtmlControlDefinitionPO htmlControlDefinitionPO) throws JBuild4DCGenerallyException {
@@ -35,17 +34,18 @@ public class WebFormDropDownSelect extends HTMLControl implements IHTMLControl {
 
     @Override
     public void dynamicBind(JB4DCSession jb4DCSession, String sourceHTML, Document doc, Element singleControlElem, Element parentElem, Element lastParentJbuild4dCustomElem, DynamicBindHTMLControlContextPO dynamicBindHTMLControlContextPO) throws JBuild4DCGenerallyException {
-        defaultDynamicBind(jb4DCSession, sourceHTML, doc, singleControlElem, parentElem, lastParentJbuild4dCustomElem, dynamicBindHTMLControlContextPO);
+        defaultValueDynamicBind(jb4DCSession, sourceHTML, doc, singleControlElem, parentElem, lastParentJbuild4dCustomElem, dynamicBindHTMLControlContextPO);
 
-        String sql= null;
-        List<Map<String,Object>> datasource;
-        try {
-            sql = URLDecoder.decode(singleControlElem.attr("sqldatasource"),"utf-8");
-            datasource = sqlBuilderMapper.selectList(sql);
-        } catch (UnsupportedEncodingException e) {
-            throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_BUILDER_CODE,"decode sqldatasource error"+e.getMessage());
+        List<Map<String,Object>> datasource=getDataSource(jb4DCSession, sourceHTML, doc, singleControlElem, parentElem, lastParentJbuild4dCustomElem, dynamicBindHTMLControlContextPO);
+
+        String option="";
+        for (Map<String, Object> stringObjectMap : datasource) {
+            String value=stringObjectMap.get("IVALUE").toString();
+            String text=stringObjectMap.get("ITEXT").toString();
+            option+="<option value="+value+">"+text+"</option>";
         }
 
-        System.out.println(datasource);
+        singleControlElem.html(option);
+        //System.out.println(datasource);
     }
 }

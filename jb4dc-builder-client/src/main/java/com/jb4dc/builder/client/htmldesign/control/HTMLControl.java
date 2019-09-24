@@ -1,5 +1,6 @@
 package com.jb4dc.builder.client.htmldesign.control;
 
+import com.jb4dc.base.dbaccess.dynamic.impl.SQLBuilderMapper;
 import com.jb4dc.builder.client.htmldesign.HTMLControlAttrs;
 import com.jb4dc.builder.client.htmldesign.ICKEditorPluginsService;
 import com.jb4dc.builder.client.service.envvar.IEnvVariableRuntimeResolveService;
@@ -15,7 +16,11 @@ import org.jsoup.nodes.Element;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.AutowireCapableBeanFactory;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 /**
  * Created with IntelliJ IDEA.
@@ -24,6 +29,9 @@ import java.util.Map;
  * To change this template use File | Settings | File Templates.
  */
 public abstract class HTMLControl implements IHTMLControl {
+
+    @Autowired
+    SQLBuilderMapper sqlBuilderMapper;
 
     private static Map<String,IHTMLControl> controlInstanceMap=new HashMap<String,IHTMLControl>();
 
@@ -131,7 +139,7 @@ public abstract class HTMLControl implements IHTMLControl {
         }
     }
 
-    public void defaultDynamicBind(JB4DCSession jb4DCSession, String sourceHTML, Document doc, Element singleControlElem, Element parentElem, Element lastParentJbuild4dCustomElem, DynamicBindHTMLControlContextPO dynamicBindHTMLControlContextPO) throws JBuild4DCGenerallyException {
+    public void defaultValueDynamicBind(JB4DCSession jb4DCSession, String sourceHTML, Document doc, Element singleControlElem, Element parentElem, Element lastParentJbuild4dCustomElem, DynamicBindHTMLControlContextPO dynamicBindHTMLControlContextPO) throws JBuild4DCGenerallyException {
         String defaultValue=getDefaultValue(jb4DCSession,sourceHTML,doc,singleControlElem,parentElem,lastParentJbuild4dCustomElem,dynamicBindHTMLControlContextPO,null);
         String value="";
         if (StringUtility.isNotEmpty(defaultValue)){
@@ -140,7 +148,6 @@ public abstract class HTMLControl implements IHTMLControl {
         singleControlElem.val(value);
     }
 
-    @Override
     public String getDefaultValue(JB4DCSession jb4DCSession, String sourceHTML, Document doc, Element singleControlElem, Element parentElem, Element lastParentJbuild4dCustomElem, DynamicBindHTMLControlContextPO dynamicBindHTMLControlContextPO, HtmlControlDefinitionPO htmlControlDefinitionPO) throws JBuild4DCGenerallyException {
         String valueType = singleControlElem.attr("defaulttype");
         String value = singleControlElem.attr("defaultvalue");
@@ -152,6 +159,22 @@ public abstract class HTMLControl implements IHTMLControl {
             }
         }
         return "";
+    }
+
+    public List<Map<String,Object>> getDataSource(JB4DCSession jb4DCSession, String sourceHTML, Document doc, Element singleControlElem, Element parentElem, Element lastParentJbuild4dCustomElem, DynamicBindHTMLControlContextPO dynamicBindHTMLControlContextPO) throws JBuild4DCGenerallyException {
+        List<Map<String,Object>> datasource=new ArrayList<>();
+        //获取数据源优先级别->Rest接口->本地接口->sql->静态值
+
+        try {
+            String sql = URLDecoder.decode(singleControlElem.attr("sqldatasource"),"utf-8");
+            if(StringUtility.isNotEmpty(sql)) {
+                datasource = sqlBuilderMapper.selectList(sql);
+            }
+        } catch (UnsupportedEncodingException e) {
+            throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_BUILDER_CODE,"decode sqldatasource error"+e.getMessage());
+        }
+
+        return datasource;
     }
 
     @Override
