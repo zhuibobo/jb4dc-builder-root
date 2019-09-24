@@ -106,7 +106,7 @@
         data: {
             baseInfo:CKEditorPluginUtility.DefaultProps.baseInfo,
             normalProps:{
-                //绑定窗体信息
+                //绑定窗体信息1
                 formModuleId:"",
                 formModuleName:"",
                 formId:"",
@@ -161,12 +161,28 @@
                 this.baseInfo.serialize="false";
                 var result = {
                     success: true,
-                    baseInfo: this.baseInfo
+                    baseInfo: this.baseInfo,
+                    normalProps:this.normalProps
                 }
                 return result;
             },
             setControlProps:function ($elem,props) {
                 this.baseInfo = props.baseInfo ? props.baseInfo : this.baseInfo;
+
+                this.normalProps.formModuleId = $elem.attr("formmoduleid");
+                this.normalProps.formModuleName = $elem.attr("formmodulename");
+                this.normalProps.formId = $elem.attr("formid");
+                this.normalProps.formName = $elem.attr("formname");
+                this.normalProps.formCode = $elem.attr("formcode");
+
+                this.normalProps.editInRow = $elem.attr("editInRow");
+                var opButtons=$elem.attr("opButtons").split(",");
+                this.normalProps.opButtons = opButtons;
+                this.normalProps.bindDataSource = $elem.attr("bindDataSource");
+                this.normalProps.renderCompleteFunc = $elem.attr("renderCompleteFunc");
+                this.normalProps.dateRenderFunc = $elem.attr("dateRenderFunc");
+                this.normalProps.windowWidth = parseInt($elem.attr("windowWidth"));
+                this.normalProps.windowHeight = parseInt($elem.attr("windowHeight"));
             },
             selectWebFormBegin:function(){
                 this.$refs.selectSingleWebformDialog.beginSelectForm(this.normalProps.formId);
@@ -178,6 +194,7 @@
                 this.normalProps.formName=formData.formName;
                 this.normalProps.formCode=formData.formCode;
                 console.log(this.normalProps);
+
             },
             setWindowWH:function(width,height){
                 this.normalProps.windowWidth=width;
