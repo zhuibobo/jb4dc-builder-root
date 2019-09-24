@@ -44,7 +44,7 @@
                 //点击确认时候指定的操作
                 function addToEditor(ckEditor, pluginSetting, props, contentWindow) {
                     //var controlDescText=CKEditorPluginUtility.GetControlDescText(pluginSetting,props);
-                    var tip = "子表显示区域[双击编辑该部件],在下边div中编辑查询内容";
+                    var tip = "子表显示区域[双击编辑该部件],在下边div中编辑查询内容,绑定窗体["+props.normalProps.formName+"("+props.normalProps.formCode+")]";
                     CKEditorPluginUtility.BuildGeneralElemToCKWysiwyg(CKEditorPluginUtility.Plugins[pluginName].GetHtmlTemplate(tip,false), pluginSetting, props, contentWindow);
                 }
 
