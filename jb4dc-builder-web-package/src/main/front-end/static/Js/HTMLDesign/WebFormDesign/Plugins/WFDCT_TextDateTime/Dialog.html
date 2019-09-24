@@ -101,7 +101,8 @@
                         baseInfo: this.baseInfo,
                         bindToField: this.bindToField,
                         defaultValue: this.defaultValue,
-                        validateRules: this.validateRules
+                        validateRules: this.validateRules,
+                        normalProps:this.normalProps
                     }
                     return CKEditorPluginUtility.ValidateSerializeControlDialogCompletedEnable(result);
                 },
@@ -110,6 +111,11 @@
                     this.bindToField = props.bindToField ? props.bindToField : this.bindToField;
                     this.defaultValue = props.defaultValue ? props.defaultValue : this.defaultValue;
                     this.validateRules = props.validateRules ? props.validateRules : this.validateRules;
+
+                    this.normalProps.datetimeFormat = $elem.attr("datetimeformat");
+                    this.normalProps.dateTimeOnPickedEvent = $elem.attr("datetimeonpickedevent");
+                    this.normalProps.dateTimeMinDate = $elem.attr("datetimemindate");
+                    this.normalProps.dateTimeMaxDate = $elem.attr("datetimemaxdate");
                 }
             }
         });

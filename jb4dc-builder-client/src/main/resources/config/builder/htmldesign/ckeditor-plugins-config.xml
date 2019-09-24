@@ -55,9 +55,9 @@
             <Config></Config>
             <Desc></Desc>
         </Control>
-        <Control SingleName="WFDCT_Select" Text="下拉选择框" ToolbarLocation="LC_Simple_G1,3"
-                 ServerResolve="com.jb4dc.builder.client.htmldesign.control.webform.WebFormSelect"
-                 ClientResolve="WFDCT_Select"
+        <Control SingleName="WFDCT_DropDownSelect" Text="下拉选择框" ToolbarLocation="LC_Simple_G1,3"
+                 ServerResolve="com.jb4dc.builder.client.htmldesign.control.webform.WebFormDropDownSelect"
+                 ClientResolve="WFDCT_DropDownSelect"
                  ClientResolveJs=""
                  EnableChildControls="*"
                  DialogWidth="780" DialogHeight="550" IsJBuild4DCData="true" ControlCategory="InputControl" ServerDynamicBind="false" ShowRemoveButton="true" ShowInEditorToolbar="true">

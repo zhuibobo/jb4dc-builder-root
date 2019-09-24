@@ -1,6 +1,6 @@
 /*SQL编辑控件*/
 Vue.component("sql-general-design-comp", {
-    props:["sqlDesignerHeight","value"],
+    props:["sqlDesignerHeight","value","showField"],
     data:function(){
         return {
             sqlText:"",
@@ -27,6 +27,7 @@ Vue.component("sql-general-design-comp", {
             foldGutter: true,
             theme: "monokai"
         });
+        console.log(this.sqlDesignerHeight);
         this.sqlCodeMirror.setSize("100%", this.sqlDesignerHeight);
         var _self=this;
         this.sqlCodeMirror.on("change",function (cMirror) {
@@ -81,7 +82,7 @@ Vue.component("sql-general-design-comp", {
                         <Button>说明</Button>\
                     </ButtonGroup>\
                 </div>\
-                <div style="margin-top: 8px">\
+                <div style="margin-top: 8px" v-if="showField">\
                     <div style="float: left;margin: 4px 10px">本表字段</div>\
                     <div style="float: left">\
                         <i-select placeholder="默认使用Id字段" size="small" style="width:175px" @on-change="insertFieldToEditor(\'selfTableFields\',$event)">\

@@ -20,7 +20,13 @@
       <w>custserverresolvemethodpara</w>
       <w>custsinglename</w>
       <w>datastorage</w>
+      <w>datetimeformat</w>
+      <w>datetimemaxdate</w>
+      <w>datetimemindate</w>
+      <w>datetimeonpickedevent</w>
       <w>dbentities</w>
+      <w>defaultisnull</w>
+      <w>dictionaryiddatasource</w>
       <w>elemid</w>
       <w>envvariable</w>
       <w>fconfig</w>
@@ -32,12 +38,17 @@
       <w>formname</w>
       <w>htmldesign</w>
       <w>innerbuttonjsonstring</w>
+      <w>itext</w>
+      <w>ivalue</w>
       <w>jbuild</w>
       <w>kded</w>
       <w>listmanager</w>
       <w>opentype</w>
+      <w>restdatasource</w>
       <w>singlename</w>
+      <w>sqldatasource</w>
       <w>sqlserver</w>
+      <w>staticdatasource</w>
       <w>tbuild</w>
       <w>tsso</w>
       <w>tsys</w>

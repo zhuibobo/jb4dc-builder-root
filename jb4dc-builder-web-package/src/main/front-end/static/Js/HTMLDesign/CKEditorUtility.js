@@ -226,15 +226,18 @@ class CKEditorUtility {
                     }
 
                     //显示元素专有的toolPanel;
-                    CKEditorUtility.CreatePluginInnerPanel(elem);
+                    if (lastCustSingleName != "WFDCT_Template") {
+                        CKEditorUtility.CreatePluginInnerPanel(elem);
+                    }
 
                     break;
                 }
             }
-            if(lastCustSingleName){
+            if(lastCustSingleName) {
                 //console.log(lastCustSingleName);
                 //$(".cke_button").hide();
                 //console.log(CKEditorPluginUtility.Plugins);
+
                 CKEditorUtility.DisplayPluginControls(CKEditorPluginUtility.GetEnableChildControls(lastCustSingleName));
             }
             //$(".cke_button__wldct_listtablecontainer").hide();

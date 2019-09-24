@@ -588,7 +588,7 @@ Vue.component("db-table-relation-comp", {
                             <tr>
                                 <td class="label">加载条件：</td>
                                 <td colspan="3">
-                                    <sql-general-design-comp ref="sqlGeneralDesignComp" :sqlDesignerHeight="74" v-model="currentEditorData.condition"></sql-general-design-comp>
+                                    <sql-general-design-comp ref="sqlGeneralDesignComp" :sqlDesignerHeight="74" v-model="currentEditorData.condition" :showField="true"></sql-general-design-comp>
                                 </td>
                             </tr>
                         </tbody>

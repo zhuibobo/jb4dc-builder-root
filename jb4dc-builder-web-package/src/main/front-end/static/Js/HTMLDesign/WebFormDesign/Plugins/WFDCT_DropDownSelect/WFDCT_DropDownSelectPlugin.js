@@ -16,5 +16,5 @@
             CKEditorPluginUtility.RegGeneralPluginToEditor(editor, this.path, CKEditorPluginUtility.Plugins[pluginName].Setting,addToEditor);
         }
     });
-})("WFDCT_Select");
+})("WFDCT_DropDownSelect");
 

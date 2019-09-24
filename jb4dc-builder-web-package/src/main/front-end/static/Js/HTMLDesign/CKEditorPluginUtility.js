@@ -206,6 +206,13 @@ class CKEditorPluginUtility {
             columnCaption: "",
             columnDataTypeName: "",
             columnOperator: "匹配"
+        },
+        normalDataSource:{
+            defaultIsNull:"true",
+            sqlDataSource:"",
+            dictionaryIdDataSource:"",
+            restDataSource:"",
+            staticDataSource:""
         }
     }
     static OnCKWysiwygElemDBClickEvent(event,controlSetting){
@@ -290,6 +297,12 @@ class CKEditorPluginUtility {
             }
         }
 
+        if(props["normalDataSource"]){
+            for (var key in props["normalDataSource"]) {
+                elem.setAttribute(key.toLocaleLowerCase(), props["normalDataSource"][key]);
+            }
+        }
+
         return elem;
     }
     static DeserializePropsFromElem(elem){
@@ -314,6 +327,7 @@ class CKEditorPluginUtility {
         props=attrToProp.call(this,props,"bindToField");
         props=attrToProp.call(this,props,"defaultValue");
         props=attrToProp.call(this,props,"bindToSearchField");
+        props=attrToProp.call(this,props,"normalDataSource");
 
         if($elem.attr("validateRules")){
             props.validateRules=JsonUtility.StringToJson(decodeURIComponent($elem.attr("validateRules")));
