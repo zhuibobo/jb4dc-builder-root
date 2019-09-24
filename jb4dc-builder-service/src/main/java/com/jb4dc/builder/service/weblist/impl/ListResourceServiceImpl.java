@@ -73,9 +73,9 @@ public class ListResourceServiceImpl extends BaseServiceImpl<ListResourceEntity>
 
     @Override
     public ListResourcePO getListRuntimeHTMLContent(JB4DCSession jb4DCSession, String id) throws JBuild4DCGenerallyException {
-        throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_BUILDER_CODE,"1111111111111111111111111111111111111");
-        /*ListResourceEntity listResourceEntity=getByPrimaryKey(jb4DCSession,id);
+        //throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_BUILDER_CODE,"1111111111111111111111111111111111111");
+        ListResourceEntity listResourceEntity=getByPrimaryKey(jb4DCSession,id);
         String runtimeForm=htmlRuntimeResolve.dynamicBind(jb4DCSession,id,listResourceEntity.getListHtmlResolve(),null);
-        return new ListResourcePO(listResourceEntity,runtimeForm,listResourceEntity.getListJsContent());*/
+        return new ListResourcePO(listResourceEntity,runtimeForm,listResourceEntity.getListJsContent());
     }
 }

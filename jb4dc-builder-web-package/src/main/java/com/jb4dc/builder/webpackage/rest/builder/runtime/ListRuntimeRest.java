@@ -3,6 +3,7 @@ package com.jb4dc.builder.webpackage.rest.builder.runtime;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
 import com.jb4dc.base.service.general.JB4DCSessionUtility;
+import com.jb4dc.builder.client.htmldesign.IHTMLRuntimeResolve;
 import com.jb4dc.builder.po.ListResourcePO;
 import com.jb4dc.builder.po.QueryDataSetPO;
 import com.jb4dc.builder.service.dataset.IDatasetService;
@@ -34,9 +35,13 @@ public class ListRuntimeRest {
     @Autowired
     IDatasetService datasetService;
 
+    //@Autowired
+    //IHTMLRuntimeResolve htmlRuntimeResolve;
+
     @RequestMapping(value = "/LoadHTML",method = RequestMethod.POST)
     public JBuild4DCResponseVo<ListResourcePO> loadHTML(String listId) throws JBuild4DCGenerallyException {
         ListResourcePO listResourcePO=listResourceService.getListRuntimeHTMLContent(JB4DCSessionUtility.getSession(),listId);
+        //htmlRuntimeResolve.dynamicBind(JB4DCSessionUtility.getSession(),listId,)
         return JBuild4DCResponseVo.getDataSuccess(listResourcePO);
     }
 

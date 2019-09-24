@@ -37,6 +37,17 @@
             <Config></Config>
             <Desc></Desc>
         </Control>
+        <Control SingleName="WFDCT_SubFormListContainer" Text="子表区域" ToolbarLocation="LC_Template,3"
+                 ServerResolve=""
+                 ClientResolve=""
+                 ClientResolveJs=""
+                 EnableChildControls="*"
+                 DialogWidth="780" DialogHeight="550" IsJBuild4DCData="false" ControlCategory="ContainerControl" ServerDynamicBind="false"
+                 ShowRemoveButton="false" ShowInEditorToolbar="true">
+            <Config></Config>
+            <Desc></Desc>
+        </Control>
+
         <Control SingleName="WFDCT_TextBox" Text="单行输入框" ToolbarLocation="LC_Simple_G1,1"
                  ServerResolve="com.jb4dc.builder.client.htmldesign.control.webform.WebFormTextBox"
                  ClientResolve="WFDCT_TextBox"

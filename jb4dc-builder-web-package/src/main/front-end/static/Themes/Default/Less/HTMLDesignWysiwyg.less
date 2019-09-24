@@ -285,14 +285,14 @@
     }
 }
 
-.wysiwyg-wldct-list-table-outer-wrap{
+.wysiwyg-wldct-list-table-outer-wrap,.wysiwyg-wfdct-sub-form-list-outer-wrap{
     border: #17aa5d dashed 1px;
     border-radius: 4px;
-    min-height: 260px;
+    /*min-height: 260px;*/
     margin: 10px;
     position: relative;
 
-    .wysiwyg-wldct-list-table-inner-wrap{
+    .wysiwyg-wldct-list-table-inner-wrap,.wysiwyg-wfdct-sub-form-list-inner-wrap{
         border: #c5c9d4 1px solid;
         border-radius: 4px;
         min-height: 230px;
@@ -324,6 +324,10 @@
                 }
             }
         }
+    }
+
+    .wysiwyg-wfdct-sub-form-list-inner-wrap{
+        min-height: 80px !important;
     }
 
     .wysiwyg-table-inner-button-wrap{
