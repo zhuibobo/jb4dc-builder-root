@@ -414,22 +414,22 @@ class CKEditorPluginUtility {
         //console.log(pluginSetting);
         //console.log(props);
         console.log(props);
-        var result="【"+pluginSetting.ToolbarLabel+"】绑定:["+props.bindToField.tableCaption+"-"+props.bindToField.fieldCaption+"]";
+        var result="类型:【"+pluginSetting.ToolbarLabel+"】<br />绑定:【"+props.bindToField.tableCaption+"-"+props.bindToField.fieldCaption+"】";
         if(props.defaultValue) {
             if (props.defaultValue.defaultText) {
-                result += "默认值:[" + props.defaultValue.defaultType + ":" + props.defaultValue.defaultText + "]";
+                result += "<br />默认:【" + props.defaultValue.defaultType + ":" + props.defaultValue.defaultText + "】";
             }
         }
         //debugger;
         if(props.validateRules){
             if(props.validateRules.rules){
                 if(props.validateRules.rules.length>0) {
-                    result += "验证:["
+                    result += "<br />验证:【"
                     for (var i = 0; i < props.validateRules.rules.length; i++) {
                         result += props.validateRules.rules[i].validateType + ";";
                     }
                     result = StringUtility.RemoveLastChar(result);
-                    result += "]"
+                    result += "】"
                 }
             }
         }

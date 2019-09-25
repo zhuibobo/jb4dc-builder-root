@@ -220,6 +220,8 @@ class CKEditorUtility {
                     CKEditorUtility.SetSelectedElem(elem.getOuterHtml());
                     CKEditorUtility.SetLastSelectedTempHTML(elem.getOuterHtml());
                     var innerHtml = elem.getHtml();
+                    //debugger;
+                    innerHtml=innerHtml.replace(/<br \/>/g,"").replace(/<br>/g,"");
                     if (innerHtml.indexOf("<") < 0) {
                         console.log(elem);
                         CKEditorUtility.GetCKEditorInst().getSelection().selectElement(elem);
@@ -459,6 +461,8 @@ class CKEditorUtility {
         //如果不存在子元素,则默认设置为选中状态
         var singleName=elem.getAttribute("singlename");
         var innerHtml = elem.getHtml();
+        //debugger;
+        innerHtml=innerHtml.replace(/<br \/>/g,"");
         if (innerHtml.indexOf("<") < 0) {
             if (singleName) {
                 elem.on('click', function (ev) {

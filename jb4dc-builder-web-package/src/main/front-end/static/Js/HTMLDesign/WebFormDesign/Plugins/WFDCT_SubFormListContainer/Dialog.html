@@ -80,6 +80,12 @@
                         </td>
                     </tr>
                     <tr>
+                        <td>窗体标题：</td>
+                        <td colspan="3">
+                            <i-input v-model="normalProps.dialogWindowTitle" />
+                        </td>
+                    </tr>
+                    <tr>
                         <td>渲染完成回调：</td>
                         <td colspan="3">
                             <i-input v-model="normalProps.renderCompleteFunc" />
@@ -119,7 +125,8 @@
                 renderCompleteFunc:"",
                 dateRenderFunc:"",
                 windowWidth:0,
-                windowHeight:0
+                windowHeight:0,
+                dialogWindowTitle:""
             },
             formDataRelationSource:[]
         },
@@ -178,11 +185,12 @@
                 this.normalProps.editInRow = $elem.attr("editInRow");
                 var opButtons=$elem.attr("opButtons").split(",");
                 this.normalProps.opButtons = opButtons;
-                this.normalProps.bindDataSource = $elem.attr("bindDataSource");
-                this.normalProps.renderCompleteFunc = $elem.attr("renderCompleteFunc");
-                this.normalProps.dateRenderFunc = $elem.attr("dateRenderFunc");
-                this.normalProps.windowWidth = parseInt($elem.attr("windowWidth"));
-                this.normalProps.windowHeight = parseInt($elem.attr("windowHeight"));
+                this.normalProps.bindDataSource = $elem.attr("binddatasource");
+                this.normalProps.renderCompleteFunc = $elem.attr("rendercompletefunc");
+                this.normalProps.dateRenderFunc = $elem.attr("daterenderfunc");
+                this.normalProps.windowWidth = parseInt($elem.attr("windowwidth"));
+                this.normalProps.windowHeight = parseInt($elem.attr("windowheight"));
+                this.normalProps.dialogWindowTitle = $elem.attr("dialogwindowtitle");
             },
             selectWebFormBegin:function(){
                 this.$refs.selectSingleWebformDialog.beginSelectForm(this.normalProps.formId);

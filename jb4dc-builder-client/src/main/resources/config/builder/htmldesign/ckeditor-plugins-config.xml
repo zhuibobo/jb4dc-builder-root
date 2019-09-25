@@ -38,8 +38,8 @@
             <Desc></Desc>
         </Control>
         <Control SingleName="WFDCT_SubFormListContainer" Text="子表区域" ToolbarLocation="LC_Template,3"
-                 ServerResolve=""
-                 ClientResolve=""
+                 ServerResolve="com.jb4dc.builder.client.htmldesign.control.webform.WebFormSubFormListContainer"
+                 ClientResolve="WFDCT_SubFormListContainer"
                  ClientResolveJs=""
                  EnableChildControls="*"
                  DialogWidth="780" DialogHeight="550" IsJBuild4DCData="false" ControlCategory="ContainerControl" ServerDynamicBind="false"
