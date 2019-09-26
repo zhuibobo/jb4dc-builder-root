@@ -23,6 +23,7 @@ public class WebFormHideContainer  extends HTMLControl implements IHTMLControl {
         if(status.equals("enable")){
             singleControlElem.addClass("wraper-hide");
         }
+        singleControlElem.prepend("<span class='runtime-hide-outer-msg'>隐藏区域</span>");
     }
 
     @Override

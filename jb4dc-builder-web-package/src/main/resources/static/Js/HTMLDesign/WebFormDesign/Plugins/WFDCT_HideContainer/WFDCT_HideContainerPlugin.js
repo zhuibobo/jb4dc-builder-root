@@ -5,7 +5,7 @@
     };
     CKEditorPluginUtility.Plugins[pluginName].GetHtmlTemplate=function(tipMsg,addDefProp) {
         var tip = CKEditorPluginUtility.GetAutoRemoveTipLabel(tipMsg);
-        var template=`<div class="wysiwyg-wfdct-hide-outer-wrap wldct-list-hide-outer-wrap">${tip}<div class="wysiwyg-wfdct-hide-inner-wrap wldct-list-hide-outer-wrap">
+        var template=`<div class="wysiwyg-wfdct-hide-outer-wrap wldct-list-hide-outer-wrap">${tip}<div class="wysiwyg-wfdct-hide-inner-wrap wldct-list-hide-inner-wrap">
                             <table>
                                 <tr>
                                     <td style="width: 20%;"></td>
