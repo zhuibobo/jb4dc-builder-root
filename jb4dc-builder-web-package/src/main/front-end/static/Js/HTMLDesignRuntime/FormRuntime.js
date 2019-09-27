@@ -51,8 +51,11 @@ let FormRuntime={
                 $rootElem: this._$RendererToElem,
                 $parentControlElem: this._$RendererToElem,
                 $singleControlElem: this._$RendererToElem,
-                listRuntimeInstance: this
+                formRuntimeInstance: this
             });
         }, this);
+    },
+    IsPreview: function () {
+        return this._Prop_Config.IsPreview
     }
 }

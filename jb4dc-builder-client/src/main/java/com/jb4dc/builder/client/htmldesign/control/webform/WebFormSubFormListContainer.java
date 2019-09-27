@@ -20,7 +20,7 @@ public class WebFormSubFormListContainer extends HTMLControl implements IHTMLCon
 
     @Override
     public void resolveSelf(JB4DCSession jb4DCSession, String sourceHTML, Document doc, Element singleControlElem, Element parentElem, Element lastParentJbuild4dCustomElem, ResolveHTMLControlContextPO resolveHTMLControlContextPO, HtmlControlDefinitionPO htmlControlDefinitionPO) throws JBuild4DCGenerallyException {
-        singleControlElem.tagName("label");
+        //singleControlElem.tagName("label");
     }
 
     @Override

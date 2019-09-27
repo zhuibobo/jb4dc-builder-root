@@ -1,1 +1,292 @@
-<!DOCTYPE html><html lang="zh" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"><head><meta charset="UTF-8"><title>Title</title><title>JBuild4D</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"><script type="text/javascript" src="../../../../Js/External/JQuery-3.4.1/jquery-3.4.1.min.js"></script><script type="text/javascript" src="../../../../Js/External/VUE-2.6.10/vue.js"></script><script type="text/javascript" src="../../../../Js/External/IView-3.X/dist/iview.min.js"></script><script type="text/javascript" src="../../../../Js/External/JQuery-UI-1.12.1/jquery-ui.js"></script><script type="text/javascript" src="../../../../Js/External/ZTree-3.5.40/js/jquery.ztree.all.js"></script><script type="text/javascript" src="../../../../Js/JBuild4DCLib.js?refVersion=2"></script><script type="text/javascript" src="../../../../Js/UIEXComponent.js?refVersion=2"></script><script type="text/javascript" src="../../../../Js/UIEXComponentForBuilder.js?refVersion=2"></script><script type="text/javascript" src="../../../../Js/VueEXComponent.js?refVersion=2"></script><script type="text/javascript" src="../../../../Js/BuilderVueEXComponent.js?refVersion=2"></script><link rel="stylesheet" type="text/css" href="../../../../Themes/Default/Css/JBuild4DC.css?refVersion=2"><link rel="stylesheet" type="text/css" href="../../../../Themes/Default/IView-3.X/iview.css"><link rel="stylesheet" type="text/css" href="../../../../Themes/Default/JQueryUI/jquery-ui.css"><link rel="stylesheet" type="text/css" href="../../../../Themes/Default/JQueryUI/jquery-ui-important.css"><link rel="stylesheet" type="text/css" href="../../../../Themes/Default/ZTree/zTreeStyle/zTreeStyle.css"><link rel="stylesheet" type="text/css" href="../../../../Themes/Default/Css/JBuild4DCBuilder.css?refVersion=2"><script type="text/javascript" src="../../../../Js/External/Go-2.0.3/go-debug.js"></script><script type="text/javascript" src="../../../../Js/External/Go-2.0.3/Figures.js"></script><script type="text/javascript" src="../../../../Js/External/ZTree-3.5.40/js/jquery.ztree.exhide.js"></script><script type="text/javascript" src="../../../../Js/External/ZTree-3.5.40/js/fuzzysearch.js"></script></head><body><div id="appList" class="list-2column"><div class="left-outer-wrap" style="width:250px"><div class="inner-wrap"><div class="tool-bar-wrap"><div alt="新增分类组" title="新增分类组" class="add" @click="addGroup()"></div><div alt="修改分类组" title="修改分类组" class="edit" @click="editGroup"></div><div alt="删除分类组" title="删除分类组" class="del" @click="delGroup"></div><div alt="浏览分类组" title="浏览分类组" class="view" @click="viewGroup"></div><div alt="上移" title="上移" class="order-up" @click="moveGroup('up')"></div><div alt="下移" title="下移" class="order-down last" @click="moveGroup('down')"></div></div><div><ul id="zTreeUL" class="ztree"></ul></div></div></div><div class="right-outer-wrap iv-list-page-wrap" style="padding:10px;left:260px"><tabs type="card" @on-click="selectedRelationChange"><tab-pane v-for="relation in relationList" :label="relation.relationName" :name="relation.relationId"><table-relation-content-comp :relation="relation" v-if="relation.relationId==selectedRelationId"></table-relation-content-comp></tab-pane><button-group slot="extra"><i-button size="small" @click="addRelation" type="success" icon="md-add">新增</i-button><i-button size="small" @click="editRelation" type="primary" icon="md-create">编辑</i-button><i-button size="small" @click="delRelation" type="primary" icon="md-close">删除</i-button><i-button size="small" type="primary" @click="move('up')" icon="md-arrow-up">上移</i-button><i-button size="small" type="primary" @click="move('down')" icon="md-arrow-down">下移</i-button></button-group></tabs></div></div><script>var appList=new Vue({el:"#appList",mounted:function(){this.initTree(),window.setTimeout(function(){appList.listHeight=ListPageUtility.GetGeneralPageHeight(-20)},500)},data:{acInterface:{getGroupTreeData:"/Rest/Builder/DataStorage/TableRelation/TableRelationGroup/GetTreeData",groupEditView:"/HTML/Builder/DataStorage/DataRelation/TableRelationGroupEdit.html",deleteGroup:"/Rest/Builder/DataStorage/TableRelation/TableRelationGroup/Delete",moveGroup:"/Rest/Builder/DataStorage/TableRelation/TableRelationGroup/Move",listEditView:"/HTML/Builder/DataStorage/DataRelation/TableRelationEdit.html",getRelationByGroup:"/Rest/Builder/DataStorage/TableRelation/TableRelation/GetRelationByGroup",deleteRelation:"/Rest/Builder/DataStorage/TableRelation/TableRelation/Delete",moveRelation:"/Rest/Builder/DataStorage/TableRelation/TableRelation/Move"},treeIdFieldName:"relGroupId",treeObj:null,treeSelectedNode:null,treeSetting:{async:{enable:!0,url:""},data:{key:{name:"relGroupText"},simpleData:{enable:!0,idKey:"relGroupId",pIdKey:"relGroupParentId",rootId:0}},callback:{onClick:function(e,t,i){appList.treeNodeSelected(e,t,i)},onAsyncSuccess:function(e,t,i,l){appList.treeObj.expandAll(!0)}}},relationList:[],selectedRelationId:null},methods:{initTree:function(){var i=this;AjaxUtility.Post(this.acInterface.getGroupTreeData,{},function(e){if(e.success){if(null!=e.data&&0<e.data.length)for(var t=0;t<e.data.length;t++)"是"==e.data[t].relGroupIsSystem&&0==e.data[t].relGroupChildCount?e.data[t].icon="../../../../Themes/Png16X16/table_key.png":"否"==e.data[t].relGroupIsSystem&&0==e.data[t].relGroupChildCount?e.data[t].icon="../../../../Themes/Png16X16/table_edit.png":"-1"==e.data[t].relGroupParentId&&(e.data[t].icon="../../../../Themes/Png16X16/table_relationship.png");i.treeObj=$.fn.zTree.init($("#zTreeUL"),i.treeSetting,e.data),i.treeObj.expandAll(!0)}else DialogUtility.Alert(window,DialogUtility.DialogAlertId,{},e.message,function(){})},this)},treeNodeSelected:function(e,t,i){this.treeSelectedNode=i,this.selectedRelationId=null,this.reloadRelations(this.treeSelectedNode.relGroupId)},addGroup:function(){if(null!=this.treeSelectedNode){var e=BaseUtility.BuildView(this.acInterface.groupEditView,{op:"add",parentId:this.treeSelectedNode[appList.treeIdFieldName]});DialogUtility.Frame_OpenIframeWindow(window,DialogUtility.DialogId,e,{title:"分组"},2)}else DialogUtility.Alert(window,DialogUtility.DialogAlertId,{},"请选择父节点!",null)},editGroup:function(){if(null!=this.treeSelectedNode){var e=BaseUtility.BuildView(this.acInterface.groupEditView,{op:"update",recordId:this.treeSelectedNode[appList.treeIdFieldName]});DialogUtility.Frame_OpenIframeWindow(window,DialogUtility.DialogId,e,{title:"分组"},2)}else DialogUtility.Alert(window,DialogUtility.DialogAlertId,{},"请选择需要编辑的节点!",null)},viewGroup:function(){var e=BaseUtility.BuildView(this.acInterface.groupEditView,{op:"view",recordId:this.treeSelectedNode[appList.treeIdFieldName]});DialogUtility.Frame_OpenIframeWindow(window,DialogUtility.DialogId,e,{title:"分组"},2)},delGroup:function(){var e=this,t=this.treeSelectedNode[appList.treeIdFieldName];DialogUtility.Confirm(window,"确认要删除选定的节点吗？",function(){AjaxUtility.Delete(e.acInterface.deleteGroup,{recordId:t},function(e){e.success?DialogUtility.Alert(window,DialogUtility.DialogAlertId,{},e.message,function(){appList.treeObj.removeNode(appList.treeSelectedNode),appList.treeSelectedNode=null}):DialogUtility.Alert(window,DialogUtility.DialogAlertId,{},e.message,function(){})},this)})},moveGroup:function(t){if(null!=this.treeSelectedNode){var e=this.treeSelectedNode[appList.treeIdFieldName];AjaxUtility.Post(this.acInterface.moveGroup,{recordId:e,type:t},function(e){e.success?DialogUtility.Alert(window,DialogUtility.DialogAlertId,{},e.message,function(){"down"==t?null!=appList.treeSelectedNode.getNextNode()&&appList.treeObj.moveNode(appList.treeSelectedNode.getNextNode(),appList.treeSelectedNode,"next",!1):null!=appList.treeSelectedNode.getPreNode()&&appList.treeObj.moveNode(appList.treeSelectedNode.getPreNode(),appList.treeSelectedNode,"prev",!1)}):DialogUtility.Alert(window,DialogUtility.DialogAlertId,{},e.message,null)},this)}else DialogUtility.Alert(window,DialogUtility.DialogAlertId,{},"请选择需要编辑的节点!",null)},newTreeNode:function(e){appList.treeObj.addNodes(this.treeSelectedNode,e,!1)},updateNode:function(e){this.treeSelectedNode=$.extend(!0,this.treeSelectedNode,e),appList.treeObj.updateNode(this.treeSelectedNode)},selectedRelationChange:function(e){this.selectedRelationId=e},addRelation:function(){if(null!=this.treeSelectedNode){var e=BaseUtility.BuildView(this.acInterface.listEditView,{op:"add",groupId:this.treeSelectedNode[appList.treeIdFieldName]});DialogUtility.Frame_OpenIframeWindow(window,DialogUtility.DialogId,e,{title:"数据表关系图"},2)}else DialogUtility.Alert(window,DialogUtility.DialogAlertId,{},"请选择分组!",null)},editRelation:function(){if(this.selectedRelationId){var e=BaseUtility.BuildView(this.acInterface.listEditView,{op:"update",recordId:this.selectedRelationId});DialogUtility.Frame_OpenIframeWindow(window,DialogUtility.DialogId,e,{title:"数据表关系图"},2)}else DialogUtility.Alert(window,DialogUtility.DialogAlertId,{},"请选择数据关系图!",null)},view:function(e){var t=BaseUtility.BuildView(this.acInterface.listEditView,{op:"view",recordId:e});DialogUtility.Frame_OpenIframeWindow(window,DialogUtility.DialogId,t,{title:"列表"},2)},delRelation:function(){var t=this;DialogUtility.Confirm(window,"您确认要删除当前记录吗？",function(){AjaxUtility.Delete(this.acInterface.deleteRelation,{recordId:t.selectedRelationId},function(e){e.success?t.reloadRelations(t.treeSelectedNode.relGroupId):DialogUtility.AlertError(window,DialogUtility.DialogAlertId,{},e.message,function(){})},this)})},move:function(e){var t=this;AjaxUtility.Post(this.acInterface.moveRelation,{recordId:t.selectedRelationId,type:e},function(e){e.success?t.reloadRelations(t.treeSelectedNode.relGroupId):DialogUtility.Alert(window,DialogUtility.DialogAlertId,{},e.message,null)},this)},reloadRelations:function(e){var t=this;AjaxUtility.Post(this.acInterface.getRelationByGroup,{groupId:e},function(e){e.success?(t.relationList=e.data,0<t.relationList.length?t.selectedRelationId||(t.selectedRelationId=t.relationList[0].relationId):t.selectedRelationId=null):DialogUtility.AlertError(window,DialogUtility.DialogAlertId,{},e.message,function(){})},this)}}})</script></body></html>
+<!--
+  Created by IntelliJ IDEA.
+  User: zhuangrb
+  Date: 2019/1/26
+  To change this template use File | Settings | File Templates.
+--><!DOCTYPE html><html lang="zh" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"><head><meta charset="UTF-8"><title>Title</title><title>JBuild4D</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"><script type="text/javascript" src="../../../../Js/External/JQuery-3.4.1/jquery-3.4.1.min.js"></script><script type="text/javascript" src="../../../../Js/External/VUE-2.6.10/vue.js"></script><script type="text/javascript" src="../../../../Js/External/IView-3.X/dist/iview.min.js"></script><script type="text/javascript" src="../../../../Js/External/JQuery-UI-1.12.1/jquery-ui.js"></script><script type="text/javascript" src="../../../../Js/External/ZTree-3.5.40/js/jquery.ztree.all.js"></script><script type="text/javascript" src="../../../../Js/JBuild4DCLib.js?refVersion=2"></script><script type="text/javascript" src="../../../../Js/UIEXComponent.js?refVersion=2"></script><script type="text/javascript" src="../../../../Js/UIEXComponentForBuilder.js?refVersion=2"></script><script type="text/javascript" src="../../../../Js/VueEXComponent.js?refVersion=2"></script><script type="text/javascript" src="../../../../Js/BuilderVueEXComponent.js?refVersion=2"></script><link rel="stylesheet" type="text/css" href="../../../../Themes/Default/Css/JBuild4DC.css?refVersion=2"><link rel="stylesheet" type="text/css" href="../../../../Themes/Default/IView-3.X/iview.css"><link rel="stylesheet" type="text/css" href="../../../../Themes/Default/JQueryUI/jquery-ui.css"><link rel="stylesheet" type="text/css" href="../../../../Themes/Default/JQueryUI/jquery-ui-important.css"><link rel="stylesheet" type="text/css" href="../../../../Themes/Default/ZTree/zTreeStyle/zTreeStyle.css"><link rel="stylesheet" type="text/css" href="../../../../Themes/Default/Css/JBuild4DCBuilder.css?refVersion=2"><script type="text/javascript" src="../../../../Js/External/Go-2.0.3/go-debug.js"></script><script type="text/javascript" src="../../../../Js/External/Go-2.0.3/Figures.js"></script><script type="text/javascript" src="../../../../Js/External/ZTree-3.5.40/js/jquery.ztree.exhide.js"></script><script type="text/javascript" src="../../../../Js/External/ZTree-3.5.40/js/fuzzysearch.js"></script></head><body><div id="appList" class="list-2column"><div class="left-outer-wrap" style="width:250px"><div class="inner-wrap"><div class="tool-bar-wrap"><div alt="新增分类组" title="新增分类组" class="add" @click="addGroup()"></div><div alt="修改分类组" title="修改分类组" class="edit" @click="editGroup"></div><div alt="删除分类组" title="删除分类组" class="del" @click="delGroup"></div><div alt="浏览分类组" title="浏览分类组" class="view" @click="viewGroup"></div><div alt="上移" title="上移" class="order-up" @click="moveGroup('up')"></div><div alt="下移" title="下移" class="order-down last" @click="moveGroup('down')"></div></div><div><ul id="zTreeUL" class="ztree"></ul></div></div></div><div class="right-outer-wrap iv-list-page-wrap" style="padding:10px;left:260px"><tabs type="card" @on-click="selectedRelationChange"><tab-pane v-for="relation in relationList" :label="relation.relationName" :name="relation.relationId"><table-relation-content-comp :relation="relation" v-if="relation.relationId==selectedRelationId"></table-relation-content-comp></tab-pane><button-group slot="extra"><i-button size="small" @click="addRelation" type="success" icon="md-add">新增</i-button><i-button size="small" @click="editRelation" type="primary" icon="md-create">编辑</i-button><i-button size="small" @click="delRelation" type="primary" icon="md-close">删除</i-button><i-button size="small" type="primary" @click="move('up')" icon="md-arrow-up">上移</i-button><i-button size="small" type="primary" @click="move('down')" icon="md-arrow-down">下移</i-button></button-group></tabs></div></div><script>var appList=new Vue({
+        el:"#appList",
+        mounted:function () {
+            this.initTree();
+            window.setTimeout(function () {
+                appList.listHeight=ListPageUtility.GetGeneralPageHeight(-20);
+            },500);
+        },
+        data:{
+            acInterface:{
+                <!--Tree -->
+                getGroupTreeData:"/Rest/Builder/DataStorage/TableRelation/TableRelationGroup/GetTreeData",
+                groupEditView:"/HTML/Builder/DataStorage/DataRelation/TableRelationGroupEdit.html",
+                deleteGroup:"/Rest/Builder/DataStorage/TableRelation/TableRelationGroup/Delete",
+                moveGroup:"/Rest/Builder/DataStorage/TableRelation/TableRelationGroup/Move",
+                <!--Tabs -->
+                listEditView:"/HTML/Builder/DataStorage/DataRelation/TableRelationEdit.html",
+                getRelationByGroup:"/Rest/Builder/DataStorage/TableRelation/TableRelation/GetRelationByGroup",
+                deleteRelation:"/Rest/Builder/DataStorage/TableRelation/TableRelation/Delete",
+                moveRelation:"/Rest/Builder/DataStorage/TableRelation/TableRelation/Move"
+            },
+            <!--Tree-->
+            treeIdFieldName:"relGroupId",
+            treeObj:null,
+            treeSelectedNode:null,
+            treeSetting:{
+                async : {
+                    enable : true,
+                    // Ajax 获取数据的 URL 地址
+                    url :""
+                },
+                // 必须使用data
+                data:{
+                    key:{
+                        name:"relGroupText"
+                    },
+                    simpleData : {
+                        enable : true,
+                        idKey : "relGroupId", // id编号命名
+                        pIdKey : "relGroupParentId",  // 父id编号命名
+                        rootId : 0
+                    }
+                },
+                // 回调函数
+                callback : {
+                    onClick : function(event, treeId, treeNode) {
+                        appList.treeNodeSelected(event,treeId,treeNode);
+                    },
+                    //成功的回调函数
+                    onAsyncSuccess : function(event, treeId, treeNode, msg){
+                        appList.treeObj.expandAll(true);
+                    }
+                }
+            },
+            <!--List-->
+            relationList: [],
+            selectedRelationId:null
+        },
+        methods:{
+            <!--Tree-->
+            initTree:function () {
+                /*this.treeSetting.async.url = BaseUtility.BuildAction(this.acInterface.getGroupTreeData, {});
+                this.treeObj=$.fn.zTree.init($("#zTreeUL"), this.treeSetting);*/
+                var _self=this;
+                AjaxUtility.Post(this.acInterface.getGroupTreeData, {}, function (result) {
+                    if(result.success){
+                        if(result.data!=null&&result.data.length>0){
+                            for(var i=0;i<result.data.length;i++) {
+                                if(result.data[i].relGroupIsSystem=="是"&&result.data[i].relGroupChildCount==0) {
+                                    result.data[i].icon = "../../../../Themes/Png16X16/table_key.png";
+                                }
+                                else if(result.data[i].relGroupIsSystem=="否"&&result.data[i].relGroupChildCount==0) {
+                                    result.data[i].icon = "../../../../Themes/Png16X16/table_edit.png";
+                                }
+                                else if(result.data[i].relGroupParentId=="-1"){
+                                    result.data[i].icon = "../../../../Themes/Png16X16/table_relationship.png";
+                                }
+                            }
+                        }
+                        _self.treeObj=$.fn.zTree.init($("#zTreeUL"), _self.treeSetting,result.data);
+                        _self.treeObj.expandAll(true);
+                    }
+                    else {
+                        DialogUtility.Alert(window, DialogUtility.DialogAlertId, {}, result.message, function () {});
+                    }
+                }, this);
+            },
+            treeNodeSelected:function (event, treeId, treeNode) {
+                // 根节点不触发任何事件
+                //if(treeNode.level != 0) {
+                this.treeSelectedNode=treeNode;
+                this.selectedRelationId=null;
+                this.reloadRelations(this.treeSelectedNode.relGroupId);
+                //this.selectionRows=null;
+                //this.pageNum=1;
+                //this.clearSearchCondition();
+                //this.searchCondition.groupId.value=this.treeSelectedNode[this.treeIdFieldName];
+                //this.reloadData();
+                //appList.reloadTreeTableData();
+                //}
+            },
+            addGroup:function () {
+                //debugger;
+                if (this.treeSelectedNode != null) {
+                    var url = BaseUtility.BuildView(this.acInterface.groupEditView, {
+                        "op": "add",
+                        "parentId": this.treeSelectedNode[appList.treeIdFieldName]
+                    });
+                    DialogUtility.Frame_OpenIframeWindow(window, DialogUtility.DialogId, url, {title: "分组"}, 2);
+                }
+                else {
+                    DialogUtility.Alert(window, DialogUtility.DialogAlertId, {}, "请选择父节点!", null);
+                }
+            },
+            editGroup:function () {
+                if(this.treeSelectedNode!=null) {
+                    var url = BaseUtility.BuildView(this.acInterface.groupEditView, {
+                        "op": "update",
+                        "recordId": this.treeSelectedNode[appList.treeIdFieldName]
+                    });
+                    DialogUtility.Frame_OpenIframeWindow(window, DialogUtility.DialogId, url, {title: "分组"}, 2);
+                }
+                else {
+                    DialogUtility.Alert(window,DialogUtility.DialogAlertId,{},"请选择需要编辑的节点!",null);
+                }
+            },
+            viewGroup:function () {
+                var url = BaseUtility.BuildView(this.acInterface.groupEditView, {
+                    "op": "view",
+                    "recordId": this.treeSelectedNode[appList.treeIdFieldName]
+                });
+                DialogUtility.Frame_OpenIframeWindow(window, DialogUtility.DialogId, url, {title: "分组"}, 2);
+            },
+            delGroup:function () {
+                //var url="/PlatForm/devdemo/TreeAndList/DevDemoTLTree/Delete.do";
+                var _self=this;
+                var recordId=this.treeSelectedNode[appList.treeIdFieldName];
+                DialogUtility.Confirm(window, "确认要删除选定的节点吗？", function () {
+                    AjaxUtility.Delete(_self.acInterface.deleteGroup, {recordId: recordId}, function (result) {
+                        if (result.success) {
+                            DialogUtility.Alert(window, DialogUtility.DialogAlertId, {}, result.message, function () {
+                                appList.treeObj.removeNode(appList.treeSelectedNode);
+                                appList.treeSelectedNode=null;
+                            });
+                        }
+                        else {
+                            DialogUtility.Alert(window, DialogUtility.DialogAlertId, {}, result.message, function () {});
+                        }
+                    }, this);
+                });
+            },
+            moveGroup:function (type) {
+                if(this.treeSelectedNode!=null) {
+                    var recordId = this.treeSelectedNode[appList.treeIdFieldName];
+                    AjaxUtility.Post(this.acInterface.moveGroup, {recordId: recordId,type:type}, function (result) {
+                        if (result.success) {
+                            DialogUtility.Alert(window, DialogUtility.DialogAlertId, {}, result.message, function () {
+                                if(type=="down") {
+                                    if(appList.treeSelectedNode.getNextNode()!=null) {
+                                        appList.treeObj.moveNode(appList.treeSelectedNode.getNextNode(), appList.treeSelectedNode, "next", false)
+                                    }
+                                }else{
+                                    if(appList.treeSelectedNode.getPreNode()!=null) {
+                                        appList.treeObj.moveNode(appList.treeSelectedNode.getPreNode(), appList.treeSelectedNode, "prev", false);
+                                    }
+                                }
+                            });
+                        }
+                        else {
+                            DialogUtility.Alert(window, DialogUtility.DialogAlertId, {}, result.message,null);
+                        }
+                    }, this);
+                }
+                else {
+                    DialogUtility.Alert(window,DialogUtility.DialogAlertId,{},"请选择需要编辑的节点!",null);
+                }
+            },
+            newTreeNode : function (newNodeData) {
+                var silent = false;
+                appList.treeObj.addNodes(this.treeSelectedNode,newNodeData,silent);
+            },
+            updateNode : function (newNodeData) {
+                this.treeSelectedNode=$.extend(true,this.treeSelectedNode, newNodeData);
+                appList.treeObj.updateNode(this.treeSelectedNode);
+            },
+            <!--Tabs-->
+            selectedRelationChange:function(name){
+                this.selectedRelationId=name;
+                //alert(name);
+            },
+            addRelation: function () {
+                if(this.treeSelectedNode!=null) {
+                    var url = BaseUtility.BuildView(this.acInterface.listEditView, {
+                        "op": "add",
+                        "groupId": this.treeSelectedNode[appList.treeIdFieldName]
+                    });
+                    DialogUtility.Frame_OpenIframeWindow(window, DialogUtility.DialogId, url, {title: "数据表关系图"}, 2);
+                }
+                else {
+                    DialogUtility.Alert(window,DialogUtility.DialogAlertId,{},"请选择分组!",null);
+                }
+            },
+            editRelation: function () {
+                if(this.selectedRelationId) {
+                    var url = BaseUtility.BuildView(this.acInterface.listEditView, {
+                        "op": "update",
+                        "recordId": this.selectedRelationId
+                    });
+                    DialogUtility.Frame_OpenIframeWindow(window, DialogUtility.DialogId, url, {title: "数据表关系图"}, 2);
+                }
+                else{
+                    DialogUtility.Alert(window,DialogUtility.DialogAlertId,{},"请选择数据关系图!",null);
+                }
+            },
+            view:function (recordId) {
+                var url = BaseUtility.BuildView(this.acInterface.listEditView, {
+                    "op": "view",
+                    "recordId": recordId
+                });
+                DialogUtility.Frame_OpenIframeWindow(window, DialogUtility.DialogId, url, {title: "列表"}, 2);
+            },
+            delRelation: function () {
+                var _self=this;
+
+                DialogUtility.Confirm(window, "您确认要删除当前记录吗？", function () {
+
+                    AjaxUtility.Delete(this.acInterface.deleteRelation,
+                        {
+                            "recordId": _self.selectedRelationId
+                        },
+                        function (result) {
+                            if (result.success) {
+                                _self.reloadRelations(_self.treeSelectedNode.relGroupId);
+                            }
+                            else {
+                                DialogUtility.AlertError(window, DialogUtility.DialogAlertId, {}, result.message, function () {
+                                });
+                            }
+                        }, this);
+                });
+            },
+            move:function (type) {
+                var _self=this;
+                //var oldselectedRelationId=_self.selectedRelationId;
+                AjaxUtility.Post(this.acInterface.moveRelation,
+                    {
+                        recordId: _self.selectedRelationId,
+                        type: type
+                    },
+                    function (result) {
+                        if (result.success) {
+                            _self.reloadRelations(_self.treeSelectedNode.relGroupId);
+
+                        }
+                        else{
+                            DialogUtility.Alert(window,DialogUtility.DialogAlertId,{},result.message,null);
+                        }
+                    }, this
+                );
+            },
+            reloadRelations:function (groupId) {
+                //debugger;
+                var _self=this;
+                AjaxUtility.Post(this.acInterface.getRelationByGroup,
+                    {
+                        "groupId": groupId
+                    },
+                    function (result) {
+                        if (result.success) {
+                            _self.relationList=result.data;
+                            if(_self.relationList.length>0){
+                                if(!_self.selectedRelationId) {
+                                    _self.selectedRelationId = _self.relationList[0].relationId;
+                                }
+                            }
+                            else{
+                                _self.selectedRelationId=null;
+                            }
+                        }
+                        else
+                        {
+                            DialogUtility.AlertError(window, DialogUtility.DialogAlertId, {}, result.message, function () {});
+                        }
+                    }, this);
+            }
+        }
+    });</script></body></html>

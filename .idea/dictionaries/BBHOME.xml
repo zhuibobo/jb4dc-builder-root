@@ -26,7 +26,9 @@
       <w>datetimeonpickedevent</w>
       <w>dbentities</w>
       <w>defaultisnull</w>
+      <w>dialogwindowtitle</w>
       <w>dictionaryiddatasource</w>
+      <w>editinrow</w>
       <w>elemid</w>
       <w>envvariable</w>
       <w>fconfig</w>
@@ -45,6 +47,7 @@
       <w>listmanager</w>
       <w>opentype</w>
       <w>restdatasource</w>
+      <w>sflb</w>
       <w>singlename</w>
       <w>sqldatasource</w>
       <w>sqlserver</w>
