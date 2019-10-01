@@ -1,13 +1,13 @@
 package com.jb4dc.builder.client.service.datastorage.impl;
 
 import com.jb4dc.builder.client.service.datastorage.IFormDataRelationService;
-import com.jb4dc.builder.po.FormDataRelationPO;
+import com.jb4dc.builder.po.FormRecordDataRelationPO;
+import com.jb4dc.builder.po.FormRecordDataPO;
 import com.jb4dc.core.base.list.IListWhereCondition;
 import com.jb4dc.core.base.list.ListUtility;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created with IntelliJ IDEA.
@@ -19,57 +19,57 @@ import java.util.Map;
 public class FormDataRelationServiceImpl implements IFormDataRelationService {
 
     @Override
-    public FormDataRelationPO getMainPO(List<FormDataRelationPO> formDataRelationPOList){
-        for (FormDataRelationPO formDataRelationPO : formDataRelationPOList) {
-            if(this.isMain(formDataRelationPO)){
-                return formDataRelationPO;
+    public FormRecordDataRelationPO getMainPO(List<FormRecordDataRelationPO> formRecordDataRelationPOList){
+        for (FormRecordDataRelationPO formRecordDataRelationPO : formRecordDataRelationPOList) {
+            if(this.isMain(formRecordDataRelationPO)){
+                return formRecordDataRelationPO;
             }
         }
         return null;
     }
 
     @Override
-    public FormDataRelationPO getPO(List<FormDataRelationPO> formDataRelationPOList,String id){
-        for (FormDataRelationPO formDataRelationPO : formDataRelationPOList) {
-            if(formDataRelationPO.getId().equals(id)){
-                return formDataRelationPO;
+    public FormRecordDataRelationPO getPO(List<FormRecordDataRelationPO> formRecordDataRelationPOList, String id){
+        for (FormRecordDataRelationPO formRecordDataRelationPO : formRecordDataRelationPOList) {
+            if(formRecordDataRelationPO.getId().equals(id)){
+                return formRecordDataRelationPO;
             }
         }
         return null;
     }
 
     @Override
-    public FormDataRelationPO getParentPO(List<FormDataRelationPO> formDataRelationPOList,FormDataRelationPO formDataRelationPO){
-        String parentId=formDataRelationPO.getParentId();
-        return this.getPO(formDataRelationPOList,parentId);
+    public FormRecordDataRelationPO getParentPO(List<FormRecordDataRelationPO> formRecordDataRelationPOList, FormRecordDataRelationPO formRecordDataRelationPO){
+        String parentId= formRecordDataRelationPO.getParentId();
+        return this.getPO(formRecordDataRelationPOList,parentId);
     }
 
     @Override
-    public boolean isMain(FormDataRelationPO formDataRelationPO){
-        return formDataRelationPO.getParentId().equals("-1");
+    public boolean isMain(FormRecordDataRelationPO formRecordDataRelationPO){
+        return formRecordDataRelationPO.getParentId().equals("-1");
     }
 
     @Override
-    public boolean isNotMain(FormDataRelationPO formDataRelationPO){
-        return !this.isMain(formDataRelationPO);
+    public boolean isNotMain(FormRecordDataRelationPO formRecordDataRelationPO){
+        return !this.isMain(formRecordDataRelationPO);
     }
 
     @Override
-    public boolean hasChild(List<FormDataRelationPO> formDataRelationPOList, String id){
-        return ListUtility.Exist(formDataRelationPOList, new IListWhereCondition<FormDataRelationPO>() {
+    public boolean hasChild(List<FormRecordDataRelationPO> formRecordDataRelationPOList, String id){
+        return ListUtility.Exist(formRecordDataRelationPOList, new IListWhereCondition<FormRecordDataRelationPO>() {
             @Override
-            public boolean Condition(FormDataRelationPO item) {
+            public boolean Condition(FormRecordDataRelationPO item) {
                 return item.getParentId().equals(id);
             }
         });
     }
 
     @Override
-    public List<FormDataRelationPO> getChildPOList(List<FormDataRelationPO> formDataRelationPOList, String id){
-        if(this.hasChild(formDataRelationPOList,id)){
-            return ListUtility.Where(formDataRelationPOList, new IListWhereCondition<FormDataRelationPO>() {
+    public List<FormRecordDataRelationPO> getChildPOList(List<FormRecordDataRelationPO> formRecordDataRelationPOList, String id){
+        if(this.hasChild(formRecordDataRelationPOList,id)){
+            return ListUtility.Where(formRecordDataRelationPOList, new IListWhereCondition<FormRecordDataRelationPO>() {
                 @Override
-                public boolean Condition(FormDataRelationPO item) {
+                public boolean Condition(FormRecordDataRelationPO item) {
                     return item.getParentId().equals(id);
                 }
             });
@@ -78,9 +78,9 @@ public class FormDataRelationServiceImpl implements IFormDataRelationService {
     }
 
     @Override
-    public Map findMainRecordData(List<FormDataRelationPO> formDataRelationPOList){
-        FormDataRelationPO formDataRelationPO=getMainPO(formDataRelationPOList);
-        List<Map> recordList=formDataRelationPO.getDataRecordList();
+    public FormRecordDataPO findMainRecordData(List<FormRecordDataRelationPO> formRecordDataRelationPOList){
+        FormRecordDataRelationPO formRecordDataRelationPO =getMainPO(formRecordDataRelationPOList);
+        List<FormRecordDataPO> recordList= formRecordDataRelationPO.getDataRecordList();
         if(recordList!=null&&recordList.size()>0){
             return recordList.get(0);
         }

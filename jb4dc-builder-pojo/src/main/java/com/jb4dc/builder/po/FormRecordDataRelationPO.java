@@ -10,7 +10,7 @@ import java.util.Map;
  * Date: 2019/9/22
  * To change this template use File | Settings | File Templates.
  */
-public class FormDataRelationPO {
+public class FormRecordDataRelationPO {
     String id;
     String parentId;
     String singleName;
@@ -28,13 +28,13 @@ public class FormDataRelationPO {
     String displayText;
     String icon;
 
-    List<Map> dataRecordList=new ArrayList<>();
+    List<FormRecordDataPO> dataRecordList=new ArrayList<>();
 
-    public void addDataRecord(Map record){
+    public void addDataRecord(FormRecordDataPO record){
         this.dataRecordList.add(record);
     }
 
-    public List<Map> getDataRecordList() {
+    public List<FormRecordDataPO> getDataRecordList() {
         return dataRecordList;
     }
 

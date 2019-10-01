@@ -3,12 +3,11 @@ package com.jb4dc.builder.client.service.datastorage.impl;
 import com.jb4dc.base.dbaccess.dynamic.ISQLBuilderMapper;
 import com.jb4dc.builder.client.service.datastorage.IDataStorageRuntimeService;
 import com.jb4dc.builder.client.service.datastorage.IFormDataRelationService;
-import com.jb4dc.builder.po.FormDataRelationPO;
+import com.jb4dc.builder.po.FormRecordDataRelationPO;
 import com.jb4dc.core.base.session.JB4DCSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -33,23 +32,23 @@ public class DataStorageRuntimeServiceImpl implements IDataStorageRuntimeService
     }
 
     @Override
-    public List<FormDataRelationPO> getStorageDate(JB4DCSession session, String recordId, List<FormDataRelationPO> formDataRelationPOList) {
+    public List<FormRecordDataRelationPO> getStorageDate(JB4DCSession session, String recordId, List<FormRecordDataRelationPO> formRecordDataRelationPOList) {
         //Map result=new HashMap();
 
-        FormDataRelationPO mainDataPO=formDataRelationService.getMainPO(formDataRelationPOList);
+        FormRecordDataRelationPO mainDataPO=formDataRelationService.getMainPO(formRecordDataRelationPOList);
 
         String sql="select * from "+mainDataPO.getTableName()+" where ID=#{ID}";
         Map mainRecord=sqlBuilderMapper.selectOne(sql,recordId);
 
-        mainDataPO.addDataRecord(mainRecord);
+        //mainDataPO.addDataRecord(mainRecord);
 
-        for (FormDataRelationPO formDataRelationPO : formDataRelationPOList) {
-            if(formDataRelationService.isNotMain(formDataRelationPO)){
-                String selfKeyFieldName=formDataRelationPO.getSelfKeyFieldName();
-                String outerKeyFieldName=formDataRelationPO.getOuterKeyFieldName();
+        for (FormRecordDataRelationPO formRecordDataRelationPO : formRecordDataRelationPOList) {
+            if(formDataRelationService.isNotMain(formRecordDataRelationPO)){
+                String selfKeyFieldName= formRecordDataRelationPO.getSelfKeyFieldName();
+                String outerKeyFieldName= formRecordDataRelationPO.getOuterKeyFieldName();
             }
         }
 
-        return formDataRelationPOList;
+        return formRecordDataRelationPOList;
     }
 }

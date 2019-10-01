@@ -1,9 +1,9 @@
 package com.jb4dc.builder.client.service.datastorage;
 
-import com.jb4dc.builder.po.FormDataRelationPO;
+import com.jb4dc.builder.po.FormRecordDataRelationPO;
+import com.jb4dc.builder.po.FormRecordDataPO;
 
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created with IntelliJ IDEA.
@@ -12,19 +12,19 @@ import java.util.Map;
  * To change this template use File | Settings | File Templates.
  */
 public interface IFormDataRelationService {
-    FormDataRelationPO getMainPO(List<FormDataRelationPO> formDataRelationPOList);
+    FormRecordDataRelationPO getMainPO(List<FormRecordDataRelationPO> formRecordDataRelationPOList);
 
-    FormDataRelationPO getPO(List<FormDataRelationPO> formDataRelationPOList, String id);
+    FormRecordDataRelationPO getPO(List<FormRecordDataRelationPO> formRecordDataRelationPOList, String id);
 
-    FormDataRelationPO getParentPO(List<FormDataRelationPO> formDataRelationPOList, FormDataRelationPO formDataRelationPO);
+    FormRecordDataRelationPO getParentPO(List<FormRecordDataRelationPO> formRecordDataRelationPOList, FormRecordDataRelationPO formRecordDataRelationPO);
 
-    boolean isMain(FormDataRelationPO formDataRelationPO);
+    boolean isMain(FormRecordDataRelationPO formRecordDataRelationPO);
 
-    boolean isNotMain(FormDataRelationPO formDataRelationPO);
+    boolean isNotMain(FormRecordDataRelationPO formRecordDataRelationPO);
 
-    boolean hasChild(List<FormDataRelationPO> formDataRelationPOList, String id);
+    boolean hasChild(List<FormRecordDataRelationPO> formRecordDataRelationPOList, String id);
 
-    List<FormDataRelationPO> getChildPOList(List<FormDataRelationPO> formDataRelationPOList, String id);
+    List<FormRecordDataRelationPO> getChildPOList(List<FormRecordDataRelationPO> formRecordDataRelationPOList, String id);
 
-    Map findMainRecordData(List<FormDataRelationPO> formDataRelationPOList);
+    FormRecordDataPO findMainRecordData(List<FormRecordDataRelationPO> formRecordDataRelationPOList);
 }

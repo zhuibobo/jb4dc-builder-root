@@ -10,7 +10,7 @@ public class DynamicBindHTMLControlContextPO {
     String recordId;
     FormResourcePO remoteSourcePO;
     ListButtonEntity listButtonEntity;
-    List<FormDataRelationPO> formDataRelationPOList;
+    List<FormRecordDataRelationPO> formRecordDataRelationPOList;
     Map mainRecordData;
 
     public String getRecordId() {
@@ -37,12 +37,12 @@ public class DynamicBindHTMLControlContextPO {
         this.listButtonEntity = listButtonEntity;
     }
 
-    public List<FormDataRelationPO> getFormDataRelationPOList() {
-        return formDataRelationPOList;
+    public List<FormRecordDataRelationPO> getFormRecordDataRelationPOList() {
+        return formRecordDataRelationPOList;
     }
 
-    public void setFormDataRelationPOList(List<FormDataRelationPO> formDataRelationPOList) {
-        this.formDataRelationPOList = formDataRelationPOList;
+    public void setFormRecordDataRelationPOList(List<FormRecordDataRelationPO> formRecordDataRelationPOList) {
+        this.formRecordDataRelationPOList = formRecordDataRelationPOList;
     }
 
     public Map getMainRecordData() {

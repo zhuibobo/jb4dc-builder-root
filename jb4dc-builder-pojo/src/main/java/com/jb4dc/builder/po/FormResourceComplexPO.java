@@ -4,7 +4,6 @@ import com.jb4dc.builder.dbentities.webform.FormResourceEntity;
 import com.jb4dc.builder.dbentities.weblist.ListButtonEntity;
 
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created with IntelliJ IDEA.
@@ -17,22 +16,22 @@ public class FormResourceComplexPO extends FormResourcePO {
         super(source, formHtmlRuntime);
     }
 
-    public FormResourceComplexPO(FormResourceEntity source, String formHtmlRuntime, List<FormDataRelationPO> _formDataRelationPOList, ListButtonEntity _listButtonEntity) {
+    public FormResourceComplexPO(FormResourceEntity source, String formHtmlRuntime, List<FormRecordDataRelationPO> _formRecordDataRelationPOList, ListButtonEntity _listButtonEntity) {
         super(source, formHtmlRuntime);
-        this.formDataRelationPOList = _formDataRelationPOList;
+        this.formRecordDataRelationPOList = _formRecordDataRelationPOList;
         this.listButtonEntity = _listButtonEntity;
     }
 
-    List<FormDataRelationPO> formDataRelationPOList;
+    List<FormRecordDataRelationPO> formRecordDataRelationPOList;
 
     ListButtonEntity listButtonEntity;
 
-    public List<FormDataRelationPO> getFormDataRelationPOList() {
-        return formDataRelationPOList;
+    public List<FormRecordDataRelationPO> getFormRecordDataRelationPOList() {
+        return formRecordDataRelationPOList;
     }
 
-    public void setFormDataRelationPOList(List<FormDataRelationPO> formDataRelationPOList) {
-        this.formDataRelationPOList = formDataRelationPOList;
+    public void setFormRecordDataRelationPOList(List<FormRecordDataRelationPO> formRecordDataRelationPOList) {
+        this.formRecordDataRelationPOList = formRecordDataRelationPOList;
     }
 
     public ListButtonEntity getListButtonEntity() {
