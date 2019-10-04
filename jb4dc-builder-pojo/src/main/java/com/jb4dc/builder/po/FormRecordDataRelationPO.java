@@ -27,6 +27,7 @@ public class FormRecordDataRelationPO {
     String tableCode;
     String displayText;
     String icon;
+    String isMain;
 
     List<FormRecordDataPO> dataRecordList=new ArrayList<>();
 
@@ -36,6 +37,14 @@ public class FormRecordDataRelationPO {
 
     public List<FormRecordDataPO> getDataRecordList() {
         return dataRecordList;
+    }
+
+    public String getIsMain() {
+        return isMain;
+    }
+
+    public void setIsMain(String isMain) {
+        this.isMain = isMain;
     }
 
     public String getId() {

@@ -1,22 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Config>
-    <WebFormControls>
-        <!--
+    <!--
         1:Plugin存放于resources\static\UIComponent\HTMLDesign\WebFormDesign\Plugins文件夹下
         2:Plugin Js文件定义以SingleNamePlugin.js命名
         -->
-        <!--<WebFormControl SingleName="FDCT_Div_Wraper" Text="DivElem" ToolbarLocation="FDCT_Container,1"
-                        ServerResolve="" ClientResolve="" ClientResolveJs=""
-                        DialogWidth="780" DialogHeight="550">
-            <Config></Config>
-            <Desc></Desc>
-        </WebFormControl>-->
-        <!--
-            增加属性是,需要对应修改 HtmlControlDefinitionVo 中的解析
-            CKEditorPluginUtility.js 中的 AddPluginsServerConfig;GetGeneralPluginInstance;
-            CKEditorUtility.js 中的InitializeCKEditor
+    <!--<WebFormControl SingleName="FDCT_Div_Wraper" Text="DivElem" ToolbarLocation="FDCT_Container,1"
+                    ServerResolve="" ClientResolve="" ClientResolveJs=""
+                    DialogWidth="780" DialogHeight="550">
+        <Config></Config>
+        <Desc></Desc>
+    </WebFormControl>-->
+    <!--
+        增加属性是,需要对应修改 HtmlControlDefinitionVo 中的解析
+        CKEditorPluginUtility.js 中的 AddPluginsServerConfig;GetGeneralPluginInstance;
+        CKEditorUtility.js 中的InitializeCKEditor
 
-        -->
+    -->
+    <!--SingleName的名称必须唯一,并且不能是部分完全匹配其他插件名称,例如WLDCT_Hide则为错误的命名,因为已经存在WLDCT_HideContainer的插件!-->
+    <!--ShowRemoveButton属性已经移除-->
+    <!--
+        ControlCategory:
+                ContainerControl:模版类型控件,基本上不需要进行获取值和设置值的功能
+                InputControl:输入类控件,需要提供独立的数据并绑定到字段的类型.
+                DynamicContainer:动态容器,复杂类的动态容器,控件需要独立提供数据给关系实体,例如WFDCT_SubFormListContainer
+    -->
+    <WebFormControls>
         <Control SingleName="WFDCT_HideContainer" Text="隐藏区域" ToolbarLocation="LC_Template,1"
                  ServerResolve="com.jb4dc.builder.client.htmldesign.control.webform.WebFormHideContainer"
                  ClientResolve=""
@@ -42,7 +50,7 @@
                  ClientResolve="WFDCT_SubFormListContainer"
                  ClientResolveJs=""
                  EnableChildControls="*"
-                 DialogWidth="780" DialogHeight="550" IsJBuild4DCData="false" ControlCategory="ContainerControl" ServerDynamicBind="false"
+                 DialogWidth="780" DialogHeight="550" IsJBuild4DCData="false" ControlCategory="DynamicContainer" ServerDynamicBind="false"
                  ShowRemoveButton="false" ShowInEditorToolbar="true">
             <Config></Config>
             <Desc></Desc>
@@ -90,8 +98,6 @@
     </AppControls>
 
     <!--WebList设计相关插件-->
-    <!--SingleName的名称必须唯一,并且不能是部分完全匹配其他插件名称,例如WLDCT_Hide则为错误的命名,因为已经存在WLDCT_HideContainer的插件!-->
-    <!--ShowRemoveButton属性已经移除-->
     <WebListControls>
         <Control SingleName="WLDCT_HideContainer" Text="隐藏区域" ToolbarLocation="LC_Template,1"
                  ServerResolve="com.jb4dc.builder.client.htmldesign.control.weblist.WebListHideContainer"

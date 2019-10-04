@@ -26,12 +26,17 @@
       <w>datetimeonpickedevent</w>
       <w>dbentities</w>
       <w>defaultisnull</w>
+      <w>defaulttype</w>
+      <w>defaultvalue</w>
       <w>dialogwindowtitle</w>
       <w>dictionaryiddatasource</w>
       <w>editinrow</w>
       <w>elemid</w>
       <w>envvariable</w>
       <w>fconfig</w>
+      <w>fielddatatype</w>
+      <w>fieldlength</w>
+      <w>fieldname</w>
       <w>formater</w>
       <w>formcode</w>
       <w>formid</w>
@@ -52,6 +57,9 @@
       <w>sqldatasource</w>
       <w>sqlserver</w>
       <w>staticdatasource</w>
+      <w>tablecaption</w>
+      <w>tableid</w>
+      <w>tablename</w>
       <w>tbuild</w>
       <w>tsso</w>
       <w>tsys</w>

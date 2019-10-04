@@ -21,8 +21,11 @@ let HTMLControl={
         $elem.attr("client_instance_name",instanceName);
         this._InstanceMap[instanceName]=instance;
     },
-    GetControlInstance:function(name){
-        return this._InstanceMap[name];
+    ElemIsInstance:function($elem){
+        if(this.GetElemInstance($elem)){
+            return true;
+        }
+        return false;
     },
     GetControlInstanceByElem:function($elem){
         //console.log($elem);
@@ -34,9 +37,8 @@ let HTMLControl={
         else {
             instanceName=$elem.attr("client_resolve");
         }
-        //console.log(instanceName);
-        //console.log(this._InstanceMap);
-        return this._InstanceMap[instanceName];
+        return this.GetInstance(instanceName);
+        //return this._InstanceMap[instanceName];
     },
     RendererChainParas:{
         listEntity:null,
@@ -135,12 +137,11 @@ let HTMLControl={
             }
         }
     },
-    GetValue:function ($elem, paras) {
-        var result = {};
-        result.result = true;
-        result.message = "";
-        result.value = $elem.val();
-        result.text = $elem.val();
-        return result;
+    GetValue:function ($elem,originalData, paras) {
+        originalData.value=$elem.val();
+        return originalData;
+    },
+    SetValue:function ($elem,originalData, paras) {
+        
     }
 }
