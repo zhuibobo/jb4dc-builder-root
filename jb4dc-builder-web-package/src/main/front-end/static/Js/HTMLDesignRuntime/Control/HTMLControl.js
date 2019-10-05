@@ -20,6 +20,7 @@ let HTMLControl={
         //HTMLControl.SaveControlInstancePool(instanceName,instance);
         $elem.attr("client_instance_name",instanceName);
         this._InstanceMap[instanceName]=instance;
+        return instanceName;
     },
     ElemIsInstance:function($elem){
         if(this.GetElemInstance($elem)){

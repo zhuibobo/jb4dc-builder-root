@@ -1,11 +1,16 @@
 let FormRuntime={
+    OperationAdd:"add",
+    OperationUpdate:"update",
+    OperationView:"view",
+    OperationDel:"del",
     _Prop_Status:"Edit",
     _Prop_Config:{
         RendererToId:null,
         FormId:"",
         RecordId:"",
         ButtonId:"",
-        IsPreview:false
+        IsPreview:false,
+        OperationType:""
     },
     _$RendererToElem:null,
     _FormPO:null,
@@ -62,16 +67,28 @@ let FormRuntime={
     GetOriginalFormDataRelation:function() {
         return JsonUtility.StringToJson(this._FormPO.formDataRelation);
     },
+    GetOperationType:function(){
+        return this._Prop_Config.OperationType;
+    },
+    IsAddOperation:function(){
+        return this.GetOperationType()==this.OperationAdd;
+    },
+    IsUpdateOperation:function(){
+        return this.GetOperationType()==this.OperationUpdate;
+    },
+    IsViewOperation:function(){
+        return this.GetOperationType()==this.OperationView;
+    },
     SerializationFormData:function () {
-        var formRecordComplexPo={
-            id:this._Prop_Config.RecordId,
+        var formRecordComplexPo = {
+            id: this._Prop_Config.RecordId,
             formId: this._Prop_Config.FormId,
-            buttonId:this._Prop_Config.ButtonId,
-            formRecordDataRelationPOList:null,
-            exData:null
+            buttonId: this._Prop_Config.ButtonId,
+            formRecordDataRelationPOList: null,
+            exData: null
         };
 
-        var originalFormDataRelation=this.GetOriginalFormDataRelation();
+        var originalFormDataRelation = this.GetOriginalFormDataRelation();
         console.log(originalFormDataRelation);
 
         for (var i = 0; i < originalFormDataRelation.length; i++) {
@@ -79,20 +96,20 @@ let FormRuntime={
             var singleName = singleRelation.singleName;
             var tableName = singleRelation.tableName;
             var isMain = (singleRelation.parentId == "-1");
-            var relationType=singleRelation.relationType;
-            if (isMain){
-                relationType="1To1";
+            singleRelation.isMain = isMain;
+            if (isMain) {
+                singleRelation.relationType = "1To1";
             }
+            var relationType = singleRelation.relationType;
 
-            var allRowRecord=[];
-            if(relationType=="1To1") {
+            if (relationType == "1To1") {
                 //获取不在动态DynamicContainer中的并且绑定到了当前表的控件
-                var controls=$("[tablename='"+tableName+"'][serialize='true']").not($("[control_category='DynamicContainer']").find("[jbuild4dc_custom='true']"));
-                var oneRowRecord=[];
+                var controls = $("[tablename='" + tableName + "'][serialize='true']").not($("[control_category='DynamicContainer']").find("[jbuild4dc_custom='true']"));
+                var oneRowRecord = [];
                 for (var j = 0; j < controls.length; j++) {
                     var $controlElem = $(controls[j]);
                     var controlInstance = HTMLControl.GetControlInstanceByElem($controlElem);
-                    console.log($controlElem.attr("singlename")+"||"+controlInstance);
+                    console.log($controlElem.attr("singlename") + "||" + controlInstance);
                     var originalData = {
                         relationId: singleRelation.id,
                         relationSingleName: singleName,
@@ -113,29 +130,29 @@ let FormRuntime={
                         success: true,
                         msg: ""
                     };
-                    if(BaseUtility.IsFunction(controlInstance.GetValue)) {
+                    if (BaseUtility.IsFunction(controlInstance.GetValue)) {
                         var controlResultValue = controlInstance.GetValue($controlElem, originalData, {});
                         if (controlResultValue.success) {
                             oneRowRecord.push(controlResultValue);
                         } else {
 
                         }
-                    }
-                    else {
+                    } else {
                         DialogUtility.AlertText("控件:" + $controlElem.attr("singlename") + "未包含GetValue的方法!");
                     }
                 }
-                allRowRecord.push(oneRowRecord);
-            }
-            else {
+                //allRowRecord.push(oneRowRecord);
+
+                singleRelation.oneDataRecord = oneRowRecord;
+            } else {
 
             }
 
-            singleRelation.dataRecordList=allRowRecord;
+            //singleRelation.dataRecordList=allRowRecord;
         }
-        formRecordComplexPo.formRecordDataRelationPOList=originalFormDataRelation;
+        formRecordComplexPo.formRecordDataRelationPOList = originalFormDataRelation;
         console.log(formRecordComplexPo);
-
+        console.log(JsonUtility.JsonToString(formRecordComplexPo))
         return formRecordComplexPo;
     },
     DeSerializationFormData:function (formRecordComplexPo) {

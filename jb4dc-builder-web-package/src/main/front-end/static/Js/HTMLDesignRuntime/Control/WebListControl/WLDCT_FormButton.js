@@ -75,10 +75,11 @@ var WLDCT_FormButton= {
 
         //debugger;
         DialogUtility.Frame_OpenIframeWindow(window,DialogUtility.DialogId,BaseUtility.BuildView("/HTML/Builder/Runtime/WebFormRuntime.html",{
-            formId:formid,
-            buttonId:buttonid,
-            elemId:elemid,
-            recordId:recordId
+            FormId:formid,
+            ButtonId:buttonid,
+            ElemId:elemid,
+            RecordId:recordId,
+            OperationType:operation
         }), {
             width: windowwidth,
             height: windowheight,

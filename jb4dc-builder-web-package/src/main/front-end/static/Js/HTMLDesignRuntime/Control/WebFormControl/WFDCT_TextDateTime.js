@@ -3,5 +3,7 @@ var WFDCT_TextDateTime={
         //debugger;
         //var $singleControlElem=_rendererChainParas.$singleControlElem;
         //$singleControlElem.val("22222");
-    }
+    },
+    GetValue:HTMLControl.GetValue,
+    SetValue:HTMLControl.SetValue
 }
