@@ -17,7 +17,7 @@ jb4dc:
   builder:
     server:
       name: JB4DC-BUILDER-WEB-SERVER
-      address: http://localhost:9103
+      #address: http://localhost:9103
       context-path: /JB4DCBuilder
 
 spring:
