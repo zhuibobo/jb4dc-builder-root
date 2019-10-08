@@ -157,5 +157,14 @@ let FormRuntime={
     },
     DeSerializationFormData:function (formRecordComplexPo) {
 
+        //绑定数据并进行二次渲染绑定数据。
+        VirtualBodyControl.RendererDataChain({
+            listEntity: result.data,
+            sourceHTML: result.data.formHtmlRuntime,
+            $rootElem: this._$RendererToElem,
+            $parentControlElem: this._$RendererToElem,
+            $singleControlElem: this._$RendererToElem,
+            formRuntimeInstance: this
+        });
     }
 }
