@@ -24,7 +24,8 @@ spring:
     name: JB4DC-BUILDER-WEB-SERVER
     inetutils:
       #客户端的IP
-      preferred-networks: 192.168.3.153
+      #preferred-networks: 192.168.3.153
+      preferred-networks: 127.0.0.1
   liquibase:
     enabled: false
   thymeleaf:
@@ -46,7 +47,8 @@ eureka:
   client:
     serviceUrl:
       #服务端的地址
-      defaultZone: http://192.168.3.166:9092/eureka/
+      #defaultZone: http://192.168.3.166:9092/eureka/
+      defaultZone: http://localhost:9092/eureka/
   instance:
     prefer-ip-address: true
     instanceId: ${spring.cloud.inetutils.preferred-networks}:${server.port}

@@ -93,7 +93,7 @@ let FormRuntime={
 
         for (var i = 0; i < originalFormDataRelation.length; i++) {
             var singleRelation = originalFormDataRelation[i];
-            var singleName = singleRelation.singleName;
+            var relationSingleName = singleRelation.singleName;
             var tableName = singleRelation.tableName;
             var isMain = (singleRelation.parentId == "-1");
             singleRelation.isMain = isMain;
@@ -110,7 +110,7 @@ let FormRuntime={
                     var $controlElem = $(controls[j]);
                     var controlInstance = HTMLControl.GetControlInstanceByElem($controlElem);
                     console.log($controlElem.attr("singlename") + "||" + controlInstance);
-                    var originalData = {
+                    /*var originalData = {
                         relationId: singleRelation.id,
                         relationSingleName: singleName,
                         relationType: relationType,
@@ -129,7 +129,9 @@ let FormRuntime={
                         value: "",
                         success: true,
                         msg: ""
-                    };
+                    };*/
+                    var props=HTMLControl.GetControlProp($controlElem);
+                    var originalData=HTMLControl.BuildSerializationOriginalData(props,singleRelation.id,relationSingleName,relationType);
                     if (BaseUtility.IsFunction(controlInstance.GetValue)) {
                         var controlResultValue = controlInstance.GetValue($controlElem, originalData, {});
                         if (controlResultValue.success) {
@@ -151,8 +153,8 @@ let FormRuntime={
             //singleRelation.dataRecordList=allRowRecord;
         }
         formRecordComplexPo.formRecordDataRelationPOList = originalFormDataRelation;
-        console.log(formRecordComplexPo);
-        console.log(JsonUtility.JsonToString(formRecordComplexPo))
+        //console.log(formRecordComplexPo);
+        //console.log(JsonUtility.JsonToString(formRecordComplexPo))
         return formRecordComplexPo;
     },
     DeSerializationFormData:function (formRecordComplexPo) {

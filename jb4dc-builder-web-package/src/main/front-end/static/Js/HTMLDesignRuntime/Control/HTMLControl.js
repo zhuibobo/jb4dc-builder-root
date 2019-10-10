@@ -144,5 +144,68 @@ let HTMLControl={
     },
     SetValue:function ($elem,originalData, paras) {
         
+    },
+    FindALLControls:function ($parent) {
+        if ($parent) {
+            return $parent.find("[jbuild4dc_custom='true']");
+        }
+        return $("[jbuild4dc_custom='true']");
+    },
+    GetControlProp:function ($controlElem) {
+        var props= {
+            singleName: "",
+            tableName: "",
+            tableCaption: "",
+            tableId: "",
+            fieldTableId: "",
+            fieldName: "",
+            fieldDataType: "",
+            fieldDataLength: "",
+            defaultType: "",
+            defaultValue: "",
+            id: "",
+            serialize: ""
+        };
+        //debugger;
+        for(var key in props){
+            var propValue=$controlElem.attr(StringUtility.ToLowerCase(key));
+            if(!StringUtility.IsNullOrEmpty(propValue)) {
+                props[key] = propValue;
+            }
+        }
+        props.fieldDataLength=$controlElem.attr("fieldlength");
+        return props;
+    },
+    BuildSerializationOriginalData:function(props,relationId,relationSingleName,relationType){
+        //var props=this.GetControlProp($controlElem);
+        var originalData = {
+            relationId: relationId,
+            relationSingleName: relationSingleName,
+            relationType: relationType,
+            singleName: props.singleName,
+            tableName:  props.tableName,
+            tableCaption: props.tableCaption,
+            tableId: props.tableId,
+            fieldTableId: props.fieldTableId,
+            fieldName: props.fieldName,
+            fieldDataType: props.fieldDataType,
+            fieldDataLength: props.fieldDataLength,
+            serialize: props.serialize,
+            id: props.id,
+            defaultType: props.defaultType,
+            defaultValue: props.defaultValue,
+            value: "",
+            success: true,
+            msg: ""
+        };
+        return originalData;
+    },
+    GetSerializationOneDataRecordFieldValue:function (oneDataRecord,tableName,fieldName) {
+        for (var i = 0; i < oneDataRecord.length; i++) {
+            if (oneDataRecord[i].tableName == tableName && oneDataRecord[i].fieldName == fieldName) {
+                return oneDataRecord[i].value;
+            }
+        }
+        return "";
     }
 }
