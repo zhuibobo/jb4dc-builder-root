@@ -211,17 +211,19 @@ class CKEditorUtility {
             //alert(selection.getType() );
             var lastCustSingleName="";
             for (var i = 0; i < event.data.path.elements.length; i++) {
-                var elem=event.data.path.elements[i];
-                var singleName=elem.getAttribute("singlename");
-                //console.log(singleName);
-                if (singleName){
-                    lastCustSingleName=singleName;
+                var elem = event.data.path.elements[i];
+                var singleName = elem.getAttribute("singlename");
+                var elemInnerHTML = elem.getHtml();
+                //console.log(elem.getName());
+                if (singleName) {
+                    lastCustSingleName = singleName;
                     //将元素设置为选中元素,该处主要用于切换到html的自动选中的辅助功能
                     CKEditorUtility.SetSelectedElem(elem.getOuterHtml());
                     CKEditorUtility.SetLastSelectedTempHTML(elem.getOuterHtml());
                     var innerHtml = elem.getHtml();
                     //debugger;
-                    innerHtml=innerHtml.replace(/<br \/>/g,"").replace(/<br>/g,"");
+                    innerHtml = innerHtml.replace(/<br \/>/g, "").replace(/<br>/g, "");
+                    //console.log(innerHtml);
                     if (innerHtml.indexOf("<") < 0) {
                         console.log(elem);
                         CKEditorUtility.GetCKEditorInst().getSelection().selectElement(elem);
@@ -232,6 +234,10 @@ class CKEditorUtility {
                         CKEditorUtility.CreatePluginInnerPanel(elem);
                     }
 
+                    break;
+                }
+                if(elem.getName()=="td"&&elemInnerHTML=="&nbsp;") {
+                    CKEditorUtility.GetCKEditorInst().getSelection().selectElement(elem.getChild(0));
                     break;
                 }
             }

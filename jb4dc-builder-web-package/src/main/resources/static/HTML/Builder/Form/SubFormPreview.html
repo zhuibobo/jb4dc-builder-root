@@ -20,7 +20,7 @@
 
             $("#btnConfirm").click(function () {
                 var SerializationSubFormData=formRuntimeInst.SerializationFormData();
-                window.parent.WFDCT_SubFormListContainer.CompletedNewDialogEdit(subFormListContainerInstanceName,operationType,SerializationSubFormData);
+                window.parent.WFDCT_SubFormListContainer.Dialog_CompletedEdit(subFormListContainerInstanceName,operationType,SerializationSubFormData);
                 DialogUtility.CloseOpenIframeWindow(window,DialogUtility.DialogId);
             });
         });</script></head><body><div id="htmlDesignRuntimeWrap"></div><div class="html-design-operation-button-outer-wrap"><div class="html-design-button-inner-wrap"><div class="html-design-buttons-group"><button type="button" class="operation-button operation-button-primary" id="btnConfirm"><span>确认</span></button> <button type="button" class="operation-button"><span>关闭</span></button></div></div></div></body></html>

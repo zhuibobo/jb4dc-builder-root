@@ -29,7 +29,7 @@
 
             $("#btnConfirm").click(function () {
                 var SerializationSubFormData=formRuntimeInst.SerializationFormData();
-                window.parent.WFDCT_SubFormListContainer.CompletedNewDialogEdit(subFormListContainerInstanceName,operationType,SerializationSubFormData);
+                window.parent.WFDCT_SubFormListContainer.Dialog_CompletedEdit(subFormListContainerInstanceName,operationType,SerializationSubFormData);
                 DialogUtility.CloseOpenIframeWindow(window,DialogUtility.DialogId);
             });
         });

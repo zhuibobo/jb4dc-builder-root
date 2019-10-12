@@ -3,6 +3,7 @@ var WFDCT_SubFormListContainer={
     _$TemplateTableRow:null,
     _$SingleControlElem:null,
     _$TableElem:null,
+    _$TableHeadElem:null,
     _$TableBodyElem:null,
     _EditInRow:true,
     _Display_OPButtons_Add:true,
@@ -14,6 +15,7 @@ var WFDCT_SubFormListContainer={
         this._$SingleControlElem = $singleControlElem;
         this._$TableElem = this._$SingleControlElem.find("table");
         this._$TableBodyElem = this._$TableElem.find("tbody");
+        this._$TableHeadElem=this._$TableElem.find("thead");
 
         this._EditInRow = $singleControlElem.attr("editinrow") == "false" ? false : true;
 
@@ -33,6 +35,9 @@ var WFDCT_SubFormListContainer={
 
         if(this._Display_OPButtons_Add) {
             $singleControlElem.prepend("<div class='sub-form-list-button-wrap'></div>").find("div").append(this._AddButtonElem);
+        }
+        if(this._Display_OPButtons_Del||this._Display_OPButtons_Update||this._Display_OPButtons_View){
+            this._$TableHeadElem.find("tr").append("<th style='width: 120px'>操作</th>")
         }
 
         $singleControlElem.append(sourceTable);
@@ -58,20 +63,105 @@ var WFDCT_SubFormListContainer={
     },
     RendererDataChain:HTMLControl.RendererDataChain,
 
+    //region 基础相关方法
     AddEvent:function (sender) {
         var $hostElem = sender.data.hostElem;
         var selfObj = sender.data.selfObj;
         var instanceName = sender.data.instanceName;
         //debugger;
         if (!selfObj._EditInRow) {
-            sender.data.selfObj.AddEventNewDialog(sender, $hostElem, sender.data._rendererChainParas, instanceName);
+            sender.data.selfObj.Dialog_AddEventNew(sender, $hostElem, sender.data._rendererChainParas, instanceName);
         } else {
-            sender.data.selfObj.AddEventInnerRowEdit(sender, $hostElem, sender.data._rendererChainParas, instanceName);
+            sender.data.selfObj.InnerRow_AddEventEdit(sender, $hostElem, sender.data._rendererChainParas, instanceName);
         }
         //console.log($hostElem);
         //alert("1");
     },
-    AddEventNewDialog:function (sender,$hostElem,_rendererChainParas,instanceName) {
+    ValidateSerializationSubFormDataEnable:function(serializationSubFormData){
+        //if(serializationSubFormData.formRecordDataRelationPOList.length>1){
+        //DialogUtility.AlertText("子表暂时不支持数据关联！");
+        //    return false;
+        //}
+        return true;
+    },
+    ValidateRendererChainEnable:function () {
+        //如果不是行内编辑，则只能放置文本标签的内部控件1
+        return {
+            success:true,
+            msg:""
+        }
+    },
+    CreateIdFieldInOneDataRecord:function(oneDataRecord){
+        var idField=JsonUtility.CloneSimple(oneDataRecord[0]);
+        idField.fieldName="ID";
+        idField.value=StringUtility.Guid();
+        oneDataRecord.push(idField);
+    },
+    FindIdFieldByOneDataRecord:function(oneDataRecord){
+        return ArrayUtility.WhereSingle(oneDataRecord,function (item) {
+            return item.fieldName=="ID"
+        });
+    },
+    NewRow:function (oneDataRecord) {
+        var $tr = this._$TemplateTableRow.clone();
+        var controls = HTMLControl.FindALLControls($tr);
+        controls.each(function (i) {
+            var prop=HTMLControl.GetControlProp($(this));
+            //debugger;
+            var cellValue=HTMLControl.GetSerializationOneDataRecordFieldValue(oneDataRecord,prop.tableName,prop.fieldName);
+            $(this).html(cellValue);
+        });
+        var idField=this.FindIdFieldByOneDataRecord(oneDataRecord);
+        if(idField==null){
+            DialogUtility.AlertText("WFDCT_SubFormListContainer.NewRow:查找不到ID的字段！");
+        }
+        console.log("绑定的记录ID:"+idField.value);
+        var idValue=idField.value;
+        $tr.attr("record_id",idValue);
+        $tr.attr("record_data",JsonUtility.JsonToString(oneDataRecord));
+        var lastOperationTd=$("<td><div class='sflt-td-operation-outer-wrap'></div></td>");
+        var lastOperationOuterDiv=lastOperationTd.find("div");
+        if(this._Display_OPButtons_View) {
+            var btn_operation_view = $("<div title='查看' class='sflt-td-operation-view'></div>");
+            lastOperationOuterDiv.append(btn_operation_view);
+            btn_operation_view.bind("click", {
+                "tr_elem": $tr,
+                "id": idValue,
+                "record_data": oneDataRecord
+            }, this.Dialog_ViewRow);
+        }
+        if(this._Display_OPButtons_Update) {
+            var btn_operation_update=$("<div title='编辑' class='sflt-td-operation-update'></div>");
+            lastOperationOuterDiv.append(btn_operation_update);
+            btn_operation_view.bind("click",{
+                "tr_elem": $tr,
+                "id": idValue,
+                "record_data": oneDataRecord
+            },this.Dialog_UpdateRow);
+        }
+        if(this._Display_OPButtons_Del) {
+            var btn_operation_del=$("<div title='删除' class='sflt-td-operation-del'></div>");
+            lastOperationOuterDiv.append(btn_operation_del);
+            btn_operation_view.bind("click",{
+                "tr_elem": $tr,
+                "id": idValue,
+                "record_data": oneDataRecord
+            },this.Dialog_DelRow)
+        }
+        $tr.append(lastOperationTd);
+        this._$TableBodyElem.append($tr);
+    },
+    //endregion
+
+    //region 行内编辑相关方法
+    InnerRow_AddEventEdit:function (sender,$hostElem,_rendererChainParas) {
+        var $tr = this._$TemplateTableRow.clone();
+        this._$TableBodyElem.append($tr);
+    },
+    //endregion
+
+    //region 对话框编辑相关方法
+    Dialog_AddEventNew:function (sender,$hostElem,_rendererChainParas,instanceName) {
         var formId=$hostElem.attr("formid");
         var windowHeight=$hostElem.attr("windowheight");
         var windowWidth=$hostElem.attr("windowwidth");
@@ -97,7 +187,7 @@ var WFDCT_SubFormListContainer={
         //console.log(windowHeight);
         //console.log(windowWidth);
     },
-    CompletedNewDialogEdit:function(instanceName,operationType,serializationSubFormData){
+    Dialog_CompletedEdit:function(instanceName,operationType,serializationSubFormData){
 
         if(this.ValidateSerializationSubFormDataEnable(serializationSubFormData)) {
 
@@ -120,51 +210,14 @@ var WFDCT_SubFormListContainer={
 
         }
     },
-    AddEventInnerRowEdit:function (sender,$hostElem,_rendererChainParas) {
+    Dialog_ViewRow:function (sender) {
 
     },
-    ValidateSerializationSubFormDataEnable:function(serializationSubFormData){
-        if(serializationSubFormData.formRecordDataRelationPOList.length>1){
-            DialogUtility.AlertText("子表暂时不支持数据关联！");
-            return false;
-        }
-        return true;
+    Dialog_UpdateRow:function (sender) {
+
     },
-    ValidateRendererChainEnable:function () {
-        //如果不是行内编辑，则只能放置文本标签的内部控件1
-        return {
-            success:true,
-            msg:""
-        }
-    },
-    CreateIdFieldInOneDataRecord:function(oneDataRecord){
-        var idField=JsonUtility.CloneSimple(oneDataRecord[0]);
-        idField.fieldName="ID";
-        idField.value=StringUtility.Guid();
-        oneDataRecord.push(idField);
-    },
-    FindIdFieldByOneDataRecord:function(oneDataRecord){
-        return ArrayUtility.WhereSingle(oneDataRecord,function (item) {
-            return item.fieldName=="ID"
-        });
-    },
-    NewRow:function (oneDataRecord) {
-        var $tr = this._$TemplateTableRow;
-        var controls = HTMLControl.FindALLControls($tr);
-        controls.each(function (i) {
-            var prop=HTMLControl.GetControlProp($(this));
-            //debugger;
-            var cellValue=HTMLControl.GetSerializationOneDataRecordFieldValue(oneDataRecord,prop.tableName,prop.fieldName);
-            $(this).html(cellValue);
-        });
-        var idField=this.FindIdFieldByOneDataRecord(oneDataRecord);
-        if(idField==null){
-            DialogUtility.AlertText("WFDCT_SubFormListContainer.NewRow:查找不到ID的字段！");
-        }
-        console.log("绑定的记录ID:"+idField.value);
-        var idValue=idField.value;
-        $tr.attr("record_id",idValue);
-        $tr.attr("record_data",JsonUtility.JsonToString(oneDataRecord));
-        this._$TableBodyElem.append($tr);
+    Dialog_DelRow:function (sender) {
+
     }
+    //endregion
 }
