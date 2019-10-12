@@ -156,7 +156,8 @@ class CKEditorPluginUtility {
         ckEditor.on('doubleclick', function (event) {
             //debugger;
             //alert("1");
-            pluginSetting.IFrameExecuteActionName = CKEditorPluginUtility.DialogExecuteEditActionName;
+            //console.log(event);
+            //pluginSetting.IFrameExecuteActionName = CKEditorPluginUtility.DialogExecuteEditActionName;
             CKEditorPluginUtility.OnCKWysiwygElemDBClickEvent(event, pluginSetting)
         });
 
@@ -225,6 +226,7 @@ class CKEditorPluginUtility {
         if(singleName==controlSetting.SingleName) {
             CKEditorUtility.SetSelectedElem(element.getOuterHtml());
             event.data.dialog =controlSetting.DialogName;
+            controlSetting.IFrameExecuteActionName = CKEditorPluginUtility.DialogExecuteEditActionName;
         }
     }
 
@@ -338,6 +340,7 @@ class CKEditorPluginUtility {
     static BuildGeneralElemToCKWysiwyg (html,controlSetting,controlProps,_iframe) {
         //debugger;
         if(this.ValidateBuildEnable(html,controlSetting,controlProps,_iframe)) {
+            console.log("IFrameExecuteActionName:"+controlSetting.IFrameExecuteActionName);
             if (controlSetting.IFrameExecuteActionName == CKEditorPluginUtility.DialogExecuteInsertActionName) {
                 var elem = CKEDITOR.dom.element.createFromHtml(html);
                 /*elem.on('click', function() {

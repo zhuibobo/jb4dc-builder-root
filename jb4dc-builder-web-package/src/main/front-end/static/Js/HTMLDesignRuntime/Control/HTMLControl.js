@@ -207,5 +207,21 @@ let HTMLControl={
             }
         }
         return "";
+    },
+    TryGetFieldTransferPO:function ($controlElem,relationId,relationSingleName,relationType) {
+        var props=HTMLControl.GetControlProp($controlElem);
+        var originalData=HTMLControl.BuildSerializationOriginalData(props,relationId,relationSingleName,relationType);
+        var controlInstance = HTMLControl.GetControlInstanceByElem($controlElem);
+
+        if (BaseUtility.IsFunction(controlInstance.GetValue)) {
+            var fieldTransferPO = controlInstance.GetValue($controlElem, originalData, {});
+            if (fieldTransferPO.success) {
+                return fieldTransferPO;
+            } else {
+                return null;
+            }
+        } else {
+            DialogUtility.AlertText("控件:" + $controlElem.attr("singlename") + "未包含GetValue的方法!");
+        }
     }
 }

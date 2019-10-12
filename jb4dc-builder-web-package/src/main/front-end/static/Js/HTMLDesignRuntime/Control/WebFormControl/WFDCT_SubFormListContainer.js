@@ -10,6 +10,8 @@ var WFDCT_SubFormListContainer={
     _Display_OPButtons_Update:true,
     _Display_OPButtons_Del:true,
     _Display_OPButtons_View:true,
+    _FormRuntimeHost:null,
+
     RendererChain:function (_rendererChainParas) {
         var $singleControlElem = _rendererChainParas.$singleControlElem;
         this._$SingleControlElem = $singleControlElem;
@@ -18,6 +20,8 @@ var WFDCT_SubFormListContainer={
         this._$TableHeadElem=this._$TableElem.find("thead");
 
         this._EditInRow = $singleControlElem.attr("editinrow") == "false" ? false : true;
+
+        this._FormRuntimeHost=_rendererChainParas.formRuntimeInstance;
 
         var opbuttons = $singleControlElem.attr("opbuttons");
         this._Display_OPButtons_Add = opbuttons.indexOf("add") >= 0;
@@ -70,9 +74,9 @@ var WFDCT_SubFormListContainer={
         var instanceName = sender.data.instanceName;
         //debugger;
         if (!selfObj._EditInRow) {
-            sender.data.selfObj.Dialog_AddEventNew(sender, $hostElem, sender.data._rendererChainParas, instanceName);
+            sender.data.selfObj.Dialog_Add(sender, $hostElem, sender.data._rendererChainParas, instanceName);
         } else {
-            sender.data.selfObj.InnerRow_AddEventEdit(sender, $hostElem, sender.data._rendererChainParas, instanceName);
+            sender.data.selfObj.InnerRow_Add(sender, $hostElem, sender.data._rendererChainParas, instanceName);
         }
         //console.log($hostElem);
         //alert("1");
@@ -102,7 +106,7 @@ var WFDCT_SubFormListContainer={
             return item.fieldName=="ID"
         });
     },
-    NewRow:function (oneDataRecord) {
+    UpdateRow:function (oneDataRecord,$pageTr) {
         var $tr = this._$TemplateTableRow.clone();
         var controls = HTMLControl.FindALLControls($tr);
         controls.each(function (i) {
@@ -151,17 +155,70 @@ var WFDCT_SubFormListContainer={
         $tr.append(lastOperationTd);
         this._$TableBodyElem.append($tr);
     },
+    TryGetRelationPO:function(){
+        var bindDataSource=this.TryGetBindDataSourceAttr();
+        if(bindDataSource=="autoTesting"){
+            var bindTableName=this.TryGetInnerControlBindTableName();
+            var po=this._FormRuntimeHost.GetRelationPOByTableName(bindTableName);
+            if(po==null){
+                DialogUtility.AlertText("WFDCT_SubFormListContainer.TryGetRelationPO:通过内部控件绑定的表找不到具体的数据关联实体！");
+            }
+            else{
+                return po;
+            }
+        }
+        else {
+
+            var po=this._FormRuntimeHost.GetRelationPOById(bindDataSource);
+            if(po==null){
+                DialogUtility.AlertText("WFDCT_SubFormListContainer.TryGetRelationPO:通过ID"+bindDataSource+"找不到具体的数据关联实体！");
+            }
+            else{
+                return po;
+            }
+        }
+    },
+    TryGetInnerControlBindTableName:function(){
+        var controls = HTMLControl.FindALLControls(this._$SingleControlElem);
+    },
+    TryGetBindDataSourceAttr:function(){
+        return this._$SingleControlElem.attr("binddatasource");
+    },
     //endregion
 
     //region 行内编辑相关方法
-    InnerRow_AddEventEdit:function (sender,$hostElem,_rendererChainParas) {
+    _$LastEditRow:null,
+    InnerRow_Add:function (sender,$hostElem,_rendererChainParas) {
         var $tr = this._$TemplateTableRow.clone();
+        var lastOperationTd = $("<td><div class='sflt-td-operation-outer-wrap'></div></td>");
+        var lastOperationOuterDiv = lastOperationTd.find("div");
+
+        var btn_operation_del = $("<div title='删除' class='sflt-td-operation-del'></div>");
+        lastOperationOuterDiv.append(btn_operation_del);
+
+        var btn_operation_update = $("<div title='编辑' class='sflt-td-operation-update'></div>");
+        lastOperationOuterDiv.append(btn_operation_update);
+
+        $tr.append(lastOperationTd);
+
         this._$TableBodyElem.append($tr);
+        this._$LastEditRow = $tr;
+    },
+    InnerRow_CompletedLastEdit:function(){
+        if(this._$LastEditRow){
+            var controls = HTMLControl.FindALLControls(this._$LastEditRow);
+
+            var oneRowRecord = [];
+            for (var i = 0; i < controls.length; i++) {
+                var singleControl=$(controls[i]);
+                var fieldTransferPO = HTMLControl.TryGetFieldTransferPO(singleControl, singleRelation.id, relationSingleName, relationType);
+            }
+        }
     },
     //endregion
 
     //region 对话框编辑相关方法
-    Dialog_AddEventNew:function (sender,$hostElem,_rendererChainParas,instanceName) {
+    Dialog_Add:function (sender,$hostElem,_rendererChainParas,instanceName) {
         var formId=$hostElem.attr("formid");
         var windowHeight=$hostElem.attr("windowheight");
         var windowWidth=$hostElem.attr("windowwidth");
@@ -206,7 +263,7 @@ var WFDCT_SubFormListContainer={
             //console.log(oneDataRecord);
             //console.log(this._$TemplateTableRow);
             //this._$TableBodyElem.append("<tr><td></td><td></td><td></td><td></td></tr>");
-            this.NewRow(oneDataRecord);
+            this.UpdateRow(oneDataRecord);
 
         }
     },

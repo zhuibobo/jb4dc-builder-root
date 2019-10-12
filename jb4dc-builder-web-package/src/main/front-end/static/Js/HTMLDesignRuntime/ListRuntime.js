@@ -47,7 +47,7 @@ var ListRuntime={
 
             //进行元素渲染
             VirtualBodyControl.RendererChain({
-                listEntity:result.data,
+                po:result.data,
                 sourceHTML:result.data.listHtmlRuntime,
                 $rootElem:this._$RendererToElem,
                 $parentControlElem:this._$RendererToElem,
@@ -67,7 +67,7 @@ var ListRuntime={
             //获取绑定的数据集合之后
             var topDataSetId=result.data.listDatasetId;
             VirtualBodyControl.RendererDataChain({
-                listEntity:result.data,
+                po:result.data,
                 sourceHTML:result.data.listHtmlRuntime,
                 $rootElem:this._$RendererToElem,
                 $parentControlElem:this._$RendererToElem,

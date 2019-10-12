@@ -14,6 +14,7 @@ let FormRuntime={
     },
     _$RendererToElem:null,
     _FormPO:null,
+    _FormDataRelationList:null,
     Initialization:function (_config) {
         this._Prop_Config= $.extend(true,{},this._Prop_Config,_config);
         this._$RendererToElem=$("#"+this._Prop_Config.RendererToId);
@@ -46,13 +47,15 @@ let FormRuntime={
             //if($rootElem.)
             console.log(result);
             this._FormPO=result.data;
+            this._FormDataRelationList=JsonUtility.StringToJson(this._FormPO.formDataRelation);
+
             this._$RendererToElem.append(result.data.formHtmlRuntime);
 
             //VirtualBodyControl.RendererChain(result.data.formHtmlRuntime,this._$RendererToElem,this._$RendererToElem);
 
             //进行元素渲染
             VirtualBodyControl.RendererChain({
-                listEntity: result.data,
+                po: result.data,
                 sourceHTML: result.data.formHtmlRuntime,
                 $rootElem: this._$RendererToElem,
                 $parentControlElem: this._$RendererToElem,
@@ -108,8 +111,8 @@ let FormRuntime={
                 var oneRowRecord = [];
                 for (var j = 0; j < controls.length; j++) {
                     var $controlElem = $(controls[j]);
-                    var controlInstance = HTMLControl.GetControlInstanceByElem($controlElem);
-                    console.log($controlElem.attr("singlename") + "||" + controlInstance);
+                    //var controlInstance = HTMLControl.GetControlInstanceByElem($controlElem);
+                    //console.log($controlElem.attr("singlename") + "||" + controlInstance);
                     /*var originalData = {
                         relationId: singleRelation.id,
                         relationSingleName: singleName,
@@ -130,7 +133,7 @@ let FormRuntime={
                         success: true,
                         msg: ""
                     };*/
-                    var props=HTMLControl.GetControlProp($controlElem);
+                    /*var props=HTMLControl.GetControlProp($controlElem);
                     var originalData=HTMLControl.BuildSerializationOriginalData(props,singleRelation.id,relationSingleName,relationType);
                     if (BaseUtility.IsFunction(controlInstance.GetValue)) {
                         var controlResultValue = controlInstance.GetValue($controlElem, originalData, {});
@@ -141,10 +144,11 @@ let FormRuntime={
                         }
                     } else {
                         DialogUtility.AlertText("控件:" + $controlElem.attr("singlename") + "未包含GetValue的方法!");
-                    }
+                    }*/
+                    var fieldTransferPO = HTMLControl.TryGetFieldTransferPO($controlElem, singleRelation.id, relationSingleName, relationType);
+                    oneRowRecord.push(fieldTransferPO);
                 }
                 //allRowRecord.push(oneRowRecord);
-
                 singleRelation.oneDataRecord = oneRowRecord;
             } else {
 
@@ -168,5 +172,20 @@ let FormRuntime={
             $singleControlElem: this._$RendererToElem,
             formRuntimeInstance: this
         });
+    },
+    GetRelationPOById:function (id) {
+        return ArrayUtility.WhereSingle(this._FormDataRelationList,function (po) {
+            return po.id==id;
+        })
+    },
+    GetRelationPOByTableName:function (tableName) {
+        return ArrayUtility.WhereSingle(this._FormDataRelationList,function (po) {
+            return po.tableName==tableName;
+        })
+    },
+    GetRelationPOBySingleName:function (singleName) {
+        return ArrayUtility.WhereSingle(this._FormDataRelationList,function (po) {
+            return po.singleName==singleName;
+        })
     }
 }
