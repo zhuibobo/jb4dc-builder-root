@@ -143,13 +143,19 @@ let HTMLControl={
         return originalData;
     },
     SetValue:function ($elem,originalData, paras) {
-        
+        $elem.val(originalData.value);
     },
     FindALLControls:function ($parent) {
         if ($parent) {
             return $parent.find("[jbuild4dc_custom='true']");
         }
         return $("[jbuild4dc_custom='true']");
+    },
+    GetControlBindTableName:function($controlElem){
+        return $controlElem.attr("tablename");
+    },
+    GetControlBindFieldName:function($controlElem){
+        return $controlElem.attr("fieldname");
     },
     GetControlProp:function ($controlElem) {
         var props= {
@@ -164,7 +170,8 @@ let HTMLControl={
             defaultType: "",
             defaultValue: "",
             id: "",
-            serialize: ""
+            serialize: "",
+            value:""
         };
         //debugger;
         for(var key in props){

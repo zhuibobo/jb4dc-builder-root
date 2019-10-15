@@ -187,5 +187,34 @@ let FormRuntime={
         return ArrayUtility.WhereSingle(this._FormDataRelationList,function (po) {
             return po.singleName==singleName;
         })
+    },
+    Set1To1DataRecord:function (po, data) {
+        po.oneDataRecord=data;
+        return po;
+    },
+    Get1To1DataRecord:function (po) {
+        return po.oneDataRecord;
+    },
+    Set1ToNDataRecord:function (po, arrayData) {
+        po.listDataRecord=arrayData;
+        return po;
+    },
+    Get1ToNDataRecord:function (po) {
+        return po.listDataRecord;
+    },
+    FindFieldPOByRelationPO:function(relationPO,fieldName){
+        var oneDataRecord = FormRuntime.Get1To1DataRecord(relationPO);
+        var fieldPO=ArrayUtility.WhereSingle(oneDataRecord,function (item) {
+            return item.fieldName==fieldName;
+        });
+        if(fieldPO){
+            return fieldPO;
+        }
+        else{
+            DialogUtility.AlertText("FormRuntime.FindFieldPOByRelationPO:找不到字段"+fieldName+"的数据值!");
+        }
+    },
+    FindIdFieldPOByRelationPO:function(relationPO){
+        return this.FindFieldPOByRelationPO(relationPO,"ID");
     }
 }

@@ -176,10 +176,14 @@ Vue.component("module-list-webform-comp", {
                 var previewUrl = BaseUtility.BuildView(this.acInterface.previewWebFormUrl,{
                     FormId:recordId
                 });
-                DialogUtility.OpenNewWindow(window, DialogUtility.DialogNewWindowId, previewUrl, {
+                DialogUtility.OpenNewTabWindow(previewUrl);
+                /*var link=$("<a href='"+previewUrl+"' style='position:absolute;top: -100px' target='_blank'></a>");
+                $(window.document.body).append(link);
+                link[0].click();*/
+                /*DialogUtility.OpenNewWindow(window, DialogUtility.DialogNewWindowId, previewUrl, {
                     width: 0,
                     height: 0
-                }, 1);
+                }, 1);*/
             });
         }
     },
