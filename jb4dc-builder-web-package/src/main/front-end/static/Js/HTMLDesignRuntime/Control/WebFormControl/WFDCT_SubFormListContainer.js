@@ -247,6 +247,7 @@ var WFDCT_SubFormListContainer={
         this._$LastEditRow = null;
     },
     InnerRow_Delete:function(sender,$hostElem,$elem,$tr){
+        this.InnerRow_CompletedLastEdit();
         $tr.remove();
     },
     InnerRow_CompletedLastEdit:function(){
