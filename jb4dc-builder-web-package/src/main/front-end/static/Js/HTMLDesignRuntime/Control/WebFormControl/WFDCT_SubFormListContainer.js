@@ -234,7 +234,7 @@ var WFDCT_SubFormListContainer={
     InnerRow_ToViewStatus:function(relationPO,$tr) {
         if(this._$LastEditRow){
             var controls = HTMLControl.FindALLControls(this._$LastEditRow);
-            var oneRowRecord = FormRuntime.Get1To1DataRecord(relationPO);
+            //var oneRowRecord = FormRuntime.Get1To1DataRecord(relationPO);
             for (var i = 0; i < controls.length; i++) {
                 var singleControl=$(controls[i]);
                 var fieldName=HTMLControl.GetControlBindFieldName(singleControl);
