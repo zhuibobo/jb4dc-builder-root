@@ -180,8 +180,18 @@ var WFDCT_SubFormListContainer={
         var lastOperationTd = $("<td><div class='sflt-td-operation-outer-wrap'></div></td>");
         var lastOperationOuterDiv = lastOperationTd.find("div");
 
+        //region 删除按钮
         var btn_operation_del = $("<div title='删除' class='sflt-td-operation-del'></div>");
+        btn_operation_del.bind("click",{
+            hostElem:$hostElem,
+            selfObj:this,
+        },function (sender) {
+            var $hostElem = sender.data.hostElem;
+            var selfObj = sender.data.selfObj;
+            selfObj.InnerRow_Delete(sender, $hostElem, $(this),$(this).parent().parent().parent());
+        });
         lastOperationOuterDiv.append(btn_operation_del);
+        //endregion
 
         //region 编辑按钮
         var btn_operation_update = $("<div title='编辑' class='sflt-td-operation-update'></div>");
@@ -236,8 +246,8 @@ var WFDCT_SubFormListContainer={
         }
         this._$LastEditRow = null;
     },
-    InnerRow_Delete:function(){
-
+    InnerRow_Delete:function(sender,$hostElem,$elem,$tr){
+        $tr.remove();
     },
     InnerRow_CompletedLastEdit:function(){
         if(this._$LastEditRow){
