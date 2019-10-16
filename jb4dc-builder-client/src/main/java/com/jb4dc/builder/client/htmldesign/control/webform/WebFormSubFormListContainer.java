@@ -7,6 +7,7 @@ import com.jb4dc.builder.po.HtmlControlDefinitionPO;
 import com.jb4dc.builder.po.ResolveHTMLControlContextPO;
 import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
 import com.jb4dc.core.base.session.JB4DCSession;
+import com.jb4dc.core.base.tools.UUIDUtility;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 
@@ -21,6 +22,8 @@ public class WebFormSubFormListContainer extends HTMLControl implements IHTMLCon
     @Override
     public void resolveSelf(JB4DCSession jb4DCSession, String sourceHTML, Document doc, Element singleControlElem, Element parentElem, Element lastParentJbuild4dCustomElem, ResolveHTMLControlContextPO resolveHTMLControlContextPO, HtmlControlDefinitionPO htmlControlDefinitionPO) throws JBuild4DCGenerallyException {
         //singleControlElem.tagName("label");
+        String script=getClientNewInstanceScript(singleControlElem,false,"");
+        singleControlElem.append(script);
     }
 
     @Override

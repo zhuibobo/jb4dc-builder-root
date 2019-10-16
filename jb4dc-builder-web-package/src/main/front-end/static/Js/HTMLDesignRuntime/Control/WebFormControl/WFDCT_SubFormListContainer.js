@@ -46,7 +46,7 @@ var WFDCT_SubFormListContainer={
 
         $singleControlElem.append(sourceTable);
 
-        var instanceName = HTMLControl.SaveControlNewInstanceToPool($singleControlElem, this);
+        var instanceName = HTMLControl.GetControlInstanceNameByElem($singleControlElem);
 
         this._AddButtonElem.bind("click", {
             hostElem: $singleControlElem,
@@ -63,9 +63,31 @@ var WFDCT_SubFormListContainer={
             DialogUtility.AlertText(validateRendererChainEnable.msg);
         }
 
-
+        //debugger;
+        var relationPO=this.TryGetRelationPO();
+        $singleControlElem.attr("relation_po_id",relationPO.id);
+        //this._FormRuntimeHost.ConnectRelationPOToDynamicContainerControl(relationPO,this);
     },
     RendererDataChain:HTMLControl.RendererDataChain,
+
+    SerializationValue:function(originalFormDataRelation,relationPO,control){
+        this.InnerRow_CompletedLastEdit();
+        var allData=[];
+        var trs=this._$SingleControlElem.find("tr[is_sub_list_tr='true']");
+        for (var i = 0; i < trs.length; i++) {
+            var $tr = $(trs[i]);
+            var singleRelationPO=this.GetRowData($tr);
+            allData.push(FormRuntime.Get1To1DataRecord(singleRelationPO))
+            //console.log(singleJsonData);
+        }
+        FormRuntime.Set1ToNDataRecord(relationPO,allData);
+    },
+    GetValue:function ($elem,originalData, paras) {
+        DialogUtility.AlertText("DynamicContainer类型的控件的序列化交由SerializationValue方法自行完成!");
+    },
+    SetValue:function ($elem,originalData, paras) {
+
+    },
 
     //region 基础相关方法
     AddEvent:function (sender) {
@@ -126,6 +148,7 @@ var WFDCT_SubFormListContainer={
         } else {
 
         }
+        $tr.attr("is_sub_list_tr","true");
         this.SetRowId($tr, relationPO);
         this.SetRowData($tr, relationPO);
     },
@@ -153,7 +176,7 @@ var WFDCT_SubFormListContainer={
         return JsonUtility.CloneSimple(this._po);
     },
     TryGetInnerControlBindTableName:function(){
-        var controls = HTMLControl.FindALLControls(this._$SingleControlElem);
+        var controls = HTMLControl.FindALLControls(this._$TemplateTableRow);
         var tableName=null;
         controls.each(function () {
             if(!tableName) {
@@ -172,7 +195,7 @@ var WFDCT_SubFormListContainer={
     },
     //endregion
 
-    //region 行内编辑相关方法1
+    //region 行内编辑相关方法
     _$LastEditRow:null,
     InnerRow_Add:function (sender,$hostElem,_rendererChainParas,instanceName) {
         this.InnerRow_CompletedLastEdit();

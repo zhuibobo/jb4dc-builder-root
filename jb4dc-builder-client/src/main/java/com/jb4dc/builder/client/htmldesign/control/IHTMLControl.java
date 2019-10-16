@@ -52,4 +52,5 @@ public interface IHTMLControl {
                        ResolveHTMLControlContextPO resolveHTMLControlContextPO,
                        HtmlControlDefinitionPO htmlControlDefinitionPO) throws JBuild4DCGenerallyException;
 
+    String getClientNewInstanceScript(Element singleControlElem, boolean needInitialize, String initializeParas);
 }

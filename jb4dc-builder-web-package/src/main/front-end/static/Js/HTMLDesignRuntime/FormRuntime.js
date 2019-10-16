@@ -15,6 +15,7 @@ let FormRuntime={
     _$RendererToElem:null,
     _FormPO:null,
     _FormDataRelationList:null,
+    _RelationPOWithDynamicContainerControl:{},
     Initialization:function (_config) {
         this._Prop_Config= $.extend(true,{},this._Prop_Config,_config);
         this._$RendererToElem=$("#"+this._Prop_Config.RendererToId);
@@ -51,18 +52,23 @@ let FormRuntime={
 
             this._$RendererToElem.append(result.data.formHtmlRuntime);
 
-            //VirtualBodyControl.RendererChain(result.data.formHtmlRuntime,this._$RendererToElem,this._$RendererToElem);
-
-            //进行元素渲染
             VirtualBodyControl.RendererChain({
-                po: result.data,
-                sourceHTML: result.data.formHtmlRuntime,
+                po:result.data,
+                sourceHTML:result.data.formHtmlRuntime,
                 $rootElem: this._$RendererToElem,
                 $parentControlElem: this._$RendererToElem,
                 $singleControlElem: this._$RendererToElem,
                 formRuntimeInstance: this
             });
+
+            var formFullData=FormRuntimeMock.GetMockData();
+            //this.DeSerializationFormData(formFullData);
+
         }, this);
+    },
+    StartRenderer:function(){
+        //进行元素渲染
+
     },
     IsPreview: function () {
         return this._Prop_Config.IsPreview
@@ -149,28 +155,36 @@ let FormRuntime={
                     oneRowRecord.push(fieldTransferPO);
                 }
                 //allRowRecord.push(oneRowRecord);
-                singleRelation.oneDataRecord = oneRowRecord;
+                //singleRelation.oneDataRecord = oneRowRecord;
+                this.Set1To1DataRecord(singleRelation,oneRowRecord);
             } else {
-
+                //var relationPOId=singleRelation.id;
+                //var dynamicContainerControlInstance=this._RelationPOWithDynamicContainerControl[relationPOId];
+                //var dynamicContainerControlInstance.Get
+                var control = $("[serialize='true'][control_category='DynamicContainer'][relation_po_id='"+singleRelation.id+"']");
+                if(control.length>0) {
+                    var controlInstance = HTMLControl.GetControlInstanceByElem(control);
+                    controlInstance.SerializationValue(originalFormDataRelation,singleRelation,control);
+                }
             }
-
             //singleRelation.dataRecordList=allRowRecord;
         }
         formRecordComplexPo.formRecordDataRelationPOList = originalFormDataRelation;
-        //console.log(formRecordComplexPo);
+        console.log(formRecordComplexPo);
+        console.log(JsonUtility.JsonToString(formRecordComplexPo))
         //console.log(JsonUtility.JsonToString(formRecordComplexPo))
         return formRecordComplexPo;
     },
     DeSerializationFormData:function (formRecordComplexPo) {
-
         //绑定数据并进行二次渲染绑定数据。
         VirtualBodyControl.RendererDataChain({
-            listEntity: result.data,
-            sourceHTML: result.data.formHtmlRuntime,
-            $rootElem: this._$RendererToElem,
-            $parentControlElem: this._$RendererToElem,
-            $singleControlElem: this._$RendererToElem,
-            formRuntimeInstance: this
+            //po: result.data,
+            //sourceHTML: result.data.formHtmlRuntime,
+            //$rootElem: this._$RendererToElem,
+            //$parentControlElem: this._$RendererToElem,
+            //$singleControlElem: this._$RendererToElem,
+            //formRuntimeInstance: this,
+            formRecordComplexPo:formRecordComplexPo
         });
     },
     GetRelationPOById:function (id) {
@@ -188,19 +202,19 @@ let FormRuntime={
             return po.singleName==singleName;
         })
     },
-    Set1To1DataRecord:function (po, data) {
-        po.oneDataRecord=data;
-        return po;
+    Set1To1DataRecord:function (relationPO, data) {
+        relationPO.oneDataRecord=data;
+        return relationPO;
     },
-    Get1To1DataRecord:function (po) {
-        return po.oneDataRecord;
+    Get1To1DataRecord:function (relationPO) {
+        return relationPO.oneDataRecord;
     },
-    Set1ToNDataRecord:function (po, arrayData) {
-        po.listDataRecord=arrayData;
-        return po;
+    Set1ToNDataRecord:function (relationPO, arrayData) {
+        relationPO.listDataRecord=arrayData;
+        return relationPO;
     },
-    Get1ToNDataRecord:function (po) {
-        return po.listDataRecord;
+    Get1ToNDataRecord:function (relationPO) {
+        return relationPO.listDataRecord;
     },
     FindFieldPOByRelationPO:function(relationPO,fieldName){
         var oneDataRecord = FormRuntime.Get1To1DataRecord(relationPO);
@@ -216,5 +230,782 @@ let FormRuntime={
     },
     FindIdFieldPOByRelationPO:function(relationPO){
         return this.FindFieldPOByRelationPO(relationPO,"ID");
+    },
+    ConnectRelationPOToDynamicContainerControl:function (relationPO,dynamicContainerControlInstance) {
+        this._RelationPOWithDynamicContainerControl[relationPO.id]=dynamicContainerControlInstance;
+    }
+}
+
+let FormRuntimeMock={
+    GetMockData:function () {
+        return {
+            "id": "",
+            "formId": "34db0d6f-7978-4acf-8a45-13a6ee5f63e2",
+            "buttonId": "",
+            "formRecordDataRelationPOList": [
+                {
+                    "id": "d9bc9332-3c94-28bb-1c11-049764c69eb5",
+                    "parentId": "-1",
+                    "singleName": "",
+                    "pkFieldName": "",
+                    "desc": "",
+                    "selfKeyFieldName": "",
+                    "outerKeyFieldName": "",
+                    "relationType": "1To1",
+                    "isSave": "true",
+                    "condition": "",
+                    "tableId": "TDEV_TEST_1",
+                    "tableName": "TDEV_TEST_1",
+                    "tableCaption": "开发测试表1",
+                    "tableCode": "T_10437",
+                    "displayText": "TDEV_TEST_1[开发测试表1]",
+                    "icon": "../../../Themes/Png16X16/table.png",
+                    "isMain": true,
+                    "oneDataRecord": [
+                        {
+                            "relationId": "d9bc9332-3c94-28bb-1c11-049764c69eb5",
+                            "relationSingleName": "",
+                            "relationType": "1To1",
+                            "singleName": "WFDCT_TextBox",
+                            "tableName": "TDEV_TEST_1",
+                            "tableCaption": "开发测试表1",
+                            "tableId": "TDEV_TEST_1",
+                            "fieldTableId": "",
+                            "fieldName": "F_TITLE",
+                            "fieldDataType": "字符串",
+                            "fieldDataLength": "200",
+                            "serialize": "true",
+                            "id": "txt_897949295",
+                            "defaultType": "Const",
+                            "defaultValue": "测试",
+                            "value": "测试",
+                            "success": true,
+                            "msg": ""
+                        },
+                        {
+                            "relationId": "d9bc9332-3c94-28bb-1c11-049764c69eb5",
+                            "relationSingleName": "",
+                            "relationType": "1To1",
+                            "singleName": "WFDCT_TextDateTime",
+                            "tableName": "TDEV_TEST_1",
+                            "tableCaption": "开发测试表1",
+                            "tableId": "TDEV_TEST_1",
+                            "fieldTableId": "",
+                            "fieldName": "F_PUBLIC_TIME",
+                            "fieldDataType": "日期时间",
+                            "fieldDataLength": "20",
+                            "serialize": "true",
+                            "id": "txt_dt_375186891",
+                            "defaultType": "EnvVar",
+                            "defaultValue": "ENV_DATETIME_YYYY_MM_DD",
+                            "value": "2019-10-16",
+                            "success": true,
+                            "msg": ""
+                        },
+                        {
+                            "relationId": "d9bc9332-3c94-28bb-1c11-049764c69eb5",
+                            "relationSingleName": "",
+                            "relationType": "1To1",
+                            "singleName": "WFDCT_DropDownSelect",
+                            "tableName": "TDEV_TEST_1",
+                            "tableCaption": "开发测试表1",
+                            "tableId": "TDEV_TEST_1",
+                            "fieldTableId": "",
+                            "fieldName": "F_PUBLIC_TIME",
+                            "fieldDataType": "日期时间",
+                            "fieldDataLength": "20",
+                            "serialize": "true",
+                            "id": "sel_246410688",
+                            "defaultType": "",
+                            "defaultValue": "",
+                            "value": "2",
+                            "success": true,
+                            "msg": ""
+                        },
+                        {
+                            "relationId": "d9bc9332-3c94-28bb-1c11-049764c69eb5",
+                            "relationSingleName": "",
+                            "relationType": "1To1",
+                            "singleName": "WFDCT_TextBox",
+                            "tableName": "TDEV_TEST_1",
+                            "tableCaption": "开发测试表1",
+                            "tableId": "TDEV_TEST_1",
+                            "fieldTableId": "",
+                            "fieldName": "F_ORGAN_ID",
+                            "fieldDataType": "字符串",
+                            "fieldDataLength": "50",
+                            "serialize": "true",
+                            "id": "txt_897909755",
+                            "defaultType": "EnvVar",
+                            "defaultValue": "ENV_SYSTEM_CURRENT_USER_ORGAN_ID",
+                            "value": "10001",
+                            "success": true,
+                            "msg": ""
+                        }
+                    ]
+                },
+                {
+                    "id": "2d7def75-1438-7614-af7d-60ce0650eba6",
+                    "parentId": "d9bc9332-3c94-28bb-1c11-049764c69eb5",
+                    "singleName": "",
+                    "pkFieldName": "",
+                    "desc": "",
+                    "selfKeyFieldName": "",
+                    "outerKeyFieldName": "",
+                    "relationType": "1ToN",
+                    "isSave": "true",
+                    "condition": "",
+                    "tableId": "TDEV_TEST_2",
+                    "tableName": "TDEV_TEST_2",
+                    "tableCaption": "开发测试表2",
+                    "tableCode": "T_10438",
+                    "displayText": "TDEV_TEST_2[开发测试表2](1ToN)",
+                    "icon": "../../../Themes/Png16X16/table.png",
+                    "isMain": false,
+                    "listDataRecord": [
+                        [
+                            {
+                                "relationId": "2d7def75-1438-7614-af7d-60ce0650eba6",
+                                "relationSingleName": "",
+                                "relationType": "1ToN",
+                                "singleName": "WFDCT_TextBox",
+                                "tableName": "TDEV_TEST_2",
+                                "tableCaption": "开发测试表2",
+                                "tableId": "TDEV_TEST_2",
+                                "fieldTableId": "",
+                                "fieldName": "F_TITLE",
+                                "fieldDataType": "字符串",
+                                "fieldDataLength": "200",
+                                "serialize": "true",
+                                "id": "txt_870999084",
+                                "defaultType": "Const",
+                                "defaultValue": "测试",
+                                "value": "测试1",
+                                "success": true,
+                                "msg": ""
+                            },
+                            {
+                                "relationId": "2d7def75-1438-7614-af7d-60ce0650eba6",
+                                "relationSingleName": "",
+                                "relationType": "1ToN",
+                                "singleName": "WFDCT_TextDateTime",
+                                "tableName": "TDEV_TEST_2",
+                                "tableCaption": "开发测试表2",
+                                "tableId": "TDEV_TEST_2",
+                                "fieldTableId": "",
+                                "fieldName": "F_PUBLIC_TIME",
+                                "fieldDataType": "日期时间",
+                                "fieldDataLength": "20",
+                                "serialize": "true",
+                                "id": "txt_dt_871007926",
+                                "defaultType": "EnvVar",
+                                "defaultValue": "ENV_DATETIME_YYYY_MM_DD_HH_MM_SS",
+                                "value": "2019-10-16 16:30:31",
+                                "success": true,
+                                "msg": ""
+                            },
+                            {
+                                "relationId": "2d7def75-1438-7614-af7d-60ce0650eba6",
+                                "relationSingleName": "",
+                                "relationType": "1ToN",
+                                "singleName": "WFDCT_TextBox",
+                                "tableName": "TDEV_TEST_2",
+                                "tableCaption": "开发测试表2",
+                                "tableId": "TDEV_TEST_2",
+                                "fieldTableId": "",
+                                "fieldName": "ID",
+                                "fieldDataType": "字符串",
+                                "fieldDataLength": "200",
+                                "serialize": "true",
+                                "id": "txt_870999084",
+                                "defaultType": "Const",
+                                "defaultValue": "测试",
+                                "value": "2e60db0c-a0df-15f2-ea4c-6b01ec8dbd1f",
+                                "success": true,
+                                "msg": ""
+                            }
+                        ],
+                        [
+                            {
+                                "relationId": "2d7def75-1438-7614-af7d-60ce0650eba6",
+                                "relationSingleName": "",
+                                "relationType": "1ToN",
+                                "singleName": "WFDCT_TextBox",
+                                "tableName": "TDEV_TEST_2",
+                                "tableCaption": "开发测试表2",
+                                "tableId": "TDEV_TEST_2",
+                                "fieldTableId": "",
+                                "fieldName": "F_TITLE",
+                                "fieldDataType": "字符串",
+                                "fieldDataLength": "200",
+                                "serialize": "true",
+                                "id": "txt_870999084",
+                                "defaultType": "Const",
+                                "defaultValue": "测试",
+                                "value": "测试2",
+                                "success": true,
+                                "msg": ""
+                            },
+                            {
+                                "relationId": "2d7def75-1438-7614-af7d-60ce0650eba6",
+                                "relationSingleName": "",
+                                "relationType": "1ToN",
+                                "singleName": "WFDCT_TextDateTime",
+                                "tableName": "TDEV_TEST_2",
+                                "tableCaption": "开发测试表2",
+                                "tableId": "TDEV_TEST_2",
+                                "fieldTableId": "",
+                                "fieldName": "F_PUBLIC_TIME",
+                                "fieldDataType": "日期时间",
+                                "fieldDataLength": "20",
+                                "serialize": "true",
+                                "id": "txt_dt_871007926",
+                                "defaultType": "EnvVar",
+                                "defaultValue": "ENV_DATETIME_YYYY_MM_DD_HH_MM_SS",
+                                "value": "2019-10-16 16:30:31",
+                                "success": true,
+                                "msg": ""
+                            },
+                            {
+                                "relationId": "2d7def75-1438-7614-af7d-60ce0650eba6",
+                                "relationSingleName": "",
+                                "relationType": "1ToN",
+                                "singleName": "WFDCT_TextBox",
+                                "tableName": "TDEV_TEST_2",
+                                "tableCaption": "开发测试表2",
+                                "tableId": "TDEV_TEST_2",
+                                "fieldTableId": "",
+                                "fieldName": "ID",
+                                "fieldDataType": "字符串",
+                                "fieldDataLength": "200",
+                                "serialize": "true",
+                                "id": "txt_870999084",
+                                "defaultType": "Const",
+                                "defaultValue": "测试",
+                                "value": "acc5abe5-cad5-5efe-0f22-ab31d0a9e8c7",
+                                "success": true,
+                                "msg": ""
+                            }
+                        ],
+                        [
+                            {
+                                "relationId": "2d7def75-1438-7614-af7d-60ce0650eba6",
+                                "relationSingleName": "",
+                                "relationType": "1ToN",
+                                "singleName": "WFDCT_TextBox",
+                                "tableName": "TDEV_TEST_2",
+                                "tableCaption": "开发测试表2",
+                                "tableId": "TDEV_TEST_2",
+                                "fieldTableId": "",
+                                "fieldName": "F_TITLE",
+                                "fieldDataType": "字符串",
+                                "fieldDataLength": "200",
+                                "serialize": "true",
+                                "id": "txt_870999084",
+                                "defaultType": "Const",
+                                "defaultValue": "测试",
+                                "value": "测试3",
+                                "success": true,
+                                "msg": ""
+                            },
+                            {
+                                "relationId": "2d7def75-1438-7614-af7d-60ce0650eba6",
+                                "relationSingleName": "",
+                                "relationType": "1ToN",
+                                "singleName": "WFDCT_TextDateTime",
+                                "tableName": "TDEV_TEST_2",
+                                "tableCaption": "开发测试表2",
+                                "tableId": "TDEV_TEST_2",
+                                "fieldTableId": "",
+                                "fieldName": "F_PUBLIC_TIME",
+                                "fieldDataType": "日期时间",
+                                "fieldDataLength": "20",
+                                "serialize": "true",
+                                "id": "txt_dt_871007926",
+                                "defaultType": "EnvVar",
+                                "defaultValue": "ENV_DATETIME_YYYY_MM_DD_HH_MM_SS",
+                                "value": "2019-10-16 16:30:31",
+                                "success": true,
+                                "msg": ""
+                            },
+                            {
+                                "relationId": "2d7def75-1438-7614-af7d-60ce0650eba6",
+                                "relationSingleName": "",
+                                "relationType": "1ToN",
+                                "singleName": "WFDCT_TextBox",
+                                "tableName": "TDEV_TEST_2",
+                                "tableCaption": "开发测试表2",
+                                "tableId": "TDEV_TEST_2",
+                                "fieldTableId": "",
+                                "fieldName": "ID",
+                                "fieldDataType": "字符串",
+                                "fieldDataLength": "200",
+                                "serialize": "true",
+                                "id": "txt_870999084",
+                                "defaultType": "Const",
+                                "defaultValue": "测试",
+                                "value": "1438a63e-c83a-ad1c-add8-dd3fd0cf0c43",
+                                "success": true,
+                                "msg": ""
+                            }
+                        ],
+                        [
+                            {
+                                "relationId": "2d7def75-1438-7614-af7d-60ce0650eba6",
+                                "relationSingleName": "",
+                                "relationType": "1ToN",
+                                "singleName": "WFDCT_TextBox",
+                                "tableName": "TDEV_TEST_2",
+                                "tableCaption": "开发测试表2",
+                                "tableId": "TDEV_TEST_2",
+                                "fieldTableId": "",
+                                "fieldName": "F_TITLE",
+                                "fieldDataType": "字符串",
+                                "fieldDataLength": "200",
+                                "serialize": "true",
+                                "id": "txt_870999084",
+                                "defaultType": "Const",
+                                "defaultValue": "测试",
+                                "value": "测试4",
+                                "success": true,
+                                "msg": ""
+                            },
+                            {
+                                "relationId": "2d7def75-1438-7614-af7d-60ce0650eba6",
+                                "relationSingleName": "",
+                                "relationType": "1ToN",
+                                "singleName": "WFDCT_TextDateTime",
+                                "tableName": "TDEV_TEST_2",
+                                "tableCaption": "开发测试表2",
+                                "tableId": "TDEV_TEST_2",
+                                "fieldTableId": "",
+                                "fieldName": "F_PUBLIC_TIME",
+                                "fieldDataType": "日期时间",
+                                "fieldDataLength": "20",
+                                "serialize": "true",
+                                "id": "txt_dt_871007926",
+                                "defaultType": "EnvVar",
+                                "defaultValue": "ENV_DATETIME_YYYY_MM_DD_HH_MM_SS",
+                                "value": "2019-10-16 16:30:31",
+                                "success": true,
+                                "msg": ""
+                            },
+                            {
+                                "relationId": "2d7def75-1438-7614-af7d-60ce0650eba6",
+                                "relationSingleName": "",
+                                "relationType": "1ToN",
+                                "singleName": "WFDCT_TextBox",
+                                "tableName": "TDEV_TEST_2",
+                                "tableCaption": "开发测试表2",
+                                "tableId": "TDEV_TEST_2",
+                                "fieldTableId": "",
+                                "fieldName": "ID",
+                                "fieldDataType": "字符串",
+                                "fieldDataLength": "200",
+                                "serialize": "true",
+                                "id": "txt_870999084",
+                                "defaultType": "Const",
+                                "defaultValue": "测试",
+                                "value": "294add15-0c63-ca50-39ee-be490b879706",
+                                "success": true,
+                                "msg": ""
+                            }
+                        ],
+                        [
+                            {
+                                "relationId": "2d7def75-1438-7614-af7d-60ce0650eba6",
+                                "relationSingleName": "",
+                                "relationType": "1ToN",
+                                "singleName": "WFDCT_TextBox",
+                                "tableName": "TDEV_TEST_2",
+                                "tableCaption": "开发测试表2",
+                                "tableId": "TDEV_TEST_2",
+                                "fieldTableId": "",
+                                "fieldName": "F_TITLE",
+                                "fieldDataType": "字符串",
+                                "fieldDataLength": "200",
+                                "serialize": "true",
+                                "id": "txt_870999084",
+                                "defaultType": "Const",
+                                "defaultValue": "测试",
+                                "value": "测试5",
+                                "success": true,
+                                "msg": ""
+                            },
+                            {
+                                "relationId": "2d7def75-1438-7614-af7d-60ce0650eba6",
+                                "relationSingleName": "",
+                                "relationType": "1ToN",
+                                "singleName": "WFDCT_TextDateTime",
+                                "tableName": "TDEV_TEST_2",
+                                "tableCaption": "开发测试表2",
+                                "tableId": "TDEV_TEST_2",
+                                "fieldTableId": "",
+                                "fieldName": "F_PUBLIC_TIME",
+                                "fieldDataType": "日期时间",
+                                "fieldDataLength": "20",
+                                "serialize": "true",
+                                "id": "txt_dt_871007926",
+                                "defaultType": "EnvVar",
+                                "defaultValue": "ENV_DATETIME_YYYY_MM_DD_HH_MM_SS",
+                                "value": "2019-10-16 16:30:31",
+                                "success": true,
+                                "msg": ""
+                            },
+                            {
+                                "relationId": "2d7def75-1438-7614-af7d-60ce0650eba6",
+                                "relationSingleName": "",
+                                "relationType": "1ToN",
+                                "singleName": "WFDCT_TextBox",
+                                "tableName": "TDEV_TEST_2",
+                                "tableCaption": "开发测试表2",
+                                "tableId": "TDEV_TEST_2",
+                                "fieldTableId": "",
+                                "fieldName": "ID",
+                                "fieldDataType": "字符串",
+                                "fieldDataLength": "200",
+                                "serialize": "true",
+                                "id": "txt_870999084",
+                                "defaultType": "Const",
+                                "defaultValue": "测试",
+                                "value": "24573440-80f4-a539-578b-232ce53acaf6",
+                                "success": true,
+                                "msg": ""
+                            }
+                        ],
+                        [
+                            {
+                                "relationId": "2d7def75-1438-7614-af7d-60ce0650eba6",
+                                "relationSingleName": "",
+                                "relationType": "1ToN",
+                                "singleName": "WFDCT_TextBox",
+                                "tableName": "TDEV_TEST_2",
+                                "tableCaption": "开发测试表2",
+                                "tableId": "TDEV_TEST_2",
+                                "fieldTableId": "",
+                                "fieldName": "F_TITLE",
+                                "fieldDataType": "字符串",
+                                "fieldDataLength": "200",
+                                "serialize": "true",
+                                "id": "txt_870999084",
+                                "defaultType": "Const",
+                                "defaultValue": "测试",
+                                "value": "测试6",
+                                "success": true,
+                                "msg": ""
+                            },
+                            {
+                                "relationId": "2d7def75-1438-7614-af7d-60ce0650eba6",
+                                "relationSingleName": "",
+                                "relationType": "1ToN",
+                                "singleName": "WFDCT_TextDateTime",
+                                "tableName": "TDEV_TEST_2",
+                                "tableCaption": "开发测试表2",
+                                "tableId": "TDEV_TEST_2",
+                                "fieldTableId": "",
+                                "fieldName": "F_PUBLIC_TIME",
+                                "fieldDataType": "日期时间",
+                                "fieldDataLength": "20",
+                                "serialize": "true",
+                                "id": "txt_dt_871007926",
+                                "defaultType": "EnvVar",
+                                "defaultValue": "ENV_DATETIME_YYYY_MM_DD_HH_MM_SS",
+                                "value": "2019-10-16 16:30:31",
+                                "success": true,
+                                "msg": ""
+                            },
+                            {
+                                "relationId": "2d7def75-1438-7614-af7d-60ce0650eba6",
+                                "relationSingleName": "",
+                                "relationType": "1ToN",
+                                "singleName": "WFDCT_TextBox",
+                                "tableName": "TDEV_TEST_2",
+                                "tableCaption": "开发测试表2",
+                                "tableId": "TDEV_TEST_2",
+                                "fieldTableId": "",
+                                "fieldName": "ID",
+                                "fieldDataType": "字符串",
+                                "fieldDataLength": "200",
+                                "serialize": "true",
+                                "id": "txt_870999084",
+                                "defaultType": "Const",
+                                "defaultValue": "测试",
+                                "value": "cae8ea8d-b3b7-3d53-6621-9ccf59d38ef8",
+                                "success": true,
+                                "msg": ""
+                            }
+                        ],
+                        [
+                            {
+                                "relationId": "2d7def75-1438-7614-af7d-60ce0650eba6",
+                                "relationSingleName": "",
+                                "relationType": "1ToN",
+                                "singleName": "WFDCT_TextBox",
+                                "tableName": "TDEV_TEST_2",
+                                "tableCaption": "开发测试表2",
+                                "tableId": "TDEV_TEST_2",
+                                "fieldTableId": "",
+                                "fieldName": "F_TITLE",
+                                "fieldDataType": "字符串",
+                                "fieldDataLength": "200",
+                                "serialize": "true",
+                                "id": "txt_870999084",
+                                "defaultType": "Const",
+                                "defaultValue": "测试",
+                                "value": "测试7",
+                                "success": true,
+                                "msg": ""
+                            },
+                            {
+                                "relationId": "2d7def75-1438-7614-af7d-60ce0650eba6",
+                                "relationSingleName": "",
+                                "relationType": "1ToN",
+                                "singleName": "WFDCT_TextDateTime",
+                                "tableName": "TDEV_TEST_2",
+                                "tableCaption": "开发测试表2",
+                                "tableId": "TDEV_TEST_2",
+                                "fieldTableId": "",
+                                "fieldName": "F_PUBLIC_TIME",
+                                "fieldDataType": "日期时间",
+                                "fieldDataLength": "20",
+                                "serialize": "true",
+                                "id": "txt_dt_871007926",
+                                "defaultType": "EnvVar",
+                                "defaultValue": "ENV_DATETIME_YYYY_MM_DD_HH_MM_SS",
+                                "value": "2019-10-16 16:30:31",
+                                "success": true,
+                                "msg": ""
+                            },
+                            {
+                                "relationId": "2d7def75-1438-7614-af7d-60ce0650eba6",
+                                "relationSingleName": "",
+                                "relationType": "1ToN",
+                                "singleName": "WFDCT_TextBox",
+                                "tableName": "TDEV_TEST_2",
+                                "tableCaption": "开发测试表2",
+                                "tableId": "TDEV_TEST_2",
+                                "fieldTableId": "",
+                                "fieldName": "ID",
+                                "fieldDataType": "字符串",
+                                "fieldDataLength": "200",
+                                "serialize": "true",
+                                "id": "txt_870999084",
+                                "defaultType": "Const",
+                                "defaultValue": "测试",
+                                "value": "1cc27ceb-f9a9-4f2b-5525-79eaf550d99d",
+                                "success": true,
+                                "msg": ""
+                            }
+                        ],
+                        [
+                            {
+                                "relationId": "2d7def75-1438-7614-af7d-60ce0650eba6",
+                                "relationSingleName": "",
+                                "relationType": "1ToN",
+                                "singleName": "WFDCT_TextBox",
+                                "tableName": "TDEV_TEST_2",
+                                "tableCaption": "开发测试表2",
+                                "tableId": "TDEV_TEST_2",
+                                "fieldTableId": "",
+                                "fieldName": "F_TITLE",
+                                "fieldDataType": "字符串",
+                                "fieldDataLength": "200",
+                                "serialize": "true",
+                                "id": "txt_870999084",
+                                "defaultType": "Const",
+                                "defaultValue": "测试",
+                                "value": "测试8",
+                                "success": true,
+                                "msg": ""
+                            },
+                            {
+                                "relationId": "2d7def75-1438-7614-af7d-60ce0650eba6",
+                                "relationSingleName": "",
+                                "relationType": "1ToN",
+                                "singleName": "WFDCT_TextDateTime",
+                                "tableName": "TDEV_TEST_2",
+                                "tableCaption": "开发测试表2",
+                                "tableId": "TDEV_TEST_2",
+                                "fieldTableId": "",
+                                "fieldName": "F_PUBLIC_TIME",
+                                "fieldDataType": "日期时间",
+                                "fieldDataLength": "20",
+                                "serialize": "true",
+                                "id": "txt_dt_871007926",
+                                "defaultType": "EnvVar",
+                                "defaultValue": "ENV_DATETIME_YYYY_MM_DD_HH_MM_SS",
+                                "value": "2019-10-16 16:30:31",
+                                "success": true,
+                                "msg": ""
+                            },
+                            {
+                                "relationId": "2d7def75-1438-7614-af7d-60ce0650eba6",
+                                "relationSingleName": "",
+                                "relationType": "1ToN",
+                                "singleName": "WFDCT_TextBox",
+                                "tableName": "TDEV_TEST_2",
+                                "tableCaption": "开发测试表2",
+                                "tableId": "TDEV_TEST_2",
+                                "fieldTableId": "",
+                                "fieldName": "ID",
+                                "fieldDataType": "字符串",
+                                "fieldDataLength": "200",
+                                "serialize": "true",
+                                "id": "txt_870999084",
+                                "defaultType": "Const",
+                                "defaultValue": "测试",
+                                "value": "cb2ec29b-4480-a70e-6414-7e158bc758ac",
+                                "success": true,
+                                "msg": ""
+                            }
+                        ],
+                        [
+                            {
+                                "relationId": "2d7def75-1438-7614-af7d-60ce0650eba6",
+                                "relationSingleName": "",
+                                "relationType": "1ToN",
+                                "singleName": "WFDCT_TextBox",
+                                "tableName": "TDEV_TEST_2",
+                                "tableCaption": "开发测试表2",
+                                "tableId": "TDEV_TEST_2",
+                                "fieldTableId": "",
+                                "fieldName": "F_TITLE",
+                                "fieldDataType": "字符串",
+                                "fieldDataLength": "200",
+                                "serialize": "true",
+                                "id": "txt_870999084",
+                                "defaultType": "Const",
+                                "defaultValue": "测试",
+                                "value": "测试9",
+                                "success": true,
+                                "msg": ""
+                            },
+                            {
+                                "relationId": "2d7def75-1438-7614-af7d-60ce0650eba6",
+                                "relationSingleName": "",
+                                "relationType": "1ToN",
+                                "singleName": "WFDCT_TextDateTime",
+                                "tableName": "TDEV_TEST_2",
+                                "tableCaption": "开发测试表2",
+                                "tableId": "TDEV_TEST_2",
+                                "fieldTableId": "",
+                                "fieldName": "F_PUBLIC_TIME",
+                                "fieldDataType": "日期时间",
+                                "fieldDataLength": "20",
+                                "serialize": "true",
+                                "id": "txt_dt_871007926",
+                                "defaultType": "EnvVar",
+                                "defaultValue": "ENV_DATETIME_YYYY_MM_DD_HH_MM_SS",
+                                "value": "2019-10-16 16:30:31",
+                                "success": true,
+                                "msg": ""
+                            },
+                            {
+                                "relationId": "2d7def75-1438-7614-af7d-60ce0650eba6",
+                                "relationSingleName": "",
+                                "relationType": "1ToN",
+                                "singleName": "WFDCT_TextBox",
+                                "tableName": "TDEV_TEST_2",
+                                "tableCaption": "开发测试表2",
+                                "tableId": "TDEV_TEST_2",
+                                "fieldTableId": "",
+                                "fieldName": "ID",
+                                "fieldDataType": "字符串",
+                                "fieldDataLength": "200",
+                                "serialize": "true",
+                                "id": "txt_870999084",
+                                "defaultType": "Const",
+                                "defaultValue": "测试",
+                                "value": "f4beaaf3-6318-48cc-e476-f3877f774682",
+                                "success": true,
+                                "msg": ""
+                            }
+                        ],
+                        [
+                            {
+                                "relationId": "2d7def75-1438-7614-af7d-60ce0650eba6",
+                                "relationSingleName": "",
+                                "relationType": "1ToN",
+                                "singleName": "WFDCT_TextBox",
+                                "tableName": "TDEV_TEST_2",
+                                "tableCaption": "开发测试表2",
+                                "tableId": "TDEV_TEST_2",
+                                "fieldTableId": "",
+                                "fieldName": "F_TITLE",
+                                "fieldDataType": "字符串",
+                                "fieldDataLength": "200",
+                                "serialize": "true",
+                                "id": "txt_870999084",
+                                "defaultType": "Const",
+                                "defaultValue": "测试",
+                                "value": "测试10",
+                                "success": true,
+                                "msg": ""
+                            },
+                            {
+                                "relationId": "2d7def75-1438-7614-af7d-60ce0650eba6",
+                                "relationSingleName": "",
+                                "relationType": "1ToN",
+                                "singleName": "WFDCT_TextDateTime",
+                                "tableName": "TDEV_TEST_2",
+                                "tableCaption": "开发测试表2",
+                                "tableId": "TDEV_TEST_2",
+                                "fieldTableId": "",
+                                "fieldName": "F_PUBLIC_TIME",
+                                "fieldDataType": "日期时间",
+                                "fieldDataLength": "20",
+                                "serialize": "true",
+                                "id": "txt_dt_871007926",
+                                "defaultType": "EnvVar",
+                                "defaultValue": "ENV_DATETIME_YYYY_MM_DD_HH_MM_SS",
+                                "value": "2019-10-16 16:30:31",
+                                "success": true,
+                                "msg": ""
+                            },
+                            {
+                                "relationId": "2d7def75-1438-7614-af7d-60ce0650eba6",
+                                "relationSingleName": "",
+                                "relationType": "1ToN",
+                                "singleName": "WFDCT_TextBox",
+                                "tableName": "TDEV_TEST_2",
+                                "tableCaption": "开发测试表2",
+                                "tableId": "TDEV_TEST_2",
+                                "fieldTableId": "",
+                                "fieldName": "ID",
+                                "fieldDataType": "字符串",
+                                "fieldDataLength": "200",
+                                "serialize": "true",
+                                "id": "txt_870999084",
+                                "defaultType": "Const",
+                                "defaultValue": "测试",
+                                "value": "9402c909-a3a6-e509-6266-0414d3f09fcd",
+                                "success": true,
+                                "msg": ""
+                            }
+                        ]
+                    ]
+                },
+                {
+                    "id": "4313366b-caa0-4272-2690-1237750651f6",
+                    "parentId": "2d7def75-1438-7614-af7d-60ce0650eba6",
+                    "singleName": "",
+                    "pkFieldName": "",
+                    "desc": "",
+                    "selfKeyFieldName": "TDEV_TEST_2_ID",
+                    "outerKeyFieldName": "ID",
+                    "relationType": "1ToN",
+                    "isSave": "true",
+                    "condition": "",
+                    "tableId": "e15549cb-e074-48a3-8939-44340e387f17",
+                    "tableName": "TDEV_TEST_5",
+                    "tableCaption": "TDEV_TEST_5",
+                    "tableCode": "T_10871",
+                    "displayText": "TDEV_TEST_5[TDEV_TEST_5](1ToN)",
+                    "icon": "../../../Themes/Png16X16/table.png",
+                    "isMain": false
+                }
+            ],
+            "exData": null
+        }
     }
 }

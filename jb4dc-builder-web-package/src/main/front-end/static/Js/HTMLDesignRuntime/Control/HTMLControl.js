@@ -5,7 +5,7 @@ let HTMLControlAttrs= {
 }
 let HTMLControl={
     _InstanceMap:{},
-    GetInstance:function(name){
+    _GetInstance:function(name){
         for(var key in this._InstanceMap){
             if(key==name){
                 return this._InstanceMap[key];
@@ -16,21 +16,33 @@ let HTMLControl={
         return instance;
     },
     SaveControlNewInstanceToPool:function($elem,instance){
+        alert("改方法已经废弃,改为服务端创建初始化脚本!");
+        return null;
         var instanceName=$elem.attr("client_resolve")+"_"+StringUtility.GuidSplit("");
         //HTMLControl.SaveControlInstancePool(instanceName,instance);
         $elem.attr("client_instance_name",instanceName);
         this._InstanceMap[instanceName]=instance;
         return instanceName;
     },
-    ElemIsInstance:function($elem){
-        if(this.GetElemInstance($elem)){
-            return true;
-        }
-        return false;
+    _SaveControlNewInstanceToPool:function(instanceName,instance){
+        this._InstanceMap[instanceName]=instance;
+        return instanceName;
     },
     GetControlInstanceByElem:function($elem){
         //console.log($elem);
         //console.log($elem.attr("client_instance_name"));
+        /*var instanceName="";
+        if($elem.attr("client_instance_name")&&$elem.attr("client_instance_name").length>0){
+            instanceName=$elem.attr("client_instance_name");
+        }
+        else {
+            instanceName=$elem.attr("client_resolve");
+        }
+        return this._GetInstance(instanceName);*/
+        //return this._InstanceMap[instanceName];
+        return this._GetInstance(this.GetControlInstanceNameByElem($elem));
+    },
+    GetControlInstanceNameByElem:function($elem){
         var instanceName="";
         if($elem.attr("client_instance_name")&&$elem.attr("client_instance_name").length>0){
             instanceName=$elem.attr("client_instance_name");
@@ -38,8 +50,7 @@ let HTMLControl={
         else {
             instanceName=$elem.attr("client_resolve");
         }
-        return this.GetInstance(instanceName);
-        //return this._InstanceMap[instanceName];
+        return instanceName;
     },
     RendererChainParas:{
         listEntity:null,
@@ -68,8 +79,8 @@ let HTMLControl={
             //console.log($childSingleElem.html());
             if ($childSingleElem.attr(HTMLControlAttrs.JBUILD4DC_CUSTOM)=="true"&&$childSingleElem.attr(HTMLControlAttrs.CLIENT_RESOLVE)) {
                 //debugger;
-                var clientResolveName=$childSingleElem.attr(HTMLControlAttrs.CLIENT_RESOLVE);
-                var instance=HTMLControl.GetInstance(clientResolveName);
+                //var clientResolveName=$childSingleElem.attr(HTMLControlAttrs.CLIENT_RESOLVE);
+                var instance=HTMLControl.GetControlInstanceByElem($childSingleElem);
                 if(typeof(instance.Initialize)=="function"){
                     instance.Initialize();
                 }
@@ -105,8 +116,8 @@ let HTMLControl={
             //console.log($childSingleElem.html());
             if ($childSingleElem.attr(HTMLControlAttrs.JBUILD4DC_CUSTOM) == "true" && $childSingleElem.attr(HTMLControlAttrs.CLIENT_RESOLVE)) {
                 //debugger;
-                var clientResolveInstanceName = $childSingleElem.attr(HTMLControlAttrs.CLIENT_RESOLVE);
-                var instance = HTMLControl.GetInstance(clientResolveInstanceName);
+                //var clientResolveInstanceName = $childSingleElem.attr(HTMLControlAttrs.CLIENT_RESOLVE);
+                var instance=HTMLControl.GetControlInstanceByElem($childSingleElem);
 
                 instance.RendererDataChain(_cloneRendererDataChainParas);
                 /*instance.RendererDataChain({

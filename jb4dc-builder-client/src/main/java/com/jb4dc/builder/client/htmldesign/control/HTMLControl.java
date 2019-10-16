@@ -11,6 +11,7 @@ import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
 import com.jb4dc.core.base.session.JB4DCSession;
 import com.jb4dc.core.base.tools.ClassUtility;
 import com.jb4dc.core.base.tools.StringUtility;
+import com.jb4dc.core.base.tools.UUIDUtility;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -215,5 +216,23 @@ public abstract class HTMLControl implements IHTMLControl {
     @Override
     public String parseToJson(JB4DCSession jb4DCSession, String sourceHTML, Document doc, Element singleControlElem, Element parentElem, Element lastParentJbuild4dCustomElem, ResolveHTMLControlContextPO resolveHTMLControlContextPO, HtmlControlDefinitionPO htmlControlDefinitionPO) {
         return "{}";
+    }
+
+    @Override
+    public String getClientNewInstanceScript(Element singleControlElem, boolean needInitialize, String initializeParas){
+        StringBuilder script=new StringBuilder();
+        String clientClassName=singleControlElem.attr("client_resolve");
+        String clientInstanceName=clientClassName+"_"+UUIDUtility.getUUIDNotSplit();
+                script.append("<script>");
+        //script.append("$(function(){");
+        script.append("var "+clientInstanceName+"=Object.create("+clientClassName+");");
+        if(needInitialize){
+            script.append("clientInstanceName.Initialize("+initializeParas+")");
+        }
+        script.append("HTMLControl._SaveControlNewInstanceToPool(\""+clientInstanceName+"\","+clientInstanceName+")");
+        //script.append("})");
+        script.append("</script>");
+        singleControlElem.attr("client_instance_name",clientInstanceName);
+        return script.toString();
     }
 }
