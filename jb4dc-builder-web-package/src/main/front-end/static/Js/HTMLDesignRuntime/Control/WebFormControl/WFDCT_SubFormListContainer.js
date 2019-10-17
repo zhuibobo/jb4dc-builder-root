@@ -261,7 +261,7 @@ var WFDCT_SubFormListContainer={
             }
         }
     },
-    InnerRow_ToEditStatus:function(sender,$hostElem,$elem,$tr){
+    InnerRow_ToEditStatus:function($tr){
         console.log(this._$SingleControlElem);
         this.InnerRow_CompletedLastEdit();
         var rowRelationPO=this.GetRowData($tr);
