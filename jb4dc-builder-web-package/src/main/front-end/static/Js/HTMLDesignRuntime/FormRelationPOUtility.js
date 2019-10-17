@@ -15,6 +15,17 @@ let FormRelationPOUtility={
     Get1ToNDataRecord:function (relationPO) {
         return relationPO.listDataRecord;
     },
+    FindFieldPOInOneDataRecord:function(oneDataRecord,fieldName){
+        var fieldPO=ArrayUtility.WhereSingle(oneDataRecord,function (item) {
+            return item.fieldName==fieldName;
+        });
+        if(fieldPO){
+            return fieldPO;
+        }
+        else{
+            DialogUtility.AlertText("FormRuntime.FindFieldPOByRelationPO:找不到字段"+fieldName+"的数据值!");
+        }
+    },
     FindFieldPOByRelationPO:function(relationPO,fieldName){
         var oneDataRecord = FormRelationPOUtility.Get1To1DataRecord(relationPO);
         var fieldPO=ArrayUtility.WhereSingle(oneDataRecord,function (item) {
@@ -64,6 +75,11 @@ let FormRelationPOUtility={
         }
 
         return this._FieldPOCache[relationId + "_" + fieldName];
+    },
+    FindRelationPOInRelationFormRecordComplexPo:function (relationFormRecordComplexPo,relationId) {
+        return ArrayUtility.WhereSingle(relationFormRecordComplexPo.formRecordDataRelationPOList,function (item) {
+            return item.id==relationId;
+        })
     }
     /*ConnectRelationPOToDynamicContainerControl:function (relationPO,dynamicContainerControlInstance) {
         this._RelationPOWithDynamicContainerControl[relationPO.id]=dynamicContainerControlInstance;

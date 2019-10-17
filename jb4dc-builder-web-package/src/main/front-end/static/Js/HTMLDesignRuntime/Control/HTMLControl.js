@@ -122,7 +122,8 @@ let HTMLControl={
                 instance.RendererDataChain(_cloneRendererDataChainParas);
 
                 if(typeof(instance.SetValue)=="function") {
-                    instance.SetValue($childSingleElem,_rendererDataChainParas.relationFormRecordComplexPo,_rendererDataChainParas);
+                    var fieldPO = HTMLControl.TryGetFieldPOInRelationFormRecordComplexPo($childSingleElem,_rendererDataChainParas.relationFormRecordComplexPo);
+                    instance.SetValue($childSingleElem,fieldPO,_rendererDataChainParas.relationFormRecordComplexPo,_rendererDataChainParas);
                 }
                 /*instance.RendererDataChain({
                     listEntity:_rendererDataChainParas.listEntity,
@@ -157,11 +158,11 @@ let HTMLControl={
         originalData.value=$elem.val();
         return originalData;
     },
-    SetValue:function ($elem,relationFormRecordComplexPo,_rendererDataChainParas) {
+
+    SetValue:function ($elem,fieldPO,relationFormRecordComplexPo,_rendererDataChainParas) {
         //debugger;
-        var fieldPO = HTMLControl.TryGetFieldPOInRelationFormRecordComplexPo($elem,relationFormRecordComplexPo);
         if(fieldPO){
-            console.log(fieldPO);
+            //console.log(fieldPO);
             $elem.val(fieldPO.value);
             $elem.attr("control_value",fieldPO.value);
         }

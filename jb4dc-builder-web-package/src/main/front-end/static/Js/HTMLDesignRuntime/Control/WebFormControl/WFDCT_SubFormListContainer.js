@@ -73,6 +73,19 @@ var WFDCT_SubFormListContainer={
     },
     RendererDataChain:function(_rendererDataChainParas){
         //console.log("111111111111111111111");
+        var $singleControlElem = _rendererDataChainParas.$singleControlElem;
+        var relationFormRecordComplexPo = _rendererDataChainParas.relationFormRecordComplexPo;
+        var relation_po_id=$singleControlElem.attr("relation_po_id");
+        var relationPO=FormRelationPOUtility.FindRelationPOInRelationFormRecordComplexPo(relationFormRecordComplexPo,relation_po_id);
+        var listDataRecord=FormRelationPOUtility.Get1ToNDataRecord(relationPO);
+        for (var i = 0; i < listDataRecord.length; i++) {
+            var oneDataRecord = listDataRecord[i];
+            if(this._EditInRow){
+                this.InnerRow_Add(oneDataRecord);
+            }
+        }
+        this.InnerRow_CompletedLastEdit();
+        console.log(relationPO);
     },
 
     SerializationValue:function(originalFormDataRelation,relationPO,control){
@@ -103,7 +116,7 @@ var WFDCT_SubFormListContainer={
         if (!selfObj._EditInRow) {
             selfObj.Dialog_Add(sender, $hostElem, sender.data._rendererChainParas, instanceName);
         } else {
-            selfObj.InnerRow_Add(sender, $hostElem, sender.data._rendererChainParas, instanceName);
+            selfObj.InnerRow_Add();
         }
         //console.log($hostElem);
         //alert("1");
@@ -138,7 +151,7 @@ var WFDCT_SubFormListContainer={
         return id;
     },
     SetRowId:function($tr,relationPO){
-        $tr.attr("tr_record_id",FormRuntime.FindIdFieldPOByRelationPO(relationPO).value);
+        $tr.attr("tr_record_id",FormRelationPOUtility.FindIdFieldPOByRelationPO(relationPO).value);
     },
     SetRowData:function($tr,relationPO){
         $tr.attr("tr_record_data",JsonUtility.JsonToString(relationPO));
@@ -204,7 +217,7 @@ var WFDCT_SubFormListContainer={
 
     //region 行内编辑相关方法
     _$LastEditRow:null,
-    InnerRow_Add:function (sender,$hostElem,_rendererChainParas,instanceName) {
+    InnerRow_Add:function (oneDataRecord) {
         this.InnerRow_CompletedLastEdit();
         var $tr = this._$TemplateTableRow.clone();
         var lastOperationTd = $("<td><div class='sflt-td-operation-outer-wrap'></div></td>");
@@ -213,12 +226,10 @@ var WFDCT_SubFormListContainer={
         //region 删除按钮
         var btn_operation_del = $("<div title='删除' class='sflt-td-operation-del'></div>");
         btn_operation_del.bind("click",{
-            hostElem:$hostElem,
             selfObj:this,
-        },function (sender) {
-            var $hostElem = sender.data.hostElem;
-            var selfObj = sender.data.selfObj;
-            selfObj.InnerRow_Delete(sender, $hostElem, $(this),$(this).parent().parent().parent());
+        },function (btn_del_sender) {
+            var selfObj = btn_del_sender.data.selfObj;
+            selfObj.InnerRow_Delete($(this).parent().parent().parent());
         });
         lastOperationOuterDiv.append(btn_operation_del);
         //endregion
@@ -226,12 +237,10 @@ var WFDCT_SubFormListContainer={
         //region 编辑按钮
         var btn_operation_update = $("<div title='编辑' class='sflt-td-operation-update'></div>");
         btn_operation_update.bind("click",{
-            hostElem:$hostElem,
             selfObj:this,
-        },function (sender) {
-            var $hostElem = sender.data.hostElem;
-            var selfObj = sender.data.selfObj;
-            selfObj.InnerRow_ToEditStatus(sender, $hostElem, $(this),$(this).parent().parent().parent());
+        },function (btn_update_sender) {
+            var selfObj = btn_update_sender.data.selfObj;
+            selfObj.InnerRow_ToEditStatus($(this).parent().parent().parent());
         });
         lastOperationOuterDiv.append(btn_operation_update);
         //endregion
@@ -240,6 +249,17 @@ var WFDCT_SubFormListContainer={
 
         this._$TableBodyElem.append($tr);
         this._$LastEditRow = $tr;
+
+        if(oneDataRecord){
+            var controls = HTMLControl.FindALLControls(this._$LastEditRow);
+            for (var i = 0; i < controls.length; i++) {
+                var control = $(controls[i]);
+                var controlInstance = HTMLControl.GetControlInstanceByElem(control);
+                var fieldName = HTMLControl.GetControlBindFieldName(control);
+                var fieldPO = FormRelationPOUtility.FindFieldPOInOneDataRecord(oneDataRecord, fieldName)
+                controlInstance.SetValue(control,fieldPO, null, null);
+            }
+        }
     },
     InnerRow_ToEditStatus:function(sender,$hostElem,$elem,$tr){
         console.log(this._$SingleControlElem);
@@ -276,7 +296,7 @@ var WFDCT_SubFormListContainer={
         }
         this._$LastEditRow = null;
     },
-    InnerRow_Delete:function(sender,$hostElem,$elem,$tr){
+    InnerRow_Delete:function($tr){
         this.InnerRow_CompletedLastEdit();
         $tr.remove();
     },
