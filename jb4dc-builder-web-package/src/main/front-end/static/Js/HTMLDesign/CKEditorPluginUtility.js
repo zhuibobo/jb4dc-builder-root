@@ -171,6 +171,7 @@ class CKEditorPluginUtility {
 
     static DefaultProps={
         bindToField:{
+            relationId:"",
             tableId: "",
             tableName: "",
             tableCaption: "",

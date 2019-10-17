@@ -11,6 +11,7 @@ var WFDCT_SubFormListContainer={
     _Display_OPButtons_Del:true,
     _Display_OPButtons_View:true,
     _FormRuntimeHost:null,
+    _FormDataRelationList:null,
 
     RendererChain:function (_rendererChainParas) {
         var $singleControlElem = _rendererChainParas.$singleControlElem;
@@ -22,6 +23,7 @@ var WFDCT_SubFormListContainer={
         this._EditInRow = $singleControlElem.attr("editinrow") == "false" ? false : true;
 
         this._FormRuntimeHost=_rendererChainParas.formRuntimeInstance;
+        this._FormDataRelationList=this._FormRuntimeHost._FormDataRelationList;
 
         var opbuttons = $singleControlElem.attr("opbuttons");
         this._Display_OPButtons_Add = opbuttons.indexOf("add") >= 0;
@@ -66,9 +68,12 @@ var WFDCT_SubFormListContainer={
         //debugger;
         var relationPO=this.TryGetRelationPO();
         $singleControlElem.attr("relation_po_id",relationPO.id);
+
         //this._FormRuntimeHost.ConnectRelationPOToDynamicContainerControl(relationPO,this);
     },
-    RendererDataChain:HTMLControl.RendererDataChain,
+    RendererDataChain:function(_rendererDataChainParas){
+        console.log("111111111111111111111");
+    },
 
     SerializationValue:function(originalFormDataRelation,relationPO,control){
         this.InnerRow_CompletedLastEdit();
@@ -77,10 +82,10 @@ var WFDCT_SubFormListContainer={
         for (var i = 0; i < trs.length; i++) {
             var $tr = $(trs[i]);
             var singleRelationPO=this.GetRowData($tr);
-            allData.push(FormRuntime.Get1To1DataRecord(singleRelationPO))
+            allData.push(FormRelationPOUtility.Get1To1DataRecord(singleRelationPO))
             //console.log(singleJsonData);
         }
-        FormRuntime.Set1ToNDataRecord(relationPO,allData);
+        FormRelationPOUtility.Add1ToNDataRecord(relationPO,allData);
     },
     GetValue:function ($elem,originalData, paras) {
         DialogUtility.AlertText("DynamicContainer类型的控件的序列化交由SerializationValue方法自行完成!");
@@ -159,17 +164,19 @@ var WFDCT_SubFormListContainer={
             return JsonUtility.CloneSimple(this._po);
         }
         var po=null;
-        if(bindDataSource=="autoTesting"){
-            var bindTableName=this.TryGetInnerControlBindTableName();
-            po=this._FormRuntimeHost.GetRelationPOByTableName(bindTableName);
-            if(po==null){
+        if(bindDataSource=="autoTesting") {
+            var bindTableName = this.TryGetInnerControlBindTableName();
+            //po=this._FormRuntimeHost.GetRelationPOByTableName(bindTableName);
+            po = FormRelationPOUtility.GetRelationPOByTableName(this._FormDataRelationList, bindTableName);
+            if (po == null) {
                 DialogUtility.AlertText("WFDCT_SubFormListContainer.TryGetRelationPO:通过内部控件绑定的表找不到具体的数据关联实体！");
             }
         }
         else {
-            po=this._FormRuntimeHost.GetRelationPOById(bindDataSource);
-            if(po==null){
-                DialogUtility.AlertText("WFDCT_SubFormListContainer.TryGetRelationPO:通过ID"+bindDataSource+"找不到具体的数据关联实体！");
+            //po=this._FormRuntimeHost.GetRelationPOById(bindDataSource);
+            po = FormRelationPOUtility.GetRelationPOById(this._FormDataRelationList, bindDataSource);
+            if (po == null) {
+                DialogUtility.AlertText("WFDCT_SubFormListContainer.TryGetRelationPO:通过ID" + bindDataSource + "找不到具体的数据关联实体！");
             }
         }
         this._po=po;
@@ -244,7 +251,7 @@ var WFDCT_SubFormListContainer={
             var controlId = spanControl.attr("edit_control_id");
             var editControl = this._$TemplateTableRow.find("#" + controlId).clone();
             var fieldName = HTMLControl.GetControlBindFieldName(editControl);
-            var fieldPO = FormRuntime.FindFieldPOByRelationPO(rowRelationPO, fieldName);
+            var fieldPO = FormRelationPOUtility.FindFieldPOByRelationPO(rowRelationPO, fieldName);
             var editControlInstance = HTMLControl.GetControlInstanceByElem(editControl);
             //debugger;
             editControlInstance.SetValue(editControl, fieldPO, {});
@@ -261,7 +268,7 @@ var WFDCT_SubFormListContainer={
             for (var i = 0; i < controls.length; i++) {
                 var singleControl=$(controls[i]);
                 var fieldName=HTMLControl.GetControlBindFieldName(singleControl);
-                var fieldValue=FormRuntime.FindFieldPOByRelationPO(relationPO,fieldName).value;
+                var fieldValue=FormRelationPOUtility.FindFieldPOByRelationPO(relationPO,fieldName).value;
                 var txtSpan=$("<span is_inner_row_span='true' edit_control_id='"+singleControl.attr("id")+"'>"+fieldValue+"</span>");
                 singleControl.before(txtSpan);
                 singleControl.remove();
@@ -290,7 +297,7 @@ var WFDCT_SubFormListContainer={
                 this.CreateIdFieldInOneDataRecord(oneRowRecord,idValue);
             //}
 
-            relationPO=FormRuntime.Set1To1DataRecord(relationPO,oneRowRecord);
+            relationPO=FormRelationPOUtility.Add1To1DataRecord(relationPO,oneRowRecord);
             this.RendererRow(relationPO,this._$LastEditRow);
             console.log(oneRowRecord);
         }

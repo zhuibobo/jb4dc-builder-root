@@ -120,6 +120,10 @@ let HTMLControl={
                 var instance=HTMLControl.GetControlInstanceByElem($childSingleElem);
 
                 instance.RendererDataChain(_cloneRendererDataChainParas);
+
+                if(typeof(instance.SetValue)=="function") {
+                    instance.SetValue($childSingleElem,_rendererDataChainParas.relationFormRecordComplexPo,_rendererDataChainParas);
+                }
                 /*instance.RendererDataChain({
                     listEntity:_rendererDataChainParas.listEntity,
                     sourceHTML:_rendererDataChainParas.sourceHTML,
@@ -153,8 +157,25 @@ let HTMLControl={
         originalData.value=$elem.val();
         return originalData;
     },
-    SetValue:function ($elem,originalData, paras) {
-        $elem.val(originalData.value);
+    SetValue:function ($elem,relationFormRecordComplexPo,_rendererDataChainParas) {
+        //debugger;
+        var fieldPO = HTMLControl.TryGetFieldPOInRelationFormRecordComplexPo($elem,relationFormRecordComplexPo);
+        if(fieldPO){
+            console.log(fieldPO);
+            $elem.val(fieldPO.value);
+            $elem.attr("control_value",fieldPO.value);
+        }
+    },
+    TryGetFieldPOInRelationFormRecordComplexPo:function($elem,relationFormRecordComplexPo) {
+        var relationId = HTMLControl.GetControlBindRelationId($elem);
+        var bindTableName = HTMLControl.GetControlBindTableName($elem);
+        var bindFieldName = HTMLControl.GetControlBindFieldName($elem);
+        if (relationId && bindFieldName) {
+            var fieldPO = FormRelationPOUtility.FindFieldPOInRelationFormRecordComplexPoOneDataRecord(relationFormRecordComplexPo, relationId, bindTableName, bindFieldName);
+            return fieldPO;
+        } else {
+            return null
+        }
     },
     FindALLControls:function ($parent) {
         if ($parent) {
@@ -167,6 +188,9 @@ let HTMLControl={
     },
     GetControlBindFieldName:function($controlElem){
         return $controlElem.attr("fieldname");
+    },
+    GetControlBindRelationId:function($controlElem){
+        return $controlElem.attr("relationid");
     },
     GetControlProp:function ($controlElem) {
         var props= {

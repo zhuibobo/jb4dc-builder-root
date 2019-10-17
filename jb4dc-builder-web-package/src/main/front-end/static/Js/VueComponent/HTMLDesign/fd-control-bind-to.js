@@ -4,6 +4,7 @@ Vue.component("fd-control-bind-to", {
     data: function () {
         return {
             bindToField:{
+                relationId:"",
                 tableId: "",
                 tableName: "",
                 tableCaption: "",
@@ -70,6 +71,7 @@ Vue.component("fd-control-bind-to", {
                 this.bindToField.fieldCaption=result.fieldCaption;
                 this.bindToField.fieldDataType=result.fieldDataType;
                 this.bindToField.fieldLength=result.fieldLength;
+                this.bindToField.relationId=result.relationId;
             }
             else {
                 this.bindToField.fieldName = "";
@@ -79,6 +81,7 @@ Vue.component("fd-control-bind-to", {
                 this.bindToField.fieldCaption = "";
                 this.bindToField.fieldDataType = "";
                 this.bindToField.fieldLength = "";
+                this.bindToField.relationId="";
             }
 
             this.setCompleted();
@@ -156,7 +159,11 @@ Vue.component("fd-control-bind-to", {
                         </tr>
                         <tr>
                             <td>表编号：</td>
-                            <td colspan="3">{{bindToField.tableId}}</td>
+                            <td>{{bindToField.tableId}}</td>
+                            <td>数据源：</td>
+                            <td>
+                                
+                            </td>
                         </tr>
                         <tr>
                             <td>表名：</td>

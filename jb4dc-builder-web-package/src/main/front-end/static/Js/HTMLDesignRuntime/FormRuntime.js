@@ -61,14 +61,10 @@ let FormRuntime={
                 formRuntimeInstance: this
             });
 
-            var formFullData=FormRuntimeMock.GetMockData();
-            //this.DeSerializationFormData(formFullData);
+            var relationFormRecordComplexPo=FormRuntimeMock.GetMockData();
+            this.DeSerializationFormData(relationFormRecordComplexPo);
 
         }, this);
-    },
-    StartRenderer:function(){
-        //进行元素渲染
-
     },
     IsPreview: function () {
         return this._Prop_Config.IsPreview
@@ -156,7 +152,7 @@ let FormRuntime={
                 }
                 //allRowRecord.push(oneRowRecord);
                 //singleRelation.oneDataRecord = oneRowRecord;
-                this.Set1To1DataRecord(singleRelation,oneRowRecord);
+                FormRelationPOUtility.Add1To1DataRecord(singleRelation,oneRowRecord);
             } else {
                 //var relationPOId=singleRelation.id;
                 //var dynamicContainerControlInstance=this._RelationPOWithDynamicContainerControl[relationPOId];
@@ -175,19 +171,17 @@ let FormRuntime={
         //console.log(JsonUtility.JsonToString(formRecordComplexPo))
         return formRecordComplexPo;
     },
-    DeSerializationFormData:function (formRecordComplexPo) {
+    DeSerializationFormData:function (relationFormRecordComplexPo) {
         //绑定数据并进行二次渲染绑定数据。
         VirtualBodyControl.RendererDataChain({
-            //po: result.data,
-            //sourceHTML: result.data.formHtmlRuntime,
-            //$rootElem: this._$RendererToElem,
-            //$parentControlElem: this._$RendererToElem,
-            //$singleControlElem: this._$RendererToElem,
-            //formRuntimeInstance: this,
-            formRecordComplexPo:formRecordComplexPo
+            $rootElem: this._$RendererToElem,
+            $parentControlElem: this._$RendererToElem,
+            $singleControlElem: this._$RendererToElem,
+            formRuntimeInstance: this,
+            relationFormRecordComplexPo:relationFormRecordComplexPo
         });
-    },
-    GetRelationPOById:function (id) {
+    }
+    /*GetRelationPOById:function (id) {
         return ArrayUtility.WhereSingle(this._FormDataRelationList,function (po) {
             return po.id==id;
         })
@@ -201,39 +195,7 @@ let FormRuntime={
         return ArrayUtility.WhereSingle(this._FormDataRelationList,function (po) {
             return po.singleName==singleName;
         })
-    },
-    Set1To1DataRecord:function (relationPO, data) {
-        relationPO.oneDataRecord=data;
-        return relationPO;
-    },
-    Get1To1DataRecord:function (relationPO) {
-        return relationPO.oneDataRecord;
-    },
-    Set1ToNDataRecord:function (relationPO, arrayData) {
-        relationPO.listDataRecord=arrayData;
-        return relationPO;
-    },
-    Get1ToNDataRecord:function (relationPO) {
-        return relationPO.listDataRecord;
-    },
-    FindFieldPOByRelationPO:function(relationPO,fieldName){
-        var oneDataRecord = FormRuntime.Get1To1DataRecord(relationPO);
-        var fieldPO=ArrayUtility.WhereSingle(oneDataRecord,function (item) {
-            return item.fieldName==fieldName;
-        });
-        if(fieldPO){
-            return fieldPO;
-        }
-        else{
-            DialogUtility.AlertText("FormRuntime.FindFieldPOByRelationPO:找不到字段"+fieldName+"的数据值!");
-        }
-    },
-    FindIdFieldPOByRelationPO:function(relationPO){
-        return this.FindFieldPOByRelationPO(relationPO,"ID");
-    },
-    ConnectRelationPOToDynamicContainerControl:function (relationPO,dynamicContainerControlInstance) {
-        this._RelationPOWithDynamicContainerControl[relationPO.id]=dynamicContainerControlInstance;
-    }
+    }*/
 }
 
 let FormRuntimeMock={
@@ -298,7 +260,7 @@ let FormRuntimeMock={
                             "id": "txt_dt_375186891",
                             "defaultType": "EnvVar",
                             "defaultValue": "ENV_DATETIME_YYYY_MM_DD",
-                            "value": "2019-10-16",
+                            "value": "2019-11-16",
                             "success": true,
                             "msg": ""
                         },
@@ -311,14 +273,14 @@ let FormRuntimeMock={
                             "tableCaption": "开发测试表1",
                             "tableId": "TDEV_TEST_1",
                             "fieldTableId": "",
-                            "fieldName": "F_PUBLIC_TIME",
-                            "fieldDataType": "日期时间",
+                            "fieldName": "F_PUBLIC_STATUS",
+                            "fieldDataType": "字符串",
                             "fieldDataLength": "20",
                             "serialize": "true",
                             "id": "sel_246410688",
                             "defaultType": "",
                             "defaultValue": "",
-                            "value": "2",
+                            "value": "4",
                             "success": true,
                             "msg": ""
                         },
@@ -338,7 +300,7 @@ let FormRuntimeMock={
                             "id": "txt_897909755",
                             "defaultType": "EnvVar",
                             "defaultValue": "ENV_SYSTEM_CURRENT_USER_ORGAN_ID",
-                            "value": "10001",
+                            "value": "11111",
                             "success": true,
                             "msg": ""
                         }

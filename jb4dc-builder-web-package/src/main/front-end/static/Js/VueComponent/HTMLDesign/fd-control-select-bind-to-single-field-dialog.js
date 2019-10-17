@@ -10,6 +10,7 @@ Vue.component("fd-control-select-bind-to-single-field-dialog", {
                 getTablesFieldsByTableIds:"/Rest/Builder/DataStorage/DataBase/Table/GetTablesFieldsByTableIds"
             },
             selectedData: {
+                relationId:"",
                 tableId: "",
                 tableName: "",
                 tableCaption: "",
@@ -348,6 +349,8 @@ Vue.component("fd-control-select-bind-to-single-field-dialog", {
             this.selectedData.tableId = selectedNode.tableId;
             this.selectedData.tableName = selectedNode.tableName;
             this.selectedData.tableCaption = selectedNode.tableCaption;
+            this.selectedData.relationId=selectedNode.id;
+            //console.log(this.selectedData);
         },
         selectComplete:function () {
             var result=this.selectedData;
