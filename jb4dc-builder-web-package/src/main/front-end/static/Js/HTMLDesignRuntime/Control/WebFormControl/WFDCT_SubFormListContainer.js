@@ -72,7 +72,7 @@ var WFDCT_SubFormListContainer={
         //this._FormRuntimeHost.ConnectRelationPOToDynamicContainerControl(relationPO,this);
     },
     RendererDataChain:function(_rendererDataChainParas){
-        console.log("111111111111111111111");
+        //console.log("111111111111111111111");
     },
 
     SerializationValue:function(originalFormDataRelation,relationPO,control){
@@ -90,7 +90,7 @@ var WFDCT_SubFormListContainer={
     GetValue:function ($elem,originalData, paras) {
         DialogUtility.AlertText("DynamicContainer类型的控件的序列化交由SerializationValue方法自行完成!");
     },
-    SetValue:function ($elem,originalData, paras) {
+    SetValue:function ($elem,relationFormRecordComplexPo,_rendererDataChainParas) {
 
     },
 
