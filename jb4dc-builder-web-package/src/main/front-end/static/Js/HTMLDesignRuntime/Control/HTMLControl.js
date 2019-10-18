@@ -15,6 +15,9 @@ let HTMLControl={
         this._InstanceMap[name]=instance;
         return instance;
     },
+    GetInstance:function(name) {
+        return this._GetInstance(name);
+    },
     SaveControlNewInstanceToPool:function($elem,instance){
         alert("改方法已经废弃,改为服务端创建初始化脚本!");
         return null;

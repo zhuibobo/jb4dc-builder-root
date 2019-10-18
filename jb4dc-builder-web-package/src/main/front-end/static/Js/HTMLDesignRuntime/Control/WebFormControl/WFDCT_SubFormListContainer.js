@@ -345,6 +345,10 @@ var WFDCT_SubFormListContainer={
             }, 1);
         }
     },
+    Dialog_CompletedEdit:function(instanceName,serializationSubFormData) {
+        var thisInstance = HTMLControl.GetInstance(instanceName);
+        this.Dialog_AddRowToContainer();
+    },
     Dialog_AddRowToContainer:function(oneDataRecord,childRelationPOArray){
         if(oneDataRecord) {
             var $tr = this._$TemplateTableRow.clone();
