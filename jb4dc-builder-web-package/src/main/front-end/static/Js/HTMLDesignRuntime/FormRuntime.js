@@ -61,8 +61,8 @@ let FormRuntime={
                 formRuntimeInstance: this
             });
 
-            var relationFormRecordComplexPo=FormRuntimeMock.GetMockData();
-            this.DeSerializationFormData(relationFormRecordComplexPo);
+            //var relationFormRecordComplexPo=FormRuntimeMock.GetMockData();
+            //this.DeSerializationFormData(relationFormRecordComplexPo);
 
         }, this);
     },

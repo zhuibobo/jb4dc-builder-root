@@ -66,7 +66,7 @@ var WFDCT_SubFormListContainer={
         }
 
         //debugger;
-        var relationPO=this.TryGetRelationPO();
+        var relationPO=this.TryGetRelationPOClone();
         $singleControlElem.attr("relation_po_id",relationPO.id);
 
         //this._FormRuntimeHost.ConnectRelationPOToDynamicContainerControl(relationPO,this);
@@ -81,7 +81,10 @@ var WFDCT_SubFormListContainer={
         for (var i = 0; i < listDataRecord.length; i++) {
             var oneDataRecord = listDataRecord[i];
             if(this._EditInRow){
-                this.InnerRow_Add(oneDataRecord);
+                this.InnerRow_AddRowToContainer(oneDataRecord);
+            }
+            else {
+                this.Dialog_AddRowToContainer(oneDataRecord);
             }
         }
         this.InnerRow_CompletedLastEdit();
@@ -112,11 +115,12 @@ var WFDCT_SubFormListContainer={
         var $hostElem = sender.data.hostElem;
         var selfObj = sender.data.selfObj;
         var instanceName = sender.data.instanceName;
+        var rendererChainParas = sender.data._rendererChainParas;
         //debugger;
-        if (!selfObj._EditInRow) {
-            selfObj.Dialog_Add(sender, $hostElem, sender.data._rendererChainParas, instanceName);
+        if (selfObj._EditInRow) {
+            selfObj.InnerRow_AddRowToContainer(null);
         } else {
-            selfObj.InnerRow_Add();
+            selfObj.Dialog_ShowAddRowSubFormDialog(sender, $hostElem, rendererChainParas, instanceName);
         }
         //console.log($hostElem);
         //alert("1");
@@ -150,27 +154,19 @@ var WFDCT_SubFormListContainer={
         var id = $tr.attr("tr_record_id");
         return id;
     },
-    SetRowId:function($tr,relationPO){
-        $tr.attr("tr_record_id",FormRelationPOUtility.FindIdFieldPOByRelationPO(relationPO).value);
-    },
-    SetRowData:function($tr,relationPO){
-        $tr.attr("tr_record_data",JsonUtility.JsonToString(relationPO));
-    },
     GetRowData:function($tr){
         var json=$tr.attr("tr_record_data");
         return JsonUtility.StringToJson(json);
     },
-    RendererRow:function (relationPO,$tr) {
-        if (this._EditInRow) {
-            this.InnerRow_ToViewStatus(relationPO, $tr);
-        } else {
-
-        }
+    SaveDataToRowAttr:function (relationPO,$tr,aboutRelationPOArray) {
         $tr.attr("is_sub_list_tr","true");
-        this.SetRowId($tr, relationPO);
-        this.SetRowData($tr, relationPO);
+        $tr.attr("tr_record_id",FormRelationPOUtility.FindIdFieldPOByRelationPO(relationPO).value);
+        $tr.attr("tr_record_data",JsonUtility.JsonToString(relationPO));
+        if(aboutRelationPOArray){
+            $tr.attr("about_relation_po_array",JsonUtility.JsonToString(aboutRelationPOArray));
+        }
     },
-    TryGetRelationPO:function(){
+    TryGetRelationPOClone:function(){
         //debugger;
         var bindDataSource=this.TryGetBindDataSourceAttr();
         if(this._po){
@@ -217,7 +213,7 @@ var WFDCT_SubFormListContainer={
 
     //region 行内编辑相关方法
     _$LastEditRow:null,
-    InnerRow_Add:function (oneDataRecord) {
+    InnerRow_AddRowToContainer:function (oneDataRecord) {
         this.InnerRow_CompletedLastEdit();
         var $tr = this._$TemplateTableRow.clone();
         var lastOperationTd = $("<td><div class='sflt-td-operation-outer-wrap'></div></td>");
@@ -304,7 +300,7 @@ var WFDCT_SubFormListContainer={
         if(this._$LastEditRow){
             var controls = HTMLControl.FindALLControls(this._$LastEditRow);
 
-            var relationPO=this.TryGetRelationPO();
+            var relationPO=this.TryGetRelationPOClone();
             console.log(relationPO);
             var oneRowRecord = [];
             for (var i = 0; i < controls.length; i++) {
@@ -318,13 +314,64 @@ var WFDCT_SubFormListContainer={
             //}
 
             relationPO=FormRelationPOUtility.Add1To1DataRecord(relationPO,oneRowRecord);
-            this.RendererRow(relationPO,this._$LastEditRow);
+            this.SaveDataToRowAttr(relationPO,this._$LastEditRow);
+            this.InnerRow_ToViewStatus(relationPO, this._$LastEditRow);
             console.log(oneRowRecord);
         }
     },
     //endregion
 
     //region 对话框编辑相关方法
+    Dialog_ShowAddRowSubFormDialog:function(sender,$hostElem,_rendererChainParas,instanceName) {
+        var formId = $hostElem.attr("formid");
+        var windowHeight = $hostElem.attr("windowheight");
+        var windowWidth = $hostElem.attr("windowwidth");
+        var dialogWindowTitle = $hostElem.attr("dialogwindowtitle");
+        if (!dialogWindowTitle) {
+            dialogWindowTitle = "应用构建系统";
+        }
+
+        var isPreview = _rendererChainParas.formRuntimeInstance.IsPreview();
+        if (isPreview) {
+            var url = BaseUtility.BuildView("/HTML/Builder/Form/SubFormPreview.html", {
+                "FormId": formId,
+                "OperationType": "add",
+                "InstanceName": instanceName
+            });
+            DialogUtility.OpenIframeWindow(window, DialogUtility.DialogId, url, {
+                title: dialogWindowTitle,
+                width: windowWidth,
+                height: windowHeight
+            }, 1);
+        }
+    },
+    Dialog_AddRowToContainer:function(oneDataRecord,childRelationPOArray){
+        if(oneDataRecord) {
+            var $tr = this._$TemplateTableRow.clone();
+            var controls = HTMLControl.FindALLControls($tr);
+            for (var i = 0; i < controls.length; i++) {
+                var control = $(controls[i]);
+                var controlInstance = HTMLControl.GetControlInstanceByElem(control);
+                var fieldName = HTMLControl.GetControlBindFieldName(control);
+                var fieldPO = FormRelationPOUtility.FindFieldPOInOneDataRecord(oneDataRecord, fieldName)
+                controlInstance.SetValue(control, fieldPO, null, null);
+            }
+
+            this._$TableBodyElem.append($tr);
+
+            //构建本身数据关联PO
+            var relationPO = this.TryGetRelationPOClone();
+            relationPO = FormRelationPOUtility.Add1To1DataRecord(relationPO, oneDataRecord);
+
+            //构建关联PO数据,提供给子表单的1:N数据源
+            if(!childRelationPOArray) {
+                childRelationPOArray = FormRelationPOUtility.FindChildRelationPOList(this._FormDataRelationList, relationPO);
+            }
+
+            this.SaveDataToRowAttr(relationPO, $tr, childRelationPOArray);
+        }
+    }
+    /*,
     Dialog_Add:function (sender,$hostElem,_rendererChainParas,instanceName) {
         var formId=$hostElem.attr("formid");
         var windowHeight=$hostElem.attr("windowheight");
@@ -352,7 +399,6 @@ var WFDCT_SubFormListContainer={
         //console.log(windowWidth);
     },
     Dialog_CompletedEdit:function(instanceName,operationType,serializationSubFormData){
-
         if(this.ValidateSerializationSubFormDataEnable(serializationSubFormData)) {
 
             var oneDataRecord = ArrayUtility.WhereSingle(serializationSubFormData.formRecordDataRelationPOList, function (item) {
@@ -431,6 +477,6 @@ var WFDCT_SubFormListContainer={
         }
         $tr.append(lastOperationTd);
         this._$TableBodyElem.append($tr);
-    }
+    }*/
     //endregion
 }

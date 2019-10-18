@@ -80,6 +80,11 @@ let FormRelationPOUtility={
         return ArrayUtility.WhereSingle(relationFormRecordComplexPo.formRecordDataRelationPOList,function (item) {
             return item.id==relationId;
         })
+    },
+    FindChildRelationPOList:function (relationPOList,parentRelationPO) {
+        return ArrayUtility.Where(relationPOList,function (item) {
+            return item.parentId=parentRelationPO.id;
+        });
     }
     /*ConnectRelationPOToDynamicContainerControl:function (relationPO,dynamicContainerControlInstance) {
         this._RelationPOWithDynamicContainerControl[relationPO.id]=dynamicContainerControlInstance;
