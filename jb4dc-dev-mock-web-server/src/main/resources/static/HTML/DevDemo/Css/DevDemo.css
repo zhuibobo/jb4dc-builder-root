@@ -111,3 +111,11 @@
     background-color: #47cb89;
     border-color: #47cb89;
 }
+
+.my-history-note{
+    float: left;
+    border: #a2c0b4 1px solid;
+    padding: 8px;
+    margin: 4px;
+    border-radius: 6px;
+}
