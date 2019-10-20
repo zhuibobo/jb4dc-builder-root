@@ -7,7 +7,7 @@ var WLDCT_ListComplexSearchContainer= {
         var $singleControlElem=_rendererChainParas.$singleControlElem;
         this._$SingleControlElem=$singleControlElem;
 
-        HTMLControl.SaveControlNewInstanceToPool($singleControlElem,this);
+        //HTMLControl.SaveControlNewInstanceToPool($singleControlElem,this);
 
         $singleControlElem.hide();
         $singleControlElem.find(".wldct-list-complex-search-inner-wrap").height("305px");

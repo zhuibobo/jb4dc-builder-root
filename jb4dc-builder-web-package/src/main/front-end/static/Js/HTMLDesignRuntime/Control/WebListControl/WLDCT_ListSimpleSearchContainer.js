@@ -12,7 +12,7 @@ var WLDCT_ListSimpleSearchContainer={
 
         $singleControlElem.find("table:first").width(pageWidth-buttonWrapWidth);
 
-        HTMLControl.SaveControlNewInstanceToPool($singleControlElem,this);
+       // HTMLControl.SaveControlNewInstanceToPool($singleControlElem,this);
 
         var $searchButtonsWrap=$("<div class='wldct-list-simple-search-button-inner-wrap' />");
         $searchButtonsWrap.width(buttonWrapWidth-40);

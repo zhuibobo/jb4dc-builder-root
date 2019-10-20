@@ -282,7 +282,7 @@ var WLDCT_ListTableContainer = {
         this._SimpleSearchContainerInstance = HTMLControl.GetControlInstanceByElem($simpleSearchContainerElem);
         this._ComplexSearchContainerInstance = HTMLControl.GetControlInstanceByElem($complexSearchContainerElem);
 
-        HTMLControl.SaveControlNewInstanceToPool($singleControlElem, this);
+        //HTMLControl.SaveControlNewInstanceToPool($singleControlElem, this);
 
         this._SimpleSearchContainerInstance._$SimpleSearchButton.bind("click", {"listInstance": this}, this.SimpleSearchClickEvent);
         this._SimpleSearchContainerInstance._$ShowComplexSearchButton.bind("click", {"listInstance": this}, this.ShowComplexSearchClickEvent);
@@ -327,7 +327,7 @@ var WLDCT_ListTableContainer = {
         var pageSize;
         if (usedTopDataSet) {
             dataSetId = _rendererDataChainParas.topDataSetId;
-            pageSize = _rendererDataChainParas.listEntity.listDatasetPageSize;
+            pageSize = _rendererDataChainParas.po.listDatasetPageSize;
         }
 
         if (!this._CacheRendererDataChainParas) {

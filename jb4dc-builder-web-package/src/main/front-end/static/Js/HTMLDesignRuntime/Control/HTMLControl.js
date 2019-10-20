@@ -19,7 +19,7 @@ let HTMLControl={
         return this._GetInstance(name);
     },
     SaveControlNewInstanceToPool:function($elem,instance){
-        alert("改方法已经废弃,改为服务端创建初始化脚本!");
+        alert("改方法已经废弃,改为服务端创建初始化脚本1!");
         return null;
         var instanceName=$elem.attr("client_resolve")+"_"+StringUtility.GuidSplit("");
         //HTMLControl.SaveControlInstancePool(instanceName,instance);
