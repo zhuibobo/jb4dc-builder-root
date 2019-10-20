@@ -1,5 +1,5 @@
 jb4dc:
-  system-caption: 开发示例系统
+  system-caption: 人力资源管理
   system-title: JBuild4DC-开发示例系统
   warning-operation-code: jb4d82
   is-debug: true
@@ -44,7 +44,8 @@ eureka:
   client:
     serviceUrl:
       #服务端的地址
-      defaultZone: http://192.168.3.166:9092/eureka/
+      #defaultZone: http://192.168.3.166:9092/eureka/
+      defaultZone: http://localhost:9092/eureka/
   instance:
     prefer-ip-address: true
     instanceId: ${spring.cloud.inetutils.preferred-networks}:${server.port}

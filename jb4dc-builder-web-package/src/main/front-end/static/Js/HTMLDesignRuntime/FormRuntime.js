@@ -94,7 +94,7 @@ let FormRuntime={
         };
 
         var originalFormDataRelation = this.GetOriginalFormDataRelation();
-        console.log(originalFormDataRelation);
+        //console.log(originalFormDataRelation);
 
         for (var i = 0; i < originalFormDataRelation.length; i++) {
             var singleRelation = originalFormDataRelation[i];
@@ -157,17 +157,19 @@ let FormRuntime={
                 //var relationPOId=singleRelation.id;
                 //var dynamicContainerControlInstance=this._RelationPOWithDynamicContainerControl[relationPOId];
                 //var dynamicContainerControlInstance.Get
+                //debugger;
                 var control = $("[serialize='true'][control_category='DynamicContainer'][relation_po_id='"+singleRelation.id+"']");
                 if(control.length>0) {
                     var controlInstance = HTMLControl.GetControlInstanceByElem(control);
+                    //debugger;
                     controlInstance.SerializationValue(originalFormDataRelation,singleRelation,control);
                 }
             }
             //singleRelation.dataRecordList=allRowRecord;
         }
         formRecordComplexPo.formRecordDataRelationPOList = originalFormDataRelation;
-        console.log(formRecordComplexPo);
-        console.log(JsonUtility.JsonToString(formRecordComplexPo))
+        //console.log(formRecordComplexPo);
+        //console.log(JsonUtility.JsonToString(formRecordComplexPo))
         //console.log(JsonUtility.JsonToString(formRecordComplexPo))
         return formRecordComplexPo;
     },
@@ -181,17 +183,17 @@ let FormRuntime={
             relationFormRecordComplexPo:relationFormRecordComplexPo
         });
     }
-    /*GetRelationPOById:function (id) {
+    /*FindRelationPOById:function (id) {
         return ArrayUtility.WhereSingle(this._FormDataRelationList,function (po) {
             return po.id==id;
         })
     },
-    GetRelationPOByTableName:function (tableName) {
+    FindRelationPOByTableName:function (tableName) {
         return ArrayUtility.WhereSingle(this._FormDataRelationList,function (po) {
             return po.tableName==tableName;
         })
     },
-    GetRelationPOBySingleName:function (singleName) {
+    FindRelationPOBySingleName:function (singleName) {
         return ArrayUtility.WhereSingle(this._FormDataRelationList,function (po) {
             return po.singleName==singleName;
         })

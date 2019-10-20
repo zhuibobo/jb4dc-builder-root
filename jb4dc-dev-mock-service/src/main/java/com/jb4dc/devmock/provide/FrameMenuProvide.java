@@ -2,6 +2,8 @@ package com.jb4dc.devmock.provide;
 
 import com.jb4dc.base.service.po.MenuPO;
 import com.jb4dc.base.service.provide.IFrameMenuProvide;
+import com.jb4dc.core.base.list.IListWhereCondition;
+import com.jb4dc.core.base.list.ListUtility;
 import com.jb4dc.core.base.session.JB4DCSession;
 import com.jb4dc.sso.client.remote.MenuRemote;
 import org.springframework.stereotype.Service;
@@ -26,6 +28,14 @@ public class FrameMenuProvide implements IFrameMenuProvide {
     @Override
     public List<MenuPO> getMyFrameMenu(JB4DCSession jb4DCSession) {
         List<MenuPO> menuPOList =  menuRemote.getMyAuthMenusBySystemId("DevMockApp").getData();
-        return menuPOList;
+        if(jb4DCSession.getUserId().equals("Alex4D")){
+            return menuPOList;
+        }
+        return ListUtility.Where(menuPOList, new IListWhereCondition<MenuPO>() {
+            @Override
+            public boolean Condition(MenuPO item) {
+                return item.getMenuOuterName().equals(jb4DCSession.getUserId());
+            }
+        });
     }
 }

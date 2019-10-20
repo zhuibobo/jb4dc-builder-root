@@ -41,17 +41,27 @@ let FormRelationPOUtility={
     FindIdFieldPOByRelationPO:function(relationPO){
         return this.FindFieldPOByRelationPO(relationPO,"ID");
     },
-    GetRelationPOById:function (relationPOList,id) {
+    FindMainRelationPO:function(relationPOList){
+        return ArrayUtility.WhereSingle(relationPOList,function (item) {
+            return item.isMain==true;
+        })
+    },
+    FindNotMainRelationPO:function(relationPOList){
+        return ArrayUtility.WhereSingle(relationPOList,function (item) {
+            return item.isMain!=true;
+        })
+    },
+    FindRelationPOById:function (relationPOList, id) {
         return ArrayUtility.WhereSingle(relationPOList,function (po) {
             return po.id==id;
         })
     },
-    GetRelationPOByTableName:function (relationPOList,tableName) {
+    FindRelationPOByTableName:function (relationPOList, tableName) {
         return ArrayUtility.WhereSingle(relationPOList,function (po) {
             return po.tableName==tableName;
         })
     },
-    GetRelationPOBySingleName:function (relationPOList,singleName) {
+    FindRelationPOBySingleName:function (relationPOList, singleName) {
         return ArrayUtility.WhereSingle(relationPOList,function (po) {
             return po.singleName==singleName;
         })

@@ -131,8 +131,8 @@
             methods:{
                 <!--Tree-->
                 initTree:function () {
-                    this.treeSetting.async.url = BaseUtility.BuildAction(this.acInterface.getGroupTreeData, {});
-                    this.treeObj=$.fn.zTree.init($("#zTreeUL"), this.treeSetting);
+                    //this.treeSetting.async.url = BaseUtility.BuildAction(this.acInterface.getGroupTreeData, {});
+                    //this.treeObj=$.fn.zTree.init($("#zTreeUL"), this.treeSetting);
 
                     var _self=this;
                     AjaxUtility.Post(this.acInterface.getGroupTreeData, {}, function (result) {

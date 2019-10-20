@@ -42,10 +42,21 @@ gulp.task('html-only',()=>{
         removeComments:true
     })).pipe(gulp.dest(jarToResourcePath+"/HTML"));*/
 });
+gulp.task('html-css',()=>{
+    return gulp.src([
+        sourcePath + "/Js/HTMLDesign/**/Plugins/**/*.js",
+        sourcePath + "/HTML/**/*.css",
+        sourcePath + "/HTML/**/*.png"
+    ], {base: sourcePath+"/HTML"}).
+    pipe(gulp.dest(distPath + "/HTML"));
+});
+
+gulp.task('all', gulp.series('js-vue-ex-component','html-only','html-css'));
 
 gulp.task('dist-watch', function() {
-    gulp.watch(sourcePath+"/HTML/**/*", gulp.series('html-only'));
-    gulp.watch(sourcePath + "/Js/VueComponent/**/*.js", gulp.series('js-vue-ex-component'));
+    //gulp.watch(sourcePath+"/HTML/**/*", gulp.series('html-only'));
+    //gulp.watch(sourcePath + "/Js/VueComponent/**/*.js", gulp.series('js-vue-ex-component'));
+    gulp.watch(sourcePath+"/**/*", gulp.series('all'));
 });
 
 //endregion

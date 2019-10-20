@@ -14,6 +14,7 @@ var WFDCT_SubFormListContainer={
     _FormDataRelationList:null,
 
     RendererChain:function (_rendererChainParas) {
+        //debugger;
         var $singleControlElem = _rendererChainParas.$singleControlElem;
         this._$SingleControlElem = $singleControlElem;
         this._$TableElem = this._$SingleControlElem.find("table");
@@ -168,22 +169,22 @@ var WFDCT_SubFormListContainer={
     },
     TryGetRelationPOClone:function(){
         //debugger;
-        var bindDataSource=this.TryGetBindDataSourceAttr();
         if(this._po){
             return JsonUtility.CloneSimple(this._po);
         }
+        var bindDataSource=this.TryGetBindDataSourceAttr();
         var po=null;
         if(bindDataSource=="autoTesting") {
             var bindTableName = this.TryGetInnerControlBindTableName();
-            //po=this._FormRuntimeHost.GetRelationPOByTableName(bindTableName);
-            po = FormRelationPOUtility.GetRelationPOByTableName(this._FormDataRelationList, bindTableName);
+            //po=this._FormRuntimeHost.FindRelationPOByTableName(bindTableName);
+            po = FormRelationPOUtility.FindRelationPOByTableName(this._FormDataRelationList, bindTableName);
             if (po == null) {
                 DialogUtility.AlertText("WFDCT_SubFormListContainer.TryGetRelationPO:通过内部控件绑定的表找不到具体的数据关联实体！");
             }
         }
         else {
-            //po=this._FormRuntimeHost.GetRelationPOById(bindDataSource);
-            po = FormRelationPOUtility.GetRelationPOById(this._FormDataRelationList, bindDataSource);
+            //po=this._FormRuntimeHost.FindRelationPOById(bindDataSource);
+            po = FormRelationPOUtility.FindRelationPOById(this._FormDataRelationList, bindDataSource);
             if (po == null) {
                 DialogUtility.AlertText("WFDCT_SubFormListContainer.TryGetRelationPO:通过ID" + bindDataSource + "找不到具体的数据关联实体！");
             }
@@ -345,9 +346,26 @@ var WFDCT_SubFormListContainer={
             }, 1);
         }
     },
-    Dialog_CompletedEdit:function(instanceName,serializationSubFormData) {
+    Dialog_SubFormDialogCompletedEdit:function(instanceName,operationType,serializationSubFormData) {
         var thisInstance = HTMLControl.GetInstance(instanceName);
-        this.Dialog_AddRowToContainer();
+        (function(operationType,serializationSubFormData){
+            debugger;
+            console.log(serializationSubFormData);
+            var selfRelationPO = this.TryGetRelationPOClone();
+            var subFormMainRelationPO = FormRelationPOUtility.FindMainRelationPO(serializationSubFormData.formRecordDataRelationPOList);
+            var subFormNotMainRelationPO = FormRelationPOUtility.FindNotMainRelationPO(serializationSubFormData.formRecordDataRelationPOList);
+            //将子窗体的关联实体装换为主窗体的实体关联.
+            if(subFormNotMainRelationPO&&subFormNotMainRelationPO.length>0){
+                for (var i = 0; i < subFormNotMainRelationPO.length ; i++) {
+                    //subFormNotMainRelationPO.
+                }
+            }
+            var oneDataRecord=FormRelationPOUtility.Get1To1DataRecord(subFormMainRelationPO);
+            if(operationType=="add"){
+                this.CreateIdFieldInOneDataRecord(oneDataRecord,StringUtility.Guid());
+            }
+            this.Dialog_AddRowToContainer(oneDataRecord);
+        }).call(thisInstance,operationType,serializationSubFormData);
     },
     Dialog_AddRowToContainer:function(oneDataRecord,childRelationPOArray){
         if(oneDataRecord) {
