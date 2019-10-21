@@ -95,20 +95,40 @@ var WFDCT_SubFormListContainer={
     SerializationValue:function(originalFormDataRelation,relationPO,control){
         this.InnerRow_CompletedLastEdit();
         var allData=[];
+        var all$TrAttrChildRelationPoArray=[];
         var trs=this._$SingleControlElem.find("tr[is_sub_list_tr='true']");
         for (var i = 0; i < trs.length; i++) {
             var $tr = $(trs[i]);
             var singleRelationPO=this.GetRowData($tr);
             allData.push(FormRelationPOUtility.Get1To1DataRecord(singleRelationPO))
             //console.log(singleJsonData);
+            var trChildRelationPOArray=this.GetChildRelationPOArray($tr);
+            if(trChildRelationPOArray) {
+                all$TrAttrChildRelationPoArray = all$TrAttrChildRelationPoArray.concat(trChildRelationPOArray)
+            }
         }
         FormRelationPOUtility.Add1ToNDataRecord(relationPO,allData);
 
+        debugger;
         //尝试处理子表记录
         var childRelationArray=ArrayUtility.Where(originalFormDataRelation,function(item){
             return item.parentId==relationPO.id;
         });
-        for (var i = 0; i < trs.length; i++) {
+
+        for (var i = 0; i < childRelationArray.length; i++) {
+            var childRelationPO=childRelationArray[i];
+            var inTrChildRelationPoArray=ArrayUtility.Where(all$TrAttrChildRelationPoArray,function (item) {
+                return item.id==childRelationPO.id;
+            });
+            var allChildData=[];
+            if(inTrChildRelationPoArray) {
+                for (var j = 0; j < inTrChildRelationPoArray.length; j++) {
+                    allChildData = allChildData.concat(inTrChildRelationPoArray[j].listDataRecord);
+                }
+            }
+            FormRelationPOUtility.Add1ToNDataRecord(childRelationPO,allChildData);
+        }
+        /*for (var i = 0; i < trs.length; i++) {
             var $tr = $(trs[i]);
             var trChildRelationPOArray=this.GetChildRelationPOArray($tr);
             if(trChildRelationPOArray) {
@@ -124,7 +144,7 @@ var WFDCT_SubFormListContainer={
                     }
                 }
             }
-        }
+        }*/
     },
     GetValue:function ($elem,originalData, paras) {
         DialogUtility.AlertText("DynamicContainer类型的控件的序列化交由SerializationValue方法自行完成!");
@@ -183,7 +203,10 @@ var WFDCT_SubFormListContainer={
     },
     GetChildRelationPOArray:function($tr){
         var json=$tr.attr("child_relation_po_array");
-        return JsonUtility.StringToJson(json);
+        if(!StringUtility.IsNullOrEmpty(json)){
+            return JsonUtility.StringToJson(json);
+        }
+        return null;
     },
     SaveDataToRowAttr:function (relationPO,$tr,aboutRelationPOArray) {
         $tr.attr("is_sub_list_tr","true");
