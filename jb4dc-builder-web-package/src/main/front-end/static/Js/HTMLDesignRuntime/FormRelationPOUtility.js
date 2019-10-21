@@ -26,6 +26,9 @@ let FormRelationPOUtility={
             DialogUtility.AlertText("FormRuntime.FindFieldPOByRelationPO:找不到字段"+fieldName+"的数据值!");
         }
     },
+    FindFieldPOInOneDataRecordByID:function(oneDataRecord){
+        return this.FindFieldPOInOneDataRecord(oneDataRecord,"ID");
+    },
     FindFieldPOByRelationPO:function(relationPO,fieldName){
         var oneDataRecord = FormRelationPOUtility.Get1To1DataRecord(relationPO);
         var fieldPO=ArrayUtility.WhereSingle(oneDataRecord,function (item) {
@@ -44,12 +47,12 @@ let FormRelationPOUtility={
     FindMainRelationPO:function(relationPOList){
         return ArrayUtility.WhereSingle(relationPOList,function (item) {
             return item.isMain==true;
-        })
+        });
     },
     FindNotMainRelationPO:function(relationPOList){
-        return ArrayUtility.WhereSingle(relationPOList,function (item) {
+        return ArrayUtility.Where(relationPOList,function (item) {
             return item.isMain!=true;
-        })
+        });
     },
     FindRelationPOById:function (relationPOList, id) {
         return ArrayUtility.WhereSingle(relationPOList,function (po) {
@@ -59,7 +62,7 @@ let FormRelationPOUtility={
     FindRelationPOByTableName:function (relationPOList, tableName) {
         return ArrayUtility.WhereSingle(relationPOList,function (po) {
             return po.tableName==tableName;
-        })
+        });
     },
     FindRelationPOBySingleName:function (relationPOList, singleName) {
         return ArrayUtility.WhereSingle(relationPOList,function (po) {

@@ -9,6 +9,10 @@
 <head>
     <meta charset="UTF-8">
     <title>表单预览</title>
+    <!--GeneralLib非必须,暂时只是用到其中的perfect-scrollbar的引用-->
+    <th:block th:replace="Fragment/GeneralLib::GeneralLib"></th:block>
+    <!--GeneralLib非必须,暂时只是用到其中的perfect-scrollbar的引用-->
+
     <th:block th:replace="Fragment/GeneralLib::HTMLDesignRuntimeLib"></th:block>
     <th:block th:replace="Fragment/GeneralLib::ThemesLib"></th:block>
     <script>
@@ -24,6 +28,13 @@
                 IsPreview:true
             });
             BaseUtility.SetSystemFavicon();
+
+            $("#btnSaveButton").bind("click",{},function (sender) {
+                var result=FormRuntimeInst.SerializationFormData();
+                //debugger;
+                DialogUtility.AlertJsonCode(result,5);
+                console.log(result);
+            })
         });
     </script>
 </head>
@@ -32,7 +43,7 @@
     <div class="html-design-operation-button-outer-wrap">
         <div class="html-design-button-inner-wrap">
             <div class="html-design-buttons-group">
-                <button type="button" class="operation-button operation-button-primary" onclick="FormRuntimeInst.SerializationFormData()"><span>测试</span></button>
+                <button type="button" class="operation-button operation-button-primary" id="btnSaveButton"><span>获取序列化结果</span></button>
                 <button type="button" class="operation-button"><span>关闭</span></button>
             </div>
         </div>

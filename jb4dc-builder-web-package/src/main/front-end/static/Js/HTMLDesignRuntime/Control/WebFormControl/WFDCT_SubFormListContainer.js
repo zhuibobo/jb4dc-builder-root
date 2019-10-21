@@ -103,6 +103,28 @@ var WFDCT_SubFormListContainer={
             //console.log(singleJsonData);
         }
         FormRelationPOUtility.Add1ToNDataRecord(relationPO,allData);
+
+        //尝试处理子表记录
+        var childRelationArray=ArrayUtility.Where(originalFormDataRelation,function(item){
+            return item.parentId==relationPO.id;
+        });
+        for (var i = 0; i < trs.length; i++) {
+            var $tr = $(trs[i]);
+            var trChildRelationPOArray=this.GetChildRelationPOArray($tr);
+            if(trChildRelationPOArray) {
+                for (var j = 0; j < trChildRelationPOArray.length; j++) {
+                    var childRelationPO = ArrayUtility.WhereSingle(childRelationArray, function (item) {
+                        return item.id == trChildRelationPOArray[j].id;
+                    });
+                    if (trChildRelationPOArray[j].oneDataRecord) {
+                        childRelationPO.oneDataRecord = trChildRelationPOArray[j].oneDataRecord;
+                    }
+                    if (trChildRelationPOArray[j].listDataRecord) {
+                        childRelationPO.listDataRecord = trChildRelationPOArray[j].listDataRecord;
+                    }
+                }
+            }
+        }
     },
     GetValue:function ($elem,originalData, paras) {
         DialogUtility.AlertText("DynamicContainer类型的控件的序列化交由SerializationValue方法自行完成!");
@@ -159,13 +181,23 @@ var WFDCT_SubFormListContainer={
         var json=$tr.attr("tr_record_data");
         return JsonUtility.StringToJson(json);
     },
+    GetChildRelationPOArray:function($tr){
+        var json=$tr.attr("child_relation_po_array");
+        return JsonUtility.StringToJson(json);
+    },
     SaveDataToRowAttr:function (relationPO,$tr,aboutRelationPOArray) {
         $tr.attr("is_sub_list_tr","true");
         $tr.attr("tr_record_id",FormRelationPOUtility.FindIdFieldPOByRelationPO(relationPO).value);
         $tr.attr("tr_record_data",JsonUtility.JsonToString(relationPO));
-        if(aboutRelationPOArray){
-            $tr.attr("about_relation_po_array",JsonUtility.JsonToString(aboutRelationPOArray));
+        if(aboutRelationPOArray&&aboutRelationPOArray.length>0){
+            $tr.attr("child_relation_po_array",JsonUtility.JsonToString(aboutRelationPOArray));
         }
+    },
+    TryGetChildRelationPOArrayClone:function(relationPO){
+        var childRelation=ArrayUtility.Where(this._FormDataRelationList,function(item){
+            return item.parentId==relationPO.id;
+        });
+        return JsonUtility.CloneArraySimple(childRelation);
     },
     TryGetRelationPOClone:function(){
         //debugger;
@@ -348,26 +380,47 @@ var WFDCT_SubFormListContainer={
     },
     Dialog_SubFormDialogCompletedEdit:function(instanceName,operationType,serializationSubFormData) {
         var thisInstance = HTMLControl.GetInstance(instanceName);
-        (function(operationType,serializationSubFormData){
-            debugger;
+        (function (operationType, serializationSubFormData) {
+            //debugger;
+
             console.log(serializationSubFormData);
+            //debugger;
+            //父窗体的相关的关联设置
             var selfRelationPO = this.TryGetRelationPOClone();
+            var selfChildRelationPOArray = this.TryGetChildRelationPOArrayClone(selfRelationPO);
+
+            //子窗体相关的关联设置
             var subFormMainRelationPO = FormRelationPOUtility.FindMainRelationPO(serializationSubFormData.formRecordDataRelationPOList);
             var subFormNotMainRelationPO = FormRelationPOUtility.FindNotMainRelationPO(serializationSubFormData.formRecordDataRelationPOList);
+
             //将子窗体的关联实体装换为主窗体的实体关联.
-            if(subFormNotMainRelationPO&&subFormNotMainRelationPO.length>0){
-                for (var i = 0; i < subFormNotMainRelationPO.length ; i++) {
-                    //subFormNotMainRelationPO.
+            var childRelationPOArray = [];
+            for (var i = 0; i < selfChildRelationPOArray.length; i++) {
+                var tableName = selfChildRelationPOArray[i].tableName;
+                var subRelationPO = FormRelationPOUtility.FindRelationPOByTableName(subFormNotMainRelationPO, tableName);
+                if (subRelationPO) {
+                    subRelationPO.id = selfChildRelationPOArray[i].id;
+                    subRelationPO.parentId = selfChildRelationPOArray[i].parentId;
+                    childRelationPOArray.push(subRelationPO);
                 }
             }
-            var oneDataRecord=FormRelationPOUtility.Get1To1DataRecord(subFormMainRelationPO);
-            if(operationType=="add"){
-                this.CreateIdFieldInOneDataRecord(oneDataRecord,StringUtility.Guid());
+
+            //if(subFormNotMainRelationPO&&subFormNotMainRelationPO.length>0){
+            //    for (var i = 0; i < subFormNotMainRelationPO.length ; i++) {
+            //subFormNotMainRelationPO.
+            //    }
+            //}
+
+            var oneDataRecord = FormRelationPOUtility.Get1To1DataRecord(subFormMainRelationPO);
+            if (operationType == "add") {
+                this.CreateIdFieldInOneDataRecord(oneDataRecord, StringUtility.Guid());
             }
-            this.Dialog_AddRowToContainer(oneDataRecord);
-        }).call(thisInstance,operationType,serializationSubFormData);
+            this.Dialog_AddRowToContainer(oneDataRecord, childRelationPOArray, false);
+
+
+        }).call(thisInstance, operationType, serializationSubFormData);
     },
-    Dialog_AddRowToContainer:function(oneDataRecord,childRelationPOArray){
+    Dialog_AddRowToContainer:function(oneDataRecord,childRelationPOArray,dataIsFromServer){
         if(oneDataRecord) {
             var $tr = this._$TemplateTableRow.clone();
             var controls = HTMLControl.FindALLControls($tr);
@@ -379,19 +432,66 @@ var WFDCT_SubFormListContainer={
                 controlInstance.SetValue(control, fieldPO, null, null);
             }
 
+            var idFieldPO=FormRelationPOUtility.FindFieldPOInOneDataRecordByID(oneDataRecord,"ID");
+            var lastOperationTd = $("<td><div class='sflt-td-operation-outer-wrap'></div></td>");
+            var lastOperationOuterDiv = lastOperationTd.find("div");
+            if(dataIsFromServer){
+
+            }
+            else {
+                this.Dialog_AddRow_AddViewButton(lastOperationOuterDiv,$tr,idFieldPO.value,oneDataRecord);
+                this.Dialog_AddRow_AddUpdateButton(lastOperationOuterDiv,$tr,idFieldPO.value,oneDataRecord);
+                this.Dialog_AddRow_AddDeleteButton(lastOperationOuterDiv,$tr,idFieldPO.value,oneDataRecord);
+            }
+
+            $tr.append(lastOperationTd);
             this._$TableBodyElem.append($tr);
 
             //构建本身数据关联PO
             var relationPO = this.TryGetRelationPOClone();
             relationPO = FormRelationPOUtility.Add1To1DataRecord(relationPO, oneDataRecord);
 
-            //构建关联PO数据,提供给子表单的1:N数据源
-            if(!childRelationPOArray) {
-                childRelationPOArray = FormRelationPOUtility.FindChildRelationPOList(this._FormDataRelationList, relationPO);
-            }
-
             this.SaveDataToRowAttr(relationPO, $tr, childRelationPOArray);
         }
+    },
+    Dialog_AddRow_AddViewButton:function (operationOuterDiv,$tr,idValue,oneDataRecord) {
+        var btn_operation_view = $("<div title='查看' class='sflt-td-operation-view'></div>");
+
+        btn_operation_view.bind("click", {
+            "tr_elem": $tr,
+            "id": idValue,
+            "record_data": oneDataRecord
+        }, function (sender) {
+            alert("查看")
+        });
+
+        operationOuterDiv.append(btn_operation_view);
+    },
+    Dialog_AddRow_AddUpdateButton:function (operationOuterDiv,$tr,idValue,oneDataRecord) {
+        var btn_operation_view = $("<div title='编辑' class='sflt-td-operation-update'></div>");
+
+        btn_operation_view.bind("click", {
+            "tr_elem": $tr,
+            "id": idValue,
+            "record_data": oneDataRecord
+        }, function (sender) {
+            alert("编辑")
+        });
+
+        operationOuterDiv.append(btn_operation_view);
+    },
+    Dialog_AddRow_AddDeleteButton:function (operationOuterDiv,$tr,idValue,oneDataRecord) {
+        var btn_operation_view = $("<div title='删除' class='sflt-td-operation-del'></div>");
+
+        btn_operation_view.bind("click", {
+            "tr_elem": $tr,
+            "id": idValue,
+            "record_data": oneDataRecord
+        }, function (sender) {
+            alert("删除")
+        });
+
+        operationOuterDiv.append(btn_operation_view);
     }
     /*,
     Dialog_Add:function (sender,$hostElem,_rendererChainParas,instanceName) {

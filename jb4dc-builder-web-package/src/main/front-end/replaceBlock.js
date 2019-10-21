@@ -47,6 +47,7 @@ let replaceBlock = {
         replaceArray.push(refJs(levelPath + "Js/External/JQuery-UI-1.12.1/jquery-ui.js"));
         replaceArray.push(refJs(levelPath + "Js/External/ZTree-3.5.40/js/jquery.ztree.all.js"));
         //replaceArray.push(refJs(levelPath + "Js/External/perfect-scrollbar-14/perfect-scrollbar.js"));
+        replaceArray.push(refJs(levelPath + "Js/External/Perfect-Scrollbar-V1.4.0/perfect-scrollbar.js"));
         replaceArray.push(refJs(levelPath + "Js/JBuild4DCLib.js?refVersion=" + refVersion));
         replaceArray.push(refJs(levelPath + "Js/UIEXComponent.js?refVersion=" + refVersion));
 
@@ -118,11 +119,13 @@ let replaceBlock = {
         //判断路径后进行引入js的路径
         let levelPath = calculateFilePath(file);
 
-        replaceArray.push(refCss(levelPath + 'Themes/Default/Css/JBuild4DC.css?refVersion=' + refVersion));
+
         replaceArray.push(refCss(levelPath + 'Themes/Default/IView-3.X/iview.css'));
         replaceArray.push(refCss(levelPath + 'Themes/Default/JQueryUI/jquery-ui.css'));
         replaceArray.push(refCss(levelPath + 'Themes/Default/JQueryUI/jquery-ui-important.css'));
+        replaceArray.push(refCss(levelPath + 'Js/External/Perfect-Scrollbar-V1.4.0/perfect-scrollbar.css'));
         replaceArray.push(refCss(levelPath + 'Themes/Default/ZTree/zTreeStyle/zTreeStyle.css'));
+        replaceArray.push(refCss(levelPath + 'Themes/Default/Css/JBuild4DC.css?refVersion=' + refVersion));
         replaceArray.push(refCss(levelPath + 'Themes/Default/Css/JBuild4DCBuilder.css?refVersion=' + refVersion));
         return replaceArray.join("\n\t");
 
