@@ -41,12 +41,12 @@ let FormRuntime={
             buttonId: this._Prop_Config.ButtonId
         }, function (result) {
             //alert( "Load was performed.");
-            console.log("加载预览窗体成功!!");
+            //console.log("加载预览窗体成功!!");
             //console.log(result);
             //console.log(result.data.formHtmlRuntime);
             //var $rootElem=$(result.data.formHtmlRuntime);
             //if($rootElem.)
-            console.log(result);
+            //console.log(result);
             this._FormPO=result.data;
             this._FormDataRelationList=JsonUtility.StringToJson(this._FormPO.formDataRelation);
 

@@ -26,6 +26,17 @@ let FormRelationPOUtility={
             DialogUtility.AlertText("FormRuntime.FindFieldPOByRelationPO:找不到字段"+fieldName+"的数据值!");
         }
     },
+    FindFieldValueInOneDataRecord:function(oneDataRecord,fieldName){
+        var fieldPO=ArrayUtility.WhereSingle(oneDataRecord,function (item) {
+            return item.fieldName==fieldName;
+        });
+        if(fieldPO){
+            return fieldPO.value;
+        }
+        else{
+            DialogUtility.AlertText("FormRuntime.FindFieldPOByRelationPO:找不到字段"+fieldName+"的数据值!");
+        }
+    },
     FindFieldPOInOneDataRecordByID:function(oneDataRecord){
         return this.FindFieldPOInOneDataRecord(oneDataRecord,"ID");
     },

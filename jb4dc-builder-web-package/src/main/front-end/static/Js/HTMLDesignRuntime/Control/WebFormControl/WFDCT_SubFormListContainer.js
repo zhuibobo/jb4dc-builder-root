@@ -89,7 +89,7 @@ var WFDCT_SubFormListContainer={
             }
         }
         this.InnerRow_CompletedLastEdit();
-        console.log(relationPO);
+        //console.log(relationPO);
     },
 
     SerializationValue:function(originalFormDataRelation,relationPO,control){
@@ -109,7 +109,7 @@ var WFDCT_SubFormListContainer={
         }
         FormRelationPOUtility.Add1ToNDataRecord(relationPO,allData);
 
-        debugger;
+        //debugger;
         //尝试处理子表记录
         var childRelationArray=ArrayUtility.Where(originalFormDataRelation,function(item){
             return item.parentId==relationPO.id;
@@ -181,6 +181,12 @@ var WFDCT_SubFormListContainer={
             success:true,
             msg:""
         }
+    },
+    CreateFieldInOneDataRecord:function(oneDataRecord,fieldName,fieldValue) {
+        var fieldPO = JsonUtility.CloneSimple(oneDataRecord[0]);
+        fieldPO.fieldName = fieldName;
+        fieldPO.value = fieldValue;
+        oneDataRecord.push(fieldPO);
     },
     CreateIdFieldInOneDataRecord:function(oneDataRecord,idValue){
         var idField=JsonUtility.CloneSimple(oneDataRecord[0]);
@@ -314,7 +320,7 @@ var WFDCT_SubFormListContainer={
         }
     },
     InnerRow_ToEditStatus:function($tr){
-        console.log(this._$SingleControlElem);
+        //console.log(this._$SingleControlElem);
         this.InnerRow_CompletedLastEdit();
         var rowRelationPO=this.GetRowData($tr);
         var rowSpanControls=$tr.find("[is_inner_row_span='true']");
@@ -357,7 +363,7 @@ var WFDCT_SubFormListContainer={
             var controls = HTMLControl.FindALLControls(this._$LastEditRow);
 
             var relationPO=this.TryGetRelationPOClone();
-            console.log(relationPO);
+            //console.log(relationPO);
             var oneRowRecord = [];
             for (var i = 0; i < controls.length; i++) {
                 var singleControl=$(controls[i]);
@@ -372,7 +378,7 @@ var WFDCT_SubFormListContainer={
             relationPO=FormRelationPOUtility.Add1To1DataRecord(relationPO,oneRowRecord);
             this.SaveDataToRowAttr(relationPO,this._$LastEditRow);
             this.InnerRow_ToViewStatus(relationPO, this._$LastEditRow);
-            console.log(oneRowRecord);
+            //console.log(oneRowRecord);
         }
     },
     //endregion
@@ -404,9 +410,7 @@ var WFDCT_SubFormListContainer={
     Dialog_SubFormDialogCompletedEdit:function(instanceName,operationType,serializationSubFormData) {
         var thisInstance = HTMLControl.GetInstance(instanceName);
         (function (operationType, serializationSubFormData) {
-            //debugger;
-
-            console.log(serializationSubFormData);
+            //console.log(serializationSubFormData);
             //debugger;
             //父窗体的相关的关联设置
             var selfRelationPO = this.TryGetRelationPOClone();
@@ -428,16 +432,27 @@ var WFDCT_SubFormListContainer={
                 }
             }
 
-            //if(subFormNotMainRelationPO&&subFormNotMainRelationPO.length>0){
-            //    for (var i = 0; i < subFormNotMainRelationPO.length ; i++) {
-            //subFormNotMainRelationPO.
-            //    }
-            //}
-
             var oneDataRecord = FormRelationPOUtility.Get1To1DataRecord(subFormMainRelationPO);
             if (operationType == "add") {
+                //创建主记录ID
                 this.CreateIdFieldInOneDataRecord(oneDataRecord, StringUtility.Guid());
+                //console.log(childRelationPOArray);
             }
+
+            debugger;
+            //生成从记录的外键字段
+            for (var i = 0; i < childRelationPOArray.length; i++) {
+                var subRelationPO=childRelationPOArray[i];
+                var selfKeyFieldName=subRelationPO.selfKeyFieldName;
+                var outerKeyFieldName=subRelationPO.outerKeyFieldName;
+                var outerKeyFieldValue=FormRelationPOUtility.FindFieldValueInOneDataRecord(oneDataRecord,outerKeyFieldName);
+
+                for (var j = 0; j < subRelationPO.listDataRecord.length; j++) {
+                    this.CreateFieldInOneDataRecord(subRelationPO.listDataRecord[j],selfKeyFieldName,outerKeyFieldValue);
+                }
+
+            }
+            //console.log(childRelationPOArray);
             this.Dialog_AddRowToContainer(oneDataRecord, childRelationPOArray, false);
 
 
@@ -455,7 +470,8 @@ var WFDCT_SubFormListContainer={
                 controlInstance.SetValue(control, fieldPO, null, null);
             }
 
-            var idFieldPO=FormRelationPOUtility.FindFieldPOInOneDataRecordByID(oneDataRecord,"ID");
+            var idFieldPO=FormRelationPOUtility.FindFieldPOInOneDataRecordByID(oneDataRecord);
+            //console.log(idFieldPO);
             var lastOperationTd = $("<td><div class='sflt-td-operation-outer-wrap'></div></td>");
             var lastOperationOuterDiv = lastOperationTd.find("div");
             if(dataIsFromServer){
@@ -475,6 +491,7 @@ var WFDCT_SubFormListContainer={
             relationPO = FormRelationPOUtility.Add1To1DataRecord(relationPO, oneDataRecord);
 
             this.SaveDataToRowAttr(relationPO, $tr, childRelationPOArray);
+            console.log(childRelationPOArray);
         }
     },
     Dialog_AddRow_AddViewButton:function (operationOuterDiv,$tr,idValue,oneDataRecord) {
