@@ -109,6 +109,11 @@ let FormRelationPOUtility={
         return ArrayUtility.Where(relationPOList,function (item) {
             return item.parentId=parentRelationPO.id;
         });
+    },
+    HasChildRelationPO:function (relationPOList,parentPOId) {
+        return ArrayUtility.Exist(relationPOList,function (item) {
+            return item.parentId==parentPOId;
+        });
     }
     /*ConnectRelationPOToDynamicContainerControl:function (relationPO,dynamicContainerControlInstance) {
         this._RelationPOWithDynamicContainerControl[relationPO.id]=dynamicContainerControlInstance;

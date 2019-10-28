@@ -8,11 +8,17 @@
             FormRuntimeInst = Object.create(FormRuntime);
             var formId=BaseUtility.GetUrlParaValue("FormId");
             var buttonid=BaseUtility.GetUrlParaValue("ButtonId");
+            var operationType=BaseUtility.GetUrlParaValue("OperationType");
             //var elemid=BaseUtility.GetUrlParaValue("elemid");
             FormRuntimeInst.Initialization({
                 RendererToId: "htmlDesignRuntimeWrap",
                 FormId:formId,
-                IsPreview:true
+                IsPreview:true,
+                OperationType:operationType,
+                RendererChainCompletedFunc:function () {
+                    var relationFormRecordComplexPo=FormRuntimeMock.GetMockData();
+                    this.DeSerializationFormData(relationFormRecordComplexPo);
+                }
             });
             BaseUtility.SetSystemFavicon();
 
@@ -30,10 +36,12 @@
                     title:"加载数据"
                 },DialogUtility.DialogPromptId,"请贴入数据Json字符串",function (jsonString) {
                     try{
-                        window._dbtablerelationcomp.setValue(jsonString);
+                        var relationFormRecordComplexPo=FormRuntimeMock.GetMockData();
+                        FormRuntimeInst.DeSerializationFormData(relationFormRecordComplexPo);
                     }
                     catch (e) {
                         alert("反序列化失败:"+e);
+                        throw e;
                     }
                 });
             })
