@@ -89,7 +89,7 @@ let FormRuntime={
     },
     SerializationFormData:function () {
         var formRecordComplexPo = {
-            id: this._Prop_Config.RecordId,
+            recordId: this._Prop_Config.RecordId,
             formId: this._Prop_Config.FormId,
             buttonId: this._Prop_Config.ButtonId,
             formRecordDataRelationPOList: null,
@@ -116,59 +116,20 @@ let FormRuntime={
                 var oneRowRecord = [];
                 for (var j = 0; j < controls.length; j++) {
                     var $controlElem = $(controls[j]);
-                    //var controlInstance = HTMLControl.GetControlInstanceByElem($controlElem);
-                    //console.log($controlElem.attr("singlename") + "||" + controlInstance);
-                    /*var originalData = {
-                        relationId: singleRelation.id,
-                        relationSingleName: singleName,
-                        relationType: relationType,
-                        singleName: $controlElem.attr("singlename"),
-                        tableName: $controlElem.attr("tablename"),
-                        tableCaption: $controlElem.attr("tablecaption"),
-                        tableId: $controlElem.attr("tableid"),
-                        fieldTableId: $controlElem.attr("tableid"),
-                        fieldName: $controlElem.attr("fieldname"),
-                        fieldDataType: $controlElem.attr("fielddatatype"),
-                        fieldDataLength: $controlElem.attr("fieldlength"),
-                        serialize: $controlElem.attr("serialize"),
-                        id: $controlElem.attr("id"),
-                        defaulttype: $controlElem.attr("defaulttype"),
-                        defaultvalue: $controlElem.attr("defaultvalue"),
-                        value: "",
-                        success: true,
-                        msg: ""
-                    };*/
-                    /*var props=HTMLControl.GetControlProp($controlElem);
-                    var originalData=HTMLControl.BuildSerializationOriginalData(props,singleRelation.id,relationSingleName,relationType);
-                    if (BaseUtility.IsFunction(controlInstance.GetValue)) {
-                        var controlResultValue = controlInstance.GetValue($controlElem, originalData, {});
-                        if (controlResultValue.success) {
-                            oneRowRecord.push(controlResultValue);
-                        } else {
-
-                        }
-                    } else {
-                        DialogUtility.AlertText("控件:" + $controlElem.attr("singlename") + "未包含GetValue的方法!");
-                    }*/
                     var fieldTransferPO = HTMLControl.TryGetFieldTransferPO($controlElem, singleRelation.id, relationSingleName, relationType);
                     oneRowRecord.push(fieldTransferPO);
                 }
-                //allRowRecord.push(oneRowRecord);
-                //singleRelation.oneDataRecord = oneRowRecord;
+                if(isMain){
+                    FormRelationPOUtility.CreateIdFieldInOneDataRecord(oneRowRecord,formRecordComplexPo.recordId);
+                }
                 FormRelationPOUtility.Add1To1DataRecord(singleRelation,oneRowRecord);
             } else {
-                //var relationPOId=singleRelation.id;
-                //var dynamicContainerControlInstance=this._RelationPOWithDynamicContainerControl[relationPOId];
-                //var dynamicContainerControlInstance.Get
-                //debugger;
                 var control = $("[serialize='true'][control_category='DynamicContainer'][relation_po_id='"+singleRelation.id+"']");
                 if(control.length>0) {
                     var controlInstance = HTMLControl.GetControlInstanceByElem(control);
-                    //debugger;
                     controlInstance.SerializationValue(originalFormDataRelation,singleRelation,control);
                 }
             }
-            //singleRelation.dataRecordList=allRowRecord;
         }
         formRecordComplexPo.formRecordDataRelationPOList = originalFormDataRelation;
         //console.log(formRecordComplexPo);

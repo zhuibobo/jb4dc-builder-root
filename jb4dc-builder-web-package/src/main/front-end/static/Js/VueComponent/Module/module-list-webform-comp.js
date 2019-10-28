@@ -175,7 +175,8 @@ Vue.component("module-list-webform-comp", {
                 //console.log(recordId);
                 var previewUrl = BaseUtility.BuildView(this.acInterface.previewWebFormUrl,{
                     FormId:recordId,
-                    OperationType:"add"
+                    OperationType:"add",
+                    RecordId:StringUtility.Guid()
                 });
                 DialogUtility.OpenNewTabWindow(previewUrl);
                 /*var link=$("<a href='"+previewUrl+"' style='position:absolute;top: -100px' target='_blank'></a>");

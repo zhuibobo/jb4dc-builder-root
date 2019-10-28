@@ -114,6 +114,23 @@ let FormRelationPOUtility={
         return ArrayUtility.Exist(relationPOList,function (item) {
             return item.parentId==parentPOId;
         });
+    },
+    CreateFieldInOneDataRecord:function(oneDataRecord,fieldName,fieldValue) {
+        var fieldPO = JsonUtility.CloneSimple(oneDataRecord[0]);
+        fieldPO.fieldName = fieldName;
+        fieldPO.value = fieldValue;
+        oneDataRecord.push(fieldPO);
+    },
+    CreateIdFieldInOneDataRecord:function(oneDataRecord,idValue){
+        var idField=JsonUtility.CloneSimple(oneDataRecord[0]);
+        idField.fieldName="ID";
+        if(idValue){
+            idField.value=idValue;
+        }
+        else {
+            idField.value = StringUtility.Guid();
+        }
+        oneDataRecord.push(idField);
     }
     /*ConnectRelationPOToDynamicContainerControl:function (relationPO,dynamicContainerControlInstance) {
         this._RelationPOWithDynamicContainerControl[relationPO.id]=dynamicContainerControlInstance;

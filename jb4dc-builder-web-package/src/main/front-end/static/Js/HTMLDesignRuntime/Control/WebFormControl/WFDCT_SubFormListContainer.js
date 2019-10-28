@@ -214,23 +214,7 @@ var WFDCT_SubFormListContainer={
             msg:""
         }
     },
-    CreateFieldInOneDataRecord:function(oneDataRecord,fieldName,fieldValue) {
-        var fieldPO = JsonUtility.CloneSimple(oneDataRecord[0]);
-        fieldPO.fieldName = fieldName;
-        fieldPO.value = fieldValue;
-        oneDataRecord.push(fieldPO);
-    },
-    CreateIdFieldInOneDataRecord:function(oneDataRecord,idValue){
-        var idField=JsonUtility.CloneSimple(oneDataRecord[0]);
-        idField.fieldName="ID";
-        if(idValue){
-            idField.value=idValue;
-        }
-        else {
-            idField.value = StringUtility.Guid();
-        }
-        oneDataRecord.push(idField);
-    },
+
     GetRowId:function($tr) {
         var id = $tr.attr("tr_record_id");
         return id;
@@ -404,7 +388,7 @@ var WFDCT_SubFormListContainer={
             }
             var idValue=this.GetRowId(this._$LastEditRow);
             //if(!id){
-                this.CreateIdFieldInOneDataRecord(oneRowRecord,idValue);
+            FormRelationPOUtility.CreateIdFieldInOneDataRecord(oneRowRecord,idValue);
             //}
 
             relationPO=FormRelationPOUtility.Add1To1DataRecord(relationPO,oneRowRecord);
@@ -443,11 +427,11 @@ var WFDCT_SubFormListContainer={
             }
 
             var oneDataRecord = FormRelationPOUtility.Get1To1DataRecord(subFormMainRelationPO);
-            if (operationType == "add") {
+            //if (operationType == "add") {
                 //创建主记录ID
-                this.CreateIdFieldInOneDataRecord(oneDataRecord, StringUtility.Guid());
+            //     this.CreateIdFieldInOneDataRecord(oneDataRecord, StringUtility.Guid());
                 //console.log(childRelationPOArray);
-            }
+            //}
 
             //debugger;
             //生成从记录的外键字段
@@ -458,7 +442,7 @@ var WFDCT_SubFormListContainer={
                 var outerKeyFieldValue=FormRelationPOUtility.FindFieldValueInOneDataRecord(oneDataRecord,outerKeyFieldName);
 
                 for (var j = 0; j < subRelationPO.listDataRecord.length; j++) {
-                    this.CreateFieldInOneDataRecord(subRelationPO.listDataRecord[j],selfKeyFieldName,outerKeyFieldValue);
+                    FormRelationPOUtility.CreateFieldInOneDataRecord(subRelationPO.listDataRecord[j],selfKeyFieldName,outerKeyFieldValue);
                 }
 
             }
@@ -502,7 +486,16 @@ var WFDCT_SubFormListContainer={
             }
 
             $tr.append(lastOperationTd);
-            this._$TableBodyElem.append($tr);
+
+            var idValue=idFieldPO.value;
+            var $oldTrElem = this._$SingleControlElem.find("tr[tr_record_id='" + idValue + "']");
+            if($oldTrElem.length==0) {
+                this._$TableBodyElem.append($tr);
+            }
+            else{
+                $oldTrElem.after($tr);
+                $oldTrElem.remove();
+            }
 
             //构建本身数据关联PO
             var relationPO = this.TryGetRelationPOClone();
@@ -524,6 +517,7 @@ var WFDCT_SubFormListContainer={
         }
 
         dialogWindowPara.OperationType="add";
+        dialogWindowPara.RecordId=StringUtility.Guid();
 
         var isPreview = this._FormRuntimeHost.IsPreview();
         var url;
@@ -635,7 +629,7 @@ var WFDCT_SubFormListContainer={
             var child_relation_po_array = this.GetChildRelationPOArray($trElem);
 
             var mainPO = FormRelationPOUtility.FindMainRelationPO(subFormDataRelationList);
-            FormRelationPOUtility.Add1To1DataRecord(mainPO, tr_record_data);
+            FormRelationPOUtility.Add1To1DataRecord(mainPO, FormRelationPOUtility.Get1To1DataRecord(tr_record_data));
             //console.log(child_relation_po_array);
             var childPOList = FormRelationPOUtility.FindNotMainRelationPO(subFormDataRelationList);
 
