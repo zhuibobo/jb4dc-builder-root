@@ -19,20 +19,27 @@
             var buttonid=BaseUtility.GetUrlParaValue("ButtonId");
             var operationType=BaseUtility.GetUrlParaValue("OperationType");
             var subFormListContainerInstanceName=BaseUtility.GetUrlParaValue("InstanceName");
+            var recordId=BaseUtility.GetUrlParaValue("RecordId");
             //var elemid=BaseUtility.GetUrlParaValue("elemid");
             formRuntimeInst.Initialization({
                 RendererToId: "htmlDesignRuntimeWrap",
                 FormId:formId,
                 IsPreview:true,
                 OperationType:operationType,
+                RecordId:recordId,
                 RendererChainCompletedFunc:function () {
                     if(operationType=="view"||operationType=="update") {
-
-                        var subRecordComplexPo = window.parent.WFDCT_SubFormListContainer.Dialog_Get_SubForm_RecordComplexPo(subFormListContainerInstanceName, this._FormDataRelationList);
-
+                        //debugger;
+                        var subRecordComplexPo = window.parent.WFDCT_SubFormListContainer.Dialog_Get_SubForm_RecordComplexPo(subFormListContainerInstanceName, this._FormDataRelationList,this._Prop_Config.RecordId);
+                        console.log(subRecordComplexPo);
+                        this.DeSerializationFormData(subRecordComplexPo);
                     }
                 }
             });
+
+            if(operationType=="view"){
+                $("#btnConfirm").hide();
+            }
 
             $("#btnConfirm").click(function () {
                 var SerializationSubFormData=formRuntimeInst.SerializationFormData();

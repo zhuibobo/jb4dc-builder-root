@@ -57,12 +57,12 @@ let FormRelationPOUtility={
     },
     FindMainRelationPO:function(relationPOList){
         return ArrayUtility.WhereSingle(relationPOList,function (item) {
-            return item.isMain==true;
+            return item.isMain==true||item.parentId=="-1";
         });
     },
     FindNotMainRelationPO:function(relationPOList){
         return ArrayUtility.Where(relationPOList,function (item) {
-            return item.isMain!=true;
+            return item.isMain!=true||item.parentId!="-1";
         });
     },
     FindRelationPOById:function (relationPOList, id) {
