@@ -30,5 +30,19 @@ var RuntimeGeneralInstance= {
                 callback.apply( this, response || [ jqXHR.responseText, status, jqXHR ] );
             } );*/
         });
+    },
+    LoadInnerFormButton:function (listFormButtonId,callback,sender) {
+        jQuery.ajax({
+            url: BaseUtility.BuildAction("/Rest/Builder/RunTime/ListButtonRuntime", {
+                buttonId: listFormButtonId
+            }),
+            type: "POST",
+            dataType: "json",
+            data: params
+        }).done(function (result) {
+            callback.call(sender, result);
+        }).always(callback && function (jqXHR, status) {
+
+        });
     }
 }

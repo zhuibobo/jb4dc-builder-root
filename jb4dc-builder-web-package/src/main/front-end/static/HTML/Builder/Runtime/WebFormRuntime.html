@@ -7,21 +7,26 @@
     <th:block th:replace="Fragment/GeneralLib::ThemesLib"></th:block>
     <script>
         var webFormRTParas={
-            "formId":BaseUtility.GetUrlParaValue("formId"),
-            "buttonId":BaseUtility.GetUrlParaValue("buttonId"),
-            "elemId":BaseUtility.GetUrlParaValue("elemId"),
-            "recordId":BaseUtility.GetUrlParaValue("recordId")
+            "FormId":BaseUtility.GetUrlParaValue("FormId"),
+            "ButtonId":BaseUtility.GetUrlParaValue("ButtonId"),
+            "OperationType":BaseUtility.GetUrlParaValue("OperationType"),
+            "ElemId":BaseUtility.GetUrlParaValue("ElemId"),
+            "RecordId":BaseUtility.GetUrlParaValue("RecordId")
         };
+        if(StringUtility.IsNullOrEmpty(webFormRTParas.RecordId)){
+            webFormRTParas.RecordId=StringUtility.Guid();
+        }
         $(function () {
 
-            $("#htmlDesignRuntimeWrap").html(JsonUtility.JsonToStringFormat(webFormRTParas));
+            console.log(webFormRTParas);
 
-            var FormRuntimeInst = Object.create(FormRuntime);
-            FormRuntimeInst.Initialization({
+            var formRuntimeInst = Object.create(FormRuntime);
+            formRuntimeInst.Initialization({
                 RendererToId: "htmlDesignRuntimeWrap",
-                FormId:webFormRTParas.formId,
-                RecordId:webFormRTParas.recordId,
-                ButtonId:webFormRTParas.buttonId,
+                FormId:webFormRTParas.FormId,
+                RecordId:webFormRTParas.RecordId,
+                ButtonId:webFormRTParas.ButtonId,
+                OperationType:webFormRTParas.OperationType,
                 IsPreview:false
             })
         });

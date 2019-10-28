@@ -16,14 +16,14 @@
     <th:block th:replace="Fragment/GeneralLib::HTMLDesignRuntimeLib"></th:block>
     <th:block th:replace="Fragment/GeneralLib::ThemesLib"></th:block>
     <script>
-        var FormRuntimeInst;
+        var formRuntimeInst;
         $(function () {
-            FormRuntimeInst = Object.create(FormRuntime);
+            formRuntimeInst = Object.create(FormRuntime);
             var formId=BaseUtility.GetUrlParaValue("FormId");
             var buttonid=BaseUtility.GetUrlParaValue("ButtonId");
             var operationType=BaseUtility.GetUrlParaValue("OperationType");
             //var elemid=BaseUtility.GetUrlParaValue("elemid");
-            FormRuntimeInst.Initialization({
+            formRuntimeInst.Initialization({
                 RendererToId: "htmlDesignRuntimeWrap",
                 FormId:formId,
                 IsPreview:true,
@@ -36,7 +36,7 @@
             BaseUtility.SetSystemFavicon();
 
             $("#btnSaveButton").bind("click",{},function (sender) {
-                var result=FormRuntimeInst.SerializationFormData();
+                var result=formRuntimeInst.SerializationFormData();
                 //debugger;
                 DialogUtility.AlertJsonCode(result,5);
                 console.log(result);
@@ -50,7 +50,7 @@
                 },DialogUtility.DialogPromptId,"请贴入数据Json字符串",function (jsonString) {
                     try{
                         var relationFormRecordComplexPo=FormRuntimeMock.GetMockData();
-                        FormRuntimeInst.DeSerializationFormData(relationFormRecordComplexPo);
+                        formRuntimeInst.DeSerializationFormData(relationFormRecordComplexPo);
                     }
                     catch (e) {
                         alert("反序列化失败:"+e);

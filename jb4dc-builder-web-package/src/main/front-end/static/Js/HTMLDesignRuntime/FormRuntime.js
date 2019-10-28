@@ -61,9 +61,16 @@ let FormRuntime={
                 formRuntimeInstance: this
             });
 
-            if(typeof(this._Prop_Config.RendererChainCompletedFunc)=="function") {
-                this._Prop_Config.RendererChainCompletedFunc.call(this);
+            if(this.IsPreview()){
+                if(typeof(this._Prop_Config.RendererChainCompletedFunc)=="function") {
+                    this._Prop_Config.RendererChainCompletedFunc.call(this);
+                }
             }
+            else{
+
+            }
+
+
             //var relationFormRecordComplexPo=FormRuntimeMock.GetMockData();
             //this.DeSerializationFormData(relationFormRecordComplexPo);
 
@@ -74,18 +81,6 @@ let FormRuntime={
     },
     GetOriginalFormDataRelation:function() {
         return JsonUtility.StringToJson(this._FormPO.formDataRelation);
-    },
-    GetOperationType:function(){
-        return this._Prop_Config.OperationType;
-    },
-    IsAddOperation:function(){
-        return this.GetOperationType()==this.OperationAdd;
-    },
-    IsUpdateOperation:function(){
-        return this.GetOperationType()==this.OperationUpdate;
-    },
-    IsViewOperation:function(){
-        return this.GetOperationType()==this.OperationView;
     },
     SerializationFormData:function () {
         var formRecordComplexPo = {
