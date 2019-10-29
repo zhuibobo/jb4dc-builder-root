@@ -31,9 +31,9 @@ var RuntimeGeneralInstance= {
             } );*/
         });
     },
-    LoadInnerFormButton:function (listFormButtonId,callback,sender) {
+    LoadInnerFormButton:function (listFormButtonId,params,callback,sender) {
         jQuery.ajax({
-            url: BaseUtility.BuildAction("/Rest/Builder/RunTime/ListButtonRuntime", {
+            url: BaseUtility.BuildAction("/Rest/Builder/RunTime/ListButtonRuntime/GetButtonPO", {
                 buttonId: listFormButtonId
             }),
             type: "POST",

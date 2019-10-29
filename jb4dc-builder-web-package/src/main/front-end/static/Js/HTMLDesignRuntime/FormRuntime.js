@@ -30,9 +30,9 @@ let FormRuntime={
             //alert( "Load was performed." );
             console.log("加载预览窗体成功!!");
         });*/
-        var url = BaseUtility.GetRootPath() + "/Rest/Builder/RunTime/FormRuntime/LoadHTML";
+        var url = BaseUtility.BuildAction("/Rest/Builder/RunTime/FormRuntime/LoadHTML",{});
         if (this._Prop_Config.IsPreview) {
-            url = BaseUtility.GetRootPath() + "/Rest/Builder/RunTime/FormRuntime/LoadHTMLForPreView";
+            url = BaseUtility.BuildAction("/Rest/Builder/RunTime/FormRuntime/LoadHTMLForPreView",{});
         }
 
         RuntimeGeneralInstance.LoadHtmlDesignContent(url, this._Prop_Config.RendererTo, {
@@ -62,12 +62,14 @@ let FormRuntime={
             });
 
             if(this.IsPreview()){
-                if(typeof(this._Prop_Config.RendererChainCompletedFunc)=="function") {
-                    this._Prop_Config.RendererChainCompletedFunc.call(this);
-                }
+                this.CallRendererChainCompletedFunc();
             }
             else{
-
+                RuntimeGeneralInstance.LoadInnerFormButton(this._Prop_Config.ButtonId,{},function (result) {
+                    console.log(result);
+                    this.CreateALLInnerFormButton(result.data);
+                    this.CallRendererChainCompletedFunc();
+                },this);
             }
 
 
@@ -75,6 +77,11 @@ let FormRuntime={
             //this.DeSerializationFormData(relationFormRecordComplexPo);
 
         }, this);
+    },
+    CallRendererChainCompletedFunc:function() {
+        if (typeof (this._Prop_Config.RendererChainCompletedFunc) == "function") {
+            this._Prop_Config.RendererChainCompletedFunc.call(this);
+        }
     },
     IsPreview: function () {
         return this._Prop_Config.IsPreview
@@ -141,6 +148,16 @@ let FormRuntime={
             formRuntimeInstance: this,
             relationFormRecordComplexPo:relationFormRecordComplexPo
         });
+    },
+    CreateALLInnerFormButton:function (listButtonPO) {
+        if(!StringUtility.IsNullOrEmpty(listButtonPO.buttonInnerConfig)) {
+            var buttonInnerConfig=JsonUtility.StringToJson(listButtonPO.buttonInnerConfig);
+            for (var i = 0; i < buttonInnerConfig.length; i++) {
+                var innerButtonConfig=buttonInnerConfig[i];
+                var buttonElem=InnerFormButtonRuntime.RendererSingleInnerFormButton(innerButtonConfig,this,listButtonPO);
+                $("#innerButtonWrapOuter").append(buttonElem);
+            }
+        }
     }
     /*FindRelationPOById:function (id) {
         return ArrayUtility.WhereSingle(this._FormDataRelationList,function (po) {
