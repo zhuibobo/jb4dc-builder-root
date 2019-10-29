@@ -525,7 +525,7 @@ var WFDCT_SubFormListContainer={
             url = BaseUtility.BuildView("/HTML/Builder/Form/SubFormPreview.html", dialogWindowPara);
         }
         else{
-
+            url = BaseUtility.BuildView("/HTML/Builder/Runtime/WebFormSubRuntime.html", dialogWindowPara);
         }
 
         DialogUtility.OpenIframeWindow(window, DialogUtility.DialogId, url, {
@@ -552,7 +552,7 @@ var WFDCT_SubFormListContainer={
                 url = BaseUtility.BuildView("/HTML/Builder/Form/SubFormPreview.html", dialogWindowPara);
             }
             else{
-
+                url = BaseUtility.BuildView("/HTML/Builder/Runtime/WebFormSubRuntime.html", dialogWindowPara);
             }
 
             DialogUtility.OpenIframeWindow(window, DialogUtility.DialogId, url, {
@@ -582,7 +582,7 @@ var WFDCT_SubFormListContainer={
                 url = BaseUtility.BuildView("/HTML/Builder/Form/SubFormPreview.html", dialogWindowPara);
             }
             else{
-
+                url = BaseUtility.BuildView("/HTML/Builder/Runtime/WebFormSubRuntime.html", dialogWindowPara);
             }
 
             DialogUtility.OpenIframeWindow(window, DialogUtility.DialogId, url, {

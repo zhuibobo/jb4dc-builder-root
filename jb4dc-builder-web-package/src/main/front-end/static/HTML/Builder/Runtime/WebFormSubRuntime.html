@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>子表单</title>
+    <th:block th:replace="Fragment/GeneralLib::HTMLDesignRuntimeLib"></th:block>
+    <th:block th:replace="Fragment/GeneralLib::ThemesLib"></th:block>
+    <script>
+        var formRuntimeInst;
+        $(function () {
+            formRuntimeInst = Object.create(FormRuntime);
+            var formId=BaseUtility.GetUrlParaValue("FormId");
+            var buttonid=BaseUtility.GetUrlParaValue("ButtonId");
+            var operationType=BaseUtility.GetUrlParaValue("OperationType");
+            var subFormListContainerInstanceName=BaseUtility.GetUrlParaValue("InstanceName");
+            var recordId=BaseUtility.GetUrlParaValue("RecordId");
+            //var elemid=BaseUtility.GetUrlParaValue("elemid");
+            formRuntimeInst.Initialization({
+                RendererToId: "htmlDesignRuntimeWrap",
+                FormId:formId,
+                IsPreview:false,
+                OperationType:operationType,
+                RecordId:recordId,
+                RendererChainCompletedFunc:function () {
+                    if(operationType=="view"||operationType=="update") {
+                        //debugger;
+                        var subRecordComplexPo = window.parent.WFDCT_SubFormListContainer.Dialog_Get_SubForm_RecordComplexPo(subFormListContainerInstanceName, this._FormDataRelationList,this._Prop_Config.RecordId);
+                        //console.log(subRecordComplexPo);
+                        //debugger;
+                        this.DeSerializationFormData(subRecordComplexPo);
+                    }
+                }
+            });
+
+            if(operationType=="view"){
+                $("#btnConfirm").hide();
+            }
+
+            $("#btnConfirm").click(function () {
+                var SerializationSubFormData=formRuntimeInst.SerializationFormData();
+                window.parent.WFDCT_SubFormListContainer.Dialog_SubFormDialogCompletedEdit(subFormListContainerInstanceName,operationType,SerializationSubFormData);
+                DialogUtility.CloseOpenIframeWindow(window,DialogUtility.DialogId);
+            });
+
+            $("#btnClose").click(function () {
+                DialogUtility.CloseOpenIframeWindow(window,DialogUtility.DialogId);
+            });
+        });
+    </script>
+</head>
+<body>
+    <div id="htmlDesignRuntimeWrap"></div>
+    <div class="html-design-operation-button-outer-wrap">
+        <div class="html-design-button-inner-wrap">
+            <div class="html-design-buttons-group">
+                <button type="button" class="operation-button operation-button-primary" id="btnConfirm"><span>确认</span></button>
+                <button type="button" class="operation-button" id="btnClose"><span>关闭</span></button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

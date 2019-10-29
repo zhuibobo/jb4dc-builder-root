@@ -44,7 +44,7 @@ public class WebFormRuntimeServiceImpl implements IWebFormRuntimeService {
         List<FormRecordDataRelationPO> formRecordDataRelationPOList =null;
         //List<FormDataRelationPO> recordData=null;
 
-        if(!listButtonEntity.getButtonOperationType().toUpperCase().equals("ADD")) {
+        if(listButtonEntity!=null&&!listButtonEntity.getButtonOperationType().toUpperCase().equals("ADD")) {
 
             if (StringUtility.isNotEmpty(remoteSourcePO.getFormDataRelation())) {
                 formRecordDataRelationPOList = JsonUtility.toObjectList(remoteSourcePO.getFormDataRelation(), FormRecordDataRelationPO.class);

@@ -67,7 +67,9 @@ let FormRuntime={
             else{
                 RuntimeGeneralInstance.LoadInnerFormButton(this._Prop_Config.ButtonId,{},function (result) {
                     console.log(result);
-                    this.CreateALLInnerFormButton(result.data);
+                    if(result.data) {
+                        this.CreateALLInnerFormButton(result.data);
+                    }
                     this.CallRendererChainCompletedFunc();
                 },this);
             }
