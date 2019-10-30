@@ -126,7 +126,7 @@ let FormRuntime={
                 if(isMain){
                     FormRelationPOUtility.CreateIdFieldInOneDataRecord(oneRowRecord,formRecordComplexPo.recordId);
                 }
-                FormRelationPOUtility.Add1To1DataRecord(singleRelation,oneRowRecord);
+                FormRelationPOUtility.Add1To1DataRecordFieldPOList(singleRelation,oneRowRecord);
             } else {
                 var control = $("[serialize='true'][control_category='DynamicContainer'][relation_po_id='"+singleRelation.id+"']");
                 if(control.length>0) {

@@ -215,6 +215,7 @@ var WFDCT_SubFormListContainer={
     },
     SaveDataToRowAttr:function (relationPO,$tr,aboutRelationPOArray) {
         $tr.attr("is_sub_list_tr","true");
+        //debugger;
         $tr.attr("tr_record_id",FormRelationPOUtility.FindIdFieldPOByRelationPO(relationPO).value);
         $tr.attr("tr_record_data",JsonUtility.JsonToString(relationPO));
         if(aboutRelationPOArray&&aboutRelationPOArray.length>0){
@@ -374,7 +375,7 @@ var WFDCT_SubFormListContainer={
             FormRelationPOUtility.CreateIdFieldInOneDataRecord(oneRowRecord,idValue);
             //}
 
-            relationPO=FormRelationPOUtility.Add1To1DataRecord(relationPO,oneRowRecord);
+            relationPO=FormRelationPOUtility.Add1To1DataRecordFieldPOList(relationPO,oneRowRecord);
             this.SaveDataToRowAttr(relationPO,this._$LastEditRow);
             this.InnerRow_ToViewStatus(relationPO, this._$LastEditRow);
             //console.log(oneRowRecord);
@@ -409,12 +410,7 @@ var WFDCT_SubFormListContainer={
                 }
             }
 
-            var oneDataRecord = FormRelationPOUtility.Get1To1DataRecordFieldPOArray(subFormMainRelationPO);
-            //if (operationType == "add") {
-                //创建主记录ID
-            //     this.CreateIdFieldInOneDataRecord(oneDataRecord, StringUtility.Guid());
-                //console.log(childRelationPOArray);
-            //}
+            var oneDataRecord = FormRelationPOUtility.Get1To1DataRecord(subFormMainRelationPO);
 
             //debugger;
             //生成从记录的外键字段
@@ -430,9 +426,8 @@ var WFDCT_SubFormListContainer={
                 }
 
             }
-            //console.log(childRelationPOArray);
-            this.Dialog_AddRowToContainer(oneDataRecord, childRelationPOArray, false);
 
+            this.Dialog_AddRowToContainer(oneDataRecord, childRelationPOArray, false);
 
         }).call(thisInstance, operationType, serializationSubFormData);
     },
@@ -482,6 +477,7 @@ var WFDCT_SubFormListContainer={
             }
 
             //构建本身数据关联PO
+            //debugger;
             var relationPO = this.TryGetRelationPOClone();
             relationPO = FormRelationPOUtility.Add1To1DataRecord(relationPO, oneDataRecord);
 
@@ -613,7 +609,7 @@ var WFDCT_SubFormListContainer={
             var child_relation_po_array = this.GetChildRelationPOArray($trElem);
 
             var mainPO = FormRelationPOUtility.FindMainRelationPO(subFormDataRelationList);
-            FormRelationPOUtility.Add1To1DataRecord(mainPO, FormRelationPOUtility.Get1To1DataRecordFieldPOArray(tr_record_data));
+            FormRelationPOUtility.Add1To1DataRecordFieldPOList(mainPO, FormRelationPOUtility.Get1To1DataRecordFieldPOArray(tr_record_data));
             //console.log(child_relation_po_array);
             var childPOList = FormRelationPOUtility.FindNotMainRelationPO(subFormDataRelationList);
 

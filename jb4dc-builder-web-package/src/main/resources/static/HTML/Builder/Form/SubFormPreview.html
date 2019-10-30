@@ -38,7 +38,7 @@
                 console.log("子表单数据");
                 console.log(SerializationSubFormData);
                 window.parent.WFDCT_SubFormListContainer.Dialog_SubFormDialogCompletedEdit(subFormListContainerInstanceName,operationType,SerializationSubFormData);
-                //DialogUtility.CloseOpenIframeWindow(window,DialogUtility.DialogId);
+                DialogUtility.CloseOpenIframeWindow(window,DialogUtility.DialogId);
             });
 
             $("#btnClose").click(function () {

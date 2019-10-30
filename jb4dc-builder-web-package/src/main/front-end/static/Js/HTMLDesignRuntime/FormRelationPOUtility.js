@@ -10,8 +10,12 @@ let FormRelationPOUtility={
     FindRecordFieldPOArray:function(record){
         return record.recordFieldPOList;
     },
-    Add1To1DataRecord:function (relationPO, data) {
-        relationPO.oneDataRecord=this.BuildRecord(data,"一对一数据");
+    Add1To1DataRecordFieldPOList:function (relationPO, fieldPOList) {
+        relationPO.oneDataRecord=this.BuildRecord(fieldPOList,"一对一数据");
+        return relationPO;
+    },
+    Add1To1DataRecord:function (relationPO, recordPO) {
+        relationPO.oneDataRecord=recordPO;
         return relationPO;
     },
     Get1To1DataRecord:function (relationPO) {
@@ -30,7 +34,7 @@ let FormRelationPOUtility={
         return relationPO.listDataRecord;
     },
     FindFieldPOInOneDataRecord:function(oneDataRecord,fieldName){
-        var fieldPO=ArrayUtility.WhereSingle(oneDataRecord,function (item) {
+        var fieldPO=ArrayUtility.WhereSingle(this.FindRecordFieldPOArray(oneDataRecord),function (item) {
             return item.fieldName==fieldName;
         });
         if(fieldPO){
@@ -41,7 +45,8 @@ let FormRelationPOUtility={
         }
     },
     FindFieldValueInOneDataRecord:function(oneDataRecord,fieldName){
-        var fieldPO=ArrayUtility.WhereSingle(oneDataRecord,function (item) {
+        var recordFieldPOList=this.FindRecordFieldPOArray(oneDataRecord);
+        var fieldPO=ArrayUtility.WhereSingle(recordFieldPOList,function (item) {
             return item.fieldName==fieldName;
         });
         if(fieldPO){
@@ -55,8 +60,8 @@ let FormRelationPOUtility={
         return this.FindFieldPOInOneDataRecord(oneDataRecord,"ID");
     },
     FindFieldPOByRelationPO:function(relationPO,fieldName){
-        var oneDataRecord = FormRelationPOUtility.Get1To1DataRecordFieldPOArray(relationPO);
-        var fieldPO=ArrayUtility.WhereSingle(oneDataRecord,function (item) {
+        var recordFieldPOList = FormRelationPOUtility.Get1To1DataRecordFieldPOArray(relationPO);
+        var fieldPO=ArrayUtility.WhereSingle(recordFieldPOList,function (item) {
             return item.fieldName==fieldName;
         });
         if(fieldPO){
