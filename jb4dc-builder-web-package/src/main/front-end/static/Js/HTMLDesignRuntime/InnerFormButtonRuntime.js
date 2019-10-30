@@ -11,12 +11,15 @@ let InnerFormButtonRuntime= {
         return elem;
     },
     RendererSingleInnerFormButtonClick:function (sender) {
-        var innerButtonConfig=sender.data.innerButtonConfig;
-        var formRuntimeInstance=sender.data.formRuntimeInstance;
-        var listButtonPO=sender.data.listButtonPO;
-        var result=formRuntimeInstance.SerializationFormData();
+        var innerButtonConfig = sender.data.innerButtonConfig;
+        var formRuntimeInstance = sender.data.formRuntimeInstance;
+        var listButtonPO = sender.data.listButtonPO;
+        var formDataComplexPOList = formRuntimeInstance.SerializationFormData();
+        //console.log(innerButtonConfig);
+        //console.log(listButtonPO);
+        RuntimeGeneralInstance.SubmitFormDataComplexPOListToServer(formDataComplexPOList, innerButtonConfig.id, listButtonPO.buttonId);
         //debugger;
-        DialogUtility.AlertJsonCode(result,5);
-        console.log(innerButtonConfig);
+        //DialogUtility.AlertJsonCode(result,5);
+        //console.log(innerButtonConfig);
     }
 }

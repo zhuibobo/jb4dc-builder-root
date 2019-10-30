@@ -1,5 +1,5 @@
 var RuntimeGeneralInstance= {
-    LoadHtmlDesignContent: function (url, appendToElemId, params, callback, sender) {
+    _Ajax:function(url,params,callback,sender){
         jQuery.ajax({
             url: url,
             type: "POST",
@@ -31,18 +31,16 @@ var RuntimeGeneralInstance= {
             } );*/
         });
     },
+    LoadHtmlDesignContent: function (url, appendToElemId, params, callback, sender) {
+        this._Ajax(url,params,callback,sender);
+    },
     LoadInnerFormButton:function (listFormButtonId,params,callback,sender) {
-        jQuery.ajax({
-            url: BaseUtility.BuildAction("/Rest/Builder/RunTime/ListButtonRuntime/GetButtonPO", {
-                buttonId: listFormButtonId
-            }),
-            type: "POST",
-            dataType: "json",
-            data: params
-        }).done(function (result) {
-            callback.call(sender, result);
-        }).always(callback && function (jqXHR, status) {
-
+        var url=BaseUtility.BuildAction("/Rest/Builder/RunTime/ListButtonRuntime/GetButtonPO", {
+            buttonId: listFormButtonId
         });
+        this._Ajax(url,params,callback,sender);
+    },
+    SubmitFormDataComplexPOListToServer:function (formDataComplexPOList,innerFormButtonId,listButtonId) {
+        console.log(formDataComplexPOList);
     }
 }
