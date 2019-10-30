@@ -40,7 +40,15 @@ var RuntimeGeneralInstance= {
         });
         this._Ajax(url,params,callback,sender);
     },
-    SubmitFormDataComplexPOListToServer:function (formDataComplexPOList,innerFormButtonId,listButtonId) {
+    SubmitFormDataComplexPOListToServer:function (formDataComplexPOList,recordId,innerFormButtonId,listButtonId,callback,sender) {
+        var url = BaseUtility.BuildAction("/Rest/Builder/RunTime/InnerFormButtonRuntime/ReceiveHandler", {});
+        var params = {
+            "formRecordComplexPO": encodeURIComponent(JsonUtility.JsonToString(formDataComplexPOList)),
+            "innerFormButtonId": innerFormButtonId,
+            "listButtonId": listButtonId,
+            "recordId":recordId
+        };
+        this._Ajax(url,params,callback,sender);
         console.log(formDataComplexPOList);
     }
 }

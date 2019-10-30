@@ -1,12 +1,26 @@
 let FormRelationPOUtility={
     //配合FindFieldPOInRelationFormRecordComplexPoOneDataRecord方法使用,避免每次进行查询
     _FieldPOCache:null,
+    BuildRecord:function(fieldPOArray,desc){
+        return {
+            "desc":desc,
+            "recordFieldPOList":fieldPOArray
+        };
+    },
+    FindRecordFieldPOArray:function(record){
+        return record.recordFieldPOList;
+    },
     Add1To1DataRecord:function (relationPO, data) {
-        relationPO.oneDataRecord=data;
+        relationPO.oneDataRecord=this.BuildRecord(data,"一对一数据");
         return relationPO;
     },
     Get1To1DataRecord:function (relationPO) {
         return relationPO.oneDataRecord;
+        //return relationPO.oneDataRecord.recordFieldPOList;
+    },
+    Get1To1DataRecordFieldPOArray:function (relationPO) {
+        return this.FindRecordFieldPOArray(relationPO.oneDataRecord);
+        //return relationPO.oneDataRecord.recordFieldPOList;
     },
     Add1ToNDataRecord:function (relationPO, arrayData) {
         relationPO.listDataRecord=arrayData;
@@ -41,7 +55,7 @@ let FormRelationPOUtility={
         return this.FindFieldPOInOneDataRecord(oneDataRecord,"ID");
     },
     FindFieldPOByRelationPO:function(relationPO,fieldName){
-        var oneDataRecord = FormRelationPOUtility.Get1To1DataRecord(relationPO);
+        var oneDataRecord = FormRelationPOUtility.Get1To1DataRecordFieldPOArray(relationPO);
         var fieldPO=ArrayUtility.WhereSingle(oneDataRecord,function (item) {
             return item.fieldName==fieldName;
         });
@@ -87,7 +101,7 @@ let FormRelationPOUtility={
             for (var i = 0; i < formRecordDataRelationPOList.length; i++) {
                 var formRecordDataRelationPO = formRecordDataRelationPOList[i];
                 var innerRelationId = formRecordDataRelationPO.id;
-                var oneDataRecord = this.Get1To1DataRecord(formRecordDataRelationPO);
+                var oneDataRecord = this.Get1To1DataRecordFieldPOArray(formRecordDataRelationPO);
                 if(oneDataRecord) {
                     for (var j = 0; j < oneDataRecord.length; j++) {
                         var fieldPO = oneDataRecord[j];
@@ -115,24 +129,17 @@ let FormRelationPOUtility={
             return item.parentId==parentPOId;
         });
     },
-    CreateFieldInOneDataRecord:function(oneDataRecord,fieldName,fieldValue) {
-        var fieldPO = JsonUtility.CloneSimple(oneDataRecord[0]);
+    CreateFieldInOneDataRecord:function(recordFieldPOArray,fieldName,fieldValue) {
+        //var recordFieldPOArray=this.FindRecordFieldPOArray(oneDataRecord)
+        var fieldPO = JsonUtility.CloneSimple(recordFieldPOArray[0]);
         fieldPO.fieldName = fieldName;
         fieldPO.value = fieldValue;
-        oneDataRecord.push(fieldPO);
+        recordFieldPOArray.push(fieldPO);
     },
-    CreateIdFieldInOneDataRecord:function(oneDataRecord,idValue){
-        var idField=JsonUtility.CloneSimple(oneDataRecord[0]);
-        idField.fieldName="ID";
-        if(idValue){
-            idField.value=idValue;
+    CreateIdFieldInOneDataRecord:function(recordFieldPOArray,idValue){
+        if(!idValue){
+            idValue = StringUtility.Guid();
         }
-        else {
-            idField.value = StringUtility.Guid();
-        }
-        oneDataRecord.push(idField);
+        this.CreateFieldInOneDataRecord(recordFieldPOArray,"ID",idValue);
     }
-    /*ConnectRelationPOToDynamicContainerControl:function (relationPO,dynamicContainerControlInstance) {
-        this._RelationPOWithDynamicContainerControl[relationPO.id]=dynamicContainerControlInstance;
-    }*/
 }

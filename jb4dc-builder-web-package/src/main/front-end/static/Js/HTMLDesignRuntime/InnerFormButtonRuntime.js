@@ -17,7 +17,15 @@ let InnerFormButtonRuntime= {
         var formDataComplexPOList = formRuntimeInstance.SerializationFormData();
         //console.log(innerButtonConfig);
         //console.log(listButtonPO);
-        RuntimeGeneralInstance.SubmitFormDataComplexPOListToServer(formDataComplexPOList, innerButtonConfig.id, listButtonPO.buttonId);
+        DialogUtility.AlertLoading(window,DialogUtility.DialogLoadingId,{},"系统处理中,请稍候...");
+        RuntimeGeneralInstance.SubmitFormDataComplexPOListToServer(formDataComplexPOList,formDataComplexPOList.recordId, innerButtonConfig.id, listButtonPO.buttonId,function (result) {
+            console.log(result);
+
+            window.setTimeout(function () {
+                DialogUtility.CloseDialog(DialogUtility.DialogLoadingId);
+            },1000)
+
+        },this);
         //debugger;
         //DialogUtility.AlertJsonCode(result,5);
         //console.log(innerButtonConfig);

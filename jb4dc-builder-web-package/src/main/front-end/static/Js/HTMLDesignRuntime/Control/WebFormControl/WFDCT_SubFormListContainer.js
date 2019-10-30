@@ -109,8 +109,8 @@ var WFDCT_SubFormListContainer={
                         var oneRecord=allRecordList[j];
                         if(ArrayUtility.True(oneRecord,function (fieldItem) {
                             return fieldItem.fieldName==selfKeyFieldName&&fieldItem.value==outerKeyFieldValue;
-                        })){
-                            thisPOListDataRecord.push(oneRecord);
+                        })) {
+                            thisPOListDataRecord.push({"recordFieldPOList": oneRecord});
                         }
                     }
                     FormRelationPOUtility.Add1ToNDataRecord(tempPO,thisPOListDataRecord);
@@ -132,7 +132,7 @@ var WFDCT_SubFormListContainer={
         for (var i = 0; i < trs.length; i++) {
             var $tr = $(trs[i]);
             var singleRelationPO=this.GetRowData($tr);
-            allData.push(FormRelationPOUtility.Get1To1DataRecord(singleRelationPO))
+            allData.push(FormRelationPOUtility.Get1To1DataRecord(singleRelationPO));
             //console.log(singleJsonData);
             var trChildRelationPOArray=this.GetChildRelationPOArray($tr);
             if(trChildRelationPOArray) {
@@ -160,23 +160,6 @@ var WFDCT_SubFormListContainer={
             }
             FormRelationPOUtility.Add1ToNDataRecord(childRelationPO,allChildData);
         }
-        /*for (var i = 0; i < trs.length; i++) {
-            var $tr = $(trs[i]);
-            var trChildRelationPOArray=this.GetChildRelationPOArray($tr);
-            if(trChildRelationPOArray) {
-                for (var j = 0; j < trChildRelationPOArray.length; j++) {
-                    var childRelationPO = ArrayUtility.WhereSingle(childRelationArray, function (item) {
-                        return item.id == trChildRelationPOArray[j].id;
-                    });
-                    if (trChildRelationPOArray[j].oneDataRecord) {
-                        childRelationPO.oneDataRecord = trChildRelationPOArray[j].oneDataRecord;
-                    }
-                    if (trChildRelationPOArray[j].listDataRecord) {
-                        childRelationPO.listDataRecord = trChildRelationPOArray[j].listDataRecord;
-                    }
-                }
-            }
-        }*/
     },
     GetValue:function ($elem,originalData, paras) {
         DialogUtility.AlertText("DynamicContainer类型的控件的序列化交由SerializationValue方法自行完成!");
@@ -358,7 +341,7 @@ var WFDCT_SubFormListContainer={
     InnerRow_ToViewStatus:function(relationPO,$tr) {
         if(this._$LastEditRow){
             var controls = HTMLControl.FindALLControls(this._$LastEditRow);
-            //var oneRowRecord = FormRuntime.Get1To1DataRecord(relationPO);
+            //var oneRowRecord = FormRuntime.Get1To1DataRecordFieldPOArray(relationPO);
             for (var i = 0; i < controls.length; i++) {
                 var singleControl=$(controls[i]);
                 var fieldName=HTMLControl.GetControlBindFieldName(singleControl);
@@ -426,7 +409,7 @@ var WFDCT_SubFormListContainer={
                 }
             }
 
-            var oneDataRecord = FormRelationPOUtility.Get1To1DataRecord(subFormMainRelationPO);
+            var oneDataRecord = FormRelationPOUtility.Get1To1DataRecordFieldPOArray(subFormMainRelationPO);
             //if (operationType == "add") {
                 //创建主记录ID
             //     this.CreateIdFieldInOneDataRecord(oneDataRecord, StringUtility.Guid());
@@ -442,7 +425,8 @@ var WFDCT_SubFormListContainer={
                 var outerKeyFieldValue=FormRelationPOUtility.FindFieldValueInOneDataRecord(oneDataRecord,outerKeyFieldName);
 
                 for (var j = 0; j < subRelationPO.listDataRecord.length; j++) {
-                    FormRelationPOUtility.CreateFieldInOneDataRecord(subRelationPO.listDataRecord[j],selfKeyFieldName,outerKeyFieldValue);
+                    var recordFieldPOList=FormRelationPOUtility.FindRecordFieldPOArray(subRelationPO.listDataRecord[j]);
+                    FormRelationPOUtility.CreateFieldInOneDataRecord(recordFieldPOList,selfKeyFieldName,outerKeyFieldValue);
                 }
 
             }
@@ -629,7 +613,7 @@ var WFDCT_SubFormListContainer={
             var child_relation_po_array = this.GetChildRelationPOArray($trElem);
 
             var mainPO = FormRelationPOUtility.FindMainRelationPO(subFormDataRelationList);
-            FormRelationPOUtility.Add1To1DataRecord(mainPO, FormRelationPOUtility.Get1To1DataRecord(tr_record_data));
+            FormRelationPOUtility.Add1To1DataRecord(mainPO, FormRelationPOUtility.Get1To1DataRecordFieldPOArray(tr_record_data));
             //console.log(child_relation_po_array);
             var childPOList = FormRelationPOUtility.FindNotMainRelationPO(subFormDataRelationList);
 
