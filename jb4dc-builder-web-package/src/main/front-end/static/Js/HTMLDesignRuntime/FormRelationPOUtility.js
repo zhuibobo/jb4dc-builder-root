@@ -23,7 +23,10 @@ let FormRelationPOUtility={
         //return relationPO.oneDataRecord.recordFieldPOList;
     },
     Get1To1DataRecordFieldPOArray:function (relationPO) {
-        return this.FindRecordFieldPOArray(relationPO.oneDataRecord);
+        if(relationPO.oneDataRecord) {
+            return this.FindRecordFieldPOArray(relationPO.oneDataRecord);
+        }
+        return null;
         //return relationPO.oneDataRecord.recordFieldPOList;
     },
     Add1ToNDataRecord:function (relationPO, arrayData) {
@@ -100,16 +103,18 @@ let FormRelationPOUtility={
         })
     },
     FindFieldPOInRelationFormRecordComplexPoOneDataRecord:function (relationFormRecordComplexPo,relationId,tableName,fieldName) {
+        debugger;
         if (this._FieldPOCache == null) {
             this._FieldPOCache = {};
             var formRecordDataRelationPOList = relationFormRecordComplexPo.formRecordDataRelationPOList;
             for (var i = 0; i < formRecordDataRelationPOList.length; i++) {
                 var formRecordDataRelationPO = formRecordDataRelationPOList[i];
                 var innerRelationId = formRecordDataRelationPO.id;
-                var oneDataRecord = this.Get1To1DataRecordFieldPOArray(formRecordDataRelationPO);
-                if(oneDataRecord) {
-                    for (var j = 0; j < oneDataRecord.length; j++) {
-                        var fieldPO = oneDataRecord[j];
+                var fieldPOList = this.Get1To1DataRecordFieldPOArray(formRecordDataRelationPO);
+                if(fieldPOList) {
+                    //var fieldPOList=this.FindRecordFieldPOArray(oneDataRecord);
+                    for (var j = 0; j < fieldPOList.length; j++) {
+                        var fieldPO = fieldPOList[j];
                         var innerFieldName = fieldPO.fieldName;
                         this._FieldPOCache[innerRelationId + "_" + innerFieldName] = fieldPO;
                     }

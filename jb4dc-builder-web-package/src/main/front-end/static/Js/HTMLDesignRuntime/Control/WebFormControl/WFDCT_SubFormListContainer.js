@@ -89,6 +89,7 @@ var WFDCT_SubFormListContainer={
                 //if(this._HasChildRelationPO==null){
                 //    this._HasChildRelationPO=FormRelationPOUtility.HasChildRelationPO(relationFormRecordComplexPo.formRecordDataRelationPOList,relation_po_id);
                 //}
+                debugger;
                 var childRelationPOArray=[];
 
                 var subRelationPO=ArrayUtility.WhereSingle(relationFormRecordComplexPo.formRecordDataRelationPOList,function (item) {
@@ -625,6 +626,7 @@ var WFDCT_SubFormListContainer={
             }
 
         }).call(thisInstance, subFormDataRelationList, idValue);
+        console.log(subFormDataRelationList);
         return {
             formRecordDataRelationPOList: subFormDataRelationList
         };
