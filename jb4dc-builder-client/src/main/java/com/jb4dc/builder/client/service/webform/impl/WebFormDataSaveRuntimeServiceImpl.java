@@ -1,16 +1,21 @@
 package com.jb4dc.builder.client.service.webform.impl;
 
+import com.jb4dc.base.tools.JsonUtility;
 import com.jb4dc.builder.client.service.webform.IWebFormDataSaveRuntimeService;
 import com.jb4dc.builder.client.service.weblist.IWebListButtonRuntimeResolveService;
 import com.jb4dc.builder.dbentities.weblist.ListButtonEntity;
 import com.jb4dc.builder.po.SubmitResultPO;
+import com.jb4dc.builder.po.button.InnerFormButtonConfig;
+import com.jb4dc.builder.po.button.InnerFormButtonConfigAPI;
 import com.jb4dc.builder.po.formdata.FormRecordComplexPO;
 import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
 import com.jb4dc.core.base.session.JB4DCSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Created with IntelliJ IDEA.
@@ -25,11 +30,26 @@ public class WebFormDataSaveRuntimeServiceImpl implements IWebFormDataSaveRuntim
     private IWebListButtonRuntimeResolveService webListButtonRuntimeResolveService;
 
     @Override
-    public SubmitResultPO SaveFormRecordComplexPO(JB4DCSession session, String recordId, FormRecordComplexPO formRecordComplexPO, String listButtonId, String innerFormButtonId) throws JBuild4DCGenerallyException {
+    public SubmitResultPO SaveFormRecordComplexPO(JB4DCSession session, String recordId, FormRecordComplexPO formRecordComplexPO, String listButtonId, String innerFormButtonId) throws JBuild4DCGenerallyException, IOException {
         SubmitResultPO submitResultPO=new SubmitResultPO();
 
         ListButtonEntity listButtonEntity=webListButtonRuntimeResolveService.getButtonPO(listButtonId);
+        List<InnerFormButtonConfig> innerFormButtonConfigList= JsonUtility.toObjectListIgnoreProp(listButtonEntity.getButtonInnerConfig(),InnerFormButtonConfig.class);
+        InnerFormButtonConfig innerFormButtonConfig=innerFormButtonConfigList.parallelStream().filter(item->item.id.equals(innerFormButtonId)).findFirst().get();
 
+        //执行前置API
+        if(innerFormButtonConfig.getApis()!=null&&innerFormButtonConfig.getApis().size()>0){
+            List<InnerFormButtonConfigAPI> beforeApiList=innerFormButtonConfig.getApis().parallelStream().filter(item->item.getRunTime().equals("之前")).collect(Collectors.toList());
+        }
+
+        //保存数据
+
+        //修改字段
+
+        //执行后置API
+        if(innerFormButtonConfig.getApis()!=null&&innerFormButtonConfig.getApis().size()>0){
+            List<InnerFormButtonConfigAPI> beforeApiList=innerFormButtonConfig.getApis().parallelStream().filter(item->item.getRunTime().equals("之后")).collect(Collectors.toList());
+        }
 
         return submitResultPO;
     }
