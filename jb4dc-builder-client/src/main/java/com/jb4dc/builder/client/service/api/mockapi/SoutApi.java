@@ -15,6 +15,7 @@ public class SoutApi implements IApiForButton {
     @Override
     public ApiRunResult runApi(ApiRunPara apiRunPara) {
         System.out.println(String.format("执行了运行类型[%s]的API:[%s]",apiRunPara.getInnerFormButtonConfigAPI().getRunTime(),apiRunPara.getApiItemEntity().getApiItemClassName()));
+        System.out.println(String.format("记录ID:%s",apiRunPara.getFormRecordComplexPO().getRecordId()));
         return ApiRunResult.successResult();
     }
 }

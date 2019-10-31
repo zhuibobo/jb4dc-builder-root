@@ -92,7 +92,6 @@ public class WebFormDataSaveRuntimeServiceImpl implements IWebFormDataSaveRuntim
             apiRunPara.setInnerFormButtonConfigList(innerFormButtonConfigList);
             apiRunPara.setInnerFormButtonConfig(innerFormButtonConfig);
 
-
             String className = apiItemEntity.getApiItemClassName();
             IApiForButton apiForButton = (IApiForButton) ClassUtility.loadClass(className).newInstance();
             autowireCapableBeanFactory.autowireBean(apiForButton);
