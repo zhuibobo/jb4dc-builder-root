@@ -37,27 +37,24 @@ let FormRelationPOUtility={
         return relationPO.listDataRecord;
     },
     FindFieldPOInOneDataRecord:function(oneDataRecord,fieldName){
-        var fieldPO=ArrayUtility.WhereSingle(this.FindRecordFieldPOArray(oneDataRecord),function (item) {
+        var fieldPOArray=this.FindRecordFieldPOArray(oneDataRecord);
+        var fieldPO=ArrayUtility.WhereSingle(fieldPOArray,function (item) {
             return item.fieldName==fieldName;
         });
         if(fieldPO){
             return fieldPO;
         }
-        else{
-            DialogUtility.AlertText("FormRuntime.FindFieldPOByRelationPO:找不到字段"+fieldName+"的数据值!");
-        }
+        throw "FormRuntime.FindFieldPOInOneDataRecord:找不到字段"+fieldName+"的数据值!";
     },
-    FindFieldValueInOneDataRecord:function(oneDataRecord,fieldName){
-        var recordFieldPOList=this.FindRecordFieldPOArray(oneDataRecord);
-        var fieldPO=ArrayUtility.WhereSingle(recordFieldPOList,function (item) {
-            return item.fieldName==fieldName;
+    FindFieldValueInOneDataRecord:function(oneDataRecord,fieldName) {
+        var recordFieldPOList = this.FindRecordFieldPOArray(oneDataRecord);
+        var fieldPO = ArrayUtility.WhereSingle(recordFieldPOList, function (item) {
+            return item.fieldName == fieldName;
         });
-        if(fieldPO){
+        if (fieldPO) {
             return fieldPO.value;
         }
-        else{
-            DialogUtility.AlertText("FormRuntime.FindFieldPOByRelationPO:找不到字段"+fieldName+"的数据值!");
-        }
+        throw "FormRuntime.FindFieldPOByRelationPO:找不到字段" + fieldName + "的数据值!";
     },
     FindFieldPOInOneDataRecordByID:function(oneDataRecord){
         return this.FindFieldPOInOneDataRecord(oneDataRecord,"ID");
@@ -70,9 +67,7 @@ let FormRelationPOUtility={
         if(fieldPO){
             return fieldPO;
         }
-        else{
-            DialogUtility.AlertText("FormRuntime.FindFieldPOByRelationPO:找不到字段"+fieldName+"的数据值!");
-        }
+        throw "FormRuntime.FindFieldPOByRelationPO:找不到字段"+fieldName+"的数据值!";
     },
     FindIdFieldPOByRelationPO:function(relationPO){
         return this.FindFieldPOByRelationPO(relationPO,"ID");
@@ -103,7 +98,7 @@ let FormRelationPOUtility={
         })
     },
     FindFieldPOInRelationFormRecordComplexPoOneDataRecord:function (relationFormRecordComplexPo,relationId,tableName,fieldName) {
-        debugger;
+        //debugger;
         if (this._FieldPOCache == null) {
             this._FieldPOCache = {};
             var formRecordDataRelationPOList = relationFormRecordComplexPo.formRecordDataRelationPOList;

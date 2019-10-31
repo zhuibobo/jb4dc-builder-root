@@ -89,7 +89,7 @@ var WFDCT_SubFormListContainer={
                 //if(this._HasChildRelationPO==null){
                 //    this._HasChildRelationPO=FormRelationPOUtility.HasChildRelationPO(relationFormRecordComplexPo.formRecordDataRelationPOList,relation_po_id);
                 //}
-                debugger;
+                //debugger;
                 var childRelationPOArray=[];
 
                 var subRelationPO=ArrayUtility.WhereSingle(relationFormRecordComplexPo.formRecordDataRelationPOList,function (item) {
@@ -108,10 +108,11 @@ var WFDCT_SubFormListContainer={
                     var thisPOListDataRecord=[];
                     for (var j = 0; j < allRecordList.length; j++) {
                         var oneRecord=allRecordList[j];
-                        if(ArrayUtility.True(oneRecord,function (fieldItem) {
+                        var fieldPOArray=FormRelationPOUtility.FindRecordFieldPOArray(oneRecord);
+                        if(ArrayUtility.True(fieldPOArray,function (fieldItem) {
                             return fieldItem.fieldName==selfKeyFieldName&&fieldItem.value==outerKeyFieldValue;
                         })) {
-                            thisPOListDataRecord.push({"recordFieldPOList": oneRecord});
+                            thisPOListDataRecord.push(oneRecord);
                         }
                     }
                     FormRelationPOUtility.Add1ToNDataRecord(tempPO,thisPOListDataRecord);
@@ -315,6 +316,7 @@ var WFDCT_SubFormListContainer={
                 var control = $(controls[i]);
                 var controlInstance = HTMLControl.GetControlInstanceByElem(control);
                 var fieldName = HTMLControl.GetControlBindFieldName(control);
+                //debugger;
                 var fieldPO = FormRelationPOUtility.FindFieldPOInOneDataRecord(oneDataRecord, fieldName)
                 controlInstance.SetValue(control,fieldPO, null, null);
             }
@@ -626,7 +628,7 @@ var WFDCT_SubFormListContainer={
             }
 
         }).call(thisInstance, subFormDataRelationList, idValue);
-        console.log(subFormDataRelationList);
+        //console.log(subFormDataRelationList);
         return {
             formRecordDataRelationPOList: subFormDataRelationList
         };
