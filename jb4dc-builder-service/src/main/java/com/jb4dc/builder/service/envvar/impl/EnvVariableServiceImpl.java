@@ -73,13 +73,13 @@ public class EnvVariableServiceImpl extends BaseServiceImpl<EnvVariableEntity> i
 
     @Override
     public void initSystemData(JB4DCSession jb4DCSession) throws JBuild4DCGenerallyException {
-        create(jb4DCSession,"ENV_STATIC_YES",EnvGroupServiceImpl.ENV_GROUP_STATIC,"静态值-是","ENV_STATIC_YES","com.jb4dc.builder.client.service.envvar.creator.StaticVariableCreater","是","","");
-        create(jb4DCSession,"ENV_STATIC_NO",EnvGroupServiceImpl.ENV_GROUP_STATIC,"静态值-否","ENV_STATIC_NO","com.jb4dc.builder.client.service.envvar.creator.StaticVariableCreater","否","","");
-        create(jb4DCSession,"ENV_STATIC_ENABLE",EnvGroupServiceImpl.ENV_GROUP_STATIC,"静态值-启用","ENV_STATIC_ENABLE","com.jb4dc.builder.client.service.envvar.creator.StaticVariableCreater","启用","","");
-        create(jb4DCSession,"ENV_STATIC_DISABLE",EnvGroupServiceImpl.ENV_GROUP_STATIC,"静态值-禁用","ENV_STATIC_DISABLE","com.jb4dc.builder.client.service.envvar.creator.StaticVariableCreater","禁用","","");
-        create(jb4DCSession,"ENV_STATIC_DEL",EnvGroupServiceImpl.ENV_GROUP_STATIC,"静态值-删除","ENV_STATIC_DEL","com.jb4dc.builder.client.service.envvar.creator.StaticVariableCreater","删除","","");
-        create(jb4DCSession,"ENV_STATIC_PROCESS",EnvGroupServiceImpl.ENV_GROUP_STATIC,"静态值-待处理","ENV_STATIC_PROCESS","com.jb4dc.builder.client.service.envvar.creator.StaticVariableCreater","待处理","","");
-        create(jb4DCSession,"ENV_STATIC_PROCESSED",EnvGroupServiceImpl.ENV_GROUP_STATIC,"静态值-已处理","ENV_STATIC_PROCESSED","com.jb4dc.builder.client.service.envvar.creator.StaticVariableCreater","已处理","","");
+        create(jb4DCSession,"ENV_STATIC_YES",EnvGroupServiceImpl.ENV_GROUP_STATIC,"静态值-是","ENV_STATIC_YES","com.jb4dc.builder.client.service.envvar.creator.StaticVariableCreator","是","","");
+        create(jb4DCSession,"ENV_STATIC_NO",EnvGroupServiceImpl.ENV_GROUP_STATIC,"静态值-否","ENV_STATIC_NO","com.jb4dc.builder.client.service.envvar.creator.StaticVariableCreator","否","","");
+        create(jb4DCSession,"ENV_STATIC_ENABLE",EnvGroupServiceImpl.ENV_GROUP_STATIC,"静态值-启用","ENV_STATIC_ENABLE","com.jb4dc.builder.client.service.envvar.creator.StaticVariableCreator","启用","","");
+        create(jb4DCSession,"ENV_STATIC_DISABLE",EnvGroupServiceImpl.ENV_GROUP_STATIC,"静态值-禁用","ENV_STATIC_DISABLE","com.jb4dc.builder.client.service.envvar.creator.StaticVariableCreator","禁用","","");
+        create(jb4DCSession,"ENV_STATIC_DEL",EnvGroupServiceImpl.ENV_GROUP_STATIC,"静态值-删除","ENV_STATIC_DEL","com.jb4dc.builder.client.service.envvar.creator.StaticVariableCreator","删除","","");
+        create(jb4DCSession,"ENV_STATIC_PROCESS",EnvGroupServiceImpl.ENV_GROUP_STATIC,"静态值-待处理","ENV_STATIC_PROCESS","com.jb4dc.builder.client.service.envvar.creator.StaticVariableCreator","待处理","","");
+        create(jb4DCSession,"ENV_STATIC_PROCESSED",EnvGroupServiceImpl.ENV_GROUP_STATIC,"静态值-已处理","ENV_STATIC_PROCESSED","com.jb4dc.builder.client.service.envvar.creator.StaticVariableCreator","已处理","","");
 
 
         create(jb4DCSession,"ENV_DATETIME_YYYY_MM_DD",EnvGroupServiceImpl.ENV_GROUP_DATETIME,"年年年年-月月-日日","ENV_DATETIME_YYYY_MM_DD","com.jb4dc.builder.client.service.envvar.creator.DateTimeVariableCreator","yyyy-MM-dd","","");
@@ -91,7 +91,7 @@ public class EnvVariableServiceImpl extends BaseServiceImpl<EnvVariableEntity> i
         create(jb4DCSession,"ENV_SYSTEM_CURRENT_USER_ID",EnvGroupServiceImpl.ENV_GROUP_SYSTEM,"当前用户ID","ENV_SYSTEM_CURRENT_USER_ID","com.jb4dc.builder.client.service.envvar.creator.UserSessionVariableCreator","ApiVarCurrentUserId","","");
         create(jb4DCSession,"ENV_SYSTEM_CURRENT_USER_NAME",EnvGroupServiceImpl.ENV_GROUP_SYSTEM,"当前用户名称","ENV_SYSTEM_CURRENT_USER_NAME","com.jb4dc.builder.client.service.envvar.creator.UserSessionVariableCreator","ApiVarCurrentUserName","","");
 
-        create(jb4DCSession,"ENV_ID_CODE_UUID",EnvGroupServiceImpl.ENV_GROUP_ID_CODE,"通用唯一识别码","ENV_ID_CODE_UUID","com.jb4dc.builder.client.service.envvar.creator.UUIDVariableCreater","","","");
+        create(jb4DCSession,"ENV_ID_CODE_UUID",EnvGroupServiceImpl.ENV_GROUP_ID_CODE,"通用唯一识别码","ENV_ID_CODE_UUID","com.jb4dc.builder.client.service.envvar.creator.UUIDVariableCreator","","","");
     }
 
     private EnvVariableEntity create(JB4DCSession jb4DCSession,String envVarId,String groupId,String text,String value,String className,String classPara,String rest,String restPara) throws JBuild4DCGenerallyException {

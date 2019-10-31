@@ -11,7 +11,7 @@ import com.jb4dc.core.base.session.JB4DCSession;
  * Date: 2019/9/10
  * To change this template use File | Settings | File Templates.
  */
-public class StaticVariableCreater implements IEnvVariableCreator {
+public class StaticVariableCreator implements IEnvVariableCreator {
     @Override
     public String createVar(JB4DCSession jb4DCSession, EnvVariableEntity envVariableEntity) throws JBuild4DCGenerallyException {
         return envVariableEntity.getEnvVarClassPara();
