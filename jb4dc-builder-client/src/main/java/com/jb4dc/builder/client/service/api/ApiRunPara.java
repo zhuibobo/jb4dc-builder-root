@@ -6,6 +6,5 @@ package com.jb4dc.builder.client.service.api;
  * Date: 2019/11/1
  * To change this template use File | Settings | File Templates.
  */
-public interface IApiForButton {
-    ApiRunResult runApi(ApiRunPara apiRunPara);
+public class ApiRunPara {
 }

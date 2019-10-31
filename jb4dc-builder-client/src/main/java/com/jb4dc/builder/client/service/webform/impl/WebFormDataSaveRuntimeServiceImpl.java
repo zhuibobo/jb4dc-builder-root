@@ -1,6 +1,9 @@
 package com.jb4dc.builder.client.service.webform.impl;
 
 import com.jb4dc.base.tools.JsonUtility;
+import com.jb4dc.builder.client.service.api.ApiRunPara;
+import com.jb4dc.builder.client.service.api.ApiRunResult;
+import com.jb4dc.builder.client.service.api.IApiForButton;
 import com.jb4dc.builder.client.service.api.IApiRuntimeService;
 import com.jb4dc.builder.client.service.webform.IWebFormDataSaveRuntimeService;
 import com.jb4dc.builder.client.service.weblist.IWebListButtonRuntimeResolveService;
@@ -12,7 +15,9 @@ import com.jb4dc.builder.po.button.InnerFormButtonConfigAPI;
 import com.jb4dc.builder.po.formdata.FormRecordComplexPO;
 import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
 import com.jb4dc.core.base.session.JB4DCSession;
+import com.jb4dc.core.base.tools.ClassUtility;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.config.AutowireCapableBeanFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -35,6 +40,9 @@ public class WebFormDataSaveRuntimeServiceImpl implements IWebFormDataSaveRuntim
     @Autowired
     private IApiRuntimeService apiRuntimeService;
 
+    @Autowired
+    private AutowireCapableBeanFactory autowireCapableBeanFactory;
+
     @Override
     @Transactional(rollbackFor= JBuild4DCGenerallyException.class)
     public SubmitResultPO SaveFormRecordComplexPO(JB4DCSession session, String recordId, FormRecordComplexPO formRecordComplexPO, String listButtonId, String innerFormButtonId) throws JBuild4DCGenerallyException, IOException {
@@ -48,7 +56,10 @@ public class WebFormDataSaveRuntimeServiceImpl implements IWebFormDataSaveRuntim
         if(innerFormButtonConfig.getApis()!=null&&innerFormButtonConfig.getApis().size()>0){
             List<InnerFormButtonConfigAPI> beforeApiList=innerFormButtonConfig.getApis().parallelStream().filter(item->item.getRunTime().equals("之前")).collect(Collectors.toList());
             for (InnerFormButtonConfigAPI innerFormButtonConfigAPI : beforeApiList) {
-                ApiItemEntity apiItemEntity=apiRuntimeService.getApiPOByValue(innerFormButtonConfigAPI.getValue());
+                ApiRunResult apiRunResult=rubApi(innerFormButtonConfigAPI);
+                if(!apiRunResult.isSuccess()){
+                    throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_BUILDER_CODE,"执行前置API"+innerFormButtonConfigAPI.getValue()+"失败!");
+                }
             }
         }
 
@@ -60,12 +71,28 @@ public class WebFormDataSaveRuntimeServiceImpl implements IWebFormDataSaveRuntim
         if(innerFormButtonConfig.getApis()!=null&&innerFormButtonConfig.getApis().size()>0){
             List<InnerFormButtonConfigAPI> afterApiList=innerFormButtonConfig.getApis().parallelStream().filter(item->item.getRunTime().equals("之后")).collect(Collectors.toList());
             for (InnerFormButtonConfigAPI innerFormButtonConfigAPI : afterApiList) {
-                ApiItemEntity apiItemEntity=apiRuntimeService.getApiPOByValue(innerFormButtonConfigAPI.getValue());
+                ApiRunResult apiRunResult=rubApi(innerFormButtonConfigAPI);
+                if(!apiRunResult.isSuccess()){
+                    throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_BUILDER_CODE,"执行后置API"+innerFormButtonConfigAPI.getValue()+"失败!");
+                }
             }
         }
 
         return submitResultPO;
     }
 
-    //public
+    public ApiRunResult rubApi(InnerFormButtonConfigAPI innerFormButtonConfigAPI) throws JBuild4DCGenerallyException {
+        try {
+            ApiItemEntity apiItemEntity = apiRuntimeService.getApiPOByValue(innerFormButtonConfigAPI.getValue());
+            ApiRunPara apiRunPara = new ApiRunPara();
+            String className = apiItemEntity.getApiItemClassName();
+            IApiForButton apiForButton = (IApiForButton) ClassUtility.loadClass(className).newInstance();
+            autowireCapableBeanFactory.autowireBean(apiForButton);
+            return apiForButton.runApi(apiRunPara);
+        } catch (IllegalAccessException e) {
+            throw new JBuild4DCGenerallyException(e.hashCode(),e.getMessage(),e);
+        } catch (InstantiationException e) {
+            throw new JBuild4DCGenerallyException(e.hashCode(),e.getMessage(),e);
+        }
+    }
 }
