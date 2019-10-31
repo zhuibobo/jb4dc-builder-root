@@ -8,7 +8,7 @@ import com.jb4dc.builder.client.service.datastorage.IFormDataRelationService;
 import com.jb4dc.builder.client.service.webform.IWebFormRuntimeService;
 import com.jb4dc.builder.dbentities.weblist.ListButtonEntity;
 import com.jb4dc.builder.po.DynamicBindHTMLControlContextPO;
-import com.jb4dc.builder.po.FormRecordDataRelationPO;
+import com.jb4dc.builder.po.formdata.FormRecordDataRelationPO;
 import com.jb4dc.builder.po.FormResourceComplexPO;
 import com.jb4dc.builder.po.FormResourcePO;
 import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;

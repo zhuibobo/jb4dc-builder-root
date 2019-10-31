@@ -19,6 +19,10 @@
                 RecordId:webFormRTParas.RecordId,
                 ButtonId:webFormRTParas.ButtonId,
                 OperationType:webFormRTParas.OperationType,
-                IsPreview:false
+                IsPreview:false,
+                RendererChainCompletedFunc:function () {
+                    var relationFormRecordComplexPo=FormRuntimeMock.GetMockData();
+                    this.DeSerializationFormData(relationFormRecordComplexPo);
+                }
             })
         });</script></head><body><div id="htmlDesignRuntimeWrap"></div><div class="html-design-operation-button-outer-wrap"><div class="html-design-button-inner-wrap"><div class="html-design-buttons-group" id="innerButtonWrapOuter"></div></div></div></body></html>

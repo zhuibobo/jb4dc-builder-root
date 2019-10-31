@@ -43,7 +43,7 @@ var RuntimeGeneralInstance= {
     SubmitFormDataComplexPOListToServer:function (formDataComplexPOList,recordId,innerFormButtonId,listButtonId,callback,sender) {
         var url = BaseUtility.BuildAction("/Rest/Builder/RunTime/InnerFormButtonRuntime/ReceiveHandler", {});
         var params = {
-            "formRecordComplexPO": encodeURIComponent(JsonUtility.JsonToString(formDataComplexPOList)),
+            "formRecordComplexPOString": encodeURIComponent(JsonUtility.JsonToString(formDataComplexPOList)),
             "innerFormButtonId": innerFormButtonId,
             "listButtonId": listButtonId,
             "recordId":recordId

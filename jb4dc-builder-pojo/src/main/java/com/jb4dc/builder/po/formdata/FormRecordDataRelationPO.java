@@ -1,8 +1,7 @@
-package com.jb4dc.builder.po;
+package com.jb4dc.builder.po.formdata;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created with IntelliJ IDEA.
@@ -29,15 +28,8 @@ public class FormRecordDataRelationPO {
     String icon;
     String isMain;
 
-    List<FormRecordDataPO> dataRecordList=new ArrayList<>();
-
-    public void addDataRecord(FormRecordDataPO record){
-        this.dataRecordList.add(record);
-    }
-
-    public List<FormRecordDataPO> getDataRecordList() {
-        return dataRecordList;
-    }
+    List<FormRecordDataPO> listDataRecord=new ArrayList<>();
+    FormRecordDataPO oneDataRecord;
 
     public String getIsMain() {
         return isMain;
@@ -173,5 +165,25 @@ public class FormRecordDataRelationPO {
 
     public void setIcon(String icon) {
         this.icon = icon;
+    }
+
+    public FormRecordDataPO getOneDataRecord() {
+        return oneDataRecord;
+    }
+
+    public void setOneDataRecord(FormRecordDataPO oneDataRecord) {
+        this.oneDataRecord = oneDataRecord;
+    }
+
+    public void addListDataRecord(FormRecordDataPO record){
+        this.listDataRecord.add(record);
+    }
+
+    public List<FormRecordDataPO> getListDataRecord() {
+        return listDataRecord;
+    }
+
+    public void setListDataRecord(List<FormRecordDataPO> listDataRecord) {
+        this.listDataRecord = listDataRecord;
     }
 }

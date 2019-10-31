@@ -27,7 +27,11 @@
                 RecordId:webFormRTParas.RecordId,
                 ButtonId:webFormRTParas.ButtonId,
                 OperationType:webFormRTParas.OperationType,
-                IsPreview:false
+                IsPreview:false,
+                RendererChainCompletedFunc:function () {
+                    var relationFormRecordComplexPo=FormRuntimeMock.GetMockData();
+                    this.DeSerializationFormData(relationFormRecordComplexPo);
+                }
             })
         });
     </script>

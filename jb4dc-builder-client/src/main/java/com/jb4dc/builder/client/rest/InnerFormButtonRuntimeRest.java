@@ -1,6 +1,8 @@
 package com.jb4dc.builder.client.rest;
 
+import com.jb4dc.base.tools.JsonUtility;
 import com.jb4dc.builder.po.SubmitResultPO;
+import com.jb4dc.builder.po.formdata.FormRecordComplexPO;
 import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
 import com.jb4dc.core.base.vo.JBuild4DCResponseVo;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,11 +22,15 @@ import java.net.URLDecoder;
 public class InnerFormButtonRuntimeRest {
 
     @RequestMapping("/ReceiveHandler")
-    public JBuild4DCResponseVo<SubmitResultPO> receiveHandler(String formRecordComplexPO, String recordId, String innerFormButtonId,String listButtonId) throws JBuild4DCGenerallyException, IOException {
+    public JBuild4DCResponseVo<SubmitResultPO> receiveHandler(String formRecordComplexPOString, String recordId, String innerFormButtonId,String listButtonId) throws JBuild4DCGenerallyException, IOException {
         SubmitResultPO submitResultPO=new SubmitResultPO();
 
+        formRecordComplexPOString=URLDecoder.decode(formRecordComplexPOString,"utf-8");
+
         System.out.println(String.format("recordId:%s,innerFormButtonId:%s,listButtonId:%s",recordId,innerFormButtonId,listButtonId));
-        System.out.println(URLDecoder.decode(formRecordComplexPO,"utf-8"));
+        System.out.println(formRecordComplexPOString);
+
+        FormRecordComplexPO formRecordComplexPO = JsonUtility.toObject(formRecordComplexPOString,FormRecordComplexPO.class);
 
         submitResultPO.setRecordId(recordId);
         return JBuild4DCResponseVo.opSuccess(submitResultPO);

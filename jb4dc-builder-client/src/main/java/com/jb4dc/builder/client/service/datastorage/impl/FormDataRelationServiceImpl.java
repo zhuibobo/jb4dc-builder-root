@@ -1,8 +1,8 @@
 package com.jb4dc.builder.client.service.datastorage.impl;
 
 import com.jb4dc.builder.client.service.datastorage.IFormDataRelationService;
-import com.jb4dc.builder.po.FormRecordDataRelationPO;
-import com.jb4dc.builder.po.FormRecordDataPO;
+import com.jb4dc.builder.po.formdata.FormRecordDataRelationPO;
+import com.jb4dc.builder.po.formdata.FormRecordDataPO;
 import com.jb4dc.core.base.list.IListWhereCondition;
 import com.jb4dc.core.base.list.ListUtility;
 import org.springframework.stereotype.Service;
@@ -80,7 +80,7 @@ public class FormDataRelationServiceImpl implements IFormDataRelationService {
     @Override
     public FormRecordDataPO findMainRecordData(List<FormRecordDataRelationPO> formRecordDataRelationPOList){
         FormRecordDataRelationPO formRecordDataRelationPO =getMainPO(formRecordDataRelationPOList);
-        List<FormRecordDataPO> recordList= formRecordDataRelationPO.getDataRecordList();
+        List<FormRecordDataPO> recordList= formRecordDataRelationPO.getListDataRecord();
         if(recordList!=null&&recordList.size()>0){
             return recordList.get(0);
         }

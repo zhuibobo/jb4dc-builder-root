@@ -1,6 +1,6 @@
 package com.jb4dc.builder.client.service.datastorage;
 
-import com.jb4dc.builder.po.FormRecordDataRelationPO;
+import com.jb4dc.builder.po.formdata.FormRecordDataRelationPO;
 import com.jb4dc.core.base.session.JB4DCSession;
 
 import java.util.List;

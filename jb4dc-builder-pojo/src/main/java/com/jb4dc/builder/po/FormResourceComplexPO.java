@@ -2,6 +2,7 @@ package com.jb4dc.builder.po;
 
 import com.jb4dc.builder.dbentities.webform.FormResourceEntity;
 import com.jb4dc.builder.dbentities.weblist.ListButtonEntity;
+import com.jb4dc.builder.po.formdata.FormRecordDataRelationPO;
 
 import java.util.List;
 
@@ -12,6 +13,7 @@ import java.util.List;
  * To change this template use File | Settings | File Templates.
  */
 public class FormResourceComplexPO extends FormResourcePO {
+
     public FormResourceComplexPO(FormResourceEntity source, String formHtmlRuntime) {
         super(source, formHtmlRuntime);
     }
