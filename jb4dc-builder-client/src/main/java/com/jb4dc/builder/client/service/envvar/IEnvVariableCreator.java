@@ -1,4 +1,4 @@
-package com.jb4dc.builder.client.envvariable;
+package com.jb4dc.builder.client.service.envvar;
 
 import com.jb4dc.builder.dbentities.envvar.EnvVariableEntity;
 import com.jb4dc.builder.po.EnvVariablePO;

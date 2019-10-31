@@ -1,6 +1,6 @@
 package com.jb4dc.builder.client.service.envvar.impl;
 
-import com.jb4dc.builder.client.envvariable.IEnvVariableCreator;
+import com.jb4dc.builder.client.service.envvar.IEnvVariableCreator;
 import com.jb4dc.builder.client.remote.EnvVariableRuntimeRemote;
 import com.jb4dc.builder.client.service.envvar.IEnvVariableRuntimeResolveService;
 import com.jb4dc.builder.client.service.envvar.IEnvVariableService;
