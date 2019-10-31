@@ -13,7 +13,7 @@ import org.w3c.dom.Node;
  * Date: 2018/8/6
  * To change this template use File | Settings | File Templates.
  */
-public interface IAPIVariableCreator {
+public interface IEnvvariableVariableCreator {
     Document doc=null;
     Node node=null;
 

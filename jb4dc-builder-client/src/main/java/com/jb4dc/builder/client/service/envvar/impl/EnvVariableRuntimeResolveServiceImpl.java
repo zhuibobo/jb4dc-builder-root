@@ -1,6 +1,6 @@
 package com.jb4dc.builder.client.service.envvar.impl;
 
-import com.jb4dc.builder.client.envvariable.IAPIVariableCreator;
+import com.jb4dc.builder.client.envvariable.IEnvvariableVariableCreator;
 import com.jb4dc.builder.client.remote.EnvVariableRuntimeRemote;
 import com.jb4dc.builder.client.service.envvar.IEnvVariableRuntimeResolveService;
 import com.jb4dc.builder.client.service.envvar.IEnvVariableService;
@@ -39,9 +39,9 @@ public class EnvVariableRuntimeResolveServiceImpl implements IEnvVariableRuntime
             envVariableEntity=envVariableRuntimeRemote.getEnvVariableByEnvValue(value).getData();
         }
 
-        IAPIVariableCreator varCreater=null;
+        IEnvvariableVariableCreator varCreater=null;
         try {
-            varCreater=(IAPIVariableCreator) ClassUtility.loadClass(envVariableEntity.getEnvVarClassName()).newInstance();
+            varCreater=(IEnvvariableVariableCreator) ClassUtility.loadClass(envVariableEntity.getEnvVarClassName()).newInstance();
         } catch (InstantiationException ex) {
             ex.printStackTrace();
             throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_BUILDER_CODE,ex.getMessage());

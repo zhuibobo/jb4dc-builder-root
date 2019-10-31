@@ -4,7 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.jb4dc.base.service.general.JB4DCSessionUtility;
 import com.jb4dc.builder.dbentities.datastorage.TableRelationGroupEntity;
 import com.jb4dc.builder.service.api.IApiGroupService;
-import com.jb4dc.builder.service.api.IApiItemService;
+import com.jb4dc.builder.client.service.api.IApiItemService;
 import com.jb4dc.builder.service.dataset.IDatasetGroupService;
 import com.jb4dc.builder.service.datastorage.IDbLinkService;
 import com.jb4dc.builder.service.datastorage.ITableFieldService;

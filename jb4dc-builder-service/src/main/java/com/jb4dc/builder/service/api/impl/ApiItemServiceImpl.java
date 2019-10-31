@@ -7,7 +7,7 @@ import com.jb4dc.base.service.exenum.TrueFalseEnum;
 import com.jb4dc.base.service.impl.BaseServiceImpl;
 import com.jb4dc.builder.dao.api.ApiItemMapper;
 import com.jb4dc.builder.dbentities.api.ApiItemEntity;
-import com.jb4dc.builder.service.api.IApiItemService;
+import com.jb4dc.builder.client.service.api.IApiItemService;
 import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
 import com.jb4dc.core.base.session.JB4DCSession;
 import org.springframework.stereotype.Service;
@@ -91,6 +91,11 @@ public class ApiItemServiceImpl extends BaseServiceImpl<ApiItemEntity> implement
         create(jb4DCSession,"API_GLOBAL_DELETE17",ApiGroupServiceImpl.API_GROUP_GLOBAL,"备份并删除17","API_GLOBAL_DELETE17","","","","");
         create(jb4DCSession,"API_GLOBAL_DELETE18",ApiGroupServiceImpl.API_GROUP_GLOBAL,"备份并删除18","API_GLOBAL_DELETE18","","","","");
         create(jb4DCSession,"API_GLOBAL_DELETE19",ApiGroupServiceImpl.API_GROUP_GLOBAL,"备份并删除19","API_GLOBAL_DELETE19","","","","");
+    }
+
+    @Override
+    public ApiItemEntity getByValue(JB4DCSession session, String apiValue) {
+        return apiItemMapper.selectByValue(apiValue);
     }
 
     private ApiItemEntity create(JB4DCSession jb4DCSession,String envVarId,String groupId,String text,String value,String className,String classPara,String rest,String restPara) throws JBuild4DCGenerallyException {

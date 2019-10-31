@@ -1,5 +1,6 @@
 package com.jb4dc.builder.webserver;
 
+import com.jb4dc.builder.client.remote.ApiItemRuntimeRemote;
 import com.jb4dc.builder.client.rest.DataSetRuntimeRest;
 import com.jb4dc.builder.client.rest.FormRuntimeRest;
 import com.jb4dc.builder.client.rest.ListButtonRuntimeRest;
@@ -22,7 +23,15 @@ import org.springframework.context.annotation.FilterType;
 @SpringBootApplication(exclude= {DataSourceAutoConfiguration.class})
 @EnableDiscoveryClient
 @EnableFeignClients("com.jb4dc")
-@ComponentScan(basePackages = "com.jb4dc",excludeFilters = @ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE, classes = {ListRuntimeRest.class, FormRuntimeRest.class, DataSetRuntimeRest.class, ListButtonRuntimeRest.class}) )
+@ComponentScan(basePackages = "com.jb4dc",excludeFilters = @ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE,
+        classes = {
+                ListRuntimeRest.class,
+                FormRuntimeRest.class,
+                DataSetRuntimeRest.class,
+                ListButtonRuntimeRest.class,
+                ApiItemRuntimeRemote.class
+        })
+)
 public class ApplicationBuilderWebServer {
     public static void main(String[] args) {
         SpringApplication.run(ApplicationBuilderWebServer.class, args);

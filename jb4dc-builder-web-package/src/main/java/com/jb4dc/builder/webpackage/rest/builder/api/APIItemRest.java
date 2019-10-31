@@ -6,7 +6,7 @@ import com.jb4dc.builder.dbentities.api.ApiGroupEntity;
 import com.jb4dc.builder.dbentities.api.ApiItemEntity;
 import com.jb4dc.builder.po.ZTreeNodePOConvert;
 import com.jb4dc.builder.service.api.IApiGroupService;
-import com.jb4dc.builder.service.api.IApiItemService;
+import com.jb4dc.builder.client.service.api.IApiItemService;
 import com.jb4dc.core.base.session.JB4DCSession;
 import com.jb4dc.core.base.vo.JBuild4DCResponseVo;
 import com.jb4dc.feb.dist.webserver.rest.base.GeneralRest;

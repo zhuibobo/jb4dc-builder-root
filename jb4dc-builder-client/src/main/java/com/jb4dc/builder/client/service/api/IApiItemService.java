@@ -1,4 +1,4 @@
-package com.jb4dc.builder.service.api;
+package com.jb4dc.builder.client.service.api;
 
 import com.jb4dc.base.service.IBaseService;
 import com.jb4dc.builder.dbentities.api.ApiItemEntity;
@@ -13,4 +13,6 @@ import com.jb4dc.core.base.session.JB4DCSession;
  */
 public interface IApiItemService extends IBaseService<ApiItemEntity> {
     void initSystemData(JB4DCSession jb4DCSession) throws JBuild4DCGenerallyException;
+
+    ApiItemEntity getByValue(JB4DCSession session, String apiValue);
 }
