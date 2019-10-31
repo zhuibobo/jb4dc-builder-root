@@ -256,6 +256,7 @@ Vue.component("inner-form-button-list-comp", {
 
                 //if(this.formId!=this.oldformId){
                     this.bindTableFields(null);
+                    this.clearAPI();
                 //    this.oldformId=this.formId;
                 //}
             }
@@ -480,6 +481,9 @@ Vue.component("inner-form-button-list-comp", {
         removeAPI:function () {
             this.api.editTableObject.RemoveRow();
         },
+        clearAPI:function(){
+            this.api.editTableObject.RemoveAllRow();
+        },
         getAPIText:function (value) {
             //console.log(value);
             for (var i = 0; i < this.api.apiData.length; i++) {
@@ -556,6 +560,7 @@ Vue.component("inner-form-button-list-comp", {
                                                 <button-group vertical>
                                                     <i-button size="small" type="success" icon="md-add" @click="addAPI"></i-button>
                                                     <i-button size="small" type="primary" icon="md-close" @click="removeAPI"></i-button>
+                                                    <i-button size="small" type="primary" icon="ios-trash" @click="clearAPI"></i-button>
                                                 </button-group>
                                             </td>
                                             <td style="background: #ffffff;" valign="top">
