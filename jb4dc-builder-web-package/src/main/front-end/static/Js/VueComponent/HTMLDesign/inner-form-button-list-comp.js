@@ -112,7 +112,7 @@ Vue.component("inner-form-button-list-comp", {
                     Templates: [
                         {
                             Title: "API名称",
-                            BindName: "Value",
+                            BindName: "value",
                             Renderer: "EditTable_Label",
                             TitleCellClassName: "TitleCell",
                             Formater:function (value) {
@@ -121,7 +121,7 @@ Vue.component("inner-form-button-list-comp", {
                             /*ClientDataSource: _self.api.apiSelectData*/
                         }, {
                             Title: "调用顺序",
-                            BindName: "RunTime",
+                            BindName: "runTime",
                             Renderer: "EditTable_Select",
                             ClientDataSource: [{"Text": "之前", "Value": "之前"}, {"Text": "之后", "Value": "之后"}],
                             Width: 100
@@ -147,15 +147,15 @@ Vue.component("inner-form-button-list-comp", {
                     Templates: [
                         {
                             Title: "表名标题",
-                            BindName: "TableName",
+                            BindName: "tableName",
                             Renderer: "EditTable_Label"
                         }, {
                             Title: "字段标题",
-                            BindName: "FieldName",
+                            BindName: "fieldName",
                             Renderer: "EditTable_Select"
                         },{
                             Title:"默认值",
-                            BindName:"DefaultValue",
+                            BindName:"defaultValue",
                             Renderer:"EditTable_SelectDefaultValue",
                             Hidden:false
                         }
@@ -469,8 +469,8 @@ Vue.component("inner-form-button-list-comp", {
             //console.log(this.api.apiSelectData);
             if(this.api.apiSelectData.nodeTypeName=="API") {
                 this.api.editTableObject.AddEditingRowByTemplate([], {
-                    Value: this.api.apiSelectData.value,
-                    RunTime: "之后"
+                    value: this.api.apiSelectData.value,
+                    runTime: "之后"
                 });
             }
             else {

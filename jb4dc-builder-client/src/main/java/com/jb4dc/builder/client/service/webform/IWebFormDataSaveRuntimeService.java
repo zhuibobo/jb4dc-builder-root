@@ -2,6 +2,7 @@ package com.jb4dc.builder.client.service.webform;
 
 import com.jb4dc.builder.po.SubmitResultPO;
 import com.jb4dc.builder.po.formdata.FormRecordComplexPO;
+import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
 import com.jb4dc.core.base.session.JB4DCSession;
 
 /**
@@ -11,5 +12,5 @@ import com.jb4dc.core.base.session.JB4DCSession;
  * To change this template use File | Settings | File Templates.
  */
 public interface IWebFormDataSaveRuntimeService {
-    SubmitResultPO SaveFormRecordComplexPO(JB4DCSession session, String recordId, FormRecordComplexPO formRecordComplexPO, String listButtonId, String innerFormButtonId);
+    SubmitResultPO SaveFormRecordComplexPO(JB4DCSession session, String recordId, FormRecordComplexPO formRecordComplexPO, String listButtonId, String innerFormButtonId) throws JBuild4DCGenerallyException;
 }
