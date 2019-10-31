@@ -56,7 +56,7 @@ public class WebFormDataSaveRuntimeServiceImpl implements IWebFormDataSaveRuntim
         if(innerFormButtonConfig.getApis()!=null&&innerFormButtonConfig.getApis().size()>0){
             List<InnerFormButtonConfigAPI> beforeApiList=innerFormButtonConfig.getApis().parallelStream().filter(item->item.getRunTime().equals("之前")).collect(Collectors.toList());
             for (InnerFormButtonConfigAPI innerFormButtonConfigAPI : beforeApiList) {
-                ApiRunResult apiRunResult=rubApi(innerFormButtonConfigAPI);
+                ApiRunResult apiRunResult=rubApi(innerFormButtonConfigAPI,formRecordComplexPO,listButtonEntity,innerFormButtonConfigList,innerFormButtonConfig);
                 if(!apiRunResult.isSuccess()){
                     throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_BUILDER_CODE,"执行前置API"+innerFormButtonConfigAPI.getValue()+"失败!");
                 }
@@ -71,7 +71,7 @@ public class WebFormDataSaveRuntimeServiceImpl implements IWebFormDataSaveRuntim
         if(innerFormButtonConfig.getApis()!=null&&innerFormButtonConfig.getApis().size()>0){
             List<InnerFormButtonConfigAPI> afterApiList=innerFormButtonConfig.getApis().parallelStream().filter(item->item.getRunTime().equals("之后")).collect(Collectors.toList());
             for (InnerFormButtonConfigAPI innerFormButtonConfigAPI : afterApiList) {
-                ApiRunResult apiRunResult=rubApi(innerFormButtonConfigAPI);
+                ApiRunResult apiRunResult=rubApi(innerFormButtonConfigAPI,formRecordComplexPO,listButtonEntity,innerFormButtonConfigList,innerFormButtonConfig);
                 if(!apiRunResult.isSuccess()){
                     throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_BUILDER_CODE,"执行后置API"+innerFormButtonConfigAPI.getValue()+"失败!");
                 }
@@ -81,10 +81,18 @@ public class WebFormDataSaveRuntimeServiceImpl implements IWebFormDataSaveRuntim
         return submitResultPO;
     }
 
-    public ApiRunResult rubApi(InnerFormButtonConfigAPI innerFormButtonConfigAPI) throws JBuild4DCGenerallyException {
+    public ApiRunResult rubApi(InnerFormButtonConfigAPI innerFormButtonConfigAPI, FormRecordComplexPO formRecordComplexPO, ListButtonEntity listButtonEntity,List<InnerFormButtonConfig> innerFormButtonConfigList,InnerFormButtonConfig innerFormButtonConfig) throws JBuild4DCGenerallyException {
         try {
             ApiItemEntity apiItemEntity = apiRuntimeService.getApiPOByValue(innerFormButtonConfigAPI.getValue());
             ApiRunPara apiRunPara = new ApiRunPara();
+            apiRunPara.setInnerFormButtonConfigAPI(innerFormButtonConfigAPI);
+            apiRunPara.setApiItemEntity(apiItemEntity);
+            apiRunPara.setFormRecordComplexPO(formRecordComplexPO);
+            apiRunPara.setListButtonEntity(listButtonEntity);
+            apiRunPara.setInnerFormButtonConfigList(innerFormButtonConfigList);
+            apiRunPara.setInnerFormButtonConfig(innerFormButtonConfig);
+
+
             String className = apiItemEntity.getApiItemClassName();
             IApiForButton apiForButton = (IApiForButton) ClassUtility.loadClass(className).newInstance();
             autowireCapableBeanFactory.autowireBean(apiForButton);

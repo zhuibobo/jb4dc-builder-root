@@ -51,11 +51,13 @@
       <w>jbuild</w>
       <w>kded</w>
       <w>listmanager</w>
+      <w>mockapi</w>
       <w>opentype</w>
       <w>relationid</w>
       <w>restdatasource</w>
       <w>sflb</w>
       <w>singlename</w>
+      <w>sout</w>
       <w>sqldatasource</w>
       <w>sqlserver</w>
       <w>staticdatasource</w>
