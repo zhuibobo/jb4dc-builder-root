@@ -25,6 +25,9 @@ var RuntimeGeneralInstance= {
             // If the request succeeds, this function gets "data", "status", "jqXHR"
             // but they are ignored because response was set above.
             // If it fails, this function gets "jqXHR", "status", "error"
+            if(!result.success){
+                DialogUtility.AlertText(result.message,sender,5);
+            }
         }).always(callback && function (jqXHR, status) {
             /*self.each( function() {
                 callback.apply( this, response || [ jqXHR.responseText, status, jqXHR ] );
@@ -40,15 +43,16 @@ var RuntimeGeneralInstance= {
         });
         this._Ajax(url,params,callback,sender);
     },
-    SubmitFormDataComplexPOListToServer:function (formDataComplexPOList,recordId,innerFormButtonId,listButtonId,callback,sender) {
+    SubmitFormDataComplexPOListToServer:function (formDataComplexPOList,recordId,innerFormButtonId,listButtonId,operationType,callback,sender) {
         var url = BaseUtility.BuildAction("/Rest/Builder/RunTime/InnerFormButtonRuntime/ReceiveHandler", {});
         var params = {
             "formRecordComplexPOString": encodeURIComponent(JsonUtility.JsonToString(formDataComplexPOList)),
             "innerFormButtonId": innerFormButtonId,
             "listButtonId": listButtonId,
-            "recordId":recordId
+            "recordId": recordId,
+            "operationType":operationType
         };
-        this._Ajax(url,params,callback,sender);
+        this._Ajax(url, params, callback, sender);
         console.log(formDataComplexPOList);
     }
 }

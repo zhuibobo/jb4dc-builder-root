@@ -26,17 +26,17 @@ public class FormRecordDataRelationPO {
     String tableCode;
     String displayText;
     String icon;
-    String isMain;
+    boolean isMain;
 
     List<FormRecordDataPO> listDataRecord=new ArrayList<>();
     FormRecordDataPO oneDataRecord;
 
-    public String getIsMain() {
+    public boolean isMain() {
         return isMain;
     }
 
-    public void setIsMain(String isMain) {
-        this.isMain = isMain;
+    public void setMain(boolean main) {
+        isMain = main;
     }
 
     public String getId() {
