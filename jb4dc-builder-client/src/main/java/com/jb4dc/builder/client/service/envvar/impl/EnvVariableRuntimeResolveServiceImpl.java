@@ -27,6 +27,16 @@ public class EnvVariableRuntimeResolveServiceImpl implements IEnvVariableRuntime
     EnvVariableRuntimeRemote envVariableRuntimeRemote;
 
     @Override
+    public String execDefaultValueResult(JB4DCSession jb4DCSession,String fieldDefaultType,String fieldDefaultValue) throws JBuild4DCGenerallyException {
+        if(fieldDefaultType.toUpperCase().equals("CONST")){
+            return fieldDefaultValue;
+        }
+        else {
+            return this.execEnvVarResult(jb4DCSession,fieldDefaultValue);
+        }
+    }
+
+    @Override
     public String execEnvVarResult(JB4DCSession jb4DCSession, String value) throws JBuild4DCGenerallyException {
         EnvVariableEntity envVariableEntity;
         //通过本地bean获取环境变量实体,如果不存在业务bean,则通过rest接口远程获取.

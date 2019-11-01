@@ -58,6 +58,8 @@ logging:
   level:
     com:
       jb4dc:
+        builder:
+          dao: TRACE
         devmock:
           dao: TRACE
         sso:

@@ -14,5 +14,5 @@ import java.io.IOException;
  * To change this template use File | Settings | File Templates.
  */
 public interface IWebFormDataSaveRuntimeService {
-    SubmitResultPO SaveFormRecordComplexPO(JB4DCSession session, String recordId, FormRecordComplexPO formRecordComplexPO, String listButtonId, String innerFormButtonId) throws JBuild4DCGenerallyException, IOException;
+    SubmitResultPO SaveFormRecordComplexPO(JB4DCSession jb4DCSession, String recordId, FormRecordComplexPO formRecordComplexPO, String listButtonId, String innerFormButtonId) throws JBuild4DCGenerallyException, IOException;
 }

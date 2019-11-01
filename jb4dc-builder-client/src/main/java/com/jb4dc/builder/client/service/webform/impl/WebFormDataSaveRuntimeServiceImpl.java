@@ -1,10 +1,12 @@
 package com.jb4dc.builder.client.service.webform.impl;
 
+import com.jb4dc.base.service.ISQLBuilderService;
 import com.jb4dc.base.tools.JsonUtility;
 import com.jb4dc.builder.client.service.api.ApiRunPara;
 import com.jb4dc.builder.client.service.api.ApiRunResult;
 import com.jb4dc.builder.client.service.api.IApiForButton;
 import com.jb4dc.builder.client.service.api.IApiRuntimeService;
+import com.jb4dc.builder.client.service.envvar.IEnvVariableRuntimeResolveService;
 import com.jb4dc.builder.client.service.webform.IWebFormDataSaveRuntimeService;
 import com.jb4dc.builder.client.service.weblist.IWebListButtonRuntimeResolveService;
 import com.jb4dc.builder.dbentities.api.ApiItemEntity;
@@ -12,6 +14,7 @@ import com.jb4dc.builder.dbentities.weblist.ListButtonEntity;
 import com.jb4dc.builder.po.SubmitResultPO;
 import com.jb4dc.builder.po.button.InnerFormButtonConfig;
 import com.jb4dc.builder.po.button.InnerFormButtonConfigAPI;
+import com.jb4dc.builder.po.button.InnerFormButtonConfigField;
 import com.jb4dc.builder.po.formdata.FormRecordComplexPO;
 import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
 import com.jb4dc.core.base.session.JB4DCSession;
@@ -22,7 +25,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
@@ -43,9 +48,15 @@ public class WebFormDataSaveRuntimeServiceImpl implements IWebFormDataSaveRuntim
     @Autowired
     private AutowireCapableBeanFactory autowireCapableBeanFactory;
 
+    @Autowired
+    private IEnvVariableRuntimeResolveService envVariableRuntimeResolveService;
+
+    @Autowired
+    private ISQLBuilderService sqlBuilderService;
+
     @Override
     @Transactional(rollbackFor= JBuild4DCGenerallyException.class)
-    public SubmitResultPO SaveFormRecordComplexPO(JB4DCSession session, String recordId, FormRecordComplexPO formRecordComplexPO, String listButtonId, String innerFormButtonId) throws JBuild4DCGenerallyException, IOException {
+    public SubmitResultPO SaveFormRecordComplexPO(JB4DCSession jb4DCSession, String recordId, FormRecordComplexPO formRecordComplexPO, String listButtonId, String innerFormButtonId) throws JBuild4DCGenerallyException, IOException {
         SubmitResultPO submitResultPO=new SubmitResultPO();
 
         ListButtonEntity listButtonEntity=webListButtonRuntimeResolveService.getButtonPO(listButtonId);
@@ -66,6 +77,9 @@ public class WebFormDataSaveRuntimeServiceImpl implements IWebFormDataSaveRuntim
         //保存数据
 
         //修改字段
+        for (InnerFormButtonConfigField field : innerFormButtonConfig.getFields()) {
+            this.updateField(jb4DCSession,field,formRecordComplexPO);
+        }
 
         //执行后置API
         if(innerFormButtonConfig.getApis()!=null&&innerFormButtonConfig.getApis().size()>0){
@@ -79,6 +93,20 @@ public class WebFormDataSaveRuntimeServiceImpl implements IWebFormDataSaveRuntim
         }
 
         return submitResultPO;
+    }
+
+    public void updateField(JB4DCSession jb4DCSession,InnerFormButtonConfigField field, FormRecordComplexPO formRecordComplexPO) throws JBuild4DCGenerallyException {
+        String tableName=field.getTableName();
+        String fieldName=field.getFieldName();
+        String fieldDefaultType=field.getFieldDefaultType();
+        String fieldDefaultText=field.getFieldDefaultText();
+        String fieldDefaultValue=field.getFieldDefaultValue();
+        String value=envVariableRuntimeResolveService.execDefaultValueResult(jb4DCSession,fieldDefaultType,fieldDefaultValue);
+        String sql=String.format("update %s set %s=#{%s} where id=#{id}",tableName,fieldName,fieldName);
+        Map paraMap=new HashMap();
+        paraMap.put(fieldName,value);
+        paraMap.put("id",formRecordComplexPO.getRecordId());
+        sqlBuilderService.update(sql,paraMap);
     }
 
     public ApiRunResult rubApi(InnerFormButtonConfigAPI innerFormButtonConfigAPI, FormRecordComplexPO formRecordComplexPO, ListButtonEntity listButtonEntity,List<InnerFormButtonConfig> innerFormButtonConfigList,InnerFormButtonConfig innerFormButtonConfig) throws JBuild4DCGenerallyException {

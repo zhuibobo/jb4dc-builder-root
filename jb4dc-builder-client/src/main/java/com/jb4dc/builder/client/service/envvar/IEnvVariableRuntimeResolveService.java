@@ -21,6 +21,8 @@ public interface IEnvVariableRuntimeResolveService {
 
     List<EnvVariablePO> getAPIVars() throws XPathExpressionException, ParserConfigurationException, IOException, SAXException, JBuild4DCGenerallyException;*/
 
+    String execDefaultValueResult(JB4DCSession jb4DCSession, String fieldDefaultType, String fieldDefaultValue) throws JBuild4DCGenerallyException;
+
     String execEnvVarResult(JB4DCSession jb4DCSession, String value) throws JBuild4DCGenerallyException;
 
 }
