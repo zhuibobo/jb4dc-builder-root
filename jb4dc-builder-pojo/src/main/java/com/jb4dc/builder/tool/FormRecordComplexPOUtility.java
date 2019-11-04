@@ -6,7 +6,9 @@ import com.jb4dc.builder.po.formdata.FormRecordDataRelationPO;
 import com.jb4dc.builder.po.formdata.FormRecordFieldDataPO;
 import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -23,6 +25,13 @@ public class FormRecordComplexPOUtility {
         return mainFormRecordDataRelationPO;
     }
 
+    public static List<FormRecordDataRelationPO> findNotMainFormRecordDataRelationPO(FormRecordComplexPO formRecordComplexPO){
+        if(formRecordComplexPO.getFormRecordDataRelationPOList().stream().filter(item -> item.isMain() != true).count()>0){
+            return formRecordComplexPO.getFormRecordDataRelationPOList().stream().filter(item -> item.isMain() != true).collect(Collectors.toList());
+        }
+        return null;
+    }
+
     public static String findIdInFormRecordFieldDataPO(FormRecordDataPO formRecordDataPO) throws JBuild4DCGenerallyException {
         Stream<FormRecordFieldDataPO> formRecordDataPOStream =  formRecordDataPO.getRecordFieldPOList().stream().filter(item -> item.getFieldName().toUpperCase().equals("ID"));
         if(formRecordDataPOStream.count()>0) {
@@ -34,6 +43,19 @@ public class FormRecordComplexPOUtility {
     public static List<FormRecordFieldDataPO> findExcludeIdFormRecordFieldList(FormRecordDataPO formRecordDataPO){
         List<FormRecordFieldDataPO> formRecordFieldDataPOList=formRecordDataPO.getRecordFieldPOList().stream().filter(item -> !item.getFieldName().toUpperCase().equals("ID")).collect(Collectors.toList());
         return formRecordFieldDataPOList;
+    }
+
+    public static Map<String,FormRecordFieldDataPO> converFormRecordFieldDataPOListToMap(List<FormRecordFieldDataPO> recordFieldPOList) throws JBuild4DCGenerallyException {
+        Map<String,FormRecordFieldDataPO> result=new HashMap<>();
+        for (FormRecordFieldDataPO formRecordFieldDataPO : recordFieldPOList) {
+            if(!result.containsKey(formRecordFieldDataPO.getFieldName())){
+                result.put(formRecordFieldDataPO.getFieldName(),formRecordFieldDataPO);
+            }
+            else{
+                throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_BUILDER_CODE,"包含多个同名的字段:"+formRecordFieldDataPO.getFieldName()+",表:"+formRecordFieldDataPO.getTableCaption());
+            }
+        }
+        return result;
     }
 
 }

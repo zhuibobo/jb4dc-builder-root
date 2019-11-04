@@ -9,10 +9,11 @@ import com.jb4dc.builder.client.service.api.proxy.IApiRuntimeProxy;
 import com.jb4dc.builder.client.service.datastorage.proxy.ITableRuntimeProxy;
 import com.jb4dc.builder.client.service.envvar.proxy.IEnvVariableRuntimeResolveProxy;
 import com.jb4dc.builder.client.service.webform.IWebFormDataSaveRuntimeService;
-import com.jb4dc.builder.client.service.weblist.IWebListButtonRuntimeResolveService;
+import com.jb4dc.builder.client.service.weblist.proxy.IWebListButtonRuntimeResolveProxy;
 import com.jb4dc.builder.dbentities.api.ApiItemEntity;
 import com.jb4dc.builder.dbentities.weblist.ListButtonEntity;
 import com.jb4dc.builder.po.SubmitResultPO;
+import com.jb4dc.builder.po.TableFieldPO;
 import com.jb4dc.builder.po.button.InnerFormButtonConfig;
 import com.jb4dc.builder.po.button.InnerFormButtonConfigAPI;
 import com.jb4dc.builder.po.button.InnerFormButtonConfigField;
@@ -24,6 +25,7 @@ import com.jb4dc.core.base.session.JB4DCSession;
 import com.jb4dc.core.base.tools.BaseUtility;
 import com.jb4dc.core.base.tools.ClassUtility;
 import com.jb4dc.core.base.tools.SQLKeyWordUtility;
+import com.jb4dc.core.base.tools.StringUtility;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.AutowireCapableBeanFactory;
 import org.springframework.stereotype.Service;
@@ -46,7 +48,7 @@ import java.util.stream.Collectors;
 public class WebFormDataSaveRuntimeServiceImpl implements IWebFormDataSaveRuntimeService {
 
     @Autowired
-    private IWebListButtonRuntimeResolveService webListButtonRuntimeResolveService;
+    private IWebListButtonRuntimeResolveProxy webListButtonRuntimeResolveService;
 
     @Autowired
     private IApiRuntimeProxy apiRuntimeService;
@@ -55,10 +57,10 @@ public class WebFormDataSaveRuntimeServiceImpl implements IWebFormDataSaveRuntim
     private AutowireCapableBeanFactory autowireCapableBeanFactory;
 
     @Autowired
-    private IEnvVariableRuntimeResolveProxy envVariableRuntimeResolveService;
+    private IEnvVariableRuntimeResolveProxy envVariableRuntimeResolveProxy;
 
     @Autowired
-    private ITableRuntimeProxy tableRuntimeService;
+    private ITableRuntimeProxy tableRuntimeProxy;
 
     @Autowired
     private ISQLBuilderService sqlBuilderService;
@@ -113,6 +115,7 @@ public class WebFormDataSaveRuntimeServiceImpl implements IWebFormDataSaveRuntim
 
     private void validateFormRecordComplexPO(JB4DCSession jb4DCSession, String recordId, FormRecordComplexPO formRecordComplexPO,String operationTypeName) throws JBuild4DCGenerallyException, JBuild4DCSQLKeyWordException {
         FormRecordDataRelationPO mainFormRecordDataRelationPO = FormRecordComplexPOUtility.findMainFormRecordDataRelationPO(formRecordComplexPO);
+        //为新增操作时,判断ID是否已经存在.
         if(BaseUtility.isAddOperation(operationTypeName)){
             if(this.formRecordDataPOIsExist(mainFormRecordDataRelationPO.getOneDataRecord(),mainFormRecordDataRelationPO.getTableName())){
                 String idValue = FormRecordComplexPOUtility.findIdInFormRecordFieldDataPO(mainFormRecordDataRelationPO.getOneDataRecord());
@@ -124,13 +127,19 @@ public class WebFormDataSaveRuntimeServiceImpl implements IWebFormDataSaveRuntim
     private List<PendingSQLPO> resolveFormRecordComplexPOTOPendingSQL(JB4DCSession jb4DCSession, String recordId, FormRecordComplexPO formRecordComplexPO,String operationTypeName) throws JBuild4DCGenerallyException, JBuild4DCSQLKeyWordException {
         List<PendingSQLPO> pendingSQLPOList = new ArrayList<>();
 
+        //将主记录转换为SQL语句
         FormRecordDataRelationPO mainFormRecordDataRelationPO = FormRecordComplexPOUtility.findMainFormRecordDataRelationPO(formRecordComplexPO);
         String idValue = FormRecordComplexPOUtility.findIdInFormRecordFieldDataPO(mainFormRecordDataRelationPO.getOneDataRecord());
+        PendingSQLPO pendingSQLPO=resolveFormRecordDataPOTOPendingSQL(jb4DCSession,recordId,mainFormRecordDataRelationPO.getTableName(),mainFormRecordDataRelationPO.getTableId(),mainFormRecordDataRelationPO.getOneDataRecord(),formRecordComplexPO,operationTypeName);
+        pendingSQLPOList.add(pendingSQLPO);
+
+        //转换从记录
+
 
         return pendingSQLPOList;
     }
 
-    private PendingSQLPO resolveFormRecordDataPOTOPendingSQL(JB4DCSession jb4DCSession, String recordId,String tableName,FormRecordDataPO formRecordDataPO, FormRecordComplexPO formRecordComplexPO,String operationTypeName) throws JBuild4DCGenerallyException, JBuild4DCSQLKeyWordException {
+    private PendingSQLPO resolveFormRecordDataPOTOPendingSQL(JB4DCSession jb4DCSession, String recordId,String tableName,String tableId,FormRecordDataPO formRecordDataPO, FormRecordComplexPO formRecordComplexPO,String operationTypeName) throws JBuild4DCGenerallyException, JBuild4DCSQLKeyWordException {
         PendingSQLPO pendingSQLPO=new PendingSQLPO();
         if (!SQLKeyWordUtility.singleWord(tableName)) {
             throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_BUILDER_CODE, "表名检测失败");
@@ -138,8 +147,43 @@ public class WebFormDataSaveRuntimeServiceImpl implements IWebFormDataSaveRuntim
         StringBuilder sqlBuilder=new StringBuilder();
         Map<String,Object> sqlMapPara=new HashMap<>();
         List<FormRecordFieldDataPO> recordFieldPOList=FormRecordComplexPOUtility.findExcludeIdFormRecordFieldList(formRecordDataPO);
+        Map<String, FormRecordFieldDataPO> recordFieldPOListMap=FormRecordComplexPOUtility.converFormRecordFieldDataPOListToMap(recordFieldPOList);
         if(!this.formRecordDataPOIsExist(formRecordDataPO,tableName)){
+            //尝试补完表设计中的默认值
+            List<TableFieldPO> tableFieldPOList=tableRuntimeProxy.getTableFieldsByTableId(tableId);
+            List<TableFieldPO> hasDefaultValueTableFieldPOList=tableFieldPOList.parallelStream().filter(item-> StringUtility.isNotEmpty(item.getFieldDefaultValue())).collect(Collectors.toList());
+            //计算生成默认值
+            for (TableFieldPO tableFieldPO : hasDefaultValueTableFieldPOList) {
+                String value = envVariableRuntimeResolveProxy.execDefaultValueResult(jb4DCSession, tableFieldPO.getFieldDefaultType(), tableFieldPO.getFieldDefaultValue());
+                tableFieldPO.setValue(value);
+            }
+            //如果存在空值的,则替换值,如果不存在的,则加入新字段
+            for (TableFieldPO defaultTableFieldPO : hasDefaultValueTableFieldPOList) {
+                if(recordFieldPOListMap.containsKey(defaultTableFieldPO.getFieldName())){
+                    if(StringUtility.isEmpty(recordFieldPOListMap.get(defaultTableFieldPO.getFieldName()).getValue())){
+                        recordFieldPOListMap.get(defaultTableFieldPO.getFieldName()).setValue(defaultTableFieldPO.getValue());
+                    }
+                }
+                else{
+                    FormRecordFieldDataPO tempPO=FormRecordFieldDataPO.getTemplatePO(recordFieldPOList.get(0),defaultTableFieldPO);
+                    recordFieldPOList.add(tempPO);
+                    recordFieldPOListMap.put(tempPO.getFieldName(),tempPO);
+                }
+            }
+            //构建SQL语句.
+            StringBuilder fieldNames=new StringBuilder();
+            StringBuilder fieldValues=new StringBuilder();
 
+            for (FormRecordFieldDataPO formRecordFieldDataPO : recordFieldPOList) {
+                fieldNames.append(formRecordFieldDataPO.getFieldName());
+                fieldNames.append(",");
+                fieldValues.append("#{"+formRecordFieldDataPO.getFieldName()+"}");
+                fieldValues.append(",");
+                sqlMapPara.put(formRecordFieldDataPO.getFieldName(),formRecordFieldDataPO.getValue());
+            }
+            fieldNames=fieldNames.delete(fieldNames.length()-1,1);
+            fieldValues=fieldValues.delete(fieldValues.length()-1,1);
+            sqlBuilder.append("insert into "+tableName+"("+fieldNames+") values("+fieldValues+")");
         }
         else{
             sqlBuilder.append("update "+tableName+" set ");
@@ -178,7 +222,7 @@ public class WebFormDataSaveRuntimeServiceImpl implements IWebFormDataSaveRuntim
             String fieldDefaultType = field.getFieldDefaultType();
             String fieldDefaultText = field.getFieldDefaultText();
             String fieldDefaultValue = field.getFieldDefaultValue();
-            String value = envVariableRuntimeResolveService.execDefaultValueResult(jb4DCSession, fieldDefaultType, fieldDefaultValue);
+            String value = envVariableRuntimeResolveProxy.execDefaultValueResult(jb4DCSession, fieldDefaultType, fieldDefaultValue);
             //value = "123";
             String sql = String.format("update %s set %s=#{%s} where id=#{id}", tableName, fieldName, fieldName);
             Map paraMap = new HashMap();

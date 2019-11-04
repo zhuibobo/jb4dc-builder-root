@@ -1,4 +1,4 @@
-package com.jb4dc.builder.client.service.weblist;
+package com.jb4dc.builder.client.service.weblist.proxy;
 
 import com.jb4dc.builder.dbentities.weblist.ListButtonEntity;
 import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
@@ -9,6 +9,6 @@ import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
  * Date: 2019/10/31
  * To change this template use File | Settings | File Templates.
  */
-public interface IWebListButtonRuntimeResolveService {
+public interface IWebListButtonRuntimeResolveProxy {
     ListButtonEntity getButtonPO(String buttonId) throws JBuild4DCGenerallyException;
 }

@@ -1,7 +1,6 @@
-package com.jb4dc.builder.client.service.weblist.impl;
+package com.jb4dc.builder.client.service.weblist.proxy;
 
 import com.jb4dc.builder.client.remote.ListButtonRuntimeRemote;
-import com.jb4dc.builder.client.service.weblist.IWebListButtonRuntimeResolveService;
 import com.jb4dc.builder.client.service.weblist.IWebListButtonService;
 import com.jb4dc.builder.dbentities.weblist.ListButtonEntity;
 import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
@@ -15,7 +14,7 @@ import org.springframework.stereotype.Service;
  * To change this template use File | Settings | File Templates.
  */
 @Service
-public class WebListButtonRuntimeResolveServiceImpl implements IWebListButtonRuntimeResolveService {
+public class WebListButtonRuntimeResolveProxyImpl implements IWebListButtonRuntimeResolveProxy {
 
     @Autowired(required = false)
     IWebListButtonService webListButtonService;

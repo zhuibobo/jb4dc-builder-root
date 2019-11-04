@@ -15,11 +15,13 @@ import java.util.List;
  * To change this template use File | Settings | File Templates.
  */
 public class TableFieldPO extends TableFieldEntity {
-    public String oldFieldName;
+    private String oldFieldName;
 
-    public boolean isUpdateLogicOnly;
+    private boolean isUpdateLogicOnly;
 
-    public String tableName;
+    private String tableName;
+
+    private String value;
 
     public String getOldFieldName() {
         return oldFieldName;
@@ -43,6 +45,14 @@ public class TableFieldPO extends TableFieldEntity {
 
     public void setTableName(String tableName) {
         this.tableName = tableName;
+    }
+
+    public String getValue() {
+        return value;
+    }
+
+    public void setValue(String value) {
+        this.value = value;
     }
 
     @Override

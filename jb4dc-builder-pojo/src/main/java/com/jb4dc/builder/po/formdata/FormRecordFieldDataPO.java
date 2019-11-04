@@ -1,6 +1,8 @@
 package com.jb4dc.builder.po.formdata;
 
 import com.jb4dc.builder.dbentities.datastorage.TableFieldEntity;
+import com.jb4dc.builder.po.TableFieldPO;
+import com.jb4dc.core.base.tools.UUIDUtility;
 
 public class FormRecordFieldDataPO {
     private String relationId;
@@ -21,6 +23,29 @@ public class FormRecordFieldDataPO {
     private String value;
     private boolean success;
     private String msg;
+
+    public static FormRecordFieldDataPO getTemplatePO(FormRecordFieldDataPO mockFormFieldPO, TableFieldPO mockFieldPO){
+        FormRecordFieldDataPO formRecordFieldDataPO=new FormRecordFieldDataPO();
+        formRecordFieldDataPO.setRelationId(mockFormFieldPO.getRelationId());
+        formRecordFieldDataPO.setRelationSingleName(mockFormFieldPO.getRelationSingleName());
+        formRecordFieldDataPO.setRelationType(mockFormFieldPO.getRelationType());
+        formRecordFieldDataPO.setSingleName("WFDCT_TextBox");
+        formRecordFieldDataPO.setTableName(mockFormFieldPO.getTableName());
+        formRecordFieldDataPO.setTableCaption(mockFormFieldPO.getTableCaption());
+        formRecordFieldDataPO.setTableId(mockFormFieldPO.getTableId());
+        formRecordFieldDataPO.setFieldTableId(mockFormFieldPO.getFieldTableId());
+        formRecordFieldDataPO.setFieldName(mockFieldPO.getFieldName());
+        formRecordFieldDataPO.setFieldDataType(mockFieldPO.getFieldDataType());
+        formRecordFieldDataPO.setFieldDataLength(mockFieldPO.getFieldDataLength().toString());
+        formRecordFieldDataPO.setDefaultType(mockFieldPO.getFieldDataType());
+        formRecordFieldDataPO.setDefaultValue(mockFieldPO.getFieldDefaultValue());
+        formRecordFieldDataPO.setValue(mockFieldPO.getValue());
+        formRecordFieldDataPO.setSerialize("true");
+        formRecordFieldDataPO.setId(UUIDUtility.getUUID());
+        formRecordFieldDataPO.setSuccess(true);
+        formRecordFieldDataPO.setMsg("");
+        return formRecordFieldDataPO;
+    }
 
     public String getRelationId() {
         return relationId;
