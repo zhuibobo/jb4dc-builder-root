@@ -130,16 +130,33 @@ public class WebFormDataSaveRuntimeServiceImpl implements IWebFormDataSaveRuntim
         //将主记录转换为SQL语句
         FormRecordDataRelationPO mainFormRecordDataRelationPO = FormRecordComplexPOUtility.findMainFormRecordDataRelationPO(formRecordComplexPO);
         String idValue = FormRecordComplexPOUtility.findIdInFormRecordFieldDataPO(mainFormRecordDataRelationPO.getOneDataRecord());
-        PendingSQLPO pendingSQLPO=resolveFormRecordDataPOTOPendingSQL(jb4DCSession,recordId,mainFormRecordDataRelationPO.getTableName(),mainFormRecordDataRelationPO.getTableId(),mainFormRecordDataRelationPO.getOneDataRecord(),formRecordComplexPO,operationTypeName);
+        PendingSQLPO pendingSQLPO=resolveFormRecordDataPOTOPendingSQL(jb4DCSession,recordId,mainFormRecordDataRelationPO.getTableName(),mainFormRecordDataRelationPO.getTableId(),mainFormRecordDataRelationPO.getOneDataRecord());
         pendingSQLPOList.add(pendingSQLPO);
 
         //转换从记录
-
+        List<FormRecordDataRelationPO> notMainFormRecordDataRelationPOList=FormRecordComplexPOUtility.findNotMainFormRecordDataRelationPO(formRecordComplexPO);
+        if(notMainFormRecordDataRelationPOList!=null&&notMainFormRecordDataRelationPOList.size()>0){
+            for (FormRecordDataRelationPO formRecordDataRelationPO : notMainFormRecordDataRelationPOList) {
+                if(formRecordDataRelationPO.getOneDataRecord()!=null){
+                    String subOneIdValue = FormRecordComplexPOUtility.findIdInFormRecordFieldDataPO(formRecordDataRelationPO.getOneDataRecord());
+                    PendingSQLPO subOnePendingSQLPO=resolveFormRecordDataPOTOPendingSQL(jb4DCSession,subOneIdValue,formRecordDataRelationPO.getTableName(),formRecordDataRelationPO.getTableId(),formRecordDataRelationPO.getOneDataRecord());
+                    pendingSQLPOList.add(subOnePendingSQLPO);
+                }
+                if(formRecordDataRelationPO.getListDataRecord()!=null&&formRecordDataRelationPO.getListDataRecord().size()>0) {
+                    List<FormRecordDataPO> listDataRecord = formRecordDataRelationPO.getListDataRecord();
+                    for (FormRecordDataPO formRecordDataPO : listDataRecord) {
+                        String subListIdValue = FormRecordComplexPOUtility.findIdInFormRecordFieldDataPO(formRecordDataPO);
+                        PendingSQLPO subListPendingSQLPO=resolveFormRecordDataPOTOPendingSQL(jb4DCSession,subListIdValue,formRecordDataRelationPO.getTableName(),formRecordDataRelationPO.getTableId(),formRecordDataPO);
+                        pendingSQLPOList.add(subListPendingSQLPO);
+                    }
+                }
+            }
+        }
 
         return pendingSQLPOList;
     }
 
-    private PendingSQLPO resolveFormRecordDataPOTOPendingSQL(JB4DCSession jb4DCSession, String recordId,String tableName,String tableId,FormRecordDataPO formRecordDataPO, FormRecordComplexPO formRecordComplexPO,String operationTypeName) throws JBuild4DCGenerallyException, JBuild4DCSQLKeyWordException {
+    private PendingSQLPO resolveFormRecordDataPOTOPendingSQL(JB4DCSession jb4DCSession, String recordId,String tableName,String tableId,FormRecordDataPO formRecordDataPO) throws JBuild4DCGenerallyException, JBuild4DCSQLKeyWordException {
         PendingSQLPO pendingSQLPO=new PendingSQLPO();
         if (!SQLKeyWordUtility.singleWord(tableName)) {
             throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_BUILDER_CODE, "表名检测失败");

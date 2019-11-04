@@ -17,7 +17,7 @@ import java.util.List;
 public class TableFieldPO extends TableFieldEntity {
     private String oldFieldName;
 
-    private boolean isUpdateLogicOnly;
+    public boolean isUpdateLogicOnly;
 
     private String tableName;
 
