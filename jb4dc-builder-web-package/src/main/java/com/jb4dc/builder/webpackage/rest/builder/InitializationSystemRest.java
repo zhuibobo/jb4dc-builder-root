@@ -7,7 +7,7 @@ import com.jb4dc.builder.service.api.IApiGroupService;
 import com.jb4dc.builder.client.service.api.IApiItemService;
 import com.jb4dc.builder.service.dataset.IDatasetGroupService;
 import com.jb4dc.builder.service.datastorage.IDbLinkService;
-import com.jb4dc.builder.service.datastorage.ITableFieldService;
+import com.jb4dc.builder.client.service.datastorage.ITableFieldService;
 import com.jb4dc.builder.service.datastorage.ITableGroupService;
 import com.jb4dc.builder.service.datastorage.ITableRelationGroupService;
 import com.jb4dc.builder.service.envvar.IEnvGroupService;

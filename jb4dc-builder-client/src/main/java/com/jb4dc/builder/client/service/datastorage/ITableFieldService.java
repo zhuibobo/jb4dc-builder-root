@@ -1,4 +1,4 @@
-package com.jb4dc.builder.service.datastorage;
+package com.jb4dc.builder.client.service.datastorage;
 
 
 import com.jb4dc.base.service.IBaseService;

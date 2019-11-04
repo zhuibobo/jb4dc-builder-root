@@ -14,7 +14,7 @@ import com.jb4dc.builder.exenum.TableFieldTypeEnum;
 import com.jb4dc.builder.po.TableFieldPO;
 import com.jb4dc.builder.po.ZTreeNodePOConvert;
 import com.jb4dc.builder.service.datastorage.IDbLinkService;
-import com.jb4dc.builder.service.datastorage.ITableFieldService;
+import com.jb4dc.builder.client.service.datastorage.ITableFieldService;
 import com.jb4dc.builder.service.datastorage.ITableGroupService;
 import com.jb4dc.builder.service.datastorage.ITableService;
 import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;

@@ -5,7 +5,8 @@ import com.jb4dc.base.tools.JsonUtility;
 import com.jb4dc.builder.client.service.api.ApiRunPara;
 import com.jb4dc.builder.client.service.api.ApiRunResult;
 import com.jb4dc.builder.client.service.api.IApiForButton;
-import com.jb4dc.builder.client.service.api.IApiRuntimeService;
+import com.jb4dc.builder.client.service.api.proxy.IApiRuntimeProxy;
+import com.jb4dc.builder.client.service.datastorage.ITableRuntimeService;
 import com.jb4dc.builder.client.service.envvar.IEnvVariableRuntimeResolveService;
 import com.jb4dc.builder.client.service.webform.IWebFormDataSaveRuntimeService;
 import com.jb4dc.builder.client.service.weblist.IWebListButtonRuntimeResolveService;
@@ -15,10 +16,8 @@ import com.jb4dc.builder.po.SubmitResultPO;
 import com.jb4dc.builder.po.button.InnerFormButtonConfig;
 import com.jb4dc.builder.po.button.InnerFormButtonConfigAPI;
 import com.jb4dc.builder.po.button.InnerFormButtonConfigField;
-import com.jb4dc.builder.po.formdata.FormRecordComplexPO;
-import com.jb4dc.builder.po.formdata.FormRecordDataPO;
-import com.jb4dc.builder.po.formdata.FormRecordDataRelationPO;
-import com.jb4dc.builder.po.formdata.PendingSQLPO;
+import com.jb4dc.builder.po.formdata.*;
+import com.jb4dc.builder.tool.FormRecordComplexPOUtility;
 import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
 import com.jb4dc.core.base.exception.JBuild4DCSQLKeyWordException;
 import com.jb4dc.core.base.session.JB4DCSession;
@@ -50,13 +49,16 @@ public class WebFormDataSaveRuntimeServiceImpl implements IWebFormDataSaveRuntim
     private IWebListButtonRuntimeResolveService webListButtonRuntimeResolveService;
 
     @Autowired
-    private IApiRuntimeService apiRuntimeService;
+    private IApiRuntimeProxy apiRuntimeService;
 
     @Autowired
     private AutowireCapableBeanFactory autowireCapableBeanFactory;
 
     @Autowired
     private IEnvVariableRuntimeResolveService envVariableRuntimeResolveService;
+
+    @Autowired
+    private ITableRuntimeService tableRuntimeService;
 
     @Autowired
     private ISQLBuilderService sqlBuilderService;
@@ -110,10 +112,10 @@ public class WebFormDataSaveRuntimeServiceImpl implements IWebFormDataSaveRuntim
     }
 
     private void validateFormRecordComplexPO(JB4DCSession jb4DCSession, String recordId, FormRecordComplexPO formRecordComplexPO,String operationTypeName) throws JBuild4DCGenerallyException, JBuild4DCSQLKeyWordException {
-        FormRecordDataRelationPO mainFormRecordDataRelationPO = formRecordComplexPO.getFormRecordDataRelationPOList().stream().filter(item -> item.isMain() == true).findFirst().get();
+        FormRecordDataRelationPO mainFormRecordDataRelationPO = FormRecordComplexPOUtility.findMainFormRecordDataRelationPO(formRecordComplexPO);
         if(BaseUtility.isAddOperation(operationTypeName)){
             if(this.formRecordDataPOIsExist(mainFormRecordDataRelationPO.getOneDataRecord(),mainFormRecordDataRelationPO.getTableName())){
-                String idValue = mainFormRecordDataRelationPO.getOneDataRecord().getRecordFieldPOList().stream().filter(item -> item.getFieldName().toUpperCase().equals("ID")).findFirst().get().getValue();
+                String idValue = FormRecordComplexPOUtility.findIdInFormRecordFieldDataPO(mainFormRecordDataRelationPO.getOneDataRecord());
                 throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_BUILDER_CODE,"操作类型:"+operationTypeName+",已经存在ID为:"+idValue+"的记录!");
             }
         }
@@ -122,19 +124,51 @@ public class WebFormDataSaveRuntimeServiceImpl implements IWebFormDataSaveRuntim
     private List<PendingSQLPO> resolveFormRecordComplexPOTOPendingSQL(JB4DCSession jb4DCSession, String recordId, FormRecordComplexPO formRecordComplexPO,String operationTypeName) throws JBuild4DCGenerallyException, JBuild4DCSQLKeyWordException {
         List<PendingSQLPO> pendingSQLPOList = new ArrayList<>();
 
-
+        FormRecordDataRelationPO mainFormRecordDataRelationPO = FormRecordComplexPOUtility.findMainFormRecordDataRelationPO(formRecordComplexPO);
+        String idValue = FormRecordComplexPOUtility.findIdInFormRecordFieldDataPO(mainFormRecordDataRelationPO.getOneDataRecord());
 
         return pendingSQLPOList;
     }
 
-    private boolean formRecordDataPOIsExist(FormRecordDataPO formRecordDataPO,String tableName) throws JBuild4DCSQLKeyWordException, JBuild4DCGenerallyException {
-        String idValue = formRecordDataPO.getRecordFieldPOList().stream().filter(item -> item.getFieldName().toUpperCase().equals("ID")).findFirst().get().getValue();
-        if (SQLKeyWordUtility.singleWord(tableName)) {
-            String sql = "select count(1) from " + tableName + " where ID=#{ID}";
-            Object count = sqlBuilderService.selectOneScalar(sql);
-            return Integer.parseInt(count.toString()) > 0;
+    private PendingSQLPO resolveFormRecordDataPOTOPendingSQL(JB4DCSession jb4DCSession, String recordId,String tableName,FormRecordDataPO formRecordDataPO, FormRecordComplexPO formRecordComplexPO,String operationTypeName) throws JBuild4DCGenerallyException, JBuild4DCSQLKeyWordException {
+        PendingSQLPO pendingSQLPO=new PendingSQLPO();
+        if (!SQLKeyWordUtility.singleWord(tableName)) {
+            throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_BUILDER_CODE, "表名检测失败");
         }
-        throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_BUILDER_CODE, "表名检测失败");
+        StringBuilder sqlBuilder=new StringBuilder();
+        Map<String,Object> sqlMapPara=new HashMap<>();
+        List<FormRecordFieldDataPO> recordFieldPOList=FormRecordComplexPOUtility.findExcludeIdFormRecordFieldList(formRecordDataPO);
+        if(!this.formRecordDataPOIsExist(formRecordDataPO,tableName)){
+
+        }
+        else{
+            sqlBuilder.append("update "+tableName+" set ");
+
+            for (FormRecordFieldDataPO fieldDataPO : recordFieldPOList) {
+                sqlBuilder.append(String.format("%s=#{%s},",fieldDataPO.getFieldName(),fieldDataPO.getFieldName()));
+                sqlMapPara.put(fieldDataPO.getFieldName(),fieldDataPO.getValue());
+            }
+
+            sqlBuilder.append("where ID=${ID}");
+            sqlMapPara.put("ID",recordId);
+        }
+
+        pendingSQLPO.setSql(sqlBuilder.toString());
+        pendingSQLPO.setSqlPara(sqlMapPara);
+
+        return pendingSQLPO;
+    }
+
+    private boolean formRecordDataPOIsExist(FormRecordDataPO formRecordDataPO,String tableName) throws JBuild4DCSQLKeyWordException, JBuild4DCGenerallyException {
+        String idValue = FormRecordComplexPOUtility.findIdInFormRecordFieldDataPO(formRecordDataPO);
+        if (!SQLKeyWordUtility.singleWord(tableName)) {
+            throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_BUILDER_CODE, "表名检测失败");
+        }
+        String sql = "select count(1) from " + tableName + " where ID=#{ID}";
+        Map paraMap = new HashMap();
+        paraMap.put("ID", idValue);
+        Object count = sqlBuilderService.selectOneScalar(sql, paraMap);
+        return Integer.parseInt(count.toString()) > 0;
     }
 
     protected void updateField(JB4DCSession jb4DCSession,InnerFormButtonConfigField field, FormRecordComplexPO formRecordComplexPO) throws JBuild4DCGenerallyException {

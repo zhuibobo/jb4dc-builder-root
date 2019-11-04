@@ -20,7 +20,7 @@ import com.jb4dc.builder.service.dataset.IDatasetColumnService;
 import com.jb4dc.builder.service.dataset.IDatasetRelatedTableService;
 import com.jb4dc.builder.service.dataset.IDatasetService;
 import com.jb4dc.builder.service.dataset.builder.SQLDataSetBuilder;
-import com.jb4dc.builder.service.datastorage.ITableFieldService;
+import com.jb4dc.builder.client.service.datastorage.ITableFieldService;
 import com.jb4dc.builder.service.datastorage.ITableService;
 import com.jb4dc.builder.client.service.envvar.IEnvVariableRuntimeResolveService;
 import com.jb4dc.builder.client.service.envvar.IEnvVariableService;

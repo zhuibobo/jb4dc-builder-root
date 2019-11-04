@@ -1,6 +1,7 @@
 package com.jb4dc.builder.webserver;
 
 import com.jb4dc.builder.client.remote.ApiItemRuntimeRemote;
+import com.jb4dc.builder.client.remote.TableRuntimeRemote;
 import com.jb4dc.builder.client.rest.DataSetRuntimeRest;
 import com.jb4dc.builder.client.rest.FormRuntimeRest;
 import com.jb4dc.builder.client.rest.ListButtonRuntimeRest;
@@ -29,7 +30,8 @@ import org.springframework.context.annotation.FilterType;
                 FormRuntimeRest.class,
                 DataSetRuntimeRest.class,
                 ListButtonRuntimeRest.class,
-                ApiItemRuntimeRemote.class
+                ApiItemRuntimeRemote.class,
+                TableRuntimeRemote.class
         })
 )
 public class ApplicationBuilderWebServer {

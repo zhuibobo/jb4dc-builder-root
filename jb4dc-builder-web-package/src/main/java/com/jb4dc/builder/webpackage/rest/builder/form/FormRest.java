@@ -6,7 +6,7 @@ import com.jb4dc.builder.dbentities.module.ModuleEntity;
 import com.jb4dc.builder.dbentities.webform.FormResourceEntity;
 import com.jb4dc.builder.po.TableFieldPO;
 import com.jb4dc.builder.po.ZTreeNodePOConvert;
-import com.jb4dc.builder.service.datastorage.ITableFieldService;
+import com.jb4dc.builder.client.service.datastorage.ITableFieldService;
 import com.jb4dc.builder.service.module.IModuleService;
 import com.jb4dc.builder.service.webform.IFormResourceService;
 import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;

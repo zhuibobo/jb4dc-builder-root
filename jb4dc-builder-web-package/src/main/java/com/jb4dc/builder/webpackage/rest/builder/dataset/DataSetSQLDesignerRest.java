@@ -14,7 +14,7 @@ import com.jb4dc.builder.po.SQLResolveToDataSetPO;
 import com.jb4dc.builder.po.TableFieldPO;
 import com.jb4dc.builder.po.ZTreeNodePOConvert;
 import com.jb4dc.builder.service.dataset.IDatasetService;
-import com.jb4dc.builder.service.datastorage.ITableFieldService;
+import com.jb4dc.builder.client.service.datastorage.ITableFieldService;
 import com.jb4dc.builder.service.datastorage.ITableGroupService;
 import com.jb4dc.builder.service.datastorage.ITableService;
 import com.jb4dc.core.base.session.JB4DCSession;

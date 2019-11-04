@@ -1,4 +1,4 @@
-package com.jb4dc.builder.client.service.api;
+package com.jb4dc.builder.client.service.api.proxy;
 
 import com.jb4dc.builder.dbentities.api.ApiItemEntity;
 import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
@@ -9,6 +9,6 @@ import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
  * Date: 2019/10/31
  * To change this template use File | Settings | File Templates.
  */
-public interface IApiRuntimeService {
+public interface IApiRuntimeProxy {
     ApiItemEntity getApiPOByValue(String apiValue) throws JBuild4DCGenerallyException;
 }
