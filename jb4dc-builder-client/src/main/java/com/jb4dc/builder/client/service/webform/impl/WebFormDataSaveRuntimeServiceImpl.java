@@ -6,8 +6,8 @@ import com.jb4dc.builder.client.service.api.ApiRunPara;
 import com.jb4dc.builder.client.service.api.ApiRunResult;
 import com.jb4dc.builder.client.service.api.IApiForButton;
 import com.jb4dc.builder.client.service.api.proxy.IApiRuntimeProxy;
-import com.jb4dc.builder.client.service.datastorage.ITableRuntimeService;
-import com.jb4dc.builder.client.service.envvar.IEnvVariableRuntimeResolveService;
+import com.jb4dc.builder.client.service.datastorage.proxy.ITableRuntimeProxy;
+import com.jb4dc.builder.client.service.envvar.proxy.IEnvVariableRuntimeResolveProxy;
 import com.jb4dc.builder.client.service.webform.IWebFormDataSaveRuntimeService;
 import com.jb4dc.builder.client.service.weblist.IWebListButtonRuntimeResolveService;
 import com.jb4dc.builder.dbentities.api.ApiItemEntity;
@@ -55,10 +55,10 @@ public class WebFormDataSaveRuntimeServiceImpl implements IWebFormDataSaveRuntim
     private AutowireCapableBeanFactory autowireCapableBeanFactory;
 
     @Autowired
-    private IEnvVariableRuntimeResolveService envVariableRuntimeResolveService;
+    private IEnvVariableRuntimeResolveProxy envVariableRuntimeResolveService;
 
     @Autowired
-    private ITableRuntimeService tableRuntimeService;
+    private ITableRuntimeProxy tableRuntimeService;
 
     @Autowired
     private ISQLBuilderService sqlBuilderService;

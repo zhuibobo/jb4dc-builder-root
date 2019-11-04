@@ -22,7 +22,7 @@ import com.jb4dc.builder.service.dataset.IDatasetService;
 import com.jb4dc.builder.service.dataset.builder.SQLDataSetBuilder;
 import com.jb4dc.builder.client.service.datastorage.ITableFieldService;
 import com.jb4dc.builder.service.datastorage.ITableService;
-import com.jb4dc.builder.client.service.envvar.IEnvVariableRuntimeResolveService;
+import com.jb4dc.builder.client.service.envvar.proxy.IEnvVariableRuntimeResolveProxy;
 import com.jb4dc.builder.client.service.envvar.IEnvVariableService;
 import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
 import com.jb4dc.core.base.list.IListWhereCondition;
@@ -64,7 +64,7 @@ public class DatasetServiceImpl extends BaseServiceImpl<DatasetEntity> implement
     IBuilderConfigService builderConfigService;
     ITableService tableService;
     ITableFieldService tableFieldService;
-    IEnvVariableRuntimeResolveService envVariableClientResolveService;
+    IEnvVariableRuntimeResolveProxy envVariableClientResolveService;
     ISQLBuilderMapper sqlBuilderMapper;
     IEnvVariableService envVariableService;
     IDatasetRuntimeService datasetClientService;
@@ -79,7 +79,7 @@ public class DatasetServiceImpl extends BaseServiceImpl<DatasetEntity> implement
                               SqlSessionTemplate _sqlSessionTemplate, JdbcOperations _jdbcOperations,
                               IBuilderConfigService _builderConfigService, ITableService _tableService, ITableFieldService _tableFieldService,
                               IDatasetRelatedTableService _datasetRelatedTableService, IDatasetColumnService _datasetColumnService, ISQLBuilderMapper _sqlBuilderMapper,
-                              IEnvVariableService _envVariableService, IEnvVariableRuntimeResolveService _envVariableClientResolveService, IDatasetRuntimeService _datasetClientService){
+                              IEnvVariableService _envVariableService, IEnvVariableRuntimeResolveProxy _envVariableClientResolveService, IDatasetRuntimeService _datasetClientService){
         super(_defaultBaseMapper);
         datasetMapper=_defaultBaseMapper;
         jdbcOperations=_jdbcOperations;

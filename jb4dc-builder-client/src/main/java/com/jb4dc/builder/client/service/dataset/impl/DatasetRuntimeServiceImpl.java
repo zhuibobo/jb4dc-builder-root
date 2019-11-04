@@ -4,7 +4,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.jb4dc.base.dbaccess.dynamic.ISQLBuilderMapper;
 import com.jb4dc.builder.client.service.dataset.IDatasetRuntimeService;
-import com.jb4dc.builder.client.service.envvar.IEnvVariableRuntimeResolveService;
+import com.jb4dc.builder.client.service.envvar.proxy.IEnvVariableRuntimeResolveProxy;
 import com.jb4dc.builder.po.DataSetPO;
 import com.jb4dc.builder.po.ListQueryPO;
 import com.jb4dc.builder.po.QueryDataSetPO;
@@ -31,7 +31,7 @@ import java.util.regex.Pattern;
 public class DatasetRuntimeServiceImpl implements IDatasetRuntimeService {
 
     @Autowired
-    IEnvVariableRuntimeResolveService envVariableClientResolveService;
+    IEnvVariableRuntimeResolveProxy envVariableClientResolveService;
 
     ISQLBuilderMapper sqlBuilderMapper;
 

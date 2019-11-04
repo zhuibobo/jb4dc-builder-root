@@ -1,4 +1,4 @@
-package com.jb4dc.builder.client.service.api.impl;
+package com.jb4dc.builder.client.service.api.proxy;
 
 import com.jb4dc.builder.client.remote.ApiItemRuntimeRemote;
 import com.jb4dc.builder.client.service.api.IApiItemService;
@@ -15,7 +15,7 @@ import org.springframework.stereotype.Service;
  * To change this template use File | Settings | File Templates.
  */
 @Service
-public class ApiRuntimeServiceImpl implements IApiRuntimeProxy {
+public class ApiRuntimeProxyImpl implements IApiRuntimeProxy {
     @Autowired(required = false)
     IApiItemService apiItemService;
 

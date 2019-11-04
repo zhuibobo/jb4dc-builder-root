@@ -1,20 +1,13 @@
-package com.jb4dc.builder.client.service.datastorage.impl;
+package com.jb4dc.builder.client.service.datastorage.proxy;
 
-import com.jb4dc.builder.client.remote.ListButtonRuntimeRemote;
 import com.jb4dc.builder.client.remote.TableRuntimeRemote;
 import com.jb4dc.builder.client.service.datastorage.ITableFieldService;
-import com.jb4dc.builder.client.service.datastorage.ITableRuntimeService;
-import com.jb4dc.builder.client.service.weblist.IWebListButtonService;
+import com.jb4dc.builder.client.service.datastorage.proxy.ITableRuntimeProxy;
 import com.jb4dc.builder.po.TableFieldPO;
 import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
-import com.jb4dc.core.base.vo.JBuild4DCResponseVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 
-import java.io.IOException;
 import java.util.List;
 
 /**
@@ -24,7 +17,7 @@ import java.util.List;
  * To change this template use File | Settings | File Templates.
  */
 @Service
-public class TableRuntimeServiceImpl implements ITableRuntimeService {
+public class TableRuntimeProxyImpl implements ITableRuntimeProxy {
 
     @Autowired(required = false)
     ITableFieldService tableFieldService;

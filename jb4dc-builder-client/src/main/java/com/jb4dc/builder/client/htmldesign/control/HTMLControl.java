@@ -3,7 +3,7 @@ package com.jb4dc.builder.client.htmldesign.control;
 import com.jb4dc.base.dbaccess.dynamic.impl.SQLBuilderMapper;
 import com.jb4dc.builder.client.htmldesign.HTMLControlAttrs;
 import com.jb4dc.builder.client.htmldesign.ICKEditorPluginsService;
-import com.jb4dc.builder.client.service.envvar.IEnvVariableRuntimeResolveService;
+import com.jb4dc.builder.client.service.envvar.proxy.IEnvVariableRuntimeResolveProxy;
 import com.jb4dc.builder.po.DynamicBindHTMLControlContextPO;
 import com.jb4dc.builder.po.HtmlControlDefinitionPO;
 import com.jb4dc.builder.po.ResolveHTMLControlContextPO;
@@ -43,7 +43,7 @@ public abstract class HTMLControl implements IHTMLControl {
     protected AutowireCapableBeanFactory autowireCapableBeanFactory;
 
     @Autowired
-    protected IEnvVariableRuntimeResolveService envVariableClientResolveService;
+    protected IEnvVariableRuntimeResolveProxy envVariableClientResolveService;
 
     public IHTMLControl getHTMLControlInstance(String fullClassName) throws IllegalAccessException, InstantiationException,ClassNotFoundException {
 
