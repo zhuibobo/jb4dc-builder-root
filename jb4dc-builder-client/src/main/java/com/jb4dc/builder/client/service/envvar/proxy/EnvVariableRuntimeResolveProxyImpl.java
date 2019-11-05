@@ -1,5 +1,8 @@
 package com.jb4dc.builder.client.service.envvar.proxy;
 
+import com.jb4dc.base.service.cache.IBuildGeneralObj;
+import com.jb4dc.builder.client.cache.ProxyBuilderCacheManager;
+import com.jb4dc.builder.client.service.RuntimeProxyBase;
 import com.jb4dc.builder.client.service.envvar.IEnvVariableCreator;
 import com.jb4dc.builder.client.remote.EnvVariableRuntimeRemote;
 import com.jb4dc.builder.client.service.envvar.IEnvVariableService;
@@ -17,7 +20,7 @@ import org.springframework.stereotype.Service;
  * To change this template use File | Settings | File Templates.
  */
 @Service
-public class EnvVariableRuntimeResolveProxyImpl implements IEnvVariableRuntimeResolveProxy {
+public class EnvVariableRuntimeResolveProxyImpl extends RuntimeProxyBase implements IEnvVariableRuntimeResolveProxy {
 
     @Autowired(required = false)
     IEnvVariableService envVariableService;
@@ -36,7 +39,7 @@ public class EnvVariableRuntimeResolveProxyImpl implements IEnvVariableRuntimeRe
     }
 
     @Override
-    public String execEnvVarResult(JB4DCSession jb4DCSession, String value) throws JBuild4DCGenerallyException {
+    public EnvVariableEntity getEnvVariableEntityByValue(JB4DCSession jb4DCSession, String value) throws JBuild4DCGenerallyException {
         EnvVariableEntity envVariableEntity;
         //通过本地bean获取环境变量实体,如果不存在业务bean,则通过rest接口远程获取.
         if(envVariableService!=null){
@@ -45,8 +48,21 @@ public class EnvVariableRuntimeResolveProxyImpl implements IEnvVariableRuntimeRe
         else{
             //envVariableEntity=new EnvVariableEntity();
             //则通过rest接口远程获取.
-            envVariableEntity=envVariableRuntimeRemote.getEnvVariableByEnvValue(value).getData();
+            envVariableEntity=autoGetFromCache(this.getClass(), value, new IBuildGeneralObj<EnvVariableEntity>() {
+                @Override
+                public EnvVariableEntity BuildObj() throws JBuild4DCGenerallyException {
+                    EnvVariableEntity temp=envVariableRuntimeRemote.getEnvVariableByEnvValue(value).getData();
+                    return temp;
+                };
+            });
         }
+        return envVariableEntity;
+    }
+
+    @Override
+    public String execEnvVarResult(JB4DCSession jb4DCSession, String value) throws JBuild4DCGenerallyException {
+
+        EnvVariableEntity envVariableEntity=getEnvVariableEntityByValue(jb4DCSession,value);
 
         IEnvVariableCreator varCreater=null;
         try {

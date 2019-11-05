@@ -1,5 +1,6 @@
 package com.jb4dc.builder.client.service.envvar.proxy;
 
+import com.jb4dc.builder.dbentities.envvar.EnvVariableEntity;
 import com.jb4dc.builder.po.EnvVariablePO;
 import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
 import com.jb4dc.core.base.session.JB4DCSession;
@@ -22,6 +23,8 @@ public interface IEnvVariableRuntimeResolveProxy {
     List<EnvVariablePO> getAPIVars() throws XPathExpressionException, ParserConfigurationException, IOException, SAXException, JBuild4DCGenerallyException;*/
 
     String execDefaultValueResult(JB4DCSession jb4DCSession, String fieldDefaultType, String fieldDefaultValue) throws JBuild4DCGenerallyException;
+
+    EnvVariableEntity getEnvVariableEntityByValue(JB4DCSession jb4DCSession, String value) throws JBuild4DCGenerallyException;
 
     String execEnvVarResult(JB4DCSession jb4DCSession, String value) throws JBuild4DCGenerallyException;
 

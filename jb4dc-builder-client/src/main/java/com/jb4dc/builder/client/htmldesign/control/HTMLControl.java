@@ -122,7 +122,7 @@ public abstract class HTMLControl implements IHTMLControl {
                         htmlControl.dynamicBindChain(jb4DCSession, sourceHTML, doc, singleElem, parentElem, lastParentJbuild4dCustomElem, dynamicBindHTMLControlContextPO);
                     }
                     catch (Exception ex){
-                        singleElem.html("<div class=\"ResolveControllerErrorMsg\">"+htmlControlDefinitionPO.getSingleName()+"控件解析出错！【"+ex.getMessage()+"】</div>");
+                        singleElem.html("<div class=\"ResolveControllerErrorMsg\">"+htmlControlDefinitionPO.getSingleName()+"动态绑定出错！【"+ex.getMessage()+"】</div>");
                         //throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_BUILDER_CODE,ex);
                     }
                 }
