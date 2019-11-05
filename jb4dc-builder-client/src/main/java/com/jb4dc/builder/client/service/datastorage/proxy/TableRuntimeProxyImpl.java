@@ -37,7 +37,7 @@ public class TableRuntimeProxyImpl implements ITableRuntimeProxy {
             }
         }
         catch (Exception ex){
-            throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_BUILDER_CODE,ex.getMessage(),ex.getCause());
+            throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_BUILDER_CODE,ex.getMessage(),ex,ex.getStackTrace());
         }
     }
 
