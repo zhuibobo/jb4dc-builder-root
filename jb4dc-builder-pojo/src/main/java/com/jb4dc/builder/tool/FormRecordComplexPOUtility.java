@@ -9,6 +9,7 @@ import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -33,11 +34,11 @@ public class FormRecordComplexPOUtility {
     }
 
     public static String findIdInFormRecordFieldDataPO(FormRecordDataPO formRecordDataPO) throws JBuild4DCGenerallyException {
-        Stream<FormRecordFieldDataPO> formRecordDataPOStream =  formRecordDataPO.getRecordFieldPOList().stream().filter(item -> item.getFieldName().toUpperCase().equals("ID"));
-        if(formRecordDataPOStream.count()>0) {
-            return formRecordDataPOStream.findFirst().get().getValue();
+        FormRecordFieldDataPO formRecordFieldDataPO =  formRecordDataPO.getRecordFieldPOList().stream().filter(item -> item.getFieldName().toUpperCase().equals("ID")).findFirst().orElse(null);
+        if(formRecordFieldDataPO==null) {
+            throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_BUILDER_CODE,"在formRecordDataPO中不存在ID字段!");
         }
-        throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_BUILDER_CODE,"在formRecordDataPO中不存在ID字段!");
+        return formRecordFieldDataPO.getValue();
     }
 
     public static List<FormRecordFieldDataPO> findExcludeIdFormRecordFieldList(FormRecordDataPO formRecordDataPO){

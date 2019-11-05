@@ -26,7 +26,7 @@ var RuntimeGeneralInstance= {
             // but they are ignored because response was set above.
             // If it fails, this function gets "jqXHR", "status", "error"
             if(!result.success){
-                DialogUtility.AlertText(result.message,sender,5);
+                DialogUtility.AlertText(result.message,sender);
             }
         }).always(callback && function (jqXHR, status) {
             /*self.each( function() {
@@ -50,7 +50,7 @@ var RuntimeGeneralInstance= {
             "innerFormButtonId": innerFormButtonId,
             "listButtonId": listButtonId,
             "recordId": recordId,
-            "operationType":operationType
+            "operationTypeName":operationType
         };
         this._Ajax(url, params, callback, sender);
         console.log(formDataComplexPOList);

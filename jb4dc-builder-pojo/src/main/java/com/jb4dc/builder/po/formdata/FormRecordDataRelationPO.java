@@ -35,7 +35,7 @@ public class FormRecordDataRelationPO {
         return isMain;
     }
 
-    public void setMain(boolean main) {
+    public void setisMain(boolean main) {
         isMain = main;
     }
 

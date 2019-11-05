@@ -27,9 +27,12 @@ let InnerFormButtonRuntime= {
             operationType,
             function (result) {
                 console.log(result);
-                window.setTimeout(function () {
-                    DialogUtility.CloseDialog(DialogUtility.DialogLoadingId);
-                },1000);
+                if(result.success){
+                    window.setTimeout(function () {
+                        DialogUtility.CloseDialog(DialogUtility.DialogLoadingId);
+                    },1000);
+                }
+
             },this);
         //debugger;
         //DialogUtility.AlertJsonCode(result,5);
