@@ -1,6 +1,7 @@
 package com.jb4dc.builder.client.service.webform.impl;
 
 import com.jb4dc.base.service.ISQLBuilderService;
+import com.jb4dc.base.service.aspect.CalculationRunTime;
 import com.jb4dc.base.tools.JsonUtility;
 import com.jb4dc.builder.client.service.api.ApiRunPara;
 import com.jb4dc.builder.client.service.api.ApiRunResult;
@@ -67,6 +68,7 @@ public class WebFormDataSaveRuntimeServiceImpl implements IWebFormDataSaveRuntim
 
     @Override
     @Transactional(rollbackFor= {JBuild4DCGenerallyException.class,JBuild4DCSQLKeyWordException.class})
+    @CalculationRunTime(note = "执行保存数据的解析")
     public SubmitResultPO SaveFormRecordComplexPO(JB4DCSession jb4DCSession, String recordId, FormRecordComplexPO formRecordComplexPO, String listButtonId, String innerFormButtonId,String operationTypeName) throws JBuild4DCGenerallyException, IOException, JBuild4DCSQLKeyWordException {
         SubmitResultPO submitResultPO = new SubmitResultPO();
 

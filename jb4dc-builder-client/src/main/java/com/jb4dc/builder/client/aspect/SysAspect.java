@@ -1,4 +1,4 @@
-package com.jb4dc.builder.client;
+package com.jb4dc.builder.client.aspect;
 
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.AfterReturning;
@@ -9,10 +9,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
-import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.context.request.ServletRequestAttributes;
-
-import javax.servlet.http.HttpServletRequest;
 
 /**
  * Created with IntelliJ IDEA.
@@ -24,7 +20,7 @@ import javax.servlet.http.HttpServletRequest;
 @Aspect
 @Component
 public class SysAspect {
-    @Pointcut("execution(public * com.jb4dc.builder.client.service.webform.impl.*.*(..))")
+    @Pointcut("execution(public * com.jb4dc.builder.client.service.datastorage.impl.*.*(..))")
     public void log(){}
 
     private static final Logger logger = LoggerFactory.getLogger(SysAspect.class);
