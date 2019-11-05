@@ -157,67 +157,74 @@ public class WebFormDataSaveRuntimeServiceImpl implements IWebFormDataSaveRuntim
     }
 
     private PendingSQLPO resolveFormRecordDataPOTOPendingSQL(JB4DCSession jb4DCSession, String recordId,String tableName,String tableId,FormRecordDataPO formRecordDataPO) throws JBuild4DCGenerallyException, JBuild4DCSQLKeyWordException {
-        PendingSQLPO pendingSQLPO=new PendingSQLPO();
-        if (!SQLKeyWordUtility.singleWord(tableName)) {
-            throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_BUILDER_CODE, "表名检测失败");
-        }
-        StringBuilder sqlBuilder=new StringBuilder();
-        Map<String,Object> sqlMapPara=new HashMap<>();
-        List<FormRecordFieldDataPO> recordFieldPOList=FormRecordComplexPOUtility.findExcludeIdFormRecordFieldList(formRecordDataPO);
-        Map<String, FormRecordFieldDataPO> recordFieldPOListMap=FormRecordComplexPOUtility.converFormRecordFieldDataPOListToMap(recordFieldPOList);
-        if(!this.formRecordDataPOIsExist(formRecordDataPO,tableName)){
-            //尝试补完表设计中的默认值
-            List<TableFieldPO> tableFieldPOList=tableRuntimeProxy.getTableFieldsByTableId(tableId);
-            List<TableFieldPO> hasDefaultValueTableFieldPOList=tableFieldPOList.parallelStream().filter(item-> StringUtility.isNotEmpty(item.getFieldDefaultValue())).collect(Collectors.toList());
-            //计算生成默认值
-            for (TableFieldPO tableFieldPO : hasDefaultValueTableFieldPOList) {
-                String value = envVariableRuntimeResolveProxy.execDefaultValueResult(jb4DCSession, tableFieldPO.getFieldDefaultType(), tableFieldPO.getFieldDefaultValue());
-                tableFieldPO.setValue(value);
+        try {
+            PendingSQLPO pendingSQLPO = new PendingSQLPO();
+            if (!SQLKeyWordUtility.singleWord(tableName)) {
+                throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_BUILDER_CODE, "表名检测失败");
             }
-            //如果存在空值的,则替换值,如果不存在的,则加入新字段
-            for (TableFieldPO defaultTableFieldPO : hasDefaultValueTableFieldPOList) {
-                if(recordFieldPOListMap.containsKey(defaultTableFieldPO.getFieldName())){
-                    if(StringUtility.isEmpty(recordFieldPOListMap.get(defaultTableFieldPO.getFieldName()).getValue())){
-                        recordFieldPOListMap.get(defaultTableFieldPO.getFieldName()).setValue(defaultTableFieldPO.getValue());
+            StringBuilder sqlBuilder = new StringBuilder();
+            Map<String, Object> sqlMapPara = new HashMap<>();
+            List<FormRecordFieldDataPO> recordFieldPOList = FormRecordComplexPOUtility.findExcludeIdFormRecordFieldList(formRecordDataPO);
+            Map<String, FormRecordFieldDataPO> recordFieldPOListMap = FormRecordComplexPOUtility.converFormRecordFieldDataPOListToMap(recordFieldPOList);
+            if (!this.formRecordDataPOIsExist(formRecordDataPO, tableName)) {
+                //尝试补完表设计中的默认值
+                List<TableFieldPO> tableFieldPOList = tableRuntimeProxy.getTableFieldsByTableId(tableId);
+                List<TableFieldPO> hasDefaultValueTableFieldPOList = tableFieldPOList.parallelStream().filter(item -> StringUtility.isNotEmpty(item.getFieldDefaultValue())).collect(Collectors.toList());
+                //计算生成默认值
+                for (TableFieldPO tableFieldPO : hasDefaultValueTableFieldPOList) {
+                    String value = envVariableRuntimeResolveProxy.execDefaultValueResult(jb4DCSession, tableFieldPO.getFieldDefaultType(), tableFieldPO.getFieldDefaultValue());
+                    tableFieldPO.setValue(value);
+                }
+                //如果存在空值的,则替换值,如果不存在的,则加入新字段
+                for (TableFieldPO defaultTableFieldPO : hasDefaultValueTableFieldPOList) {
+                    if (recordFieldPOListMap.containsKey(defaultTableFieldPO.getFieldName())) {
+                        if (StringUtility.isEmpty(recordFieldPOListMap.get(defaultTableFieldPO.getFieldName()).getValue())) {
+                            recordFieldPOListMap.get(defaultTableFieldPO.getFieldName()).setValue(defaultTableFieldPO.getValue());
+                        }
+                    } else {
+                        FormRecordFieldDataPO tempPO = FormRecordFieldDataPO.getTemplatePO(recordFieldPOList.get(0), defaultTableFieldPO);
+                        recordFieldPOList.add(tempPO);
+                        recordFieldPOListMap.put(tempPO.getFieldName(), tempPO);
                     }
                 }
-                else{
-                    FormRecordFieldDataPO tempPO=FormRecordFieldDataPO.getTemplatePO(recordFieldPOList.get(0),defaultTableFieldPO);
-                    recordFieldPOList.add(tempPO);
-                    recordFieldPOListMap.put(tempPO.getFieldName(),tempPO);
+                //构建SQL语句.
+                StringBuilder fieldNames = new StringBuilder();
+                StringBuilder fieldValues = new StringBuilder();
+
+                for (FormRecordFieldDataPO formRecordFieldDataPO : recordFieldPOList) {
+                    fieldNames.append(formRecordFieldDataPO.getFieldName());
+                    fieldNames.append(",");
+                    fieldValues.append("#{" + formRecordFieldDataPO.getFieldName() + "}");
+                    fieldValues.append(",");
+                    sqlMapPara.put(formRecordFieldDataPO.getFieldName(), formRecordFieldDataPO.getValue());
                 }
-            }
-            //构建SQL语句.
-            StringBuilder fieldNames=new StringBuilder();
-            StringBuilder fieldValues=new StringBuilder();
+                //fieldNames = fieldNames.delete(fieldNames.length() - 2, 1);
+                fieldNames =fieldNames.deleteCharAt(fieldNames.length() - 1);
+                //fieldValues = fieldValues.delete(fieldValues.length() - 2, 1);
+                fieldValues =fieldValues.deleteCharAt(fieldValues.length() - 1);
+                sqlBuilder.append("insert into " + tableName + "(" + fieldNames + ") values(" + fieldValues + ")");
+            } else {
+                sqlBuilder.append("update " + tableName + " set ");
 
-            for (FormRecordFieldDataPO formRecordFieldDataPO : recordFieldPOList) {
-                fieldNames.append(formRecordFieldDataPO.getFieldName());
-                fieldNames.append(",");
-                fieldValues.append("#{"+formRecordFieldDataPO.getFieldName()+"}");
-                fieldValues.append(",");
-                sqlMapPara.put(formRecordFieldDataPO.getFieldName(),formRecordFieldDataPO.getValue());
+                for (FormRecordFieldDataPO fieldDataPO : recordFieldPOList) {
+                    sqlBuilder.append(String.format("%s=#{%s},", fieldDataPO.getFieldName(), fieldDataPO.getFieldName()));
+                    sqlMapPara.put(fieldDataPO.getFieldName(), fieldDataPO.getValue());
+                }
+
+                sqlBuilder.append("where ID=${ID}");
+                sqlMapPara.put("ID", recordId);
             }
-            fieldNames=fieldNames.delete(fieldNames.length()-1,1);
-            fieldValues=fieldValues.delete(fieldValues.length()-1,1);
-            sqlBuilder.append("insert into "+tableName+"("+fieldNames+") values("+fieldValues+")");
+
+            pendingSQLPO.setSql(sqlBuilder.toString());
+            pendingSQLPO.setSqlPara(sqlMapPara);
+
+            return pendingSQLPO;
         }
-        else{
-            sqlBuilder.append("update "+tableName+" set ");
-
-            for (FormRecordFieldDataPO fieldDataPO : recordFieldPOList) {
-                sqlBuilder.append(String.format("%s=#{%s},",fieldDataPO.getFieldName(),fieldDataPO.getFieldName()));
-                sqlMapPara.put(fieldDataPO.getFieldName(),fieldDataPO.getValue());
-            }
-
-            sqlBuilder.append("where ID=${ID}");
-            sqlMapPara.put("ID",recordId);
+        catch (Exception ex){
+            //String traceMsg=org.apache.commons.lang3.exception.ExceptionUtils.getStackTrace(ex);
+            //ex.setStackTrace();
+            throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_PLATFORM_CODE,ex.getMessage(),ex.getCause(),ex.getStackTrace());
         }
-
-        pendingSQLPO.setSql(sqlBuilder.toString());
-        pendingSQLPO.setSqlPara(sqlMapPara);
-
-        return pendingSQLPO;
     }
 
     private boolean formRecordDataPOIsExist(FormRecordDataPO formRecordDataPO,String tableName) throws JBuild4DCSQLKeyWordException, JBuild4DCGenerallyException {
@@ -249,7 +256,7 @@ public class WebFormDataSaveRuntimeServiceImpl implements IWebFormDataSaveRuntim
             sqlBuilderService.update(sql, paraMap);
         }
         catch (Exception ex){
-            throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_BUILDER_CODE,ex.getMessage(),ex.getCause());
+            throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_BUILDER_CODE,ex.getMessage(),ex,ex.getStackTrace());
         }
     }
 
@@ -269,9 +276,9 @@ public class WebFormDataSaveRuntimeServiceImpl implements IWebFormDataSaveRuntim
             autowireCapableBeanFactory.autowireBean(apiForButton);
             return apiForButton.runApi(apiRunPara);
         } catch (IllegalAccessException e) {
-            throw new JBuild4DCGenerallyException(e.hashCode(),e.getMessage(),e);
+            throw new JBuild4DCGenerallyException(e.hashCode(),e.getMessage(),e,e.getStackTrace());
         } catch (InstantiationException e) {
-            throw new JBuild4DCGenerallyException(e.hashCode(),e.getMessage(),e);
+            throw new JBuild4DCGenerallyException(e.hashCode(),e.getMessage(),e,e.getStackTrace());
         }
     }
 }

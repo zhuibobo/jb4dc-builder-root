@@ -26,7 +26,11 @@ var RuntimeGeneralInstance= {
             // but they are ignored because response was set above.
             // If it fails, this function gets "jqXHR", "status", "error"
             if(!result.success){
-                DialogUtility.AlertText(result.message,sender);
+                var message=result.message;
+                if(StringUtility.IsNullOrEmpty(message)){
+                    message=result.traceMsg;
+                }
+                DialogUtility.AlertText(message,sender);
             }
         }).always(callback && function (jqXHR, status) {
             /*self.each( function() {
