@@ -16,4 +16,32 @@ public class StaticVariableCreator implements IEnvVariableCreator {
     public String createVar(JB4DCSession jb4DCSession, EnvVariableEntity envVariableEntity) throws JBuild4DCGenerallyException {
         return envVariableEntity.getEnvVarClassPara();
     }
+
+    public static String ENV_STATIC_YES_VALUE="ENV_STATIC_YES";
+    public static String ENV_STATIC_YES_TEXT="静态值-是";
+    public static String ENV_STATIC_YES_PARA="是";
+
+    public static String ENV_STATIC_NO_VALUE="ENV_STATIC_NO";
+    public static String ENV_STATIC_NO_TEXT="静态值-否";
+    public static String ENV_STATIC_NO_PARA="否";
+
+    public static String ENV_STATIC_ENABLE_VALUE="ENV_STATIC_ENABLE";
+    public static String ENV_STATIC_ENABLE_TEXT="静态值-启用";
+    public static String ENV_STATIC_ENABLE_PARA="启用";
+
+    public static String ENV_STATIC_DISABLE_VALUE="ENV_STATIC_DISABLE";
+    public static String ENV_STATIC_DISABLE_TEXT="静态值-禁用";
+    public static String ENV_STATIC_DISABLE_PARA="禁用";
+
+    public static String ENV_STATIC_DEL_VALUE="ENV_STATIC_DEL";
+    public static String ENV_STATIC_DEL_TEXT="静态值-删除";
+    public static String ENV_STATIC_DEL_PARA="删除";
+
+    public static String ENV_STATIC_PROCESS_VALUE="ENV_STATIC_PROCESS";
+    public static String ENV_STATIC_PROCESS_TEXT="静态值-待处理";
+    public static String ENV_STATIC_PROCESS_PARA="待处理";
+
+    public static String ENV_STATIC_PROCESSED_VALUE="ENV_STATIC_PROCESSED";
+    public static String ENV_STATIC_PROCESSED_TEXT="静态值-已处理";
+    public static String ENV_STATIC_PROCESSED_PARA="已处理";
 }

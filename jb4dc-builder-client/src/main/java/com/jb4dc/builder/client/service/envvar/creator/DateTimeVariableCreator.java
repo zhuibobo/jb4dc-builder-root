@@ -31,4 +31,16 @@ public class DateTimeVariableCreator implements IEnvVariableCreator {
             throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_BUILDER_CODE,this.getClass().getName()+" Error:"+ex.getMessage());
         }
     }
+
+    public static String ENV_DATETIME_YYYY_MM_DD_VALUE="ENV_DATETIME_YYYY_MM_DD";
+    public static String ENV_DATETIME_YYYY_MM_DD_TEXT="年年年年-月月-日日";
+    public static String ENV_DATETIME_YYYY_MM_DD_PARA="yyyy-MM-dd";
+
+    public static String ENV_DATETIME_YYYY_MM_DD_HH_MM_SS_VALUE="ENV_DATETIME_YYYY_MM_DD_HH_MM_SS";
+    public static String ENV_DATETIME_YYYY_MM_DD_HH_MM_SS_TEXT="年年年年-月月-日日 时:分:秒";
+    public static String ENV_DATETIME_YYYY_MM_DD_HH_MM_SS_PARA="yyyy-MM-dd HH:mm:ss";
+
+    public static String ENV_DATETIME_YYYY_SMM_SDD_VALUE="ENV_DATETIME_YYYY_SMM_SDD";
+    public static String ENV_DATETIME_YYYY_SMM_SDD_TEXT="年年年年/月月/日日";
+    public static String ENV_DATETIME_YYYY_SMM_SDD_PARA="yyyy/MM/dd";
 }

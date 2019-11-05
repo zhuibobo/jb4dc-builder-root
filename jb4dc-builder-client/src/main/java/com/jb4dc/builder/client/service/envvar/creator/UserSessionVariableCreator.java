@@ -29,4 +29,20 @@ public class UserSessionVariableCreator implements IEnvVariableCreator {
         }
         throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_BUILDER_CODE,this.getClass().getName()+"中无法根据"+envVariableEntity.getEnvVarClassPara()+"查询到对应的数据！");
     }
+
+    public static String ENV_SYSTEM_CURRENT_USER_ORGAN_ID_VALUE="ENV_SYSTEM_CURRENT_USER_ORGAN_ID";
+    public static String ENV_SYSTEM_CURRENT_USER_ORGAN_ID_TEXT="当前用户所在组织ID";
+    public static String ENV_SYSTEM_CURRENT_USER_ORGAN_ID_PARA="ApiVarCurrentUserOrganId";
+
+    public static String ENV_SYSTEM_CURRENT_USER_ORGAN_NAME_VALUE="ENV_SYSTEM_CURRENT_USER_ORGAN_NAME";
+    public static String ENV_SYSTEM_CURRENT_USER_ORGAN_NAME_TEXT="当前用户所在组织名称";
+    public static String ENV_SYSTEM_CURRENT_USER_ORGAN_NAME_PARA="ApiVarCurrentUserOrganName";
+
+    public static String ENV_SYSTEM_CURRENT_USER_ID_VALUE="ENV_SYSTEM_CURRENT_USER_ID";
+    public static String ENV_SYSTEM_CURRENT_USER_ID_TEXT="当前用户ID";
+    public static String ENV_SYSTEM_CURRENT_USER_ID_PARA="ApiVarCurrentUserId";
+
+    public static String ENV_SYSTEM_CURRENT_USER_NAME_VALUE="ENV_SYSTEM_CURRENT_USER_NAME";
+    public static String ENV_SYSTEM_CURRENT_USER_NAME_TEXT="当前用户名称";
+    public static String ENV_SYSTEM_CURRENT_USER_NAME_PARA="ApiVarCurrentUserName";
 }

@@ -17,4 +17,7 @@ public class UUIDVariableCreator implements IEnvVariableCreator {
     public String createVar(JB4DCSession jb4DCSession, EnvVariableEntity envVariableEntity) throws JBuild4DCGenerallyException {
         return UUIDUtility.getUUID();
     }
+
+    public static String ENV_ID_CODE_UUID_VALUE="ENV_ID_CODE_UUID";
+    public static String ENV_ID_CODE_UUID_TEXT="通用唯一识别码";
 }

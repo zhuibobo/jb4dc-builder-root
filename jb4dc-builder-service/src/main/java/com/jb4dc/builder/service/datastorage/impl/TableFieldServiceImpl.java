@@ -4,6 +4,9 @@ import com.jb4dc.base.dbaccess.dao.BaseMapper;
 import com.jb4dc.base.service.exenum.TrueFalseEnum;
 import com.jb4dc.base.service.IAddBefore;
 import com.jb4dc.base.service.impl.BaseServiceImpl;
+import com.jb4dc.builder.client.service.envvar.creator.DateTimeVariableCreator;
+import com.jb4dc.builder.client.service.envvar.creator.UUIDVariableCreator;
+import com.jb4dc.builder.client.service.envvar.creator.UserSessionVariableCreator;
 import com.jb4dc.builder.dao.datastorage.TableFieldMapper;
 import com.jb4dc.builder.dao.datastorage.TableMapper;
 import com.jb4dc.builder.dbentities.datastorage.TableEntity;
@@ -80,14 +83,14 @@ public class TableFieldServiceImpl extends BaseServiceImpl<TableFieldEntity> imp
         TableFieldEntity idField=newFiled(jb4DCSession,"Template","ID","ID",
                 TrueFalseEnum.True,TrueFalseEnum.False,
                 TableFieldTypeEnum.NVarCharType,50,0,
-                "EnvVar","UUID","通用唯一识别码",
+                "EnvVar", UUIDVariableCreator.ENV_ID_CODE_UUID_VALUE,UUIDVariableCreator.ENV_ID_CODE_UUID_TEXT,
                 "表主键",templateName);
         tableFieldMapper.insert(idField);
 
         TableFieldEntity createTimeField=newFiled(jb4DCSession,"Template","F_CREATE_TIME","记录时间",
                 TrueFalseEnum.False,TrueFalseEnum.True,
                 TableFieldTypeEnum.DataTimeType,20,0,
-                "EnvVar","yyyy-MM-dd HH:mm:ss","年年年年-月月-日日 时:分:秒",
+                "EnvVar", DateTimeVariableCreator.ENV_DATETIME_YYYY_MM_DD_HH_MM_SS_VALUE,DateTimeVariableCreator.ENV_DATETIME_YYYY_MM_DD_HH_MM_SS_TEXT,
                 "",templateName);
         tableFieldMapper.insert(createTimeField);
 
@@ -101,28 +104,28 @@ public class TableFieldServiceImpl extends BaseServiceImpl<TableFieldEntity> imp
         TableFieldEntity organIdField=newFiled(jb4DCSession,"Template","F_ORGAN_ID","组织ID",
                 TrueFalseEnum.False,TrueFalseEnum.True,
                 TableFieldTypeEnum.NVarCharType,50,0,
-                "EnvVar","ApiVarCurrentUserOrganId","当前用户所在组织ID",
+                "EnvVar", UserSessionVariableCreator.ENV_SYSTEM_CURRENT_USER_ORGAN_ID_VALUE,UserSessionVariableCreator.ENV_SYSTEM_CURRENT_USER_ORGAN_ID_TEXT,
                 "",templateName);
         tableFieldMapper.insert(organIdField);
 
         TableFieldEntity organNameField=newFiled(jb4DCSession,"Template","F_ORGAN_NAME","组织名称",
                 TrueFalseEnum.False,TrueFalseEnum.True,
                 TableFieldTypeEnum.NVarCharType,100,0,
-                "EnvVar","ApiVarCurrentUserOrganName","当前用户所在组织名称",
+                "EnvVar",UserSessionVariableCreator.ENV_SYSTEM_CURRENT_USER_ORGAN_NAME_VALUE,UserSessionVariableCreator.ENV_SYSTEM_CURRENT_USER_ORGAN_NAME_TEXT,
                 "",templateName);
         tableFieldMapper.insert(organNameField);
 
         TableFieldEntity userIdField=newFiled(jb4DCSession,"Template","F_USER_ID","用户ID",
                 TrueFalseEnum.False,TrueFalseEnum.True,
                 TableFieldTypeEnum.NVarCharType,50,0,
-                "EnvVar","ApiVarCurrentUserId","当前用户ID",
+                "EnvVar",UserSessionVariableCreator.ENV_SYSTEM_CURRENT_USER_ID_VALUE,UserSessionVariableCreator.ENV_SYSTEM_CURRENT_USER_ID_TEXT,
                 "",templateName);
         tableFieldMapper.insert(userIdField);
 
         TableFieldEntity userNameField=newFiled(jb4DCSession,"Template","F_USER_NAME","用户名称",
                 TrueFalseEnum.False,TrueFalseEnum.True,
                 TableFieldTypeEnum.NVarCharType,50,0,
-                "EnvVar","ApiVarCurrentUserName","当前用户名称",
+                "EnvVar",UserSessionVariableCreator.ENV_SYSTEM_CURRENT_USER_NAME_VALUE,UserSessionVariableCreator.ENV_SYSTEM_CURRENT_USER_NAME_TEXT,
                 "",templateName);
         tableFieldMapper.insert(userNameField);
     }
