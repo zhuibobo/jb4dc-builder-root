@@ -26,9 +26,30 @@
                           </GrepModel>
                         </option>
                       </Pin>
+                      <Pin>
+                        <option name="consoleUUID" value="5ac88473-f321-4c16-9ece-37590848c0bc" />
+                        <option name="contentType" value="ConsoleContent" />
+                        <option name="grepModel">
+                          <GrepModel>
+                            <option name="expression" value="保存表单数据:待执行SQL" />
+                            <option name="unlessExpression" value="" />
+                          </GrepModel>
+                        </option>
+                      </Pin>
                     </list>
                   </option>
                 </Pins>
+              </value>
+            </entry>
+            <entry>
+              <key>
+                <RunConfigurationRef>
+                  <option name="icon" value="junit.svg" />
+                  <option name="name" value="LogTest.debugLog" />
+                </RunConfigurationRef>
+              </key>
+              <value>
+                <Pins />
               </value>
             </entry>
           </map>

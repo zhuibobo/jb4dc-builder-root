@@ -39,7 +39,7 @@ public class WebListButtonRuntimeProxyImpl extends RuntimeProxyBase implements I
                 @Override
                 public ListButtonEntity BuildObj() throws JBuild4DCGenerallyException {
                     ListButtonEntity temp=listButtonRuntimeRemote.getButtonPO(buttonId).getData();
-                    return null;
+                    return temp;
                 }
             });
         }

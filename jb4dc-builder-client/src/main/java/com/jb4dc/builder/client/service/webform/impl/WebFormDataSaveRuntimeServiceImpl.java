@@ -27,6 +27,8 @@ import com.jb4dc.core.base.tools.BaseUtility;
 import com.jb4dc.core.base.tools.ClassUtility;
 import com.jb4dc.core.base.tools.SQLKeyWordUtility;
 import com.jb4dc.core.base.tools.StringUtility;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.AutowireCapableBeanFactory;
 import org.springframework.stereotype.Service;
@@ -66,6 +68,8 @@ public class WebFormDataSaveRuntimeServiceImpl implements IWebFormDataSaveRuntim
     @Autowired
     private ISQLBuilderService sqlBuilderService;
 
+    private Logger logger= LoggerFactory.getLogger(this.getClass());
+
     @Override
     @Transactional(rollbackFor= {JBuild4DCGenerallyException.class,JBuild4DCSQLKeyWordException.class})
     @CalculationRunTime(note = "执行保存数据的解析")
@@ -93,7 +97,8 @@ public class WebFormDataSaveRuntimeServiceImpl implements IWebFormDataSaveRuntim
         //保存数据
         List<PendingSQLPO> pendingSQLPOList = resolveFormRecordComplexPOTOPendingSQL(jb4DCSession, recordId, formRecordComplexPO, operationTypeName);
         for (PendingSQLPO pendingSQLPO : pendingSQLPOList) {
-
+            logger.debug(BaseUtility.wrapDevLog("保存表单数据:待执行SQL"+pendingSQLPO.getSql()));
+            logger.debug(BaseUtility.wrapDevLog("保存表单数据:待执行SQL参数"+JsonUtility.toObjectString(pendingSQLPO.getSqlPara())));
         }
 
         //修改字段
