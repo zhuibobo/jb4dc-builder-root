@@ -1,6 +1,8 @@
 package com.jb4dc.builder.client.service.datastorage.proxy;
 
+import com.jb4dc.base.service.cache.IBuildGeneralObj;
 import com.jb4dc.builder.client.remote.TableRuntimeRemote;
+import com.jb4dc.builder.client.service.RuntimeProxyBase;
 import com.jb4dc.builder.client.service.datastorage.ITableFieldService;
 import com.jb4dc.builder.client.service.datastorage.proxy.ITableRuntimeProxy;
 import com.jb4dc.builder.po.TableFieldPO;
@@ -17,7 +19,7 @@ import java.util.List;
  * To change this template use File | Settings | File Templates.
  */
 @Service
-public class TableRuntimeProxyImpl implements ITableRuntimeProxy {
+public class TableRuntimeProxyImpl extends RuntimeProxyBase implements ITableRuntimeProxy {
 
     @Autowired(required = false)
     ITableFieldService tableFieldService;
@@ -28,13 +30,22 @@ public class TableRuntimeProxyImpl implements ITableRuntimeProxy {
     @Override
     public List<TableFieldPO> getTableFieldsByTableId(String tableId) throws JBuild4DCGenerallyException {
         try {
+            List<TableFieldPO> tableFieldPOList;
             if (tableFieldService != null) {
-                return tableFieldService.getTableFieldsByTableId(tableId);
+                tableFieldPOList = tableFieldService.getTableFieldsByTableId(tableId);
             } else {
                 //envVariableEntity=new EnvVariableEntity();
                 //则通过rest接口远程获取.
-                return tableRuntimeRemote.getTableFieldsByTableId(tableId).getData();
+                //return tableRuntimeRemote.getTableFieldsByTableId(tableId).getData();
+
+                tableFieldPOList=autoGetFromCache(this.getClass(), tableId, new IBuildGeneralObj<List<TableFieldPO>>() {
+                    @Override
+                    public List<TableFieldPO> BuildObj() throws JBuild4DCGenerallyException {
+                        return tableRuntimeRemote.getTableFieldsByTableId(tableId).getData();
+                    }
+                });
             }
+            return tableFieldPOList;
         }
         catch (Exception ex){
             throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_BUILDER_CODE,ex.getMessage(),ex,ex.getStackTrace());
