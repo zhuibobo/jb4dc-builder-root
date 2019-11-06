@@ -9,6 +9,11 @@ import java.util.Map;
  * To change this template use File | Settings | File Templates.
  */
 public class PendingSQLPO {
+    public static String EXEC_TYPE_INSERT="insert";
+    public static String EXEC_TYPE_UPDATE="update";
+    public static String EXEC_TYPE_SELECT="select";
+    public static String EXEC_TYPE_DEL="delete";
+
     String execType;
     String sql;
     Map<String,Object> sqlPara;

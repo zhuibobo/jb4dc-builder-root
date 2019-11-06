@@ -99,6 +99,13 @@ public class WebFormDataSaveRuntimeServiceImpl implements IWebFormDataSaveRuntim
         for (PendingSQLPO pendingSQLPO : pendingSQLPOList) {
             logger.debug(BaseUtility.wrapDevLog("保存表单数据:待执行SQL"+pendingSQLPO.getSql()));
             logger.debug(BaseUtility.wrapDevLog("保存表单数据:待执行SQL参数"+JsonUtility.toObjectString(pendingSQLPO.getSqlPara())));
+
+            if(pendingSQLPO.getExecType().equals(PendingSQLPO.EXEC_TYPE_INSERT)){
+                sqlBuilderService.insert(pendingSQLPO.getSql(),pendingSQLPO.getSqlPara());
+            }
+            else if(pendingSQLPO.getExecType().equals(PendingSQLPO.EXEC_TYPE_UPDATE)){
+                sqlBuilderService.update(pendingSQLPO.getSql(),pendingSQLPO.getSqlPara());
+            }
         }
 
         //修改字段
@@ -174,6 +181,7 @@ public class WebFormDataSaveRuntimeServiceImpl implements IWebFormDataSaveRuntim
             List<FormRecordFieldDataPO> recordFieldPOList = FormRecordComplexPOUtility.findExcludeIdFormRecordFieldList(formRecordDataPO);
             Map<String, FormRecordFieldDataPO> recordFieldPOListMap = FormRecordComplexPOUtility.converFormRecordFieldDataPOListToMap(recordFieldPOList);
             if (!this.formRecordDataPOIsExist(formRecordDataPO, tableName)) {
+                pendingSQLPO.setExecType(PendingSQLPO.EXEC_TYPE_INSERT);
                 //尝试补完表设计中的默认值
                 List<TableFieldPO> tableFieldPOList = tableRuntimeProxy.getTableFieldsByTableId(tableId);
                 List<TableFieldPO> hasDefaultValueTableFieldPOList = tableFieldPOList.parallelStream().filter(item -> StringUtility.isNotEmpty(item.getFieldDefaultValue())).collect(Collectors.toList());
@@ -211,6 +219,7 @@ public class WebFormDataSaveRuntimeServiceImpl implements IWebFormDataSaveRuntim
                 fieldValues =fieldValues.deleteCharAt(fieldValues.length() - 1);
                 sqlBuilder.append("insert into " + tableName + "(" + fieldNames + ") values(" + fieldValues + ")");
             } else {
+                pendingSQLPO.setExecType(PendingSQLPO.EXEC_TYPE_UPDATE);
                 sqlBuilder.append("update " + tableName + " set ");
 
                 for (FormRecordFieldDataPO fieldDataPO : recordFieldPOList) {
