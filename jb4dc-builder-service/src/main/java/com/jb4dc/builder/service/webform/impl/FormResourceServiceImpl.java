@@ -8,7 +8,7 @@ import com.jb4dc.builder.dbentities.webform.FormResourceEntity;
 import com.jb4dc.builder.client.htmldesign.IHTMLRuntimeResolve;
 import com.jb4dc.builder.po.FormResourcePO;
 import com.jb4dc.builder.service.module.IModuleService;
-import com.jb4dc.builder.service.webform.IFormResourceService;
+import com.jb4dc.builder.client.service.webform.IFormResourceService;
 import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
 import com.jb4dc.core.base.session.JB4DCSession;
 import org.springframework.beans.factory.annotation.Autowired;

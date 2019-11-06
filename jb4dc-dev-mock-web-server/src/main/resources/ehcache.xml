@@ -23,7 +23,7 @@
     </cache-template>
     <cache alias="JB4DCProxyBuilderCacheManager" uses-template="JB4DCCacheDefault">
         <expiry>
-            <ttl>10</ttl>
+            <ttl>60</ttl>
         </expiry>
     </cache>
     <cache alias="SSOSessionStore" uses-template="JB4DCCacheDefault">

@@ -53,7 +53,7 @@ public class EnvVariableRuntimeResolveProxyImpl extends RuntimeProxyBase impleme
                 public EnvVariableEntity BuildObj() throws JBuild4DCGenerallyException {
                     EnvVariableEntity temp=envVariableRuntimeRemote.getEnvVariableByEnvValue(value).getData();
                     return temp;
-                };
+                }
             });
         }
         return envVariableEntity;

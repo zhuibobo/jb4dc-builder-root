@@ -30,7 +30,7 @@ let InnerFormButtonRuntime= {
                 if(result.success){
                     window.setTimeout(function () {
                         DialogUtility.CloseDialog(DialogUtility.DialogLoadingId);
-                    },1000);
+                    },500);
                 }
 
             },this);

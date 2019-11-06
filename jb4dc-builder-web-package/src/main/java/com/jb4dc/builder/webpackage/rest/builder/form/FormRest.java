@@ -8,7 +8,7 @@ import com.jb4dc.builder.po.TableFieldPO;
 import com.jb4dc.builder.po.ZTreeNodePOConvert;
 import com.jb4dc.builder.client.service.datastorage.ITableFieldService;
 import com.jb4dc.builder.service.module.IModuleService;
-import com.jb4dc.builder.service.webform.IFormResourceService;
+import com.jb4dc.builder.client.service.webform.IFormResourceService;
 import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
 import com.jb4dc.core.base.session.JB4DCSession;
 import com.jb4dc.core.base.vo.JBuild4DCResponseVo;

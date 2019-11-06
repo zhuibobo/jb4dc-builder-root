@@ -1,4 +1,4 @@
-package com.jb4dc.builder.service.webform;
+package com.jb4dc.builder.client.service.webform;
 
 
 import com.jb4dc.base.service.IBaseService;

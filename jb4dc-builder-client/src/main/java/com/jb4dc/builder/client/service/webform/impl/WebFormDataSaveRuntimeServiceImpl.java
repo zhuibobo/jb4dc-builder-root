@@ -10,7 +10,7 @@ import com.jb4dc.builder.client.service.api.proxy.IApiRuntimeProxy;
 import com.jb4dc.builder.client.service.datastorage.proxy.ITableRuntimeProxy;
 import com.jb4dc.builder.client.service.envvar.proxy.IEnvVariableRuntimeResolveProxy;
 import com.jb4dc.builder.client.service.webform.IWebFormDataSaveRuntimeService;
-import com.jb4dc.builder.client.service.weblist.proxy.IWebListButtonRuntimeResolveProxy;
+import com.jb4dc.builder.client.service.weblist.proxy.IWebListButtonRuntimeProxy;
 import com.jb4dc.builder.dbentities.api.ApiItemEntity;
 import com.jb4dc.builder.dbentities.weblist.ListButtonEntity;
 import com.jb4dc.builder.po.SubmitResultPO;
@@ -49,7 +49,7 @@ import java.util.stream.Collectors;
 public class WebFormDataSaveRuntimeServiceImpl implements IWebFormDataSaveRuntimeService {
 
     @Autowired
-    private IWebListButtonRuntimeResolveProxy webListButtonRuntimeResolveService;
+    private IWebListButtonRuntimeProxy webListButtonRuntimeResolveService;
 
     @Autowired
     private IApiRuntimeProxy apiRuntimeService;

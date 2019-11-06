@@ -1,6 +1,8 @@
 package com.jb4dc.builder.client.service.api.proxy;
 
+import com.jb4dc.base.service.cache.IBuildGeneralObj;
 import com.jb4dc.builder.client.remote.ApiItemRuntimeRemote;
+import com.jb4dc.builder.client.service.RuntimeProxyBase;
 import com.jb4dc.builder.client.service.api.IApiItemService;
 import com.jb4dc.builder.client.service.api.proxy.IApiRuntimeProxy;
 import com.jb4dc.builder.dbentities.api.ApiItemEntity;
@@ -15,7 +17,7 @@ import org.springframework.stereotype.Service;
  * To change this template use File | Settings | File Templates.
  */
 @Service
-public class ApiRuntimeProxyImpl implements IApiRuntimeProxy {
+public class ApiRuntimeProxyImpl extends RuntimeProxyBase implements IApiRuntimeProxy {
     @Autowired(required = false)
     IApiItemService apiItemService;
 
@@ -25,13 +27,21 @@ public class ApiRuntimeProxyImpl implements IApiRuntimeProxy {
     @Override
     public ApiItemEntity getApiPOByValue(String apiValue) throws JBuild4DCGenerallyException {
         //通过本地bean获取环境变量实体,如果不存在业务bean,则通过rest接口远程获取.
+        ApiItemEntity apiItemEntity;
         if(apiItemService!=null){
-            return apiItemService.getByValue(null,apiValue);
+            apiItemEntity = apiItemService.getByValue(null,apiValue);
         }
         else{
             //envVariableEntity=new EnvVariableEntity();
             //则通过rest接口远程获取.
-            return apiItemRuntimeRemote.GetApiPOByValue(apiValue).getData();
+            apiItemEntity=this.autoGetFromCache(this.getClass(), apiValue, new IBuildGeneralObj<ApiItemEntity>() {
+                @Override
+                public ApiItemEntity BuildObj() throws JBuild4DCGenerallyException {
+                    ApiItemEntity temp=apiItemRuntimeRemote.GetApiPOByValue(apiValue).getData();
+                    return temp;
+                }
+            });
         }
+        return  apiItemEntity;
     }
 }

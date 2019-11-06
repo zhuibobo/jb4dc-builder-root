@@ -9,6 +9,6 @@ import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
  * Date: 2019/10/31
  * To change this template use File | Settings | File Templates.
  */
-public interface IWebListButtonRuntimeResolveProxy {
+public interface IWebListButtonRuntimeProxy {
     ListButtonEntity getButtonPO(String buttonId) throws JBuild4DCGenerallyException;
 }
