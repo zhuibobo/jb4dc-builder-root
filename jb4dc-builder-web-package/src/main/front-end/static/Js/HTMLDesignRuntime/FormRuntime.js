@@ -88,6 +88,9 @@ let FormRuntime={
     IsPreview: function () {
         return this._Prop_Config.IsPreview
     },
+    GetRecordId:function(){
+        return this._Prop_Config.RecordId;
+    },
     GetOriginalFormDataRelation:function() {
         return JsonUtility.StringToJson(this._FormPO.formDataRelation);
     },

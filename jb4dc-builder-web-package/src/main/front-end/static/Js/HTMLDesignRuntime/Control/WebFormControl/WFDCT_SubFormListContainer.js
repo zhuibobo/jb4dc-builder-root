@@ -375,11 +375,31 @@ var WFDCT_SubFormListContainer={
                 oneRowRecord.push(fieldTransferPO);
             }
             var idValue=this.GetRowId(this._$LastEditRow);
+            if(!idValue){
+                idValue=StringUtility.Guid();
+            }
             //if(!id){
             FormRelationPOUtility.CreateIdFieldInOneDataRecord(oneRowRecord,idValue);
             //}
-
-            relationPO=FormRelationPOUtility.Add1To1DataRecordFieldPOList(relationPO,oneRowRecord);
+            var outerFieldName=relationPO.outerKeyFieldName;
+            var outerFieldValue="";
+            var parentRelationPO=ArrayUtility.WhereSingle(this._FormDataRelationList,function (item) {
+                return item.id==relationPO.parentId;
+            });
+            if(FormRelationPOUtility.IsMainRelationPO(parentRelationPO)&&outerFieldName=="ID"){
+                outerFieldValue=this._FormRuntimeHost.GetRecordId();
+            }
+            else{
+                var tableId=parentRelationPO.tableId;
+                var fieldValue=HTMLControl.GetSimpleControlValue(tableId,outerFieldName);
+                if(StringUtility.IsNullOrEmpty(fieldValue)){
+                    var errorMessage="找不到绑定了表:"+tableId+",字段:"+outerFieldName+"的控件,请确认页面放置了该控件,并存在值!";
+                    DialogUtility.AlertText(errorMessage);
+                    throw errorMessage;
+                }
+            }
+            //console.log(relationPO);
+            relationPO=FormRelationPOUtility.Add1To1DataRecordFieldPOList(relationPO,oneRowRecord,"",idValue,outerFieldName,outerFieldValue);
             this.SaveDataToRowAttr(relationPO,this._$LastEditRow);
             this.InnerRow_ToViewStatus(relationPO, this._$LastEditRow);
             //console.log(oneRowRecord);
@@ -613,7 +633,14 @@ var WFDCT_SubFormListContainer={
             var child_relation_po_array = this.GetChildRelationPOArray($trElem);
 
             var mainPO = FormRelationPOUtility.FindMainRelationPO(subFormDataRelationList);
-            FormRelationPOUtility.Add1To1DataRecordFieldPOList(mainPO, FormRelationPOUtility.Get1To1DataRecordFieldPOArray(tr_record_data));
+            var oneDataRecord=FormRelationPOUtility.Get1To1DataRecord(tr_record_data);
+            FormRelationPOUtility.Add1To1DataRecordFieldPOList(
+                mainPO,
+                oneDataRecord.recordFieldPOList,
+                oneDataRecord.desc,
+                oneDataRecord.recordId,
+                oneDataRecord.outerFieldName,
+                oneDataRecord.outerFieldValue);
             //console.log(child_relation_po_array);
             var childPOList = FormRelationPOUtility.FindNotMainRelationPO(subFormDataRelationList);
 

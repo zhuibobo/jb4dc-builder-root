@@ -269,5 +269,12 @@ let HTMLControl={
         } else {
             DialogUtility.AlertText("控件:" + $controlElem.attr("singlename") + "未包含GetValue的方法!");
         }
+    },
+    GetSimpleControlValue:function (tableId, fieldName) {
+        var elem = $("[tableid='" + tableId + "'][fieldname='" + fieldName + "']");
+        if (elem.length == 0) {
+            return null;
+        }
+        return elem.val();
     }
 }

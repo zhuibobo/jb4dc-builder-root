@@ -2,13 +2,16 @@ let FormRelationPOUtility={
     //配合FindFieldPOInRelationFormRecordComplexPoOneDataRecord方法使用,避免每次进行查询
     _FieldPOCache:null,
     BuildRecord:function(fieldPOArray,desc,recordId,outerFieldName,outerFieldValue){
-        if(!recordId){
+        if(desc==undefined||desc==null) {
+            throw "方法需要提供desc参数!";
+        }
+        if(recordId==undefined||recordId==null) {
             throw "方法需要提供recordId参数!";
         }
-        if(!outerFieldName){
+        if(outerFieldName==undefined||outerFieldName==null){
             throw "方法需要提供outerFieldName参数!";
         }
-        if(!outerFieldValue){
+        if(outerFieldValue==undefined||outerFieldValue==null){
             throw "方法需要提供outerFieldValue参数!";
         }
         return {
@@ -42,6 +45,23 @@ let FormRelationPOUtility={
         //return relationPO.oneDataRecord.recordFieldPOList;
     },
     Add1ToNDataRecord:function (relationPO, arrayData) {
+        for (var i = 0; i < arrayData.length; i++) {
+            if(arrayData[i].desc==undefined||arrayData[i].desc==null) {
+                throw "arrayData中的数据对象需要包含desc属性!";
+            }
+            if(arrayData[i].recordId==undefined||arrayData[i].recordId==null) {
+                throw "arrayData中的数据对象需要包含recordId属性!";
+            }
+            if(arrayData[i].recordFieldPOList==undefined||arrayData[i].recordFieldPOList==null) {
+                throw "arrayData中的数据对象需要包含recordFieldPOList属性!";
+            }
+            if(arrayData[i].outerFieldName==undefined||arrayData[i].outerFieldName==null) {
+                throw "arrayData中的数据对象需要包含outerFieldName属性!";
+            }
+            if(arrayData[i].outerFieldValue==undefined||arrayData[i].outerFieldValue==null) {
+                throw "arrayData中的数据对象需要包含outerFieldValue属性!";
+            }
+        }
         relationPO.listDataRecord=arrayData;
         return relationPO;
     },
@@ -86,8 +106,11 @@ let FormRelationPOUtility={
     },
     FindMainRelationPO:function(relationPOList){
         return ArrayUtility.WhereSingle(relationPOList,function (item) {
-            return item.isMain==true||item.parentId=="-1";
+            return FormRelationPOUtility.IsMainRelationPO(item);
         });
+    },
+    IsMainRelationPO:function(relationPO){
+        return relationPO.isMain==true||relationPO.parentId=="-1";
     },
     FindNotMainRelationPO:function(relationPOList){
         return ArrayUtility.Where(relationPOList,function (item) {
@@ -104,11 +127,11 @@ let FormRelationPOUtility={
             return po.tableName==tableName;
         });
     },
-    FindRelationPOBySingleName:function (relationPOList, singleName) {
+    /*FindRelationPOBySingleName:function (relationPOList, singleName) {
         return ArrayUtility.WhereSingle(relationPOList,function (po) {
             return po.singleName==singleName;
         })
-    },
+    },*/
     FindFieldPOInRelationFormRecordComplexPoOneDataRecord:function (relationFormRecordComplexPo,relationId,tableName,fieldName) {
         //debugger;
         if (this._FieldPOCache == null) {
@@ -136,16 +159,21 @@ let FormRelationPOUtility={
             return item.id==relationId;
         })
     },
-    FindChildRelationPOList:function (relationPOList,parentRelationPO) {
+    FindParentFieldValueInFormDataRelationListWith1To1DataRecord:function(formDataRelationList,parentRelationPOId,outerFieldName,outerFieldValue){
+        var parentRelationPO=ArrayUtility.WhereSingle(this._FormDataRelationList,function (item) {
+            return item.id==relationPO.parentId;
+        });
+    },
+    /*FindChildRelationPOList:function (relationPOList,parentRelationPO) {
         return ArrayUtility.Where(relationPOList,function (item) {
             return item.parentId=parentRelationPO.id;
         });
-    },
-    HasChildRelationPO:function (relationPOList,parentPOId) {
+    },*/
+    /*HasChildRelationPO:function (relationPOList,parentPOId) {
         return ArrayUtility.Exist(relationPOList,function (item) {
             return item.parentId==parentPOId;
         });
-    },
+    },*/
     CreateFieldInOneDataRecord:function(recordFieldPOArray,fieldName,fieldValue) {
         //var recordFieldPOArray=this.FindRecordFieldPOArray(oneDataRecord)
         var fieldPO = JsonUtility.CloneSimple(recordFieldPOArray[0]);
@@ -158,5 +186,6 @@ let FormRelationPOUtility={
             idValue = StringUtility.Guid();
         }
         this.CreateFieldInOneDataRecord(recordFieldPOArray,"ID",idValue);
+        //return idValue;
     }
 }
