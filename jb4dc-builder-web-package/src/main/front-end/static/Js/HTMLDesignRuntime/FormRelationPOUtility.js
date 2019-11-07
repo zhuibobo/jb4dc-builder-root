@@ -1,17 +1,29 @@
 let FormRelationPOUtility={
     //配合FindFieldPOInRelationFormRecordComplexPoOneDataRecord方法使用,避免每次进行查询
     _FieldPOCache:null,
-    BuildRecord:function(fieldPOArray,desc){
+    BuildRecord:function(fieldPOArray,desc,recordId,outerFieldName,outerFieldValue){
+        if(!recordId){
+            throw "方法需要提供recordId参数!";
+        }
+        if(!outerFieldName){
+            throw "方法需要提供outerFieldName参数!";
+        }
+        if(!outerFieldValue){
+            throw "方法需要提供outerFieldValue参数!";
+        }
         return {
-            "desc":desc,
-            "recordFieldPOList":fieldPOArray
+            "recordId":recordId,
+            "desc": desc,
+            "recordFieldPOList": fieldPOArray,
+            "outerFieldName": outerFieldName,
+            "outerFieldValue": outerFieldValue
         };
     },
     FindRecordFieldPOArray:function(record){
         return record.recordFieldPOList;
     },
-    Add1To1DataRecordFieldPOList:function (relationPO, fieldPOList) {
-        relationPO.oneDataRecord=this.BuildRecord(fieldPOList,"一对一数据");
+    Add1To1DataRecordFieldPOList:function (relationPO, fieldPOList,desc,recordId,outerFieldName,outerFieldValue) {
+        relationPO.oneDataRecord=this.BuildRecord(fieldPOList,desc,recordId,outerFieldName,outerFieldValue);
         return relationPO;
     },
     Add1To1DataRecord:function (relationPO, recordPO) {
@@ -56,7 +68,7 @@ let FormRelationPOUtility={
         }
         throw "FormRuntime.FindFieldPOByRelationPO:找不到字段" + fieldName + "的数据值!";
     },
-    FindFieldPOInOneDataRecordByID:function(oneDataRecord){
+    FindIDFieldPOInOneDataRecord:function(oneDataRecord){
         return this.FindFieldPOInOneDataRecord(oneDataRecord,"ID");
     },
     FindFieldPOByRelationPO:function(relationPO,fieldName){

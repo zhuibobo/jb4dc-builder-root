@@ -26,7 +26,7 @@ let InnerFormButtonRuntime= {
             listButtonPO.buttonId,
             operationType,
             function (result) {
-                console.log(result);
+                //console.log(result);
                 if(result.success){
                     window.setTimeout(function () {
                         DialogUtility.CloseDialog(DialogUtility.DialogLoadingId);

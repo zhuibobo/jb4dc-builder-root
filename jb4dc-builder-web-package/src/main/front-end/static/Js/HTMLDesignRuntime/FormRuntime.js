@@ -66,7 +66,7 @@ let FormRuntime={
             }
             else{
                 RuntimeGeneralInstance.LoadInnerFormButton(this._Prop_Config.ButtonId,{},function (result) {
-                    console.log(result);
+                    //console.log(result);
                     if(result.data) {
                         this.CreateALLInnerFormButton(result.data);
                     }
@@ -123,10 +123,23 @@ let FormRuntime={
                     var fieldTransferPO = HTMLControl.TryGetFieldTransferPO($controlElem, singleRelation.id, relationSingleName, relationType);
                     oneRowRecord.push(fieldTransferPO);
                 }
-                if(isMain){
-                    FormRelationPOUtility.CreateIdFieldInOneDataRecord(oneRowRecord,formRecordComplexPo.recordId);
+
+                var recordId = "";
+                var outerFieldName = "";
+                var outerFieldValue = "";
+                //debugger;
+                if (isMain) {
+                    FormRelationPOUtility.CreateIdFieldInOneDataRecord(oneRowRecord, formRecordComplexPo.recordId);
+                    recordId = formRecordComplexPo.recordId;
+                    outerFieldName = "NotOuterField";
+                    outerFieldValue = "NotOuterField";
+                } else {
+                    recordId = FormRelationPOUtility.FindIDFieldPOInOneDataRecord(oneRowRecord).value;
+                    outerFieldName = singleRelation.outerKeyFieldName;
+                    outerFieldValue = singleRelation.outerKeyFieldName;
                 }
-                FormRelationPOUtility.Add1To1DataRecordFieldPOList(singleRelation,oneRowRecord);
+
+                FormRelationPOUtility.Add1To1DataRecordFieldPOList(singleRelation, oneRowRecord,"",recordId,outerFieldName,outerFieldValue);
             } else {
                 var control = $("[serialize='true'][control_category='DynamicContainer'][relation_po_id='"+singleRelation.id+"']");
                 if(control.length>0) {
@@ -183,7 +196,7 @@ let FormRuntimeMock={
                     "condition": "",
                     "tableId": "TDEV_TEST_1",
                     "tableName": "TDEV_TEST_1",
-                    "tableCaption": "开发测试表1",
+                    "tableCaption": "开发测试表11",
                     "tableCode": "T_10437",
                     "displayText": "TDEV_TEST_1[开发测试表1]",
                     "icon": "../../../Themes/Png16X16/table.png",

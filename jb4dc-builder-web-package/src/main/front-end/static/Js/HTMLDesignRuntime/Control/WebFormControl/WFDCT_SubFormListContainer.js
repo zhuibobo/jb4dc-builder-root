@@ -141,6 +141,7 @@ var WFDCT_SubFormListContainer={
                 all$TrAttrChildRelationPoArray = all$TrAttrChildRelationPoArray.concat(trChildRelationPOArray)
             }
         }
+        console.log(allData);
         FormRelationPOUtility.Add1ToNDataRecord(relationPO,allData);
 
         //debugger;
@@ -446,7 +447,7 @@ var WFDCT_SubFormListContainer={
                 controlInstance.SetValue(control, fieldPO, null, null);
             }
 
-            var idFieldPO=FormRelationPOUtility.FindFieldPOInOneDataRecordByID(oneDataRecord);
+            var idFieldPO=FormRelationPOUtility.FindIDFieldPOInOneDataRecord(oneDataRecord);
             //console.log(idFieldPO);
             var lastOperationTd = $("<td><div class='sflt-td-operation-outer-wrap'></div></td>");
             var lastOperationOuterDiv = lastOperationTd.find("div");

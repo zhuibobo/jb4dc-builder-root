@@ -6,7 +6,10 @@ public class FormRecordDataPO  {
 
     List<FormRecordFieldDataPO> recordFieldPOList;
 
+    String recordId;
     String desc;
+    String outerFieldName;
+    String outerFieldValue;
 
     public List<FormRecordFieldDataPO> getRecordFieldPOList() {
         return recordFieldPOList;
@@ -22,5 +25,29 @@ public class FormRecordDataPO  {
 
     public void setDesc(String desc) {
         this.desc = desc;
+    }
+
+    public String getRecordId() {
+        return recordId;
+    }
+
+    public void setRecordId(String recordId) {
+        this.recordId = recordId;
+    }
+
+    public String getOuterFieldName() {
+        return outerFieldName;
+    }
+
+    public void setOuterFieldName(String outerFieldName) {
+        this.outerFieldName = outerFieldName;
+    }
+
+    public String getOuterFieldValue() {
+        return outerFieldValue;
+    }
+
+    public void setOuterFieldValue(String outerFieldValue) {
+        this.outerFieldValue = outerFieldValue;
     }
 }
