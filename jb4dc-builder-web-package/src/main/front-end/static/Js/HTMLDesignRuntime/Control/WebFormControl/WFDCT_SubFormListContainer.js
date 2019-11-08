@@ -127,26 +127,33 @@ var WFDCT_SubFormListContainer={
     },
 
     SerializationValue:function(originalFormDataRelation,relationPO,control){
+
         this.InnerRow_CompletedLastEdit();
         var allData=[];
         var all$TrAttrChildRelationPoArray=[];
         var trs=this._$SingleControlElem.find("tr[is_sub_list_tr='true']");
+        var selfPO=this.TryGetRelationPOClone();
+        debugger;
         for (var i = 0; i < trs.length; i++) {
             var $tr = $(trs[i]);
             var singleRelationPO=this.GetRowData($tr);
-            allData.push(FormRelationPOUtility.Get1To1DataRecord(singleRelationPO));
+            var tempRecord=FormRelationPOUtility.Get1To1DataRecord(singleRelationPO);
+            var idValue=FormRelationPOUtility.FindIDFieldPOInOneDataRecord(tempRecord).value;
+            var tempSelfRecord=this.TryBuildRecord(singleRelationPO,idValue,tempRecord.recordFieldPOList);
+            allData.push(tempSelfRecord);
             //console.log(singleJsonData);
-            var trChildRelationPOArray=this.GetChildRelationPOArray($tr);
-            if(trChildRelationPOArray) {
-                all$TrAttrChildRelationPoArray = all$TrAttrChildRelationPoArray.concat(trChildRelationPOArray)
-            }
+            //var trChildRelationPOArray=this.GetChildRelationPOArray($tr);
+            //if(trChildRelationPOArray) {
+            //    all$TrAttrChildRelationPoArray = all$TrAttrChildRelationPoArray.concat(trChildRelationPOArray)
+            //}
         }
         console.log(allData);
+
         FormRelationPOUtility.Add1ToNDataRecord(relationPO,allData);
 
         //debugger;
         //尝试处理子表记录
-        var childRelationArray=ArrayUtility.Where(originalFormDataRelation,function(item){
+        /*var childRelationArray=ArrayUtility.Where(originalFormDataRelation,function(item){
             return item.parentId==relationPO.id;
         });
 
@@ -162,7 +169,8 @@ var WFDCT_SubFormListContainer={
                 }
             }
             FormRelationPOUtility.Add1ToNDataRecord(childRelationPO,allChildData);
-        }
+        }*/
+
     },
     GetValue:function ($elem,originalData, paras) {
         DialogUtility.AlertText("DynamicContainer类型的控件的序列化交由SerializationValue方法自行完成!");
@@ -274,6 +282,36 @@ var WFDCT_SubFormListContainer={
     TryGetBindDataSourceAttr:function(){
         return this._$SingleControlElem.attr("binddatasource");
     },
+    TryBuildRecord:function(relationPO,recordId,fieldPOArray) {
+        var outerFieldName = relationPO.outerKeyFieldName;
+        var selfKeyFieldName = relationPO.selfKeyFieldName;
+        var outerFieldValue = "";
+        var parentRelationPO = ArrayUtility.WhereSingle(this._FormDataRelationList, function (item) {
+            return item.id == relationPO.parentId;
+        });
+        if(StringUtility.IsNullOrEmpty(outerFieldName)){
+            var errorMessage = "数据源未设置外键关联字段!";
+            DialogUtility.AlertText(errorMessage);
+            throw errorMessage;
+        }
+        if(StringUtility.IsNullOrEmpty(selfKeyFieldName)){
+            var errorMessage = "数据源未设置本身关联字段!";
+            DialogUtility.AlertText(errorMessage);
+            throw errorMessage;
+        }
+        if (FormRelationPOUtility.IsMainRelationPO(parentRelationPO) && outerFieldName == "ID") {
+            outerFieldValue = this._FormRuntimeHost.GetRecordId();
+        } else {
+            var tableId = parentRelationPO.tableId;
+            var fieldValue = HTMLControl.GetSimpleControlValue(tableId, outerFieldName);
+            if (StringUtility.IsNullOrEmpty(fieldValue)) {
+                var errorMessage = "找不到绑定了表:" + tableId + ",字段:" + outerFieldName + "的控件,请确认页面放置了该控件,并存在值!";
+                DialogUtility.AlertText(errorMessage);
+                throw errorMessage;
+            }
+        }
+        return FormRelationPOUtility.BuildRecord(fieldPOArray,"",recordId,outerFieldName,outerFieldValue);
+    },
     //endregion
 
     //region 行内编辑相关方法
@@ -368,41 +406,26 @@ var WFDCT_SubFormListContainer={
 
             var relationPO=this.TryGetRelationPOClone();
             //console.log(relationPO);
-            var oneRowRecord = [];
+            var recordFieldPOList = [];
             for (var i = 0; i < controls.length; i++) {
                 var singleControl=$(controls[i]);
                 var fieldTransferPO = HTMLControl.TryGetFieldTransferPO(singleControl, relationPO.id, relationPO.singleName, relationPO.relationType);
-                oneRowRecord.push(fieldTransferPO);
+                recordFieldPOList.push(fieldTransferPO);
             }
             var idValue=this.GetRowId(this._$LastEditRow);
             if(!idValue){
                 idValue=StringUtility.Guid();
             }
             //if(!id){
-            FormRelationPOUtility.CreateIdFieldInOneDataRecord(oneRowRecord,idValue);
+            FormRelationPOUtility.CreateIdFieldInRecordFieldPOArray(recordFieldPOList,idValue);
             //}
-            var outerFieldName=relationPO.outerKeyFieldName;
-            var outerFieldValue="";
-            var parentRelationPO=ArrayUtility.WhereSingle(this._FormDataRelationList,function (item) {
-                return item.id==relationPO.parentId;
-            });
-            if(FormRelationPOUtility.IsMainRelationPO(parentRelationPO)&&outerFieldName=="ID"){
-                outerFieldValue=this._FormRuntimeHost.GetRecordId();
-            }
-            else{
-                var tableId=parentRelationPO.tableId;
-                var fieldValue=HTMLControl.GetSimpleControlValue(tableId,outerFieldName);
-                if(StringUtility.IsNullOrEmpty(fieldValue)){
-                    var errorMessage="找不到绑定了表:"+tableId+",字段:"+outerFieldName+"的控件,请确认页面放置了该控件,并存在值!";
-                    DialogUtility.AlertText(errorMessage);
-                    throw errorMessage;
-                }
-            }
+
             //console.log(relationPO);
-            relationPO=FormRelationPOUtility.Add1To1DataRecordFieldPOList(relationPO,oneRowRecord,"",idValue,outerFieldName,outerFieldValue);
+            var tempRecord=this.TryBuildRecord(relationPO,idValue,recordFieldPOList);
+            relationPO=FormRelationPOUtility.Add1To1DataRecordFieldPOList(relationPO,recordFieldPOList,"",tempRecord.recordId,tempRecord.outerFieldName,tempRecord.outerFieldValue);
             this.SaveDataToRowAttr(relationPO,this._$LastEditRow);
             this.InnerRow_ToViewStatus(relationPO, this._$LastEditRow);
-            //console.log(oneRowRecord);
+            //console.log(recordFieldPOList);
         }
     },
     //endregion
@@ -637,7 +660,7 @@ var WFDCT_SubFormListContainer1={
 
                 for (var j = 0; j < subRelationPO.listDataRecord.length; j++) {
                     var recordFieldPOList=FormRelationPOUtility.FindRecordFieldPOArray(subRelationPO.listDataRecord[j]);
-                    FormRelationPOUtility.CreateFieldInOneDataRecord(recordFieldPOList,selfKeyFieldName,outerKeyFieldValue);
+                    FormRelationPOUtility.CreateFieldInRecordFieldPOArray(recordFieldPOList,selfKeyFieldName,outerKeyFieldValue);
                 }
 
             }

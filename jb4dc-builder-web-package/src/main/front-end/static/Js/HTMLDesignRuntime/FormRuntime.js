@@ -168,7 +168,7 @@ let FormRuntime={
                 var outerFieldValue = "";
                 //debugger;
                 if (isMain) {
-                    FormRelationPOUtility.CreateIdFieldInOneDataRecord(oneRowRecord, formRecordComplexPo.recordId);
+                    FormRelationPOUtility.CreateIdFieldInRecordFieldPOArray(oneRowRecord, formRecordComplexPo.recordId);
                     recordId = formRecordComplexPo.recordId;
                     outerFieldName = "NotOuterField";
                     outerFieldValue = "NotOuterField";
@@ -228,7 +228,7 @@ let FormRuntimeMockDataPool= {
         }
         return null;
     },
-    SavaDataToParentPool: function (groupName, recordId, data) {
+    SaveDataToParentPool: function (groupName, recordId, data) {
         window.parent.FormRuntimeMockDataPool.SaveData(groupName, recordId, data);
     },
     GetDataFromParentPool: function (groupName, recordId) {

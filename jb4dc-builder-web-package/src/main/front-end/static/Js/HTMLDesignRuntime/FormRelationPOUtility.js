@@ -174,18 +174,18 @@ let FormRelationPOUtility={
             return item.parentId==parentPOId;
         });
     },*/
-    CreateFieldInOneDataRecord:function(recordFieldPOArray,fieldName,fieldValue) {
+    CreateFieldInRecordFieldPOArray:function(recordFieldPOArray, fieldName, fieldValue) {
         //var recordFieldPOArray=this.FindRecordFieldPOArray(oneDataRecord)
         var fieldPO = JsonUtility.CloneSimple(recordFieldPOArray[0]);
         fieldPO.fieldName = fieldName;
         fieldPO.value = fieldValue;
         recordFieldPOArray.push(fieldPO);
     },
-    CreateIdFieldInOneDataRecord:function(recordFieldPOArray,idValue){
+    CreateIdFieldInRecordFieldPOArray:function(recordFieldPOArray, idValue){
         if(!idValue){
             idValue = StringUtility.Guid();
         }
-        this.CreateFieldInOneDataRecord(recordFieldPOArray,"ID",idValue);
+        this.CreateFieldInRecordFieldPOArray(recordFieldPOArray,"ID",idValue);
         //return idValue;
     }
 }

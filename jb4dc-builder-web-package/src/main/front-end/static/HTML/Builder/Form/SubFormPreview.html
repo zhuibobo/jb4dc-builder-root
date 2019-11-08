@@ -58,7 +58,7 @@
                 var serializationSubFormData=formRuntimeInst.SerializationFormData();
                 console.log("子表单数据1");
                 console.log(serializationSubFormData);
-                FormRuntimeMockDataPool.SavaDataToParentPool("SubFormPreview",FormRuntimeSinglePageObject.getWebFormRTParas().RecordId,serializationSubFormData);
+                FormRuntimeMockDataPool.SaveDataToParentPool("SubFormPreview",FormRuntimeSinglePageObject.getWebFormRTParas().RecordId,serializationSubFormData);
                 window.parent.WFDCT_SubFormListContainer.Dialog_SubFormDialogCompletedEdit(subFormListContainerInstanceName,FormRuntimeSinglePageObject.getWebFormRTParas().OperationType,serializationSubFormData);
                 DialogUtility.CloseOpenIframeWindow(window,DialogUtility.DialogId);
             });
