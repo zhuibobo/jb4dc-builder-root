@@ -6,7 +6,7 @@
     <th:block th:replace="Fragment/GeneralLib::HTMLDesignRuntimeLib"></th:block>
     <th:block th:replace="Fragment/GeneralLib::ThemesLib"></th:block>
     <script>
-        var webFormRTParas={
+        /*var webFormRTParas={
             "FormId":BaseUtility.GetUrlParaValue("FormId"),
             "ButtonId":BaseUtility.GetUrlParaValue("ButtonId"),
             "OperationType":BaseUtility.GetUrlParaValue("OperationType"),
@@ -15,12 +15,13 @@
         };
         if(StringUtility.IsNullOrEmpty(webFormRTParas.RecordId)){
             webFormRTParas.RecordId=StringUtility.Guid();
-        }
+        }*/
+        var formRuntimeInst;
         $(function () {
 
             //console.log(webFormRTParas);
 
-            var formRuntimeInst = Object.create(FormRuntime);
+            /*var formRuntimeInst = Object.create(FormRuntime);
             formRuntimeInst.Initialization({
                 RendererToId: "htmlDesignRuntimeWrap",
                 FormId:webFormRTParas.FormId,
@@ -32,7 +33,11 @@
                     //var relationFormRecordComplexPo=FormRuntimeMock.GetMockData();
                     //this.DeSerializationFormData(relationFormRecordComplexPo);
                 }
-            })
+            })*/
+
+            formRuntimeInst=FormRuntimeSinglePageObject.pageReady(false,function () {
+
+            });
         });
     </script>
 </head>
