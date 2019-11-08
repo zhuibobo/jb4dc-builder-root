@@ -17,8 +17,9 @@
     <th:block th:replace="Fragment/GeneralLib::ThemesLib"></th:block>
     <script>
         var formRuntimeInst;
+        //var formRuntimeInst;
         $(function () {
-            formRuntimeInst = Object.create(FormRuntime);
+            /*formRuntimeInst = Object.create(FormRuntime);
             var formId=BaseUtility.GetUrlParaValue("FormId");
             var buttonid=BaseUtility.GetUrlParaValue("ButtonId");
             var operationType=BaseUtility.GetUrlParaValue("OperationType");
@@ -29,10 +30,13 @@
                 IsPreview:true,
                 OperationType:operationType,
                 RendererChainCompletedFunc:function () {
-                    var relationFormRecordComplexPo=FormRuntimeMock.GetMockData();
-                    this.DeSerializationFormData(relationFormRecordComplexPo);
+                    //var relationFormRecordComplexPo=FormRuntimeMock.GetMockData();
+                    //this.DeSerializationFormData(relationFormRecordComplexPo);
                 }
             });
+             */
+            formRuntimeInst=FormRuntimeSinglePageObject.pageReady(true);
+
             BaseUtility.SetSystemFavicon();
 
             $("#btnSaveButton").bind("click",{},function (sender) {

@@ -1,3 +1,39 @@
+let FormRuntimeSinglePageObject={
+    _webFormRTParas:null,
+    _formRuntimeInst:null,
+    getWebFormRTParas:function () {
+        if(!this._webFormRTParas) {
+            this._webFormRTParas = {
+                "FormId": BaseUtility.GetUrlParaValue("FormId"),
+                "ButtonId": BaseUtility.GetUrlParaValue("ButtonId"),
+                "OperationType": BaseUtility.GetUrlParaValue("OperationType"),
+                "ElemId": BaseUtility.GetUrlParaValue("ElemId"),
+                "RecordId": BaseUtility.GetUrlParaValue("RecordId")
+            };
+            if(!this._webFormRTParas.RecordId){
+                this._webFormRTParas.RecordId=StringUtility.Guid();
+            }
+        }
+        return this._webFormRTParas;
+    },
+    pageReady:function (isPreview,rendererChainCompletedFunc) {
+        //debugger;
+        this._formRuntimeInst = Object.create(FormRuntime);
+        var webFormRTParas=this.getWebFormRTParas();
+        this._formRuntimeInst.Initialization({
+            RendererToId: "htmlDesignRuntimeWrap",
+            FormId:webFormRTParas.FormId,
+            RecordId:webFormRTParas.RecordId,
+            ButtonId:webFormRTParas.ButtonId,
+            OperationType:webFormRTParas.OperationType,
+            IsPreview:isPreview,
+            RendererChainCompletedFunc:rendererChainCompletedFunc
+        });
+        //this._formRuntimeInst.webFormRTParas=webFormRTParas;
+        return this._formRuntimeInst;
+    }
+}
+
 let FormRuntime={
     OperationAdd:"add",
     OperationUpdate:"update",
@@ -46,7 +82,7 @@ let FormRuntime={
             //console.log(result.data.formHtmlRuntime);
             //var $rootElem=$(result.data.formHtmlRuntime);
             //if($rootElem.)
-            //console.log(result);
+            //debugger;
             this._FormPO=result.data;
             this._FormDataRelationList=JsonUtility.StringToJson(this._FormPO.formDataRelation);
 
@@ -179,8 +215,26 @@ let FormRuntime={
     }
 }
 
-let FormRuntimeMock={
-    GetMockData:function () {
+let FormRuntimeMockDataPool= {
+    mockDataPool: {},
+    SaveData: function (groupName, recordId, data) {
+        var key = groupName + "-" + recordId;
+        this.mockDataPool[key] = data;
+    },
+    GetData: function (groupName, recordId) {
+        var key = groupName + "-" + recordId;
+        if (this.mockDataPool[key]) {
+            return this.mockDataPool[key];
+        }
+        return null;
+    },
+    SavaDataToParentPool: function (groupName, recordId, data) {
+        window.parent.FormRuntimeMockDataPool.SaveData(groupName, recordId, data);
+    },
+    GetDataFromParentPool: function (groupName, recordId) {
+        return window.parent.FormRuntimeMockDataPool.GetData(groupName, recordId);
+    },
+    GetMockData: function () {
         return {
             "recordId": "",
             "formId": "34db0d6f-7978-4acf-8a45-13a6ee5f63e2",

@@ -408,7 +408,198 @@ var WFDCT_SubFormListContainer={
     //endregion
 
     //region 对话框编辑相关方法
+    Dialog_Get_Button_Click_Para:function ($singleControlElem) {
+        //console.log(BaseUtility.GetElemAllAttr($singleControlElem));
+        /*
+                        "FormId": BaseUtility.GetUrlParaValue("FormId"),
+                "ButtonId": BaseUtility.GetUrlParaValue("ButtonId"),
+                "OperationType": BaseUtility.GetUrlParaValue("OperationType"),
+                "ElemId": BaseUtility.GetUrlParaValue("ElemId"),
+                "RecordId": BaseUtility.GetUrlParaValue("RecordId")
+         */
+        var para={
+            FormId:$singleControlElem.attr("formid"),
+            ButtonId:"",
+            ElemId:"",
+            RecordId:"",
+            WindowHeight:$singleControlElem.attr("windowheight"),
+            WindowWidth:$singleControlElem.attr("windowwidth"),
+            InstanceName:$singleControlElem.attr("client_instance_name"),
+            DialogWindowTitle:$singleControlElem.attr("dialogwindowtitle")
+        };
+        return para;
+    },
+    Dialog_AddRow_AddViewButton:function (operationOuterDiv,$tr,idValue,oneDataRecord,$singleControlElem,isPreview) {
+        var btn_operation_view = $("<div title='查看' class='sflt-td-operation-view'></div>");
+        var dialogWindowPara=this.Dialog_Get_Button_Click_Para($singleControlElem);
+        btn_operation_view.bind("click", {
+            "$tr": $tr,
+            "idValue": idValue,
+            "oneDataRecord": oneDataRecord,
+            "dialogWindowPara": dialogWindowPara,
+            "isPreview":isPreview
+        }, function (sender) {
+            var dialogWindowPara = sender.data.dialogWindowPara;
+            dialogWindowPara.OperationType="view";
+            dialogWindowPara.RecordId=sender.data.idValue;
+            var url;
+            if (isPreview) {
+                url = BaseUtility.BuildView("/HTML/Builder/Form/SubFormPreview.html", dialogWindowPara);
+            }
+            else{
+                url = BaseUtility.BuildView("/HTML/Builder/Runtime/WebFormSubRuntime.html", dialogWindowPara);
+            }
 
+            DialogUtility.OpenIframeWindow(window, DialogUtility.DialogId, url, {
+                title: dialogWindowPara.DialogWindowTitle,
+                width: dialogWindowPara.WindowWidth,
+                height: dialogWindowPara.WindowHeight
+            }, 1);
+        });
+
+        operationOuterDiv.append(btn_operation_view);
+    },
+    Dialog_AddRow_AddUpdateButton:function (operationOuterDiv,$tr,idValue,oneDataRecord,$singleControlElem,isPreview) {
+        var btn_operation_view = $("<div title='编辑' class='sflt-td-operation-update'></div>");
+        var dialogWindowPara=this.Dialog_Get_Button_Click_Para($singleControlElem);
+        btn_operation_view.bind("click", {
+            "$tr": $tr,
+            "idValue": idValue,
+            "oneDataRecord": oneDataRecord,
+            "dialogWindowPara": dialogWindowPara,
+            "isPreview":isPreview
+        }, function (sender) {
+            var dialogWindowPara = sender.data.dialogWindowPara;
+            dialogWindowPara.OperationType="update";
+            dialogWindowPara.RecordId=sender.data.idValue;
+            var url;
+            if (isPreview) {
+                url = BaseUtility.BuildView("/HTML/Builder/Form/SubFormPreview.html", dialogWindowPara);
+            }
+            else{
+                url = BaseUtility.BuildView("/HTML/Builder/Runtime/WebFormSubRuntime.html", dialogWindowPara);
+            }
+
+            DialogUtility.OpenIframeWindow(window, DialogUtility.DialogId, url, {
+                title: dialogWindowPara.DialogWindowTitle,
+                width: dialogWindowPara.WindowWidth,
+                height: dialogWindowPara.WindowHeight
+            }, 1);
+        });
+
+        operationOuterDiv.append(btn_operation_view);
+    },
+    Dialog_AddRow_AddDeleteButton:function (operationOuterDiv,$tr,idValue,oneDataRecord,$singleControlElem,isPreview) {
+        var btn_operation_view = $("<div title='删除' class='sflt-td-operation-del'></div>");
+
+        btn_operation_view.bind("click", {
+            "$tr": $tr,
+            "idValue": idValue,
+            "oneDataRecord": oneDataRecord,
+            "isPreview":isPreview
+        }, function (sender) {
+            sender.data.$tr.remove();
+        });
+
+        operationOuterDiv.append(btn_operation_view);
+    },
+    Dialog_ShowAddRowSubFormDialog:function(sender,$singleControlElem,_rendererChainParas,instanceName) {
+        var dialogWindowPara=this.Dialog_Get_Button_Click_Para($singleControlElem);
+        if (!dialogWindowPara.DialogWindowTitle) {
+            dialogWindowPara.DialogWindowTitle = "应用构建系统";
+        }
+
+        dialogWindowPara.OperationType="add";
+        dialogWindowPara.RecordId=StringUtility.Guid();
+
+        var isPreview = this._FormRuntimeHost.IsPreview();
+        var url;
+        if (isPreview) {
+            url = BaseUtility.BuildView("/HTML/Builder/Form/SubFormPreview.html", dialogWindowPara);
+        }
+        else{
+            url = BaseUtility.BuildView("/HTML/Builder/Runtime/WebFormSubRuntime.html", dialogWindowPara);
+        }
+
+        DialogUtility.OpenIframeWindow(window, DialogUtility.DialogId, url, {
+            title: dialogWindowPara.DialogWindowTitle,
+            width: dialogWindowPara.WindowWidth,
+            height: dialogWindowPara.WindowHeight
+        }, 1);
+    },
+    Dialog_SubFormDialogCompletedEdit:function(instanceName,operationType,serializationSubFormData) {
+        //对于对话框类型的编辑,子表确实时,将直接存入数据库,所以这边只要呈现.
+        var thisInstance = HTMLControl.GetInstance(instanceName);
+        (function (operationType, serializationSubFormData) {
+
+            //父窗体的相关的关联设置
+            //var selfRelationPO = this.TryGetRelationPOClone();
+            //子窗体相关的关联设置
+            var subFormMainRelationPO = FormRelationPOUtility.FindMainRelationPO(serializationSubFormData.formRecordDataRelationPOList);
+
+            var oneDataRecord = FormRelationPOUtility.Get1To1DataRecord(subFormMainRelationPO);
+            this.Dialog_AddRowToContainer(oneDataRecord, false);
+
+        }).call(thisInstance, operationType, serializationSubFormData)
+    },
+    Dialog_AddRowToContainer:function(oneDataRecord,dataIsFromServer){
+        if(oneDataRecord) {
+            var $tr = this._$TemplateTableRow.clone();
+            var controls = HTMLControl.FindALLControls($tr);
+            for (var i = 0; i < controls.length; i++) {
+                var control = $(controls[i]);
+                var controlInstance = HTMLControl.GetControlInstanceByElem(control);
+                var fieldName = HTMLControl.GetControlBindFieldName(control);
+                var fieldPO = FormRelationPOUtility.FindFieldPOInOneDataRecord(oneDataRecord, fieldName)
+                controlInstance.SetValue(control, fieldPO, null, null);
+            }
+
+            var idFieldPO=FormRelationPOUtility.FindIDFieldPOInOneDataRecord(oneDataRecord);
+            //console.log(idFieldPO);
+            var lastOperationTd = $("<td><div class='sflt-td-operation-outer-wrap'></div></td>");
+            var lastOperationOuterDiv = lastOperationTd.find("div");
+            if(dataIsFromServer) {
+                if (this._Display_OPButtons_View) {
+                    this.Dialog_AddRow_AddViewButton(lastOperationOuterDiv, $tr, idFieldPO.value, oneDataRecord, this._$SingleControlElem, this._FormRuntimeHost.IsPreview());
+                }
+                if (this._Display_OPButtons_Update) {
+                    this.Dialog_AddRow_AddUpdateButton(lastOperationOuterDiv, $tr, idFieldPO.value, oneDataRecord, this._$SingleControlElem, this._FormRuntimeHost.IsPreview());
+                }
+                if (this._Display_OPButtons_Del) {
+                    this.Dialog_AddRow_AddDeleteButton(lastOperationOuterDiv, $tr, idFieldPO.value, oneDataRecord, this._$SingleControlElem, this._FormRuntimeHost.IsPreview());
+                }
+            }
+            else {
+                this.Dialog_AddRow_AddViewButton(lastOperationOuterDiv, $tr, idFieldPO.value, oneDataRecord, this._$SingleControlElem, this._FormRuntimeHost.IsPreview());
+                this.Dialog_AddRow_AddUpdateButton(lastOperationOuterDiv, $tr, idFieldPO.value, oneDataRecord, this._$SingleControlElem, this._FormRuntimeHost.IsPreview());
+                this.Dialog_AddRow_AddDeleteButton(lastOperationOuterDiv, $tr, idFieldPO.value, oneDataRecord, this._$SingleControlElem, this._FormRuntimeHost.IsPreview());
+            }
+
+            $tr.append(lastOperationTd);
+
+            var idValue=idFieldPO.value;
+            var $oldTrElem = this._$SingleControlElem.find("tr[tr_record_id='" + idValue + "']");
+            if($oldTrElem.length==0) {
+                this._$TableBodyElem.append($tr);
+            }
+            else{
+                $oldTrElem.after($tr);
+                $oldTrElem.remove();
+            }
+
+            //构建本身数据关联PO
+            //debugger;
+            var relationPO = this.TryGetRelationPOClone();
+            relationPO = FormRelationPOUtility.Add1To1DataRecord(relationPO, oneDataRecord);
+
+            this.SaveDataToRowAttr(relationPO, $tr);
+            //console.log(childRelationPOArray);
+        }
+    }
+    //endregion
+}
+
+var WFDCT_SubFormListContainer1={
     Dialog_SubFormDialogCompletedEdit:function(instanceName,operationType,serializationSubFormData) {
         var thisInstance = HTMLControl.GetInstance(instanceName);
         (function (operationType, serializationSubFormData) {
@@ -509,35 +700,7 @@ var WFDCT_SubFormListContainer={
             //console.log(childRelationPOArray);
         }
     },
-    Dialog_ShowAddRowSubFormDialog:function(sender,$singleControlElem,_rendererChainParas,instanceName) {
-        //var formId = $hostElem.attr("formid");
-        //var windowHeight = $hostElem.attr("windowheight");
-        //var windowWidth = $hostElem.attr("windowwidth");
-        //var dialogWindowTitle = $hostElem.attr("dialogwindowtitle");
 
-        var dialogWindowPara=this.Dialog_Get_Button_Click_Para($singleControlElem);
-        if (!dialogWindowPara.DialogWindowTitle) {
-            dialogWindowPara.DialogWindowTitle = "应用构建系统";
-        }
-
-        dialogWindowPara.OperationType="add";
-        dialogWindowPara.RecordId=StringUtility.Guid();
-
-        var isPreview = this._FormRuntimeHost.IsPreview();
-        var url;
-        if (isPreview) {
-            url = BaseUtility.BuildView("/HTML/Builder/Form/SubFormPreview.html", dialogWindowPara);
-        }
-        else{
-            url = BaseUtility.BuildView("/HTML/Builder/Runtime/WebFormSubRuntime.html", dialogWindowPara);
-        }
-
-        DialogUtility.OpenIframeWindow(window, DialogUtility.DialogId, url, {
-            title: dialogWindowPara.DialogWindowTitle,
-            width: dialogWindowPara.WindowWidth,
-            height: dialogWindowPara.WindowHeight
-        }, 1);
-    },
     Dialog_AddRow_AddViewButton:function (operationOuterDiv,$tr,idValue,oneDataRecord,$singleControlElem,isPreview) {
         var btn_operation_view = $("<div title='查看' class='sflt-td-operation-view'></div>");
         var dialogWindowPara=this.Dialog_Get_Button_Click_Para($singleControlElem);
@@ -612,17 +775,7 @@ var WFDCT_SubFormListContainer={
 
         operationOuterDiv.append(btn_operation_view);
     },
-    Dialog_Get_Button_Click_Para:function ($singleControlElem) {
-        //console.log(BaseUtility.GetElemAllAttr($singleControlElem));
-        var para={
-            FormId:$singleControlElem.attr("formid"),
-            WindowHeight:$singleControlElem.attr("windowheight"),
-            WindowWidth:$singleControlElem.attr("windowwidth"),
-            InstanceName:$singleControlElem.attr("client_instance_name"),
-            DialogWindowTitle:$singleControlElem.attr("dialogwindowtitle")
-        };
-        return para;
-    },
+
     Dialog_Get_SubForm_RecordComplexPo:function (instanceName,subFormDataRelationList,idValue) {
         var thisInstance = HTMLControl.GetInstance(instanceName);
         (function (subFormDataRelationList, idValue) {
@@ -661,112 +814,4 @@ var WFDCT_SubFormListContainer={
             formRecordDataRelationPOList: subFormDataRelationList
         };
     }
-    /*,
-    Dialog_Add:function (sender,$hostElem,_rendererChainParas,instanceName) {
-        var formId=$hostElem.attr("formid");
-        var windowHeight=$hostElem.attr("windowheight");
-        var windowWidth=$hostElem.attr("windowwidth");
-        var dialogWindowTitle=$hostElem.attr("dialogwindowtitle");
-        if(!dialogWindowTitle){
-            dialogWindowTitle="应用构建系统";
-        }
-
-        var isPreview=_rendererChainParas.formRuntimeInstance.IsPreview();
-        if(isPreview) {
-            var url=BaseUtility.BuildView("/HTML/Builder/Form/SubFormPreview.html", {
-                "FormId": formId,
-                "OperationType":"add",
-                "InstanceName":instanceName
-            });
-            DialogUtility.OpenIframeWindow(window, DialogUtility.DialogId, url, {
-                title: dialogWindowTitle,
-                width:windowWidth,
-                height:windowHeight
-            }, 1);
-        }
-        //console.log(_rendererChainParas);
-        //console.log(windowHeight);
-        //console.log(windowWidth);
-    },
-    Dialog_CompletedEdit:function(instanceName,operationType,serializationSubFormData){
-        if(this.ValidateSerializationSubFormDataEnable(serializationSubFormData)) {
-
-            var oneDataRecord = ArrayUtility.WhereSingle(serializationSubFormData.formRecordDataRelationPOList, function (item) {
-                return item.isMain == true;
-            }).oneDataRecord;
-
-            if (operationType == FormRuntime.OperationAdd) {
-                //如果是新产生的记录，则生成随机的主键
-                console.log("如果是新产生的记录，则生成随机的主键");
-                this.CreateIdFieldInOneDataRecord(oneDataRecord);
-            }
-
-            //console.log(instanceName);
-            console.log(oneDataRecord);
-            //console.log(oneDataRecord);
-            //console.log(this._$TemplateTableRow);
-            //this._$TableBodyElem.append("<tr><td></td><td></td><td></td><td></td></tr>");
-            this.UpdateRow(oneDataRecord);
-
-        }
-    },
-    Dialog_ViewRow:function (sender) {
-
-    },
-    Dialog_UpdateRow:function (sender) {
-
-    },
-    Dialog_DelRow:function (sender) {
-
-    },
-    Dialog_UpdateRow:function () {
-        var $tr = this._$TemplateTableRow.clone();
-        var controls = HTMLControl.FindALLControls($tr);
-        controls.each(function (i) {
-            var prop=HTMLControl.GetControlProp($(this));
-            //debugger;
-            var cellValue=HTMLControl.GetSerializationOneDataRecordFieldValue(oneDataRecord,prop.tableName,prop.fieldName);
-            $(this).html(cellValue);
-        });
-        var idField=this.FindIdFieldByOneDataRecord(oneDataRecord);
-        if(idField==null){
-            DialogUtility.AlertText("WFDCT_SubFormListContainer.NewRow:查找不到ID的字段！");
-        }
-        console.log("绑定的记录ID:"+idField.value);
-        var idValue=idField.value;
-        $tr.attr("record_id",idValue);
-        $tr.attr("record_data",JsonUtility.JsonToString(oneDataRecord));
-        var lastOperationTd=$("<td><div class='sflt-td-operation-outer-wrap'></div></td>");
-        var lastOperationOuterDiv=lastOperationTd.find("div");
-        if(this._Display_OPButtons_View) {
-            var btn_operation_view = $("<div title='查看' class='sflt-td-operation-view'></div>");
-            lastOperationOuterDiv.append(btn_operation_view);
-            btn_operation_view.bind("click", {
-                "tr_elem": $tr,
-                "id": idValue,
-                "record_data": oneDataRecord
-            }, this.Dialog_ViewRow);
-        }
-        if(this._Display_OPButtons_Update) {
-            var btn_operation_update=$("<div title='编辑' class='sflt-td-operation-update'></div>");
-            lastOperationOuterDiv.append(btn_operation_update);
-            btn_operation_view.bind("click",{
-                "tr_elem": $tr,
-                "id": idValue,
-                "record_data": oneDataRecord
-            },this.Dialog_UpdateRow);
-        }
-        if(this._Display_OPButtons_Del) {
-            var btn_operation_del=$("<div title='删除' class='sflt-td-operation-del'></div>");
-            lastOperationOuterDiv.append(btn_operation_del);
-            btn_operation_view.bind("click",{
-                "tr_elem": $tr,
-                "id": idValue,
-                "record_data": oneDataRecord
-            },this.Dialog_DelRow)
-        }
-        $tr.append(lastOperationTd);
-        this._$TableBodyElem.append($tr);
-    }*/
-    //endregion
 }
