@@ -30,7 +30,8 @@
             });*/
 
             formRuntimeInst=FormRuntimeSinglePageObject.pageReady(true,function () {
-                if(FormRuntimeSinglePageObject.getWebFormRTParas().OperationType=="view"||FormRuntimeSinglePageObject.getWebFormRTParas().OperationType=="update") {
+                //debugger;
+                if(BaseUtility.IsViewOperation(FormRuntimeSinglePageObject.getWebFormRTParas().OperationType)||BaseUtility.IsUpdateOperation(FormRuntimeSinglePageObject.getWebFormRTParas().OperationType)) {
                     //debugger;
                     //var subRecordComplexPo = window.parent.WFDCT_SubFormListContainer.Dialog_Get_SubForm_RecordComplexPo(subFormListContainerInstanceName, this._FormDataRelationList,this._Prop_Config.RecordId);
                     //console.log(subRecordComplexPo);

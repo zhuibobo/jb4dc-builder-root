@@ -299,6 +299,7 @@ var WFDCT_SubFormListContainer={
             DialogUtility.AlertText(errorMessage);
             throw errorMessage;
         }
+        //debugger;
         if (FormRelationPOUtility.IsMainRelationPO(parentRelationPO) && outerFieldName == "ID") {
             outerFieldValue = this._FormRuntimeHost.GetRecordId();
         } else {
@@ -310,7 +311,7 @@ var WFDCT_SubFormListContainer={
                 throw errorMessage;
             }
         }
-        return FormRelationPOUtility.BuildRecord(fieldPOArray,"",recordId,outerFieldName,outerFieldValue);
+        return FormRelationPOUtility.BuildRecord(fieldPOArray,"",recordId,outerFieldName,outerFieldValue,selfKeyFieldName);
     },
     //endregion
 
@@ -422,7 +423,7 @@ var WFDCT_SubFormListContainer={
 
             //console.log(relationPO);
             var tempRecord=this.TryBuildRecord(relationPO,idValue,recordFieldPOList);
-            relationPO=FormRelationPOUtility.Add1To1DataRecordFieldPOList(relationPO,recordFieldPOList,"",tempRecord.recordId,tempRecord.outerFieldName,tempRecord.outerFieldValue);
+            relationPO=FormRelationPOUtility.Add1To1DataRecordFieldPOList(relationPO,recordFieldPOList,"",tempRecord.recordId,tempRecord.outerFieldName,tempRecord.outerFieldValue,tempRecord.selfFieldName);
             this.SaveDataToRowAttr(relationPO,this._$LastEditRow);
             this.InnerRow_ToViewStatus(relationPO, this._$LastEditRow);
             //console.log(recordFieldPOList);
@@ -816,7 +817,9 @@ var WFDCT_SubFormListContainer1={
                 oneDataRecord.desc,
                 oneDataRecord.recordId,
                 oneDataRecord.outerFieldName,
-                oneDataRecord.outerFieldValue);
+                oneDataRecord.outerFieldValue,
+                oneDataRecord.selfFieldName
+                );
             //console.log(child_relation_po_array);
             var childPOList = FormRelationPOUtility.FindNotMainRelationPO(subFormDataRelationList);
 

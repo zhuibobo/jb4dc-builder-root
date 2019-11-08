@@ -76,17 +76,22 @@ public class WebFormDataSaveRuntimeServiceImpl implements IWebFormDataSaveRuntim
     public SubmitResultPO SaveFormRecordComplexPO(JB4DCSession jb4DCSession, String recordId, FormRecordComplexPO formRecordComplexPO, String listButtonId, String innerFormButtonId,String operationTypeName) throws JBuild4DCGenerallyException, IOException, JBuild4DCSQLKeyWordException {
         SubmitResultPO submitResultPO = new SubmitResultPO();
 
-        ListButtonEntity listButtonEntity = webListButtonRuntimeResolveService.getButtonPO(listButtonId);
-        List<InnerFormButtonConfig> innerFormButtonConfigList = JsonUtility.toObjectListIgnoreProp(listButtonEntity.getButtonInnerConfig(), InnerFormButtonConfig.class);
-        InnerFormButtonConfig innerFormButtonConfig = innerFormButtonConfigList.parallelStream().filter(item -> item.id.equals(innerFormButtonId)).findFirst().get();
+        ListButtonEntity listButtonEntity=null;
+        List<InnerFormButtonConfig> innerFormButtonConfigList=null;
+        InnerFormButtonConfig innerFormButtonConfig=null;
+        if(StringUtility.isNotEmpty(listButtonId)) {
+            listButtonEntity = webListButtonRuntimeResolveService.getButtonPO(listButtonId);
+            innerFormButtonConfigList = JsonUtility.toObjectListIgnoreProp(listButtonEntity.getButtonInnerConfig(), InnerFormButtonConfig.class);
+            innerFormButtonConfig = innerFormButtonConfigList.parallelStream().filter(item -> item.id.equals(innerFormButtonId)).findFirst().get();
 
-        //执行前置API
-        if (innerFormButtonConfig.getApis() != null && innerFormButtonConfig.getApis().size() > 0) {
-            List<InnerFormButtonConfigAPI> beforeApiList = innerFormButtonConfig.getApis().parallelStream().filter(item -> item.getRunTime().equals("之前")).collect(Collectors.toList());
-            for (InnerFormButtonConfigAPI innerFormButtonConfigAPI : beforeApiList) {
-                ApiRunResult apiRunResult = rubApi(innerFormButtonConfigAPI, formRecordComplexPO, listButtonEntity, innerFormButtonConfigList, innerFormButtonConfig);
-                if (!apiRunResult.isSuccess()) {
-                    throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_BUILDER_CODE, "执行前置API" + innerFormButtonConfigAPI.getValue() + "失败!");
+            //执行前置API
+            if (innerFormButtonConfig.getApis() != null && innerFormButtonConfig.getApis().size() > 0) {
+                List<InnerFormButtonConfigAPI> beforeApiList = innerFormButtonConfig.getApis().parallelStream().filter(item -> item.getRunTime().equals("之前")).collect(Collectors.toList());
+                for (InnerFormButtonConfigAPI innerFormButtonConfigAPI : beforeApiList) {
+                    ApiRunResult apiRunResult = rubApi(innerFormButtonConfigAPI, formRecordComplexPO, listButtonEntity, innerFormButtonConfigList, innerFormButtonConfig);
+                    if (!apiRunResult.isSuccess()) {
+                        throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_BUILDER_CODE, "执行前置API" + innerFormButtonConfigAPI.getValue() + "失败!");
+                    }
                 }
             }
         }
@@ -108,18 +113,20 @@ public class WebFormDataSaveRuntimeServiceImpl implements IWebFormDataSaveRuntim
             }
         }
 
-        //修改字段
-        for (InnerFormButtonConfigField field : innerFormButtonConfig.getFields()) {
-            this.updateField(jb4DCSession, field, formRecordComplexPO);
-        }
+        if(StringUtility.isNotEmpty(listButtonId)) {
+            //修改字段
+            for (InnerFormButtonConfigField field : innerFormButtonConfig.getFields()) {
+                this.updateField(jb4DCSession, field, formRecordComplexPO);
+            }
 
-        //执行后置API
-        if (innerFormButtonConfig.getApis() != null && innerFormButtonConfig.getApis().size() > 0) {
-            List<InnerFormButtonConfigAPI> afterApiList = innerFormButtonConfig.getApis().parallelStream().filter(item -> item.getRunTime().equals("之后")).collect(Collectors.toList());
-            for (InnerFormButtonConfigAPI innerFormButtonConfigAPI : afterApiList) {
-                ApiRunResult apiRunResult = rubApi(innerFormButtonConfigAPI, formRecordComplexPO, listButtonEntity, innerFormButtonConfigList, innerFormButtonConfig);
-                if (!apiRunResult.isSuccess()) {
-                    throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_BUILDER_CODE, "执行后置API" + innerFormButtonConfigAPI.getValue() + "失败!");
+            //执行后置API
+            if (innerFormButtonConfig.getApis() != null && innerFormButtonConfig.getApis().size() > 0) {
+                List<InnerFormButtonConfigAPI> afterApiList = innerFormButtonConfig.getApis().parallelStream().filter(item -> item.getRunTime().equals("之后")).collect(Collectors.toList());
+                for (InnerFormButtonConfigAPI innerFormButtonConfigAPI : afterApiList) {
+                    ApiRunResult apiRunResult = rubApi(innerFormButtonConfigAPI, formRecordComplexPO, listButtonEntity, innerFormButtonConfigList, innerFormButtonConfig);
+                    if (!apiRunResult.isSuccess()) {
+                        throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_BUILDER_CODE, "执行后置API" + innerFormButtonConfigAPI.getValue() + "失败!");
+                    }
                 }
             }
         }
@@ -138,13 +145,27 @@ public class WebFormDataSaveRuntimeServiceImpl implements IWebFormDataSaveRuntim
         }
     }
 
+    private void validateTableFieldDefaultValue(List<TableFieldPO> hasDefaultValueTableFieldPOList) throws JBuild4DCGenerallyException {
+        for (TableFieldPO tableFieldPO : hasDefaultValueTableFieldPOList) {
+            if(tableFieldPO.getFieldName().toUpperCase().equals("ID")&&StringUtility.isNotEmpty(tableFieldPO.getFieldDefaultValue())){
+                throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_BUILDER_CODE,"表"+tableFieldPO.getTableName()+"字段ID不支持设置默认值");
+            }
+        }
+    }
+
     private List<PendingSQLPO> resolveFormRecordComplexPOTOPendingSQL(JB4DCSession jb4DCSession, String recordId, FormRecordComplexPO formRecordComplexPO,String operationTypeName) throws JBuild4DCGenerallyException, JBuild4DCSQLKeyWordException {
         List<PendingSQLPO> pendingSQLPOList = new ArrayList<>();
 
         //将主记录转换为SQL语句
         FormRecordDataRelationPO mainFormRecordDataRelationPO = FormRecordComplexPOUtility.findMainFormRecordDataRelationPO(formRecordComplexPO);
         String idValue = FormRecordComplexPOUtility.findIdInFormRecordFieldDataPO(mainFormRecordDataRelationPO.getOneDataRecord());
-        PendingSQLPO pendingSQLPO=resolveFormRecordDataPOTOPendingSQL(jb4DCSession,recordId,mainFormRecordDataRelationPO.getTableName(),mainFormRecordDataRelationPO.getTableId(),mainFormRecordDataRelationPO.getOneDataRecord());
+        PendingSQLPO pendingSQLPO=resolveFormRecordDataPOTOPendingSQL(
+                jb4DCSession,
+                recordId,
+                idValue,
+                mainFormRecordDataRelationPO.getTableName(),
+                mainFormRecordDataRelationPO.getTableId(),
+                mainFormRecordDataRelationPO.getOneDataRecord());
         pendingSQLPOList.add(pendingSQLPO);
 
         //转换从记录
@@ -153,14 +174,14 @@ public class WebFormDataSaveRuntimeServiceImpl implements IWebFormDataSaveRuntim
             for (FormRecordDataRelationPO formRecordDataRelationPO : notMainFormRecordDataRelationPOList) {
                 if(formRecordDataRelationPO.getOneDataRecord()!=null){
                     String subOneIdValue = FormRecordComplexPOUtility.findIdInFormRecordFieldDataPO(formRecordDataRelationPO.getOneDataRecord());
-                    PendingSQLPO subOnePendingSQLPO=resolveFormRecordDataPOTOPendingSQL(jb4DCSession,subOneIdValue,formRecordDataRelationPO.getTableName(),formRecordDataRelationPO.getTableId(),formRecordDataRelationPO.getOneDataRecord());
+                    PendingSQLPO subOnePendingSQLPO=resolveFormRecordDataPOTOPendingSQL(jb4DCSession,recordId,subOneIdValue,formRecordDataRelationPO.getTableName(),formRecordDataRelationPO.getTableId(),formRecordDataRelationPO.getOneDataRecord());
                     pendingSQLPOList.add(subOnePendingSQLPO);
                 }
                 if(formRecordDataRelationPO.getListDataRecord()!=null&&formRecordDataRelationPO.getListDataRecord().size()>0) {
                     List<FormRecordDataPO> listDataRecord = formRecordDataRelationPO.getListDataRecord();
                     for (FormRecordDataPO formRecordDataPO : listDataRecord) {
                         String subListIdValue = FormRecordComplexPOUtility.findIdInFormRecordFieldDataPO(formRecordDataPO);
-                        PendingSQLPO subListPendingSQLPO=resolveFormRecordDataPOTOPendingSQL(jb4DCSession,subListIdValue,formRecordDataRelationPO.getTableName(),formRecordDataRelationPO.getTableId(),formRecordDataPO);
+                        PendingSQLPO subListPendingSQLPO=resolveFormRecordDataPOTOPendingSQL(jb4DCSession,recordId,subListIdValue,formRecordDataRelationPO.getTableName(),formRecordDataRelationPO.getTableId(),formRecordDataPO);
                         pendingSQLPOList.add(subListPendingSQLPO);
                     }
                 }
@@ -170,7 +191,7 @@ public class WebFormDataSaveRuntimeServiceImpl implements IWebFormDataSaveRuntim
         return pendingSQLPOList;
     }
 
-    private PendingSQLPO resolveFormRecordDataPOTOPendingSQL(JB4DCSession jb4DCSession, String recordId,String tableName,String tableId,FormRecordDataPO formRecordDataPO) throws JBuild4DCGenerallyException, JBuild4DCSQLKeyWordException {
+    private PendingSQLPO resolveFormRecordDataPOTOPendingSQL(JB4DCSession jb4DCSession, String recordId, String idValue,String tableName,String tableId,FormRecordDataPO formRecordDataPO) throws JBuild4DCGenerallyException, JBuild4DCSQLKeyWordException {
         try {
             PendingSQLPO pendingSQLPO = new PendingSQLPO();
             if (!SQLKeyWordUtility.singleWord(tableName)) {
@@ -178,13 +199,15 @@ public class WebFormDataSaveRuntimeServiceImpl implements IWebFormDataSaveRuntim
             }
             StringBuilder sqlBuilder = new StringBuilder();
             Map<String, Object> sqlMapPara = new HashMap<>();
-            List<FormRecordFieldDataPO> recordFieldPOList = FormRecordComplexPOUtility.findExcludeIdFormRecordFieldList(formRecordDataPO);
+            List<FormRecordFieldDataPO> recordFieldPOList = formRecordDataPO.getRecordFieldPOList();
             Map<String, FormRecordFieldDataPO> recordFieldPOListMap = FormRecordComplexPOUtility.converFormRecordFieldDataPOListToMap(recordFieldPOList);
             if (!this.formRecordDataPOIsExist(formRecordDataPO, tableName)) {
                 pendingSQLPO.setExecType(PendingSQLPO.EXEC_TYPE_INSERT);
                 //尝试补完表设计中的默认值
                 List<TableFieldPO> tableFieldPOList = tableRuntimeProxy.getTableFieldsByTableId(tableId);
                 List<TableFieldPO> hasDefaultValueTableFieldPOList = tableFieldPOList.parallelStream().filter(item -> StringUtility.isNotEmpty(item.getFieldDefaultValue())).collect(Collectors.toList());
+
+                this.validateTableFieldDefaultValue(hasDefaultValueTableFieldPOList);
                 //计算生成默认值
                 for (TableFieldPO tableFieldPO : hasDefaultValueTableFieldPOList) {
                     String value = envVariableRuntimeResolveProxy.execDefaultValueResult(jb4DCSession, tableFieldPO.getFieldDefaultType(), tableFieldPO.getFieldDefaultValue());
@@ -206,6 +229,15 @@ public class WebFormDataSaveRuntimeServiceImpl implements IWebFormDataSaveRuntim
                 StringBuilder fieldNames = new StringBuilder();
                 StringBuilder fieldValues = new StringBuilder();
 
+                //设置外键关联的相关字段
+                if(!formRecordDataPO.getSelfFieldName().equals("NotOuterField")) {
+                    fieldNames.append(formRecordDataPO.getSelfFieldName());
+                    fieldNames.append(",");
+                    fieldValues.append("#{"+formRecordDataPO.getSelfFieldName()+"}");
+                    fieldValues.append(",");
+                    sqlMapPara.put(formRecordDataPO.getSelfFieldName(), formRecordDataPO.getOuterFieldValue());
+                }
+
                 for (FormRecordFieldDataPO formRecordFieldDataPO : recordFieldPOList) {
                     fieldNames.append(formRecordFieldDataPO.getFieldName());
                     fieldNames.append(",");
@@ -218,7 +250,11 @@ public class WebFormDataSaveRuntimeServiceImpl implements IWebFormDataSaveRuntim
                 //fieldValues = fieldValues.delete(fieldValues.length() - 2, 1);
                 fieldValues =fieldValues.deleteCharAt(fieldValues.length() - 1);
                 sqlBuilder.append("insert into " + tableName + "(" + fieldNames + ") values(" + fieldValues + ")");
-            } else {
+            }
+            else {
+                recordFieldPOList = FormRecordComplexPOUtility.findExcludeIdFormRecordFieldList(formRecordDataPO);
+                recordFieldPOListMap = FormRecordComplexPOUtility.converFormRecordFieldDataPOListToMap(recordFieldPOList);
+
                 pendingSQLPO.setExecType(PendingSQLPO.EXEC_TYPE_UPDATE);
                 sqlBuilder.append("update " + tableName + " set ");
 
@@ -228,7 +264,7 @@ public class WebFormDataSaveRuntimeServiceImpl implements IWebFormDataSaveRuntim
                 }
 
                 sqlBuilder.append("where ID=${ID}");
-                sqlMapPara.put("ID", recordId);
+                sqlMapPara.put("ID", idValue);
             }
 
             pendingSQLPO.setSql(sqlBuilder.toString());

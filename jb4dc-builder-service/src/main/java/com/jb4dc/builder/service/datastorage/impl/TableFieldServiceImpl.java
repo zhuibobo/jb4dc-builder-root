@@ -83,7 +83,7 @@ public class TableFieldServiceImpl extends BaseServiceImpl<TableFieldEntity> imp
         TableFieldEntity idField=newFiled(jb4DCSession,"Template","ID","ID",
                 TrueFalseEnum.True,TrueFalseEnum.False,
                 TableFieldTypeEnum.NVarCharType,50,0,
-                "EnvVar", UUIDVariableCreator.ENV_ID_CODE_UUID_VALUE,UUIDVariableCreator.ENV_ID_CODE_UUID_TEXT,
+                "", "","",
                 "表主键",templateName);
         tableFieldMapper.insert(idField);
 

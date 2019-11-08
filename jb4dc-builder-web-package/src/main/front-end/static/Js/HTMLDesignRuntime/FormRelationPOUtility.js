@@ -1,7 +1,7 @@
 let FormRelationPOUtility={
     //配合FindFieldPOInRelationFormRecordComplexPoOneDataRecord方法使用,避免每次进行查询
     _FieldPOCache:null,
-    BuildRecord:function(fieldPOArray,desc,recordId,outerFieldName,outerFieldValue){
+    BuildRecord:function(fieldPOArray,desc,recordId,outerFieldName,outerFieldValue,selfFieldName){
         if(desc==undefined||desc==null) {
             throw "方法需要提供desc参数!";
         }
@@ -14,19 +14,23 @@ let FormRelationPOUtility={
         if(outerFieldValue==undefined||outerFieldValue==null){
             throw "方法需要提供outerFieldValue参数!";
         }
+        if(selfFieldName==undefined||selfFieldName==null){
+            throw "方法需要提供selfFieldName参数!";
+        }
         return {
             "recordId":recordId,
             "desc": desc,
             "recordFieldPOList": fieldPOArray,
             "outerFieldName": outerFieldName,
-            "outerFieldValue": outerFieldValue
+            "outerFieldValue": outerFieldValue,
+            "selfFieldName":selfFieldName
         };
     },
     FindRecordFieldPOArray:function(record){
         return record.recordFieldPOList;
     },
-    Add1To1DataRecordFieldPOList:function (relationPO, fieldPOList,desc,recordId,outerFieldName,outerFieldValue) {
-        relationPO.oneDataRecord=this.BuildRecord(fieldPOList,desc,recordId,outerFieldName,outerFieldValue);
+    Add1To1DataRecordFieldPOList:function (relationPO, fieldPOList,desc,recordId,outerFieldName,outerFieldValue,selfFieldName) {
+        relationPO.oneDataRecord=this.BuildRecord(fieldPOList,desc,recordId,outerFieldName,outerFieldValue,selfFieldName);
         return relationPO;
     },
     Add1To1DataRecord:function (relationPO, recordPO) {
@@ -60,6 +64,9 @@ let FormRelationPOUtility={
             }
             if(arrayData[i].outerFieldValue==undefined||arrayData[i].outerFieldValue==null) {
                 throw "arrayData中的数据对象需要包含outerFieldValue属性!";
+            }
+            if(arrayData[i].selfFieldName==undefined||arrayData[i].selfFieldName==null) {
+                throw "arrayData中的数据对象需要包含selfFieldName属性!";
             }
         }
         relationPO.listDataRecord=arrayData;

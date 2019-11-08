@@ -10,6 +10,7 @@ public class FormRecordDataPO  {
     String desc;
     String outerFieldName;
     String outerFieldValue;
+    String selfFieldName;
 
     public List<FormRecordFieldDataPO> getRecordFieldPOList() {
         return recordFieldPOList;
@@ -49,5 +50,13 @@ public class FormRecordDataPO  {
 
     public void setOuterFieldValue(String outerFieldValue) {
         this.outerFieldValue = outerFieldValue;
+    }
+
+    public String getSelfFieldName() {
+        return selfFieldName;
+    }
+
+    public void setSelfFieldName(String selfFieldName) {
+        this.selfFieldName = selfFieldName;
     }
 }

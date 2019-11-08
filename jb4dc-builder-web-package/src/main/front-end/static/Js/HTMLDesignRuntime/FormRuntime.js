@@ -166,19 +166,22 @@ let FormRuntime={
                 var recordId = "";
                 var outerFieldName = "";
                 var outerFieldValue = "";
+                var selfFieldName = "";
                 //debugger;
                 if (isMain) {
                     FormRelationPOUtility.CreateIdFieldInRecordFieldPOArray(oneRowRecord, formRecordComplexPo.recordId);
                     recordId = formRecordComplexPo.recordId;
                     outerFieldName = "NotOuterField";
                     outerFieldValue = "NotOuterField";
+                    selfFieldName = "NotOuterField";
                 } else {
                     recordId = FormRelationPOUtility.FindIDFieldPOInOneDataRecord(oneRowRecord).value;
                     outerFieldName = singleRelation.outerKeyFieldName;
                     outerFieldValue = singleRelation.outerKeyFieldName;
+                    selfFieldName = singleRelation.selfKeyFieldName;
                 }
 
-                FormRelationPOUtility.Add1To1DataRecordFieldPOList(singleRelation, oneRowRecord,"",recordId,outerFieldName,outerFieldValue);
+                FormRelationPOUtility.Add1To1DataRecordFieldPOList(singleRelation, oneRowRecord, "", recordId, outerFieldName, outerFieldValue, selfFieldName);
             } else {
                 var control = $("[serialize='true'][control_category='DynamicContainer'][relation_po_id='"+singleRelation.id+"']");
                 if(control.length>0) {

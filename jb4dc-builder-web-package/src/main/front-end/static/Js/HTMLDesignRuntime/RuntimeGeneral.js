@@ -47,16 +47,16 @@ var RuntimeGeneralInstance= {
         });
         this._Ajax(url,params,callback,sender);
     },
-    SubmitFormDataComplexPOListToServer:function (formDataComplexPOList,recordId,innerFormButtonId,listButtonId,operationType,callback,sender) {
+    SubmitFormDataComplexPOListToServer:function (formDataComplexPO,recordId,innerFormButtonId,listButtonId,operationType,callback,sender) {
         var url = BaseUtility.BuildAction("/Rest/Builder/RunTime/InnerFormButtonRuntime/ReceiveHandler", {});
         var params = {
-            "formRecordComplexPOString": encodeURIComponent(JsonUtility.JsonToString(formDataComplexPOList)),
+            "formRecordComplexPOString": encodeURIComponent(JsonUtility.JsonToString(formDataComplexPO)),
             "innerFormButtonId": innerFormButtonId,
             "listButtonId": listButtonId,
             "recordId": recordId,
             "operationTypeName":operationType
         };
         this._Ajax(url, params, callback, sender);
-        console.log(formDataComplexPOList);
+        console.log(formDataComplexPO);
     }
 }
