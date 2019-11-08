@@ -133,7 +133,7 @@ var WFDCT_SubFormListContainer={
         var all$TrAttrChildRelationPoArray=[];
         var trs=this._$SingleControlElem.find("tr[is_sub_list_tr='true']");
         var selfPO=this.TryGetRelationPOClone();
-        debugger;
+        //debugger;
         for (var i = 0; i < trs.length; i++) {
             var $tr = $(trs[i]);
             var singleRelationPO=this.GetRowData($tr);
