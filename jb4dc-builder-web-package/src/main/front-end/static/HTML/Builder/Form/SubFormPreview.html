@@ -44,6 +44,7 @@
                     //var subRecordComplexPo = window.parent.WFDCT_SubFormListContainer.Dialog_Get_SubForm_RecordComplexPo(subFormListContainerInstanceName, this._FormDataRelationList,this._Prop_Config.RecordId);
                     //console.log(subRecordComplexPo);
                     //debugger;
+                    var subRecordComplexPo = FormRuntimeMockDataPool.GetDataFromParentPool("SubFormPreview",FormRuntimeSinglePageObject.getWebFormRTParas().RecordId);
 
                     this.DeSerializationFormData(subRecordComplexPo);
                 }
@@ -55,7 +56,7 @@
 
             $("#btnConfirm").click(function () {
                 var serializationSubFormData=formRuntimeInst.SerializationFormData();
-                console.log("子表单数据");
+                console.log("子表单数据1");
                 console.log(serializationSubFormData);
                 FormRuntimeMockDataPool.SavaDataToParentPool("SubFormPreview",FormRuntimeSinglePageObject.getWebFormRTParas().RecordId,serializationSubFormData);
                 window.parent.WFDCT_SubFormListContainer.Dialog_SubFormDialogCompletedEdit(subFormListContainerInstanceName,FormRuntimeSinglePageObject.getWebFormRTParas().OperationType,serializationSubFormData);
