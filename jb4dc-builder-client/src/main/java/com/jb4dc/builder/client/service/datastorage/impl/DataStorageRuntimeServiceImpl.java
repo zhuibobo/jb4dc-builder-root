@@ -1,3 +1,4 @@
+/*
 package com.jb4dc.builder.client.service.datastorage.impl;
 
 import com.jb4dc.base.dbaccess.dynamic.ISQLBuilderMapper;
@@ -11,12 +12,14 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Map;
 
+*/
 /**
  * Created with IntelliJ IDEA.
  * User: zhuangrb
  * Date: 2019/9/22
  * To change this template use File | Settings | File Templates.
- */
+ *//*
+
 @Service
 public class DataStorageRuntimeServiceImpl implements IDataStorageRuntimeService {
     @Autowired
@@ -31,24 +34,6 @@ public class DataStorageRuntimeServiceImpl implements IDataStorageRuntimeService
         this.sqlBuilderMapper = sqlBuilderMapper;
     }
 
-    @Override
-    public List<FormRecordDataRelationPO> getStorageDate(JB4DCSession session, String recordId, List<FormRecordDataRelationPO> formRecordDataRelationPOList) {
-        //Map result=new HashMap();
 
-        FormRecordDataRelationPO mainDataPO=formDataRelationService.getMainPO(formRecordDataRelationPOList);
-
-        String sql="select * from "+mainDataPO.getTableName()+" where ID=#{ID}";
-        Map mainRecord=sqlBuilderMapper.selectOne(sql,recordId);
-
-        //mainDataPO.addDataRecord(mainRecord);
-
-        for (FormRecordDataRelationPO formRecordDataRelationPO : formRecordDataRelationPOList) {
-            if(formDataRelationService.isNotMain(formRecordDataRelationPO)){
-                String selfKeyFieldName= formRecordDataRelationPO.getSelfKeyFieldName();
-                String outerKeyFieldName= formRecordDataRelationPO.getOuterKeyFieldName();
-            }
-        }
-
-        return formRecordDataRelationPOList;
-    }
 }
+*/

@@ -19,6 +19,7 @@ import com.jb4dc.builder.po.button.InnerFormButtonConfig;
 import com.jb4dc.builder.po.button.InnerFormButtonConfigAPI;
 import com.jb4dc.builder.po.button.InnerFormButtonConfigField;
 import com.jb4dc.builder.po.formdata.*;
+import com.jb4dc.builder.tool.FormDataRelationPOUtility;
 import com.jb4dc.builder.tool.FormRecordComplexPOUtility;
 import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
 import com.jb4dc.core.base.exception.JBuild4DCSQLKeyWordException;
@@ -134,7 +135,25 @@ public class WebFormDataSaveRuntimeServiceImpl implements IWebFormDataSaveRuntim
         return submitResultPO;
     }
 
-    private void validateFormRecordComplexPO(JB4DCSession jb4DCSession, String recordId, FormRecordComplexPO formRecordComplexPO,String operationTypeName) throws JBuild4DCGenerallyException, JBuild4DCSQLKeyWordException {
+    @Override
+    public List<FormRecordDataRelationPO> getFormRecordComplexPO(JB4DCSession session, String recordId, List<FormRecordDataRelationPO> formRecordDataRelationPOList) {
+
+        FormRecordDataRelationPO mainDataPO = FormDataRelationPOUtility.getMainPO(formRecordDataRelationPOList);
+
+        String sql = "select * from " + mainDataPO.getTableName() + " where ID=#{ID}";
+        Map mainRecord = sqlBuilderService.selectOne(sql, recordId);
+
+        for (FormRecordDataRelationPO formRecordDataRelationPO : formRecordDataRelationPOList) {
+            if (FormDataRelationPOUtility.isNotMain(formRecordDataRelationPO)) {
+                String selfKeyFieldName = formRecordDataRelationPO.getSelfKeyFieldName();
+                String outerKeyFieldName = formRecordDataRelationPO.getOuterKeyFieldName();
+            }
+        }
+
+        return formRecordDataRelationPOList;
+    }
+
+    protected void validateFormRecordComplexPO(JB4DCSession jb4DCSession, String recordId, FormRecordComplexPO formRecordComplexPO,String operationTypeName) throws JBuild4DCGenerallyException, JBuild4DCSQLKeyWordException {
         FormRecordDataRelationPO mainFormRecordDataRelationPO = FormRecordComplexPOUtility.findMainFormRecordDataRelationPO(formRecordComplexPO);
         //为新增操作时,判断ID是否已经存在.
         if(BaseUtility.isAddOperation(operationTypeName)){
@@ -145,7 +164,7 @@ public class WebFormDataSaveRuntimeServiceImpl implements IWebFormDataSaveRuntim
         }
     }
 
-    private void validateTableFieldDefaultValue(List<TableFieldPO> hasDefaultValueTableFieldPOList) throws JBuild4DCGenerallyException {
+    protected void validateTableFieldDefaultValue(List<TableFieldPO> hasDefaultValueTableFieldPOList) throws JBuild4DCGenerallyException {
         for (TableFieldPO tableFieldPO : hasDefaultValueTableFieldPOList) {
             if(tableFieldPO.getFieldName().toUpperCase().equals("ID")&&StringUtility.isNotEmpty(tableFieldPO.getFieldDefaultValue())){
                 throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_BUILDER_CODE,"表"+tableFieldPO.getTableName()+"字段ID不支持设置默认值");
@@ -153,8 +172,8 @@ public class WebFormDataSaveRuntimeServiceImpl implements IWebFormDataSaveRuntim
         }
     }
 
-    private static int ORDER_SPACE=5;
-    private int getNextDBOrderNum(String tableName,List<TableFieldPO> tableFieldPOList) throws JBuild4DCSQLKeyWordException {
+    protected static int ORDER_SPACE=5;
+    protected int getNextDBOrderNum(String tableName,List<TableFieldPO> tableFieldPOList) throws JBuild4DCSQLKeyWordException {
         String orderFieldName = this.getOrderNumFieldName(tableName, tableFieldPOList);
         if (SQLKeyWordUtility.singleWord(tableName)) {
             String sql = "select max(" + orderFieldName + ") from " + tableName + "";
@@ -166,7 +185,7 @@ public class WebFormDataSaveRuntimeServiceImpl implements IWebFormDataSaveRuntim
         return -1;
     }
 
-    private String getOrderNumFieldName(String tableName,List<TableFieldPO> tableFieldPOList){
+    protected String getOrderNumFieldName(String tableName,List<TableFieldPO> tableFieldPOList){
         String ORDER_NUM_FIELD_NAME="F_ORDER_NUM";
         if(tableFieldPOList.parallelStream().anyMatch(item->item.getFieldName().equals(ORDER_NUM_FIELD_NAME))){
             return ORDER_NUM_FIELD_NAME;
@@ -174,7 +193,7 @@ public class WebFormDataSaveRuntimeServiceImpl implements IWebFormDataSaveRuntim
         return null;
     }
 
-    private List<PendingSQLPO> resolveFormRecordComplexPOTOPendingSQL(JB4DCSession jb4DCSession, String recordId, FormRecordComplexPO formRecordComplexPO,String operationTypeName) throws JBuild4DCGenerallyException, JBuild4DCSQLKeyWordException {
+    protected List<PendingSQLPO> resolveFormRecordComplexPOTOPendingSQL(JB4DCSession jb4DCSession, String recordId, FormRecordComplexPO formRecordComplexPO,String operationTypeName) throws JBuild4DCGenerallyException, JBuild4DCSQLKeyWordException {
         List<PendingSQLPO> pendingSQLPOList = new ArrayList<>();
 
         //将主记录转换为SQL语句
@@ -244,7 +263,7 @@ public class WebFormDataSaveRuntimeServiceImpl implements IWebFormDataSaveRuntim
         return pendingSQLPOList;
     }
 
-    private PendingSQLPO resolveFormRecordDataPOTOPendingSQL(JB4DCSession jb4DCSession, String recordId, String idValue,String tableName,String tableId,FormRecordDataPO formRecordDataPO,String orderFieldName,int orderNum) throws JBuild4DCGenerallyException, JBuild4DCSQLKeyWordException {
+    protected PendingSQLPO resolveFormRecordDataPOTOPendingSQL(JB4DCSession jb4DCSession, String recordId, String idValue,String tableName,String tableId,FormRecordDataPO formRecordDataPO,String orderFieldName,int orderNum) throws JBuild4DCGenerallyException, JBuild4DCSQLKeyWordException {
         try {
             PendingSQLPO pendingSQLPO = new PendingSQLPO();
             if (!SQLKeyWordUtility.singleWord(tableName)) {
@@ -340,7 +359,7 @@ public class WebFormDataSaveRuntimeServiceImpl implements IWebFormDataSaveRuntim
         }
     }
 
-    private boolean formRecordDataPOIsExist(FormRecordDataPO formRecordDataPO,String tableName) throws JBuild4DCSQLKeyWordException, JBuild4DCGenerallyException {
+    protected boolean formRecordDataPOIsExist(FormRecordDataPO formRecordDataPO,String tableName) throws JBuild4DCSQLKeyWordException, JBuild4DCGenerallyException {
         String idValue = FormRecordComplexPOUtility.findIdInFormRecordFieldDataPO(formRecordDataPO);
         if (!SQLKeyWordUtility.singleWord(tableName)) {
             throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_BUILDER_CODE, "表名检测失败");

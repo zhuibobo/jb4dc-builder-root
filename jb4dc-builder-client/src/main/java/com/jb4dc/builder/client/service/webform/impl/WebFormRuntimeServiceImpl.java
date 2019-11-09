@@ -4,7 +4,7 @@ import com.jb4dc.base.service.general.JB4DCSessionUtility;
 import com.jb4dc.base.tools.JsonUtility;
 import com.jb4dc.builder.client.htmldesign.IHTMLRuntimeResolve;
 import com.jb4dc.builder.client.service.datastorage.IDataStorageRuntimeService;
-import com.jb4dc.builder.client.service.datastorage.IFormDataRelationService;
+import com.jb4dc.builder.client.service.webform.IWebFormDataSaveRuntimeService;
 import com.jb4dc.builder.client.service.webform.IWebFormRuntimeService;
 import com.jb4dc.builder.dbentities.weblist.ListButtonEntity;
 import com.jb4dc.builder.po.DynamicBindHTMLControlContextPO;
@@ -32,11 +32,14 @@ public class WebFormRuntimeServiceImpl implements IWebFormRuntimeService {
     @Autowired
     IHTMLRuntimeResolve htmlRuntimeResolve;
 
-    @Autowired
-    IDataStorageRuntimeService dataStorageRuntimeService;
+    //@Autowired
+    //IDataStorageRuntimeService dataStorageRuntimeService;
+
+    //@Autowired
+    //IFormDataRelationService formDataRelationService;
 
     @Autowired
-    IFormDataRelationService formDataRelationService;
+    IWebFormDataSaveRuntimeService webFormDataSaveRuntimeService;
 
     @Override
     public FormResourceComplexPO resolveFormResourceComplex(JB4DCSession session,String recordId, FormResourcePO remoteSourcePO, ListButtonEntity listButtonEntity) throws IOException, JBuild4DCGenerallyException {
@@ -49,7 +52,7 @@ public class WebFormRuntimeServiceImpl implements IWebFormRuntimeService {
             if (StringUtility.isNotEmpty(remoteSourcePO.getFormDataRelation())) {
                 formRecordDataRelationPOList = JsonUtility.toObjectList(remoteSourcePO.getFormDataRelation(), FormRecordDataRelationPO.class);
 
-                formRecordDataRelationPOList =dataStorageRuntimeService.getStorageDate(session,recordId, formRecordDataRelationPOList);
+                formRecordDataRelationPOList =webFormDataSaveRuntimeService.getFormRecordComplexPO(session,recordId, formRecordDataRelationPOList);
 
             } else {
                 throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_BUILDER_CODE, "该表单未设置数据关系!");

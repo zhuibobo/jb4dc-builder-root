@@ -40,6 +40,7 @@ public class FormRuntimeRest {
     @Autowired
     IWebFormRuntimeService webFormRuntimeService;
 
+    //加载html同时会根据数据关系,加载数据
     @RequestMapping("/LoadHTML")
     public JBuild4DCResponseVo<FormResourceComplexPO> loadHTML(String formId, String recordId, String buttonId) throws JBuild4DCGenerallyException, IOException {
 
@@ -62,4 +63,6 @@ public class FormRuntimeRest {
         return JBuild4DCResponseVo.getDataSuccess(formResourceComplexPO);
 
     }
+
+    //@RequestMapping("/")
 }
