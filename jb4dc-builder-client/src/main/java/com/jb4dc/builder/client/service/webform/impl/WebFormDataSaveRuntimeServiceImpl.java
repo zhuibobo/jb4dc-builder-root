@@ -197,43 +197,45 @@ public class WebFormDataSaveRuntimeServiceImpl implements IWebFormDataSaveRuntim
         List<FormRecordDataRelationPO> notMainFormRecordDataRelationPOList=FormRecordComplexPOUtility.findNotMainFormRecordDataRelationPO(formRecordComplexPO);
         if(notMainFormRecordDataRelationPOList!=null&&notMainFormRecordDataRelationPOList.size()>0){
             for (FormRecordDataRelationPO formRecordDataRelationPO : notMainFormRecordDataRelationPOList) {
-                if(formRecordDataRelationPO.getOneDataRecord()!=null){
-                    int subODRNextDBOrderNum=this.getNextDBOrderNum(mainFormRecordDataRelationPO.getTableName(),tableFieldPOList);
-                    String subODROrderFieldName=this.getOrderNumFieldName(mainFormRecordDataRelationPO.getTableName(),tableFieldPOList);
-                    String subOneIdValue = FormRecordComplexPOUtility.findIdInFormRecordFieldDataPO(formRecordDataRelationPO.getOneDataRecord());
+                if(formRecordDataRelationPO.getIsSave().equals("true")) {
+                    if (formRecordDataRelationPO.getOneDataRecord() != null) {
+                        int subODRNextDBOrderNum = this.getNextDBOrderNum(mainFormRecordDataRelationPO.getTableName(), tableFieldPOList);
+                        String subODROrderFieldName = this.getOrderNumFieldName(mainFormRecordDataRelationPO.getTableName(), tableFieldPOList);
+                        String subOneIdValue = FormRecordComplexPOUtility.findIdInFormRecordFieldDataPO(formRecordDataRelationPO.getOneDataRecord());
 
-                    PendingSQLPO subOnePendingSQLPO=resolveFormRecordDataPOTOPendingSQL(
-                            jb4DCSession,
-                            recordId,
-                            subOneIdValue,
-                            formRecordDataRelationPO.getTableName(),
-                            formRecordDataRelationPO.getTableId(),
-                            formRecordDataRelationPO.getOneDataRecord(),
-                            subODROrderFieldName,
-                            subODRNextDBOrderNum
-                    );
-                    pendingSQLPOList.add(subOnePendingSQLPO);
-                }
-                if(formRecordDataRelationPO.getListDataRecord()!=null&&formRecordDataRelationPO.getListDataRecord().size()>0) {
-
-                    int subLDRNextDBOrderNum=this.getNextDBOrderNum(mainFormRecordDataRelationPO.getTableName(),tableFieldPOList);
-                    String subLDROrderFieldName=this.getOrderNumFieldName(mainFormRecordDataRelationPO.getTableName(),tableFieldPOList);
-
-                    List<FormRecordDataPO> listDataRecord = formRecordDataRelationPO.getListDataRecord();
-                    for (int i = 0; i < listDataRecord.size(); i++) {
-                        FormRecordDataPO formRecordDataPO = listDataRecord.get(i);
-                        String subListIdValue = FormRecordComplexPOUtility.findIdInFormRecordFieldDataPO(formRecordDataPO);
-                        PendingSQLPO subListPendingSQLPO = resolveFormRecordDataPOTOPendingSQL(
+                        PendingSQLPO subOnePendingSQLPO = resolveFormRecordDataPOTOPendingSQL(
                                 jb4DCSession,
                                 recordId,
-                                subListIdValue,
+                                subOneIdValue,
                                 formRecordDataRelationPO.getTableName(),
                                 formRecordDataRelationPO.getTableId(),
-                                formRecordDataPO,
-                                subLDROrderFieldName,
-                                subLDRNextDBOrderNum + ORDER_SPACE *(i)
+                                formRecordDataRelationPO.getOneDataRecord(),
+                                subODROrderFieldName,
+                                subODRNextDBOrderNum
                         );
-                        pendingSQLPOList.add(subListPendingSQLPO);
+                        pendingSQLPOList.add(subOnePendingSQLPO);
+                    }
+                    if (formRecordDataRelationPO.getListDataRecord() != null && formRecordDataRelationPO.getListDataRecord().size() > 0) {
+
+                        int subLDRNextDBOrderNum = this.getNextDBOrderNum(mainFormRecordDataRelationPO.getTableName(), tableFieldPOList);
+                        String subLDROrderFieldName = this.getOrderNumFieldName(mainFormRecordDataRelationPO.getTableName(), tableFieldPOList);
+
+                        List<FormRecordDataPO> listDataRecord = formRecordDataRelationPO.getListDataRecord();
+                        for (int i = 0; i < listDataRecord.size(); i++) {
+                            FormRecordDataPO formRecordDataPO = listDataRecord.get(i);
+                            String subListIdValue = FormRecordComplexPOUtility.findIdInFormRecordFieldDataPO(formRecordDataPO);
+                            PendingSQLPO subListPendingSQLPO = resolveFormRecordDataPOTOPendingSQL(
+                                    jb4DCSession,
+                                    recordId,
+                                    subListIdValue,
+                                    formRecordDataRelationPO.getTableName(),
+                                    formRecordDataRelationPO.getTableId(),
+                                    formRecordDataPO,
+                                    subLDROrderFieldName,
+                                    subLDRNextDBOrderNum + ORDER_SPACE * (i)
+                            );
+                            pendingSQLPOList.add(subListPendingSQLPO);
+                        }
                     }
                 }
             }

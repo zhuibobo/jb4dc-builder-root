@@ -148,6 +148,9 @@ var WFDCT_SubFormListContainer={
             //}
         }
         console.log(allData);
+        if(!this._EditInRow){
+            relationPO.isSave=false;
+        }
 
         FormRelationPOUtility.Add1ToNDataRecord(relationPO,allData);
 
@@ -170,7 +173,6 @@ var WFDCT_SubFormListContainer={
             }
             FormRelationPOUtility.Add1ToNDataRecord(childRelationPO,allChildData);
         }*/
-
     },
     GetValue:function ($elem,originalData, paras) {
         DialogUtility.AlertText("DynamicContainer类型的控件的序列化交由SerializationValue方法自行完成!");
