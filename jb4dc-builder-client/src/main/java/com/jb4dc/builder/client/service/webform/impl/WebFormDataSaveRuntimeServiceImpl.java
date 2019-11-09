@@ -153,19 +153,44 @@ public class WebFormDataSaveRuntimeServiceImpl implements IWebFormDataSaveRuntim
         }
     }
 
+    private static int ORDER_SPACE=5;
+    private int getNextDBOrderNum(String tableName,List<TableFieldPO> tableFieldPOList) throws JBuild4DCSQLKeyWordException {
+        String orderFieldName = this.getOrderNumFieldName(tableName, tableFieldPOList);
+        if (SQLKeyWordUtility.singleWord(tableName)) {
+            String sql = "select max(" + orderFieldName + ") from " + tableName + "";
+            Object maxNum=sqlBuilderService.selectOneScalar(sql);
+            if(maxNum==null)
+                return 1;
+            return (int) maxNum+ORDER_SPACE;
+        }
+        return -1;
+    }
+
+    private String getOrderNumFieldName(String tableName,List<TableFieldPO> tableFieldPOList){
+        String ORDER_NUM_FIELD_NAME="F_ORDER_NUM";
+        if(tableFieldPOList.parallelStream().anyMatch(item->item.getFieldName().equals(ORDER_NUM_FIELD_NAME))){
+            return ORDER_NUM_FIELD_NAME;
+        }
+        return null;
+    }
+
     private List<PendingSQLPO> resolveFormRecordComplexPOTOPendingSQL(JB4DCSession jb4DCSession, String recordId, FormRecordComplexPO formRecordComplexPO,String operationTypeName) throws JBuild4DCGenerallyException, JBuild4DCSQLKeyWordException {
         List<PendingSQLPO> pendingSQLPOList = new ArrayList<>();
 
         //将主记录转换为SQL语句
         FormRecordDataRelationPO mainFormRecordDataRelationPO = FormRecordComplexPOUtility.findMainFormRecordDataRelationPO(formRecordComplexPO);
         String idValue = FormRecordComplexPOUtility.findIdInFormRecordFieldDataPO(mainFormRecordDataRelationPO.getOneDataRecord());
+
+        List<TableFieldPO> tableFieldPOList = tableRuntimeProxy.getTableFieldsByTableId(mainFormRecordDataRelationPO.getTableId());
+        int nextDBOrderNum=this.getNextDBOrderNum(mainFormRecordDataRelationPO.getTableName(),tableFieldPOList);
+        String orderFieldName=this.getOrderNumFieldName(mainFormRecordDataRelationPO.getTableName(),tableFieldPOList);
         PendingSQLPO pendingSQLPO=resolveFormRecordDataPOTOPendingSQL(
                 jb4DCSession,
                 recordId,
                 idValue,
                 mainFormRecordDataRelationPO.getTableName(),
                 mainFormRecordDataRelationPO.getTableId(),
-                mainFormRecordDataRelationPO.getOneDataRecord());
+                mainFormRecordDataRelationPO.getOneDataRecord(),orderFieldName,nextDBOrderNum);
         pendingSQLPOList.add(pendingSQLPO);
 
         //转换从记录
@@ -173,15 +198,41 @@ public class WebFormDataSaveRuntimeServiceImpl implements IWebFormDataSaveRuntim
         if(notMainFormRecordDataRelationPOList!=null&&notMainFormRecordDataRelationPOList.size()>0){
             for (FormRecordDataRelationPO formRecordDataRelationPO : notMainFormRecordDataRelationPOList) {
                 if(formRecordDataRelationPO.getOneDataRecord()!=null){
+                    int subODRNextDBOrderNum=this.getNextDBOrderNum(mainFormRecordDataRelationPO.getTableName(),tableFieldPOList);
+                    String subODROrderFieldName=this.getOrderNumFieldName(mainFormRecordDataRelationPO.getTableName(),tableFieldPOList);
                     String subOneIdValue = FormRecordComplexPOUtility.findIdInFormRecordFieldDataPO(formRecordDataRelationPO.getOneDataRecord());
-                    PendingSQLPO subOnePendingSQLPO=resolveFormRecordDataPOTOPendingSQL(jb4DCSession,recordId,subOneIdValue,formRecordDataRelationPO.getTableName(),formRecordDataRelationPO.getTableId(),formRecordDataRelationPO.getOneDataRecord());
+
+                    PendingSQLPO subOnePendingSQLPO=resolveFormRecordDataPOTOPendingSQL(
+                            jb4DCSession,
+                            recordId,
+                            subOneIdValue,
+                            formRecordDataRelationPO.getTableName(),
+                            formRecordDataRelationPO.getTableId(),
+                            formRecordDataRelationPO.getOneDataRecord(),
+                            subODROrderFieldName,
+                            subODRNextDBOrderNum
+                    );
                     pendingSQLPOList.add(subOnePendingSQLPO);
                 }
                 if(formRecordDataRelationPO.getListDataRecord()!=null&&formRecordDataRelationPO.getListDataRecord().size()>0) {
+
+                    int subLDRNextDBOrderNum=this.getNextDBOrderNum(mainFormRecordDataRelationPO.getTableName(),tableFieldPOList);
+                    String subLDROrderFieldName=this.getOrderNumFieldName(mainFormRecordDataRelationPO.getTableName(),tableFieldPOList);
+
                     List<FormRecordDataPO> listDataRecord = formRecordDataRelationPO.getListDataRecord();
-                    for (FormRecordDataPO formRecordDataPO : listDataRecord) {
+                    for (int i = 0; i < listDataRecord.size(); i++) {
+                        FormRecordDataPO formRecordDataPO = listDataRecord.get(i);
                         String subListIdValue = FormRecordComplexPOUtility.findIdInFormRecordFieldDataPO(formRecordDataPO);
-                        PendingSQLPO subListPendingSQLPO=resolveFormRecordDataPOTOPendingSQL(jb4DCSession,recordId,subListIdValue,formRecordDataRelationPO.getTableName(),formRecordDataRelationPO.getTableId(),formRecordDataPO);
+                        PendingSQLPO subListPendingSQLPO = resolveFormRecordDataPOTOPendingSQL(
+                                jb4DCSession,
+                                recordId,
+                                subListIdValue,
+                                formRecordDataRelationPO.getTableName(),
+                                formRecordDataRelationPO.getTableId(),
+                                formRecordDataPO,
+                                subLDROrderFieldName,
+                                subLDRNextDBOrderNum + ORDER_SPACE *(i)
+                        );
                         pendingSQLPOList.add(subListPendingSQLPO);
                     }
                 }
@@ -191,7 +242,7 @@ public class WebFormDataSaveRuntimeServiceImpl implements IWebFormDataSaveRuntim
         return pendingSQLPOList;
     }
 
-    private PendingSQLPO resolveFormRecordDataPOTOPendingSQL(JB4DCSession jb4DCSession, String recordId, String idValue,String tableName,String tableId,FormRecordDataPO formRecordDataPO) throws JBuild4DCGenerallyException, JBuild4DCSQLKeyWordException {
+    private PendingSQLPO resolveFormRecordDataPOTOPendingSQL(JB4DCSession jb4DCSession, String recordId, String idValue,String tableName,String tableId,FormRecordDataPO formRecordDataPO,String orderFieldName,int orderNum) throws JBuild4DCGenerallyException, JBuild4DCSQLKeyWordException {
         try {
             PendingSQLPO pendingSQLPO = new PendingSQLPO();
             if (!SQLKeyWordUtility.singleWord(tableName)) {
@@ -216,7 +267,7 @@ public class WebFormDataSaveRuntimeServiceImpl implements IWebFormDataSaveRuntim
                 //如果存在空值的,则替换值,如果不存在的,则加入新字段
                 for (TableFieldPO defaultTableFieldPO : hasDefaultValueTableFieldPOList) {
                     if (recordFieldPOListMap.containsKey(defaultTableFieldPO.getFieldName())) {
-                        if (StringUtility.isEmpty(recordFieldPOListMap.get(defaultTableFieldPO.getFieldName()).getValue())) {
+                        if (StringUtility.isEmpty(recordFieldPOListMap.get(defaultTableFieldPO.getFieldName()).getValue().toString())) {
                             recordFieldPOListMap.get(defaultTableFieldPO.getFieldName()).setValue(defaultTableFieldPO.getValue());
                         }
                     } else {
@@ -225,6 +276,14 @@ public class WebFormDataSaveRuntimeServiceImpl implements IWebFormDataSaveRuntim
                         recordFieldPOListMap.put(tempPO.getFieldName(), tempPO);
                     }
                 }
+                //如果存在排序字段,则自动生成该字段与值
+                if(StringUtility.isNotEmpty(orderFieldName)){
+                    FormRecordFieldDataPO tempPO = FormRecordFieldDataPO.getTemplatePO(recordFieldPOList.get(0),orderFieldName);
+                    tempPO.setValue(orderNum);
+                    recordFieldPOList.add(tempPO);
+                    recordFieldPOListMap.put(tempPO.getFieldName(), tempPO);
+                }
+
                 //构建SQL语句.
                 StringBuilder fieldNames = new StringBuilder();
                 StringBuilder fieldValues = new StringBuilder();

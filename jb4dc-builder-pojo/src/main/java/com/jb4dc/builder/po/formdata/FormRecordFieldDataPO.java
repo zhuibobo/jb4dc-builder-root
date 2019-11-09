@@ -20,7 +20,7 @@ public class FormRecordFieldDataPO {
     private String id;
     private String defaultType;
     private String defaultValue;
-    private String value;
+    private Object value;
     private boolean success;
     private String msg;
 
@@ -40,6 +40,29 @@ public class FormRecordFieldDataPO {
         formRecordFieldDataPO.setDefaultType(mockFieldPO.getFieldDataType());
         formRecordFieldDataPO.setDefaultValue(mockFieldPO.getFieldDefaultValue());
         formRecordFieldDataPO.setValue(mockFieldPO.getValue());
+        formRecordFieldDataPO.setSerialize("true");
+        formRecordFieldDataPO.setId(UUIDUtility.getUUID());
+        formRecordFieldDataPO.setSuccess(true);
+        formRecordFieldDataPO.setMsg("");
+        return formRecordFieldDataPO;
+    }
+
+    public static FormRecordFieldDataPO getTemplatePO(FormRecordFieldDataPO mockFormFieldPO,String fieldName){
+        FormRecordFieldDataPO formRecordFieldDataPO=new FormRecordFieldDataPO();
+        formRecordFieldDataPO.setRelationId(mockFormFieldPO.getRelationId());
+        formRecordFieldDataPO.setRelationSingleName(mockFormFieldPO.getRelationSingleName());
+        formRecordFieldDataPO.setRelationType(mockFormFieldPO.getRelationType());
+        formRecordFieldDataPO.setSingleName("WFDCT_TextBox");
+        formRecordFieldDataPO.setTableName(mockFormFieldPO.getTableName());
+        formRecordFieldDataPO.setTableCaption(mockFormFieldPO.getTableCaption());
+        formRecordFieldDataPO.setTableId(mockFormFieldPO.getTableId());
+        formRecordFieldDataPO.setFieldTableId(mockFormFieldPO.getFieldTableId());
+        formRecordFieldDataPO.setFieldName(fieldName);
+        formRecordFieldDataPO.setFieldDataType("");
+        formRecordFieldDataPO.setFieldDataLength("");
+        formRecordFieldDataPO.setDefaultType("");
+        formRecordFieldDataPO.setDefaultValue("");
+        formRecordFieldDataPO.setValue("");
         formRecordFieldDataPO.setSerialize("true");
         formRecordFieldDataPO.setId(UUIDUtility.getUUID());
         formRecordFieldDataPO.setSuccess(true);
@@ -167,11 +190,11 @@ public class FormRecordFieldDataPO {
         this.defaultValue = defaultValue;
     }
 
-    public String getValue() {
+    public Object getValue() {
         return value;
     }
 
-    public void setValue(String value) {
+    public void setValue(Object value) {
         this.value = value;
     }
 

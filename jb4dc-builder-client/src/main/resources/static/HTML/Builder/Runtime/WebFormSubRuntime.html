@@ -33,7 +33,10 @@
 
             $("#btnConfirm").click(function () {
                 var formDataComplexPO=formRuntimeInst.SerializationFormData();
-
+                var parentRecordId=BaseUtility.GetUrlParaValue("ParentRecordId");
+                var selfKeyFieldName=BaseUtility.GetUrlParaValue("SelfKeyFieldName");
+                var mainPO=FormRelationPOUtility.FindMainRelationPO(formDataComplexPO.formRecordDataRelationPOList);
+                FormRelationPOUtility.CreateFieldInRecordFieldPOArray(FormRelationPOUtility.Get1To1DataRecord(mainPO).recordFieldPOList,selfKeyFieldName,parentRecordId);
                 RuntimeGeneralInstance.SubmitFormDataComplexPOListToServer(
                     formDataComplexPO,
                     formDataComplexPO.recordId,

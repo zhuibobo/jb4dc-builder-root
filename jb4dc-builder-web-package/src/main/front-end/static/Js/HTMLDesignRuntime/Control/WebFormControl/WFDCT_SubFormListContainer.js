@@ -441,6 +441,12 @@ var WFDCT_SubFormListContainer={
                 "ElemId": BaseUtility.GetUrlParaValue("ElemId"),
                 "RecordId": BaseUtility.GetUrlParaValue("RecordId")
          */
+        var relationPO=this.TryGetRelationPOClone();
+        if(relationPO.outerKeyFieldName!="ID"){
+            var errMessage="暂时只支持关联父记录的ID字段!";
+            DialogUtility.AlertText(errMessage);
+            throw errMessage;
+        }
         var para={
             FormId:$singleControlElem.attr("formid"),
             ButtonId:"",
@@ -449,7 +455,10 @@ var WFDCT_SubFormListContainer={
             WindowHeight:$singleControlElem.attr("windowheight"),
             WindowWidth:$singleControlElem.attr("windowwidth"),
             InstanceName:$singleControlElem.attr("client_instance_name"),
-            DialogWindowTitle:$singleControlElem.attr("dialogwindowtitle")
+            DialogWindowTitle:$singleControlElem.attr("dialogwindowtitle"),
+            ParentRecordId:this._FormRuntimeHost.GetRecordId(),
+            SelfKeyFieldName:relationPO.selfKeyFieldName,
+            OuterKeyFieldName:relationPO.outerKeyFieldName
         };
         return para;
     },

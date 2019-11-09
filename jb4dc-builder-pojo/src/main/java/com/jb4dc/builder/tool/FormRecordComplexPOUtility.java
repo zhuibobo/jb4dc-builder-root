@@ -38,7 +38,7 @@ public class FormRecordComplexPOUtility {
         if(formRecordFieldDataPO==null) {
             throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_BUILDER_CODE,"在formRecordDataPO中不存在ID字段!");
         }
-        return formRecordFieldDataPO.getValue();
+        return formRecordFieldDataPO.getValue().toString();
     }
 
     public static List<FormRecordFieldDataPO> findExcludeIdFormRecordFieldList(FormRecordDataPO formRecordDataPO){
