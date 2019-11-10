@@ -12,6 +12,7 @@ import com.jb4dc.builder.po.formdata.FormRecordDataRelationPO;
 import com.jb4dc.builder.po.FormResourceComplexPO;
 import com.jb4dc.builder.po.FormResourcePO;
 import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
+import com.jb4dc.core.base.exception.JBuild4DCSQLKeyWordException;
 import com.jb4dc.core.base.session.JB4DCSession;
 import com.jb4dc.core.base.tools.StringUtility;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,7 +43,7 @@ public class WebFormRuntimeServiceImpl implements IWebFormRuntimeService {
     IWebFormDataSaveRuntimeService webFormDataSaveRuntimeService;
 
     @Override
-    public FormResourceComplexPO resolveFormResourceComplex(JB4DCSession session,String recordId, FormResourcePO remoteSourcePO, ListButtonEntity listButtonEntity) throws IOException, JBuild4DCGenerallyException {
+    public FormResourceComplexPO resolveFormResourceComplex(JB4DCSession session,String recordId, FormResourcePO remoteSourcePO, ListButtonEntity listButtonEntity) throws IOException, JBuild4DCGenerallyException, JBuild4DCSQLKeyWordException {
 
         List<FormRecordDataRelationPO> formRecordDataRelationPOList =null;
         //List<FormDataRelationPO> recordData=null;

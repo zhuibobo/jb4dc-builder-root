@@ -1,5 +1,6 @@
 package com.jb4dc.builder.client.service.webform;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.jb4dc.builder.po.SubmitResultPO;
 import com.jb4dc.builder.po.formdata.FormRecordComplexPO;
 import com.jb4dc.builder.po.formdata.FormRecordDataRelationPO;
@@ -19,5 +20,5 @@ import java.util.List;
 public interface IWebFormDataSaveRuntimeService {
     SubmitResultPO SaveFormRecordComplexPO(JB4DCSession jb4DCSession, String recordId, FormRecordComplexPO formRecordComplexPO, String listButtonId, String innerFormButtonId,String operationTypeName) throws JBuild4DCGenerallyException, IOException, JBuild4DCSQLKeyWordException;
 
-    List<FormRecordDataRelationPO> getFormRecordComplexPO(JB4DCSession session, String recordId, List<FormRecordDataRelationPO> formRecordDataRelationPOList);
+    List<FormRecordDataRelationPO> getFormRecordComplexPO(JB4DCSession session, String recordId, List<FormRecordDataRelationPO> formRecordDataRelationPOList) throws JBuild4DCSQLKeyWordException, JBuild4DCGenerallyException, JsonProcessingException;
 }

@@ -33,31 +33,6 @@ public class FormRecordComplexPOUtility {
         return null;
     }
 
-    public static String findIdInFormRecordFieldDataPO(FormRecordDataPO formRecordDataPO) throws JBuild4DCGenerallyException {
-        FormRecordFieldDataPO formRecordFieldDataPO =  formRecordDataPO.getRecordFieldPOList().stream().filter(item -> item.getFieldName().toUpperCase().equals("ID")).findFirst().orElse(null);
-        if(formRecordFieldDataPO==null) {
-            throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_BUILDER_CODE,"在formRecordDataPO中不存在ID字段!");
-        }
-        return formRecordFieldDataPO.getValue().toString();
-    }
-
-    public static List<FormRecordFieldDataPO> findExcludeIdFormRecordFieldList(FormRecordDataPO formRecordDataPO){
-        List<FormRecordFieldDataPO> formRecordFieldDataPOList=formRecordDataPO.getRecordFieldPOList().stream().filter(item -> !item.getFieldName().toUpperCase().equals("ID")).collect(Collectors.toList());
-        return formRecordFieldDataPOList;
-    }
-
-    public static Map<String,FormRecordFieldDataPO> converFormRecordFieldDataPOListToMap(List<FormRecordFieldDataPO> recordFieldPOList) throws JBuild4DCGenerallyException {
-        Map<String,FormRecordFieldDataPO> result=new HashMap<>();
-        for (FormRecordFieldDataPO formRecordFieldDataPO : recordFieldPOList) {
-            if(!result.containsKey(formRecordFieldDataPO.getFieldName())){
-                result.put(formRecordFieldDataPO.getFieldName(),formRecordFieldDataPO);
-            }
-            else{
-                throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_BUILDER_CODE,"包含多个同名的字段:"+formRecordFieldDataPO.getFieldName()+",表:"+formRecordFieldDataPO.getTableCaption());
-            }
-        }
-        return result;
-    }
 
 
 }

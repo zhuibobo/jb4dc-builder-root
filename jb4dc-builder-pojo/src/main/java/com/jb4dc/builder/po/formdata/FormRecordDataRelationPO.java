@@ -10,6 +10,10 @@ import java.util.List;
  * To change this template use File | Settings | File Templates.
  */
 public class FormRecordDataRelationPO {
+
+    public static String RELATION_TYPE_1_T_1="1To1";
+    public static String RELATION_TYPE_1_T_N="1ToN";
+
     String id;
     String parentId;
     String singleName;
