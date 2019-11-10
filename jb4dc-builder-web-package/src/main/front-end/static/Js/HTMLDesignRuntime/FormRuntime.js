@@ -35,11 +35,11 @@ let FormRuntimeSinglePageObject={
 }
 
 let FormRuntime={
-    OperationAdd:"add",
-    OperationUpdate:"update",
-    OperationView:"view",
-    OperationDel:"del",
-    _Prop_Status:"Edit",
+    //OperationAdd:"add",
+    //OperationUpdate:"update",
+    //OperationView:"view",
+    //OperationDel:"del",
+    //_Prop_Status:"Edit",
     _Prop_Config:{
         RendererToId:null,
         FormId:"",
@@ -51,7 +51,7 @@ let FormRuntime={
     _$RendererToElem:null,
     _FormPO:null,
     _FormDataRelationList:null,
-    _RelationPOWithDynamicContainerControl:{},
+    //_RelationPOWithDynamicContainerControl:{},
     Initialization:function (_config) {
         this._Prop_Config= $.extend(true,{},this._Prop_Config,_config);
         this._$RendererToElem=$("#"+this._Prop_Config.RendererToId);
@@ -78,7 +78,7 @@ let FormRuntime={
         }, function (result) {
             //alert( "Load was performed.");
             //console.log("加载预览窗体成功!!");
-            //console.log(result);
+            console.log(result);
             //console.log(result.data.formHtmlRuntime);
             //var $rootElem=$(result.data.formHtmlRuntime);
             //if($rootElem.)
@@ -110,7 +110,10 @@ let FormRuntime={
                 },this);
             }
 
-
+            if(BaseUtility.IsUpdateOperation(this.GetOperationType())||BaseUtility.IsViewOperation(this.GetOperationType())){
+                var formRecordComplexPO=result.data.formRecordComplexPO;
+                this.DeSerializationFormData(formRecordComplexPO);
+            }
             //var relationFormRecordComplexPo=FormRuntimeMock.GetMockData();
             //this.DeSerializationFormData(relationFormRecordComplexPo);
 
@@ -126,6 +129,9 @@ let FormRuntime={
     },
     GetRecordId:function(){
         return this._Prop_Config.RecordId;
+    },
+    GetOperationType:function(){
+        return this._Prop_Config.OperationType;
     },
     GetOriginalFormDataRelation:function() {
         return JsonUtility.StringToJson(this._FormPO.formDataRelation);
@@ -197,6 +203,8 @@ let FormRuntime={
         return formRecordComplexPo;
     },
     DeSerializationFormData:function (relationFormRecordComplexPo) {
+        console.log("DeSerializationFormData");
+        console.log(relationFormRecordComplexPo);
         //绑定数据并进行二次渲染绑定数据。
         VirtualBodyControl.RendererDataChain({
             $rootElem: this._$RendererToElem,

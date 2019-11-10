@@ -20,5 +20,5 @@ import java.util.List;
 public interface IWebFormDataSaveRuntimeService {
     SubmitResultPO SaveFormRecordComplexPO(JB4DCSession jb4DCSession, String recordId, FormRecordComplexPO formRecordComplexPO, String listButtonId, String innerFormButtonId,String operationTypeName) throws JBuild4DCGenerallyException, IOException, JBuild4DCSQLKeyWordException;
 
-    List<FormRecordDataRelationPO> getFormRecordComplexPO(JB4DCSession session, String recordId, List<FormRecordDataRelationPO> formRecordDataRelationPOList) throws JBuild4DCSQLKeyWordException, JBuild4DCGenerallyException, JsonProcessingException;
+    FormRecordComplexPO getFormRecordComplexPO(JB4DCSession session, String recordId, List<FormRecordDataRelationPO> formRecordDataRelationPOList) throws JBuild4DCSQLKeyWordException, JBuild4DCGenerallyException, JsonProcessingException;
 }

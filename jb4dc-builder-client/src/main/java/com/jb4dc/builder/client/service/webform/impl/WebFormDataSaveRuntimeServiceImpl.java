@@ -138,7 +138,7 @@ public class WebFormDataSaveRuntimeServiceImpl implements IWebFormDataSaveRuntim
     }
 
     @Override
-    public List<FormRecordDataRelationPO> getFormRecordComplexPO(JB4DCSession session, String recordId, List<FormRecordDataRelationPO> formRecordDataRelationPOList) throws JBuild4DCSQLKeyWordException, JBuild4DCGenerallyException, JsonProcessingException {
+    public FormRecordComplexPO getFormRecordComplexPO(JB4DCSession session, String recordId, List<FormRecordDataRelationPO> formRecordDataRelationPOList) throws JBuild4DCSQLKeyWordException, JBuild4DCGenerallyException, JsonProcessingException {
 
         FormRecordDataRelationPO mainDataPO = FormDataRelationPOUtility.getMainPO(formRecordDataRelationPOList);
         if(SQLKeyWordUtility.singleWord(mainDataPO.getTableName())) {
@@ -190,7 +190,11 @@ public class WebFormDataSaveRuntimeServiceImpl implements IWebFormDataSaveRuntim
             }
             String json=JsonUtility.toObjectString(formRecordDataRelationPOList);
             logger.debug(BaseUtility.wrapDevLog(json));
-            return formRecordDataRelationPOList;
+            //return formRecordDataRelationPOList;
+
+            FormRecordComplexPO formRecordComplexPO=new FormRecordComplexPO();
+            formRecordComplexPO.setFormRecordDataRelationPOList(formRecordDataRelationPOList);
+            return formRecordComplexPO;
         }
         return null;
     }
@@ -201,6 +205,7 @@ public class WebFormDataSaveRuntimeServiceImpl implements IWebFormDataSaveRuntim
             recordList=dataPool.get(tableName);
         }
         recordList.add(mainRecord);
+        dataPool.put(tableName,recordList);
     }
 
     private void addToDataToPool(Map<String,List<Map<String,Object>>> dataPool,String tableName, List<Map<String, Object>> recordList){

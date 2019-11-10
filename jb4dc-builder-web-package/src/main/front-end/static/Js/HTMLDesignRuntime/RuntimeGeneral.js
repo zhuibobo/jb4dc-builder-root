@@ -7,7 +7,7 @@ var RuntimeGeneralInstance= {
             data: params
         }).done(function (result) {
             //console.log(result);
-            callback.call(sender, result);
+
             //console.log(responseText);
             //$(appendToElemId).html(responseText)
             // Save response for use in complete callback
@@ -32,6 +32,7 @@ var RuntimeGeneralInstance= {
                 }
                 DialogUtility.AlertText(message,sender);
             }
+            callback.call(sender, result);
         }).always(callback && function (jqXHR, status) {
             /*self.each( function() {
                 callback.apply( this, response || [ jqXHR.responseText, status, jqXHR ] );

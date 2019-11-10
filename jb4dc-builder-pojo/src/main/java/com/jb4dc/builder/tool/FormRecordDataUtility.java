@@ -109,7 +109,7 @@ public class FormRecordDataUtility {
         singleFieldDataPO.setId(UUIDUtility.getUUID());
         singleFieldDataPO.setDefaultType(tableFieldPO.getFieldDataType());
         singleFieldDataPO.setDefaultValue(tableFieldPO.getFieldDefaultValue());
-        singleFieldDataPO.setValue("");
+        singleFieldDataPO.setValue(stringObjectEntry.getValue());
         singleFieldDataPO.setSuccess(true);
         singleFieldDataPO.setMsg("");
         return singleFieldDataPO;

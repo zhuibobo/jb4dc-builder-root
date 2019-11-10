@@ -32,6 +32,10 @@ spring:
     prefix: classpath:/static/HTML/
     suffix: .html
     enabled: true
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    joda-date-time-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
 
 server:
   port: 9102
@@ -70,3 +74,4 @@ feign:
         connectTimeout: 1000
         readTimeout: 12000
         retryer: feign.Retryer.Default
+

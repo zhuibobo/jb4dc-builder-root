@@ -8,6 +8,7 @@ import com.jb4dc.builder.client.service.webform.IWebFormDataSaveRuntimeService;
 import com.jb4dc.builder.client.service.webform.IWebFormRuntimeService;
 import com.jb4dc.builder.dbentities.weblist.ListButtonEntity;
 import com.jb4dc.builder.po.DynamicBindHTMLControlContextPO;
+import com.jb4dc.builder.po.formdata.FormRecordComplexPO;
 import com.jb4dc.builder.po.formdata.FormRecordDataRelationPO;
 import com.jb4dc.builder.po.FormResourceComplexPO;
 import com.jb4dc.builder.po.FormResourcePO;
@@ -45,16 +46,21 @@ public class WebFormRuntimeServiceImpl implements IWebFormRuntimeService {
     @Override
     public FormResourceComplexPO resolveFormResourceComplex(JB4DCSession session,String recordId, FormResourcePO remoteSourcePO, ListButtonEntity listButtonEntity) throws IOException, JBuild4DCGenerallyException, JBuild4DCSQLKeyWordException {
 
-        List<FormRecordDataRelationPO> formRecordDataRelationPOList =null;
+        FormRecordComplexPO formRecordComplexPO =null;
         //List<FormDataRelationPO> recordData=null;
 
         if(listButtonEntity!=null&&!listButtonEntity.getButtonOperationType().toUpperCase().equals("ADD")) {
 
             if (StringUtility.isNotEmpty(remoteSourcePO.getFormDataRelation())) {
-                formRecordDataRelationPOList = JsonUtility.toObjectList(remoteSourcePO.getFormDataRelation(), FormRecordDataRelationPO.class);
+                List<FormRecordDataRelationPO> formRecordDataRelationPOList = JsonUtility.toObjectList(remoteSourcePO.getFormDataRelation(), FormRecordDataRelationPO.class);
 
-                formRecordDataRelationPOList =webFormDataSaveRuntimeService.getFormRecordComplexPO(session,recordId, formRecordDataRelationPOList);
-
+                try {
+                    formRecordComplexPO = webFormDataSaveRuntimeService.getFormRecordComplexPO(session, recordId, formRecordDataRelationPOList);
+                }
+                catch (Exception ex){
+                    String traceMsg=org.apache.commons.lang3.exception.ExceptionUtils.getStackTrace(ex);
+                    throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_BUILDER_CODE,"根据数据源加载数据失败:"+traceMsg,ex,ex.getStackTrace());
+                }
             } else {
                 throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_BUILDER_CODE, "该表单未设置数据关系!");
             }
@@ -64,12 +70,12 @@ public class WebFormRuntimeServiceImpl implements IWebFormRuntimeService {
         dynamicBindHTMLControlContextPO.setRecordId(recordId);
         dynamicBindHTMLControlContextPO.setRemoteSourcePO(remoteSourcePO);
         dynamicBindHTMLControlContextPO.setListButtonEntity(listButtonEntity);
-        dynamicBindHTMLControlContextPO.setFormRecordDataRelationPOList(formRecordDataRelationPOList);
+        dynamicBindHTMLControlContextPO.setFormRecordComplexPO(formRecordComplexPO);
         //dynamicBindHTMLControlContextPO.setMainRecordData(formDataRelationService.findMainRecordData(formDataRelationPOList));
 
         String formHtmlRuntime=htmlRuntimeResolve.dynamicBind(JB4DCSessionUtility.getSession(),remoteSourcePO.getFormId(),remoteSourcePO.getFormHtmlResolve(),dynamicBindHTMLControlContextPO);
 
-        FormResourceComplexPO formResourceComplexPO=new FormResourceComplexPO(remoteSourcePO,formHtmlRuntime, formRecordDataRelationPOList,listButtonEntity);
+        FormResourceComplexPO formResourceComplexPO=new FormResourceComplexPO(remoteSourcePO,formHtmlRuntime, formRecordComplexPO,listButtonEntity);
 
         return formResourceComplexPO;
     }
