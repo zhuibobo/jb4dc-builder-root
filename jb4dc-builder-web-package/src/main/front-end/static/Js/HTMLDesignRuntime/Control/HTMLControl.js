@@ -121,47 +121,29 @@ let HTMLControl={
                 //debugger;
                 //var clientResolveInstanceName = $childSingleElem.attr(HTMLControlAttrs.CLIENT_RESOLVE);
                 var instance=HTMLControl.GetControlInstanceByElem($childSingleElem);
-
                 instance.RendererDataChain(_cloneRendererDataChainParas);
 
+                var fieldPO;
                 if(typeof(instance.SetValue)=="function") {
-                    var fieldPO = HTMLControl.TryGetFieldPOInRelationFormRecordComplexPo($childSingleElem,_rendererDataChainParas.relationFormRecordComplexPo);
+                    fieldPO = HTMLControl.TryGetFieldPOInRelationFormRecordComplexPo($childSingleElem,_rendererDataChainParas.relationFormRecordComplexPo);
                     instance.SetValue($childSingleElem,fieldPO,_rendererDataChainParas.relationFormRecordComplexPo,_rendererDataChainParas);
                 }
-                /*instance.RendererDataChain({
-                    listEntity:_rendererDataChainParas.listEntity,
-                    sourceHTML:_rendererDataChainParas.sourceHTML,
-                    $rootElem:_rendererDataChainParas.$rootElem,
-                    $parentControlElem:_rendererDataChainParas.$singleControlElem,
-                    $singleControlElem:$childSingleElem,
-                    topDataSetId:_rendererDataChainParas.topDataSetId,
-                    dataSet: _rendererDataChainParas.dataSet,
-                    rowData: _rendererDataChainParas.rowData,
-                    $cloneRow: _rendererDataChainParas.$cloneRow,
-                    $td: _rendererDataChainParas.$td
-                });*/
+                //console.log(_rendererDataChainParas.callToViewStatusFunc);
+                if(_rendererDataChainParas.callToViewStatusFunc) {
+                    if(typeof(instance.ToViewStatus)=="function") {
+                        instance.ToViewStatus($childSingleElem,fieldPO,_rendererDataChainParas.relationFormRecordComplexPo,_rendererDataChainParas);
+                    }
+                }
             } else {
                 HTMLControl.RendererDataChain(_cloneRendererDataChainParas);
-                /*HTMLControl.RendererDataChain({
-                    listEntity:_rendererDataChainParas.listEntity,
-                    sourceHTML:_rendererDataChainParas.sourceHTML,
-                    $rootElem:_rendererDataChainParas.$rootElem,
-                    $parentControlElem:_rendererDataChainParas.$singleControlElem,
-                    $singleControlElem:$childSingleElem,
-                    topDataSetId:_rendererDataChainParas.topDataSetId,
-                    dataSet: _rendererDataChainParas.dataSet,
-                    rowData: _rendererDataChainParas.rowData,
-                    $cloneRow: _rendererDataChainParas.$cloneRow,
-                    $td: _rendererDataChainParas.$td
-                });*/
             }
         }
     },
+
     GetValue:function ($elem,originalData, paras) {
         originalData.value=$elem.val();
         return originalData;
     },
-
     SetValue:function ($elem,fieldPO,relationFormRecordComplexPo,_rendererDataChainParas) {
         //debugger;
         if(fieldPO){
@@ -170,6 +152,23 @@ let HTMLControl={
             $elem.attr("control_value",fieldPO.value);
         }
     },
+    ToViewStatus:function($elem,fieldPO,relationFormRecordComplexPo,_rendererDataChainParas){
+        var oldAllAttrs=BaseUtility.GetElemAllAttr($elem);
+        var $viewElem=$("<label />");
+        $viewElem.attr(oldAllAttrs);
+
+        $viewElem.removeClass();
+
+        if($elem.prop("tagName")=="SELECT"){
+            var text=$elem.find("option:selected").text();
+            $viewElem.text(text);
+        }
+        else{
+            $viewElem.text($elem.val());
+        }
+        $elem.replaceWith($viewElem);
+    },
+
     TryGetFieldPOInRelationFormRecordComplexPo:function($elem,relationFormRecordComplexPo) {
         var relationId = HTMLControl.GetControlBindRelationId($elem);
         var bindTableName = HTMLControl.GetControlBindTableName($elem);

@@ -250,7 +250,6 @@ var WLDCT_ListTableContainer = {
     _InstanceMap: {},
     _CurrentPageNum: 1,
     _DataSet: null,
-    _DataSetRuntimeInstance: null,
     _Cache$SingleControlElem: null,
     _CacheRendererDataChainParas: null,
     _SimpleSearchContainerInstance: null,
@@ -258,6 +257,7 @@ var WLDCT_ListTableContainer = {
     _QueryPOList: [],
     _CheckedRecordArray: [],
     _$Elem: null,
+    //_DataSetRuntimeInstance: null,
     GetInstance: function (name) {
         for (var key in this._InstanceMap) {
             if (key == name) {
@@ -269,7 +269,7 @@ var WLDCT_ListTableContainer = {
         return instance;
     },
     Initialize: function () {
-        this._DataSetRuntimeInstance = Object.create(DataSetRuntime);
+        //this._DataSetRuntimeInstance = Object.create(DataSetRuntime);
     },
     RendererChain: function (_rendererChainParas) {
         //$singleControlElem.hide();
@@ -321,6 +321,8 @@ var WLDCT_ListTableContainer = {
         //return
         //debugger;
         //console.log(_rendererDataChainParas.$singleControlElem.html());
+        //console.log(HTMLControl._InstanceMap["WLDCT_ListTableContainer_856efcb11c8241288367fcc717ec7b5e"]);
+        //console.log(HTMLControl._InstanceMap["WLDCT_ListTableContainer_856efcb11c8241288367fcc717ec7b5e"]);
         var usedTopDataSet = true;
 
         var dataSetId;
@@ -335,7 +337,9 @@ var WLDCT_ListTableContainer = {
             this._Cache$SingleControlElem = _rendererDataChainParas.$singleControlElem.clone();
         }
         if (isReRenderer) {
-            _rendererDataChainParas.$singleControlElem.html(this._Cache$SingleControlElem.html());
+            //console.log(this._Cache$SingleControlElem.html());
+            var notScriptHTML=StringUtility.RemoveScript(this._Cache$SingleControlElem.html());
+            _rendererDataChainParas.$singleControlElem.html(notScriptHTML);
         }
 
         if (_rendererDataChainParas.listRuntimeInstance.IsPreview()) {
@@ -364,29 +368,13 @@ var WLDCT_ListTableContainer = {
             };
             this._DataSet = mockDataSet;
             this.CreateTable(_rendererDataChainParas.$singleControlElem, mockDataSet,true);
-            /*this._DataSetRuntimeInstance.GetDataSetData({
-                dataSetId: dataSetId,
-                pageSize: pageSize,
-                pageNum: this._CurrentPageNum,
-                listQueryPOList: this._QueryPOList,
-                exValue1: "",
-                exValue2: "",
-                exValue3: ""
-            }, function (result) {
-                console.log(JsonUtility.JsonToString(result.data));
-                _rendererDataChainParas.dataSet = result.data;
-                this._DataSet = result.data;
-                this.CreateTable(_rendererDataChainParas.$singleControlElem, this._DataSet);
-                window.setTimeout(function () {
-                    DialogUtility.CloseDialog(DialogUtility.DialogLoadingId);
-                }, 500);
-            }, this);*/
         } else {
+
             DialogUtility.AlertLoading(window, DialogUtility.DialogLoadingId, {
                 title: "系统提示",
                 hide: {effect: "fade", duration: 500}
             }, "数据加载中,请稍候....");
-            this._DataSetRuntimeInstance.GetDataSetData({
+            RuntimeGeneralInstance.GetDataSetData({
                 dataSetId: dataSetId,
                 pageSize: pageSize,
                 pageNum: this._CurrentPageNum,
@@ -396,6 +384,7 @@ var WLDCT_ListTableContainer = {
                 exValue3: ""
             }, function (result) {
                 //console.log(result);
+                //console.log(HTMLControl._InstanceMap);
                 _rendererDataChainParas.dataSet = result.data;
                 this._DataSet = result.data;
                 this.CreateTable(_rendererDataChainParas.$singleControlElem, this._DataSet,false);
@@ -551,10 +540,20 @@ var WLDCT_ListTableContainer = {
         this._CurrentPageNum = pageNum;
         this.RendererDataChain(this._CacheRendererDataChainParas, true);
     },
+    TryReloadForListFormButton:function(listFormButtonElemId) {
+        //alert(listFormButtonElemId);
+        var $listFormButtonElem = $("#" + listFormButtonElemId);
+        var $listTemplate=$listFormButtonElem.parentsUntil("[singlename='WLDCT_ListTemplate']").last().parent();
+        var $listTableContainer=$listTemplate.find("[singlename='WLDCT_ListTableContainer']");
+        var $listTableContainerInstance=HTMLControl.GetControlInstanceByElem($listTableContainer);
+        $listTableContainerInstance.RendererDataChain($listTableContainerInstance._CacheRendererDataChainParas, true);
+    },
     SimpleSearchClickEvent: function (sender) {
+        //console.log(HTMLControl._InstanceMap["WLDCT_ListTableContainer_856efcb11c8241288367fcc717ec7b5e"]);
         var _self = sender.data.listInstance;
         var conditions = _self._SimpleSearchContainerInstance.BuilderSearchCondition();
         _self._QueryPOList = conditions;
+
         _self.RendererDataChain(_self._CacheRendererDataChainParas, true);
     },
     ShowComplexSearchClickEvent: function (sender) {
@@ -622,16 +621,18 @@ var WLDCT_ListTableContainer = {
         //alert(1);
     },
     ClearAllCheckBox: function () {
+        //debugger;
         this._$Elem.find(":checkbox").prop('checked', false);
         this._CheckedRecordArray = [];
     },
     SetCheckBoxToCheckedStatus: function (id) {
         this._$Elem.find("[row_checkbox_record_id='" + id + "']:checkbox").prop('checked', true);
         this.SaveCheckedRowData(id);
-    },
+    }
+    /*,
     __InnerElemGetInstance: function ($innerElem) {
         var $WLDCT_ListTableContainer = $innerElem.parents("[singlename='WLDCT_ListTableContainer']");
         var listTableContainerInstance = HTMLControl.GetControlInstanceByElem($WLDCT_ListTableContainer);
         return listTableContainerInstance;
-    }
+    }*/
 }

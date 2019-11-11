@@ -7,7 +7,7 @@ let FormRuntimeSinglePageObject={
                 "FormId": BaseUtility.GetUrlParaValue("FormId"),
                 "ButtonId": BaseUtility.GetUrlParaValue("ButtonId"),
                 "OperationType": BaseUtility.GetUrlParaValue("OperationType"),
-                "ElemId": BaseUtility.GetUrlParaValue("ElemId"),
+                "ListFormButtonElemId": BaseUtility.GetUrlParaValue("ListFormButtonElemId"),
                 "RecordId": BaseUtility.GetUrlParaValue("RecordId")
             };
             if(!this._webFormRTParas.RecordId){
@@ -27,7 +27,8 @@ let FormRuntimeSinglePageObject={
             ButtonId:webFormRTParas.ButtonId,
             OperationType:webFormRTParas.OperationType,
             IsPreview:isPreview,
-            RendererChainCompletedFunc:rendererChainCompletedFunc
+            RendererChainCompletedFunc:rendererChainCompletedFunc,
+            ListFormButtonElemId:webFormRTParas.ListFormButtonElemId
         });
         //this._formRuntimeInst.webFormRTParas=webFormRTParas;
         return this._formRuntimeInst;
@@ -46,7 +47,8 @@ let FormRuntime={
         RecordId:"",
         ButtonId:"",
         IsPreview:false,
-        OperationType:""
+        OperationType:"",
+        ListFormButtonElemId:""
     },
     _$RendererToElem:null,
     _FormPO:null,
@@ -81,9 +83,6 @@ let FormRuntime={
             //console.log("加载预览窗体成功!!");
             console.log(result);
             //console.log(result.data.formHtmlRuntime);
-            //var $rootElem=$(result.data.formHtmlRuntime);
-            //if($rootElem.)
-            //debugger;
             this._FormPO=result.data;
             this._FormDataRelationList=JsonUtility.StringToJson(this._FormPO.formDataRelation);
 
@@ -133,6 +132,9 @@ let FormRuntime={
     },
     GetOperationType:function(){
         return this._Prop_Config.OperationType;
+    },
+    GetOpenedListFormButtonId:function(){
+        return this._Prop_Config.ListFormButtonElemId;
     },
     GetOriginalFormDataRelation:function() {
         return JsonUtility.StringToJson(this._FormPO.formDataRelation);
@@ -212,7 +214,8 @@ let FormRuntime={
             $parentControlElem: this._$RendererToElem,
             $singleControlElem: this._$RendererToElem,
             formRuntimeInstance: this,
-            relationFormRecordComplexPo:relationFormRecordComplexPo
+            relationFormRecordComplexPo:relationFormRecordComplexPo,
+            callToViewStatusFunc:BaseUtility.IsViewOperation(this.GetOperationType())
         });
     },
     CreateALLInnerFormButton:function (listButtonPO) {

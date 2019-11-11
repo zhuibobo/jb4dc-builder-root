@@ -77,7 +77,7 @@ var WLDCT_FormButton= {
         DialogUtility.Frame_OpenIframeWindow(window,DialogUtility.DialogId,BaseUtility.BuildView("/HTML/Builder/Runtime/WebFormRuntime.html",{
             FormId:formid,
             ButtonId:buttonid,
-            ElemId:elemid,
+            ListFormButtonElemId:elemid,
             RecordId:recordId,
             OperationType:operation
         }), {

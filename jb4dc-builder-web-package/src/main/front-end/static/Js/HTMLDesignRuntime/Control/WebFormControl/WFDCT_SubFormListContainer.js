@@ -180,7 +180,11 @@ var WFDCT_SubFormListContainer={
     SetValue:function ($elem,relationFormRecordComplexPo,_rendererDataChainParas) {
 
     },
-
+    ToViewStatus:function($elem,relationFormRecordComplexPo,_rendererDataChainParas){
+        $elem.find(".sub-form-list-button-wrap").hide();
+        $elem.find(".sflt-td-operation-update").hide();
+        $elem.find(".sflt-td-operation-del").hide();
+    },
     //region 基础相关方法
     AddEvent:function (sender) {
         var $hostElem = sender.data.hostElem;

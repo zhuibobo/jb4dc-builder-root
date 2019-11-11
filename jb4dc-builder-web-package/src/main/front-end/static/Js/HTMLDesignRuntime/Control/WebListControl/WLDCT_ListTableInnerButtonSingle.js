@@ -8,11 +8,14 @@ var WLDCT_ListTableInnerButtonSingle= {
         $singleControlElem.attr("title",$singleControlElem.attr("caption"));
     },
     ClickEvent:function (sender) {
-        console.log(sender.data.rowData.ID);
+        //console.log(sender.data.rowData.ID);
+        //debugger;
         var $elem = sender.data.$elem;
-        console.log($elem);
+        //console.log($elem);
         var targetbuttonid = $elem.attr("targetbuttonid");
-        var listTableContainerInstance = WLDCT_ListTableContainer.__InnerElemGetInstance($elem);
+
+        var $listTableContainer=$elem.parentsUntil("[singlename='WLDCT_ListTableContainer']").last().parent();
+        var listTableContainerInstance = HTMLControl.GetControlInstanceByElem($listTableContainer);
         //取消所有的选择.
         listTableContainerInstance.ClearAllCheckBox();
         //选中当前cb,

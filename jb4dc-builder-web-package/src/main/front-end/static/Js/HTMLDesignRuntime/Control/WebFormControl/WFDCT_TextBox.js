@@ -8,5 +8,6 @@ var WFDCT_TextBox={
 
     },
     GetValue:HTMLControl.GetValue,
-    SetValue:HTMLControl.SetValue
+    SetValue:HTMLControl.SetValue,
+    ToViewStatus:HTMLControl.ToViewStatus
 }

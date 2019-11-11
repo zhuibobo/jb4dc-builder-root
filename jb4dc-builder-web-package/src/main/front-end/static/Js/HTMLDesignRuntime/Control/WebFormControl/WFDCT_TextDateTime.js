@@ -18,5 +18,6 @@ var WFDCT_TextDateTime= {
             $elem.attr("control_value", ctValue);
             $elem.attr("control_time_value", fieldPO.value);
         }
-    }
+    },
+    ToViewStatus:HTMLControl.ToViewStatus
 }

@@ -6,7 +6,7 @@
      */
     CKEditorPluginUtility.Plugins[pluginName].GetHtmlTemplate=function(tipMsg,addDefProp) {
         var tip = CKEditorPluginUtility.GetAutoRemoveTipLabel(tipMsg);
-        var template=`<div class="wysiwyg-wldct-list-table-outer-wrap wldct-list-table-outer-wrap">${tip}<div class="wysiwyg-wldct-list-table-inner-wrap wldct-list-table-inner-wrap">
+        var template=`<div class="wysiwyg-wldct-list-table-outer-wrap wldct-list-table-outer-wrap" warning-msg="不要在该元素放置脚本,会造成Bug.">${tip}<div class="wysiwyg-wldct-list-table-inner-wrap wldct-list-table-inner-wrap">
                      <table class="list-table">
                          <thead>
                              <tr>
@@ -37,7 +37,7 @@
                          </tbody>
                      </table>
                  </div>
-              </div>`
+              </div>`;
         if(addDefProp){
             template=$(template);
             CKEditorPluginUtility.TemplateAddDefProp(template,"list_table_wrap_"+StringUtility.Timestamp(),"false","WLDCT_ListTableContainer","enable");

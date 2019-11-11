@@ -6,5 +6,6 @@ var WFDCT_DropDownSelect={
     },
     RendererDataChain:HTMLControl.RendererDataChain,
     GetValue:HTMLControl.GetValue,
-    SetValue:HTMLControl.SetValue
+    SetValue:HTMLControl.SetValue,
+    ToViewStatus:HTMLControl.ToViewStatus
 }
