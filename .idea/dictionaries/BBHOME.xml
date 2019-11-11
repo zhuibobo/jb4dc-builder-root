@@ -9,6 +9,8 @@
       <w>ckeditor</w>
       <w>creater</w>
       <w>cust</w>
+      <w>custclickevent</w>
+      <w>custclickeventpara</w>
       <w>custclientclickbeforemethod</w>
       <w>custclientclickbeforemethodpara</w>
       <w>custclientrendereraftermethodpara</w>
@@ -28,6 +30,7 @@
       <w>defaultisnull</w>
       <w>defaulttype</w>
       <w>defaultvalue</w>
+      <w>defformat</w>
       <w>dialogwindowtitle</w>
       <w>dictionaryiddatasource</w>
       <w>editinrow</w>
@@ -64,6 +67,7 @@
       <w>tablecaption</w>
       <w>tableid</w>
       <w>tablename</w>
+      <w>targetbuttonid</w>
       <w>tbuild</w>
       <w>tsso</w>
       <w>tsys</w>

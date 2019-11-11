@@ -23,6 +23,18 @@
                     <tbody>
                         <tr>
                             <td>
+                                格式化：
+                            </td>
+                            <td>
+                                <select  v-model="normalProps.defFormat">
+                                    <option value="notFormat">无</option>
+                                    <option value="yyyy-MM-dd">yyyy-MM-dd</option>
+                                    <option value="yyyy-MM-dd HH:mm:ss">yyyy-MM-dd HH:mm:ss</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
                                 客户端渲染方法：
                             </td>
                             <td>
@@ -99,7 +111,8 @@
                     custClickEventPara:"",
                     targetButtonId:"empty",
                     custClientRendererMethod:"",
-                    custClientRendererMethodPara:""
+                    custClientRendererMethodPara:"",
+                    defFormat:"notFormat"
                 }
             },
             mounted:function () {
@@ -144,6 +157,7 @@
                     }
                     this.normalProps.custClientRendererMethod = $elem.attr("custclientrenderermethod");
                     this.normalProps.custClientRendererMethodPara = $elem.attr("custclientrenderermethodpara");
+                    this.normalProps.defFormat = $elem.attr("defformat");
                 }
             }
         });
