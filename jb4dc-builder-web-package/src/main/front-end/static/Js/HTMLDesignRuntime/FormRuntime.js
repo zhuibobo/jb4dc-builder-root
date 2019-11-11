@@ -204,8 +204,8 @@ let FormRuntime={
         return formRecordComplexPo;
     },
     DeSerializationFormData:function (relationFormRecordComplexPo) {
-        console.log("DeSerializationFormData");
-        console.log(relationFormRecordComplexPo);
+        //console.log("DeSerializationFormData");
+        //console.log(relationFormRecordComplexPo);
         //绑定数据并进行二次渲染绑定数据。
         VirtualBodyControl.RendererDataChain({
             $rootElem: this._$RendererToElem,

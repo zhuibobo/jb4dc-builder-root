@@ -26,10 +26,7 @@ import com.jb4dc.builder.tool.FormRecordDataUtility;
 import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
 import com.jb4dc.core.base.exception.JBuild4DCSQLKeyWordException;
 import com.jb4dc.core.base.session.JB4DCSession;
-import com.jb4dc.core.base.tools.BaseUtility;
-import com.jb4dc.core.base.tools.ClassUtility;
-import com.jb4dc.core.base.tools.SQLKeyWordUtility;
-import com.jb4dc.core.base.tools.StringUtility;
+import com.jb4dc.core.base.tools.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -82,6 +79,8 @@ public class WebFormDataSaveRuntimeServiceImpl implements IWebFormDataSaveRuntim
     public SubmitResultPO SaveFormRecordComplexPO(JB4DCSession jb4DCSession, String recordId, FormRecordComplexPO formRecordComplexPO, String listButtonId, String innerFormButtonId,String operationTypeName) throws JBuild4DCGenerallyException, IOException, JBuild4DCSQLKeyWordException {
         SubmitResultPO submitResultPO = new SubmitResultPO();
 
+        logger.debug(BaseUtility.wrapDevLog("保存数据解析-开始：-----------------------------------------"+recordId+"/"+ DateUtility.getDate_yyyy_MM_dd_HH_mm_ss_SSS()+"-----------------------------------------"));
+
         ListButtonEntity listButtonEntity=null;
         List<InnerFormButtonConfig> innerFormButtonConfigList=null;
         InnerFormButtonConfig innerFormButtonConfig=null;
@@ -95,6 +94,7 @@ public class WebFormDataSaveRuntimeServiceImpl implements IWebFormDataSaveRuntim
                 List<InnerFormButtonConfigAPI> beforeApiList = innerFormButtonConfig.getApis().parallelStream().filter(item -> item.getRunTime().equals("之前")).collect(Collectors.toList());
                 for (InnerFormButtonConfigAPI innerFormButtonConfigAPI : beforeApiList) {
                     ApiRunResult apiRunResult = rubApi(innerFormButtonConfigAPI, formRecordComplexPO, listButtonEntity, innerFormButtonConfigList, innerFormButtonConfig);
+                    logger.debug(BaseUtility.wrapDevLog("保存数据解析-调用前置API："+JsonUtility.toObjectString(innerFormButtonConfigAPI)));
                     if (!apiRunResult.isSuccess()) {
                         throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_BUILDER_CODE, "执行前置API" + innerFormButtonConfigAPI.getValue() + "失败!");
                     }
@@ -105,8 +105,8 @@ public class WebFormDataSaveRuntimeServiceImpl implements IWebFormDataSaveRuntim
         //保存数据
         List<PendingSQLPO> pendingSQLPOList = resolvePendingSQL.resolveFormRecordComplexPOTOPendingSQL(jb4DCSession, recordId, formRecordComplexPO, operationTypeName);
         for (PendingSQLPO pendingSQLPO : pendingSQLPOList) {
-            logger.debug(BaseUtility.wrapDevLog("保存表单数据:待执行SQL"+pendingSQLPO.getSql()));
-            logger.debug(BaseUtility.wrapDevLog("保存表单数据:待执行SQL参数"+JsonUtility.toObjectString(pendingSQLPO.getSqlPara())));
+            logger.debug(BaseUtility.wrapDevLog("保存数据解析-表单存储-待执行SQL："+pendingSQLPO.getSql()));
+            logger.debug(BaseUtility.wrapDevLog("保存数据解析-表单存储-待执行SQL参数："+JsonUtility.toObjectString(pendingSQLPO.getSqlPara())));
 
             if(pendingSQLPO.getExecType().equals(PendingSQLPO.EXEC_TYPE_INSERT)){
                 sqlBuilderService.insert(pendingSQLPO.getSql(),pendingSQLPO.getSqlPara());
@@ -127,12 +127,15 @@ public class WebFormDataSaveRuntimeServiceImpl implements IWebFormDataSaveRuntim
                 List<InnerFormButtonConfigAPI> afterApiList = innerFormButtonConfig.getApis().parallelStream().filter(item -> item.getRunTime().equals("之后")).collect(Collectors.toList());
                 for (InnerFormButtonConfigAPI innerFormButtonConfigAPI : afterApiList) {
                     ApiRunResult apiRunResult = rubApi(innerFormButtonConfigAPI, formRecordComplexPO, listButtonEntity, innerFormButtonConfigList, innerFormButtonConfig);
+                    logger.debug(BaseUtility.wrapDevLog("保存数据解析-调用后置API："+JsonUtility.toObjectString(innerFormButtonConfigAPI)));
                     if (!apiRunResult.isSuccess()) {
                         throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_BUILDER_CODE, "执行后置API" + innerFormButtonConfigAPI.getValue() + "失败!");
                     }
                 }
             }
         }
+
+        logger.debug(BaseUtility.wrapDevLog("保存数据解析-结束：-----------------------------------------"+recordId+"/"+ DateUtility.getDate_yyyy_MM_dd_HH_mm_ss_SSS()+"-----------------------------------------"));
 
         return submitResultPO;
     }
@@ -243,6 +246,8 @@ public class WebFormDataSaveRuntimeServiceImpl implements IWebFormDataSaveRuntim
             paraMap.put(fieldName, value);
             paraMap.put("id", formRecordComplexPO.getRecordId());
             //paraMap.put("id","57d35380-844f-c403-29e4-3d3e88a87b3c");
+            logger.debug(BaseUtility.wrapDevLog("保存数据解析-修改字段-待执行SQL："+sql));
+            logger.debug(BaseUtility.wrapDevLog("保存数据解析-修改字段-待执行SQL参数："+JsonUtility.toObjectString(paraMap)));
             sqlBuilderService.update(sql, paraMap);
         }
         catch (Exception ex){

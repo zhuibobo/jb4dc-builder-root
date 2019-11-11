@@ -26,6 +26,9 @@ let InnerFormButtonRuntime= {
                 if(result.success){
                     window.setTimeout(function () {
                         DialogUtility.CloseDialog(DialogUtility.DialogLoadingId);
+                        DialogUtility.Alert(window,DialogUtility.DialogId02,{},result.message,function () {
+                            DialogUtility.Frame_CloseDialog(window);
+                        },this);
                     },500);
                 }
             },this);

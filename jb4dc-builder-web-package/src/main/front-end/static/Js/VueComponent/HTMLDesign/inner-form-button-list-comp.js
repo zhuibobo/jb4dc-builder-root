@@ -374,7 +374,7 @@ Vue.component("inner-form-button-list-comp", {
             this.field.editTableObject.AddEditingRowByTemplate();
         },
         removeField:function(){
-            this.field.editTableObject.AddEditingRowByTemplate();
+            this.field.editTableObject.RemoveRow();
         },
         //endregion
         addInnerFormCloseButton:function () {
@@ -655,6 +655,8 @@ Vue.component("inner-form-button-list-comp", {
                                 <i-button type="success" @click="addInnerFormSaveButton()" icon="md-add">保存按钮</i-button>
                                 <i-button icon="md-add" disabled>意见按钮</i-button>
                                 <i-button type="primary" @click="addInnerFormCloseButton()" icon="md-add">关闭按钮</i-button>
+                                <i-button disabled icon="md-add">拷贝Json</i-button>
+                                <i-button disabled icon="md-add">黏贴Json</i-button>
                             </ButtonGroup>
                         </div>
                     </div>
