@@ -74,7 +74,8 @@ let FormRuntime={
         RuntimeGeneralInstance.LoadHtmlDesignContent(url, this._Prop_Config.RendererTo, {
             formId: this._Prop_Config.FormId,
             recordId: this._Prop_Config.RecordId,
-            buttonId: this._Prop_Config.ButtonId
+            buttonId: this._Prop_Config.ButtonId,
+            operationType:this.GetOperationType()
         }, function (result) {
             //alert( "Load was performed.");
             //console.log("加载预览窗体成功!!");

@@ -43,7 +43,7 @@ public class FormRuntimeRest {
 
     //加载html同时会根据数据关系,加载数据
     @RequestMapping("/LoadHTML")
-    public JBuild4DCResponseVo<FormResourceComplexPO> loadHTML(String formId, String recordId, String buttonId) throws JBuild4DCGenerallyException, IOException, JBuild4DCSQLKeyWordException {
+    public JBuild4DCResponseVo<FormResourceComplexPO> loadHTML(String formId, String recordId, String buttonId,String operationType) throws JBuild4DCGenerallyException, IOException, JBuild4DCSQLKeyWordException {
 
         FormResourcePO formResourcePO = webFormRuntimeProxy.getFormRuntimePageContentById(JB4DCSessionUtility.getSession(), formId);
         //JBuild4DCResponseVo<FormResourcePO> formResourcePOJBuild4DCResponseVo = formRuntimeRemote.loadHTML(formId);
@@ -60,7 +60,7 @@ public class FormRuntimeRest {
         //    throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_BUILDER_CODE, "获取远程按钮设置失败!" + listButtonEntityJBuild4DCResponseVo.getMessage());
         //}
 
-        FormResourceComplexPO formResourceComplexPO = webFormRuntimeService.resolveFormResourceComplex(JB4DCSessionUtility.getSession(), recordId, formResourcePO, listButtonEntity);
+        FormResourceComplexPO formResourceComplexPO = webFormRuntimeService.resolveFormResourceComplex(JB4DCSessionUtility.getSession(), recordId, formResourcePO, listButtonEntity,operationType);
         return JBuild4DCResponseVo.getDataSuccess(formResourceComplexPO);
 
     }

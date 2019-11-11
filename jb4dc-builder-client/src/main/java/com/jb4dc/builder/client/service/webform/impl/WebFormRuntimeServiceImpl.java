@@ -15,6 +15,7 @@ import com.jb4dc.builder.po.FormResourcePO;
 import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
 import com.jb4dc.core.base.exception.JBuild4DCSQLKeyWordException;
 import com.jb4dc.core.base.session.JB4DCSession;
+import com.jb4dc.core.base.tools.BaseUtility;
 import com.jb4dc.core.base.tools.StringUtility;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -44,12 +45,12 @@ public class WebFormRuntimeServiceImpl implements IWebFormRuntimeService {
     IWebFormDataSaveRuntimeService webFormDataSaveRuntimeService;
 
     @Override
-    public FormResourceComplexPO resolveFormResourceComplex(JB4DCSession session,String recordId, FormResourcePO remoteSourcePO, ListButtonEntity listButtonEntity) throws IOException, JBuild4DCGenerallyException, JBuild4DCSQLKeyWordException {
+    public FormResourceComplexPO resolveFormResourceComplex(JB4DCSession session,String recordId, FormResourcePO remoteSourcePO, ListButtonEntity listButtonEntity,String operationType) throws IOException, JBuild4DCGenerallyException, JBuild4DCSQLKeyWordException {
 
         FormRecordComplexPO formRecordComplexPO =null;
         //List<FormDataRelationPO> recordData=null;
 
-        if(listButtonEntity!=null&&!listButtonEntity.getButtonOperationType().toUpperCase().equals("ADD")) {
+        if(BaseUtility.isUpdateOperation(operationType)||BaseUtility.isViewOperation(operationType)) {
 
             if (StringUtility.isNotEmpty(remoteSourcePO.getFormDataRelation())) {
                 List<FormRecordDataRelationPO> formRecordDataRelationPOList = JsonUtility.toObjectList(remoteSourcePO.getFormDataRelation(), FormRecordDataRelationPO.class);
