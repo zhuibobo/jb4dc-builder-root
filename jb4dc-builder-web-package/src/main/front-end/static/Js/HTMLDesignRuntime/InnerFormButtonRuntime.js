@@ -14,6 +14,7 @@ let InnerFormButtonRuntime= {
         var formRuntimeInstance = sender.data.formRuntimeInstance;
         var listButtonPO = sender.data.listButtonPO;
         var formDataComplexPO = formRuntimeInstance.SerializationFormData();
+        //console.log(formDataComplexPO);
         var operationType=formRuntimeInstance._Prop_Config.OperationType;
         DialogUtility.AlertLoading(window,DialogUtility.DialogLoadingId,{},"系统处理中,请稍候...");
         RuntimeGeneralInstance.SubmitFormDataComplexPOListToServer(
