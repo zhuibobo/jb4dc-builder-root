@@ -55,7 +55,7 @@
                         if(result.success){
                             var subFormListContainerInstanceName=BaseUtility.GetUrlParaValue("InstanceName");
                             window.parent.WFDCT_SubFormListContainer.Dialog_SubFormDialogCompletedEdit(subFormListContainerInstanceName,FormRuntimeSinglePageObject.getWebFormRTParas().OperationType,formDataComplexPO);
-                            //DialogUtility.CloseOpenIframeWindow(window,DialogUtility.DialogId);
+                            DialogUtility.CloseOpenIframeWindow(window,DialogUtility.DialogId);
                         }
                     },
                     this

@@ -72,8 +72,6 @@ public class ResolvePendingSQL {
         }
     }
 
-
-
     public List<PendingSQLPO> resolveFormRecordComplexPOTOPendingSQL(JB4DCSession jb4DCSession, String recordId, FormRecordComplexPO formRecordComplexPO, String operationTypeName) throws JBuild4DCGenerallyException, JBuild4DCSQLKeyWordException {
         //验证数据
         validateFormRecordComplexPO(jb4DCSession, recordId, formRecordComplexPO, operationTypeName);
@@ -246,8 +244,8 @@ public class ResolvePendingSQL {
                     sqlBuilder.append(String.format("%s=#{%s},", fieldDataPO.getFieldName(), fieldDataPO.getFieldName()));
                     sqlMapPara.put(fieldDataPO.getFieldName(), fieldDataPO.getValue());
                 }
-
-                sqlBuilder.append("where ID=${ID}");
+                sqlBuilder=StringUtility.removeLastChar(sqlBuilder);
+                sqlBuilder.append(" where ID=#{ID}");
                 sqlMapPara.put("ID", idValue);
             }
 

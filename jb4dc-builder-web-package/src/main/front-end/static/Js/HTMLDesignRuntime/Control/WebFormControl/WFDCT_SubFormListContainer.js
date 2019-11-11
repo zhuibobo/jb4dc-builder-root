@@ -215,6 +215,9 @@ var WFDCT_SubFormListContainer={
         var id = $tr.attr("tr_record_id");
         return id;
     },
+    SetRowId:function($tr,idValue) {
+        $tr.attr("tr_record_id", idValue);
+    },
     GetRowData:function($tr){
         var json=$tr.attr("tr_record_data");
         return JsonUtility.StringToJson(json);
@@ -362,6 +365,9 @@ var WFDCT_SubFormListContainer={
                 var fieldPO = FormRelationPOUtility.FindFieldPOInOneDataRecord(oneDataRecord, fieldName)
                 controlInstance.SetValue(control,fieldPO, null, null);
             }
+            var idValue=FormRelationPOUtility.FindIDFieldPOInOneDataRecord(oneDataRecord).value;
+            this.SetRowId($tr,idValue);
+            //$tr.attr("tr_record_id",idValue);
         }
     },
     InnerRow_ToEditStatus:function($tr){
