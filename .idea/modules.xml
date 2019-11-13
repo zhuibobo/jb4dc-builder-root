@@ -10,6 +10,8 @@
       <module fileurl="file://$PROJECT_DIR$/jb4dc-builder-web-server/jb4dc-builder-web-server.iml" filepath="$PROJECT_DIR$/jb4dc-builder-web-server/jb4dc-builder-web-server.iml" />
       <module fileurl="file://$PROJECT_DIR$/jb4dc-dev-mock-service/jb4dc-dev-mock-service.iml" filepath="$PROJECT_DIR$/jb4dc-dev-mock-service/jb4dc-dev-mock-service.iml" />
       <module fileurl="file://$PROJECT_DIR$/jb4dc-dev-mock-web-server/jb4dc-dev-mock-web-server.iml" filepath="$PROJECT_DIR$/jb4dc-dev-mock-web-server/jb4dc-dev-mock-web-server.iml" />
+      <module fileurl="file://$PROJECT_DIR$/jb4dc-workflow-service/jb4dc-workflow-service.iml" filepath="$PROJECT_DIR$/jb4dc-workflow-service/jb4dc-workflow-service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/jb4dc-workflow-web-package/jb4dc-workflow-web-package.iml" filepath="$PROJECT_DIR$/jb4dc-workflow-web-package/jb4dc-workflow-web-package.iml" />
     </modules>
   </component>
 </project>

@@ -599,4 +599,6 @@
             <column name="BUTTON_OPERATION_TYPE" type="NVARCHAR(20)" remarks="操作类型:add,update,view"/>
         </addColumn>
     </changeSet>
+
+
 </databaseChangeLog>

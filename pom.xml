@@ -16,6 +16,8 @@
         <module>jb4dc-builder-web-server</module>
         <module>jb4dc-dev-mock-service</module>
         <module>jb4dc-dev-mock-web-server</module>
+        <module>jb4dc-workflow-service</module>
+        <module>jb4dc-workflow-web-package</module>
     </modules>
     <properties>
         <jb4dc.builder.version>1.0-SNAPSHOT</jb4dc.builder.version>
