@@ -1,0 +1,18 @@
+const $ = require("jQuery");
+
+function createLinkTable() {
+    var tableElem=$(`<table>
+        <tbody>
+        </tbody>
+    </table>`);
+    var tbodyElem=tableElem.find("tbody");
+
+    tbodyElem.append("<tr><td><a href='001starter/default.html'>001starter</a></td></tr>")
+    tbodyElem.append("<tr><td><a href='002starter/default.html'>002starter</a></td></tr>")
+    tbodyElem.append("<tr><td><a href='003starter/default.html'>003starter</a></td></tr>")
+    tbodyElem.append("<tr><td><a href='004colors/default.html'>004colors</a></td></tr>")
+
+    $(window.document.body).append(tableElem);
+}
+
+createLinkTable();

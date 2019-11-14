@@ -1,4 +1,4 @@
-import $ from "jQuery";
+import $ from "jquery";
 import BpmnViewer from 'bpmn-js';
 import pizzaDiagram from './bpmn03-44.bpmn';
 

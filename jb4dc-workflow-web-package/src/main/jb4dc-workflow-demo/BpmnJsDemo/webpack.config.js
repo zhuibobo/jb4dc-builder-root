@@ -18,10 +18,23 @@ var config = {
     },
     externals: {
         // 后面是原本使用的全局变量名，前面的是引入的包名（就是import xx from 'echart'），然后我们实际写代码时候，用的是xx这个变量名。
-        "jQuery": 'jQuery',
+        "jquery": 'jQuery',
         "bpmn-js": "BpmnJS"
     }
 };
+
+var index000 = Object.assign({}, config, {
+    name: "a",
+    entry: {
+        'index':'./src/index.js'
+    },
+    output: {
+        path: path.resolve(__dirname, 'public'),
+        filename: '[name].js'
+    },
+    plugins: [new HtmlWebpackPlugin()],
+    externals: {}
+});
 
 var starter001 = Object.assign({}, config, {
     name: "a",
@@ -83,4 +96,4 @@ var colors004 = Object.assign({}, config, {
     })]
 });
 
-module.exports = [starter001,starter002,starter003,colors004];
+module.exports = [index000,starter001,starter002,starter003,colors004];
