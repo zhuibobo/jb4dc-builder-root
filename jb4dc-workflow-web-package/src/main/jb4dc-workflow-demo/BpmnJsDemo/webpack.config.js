@@ -126,4 +126,19 @@ var overlays006 = Object.assign({}, config, {
     })]
 });
 
-module.exports = [index000,starter001,starter002,starter003,colors004,interaction005,overlays006];
+var urlviewer007 = Object.assign({}, config, {
+    name: "a",
+    entry: {
+        '007url-viewer':'./src/007url-viewer/007url-viewer.js'
+    },
+    output: {
+        path: path.resolve(__dirname, 'public/007url-viewer'),
+        filename: '[name].js'
+    },
+    plugins: [new HtmlWebpackPlugin({
+        filename:"default.html",
+        template: './src/007url-viewer/template.html'
+    })]
+});
+
+module.exports = [index000,starter001,starter002,starter003,colors004,interaction005,overlays006,urlviewer007];
