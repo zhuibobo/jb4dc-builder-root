@@ -35,7 +35,7 @@ function openDiagram(bpmnXML) {
         canvas.zoom('fit-viewport');
 
         // attach an overlay to a node
-        overlays.add('SCAN_OK', 'note', {
+        overlays.add('endevent1', 'note', {
             position: {
                 bottom: 0,
                 right: 0
@@ -44,7 +44,7 @@ function openDiagram(bpmnXML) {
         });
 
         // add marker
-        canvas.addMarker('SCAN_OK', 'needs-discussion');
+        canvas.addMarker('endevent1', 'needs-discussion');
     });
 }
 

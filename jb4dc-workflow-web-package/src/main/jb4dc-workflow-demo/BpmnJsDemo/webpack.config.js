@@ -15,6 +15,11 @@ var config = {
                 }
             }
         ]
+    },
+    externals: {
+        // 后面是原本使用的全局变量名，前面的是引入的包名（就是import xx from 'echart'），然后我们实际写代码时候，用的是xx这个变量名。
+        "jQuery": 'jQuery',
+        "bpmn-js": "BpmnJS"
     }
 };
 
@@ -48,4 +53,34 @@ var starter002 = Object.assign({}, config, {
     })]
 });
 
-module.exports = [starter001,starter002];
+var starter003 = Object.assign({}, config, {
+    name: "a",
+    entry: {
+        '003starter':'./src/003starter/003starter.js'
+    },
+    output: {
+        path: path.resolve(__dirname, 'public/003starter'),
+        filename: '[name].js'
+    },
+    plugins: [new HtmlWebpackPlugin({
+        filename:"default.html",
+        template: './src/003starter/template.html'
+    })]
+});
+
+var colors004 = Object.assign({}, config, {
+    name: "a",
+    entry: {
+        '003colors':'./src/004colors/004colors.js'
+    },
+    output: {
+        path: path.resolve(__dirname, 'public/004colors'),
+        filename: '[name].js'
+    },
+    plugins: [new HtmlWebpackPlugin({
+        filename:"default.html",
+        template: './src/004colors/template.html'
+    })]
+});
+
+module.exports = [starter001,starter002,starter003,colors004];
