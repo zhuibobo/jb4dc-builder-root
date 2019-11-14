@@ -7,10 +7,12 @@ function createLinkTable() {
     </table>`);
     var tbodyElem=tableElem.find("tbody");
 
-    tbodyElem.append("<tr><td><a href='001starter/default.html'>001starter</a></td></tr>")
-    tbodyElem.append("<tr><td><a href='002starter/default.html'>002starter</a></td></tr>")
-    tbodyElem.append("<tr><td><a href='003starter/default.html'>003starter</a></td></tr>")
-    tbodyElem.append("<tr><td><a href='004colors/default.html'>004colors</a></td></tr>")
+    tbodyElem.append("<tr><td><a href='001starter/default.html'>001starter</a></td></tr>");
+    tbodyElem.append("<tr><td><a href='002starter/default.html'>002starter</a></td></tr>");
+    tbodyElem.append("<tr><td><a href='003starter/default.html'>003starter</a></td></tr>");
+    tbodyElem.append("<tr><td><a href='004colors/default.html'>004colors</a></td></tr>");
+    tbodyElem.append("<tr><td><a href='005interaction/default.html'>005interaction</a></td></tr>")
+    tbodyElem.append("<tr><td><a href='006overlays/default.html'>006overlays</a></td></tr>")
 
     $(window.document.body).append(tableElem);
 }

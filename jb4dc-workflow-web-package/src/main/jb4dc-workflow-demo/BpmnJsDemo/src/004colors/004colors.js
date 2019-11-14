@@ -33,8 +33,8 @@ function showDiagram(diagramXML) {
 
         overlays.add('CalmCustomerTask', {
             position: {
-                top: 0,
-                left: 0
+                top: 10,
+                left: 10
             },
             html: $overlayHtml
         });
@@ -43,7 +43,7 @@ function showDiagram(diagramXML) {
         var elementToColor = elementRegistry.get('SelectAPizzaTask');
 
         modeling.setColor([ elementToColor ], {
-            stroke: 'green',
+            stroke: 'yellow',
             fill: 'rgba(0, 80, 0, 0.4)'
         });
 

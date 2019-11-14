@@ -1,0 +1,50 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>bpmn-js interaction demo</title>
+
+    <link rel="stylesheet" href="https://unpkg.com/bpmn-js@5.1.2/dist/assets/diagram-js.css"/>
+
+    <style>
+        .console {
+            width: 100%;
+            min-height: 80px;
+            border: none;
+            padding: 0;
+        }
+
+        .console textarea {
+            width: 100%;
+            min-height: 80px;
+        }
+    </style>
+</head>
+    <body>
+
+        <div class="header">
+            <h1>bpmn-js diagram interaction example</h1>
+            <p>
+                interact with the diagram using your mouse and see what happens,
+                click the end event for a special alert.
+            </p>
+        </div>
+
+        <hr>
+
+        <div class="canvas">
+            <h3>diagram</h3>
+            <div id="js-canvas"></div>
+        </div>
+
+        <hr>
+
+        <div class="console">
+            <h3>console</h3>
+            <textarea id="js-console"></textarea>
+        </div>
+
+        <!-- viewer -->
+        <%= require('html-loader!../common/bpmn-modeler-development.html') %>
+
+    </body>
+</html>

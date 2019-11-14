@@ -96,4 +96,34 @@ var colors004 = Object.assign({}, config, {
     })]
 });
 
-module.exports = [index000,starter001,starter002,starter003,colors004];
+var interaction005 = Object.assign({}, config, {
+    name: "a",
+    entry: {
+        '005interaction':'./src/005interaction/005interaction.js'
+    },
+    output: {
+        path: path.resolve(__dirname, 'public/005interaction'),
+        filename: '[name].js'
+    },
+    plugins: [new HtmlWebpackPlugin({
+        filename:"default.html",
+        template: './src/005interaction/template.html'
+    })]
+});
+
+var overlays006 = Object.assign({}, config, {
+    name: "a",
+    entry: {
+        '006overlays':'./src/006overlays/006overlays.js'
+    },
+    output: {
+        path: path.resolve(__dirname, 'public/006overlays'),
+        filename: '[name].js'
+    },
+    plugins: [new HtmlWebpackPlugin({
+        filename:"default.html",
+        template: './src/006overlays/template.html'
+    })]
+});
+
+module.exports = [index000,starter001,starter002,starter003,colors004,interaction005,overlays006];
