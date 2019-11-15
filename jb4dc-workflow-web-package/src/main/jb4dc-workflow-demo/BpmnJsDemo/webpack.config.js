@@ -1,5 +1,6 @@
-var path = require('path');
-var HtmlWebpackPlugin = require('html-webpack-plugin');
+const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 var config = {
     // TODO: Add common Configuration
@@ -141,4 +142,24 @@ var urlviewer007 = Object.assign({}, config, {
     })]
 });
 
-module.exports = [index000,starter001,starter002,starter003,colors004,interaction005,overlays006,urlviewer007];
+var modeler008 = Object.assign({}, config, {
+    name: "a",
+    entry: {
+        '008modeler':'./src/008modeler/008modeler.js'
+    },
+    output: {
+        path: path.resolve(__dirname, 'public/008modeler'),
+        filename: '[name].js'
+    },
+    plugins: [
+        new CopyWebpackPlugin([
+            { from: '**/*.css',context: 'src/008modeler', to: ''}
+        ]),
+        new HtmlWebpackPlugin({
+            filename:"default.html",
+            template: './src/008modeler/template.html'
+        })
+    ]
+});
+
+module.exports = [index000,starter001,starter002,starter003,colors004,interaction005,overlays006,urlviewer007,modeler008];
