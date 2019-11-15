@@ -162,4 +162,43 @@ var modeler008 = Object.assign({}, config, {
     ]
 });
 
-module.exports = [index000,starter001,starter002,starter003,colors004,interaction005,overlays006,urlviewer007,modeler008];
+var commenting009 = Object.assign({}, config, {
+    name: "a",
+    entry: {
+        '009commenting':'./src/009commenting/009commenting.js'
+    },
+    output: {
+        path: path.resolve(__dirname, 'public/009commenting'),
+        filename: '[name].js'
+    },
+    plugins: [
+        new CopyWebpackPlugin([
+            { from: '**/*.css',context: 'src/009commenting', to: ''}
+        ]),
+        new HtmlWebpackPlugin({
+            filename:"default.html",
+            template: './src/009commenting/template.html'
+        })
+    ]
+});
+
+var bpmnproperties010 = Object.assign({}, config, {
+    name: "a",
+    entry: {
+        '010bpmn-properties':'./src/010bpmn-properties/010bpmnProperties.js'
+    },
+    output: {
+        path: path.resolve(__dirname, 'public/010bpmn-properties'),
+        filename: '[name].js'
+    },
+    plugins: [new HtmlWebpackPlugin({
+        filename:"default.html",
+        template: './src/010bpmn-properties/template.html'
+    })]
+});
+
+module.exports = [
+    index000,
+    starter001,starter002,starter003,colors004,interaction005,
+    overlays006,urlviewer007,modeler008,commenting009,bpmnproperties010
+];

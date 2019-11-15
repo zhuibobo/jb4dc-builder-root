@@ -23,52 +23,55 @@ var viewer = new BpmnViewer({
     height: 400
 });
 
-viewer.importXML(pizzaDiagram, function(err) {
-    if (err) {
-        console.error('failed to load diagram');
-        console.error(err);
+$(function () {
+    viewer.importXML(pizzaDiagram, function(err) {
+        if (err) {
+            console.error('failed to load diagram');
+            console.error(err);
 
-        return log('failed to load diagram', err);
-    }
+            return log('failed to load diagram', err);
+        }
 
-    // diagram is loaded, add interaction to it
+        // diagram is loaded, add interaction to it
 
-    // Option 1:
-    // directly hook into internal diagram events
-    // this allows you to access the clicked element directly
+        // Option 1:
+        // directly hook into internal diagram events
+        // this allows you to access the clicked element directly
 
-    var eventBus = viewer.get('eventBus');
+        var eventBus = viewer.get('eventBus');
 
-    // you may hook into any of the following events
-    var events = [
-        'element.hover',
-        'element.out',
-        'element.click',
-        'element.dblclick',
-        'element.mousedown',
-        'element.mouseup'
-    ];
+        // you may hook into any of the following events
+        var events = [
+            'element.hover',
+            'element.out',
+            'element.click',
+            'element.dblclick',
+            'element.mousedown',
+            'element.mouseup'
+        ];
 
-    events.forEach(function(event) {
+        events.forEach(function(event) {
 
-        eventBus.on(event, function(e) {
-            // e.element = the model element
-            // e.gfx = the graphical element
+            eventBus.on(event, function(e) {
+                // e.element = the model element
+                // e.gfx = the graphical element
 
-            log(event, 'on', e.element.id);
+                log(event, 'on', e.element.id);
+            });
+        });
+
+
+        // Option 2:
+        // directly attach an event listener to an elements graphical representation
+
+        // each model element a data-element-id attribute attached to it in HTML
+
+        // select the end event
+        var endEventNode = document.querySelector('#js-canvas [data-element-id=endevent1]');
+        endEventNode.addEventListener('click', function(e) {
+            alert(e);
+            window.console.log(e);
         });
     });
-
-
-    // Option 2:
-    // directly attach an event listener to an elements graphical representation
-
-    // each model element a data-element-id attribute attached to it in HTML
-
-    // select the end event
-    var endEventNode = document.querySelector('#js-canvas [data-element-id=endevent1]');
-    endEventNode.addEventListener('click', function(e) {
-        alert(e);
-        window.console.log(e);
-    });
 });
+
