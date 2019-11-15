@@ -197,8 +197,24 @@ var bpmnproperties010 = Object.assign({}, config, {
     })]
 });
 
+var i18n011 = Object.assign({}, config, {
+    name: "a",
+    entry: {
+        '010bpmn-properties':'./src/011i18n/011i18n.js'
+    },
+    output: {
+        path: path.resolve(__dirname, 'public/011i18n'),
+        filename: '[name].js'
+    },
+    plugins: [new HtmlWebpackPlugin({
+        filename:"default.html",
+        template: './src/011i18n/template.html'
+    })]
+});
+
 module.exports = [
     index000,
     starter001,starter002,starter003,colors004,interaction005,
-    overlays006,urlviewer007,modeler008,commenting009,bpmnproperties010
+    overlays006,urlviewer007,modeler008,commenting009,bpmnproperties010,
+    i18n011
 ];

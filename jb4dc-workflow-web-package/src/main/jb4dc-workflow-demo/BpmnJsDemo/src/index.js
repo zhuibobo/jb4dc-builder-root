@@ -17,6 +17,7 @@ function createLinkTable() {
     tbodyElem.append("<tr><td><a href='008modeler/default.html'>008modeler</a></td></tr>")
     tbodyElem.append("<tr><td><a href='009commenting/default.html'>009commenting</a></td></tr>")
     tbodyElem.append("<tr><td><a href='010bpmn-properties/default.html'>010bpmn-properties</a></td></tr>")
+    tbodyElem.append("<tr><td><a href='011i18n/default.html'>011i18n</a></td></tr>")
 
     $(window.document.body).append(tableElem);
 }
