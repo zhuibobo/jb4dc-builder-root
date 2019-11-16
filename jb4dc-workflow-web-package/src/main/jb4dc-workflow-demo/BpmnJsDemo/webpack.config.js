@@ -212,9 +212,29 @@ var i18n011 = Object.assign({}, config, {
     })]
 });
 
+var propertiesPanel012 = Object.assign({}, config, {
+    name: "a",
+    entry: {
+        '010bpmn-properties':'./src/012properties-panel/012properties-panel.js'
+    },
+    output: {
+        path: path.resolve(__dirname, 'public/012properties-panel'),
+        filename: '[name].js'
+    },
+    plugins: [
+        new CopyWebpackPlugin([
+            { from: '**/*.css',context: 'src/012properties-panel', to: ''}
+        ]),
+        new HtmlWebpackPlugin({
+            filename:"default.html",
+            template: './src/012properties-panel/template.html'
+        })
+    ]
+});
+
 module.exports = [
     index000,
     starter001,starter002,starter003,colors004,interaction005,
     overlays006,urlviewer007,modeler008,commenting009,bpmnproperties010,
-    i18n011
+    i18n011,propertiesPanel012
 ];
