@@ -252,9 +252,29 @@ var themingl013 = Object.assign({}, config, {
     ]
 });
 
+var bpmnjsnyan014 = Object.assign({}, config, {
+    name: "a",
+    entry: {
+        '010bpmn-properties':'./src/014bpmn-js-nyan/014bpmn-js-nyan.js'
+    },
+    output: {
+        path: path.resolve(__dirname, 'public/014bpmn-js-nyan'),
+        filename: '[name].js'
+    },
+    plugins: [
+        new CopyWebpackPlugin([
+            { from: '**/*.css',context: 'src/014bpmn-js-nyan', to: ''}
+        ]),
+        new HtmlWebpackPlugin({
+            filename:"default.html",
+            template: './src/014bpmn-js-nyan/template.html'
+        })
+    ]
+});
+
 module.exports = [
     index000,
     starter001,starter002,starter003,colors004,interaction005,
     overlays006,urlviewer007,modeler008,commenting009,bpmnproperties010,
-    i18n011,propertiesPanel012,themingl013
+    i18n011,propertiesPanel012,themingl013,bpmnjsnyan014
 ];
