@@ -232,9 +232,29 @@ var propertiesPanel012 = Object.assign({}, config, {
     ]
 });
 
+var themingl013 = Object.assign({}, config, {
+    name: "a",
+    entry: {
+        '010bpmn-properties':'./src/013theming/013theming.js'
+    },
+    output: {
+        path: path.resolve(__dirname, 'public/013theming'),
+        filename: '[name].js'
+    },
+    plugins: [
+        new CopyWebpackPlugin([
+            { from: '**/*.css',context: 'src/013theming', to: ''}
+        ]),
+        new HtmlWebpackPlugin({
+            filename:"default.html",
+            template: './src/013theming/template.html'
+        })
+    ]
+});
+
 module.exports = [
     index000,
     starter001,starter002,starter003,colors004,interaction005,
     overlays006,urlviewer007,modeler008,commenting009,bpmnproperties010,
-    i18n011,propertiesPanel012
+    i18n011,propertiesPanel012,themingl013
 ];
