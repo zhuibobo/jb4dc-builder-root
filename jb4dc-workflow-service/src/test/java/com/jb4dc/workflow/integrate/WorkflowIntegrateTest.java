@@ -24,7 +24,7 @@ public class WorkflowIntegrateTest {
     @Test
     public void parseToPO() throws JAXBException, XMLStreamException, FileNotFoundException {
 
-        InputStream is=new FileInputStream("D:\\JavaProject\\JavaTestProject\\CamundaProject13\\src\\main\\resources\\bpmn\\P004_001_发文流程.bpmn");
+        InputStream is=new FileInputStream("D:\\JavaProject\\JavaTestProject\\CamundaProject13\\src\\main\\resources\\bpmn\\P004_001_发文流程_解析XML模型用.bpmn");
 
         //RepositoryService repositoryService = processEngine.getRepositoryService();
         //repositoryService.createDeployment().name("P004Test-NAME").source("P004Test-Source").tenantId("P004Test-TenantId").addClasspathResource("bpmn/P004_001_发文流程.bpmn").deploy();
@@ -34,6 +34,7 @@ public class WorkflowIntegrateTest {
 
         Assert.assertEquals("发文流程",bpmnDefinitions.getBpmnProcess().getName());
         Assert.assertEquals("发文流程V1",bpmnDefinitions.getBpmnProcess().getVersionTag());
+        Assert.assertEquals("P004_001",bpmnDefinitions.getBpmnProcess().getId());
 
         System.out.println(XMLUtility.toXMLString(bpmnDefinitions));
     }

@@ -1,5 +1,7 @@
 package com.jb4dc.workflow.po.bpmn.process;
 
+import com.jb4dc.workflow.po.bpmn.BpmnNs;
+
 import javax.xml.bind.annotation.*;
 
 /**
@@ -10,12 +12,18 @@ import javax.xml.bind.annotation.*;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 // XML文件中的根标识
-@XmlRootElement(name = "process",namespace = "http://www.omg.org/spec/BPMN/20100524/MODEL")
+@XmlRootElement(name = "process",namespace = BpmnNs.BPMN_URI)
 // 控制JAXB 绑定类中属性和字段的排序
 @XmlType(propOrder = {
         "id",
         "name",
-        "isExecutable"
+        "isExecutable",
+        "candidateStarterGroups",
+        "candidateStarterUsers",
+        "versionTag",
+        "documentation",
+        "extensionElements",
+        "startEvent"
 })
 public class BpmnProcess {
 
@@ -28,8 +36,23 @@ public class BpmnProcess {
     @XmlAttribute(name = "isExecutable")
     String isExecutable;
 
-    @XmlAttribute(name = "versionTag",namespace = "http://camunda.org/schema/1.0/bpmn")
+    @XmlAttribute(name = "candidateStarterGroups",namespace = BpmnNs.CAMUNDA_URI)
+    String candidateStarterGroups;
+
+    @XmlAttribute(name = "candidateStarterUsers",namespace = BpmnNs.CAMUNDA_URI)
+    String candidateStarterUsers;
+
+    @XmlAttribute(name = "versionTag",namespace = BpmnNs.CAMUNDA_URI)
     String versionTag;
+
+    @XmlElement(name = "documentation",namespace = BpmnNs.BPMN_URI)
+    BpmnDocumentation documentation;
+
+    @XmlElement(name = "extensionElements",namespace = BpmnNs.BPMN_URI)
+    BpmnExtensionElements extensionElements;
+
+    @XmlElement(name = "startEvent",namespace = BpmnNs.BPMN_URI)
+    BpmnStartEvent startEvent;
 
     public String getId() {
         return id;
@@ -61,5 +84,37 @@ public class BpmnProcess {
 
     public void setVersionTag(String versionTag) {
         this.versionTag = versionTag;
+    }
+
+    public String getCandidateStarterGroups() {
+        return candidateStarterGroups;
+    }
+
+    public void setCandidateStarterGroups(String candidateStarterGroups) {
+        this.candidateStarterGroups = candidateStarterGroups;
+    }
+
+    public String getCandidateStarterUsers() {
+        return candidateStarterUsers;
+    }
+
+    public void setCandidateStarterUsers(String candidateStarterUsers) {
+        this.candidateStarterUsers = candidateStarterUsers;
+    }
+
+    public BpmnDocumentation getDocumentation() {
+        return documentation;
+    }
+
+    public void setDocumentation(BpmnDocumentation documentation) {
+        this.documentation = documentation;
+    }
+
+    public BpmnExtensionElements getExtensionElements() {
+        return extensionElements;
+    }
+
+    public void setExtensionElements(BpmnExtensionElements extensionElements) {
+        this.extensionElements = extensionElements;
     }
 }
