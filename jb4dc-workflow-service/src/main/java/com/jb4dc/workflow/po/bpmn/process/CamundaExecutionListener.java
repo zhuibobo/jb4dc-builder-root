@@ -3,6 +3,7 @@ package com.jb4dc.workflow.po.bpmn.process;
 import com.jb4dc.workflow.po.bpmn.BpmnNs;
 
 import javax.xml.bind.annotation.*;
+import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.
@@ -15,7 +16,8 @@ import javax.xml.bind.annotation.*;
 @XmlRootElement(name = "executionListener",namespace = BpmnNs.CAMUNDA_URI)
 @XmlType(propOrder = {
         "className",
-        "event"
+        "event",
+        "camundaFieldList"
 })
 public class CamundaExecutionListener {
 
@@ -24,6 +26,9 @@ public class CamundaExecutionListener {
 
     @XmlAttribute(name = "event")
     String event;
+
+    @XmlElement(name = "field",namespace = BpmnNs.CAMUNDA_URI)
+    List<CamundaField> camundaFieldList;
 
     public String getClassName() {
         return className;

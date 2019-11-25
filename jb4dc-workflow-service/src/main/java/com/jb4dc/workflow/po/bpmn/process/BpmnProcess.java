@@ -25,7 +25,8 @@ import java.util.List;
         "documentation",
         "extensionElements",
         "startEvent",
-        "sequenceFlow"
+        "sequenceFlow",
+        "taskList"
 })
 public class BpmnProcess {
 
@@ -55,6 +56,9 @@ public class BpmnProcess {
 
     @XmlElement(name = "startEvent",namespace = BpmnNs.BPMN_URI)
     BpmnStartEvent startEvent;
+
+    @XmlElement(name = "task",namespace = BpmnNs.BPMN_URI)
+    List<BpmnTask> taskList;
 
     @XmlElement(name = "sequenceFlow",namespace = BpmnNs.BPMN_URI)
     List<BpmnSequenceFlow> sequenceFlow;
@@ -137,5 +141,13 @@ public class BpmnProcess {
 
     public void setSequenceFlow(List<BpmnSequenceFlow> sequenceFlow) {
         this.sequenceFlow = sequenceFlow;
+    }
+
+    public List<BpmnTask> getTaskList() {
+        return taskList;
+    }
+
+    public void setTaskList(List<BpmnTask> taskList) {
+        this.taskList = taskList;
     }
 }
