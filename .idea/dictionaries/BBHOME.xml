@@ -4,9 +4,13 @@
       <w>apivariable</w>
       <w>bindauthority</w>
       <w>bpmn</w>
+      <w>bpmndi</w>
+      <w>bpmnprefix</w>
+      <w>bpmnuri</w>
       <w>buttoncaption</w>
       <w>buttonid</w>
       <w>buttontype</w>
+      <w>camunda</w>
       <w>ckeditor</w>
       <w>creater</w>
       <w>cust</w>
