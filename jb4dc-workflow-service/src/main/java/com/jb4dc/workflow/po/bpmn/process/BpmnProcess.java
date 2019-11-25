@@ -3,6 +3,7 @@ package com.jb4dc.workflow.po.bpmn.process;
 import com.jb4dc.workflow.po.bpmn.BpmnNs;
 
 import javax.xml.bind.annotation.*;
+import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.
@@ -23,7 +24,8 @@ import javax.xml.bind.annotation.*;
         "versionTag",
         "documentation",
         "extensionElements",
-        "startEvent"
+        "startEvent",
+        "sequenceFlow"
 })
 public class BpmnProcess {
 
@@ -53,6 +55,9 @@ public class BpmnProcess {
 
     @XmlElement(name = "startEvent",namespace = BpmnNs.BPMN_URI)
     BpmnStartEvent startEvent;
+
+    @XmlElement(name = "sequenceFlow",namespace = BpmnNs.BPMN_URI)
+    List<BpmnSequenceFlow> sequenceFlow;
 
     public String getId() {
         return id;
@@ -116,5 +121,21 @@ public class BpmnProcess {
 
     public void setExtensionElements(BpmnExtensionElements extensionElements) {
         this.extensionElements = extensionElements;
+    }
+
+    public BpmnStartEvent getStartEvent() {
+        return startEvent;
+    }
+
+    public void setStartEvent(BpmnStartEvent startEvent) {
+        this.startEvent = startEvent;
+    }
+
+    public List<BpmnSequenceFlow> getSequenceFlow() {
+        return sequenceFlow;
+    }
+
+    public void setSequenceFlow(List<BpmnSequenceFlow> sequenceFlow) {
+        this.sequenceFlow = sequenceFlow;
     }
 }
