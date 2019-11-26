@@ -25,8 +25,15 @@ import java.util.List;
         "documentation",
         "extensionElements",
         "startEvent",
-        "sequenceFlow",
-        "taskList"
+        "taskList",
+        "userTaskList",
+        "serviceTaskList",
+        "sendTaskList",
+        "receiveTaskList",
+        "manualTaskList",
+        "subProcessList",
+        "callActivityList",
+        "sequenceFlow"
 })
 public class BpmnProcess {
 
@@ -60,8 +67,29 @@ public class BpmnProcess {
     @XmlElement(name = "task",namespace = BpmnNs.BPMN_URI)
     List<BpmnTask> taskList;
 
+    @XmlElement(name = "userTask",namespace = BpmnNs.BPMN_URI)
+    List<BpmnUserTask> userTaskList;
+
+    @XmlElement(name = "serviceTask",namespace = BpmnNs.BPMN_URI)
+    List<BpmnServiceTask> serviceTaskList;
+
+    @XmlElement(name = "sendTask",namespace = BpmnNs.BPMN_URI)
+    List<BpmnSendTask> sendTaskList;
+
+    @XmlElement(name = "receiveTask",namespace = BpmnNs.BPMN_URI)
+    List<BpmnReceiveTask> receiveTaskList;
+
+    @XmlElement(name = "manualTask",namespace = BpmnNs.BPMN_URI)
+    List<BpmnManualTask> manualTaskList;
+
     @XmlElement(name = "sequenceFlow",namespace = BpmnNs.BPMN_URI)
     List<BpmnSequenceFlow> sequenceFlow;
+
+    @XmlElement(name = "subProcess",namespace = BpmnNs.BPMN_URI)
+    List<BomnSubProcess> subProcessList;
+
+    @XmlElement(name = "callActivity",namespace = BpmnNs.BPMN_URI)
+    List<BpmnCallActivity> callActivityList;
 
     public String getId() {
         return id;
@@ -149,5 +177,13 @@ public class BpmnProcess {
 
     public void setTaskList(List<BpmnTask> taskList) {
         this.taskList = taskList;
+    }
+
+    public List<BpmnUserTask> getUserTaskList() {
+        return userTaskList;
+    }
+
+    public void setUserTaskList(List<BpmnUserTask> userTaskList) {
+        this.userTaskList = userTaskList;
     }
 }
