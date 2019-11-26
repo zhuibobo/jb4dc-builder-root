@@ -25,6 +25,7 @@ import java.util.List;
         "documentation",
         "extensionElements",
         "startEvent",
+        "endEventList",
         "taskList",
         "userTaskList",
         "serviceTaskList",
@@ -33,7 +34,13 @@ import java.util.List;
         "manualTaskList",
         "subProcessList",
         "callActivityList",
-        "sequenceFlow"
+        "exclusiveGatewayList",
+        "parallelGatewayList",
+        "inclusiveGatewayList",
+        "complexGatewayList",
+        "sequenceFlow",
+        "textAnnotationList",
+        "associationList"
 })
 public class BpmnProcess {
 
@@ -64,6 +71,9 @@ public class BpmnProcess {
     @XmlElement(name = "startEvent",namespace = BpmnNs.BPMN_URI)
     BpmnStartEvent startEvent;
 
+    @XmlElement(name = "endEvent",namespace = BpmnNs.BPMN_URI)
+    List<BpmnEndEvent> endEventList;
+
     @XmlElement(name = "task",namespace = BpmnNs.BPMN_URI)
     List<BpmnTask> taskList;
 
@@ -90,6 +100,24 @@ public class BpmnProcess {
 
     @XmlElement(name = "callActivity",namespace = BpmnNs.BPMN_URI)
     List<BpmnCallActivity> callActivityList;
+
+    @XmlElement(name = "exclusiveGateway",namespace = BpmnNs.BPMN_URI)
+    List<BpmnExclusiveGateway> exclusiveGatewayList;
+
+    @XmlElement(name = "parallelGateway",namespace = BpmnNs.BPMN_URI)
+    List<BpmnParallelGateway> parallelGatewayList;
+
+    @XmlElement(name = "inclusiveGateway",namespace = BpmnNs.BPMN_URI)
+    List<BpmnInclusiveGateway> inclusiveGatewayList;
+
+    @XmlElement(name = "complexGateway",namespace = BpmnNs.BPMN_URI)
+    List<BpmnComplexGateway> complexGatewayList;
+
+    @XmlElement(name = "textAnnotation",namespace = BpmnNs.BPMN_URI)
+    List<BpmnTextAnnotation> textAnnotationList;
+
+    @XmlElement(name = "association",namespace = BpmnNs.BPMN_URI)
+    List<BpmnAssociation> associationList;
 
     public String getId() {
         return id;
@@ -185,5 +213,109 @@ public class BpmnProcess {
 
     public void setUserTaskList(List<BpmnUserTask> userTaskList) {
         this.userTaskList = userTaskList;
+    }
+
+    public List<BpmnServiceTask> getServiceTaskList() {
+        return serviceTaskList;
+    }
+
+    public void setServiceTaskList(List<BpmnServiceTask> serviceTaskList) {
+        this.serviceTaskList = serviceTaskList;
+    }
+
+    public List<BpmnSendTask> getSendTaskList() {
+        return sendTaskList;
+    }
+
+    public void setSendTaskList(List<BpmnSendTask> sendTaskList) {
+        this.sendTaskList = sendTaskList;
+    }
+
+    public List<BpmnReceiveTask> getReceiveTaskList() {
+        return receiveTaskList;
+    }
+
+    public void setReceiveTaskList(List<BpmnReceiveTask> receiveTaskList) {
+        this.receiveTaskList = receiveTaskList;
+    }
+
+    public List<BpmnManualTask> getManualTaskList() {
+        return manualTaskList;
+    }
+
+    public void setManualTaskList(List<BpmnManualTask> manualTaskList) {
+        this.manualTaskList = manualTaskList;
+    }
+
+    public List<BomnSubProcess> getSubProcessList() {
+        return subProcessList;
+    }
+
+    public void setSubProcessList(List<BomnSubProcess> subProcessList) {
+        this.subProcessList = subProcessList;
+    }
+
+    public List<BpmnCallActivity> getCallActivityList() {
+        return callActivityList;
+    }
+
+    public void setCallActivityList(List<BpmnCallActivity> callActivityList) {
+        this.callActivityList = callActivityList;
+    }
+
+    public List<BpmnExclusiveGateway> getExclusiveGatewayList() {
+        return exclusiveGatewayList;
+    }
+
+    public void setExclusiveGatewayList(List<BpmnExclusiveGateway> exclusiveGatewayList) {
+        this.exclusiveGatewayList = exclusiveGatewayList;
+    }
+
+    public List<BpmnParallelGateway> getParallelGatewayList() {
+        return parallelGatewayList;
+    }
+
+    public void setParallelGatewayList(List<BpmnParallelGateway> parallelGatewayList) {
+        this.parallelGatewayList = parallelGatewayList;
+    }
+
+    public List<BpmnInclusiveGateway> getInclusiveGatewayList() {
+        return inclusiveGatewayList;
+    }
+
+    public void setInclusiveGatewayList(List<BpmnInclusiveGateway> inclusiveGatewayList) {
+        this.inclusiveGatewayList = inclusiveGatewayList;
+    }
+
+    public List<BpmnComplexGateway> getComplexGatewayList() {
+        return complexGatewayList;
+    }
+
+    public void setComplexGatewayList(List<BpmnComplexGateway> complexGatewayList) {
+        this.complexGatewayList = complexGatewayList;
+    }
+
+    public List<BpmnTextAnnotation> getTextAnnotationList() {
+        return textAnnotationList;
+    }
+
+    public void setTextAnnotationList(List<BpmnTextAnnotation> textAnnotationList) {
+        this.textAnnotationList = textAnnotationList;
+    }
+
+    public List<BpmnEndEvent> getEndEventList() {
+        return endEventList;
+    }
+
+    public void setEndEventList(List<BpmnEndEvent> endEventList) {
+        this.endEventList = endEventList;
+    }
+
+    public List<BpmnAssociation> getAssociationList() {
+        return associationList;
+    }
+
+    public void setAssociationList(List<BpmnAssociation> associationList) {
+        this.associationList = associationList;
     }
 }

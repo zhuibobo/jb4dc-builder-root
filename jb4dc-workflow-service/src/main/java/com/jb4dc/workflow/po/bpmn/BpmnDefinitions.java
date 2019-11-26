@@ -4,6 +4,7 @@ import com.jb4dc.workflow.po.bpmn.diagram.BpmnDiagram;
 import com.jb4dc.workflow.po.bpmn.process.BpmnProcess;
 
 import javax.xml.bind.annotation.*;
+import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.
@@ -18,6 +19,7 @@ import javax.xml.bind.annotation.*;
 // 控制JAXB 绑定类中属性和字段的排序
 @XmlType(propOrder = {
         "bpmnProcess",
+        "messageList",
         "bpmnDiagram"
 })
 public class BpmnDefinitions {
@@ -36,6 +38,9 @@ public class BpmnDefinitions {
 
     @XmlElement(name = "process",namespace = BpmnNs.BPMN_URI)
     private BpmnProcess bpmnProcess;
+
+    @XmlElement(name = "message",namespace = BpmnNs.BPMN_URI)
+    private List<BpmnMessage> messageList;
 
     @XmlElement(name = "BPMNDiagram",namespace = BpmnNs.BPMNDI_URI)
     private BpmnDiagram bpmnDiagram;
@@ -88,5 +93,11 @@ public class BpmnDefinitions {
         this.bpmnDiagram = bpmnDiagram;
     }
 
+    public List<BpmnMessage> getMessageList() {
+        return messageList;
+    }
 
+    public void setMessageList(List<BpmnMessage> messageList) {
+        this.messageList = messageList;
+    }
 }
