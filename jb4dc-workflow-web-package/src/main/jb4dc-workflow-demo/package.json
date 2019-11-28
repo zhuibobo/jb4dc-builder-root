@@ -9,7 +9,8 @@
     "Demo001": "webpack --config ./Demo001/001webpack.config.js",
     "Demo002": "webpack --config ./Demo002/002webpack.config.js",
     "Demo003": "webpack --config ./Demo003/003webpack.config.js",
-    "BpmnJsDemo": "webpack --config ./BpmnJsDemo/webpack.config.js"
+    "BpmnJsDemo": "webpack --config ./BpmnJsDemo/webpack.config.js",
+    "dev": "webpack-dev-server --inline --hot --open --port 4009 --config ./BpmnJsDemo/webpack.config.js"
   },
   "author": "zhuangrb",
   "license": "ISC",
@@ -33,6 +34,7 @@
     "style-loader": "^1.0.0",
     "tiny-svg": "^2.2.2",
     "webpack": "^4.41.2",
-    "webpack-cli": "^3.3.10"
+    "webpack-cli": "^3.3.10",
+    "webpack-dev-server": "^3.9.0"
   }
 }
