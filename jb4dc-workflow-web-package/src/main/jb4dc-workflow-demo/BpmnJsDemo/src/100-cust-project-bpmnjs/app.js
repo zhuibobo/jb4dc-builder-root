@@ -4,35 +4,14 @@ import BpmnModeler from 'bpmn-js';
 
 import diagramXML from './empty.bpmn';
 
-var container = $('#js-drop-zone');
 
 var modeler = new BpmnModeler({
-    "container": '#js-canvas'
+    "container": $('#js-canvas')[0]
 });
 
-function createNewDiagram() {
-    openDiagram(diagramXML);
-}
-
 function openDiagram(xml) {
-
-    modeler.importXML(xml, function(err) {
-
-        if (err) {
-            container
-                .removeClass('with-diagram')
-                .addClass('with-error');
-
-            container.find('.error pre').text(err.message);
-
-            console.error(err);
-        } else {
-            container
-                .removeClass('with-error')
-                .addClass('with-diagram');
-        }
-
-
+    modeler.importXML(xml, function (err) {
+        console.log(err);
     });
 }
 
@@ -46,53 +25,6 @@ function saveDiagram(done) {
         done(err, xml);
     });
 }
-
-function registerFileDrop(container, callback) {
-
-    function handleFileSelect(e) {
-        e.stopPropagation();
-        e.preventDefault();
-
-        var files = e.dataTransfer.files;
-
-        var file = files[0];
-
-        var reader = new FileReader();
-
-        reader.onload = function(e) {
-
-            var xml = e.target.result;
-
-            callback(xml);
-        };
-
-        reader.readAsText(file);
-    }
-
-    function handleDragOver(e) {
-        e.stopPropagation();
-        e.preventDefault();
-
-        e.dataTransfer.dropEffect = 'copy'; // Explicitly show this is a copy.
-    }
-
-    container.get(0).addEventListener('dragover', handleDragOver, false);
-    container.get(0).addEventListener('drop', handleFileSelect, false);
-}
-
-
-// file drag / drop ///////////////////////
-
-// check file api availability
-if (!window.FileList || !window.FileReader) {
-    window.alert(
-        'Looks like you use an older browser that does not support drag and drop. ' +
-        'Try using Chrome, Firefox or the Internet Explorer > 10.');
-} else {
-    registerFileDrop(container, openDiagram);
-}
-
-// bootstrap diagram functions
 
 $(function() {
 
@@ -138,6 +70,8 @@ $(function() {
     }, 500);
 
     modeler.on('commandStack.changed', exportArtifacts);
+
+    openDiagram(diagramXML);
 });
 
 

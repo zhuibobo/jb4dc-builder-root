@@ -17,54 +17,11 @@ a:link {
   text-decoration: none;
 }
 
-.content,
-.content > div {
+
+.canvas {
   width: 100%;
   height: 100%;
   overflow: hidden;
-}
-
-.content > .message {
-  text-align: center;
-  display: table;
-
-  font-size: 16px;
-  color: #111;
-}
-
-.content > .message .note {
-  vertical-align: middle;
-  text-align: center;
-  display: table-cell;
-}
-
-.content .error .details {
-  max-width: 500px;
-  font-size: 12px;
-  margin: 20px auto;
-  text-align: left;
-}
-
-.content .error pre {
-  border: solid 1px #CCC;
-  background: #EEE;
-  padding: 10px;
-}
-
-.content:not(.with-error) .error,
-.content.with-error .intro,
-.content.with-diagram .intro {
-  display: none;
-}
-
-
-.content .canvas,
-.content.with-error .canvas {
-  visibility: hidden;
-}
-
-.content.with-diagram .canvas {
-  visibility: visible;
 }
 
 .buttons {
