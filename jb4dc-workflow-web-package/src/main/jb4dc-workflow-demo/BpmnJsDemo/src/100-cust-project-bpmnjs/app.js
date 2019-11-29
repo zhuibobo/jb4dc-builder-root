@@ -20,9 +20,9 @@ function saveSVG(done) {
 }
 
 function saveDiagram(done) {
-
     modeler.saveXML({ format: true }, function(err, xml) {
-        done(err, xml);
+        //done(err, xml);
+        console.log(xml);
     });
 }
 

@@ -1,0 +1,23 @@
+{
+  "name": "jb4dc-workflow-modeler",
+  "version": "1.0.0",
+  "description": "工作流前端工程",
+  "main": "index.js",
+  "private": true,
+  "scripts": {
+    "Modeler": "webpack --config ./Modeler/webpack.config.js",
+    "dev": "webpack-dev-server --inline --hot --open --port 4009 --config ./BpmnJsDemo/webpack.config.js"
+  },
+  "author": "zhuangrb",
+  "license": "ISC",
+  "devDependencies": {
+    "bpmn-js": "^6.0.4",
+    "raw-loader": "^3.1.0",
+    "copy-webpack-plugin": "^5.0.5",
+    "html-webpack-plugin": "^3.2.0",
+    "jquery": "^3.4.1",
+    "webpack": "^4.41.2",
+    "webpack-cli": "^3.3.10",
+    "webpack-dev-server": "^3.9.0"
+  }
+}
