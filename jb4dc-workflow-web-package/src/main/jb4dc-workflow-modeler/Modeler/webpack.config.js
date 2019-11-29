@@ -38,6 +38,10 @@ module.exports = {
                             sourceMap: true,
                         },
                     }]
+            },
+            {
+                test: /\.bpmn$/,
+                use: 'raw-loader'
             }
         ]
     },

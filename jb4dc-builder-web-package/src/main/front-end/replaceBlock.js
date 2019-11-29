@@ -43,7 +43,7 @@ let replaceBlock = {
         let levelPath = calculateFilePath(file);
         replaceArray.push(refJs(levelPath + "Js/External/JQuery-3.4.1/jquery-3.4.1.min.js"));
         replaceArray.push(refJs(levelPath + "Js/External/VUE-2.6.10/vue.js"));
-        replaceArray.push(refJs(levelPath + "Js/External/IView-3.X/dist/iview.min.js"));
+        replaceArray.push(refJs(levelPath + "Js/External/IView-4.X/dist/iview.min.js"));
         replaceArray.push(refJs(levelPath + "Js/External/JQuery-UI-1.12.1/jquery-ui.js"));
         replaceArray.push(refJs(levelPath + "Js/External/ZTree-3.5.40/js/jquery.ztree.all.js"));
         //replaceArray.push(refJs(levelPath + "Js/External/perfect-scrollbar-14/perfect-scrollbar.js"));
