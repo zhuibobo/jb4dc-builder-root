@@ -21,6 +21,7 @@ function createLinkTable() {
     tbodyElem.append("<tr><td><a href='012properties-panel/default.html'>012properties-panel</a></td></tr>");
     tbodyElem.append("<tr><td><a href='013theming/default.html'>013theming</a></td></tr>");
     tbodyElem.append("<tr><td><a href='014bpmn-js-nyan/default.html'>014bpmn-js-nyan</a></td></tr>");
+    tbodyElem.append("<tr><td><a href='100-cust-project-bpmnjs/default.html'>100-cust-project-bpmnjs</a></td></tr>");
 
     $(window.document.body).append(tableElem);
 }
