@@ -120,7 +120,7 @@ let replaceBlock = {
         let levelPath = calculateFilePath(file);
 
 
-        replaceArray.push(refCss(levelPath + 'Themes/Default/IView-3.X/iview.css'));
+        replaceArray.push(refCss(levelPath + 'Themes/Default/IView-4.X/iview.css'));
         replaceArray.push(refCss(levelPath + 'Themes/Default/JQueryUI/jquery-ui.css'));
         replaceArray.push(refCss(levelPath + 'Themes/Default/JQueryUI/jquery-ui-important.css'));
         replaceArray.push(refCss(levelPath + 'Js/External/Perfect-Scrollbar-V1.4.0/perfect-scrollbar.css'));
