@@ -48,6 +48,7 @@ public class SsoFilter {
         registration.setName("XxlSsoWebFilter");
         registration.setOrder(1);
         registration.addUrlPatterns("/*");
+
         SsoWebFilter filter = new SsoWebFilter();
         filter.setCheckSessionSuccess(new ICheckSessionSuccess() {
             @Override
