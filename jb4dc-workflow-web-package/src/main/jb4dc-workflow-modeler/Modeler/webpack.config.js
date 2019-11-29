@@ -2,6 +2,7 @@ const path = require('path');
 const htmlWebpackPlugin = require('html-webpack-plugin');
 const copyWebpackPlugin = require('copy-webpack-plugin');
 const miniCssExtractPlugin = require("mini-css-extract-plugin");
+const {CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 module.exports = {
     // JavaScript 执行入口文件
@@ -11,7 +12,7 @@ module.exports = {
     context: path.resolve(__dirname, ""),
     output: {
         // 把所有依赖的模块合并输出到一个 bundle.js 文件
-        filename: '[name].js',
+        filename: '[name].[hash].js',
         // 输出文件都放到 dist 目录下
         path: path.resolve(__dirname, './Dist'),
     },
@@ -41,6 +42,7 @@ module.exports = {
         ]
     },
     plugins: [
+        new CleanWebpackPlugin (),
         new htmlWebpackPlugin({
             filename: "Index.html",
             template: './Template.html'
@@ -48,8 +50,8 @@ module.exports = {
         new miniCssExtractPlugin({
             // Options similar to the same options in webpackOptions.output
             // both options are optional
-            filename: "[name].css",
-            chunkFilename: "[id].css"
+            filename: "[name].[hash].css",
+            chunkFilename: "[id].[hash].css"
         })
     ],
     externals: {
