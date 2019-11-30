@@ -15,7 +15,9 @@ modeler.importXML(diagramXML, function (err) {
 */
 import "./Less/ModelerApp.less";
 import Vue from "Vue";
-import ModelerApp from "./VueComponent/Modeler.vue"
+
+import ModelerApp from "./VueComponent/flow-modeler-container.vue";
+
 
 new Vue({
     el: '#appForm',

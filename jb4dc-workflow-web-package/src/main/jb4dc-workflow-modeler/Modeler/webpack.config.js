@@ -1,4 +1,4 @@
-const P = require('path');
+const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
@@ -8,14 +8,14 @@ const VueLoaderPlugin = require('vue-loader/lib/plugin')
 module.exports = {
     // JavaScript 执行入口文件
     entry: {
-        "App": './App.js'
+        "index": './App.js'
     },
-    context: P.resolve(__dirname, ""),
+    context: path.resolve(__dirname, ""),
     output: {
         // 把所有依赖的模块合并输出到一个 bundle.js 文件
         filename: '[name].[hash].js',
         // 输出文件都放到 dist 目录下
-        path: P.resolve(__dirname, './ModelerDist'),
+        path: path.resolve(__dirname, './dist'),
     },
     mode: 'development',
     module: {
