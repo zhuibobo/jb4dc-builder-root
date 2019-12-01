@@ -7,6 +7,7 @@
                 <i-button icon="md-cloud-done" type="primary">保存并部署</i-button>
                 <i-button icon="md-checkmark" type="primary">校验窗体</i-button>
                 <i-button icon="md-search" type="primary">历史版本</i-button>
+                <i-button icon="md-search" type="primary" @click="consoleLogBpmnJsXml">console-log</i-button>
                 <i-button icon="md-search" type="primary">关闭</i-button>
             </button-group>
         </div>
@@ -15,7 +16,7 @@
 
             </tab-pane>
             <tab-pane name="Bpmn" label="Bpmn">
-                <flow-bpmnjs-container></flow-bpmnjs-container>
+                <flow-bpmnjs-container ref="flowBpmnjsContainer"></flow-bpmnjs-container>
             </tab-pane>
             <tab-pane name="XML" label="XML">
 
@@ -34,6 +35,11 @@
         data:function () {
             return {
                 isLoading:false
+            }
+        },
+        methods:{
+            consoleLogBpmnJsXml:function () {
+                this.$refs["flowBpmnjsContainer"].logXML();
             }
         }
     }
