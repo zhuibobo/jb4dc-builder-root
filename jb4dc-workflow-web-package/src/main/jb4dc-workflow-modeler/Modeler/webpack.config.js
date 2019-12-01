@@ -37,6 +37,7 @@ module.exports = {
                         options: {
                             // you can specify a publicPath here
                             // by default it use publicPath in webpackOptions.output
+                            publicPath: ""
                         }
                     }, {
                         loader: 'css-loader',
@@ -70,7 +71,7 @@ module.exports = {
                     },
                     'css-loader'
                 ]
-            }
+            },{ test: /\.png$/, loader: "file-loader" }
         ]
     },
     plugins: [

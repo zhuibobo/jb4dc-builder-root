@@ -30,7 +30,7 @@ export default function PropertiesPadEntity(eventBus, contextPad, commandStack) 
             return {
                 'changeColor': {
                     group: 'edit',
-                    className: 'bpmn-icon-service',
+                    className: 'properties-pad-entity',
                     title: 'Change element color',
                     action: {
                         click: changeColor
