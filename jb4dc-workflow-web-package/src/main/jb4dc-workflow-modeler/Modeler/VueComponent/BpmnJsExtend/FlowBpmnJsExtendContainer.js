@@ -1,7 +1,20 @@
 import BpmnModeler from 'bpmn-js/lib/Modeler';
-import diagramXML from '../../Resources/newDiagram.bpmn';
+import camundaModdleDescriptor from 'camunda-bpmn-moddle/resources/camunda';
+import diagramXML from '../../Resources/newDiagram1.bpmn';
 import CustomTranslate from './CustomTranslate';
-let modeler=null;
+import propertiesPadEntity from './AdditionalModules/PropertiesPadEntity';
+import {BpmnJsUtility} from './BpmnJsUtility';
+
+let modeler = null;
+let eventBus = null;
+var events = [
+    //'element.hover',
+    //'element.out',
+    'element.click',
+    //'element.dblclick',
+    //'element.mousedown',
+    //'element.mouseup'
+];
 
 // Our custom translation module
 // We need to use the array syntax that is used by bpmn-js internally
@@ -9,6 +22,7 @@ let modeler=null;
 var customTranslateModule = {
     translate: [ 'value', CustomTranslate ]
 };
+
 
 class FlowBpmnJsExtendContainer {
     defaultSetting = {
@@ -24,12 +38,39 @@ class FlowBpmnJsExtendContainer {
         modeler = new BpmnModeler({
             "container": $("#"+exConfig.RendererToElemId)[0],
             "additionalModules": [
-                customTranslateModule
-            ]
+                customTranslateModule,
+                propertiesPadEntity
+            ],
+            // needed if you'd like to maintain camunda:XXX properties in the properties panel
+            moddleExtensions: {
+                camunda: camundaModdleDescriptor
+            }
         });
         modeler.importXML(diagramXML, function (err) {
             console.log(err);
         });
+        eventBus = modeler.get('eventBus');
+
+        events.forEach(function(event) {
+            eventBus.on(event, function(e) {
+                /*console.log(event, 'on', e.element.id);
+
+                var commentsElement=BpmnJsUtility.GetCommentsElement(e.element,true);
+                var str = "hello";
+                commentsElement.text = str;
+                console.log(commentsElement);*/
+
+                //var extensionElements=BpmnJsUtility.GetExtensionElements(e.element,true);
+                //console.log(extensionElements);
+
+                //console.log(event, 'on', e.element);
+                //console.log(e.element.businessObject.get("camunda:versionTag"));
+                //var bo = e.element.businessObject;
+                //var e = bo.$model.create('camunda:ExecutionListener', {"class":"wwwwwwwwwwwwwwwwww"});
+                //bo.get("extensionElements").values.push(e);
+            });
+        });
+
         console.log(modeler);
     }
     LogXML(){
