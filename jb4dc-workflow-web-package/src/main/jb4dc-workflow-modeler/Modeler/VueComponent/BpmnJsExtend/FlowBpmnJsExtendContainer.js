@@ -44,13 +44,19 @@ class FlowBpmnJsExtendContainer {
             // needed if you'd like to maintain camunda:XXX properties in the properties panel
             moddleExtensions: {
                 camunda: camundaModdleDescriptor
-            }
+            },
+            va:"1"
         });
+        //propertiesPadEntity.propertiesPadEntity.f1();
+        //console.log(propertiesPadEntity.propertiesPadEntity);
+
         modeler.importXML(diagramXML, function (err) {
             console.log(err);
         });
         eventBus = modeler.get('eventBus');
-
+        eventBus.on("ax",function (e) {
+            DialogUtility.AlertText("hello alex");
+        });
         events.forEach(function(event) {
             eventBus.on(event, function(e) {
                 /*console.log(event, 'on', e.element.id);
@@ -72,6 +78,9 @@ class FlowBpmnJsExtendContainer {
         });
 
         console.log(modeler);
+    }
+    a1 (){
+        alert("1");
     }
     LogXML(){
         console.log(this.GetXML());

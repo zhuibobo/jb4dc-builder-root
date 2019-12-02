@@ -5,9 +5,8 @@
   "main": "index.js",
   "private": true,
   "scripts": {
-    "modeler-watch-dev": "webpack --watch --config ./Modeler/webpack.config.js",
     "modeler-dev": "webpack --config ./Modeler/webpack.config.js",
-    "dev": "webpack-dev-server --inline --hot --open --port 4009 --config ./Modeler/webpack.config.js"
+    "modeler-dev-watch": "webpack --watch --config ./Modeler/webpack.config.js"
   },
   "author": "zhuangrb",
   "license": "ISC",
@@ -29,6 +28,7 @@
     "clean-webpack-plugin": "^3.0.0",
     "copy-webpack-plugin": "^5.0.5",
     "css-loader": "^3.2.0",
+    "expose-loader": "^0.7.5",
     "file-loader": "^5.0.2",
     "html-loader": "^0.5.5",
     "html-webpack-plugin": "^3.2.0",

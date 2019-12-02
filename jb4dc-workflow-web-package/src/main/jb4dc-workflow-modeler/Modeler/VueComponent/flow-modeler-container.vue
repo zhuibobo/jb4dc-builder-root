@@ -22,6 +22,7 @@
 
             </tab-pane>
         </tabs>
+
     </div>
 </template>
 

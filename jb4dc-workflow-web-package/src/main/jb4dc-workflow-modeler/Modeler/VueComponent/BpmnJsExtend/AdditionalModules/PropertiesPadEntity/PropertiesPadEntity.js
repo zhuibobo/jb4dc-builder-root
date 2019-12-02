@@ -2,6 +2,7 @@ import {
     is
 } from 'bpmn-js/lib/util/ModelUtil';
 
+//import { FlowBpmnJsExtendContainer } from '../../FlowBpmnJsExtendContainer.js';
 
 /**
  * A basic color picker implementation.
@@ -18,11 +19,12 @@ export default function PropertiesPadEntity(eventBus, contextPad, commandStack) 
 
     function changeColor(event, element) {
 
-        var color = window.prompt('type a color code');
-
-        commandStack.execute('shape.updateColor', { element: element, color: color });
+        //var color = window.prompt('type a color code');
+        //FlowBpmnJsExtendContainer.a1();
+        commandStack.execute('shape.updateColor', { element: element, color: "red" });
+        eventBus.fire('ax',  { })
+        console.log(contextPad);
     }
-
 
     this.getContextPadEntries = function(element) {
 

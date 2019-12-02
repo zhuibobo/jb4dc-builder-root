@@ -13,6 +13,7 @@ modeler.importXML(diagramXML, function (err) {
     console.log(err);
 });
 */
+
 import "./Less/ModelerApp.less";
 import Vue from "Vue";
 

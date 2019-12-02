@@ -71,7 +71,11 @@ module.exports = {
                     },
                     'css-loader'
                 ]
-            },{ test: /\.png$/, loader: "file-loader" }
+            },
+            {
+                test: /\.png$/,
+                loader: "file-loader"
+            }
         ]
     },
     plugins: [
