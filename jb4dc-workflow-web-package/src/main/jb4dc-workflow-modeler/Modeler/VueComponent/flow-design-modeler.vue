@@ -11,7 +11,7 @@
                 <i-button icon="md-search" type="primary">关闭</i-button>
             </button-group>
         </div>
-        <tabs>
+        <tabs name="l1">
             <tab-pane name="Info" label="Info">
 
             </tab-pane>

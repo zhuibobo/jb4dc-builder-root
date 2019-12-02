@@ -67,10 +67,11 @@ class FlowBpmnJsExtendContainer {
             _self.setting.FlowBpmnJsContainer.showProperties();
         });*/
 
-        eventBus.on("ax",(e)=>{
-            console.log(e);
-            console.log(this);
+        eventBus.on("propertiesPadEntity.click",(e)=>{
+            //console.log(e);
+            //console.log(this);
             this.setting.FlowBpmnJsContainer.showProperties();
+            this.ShowPropertiesWindow(e,e.element);
             //_self.setting.FlowBpmnJsContainer.showProperties();
         });
 
@@ -96,8 +97,19 @@ class FlowBpmnJsExtendContainer {
 
         console.log(modeler);
     }
-    a1 (){
-        alert("1");
+    ShowPropertiesWindow (event,element){
+        var elementType=element.type;
+        var componentName="";
+        if(elementType=="bpmn:SequenceFlow"){
+            componentName="sequenceFlowProperties";
+        }
+        else if(elementType==""){
+            componentName="userTaskProperties";
+        }
+        console.log(event);
+        console.log(element);
+        this.setting.FlowBpmnJsContainer.showProperties(componentName,element);
+        //alert("1");
     }
     LogXML(){
         console.log(this.GetXML());

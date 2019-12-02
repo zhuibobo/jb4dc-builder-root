@@ -1,6 +1,8 @@
 <template>
     <div id="modeler-bpmn-outer" style="height: 800px">
-        <component :is="thisView"></component>
+        <div style="display: none">
+            <component :is="thisView"></component>
+        </div>
         <div class="canvas" id="flow-canvas" style="width: 100%;height: 100%"></div>
     </div>
 </template>
@@ -34,15 +36,16 @@
             logXML:function () {
                 flowBpmnJsExtendContainer.LogXML();
             },
-            showProperties:function (componentName,propertiesData) {
+            showProperties:function (componentName,element) {
                 //DialogUtility.AlertText("11");
-                if(this.thisView=="userTaskProperties"){
-                    this.thisView="sequenceFlowProperties";
+                this.thisView=componentName;
+
+                /*if(this.thisView=="userTaskProperties"){
+
                 }
                 else{
                     this.thisView="userTaskProperties";
-                }
-
+                }*/
             }
         }
     }

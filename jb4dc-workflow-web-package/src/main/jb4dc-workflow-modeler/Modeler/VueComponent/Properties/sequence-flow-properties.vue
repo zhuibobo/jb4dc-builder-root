@@ -1,6 +1,16 @@
 <template>
     <div>
-        sequence-flow-properties.vue
+        <tabs name="sequence-flow-properties">
+            <tab-pane name="Info" label="Info">
+
+            </tab-pane>
+            <tab-pane name="Bpmn" label="Bpmn">
+
+            </tab-pane>
+            <tab-pane name="XML" label="XML">
+
+            </tab-pane>
+        </tabs>
     </div>
 </template>
 
