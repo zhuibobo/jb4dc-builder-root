@@ -29,5 +29,11 @@ bpmnModeler.importXML(diagramXML, function(err) {
         });
         sequenceFlow.conditionExpression = newCondition;
         sequenceFlow.name="你好啊!"
+
+        var modeling = bpmnModeler.get('modeling');
+
+        modeling.updateProperties(sequenceFlowElement, {
+            conditionExpression: newCondition
+        });
     }
 });
