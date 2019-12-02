@@ -6,7 +6,10 @@
 
 <script>
     export default {
-        name: "UserTaskProperties"
+        name: "user-task-properties",
+        mounted() {
+            alert("hello alex");
+        }
     }
 </script>
 

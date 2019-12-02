@@ -28,10 +28,12 @@
 
 <script>
     import flowBpmnjsContainer from "./flow-bpmnjs-container.vue";
+
     export default {
-        name: 'modeler-container',
+        name: 'flow-design-modeler',
         components: {
-            flowBpmnjsContainer
+            flowBpmnjsContainer,
+
         },
         data:function () {
             return {

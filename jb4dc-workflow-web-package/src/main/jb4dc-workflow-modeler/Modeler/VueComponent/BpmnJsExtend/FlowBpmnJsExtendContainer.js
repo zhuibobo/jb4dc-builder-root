@@ -26,8 +26,10 @@ var customTranslateModule = {
 
 class FlowBpmnJsExtendContainer {
     defaultSetting = {
-        RendererToElemId:""
+        RendererToElemId:"",
+        FlowBpmnJsContainer:""
     };
+    setting={};
     constructor() {
 
     }
@@ -35,6 +37,7 @@ class FlowBpmnJsExtendContainer {
     Initialize (exConfig) {
         //debugger;
         exConfig = $.extend(true, {}, this.defaultSetting, exConfig);
+        this.setting=exConfig;
         modeler = new BpmnModeler({
             "container": $("#"+exConfig.RendererToElemId)[0],
             "additionalModules": [
@@ -54,9 +57,23 @@ class FlowBpmnJsExtendContainer {
             console.log(err);
         });
         eventBus = modeler.get('eventBus');
+        //eventBus.aaa="11111";
+
+        /*var _self=this;
         eventBus.on("ax",function (e) {
-            DialogUtility.AlertText("hello alex");
+            //DialogUtility.AlertText("hello alex");
+            console.log(e);
+            console.log(_self.setting);
+            _self.setting.FlowBpmnJsContainer.showProperties();
+        });*/
+
+        eventBus.on("ax",(e)=>{
+            console.log(e);
+            console.log(this);
+            this.setting.FlowBpmnJsContainer.showProperties();
+            //_self.setting.FlowBpmnJsContainer.showProperties();
         });
+
         events.forEach(function(event) {
             eventBus.on(event, function(e) {
                 /*console.log(event, 'on', e.element.id);

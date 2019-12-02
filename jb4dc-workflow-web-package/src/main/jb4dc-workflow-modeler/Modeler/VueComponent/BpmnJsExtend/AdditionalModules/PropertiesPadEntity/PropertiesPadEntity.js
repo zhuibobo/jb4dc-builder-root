@@ -22,7 +22,7 @@ export default function PropertiesPadEntity(eventBus, contextPad, commandStack) 
         //var color = window.prompt('type a color code');
         //FlowBpmnJsExtendContainer.a1();
         commandStack.execute('shape.updateColor', { element: element, color: "red" });
-        eventBus.fire('ax',  { })
+        eventBus.fire('ax',   { element: element, eventBus: eventBus })
         console.log(contextPad);
     }
 
