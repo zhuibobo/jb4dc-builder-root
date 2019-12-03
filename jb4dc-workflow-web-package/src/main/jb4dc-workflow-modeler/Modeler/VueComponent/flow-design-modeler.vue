@@ -11,14 +11,14 @@
                 <i-button icon="md-search" type="primary">关闭</i-button>
             </button-group>
         </div>
-        <tabs name="flow-design-modeler-tabs">
-            <tab-pane tab="flow-design-modeler-tabs" label="Model">
+        <tabs name="flow-design-modeler-tabs" :value="activeTab">
+            <tab-pane tab="flow-design-modeler-tabs" name="Model" label="Model">
 
             </tab-pane>
-            <tab-pane tab="flow-design-modeler-tabs" label="Bpmn">
+            <tab-pane tab="flow-design-modeler-tabs" name="Bpmn" label="Bpmn">
                 <flow-bpmnjs-container ref="flowBpmnjsContainer"></flow-bpmnjs-container>
             </tab-pane>
-            <tab-pane tab="flow-design-modeler-tabs" label="XML">
+            <tab-pane tab="flow-design-modeler-tabs" name="XML" label="XML">
 
             </tab-pane>
         </tabs>
@@ -37,7 +37,8 @@
         },
         data:function () {
             return {
-                isLoading:false
+                isLoading:false,
+                activeTab:"Bpmn"
             }
         },
         methods:{

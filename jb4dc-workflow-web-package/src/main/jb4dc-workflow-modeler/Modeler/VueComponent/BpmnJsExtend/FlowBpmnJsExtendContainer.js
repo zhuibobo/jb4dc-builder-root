@@ -44,6 +44,9 @@ class FlowBpmnJsExtendContainer {
                 customTranslateModule,
                 propertiesPadEntity
             ],
+            keyboard: {
+                bindTo: document
+            },
             // needed if you'd like to maintain camunda:XXX properties in the properties panel
             moddleExtensions: {
                 camunda: camundaModdleDescriptor
@@ -73,6 +76,20 @@ class FlowBpmnJsExtendContainer {
             this.setting.FlowBpmnJsContainer.showProperties();
             this.ShowPropertiesWindow(e,e.element);
             //_self.setting.FlowBpmnJsContainer.showProperties();
+            modeler.get('canvas').zoom('fit-viewport','auto');
+        });
+
+        eventBus.on("element.contextmenu", event => {
+            event.preventDefault();
+            event.stopPropagation();
+
+            /*const { element } = event;
+
+            if (!contextPad._overlayId) {
+                contextPad.open(element);
+            } else {
+                contextPad.close();
+            }*/
         });
 
         events.forEach(function(event) {

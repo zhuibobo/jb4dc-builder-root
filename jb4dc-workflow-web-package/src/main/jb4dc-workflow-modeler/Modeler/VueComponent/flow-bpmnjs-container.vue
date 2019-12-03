@@ -3,6 +3,11 @@
         <div style="display: none" id="properties-window">
             <component :is="thisView"></component>
         </div>
+        <div class="flow-bpmnjs-toolbar-outer">
+            <div class="flow-bpmnjs-toolbar-inner">
+                工具栏
+            </div>
+        </div>
         <div class="flow-bpmnjs-container" id="flow-canvas"></div>
     </div>
 </template>
@@ -26,7 +31,7 @@
         },
         mounted:function(){
             //console.log(FlowBpmnJsExtendContainer);
-            $("#modeler-bpmn-outer").height(PageStyleUtility.GetPageHeight()-55);
+            $("#modeler-bpmn-outer").height(PageStyleUtility.GetPageHeight()-38);
             flowBpmnJsExtendContainer=new FlowBpmnJsExtendContainer();
             flowBpmnJsExtendContainer.Initialize({
                 RendererToElemId:"flow-canvas",

@@ -74,12 +74,20 @@ module.exports = {
             },
             {
                 test: /\.png$/,
-                loader: "file-loader"
+                loader: "file-loader",
+                options: {
+                    outputPath: 'Images',
+                    name: '[name].[ext]'
+                }
             }
         ]
     },
     plugins: [
-        new CleanWebpackPlugin (),
+        new CleanWebpackPlugin (
+            {
+                cleanAfterEveryBuildPatterns: ['**/*.js','**/*.css','!**/Images/**'],
+            }
+        ),
         new HtmlWebpackPlugin({
             filename: "Index.html",
             template: './Template.html'
