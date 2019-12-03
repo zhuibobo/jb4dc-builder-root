@@ -12,13 +12,13 @@
             </button-group>
         </div>
         <tabs name="l1">
-            <tab-pane name="Info" label="Info">
+            <tab-pane label="Process">
 
             </tab-pane>
-            <tab-pane name="Bpmn" label="Bpmn">
+            <tab-pane label="Bpmn">
                 <flow-bpmnjs-container ref="flowBpmnjsContainer"></flow-bpmnjs-container>
             </tab-pane>
-            <tab-pane name="XML" label="XML">
+            <tab-pane label="XML">
 
             </tab-pane>
         </tabs>

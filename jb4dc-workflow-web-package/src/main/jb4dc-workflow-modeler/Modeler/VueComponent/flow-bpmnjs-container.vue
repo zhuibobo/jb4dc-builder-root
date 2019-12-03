@@ -1,6 +1,6 @@
 <template>
     <div id="modeler-bpmn-outer" style="height: 800px">
-        <div style="display: none">
+        <div style="display: none" id="properties-window">
             <component :is="thisView"></component>
         </div>
         <div class="canvas" id="flow-canvas" style="width: 100%;height: 100%"></div>
@@ -36,10 +36,10 @@
             logXML:function () {
                 flowBpmnJsExtendContainer.LogXML();
             },
-            showProperties:function (componentName,element) {
+            showProperties:function (componentName,title,element) {
                 //DialogUtility.AlertText("11");
                 this.thisView=componentName;
-
+                DialogUtility.ShowByElemId("properties-window",{height: 610, width: 980,title:title},null,{},this);
                 /*if(this.thisView=="userTaskProperties"){
 
                 }

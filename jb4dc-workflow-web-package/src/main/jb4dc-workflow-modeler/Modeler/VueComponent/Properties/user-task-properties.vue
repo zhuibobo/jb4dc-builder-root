@@ -1,13 +1,13 @@
 <template>
     <div>
-        <tabs name="user-task-properties">
-            <tab-pane name="Info" label="Info">
+        <tabs name="user-task-properties-tabs">
+            <tab-pane tab="user-task-properties-tabs" label="Info1">
 
             </tab-pane>
-            <tab-pane name="Bpmn" label="Bpmn">
+            <tab-pane tab="user-task-properties-tabs" label="Bpmn2">
 
             </tab-pane>
-            <tab-pane name="XML" label="XML">
+            <tab-pane tab="user-task-properties-tabs" label="XML3">
 
             </tab-pane>
         </tabs>

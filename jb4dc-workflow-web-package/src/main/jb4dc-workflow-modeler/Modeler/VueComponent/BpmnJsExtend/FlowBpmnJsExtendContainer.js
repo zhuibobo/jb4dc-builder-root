@@ -58,7 +58,7 @@ class FlowBpmnJsExtendContainer {
         });
         eventBus = modeler.get('eventBus');
         //eventBus.aaa="11111";
-
+        console.log(eventBus);
         /*var _self=this;
         eventBus.on("ax",function (e) {
             //DialogUtility.AlertText("hello alex");
@@ -97,18 +97,20 @@ class FlowBpmnJsExtendContainer {
 
         console.log(modeler);
     }
-    ShowPropertiesWindow (event,element){
-        var elementType=element.type;
-        var componentName="";
-        if(elementType=="bpmn:SequenceFlow"){
-            componentName="sequenceFlowProperties";
-        }
-        else if(elementType==""){
-            componentName="userTaskProperties";
+    ShowPropertiesWindow (event,element) {
+        var elementType = element.type;
+        var componentName = "";
+        var title = "";
+        if (elementType == "bpmn:SequenceFlow") {
+            componentName = "sequenceFlowProperties";
+            title = "连线设置";
+        } else if (elementType == "bpmn:UserTask") {
+            componentName = "userTaskProperties";
+            title = "用户环节设置";
         }
         console.log(event);
         console.log(element);
-        this.setting.FlowBpmnJsContainer.showProperties(componentName,element);
+        this.setting.FlowBpmnJsContainer.showProperties(componentName, title, element);
         //alert("1");
     }
     LogXML(){

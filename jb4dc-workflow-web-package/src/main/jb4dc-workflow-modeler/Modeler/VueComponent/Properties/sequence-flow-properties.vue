@@ -1,13 +1,13 @@
 <template>
     <div>
-        <tabs name="sequence-flow-properties">
-            <tab-pane name="Info" label="Info">
+        <tabs name="sequence-flow-properties-tabs">
+            <tab-pane tab="sequence-flow-properties-tabs" label="Info2">
 
             </tab-pane>
-            <tab-pane name="Bpmn" label="Bpmn">
+            <tab-pane tab="sequence-flow-properties-tabs" label="Bpmn3">
 
             </tab-pane>
-            <tab-pane name="XML" label="XML">
+            <tab-pane tab="sequence-flow-properties-tabs" label="XML4">
 
             </tab-pane>
         </tabs>
@@ -18,7 +18,7 @@
     export default {
         name: "sequence-flow-properties",
         mounted() {
-            alert("sequence-flow-properties");
+            //alert("sequence-flow-properties");
         }
     }
 </script>
