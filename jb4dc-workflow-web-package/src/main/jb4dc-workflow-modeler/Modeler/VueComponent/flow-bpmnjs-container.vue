@@ -5,10 +5,24 @@
         </div>
         <div class="flow-bpmnjs-toolbar-outer">
             <div class="flow-bpmnjs-toolbar-inner">
-                工具栏
+                <div class="toolbar-item zoom-to" title="自适应缩放"></div>
+                <div class="toolbar-item zoom-in" title="放大"></div>
+                <div class="toolbar-item zoom-out" title="缩小"></div>
+                <div class="toolbar-item zoom-out" title="缩小"></div>
+                <div class="toolbar-item zoom-out" title="缩小"></div>
+                <div class="toolbar-item zoom-out" title="缩小"></div>
+                <div class="toolbar-item zoom-out" title="缩小"></div>
+                <div class="toolbar-item zoom-out" title="缩小"></div>
+                <div class="toolbar-item zoom-out" title="缩小"></div>
+                <div class="toolbar-item zoom-out" title="缩小"></div>
+                <div class="toolbar-item zoom-out" title="缩小"></div>
+                <div class="toolbar-item zoom-out" title="缩小"></div>
             </div>
         </div>
         <div class="flow-bpmnjs-container" id="flow-canvas"></div>
+        <div class="flow-bpmnjs-selected-element-container">
+            <div>选中元素相关属性</div>
+        </div>
     </div>
 </template>
 

@@ -20,6 +20,7 @@ body{
   .modeler-bpmn-outer {
 
     height: 100%;
+    position: relative;
 
     .flow-bpmnjs-container {
 
@@ -30,15 +31,53 @@ body{
 
     .flow-bpmnjs-toolbar-outer{
       background-color: #fbfbfb;
-      height: 30px;
+      height: 40px;
       width: 100%;
 
       .flow-bpmnjs-toolbar-inner{
-        height: 30px;
-        border-left: #dbdbdb solid 1px;
-        width: 400px;
+        height: 40px;
+        //border-left: #dbdbdb solid 1px;
+        width: 800px;
         margin-left: 21px;
+
+        .toolbar-item{
+          width: 34px;
+          height: 34px;
+          background-repeat: no-repeat;
+          border: #b8b8b8 solid 1px;
+          background-color: #e5e5e5;
+          border-radius: 4px;
+          float: left;
+          margin-top: 3px;
+          margin-right: 6px;
+          cursor:pointer;
+        }
+        .toolbar-item:hover{
+          background-color: #FFFFFF;
+          border: #bf7e76 solid 1px;
+        }
+        .zoom-to{
+          background-image: url("Images/ia_200000914.png");
+        }
+        .zoom-in{
+          background-image: url("Images/ia_200000914.png");
+        }
+        .zoom-out{
+          background-image: url("Images/ia_200000914.png");
+        }
       }
+    }
+
+    .flow-bpmnjs-selected-element-container{
+      position: absolute;
+      top: 41px;
+      opacity: 0.9;
+      right: 0px;
+      width: 200px;
+      bottom: 0px;
+      border-left: #CCC solid 1px;
+      z-index: 1000;
+      background-color: #fbfbfb;
     }
   }
 }
@@ -48,6 +87,6 @@ body{
 .properties-pad-entity {
   /*background-color: red !important; */
   background-image: url("Images/cog.png") !important;
-  background-position: 4px 4px !important;
+  background-position: 3px 3px !important;
   background-repeat: no-repeat !important;
 }
