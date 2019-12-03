@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="flow-design-modeler-outer">
         <spin size="large" fix v-if="isLoading"></spin>
         <div style="position: absolute;right: 10px;top: 6px;z-index: 100">
             <button-group size="small">
@@ -11,14 +11,14 @@
                 <i-button icon="md-search" type="primary">关闭</i-button>
             </button-group>
         </div>
-        <tabs name="l1">
-            <tab-pane label="Process">
+        <tabs name="flow-design-modeler-tabs">
+            <tab-pane tab="flow-design-modeler-tabs" label="Model">
 
             </tab-pane>
-            <tab-pane label="Bpmn">
+            <tab-pane tab="flow-design-modeler-tabs" label="Bpmn">
                 <flow-bpmnjs-container ref="flowBpmnjsContainer"></flow-bpmnjs-container>
             </tab-pane>
-            <tab-pane label="XML">
+            <tab-pane tab="flow-design-modeler-tabs" label="XML">
 
             </tab-pane>
         </tabs>

@@ -1,9 +1,9 @@
 <template>
-    <div id="modeler-bpmn-outer" style="height: 800px">
+    <div id="modeler-bpmn-outer" class="modeler-bpmn-outer">
         <div style="display: none" id="properties-window">
             <component :is="thisView"></component>
         </div>
-        <div class="canvas" id="flow-canvas" style="width: 100%;height: 100%"></div>
+        <div class="flow-bpmnjs-container" id="flow-canvas"></div>
     </div>
 </template>
 
@@ -26,6 +26,7 @@
         },
         mounted:function(){
             //console.log(FlowBpmnJsExtendContainer);
+            $("#modeler-bpmn-outer").height(PageStyleUtility.GetPageHeight()-55);
             flowBpmnJsExtendContainer=new FlowBpmnJsExtendContainer();
             flowBpmnJsExtendContainer.Initialize({
                 RendererToElemId:"flow-canvas",
