@@ -59,6 +59,9 @@
             getXML:function(){
                 return flowBpmnJsExtendContainer.GetXML();
             },
+            setXML:function(xml){
+                flowBpmnJsExtendContainer.SetXML(xml);
+            },
             showProperties:function (componentName,title,element) {
                 //DialogUtility.AlertText("11");
                 this.thisView=componentName;

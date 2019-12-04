@@ -88,7 +88,8 @@
                     //HTMLEditorUtility.SetHTMLEditorHTML(html);
                 }
                 else if(this.isXMLToOther(name)){
-                    //var html=HTMLEditorUtility.GetHtmlEditorHTML();
+                    var xml=this.$refs["flowXmlContainer"].getXML();
+                    this.$refs["flowBpmnjsContainer"].setXML(xml);
                     //alert(html);
                     //CKEditorUtility.SetCKEditorHTML(html);
                 }

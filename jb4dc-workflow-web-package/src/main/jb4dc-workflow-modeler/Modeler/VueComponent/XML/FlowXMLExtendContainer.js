@@ -40,7 +40,7 @@ class FlowXMLExtendContainer {
     }
 
     GetEditorXML() {
-        return this.GetHTMLEditorInst().getValue();
+        return this.GetXMLEditorInst().getValue();
     }
 
     InitializeXMLCodeDesign() {

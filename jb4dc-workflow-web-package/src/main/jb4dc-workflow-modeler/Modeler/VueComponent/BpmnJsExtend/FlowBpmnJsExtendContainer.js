@@ -140,6 +140,11 @@ class FlowBpmnJsExtendContainer {
         })
         return xml;
     }
+    SetXML(xml){
+        modeler.importXML(xml, function (err) {
+            console.log(err);
+        });
+    }
 }
 
 //console.log(diagramXML);

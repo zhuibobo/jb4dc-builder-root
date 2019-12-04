@@ -30,6 +30,9 @@
         methods:{
             setXML:function (xml) {
                 flowXMLExtendContainer.SetEditorXML(xml);
+            },
+            getXML:function(){
+                return flowXMLExtendContainer.GetEditorXML();
             }
         }
     }
