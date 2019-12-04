@@ -1,5 +1,5 @@
 <template>
-    <div id="modeler-bpmn-outer" class="modeler-bpmn-outer">
+    <div id="modeler-bpmn-wraper" class="modeler-bpmn-wraper">
         <div style="display: none" id="properties-window">
             <component :is="thisView"></component>
         </div>
@@ -45,16 +45,19 @@
         },
         mounted:function(){
             //console.log(FlowBpmnJsExtendContainer);
-            $("#modeler-bpmn-outer").height(PageStyleUtility.GetPageHeight()-38);
+            $("#modeler-bpmn-wraper").height(PageStyleUtility.GetPageHeight()-38);
             flowBpmnJsExtendContainer=new FlowBpmnJsExtendContainer();
             flowBpmnJsExtendContainer.Initialize({
                 RendererToElemId:"flow-canvas",
                 FlowBpmnJsContainer:this
-            })
+            });
         },
         methods:{
             logXML:function () {
                 flowBpmnJsExtendContainer.LogXML();
+            },
+            getXML:function(){
+                return flowBpmnJsExtendContainer.GetXML();
             },
             showProperties:function (componentName,title,element) {
                 //DialogUtility.AlertText("11");
