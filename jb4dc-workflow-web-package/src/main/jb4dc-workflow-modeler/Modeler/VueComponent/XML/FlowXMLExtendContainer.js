@@ -9,10 +9,10 @@ class FlowXMLExtendContainer {
         //debugger;
         if (!StringUtility.IsNullOrEmpty(xml)) {
             this.GetXMLEditorInst().setValue(xml);
-            //this.GetHTMLEditorInst().commands["selectAll"](myCodeMirror);
+
             CodeMirror.commands["selectAll"](this.GetXMLEditorInst());
             var range = {from: this.GetXMLEditorInst().getCursor(true), to: this.GetXMLEditorInst().getCursor(false)};
-            ;
+
             this.GetXMLEditorInst().autoFormatRange(range.from, range.to);
 
             var a1 = {line: 0, ch: 2};
