@@ -1,5 +1,6 @@
 import BpmnModeler from 'bpmn-js/lib/Modeler';
 import camundaModdleDescriptor from 'camunda-bpmn-moddle/resources/camunda';
+import jb4dcModdleDescriptor from './JB4DCModdle.json';
 import diagramXML from '../../Resources/newDiagram.bpmn';
 import CustomTranslate from './CustomTranslate';
 import propertiesPadEntity from './AdditionalModules/PropertiesPadEntity';
@@ -49,7 +50,8 @@ class FlowBpmnJsExtendContainer {
             },
             // needed if you'd like to maintain camunda:XXX properties in the properties panel
             moddleExtensions: {
-                camunda: camundaModdleDescriptor
+                camunda: camundaModdleDescriptor,
+                jb4dc:jb4dcModdleDescriptor
             },
             va:"1"
         });
@@ -130,11 +132,18 @@ class FlowBpmnJsExtendContainer {
         BpmnJsUtility.SetElementDocumentationText(element, "SetElementDocumentationText-" + value);
         value = BpmnJsUtility.GetElementDocumentationText(element);
         console.log(value);
+
         var id = BpmnJsUtility.GetElementName(element);
         console.log(id);
         BpmnJsUtility.SetElementName(element, "SetElementName-" + id);
         id = BpmnJsUtility.GetElementName(element);
         console.log(id);
+
+        var code = BpmnJsUtility.GetElementCode(element);
+        console.log(code);
+        BpmnJsUtility.SetElementCode(element, "SetElementCode-" + code);
+        code = BpmnJsUtility.GetElementCode(element);
+        console.log(code);
     }
     ShowPropertiesWindow (event,element) {
         var elementType = element.type;

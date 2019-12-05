@@ -1,0 +1,26 @@
+{
+  "name": "jb4dc",
+  "uri": "http://jb4dc.org/schema/1.0/bpmn",
+  "prefix": "jb4dc",
+  "xml": {
+    "tagAlias": "lowerCase"
+  },
+  "associations": [],
+  "types": [
+    {
+      "name": "Process",
+      "isAbstract": true,
+      "extends": [
+        "bpmn:Process"
+      ],
+      "properties": [
+        {
+          "name": "code",
+          "isAttr": true,
+          "type": "String"
+        }
+      ]
+    }
+  ],
+  "emumerations": [ ]
+}

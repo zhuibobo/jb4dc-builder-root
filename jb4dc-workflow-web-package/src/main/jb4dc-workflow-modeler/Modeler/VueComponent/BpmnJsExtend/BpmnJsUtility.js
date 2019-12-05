@@ -34,10 +34,21 @@ class BpmnJsUtility {
         }
         return "";
     }
-
     static SetElementName(element,name){
         var bo = element.businessObject;
         bo.name=name;
+    }
+
+    static GetElementCode(element){
+        var bo = element.businessObject;
+        if(bo.get('code')) {
+            return bo.get('code');
+        }
+        return "";
+    }
+    static SetElementCode(element,code){
+        var bo = element.businessObject;
+        bo["code"]=code;
     }
 
     static GetExtensionElements(element, create){
