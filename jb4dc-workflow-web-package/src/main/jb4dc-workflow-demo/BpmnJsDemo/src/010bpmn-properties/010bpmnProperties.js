@@ -28,7 +28,7 @@ bpmnModeler.importXML(diagramXML, function(err) {
             body: '${ value > 100 }'
         });
         sequenceFlow.conditionExpression = newCondition;
-        sequenceFlow.name="你好啊!"
+        sequenceFlow.name="你好啊!";
 
         var modeling = bpmnModeler.get('modeling');
 

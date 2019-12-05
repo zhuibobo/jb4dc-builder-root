@@ -1,6 +1,6 @@
 import BpmnModeler from 'bpmn-js/lib/Modeler';
 import camundaModdleDescriptor from 'camunda-bpmn-moddle/resources/camunda';
-import diagramXML from '../../Resources/newDiagram1.bpmn';
+import diagramXML from '../../Resources/newDiagram.bpmn';
 import CustomTranslate from './CustomTranslate';
 import propertiesPadEntity from './AdditionalModules/PropertiesPadEntity';
 import {BpmnJsUtility} from './BpmnJsUtility';
@@ -57,7 +57,9 @@ class FlowBpmnJsExtendContainer {
         //console.log(propertiesPadEntity.propertiesPadEntity);
 
         modeler.importXML(diagramXML, function (err) {
-            console.log(err);
+            if(err) {
+                console.log(err);
+            }
         });
         eventBus = modeler.get('eventBus');
         //eventBus.aaa="11111";
@@ -92,6 +94,13 @@ class FlowBpmnJsExtendContainer {
             }*/
         });
 
+        eventBus.on("element.click",event=>{
+            if(event.element.type=="bpmn:Process"){
+                this.ProcessClickEvent(event,event.element);
+            }
+            console.log(event.element);
+        });
+
         events.forEach(function(event) {
             eventBus.on(event, function(e) {
                 /*console.log(event, 'on', e.element.id);
@@ -113,6 +122,19 @@ class FlowBpmnJsExtendContainer {
         });
 
         console.log(modeler);
+    }
+    ProcessClickEvent (event,element) {
+        //let element=event.element;
+        var value = BpmnJsUtility.GetElementDocumentationText(element);
+        console.log(value);
+        BpmnJsUtility.SetElementDocumentationText(element, "SetElementDocumentationText-" + value);
+        value = BpmnJsUtility.GetElementDocumentationText(element);
+        console.log(value);
+        var id = BpmnJsUtility.GetElementName(element);
+        console.log(id);
+        BpmnJsUtility.SetElementName(element, "SetElementName-" + id);
+        id = BpmnJsUtility.GetElementName(element);
+        console.log(id);
     }
     ShowPropertiesWindow (event,element) {
         var elementType = element.type;
