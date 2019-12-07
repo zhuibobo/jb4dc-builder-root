@@ -15,7 +15,12 @@
       ],
       "properties": [
         {
-          "name": "code",
+          "name": "jb4dcCode",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "jb4dcFormKey",
           "isAttr": true,
           "type": "String"
         }

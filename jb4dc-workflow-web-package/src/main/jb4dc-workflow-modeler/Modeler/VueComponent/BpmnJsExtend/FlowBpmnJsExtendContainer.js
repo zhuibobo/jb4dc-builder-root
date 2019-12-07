@@ -1,7 +1,7 @@
 import BpmnModeler from 'bpmn-js/lib/Modeler';
 import camundaModdleDescriptor from 'camunda-bpmn-moddle/resources/camunda';
 import jb4dcModdleDescriptor from './JB4DCModdle.json';
-import diagramXML from '../../Resources/newDiagram.bpmn';
+import diagramXML from '../../Resources/newDiagram1.bpmn';
 import CustomTranslate from './CustomTranslate';
 import propertiesPadEntity from './AdditionalModules/PropertiesPadEntity';
 import {BpmnJsUtility} from './BpmnJsUtility';
@@ -38,9 +38,9 @@ class FlowBpmnJsExtendContainer {
     Initialize (exConfig) {
         //debugger;
         exConfig = $.extend(true, {}, this.defaultSetting, exConfig);
-        this.setting=exConfig;
+        this.setting = exConfig;
         modeler = new BpmnModeler({
-            "container": $("#"+exConfig.RendererToElemId)[0],
+            "container": $("#" + exConfig.RendererToElemId)[0],
             "additionalModules": [
                 customTranslateModule,
                 propertiesPadEntity
@@ -51,15 +51,15 @@ class FlowBpmnJsExtendContainer {
             // needed if you'd like to maintain camunda:XXX properties in the properties panel
             moddleExtensions: {
                 camunda: camundaModdleDescriptor,
-                jb4dc:jb4dcModdleDescriptor
+                jb4dc: jb4dcModdleDescriptor
             },
-            va:"1"
+            va: "1"
         });
         //propertiesPadEntity.propertiesPadEntity.f1();
         //console.log(propertiesPadEntity.propertiesPadEntity);
 
         modeler.importXML(diagramXML, function (err) {
-            if(err) {
+            if (err) {
                 console.log(err);
             }
         });
@@ -74,13 +74,13 @@ class FlowBpmnJsExtendContainer {
             _self.setting.FlowBpmnJsContainer.showProperties();
         });*/
 
-        eventBus.on("propertiesPadEntity.click",(e)=>{
+        eventBus.on("propertiesPadEntity.click", (e) => {
             //console.log(e);
             //console.log(this);
             this.setting.FlowBpmnJsContainer.showProperties();
-            this.ShowPropertiesWindow(e,e.element);
+            this.ShowPropertiesWindow(e, e.element);
             //_self.setting.FlowBpmnJsContainer.showProperties();
-            modeler.get('canvas').zoom('fit-viewport','auto');
+            modeler.get('canvas').zoom('fit-viewport', 'auto');
         });
 
         eventBus.on("element.contextmenu", event => {
@@ -96,15 +96,23 @@ class FlowBpmnJsExtendContainer {
             }*/
         });
 
-        eventBus.on("element.click",event=>{
-            if(event.element.type=="bpmn:Process"){
-                this.ProcessClickEvent(event,event.element);
+        eventBus.on("element.click", event => {
+            /*if (event.element.type == "bpmn:Process") {
+                this.ProcessClickEvent(event, event.element);
+            } else if (event.element.type == "bpmn:UserTask") {
+                this.UserTaskClickEvent(event, event.element);
+            }*/
+            var clickEventName = event.element.type.replace("bpmn:", "BPMN_") + "ClickEvent";
+            if (this[clickEventName] && typeof (this[clickEventName]) == "function") {
+                this[clickEventName](event, event.element);
+            } else {
+                console.log(".................")
             }
-            console.log(event.element);
+            //console.log(event.element);
         });
 
-        events.forEach(function(event) {
-            eventBus.on(event, function(e) {
+        events.forEach(function (event) {
+            eventBus.on(event, function (e) {
                 /*console.log(event, 'on', e.element.id);
 
                 var commentsElement=BpmnJsUtility.GetCommentsElement(e.element,true);
@@ -125,25 +133,48 @@ class FlowBpmnJsExtendContainer {
 
         console.log(modeler);
     }
-    ProcessClickEvent (event,element) {
+    BPMN_ProcessClickEvent (event,element){
+        console.log(element);
+        console.log(element.businessObject);
         //let element=event.element;
-        var value = BpmnJsUtility.GetElementDocumentationText(element);
+        var value = BpmnJsUtility.BPMN_GetElementDocumentationText(element);
         console.log(value);
-        BpmnJsUtility.SetElementDocumentationText(element, "SetElementDocumentationText-" + value);
-        value = BpmnJsUtility.GetElementDocumentationText(element);
+        BpmnJsUtility.BPMN_SetElementDocumentationText(element, "SetElementDocumentationText-" + value);
+        value = BpmnJsUtility.BPMN_GetElementDocumentationText(element);
         console.log(value);
 
-        var id = BpmnJsUtility.GetElementName(element);
+        var id = BpmnJsUtility.BPMN_Attr_GetName(element);
         console.log(id);
-        BpmnJsUtility.SetElementName(element, "SetElementName-" + id);
-        id = BpmnJsUtility.GetElementName(element);
+        BpmnJsUtility.BPMN_Attr_SetName(element, "SetElementName-" + id);
+        id = BpmnJsUtility.BPMN_Attr_GetName(element);
         console.log(id);
 
-        var code = BpmnJsUtility.GetElementCode(element);
+        var code = BpmnJsUtility.JB4DC_Attr_GetCode(element);
         console.log(code);
-        BpmnJsUtility.SetElementCode(element, "SetElementCode-" + code);
-        code = BpmnJsUtility.GetElementCode(element);
+        BpmnJsUtility.JB4DC_Attr_SetCode(element, "SetElementCode-" + code);
+        code = BpmnJsUtility.JB4DC_Attr_GetCode(element);
         console.log(code);
+
+        var versionTag=BpmnJsUtility.CAMUNDA_Attr_GetVersionTag(element);
+        BpmnJsUtility.CAMUNDA_Attr_SetVersionTag(element, "SetElementCode-" + versionTag);
+        versionTag=BpmnJsUtility.CAMUNDA_Attr_GetVersionTag(element);
+        console.log(versionTag);
+
+        var extensionElements=BpmnJsUtility.BPMN_Attr_GetExtensionElements(element);
+        console.log(extensionElements);
+        BpmnJsUtility.BPMN_Attr_CreateExtensionElements(element);
+
+        BpmnJsUtility.CAMUNDA_SetExecutionListenerArray(element,[{className:"a",eventName:"start"},{className:"b",eventName:"start"}])
+        var executionListener=BpmnJsUtility.CAMUNDA_GetExecutionListenerArray(element);
+        console.log(executionListener);
+
+        BpmnJsUtility.CAMUNDA_SetPropertiesArray(element,[{name:"a",value:"11111"},{name:"b",value:"22222"}])
+        var propertyList=BpmnJsUtility.CAMUNDA_GetPropertiesArray(element);
+        console.log(propertyList);
+    }
+    BPMN_UserTaskClickEvent (event,element){
+        BpmnJsUtility.BPMN_GetIncomingSequenceFlowArray(element);
+        BpmnJsUtility.BPMN_GetOutgoingSequenceFlowArray(element);
     }
     ShowPropertiesWindow (event,element) {
         var elementType = element.type;

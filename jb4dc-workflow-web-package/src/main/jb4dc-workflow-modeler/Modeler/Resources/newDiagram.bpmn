@@ -7,8 +7,12 @@
         xmlns:di="http://www.omg.org/spec/DD/20100524/DI"
         xsi:schemaLocation="http://www.omg.org/spec/BPMN/20100524/MODEL BPMN20.xsd"
         xmlns:camunda="http://camunda.org/schema/1.0/bpmn"
-        id="sample-diagram" targetNamespace="http://bpmn.io/schema/bpmn">
-  <bpmn:process id="Process_1" isExecutable="false">
+        id="sample-diagram"
+        targetNamespace="http://bpmn.io/schema/bpmn"
+        exporter="JB4DC Web Modeler"
+        exporterVersion="0.0.1"
+>
+  <bpmn:process id="Process_1" isExecutable="true">
     <bpmn:startEvent id="StartEvent_1"/>
   </bpmn:process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
