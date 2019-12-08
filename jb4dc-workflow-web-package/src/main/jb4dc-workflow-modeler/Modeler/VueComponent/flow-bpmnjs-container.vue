@@ -31,12 +31,14 @@
     import { FlowBpmnJsExtendContainer } from './BpmnJsExtend/FlowBpmnJsExtendContainer.js';
     import userTaskProperties from "./Properties/user-task-properties.vue";
     import sequenceFlowProperties from "./Properties/sequence-flow-properties.vue";
+    import processProperties from "./Properties/process-properties.vue";
     let flowBpmnJsExtendContainer;
     export default {
         name: "flow-bpmnjs-container",
         components: {
             userTaskProperties,
-            sequenceFlowProperties
+            sequenceFlowProperties,
+            processProperties
         },
         data:function () {
             return {
@@ -64,8 +66,25 @@
             },
             showProperties:function (componentName,title,element) {
                 //DialogUtility.AlertText("11");
+                var dialogElemId="properties-window";
                 this.thisView=componentName;
-                DialogUtility.ShowByElemId("properties-window",{height: 610, width: 980,title:title},null,{},this);
+                DialogUtility.ShowByElemId(
+                    dialogElemId,
+                    {
+                        height: 610,
+                        width: 980,
+                        title:title,
+                        buttons: {
+                            "确认": function () {
+
+                                DialogUtility.CloseByElemId(dialogElemId);
+                            },
+                            "取消": function () {
+                                DialogUtility.CloseByElemId(dialogElemId);
+                            }
+                        }
+                    },null,{},this
+                );
                 /*if(this.thisView=="userTaskProperties"){
 
                 }

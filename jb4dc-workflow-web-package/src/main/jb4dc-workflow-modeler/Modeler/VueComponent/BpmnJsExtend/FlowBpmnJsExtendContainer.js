@@ -97,18 +97,20 @@ class FlowBpmnJsExtendContainer {
         });
 
         eventBus.on("element.click", event => {
-            /*if (event.element.type == "bpmn:Process") {
-                this.ProcessClickEvent(event, event.element);
-            } else if (event.element.type == "bpmn:UserTask") {
-                this.UserTaskClickEvent(event, event.element);
-            }*/
             var clickEventName = event.element.type.replace("bpmn:", "BPMN_") + "ClickEvent";
             if (this[clickEventName] && typeof (this[clickEventName]) == "function") {
                 this[clickEventName](event, event.element);
             } else {
-                console.log(".................")
+                console.log("未定义:"+clickEventName)
             }
-            //console.log(event.element);
+        });
+        eventBus.on("element.dblclick", event => {
+            var clickEventName = event.element.type.replace("bpmn:", "BPMN_") + "DBClickEvent";
+            if (this[clickEventName] && typeof (this[clickEventName]) == "function") {
+                this[clickEventName](event, event.element);
+            } else {
+                console.log("未定义:"+clickEventName)
+            }
         });
 
         events.forEach(function (event) {
@@ -172,6 +174,9 @@ class FlowBpmnJsExtendContainer {
         var propertyList=BpmnJsUtility.CAMUNDA_GetPropertiesArray(element);
         console.log(propertyList);
     }
+    BPMN_ProcessDBClickEvent (event,element){
+        this.ShowPropertiesWindow(event,element);
+    }
     BPMN_UserTaskClickEvent (event,element){
         BpmnJsUtility.BPMN_GetIncomingSequenceFlowArray(element);
         BpmnJsUtility.BPMN_GetOutgoingSequenceFlowArray(element);
@@ -186,6 +191,9 @@ class FlowBpmnJsExtendContainer {
         } else if (elementType == "bpmn:UserTask") {
             componentName = "userTaskProperties";
             title = "用户环节设置";
+        } else if (elementType == "bpmn:Process") {
+            componentName = "processProperties";
+            title = "流程设置";
         }
         console.log(event);
         console.log(element);

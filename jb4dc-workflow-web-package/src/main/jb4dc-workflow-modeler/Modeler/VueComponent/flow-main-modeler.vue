@@ -12,14 +12,14 @@
             </button-group>
         </div>
         <tabs name="flow-design-modeler-tabs"  @on-click="tabChange" v-model="selectedTabName">
-            <tab-pane tab="flow-design-modeler-tabs" name="Info" label="Info">
-                <flow-base-container ref="flowBaseContainer"></flow-base-container>
-            </tab-pane>
             <tab-pane tab="flow-design-modeler-tabs" name="Bpmn" label="Bpmn">
                 <flow-bpmnjs-container ref="flowBpmnjsContainer"></flow-bpmnjs-container>
             </tab-pane>
             <tab-pane tab="flow-design-modeler-tabs" name="XML" label="XML">
                 <flow-xml-container ref="flowXmlContainer"></flow-xml-container>
+            </tab-pane>
+            <tab-pane tab="flow-design-modeler-tabs" name="Info" label="Document&Description">
+                <flow-base-container ref="flowBaseContainer"></flow-base-container>
             </tab-pane>
         </tabs>
 

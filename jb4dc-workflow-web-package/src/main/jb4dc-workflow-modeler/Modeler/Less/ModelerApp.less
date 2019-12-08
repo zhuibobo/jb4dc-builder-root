@@ -119,7 +119,56 @@ body{
   }
 }
 
+.properties-dialog-table-wraper{
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 8px;
 
+  >tbody>tr {
+    >td{
+      padding: 8px;
+      border: #d1d1d1 solid 1px;
+
+      textarea,input[type=text],select{
+        display: inline-block;
+        width: 100%;
+        padding: 4px 7px;
+        font-size: 12px;
+        border: 1px solid #dcdee2;
+        border-radius: 4px;
+        color: #515a6e;
+        background-color: #fff;
+        background-image: none;
+        position: relative;
+        cursor: text;
+        -webkit-transition: border .2s ease-in-out,background .2s ease-in-out,-webkit-box-shadow .2s ease-in-out;
+        transition: border .2s ease-in-out,background .2s ease-in-out,-webkit-box-shadow .2s ease-in-out;
+        transition: border .2s ease-in-out,background .2s ease-in-out,box-shadow .2s ease-in-out;
+        transition: border .2s ease-in-out,background .2s ease-in-out,box-shadow .2s ease-in-out,-webkit-box-shadow .2s ease-in-out;
+      }
+      select{
+        cursor: pointer;
+      }
+      textarea:hover,input[type=text]:hover {
+        border-color: #57a3f3;
+      }
+    }
+    >td:nth-child(1), >td:nth-child(3), >td:nth-child(5) {
+      background: #f8f8f8;
+      color: #000000;
+    }
+  }
+}
+
+.wf-list-button-outer-wrap{
+  width: 100%;
+  margin-top: 8px;
+  margin-bottom: 8px;
+
+  .list-button-inner-wrap{
+    float: right;
+  }
+}
 
 .properties-pad-entity {
   /*background-color: red !important; */
@@ -127,3 +176,4 @@ body{
   background-position: 3px 3px !important;
   background-repeat: no-repeat !important;
 }
+
