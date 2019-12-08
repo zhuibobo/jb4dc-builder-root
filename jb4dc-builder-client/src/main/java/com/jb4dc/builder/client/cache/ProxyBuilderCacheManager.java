@@ -1,6 +1,7 @@
 package com.jb4dc.builder.client.cache;
 
 import com.jb4dc.base.service.cache.JB4DCCacheManager;
+import org.ehcache.CacheManager;
 
 /**
  * Created with IntelliJ IDEA.
@@ -10,4 +11,8 @@ import com.jb4dc.base.service.cache.JB4DCCacheManager;
  */
 public class ProxyBuilderCacheManager extends JB4DCCacheManager {
     public static String PROXY_BUILDER_CACHE_NAME="JB4DCProxyBuilderCacheManager";
+
+    public ProxyBuilderCacheManager(CacheManager _cacheManager) {
+        super(_cacheManager);
+    }
 }

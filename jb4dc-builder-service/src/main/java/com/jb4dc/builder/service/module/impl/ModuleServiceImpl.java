@@ -3,13 +3,18 @@ package com.jb4dc.builder.service.module.impl;
 import com.jb4dc.base.service.exenum.TrueFalseEnum;
 import com.jb4dc.base.service.IAddBefore;
 import com.jb4dc.base.service.impl.BaseServiceImpl;
+import com.jb4dc.builder.client.service.webform.IFormResourceService;
 import com.jb4dc.builder.dao.module.ModuleMapper;
 import com.jb4dc.builder.dbentities.module.ModuleEntity;
+import com.jb4dc.builder.po.ModuleContextPO;
 import com.jb4dc.builder.service.module.IModuleService;
+import com.jb4dc.builder.service.weblist.IListResourceService;
 import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
 import com.jb4dc.core.base.session.JB4DCSession;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.util.Date;
 
 @Service
@@ -23,7 +28,11 @@ public class ModuleServiceImpl extends BaseServiceImpl<ModuleEntity> implements 
     private String rootId="0";
     private String rootParentId="-1";
 
+    @Autowired
+    IFormResourceService formResourceService;
 
+    @Autowired
+    IListResourceService listResourceService;
 
     ModuleMapper moduleMapper;
     public ModuleServiceImpl(ModuleMapper _defaultBaseMapper){
@@ -98,6 +107,13 @@ public class ModuleServiceImpl extends BaseServiceImpl<ModuleEntity> implements 
     @Override
     public String buildModuleItemCode(int num){
         return String.format("1%05d", num);
+    }
+
+    @Override
+    public ModuleContextPO getModuleContextPO(JB4DCSession jb4DCSession, String moduleId) throws JBuild4DCGenerallyException, IOException {
+        ModuleEntity moduleEntity=getByPrimaryKey(jb4DCSession,moduleId);
+        ModuleContextPO moduleContextPO=ModuleContextPO.parseToPO(moduleEntity);
+        return moduleContextPO;
     }
 }
 

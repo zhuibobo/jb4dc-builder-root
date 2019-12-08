@@ -18,6 +18,7 @@
         <module>jb4dc-dev-mock-web-server</module>
         <module>jb4dc-workflow-service</module>
         <module>jb4dc-workflow-web-package</module>
+        <module>jb4dc-workflow-client</module>
     </modules>
     <properties>
         <jb4dc.builder.version>1.0-SNAPSHOT</jb4dc.builder.version>
@@ -62,6 +63,21 @@
             <dependency>
                 <groupId>jb4dc</groupId>
                 <artifactId>jb4dc-builder-web-package</artifactId>
+                <version>${jb4dc.builder.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>jb4dc</groupId>
+                <artifactId>jb4dc-workflow-service</artifactId>
+                <version>${jb4dc.builder.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>jb4dc</groupId>
+                <artifactId>jb4dc-workflow-client</artifactId>
+                <version>${jb4dc.builder.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>jb4dc</groupId>
+                <artifactId>jb4dc-workflow-web-package</artifactId>
                 <version>${jb4dc.builder.version}</version>
             </dependency>
         </dependencies>

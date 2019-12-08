@@ -3,6 +3,7 @@ package com.jb4dc.builder.client.service;
 import com.jb4dc.base.service.cache.IBuildGeneralObj;
 import com.jb4dc.builder.client.cache.ProxyBuilderCacheManager;
 import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
+import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * Created with IntelliJ IDEA.
@@ -11,19 +12,22 @@ import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
  * To change this template use File | Settings | File Templates.
  */
 public class RuntimeProxyBase {
+    @Autowired(required = false)
+    ProxyBuilderCacheManager proxyBuilderCacheManager;
+
     public String builderCacheKey(Class aClass,String classInnerSingleValue) {
         return aClass.getCanonicalName() + classInnerSingleValue;
     }
 
     public <T> T autoGetFromCache(Class aClass,String classInnerSingleValue, IBuildGeneralObj<T> builder) throws JBuild4DCGenerallyException {
         String cacheKey=this.builderCacheKey(aClass,classInnerSingleValue);
-        if(ProxyBuilderCacheManager.exist(ProxyBuilderCacheManager.PROXY_BUILDER_CACHE_NAME,cacheKey)){
-            return ProxyBuilderCacheManager.getObject(ProxyBuilderCacheManager.PROXY_BUILDER_CACHE_NAME,cacheKey);
+        if(proxyBuilderCacheManager.exist(ProxyBuilderCacheManager.PROXY_BUILDER_CACHE_NAME,cacheKey)){
+            return proxyBuilderCacheManager.getObject(ProxyBuilderCacheManager.PROXY_BUILDER_CACHE_NAME,cacheKey);
         }
         else{
             Object obj=builder.BuildObj();
-            ProxyBuilderCacheManager.put(ProxyBuilderCacheManager.PROXY_BUILDER_CACHE_NAME,cacheKey,obj);
+            proxyBuilderCacheManager.put(ProxyBuilderCacheManager.PROXY_BUILDER_CACHE_NAME,cacheKey,obj);
         }
-        return ProxyBuilderCacheManager.getObject(ProxyBuilderCacheManager.PROXY_BUILDER_CACHE_NAME,cacheKey);
+        return proxyBuilderCacheManager.getObject(ProxyBuilderCacheManager.PROXY_BUILDER_CACHE_NAME,cacheKey);
     }
 }

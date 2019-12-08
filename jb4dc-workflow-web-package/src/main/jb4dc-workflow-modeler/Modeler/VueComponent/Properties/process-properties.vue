@@ -78,8 +78,8 @@
             <tab-pane tab="process-properties-tabs" label="Extensions">
                 <extensionsProperties></extensionsProperties>
             </tab-pane>
-            <tab-pane tab="process-properties-tabs" label="JB4DC">
-
+            <tab-pane tab="process-properties-tabs" label="JB4DC-General">
+                <jb4dcGeneralProperties></jb4dcGeneralProperties>
             </tab-pane>
         </tabs>
     </div>
@@ -88,12 +88,14 @@
 <script>
     import listenersProperties from "./listeners-properties.vue";
     import extensionsProperties from "./extensions-properties.vue";
+    import jb4dcGeneralProperties from "./jb4dc-general-properties.vue";
 
     export default {
         name: "process-properties",
         components: {
             listenersProperties,
-            extensionsProperties
+            extensionsProperties,
+            jb4dcGeneralProperties
         },
         data:function () {
             return {

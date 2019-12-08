@@ -7,6 +7,7 @@ import com.jb4dc.builder.client.cache.BuilderCacheManager;
 import com.jb4dc.builder.client.htmldesign.ICKEditorPluginsService;
 import com.jb4dc.builder.po.HtmlControlDefinitionPO;
 import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.w3c.dom.Node;
 
@@ -26,7 +27,8 @@ public class CKEditorPluginsServiceImpl implements ICKEditorPluginsService {
 
     //IJb4dCacheService jb4dCacheService;
 
-
+    @Autowired
+    BuilderCacheManager builderCacheManager;
 
     public CKEditorPluginsServiceImpl() {
         //this.jb4dCacheService = jb4dCacheService;
@@ -35,7 +37,7 @@ public class CKEditorPluginsServiceImpl implements ICKEditorPluginsService {
     @Override
     public List<HtmlControlDefinitionPO> getWebFormControlVoList() throws JBuild4DCGenerallyException {
         CKEditorPluginsConfigService configService=new CKEditorPluginsConfigService();
-        return BuilderCacheManager.autoGetFromCache(BuilderCacheManager.BUILDER_CACHE_NAME, JBuild4DCYaml.isDebug(), "getWebFormControlVoList", new IBuildGeneralObj<List<HtmlControlDefinitionPO>>() {
+        return builderCacheManager.autoGetFromCache(BuilderCacheManager.BUILDER_CACHE_NAME, JBuild4DCYaml.isDebug(), "getWebFormControlVoList", new IBuildGeneralObj<List<HtmlControlDefinitionPO>>() {
             @Override
             public List<HtmlControlDefinitionPO> BuildObj() throws JBuild4DCGenerallyException {
                 try
@@ -54,7 +56,7 @@ public class CKEditorPluginsServiceImpl implements ICKEditorPluginsService {
     @Override
     public List<HtmlControlDefinitionPO> getListControlVoList() throws JBuild4DCGenerallyException {
         CKEditorPluginsConfigService configService=new CKEditorPluginsConfigService();
-        return BuilderCacheManager.autoGetFromCache(BuilderCacheManager.BUILDER_CACHE_NAME, JBuild4DCYaml.isDebug(), "getListControlVoList", new IBuildGeneralObj<List<HtmlControlDefinitionPO>>() {
+        return builderCacheManager.autoGetFromCache(BuilderCacheManager.BUILDER_CACHE_NAME, JBuild4DCYaml.isDebug(), "getListControlVoList", new IBuildGeneralObj<List<HtmlControlDefinitionPO>>() {
             @Override
             public List<HtmlControlDefinitionPO> BuildObj() throws JBuild4DCGenerallyException {
                 try
@@ -73,7 +75,7 @@ public class CKEditorPluginsServiceImpl implements ICKEditorPluginsService {
     @Override
     public List<HtmlControlDefinitionPO> getAllControlVoList() throws JBuild4DCGenerallyException {
         CKEditorPluginsConfigService configService=new CKEditorPluginsConfigService();
-        return BuilderCacheManager.autoGetFromCache(BuilderCacheManager.BUILDER_CACHE_NAME, JBuild4DCYaml.isDebug(), "getAllControlVoList", new IBuildGeneralObj<List<HtmlControlDefinitionPO>>() {
+        return builderCacheManager.autoGetFromCache(BuilderCacheManager.BUILDER_CACHE_NAME, JBuild4DCYaml.isDebug(), "getAllControlVoList", new IBuildGeneralObj<List<HtmlControlDefinitionPO>>() {
             @Override
             public List<HtmlControlDefinitionPO> BuildObj() throws JBuild4DCGenerallyException {
                 try
