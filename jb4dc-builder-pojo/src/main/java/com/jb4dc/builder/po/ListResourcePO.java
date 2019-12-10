@@ -1,6 +1,13 @@
 package com.jb4dc.builder.po;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.jb4dc.base.tools.JsonUtility;
+import com.jb4dc.builder.dbentities.webform.FormResourceEntity;
 import com.jb4dc.builder.dbentities.weblist.ListResourceEntity;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.
@@ -72,4 +79,18 @@ public class ListResourcePO extends ListResourceEntity {
         this.listHtmlRuntime = listHtmlRuntime;
         this.listJsRuntime=listJsRuntime;
     }
+
+
+    /*public static ListResourcePO parseToPO(ListResourceEntity entity) throws IOException, JsonProcessingException {
+        String jsonStr= JsonUtility.toObjectString(entity);
+        return JsonUtility.toObject(jsonStr, ListResourcePO.class);
+    }
+
+    public static List<ListResourcePO> parseToPOList(List<ListResourceEntity> entityList) throws IOException, JsonProcessingException {
+        if(entityList==null){
+            return new ArrayList<>();
+        }
+        String jsonStr= JsonUtility.toObjectString(entityList);
+        return JsonUtility.toObjectListIgnoreProp(jsonStr, ListResourcePO.class);
+    }*/
 }

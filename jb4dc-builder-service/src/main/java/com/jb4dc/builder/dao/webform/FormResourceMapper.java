@@ -4,6 +4,8 @@ import com.jb4dc.base.dbaccess.dao.BaseMapper;
 import com.jb4dc.builder.dbentities.webform.FormResourceEntity;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.List;
+
 /**
  * Created with IntelliJ IDEA.
  * User: zhuangrb
@@ -14,4 +16,6 @@ public interface FormResourceMapper extends BaseMapper<FormResourceEntity> {
     FormResourceEntity selectGreaterThanRecord(@Param("id") String id, @Param("formModuleId") String formModuleId);
 
     FormResourceEntity selectLessThanRecord(@Param("id") String id, @Param("formModuleId") String formModuleId);
+
+    List<FormResourceEntity> selectByModuleId(@Param("moduleId") String moduleId);
 }

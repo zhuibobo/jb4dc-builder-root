@@ -1,6 +1,12 @@
 package com.jb4dc.builder.po;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.jb4dc.base.tools.JsonUtility;
 import com.jb4dc.builder.dbentities.webform.FormResourceEntity;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.
@@ -19,6 +25,8 @@ public class FormResourcePO extends FormResourceEntity {
     }
 
     private String formHtmlRuntime;
+
+    private List<TablePO> tablePOList;
 
     public FormResourcePO() {
     }
@@ -59,5 +67,26 @@ public class FormResourcePO extends FormResourceEntity {
         this.setFormCustClientRenderer(source.getFormCustClientRenderer());
         this.setFormCustDesc(source.getFormCustDesc());
         this.formHtmlRuntime=formHtmlRuntime;
+    }
+
+    /*public static FormResourcePO parseToPO(FormResourceEntity entity) throws IOException, JsonProcessingException {
+        String jsonStr= JsonUtility.toObjectString(entity);
+        return JsonUtility.toObject(jsonStr, FormResourcePO.class);
+    }*/
+
+    /*public static List<FormResourcePO> parseToPOList(List<FormResourceEntity> entityList) throws IOException, JsonProcessingException {
+        if(entityList==null){
+            return new ArrayList<>();
+        }
+        String jsonStr= JsonUtility.toObjectString(entityList);
+        return JsonUtility.toObjectListIgnoreProp(jsonStr, FormResourcePO.class);
+    }*/
+
+    public List<TablePO> getTablePOList() {
+        return tablePOList;
+    }
+
+    public void setTablePOList(List<TablePO> tablePOList) {
+        this.tablePOList = tablePOList;
     }
 }

@@ -6,8 +6,7 @@ class RemoteUtility{
         const promise = new Promise((resolve, reject)=>{
             var url=this.BuildUrl("/Rest/Workflow/Modeler/Properties/GetModuleContext");
             axios.post(url, qs.stringify({
-                "recordId":"DevMockModuleId",
-                "op":"view"
+                "moduleId":"DevMockModuleId"
             })).then(function (result) {
                 console.log(JsonUtility.JsonToString(result.data));
                 resolve(result.data);

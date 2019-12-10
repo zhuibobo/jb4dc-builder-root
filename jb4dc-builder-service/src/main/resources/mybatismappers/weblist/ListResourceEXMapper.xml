@@ -1,11 +1,49 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.jb4dc.builder.dao.weblist.ListResourceMapper">
-    <select id="selectAll" resultMap="BaseResultMap">select<include refid="Base_Column_List"/> from TBUILD_LIST_RESOURCE ORDER by LIST_ORDER_NUM DESC</select>
-    <select id="selectAllASC" resultMap="BaseResultMap">select<include refid="Base_Column_List"/> from TBUILD_LIST_RESOURCE ORDER by LIST_ORDER_NUM ASC</select>
+    <resultMap id="BaseResultMapSimple" type="com.jb4dc.builder.dbentities.weblist.ListResourceEntity">
+            <id property="listId" column="LIST_ID" javaType="java.lang.String" jdbcType="NVARCHAR" />
+            <result property="listCode" column="LIST_CODE" javaType="java.lang.String" jdbcType="NVARCHAR" />
+            <result property="listName" column="LIST_NAME" javaType="java.lang.String" jdbcType="NVARCHAR" />
+            <result property="listSingleName" column="LIST_SINGLE_NAME" javaType="java.lang.String" jdbcType="NVARCHAR" />
+            <result property="listCreateTime" column="LIST_CREATE_TIME" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+            <result property="listCreator" column="LIST_CREATOR" javaType="java.lang.String" jdbcType="NVARCHAR" />
+            <result property="listUpdateTime" column="LIST_UPDATE_TIME" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+            <result property="listUpdater" column="LIST_UPDATER" javaType="java.lang.String" jdbcType="NVARCHAR" />
+            <result property="listType" column="LIST_TYPE" javaType="java.lang.String" jdbcType="NVARCHAR" />
+            <result property="listIsSystem" column="LIST_IS_SYSTEM" javaType="java.lang.String" jdbcType="NVARCHAR" />
+            <result property="listOrderNum" column="LIST_ORDER_NUM" javaType="java.lang.Integer" jdbcType="INTEGER" />
+            <result property="listDesc" column="LIST_DESC" javaType="java.lang.String" jdbcType="NVARCHAR" />
+            <result property="listModuleId" column="LIST_MODULE_ID" javaType="java.lang.String" jdbcType="NVARCHAR" />
+            <result property="listStatus" column="LIST_STATUS" javaType="java.lang.String" jdbcType="NVARCHAR" />
+            <result property="listOrganId" column="LIST_ORGAN_ID" javaType="java.lang.String" jdbcType="NVARCHAR" />
+            <result property="listOrganName" column="LIST_ORGAN_NAME" javaType="java.lang.String" jdbcType="NVARCHAR" />
+            <result property="listDatasetId" column="LIST_DATASET_ID" javaType="java.lang.String" jdbcType="NVARCHAR" />
+            <result property="listDatasetName" column="LIST_DATASET_NAME" javaType="java.lang.String" jdbcType="NVARCHAR" />
+            <result property="listDatasetPageSize" column="LIST_DATASET_PAGE_SIZE" javaType="java.lang.Integer" jdbcType="INTEGER" />
+            <result property="listIsResolve" column="LIST_IS_RESOLVE" javaType="java.lang.String" jdbcType="NVARCHAR" />
+            <result property="listEveryTimeResolve" column="LIST_EVERY_TIME_RESOLVE" javaType="java.lang.String" jdbcType="NVARCHAR" />
+            <result property="listEnableSSear" column="LIST_ENABLE_S_SEAR" javaType="java.lang.String" jdbcType="NVARCHAR" />
+            <result property="listEnableCSear" column="LIST_ENABLE_C_SEAR" javaType="java.lang.String" jdbcType="NVARCHAR" />
+            <result property="listTheme" column="LIST_THEME" javaType="java.lang.String" jdbcType="NVARCHAR" />
+            <result property="listCustServerRenderer" column="LIST_CUST_SERVER_RENDERER" javaType="java.lang.String" jdbcType="NVARCHAR" />
+            <result property="listCustRefJs" column="LIST_CUST_REF_JS" javaType="java.lang.String" jdbcType="NVARCHAR" />
+            <result property="listCustClientRenderer" column="LIST_CUST_CLIENT_RENDERER" javaType="java.lang.String" jdbcType="NVARCHAR" />
+            <result property="listCustDesc" column="LIST_CUST_DESC" javaType="java.lang.String" jdbcType="NVARCHAR" />
+    </resultMap>
+    <sql id="Base_Column_List_Simple">
+    LIST_ID, LIST_CODE, LIST_NAME, LIST_SINGLE_NAME, LIST_CREATE_TIME, LIST_CREATOR,
+    LIST_UPDATE_TIME, LIST_UPDATER, LIST_TYPE, LIST_IS_SYSTEM, LIST_ORDER_NUM, LIST_DESC,
+    LIST_MODULE_ID, LIST_STATUS, LIST_ORGAN_ID, LIST_ORGAN_NAME, LIST_DATASET_ID, LIST_DATASET_NAME,
+    LIST_DATASET_PAGE_SIZE, LIST_IS_RESOLVE, LIST_EVERY_TIME_RESOLVE, LIST_ENABLE_S_SEAR,
+    LIST_ENABLE_C_SEAR, LIST_THEME, LIST_CUST_SERVER_RENDERER, LIST_CUST_REF_JS, LIST_CUST_CLIENT_RENDERER,
+    LIST_CUST_DESC
+  </sql>
+    <select id="selectAll" resultMap="BaseResultMapSimple">select<include refid="Base_Column_List_Simple"/> from TBUILD_LIST_RESOURCE ORDER by LIST_ORDER_NUM DESC</select>
+    <select id="selectAllASC" resultMap="BaseResultMapSimple">select<include refid="Base_Column_List_Simple"/> from TBUILD_LIST_RESOURCE ORDER by LIST_ORDER_NUM ASC</select>
     <delete id="deleteAll">delete from TBUILD_LIST_RESOURCE</delete>
     <select id="nextOrderNum" resultType="integer">select case when max(LIST_ORDER_NUM) is null then 1 else max(LIST_ORDER_NUM)+1 end ORDERNUM from TBUILD_LIST_RESOURCE</select>
-    <select id="selectBySearch" parameterType="java.util.Map" resultMap="BaseResultMap">select<include refid="Base_Column_List"/>from TBUILD_LIST_RESOURCE<where>
+    <select id="selectBySearch" parameterType="java.util.Map" resultMap="BaseResultMapSimple">select<include refid="Base_Column_List_Simple"/>from TBUILD_LIST_RESOURCE<where>
         <if test="listCode !=null and listCode !=''"> and LIST_CODE like #{listCode} </if>
         <if test="listName !=null and listName !=''"> and LIST_NAME like #{listName} </if>
         <if test="listSingleName !=null and listSingleName !=''"> and LIST_SINGLE_NAME like #{listSingleName} </if>
@@ -39,4 +77,7 @@
                                                                                                           where LIST_ORDER_NUM = (select max(LIST_ORDER_NUM) from TBUILD_LIST_RESOURCE where LIST_ORDER_NUM<(select LIST_ORDER_NUM from TBUILD_LIST_RESOURCE where LIST_ID=#{Id,jdbcType=NVARCHAR}))]]></select>
     <select id="selectGreaterThanRecord" parameterType="java.lang.String" resultMap="BaseResultMap"><![CDATA[select * from TBUILD_LIST_RESOURCE
                                                                                                              where LIST_ORDER_NUM = (select min(LIST_ORDER_NUM) from TBUILD_LIST_RESOURCE where LIST_ORDER_NUM>(select LIST_ORDER_NUM from TBUILD_LIST_RESOURCE where LIST_ID=#{Id,jdbcType=NVARCHAR}))]]></select>
+    <select id="selectByModuleId" resultMap="BaseResultMapSimple">
+        select<include refid="Base_Column_List_Simple"/> from TBUILD_LIST_RESOURCE where LIST_MODULE_ID=#{moduleId} ORDER by LIST_ORDER_NUM DESC
+    </select>
 </mapper>

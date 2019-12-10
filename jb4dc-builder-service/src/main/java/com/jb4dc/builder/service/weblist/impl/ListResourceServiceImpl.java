@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.
@@ -77,5 +78,10 @@ public class ListResourceServiceImpl extends BaseServiceImpl<ListResourceEntity>
         ListResourceEntity listResourceEntity=getByPrimaryKey(jb4DCSession,id);
         String runtimeForm=htmlRuntimeResolve.dynamicBind(jb4DCSession,id,listResourceEntity.getListHtmlResolve(),null);
         return new ListResourcePO(listResourceEntity,runtimeForm,listResourceEntity.getListJsContent());
+    }
+
+    @Override
+    public List<ListResourceEntity> getByModuleId(JB4DCSession jb4DCSession, String moduleId) {
+        return listResourceMapper.selectByModuleId(moduleId);
     }
 }

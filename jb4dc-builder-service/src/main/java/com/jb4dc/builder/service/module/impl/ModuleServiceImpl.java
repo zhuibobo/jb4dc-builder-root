@@ -3,9 +3,14 @@ package com.jb4dc.builder.service.module.impl;
 import com.jb4dc.base.service.exenum.TrueFalseEnum;
 import com.jb4dc.base.service.IAddBefore;
 import com.jb4dc.base.service.impl.BaseServiceImpl;
+import com.jb4dc.base.tools.JsonUtility;
 import com.jb4dc.builder.client.service.webform.IFormResourceService;
 import com.jb4dc.builder.dao.module.ModuleMapper;
 import com.jb4dc.builder.dbentities.module.ModuleEntity;
+import com.jb4dc.builder.dbentities.webform.FormResourceEntity;
+import com.jb4dc.builder.dbentities.weblist.ListResourceEntity;
+import com.jb4dc.builder.po.FormResourcePO;
+import com.jb4dc.builder.po.ListResourcePO;
 import com.jb4dc.builder.po.ModuleContextPO;
 import com.jb4dc.builder.service.module.IModuleService;
 import com.jb4dc.builder.service.weblist.IListResourceService;
@@ -16,6 +21,7 @@ import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.util.Date;
+import java.util.List;
 
 @Service
 public class ModuleServiceImpl extends BaseServiceImpl<ModuleEntity> implements IModuleService
@@ -112,7 +118,18 @@ public class ModuleServiceImpl extends BaseServiceImpl<ModuleEntity> implements 
     @Override
     public ModuleContextPO getModuleContextPO(JB4DCSession jb4DCSession, String moduleId) throws JBuild4DCGenerallyException, IOException {
         ModuleEntity moduleEntity=getByPrimaryKey(jb4DCSession,moduleId);
-        ModuleContextPO moduleContextPO=ModuleContextPO.parseToPO(moduleEntity);
+        ModuleContextPO moduleContextPO=JsonUtility.parseEntityToPO(moduleEntity,ModuleContextPO.class);
+
+        List<FormResourceEntity> formResourceEntityList=formResourceService.getByModuleId(jb4DCSession,moduleId);
+
+        List<FormResourcePO> formResourcePOList = JsonUtility.parseEntityListToPOList(formResourceEntityList,FormResourcePO.class);
+        formResourceService.tryLoadAboutTable(jb4DCSession,formResourcePOList);
+        moduleContextPO.setFormResourcePOList(formResourcePOList);
+
+
+        List<ListResourceEntity> listResourceEntityList=listResourceService.getByModuleId(jb4DCSession,moduleId);
+        moduleContextPO.setListResourcePOList(JsonUtility.parseEntityListToPOList(listResourceEntityList,ListResourcePO.class));
+
         return moduleContextPO;
     }
 }

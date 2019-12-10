@@ -7,6 +7,8 @@ import com.jb4dc.builder.po.ListResourcePO;
 import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
 import com.jb4dc.core.base.session.JB4DCSession;
 
+import java.util.List;
+
 /**
  * Created with IntelliJ IDEA.
  * User: zhuangrb
@@ -17,4 +19,6 @@ public interface IListResourceService extends IBaseService<ListResourceEntity> {
     //ListResourcePO getFormPreviewHTMLContent(JB4DCSession session, String listId) throws JBuild4DCGenerallyException;
 
     ListResourcePO getListRuntimeHTMLContent(JB4DCSession jb4DCSession, String id) throws JBuild4DCGenerallyException;
+
+    List<ListResourceEntity> getByModuleId(JB4DCSession jb4DCSession, String moduleId);
 }

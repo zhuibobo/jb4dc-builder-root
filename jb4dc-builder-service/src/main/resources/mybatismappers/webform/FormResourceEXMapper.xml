@@ -95,4 +95,7 @@
               FORM_MODULE_ID=#{formModuleId,jdbcType=NVARCHAR}
         ]]>
     </select>
+    <select id="selectByModuleId" resultMap="BaseResultMapSimple">
+        select<include refid="Base_Column_List_Simple"/> from TBUILD_FORM_RESOURCE where FORM_MODULE_ID=#{moduleId}  ORDER by FORM_ORDER_NUM DESC
+    </select>
 </mapper>

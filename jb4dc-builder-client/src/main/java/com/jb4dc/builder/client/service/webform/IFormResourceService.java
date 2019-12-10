@@ -7,6 +7,9 @@ import com.jb4dc.builder.po.FormResourcePO;
 import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
 import com.jb4dc.core.base.session.JB4DCSession;
 
+import java.io.IOException;
+import java.util.List;
+
 /**
  * Created with IntelliJ IDEA.
  * User: zhuangrb
@@ -17,4 +20,8 @@ public interface IFormResourceService extends IBaseService<FormResourceEntity> {
     FormResourcePO getFormPreviewHTMLContent(JB4DCSession jb4DCSession, String id) throws JBuild4DCGenerallyException;
 
     FormResourcePO getFormRuntimePageContent(JB4DCSession jb4DCSession, String id) throws JBuild4DCGenerallyException;
+
+    List<FormResourceEntity> getByModuleId(JB4DCSession jb4DCSession, String moduleId);
+
+    void tryLoadAboutTable(JB4DCSession jb4DCSession,List<FormResourcePO> formResourceEntityList) throws IOException, JBuild4DCGenerallyException;
 }
