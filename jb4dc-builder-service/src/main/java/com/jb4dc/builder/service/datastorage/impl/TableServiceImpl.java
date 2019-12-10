@@ -180,7 +180,7 @@ public class TableServiceImpl extends BaseServiceImpl<TableEntity> implements IT
                 }
             })){
                 try {
-                    deleteFields.add(TableFieldPO.parseToVo(tableFieldEntity));
+                    deleteFields.add(TableFieldPO.parseToPO(tableFieldEntity));
                 } catch (IOException ex) {
                     ex.printStackTrace();
                     throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_BUILDER_CODE,ex.getMessage());
@@ -212,11 +212,11 @@ public class TableServiceImpl extends BaseServiceImpl<TableEntity> implements IT
             });
             try {
                 if(newVo!=null) {
-                    if (TableFieldPO.isUpdate(TableFieldPO.parseToVo(tableFieldEntity), newVo)) {
+                    if (TableFieldPO.isUpdate(TableFieldPO.parseToPO(tableFieldEntity), newVo)) {
                         newVo.setOldFieldName(tableFieldEntity.getFieldName());
                         updateFields.add(newVo);
                     }
-                    else if (TableFieldPO.isUpdateLogicOnly(TableFieldPO.parseToVo(tableFieldEntity), newVo)) {
+                    else if (TableFieldPO.isUpdateLogicOnly(TableFieldPO.parseToPO(tableFieldEntity), newVo)) {
                         newVo.setOldFieldName(tableFieldEntity.getFieldName());
                         newVo.setUpdateLogicOnly(true);
                         updateFields.add(newVo);

@@ -4,6 +4,7 @@ import com.jb4dc.base.service.exenum.TrueFalseEnum;
 import com.jb4dc.base.service.IAddBefore;
 import com.jb4dc.base.service.impl.BaseServiceImpl;
 import com.jb4dc.base.tools.JsonUtility;
+import com.jb4dc.builder.client.service.envvar.IEnvVariableService;
 import com.jb4dc.builder.client.service.webform.IFormResourceService;
 import com.jb4dc.builder.dao.module.ModuleMapper;
 import com.jb4dc.builder.dbentities.module.ModuleEntity;
@@ -12,6 +13,7 @@ import com.jb4dc.builder.dbentities.weblist.ListResourceEntity;
 import com.jb4dc.builder.po.FormResourcePO;
 import com.jb4dc.builder.po.ListResourcePO;
 import com.jb4dc.builder.po.ModuleContextPO;
+import com.jb4dc.builder.service.envvar.IEnvGroupService;
 import com.jb4dc.builder.service.module.IModuleService;
 import com.jb4dc.builder.service.weblist.IListResourceService;
 import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
@@ -39,6 +41,12 @@ public class ModuleServiceImpl extends BaseServiceImpl<ModuleEntity> implements 
 
     @Autowired
     IListResourceService listResourceService;
+
+    @Autowired
+    IEnvGroupService envGroupService;
+
+    @Autowired
+    IEnvVariableService envVariableService;
 
     ModuleMapper moduleMapper;
     public ModuleServiceImpl(ModuleMapper _defaultBaseMapper){

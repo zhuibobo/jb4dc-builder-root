@@ -86,13 +86,13 @@ public class TableFieldPO extends TableFieldEntity {
         return result;
     }
 
-    public static TableFieldPO parseToVo(TableFieldEntity entity) throws IOException {
+    public static TableFieldPO parseToPO(TableFieldEntity entity) throws IOException {
         String jsonStr=JsonUtility.toObjectString(entity);
         return JsonUtility.toObject(jsonStr, TableFieldPO.class);
     }
 
-    public static TableFieldEntity parseToEntity(TableFieldPO vo) throws IOException {
-        String jsonStr=JsonUtility.toObjectString(vo);
+    public static TableFieldEntity parseToEntity(TableFieldPO po) throws IOException {
+        String jsonStr=JsonUtility.toObjectString(po);
         return JsonUtility.toObject(jsonStr,TableFieldEntity.class);
     }
 

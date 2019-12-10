@@ -1,7 +1,6 @@
 package com.jb4dc.builder.client.service.envvar;
 
 import com.jb4dc.builder.dbentities.envvar.EnvVariableEntity;
-import com.jb4dc.builder.po.EnvVariablePO;
 import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
 import com.jb4dc.core.base.session.JB4DCSession;
 import org.w3c.dom.Document;

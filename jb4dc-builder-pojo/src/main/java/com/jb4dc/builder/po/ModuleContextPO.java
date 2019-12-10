@@ -2,6 +2,7 @@ package com.jb4dc.builder.po;
 
 import com.jb4dc.base.tools.JsonUtility;
 import com.jb4dc.builder.dbentities.envvar.EnvGroupEntity;
+import com.jb4dc.builder.dbentities.envvar.EnvVariableEntity;
 import com.jb4dc.builder.dbentities.module.ModuleEntity;
 
 import java.io.IOException;
@@ -17,12 +18,8 @@ public class ModuleContextPO extends ModuleEntity {
     List<FormResourcePO> formResourcePOList;
     List<ListResourcePO> listResourcePOList;
     List<TablePO> tablePOList;
-    List<EnvGroupPO> envGroupPOList;
-
-    /*public static ModuleContextPO parseToPO(ModuleEntity entity) throws IOException {
-        String jsonStr= JsonUtility.toObjectString(entity);
-        return JsonUtility.toObject(jsonStr, ModuleContextPO.class);
-    }*/
+    List<EnvGroupEntity> envGroupPOList;
+    List<EnvVariableEntity> envVariablePOList;
 
     public List<FormResourcePO> getFormResourcePOList() {
         return formResourcePOList;
@@ -48,11 +45,19 @@ public class ModuleContextPO extends ModuleEntity {
         this.tablePOList = tablePOList;
     }
 
-    public List<EnvGroupPO> getEnvGroupPOList() {
+    public List<EnvGroupEntity> getEnvGroupPOList() {
         return envGroupPOList;
     }
 
-    public void setEnvGroupPOList(List<EnvGroupPO> envGroupPOList) {
+    public void setEnvGroupPOList(List<EnvGroupEntity> envGroupPOList) {
         this.envGroupPOList = envGroupPOList;
+    }
+
+    public List<EnvVariableEntity> getEnvVariablePOList() {
+        return envVariablePOList;
+    }
+
+    public void setEnvVariablePOList(List<EnvVariableEntity> envVariablePOList) {
+        this.envVariablePOList = envVariablePOList;
     }
 }
