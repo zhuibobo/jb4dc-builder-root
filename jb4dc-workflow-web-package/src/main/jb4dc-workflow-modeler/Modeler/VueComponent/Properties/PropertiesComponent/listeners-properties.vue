@@ -3,7 +3,7 @@
         <div id="list-button-wrap" class="wf-list-button-outer-wrap">
             <div class="list-button-inner-wrap">
                 <button-group>
-                    <i-button type="success" @click="showAddListenerDialog" icon="md-add"> History Time To Live </i-button>
+                    <i-button type="success" @click="showAddListenerDialog" icon="md-add"> </i-button>
                     <i-button type="primary" @click="move('up')" icon="md-arrow-up">  </i-button>
                     <i-button type="primary" @click="move('down')" icon="md-arrow-down">  </i-button>
                 </button-group>

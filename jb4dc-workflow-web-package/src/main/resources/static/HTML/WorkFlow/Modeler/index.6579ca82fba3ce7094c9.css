@@ -126,6 +126,7 @@ body {
 .properties-dialog-table-wraper > tbody > tr > td {
   padding: 8px;
   border: #d1d1d1 solid 1px;
+  color: #515a6e;
 }
 .properties-dialog-table-wraper > tbody > tr > td textarea,
 .properties-dialog-table-wraper > tbody > tr > td input[type=text],

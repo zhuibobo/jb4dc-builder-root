@@ -18,12 +18,22 @@ import java.util.List;
 public class TablePO extends TableEntity {
     List<TableFieldPO> tableFieldPOList;
 
+    boolean isMain;
+
     public List<TableFieldPO> getTableFieldPOList() {
         return tableFieldPOList;
     }
 
     public void setTableFieldPOList(List<TableFieldPO> tableFieldPOList) {
         this.tableFieldPOList = tableFieldPOList;
+    }
+
+    public boolean isMain() {
+        return isMain;
+    }
+
+    public void setMain(boolean main) {
+        isMain = main;
     }
 
     /*public static TablePO parseToPO(TableEntity entity) throws IOException {

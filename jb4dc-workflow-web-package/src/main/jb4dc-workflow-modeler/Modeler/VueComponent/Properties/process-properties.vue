@@ -1,7 +1,7 @@
 <template>
     <div>
         <tabs name="process-properties-tabs">
-            <tab-pane tab="process-properties-tabs" label="General">
+            <tab-pane tab="process-properties-tabs" label="CMA-General">
                 <table class="properties-dialog-table-wraper" cellpadding="0" cellspacing="0" border="0">
                     <colgroup>
                         <col style="width: 18%" />
@@ -58,7 +58,9 @@
                             <td>
 
                             </td>
-                            <td></td>
+                            <td>
+                                Tenant Id
+                            </td>
                             <td>
 
                             </td>
@@ -72,14 +74,20 @@
                     </tbody>
                 </table>
             </tab-pane>
-            <tab-pane tab="process-properties-tabs" label="Listeners">
+            <tab-pane tab="process-properties-tabs" label="CMA-Listeners">
                 <listenersProperties></listenersProperties>
             </tab-pane>
-            <tab-pane tab="process-properties-tabs" label="Extensions">
+            <tab-pane tab="process-properties-tabs" label="CMA-Extensions">
                 <extensionsProperties></extensionsProperties>
             </tab-pane>
             <tab-pane tab="process-properties-tabs" label="JB4DC-General">
                 <jb4dcGeneralProperties></jb4dcGeneralProperties>
+            </tab-pane>
+            <tab-pane tab="process-properties-tabs" label="JB4DC-Notice">
+
+            </tab-pane>
+            <tab-pane tab="process-properties-tabs" label="JB4DC-Manager">
+
             </tab-pane>
         </tabs>
     </div>

@@ -11,7 +11,7 @@ jb4dc:
       view:
         login: /Controller/LoginSSOView
         logout: /logout
-      excluded: /**/*.js,/**/*.css,/**/*.woff2,/**/*.ttf,/**/*.png,/**/*.jpg,/**/*.jpeg
+      excluded: /**/*.js,/**/*.css,/**/*.woff2,/**/*.ttf,/**/*.png,/**/*.jpg,/**/*.jpeg,/**/*.gif
   builder:
     server:
       name: JB4DC-BUILDER-WEB-SERVER

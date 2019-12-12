@@ -138,6 +138,12 @@ public class FormResourceServiceImpl extends BaseServiceImpl<FormResourceEntity>
                     if(!tablePOCahceMap.containsKey(tableId)){
                         TableEntity tableEntity=tableService.getByPrimaryKey(jb4DCSession,tableId);
                         TablePO tablePO=JsonUtility.parseEntityToPO(tableEntity,TablePO.class);
+                        if(hashMap.get("parentId").equals("-1")){
+                            tablePO.setMain(true);
+                        }
+                        else{
+                            tablePO.setMain(false);
+                        }
                         List<TableFieldPO> tableFieldPOList=tableFieldService.getTableFieldsByTableId(tableId);
                         tablePO.setTableFieldPOList(tableFieldPOList);
                         tablePOCahceMap.put(tableId,tablePO);
