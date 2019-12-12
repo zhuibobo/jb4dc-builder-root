@@ -86,9 +86,9 @@
 </template>
 
 <script>
-    import listenersProperties from "./listeners-properties.vue";
-    import extensionsProperties from "./extensions-properties.vue";
-    import jb4dcGeneralProperties from "./jb4dc-general-properties.vue";
+    import listenersProperties from "./PropertiesComponent/listeners-properties.vue";
+    import extensionsProperties from "./PropertiesComponent/extensions-properties.vue";
+    import jb4dcGeneralProperties from "./PropertiesComponent/jb4dc-general-properties.vue";
 
     export default {
         name: "process-properties",

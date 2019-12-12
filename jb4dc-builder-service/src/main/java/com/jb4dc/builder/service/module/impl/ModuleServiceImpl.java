@@ -134,9 +134,11 @@ public class ModuleServiceImpl extends BaseServiceImpl<ModuleEntity> implements 
         formResourceService.tryLoadAboutTable(jb4DCSession,formResourcePOList);
         moduleContextPO.setFormResourcePOList(formResourcePOList);
 
-
         List<ListResourceEntity> listResourceEntityList=listResourceService.getByModuleId(jb4DCSession,moduleId);
         moduleContextPO.setListResourcePOList(JsonUtility.parseEntityListToPOList(listResourceEntityList,ListResourcePO.class));
+
+        moduleContextPO.setEnvGroupPOList(envGroupService.getALLASC(jb4DCSession));
+        moduleContextPO.setEnvVariablePOList(envVariableService.getALL(jb4DCSession));
 
         return moduleContextPO;
     }

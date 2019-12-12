@@ -29,14 +29,17 @@
 <script>
     import flowBaseContainer from "./flow-base-container.vue";
     import flowBpmnjsContainer from "./flow-bpmnjs-container.vue";
+    import jb4dcGeneralProperties from "./Properties/PropertiesComponent/jb4dc-general-properties.vue";
     import flowXmlContainer from "./flow-xml-container.vue";
+    import {RemoteUtility} from '../Remote/RemoteUtility';
 
     export default {
         name: 'flow-design-modeler',
         components: {
             flowBaseContainer,
             flowBpmnjsContainer,
-            flowXmlContainer
+            flowXmlContainer,
+            jb4dcGeneralProperties
         },
         data:function () {
             return {
@@ -58,6 +61,7 @@
             initPageUI:function(){
                 this.isLoading=true;
                 this.oldSelectedTabName=this.selectedTabName;
+                RemoteUtility.TryLoadModuleContext("");
                 window.setTimeout(() => {
                     this.isLoading=false;
                 },1000)
