@@ -5,7 +5,7 @@
         </div>
         <div class="flow-bpmnjs-toolbar-outer">
             <div class="flow-bpmnjs-toolbar-inner">
-                <div class="toolbar-item zoom-to" title="自适应缩放"></div>
+                <div class="toolbar-item zoom-to" title="自适应缩放" @click="zoomAuto"></div>
                 <div class="toolbar-item zoom-in" title="放大"></div>
                 <div class="toolbar-item zoom-out" title="缩小"></div>
                 <div class="toolbar-item zoom-out" title="缩小"></div>
@@ -40,12 +40,12 @@
             sequenceFlowProperties,
             processProperties
         },
-        data:function () {
+        data () {
             return {
                 thisView:"userTaskProperties"
             }
         },
-        mounted:function(){
+        mounted(){
             //console.log(FlowBpmnJsExtendContainer);
             $("#modeler-bpmn-wraper").height(PageStyleUtility.GetPageHeight()-38);
             flowBpmnJsExtendContainer=new FlowBpmnJsExtendContainer();
@@ -55,16 +55,16 @@
             });
         },
         methods:{
-            logXML:function () {
+            logXML () {
                 flowBpmnJsExtendContainer.LogXML();
             },
-            getXML:function(){
+            getXML(){
                 return flowBpmnJsExtendContainer.GetXML();
             },
-            setXML:function(xml){
+            setXML(xml){
                 flowBpmnJsExtendContainer.SetXML(xml);
             },
-            showProperties:function (componentName,title,element) {
+            showProperties (componentName,title,element) {
                 //DialogUtility.AlertText("11");
                 var dialogElemId="properties-window";
                 this.thisView=componentName;
@@ -91,6 +91,9 @@
                 else{
                     this.thisView="userTaskProperties";
                 }*/
+            },
+            zoomAuto(){
+                flowBpmnJsExtendContainer.ZoomAuto();
             }
         }
     }

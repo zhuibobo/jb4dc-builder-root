@@ -1,7 +1,7 @@
 import BpmnModeler from 'bpmn-js/lib/Modeler';
 import camundaModdleDescriptor from 'camunda-bpmn-moddle/resources/camunda';
 import jb4dcModdleDescriptor from './JB4DCModdle.json';
-import diagramXML from '../../Resources/newDiagram.bpmn';
+import diagramXML from '../../Resources/newDiagram2.bpmn';
 import CustomTranslate from './CustomTranslate';
 import propertiesPadEntity from './AdditionalModules/PropertiesPadEntity';
 import {BpmnJsUtility} from './BpmnJsUtility';
@@ -31,6 +31,7 @@ class FlowBpmnJsExtendContainer {
         FlowBpmnJsContainer:""
     };
     setting={};
+    modeler=null;
     constructor() {
 
     }
@@ -39,7 +40,7 @@ class FlowBpmnJsExtendContainer {
         //debugger;
         exConfig = $.extend(true, {}, this.defaultSetting, exConfig);
         this.setting = exConfig;
-        modeler = new BpmnModeler({
+        this.modeler = new BpmnModeler({
             "container": $("#" + exConfig.RendererToElemId)[0],
             "additionalModules": [
                 customTranslateModule,
@@ -58,12 +59,12 @@ class FlowBpmnJsExtendContainer {
         //propertiesPadEntity.propertiesPadEntity.f1();
         //console.log(propertiesPadEntity.propertiesPadEntity);
 
-        modeler.importXML(diagramXML, function (err) {
+        this.modeler.importXML(diagramXML, function (err) {
             if (err) {
                 console.log(err);
             }
         });
-        eventBus = modeler.get('eventBus');
+        eventBus = this.modeler.get('eventBus');
         //eventBus.aaa="11111";
         console.log(eventBus);
         /*var _self=this;
@@ -80,7 +81,6 @@ class FlowBpmnJsExtendContainer {
             this.setting.FlowBpmnJsContainer.showProperties();
             this.ShowPropertiesWindow(e, e.element);
             //_self.setting.FlowBpmnJsContainer.showProperties();
-            modeler.get('canvas').zoom('fit-viewport', 'auto');
         });
 
         eventBus.on("element.contextmenu", event => {
@@ -136,6 +136,7 @@ class FlowBpmnJsExtendContainer {
         console.log(modeler);
     }
     BPMN_ProcessClickEvent (event,element){
+        return;
         console.log(element);
         console.log(element.businessObject);
         //let element=event.element;
@@ -200,18 +201,21 @@ class FlowBpmnJsExtendContainer {
         this.setting.FlowBpmnJsContainer.showProperties(componentName, title, element);
         //alert("1");
     }
+    ZoomAuto(){
+        this.modeler.get('canvas').zoom('fit-viewport', 'auto');
+    }
     LogXML(){
         console.log(this.GetXML());
     }
     GetXML(){
         var xml;
-        modeler.saveXML(null,function (error,_xml) {
+        this.modeler.saveXML(null,function (error,_xml) {
             xml=_xml;
         })
         return xml;
     }
     SetXML(xml){
-        modeler.importXML(xml, function (err) {
+        this.modeler.importXML(xml, function (err) {
             console.log(err);
         });
     }
