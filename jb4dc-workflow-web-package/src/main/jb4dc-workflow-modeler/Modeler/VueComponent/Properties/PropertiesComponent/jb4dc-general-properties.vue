@@ -31,7 +31,13 @@
                 <tr>
                     <td>流程标题：</td>
                     <td colspan="3">
-                        <textarea id="TextAreaJsEditor">select TTEST_C'#{ApiVar.当前用户所在组织ID}'</textarea>
+                        <textarea id="txtFlowProcessTitle"></textarea>
+                    </td>
+                </tr>
+                <tr>
+                    <td>流程备注：</td>
+                    <td colspan="3">
+                        <textarea id="txtFlowProcessRemark"></textarea>
                     </td>
                 </tr>
                 <tr>
@@ -41,10 +47,10 @@
                                 <tab-pane tab="flow-process-title-config-tabs" label="表" name="Tables">
                                     <div>
                                         <div style="margin: 8px">数据表：【<span style="color: red">{{tree.selectedTableName}}</span>】</div>
-                                        <i-table size="small" height="240" stripe border :columns="tableField.columnsConfig" :data="tableField.fieldData"
+                                        <i-table size="small" height="174" stripe border :columns="tableField.columnsConfig" :data="tableField.fieldData"
                                                  class="iv-list-table" :highlight-row="true">
                                             <template slot-scope="{ row, index }" slot="action">
-                                                <div class="jb4dc-general-properties-icon-class1">
+                                                <div class="jb4dc-general-properties-icon-class1" @click="insertTableFieldToCodeMirror(row)">
                                                     <Icon type="ios-checkmark-circle" />
                                                 </div>
                                             </template>
@@ -53,7 +59,7 @@
                                 </tab-pane>
                                 <tab-pane tab="flow-process-title-config-tabs" label="环境变量" name="EnvVar">
                                     <div>
-                                        <div style="width: 25%;float: left;height: 220px">
+                                        <div style="width: 25%;float: left;height: 190px;overflow: auto">
                                             <div class="inner-wrap">
                                                 <div style="margin-top: 8px">
                                                     <ul id="envGroupZTreeUL" class="ztree"></ul>
@@ -61,10 +67,10 @@
                                             </div>
                                         </div>
                                         <div style="width: 73%;float: right;" class="iv-list-page-wrap">
-                                            <i-table :height="250" stripe border :columns="envVarColumnsConfig" :data="envVarTableData"
+                                            <i-table :height="184" stripe border :columns="envVarColumnsConfig" :data="envVarTableData"
                                                      class="iv-list-table" :highlight-row="true">
                                                 <template slot-scope="{ row, index }" slot="action">
-                                                    <div class="jb4dc-general-properties-icon-class1">
+                                                    <div class="jb4dc-general-properties-icon-class1" @click="insertEnvVarToEditor(row)">
                                                         <Icon type="ios-checkmark-circle" />
                                                     </div>
                                                 </template>
@@ -73,6 +79,12 @@
                                     </div>
                                 </tab-pane>
                                 <tab-pane tab="flow-process-title-config-tabs" label="流程变量" name="FlowVar">
+                                    <div style="margin-top: 8px">
+                                        <Button type="info">发起人</Button>
+                                        <Button type="info">环节名称</Button>
+                                        <Button type="info">动作名称</Button>
+                                        <Button type="info">.....</Button>
+                                    </div>
                                 </tab-pane>
                             </tabs>
                         </div>
@@ -151,7 +163,7 @@
                         }
                     ]
                 },
-                sqlCodeMirror:null,
+                sqlCodeMirrorTitle:null,
                 envVarTableData:[],
                 envVarColumnsConfig: [
                     {
@@ -175,20 +187,41 @@
                         value:"",
                         type:SearchUtility.SearchFieldType.StringType
                     }
-                }
+                },
+                flowProcessTitleCodeMirror:null,
+                flowProcessRemarkCodeMirror:null,
+                selectedCodeMirror:null
             }
         },
         mounted() {
             /*RemoteUtility.GetModuleById("").then(function (result) {
                 console.log(result);
             })*/
-            this.sqlCodeMirror = CodeMirror.fromTextArea($("#TextAreaJsEditor")[0], {
+            this.flowProcessTitleCodeMirror = CodeMirror.fromTextArea($("#txtFlowProcessTitle")[0], {
                 mode: "text/x-sql",
                 lineWrapping: true,
                 foldGutter: true,
                 theme: "monokai"
             });
-            this.sqlCodeMirror.setSize("100%", 26);
+            this.flowProcessTitleCodeMirror.setSize("100%", 26);
+            this.flowProcessTitleCodeMirror.on("mousedown", (instance, e) => {
+                //console.log(instance);
+                this.selectedCodeMirror=instance;
+            });
+            this.selectedCodeMirror = this.flowProcessTitleCodeMirror;
+
+            this.flowProcessRemarkCodeMirror = CodeMirror.fromTextArea($("#txtFlowProcessRemark")[0], {
+                mode: "text/x-sql",
+                lineWrapping: true,
+                foldGutter: true,
+                theme: "monokai"
+            });
+            this.flowProcessRemarkCodeMirror.setSize("100%", 52);
+            this.flowProcessRemarkCodeMirror.on("mousedown", (instance, e) => {
+                //console.log(instance);
+                this.selectedCodeMirror=instance;
+            });
+
             RemoteUtility.GetFormResourcePOList().then((formResourcePOList) => {
                 //console.log(formResourcePOList);
                 this.formResourcePOList=formResourcePOList;
@@ -200,8 +233,22 @@
             });
         },
         methods:{
+            insertCodeAtCursor:function(code){
+                //console.log(code);
+                var doc = this.selectedCodeMirror.getDoc();
+                var cursor = doc.getCursor();
+                doc.replaceRange(code, cursor);
+            },
+            insertTableFieldToCodeMirror:function (fieldJson) {
+                //console.log(fieldJson);
+                this.insertCodeAtCursor('${'+fieldJson.tableName+"."+fieldJson.fieldName+'}');
+            },
+            insertEnvVarToEditor:function(evnJson) {
+                //console.log(evnJson);
+                this.insertCodeAtCursor('${EnvVar.' + evnJson.envVarText + '}');
+            },
             changeBindForm(formId){
-                console.log(formId);
+                //console.log(formId);
                 RemoteUtility.GetFormResourceBindMainTable(formId).then((mainTablePO) => {
                     //console.log(formResourcePOList);
                     if(mainTablePO) {
@@ -214,14 +261,6 @@
             },
             envGroupTreeNodeSelected (event, treeId, treeNode) {
                 // 根节点不触发任何事件1
-                //if(treeNode.level != 0) {
-                //this.pageNum=1;
-                //this.envVarClearSearchCondition();
-                //this.envVarSearchCondition.envVarGroupId.value=treeNode[this.tree.envGroupTreeIdFieldName];
-                //this.envVarReloadData();
-                //appList.reloadTreeTableData();
-                //}
-                //console.log(treeNode.envGroupId);
                 RemoteUtility.GetEnvVariablePOListByGroupId(treeNode.envGroupId).then( (envVariablePOList) => {
                     this.envVarTableData=envVariablePOList;
                 });
