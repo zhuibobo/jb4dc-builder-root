@@ -1,7 +1,7 @@
 <template>
     <div id="modeler-bpmn-wraper" class="modeler-bpmn-wraper">
         <div style="display: none" id="properties-window">
-            <component :is="thisView"></component>
+            <component :is="thisView" ref="dialogPropertiesWindow"></component>
         </div>
         <div class="flow-bpmnjs-toolbar-outer">
             <div class="flow-bpmnjs-toolbar-inner">
@@ -65,9 +65,11 @@
                 flowBpmnJsExtendContainer.SetXML(xml);
             },
             showProperties (componentName,title,element) {
+                console.log(element);
                 //DialogUtility.AlertText("11");
                 var dialogElemId="properties-window";
                 this.thisView=componentName;
+                var _self=this;
                 DialogUtility.ShowByElemId(
                     dialogElemId,
                     {
@@ -76,7 +78,8 @@
                         title:title,
                         buttons: {
                             "确认": function () {
-
+                                var dialogComponentJson=_self.$refs.dialogPropertiesWindow.getValue();
+                                console.log(dialogComponentJson);
                                 DialogUtility.CloseByElemId(dialogElemId);
                             },
                             "取消": function () {
@@ -85,6 +88,11 @@
                         }
                     },null,{},this
                 );
+                //console.log(_self.$refs.dialogPropertiesWindow);
+                window.setTimeout(function () {
+                    _self.$refs.dialogPropertiesWindow.setValue({x:"2"});
+                },1000);
+
                 /*if(this.thisView=="userTaskProperties"){
 
                 }

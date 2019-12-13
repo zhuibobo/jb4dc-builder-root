@@ -111,6 +111,14 @@
 
                 }
             }
+        },
+        methods:{
+            getValue(){
+                return {a:"1"};
+            },
+            setValue(props){
+                console.log(props);
+            }
         }
     }
 </script>
