@@ -1,7 +1,7 @@
 <template>
     <div id="modeler-bpmn-wraper" class="modeler-bpmn-wraper">
         <div style="display: none" id="properties-window">
-            <component :is="thisView" ref="dialogPropertiesWindow"></component>
+            <component :is="thisView" ref="dialogPropertiesWindow" :elem-properties="currentEditProperties"></component>
         </div>
         <div class="flow-bpmnjs-toolbar-outer">
             <div class="flow-bpmnjs-toolbar-inner">
@@ -42,7 +42,8 @@
         },
         data () {
             return {
-                thisView:"userTaskProperties"
+                thisView:"userTaskProperties",
+                currentEditProperties:null
             }
         },
         mounted(){
@@ -64,7 +65,7 @@
             setXML(xml){
                 flowBpmnJsExtendContainer.SetXML(xml);
             },
-            showProperties (componentName,title,element) {
+            showProperties (componentName,title,element,elemToDialogProps) {
                 console.log(element);
                 //DialogUtility.AlertText("11");
                 var dialogElemId="properties-window";
@@ -88,10 +89,12 @@
                         }
                     },null,{},this
                 );
-                //console.log(_self.$refs.dialogPropertiesWindow);
+                this.currentEditProperties=elemToDialogProps;
+                /*console.log(_self.$refs.dialogPropertiesWindow);
                 window.setTimeout(function () {
-                    _self.$refs.dialogPropertiesWindow.setValue({x:"2"});
-                },1000);
+                    console.log(_self.$refs.dialogPropertiesWindow);
+                    //_self.$refs.dialogPropertiesWindow.setValue({x:"2"});
+                },1000);*/
 
                 /*if(this.thisView=="userTaskProperties"){
 

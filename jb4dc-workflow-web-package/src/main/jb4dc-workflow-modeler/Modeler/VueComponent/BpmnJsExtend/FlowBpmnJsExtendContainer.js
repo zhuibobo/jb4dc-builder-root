@@ -5,6 +5,7 @@ import diagramXML from '../../Resources/newDiagram2.bpmn';
 import CustomTranslate from './CustomTranslate';
 import propertiesPadEntity from './AdditionalModules/PropertiesPadEntity';
 import {BpmnJsUtility} from './BpmnJsUtility';
+import {PODefinition} from './PODefinition.js';
 
 let modeler = null;
 let eventBus = null;
@@ -196,10 +197,24 @@ class FlowBpmnJsExtendContainer {
             componentName = "processProperties";
             title = "流程设置";
         }
-        console.log(event);
-        console.log(element);
-        this.setting.FlowBpmnJsContainer.showProperties(componentName, title, element);
+        //console.log(event);
+        //console.log(element);
+        var elemToDialogProps=this.SerializationElemToDialogProps(element);
+        this.setting.FlowBpmnJsContainer.showProperties(componentName, title, element,elemToDialogProps);
         //alert("1");
+    }
+    SerializationElemToDialogProps(elem){
+        var result=PODefinition.GetDialogPropertiesPO();
+        result.bpmn.id=BpmnJsUtility.BPMN_Attr_GetId(elem);
+        result.bpmn.name=BpmnJsUtility.BPMN_Attr_GetName(elem);
+
+        //console.log(PODefinition.GetDialogPropertiesPO().bpmn.id);
+        //console.log(result.bpmn.id);
+
+        return result;
+    }
+    DeSerializationDialogPropsToElem(props,elem){
+
     }
     ZoomAuto(){
         this.modeler.get('canvas').zoom('fit-viewport', 'auto');

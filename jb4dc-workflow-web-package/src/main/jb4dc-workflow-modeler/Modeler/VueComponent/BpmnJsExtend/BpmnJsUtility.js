@@ -11,6 +11,8 @@ class BpmnJsUtility {
         bo[attr]=value;
     }
 
+
+
     //#region
     static BPMN_GetElementDocumentation(element, create) {
         var bo = element.businessObject;

@@ -13,11 +13,11 @@
                         <tr>
                             <td>ID：</td>
                             <td>
-                                <input type="text" v-model="baseInfo.id" />
+                                <input type="text" v-model="bpmn.id" />
                             </td>
                             <td>IsExecutable：</td>
                             <td style="text-align: left">
-                                <radio-group type="button" style="margin: auto" v-model="baseInfo.serialize">
+                                <radio-group type="button" style="margin: auto" v-model="bpmn.isExecutable">
                                     <radio label="true">是</radio>
                                     <radio label="false">否</radio>
                                 </radio-group>
@@ -26,49 +26,49 @@
                         <tr>
                             <td>Name：</td>
                             <td>
-                                <input type="text" v-model="baseInfo.name" />
+                                <input type="text" v-model="bpmn.name" />
                             </td>
                             <td>Version Tag：</td>
                             <td>
-                                <input type="text" v-model="baseInfo.className" />
+                                <input type="text" v-model="camunda.versionTag" />
                             </td>
                         </tr>
                         <tr>
                             <td>Task Priority：</td>
                             <td>
-
+                                <input type="text" v-model="camunda.taskPriority" />
                             </td>
                             <td>Job Priority：</td>
                             <td>
-
+                                <input type="text" v-model="camunda.jobPriority" />
                             </td>
                         </tr>
                         <tr>
                             <td>Candidate Starter Groups：</td>
                             <td>
-
+                                <input type="text" v-model="camunda.candidateStarterGroups" />
                             </td>
                             <td>Candidate Starter Users：</td>
                             <td>
-
+                                <input type="text" v-model="camunda.candidateStarterUsers" />
                             </td>
                         </tr>
                         <tr>
                             <td>History Time To Live：</td>
                             <td>
-
+                                <input type="text" v-model="camunda.historyTimeToLive" />
                             </td>
                             <td>
                                 Tenant Id
                             </td>
                             <td>
-
+                                <input type="text" v-model="jb4dc.tenantId" />
                             </td>
                         </tr>
                         <tr>
                             <td>Element Documentation：</td>
                             <td colspan="3">
-                                <textarea rows="12" v-model="baseInfo.style"></textarea>
+                                <textarea rows="11" v-model="bpmn.documentation"></textarea>
                             </td>
                         </tr>
                     </tbody>
@@ -97,6 +97,7 @@
     import listenersProperties from "./PropertiesComponent/listeners-properties.vue";
     import extensionsProperties from "./PropertiesComponent/extensions-properties.vue";
     import jb4dcGeneralProperties from "./PropertiesComponent/jb4dc-general-properties.vue";
+    import { PODefinition } from "../BpmnJsExtend/PODefinition.js"
 
     export default {
         name: "process-properties",
@@ -105,12 +106,18 @@
             extensionsProperties,
             jb4dcGeneralProperties
         },
+        props:["elemProperties"],
         data:function () {
             return {
-                baseInfo:{
-
-                }
+                bpmn:PODefinition.GetDialogPropertiesPO().bpmn,
+                camunda:PODefinition.GetDialogPropertiesPO().camunda,
+                jb4dc:PODefinition.GetDialogPropertiesPO().jb4dc
             }
+        },
+        mounted(){
+            //console.log(this.elemProperties);
+            //console.log(DialogPropertiesDefinition);
+            this.bpmn=this.elemProperties.bpmn;
         },
         methods:{
             getValue(){
