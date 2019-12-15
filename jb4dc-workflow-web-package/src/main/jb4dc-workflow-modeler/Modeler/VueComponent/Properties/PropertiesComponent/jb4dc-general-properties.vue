@@ -21,11 +21,17 @@
                 </tr>
                 <tr>
                     <td>绑定表单：</td>
-                    <td colspan="3">
-                        <Select v-model="propPanelBindData.jb4dcFormId" style="width:600px" @on-change="changeBindForm">
-                            <Option v-for="item in formResourcePOList" :value="item.formId" :key="item.formId">{{ item.formName }}【{{ item.formCode }}】</Option>
+                    <td>
+                        <Select v-model="propPanelBindData.jb4dcFormId" style="width:250px" @on-change="changeBindForm">
+                            <Option v-for="item in formResourcePOList" :value="item.formId" :key="item.formId">【{{ item.formCode }}】{{ item.formName }}</Option>
                         </Select>
                         <Button type="primary" disabled>编辑表单</Button>
+                    </td>
+                    <td>
+                        Tenant Id
+                    </td>
+                    <td>
+                        <input type="text" v-model="propPanelBindData.jb4dcTenantId" />
                     </td>
                 </tr>
                 <tr>
@@ -106,7 +112,8 @@
                 propPanelBindData:{
                     jb4dcFlowCategory:"通用流程",
                     jb4dcCode:"",
-                    jb4dcFormId:""
+                    jb4dcFormId:"",
+                    jb4dcTenantId:""
                 },
                 formResourcePOList:null,
                 tree:{

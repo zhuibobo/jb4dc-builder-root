@@ -13,7 +13,7 @@
                         <tr>
                             <td>ID：</td>
                             <td>
-                                <input type="text" v-model="bpmn.id" />
+                                <input type="text" v-model="bpmn.id" disabled="disabled" />
                             </td>
                             <td>IsExecutable：</td>
                             <td style="text-align: left">
@@ -36,11 +36,11 @@
                         <tr>
                             <td>Task Priority：</td>
                             <td>
-                                <input type="text" v-model="camunda.taskPriority" />
+                                <input type="text" v-model="camunda.taskPriority" disabled="disabled" />
                             </td>
                             <td>Job Priority：</td>
                             <td>
-                                <input type="text" v-model="camunda.jobPriority" />
+                                <input type="text" v-model="camunda.jobPriority" disabled="disabled" />
                             </td>
                         </tr>
                         <tr>
@@ -56,13 +56,12 @@
                         <tr>
                             <td>History Time To Live：</td>
                             <td>
-                                <input type="text" v-model="camunda.historyTimeToLive" />
+                                <input type="text" v-model="camunda.historyTimeToLive" disabled="disabled" />
                             </td>
                             <td>
-                                Tenant Id
                             </td>
                             <td>
-                                <input type="text" v-model="jb4dc.tenantId" />
+
                             </td>
                         </tr>
                         <tr>
@@ -118,10 +117,17 @@
             //console.log(this.elemProperties);
             //console.log(DialogPropertiesDefinition);
             this.bpmn=this.elemProperties.bpmn;
+            if(!this.jb4dc.tenantId){
+                this.jb4dc.tenantId="JBuild4DC-Tenant";
+            }
         },
         methods:{
             getValue(){
-                return {a:"1"};
+                return {
+                    bpmn:this.bpmn,
+                    camunda:this.camunda,
+                    jb4dc:this.jb4dc
+                }
             },
             setValue(props){
                 console.log(props);

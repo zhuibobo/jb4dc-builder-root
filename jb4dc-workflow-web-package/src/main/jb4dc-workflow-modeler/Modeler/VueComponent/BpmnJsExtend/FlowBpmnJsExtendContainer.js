@@ -214,7 +214,7 @@ class FlowBpmnJsExtendContainer {
         return result;
     }
     DeSerializationDialogPropsToElem(props,elem){
-
+        BpmnJsUtility.BPMN_Attr_SetName(elem,props.bpmn.name);
     }
     ZoomAuto(){
         this.modeler.get('canvas').zoom('fit-viewport', 'auto');

@@ -79,8 +79,9 @@
                         title:title,
                         buttons: {
                             "确认": function () {
-                                var dialogComponentJson=_self.$refs.dialogPropertiesWindow.getValue();
-                                console.log(dialogComponentJson);
+                                var dialogComponentProperties=_self.$refs.dialogPropertiesWindow.getValue();
+                                //console.log(dialogComponentJson);
+                                flowBpmnJsExtendContainer.DeSerializationDialogPropsToElem(dialogComponentProperties,element);
                                 DialogUtility.CloseByElemId(dialogElemId);
                             },
                             "取消": function () {

@@ -125,12 +125,12 @@ body{
   margin-top: 8px;
 
   >tbody>tr {
-    >td{
+    >td {
       padding: 8px;
       border: #d1d1d1 solid 1px;
       color: #515a6e;
 
-      textarea,input[type=text],select{
+      textarea, input[type=text], select {
         display: inline-block;
         width: 100%;
         padding: 4px 7px;
@@ -142,18 +142,28 @@ body{
         background-image: none;
         position: relative;
         cursor: text;
-        -webkit-transition: border .2s ease-in-out,background .2s ease-in-out,-webkit-box-shadow .2s ease-in-out;
-        transition: border .2s ease-in-out,background .2s ease-in-out,-webkit-box-shadow .2s ease-in-out;
-        transition: border .2s ease-in-out,background .2s ease-in-out,box-shadow .2s ease-in-out;
-        transition: border .2s ease-in-out,background .2s ease-in-out,box-shadow .2s ease-in-out,-webkit-box-shadow .2s ease-in-out;
+        -webkit-transition: border .2s ease-in-out, background .2s ease-in-out, -webkit-box-shadow .2s ease-in-out;
+        transition: border .2s ease-in-out, background .2s ease-in-out, -webkit-box-shadow .2s ease-in-out;
+        transition: border .2s ease-in-out, background .2s ease-in-out, box-shadow .2s ease-in-out;
+        transition: border .2s ease-in-out, background .2s ease-in-out, box-shadow .2s ease-in-out, -webkit-box-shadow .2s ease-in-out;
       }
-      select{
+
+      select {
         cursor: pointer;
       }
-      textarea:hover,input[type=text]:hover {
+
+      textarea:hover, input[type=text]:hover {
         border-color: #57a3f3;
       }
+
+      input[type=text][disabled] {
+        background-color: #f3f3f3;
+        opacity: 1;
+        cursor: not-allowed;
+        color: #000000;
+      }
     }
+
     >td:nth-child(1), >td:nth-child(3), >td:nth-child(5) {
       background: #f8f8f8;
       color: #000000;
