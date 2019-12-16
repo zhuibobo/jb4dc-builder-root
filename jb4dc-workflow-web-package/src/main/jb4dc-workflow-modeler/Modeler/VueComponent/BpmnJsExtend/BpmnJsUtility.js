@@ -84,7 +84,7 @@ class BpmnJsUtility {
         this.SetAttr(element,"value",value);
     }
 
-    static BPMN_Attr_GetExtensionElements(element){
+    static BPMN_GetExtensionElements(element){
         var bo = element.businessObject;
         var extensionElements = bo.get('extensionElements');
         if(extensionElements){
@@ -92,9 +92,9 @@ class BpmnJsUtility {
         }
         return null;
     }
-    static BPMN_Attr_CreateExtensionElements(element){
+    static BPMN_CreateExtensionElements(element){
         //debugger;
-        if(!this.BPMN_Attr_GetExtensionElements(element)){
+        if(!this.BPMN_GetExtensionElements(element)){
             var bo = element.businessObject;
             var extensionElements = bo.$model.create('bpmn:ExtensionElements',{});
             extensionElements.values=[];
@@ -193,7 +193,7 @@ class BpmnJsUtility {
     }
 
     static _CAMUNDA_ClearListenerArray(element,$type){
-        var extensionElements=this.BPMN_Attr_GetExtensionElements(element);
+        var extensionElements=this.BPMN_GetExtensionElements(element);
         if(extensionElements){
             if(extensionElements.values){
                 for(var i=extensionElements.values.length-1;i>=0;i--){
@@ -219,16 +219,34 @@ class BpmnJsUtility {
         }
         return null;
     }
-    static _CAMUNDA_SetListenerArray(element,$type,ary){
-        var extensionElements=this.BPMN_Attr_GetExtensionElements(element);
+    static _CAMUNDA_SetListenerArray(element,$type,ary,autoCreate){
+        var extensionElements=this.BPMN_GetExtensionElements(element);
+        if(autoCreate&&!extensionElements){
+            this.BPMN_CreateExtensionElements(element);
+            extensionElements=this.BPMN_GetExtensionElements(element);
+        }
         if(extensionElements){
             if(ary){
                 var bo = element.businessObject;
                 //console.log(extensionElements);
                 this._CAMUNDA_ClearListenerArray(element,$type);
                 ary.forEach(function (item) {
-                    var executionListener=bo.$model.create($type, {"class":item.className,"event":item.eventName});
-                    extensionElements.values.push(executionListener);
+                    var executionListener;
+                    if(item.listenerType=="class") {
+                        executionListener = bo.$model.create($type, {"class": item.value, "event": item.eventName});
+                        extensionElements.values.push(executionListener);
+                    }
+                    else if(item.listenerType=="expression") {
+                        executionListener = bo.$model.create($type, {"expression": item.value, "event": item.eventName});
+                        extensionElements.values.push(executionListener);
+                    }
+                    else if(item.listenerType=="delegateExpression") {
+                        executionListener = bo.$model.create($type, {"delegateExpression": item.value, "event": item.eventName});
+                        extensionElements.values.push(executionListener);
+                    }
+                    else {
+                        DialogUtility.AlertText(`暂不支持${item.listenerType}的设置!`);
+                    }
                 })
             }
         }
@@ -244,19 +262,45 @@ class BpmnJsUtility {
     static CAMUNDA_GetExecutionListenerArray(element){
         return this._CAMUNDA_GetListenerArray(element,"camunda:ExecutionListener");
     }
-    static CAMUNDA_SetExecutionListenerArray(element,ary){
-        this._CAMUNDA_SetListenerArray(element,"camunda:ExecutionListener",ary);
+    static CAMUNDA_GetExecutionListenerJson(element){
+        var listenerArray=this.CAMUNDA_GetExecutionListenerArray(element);
+
+        if(listenerArray){
+            var result=[];
+            listenerArray.forEach(function (item) {
+                if(item.get("class")){
+                    result.push({
+                        listenerType:"class",value:item.get("class"),eventName:item.get("event")
+                    })
+                }
+                else if(item.get("expression")){
+                    result.push({
+                        listenerType:"expression",value:item.get("expression"),eventName:item.get("event")
+                    })
+                }
+                else if(item.get("delegateExpression")){
+                    result.push({
+                        listenerType:"delegateExpression",value:item.get("delegateExpression"),eventName:item.get("event")
+                    })
+                }
+            })
+            return result;
+        }
+        return null;
+    }
+    static CAMUNDA_SetExecutionListenerArray(element,ary,autoCreate){
+        this._CAMUNDA_SetListenerArray(element,"camunda:ExecutionListener",ary,autoCreate);
     }
 
     //bpmn:extensionElements->camunda:taskListener
-    static CAMUNDA_ClearExecutionListenerArray(element){
+    static CAMUNDA_ClearTaskListenerArray(element){
         this._CAMUNDA_ClearListenerArray(element,"camunda:TaskListener");
     }
-    static CAMUNDA_GetExecutionListenerArray(element){
+    static CAMUNDA_GetTaskListenerArray(element){
         return this._CAMUNDA_GetListenerArray(element,"camunda:TaskListener");
     }
-    static CAMUNDA_SetExecutionListenerArray(element,ary){
-        this._CAMUNDA_SetListenerArray(element,"camunda:TaskListener",ary);
+    static CAMUNDA_SetTaskListenerArray(element,ary,autoCreate){
+        this._CAMUNDA_SetListenerArray(element,"camunda:TaskListener",ary,autoCreate);
     }
 
     //bpmn:extensionElements->camunda:properties->camunda:property
@@ -277,7 +321,7 @@ class BpmnJsUtility {
         return null;
     }
     static CAMUNDA_SetPropertiesArray(element,ary){
-        var extensionElements=this.BPMN_Attr_GetExtensionElements(element);
+        var extensionElements=this.BPMN_GetExtensionElements(element);
         if(extensionElements){
             if(ary) {
                 //debugger;

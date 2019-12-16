@@ -74,13 +74,13 @@
                 </table>
             </tab-pane>
             <tab-pane tab="process-properties-tabs" label="CMA-Listeners">
-                <listenersProperties></listenersProperties>
+                <listenersProperties ref="listenersProperties"></listenersProperties>
             </tab-pane>
             <tab-pane tab="process-properties-tabs" label="CMA-Extensions">
-                <extensionsProperties></extensionsProperties>
+                <extensionsProperties ref="extensionsProperties"></extensionsProperties>
             </tab-pane>
             <tab-pane tab="process-properties-tabs" label="JB4DC-General">
-                <jb4dcGeneralProperties></jb4dcGeneralProperties>
+                <jb4dcGeneralProperties ref="jb4dcGeneralProperties"></jb4dcGeneralProperties>
             </tab-pane>
             <tab-pane tab="process-properties-tabs" label="JB4DC-Notice">
 
@@ -123,11 +123,14 @@
         },
         methods:{
             getValue(){
-                return {
+                var result= {
                     bpmn:this.bpmn,
                     camunda:this.camunda,
                     jb4dc:this.jb4dc
                 }
+                var executionListener=this.$refs.listenersProperties.getHostResultProperties();
+                result.camunda.executionListener=executionListener;
+                return result;
             },
             setValue(props){
                 console.log(props);

@@ -164,13 +164,22 @@ class FlowBpmnJsExtendContainer {
         versionTag=BpmnJsUtility.CAMUNDA_Attr_GetVersionTag(element);
         console.log(versionTag);
 
-        var extensionElements=BpmnJsUtility.BPMN_Attr_GetExtensionElements(element);
+        var extensionElements=BpmnJsUtility.BPMN_GetExtensionElements(element);
         console.log(extensionElements);
-        BpmnJsUtility.BPMN_Attr_CreateExtensionElements(element);
+        BpmnJsUtility.BPMN_CreateExtensionElements(element);
 
-        BpmnJsUtility.CAMUNDA_SetExecutionListenerArray(element,[{className:"a",eventName:"start"},{className:"b",eventName:"start"}])
+        BpmnJsUtility.CAMUNDA_SetExecutionListenerArray(element,[
+                {listenerType:"class",value:"a",eventName:"start"},
+                {listenerType:"class",value:"b",eventName:"start"},
+                {listenerType:"expression",value:"expression1111",eventName:"start"},
+                {listenerType:"expression",value:"expression2222",eventName:"start"},
+                {listenerType:"delegateExpression",value:"delegateExpression1111",eventName:"start"},
+                {listenerType:"delegateExpression",value:"delegateExpression2222",eventName:"start"}
+            ]
+        );
         var executionListener=BpmnJsUtility.CAMUNDA_GetExecutionListenerArray(element);
         console.log(executionListener);
+        console.log(BpmnJsUtility.CAMUNDA_GetExecutionListenerJson(element));
 
         BpmnJsUtility.CAMUNDA_SetPropertiesArray(element,[{name:"a",value:"11111"},{name:"b",value:"22222"}])
         var propertyList=BpmnJsUtility.CAMUNDA_GetPropertiesArray(element);
@@ -207,7 +216,7 @@ class FlowBpmnJsExtendContainer {
         var result=PODefinition.GetDialogPropertiesPO();
         result.bpmn.id=BpmnJsUtility.BPMN_Attr_GetId(elem);
         result.bpmn.name=BpmnJsUtility.BPMN_Attr_GetName(elem);
-
+        result.bpmn.documentation=BpmnJsUtility.BPMN_GetElementDocumentationText(elem);
         //console.log(PODefinition.GetDialogPropertiesPO().bpmn.id);
         //console.log(result.bpmn.id);
 
@@ -215,6 +224,8 @@ class FlowBpmnJsExtendContainer {
     }
     DeSerializationDialogPropsToElem(props,elem){
         BpmnJsUtility.BPMN_Attr_SetName(elem,props.bpmn.name);
+        BpmnJsUtility.BPMN_SetElementDocumentationText(elem,props.bpmn.documentation);
+        BpmnJsUtility.CAMUNDA_SetExecutionListenerArray(elem,props.camunda.executionListener,true);
     }
     ZoomAuto(){
         this.modeler.get('canvas').zoom('fit-viewport', 'auto');

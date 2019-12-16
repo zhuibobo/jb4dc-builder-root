@@ -13,7 +13,9 @@ class PODefinition{
                 candidateStarterUsers:"",
                 versionTag:"",
                 historyTimeToLive:"",
-                taskPriority:""
+                taskPriority:"",
+                executionListener:[],
+                taskListener:[]
             },
             jb4dc:{
                 tenantId:""
