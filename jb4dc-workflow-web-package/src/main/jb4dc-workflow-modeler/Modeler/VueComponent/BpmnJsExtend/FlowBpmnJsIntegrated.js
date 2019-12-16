@@ -1,7 +1,7 @@
 import BpmnModeler from 'bpmn-js/lib/Modeler';
 import camundaModdleDescriptor from 'camunda-bpmn-moddle/resources/camunda';
 import jb4dcModdleDescriptor from './JB4DCModdle.json';
-import diagramXML from '../../Resources/newDiagram2.bpmn';
+import diagramXML from '../../Resources/newDiagram1.bpmn';
 import CustomTranslate from './CustomTranslate';
 import propertiesPadEntity from './AdditionalModules/PropertiesPadEntity';
 import {BpmnJsUtility} from './BpmnJsUtility';
@@ -26,10 +26,11 @@ var customTranslateModule = {
 };
 
 
-class FlowBpmnJsExtendContainer {
+class FlowBpmnJsIntegrated {
     defaultSetting = {
         RendererToElemId:"",
-        FlowBpmnJsContainer:""
+        FlowBpmnJsContainer:"",
+        SelectedElement:null
     };
     setting={};
     modeler=null;
@@ -67,7 +68,7 @@ class FlowBpmnJsExtendContainer {
         });
         eventBus = this.modeler.get('eventBus');
         //eventBus.aaa="11111";
-        console.log(eventBus);
+        //console.log(eventBus);
         /*var _self=this;
         eventBus.on("ax",function (e) {
             //DialogUtility.AlertText("hello alex");
@@ -98,6 +99,7 @@ class FlowBpmnJsExtendContainer {
         });
 
         eventBus.on("element.click", event => {
+            this.setting.SelectedElement=event.element;
             var clickEventName = event.element.type.replace("bpmn:", "BPMN_") + "ClickEvent";
             if (this[clickEventName] && typeof (this[clickEventName]) == "function") {
                 this[clickEventName](event, event.element);
@@ -216,16 +218,35 @@ class FlowBpmnJsExtendContainer {
         var result=PODefinition.GetDialogPropertiesPO();
         result.bpmn.id=BpmnJsUtility.BPMN_Attr_GetId(elem);
         result.bpmn.name=BpmnJsUtility.BPMN_Attr_GetName(elem);
+        result.bpmn.isExecutable=BpmnJsUtility.BPMN_Attr_Process_GetIsExecutable(elem);
         result.bpmn.documentation=BpmnJsUtility.BPMN_GetElementDocumentationText(elem);
+        result.camunda.versionTag=BpmnJsUtility.CAMUNDA_Attr_GetVersionTag(elem);
+        result.camunda.taskPriority=BpmnJsUtility.CAMUNDA_Attr_GetTaskPriority(elem);
+        result.camunda.jobPriority=BpmnJsUtility.CAMUNDA_Attr_GetJobPriority(elem);
+        result.camunda.candidateStarterGroups=BpmnJsUtility.CAMUNDA_Attr_GetCandidateStarterGroups(elem);
+        result.camunda.candidateStarterUsers=BpmnJsUtility.CAMUNDA_Attr_GetCandidateStarterUsers(elem);
+        result.camunda.historyTimeToLive=BpmnJsUtility.CAMUNDA_Attr_GetHistoryTimeToLive(elem);
+
+        result.camunda.executionListener=BpmnJsUtility.CAMUNDA_GetExecutionListenerJson(elem);
         //console.log(PODefinition.GetDialogPropertiesPO().bpmn.id);
         //console.log(result.bpmn.id);
-
+        //console.log(result);
         return result;
     }
     DeSerializationDialogPropsToElem(props,elem){
         BpmnJsUtility.BPMN_Attr_SetName(elem,props.bpmn.name);
         BpmnJsUtility.BPMN_SetElementDocumentationText(elem,props.bpmn.documentation);
-        BpmnJsUtility.CAMUNDA_SetExecutionListenerArray(elem,props.camunda.executionListener,true);
+        //console.log(elem);
+        if(BpmnJsUtility.Is_Process(elem)) {
+            BpmnJsUtility.BPMN_Attr_Process_SetIsExecutable(elem, props.bpmn.isExecutable);
+            BpmnJsUtility.CAMUNDA_SetExecutionListenerArray(elem, props.camunda.executionListener, true);
+            BpmnJsUtility.CAMUNDA_Attr_SetVersionTag(elem, props.camunda.versionTag);
+            BpmnJsUtility.CAMUNDA_Attr_SetTaskPriority(elem, props.camunda.taskPriority);
+            BpmnJsUtility.CAMUNDA_Attr_SetJobPriority(elem, props.camunda.jobPriority);
+            BpmnJsUtility.CAMUNDA_Attr_SetCandidateStarterGroups(elem, props.camunda.candidateStarterGroups);
+            BpmnJsUtility.CAMUNDA_Attr_SetCandidateStarterUsers(elem, props.camunda.candidateStarterUsers);
+            BpmnJsUtility.CAMUNDA_Attr_SetHistoryTimeToLive(elem, props.camunda.historyTimeToLive);
+        }
     }
     ZoomAuto(){
         this.modeler.get('canvas').zoom('fit-viewport', 'auto');
@@ -245,8 +266,11 @@ class FlowBpmnJsExtendContainer {
             console.log(err);
         });
     }
+    getSelectedElement() {
+        return this.setting.SelectedElement;
+    }
 }
 
 //console.log(diagramXML);
 
-export { FlowBpmnJsExtendContainer };
+export { FlowBpmnJsIntegrated };

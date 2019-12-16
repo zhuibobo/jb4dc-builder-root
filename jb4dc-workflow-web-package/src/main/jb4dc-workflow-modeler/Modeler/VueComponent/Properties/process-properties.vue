@@ -74,7 +74,7 @@
                 </table>
             </tab-pane>
             <tab-pane tab="process-properties-tabs" label="CMA-Listeners">
-                <listenersProperties ref="listenersProperties"></listenersProperties>
+                <listenersProperties ref="listenersProperties" :prop-listener-data="camunda.executionListener"></listenersProperties>
             </tab-pane>
             <tab-pane tab="process-properties-tabs" label="CMA-Extensions">
                 <extensionsProperties ref="extensionsProperties"></extensionsProperties>
@@ -105,7 +105,7 @@
             extensionsProperties,
             jb4dcGeneralProperties
         },
-        props:["elemProperties"],
+        props:["propElemProperties"],
         data:function () {
             return {
                 bpmn:PODefinition.GetDialogPropertiesPO().bpmn,
@@ -113,13 +113,16 @@
                 jb4dc:PODefinition.GetDialogPropertiesPO().jb4dc
             }
         },
-        mounted(){
-            //console.log(this.elemProperties);
-            //console.log(DialogPropertiesDefinition);
-            this.bpmn=this.elemProperties.bpmn;
+        created(){
+            this.bpmn=this.propElemProperties.bpmn;
+            this.camunda=this.propElemProperties.camunda;
+            this.jb4dc=this.propElemProperties.jb4dc;
             if(!this.jb4dc.tenantId){
                 this.jb4dc.tenantId="JBuild4DC-Tenant";
             }
+        },
+        mounted(){
+
         },
         methods:{
             getValue(){
@@ -127,9 +130,10 @@
                     bpmn:this.bpmn,
                     camunda:this.camunda,
                     jb4dc:this.jb4dc
-                }
-                var executionListener=this.$refs.listenersProperties.getHostResultProperties();
-                result.camunda.executionListener=executionListener;
+                };
+                //console.log(this.camunda.executionListener);
+                //var executionListener=this.$refs.listenersProperties.getHostResultProperties();
+                //result.camunda.executionListener=executionListener;
                 return result;
             },
             setValue(props){

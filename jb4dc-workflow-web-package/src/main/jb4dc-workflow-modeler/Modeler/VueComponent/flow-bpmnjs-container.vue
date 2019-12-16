@@ -1,7 +1,7 @@
 <template>
     <div id="modeler-bpmn-wraper" class="modeler-bpmn-wraper">
         <div style="display: none" id="properties-window">
-            <component :is="thisView" ref="dialogPropertiesWindow" :elem-properties="currentEditProperties"></component>
+            <component :is="elemPropertiesDialogView" ref="dialogPropertiesWindow" :prop-elem-properties="currentEditProperties"></component>
         </div>
         <div class="flow-bpmnjs-toolbar-outer">
             <div class="flow-bpmnjs-toolbar-inner">
@@ -28,29 +28,31 @@
 
 <script>
 
-    import { FlowBpmnJsExtendContainer } from './BpmnJsExtend/FlowBpmnJsExtendContainer.js';
+    import { FlowBpmnJsIntegrated } from './BpmnJsExtend/FlowBpmnJsIntegrated.js';
     import userTaskProperties from "./Properties/user-task-properties.vue";
     import sequenceFlowProperties from "./Properties/sequence-flow-properties.vue";
     import processProperties from "./Properties/process-properties.vue";
-    let flowBpmnJsExtendContainer;
+    import emptyProperties from "./Properties/empty-properties.vue";
+    let flowBpmnJsIntegrated;
     export default {
         name: "flow-bpmnjs-container",
         components: {
+            emptyProperties,
             userTaskProperties,
             sequenceFlowProperties,
             processProperties
         },
         data () {
             return {
-                thisView:"userTaskProperties",
+                elemPropertiesDialogView:"userTaskProperties",
                 currentEditProperties:null
             }
         },
         mounted(){
             //console.log(FlowBpmnJsExtendContainer);
             $("#modeler-bpmn-wraper").height(PageStyleUtility.GetPageHeight()-38);
-            flowBpmnJsExtendContainer=new FlowBpmnJsExtendContainer();
-            flowBpmnJsExtendContainer.Initialize({
+            flowBpmnJsIntegrated=new FlowBpmnJsIntegrated();
+            flowBpmnJsIntegrated.Initialize({
                 RendererToElemId:"flow-canvas",
                 FlowBpmnJsContainer:this
             });
@@ -60,16 +62,20 @@
                 flowBpmnJsExtendContainer.LogXML();
             },
             getXML(){
-                return flowBpmnJsExtendContainer.GetXML();
+                return flowBpmnJsIntegrated.GetXML();
             },
             setXML(xml){
-                flowBpmnJsExtendContainer.SetXML(xml);
+                flowBpmnJsIntegrated.SetXML(xml);
+            },
+            getSelectedElement(){
+                return flowBpmnJsIntegrated.getSelectedElement();
             },
             showProperties (componentName,title,element,elemToDialogProps) {
-                console.log(element);
+                //console.log(element);
+                console.log(elemToDialogProps);
                 //DialogUtility.AlertText("11");
                 var dialogElemId="properties-window";
-                this.thisView=componentName;
+                this.elemPropertiesDialogView=componentName;
                 var _self=this;
                 DialogUtility.ShowByElemId(
                     dialogElemId,
@@ -81,8 +87,9 @@
                             "确认": function () {
                                 var dialogComponentProperties=_self.$refs.dialogPropertiesWindow.getValue();
                                 //console.log(dialogComponentJson);
-                                flowBpmnJsExtendContainer.DeSerializationDialogPropsToElem(dialogComponentProperties,element);
+                                flowBpmnJsIntegrated.DeSerializationDialogPropsToElem(dialogComponentProperties,element);
                                 DialogUtility.CloseByElemId(dialogElemId);
+                                _self.elemPropertiesDialogView=emptyProperties;
                             },
                             "取消": function () {
                                 DialogUtility.CloseByElemId(dialogElemId);
@@ -105,7 +112,7 @@
                 }*/
             },
             zoomAuto(){
-                flowBpmnJsExtendContainer.ZoomAuto();
+                flowBpmnJsIntegrated.ZoomAuto();
             }
         }
     }

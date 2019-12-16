@@ -64,7 +64,8 @@
                 RemoteUtility.TryLoadModuleContext("");
                 window.setTimeout(() => {
                     this.isLoading=false;
-                },1000)
+                },1000);
+
             },
             isXMLToOther:function(name){
                 if(this.oldSelectedTabName=="XML"){
@@ -86,7 +87,8 @@
                 if(this.isBpmnDesignToOther(name)){
                     var xml=this.$refs["flowBpmnjsContainer"].getXML();
                     //console.log(xml);
-                    this.$refs["flowXmlContainer"].setXML(xml);
+                    var selectedElem=this.$refs["flowBpmnjsContainer"].getSelectedElement();
+                    this.$refs["flowXmlContainer"].setXML(xml,selectedElem);
                     //var html=CKEditorUtility.GetCKEditorHTML();
                     //JBuild4DC.FormDesign.SetHTMLEditorHTML("<div id='aaa'><div><div><div>ssssssssss</div></div></div></div>");
                     //HTMLEditorUtility.SetHTMLEditorHTML(html);

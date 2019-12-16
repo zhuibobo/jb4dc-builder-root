@@ -1,3 +1,5 @@
+import {BpmnJsUtility} from '../BpmnJsExtend/BpmnJsUtility.js';
+
 class FlowXMLExtendContainer {
     _HTMLEditorInst = null
 
@@ -5,7 +7,7 @@ class FlowXMLExtendContainer {
         return this._HTMLEditorInst;
     }
 
-    SetEditorXML(xml) {
+    SetEditorXML(xml,selectedElem) {
         //debugger;
         if (!StringUtility.IsNullOrEmpty(xml)) {
             this.GetXMLEditorInst().setValue(xml);
@@ -19,22 +21,21 @@ class FlowXMLExtendContainer {
             this.GetXMLEditorInst().getDoc().eachLine(function (line) {
             });
 
-            return;
-            //尝试获取CKEditor编辑器中选中的元素
-            var selectedElem = CKEditorUtility.GetSelectedElem();
-            //console.log(selectedElem);
-            var searchHTML = "";
-            if (selectedElem) {
-                searchHTML = selectedElem.outerHTML().split(">")[0];
-                //alert(searchHTML);
-            }
-            //console.log("-------------------------------");
-            var cursor = this.GetHTMLEditorInst().getSearchCursor(searchHTML);
-            cursor.findNext();
-            //console.log(cursor);
-            //console.log(cursor.from()+"|"+cursor.to());
-            if (cursor.from() && cursor.to()) {
-                this.GetHTMLEditorInst().getDoc().setSelection(cursor.from(), cursor.to());
+            if(selectedElem) {
+
+                //return;
+                //尝试获取CKEditor编辑器中选中的元素
+                //var selectedElem = CKEditorUtility.GetSelectedElem();
+                //console.log(selectedElem);
+                var search = 'id="'+BpmnJsUtility.BPMN_Attr_GetId(selectedElem)+'"';
+                //console.log("-------------------------------");
+                var cursor = this.GetXMLEditorInst().getSearchCursor(search);
+                cursor.findNext();
+                //console.log(cursor);
+                //console.log(cursor.from()+"|"+cursor.to());
+                if (cursor.from() && cursor.to()) {
+                    this.GetXMLEditorInst().getDoc().setSelection(cursor.from(), cursor.to());
+                }
             }
         }
     }

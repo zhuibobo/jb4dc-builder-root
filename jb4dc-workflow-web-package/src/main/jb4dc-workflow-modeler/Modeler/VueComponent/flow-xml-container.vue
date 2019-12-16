@@ -28,8 +28,8 @@
             flowXMLExtendContainer.InitializeXMLCodeDesign();
         },
         methods:{
-            setXML:function (xml) {
-                flowXMLExtendContainer.SetEditorXML(xml);
+            setXML:function (xml,selectedElem) {
+                flowXMLExtendContainer.SetEditorXML(xml,selectedElem);
             },
             getXML:function(){
                 return flowXMLExtendContainer.GetEditorXML();

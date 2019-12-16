@@ -62,6 +62,7 @@
 <script>
     export default {
         name: "listeners-properties",
+        props:["propListenerData"],
         data(){
           return {
               innerDetailInfo:{
@@ -97,6 +98,11 @@
 
               ]
           }
+        },
+        mounted(){
+            console.log("2");
+            this.addedListenerData=this.propListenerData;
+            console.log(this.addedListenerData);
         },
         methods:{
             showAddListenerDialog(){

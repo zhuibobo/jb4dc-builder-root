@@ -8,10 +8,22 @@ class BpmnJsUtility {
     }
     static SetAttr(element,attr,value){
         var bo = element.businessObject;
-        bo[attr]=value;
+        if(value){
+            bo[attr]=value;
+        }
+        else{
+            bo[attr]=null;
+        }
     }
 
-
+    //#region
+    static Is_Process(element){
+        return element.type=="bpmn:Process";
+    }
+    static Is_UserTask(element){
+        return element.type=="bpmn:UserTask";
+    }
+    //#endregion
 
     //#region
     static BPMN_GetElementDocumentation(element, create) {
@@ -54,13 +66,10 @@ class BpmnJsUtility {
     }
 
     static BPMN_Attr_Process_GetIsExecutable(element){
-        return this.GetAttr(element,"isExecutable");
+        return this.GetAttr(element,"isExecutable").toString().toLocaleLowerCase();
     }
-    static BPMN_Attr_Process_SetIsExecutable(element){
-        return this.SetAttr(element,"isExecutable","true");
-    }
-    static BPMN_Attr_Process_SetNotExecutable(element){
-        return this.SetAttr(element,"isExecutable","false");
+    static BPMN_Attr_Process_SetIsExecutable(element,isExecutable){
+        return this.SetAttr(element,"isExecutable",isExecutable);
     }
 
     static BPMN_Attr_GetSourceRef(element){
@@ -122,6 +131,12 @@ class BpmnJsUtility {
     //#endregion
 
     //#region
+    static CAMUNDA_Attr_GetTaskPriority(element){
+        return this.GetAttr(element,"taskPriority");
+    }
+    static CAMUNDA_Attr_SetTaskPriority(element, taskPriority){
+        return this.SetAttr(element,"taskPriority",taskPriority);
+    }
     static CAMUNDA_Attr_GetJobPriority(element){
         return this.GetAttr(element,"jobPriority");
     }
@@ -141,6 +156,13 @@ class BpmnJsUtility {
     }
     static CAMUNDA_Attr_SetCandidateStarterUsers(element, candidateStarterUsers){
         return this.SetAttr(element,"candidateStarterUsers",candidateStarterUsers);
+    }
+
+    static CAMUNDA_Attr_GetHistoryTimeToLive(element){
+        return this.GetAttr(element,"historyTimeToLive");
+    }
+    static CAMUNDA_Attr_SetHistoryTimeToLive(element, historyTimeToLive){
+        return this.SetAttr(element,"historyTimeToLive",historyTimeToLive);
     }
 
     static CAMUNDA_Attr_GetVersionTag(element){
@@ -205,7 +227,7 @@ class BpmnJsUtility {
         }
     }
     static _CAMUNDA_GetListenerArray(element,$type){
-        var extensionElements=this.BPMN_Attr_GetExtensionElements(element);
+        var extensionElements=this.BPMN_GetExtensionElements(element);
         if(extensionElements){
             if(extensionElements.values){
                 var result=[];
@@ -305,7 +327,7 @@ class BpmnJsUtility {
 
     //bpmn:extensionElements->camunda:properties->camunda:property
     static CAMUNDA_GetPropertiesArray(element){
-        var extensionElements=this.BPMN_Attr_GetExtensionElements(element);
+        var extensionElements=this.BPMN_GetExtensionElements(element);
         if(extensionElements){
             if(extensionElements.values){
                 var properties = null;
