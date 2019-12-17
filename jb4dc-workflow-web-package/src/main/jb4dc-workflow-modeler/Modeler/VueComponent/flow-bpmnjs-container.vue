@@ -54,7 +54,8 @@
             flowBpmnJsIntegrated=new FlowBpmnJsIntegrated();
             flowBpmnJsIntegrated.Initialize({
                 RendererToElemId:"flow-canvas",
-                FlowBpmnJsContainer:this
+                FlowBpmnJsContainer:this,
+                ChangeSelectedElemCB:this.changeSelectedElem
             });
         },
         methods:{
@@ -69,6 +70,10 @@
             },
             getSelectedElement(){
                 return flowBpmnJsIntegrated.getSelectedElement();
+            },
+            changeSelectedElem(selectedElem,elemToDialogProps){
+                console.log(selectedElem);
+                console.log(elemToDialogProps);
             },
             showProperties (componentName,title,element,elemToDialogProps) {
                 //console.log(element);

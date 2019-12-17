@@ -1,6 +1,6 @@
 import {BpmnJsUtility} from '../BpmnJsExtend/BpmnJsUtility.js';
 
-class FlowXMLExtendContainer {
+class FlowXMLIntegrated {
     _HTMLEditorInst = null
 
     GetXMLEditorInst() {
@@ -71,4 +71,4 @@ class FlowXMLExtendContainer {
     }
 }
 
-export { FlowXMLExtendContainer };
+export { FlowXMLIntegrated };

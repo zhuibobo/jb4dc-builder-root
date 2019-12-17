@@ -30,7 +30,8 @@ class FlowBpmnJsIntegrated {
     defaultSetting = {
         RendererToElemId:"",
         FlowBpmnJsContainer:"",
-        SelectedElement:null
+        SelectedElement:null,
+        ChangeSelectedElemCB:null
     };
     setting={};
     modeler=null;
@@ -80,7 +81,7 @@ class FlowBpmnJsIntegrated {
         eventBus.on("propertiesPadEntity.click", (e) => {
             //console.log(e);
             //console.log(this);
-            this.setting.FlowBpmnJsContainer.showProperties();
+            //this.setting.FlowBpmnJsContainer.showProperties();
             this.ShowPropertiesWindow(e, e.element);
             //_self.setting.FlowBpmnJsContainer.showProperties();
         });
@@ -100,6 +101,10 @@ class FlowBpmnJsIntegrated {
 
         eventBus.on("element.click", event => {
             this.setting.SelectedElement=event.element;
+            if(typeof (this.setting.ChangeSelectedElemCB)=="function"){
+                var elemToDialogProps=this.SerializationElemToDialogProps(event.element);
+                this.setting.ChangeSelectedElemCB(event.element,elemToDialogProps);
+            }
             var clickEventName = event.element.type.replace("bpmn:", "BPMN_") + "ClickEvent";
             if (this[clickEventName] && typeof (this[clickEventName]) == "function") {
                 this[clickEventName](event, event.element);
@@ -228,6 +233,13 @@ class FlowBpmnJsIntegrated {
         result.camunda.historyTimeToLive=BpmnJsUtility.CAMUNDA_Attr_GetHistoryTimeToLive(elem);
 
         result.camunda.executionListener=BpmnJsUtility.CAMUNDA_GetExecutionListenerJson(elem);
+        if(!result.camunda.executionListener){
+            result.camunda.executionListener=[];
+        }
+        result.camunda.extensionProperties=BpmnJsUtility.CAMUNDA_GetPropertiesJson(elem);
+        if(!result.camunda.extensionProperties){
+            result.camunda.extensionProperties=[];
+        }
         //console.log(PODefinition.GetDialogPropertiesPO().bpmn.id);
         //console.log(result.bpmn.id);
         //console.log(result);
@@ -239,13 +251,20 @@ class FlowBpmnJsIntegrated {
         //console.log(elem);
         if(BpmnJsUtility.Is_Process(elem)) {
             BpmnJsUtility.BPMN_Attr_Process_SetIsExecutable(elem, props.bpmn.isExecutable);
-            BpmnJsUtility.CAMUNDA_SetExecutionListenerArray(elem, props.camunda.executionListener, true);
+
             BpmnJsUtility.CAMUNDA_Attr_SetVersionTag(elem, props.camunda.versionTag);
             BpmnJsUtility.CAMUNDA_Attr_SetTaskPriority(elem, props.camunda.taskPriority);
             BpmnJsUtility.CAMUNDA_Attr_SetJobPriority(elem, props.camunda.jobPriority);
             BpmnJsUtility.CAMUNDA_Attr_SetCandidateStarterGroups(elem, props.camunda.candidateStarterGroups);
             BpmnJsUtility.CAMUNDA_Attr_SetCandidateStarterUsers(elem, props.camunda.candidateStarterUsers);
             BpmnJsUtility.CAMUNDA_Attr_SetHistoryTimeToLive(elem, props.camunda.historyTimeToLive);
+
+            if(props.camunda.executionListener&&props.camunda.executionListener.length>0) {
+                BpmnJsUtility.CAMUNDA_SetExecutionListenerArray(elem, props.camunda.executionListener, true);
+            }
+            if(props.camunda.extensionProperties&&props.camunda.extensionProperties.length>0) {
+                BpmnJsUtility.CAMUNDA_SetPropertiesArray(elem, props.camunda.extensionProperties,true);
+            }
         }
     }
     ZoomAuto(){

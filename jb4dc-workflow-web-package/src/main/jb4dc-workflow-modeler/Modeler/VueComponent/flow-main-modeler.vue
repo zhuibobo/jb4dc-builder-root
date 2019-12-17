@@ -64,7 +64,7 @@
                 RemoteUtility.TryLoadModuleContext("");
                 window.setTimeout(() => {
                     this.isLoading=false;
-                },1000);
+                },200);
 
             },
             isXMLToOther:function(name){

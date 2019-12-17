@@ -77,7 +77,7 @@
                 <listenersProperties ref="listenersProperties" :prop-listener-data="camunda.executionListener"></listenersProperties>
             </tab-pane>
             <tab-pane tab="process-properties-tabs" label="CMA-Extensions">
-                <extensionsProperties ref="extensionsProperties"></extensionsProperties>
+                <extensionsProperties ref="extensionsProperties" :prop-extensions-properties-data="camunda.extensionProperties"></extensionsProperties>
             </tab-pane>
             <tab-pane tab="process-properties-tabs" label="JB4DC-General">
                 <jb4dcGeneralProperties ref="jb4dcGeneralProperties"></jb4dcGeneralProperties>

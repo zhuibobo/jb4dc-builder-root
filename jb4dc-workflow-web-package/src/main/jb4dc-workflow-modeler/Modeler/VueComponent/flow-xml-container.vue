@@ -19,20 +19,20 @@
 </template>
 
 <script>
-    import { FlowXMLExtendContainer } from './XML/FlowXMLExtendContainer.js';
-    let flowXMLExtendContainer;
+    import { FlowXMLIntegrated } from './XML/FlowXMLIntegrated.js';
+    let flowXMLIntegrated;
     export default {
         name: "flow-xml-container",
         mounted:function() {
-            flowXMLExtendContainer = new FlowXMLExtendContainer();
-            flowXMLExtendContainer.InitializeXMLCodeDesign();
+            flowXMLIntegrated = new FlowXMLIntegrated();
+            flowXMLIntegrated.InitializeXMLCodeDesign();
         },
         methods:{
             setXML:function (xml,selectedElem) {
-                flowXMLExtendContainer.SetEditorXML(xml,selectedElem);
+                flowXMLIntegrated.SetEditorXML(xml,selectedElem);
             },
             getXML:function(){
-                return flowXMLExtendContainer.GetEditorXML();
+                return flowXMLIntegrated.GetEditorXML();
             }
         }
     }

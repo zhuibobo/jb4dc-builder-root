@@ -342,8 +342,27 @@ class BpmnJsUtility {
         }
         return null;
     }
-    static CAMUNDA_SetPropertiesArray(element,ary){
+    static CAMUNDA_GetPropertiesJson(element,ary) {
+        var propertiesArray = this.CAMUNDA_GetPropertiesArray(element);
+        if(propertiesArray) {
+            var result = [];
+            propertiesArray.forEach(function (item) {
+                result.push({
+                    name:item.name,
+                    value: item.value
+                })
+            })
+            return result;
+        }
+        return null
+    }
+
+    static CAMUNDA_SetPropertiesArray(element,ary,autoCreate){
         var extensionElements=this.BPMN_GetExtensionElements(element);
+        if(autoCreate&&!extensionElements){
+            this.BPMN_CreateExtensionElements(element);
+            extensionElements=this.BPMN_GetExtensionElements(element);
+        }
         if(extensionElements){
             if(ary) {
                 //debugger;
@@ -400,7 +419,7 @@ class BpmnJsUtility {
     }
     //#endregion
 
-    static GetExtensionElements(element, create){
+    /*static GetExtensionElements(element, create){
         var bo = element.businessObject;
         console.log(bo);
         var docs = bo.get('documentation');
@@ -422,7 +441,7 @@ class BpmnJsUtility {
         }
 
         return comments;
-    }
+    }*/
 }
 
 export { BpmnJsUtility };

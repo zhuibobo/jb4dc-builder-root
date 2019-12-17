@@ -13,7 +13,7 @@
         <i-table border :columns="addedListenerConfig" :data="addedListenerData"
                  class="iv-list-table" size="small" no-data-text="add listeners" height="420">
             <template slot-scope="{ row, index }" slot="action">
-                <div class="jb4dc-general-properties-icon-class2" @click="deleteListener(index,row)">
+                <div class="wf-list-font-icon-button-class" @click="deleteListener(index,row)">
                     <Icon type="md-close" />
                 </div>
             </template>
@@ -112,7 +112,7 @@
                 DialogUtility.ShowByElemId(dialogElemId,{
                     title:"Add Listener",
                     width:600,
-                    height:400,
+                    height:270,
                     buttons: {
                         "确认": function () {
                             _self.addedListenerData.push({
@@ -120,10 +120,10 @@
                                 listenerType:_self.innerDetailInfo.listenerType,
                                 value:_self.innerDetailInfo.value
                             });
-                            DialogUtility.CloseByElemId(dialogElemId);
+                            DialogUtility.DestroyByElemId(dialogElemId);
                         },
                         "取消": function () {
-                            DialogUtility.CloseByElemId(dialogElemId);
+                            DialogUtility.DestroyByElemId(dialogElemId);
                         }
                     }
                 },null,{},this);
@@ -142,11 +142,5 @@
 </script>
 
 <style scoped>
-    .jb4dc-general-properties-icon-class2{
-        font-size: 20px;
-        cursor: pointer;
-    }
-    .jb4dc-general-properties-icon-class2:hover{
-        color: #348fcd;
-    }
+
 </style>
