@@ -80,7 +80,7 @@
                 <extensionsProperties ref="extensionsProperties" :prop-extensions-properties-data="camunda.extensionProperties"></extensionsProperties>
             </tab-pane>
             <tab-pane tab="process-properties-tabs" label="JB4DC-General">
-                <jb4dcGeneralProperties ref="jb4dcGeneralProperties"></jb4dcGeneralProperties>
+                <jb4dcGeneralProperties ref="jb4dcGeneralProperties" :prop-jb4dc-general-data="jb4dc"></jb4dcGeneralProperties>
             </tab-pane>
             <tab-pane tab="process-properties-tabs" label="JB4DC-Notice">
 
@@ -117,8 +117,11 @@
             this.bpmn=this.propElemProperties.bpmn;
             this.camunda=this.propElemProperties.camunda;
             this.jb4dc=this.propElemProperties.jb4dc;
-            if(!this.jb4dc.tenantId){
-                this.jb4dc.tenantId="JBuild4DC-Tenant";
+            if(!this.jb4dc.jb4dcTenantId){
+                this.jb4dc.jb4dcTenantId="JBuild4DC-Tenant";
+            }
+            if(!this.jb4dc.jb4dcFlowCategory){
+                this.jb4dc.jb4dcFlowCategory="通用流程";
             }
         },
         mounted(){

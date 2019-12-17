@@ -404,18 +404,46 @@ class BpmnJsUtility {
     //#endregion
 
     //#region
-    static JB4DC_Attr_GetCode(element){
+    static JB4DC_Attr_GetJb4dcFlowCategory(element){
+        return this.GetAttr(element,"jb4dcFlowCategory");
+    }
+    static JB4DC_Attr_SetJb4dcFlowCategory(element, jb4dcFlowCategory){
+        this.SetAttr(element,"jb4dcFlowCategory",jb4dcFlowCategory);
+    }
+
+    static JB4DC_Attr_GetJb4dcCode(element){
         return this.GetAttr(element,"jb4dcCode");
     }
-    static JB4DC_Attr_SetCode(element, jb4dcCode){
+    static JB4DC_Attr_SetJb4dcCode(element, jb4dcCode){
         this.SetAttr(element,"jb4dcCode",jb4dcCode);
     }
 
-    static JB4DC_Attr_GetFormKey(element){
-        return this.GetAttr(element,"jb4dcFormKey");
+    static JB4DC_Attr_GetJb4dcFormId(element){
+        return this.GetAttr(element,"jb4dcFormId");
     }
-    static JB4DC_Attr_SetFormKey(element, jb4dcFormKey){
-        this.SetAttr(element,"jb4dcFormKey",jb4dcFormKey);
+    static JB4DC_Attr_SetJb4dcFormId(element, jb4dcFormId){
+        this.SetAttr(element,"jb4dcFormId",jb4dcFormId);
+    }
+
+    static JB4DC_Attr_GetJb4dcTenantId(element){
+        return this.GetAttr(element,"jb4dcTenantId");
+    }
+    static JB4DC_Attr_SetJb4dcTenantId(element, jb4dcTenantId){
+        this.SetAttr(element,"jb4dcTenantId",jb4dcTenantId);
+    }
+
+    static JB4DC_Attr_GetJb4dcProcessTitle(element){
+        return this.GetAttr(element,"jb4dcProcessTitle");
+    }
+    static JB4DC_Attr_SetJb4dcProcessTitle(element, jb4dcProcessTitle){
+        this.SetAttr(element,"jb4dcProcessTitle",jb4dcProcessTitle);
+    }
+
+    static JB4DC_Attr_GetJb4dcProcessDescription(element){
+        return this.GetAttr(element,"jb4dcProcessDescription");
+    }
+    static JB4DC_Attr_SetJb4dcProcessDescription(element, jb4dcProcessDescription){
+        this.SetAttr(element,"jb4dcProcessDescription",jb4dcProcessDescription);
     }
     //#endregion
 

@@ -19,7 +19,12 @@ class PODefinition{
                 extensionProperties: []
             },
             jb4dc:{
-                tenantId:""
+                jb4dcFlowCategory:"",
+                jb4dcCode:"",
+                jb4dcFormId:"",
+                jb4dcTenantId:"",
+                jb4dcProcessTitle:"",
+                jb4dcProcessDescription:""
             }
         }
     }

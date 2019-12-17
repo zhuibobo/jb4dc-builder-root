@@ -10,40 +10,40 @@
                 <tr>
                     <td>流程类别：</td>
                     <td>
-                        <Select v-model="propPanelBindData.jb4dcFlowCategory" style="width:200px">
+                        <Select v-model="jb4dc.jb4dcFlowCategory" style="width:200px">
                             <Option value="通用流程">通用流程</Option>
                         </Select>
                     </td>
                     <td>流程编号：</td>
                     <td>
-                        <input type="text" v-model="propPanelBindData.jb4dcCode" />
+                        <input type="text" v-model="jb4dc.jb4dcCode" />
                     </td>
                 </tr>
                 <tr>
                     <td>绑定表单：</td>
                     <td>
-                        <Select v-model="propPanelBindData.jb4dcFormId" style="width:250px" @on-change="changeBindForm">
+                        <Select v-model="jb4dc.jb4dcFormId" style="width:250px" @on-change="changeBindForm">
                             <Option v-for="item in formResourcePOList" :value="item.formId" :key="item.formId">【{{ item.formCode }}】{{ item.formName }}</Option>
                         </Select>
                         <Button type="primary" disabled>编辑表单</Button>
                     </td>
                     <td>
-                        Tenant Id
+                        Tenant Id：
                     </td>
                     <td>
-                        <input type="text" v-model="propPanelBindData.jb4dcTenantId" />
+                        <input type="text" v-model="jb4dc.jb4dcTenantId" />
                     </td>
                 </tr>
                 <tr>
                     <td>流程标题：</td>
                     <td colspan="3">
-                        <textarea id="txtFlowProcessTitle"></textarea>
+                        <textarea id="txtFlowProcessTitle" v-model="jb4dc.jb4dcProcessTitle"></textarea>
                     </td>
                 </tr>
                 <tr>
                     <td>流程备注：</td>
                     <td colspan="3">
-                        <textarea id="txtFlowProcessRemark"></textarea>
+                        <textarea id="txtFlowProcessRemark" v-model="jb4dc.jb4dcProcessDescription"></textarea>
                     </td>
                 </tr>
                 <tr>
@@ -98,7 +98,6 @@
                 </tr>
             </tbody>
         </table>
-
 </template>
 
 <script>
@@ -107,14 +106,10 @@
 
     export default {
         name: "jb4dc-general-properties",
+        props:["propJb4dcGeneralData"],
         data(){
             return {
-                propPanelBindData:{
-                    jb4dcFlowCategory:"通用流程",
-                    jb4dcCode:"",
-                    jb4dcFormId:"",
-                    jb4dcTenantId:""
-                },
+                jb4dc:{},
                 formResourcePOList:null,
                 tree:{
                     envGroupTreeObj:null,
@@ -204,6 +199,9 @@
             /*RemoteUtility.GetModuleById("").then(function (result) {
                 console.log(result);
             })*/
+            this.jb4dc=this.propJb4dcGeneralData;
+            console.log(this.jb4dc);
+
             this.flowProcessTitleCodeMirror = CodeMirror.fromTextArea($("#txtFlowProcessTitle")[0], {
                 mode: "text/x-sql",
                 lineWrapping: true,
@@ -215,6 +213,12 @@
                 //console.log(instance);
                 this.selectedCodeMirror=instance;
             });
+            this.flowProcessTitleCodeMirror.on("change", (instance, e) => {
+                //console.log(instance);
+                //this.selectedCodeMirror=instance;
+                this.jb4dc.jb4dcProcessTitle=instance.getValue();
+            });
+            this.flowProcessTitleCodeMirror.setValue(this.jb4dc.jb4dcProcessTitle);
             this.selectedCodeMirror = this.flowProcessTitleCodeMirror;
 
             this.flowProcessRemarkCodeMirror = CodeMirror.fromTextArea($("#txtFlowProcessRemark")[0], {
@@ -228,7 +232,12 @@
                 //console.log(instance);
                 this.selectedCodeMirror=instance;
             });
-
+            this.flowProcessRemarkCodeMirror.on("change", (instance, e) => {
+                //console.log(instance);
+                //this.selectedCodeMirror=instance;
+                this.jb4dc.jb4dcProcessDescription=instance.getValue();
+            });
+            this.flowProcessRemarkCodeMirror.setValue(this.jb4dc.jb4dcProcessDescription);
             RemoteUtility.GetFormResourcePOList().then((formResourcePOList) => {
                 //console.log(formResourcePOList);
                 this.formResourcePOList=formResourcePOList;
@@ -238,6 +247,10 @@
                 this.tree.envGroupTreeObj.expandAll(true);
                 this.tree.envGroupTreeObj._host=this;
             });
+
+            if(this.jb4dc.jb4dcFormId){
+                this.changeBindForm(this.jb4dc.jb4dcFormId);
+            }
         },
         methods:{
             insertCodeAtCursor:function(code){
