@@ -371,6 +371,22 @@ class BpmnJsUtility {
     }
 
     //bpmn:extensionElements->camunda:properties->camunda:property
+    static CAMUNDA_ClearPropertiesArray(element){
+        var extensionElements=this.BPMN_GetExtensionElements(element);
+        if(extensionElements){
+            if(extensionElements.values){
+                /*var properties = null;
+                properties = ArrayUtility.WhereSingle(extensionElements.values, function (item) {
+                    return item.$type == "camunda:Properties";
+                });*/
+                for(var i=extensionElements.values.length-1;i>=0;i--){
+                    if(extensionElements.values[i].$type=="camunda:Properties") {
+                        ArrayUtility.Delete(extensionElements.values, i)
+                    }
+                }
+            }
+        }
+    }
     static CAMUNDA_GetPropertiesArray(element){
         var extensionElements=this.BPMN_GetExtensionElements(element);
         if(extensionElements){

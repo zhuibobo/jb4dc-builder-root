@@ -291,7 +291,9 @@ class FlowBpmnJsIntegrated {
         if(props.camunda.extensionProperties&&props.camunda.extensionProperties.length>0) {
             BpmnJsUtility.CAMUNDA_SetPropertiesArray(elem, props.camunda.extensionProperties,true);
         }
-
+        else{
+            BpmnJsUtility.CAMUNDA_ClearPropertiesArray(elem);
+        }
 
         //console.log(elem);
         if(BpmnJsUtility.Is_Process(elem)) {
