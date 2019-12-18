@@ -67,9 +67,9 @@ class FlowBpmnJsIntegrated {
                 console.log(err);
             }
             else {
-                console.log(this.modeler);
+                //console.log(this.modeler);
                 //console.log(BpmnJsUtility.GetElement(this.modeler,"P004_001"));
-                console.log(BpmnJsUtility.GetProcessElement(this.modeler));
+                //console.log(BpmnJsUtility.GetProcessElement(this.modeler));
                 this.setting.ChangeSelectedElemCB(BpmnJsUtility.GetProcessElement(this.modeler));
             }
         });

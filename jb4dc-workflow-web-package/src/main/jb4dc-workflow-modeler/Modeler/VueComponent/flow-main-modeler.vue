@@ -70,9 +70,9 @@
                 }
             }
             //var parser = new htmlparser2.Parser();
-            var s1 = "你还&#62;10";
-            console.log(he.decode(s1));
-            console.log(he.encode(he.decode(s1)));
+            //var s1 = "你还&#62;10";
+            //console.log(he.decode(s1));
+            //console.log(he.encode(he.decode(s1)));
         },
         methods:{
             consoleLogBpmnJsXml:function () {

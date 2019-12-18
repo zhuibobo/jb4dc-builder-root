@@ -27,7 +27,7 @@ export default function PropertiesPadEntity(eventBus, contextPad, commandStack) 
     }
 
     this.getContextPadEntries = function(element) {
-        console.log(element);
+        //console.log(element);
         if (is(element, 'bpmn:SequenceFlow')||is(element, 'bpmn:UserTask')) {
             return {
                 'changeColor': {

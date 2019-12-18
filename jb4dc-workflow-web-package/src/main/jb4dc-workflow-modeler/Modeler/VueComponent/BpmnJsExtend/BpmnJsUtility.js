@@ -138,13 +138,13 @@ class BpmnJsUtility {
     static BPMN_GetIncomingSequenceFlowArray(element){
         var bo = element.businessObject;
         var incoming = bo.get('incoming');
-        console.log(incoming);
+        //console.log(incoming);
         return incoming
     }
     static BPMN_GetOutgoingSequenceFlowArray(element){
         var bo = element.businessObject;
         var outgoing = bo.get('outgoing');
-        console.log(outgoing);
+        //console.log(outgoing);
         return outgoing;
     }
     //#endregion
