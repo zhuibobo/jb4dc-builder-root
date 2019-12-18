@@ -1,24 +1,65 @@
 <template>
     <div>
         <tabs name="user-task-properties-tabs">
-            <tab-pane tab="user-task-properties-tabs" label="Info1">
-
+            <tab-pane tab="user-task-properties-tabs" label="CMA-General">
+                <taskGeneralProperties :prop-bpmn-general-data="bpmn" :prop-camunda-general-data="camunda"></taskGeneralProperties>
             </tab-pane>
-            <tab-pane tab="user-task-properties-tabs" label="Bpmn2">
-
+            <tab-pane tab="user-task-properties-tabs" label="CMA-Execution-Listeners">
+                <listenersProperties ref="listenersProperties" :prop-listener-data="camunda.executionListener"></listenersProperties>
             </tab-pane>
-            <tab-pane tab="user-task-properties-tabs" label="XML3">
-
+            <tab-pane tab="user-task-properties-tabs" label="CMA-Task-Listeners">
+                <listenersProperties ref="listenersProperties" :prop-listener-data="camunda.taskListener"></listenersProperties>
+            </tab-pane>
+            <tab-pane tab="user-task-properties-tabs" label="CMA-Extensions">
+                <extensionsProperties ref="extensionsProperties" :prop-extensions-properties-data="camunda.extensionProperties"></extensionsProperties>
+            </tab-pane>
+            <tab-pane tab="user-task-properties-tabs" label="JB4DC-General">
+                <jb4dcGeneralProperties ref="jb4dcGeneralProperties" :prop-jb4dc-general-data="jb4dc"></jb4dcGeneralProperties>
             </tab-pane>
         </tabs>
     </div>
 </template>
 
 <script>
+    import taskGeneralProperties from "./PropertiesComponent/task-general-properties.vue";
+    import listenersProperties from "./PropertiesComponent/listeners-properties.vue";
+    import extensionsProperties from "./PropertiesComponent/extensions-properties.vue";
+    import jb4dcGeneralProperties from "./PropertiesComponent/jb4dc-general-properties.vue";
+    import { PODefinition } from "../BpmnJsExtend/PODefinition.js"
+
     export default {
         name: "user-task-properties",
+        components: {
+            taskGeneralProperties,
+            listenersProperties,
+            extensionsProperties,
+            jb4dcGeneralProperties
+        },
+        props:["propElemProperties"],
+        data:function () {
+            return {
+                bpmn:PODefinition.GetDialogPropertiesPO().bpmn,
+                camunda:PODefinition.GetDialogPropertiesPO().camunda,
+                jb4dc:PODefinition.GetDialogPropertiesPO().jb4dc
+            }
+        },
+        created(){
+            this.bpmn=this.propElemProperties.bpmn;
+            this.camunda=this.propElemProperties.camunda;
+            this.jb4dc=this.propElemProperties.jb4dc;
+        },
         mounted() {
             //alert("hello alex");
+        },
+        methods: {
+            getValue() {
+                var result = {
+                    bpmn: this.bpmn,
+                    camunda: this.camunda,
+                    jb4dc: this.jb4dc
+                };
+                return result;
+            }
         }
     }
 </script>

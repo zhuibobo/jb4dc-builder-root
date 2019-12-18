@@ -340,6 +340,32 @@ class BpmnJsUtility {
     static CAMUNDA_GetTaskListenerArray(element){
         return this._CAMUNDA_GetListenerArray(element,"camunda:TaskListener");
     }
+    static CAMUNDA_GetTaskListenerArrayJson(element){
+        var listenerArray=this.CAMUNDA_GetTaskListenerArray(element);
+
+        if(listenerArray){
+            var result=[];
+            listenerArray.forEach(function (item) {
+                if(item.get("class")){
+                    result.push({
+                        listenerType:"class",value:item.get("class"),eventName:item.get("event")
+                    })
+                }
+                else if(item.get("expression")){
+                    result.push({
+                        listenerType:"expression",value:item.get("expression"),eventName:item.get("event")
+                    })
+                }
+                else if(item.get("delegateExpression")){
+                    result.push({
+                        listenerType:"delegateExpression",value:item.get("delegateExpression"),eventName:item.get("event")
+                    })
+                }
+            })
+            return result;
+        }
+        return null;
+    }
     static CAMUNDA_SetTaskListenerArray(element,ary,autoCreate){
         this._CAMUNDA_SetListenerArray(element,"camunda:TaskListener",ary,autoCreate);
     }

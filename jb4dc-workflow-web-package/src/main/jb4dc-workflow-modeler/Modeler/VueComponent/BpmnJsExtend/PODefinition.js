@@ -16,7 +16,13 @@ class PODefinition{
                 taskPriority: "",
                 executionListener: [],
                 taskListener: [],
-                extensionProperties: []
+                extensionProperties: [],
+                assignee:"",
+                priority:"",
+                candidateUsers:"",
+                candidateGroups:"",
+                dueDate:"",
+                followUpDate:""
             },
             jb4dc:{
                 jb4dcFlowCategory:"",

@@ -240,6 +240,13 @@ class FlowBpmnJsIntegrated {
         result.camunda.candidateStarterUsers=BpmnJsUtility.CAMUNDA_Attr_GetCandidateStarterUsers(elem);
         result.camunda.historyTimeToLive=BpmnJsUtility.CAMUNDA_Attr_GetHistoryTimeToLive(elem);
 
+        result.camunda.assignee=BpmnJsUtility.CAMUNDA_Attr_GetAssignee(elem);
+        result.camunda.priority=BpmnJsUtility.CAMUNDA_Attr_GetPriority(elem);
+        result.camunda.candidateUsers=BpmnJsUtility.CAMUNDA_Attr_GetCandidateUsers(elem);
+        result.camunda.candidateGroups=BpmnJsUtility.CAMUNDA_Attr_GetCandidateGroups(elem);
+        result.camunda.dueDate=BpmnJsUtility.CAMUNDA_Attr_GetDueDate(elem);
+        result.camunda.followUpDate=BpmnJsUtility.CAMUNDA_Attr_GetFollowUpDate(elem);
+
         result.camunda.executionListener=BpmnJsUtility.CAMUNDA_GetExecutionListenerJson(elem);
         if(!result.camunda.executionListener){
             result.camunda.executionListener=[];
@@ -247,6 +254,10 @@ class FlowBpmnJsIntegrated {
         result.camunda.extensionProperties=BpmnJsUtility.CAMUNDA_GetPropertiesJson(elem);
         if(!result.camunda.extensionProperties){
             result.camunda.extensionProperties=[];
+        }
+        result.camunda.taskListener=BpmnJsUtility.CAMUNDA_GetTaskListenerArrayJson(elem);
+        if(!result.camunda.taskListener){
+            result.camunda.taskListener=[];
         }
 
         //jb4dc
@@ -270,6 +281,18 @@ class FlowBpmnJsIntegrated {
         BpmnJsUtility.JB4DC_Attr_SetJb4dcTenantId(elem, props.jb4dc.jb4dcTenantId);
         BpmnJsUtility.JB4DC_Attr_SetJb4dcProcessTitle(elem, props.jb4dc.jb4dcProcessTitle);
         BpmnJsUtility.JB4DC_Attr_SetJb4dcProcessDescription(elem, props.jb4dc.jb4dcProcessDescription);
+
+        if(props.camunda.executionListener&&props.camunda.executionListener.length>0) {
+            BpmnJsUtility.CAMUNDA_SetExecutionListenerArray(elem, props.camunda.executionListener, true);
+        }
+        else {
+            BpmnJsUtility.CAMUNDA_ClearExecutionListenerArray(elem);
+        }
+        if(props.camunda.extensionProperties&&props.camunda.extensionProperties.length>0) {
+            BpmnJsUtility.CAMUNDA_SetPropertiesArray(elem, props.camunda.extensionProperties,true);
+        }
+
+
         //console.log(elem);
         if(BpmnJsUtility.Is_Process(elem)) {
             BpmnJsUtility.BPMN_Attr_Process_SetIsExecutable(elem, props.bpmn.isExecutable);
@@ -281,17 +304,28 @@ class FlowBpmnJsIntegrated {
             BpmnJsUtility.CAMUNDA_Attr_SetCandidateStarterUsers(elem, props.camunda.candidateStarterUsers);
             BpmnJsUtility.CAMUNDA_Attr_SetHistoryTimeToLive(elem, props.camunda.historyTimeToLive);
 
-            if(props.camunda.executionListener&&props.camunda.executionListener.length>0) {
-                BpmnJsUtility.CAMUNDA_SetExecutionListenerArray(elem, props.camunda.executionListener, true);
-            }
-            if(props.camunda.extensionProperties&&props.camunda.extensionProperties.length>0) {
-                BpmnJsUtility.CAMUNDA_SetPropertiesArray(elem, props.camunda.extensionProperties,true);
-            }
-
             BpmnJsUtility.JB4DC_Attr_SetJb4dcFlowCategory(elem, props.jb4dc.jb4dcFlowCategory);
         }
+        else{
 
+            BpmnJsUtility.CAMUNDA_Attr_SetAssignee(elem, props.camunda.assignee);
+            BpmnJsUtility.CAMUNDA_Attr_SetPriority(elem, props.camunda.priority);
+            BpmnJsUtility.CAMUNDA_Attr_SetCandidateUsers(elem, props.camunda.candidateUsers);
+            BpmnJsUtility.CAMUNDA_Attr_SetCandidateGroups(elem, props.camunda.candidateGroups);
+            BpmnJsUtility.CAMUNDA_Attr_SetDueDate(elem, props.camunda.dueDate);
+            BpmnJsUtility.CAMUNDA_Attr_SetFollowUpDate(elem, props.camunda.followUpDate);
 
+            if(props.camunda.taskListener&&props.camunda.taskListener.length>0) {
+                BpmnJsUtility.CAMUNDA_SetTaskListenerArray(elem, props.camunda.taskListener,true);
+            }
+            else {
+                BpmnJsUtility.CAMUNDA_ClearTaskListenerArray(elem);
+            }
+        }
+
+        var modeling = this.modeler.get('modeling');
+
+        modeling.updateProperties(elem,{});
     }
     ZoomAuto(){
         this.modeler.get('canvas').zoom('fit-viewport', 'auto');

@@ -73,7 +73,7 @@
                     </tbody>
                 </table>
             </tab-pane>
-            <tab-pane tab="process-properties-tabs" label="CMA-Listeners">
+            <tab-pane tab="process-properties-tabs" label="CMA-Execution-Listeners">
                 <listenersProperties ref="listenersProperties" :prop-listener-data="camunda.executionListener"></listenersProperties>
             </tab-pane>
             <tab-pane tab="process-properties-tabs" label="CMA-Extensions">
@@ -138,9 +138,6 @@
                 //var executionListener=this.$refs.listenersProperties.getHostResultProperties();
                 //result.camunda.executionListener=executionListener;
                 return result;
-            },
-            setValue(props){
-                console.log(props);
             }
         }
     }

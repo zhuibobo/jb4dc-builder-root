@@ -60,7 +60,7 @@
         },
         data () {
             return {
-                elemPropertiesDialogView:"userTaskProperties",
+                elemPropertiesDialogView:"emptyProperties",
                 currentEditProperties:null,
                 elemHTMLDisplay:""
             }

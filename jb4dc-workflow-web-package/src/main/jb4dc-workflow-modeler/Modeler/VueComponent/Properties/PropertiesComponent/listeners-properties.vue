@@ -18,7 +18,7 @@
                 </div>
             </template>
         </i-table>
-        <div id="addListenerDialog" style="display: none">
+        <div :id="addListenerDialogId" style="display: none">
             <div>
                 <table class="properties-dialog-table-wraper" cellpadding="0" cellspacing="0" border="0">
                     <colgroup>
@@ -96,18 +96,20 @@
               ],
               addedListenerData:[
 
-              ]
+              ],
+              addListenerDialogId:"addListenerDialog"
           }
         },
         mounted(){
             console.log("2");
             this.addedListenerData=this.propListenerData;
+            this.addListenerDialogId="addListenerDialogId_"+StringUtility.GuidSplit("");
             console.log(this.addedListenerData);
         },
         methods:{
             showAddListenerDialog(){
                 var _self=this;
-                var dialogElemId="addListenerDialog";
+                var dialogElemId=this.addListenerDialogId;
                 this.innerDetailInfo.javaClass="";
                 DialogUtility.ShowByElemId(dialogElemId,{
                     title:"Add Listener",
