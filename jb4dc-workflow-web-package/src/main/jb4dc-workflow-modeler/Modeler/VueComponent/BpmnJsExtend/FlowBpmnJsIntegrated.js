@@ -1,7 +1,7 @@
 import BpmnModeler from 'bpmn-js/lib/Modeler';
 import camundaModdleDescriptor from 'camunda-bpmn-moddle/resources/camunda';
 import jb4dcModdleDescriptor from './JB4DCModdle.json';
-import diagramXML from '../../Resources/newDiagram1.bpmn';
+import diagramXML from '../../Resources/newDiagram3.bpmn';
 import CustomTranslate from './CustomTranslate';
 import propertiesPadEntity from './AdditionalModules/PropertiesPadEntity';
 import {BpmnJsUtility} from './BpmnJsUtility';
@@ -62,9 +62,15 @@ class FlowBpmnJsIntegrated {
         //propertiesPadEntity.propertiesPadEntity.f1();
         //console.log(propertiesPadEntity.propertiesPadEntity);
 
-        this.modeler.importXML(diagramXML, function (err) {
+        this.modeler.importXML(diagramXML,  (err) => {
             if (err) {
                 console.log(err);
+            }
+            else {
+                console.log(this.modeler);
+                //console.log(BpmnJsUtility.GetElement(this.modeler,"P004_001"));
+                console.log(BpmnJsUtility.GetProcessElement(this.modeler));
+                this.setting.ChangeSelectedElemCB(BpmnJsUtility.GetProcessElement(this.modeler));
             }
         });
         eventBus = this.modeler.get('eventBus');
@@ -102,8 +108,8 @@ class FlowBpmnJsIntegrated {
         eventBus.on("element.click", event => {
             this.setting.SelectedElement=event.element;
             if(typeof (this.setting.ChangeSelectedElemCB)=="function"){
-                var elemToDialogProps=this.SerializationElemToDialogProps(event.element);
-                this.setting.ChangeSelectedElemCB(event.element,elemToDialogProps);
+                //var elemToDialogProps=this.SerializationElemToDialogProps(event.element);
+                this.setting.ChangeSelectedElemCB(event.element);
             }
             var clickEventName = event.element.type.replace("bpmn:", "BPMN_") + "ClickEvent";
             if (this[clickEventName] && typeof (this[clickEventName]) == "function") {
@@ -140,8 +146,6 @@ class FlowBpmnJsIntegrated {
                 //bo.get("extensionElements").values.push(e);
             });
         });
-
-        console.log(modeler);
     }
     BPMN_ProcessClickEvent (event,element){
         return;
@@ -309,6 +313,34 @@ class FlowBpmnJsIntegrated {
     }
     getSelectedElement() {
         return this.setting.SelectedElement;
+    }
+    convertElemToHTMLDisplay(elem){
+        var elemToDialogProps=this.SerializationElemToDialogProps(elem);
+        var type=elem.type;
+        var name=elemToDialogProps.bpmn.name;
+        var result=[];
+
+        result.push(`<div class="fbse-inner-title">【${type}】${name}</div>`);
+        
+        function build(props) {
+            for(var key in props){
+                var value=props[key];
+                if(ArrayUtility.IsArray(value)){
+                    value="<pre style='min-width: 300px'>"+JsonUtility.JsonToStringFormat(value)+"</pre>";
+                }
+                else {
+
+                }
+                result.push(`<div class="fbse-inner-single-attr">${key}:</div>
+                <div class="fbse-inner-single-value">${value}</div>`);
+            }
+        }
+
+        build(elemToDialogProps.jb4dc);
+        build(elemToDialogProps.bpmn);
+        build(elemToDialogProps.camunda);
+        
+        return result.join("");
     }
 }
 

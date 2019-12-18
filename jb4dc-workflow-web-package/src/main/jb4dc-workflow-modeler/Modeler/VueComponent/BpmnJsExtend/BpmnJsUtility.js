@@ -16,6 +16,25 @@ class BpmnJsUtility {
         }
     }
 
+    static GetElement(bpmnModeler,elemId){
+        var elementRegistry = bpmnModeler.get('elementRegistry');
+        //console.log(elementRegistry);
+        return elementRegistry.get(elemId);
+    }
+
+    static GetProcessElement(bpmnModeler){
+        var elementRegistry = bpmnModeler.get('elementRegistry');
+        var allElements=elementRegistry.getAll();
+        var result=null;
+        for (var i = 0; i < allElements.length; i++) {
+            if(allElements[i].type=="bpmn:Process"){
+                result=allElements[i];
+                break;
+            }
+        }
+        return result;
+    }
+
     //#region
     static Is_Process(element){
         return element.type=="bpmn:Process";

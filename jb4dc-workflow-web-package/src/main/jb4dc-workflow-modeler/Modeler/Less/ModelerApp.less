@@ -71,13 +71,59 @@ body{
     .flow-bpmnjs-selected-element-container{
       position: absolute;
       top: 41px;
-      opacity: 0.9;
+
       right: 0px;
       width: 200px;
       bottom: 0px;
       border-left: #dafcf0 solid 1px;
       z-index: 1000;
-      background-color: #fbfbfb;
+      background-color: rgba(251, 251, 251,0.7);
+      display: none;
+
+      .fbse-inner-container{
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        bottom: 10px;
+        right: 10px;
+        border: #6cc096 solid 1px;
+        border-radius: 10px;
+        background-color: rgb(251, 251, 251);
+        overflow: auto;
+
+        .fbse-inner-title{
+          font-size: 20px;
+          font-weight: bold;
+          text-align: center;
+          margin-top: 10px;
+          margin-bottom: 10px;
+        }
+
+        .fbse-inner-single-attr{
+          font-size: 14px;
+          margin: 8px 0px 8px 8px;
+          float:left;
+          clear: left;
+          font-weight: bold;
+          min-width: 170px;
+        }
+
+        .fbse-inner-single-value{
+          font-size: 14px;
+          margin: 8px;
+          float:left;
+          max-width: 100%;
+          word-break: break-all;
+          white-space: normal;
+        }
+      }
+    }
+
+    @media (min-width: 1900px){
+      .flow-bpmnjs-selected-element-container{
+        width: 400px;
+        display: block;
+      }
     }
   }
 
