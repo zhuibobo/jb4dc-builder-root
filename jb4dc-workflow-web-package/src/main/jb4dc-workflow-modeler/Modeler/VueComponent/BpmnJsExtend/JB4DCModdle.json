@@ -8,7 +8,7 @@
   "associations": [],
   "types": [
     {
-      "name": "Process",
+      "name": "JB4DCProcess",
       "isAbstract": true,
       "extends": [
         "bpmn:Process"
@@ -31,6 +31,32 @@
         },
         {
           "name": "jb4dcTenantId",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "jb4dcProcessTitle",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "jb4dcProcessDescription",
+          "isAttr": true,
+          "type": "String"
+        }
+      ]
+    },
+    {
+      "name": "JB4DCUserTask",
+      "extends": [ "bpmn:UserTask" ],
+      "properties": [
+        {
+          "name": "jb4dcCode",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "jb4dcFormId",
           "isAttr": true,
           "type": "String"
         },

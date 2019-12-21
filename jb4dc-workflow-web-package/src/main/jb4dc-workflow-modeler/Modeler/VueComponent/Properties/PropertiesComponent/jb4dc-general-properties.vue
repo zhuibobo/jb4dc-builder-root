@@ -1,22 +1,26 @@
 <template>
+    <div>
         <table class="properties-dialog-table-wraper" cellpadding="0" cellspacing="0" border="0">
             <colgroup>
                 <col style="width: 9%" />
                 <col style="width: 41%" />
                 <col style="width: 9%" />
-                <col style="width: 41%" />
+                <col style="width: 35%" />
+                <col style="width: 6%" />
             </colgroup>
             <tbody>
-                <tr>
+                <tr v-if="trIsProcess">
                     <td>流程类别：</td>
                     <td>
                         <Select v-model="jb4dc.jb4dcFlowCategory" style="width:200px">
                             <Option value="通用流程">通用流程</Option>
                         </Select>
                     </td>
-                    <td>流程编号：</td>
                     <td>
-                        <input type="text" v-model="jb4dc.jb4dcCode" />
+                        Tenant Id：
+                    </td>
+                    <td colspan="2">
+                        <input type="text" v-model="jb4dc.jb4dcTenantId" />
                     </td>
                 </tr>
                 <tr>
@@ -27,225 +31,66 @@
                         </Select>
                         <Button type="primary" disabled>编辑表单</Button>
                     </td>
-                    <td>
-                        Tenant Id：
-                    </td>
-                    <td>
-                        <input type="text" v-model="jb4dc.jb4dcTenantId" />
+                    <td>流程编号：</td>
+                    <td colspan="2">
+                        <input type="text" v-model="jb4dc.jb4dcCode" />
                     </td>
                 </tr>
                 <tr>
                     <td>流程标题：</td>
                     <td colspan="3">
-                        <textarea id="txtFlowProcessTitle" v-model="jb4dc.jb4dcProcessTitle"></textarea>
+                        <textarea id="txtFlowProcessTitle" v-model="jb4dc.jb4dcProcessTitle" rows="1"></textarea>
+                    </td>
+                    <td>
+                        <Button type="primary" @click="beginEditContextJuelForFlowProcessTitle">编辑</Button>
                     </td>
                 </tr>
                 <tr>
                     <td>流程备注：</td>
                     <td colspan="3">
-                        <textarea id="txtFlowProcessRemark" v-model="jb4dc.jb4dcProcessDescription"></textarea>
+                        <textarea id="txtFlowProcessDescription" v-model="jb4dc.jb4dcProcessDescription" rows="12"></textarea>
                     </td>
-                </tr>
-                <tr>
-                    <td colspan="4" style="padding-top: 0px">
-                        <div style="width: 930px">
-                            <tabs name="flow-process-title-config-tabs">
-                                <tab-pane tab="flow-process-title-config-tabs" label="表" name="Tables">
-                                    <div>
-                                        <div style="margin: 8px">数据表：【<span style="color: red">{{tree.selectedTableName}}</span>】</div>
-                                        <i-table size="small" height="174" stripe border :columns="tableField.columnsConfig" :data="tableField.fieldData"
-                                                 class="iv-list-table" :highlight-row="true">
-                                            <template slot-scope="{ row, index }" slot="action">
-                                                <div class="jb4dc-general-properties-icon-class1" @click="insertTableFieldToCodeMirror(row)">
-                                                    <Icon type="ios-checkmark-circle" />
-                                                </div>
-                                            </template>
-                                        </i-table>
-                                    </div>
-                                </tab-pane>
-                                <tab-pane tab="flow-process-title-config-tabs" label="环境变量" name="EnvVar">
-                                    <div>
-                                        <div style="width: 25%;float: left;height: 190px;overflow: auto">
-                                            <div class="inner-wrap">
-                                                <div style="margin-top: 8px">
-                                                    <ul id="envGroupZTreeUL" class="ztree"></ul>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div style="width: 73%;float: right;" class="iv-list-page-wrap">
-                                            <i-table :height="184" stripe border :columns="envVarColumnsConfig" :data="envVarTableData"
-                                                     class="iv-list-table" :highlight-row="true">
-                                                <template slot-scope="{ row, index }" slot="action">
-                                                    <div class="jb4dc-general-properties-icon-class1" @click="insertEnvVarToEditor(row)">
-                                                        <Icon type="ios-checkmark-circle" />
-                                                    </div>
-                                                </template>
-                                            </i-table>
-                                        </div>
-                                    </div>
-                                </tab-pane>
-                                <tab-pane tab="flow-process-title-config-tabs" label="流程变量" name="FlowVar">
-                                    <div style="margin-top: 8px">
-                                        <Button type="info">发起人</Button>
-                                        <Button type="info">环节名称</Button>
-                                        <Button type="info">动作名称</Button>
-                                        <Button type="info">.....</Button>
-                                    </div>
-                                </tab-pane>
-                            </tabs>
-                        </div>
+                    <td>
+                        <Button type="primary" @click="beginEditContextJuelForFlowProcessDescription">编辑</Button>
                     </td>
                 </tr>
             </tbody>
         </table>
+        <contextVarJuelEditDialog ref="contextVarJuelEditDialog"></contextVarJuelEditDialog>
+    </div>
 </template>
 
 <script>
 
     import {RemoteUtility} from '../../../Remote/RemoteUtility';
+    import contextVarJuelEditDialog from "./context-var-juel-edit-dialog.vue";
 
     export default {
         name: "jb4dc-general-properties",
-        props:["propJb4dcGeneralData"],
+        components: {
+            contextVarJuelEditDialog
+        },
+        props:["propJb4dcGeneralData","propIsProcess"],
         data(){
             return {
                 jb4dc:{},
-                formResourcePOList:null,
-                tree:{
-                    envGroupTreeObj:null,
-                    envGroupTreeSelectedNode:null,
-                    envGroupTreeSetting:{
-                        async : {
-                            enable : true,
-                            // Ajax 获取数据的 URL 地址
-                            url :""
-                        },
-                        // 必须使用data
-                        data:{
-                            key:{
-                                name:"envGroupText"
-                            },
-                            simpleData : {
-                                enable : true,
-                                idKey : "envGroupId", // id编号命名
-                                pIdKey : "envGroupParentId",  // 父id编号命名
-                                rootId : 0
-                            }
-                        },
-                        // 回调函数
-                        callback : {
-                            onClick : function(event, treeId, treeNode) {
-                                var _self=this.getZTreeObj(treeId)._host;
-                                _self.envGroupTreeNodeSelected(event,treeId,treeNode);
-                            },
-                            //成功的回调函数
-                            onAsyncSuccess : function(event, treeId, treeNode, msg){
-                                appList.treeObj.expandAll(true);
-                            }
-                        }
-                    },
-                    selectedTableName:"无"
-                },
-                tableField:{
-                    fieldData:[],
-                    columnsConfig: [
-                        {
-                            title: '字段名称',
-                            key: 'fieldName',
-                            align: "center"
-                        }, {
-                            title: '标题',
-                            key: 'fieldCaption',
-                            align: "center"
-                        }, {
-                            title: '选择',
-                            slot: 'action',
-                            width: 80,
-                            align: 'center'
-                        }
-                    ]
-                },
-                sqlCodeMirrorTitle:null,
-                envVarTableData:[],
-                envVarColumnsConfig: [
-                    {
-                        title: '变量名称',
-                        key: 'envVarText',
-                        align: "center"
-                    }, {
-                        title: '变量值',
-                        key: 'envVarValue',
-                        align: "center"
-                    }, {
-                        title: '操作',
-                        slot: 'action',
-                        key: 'envVarId',
-                        width: 120,
-                        align: "center"
-                    }
-                ],
-                envVarSearchCondition:{
-                    envVarGroupId:{
-                        value:"",
-                        type:SearchUtility.SearchFieldType.StringType
-                    }
-                },
-                flowProcessTitleCodeMirror:null,
-                flowProcessRemarkCodeMirror:null,
-                selectedCodeMirror:null
+                trIsProcess:true,
+                formResourcePOList:null
             }
         },
         mounted() {
             /*RemoteUtility.GetModuleById("").then(function (result) {
                 console.log(result);
             })*/
+            if(this.propIsProcess=="false"){
+                this.trIsProcess=false;
+            }
+
             this.jb4dc=this.propJb4dcGeneralData;
-            console.log(this.jb4dc);
 
-            this.flowProcessTitleCodeMirror = CodeMirror.fromTextArea($("#txtFlowProcessTitle")[0], {
-                mode: "text/x-sql",
-                lineWrapping: true,
-                foldGutter: true,
-                theme: "monokai"
-            });
-            this.flowProcessTitleCodeMirror.setSize("100%", 26);
-            this.flowProcessTitleCodeMirror.on("mousedown", (instance, e) => {
-                //console.log(instance);
-                this.selectedCodeMirror=instance;
-            });
-            this.flowProcessTitleCodeMirror.on("change", (instance, e) => {
-                //console.log(instance);
-                //this.selectedCodeMirror=instance;
-                this.jb4dc.jb4dcProcessTitle=instance.getValue();
-            });
-            this.flowProcessTitleCodeMirror.setValue(this.jb4dc.jb4dcProcessTitle);
-            this.selectedCodeMirror = this.flowProcessTitleCodeMirror;
-
-            this.flowProcessRemarkCodeMirror = CodeMirror.fromTextArea($("#txtFlowProcessRemark")[0], {
-                mode: "text/x-sql",
-                lineWrapping: true,
-                foldGutter: true,
-                theme: "monokai"
-            });
-            this.flowProcessRemarkCodeMirror.setSize("100%", 52);
-            this.flowProcessRemarkCodeMirror.on("mousedown", (instance, e) => {
-                //console.log(instance);
-                this.selectedCodeMirror=instance;
-            });
-            this.flowProcessRemarkCodeMirror.on("change", (instance, e) => {
-                //console.log(instance);
-                //this.selectedCodeMirror=instance;
-                this.jb4dc.jb4dcProcessDescription=instance.getValue();
-            });
-            this.flowProcessRemarkCodeMirror.setValue(this.jb4dc.jb4dcProcessDescription);
             RemoteUtility.GetFormResourcePOList().then((formResourcePOList) => {
                 //console.log(formResourcePOList);
-                this.formResourcePOList=formResourcePOList;
-            });
-            RemoteUtility.GetEnvGroupPOList().then((envGroupPOList) => {
-                this.tree.envGroupTreeObj=$.fn.zTree.init($("#envGroupZTreeUL"), this.tree.envGroupTreeSetting,envGroupPOList);
-                this.tree.envGroupTreeObj.expandAll(true);
-                this.tree.envGroupTreeObj._host=this;
+                this.formResourcePOList = formResourcePOList;
             });
 
             if(this.jb4dc.jb4dcFormId){
@@ -253,38 +98,23 @@
             }
         },
         methods:{
-            insertCodeAtCursor:function(code){
-                //console.log(code);
-                var doc = this.selectedCodeMirror.getDoc();
-                var cursor = doc.getCursor();
-                doc.replaceRange(code, cursor);
+            beginEditContextJuelForFlowProcessTitle(){
+                //var
+                var _self=this;
+                this.$refs.contextVarJuelEditDialog.beginEditContextJuel("编辑实例标题",this.jb4dc.jb4dcProcessTitle,this.jb4dc.jb4dcFormId,function(result){
+                    _self.jb4dc.jb4dcProcessTitle=result;
+                });
             },
-            insertTableFieldToCodeMirror:function (fieldJson) {
-                //console.log(fieldJson);
-                this.insertCodeAtCursor('${'+fieldJson.tableName+"."+fieldJson.fieldName+'}');
+            beginEditContextJuelForFlowProcessDescription(){
+                var _self=this;
+                this.$refs.contextVarJuelEditDialog.beginEditContextJuel("编辑实例备注",this.jb4dc.jb4dcProcessDescription,this.jb4dc.jb4dcFormId,function(result){
+                    _self.jb4dc.jb4dcProcessDescription=result;
+                });
             },
-            insertEnvVarToEditor:function(evnJson) {
-                //console.log(evnJson);
-                this.insertCodeAtCursor('${EnvVar.' + evnJson.envVarText + '}');
-            },
+            /**/
             changeBindForm(formId){
                 //console.log(formId);
-                RemoteUtility.GetFormResourceBindMainTable(formId).then((mainTablePO) => {
-                    //console.log(formResourcePOList);
-                    if(mainTablePO) {
-                        this.tableField.fieldData = mainTablePO.tableFieldPOList;
-                    }
-                    else{
-                        this.tableField.fieldData=[];
-                    }
-                });
-            },
-            envGroupTreeNodeSelected (event, treeId, treeNode) {
-                // 根节点不触发任何事件1
-                RemoteUtility.GetEnvVariablePOListByGroupId(treeNode.envGroupId).then( (envVariablePOList) => {
-                    this.envVarTableData=envVariablePOList;
-                });
-
+                /**/
             }
         }
     }
