@@ -63,7 +63,7 @@
 <script>
 
     import {RemoteUtility} from '../../../Remote/RemoteUtility';
-    import contextVarJuelEditDialog from "./context-var-juel-edit-dialog.vue";
+    import contextVarJuelEditDialog from "../Dialog/context-var-juel-edit-dialog.vue";
     import { FlowBpmnJsIntegrated } from '../../BpmnJsExtend/FlowBpmnJsIntegrated.js';
 
     var flowBpmnJsIntegrated=null;

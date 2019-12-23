@@ -80,7 +80,13 @@
                         </table>
                     </tab-pane>
                     <tab-pane tab="addAction-dialog-tabs" label="数据设置">
-
+                        <div style="float: right;margin: 10px;">
+                            <button-group>
+                                <i-button type="success" icon="md-add" @click="addUpdateField"></i-button>
+                                <i-button type="primary" icon="md-close" @click="removeUpdateField"></i-button>
+                            </button-group>
+                        </div>
+                        <div id="fieldContainer" class="edit-table-wrap" style="height: 320px;overflow: auto;width: 98%;margin: auto"></div>
                     </tab-pane>
                     <tab-pane tab="addAction-dialog-tabs" label="API设置">
 
@@ -97,8 +103,9 @@
 </template>
 
 <script>
-    import contextVarJuelEditDialog from "./context-var-juel-edit-dialog.vue";
+    import contextVarJuelEditDialog from "../Dialog/context-var-juel-edit-dialog.vue";
     import { FlowBpmnJsIntegrated } from '../../BpmnJsExtend/FlowBpmnJsIntegrated.js';
+    import {RemoteUtility} from '../../../Remote/RemoteUtility';
 
     var flowBpmnJsIntegrated=null;
     export default {
@@ -116,6 +123,36 @@
                     showOpinionDialog:"false",
                     actionDescription:"",
                     actionDisplayCondition:""
+                },
+                field:{
+                    editTableObject:null,
+                    editTableConfig:{
+                        Status: "Edit",
+                        AddAfterRowEvent: null,
+                        DataField: "fieldName",
+                        Templates: [
+                            {
+                                Title: "表名标题",
+                                BindName: "tableName",
+                                Renderer: "EditTable_Label"
+                            }, {
+                                Title: "字段标题",
+                                BindName: "fieldName",
+                                Renderer: "EditTable_Select"
+                            },{
+                                Title:"默认值",
+                                BindName:"defaultValue",
+                                Renderer:"EditTable_SelectDefaultValue",
+                                Hidden:false
+                            }
+                        ],
+                        RowIdCreater: function () {
+                        },
+                        TableClass: "edit-table",
+                        RendererTo: "fieldContainer",
+                        TableId: "fieldContainerTable",
+                        TableAttrs: {cellpadding: "1", cellspacing: "1", border: "1"}
+                    }
                 },
                 addedActionConfig:[
                     {
@@ -151,6 +188,12 @@
             flowBpmnJsIntegrated=FlowBpmnJsIntegrated.GetInstance();
         },
         methods:{
+            addUpdateField(){
+                this.field.editTableObject.AddEditingRowByTemplate();
+            },
+            removeUpdateField(){
+                this.field.editTableObject.RemoveRow();
+            },
             beginEditContextJuelForActionDisplayCondition(){
                 //console.log(this.propFromId);
                 var _self=this;
@@ -184,6 +227,46 @@
                 },null,{},this);
 
                 //console.log(window.flowBpmnJsIntegrated);
+                this.bindTableFields();
+            },
+            bindTableFields:function(oldData) {
+                //if(this.oldFormId!=this.formId) {
+                var formId=flowBpmnJsIntegrated.TryGetFormId(this.propFromId);
+                RemoteUtility.GetFormResourceBindMainTable(formId).then((tablePO)=>{
+                        //console.log(result);
+                        var fieldsData = [];
+
+                        if(tablePO) {
+                            for (var i = 0; i < tablePO.tableFieldPOList.length; i++) {
+                                fieldsData.push({
+                                    Value: tablePO.tableFieldPOList[i].fieldName,
+                                    Text: tablePO.tableFieldPOList[i].fieldCaption
+                                });
+                            }
+                            this.field.editTableConfig.Templates[0].DefaultValue = {
+                                Type: "Const",
+                                Value: tablePO.tableName
+                            };
+
+                            this.field.editTableConfig.Templates[1].ClientDataSource = fieldsData;
+
+                            if (!this.field.editTableObject) {
+                                this.field.editTableObject = Object.create(EditTable);
+                                this.field.editTableObject.Initialization(this.field.editTableConfig);
+                            }
+                        }
+                        this.oldFormId = this.formId;
+                        if(oldData){
+                            this.field.editTableObject.LoadJsonData(oldData);
+                        }
+                });
+                //}
+                if(this.field.editTableObject){
+                    this.field.editTableObject.RemoveAllRow();
+                }
+                if(oldData&&this.field.editTableObject){
+                    this.field.editTableObject.LoadJsonData(oldData);
+                }
             },
             deleteAction(index,row){
                 this.addedActionData.splice(index, 1);
