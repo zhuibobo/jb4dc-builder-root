@@ -56,7 +56,7 @@
             emptyProperties,
             userTaskProperties,
             sequenceFlowProperties,
-            processProperties
+            processProperties,
         },
         data () {
             return {
@@ -68,12 +68,18 @@
         mounted(){
             //console.log(FlowBpmnJsExtendContainer);
             $("#modeler-bpmn-wraper").height(PageStyleUtility.GetPageHeight()-38);
-            flowBpmnJsIntegrated=new FlowBpmnJsIntegrated();
-            flowBpmnJsIntegrated.Initialize({
+            flowBpmnJsIntegrated=FlowBpmnJsIntegrated.CreateInstance({
                 RendererToElemId:"flow-canvas",
                 FlowBpmnJsContainer:this,
                 ChangeSelectedElemCB:this.changeSelectedElem
             });
+            /*flowBpmnJsIntegrated=new FlowBpmnJsIntegrated();
+            flowBpmnJsIntegrated.Initialize({
+                RendererToElemId:"flow-canvas",
+                FlowBpmnJsContainer:this,
+                ChangeSelectedElemCB:this.changeSelectedElem
+            });*/
+            //window.flowBpmnJsIntegrated=flowBpmnJsIntegrated;
         },
         methods:{
             logXML () {
@@ -86,7 +92,7 @@
                 flowBpmnJsIntegrated.SetXML(xml);
             },
             getSelectedElement(){
-                return flowBpmnJsIntegrated.getSelectedElement();
+                return flowBpmnJsIntegrated.GetSelectedElement();
             },
             changeSelectedElem(selectedElem){
                 //console.log(selectedElem);
@@ -96,7 +102,7 @@
             },
             showProperties (componentName,title,element,elemToDialogProps) {
                 //console.log(element);
-                console.log(elemToDialogProps);
+                //console.log(elemToDialogProps);
                 //DialogUtility.AlertText("11");
                 var dialogElemId="properties-window";
                 this.elemPropertiesDialogView=componentName;

@@ -209,7 +209,7 @@
             },
             beginEditContextJuel(dialogTitle,oldData,formId,callBackFunc) {
                 //console.log("...........1...");
-
+                console.log(formId);
                 $(this.$refs.editDialogWrap).dialog("open");
                 $(this.$refs.editDialogWrap).dialog("option", "title", dialogTitle );
                 this.editData=oldData;

@@ -35,6 +35,8 @@ class FlowBpmnJsIntegrated {
     };
     setting={};
     modeler=null;
+    static singleFlowBpmnJsIntegrated=null;
+
     constructor() {
 
     }
@@ -146,6 +148,15 @@ class FlowBpmnJsIntegrated {
                 //bo.get("extensionElements").values.push(e);
             });
         });
+    }
+    static CreateInstance(exConfig){
+        var instance=new FlowBpmnJsIntegrated();
+        instance.Initialize(exConfig);
+        this.singleFlowBpmnJsIntegrated=instance;
+        return instance;
+    }
+    static GetInstance(){
+        return this.singleFlowBpmnJsIntegrated;
     }
     BPMN_ProcessClickEvent (event,element){
         return;
@@ -347,8 +358,21 @@ class FlowBpmnJsIntegrated {
             console.log(err);
         });
     }
-    getSelectedElement() {
+    GetSelectedElement() {
         return this.setting.SelectedElement;
+    }
+    GetProcessElement(){
+        return BpmnJsUtility.GetProcessElement(this.modeler);
+    }
+    GetProcessBindFormId(){
+        return BpmnJsUtility.GetProcessFormId(this.GetProcessElement());
+    }
+    TryGetFormId(defaultFormId){
+        var formId=defaultFormId;
+        if(!formId){
+            formId=this.GetProcessBindFormId();
+        }
+        return formId;
     }
     convertElemToHTMLDisplay(elem){
         var elemToDialogProps=this.SerializationElemToDialogProps(elem);

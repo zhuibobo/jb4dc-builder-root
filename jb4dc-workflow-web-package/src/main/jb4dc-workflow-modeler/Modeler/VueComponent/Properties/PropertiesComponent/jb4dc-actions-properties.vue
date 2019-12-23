@@ -34,24 +34,24 @@
                                 <tr>
                                     <td>类型：</td>
                                     <td>
-                                        <Select v-model="innerDetailInfo.eventType" style="width:300px">
-                                            <Option value="start">start</Option>
-                                            <Option value="end">end</Option>
+                                        <Select v-model="innerDetailInfo.actionType" style="width:300px">
+                                            <Option value="send">发送</Option>
+                                            <Option value="temporaryStorage">暂存</Option>
                                         </Select>
                                     </td>
                                     <td>编号：</td>
                                     <td colspan="2">
-                                        <input type="text" v-model="jb4dc" />
+                                        <input type="text" v-model="innerDetailInfo.actionCode" />
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>标题：</td>
                                     <td>
-                                        <input type="text" v-model="jb4dc" />
+                                        <input type="text" v-model="innerDetailInfo.actionCaption" />
                                     </td>
                                     <td>弹出意见框：</td>
                                     <td colspan="2">
-                                        <radio-group type="button" style="margin: auto" v-model="bpmn">
+                                        <radio-group type="button" style="margin: auto" v-model="innerDetailInfo.showOpinionDialog">
                                             <radio label="true">是</radio>
                                             <radio label="false">否</radio>
                                         </radio-group>
@@ -62,7 +62,7 @@
                                 </tr>
                                 <tr>
                                     <td colspan="5" style="background-color: #ffffff">
-                                        <textarea rows="6"></textarea>
+                                        <textarea rows="6" v-model="innerDetailInfo.actionDescription"></textarea>
                                     </td>
                                 </tr>
                                 <tr>
@@ -70,10 +70,10 @@
                                 </tr>
                                 <tr>
                                     <td colspan="4" style="background-color: #ffffff">
-                                        <textarea rows="4"></textarea>
+                                        <textarea rows="4" v-model="innerDetailInfo.actionDisplayCondition"></textarea>
                                     </td>
                                     <td style="background-color: #f8f8f8">
-                                        <Button type="primary" @click="beginEditContextJuelForFlowProcessDescription">编辑</Button>
+                                        <Button type="primary" @click="beginEditContextJuelForActionDisplayCondition">编辑</Button>
                                     </td>
                                 </tr>
                             </tbody>
@@ -82,26 +82,40 @@
                     <tab-pane tab="addAction-dialog-tabs" label="数据设置">
 
                     </tab-pane>
-                    <tab-pane tab="addAction-dialog-tabs" label="扩展设置">
+                    <tab-pane tab="addAction-dialog-tabs" label="API设置">
+
+                    </tab-pane>
+                    <tab-pane tab="addAction-dialog-tabs" label="备注">
 
                     </tab-pane>
                 </tabs>
 
             </div>
         </div>
+        <contextVarJuelEditDialog ref="contextVarJuelEditDialog"></contextVarJuelEditDialog>
     </div>
 </template>
 
 <script>
+    import contextVarJuelEditDialog from "./context-var-juel-edit-dialog.vue";
+    import { FlowBpmnJsIntegrated } from '../../BpmnJsExtend/FlowBpmnJsIntegrated.js';
+
+    var flowBpmnJsIntegrated=null;
     export default {
         name: "jb4dc-actions-properties",
-        props:["propActionData"],
+        components: {
+            contextVarJuelEditDialog
+        },
+        props:["propActionData","propFromId"],
         data(){
             return {
                 innerDetailInfo:{
-                    eventType:"start",
-                    listenerType:"class",
-                    value:""
+                    actionType:"send",
+                    actionCode:"action_"+StringUtility.Timestamp(),
+                    actionCaption:"确认",
+                    showOpinionDialog:"false",
+                    actionDescription:"",
+                    actionDisplayCondition:""
                 },
                 addedActionConfig:[
                     {
@@ -118,7 +132,8 @@
                         title: '类型',
                         key: 'actionType',
                         align: "center"
-                    }, {
+                    },
+                    {
                         title: '操作',
                         slot: 'action',
                         width: 120,
@@ -133,14 +148,23 @@
         mounted(){
             //this.addedActionData=this.propActionData;
             //this.addActionDialogId="addActionDialogId_"+StringUtility.GuidSplit("");
+            flowBpmnJsIntegrated=FlowBpmnJsIntegrated.GetInstance();
         },
         methods:{
+            beginEditContextJuelForActionDisplayCondition(){
+                //console.log(this.propFromId);
+                var _self=this;
+                var formId=flowBpmnJsIntegrated.TryGetFormId(this.propFromId);
+                this.$refs.contextVarJuelEditDialog.beginEditContextJuel("编辑显示条件",this.innerDetailInfo.actionDisplayCondition,formId,function(result){
+                    _self.innerDetailInfo.actionDisplayCondition=result;
+                });
+            },
             showAddActionDialog(){
                 var _self=this;
                 //var dialogElemId=this.addActionDialogId;
                 this.innerDetailInfo.javaClass="";
                 DialogUtility.DialogElemObj(this.$refs.addActionDialog,{
-                    title:"Add Action",
+                    title:"新增动作",
                     width:850,
                     height:560,
                     modal:true,
@@ -158,6 +182,8 @@
                         }
                     }
                 },null,{},this);
+
+                //console.log(window.flowBpmnJsIntegrated);
             },
             deleteAction(index,row){
                 this.addedActionData.splice(index, 1);

@@ -101,10 +101,10 @@
           }
         },
         mounted(){
-            console.log("2");
+            //console.log("2");
             this.addedListenerData=this.propListenerData;
             this.addListenerDialogId="addListenerDialogId_"+StringUtility.GuidSplit("");
-            console.log(this.addedListenerData);
+            //console.log(this.addedListenerData);
         },
         methods:{
             showAddListenerDialog(){

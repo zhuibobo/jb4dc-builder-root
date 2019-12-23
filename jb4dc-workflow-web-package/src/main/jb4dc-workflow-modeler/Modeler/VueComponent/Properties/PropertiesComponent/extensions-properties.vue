@@ -78,7 +78,7 @@
         },
         mounted(){
             this.addedExtensionData=this.propExtensionsPropertiesData;
-            console.log(this.addedListenerData);
+            //console.log(this.addedListenerData);
         },
         methods:{
             showAddListenerDialog(){

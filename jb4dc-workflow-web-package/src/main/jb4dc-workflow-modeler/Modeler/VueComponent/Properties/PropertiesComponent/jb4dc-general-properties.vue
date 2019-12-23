@@ -26,7 +26,7 @@
                 <tr>
                     <td>绑定表单：</td>
                     <td>
-                        <Select v-model="jb4dc.jb4dcFormId" style="width:250px" @on-change="changeBindForm">
+                        <Select v-model="jb4dc.jb4dcFormId" style="width:250px" @on-change="changeBindForm" :clearable="true">
                             <Option v-for="item in formResourcePOList" :value="item.formId" :key="item.formId">【{{ item.formCode }}】{{ item.formName }}</Option>
                         </Select>
                         <Button type="primary" disabled>编辑表单</Button>
@@ -64,7 +64,9 @@
 
     import {RemoteUtility} from '../../../Remote/RemoteUtility';
     import contextVarJuelEditDialog from "./context-var-juel-edit-dialog.vue";
+    import { FlowBpmnJsIntegrated } from '../../BpmnJsExtend/FlowBpmnJsIntegrated.js';
 
+    var flowBpmnJsIntegrated=null;
     export default {
         name: "jb4dc-general-properties",
         components: {
@@ -85,7 +87,7 @@
             if(this.propIsProcess==false){
                 this.trIsProcess=false;
             }
-            console.log(this.propIsProcess);
+            //console.log(this.propIsProcess);
             this.jb4dc=this.propJb4dcGeneralData;
 
             RemoteUtility.GetFormResourcePOList().then((formResourcePOList) => {
@@ -96,18 +98,21 @@
             if(this.jb4dc.jb4dcFormId){
                 this.changeBindForm(this.jb4dc.jb4dcFormId);
             }
+            flowBpmnJsIntegrated=FlowBpmnJsIntegrated.GetInstance();
         },
         methods:{
             beginEditContextJuelForFlowProcessTitle(){
                 //var
                 var _self=this;
-                this.$refs.contextVarJuelEditDialog.beginEditContextJuel("编辑实例标题",this.jb4dc.jb4dcProcessTitle,this.jb4dc.jb4dcFormId,function(result){
+                var formId=flowBpmnJsIntegrated.TryGetFormId(this.jb4dc.jb4dcFormId);
+                this.$refs.contextVarJuelEditDialog.beginEditContextJuel("编辑实例标题",this.jb4dc.jb4dcProcessTitle,formId,function(result){
                     _self.jb4dc.jb4dcProcessTitle=result;
                 });
             },
             beginEditContextJuelForFlowProcessDescription(){
                 var _self=this;
-                this.$refs.contextVarJuelEditDialog.beginEditContextJuel("编辑实例备注",this.jb4dc.jb4dcProcessDescription,this.jb4dc.jb4dcFormId,function(result){
+                var formId=flowBpmnJsIntegrated.TryGetFormId(this.jb4dc.jb4dcFormId);
+                this.$refs.contextVarJuelEditDialog.beginEditContextJuel("编辑实例备注",this.jb4dc.jb4dcProcessDescription,formId,function(result){
                     _self.jb4dc.jb4dcProcessDescription=result;
                 });
             },

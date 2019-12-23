@@ -35,6 +35,9 @@ class BpmnJsUtility {
         return result;
     }
 
+    static GetProcessFormId(processElement){
+        return this.JB4DC_Attr_GetJb4dcFormId(processElement);
+    }
     //#region
     static Is_Process(element){
         return element.type=="bpmn:Process";
