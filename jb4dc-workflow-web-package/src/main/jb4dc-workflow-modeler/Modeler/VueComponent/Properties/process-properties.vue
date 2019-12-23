@@ -73,12 +73,6 @@
                     </tbody>
                 </table>
             </tab-pane>
-            <tab-pane tab="process-properties-tabs" label="CMA-Execution-Listeners">
-                <listenersProperties ref="listenersProperties" :prop-listener-data="camunda.executionListener"></listenersProperties>
-            </tab-pane>
-            <tab-pane tab="process-properties-tabs" label="CMA-Extensions">
-                <extensionsProperties ref="extensionsProperties" :prop-extensions-properties-data="camunda.extensionProperties"></extensionsProperties>
-            </tab-pane>
             <tab-pane tab="process-properties-tabs" label="基础设置">
                 <jb4dcGeneralProperties ref="jb4dcGeneralProperties" :prop-jb4dc-general-data="jb4dc"></jb4dcGeneralProperties>
             </tab-pane>
@@ -87,6 +81,12 @@
             </tab-pane>
             <tab-pane tab="process-properties-tabs" label="管理设置">
 
+            </tab-pane>
+            <tab-pane tab="process-properties-tabs" label="CMA-Execution-Listeners">
+                <listenersProperties ref="listenersProperties" :prop-listener-data="camunda.executionListener"></listenersProperties>
+            </tab-pane>
+            <tab-pane tab="process-properties-tabs" label="CMA-Extensions">
+                <extensionsProperties ref="extensionsProperties" :prop-extensions-properties-data="camunda.extensionProperties"></extensionsProperties>
             </tab-pane>
         </tabs>
     </div>

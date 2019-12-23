@@ -37,9 +37,11 @@ class RemoteUtility{
             var formPO = ArrayUtility.WhereSingle(formResourcePOList,function (item) {
                 return item.formId==formId;
             });
-            mainTablePO=ArrayUtility.WhereSingle(formPO.tablePOList,function (item) {
-                return item.main;
-            })
+            if(formPO!=null){
+                mainTablePO=ArrayUtility.WhereSingle(formPO.tablePOList,function (item) {
+                    return item.main;
+                })
+            }
         }
 
         const promise = new Promise((resolve, reject)=>{

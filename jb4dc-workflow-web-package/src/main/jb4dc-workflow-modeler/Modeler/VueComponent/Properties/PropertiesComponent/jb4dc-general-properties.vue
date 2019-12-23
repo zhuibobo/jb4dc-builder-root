@@ -82,10 +82,10 @@
             /*RemoteUtility.GetModuleById("").then(function (result) {
                 console.log(result);
             })*/
-            if(this.propIsProcess=="false"){
+            if(this.propIsProcess==false){
                 this.trIsProcess=false;
             }
-
+            console.log(this.propIsProcess);
             this.jb4dc=this.propJb4dcGeneralData;
 
             RemoteUtility.GetFormResourcePOList().then((formResourcePOList) => {

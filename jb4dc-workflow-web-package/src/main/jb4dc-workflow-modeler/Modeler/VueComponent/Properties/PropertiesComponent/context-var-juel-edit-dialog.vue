@@ -2,7 +2,7 @@
     <div>
         <div ref="editDialogWrap" style="display: none">
             <div>
-                <textarea id="txtContextVarJuelEdit" v-model="editData"></textarea>
+                <textarea ref="txtContextVarJuelEdit" v-model="editData"></textarea>
             </div>
             <tabs name="flow-process-title-config-tabs">
                 <tab-pane tab="flow-process-title-config-tabs" label="表" name="Tables">
@@ -23,7 +23,7 @@
                         <div style="width: 25%;float: left;height: 300px;overflow: auto">
                             <div class="inner-wrap">
                                 <div style="margin-top: 8px">
-                                    <ul id="envGroupZTreeUL" class="ztree"></ul>
+                                    <ul id="envGroupZTreeUL" ref="envGroupZTreeUL" class="ztree"></ul>
                                 </div>
                             </div>
                         </div>
@@ -170,7 +170,7 @@
                 }
             });
             $(this.$refs.editDialogWrap).dialog("close");
-            this.selectedCodeMirror = CodeMirror.fromTextArea($("#txtContextVarJuelEdit")[0], {
+            this.selectedCodeMirror = CodeMirror.fromTextArea(this.$refs.txtContextVarJuelEdit, {
                 mode: "text/x-sql",
                 lineWrapping: true,
                 foldGutter: true,
@@ -206,7 +206,6 @@
                 RemoteUtility.GetEnvVariablePOListByGroupId(treeNode.envGroupId).then((envVariablePOList) => {
                     this.envVarTableData = envVariablePOList;
                 });
-
             },
             beginEditContextJuel(dialogTitle,oldData,formId,callBackFunc) {
                 //console.log("...........1...");
@@ -219,7 +218,7 @@
                 //this.selectedCodeMirror = this.flowProcessTitleCodeMirror;
 
                 RemoteUtility.GetEnvGroupPOList().then((envGroupPOList) => {
-                    this.tree.envGroupTreeObj = $.fn.zTree.init($("#envGroupZTreeUL"), this.tree.envGroupTreeSetting, envGroupPOList);
+                    this.tree.envGroupTreeObj = $.fn.zTree.init($(this.$refs.envGroupZTreeUL), this.tree.envGroupTreeSetting, envGroupPOList);
                     this.tree.envGroupTreeObj.expandAll(true);
                     this.tree.envGroupTreeObj._host = this;
                 });
