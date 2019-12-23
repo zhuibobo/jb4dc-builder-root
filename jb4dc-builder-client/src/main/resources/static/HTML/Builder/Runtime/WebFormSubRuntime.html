@@ -1,1 +1,60 @@
-<!DOCTYPE html><html lang="zh" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"><head><meta charset="UTF-8"><title>子表单</title><script type="text/javascript" src="../../../Js/External/JQuery-3.4.1/jquery-3.4.1.min.js"></script><script type="text/javascript" src="../../../Js/External/VUE-2.6.10/vue.js"></script><script type="text/javascript" src="../../../Js/External/IView-3.X/dist/iview.min.js"></script><script type="text/javascript" src="../../../Js/External/JQuery-UI-1.12.1/jquery-ui.js"></script><script type="text/javascript" src="../../../Js/External/ZTree-3.5.40/js/jquery.ztree.all.js"></script><script type="text/javascript" src="../../../Js/External/My97DatePicker/WdatePicker.js"></script><script type="text/javascript" src="../../../Js/JBuild4DCLib.js?refVersion=2"></script><script type="text/javascript" src="../../../Js/UIEXComponent.js?refVersion=2"></script><script type="text/javascript" src="../../../Js/VueEXComponent.js?refVersion=2"></script><script type="text/javascript" src="../../../Js/HTMLDesignRuntimeFull.js"></script><link rel="stylesheet" type="text/css" href="../../../Themes/Default/Css/HTMLDesignRuntimeMain.css?refVersion=2"><link rel="stylesheet" type="text/css" href="../../../Themes/Default/IView-4.X/iview.css"><link rel="stylesheet" type="text/css" href="../../../Themes/Default/JQueryUI/jquery-ui.css"><link rel="stylesheet" type="text/css" href="../../../Themes/Default/JQueryUI/jquery-ui-important.css"><link rel="stylesheet" type="text/css" href="../../../Js/External/Perfect-Scrollbar-V1.4.0/perfect-scrollbar.css"><link rel="stylesheet" type="text/css" href="../../../Themes/Default/ZTree/zTreeStyle/zTreeStyle.css"><link rel="stylesheet" type="text/css" href="../../../Themes/Default/Css/JBuild4DC.css?refVersion=2"><link rel="stylesheet" type="text/css" href="../../../Themes/Default/Css/JBuild4DCBuilder.css?refVersion=2"><script>var formRuntimeInst;$(function(){formRuntimeInst=FormRuntimeSinglePageObject.pageReady(!1,function(){}),BaseUtility.IsViewOperation(FormRuntimeSinglePageObject.getWebFormRTParas().OperationType)&&$("#btnConfirm").hide(),$("#btnConfirm").click(function(){var t=formRuntimeInst.SerializationFormData(),e=BaseUtility.GetUrlParaValue("ParentRecordId"),i=BaseUtility.GetUrlParaValue("SelfKeyFieldName"),a=FormRelationPOUtility.FindMainRelationPO(t.formRecordDataRelationPOList);FormRelationPOUtility.CreateFieldInRecordFieldPOArray(FormRelationPOUtility.Get1To1DataRecord(a).recordFieldPOList,i,e),RuntimeGeneralInstance.SubmitFormDataComplexPOListToServer(t,t.recordId,"","",FormRuntimeSinglePageObject.getWebFormRTParas().OperationType,function(e){if(e.success){var i=BaseUtility.GetUrlParaValue("InstanceName");window.parent.WFDCT_SubFormListContainer.Dialog_SubFormDialogCompletedEdit(i,FormRuntimeSinglePageObject.getWebFormRTParas().OperationType,t),DialogUtility.CloseOpenIframeWindow(window,DialogUtility.DialogId)}},this)}),$("#btnClose").click(function(){DialogUtility.CloseOpenIframeWindow(window,DialogUtility.DialogId)})})</script></head><body><div id="htmlDesignRuntimeWrap"></div><div class="html-design-operation-button-outer-wrap"><div class="html-design-button-inner-wrap"><div class="html-design-buttons-group"><button type="button" class="operation-button operation-button-primary" id="btnConfirm"><span>确认11</span></button> <button type="button" class="operation-button" id="btnClose"><span>关闭</span></button></div></div></div></body></html>
+<!DOCTYPE html><html lang="zh" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"><head><meta charset="UTF-8"><title>子表单</title><script type="text/javascript" src="../../../Js/External/JQuery-3.4.1/jquery-3.4.1.min.js"></script><script type="text/javascript" src="../../../Js/External/VUE-2.6.10/vue.js"></script><script type="text/javascript" src="../../../Js/External/IView-3.X/dist/iview.min.js"></script><script type="text/javascript" src="../../../Js/External/JQuery-UI-1.12.1/jquery-ui.js"></script><script type="text/javascript" src="../../../Js/External/ZTree-3.5.40/js/jquery.ztree.all.js"></script><script type="text/javascript" src="../../../Js/External/My97DatePicker/WdatePicker.js"></script><script type="text/javascript" src="../../../Js/JBuild4DCLib.js?refVersion=2"></script><script type="text/javascript" src="../../../Js/UIEXComponent.js?refVersion=2"></script><script type="text/javascript" src="../../../Js/VueEXComponent.js?refVersion=2"></script><script type="text/javascript" src="../../../Js/HTMLDesignRuntimeFull.js"></script><link rel="stylesheet" type="text/css" href="../../../Themes/Default/Css/HTMLDesignRuntimeMain.css?refVersion=2"><link rel="stylesheet" type="text/css" href="../../../Themes/Default/IView-4.X/iview.css"><link rel="stylesheet" type="text/css" href="../../../Themes/Default/JQueryUI/jquery-ui.css"><link rel="stylesheet" type="text/css" href="../../../Themes/Default/JQueryUI/jquery-ui-important.css"><link rel="stylesheet" type="text/css" href="../../../Js/External/Perfect-Scrollbar-V1.4.0/perfect-scrollbar.css"><link rel="stylesheet" type="text/css" href="../../../Themes/Default/ZTree/zTreeStyle/zTreeStyle.css"><link rel="stylesheet" type="text/css" href="../../../Themes/Default/Css/JBuild4DC.css?refVersion=2"><link rel="stylesheet" type="text/css" href="../../../Themes/Default/Css/JBuild4DCBuilder.css?refVersion=2"><script>var formRuntimeInst;
+        $(function () {
+            /*formRuntimeInst = Object.create(FormRuntime);
+            var formId=BaseUtility.GetUrlParaValue("FormId");
+            var buttonid=BaseUtility.GetUrlParaValue("ButtonId");
+            var operationType=BaseUtility.GetUrlParaValue("OperationType");
+
+            var recordId=BaseUtility.GetUrlParaValue("RecordId");
+            //var elemid=BaseUtility.GetUrlParaValue("elemid");
+            formRuntimeInst.Initialization({
+                RendererToId: "htmlDesignRuntimeWrap",
+                FormId:formId,
+                IsPreview:false,
+                OperationType:operationType,
+                RecordId:recordId,
+                RendererChainCompletedFunc:function () {
+                    if(operationType=="view"||operationType=="update") {
+                        //debugger;
+                        var subRecordComplexPo = window.parent.WFDCT_SubFormListContainer.Dialog_Get_SubForm_RecordComplexPo(subFormListContainerInstanceName, this._FormDataRelationList,this._Prop_Config.RecordId);
+                        //console.log(subRecordComplexPo);
+                        //debugger;
+                        this.DeSerializationFormData(subRecordComplexPo);
+                    }
+                }
+            });*/
+            formRuntimeInst=FormRuntimeSinglePageObject.pageReady(false,function () {
+
+            });
+
+            if(BaseUtility.IsViewOperation(FormRuntimeSinglePageObject.getWebFormRTParas().OperationType)){
+                $("#btnConfirm").hide();
+            }
+
+            $("#btnConfirm").click(function () {
+                var formDataComplexPO=formRuntimeInst.SerializationFormData();
+                var parentRecordId=BaseUtility.GetUrlParaValue("ParentRecordId");
+                var selfKeyFieldName=BaseUtility.GetUrlParaValue("SelfKeyFieldName");
+                var mainPO=FormRelationPOUtility.FindMainRelationPO(formDataComplexPO.formRecordDataRelationPOList);
+                FormRelationPOUtility.CreateFieldInRecordFieldPOArray(FormRelationPOUtility.Get1To1DataRecord(mainPO).recordFieldPOList,selfKeyFieldName,parentRecordId);
+                RuntimeGeneralInstance.SubmitFormDataComplexPOListToServer(
+                    formDataComplexPO,
+                    formDataComplexPO.recordId,
+                    "",
+                    "",
+                    FormRuntimeSinglePageObject.getWebFormRTParas().OperationType,
+                    function (result) {
+                        if(result.success){
+                            var subFormListContainerInstanceName=BaseUtility.GetUrlParaValue("InstanceName");
+                            window.parent.WFDCT_SubFormListContainer.Dialog_SubFormDialogCompletedEdit(subFormListContainerInstanceName,FormRuntimeSinglePageObject.getWebFormRTParas().OperationType,formDataComplexPO);
+                            DialogUtility.CloseOpenIframeWindow(window,DialogUtility.DialogId);
+                        }
+                    },
+                    this
+                );
+            });
+
+            $("#btnClose").click(function () {
+                DialogUtility.CloseOpenIframeWindow(window,DialogUtility.DialogId);
+            });
+        });</script></head><body><div id="htmlDesignRuntimeWrap"></div><div class="html-design-operation-button-outer-wrap"><div class="html-design-button-inner-wrap"><div class="html-design-buttons-group"><button type="button" class="operation-button operation-button-primary" id="btnConfirm"><span>确认11</span></button> <button type="button" class="operation-button" id="btnClose"><span>关闭</span></button></div></div></div></body></html>

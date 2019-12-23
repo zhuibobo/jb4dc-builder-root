@@ -234,12 +234,13 @@ Vue.component("inner-form-button-list-comp", {
 
         //region 保存按钮
         addInnerFormSaveButton:function(){
+            //debugger;
             if(this.formId!=null&&this.formId!="") {
                 this.editSaveButtonStatuc="add";
                 //重置编辑表单
                 this.resetInnerSaveButtonData();
 
-                var elem = this.$refs.innerFormButtonEdit;
+                var elem = this.$refs.addInnerFormSaveButton;
 
                 DialogUtility.DialogElemObj(elem, {
                     modal: true,
@@ -500,9 +501,9 @@ Vue.component("inner-form-button-list-comp", {
         //endregion
     },
     template: `<div style="height: 210px" class="iv-list-page-wrap">
-                    <div ref="innerFormButtonEdit" class="html-design-plugin-dialog-wraper general-edit-page-wrap" style="display: none;margin-top: 0px">
-                        <tabs size="small">
-                            <tab-pane label="绑定信息">
+                    <div ref="addInnerFormSaveButton" class="html-design-plugin-dialog-wraper general-edit-page-wrap" style="display: none;margin-top: 0px">
+                        <tabs size="small" name="inner-form-button-edit-tabs">
+                            <tab-pane tab="inner-form-button-edit-tabs" label="绑定信息">
                                 <table cellpadding="0" cellspacing="0" border="0" class="html-design-plugin-dialog-table-wraper">
                                     <colgroup>
                                         <col style="width: 60px" />
@@ -543,7 +544,7 @@ Vue.component("inner-form-button-list-comp", {
                                     </tbody>
                                 </table>
                             </tab-pane>
-                            <tab-pane label="API设置">
+                            <tab-pane tab="inner-form-button-edit-tabs" label="API设置">
                                 <table cellpadding="0" cellspacing="0" border="0" class="html-design-plugin-dialog-table-wraper">
                                     <colgroup>
                                         <col style="width: 320px" />
@@ -570,7 +571,7 @@ Vue.component("inner-form-button-list-comp", {
                                     </tbody>
                                 </table>
                             </tab-pane>
-                            <tab-pane label="开发扩展">
+                            <tab-pane tab="inner-form-button-edit-tabs" label="开发扩展">
                                 <table cellpadding="0" cellspacing="0" border="0" class="html-design-plugin-dialog-table-wraper">
                                     <colgroup>
                                         <col style="width: 150px" />
@@ -645,12 +646,12 @@ Vue.component("inner-form-button-list-comp", {
                         </div>
                     </div>
                     <div style="height: 210px;width: 100%">
-                        <div style="float: left;width: 84%">
+                        <div style="float: left;width: 82%">
                             <i-table :height="210" width="100%" stripe border :columns="columnsConfig" :data="tableData"
                                                      class="iv-list-table" :highlight-row="true"
                                                      size="small"></i-table>
                         </div>
-                        <div style="float: right;width: 15%">
+                        <div style="float: left;width: 15%;margin-left: 8px">
                             <ButtonGroup vertical>
                                 <i-button type="success" @click="addInnerFormSaveButton()" icon="md-add">保存按钮</i-button>
                                 <i-button icon="md-add" disabled>意见按钮</i-button>
