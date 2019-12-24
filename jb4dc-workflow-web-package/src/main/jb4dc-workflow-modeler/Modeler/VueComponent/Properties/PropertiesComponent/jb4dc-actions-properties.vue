@@ -201,11 +201,8 @@
                 //console.log(this.propFromId);
                 //var _self=this;
                 this.$refs.selectDefaultValueDialog.beginSelectDefaultValue("设置默认值",this.innerDetailInfo.actionDisplayCondition,function(result){
-                    EditTable_SelectDefaultValue.SetSelectEnvVariableResultValue({
-                        Type:"Const",
-                        Value:"你们",
-                        Text:"你们"
-                    });
+                    console.log(result);
+                    EditTable_SelectDefaultValue.SetSelectEnvVariableResultValue(result);
                     //_self.innerDetailInfo.actionDisplayCondition=result;
                 });
             },
