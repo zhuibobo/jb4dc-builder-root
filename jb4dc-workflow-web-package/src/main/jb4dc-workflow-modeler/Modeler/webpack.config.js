@@ -95,6 +95,10 @@ module.exports = {
                 cleanAfterEveryBuildPatterns: ['**/*.js','**/*.css','!**/Images/**'],
             }
         ),
+        new CopyWebpackPlugin([
+            { from: '**/bpmn-font/*/*.*',context: 'Less', to: ''},
+            { from: '**/diagram-js.css',context: 'Less', to: ''}
+        ]),
         new HtmlWebpackPlugin({
             filename: "Index.html",
             template: './Template.html'
