@@ -4,10 +4,12 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const {CleanWebpackPlugin } = require('clean-webpack-plugin');
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
+const webpack = require('webpack');
 
 module.exports = {
     // JavaScript 执行入口文件
     entry: {
+        /*"editTableSelectDefaultValue": './EditTable/Renderers/EditTable_SelectDefaultValue.js',*/
         "index": './App.js'
     },
     context: path.resolve(__dirname, ""),
@@ -80,6 +82,10 @@ module.exports = {
                     outputPath: 'Images',
                     name: '[name].[ext]'
                 }
+            },
+            {
+                test: /\EditTable_SelectDefaultValue\.js$/,
+                use: [ 'script-loader' ]
             }
         ]
     },
@@ -99,7 +105,10 @@ module.exports = {
             filename: "[name].[hash].css",
             chunkFilename: "[id].[hash].css"
         }),
-        new VueLoaderPlugin()
+        new VueLoaderPlugin()/*,
+        new webpack.ProvidePlugin({
+            EditTable_SelectDefaultValue1: ['./EditTable/Renderers/EditTable_SelectDefaultValue.js']
+        })*/
     ],
     externals: {
         // 后面是原本使用的全局变量名，前面的是引入的包名（就是import xx from 'echart'），然后我们实际写代码时候，用的是xx这个变量名。

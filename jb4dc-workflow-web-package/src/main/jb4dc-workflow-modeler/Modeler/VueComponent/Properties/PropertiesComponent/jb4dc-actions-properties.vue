@@ -106,6 +106,7 @@
     import contextVarJuelEditDialog from "../Dialog/context-var-juel-edit-dialog.vue";
     import { FlowBpmnJsIntegrated } from '../../BpmnJsExtend/FlowBpmnJsIntegrated.js';
     import {RemoteUtility} from '../../../Remote/RemoteUtility';
+    //import EditTable_SelectDefaultValue from  '../../../EditTable/Renderers/EditTable_SelectDefaultValue.js';
 
     var flowBpmnJsIntegrated=null;
     export default {
