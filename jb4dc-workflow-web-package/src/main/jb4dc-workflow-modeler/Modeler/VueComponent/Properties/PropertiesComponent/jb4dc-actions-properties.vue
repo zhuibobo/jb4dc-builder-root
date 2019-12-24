@@ -141,7 +141,7 @@
                                 BindName: "fieldName",
                                 Renderer: "EditTable_Select"
                             },{
-                                Title:"默认值",
+                                Title:"设置值",
                                 BindName:"defaultValue",
                                 Renderer:"EditTable_SelectDefaultValue",
                                 Hidden:false
