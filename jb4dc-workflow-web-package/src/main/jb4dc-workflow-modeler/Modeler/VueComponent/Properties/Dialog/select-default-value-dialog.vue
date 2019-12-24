@@ -1,14 +1,14 @@
 <template>
     <div ref="selectDefaultValueDialogWrap" style="display: none">
-        <tabs :value="selectType" v-model="selectType">
-            <tab-pane label="常量" name="Const" >
+        <tabs :value="selectType" v-model="selectType" name="select-default-value-dialog-tabs">
+            <tab-pane label="常量" name="Const" tab="select-default-value-dialog-tabs">
                 <i-form :label-width="80" style="width: 80%;margin: 50px auto auto;">
                     <form-item label="常量：">
                         <i-input v-model="constValue"></i-input>
                     </form-item>
                 </i-form>
             </tab-pane>
-            <tab-pane label="环境变量" name="EnvVar">
+            <tab-pane label="环境变量" name="EnvVar" tab="select-default-value-dialog-tabs">
                 <div style="height: 45px;border-bottom: dotted 1px #8a8a8a;margin-bottom: 10px;margin-top: 10px">
                     <div style="float: right;padding: 8px;border-radius: 8px;color:orangered;border: solid 1px #adbed8;">已经选择：{{selectText}}</div>
                 </div>
@@ -153,7 +153,10 @@
                 //console.log(formId);
                 $(this.$refs.selectDefaultValueDialogWrap).dialog("open");
                 $(this.$refs.selectDefaultValueDialogWrap).dialog("option", "title", dialogTitle );
-                this.editData=oldData;
+                this.constValue="";
+                this.selectType="Const";
+                this.selectText="";
+                this.selectValue="";
                 this.callBackFunc=callBackFunc;
 
                 RemoteUtility.GetEnvGroupPOList().then((envGroupPOList) => {
@@ -161,6 +164,7 @@
                     this.tree.envGroupTreeObj.expandAll(true);
                     this.tree.envGroupTreeObj._host = this;
                 });
+
             },
             envGroupTreeNodeSelected(event, treeId, treeNode) {
                 // 根节点不触发任何事件1

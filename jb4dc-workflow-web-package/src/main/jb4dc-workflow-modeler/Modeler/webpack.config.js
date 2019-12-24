@@ -7,7 +7,7 @@ const VueLoaderPlugin = require('vue-loader/lib/plugin')
 const webpack = require('webpack');
 
 module.exports = {
-    // JavaScript 执行入口文件
+    // JavaScript 执行入口文件1
     entry: {
         /*"editTableSelectDefaultValue": './EditTable/Renderers/EditTable_SelectDefaultValue.js',*/
         "index": './App.js'
@@ -84,7 +84,7 @@ module.exports = {
                 }
             },
             {
-                test: /\EditTable_SelectDefaultValue\.js$/,
+                test: /\CustTdRenderer\.js$/,
                 use: [ 'script-loader' ]
             }
         ]

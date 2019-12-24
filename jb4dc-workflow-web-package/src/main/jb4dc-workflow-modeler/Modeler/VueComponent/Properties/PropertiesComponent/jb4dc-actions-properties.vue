@@ -20,8 +20,8 @@
         </i-table>
         <div ref="addActionDialog" style="display: none">
             <div>
-                <tabs name="addAction-dialog-tabs">
-                    <tab-pane tab="addAction-dialog-tabs" label="动作设置">
+                <tabs name="add-action-properties-inner-dialog-tabs">
+                    <tab-pane tab="add-action-properties-inner-dialog-tabs" label="动作设置">
                         <table class="properties-dialog-table-wraper" cellpadding="0" cellspacing="0" border="0">
                             <colgroup>
                                 <col style="width: 12%" />
@@ -79,7 +79,7 @@
                             </tbody>
                         </table>
                     </tab-pane>
-                    <tab-pane tab="addAction-dialog-tabs" label="数据设置">
+                    <tab-pane tab="add-action-properties-inner-dialog-tabs" label="数据设置">
                         <div style="float: right;margin: 10px;">
                             <button-group>
                                 <i-button type="success" icon="md-add" @click="addUpdateField"></i-button>
@@ -88,11 +88,40 @@
                         </div>
                         <div id="fieldContainer" class="edit-table-wrap" style="height: 320px;overflow: auto;width: 98%;margin: auto"></div>
                     </tab-pane>
-                    <tab-pane tab="addAction-dialog-tabs" label="API设置">
-
-                    </tab-pane>
-                    <tab-pane tab="addAction-dialog-tabs" label="备注">
-
+                    <tab-pane tab="add-action-properties-inner-dialog-tabs" label="JS/API设置">
+                        <table class="properties-dialog-table-wraper" cellpadding="0" cellspacing="0" border="0">
+                            <colgroup>
+                                <col style="width: 12%" />
+                                <col style="width: 38%" />
+                                <col style="width: 12%" />
+                                <col style="width: 32%" />
+                                <col style="width: 6%" />
+                            </colgroup>
+                            <tbody>
+                            <tr>
+                                <td colspan="5">调用JS方法：</td>
+                            </tr>
+                            <tr>
+                                <td colspan="5" style="background-color: #ffffff">
+                                    <textarea rows="6" v-model="innerDetailInfo.actionDescription"></textarea>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="5">调用API：</td>
+                            </tr>
+                            <tr>
+                                <td colspan="5" style="background-color: #ffffff">
+                                    <div style="float: right;margin: 10px;">
+                                        <button-group>
+                                            <i-button type="success" icon="md-add" @click="addUpdateField"></i-button>
+                                            <i-button type="primary" icon="md-close" @click="removeUpdateField"></i-button>
+                                        </button-group>
+                                    </div>
+                                    <div id="fieldContainer" class="edit-table-wrap" style="height: 130px;overflow: auto;width: 98%;margin: auto"></div>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
                     </tab-pane>
                 </tabs>
 
@@ -146,8 +175,7 @@
                             },{
                                 Title:"设置值",
                                 BindName:"defaultValue",
-                                Renderer:"EditTable_SelectDefaultValue",
-                                Hidden:false
+                                Renderer:"EditTable_SelectDefaultValue"
                             }
                         ],
                         RowIdCreater: function () {

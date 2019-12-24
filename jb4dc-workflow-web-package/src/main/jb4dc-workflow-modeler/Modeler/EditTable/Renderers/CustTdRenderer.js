@@ -1,6 +1,3 @@
-/**
- * Created by zhuangrb on 2018/8/18.
- */
 var EditTable_SelectDefaultValue={
     ClickSelectedButtonCB:null,
     /*
@@ -67,7 +64,7 @@ var EditTable_SelectDefaultValue={
                     }
                 }
             }*/
-            EditTable_SelectDefaultValue.ClickSelectedButtonCB();
+            CustTdRenderer.ClickSelectedButtonCB();
         });
         return $elem;
     },
@@ -106,7 +103,7 @@ var EditTable_SelectDefaultValue={
         }
         //console.log(value);
     }
-}
+};
 var DefaultValueUtility={
     formatText:function (type,text) {
         //debugger;
@@ -121,4 +118,4 @@ var DefaultValueUtility={
         }
         return "未知类型"+text;
     }
-}
+};

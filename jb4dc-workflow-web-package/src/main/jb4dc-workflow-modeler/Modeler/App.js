@@ -18,7 +18,7 @@ import "./Less/ModelerApp.less";
 import Vue from "Vue";
 
 import ModelerApp from "./VueComponent/flow-main-modeler.vue";
-import './EditTable/Renderers/EditTable_SelectDefaultValue.js';
+import './EditTable/Renderers/CustTdRenderer.js';
 
 //EditTable_SelectDefaultValue.Get_CompletedStatus_HtmlElem();
 new Vue({
