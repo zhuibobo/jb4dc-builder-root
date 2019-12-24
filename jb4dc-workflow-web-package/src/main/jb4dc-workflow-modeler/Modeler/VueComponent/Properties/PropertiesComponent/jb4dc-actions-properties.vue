@@ -199,9 +199,14 @@
         methods:{
             beginSelectDefaultValue(){
                 //console.log(this.propFromId);
-                var _self=this;
+                //var _self=this;
                 this.$refs.selectDefaultValueDialog.beginSelectDefaultValue("设置默认值",this.innerDetailInfo.actionDisplayCondition,function(result){
-                    _self.innerDetailInfo.actionDisplayCondition=result;
+                    EditTable_SelectDefaultValue.SetSelectEnvVariableResultValue({
+                        Type:"Const",
+                        Value:"你们",
+                        Text:"你们"
+                    });
+                    //_self.innerDetailInfo.actionDisplayCondition=result;
                 });
             },
             addUpdateField(){

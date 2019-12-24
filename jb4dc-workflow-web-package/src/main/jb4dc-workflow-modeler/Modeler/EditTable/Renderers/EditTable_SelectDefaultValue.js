@@ -54,7 +54,7 @@ var EditTable_SelectDefaultValue={
         var $inputBtn = $("<input class='normalbutton-v1' style='margin-left: 4px;' type='button' value='...'/>")
         $elem.append($inputTxt).append($inputBtn);
         //将inputtext对象附加到window上,提供给后续的设置值的方法.
-        window.$Temp$Inputtxt=$inputTxt;
+        window.$Temp$ETSDV$Inputtxt=$inputTxt;
         $inputBtn.click(function(){
             /*if(window.tableDesion) {
                 tableDesion.selectDefaultValueDialogBegin(EditTable_SelectDefaultValue, null)
@@ -90,8 +90,8 @@ var EditTable_SelectDefaultValue={
         var val = editStausHtmlElem.val();
         return EditTableValidate.Validate(val,template);
     },
-    setSelectEnvVariableResultValue:function (defaultData) {
-        var $inputTxt=window.$Temp$Inputtxt;
+    SetSelectEnvVariableResultValue:function (defaultData) {
+        var $inputTxt=window.$Temp$ETSDV$Inputtxt;
         if(null != defaultData){
             $inputTxt.attr("fieldDefaultType",defaultData.Type);
             $inputTxt.attr("fieldDefaultValue",defaultData.Value);
