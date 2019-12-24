@@ -2,6 +2,7 @@
  * Created by zhuangrb on 2018/8/18.
  */
 var EditTable_SelectDefaultValue={
+    ClickSelectedButtonCB:null,
     /*
      _config:配置对象
      template:当前模版
@@ -55,8 +56,7 @@ var EditTable_SelectDefaultValue={
         //将inputtext对象附加到window上,提供给后续的设置值的方法.
         window.$Temp$Inputtxt=$inputTxt;
         $inputBtn.click(function(){
-            //JBuild4DSelectView.SelectEnvVariable.beginSelect("EditTable_SelectDefaultValue");
-            if(window.tableDesion) {
+            /*if(window.tableDesion) {
                 tableDesion.selectDefaultValueDialogBegin(EditTable_SelectDefaultValue, null)
             }
             else{
@@ -66,7 +66,8 @@ var EditTable_SelectDefaultValue={
                         EditTable_SelectDefaultValue.setSelectEnvVariableResultValue(result);
                     }
                 }
-            }
+            }*/
+            EditTable_SelectDefaultValue.ClickSelectedButtonCB();
         });
         return $elem;
     },

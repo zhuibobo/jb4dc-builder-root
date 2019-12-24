@@ -99,11 +99,13 @@
             </div>
         </div>
         <contextVarJuelEditDialog ref="contextVarJuelEditDialog"></contextVarJuelEditDialog>
+        <selectDefaultValueDialog ref="selectDefaultValueDialog"></selectDefaultValueDialog>
     </div>
 </template>
 
 <script>
     import contextVarJuelEditDialog from "../Dialog/context-var-juel-edit-dialog.vue";
+    import selectDefaultValueDialog from "../Dialog/select-default-value-dialog.vue";
     import { FlowBpmnJsIntegrated } from '../../BpmnJsExtend/FlowBpmnJsIntegrated.js';
     import {RemoteUtility} from '../../../Remote/RemoteUtility';
     //import EditTable_SelectDefaultValue from  '../../../EditTable/Renderers/EditTable_SelectDefaultValue.js';
@@ -112,7 +114,8 @@
     export default {
         name: "jb4dc-actions-properties",
         components: {
-            contextVarJuelEditDialog
+            contextVarJuelEditDialog,
+            selectDefaultValueDialog
         },
         props:["propActionData","propFromId"],
         data(){
@@ -187,8 +190,20 @@
             //this.addedActionData=this.propActionData;
             //this.addActionDialogId="addActionDialogId_"+StringUtility.GuidSplit("");
             flowBpmnJsIntegrated=FlowBpmnJsIntegrated.GetInstance();
+
+            var _self=this;
+            EditTable_SelectDefaultValue.ClickSelectedButtonCB=function () {
+                _self.beginSelectDefaultValue();
+            }
         },
         methods:{
+            beginSelectDefaultValue(){
+                //console.log(this.propFromId);
+                var _self=this;
+                this.$refs.selectDefaultValueDialog.beginSelectDefaultValue("设置默认值",this.innerDetailInfo.actionDisplayCondition,function(result){
+                    _self.innerDetailInfo.actionDisplayCondition=result;
+                });
+            },
             addUpdateField(){
                 this.field.editTableObject.AddEditingRowByTemplate();
             },

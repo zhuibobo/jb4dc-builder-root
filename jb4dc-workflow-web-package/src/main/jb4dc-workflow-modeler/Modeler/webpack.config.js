@@ -92,7 +92,7 @@ module.exports = {
     plugins: [
         new CleanWebpackPlugin (
             {
-                cleanAfterEveryBuildPatterns: ['**/*.js','**/*.css','!**/Images/**'],
+                cleanAfterEveryBuildPatterns: ['**/*.js','**/*.css','!**/Images/**','!**/bpmn-font/**','!**/diagram-js.css'],
             }
         ),
         new CopyWebpackPlugin([

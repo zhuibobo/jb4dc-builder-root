@@ -232,9 +232,6 @@
                         this.tableField.fieldData=[];
                     }
                 });
-            },
-            endEditContextJuel() {
-
             }
         }
     }
