@@ -64,7 +64,7 @@ var EditTable_SelectDefaultValue={
                     }
                 }
             }*/
-            CustTdRenderer.ClickSelectedButtonCB();
+            EditTable_SelectDefaultValue.ClickSelectedButtonCB();
         });
         return $elem;
     },

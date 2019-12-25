@@ -12,6 +12,8 @@
       <w>buttonid</w>
       <w>buttontype</w>
       <w>camunda</w>
+      <w>cellpadding</w>
+      <w>cellspacing</w>
       <w>ckeditor</w>
       <w>creater</w>
       <w>cust</w>

@@ -51,10 +51,20 @@
                                     </td>
                                     <td>弹出意见框：</td>
                                     <td colspan="2">
-                                        <radio-group type="button" style="margin: auto" v-model="innerDetailInfo.showOpinionDialog">
+                                        <radio-group type="button" style="margin: auto" v-model="innerDetailInfo.actionShowOpinionDialog">
                                             <radio label="true">是</radio>
                                             <radio label="false">否</radio>
                                         </radio-group>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>HTML ID：</td>
+                                    <td>
+                                        <input type="text" v-model="innerDetailInfo.actionHTMLId" />
+                                    </td>
+                                    <td>HTML Class：</td>
+                                    <td colspan="2">
+                                        <input type="text" v-model="innerDetailInfo.actionHTMLClass" />
                                     </td>
                                 </tr>
                                 <tr>
@@ -62,7 +72,7 @@
                                 </tr>
                                 <tr>
                                     <td colspan="5" style="background-color: #ffffff">
-                                        <textarea rows="6" v-model="innerDetailInfo.actionDescription"></textarea>
+                                        <textarea rows="4" v-model="innerDetailInfo.actionDescription"></textarea>
                                     </td>
                                 </tr>
                                 <tr>
@@ -70,7 +80,7 @@
                                 </tr>
                                 <tr>
                                     <td colspan="4" style="background-color: #ffffff">
-                                        <textarea rows="4" v-model="innerDetailInfo.actionDisplayCondition"></textarea>
+                                        <textarea rows="3" v-model="innerDetailInfo.actionDisplayCondition"></textarea>
                                     </td>
                                     <td style="background-color: #f8f8f8">
                                         <Button type="primary" @click="beginEditContextJuelForActionDisplayCondition">编辑</Button>
@@ -80,13 +90,33 @@
                         </table>
                     </tab-pane>
                     <tab-pane tab="add-action-properties-inner-dialog-tabs" label="数据设置">
-                        <div style="float: right;margin: 10px;">
-                            <button-group>
-                                <i-button type="success" icon="md-add" @click="addUpdateField"></i-button>
-                                <i-button type="primary" icon="md-close" @click="removeUpdateField"></i-button>
-                            </button-group>
-                        </div>
-                        <div id="fieldContainer" class="edit-table-wrap" style="height: 320px;overflow: auto;width: 98%;margin: auto"></div>
+                        <table class="properties-dialog-table-wraper" cellpadding="0" cellspacing="0" border="0">
+                            <colgroup>
+                                <col style="width: 12%" />
+                                <col style="width: 38%" />
+                                <col style="width: 12%" />
+                                <col style="width: 32%" />
+                                <col style="width: 6%" />
+                            </colgroup>
+                            <tbody>
+                                <tr>
+                                    <td colspan="5" style="line-height: 23px">
+                                        更改字段值：
+                                        <div style="float: right;">
+                                            <button-group>
+                                                <i-button size="small" type="success" icon="md-add" @click="addUpdateField"></i-button>
+                                                <i-button size="small" type="primary" icon="md-close" @click="removeUpdateField"></i-button>
+                                            </button-group>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="5" style="background-color: #ffffff">
+                                        <div id="actionDialogFieldContainer" class="edit-table-wrap" style="height: 350px;overflow: auto;width: 98%;margin: auto"></div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </tab-pane>
                     <tab-pane tab="add-action-properties-inner-dialog-tabs" label="JS/API设置">
                         <table class="properties-dialog-table-wraper" cellpadding="0" cellspacing="0" border="0">
@@ -103,21 +133,24 @@
                             </tr>
                             <tr>
                                 <td colspan="5" style="background-color: #ffffff">
-                                    <textarea rows="6" v-model="innerDetailInfo.actionDescription"></textarea>
+                                    <textarea rows="6" v-model="innerDetailInfo.actionCallJsMethod"></textarea>
                                 </td>
                             </tr>
                             <tr>
-                                <td colspan="5">调用API：</td>
+                                <td colspan="5" style="line-height: 23px">
+                                    调用API：
+                                    <div style="float: right;">
+                                        <button-group>
+                                            <i-button size="small" type="success" icon="md-add" @click="addAPI"></i-button>
+                                            <i-button size="small" type="primary" icon="md-close" @click="removeAPI"></i-button>
+                                        </button-group>
+                                    </div>
+                                </td>
                             </tr>
                             <tr>
                                 <td colspan="5" style="background-color: #ffffff">
-                                    <div style="float: right;margin: 10px;">
-                                        <button-group>
-                                            <i-button type="success" icon="md-add" @click="addUpdateField"></i-button>
-                                            <i-button type="primary" icon="md-close" @click="removeUpdateField"></i-button>
-                                        </button-group>
-                                    </div>
-                                    <div id="fieldContainer" class="edit-table-wrap" style="height: 130px;overflow: auto;width: 98%;margin: auto"></div>
+
+                                    <div id="actionDialogAPISContainer" class="edit-table-wrap" style="height: 174px;overflow: auto;width: 98%;margin: auto"></div>
                                 </td>
                             </tr>
                             </tbody>
@@ -153,9 +186,14 @@
                     actionType:"send",
                     actionCode:"action_"+StringUtility.Timestamp(),
                     actionCaption:"确认",
-                    showOpinionDialog:"false",
+                    actionShowOpinionDialog:"false",
                     actionDescription:"",
-                    actionDisplayCondition:""
+                    actionDisplayCondition:"",
+                    actionCallJsMethod:"",
+                    actionHTMLId:"",
+                    actionHTMLClass:"",
+                    actionUpdateFields:"",
+                    actionCallApis:""
                 },
                 field:{
                     editTableObject:null,
@@ -181,8 +219,30 @@
                         RowIdCreater: function () {
                         },
                         TableClass: "edit-table",
-                        RendererTo: "fieldContainer",
+                        RendererTo: "actionDialogFieldContainer",
                         TableId: "fieldContainerTable",
+                        TableAttrs: {cellpadding: "1", cellspacing: "1", border: "1"}
+                    }
+                },
+                api:{
+                    editTableObject:null,
+                    editTableConfig:{
+                        Status: "Edit",
+                        AddAfterRowEvent: null,
+                        DataField: "fieldName",
+                        Templates: [
+                            {
+                                Title: "调用API",
+                                BindName: "apiValue",
+                                Renderer: "EditTable_Select",
+                                ClientDataSource: [{"Text": "测试1", "Value": "test1"}, {"Text": "测试2", "Value": "test2"}],
+                            }
+                        ],
+                        RowIdCreater: function () {
+                        },
+                        TableClass: "edit-table",
+                        RendererTo: "actionDialogAPISContainer",
+                        TableId: "apiContainerTable",
                         TableAttrs: {cellpadding: "1", cellspacing: "1", border: "1"}
                     }
                 },
@@ -215,30 +275,70 @@
             }
         },
         mounted(){
-            //this.addedActionData=this.propActionData;
-            //this.addActionDialogId="addActionDialogId_"+StringUtility.GuidSplit("");
             flowBpmnJsIntegrated=FlowBpmnJsIntegrated.GetInstance();
-
             var _self=this;
             EditTable_SelectDefaultValue.ClickSelectedButtonCB=function () {
                 _self.beginSelectDefaultValue();
             }
+            DialogUtility.DialogElemObj(_self.$refs.addActionDialog,{
+                title:"新增动作",
+                width:850,
+                height:560,
+                modal:true,
+                buttons: {
+                    "确认": function () {
+                        _self.field.editTableObject.CompletedEditingRow();
+                        _self.api.editTableObject.CompletedEditingRow();
+                        var actionUpdateFields=_self.field.editTableObject.GetAllRowData();
+                        var actionCallApis=_self.api.editTableObject.GetAllRowData();
+                        actionUpdateFields=EditTable.Delete___UndefinedTextProp(actionUpdateFields);
+                        actionCallApis=EditTable.Delete___UndefinedTextProp(actionCallApis);
+                        /*function a(allRowJson){
+                            for (var i = 0; i < allRowJson.length; i++) {
+                                for (var key in allRowJson[i]) {
+                                    if(key.indexOf("___Text")>0){
+                                        if(allRowJson[i][key]==undefined||allRowJson[i][key]=="undefined") {
+                                            delete allRowJson[i][key];
+                                        }
+                                    }
+                                }
+                            }
+                            return allRowJson;
+                        }*/
+
+                        console.log(actionUpdateFields);
+                        console.log(actionCallApis);
+                        _self.addedActionData.push({
+                            actionType:_self.innerDetailInfo.actionType,
+                            actionCode:_self.innerDetailInfo.actionCode,
+                            actionCaption:_self.innerDetailInfo.actionCaption,
+                            actionShowOpinionDialog:"false",
+                            actionDescription:"",
+                            actionDisplayCondition:"",
+                            actionCallJsMethod:"",
+                            actionHTMLId:"",
+                            actionHTMLClass:"",
+                            actionUpdateFields:"",
+                            actionCallApis:""
+                        });
+                        DialogUtility.CloseDialogElem(_self.$refs.addActionDialog);
+                    },
+                    "取消": function () {
+                        DialogUtility.CloseDialogElem(_self.$refs.addActionDialog);
+                    }
+                }
+            },null,{},this);
+            $(this.$refs.addActionDialog).dialog("close");
         },
         methods:{
             beginSelectDefaultValue(){
                 //console.log(this.propFromId);
                 //var _self=this;
                 this.$refs.selectDefaultValueDialog.beginSelectDefaultValue("设置默认值",this.innerDetailInfo.actionDisplayCondition,function(result){
-                    console.log(result);
+                    //console.log(result);
                     EditTable_SelectDefaultValue.SetSelectEnvVariableResultValue(result);
                     //_self.innerDetailInfo.actionDisplayCondition=result;
                 });
-            },
-            addUpdateField(){
-                this.field.editTableObject.AddEditingRowByTemplate();
-            },
-            removeUpdateField(){
-                this.field.editTableObject.RemoveRow();
             },
             beginEditContextJuelForActionDisplayCondition(){
                 //console.log(this.propFromId);
@@ -252,30 +352,26 @@
                 var _self=this;
                 //var dialogElemId=this.addActionDialogId;
                 this.innerDetailInfo.javaClass="";
-                DialogUtility.DialogElemObj(this.$refs.addActionDialog,{
-                    title:"新增动作",
-                    width:850,
-                    height:560,
-                    modal:true,
-                    buttons: {
-                        "确认": function () {
-                            _self.addedActionData.push({
-                                eventName:_self.innerDetailInfo.eventType,
-                                listenerType:_self.innerDetailInfo.listenerType,
-                                value:_self.innerDetailInfo.value
-                            });
-                            DialogUtility.DestroyByElemId(dialogElemId);
-                        },
-                        "取消": function () {
-                            DialogUtility.DestroyByElemId(dialogElemId);
-                        }
-                    }
-                },null,{},this);
+                $(this.$refs.addActionDialog).dialog("open");
+                //$(this.$refs.addActionDialog).dialog("option", "title", dialogTitle );
 
                 //console.log(window.flowBpmnJsIntegrated);
-                this.bindTableFields();
+                this.bindEditTable_TableFields();
+                this.bindEditTable_APIs();
             },
-            bindTableFields:function(oldData) {
+            bindEditTable_APIs(oldData){
+                if (!this.api.editTableObject) {
+                    this.api.editTableObject = Object.create(EditTable);
+                    this.api.editTableObject.Initialization(this.api.editTableConfig);
+                }
+            },
+            addAPI(){
+                this.api.editTableObject.AddEditingRowByTemplate();
+            },
+            removeAPI(){
+                this.api.editTableObject.RemoveRow();
+            },
+            bindEditTable_TableFields(oldData) {
                 //if(this.oldFormId!=this.formId) {
                 var formId=flowBpmnJsIntegrated.TryGetFormId(this.propFromId);
                 RemoteUtility.GetFormResourceBindMainTable(formId).then((tablePO)=>{
@@ -313,6 +409,12 @@
                 if(oldData&&this.field.editTableObject){
                     this.field.editTableObject.LoadJsonData(oldData);
                 }
+            },
+            addUpdateField(){
+                this.field.editTableObject.AddEditingRowByTemplate();
+            },
+            removeUpdateField(){
+                this.field.editTableObject.RemoveRow();
             },
             deleteAction(index,row){
                 this.addedActionData.splice(index, 1);
