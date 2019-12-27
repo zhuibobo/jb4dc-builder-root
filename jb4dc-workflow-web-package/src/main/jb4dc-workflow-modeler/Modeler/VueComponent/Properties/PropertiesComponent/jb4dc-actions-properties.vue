@@ -3,7 +3,7 @@
         <div id="list-button-wrap" class="wf-list-button-outer-wrap">
             <div class="list-button-inner-wrap">
                 <button-group>
-                    <i-button type="success" @click="showAddActionDialog" icon="md-add"> </i-button>
+                    <i-button type="success" @click="showAddActionDialog(null)" icon="md-add"> </i-button>
                     <i-button type="primary" @click="move('up')" icon="md-arrow-up" disabled>  </i-button>
                     <i-button type="primary" @click="move('down')" icon="md-arrow-down" disabled>  </i-button>
                 </button-group>
@@ -15,6 +15,9 @@
             <template slot-scope="{ row, index }" slot="action">
                 <div class="wf-list-font-icon-button-class" @click="deleteAction(index,row)">
                     <Icon type="md-close" />
+                </div>
+                <div class="wf-list-font-icon-button-class" @click="editAction(index,row)">
+                    <Icon type="md-settings" />
                 </div>
             </template>
         </i-table>
@@ -41,7 +44,7 @@
                                     </td>
                                     <td>编号：</td>
                                     <td colspan="2">
-                                        <input type="text" v-model="innerDetailInfo.actionCode" />
+                                        <input type="text" v-model="innerDetailInfo.actionCode" disabled />
                                     </td>
                                 </tr>
                                 <tr>
@@ -173,6 +176,21 @@
     //import EditTable_SelectDefaultValue from  '../../../EditTable/Renderers/EditTable_SelectDefaultValue.js';
 
     var flowBpmnJsIntegrated=null;
+    function getInnerDetailInfo() {
+        return {
+            actionType:"send",
+            actionCode:"action_"+StringUtility.Timestamp(),
+            actionCaption:"确认",
+            actionShowOpinionDialog:"false",
+            actionDescription:"",
+            actionDisplayCondition:"",
+            actionCallJsMethod:"",
+            actionHTMLId:"",
+            actionHTMLClass:"",
+            actionUpdateFields:[],
+            actionCallApis:[]
+        }
+    }
     export default {
         name: "jb4dc-actions-properties",
         components: {
@@ -182,19 +200,7 @@
         props:["propActionData","propFromId"],
         data(){
             return {
-                innerDetailInfo:{
-                    actionType:"send",
-                    actionCode:"action_"+StringUtility.Timestamp(),
-                    actionCaption:"确认",
-                    actionShowOpinionDialog:"false",
-                    actionDescription:"",
-                    actionDisplayCondition:"",
-                    actionCallJsMethod:"",
-                    actionHTMLId:"",
-                    actionHTMLClass:"",
-                    actionUpdateFields:"",
-                    actionCallApis:""
-                },
+                innerDetailInfo:getInnerDetailInfo(),
                 field:{
                     editTableObject:null,
                     editTableConfig:{
@@ -250,7 +256,8 @@
                     {
                         title: '编号',
                         key: 'actionCode',
-                        align: "center",
+                        width: 150,
+                        align: "center"
                     },
                     {
                         title: '标题',
@@ -260,7 +267,20 @@
                     {
                         title: '类型',
                         key: 'actionType',
-                        align: "center"
+                        align: "center",
+                        width: 120
+                    },
+                    {
+                        title: '弹出意见',
+                        key: 'actionShowOpinionDialog',
+                        align: "center",
+                        width: 120
+                    },
+                    {
+                        title: 'HTML ID',
+                        key: 'actionHTMLId',
+                        align: "center",
+                        width: 120
                     },
                     {
                         title: '操作',
@@ -275,6 +295,7 @@
             }
         },
         mounted(){
+            this.addedActionData=this.propActionData;
             flowBpmnJsIntegrated=FlowBpmnJsIntegrated.GetInstance();
             var _self=this;
             EditTable_SelectDefaultValue.ClickSelectedButtonCB=function () {
@@ -287,40 +308,23 @@
                 modal:true,
                 buttons: {
                     "确认": function () {
-                        _self.field.editTableObject.CompletedEditingRow();
-                        _self.api.editTableObject.CompletedEditingRow();
-                        var actionUpdateFields=_self.field.editTableObject.GetAllRowData();
-                        var actionCallApis=_self.api.editTableObject.GetAllRowData();
-                        actionUpdateFields=EditTable.Delete___UndefinedTextProp(actionUpdateFields);
-                        actionCallApis=EditTable.Delete___UndefinedTextProp(actionCallApis);
-                        /*function a(allRowJson){
-                            for (var i = 0; i < allRowJson.length; i++) {
-                                for (var key in allRowJson[i]) {
-                                    if(key.indexOf("___Text")>0){
-                                        if(allRowJson[i][key]==undefined||allRowJson[i][key]=="undefined") {
-                                            delete allRowJson[i][key];
-                                        }
-                                    }
-                                }
-                            }
-                            return allRowJson;
-                        }*/
 
-                        console.log(actionUpdateFields);
-                        console.log(actionCallApis);
-                        _self.addedActionData.push({
-                            actionType:_self.innerDetailInfo.actionType,
-                            actionCode:_self.innerDetailInfo.actionCode,
-                            actionCaption:_self.innerDetailInfo.actionCaption,
-                            actionShowOpinionDialog:"false",
-                            actionDescription:"",
-                            actionDisplayCondition:"",
-                            actionCallJsMethod:"",
-                            actionHTMLId:"",
-                            actionHTMLClass:"",
-                            actionUpdateFields:"",
-                            actionCallApis:""
+                        _self.innerDetailInfo.actionUpdateFields=_self.field.editTableObject.GetAllRowDataExUndefinedTextProp();
+                        _self.innerDetailInfo.actionCallApis=_self.api.editTableObject.GetAllRowDataExUndefinedTextProp();
+                        var cloneInnerDetailInfo=JsonUtility.CloneObjectProp(_self.innerDetailInfo,function (key,sourcePropValue) {
+                            if(key=="actionUpdateFields"||key=="actionCallApis"){
+                                return JsonUtility.JsonToString(sourcePropValue);
+                            }
                         });
+                        console.log(cloneInnerDetailInfo);
+                        if(ArrayUtility.ExistReplaceItem(_self.addedActionData,cloneInnerDetailInfo,function (item) {
+                           return item.actionCode==cloneInnerDetailInfo.actionCode
+                        })){
+
+                        }
+                        else {
+                            _self.addedActionData.push(cloneInnerDetailInfo);
+                        }
                         DialogUtility.CloseDialogElem(_self.$refs.addActionDialog);
                     },
                     "取消": function () {
@@ -348,21 +352,32 @@
                     _self.innerDetailInfo.actionDisplayCondition=result;
                 });
             },
-            showAddActionDialog(){
-                var _self=this;
-                //var dialogElemId=this.addActionDialogId;
-                this.innerDetailInfo.javaClass="";
+            showAddActionDialog(oldInnerDetailInfo){
+                if(!oldInnerDetailInfo){
+                    this.innerDetailInfo=getInnerDetailInfo();
+                }
+                else{
+                    this.innerDetailInfo=oldInnerDetailInfo;
+                }
+                //var _self=this;
                 $(this.$refs.addActionDialog).dialog("open");
                 //$(this.$refs.addActionDialog).dialog("option", "title", dialogTitle );
 
-                //console.log(window.flowBpmnJsIntegrated);
-                this.bindEditTable_TableFields();
-                this.bindEditTable_APIs();
+                this.bindEditTable_TableFields(this.innerDetailInfo.actionUpdateFields);
+                this.bindEditTable_APIs(this.innerDetailInfo.actionCallApis);
             },
+            //API设置
             bindEditTable_APIs(oldData){
                 if (!this.api.editTableObject) {
                     this.api.editTableObject = Object.create(EditTable);
                     this.api.editTableObject.Initialization(this.api.editTableConfig);
+                }
+
+                if(this.api.editTableObject){
+                    this.api.editTableObject.RemoveAllRow();
+                }
+                if(oldData&&this.api.editTableObject){
+                    this.api.editTableObject.LoadJsonData(oldData);
                 }
             },
             addAPI(){
@@ -371,11 +386,11 @@
             removeAPI(){
                 this.api.editTableObject.RemoveRow();
             },
+            //表字段设置
             bindEditTable_TableFields(oldData) {
-                //if(this.oldFormId!=this.formId) {
+
                 var formId=flowBpmnJsIntegrated.TryGetFormId(this.propFromId);
                 RemoteUtility.GetFormResourceBindMainTable(formId).then((tablePO)=>{
-                        //console.log(result);
                         var fieldsData = [];
 
                         if(tablePO) {
@@ -402,7 +417,7 @@
                             this.field.editTableObject.LoadJsonData(oldData);
                         }
                 });
-                //}
+
                 if(this.field.editTableObject){
                     this.field.editTableObject.RemoveAllRow();
                 }
@@ -416,8 +431,19 @@
             removeUpdateField(){
                 this.field.editTableObject.RemoveRow();
             },
+
             deleteAction(index,row){
                 this.addedActionData.splice(index, 1);
+            },
+            editAction(index,row){
+                var cloneInnerDetailInfo=JsonUtility.CloneObjectProp(row,function (key,sourcePropValue) {
+                    if(key=="actionUpdateFields"||key=="actionCallApis"){
+                        return JsonUtility.StringToJson(sourcePropValue);
+                    }
+                });
+                //this.innerDetailInfo=cloneInnerDetailInfo;
+                this.showAddActionDialog(cloneInnerDetailInfo);
+                console.log(this.innerDetailInfo);
             },
             move(type){
 
@@ -427,6 +453,29 @@
             }
         }
     }
+    function ReplaceItem(source, newItem, condition) {
+        for(var i=0;i<source.length;i++){
+            if(condition(source[i])){
+                source.splice(i, 1,newItem);
+            }
+        }
+    }
+    /*function CloneObjectProp(source,propCallBack) {
+        var result={};
+        var cloneSource=JsonUtility.CloneStringify(source);
+        for(var key in cloneSource){
+            var sourcePropValue=cloneSource[key];
+            var newPropValue;
+            if(typeof (propCallBack)=="function"){
+                newPropValue = propCallBack(key,sourcePropValue);
+                if(!newPropValue){
+                    newPropValue=sourcePropValue;
+                }
+            }
+            result[key]=newPropValue;
+        }
+        return result;
+    }*/
 </script>
 
 <style scoped>

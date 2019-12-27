@@ -8,7 +8,7 @@
                 <jb4dcGeneralProperties ref="jb4dcGeneralProperties" :prop-jb4dc-general-data="jb4dc" :propIsProcess="false"></jb4dcGeneralProperties>
             </tab-pane>
             <tab-pane tab="user-task-properties-tabs" label="动作设置">
-                <jb4dcActionsProperties ref="jb4dcActionsProperties" :propFromId="jb4dc.jb4dcFormId"></jb4dcActionsProperties>
+                <jb4dcActionsProperties ref="jb4dcActionsProperties" :propFromId="jb4dc.jb4dcFormId" :propActionData="jb4dc.jb4dcActions"></jb4dcActionsProperties>
             </tab-pane>
             <tab-pane tab="user-task-properties-tabs" label="人员设置">
 

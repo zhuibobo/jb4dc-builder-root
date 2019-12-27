@@ -71,6 +71,88 @@
           "type": "String"
         }
       ]
+    },
+    {
+      "name": "JB4DCActions",
+      "superClass": [ "Element" ],
+      "meta": {
+        "allowedIn": [
+          "bpmn:UserTask",
+          "bpmn:StartEvent"
+        ]
+      },
+      "properties": [
+        {
+          "name": "values",
+          "type": "JB4DCAction",
+          "isMany": true
+        }
+      ]
+    },
+    {
+      "name": "JB4DCAction",
+      "superClass": [ "Element" ],
+      "properties": [
+        {
+          "name": "actionType",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "actionCode",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "actionCaption",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "actionShowOpinionDialog",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "actionDisplayCondition",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "actionCallJsMethod",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "actionHTMLId",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "actionHTMLClass",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "actionUpdateFields",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "actionCallApis",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "script",
+          "type": "Script"
+        },
+        {
+          "name": "fields",
+          "type": "Field",
+          "isMany": true
+        }
+      ]
     }
   ],
   "emumerations": [ ]

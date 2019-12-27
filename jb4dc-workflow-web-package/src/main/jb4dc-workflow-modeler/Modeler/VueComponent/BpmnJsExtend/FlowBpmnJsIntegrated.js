@@ -284,6 +284,7 @@ class FlowBpmnJsIntegrated {
         return result;
     }
     DeSerializationDialogPropsToElem(props,elem){
+        console.log(props);
         BpmnJsUtility.BPMN_Attr_SetName(elem,props.bpmn.name);
         BpmnJsUtility.BPMN_SetElementDocumentationText(elem,props.bpmn.documentation);
 
