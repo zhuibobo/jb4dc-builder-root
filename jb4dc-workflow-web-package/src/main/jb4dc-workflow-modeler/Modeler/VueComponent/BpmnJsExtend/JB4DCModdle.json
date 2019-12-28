@@ -8,7 +8,7 @@
   "associations": [],
   "types": [
     {
-      "name": "JB4DCProcess",
+      "name": "Jb4dcProcess",
       "isAbstract": true,
       "extends": [
         "bpmn:Process"
@@ -47,7 +47,7 @@
       ]
     },
     {
-      "name": "JB4DCUserTask",
+      "name": "Jb4dcUserTask",
       "extends": [ "bpmn:UserTask" ],
       "properties": [
         {
@@ -73,7 +73,7 @@
       ]
     },
     {
-      "name": "JB4DCActions",
+      "name": "Jb4dcActions",
       "superClass": [ "Element" ],
       "meta": {
         "allowedIn": [
@@ -84,13 +84,13 @@
       "properties": [
         {
           "name": "values",
-          "type": "JB4DCAction",
+          "type": "Jb4dcAction",
           "isMany": true
         }
       ]
     },
     {
-      "name": "JB4DCAction",
+      "name": "Jb4dcAction",
       "superClass": [ "Element" ],
       "properties": [
         {
@@ -142,15 +142,6 @@
           "name": "actionCallApis",
           "isAttr": true,
           "type": "String"
-        },
-        {
-          "name": "script",
-          "type": "Script"
-        },
-        {
-          "name": "fields",
-          "type": "Field",
-          "isMany": true
         }
       ]
     }

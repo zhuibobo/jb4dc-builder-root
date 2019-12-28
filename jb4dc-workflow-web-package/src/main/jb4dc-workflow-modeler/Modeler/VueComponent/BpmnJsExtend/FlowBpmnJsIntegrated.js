@@ -1,7 +1,7 @@
 import BpmnModeler from 'bpmn-js/lib/Modeler';
 import camundaModdleDescriptor from 'camunda-bpmn-moddle/resources/camunda';
 import jb4dcModdleDescriptor from './JB4DCModdle.json';
-import diagramXML from '../../Resources/newDiagram3.bpmn';
+import diagramXML from '../../Resources/newDiagram4.bpmn';
 import CustomTranslate from './CustomTranslate';
 import propertiesPadEntity from './AdditionalModules/PropertiesPadEntity';
 import {BpmnJsUtility} from './BpmnJsUtility';
@@ -319,6 +319,10 @@ class FlowBpmnJsIntegrated {
             BpmnJsUtility.CAMUNDA_Attr_SetHistoryTimeToLive(elem, props.camunda.historyTimeToLive);
 
             BpmnJsUtility.JB4DC_Attr_SetJb4dcFlowCategory(elem, props.jb4dc.jb4dcFlowCategory);
+        }
+        else if(BpmnJsUtility.Is_UserTask(elem)){
+            console.log(props.jb4dc.jb4dcActions);
+            BpmnJsUtility.JB4DC_SetActionsArray(elem,props.jb4dc.jb4dcActions,true);
         }
         else{
 

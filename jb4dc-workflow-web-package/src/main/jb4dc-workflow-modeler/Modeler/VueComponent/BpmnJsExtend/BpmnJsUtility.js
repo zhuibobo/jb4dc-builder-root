@@ -509,6 +509,45 @@ class BpmnJsUtility {
     static JB4DC_Attr_SetJb4dcProcessDescription(element, jb4dcProcessDescription){
         this.SetAttr(element,"jb4dcProcessDescription",jb4dcProcessDescription);
     }
+
+    static JB4DC_SetActionsArray(element,ary,autoCreate){
+        var extensionElements=this.BPMN_GetExtensionElements(element);
+        if(autoCreate&&!extensionElements){
+            this.BPMN_CreateExtensionElements(element);
+            extensionElements=this.BPMN_GetExtensionElements(element);
+        }
+        if(extensionElements){
+            if(ary) {
+                //debugger;
+                var bo = element.businessObject;
+
+                var actions = null;
+                if (extensionElements.values) {
+                    actions = ArrayUtility.WhereSingle(extensionElements.values, function (item) {
+                        return item.$type == "jb4dc:Jb4dcActions";
+                    });
+                }
+                else{
+                    extensionElements.values=[];
+                }
+
+                if(!actions){
+                    actions=bo.$model.create('jb4dc:Jb4dcActions');
+                    extensionElements.values.push(actions);
+                }
+                actions.values=[];
+
+                ary.forEach(function (item) {
+                    var jb4dcAction = bo.$model.create('jb4dc:Jb4dcAction', item);
+                    actions.values.push(jb4dcAction);
+                })
+            }
+        }
+        else{
+            var message="元素"+this.BPMN_Attr_GetId(element)+"不存在bpmn:extensionElements子元素!";
+            BaseUtility.ThrowMessage(message);
+        }
+    }
     //#endregion
 
     /*static GetExtensionElements(element, create){
