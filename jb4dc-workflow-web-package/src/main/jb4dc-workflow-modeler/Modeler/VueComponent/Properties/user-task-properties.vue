@@ -11,10 +11,14 @@
                 <jb4dcActionsProperties ref="jb4dcActionsProperties" :propFromId="jb4dc.jb4dcFormId" :propActionData="jb4dc.jb4dcActions"></jb4dcActionsProperties>
             </tab-pane>
             <tab-pane tab="user-task-properties-tabs" label="人员设置">
-
+                <div>
+                    先沿用camunda中对于接收人的设置
+                </div>
             </tab-pane>
             <tab-pane tab="user-task-properties-tabs" label="权限设置">
-
+                <div>
+                    开发中
+                </div>
             </tab-pane>
             <tab-pane tab="user-task-properties-tabs" label="CMA-Execution-Listeners">
                 <listenersProperties ref="listenersProperties" :prop-listener-data="camunda.executionListener"></listenersProperties>
