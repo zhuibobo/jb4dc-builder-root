@@ -58,9 +58,13 @@
             this.bpmn=this.propElemProperties.bpmn;
             this.camunda=this.propElemProperties.camunda;
             this.jb4dc=this.propElemProperties.jb4dc;
+            //console.log(this.propElemProperties);
         },
         mounted() {
             //alert("hello alex");
+        },
+        beforeDestroy(){
+
         },
         methods: {
             getValue() {

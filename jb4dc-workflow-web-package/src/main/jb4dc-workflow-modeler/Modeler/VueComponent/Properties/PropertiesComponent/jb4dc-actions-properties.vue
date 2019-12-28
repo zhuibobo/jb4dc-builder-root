@@ -334,6 +334,11 @@
             },null,{},this);
             $(this.$refs.addActionDialog).dialog("close");
         },
+        beforeDestroy(){
+            //console.log("beforeDestroy");
+            $("#actionDialogFieldContainer").remove();
+            $("#actionDialogAPISContainer").remove();
+        },
         methods:{
             beginSelectDefaultValue(){
                 //console.log(this.propFromId);

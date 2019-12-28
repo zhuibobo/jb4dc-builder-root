@@ -278,6 +278,7 @@ class FlowBpmnJsIntegrated {
         result.jb4dc.jb4dcTenantId=BpmnJsUtility.JB4DC_Attr_GetJb4dcTenantId(elem);
         result.jb4dc.jb4dcProcessTitle=BpmnJsUtility.JB4DC_Attr_GetJb4dcProcessTitle(elem);
         result.jb4dc.jb4dcProcessDescription=BpmnJsUtility.JB4DC_Attr_GetJb4dcProcessDescription(elem);
+        result.jb4dc.jb4dcActions=BpmnJsUtility.JB4DC_GetActionsArray(elem);
         //console.log(PODefinition.GetDialogPropertiesPO().bpmn.id);
         //console.log(result.bpmn.id);
         //console.log(result);

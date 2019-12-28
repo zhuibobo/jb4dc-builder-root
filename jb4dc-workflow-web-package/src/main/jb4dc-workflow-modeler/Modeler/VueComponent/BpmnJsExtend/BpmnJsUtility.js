@@ -510,6 +510,22 @@ class BpmnJsUtility {
         this.SetAttr(element,"jb4dcProcessDescription",jb4dcProcessDescription);
     }
 
+    static JB4DC_GetActionsArray(element){
+        var extensionElements=this.BPMN_GetExtensionElements(element);
+        if(extensionElements){
+            if(extensionElements.values){
+                var actions;
+                actions = ArrayUtility.WhereSingle(extensionElements.values, function (item) {
+                    return item.$type == "jb4dc:Jb4dcActions";
+                });
+                if(actions&&actions.values){
+                    return actions.values
+                }
+                return null;
+            }
+        }
+        return null;
+    }
     static JB4DC_SetActionsArray(element,ary,autoCreate){
         var extensionElements=this.BPMN_GetExtensionElements(element);
         if(autoCreate&&!extensionElements){

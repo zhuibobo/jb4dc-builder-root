@@ -125,7 +125,12 @@
                                 DialogUtility.CloseByElemId(dialogElemId);
                             }
                         }
-                    },null,{},this
+                    },function () {
+                        //debugger;
+                        //console.log("dest112");
+                        _self.elemPropertiesDialogView=emptyProperties;
+                        //_self.$destroy(_self.elemPropertiesDialogView);
+                    },{},this
                 );
                 this.currentEditProperties=elemToDialogProps;
                 /*console.log(_self.$refs.dialogPropertiesWindow);
