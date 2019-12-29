@@ -186,11 +186,50 @@
                 //this.selectedCodeMirror=instance;
                 this.editData = instance.getValue();
             });
+
+            this.tryResolveTextToValue();
         },
         methods: {
             tryResolveTextToValue(editText){
-                console.log(editText);
-                var editValue="";
+                //editText="${表字段.TDEV_TEST_2.记录时间}${表字段.TDEV_TEST_2.组织名称}${表字段.TDEV_TEST_2.F_NTEXT_1}${环境变量.年年年年-月月-日日 时:分:秒}${环境变量.年年年年/月月/日日}${环境变量.静态值-否}${表字段.TDEV_TEST_2.F_TABLE1_ID}";
+                //console.log(editText);
+                var editValue=editText;
+                var reg = new RegExp("\\$\\{[^\\}]*\\}","g");
+                //console.log(reg.exec(editText));
+                var result="";
+
+                var textItemFull;
+                var valueItemFull;
+                var itemTypeText;
+                var itemTypeValue;
+                var itemText;
+                var itemValue;
+                while ((result = reg.exec(editText)) != null)  {
+                    textItemFull=result.toString();
+                    itemTypeText=textItemFull.substring(2,textItemFull.indexOf("."));
+                    itemText=textItemFull.substring(textItemFull.indexOf(".")+1,textItemFull.length-1);
+
+                    switch (itemTypeText) {
+                        case "环境变量":{
+                            itemTypeValue="EnvVar";
+                            itemValue=RemoteUtility.GetEnvVariableValueByEnvText(itemText);
+                        }break;
+                        case "表字段":{
+                            itemTypeValue="TableField";
+                            itemValue=itemText.split(".")[0]+"."+RemoteUtility.GetTableFieldNameByFieldCaption(itemText.split(".")[0],itemText.split(".")[1]);
+                        }break;
+                        default: break;
+                    }
+                    valueItemFull="${"+itemTypeValue+"."+itemValue+"}";
+                    editValue = editValue.replace(textItemFull,valueItemFull);
+
+                    /*console.log(editText);
+                    console.log(editValue);
+                    console.log(result);
+                    console.log(result.toString());
+                    console.log(reg.lastIndex);*/
+                }
+
                 return {
                     editText:editText,
                     editValue:editValue
@@ -204,11 +243,11 @@
             },
             insertTableFieldToCodeMirror:function (fieldJson) {
                 //console.log(fieldJson);
-                this.insertCodeAtCursor('${'+fieldJson.tableName+"."+fieldJson.fieldName+'}');
+                this.insertCodeAtCursor('${表字段.'+fieldJson.tableName+"."+fieldJson.fieldCaption+'}');
             },
             insertEnvVarToEditor:function(evnJson) {
                 //console.log(evnJson);
-                this.insertCodeAtCursor('${EnvVar.' + evnJson.envVarText + '}');
+                this.insertCodeAtCursor('${环境变量.' + evnJson.envVarText + '}');
             },
             envGroupTreeNodeSelected(event, treeId, treeNode) {
                 // 根节点不触发任何事件1

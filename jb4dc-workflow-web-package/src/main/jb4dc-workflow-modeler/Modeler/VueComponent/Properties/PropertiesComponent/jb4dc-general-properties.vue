@@ -39,7 +39,7 @@
                 <tr>
                     <td rowspan="2">流程标题：</td>
                     <td colspan="3">
-                        <textarea v-model="jb4dc.jb4dcProcessTitleEditText" rows="1" disabled="disabled"></textarea>
+                        <textarea v-model="jb4dc.jb4dcProcessTitleEditText" rows="2" disabled="disabled"></textarea>
                     </td>
                     <td rowspan="2">
                         <Button type="primary" @click="beginEditContextJuelForFlowProcessTitle">编辑</Button>
@@ -47,13 +47,13 @@
                 </tr>
                 <tr>
                     <td colspan="3" style="background-color: #fff">
-                        <textarea v-model="jb4dc.jb4dcProcessTitleEditValue" rows="1" disabled="disabled"></textarea>
+                        <textarea v-model="jb4dc.jb4dcProcessTitleEditValue" rows="2" disabled="disabled"></textarea>
                     </td>
                 </tr>
                 <tr>
                     <td rowspan="2">流程备注：</td>
                     <td colspan="3">
-                        <textarea v-model="jb4dc.jb4dcProcessDescriptionEditText" rows="5" disabled="disabled"></textarea>
+                        <textarea v-model="jb4dc.jb4dcProcessDescriptionEditText" rows="4" disabled="disabled"></textarea>
                     </td>
                     <td rowspan="2">
                         <Button type="primary" @click="beginEditContextJuelForFlowProcessDescription">编辑</Button>
@@ -61,7 +61,7 @@
                 </tr>
                 <tr>
                     <td colspan="3" style="background-color: #fff">
-                        <textarea v-model="jb4dc.jb4dcProcessDescriptionEditValue" rows="5" disabled="disabled"></textarea>
+                        <textarea v-model="jb4dc.jb4dcProcessDescriptionEditValue" rows="4" disabled="disabled"></textarea>
                     </td>
                 </tr>
             </tbody>
