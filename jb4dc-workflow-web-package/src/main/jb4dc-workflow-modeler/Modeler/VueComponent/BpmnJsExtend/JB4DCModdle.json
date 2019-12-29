@@ -35,12 +35,22 @@
           "type": "String"
         },
         {
-          "name": "jb4dcProcessTitle",
+          "name": "jb4dcProcessTitleEditText",
           "isAttr": true,
           "type": "String"
         },
         {
-          "name": "jb4dcProcessDescription",
+          "name": "jb4dcProcessTitleEditValue",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "jb4dcProcessDescriptionEditText",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "jb4dcProcessDescriptionEditValue",
           "isAttr": true,
           "type": "String"
         }
@@ -61,12 +71,22 @@
           "type": "String"
         },
         {
-          "name": "jb4dcProcessTitle",
+          "name": "jb4dcProcessTitleEditText",
           "isAttr": true,
           "type": "String"
         },
         {
-          "name": "jb4dcProcessDescription",
+          "name": "jb4dcProcessTitleEditValue",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "jb4dcProcessDescriptionEditText",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "jb4dcProcessDescriptionEditValue",
           "isAttr": true,
           "type": "String"
         }

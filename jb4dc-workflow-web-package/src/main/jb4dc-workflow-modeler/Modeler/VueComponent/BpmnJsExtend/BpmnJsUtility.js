@@ -496,18 +496,32 @@ class BpmnJsUtility {
         this.SetAttr(element,"jb4dcTenantId",jb4dcTenantId);
     }
 
-    static JB4DC_Attr_GetJb4dcProcessTitle(element){
-        return this.GetAttr(element,"jb4dcProcessTitle");
+    static JB4DC_Attr_GetJb4dcProcessTitleEditText(element){
+        return this.GetAttr(element,"jb4dcProcessTitleEditText");
     }
-    static JB4DC_Attr_SetJb4dcProcessTitle(element, jb4dcProcessTitle){
-        this.SetAttr(element,"jb4dcProcessTitle",jb4dcProcessTitle);
+    static JB4DC_Attr_SetJb4dcProcessTitleEditText(element, jb4dcProcessTitleEditText){
+        this.SetAttr(element,"jb4dcProcessTitleEditText",jb4dcProcessTitleEditText);
     }
 
-    static JB4DC_Attr_GetJb4dcProcessDescription(element){
-        return this.GetAttr(element,"jb4dcProcessDescription");
+    static JB4DC_Attr_GetJb4dcProcessTitleEditValue(element){
+        return this.GetAttr(element,"jb4dcProcessTitleEditValue");
     }
-    static JB4DC_Attr_SetJb4dcProcessDescription(element, jb4dcProcessDescription){
-        this.SetAttr(element,"jb4dcProcessDescription",jb4dcProcessDescription);
+    static JB4DC_Attr_SetJb4dcProcessTitleEditValue(element, jb4dcProcessTitleEditValue){
+        this.SetAttr(element,"jb4dcProcessTitleEditValue",jb4dcProcessTitleEditValue);
+    }
+
+    static JB4DC_Attr_GetJb4dcProcessDescriptionEditText(element){
+        return this.GetAttr(element,"jb4dcProcessDescriptionEditText");
+    }
+    static JB4DC_Attr_SetJb4dcProcessDescriptionEditText(element, jb4dcProcessDescriptionEditText){
+        this.SetAttr(element,"jb4dcProcessDescriptionEditText",jb4dcProcessDescriptionEditText);
+    }
+
+    static JB4DC_Attr_GetJb4dcProcessDescriptionEditValue(element){
+        return this.GetAttr(element,"jb4dcProcessDescriptionEditValue");
+    }
+    static JB4DC_Attr_SetJb4dcProcessDescriptionEditValue(element, jb4dcProcessDescriptionEditValue){
+        this.SetAttr(element,"jb4dcProcessDescriptionEditValue",jb4dcProcessDescriptionEditValue);
     }
 
     static JB4DC_GetActionsArray(element){

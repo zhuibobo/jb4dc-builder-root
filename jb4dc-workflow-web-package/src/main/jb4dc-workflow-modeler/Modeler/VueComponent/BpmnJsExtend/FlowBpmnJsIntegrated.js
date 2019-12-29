@@ -276,8 +276,10 @@ class FlowBpmnJsIntegrated {
         result.jb4dc.jb4dcCode=BpmnJsUtility.JB4DC_Attr_GetJb4dcCode(elem);
         result.jb4dc.jb4dcFormId=BpmnJsUtility.JB4DC_Attr_GetJb4dcFormId(elem);
         result.jb4dc.jb4dcTenantId=BpmnJsUtility.JB4DC_Attr_GetJb4dcTenantId(elem);
-        result.jb4dc.jb4dcProcessTitle=BpmnJsUtility.JB4DC_Attr_GetJb4dcProcessTitle(elem);
-        result.jb4dc.jb4dcProcessDescription=BpmnJsUtility.JB4DC_Attr_GetJb4dcProcessDescription(elem);
+        result.jb4dc.jb4dcProcessTitleEditText=BpmnJsUtility.JB4DC_Attr_GetJb4dcProcessTitleEditText(elem);
+        result.jb4dc.jb4dcProcessTitleEditValue=BpmnJsUtility.JB4DC_Attr_GetJb4dcProcessTitleEditValue(elem);
+        result.jb4dc.jb4dcProcessDescriptionEditText=BpmnJsUtility.JB4DC_Attr_GetJb4dcProcessDescriptionEditText(elem);
+        result.jb4dc.jb4dcProcessDescriptionEditValue=BpmnJsUtility.JB4DC_Attr_GetJb4dcProcessDescriptionEditValue(elem);
         result.jb4dc.jb4dcActions=BpmnJsUtility.JB4DC_GetActionsArray(elem);
         //console.log(PODefinition.GetDialogPropertiesPO().bpmn.id);
         //console.log(result.bpmn.id);
@@ -292,8 +294,10 @@ class FlowBpmnJsIntegrated {
         BpmnJsUtility.JB4DC_Attr_SetJb4dcCode(elem, props.jb4dc.jb4dcCode);
         BpmnJsUtility.JB4DC_Attr_SetJb4dcFormId(elem, props.jb4dc.jb4dcFormId);
         BpmnJsUtility.JB4DC_Attr_SetJb4dcTenantId(elem, props.jb4dc.jb4dcTenantId);
-        BpmnJsUtility.JB4DC_Attr_SetJb4dcProcessTitle(elem, props.jb4dc.jb4dcProcessTitle);
-        BpmnJsUtility.JB4DC_Attr_SetJb4dcProcessDescription(elem, props.jb4dc.jb4dcProcessDescription);
+        BpmnJsUtility.JB4DC_Attr_SetJb4dcProcessTitleEditText(elem, props.jb4dc.jb4dcProcessTitleEditText);
+        BpmnJsUtility.JB4DC_Attr_SetJb4dcProcessTitleEditValue(elem, props.jb4dc.jb4dcProcessTitleEditValue);
+        BpmnJsUtility.JB4DC_Attr_SetJb4dcProcessDescriptionEditText(elem, props.jb4dc.jb4dcProcessDescriptionEditText);
+        BpmnJsUtility.JB4DC_Attr_SetJb4dcProcessDescriptionEditValue(elem, props.jb4dc.jb4dcProcessDescriptionEditValue);
 
         if(props.camunda.executionListener&&props.camunda.executionListener.length>0) {
             BpmnJsUtility.CAMUNDA_SetExecutionListenerArray(elem, props.camunda.executionListener, true);

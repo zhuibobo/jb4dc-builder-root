@@ -153,14 +153,15 @@
                 buttons: {
                     "确认": function () {
                         if(typeof (_self.callBackFunc=="function")) {
-                            _self.callBackFunc(_self.editData);
+                            var result=_self.tryResolveTextToValue(_self.editData);
+                            _self.callBackFunc(result);
                         }
                         DialogUtility.CloseDialogElem(_self.$refs.editDialogWrap);
                     },
                     "清空": function () {
                         _self.editData="";
                         if(typeof (_self.callBackFunc=="function")) {
-                            _self.callBackFunc(_self.editData);
+                            _self.callBackFunc(_self.tryResolveTextToValue(""));
                         }
                         DialogUtility.CloseDialogElem(_self.$refs.editDialogWrap);
                     },
@@ -187,6 +188,14 @@
             });
         },
         methods: {
+            tryResolveTextToValue(editText){
+                console.log(editText);
+                var editValue="";
+                return {
+                    editText:editText,
+                    editValue:editValue
+                }
+            },
             insertCodeAtCursor(code) {
                 //console.log(code);
                 var doc = this.selectedCodeMirror.getDoc();
@@ -209,7 +218,7 @@
             },
             beginEditContextJuel(dialogTitle,oldData,formId,callBackFunc) {
                 //console.log("...........1...");
-                console.log(formId);
+                //console.log(formId);
                 $(this.$refs.editDialogWrap).dialog("open");
                 $(this.$refs.editDialogWrap).dialog("option", "title", dialogTitle );
                 this.editData=oldData;

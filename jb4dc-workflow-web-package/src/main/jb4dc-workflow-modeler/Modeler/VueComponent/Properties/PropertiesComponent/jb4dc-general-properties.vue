@@ -37,21 +37,31 @@
                     </td>
                 </tr>
                 <tr>
-                    <td>流程标题：</td>
+                    <td rowspan="2">流程标题：</td>
                     <td colspan="3">
-                        <textarea id="txtFlowProcessTitle" v-model="jb4dc.jb4dcProcessTitle" rows="1"></textarea>
+                        <textarea v-model="jb4dc.jb4dcProcessTitleEditText" rows="1" disabled="disabled"></textarea>
                     </td>
-                    <td>
+                    <td rowspan="2">
                         <Button type="primary" @click="beginEditContextJuelForFlowProcessTitle">编辑</Button>
                     </td>
                 </tr>
                 <tr>
-                    <td>流程备注：</td>
-                    <td colspan="3">
-                        <textarea id="txtFlowProcessDescription" v-model="jb4dc.jb4dcProcessDescription" rows="12"></textarea>
+                    <td colspan="3" style="background-color: #fff">
+                        <textarea v-model="jb4dc.jb4dcProcessTitleEditValue" rows="1" disabled="disabled"></textarea>
                     </td>
-                    <td>
+                </tr>
+                <tr>
+                    <td rowspan="2">流程备注：</td>
+                    <td colspan="3">
+                        <textarea v-model="jb4dc.jb4dcProcessDescriptionEditText" rows="5" disabled="disabled"></textarea>
+                    </td>
+                    <td rowspan="2">
                         <Button type="primary" @click="beginEditContextJuelForFlowProcessDescription">编辑</Button>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="3" style="background-color: #fff">
+                        <textarea v-model="jb4dc.jb4dcProcessDescriptionEditValue" rows="5" disabled="disabled"></textarea>
                     </td>
                 </tr>
             </tbody>
@@ -105,15 +115,17 @@
                 //var
                 var _self=this;
                 var formId=flowBpmnJsIntegrated.TryGetFormId(this.jb4dc.jb4dcFormId);
-                this.$refs.contextVarJuelEditDialog.beginEditContextJuel("编辑实例标题",this.jb4dc.jb4dcProcessTitle,formId,function(result){
-                    _self.jb4dc.jb4dcProcessTitle=result;
+                this.$refs.contextVarJuelEditDialog.beginEditContextJuel("编辑实例标题",this.jb4dc.jb4dcProcessTitleEditText,formId,function(result){
+                    _self.jb4dc.jb4dcProcessTitleEditText=result.editText;
+                    _self.jb4dc.jb4dcProcessTitleEditValue=result.editValue;
                 });
             },
             beginEditContextJuelForFlowProcessDescription(){
                 var _self=this;
                 var formId=flowBpmnJsIntegrated.TryGetFormId(this.jb4dc.jb4dcFormId);
-                this.$refs.contextVarJuelEditDialog.beginEditContextJuel("编辑实例备注",this.jb4dc.jb4dcProcessDescription,formId,function(result){
-                    _self.jb4dc.jb4dcProcessDescription=result;
+                this.$refs.contextVarJuelEditDialog.beginEditContextJuel("编辑实例备注",this.jb4dc.jb4dcProcessDescriptionEditText,formId,function(result){
+                    _self.jb4dc.jb4dcProcessDescriptionEditText=result.editText;
+                    _self.jb4dc.jb4dcProcessDescriptionEditValue=result.editValue;
                 });
             },
             /**/

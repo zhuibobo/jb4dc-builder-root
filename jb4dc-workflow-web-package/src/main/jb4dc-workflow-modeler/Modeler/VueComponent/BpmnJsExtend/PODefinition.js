@@ -29,8 +29,10 @@ class PODefinition{
                 jb4dcCode:"",
                 jb4dcFormId:"",
                 jb4dcTenantId:"",
-                jb4dcProcessTitle:"",
-                jb4dcProcessDescription:"",
+                jb4dcProcessTitleEditText:"",
+                jb4dcProcessTitleEditValue:"",
+                jb4dcProcessDescriptionEditText:"",
+                jb4dcProcessDescriptionEditValue:"",
                 jb4dcActions:[]
             }
         }
