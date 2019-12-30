@@ -1,7 +1,7 @@
 import BpmnModeler from 'bpmn-js/lib/Modeler';
 import camundaModdleDescriptor from 'camunda-bpmn-moddle/resources/camunda';
 import jb4dcModdleDescriptor from './JB4DCModdle.json';
-import diagramXML from '../../Resources/newDiagram2.bpmn';
+import diagramXML from '../../Resources/newDiagram3.bpmn';
 import CustomTranslate from './CustomTranslate';
 import propertiesPadEntity from './AdditionalModules/PropertiesPadEntity';
 import {BpmnJsUtility} from './BpmnJsUtility';
@@ -65,6 +65,7 @@ class FlowBpmnJsIntegrated {
         //console.log(propertiesPadEntity.propertiesPadEntity);
 
         this.modeler.importXML(diagramXML,  (err) => {
+
             if (err) {
                 console.log(err);
             }
@@ -73,6 +74,8 @@ class FlowBpmnJsIntegrated {
                 //console.log(BpmnJsUtility.GetElement(this.modeler,"P004_001"));
                 //console.log(BpmnJsUtility.GetProcessElement(this.modeler));
                 this.setting.ChangeSelectedElemCB(BpmnJsUtility.GetProcessElement(this.modeler));
+
+                console.log(this.modeler._definitions);
             }
         });
         eventBus = this.modeler.get('eventBus');
@@ -113,6 +116,8 @@ class FlowBpmnJsIntegrated {
                 //var elemToDialogProps=this.SerializationElemToDialogProps(event.element);
                 this.setting.ChangeSelectedElemCB(event.element);
             }
+            //console.log(event.element);
+            BpmnJsUtility.JB4DC_TryGetMayBeActionsBySequenceFlowId(this.modeler,BpmnJsUtility.BPMN_Attr_GetId(event.element));
             var clickEventName = event.element.type.replace("bpmn:", "BPMN_") + "ClickEvent";
             if (this[clickEventName] && typeof (this[clickEventName]) == "function") {
                 this[clickEventName](event, event.element);
@@ -157,6 +162,9 @@ class FlowBpmnJsIntegrated {
     }
     static GetInstance(){
         return this.singleFlowBpmnJsIntegrated;
+    }
+    GetModeler(){
+        return this.modeler;
     }
     BPMN_ProcessClickEvent (event,element){
         return;
@@ -281,6 +289,9 @@ class FlowBpmnJsIntegrated {
         result.jb4dc.jb4dcProcessDescriptionEditText=BpmnJsUtility.JB4DC_Attr_GetJb4dcProcessDescriptionEditText(elem);
         result.jb4dc.jb4dcProcessDescriptionEditValue=BpmnJsUtility.JB4DC_Attr_GetJb4dcProcessDescriptionEditValue(elem);
         result.jb4dc.jb4dcActions=BpmnJsUtility.JB4DC_GetActionsArray(elem);
+        if(!result.jb4dc.jb4dcActions){
+            result.jb4dc.jb4dcActions=[];
+        }
         //console.log(PODefinition.GetDialogPropertiesPO().bpmn.id);
         //console.log(result.bpmn.id);
         //console.log(result);

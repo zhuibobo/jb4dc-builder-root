@@ -37,6 +37,31 @@ class PODefinition{
             }
         }
     }
+    static GetJB4DCActionPO(){
+        return {
+            actionType:"send",
+            actionCode:"action_"+StringUtility.Timestamp(),
+            actionCaption:"确认",
+            actionShowOpinionDialog:"false",
+            actionDescription:"",
+            actionDisplayConditionEditText:"",
+            actionDisplayConditionEditValue:"",
+            actionCallJsMethod:"",
+            actionHTMLId:"",
+            actionHTMLClass:"",
+            actionUpdateFields:[],
+            actionCallApis:[]
+        }
+    }
+    static RemoveExcludeProp(templatePO,actualPO){
+        var result={};
+        for(var key in templatePO){
+            if(actualPO[key]){
+                result[key]=actualPO[key];
+            }
+        }
+        return result;
+    }
 }
 
 export { PODefinition };

@@ -33,13 +33,21 @@
                     </tr>
                     <tr>
                         <td colspan="4">
-                            <div style="height: 118px;width: 100%;overflow-y: auto;overflow-x: hidden"></div>
+                            <div style="height: 208px;width: 800px;overflow-y: auto;overflow-x: hidden;margin: auto">
+                                <Carousel v-model="value1" loop>
+                                    <CarouselItem v-for="fromTask in mayBeFromTaskList">
+                                        <div class="demo-carousel">
+                                            {{fromTask.taskElem.businessObject.name}}
+                                        </div>
+                                    </CarouselItem>
+                                </Carousel>
+                            </div>
                         </td>
                     </tr>
                     <tr>
                         <td>Documentation：</td>
                         <td colspan="4">
-                            <textarea rows="11" v-model="bpmn.documentation"></textarea>
+                            <textarea rows="6" v-model="bpmn.documentation"></textarea>
                         </td>
                     </tr>
                     </tbody>
@@ -62,7 +70,8 @@
     import jb4dcGeneralProperties from "./PropertiesComponent/jb4dc-general-properties.vue";
     import jb4dcActionsProperties from "./PropertiesComponent/jb4dc-actions-properties.vue";
     import { PODefinition } from "../BpmnJsExtend/PODefinition.js"
-
+    import { BpmnJsUtility } from '../BpmnJsExtend/BpmnJsUtility';
+    import { FlowBpmnJsIntegrated } from '../BpmnJsExtend/FlowBpmnJsIntegrated';
     export default {
         name: "sequence-flow-properties",
         components: {
@@ -73,16 +82,33 @@
             jb4dcActionsProperties
         },
         props:["propElemProperties"],
-        data:function () {
+        data() {
             return {
-                bpmn:PODefinition.GetDialogPropertiesPO().bpmn,
-                camunda:PODefinition.GetDialogPropertiesPO().camunda,
-                jb4dc:PODefinition.GetDialogPropertiesPO().jb4dc
+                value1:0,
+                bpmn: PODefinition.GetDialogPropertiesPO().bpmn,
+                camunda: PODefinition.GetDialogPropertiesPO().camunda,
+                jb4dc: PODefinition.GetDialogPropertiesPO().jb4dc,
+                mayBeFromTaskList:[]
+            }
+        },
+        created(){
+            this.bpmn=this.propElemProperties.bpmn;
+            this.camunda=this.propElemProperties.camunda;
+            this.jb4dc=this.propElemProperties.jb4dc;
+            this.mayBeFromTaskList=BpmnJsUtility.JB4DC_TryGetMayBeActionsBySequenceFlowId(FlowBpmnJsIntegrated.GetInstance().GetModeler(),this.bpmn.id);
+            console.log(this.bpmn.id);
+            console.log();
+        },
+        methods:{
+            beginEditContextJuelForFlowProcessTitle(){
             }
         }
     }
 </script>
 
 <style scoped>
-
+    .demo-carousel{
+        height: 206px;
+        background-color: #e6f6f9;
+    }
 </style>

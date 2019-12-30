@@ -134,7 +134,12 @@
           "type": "String"
         },
         {
-          "name": "actionDisplayCondition",
+          "name": "actionDisplayConditionEditText",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "actionDisplayConditionEditValue",
           "isAttr": true,
           "type": "String"
         },

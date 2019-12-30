@@ -1,3 +1,5 @@
+import { PODefinition } from "./PODefinition.js"
+
 class BpmnJsUtility {
     static GetAttr(element,attr){
         var bo = element.businessObject;
@@ -568,7 +570,7 @@ class BpmnJsUtility {
                 actions.values=[];
 
                 ary.forEach(function (item) {
-                    var jb4dcAction = bo.$model.create('jb4dc:Jb4dcAction', item);
+                    var jb4dcAction = bo.$model.create('jb4dc:Jb4dcAction', PODefinition.RemoveExcludeProp(PODefinition.GetJB4DCActionPO(),item));
                     actions.values.push(jb4dcAction);
                 })
             }
@@ -577,6 +579,83 @@ class BpmnJsUtility {
             var message="元素"+this.BPMN_Attr_GetId(element)+"不存在bpmn:extensionElements子元素!";
             BaseUtility.ThrowMessage(message);
         }
+    }
+
+    static _LoopFindSourceRefIsUserTaskBusinessObject(elemBusinessObject,userTaskListBusinessObject,searchedElemId){
+        //debugger;
+        if(!searchedElemId){
+            searchedElemId=elemBusinessObject.id;
+        }
+        else{
+            searchedElemId+=";"+elemBusinessObject.id;
+        }
+        if(elemBusinessObject.sourceRef){
+            var sourceRefElement=elemBusinessObject.sourceRef;
+            if(sourceRefElement.$type=="bpmn:UserTask"){
+                userTaskListBusinessObject.push(sourceRefElement);
+            }
+            else{
+                if(searchedElemId.indexOf(sourceRefElement.id)<=0) {
+                    this._LoopFindSourceRefIsUserTaskBusinessObject(sourceRefElement, userTaskListBusinessObject,searchedElemId);
+                }
+            }
+        }
+        if(elemBusinessObject.incoming){
+            var incomingSequenceFlowElementList=elemBusinessObject.incoming;
+            for (var i = 0; i < incomingSequenceFlowElementList.length; i++) {
+                var tempSequenceFlowElement=incomingSequenceFlowElementList[i];
+                if(searchedElemId.indexOf(tempSequenceFlowElement.id)<=0) {
+                    this._LoopFindSourceRefIsUserTaskBusinessObject(tempSequenceFlowElement, userTaskListBusinessObject, searchedElemId);
+                }
+            }
+        }
+    }
+    static JB4DC_TryGetMayUserTaskBusinessObjectBySequenceFlowId(bpmnModeler,elementId){
+        var sequenceFlowElement=this.GetElement(bpmnModeler,elementId);
+        //console.log(sequenceFlowElement.businessObject);
+        var userTaskListBusinessObject=[];
+        this._LoopFindSourceRefIsUserTaskBusinessObject(sequenceFlowElement.businessObject,userTaskListBusinessObject);
+        userTaskListBusinessObject=ArrayUtility.Unique(userTaskListBusinessObject);
+        //console.log(userTaskList);
+        return userTaskListBusinessObject;
+        /*if(sequenceFlowElement.type=="bpmn:SequenceFlow"){
+            var bo = sequenceFlowElement.businessObject;
+            var sourceRefElement=bo.sourceRef;
+            console.log(sourceRefElement);
+            if(sourceRefElement.$type=="bpmn:UserTask"){
+                return [this.GetElement(bpmnModeler,sourceRefElement.id)];
+            }
+            else if(sourceRefElement.$type=="bpmn:ExclusiveGateway"){
+                var result=[];
+
+                var incomingSequenceFlowElementList=sourceRefElement.incoming;
+                for (var i = 0; i <incomingSequenceFlowElementList.length ; i++) {
+                    var tempSequenceFlowElement=incomingSequenceFlowElementList[i];
+
+                }
+
+                return result;
+            }
+        }
+        return [];*/
+    }
+    static JB4DC_TryGetMayBeActionsBySequenceFlowId(bpmnModeler,elementId){
+        var mayBeUserTaskListBusinessObject=this.JB4DC_TryGetMayUserTaskBusinessObjectBySequenceFlowId(bpmnModeler,elementId);
+        var result=[];
+        for (var i = 0; i < mayBeUserTaskListBusinessObject.length; i++) {
+            var userTaskElemId=mayBeUserTaskListBusinessObject[i].id;
+            var userTaskElem=this.GetElement(bpmnModeler,userTaskElemId);
+            var actionArray=this.JB4DC_GetActionsArray(userTaskElem);
+            result.push({
+               taskElem:userTaskElem,
+                actionArray:actionArray
+            });
+            //console.log(actionArray);
+        }
+        return result;
+        //console.log(mayBeUserTaskListBusinessObject);
+        //var sequenceFlow=this.GetElement(bpmnModeler,elementId);
+        //console.log(sequenceFlow);
     }
     //#endregion
 

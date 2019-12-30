@@ -71,22 +71,26 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td colspan="5">备注：</td>
-                                </tr>
-                                <tr>
-                                    <td colspan="5" style="background-color: #ffffff">
-                                        <textarea rows="4" v-model="innerDetailInfo.actionDescription"></textarea>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td colspan="5">显示条件：</td>
-                                </tr>
-                                <tr>
+                                    <td>备注：</td>
                                     <td colspan="4" style="background-color: #ffffff">
-                                        <textarea rows="3" v-model="innerDetailInfo.actionDisplayCondition"></textarea>
+                                        <textarea rows="5" v-model="innerDetailInfo.actionDescription"></textarea>
                                     </td>
-                                    <td style="background-color: #f8f8f8">
+                                </tr>
+                                <tr>
+
+                                </tr>
+                                <tr>
+                                    <td rowspan="2">显示条件：</td>
+                                    <td colspan="3" style="background-color: #ffffff">
+                                        <textarea rows="2" v-model="innerDetailInfo.actionDisplayConditionEditText" disabled></textarea>
+                                    </td>
+                                    <td style="background-color: #f8f8f8" rowspan="2">
                                         <Button type="primary" @click="beginEditContextJuelForActionDisplayCondition">编辑</Button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="3" style="background-color: #ffffff">
+                                        <textarea rows="2" v-model="innerDetailInfo.actionDisplayConditionEditValue" disabled></textarea>
                                     </td>
                                 </tr>
                             </tbody>
@@ -173,24 +177,10 @@
     import selectDefaultValueDialog from "../Dialog/select-default-value-dialog.vue";
     import { FlowBpmnJsIntegrated } from '../../BpmnJsExtend/FlowBpmnJsIntegrated.js';
     import {RemoteUtility} from '../../../Remote/RemoteUtility';
+    import { PODefinition } from "../../BpmnJsExtend/PODefinition.js"
     //import EditTable_SelectDefaultValue from  '../../../EditTable/Renderers/EditTable_SelectDefaultValue.js';
 
     var flowBpmnJsIntegrated=null;
-    function getInnerDetailInfo() {
-        return {
-            actionType:"send",
-            actionCode:"action_"+StringUtility.Timestamp(),
-            actionCaption:"确认",
-            actionShowOpinionDialog:"false",
-            actionDescription:"",
-            actionDisplayCondition:"",
-            actionCallJsMethod:"",
-            actionHTMLId:"",
-            actionHTMLClass:"",
-            actionUpdateFields:[],
-            actionCallApis:[]
-        }
-    }
     export default {
         name: "jb4dc-actions-properties",
         components: {
@@ -200,7 +190,7 @@
         props:["propActionData","propFromId"],
         data(){
             return {
-                innerDetailInfo:getInnerDetailInfo(),
+                innerDetailInfo:PODefinition.GetJB4DCActionPO(),
                 field:{
                     editTableObject:null,
                     editTableConfig:{
@@ -295,7 +285,7 @@
             }
         },
         mounted(){
-            this.addedActionData=this.propActionData;
+            this.addedActionData = this.propActionData;
             flowBpmnJsIntegrated=FlowBpmnJsIntegrated.GetInstance();
             var _self=this;
             EditTable_SelectDefaultValue.ClickSelectedButtonCB=function () {
@@ -309,7 +299,12 @@
                 buttons: {
                     "确认": function () {
 
-                        _self.innerDetailInfo.actionUpdateFields=_self.field.editTableObject.GetAllRowDataExUndefinedTextProp();
+                        if(_self.field.editTableObject) {
+                            _self.innerDetailInfo.actionUpdateFields = _self.field.editTableObject.GetAllRowDataExUndefinedTextProp();
+                        }
+                        else{
+                            _self.innerDetailInfo.actionUpdateFields =[];
+                        }
                         _self.innerDetailInfo.actionCallApis=_self.api.editTableObject.GetAllRowDataExUndefinedTextProp();
                         var cloneInnerDetailInfo=JsonUtility.CloneObjectProp(_self.innerDetailInfo,function (key,sourcePropValue) {
                             if(key=="actionUpdateFields"||key=="actionCallApis"){
@@ -343,7 +338,7 @@
             beginSelectDefaultValue(){
                 //console.log(this.propFromId);
                 //var _self=this;
-                this.$refs.selectDefaultValueDialog.beginSelectDefaultValue("设置默认值",this.innerDetailInfo.actionDisplayCondition,function(result){
+                this.$refs.selectDefaultValueDialog.beginSelectDefaultValue("设置默认值","",function(result){
                     //console.log(result);
                     EditTable_SelectDefaultValue.SetSelectEnvVariableResultValue(result);
                     //_self.innerDetailInfo.actionDisplayCondition=result;
@@ -353,13 +348,14 @@
                 //console.log(this.propFromId);
                 var _self=this;
                 var formId=flowBpmnJsIntegrated.TryGetFormId(this.propFromId);
-                this.$refs.contextVarJuelEditDialog.beginEditContextJuel("编辑显示条件",this.innerDetailInfo.actionDisplayCondition,formId,function(result){
-                    _self.innerDetailInfo.actionDisplayCondition=result;
+                this.$refs.contextVarJuelEditDialog.beginEditContextJuel("编辑显示条件",this.innerDetailInfo.actionDisplayConditionEditText,formId,function(result){
+                    _self.innerDetailInfo.actionDisplayConditionEditText=result.editText;
+                    _self.innerDetailInfo.actionDisplayConditionEditValue=result.editValue;
                 });
             },
             showAddActionDialog(oldInnerDetailInfo){
                 if(!oldInnerDetailInfo){
-                    this.innerDetailInfo=getInnerDetailInfo();
+                    this.innerDetailInfo=PODefinition.GetJB4DCActionPO();
                 }
                 else{
                     this.innerDetailInfo=oldInnerDetailInfo;
@@ -394,39 +390,40 @@
             //表字段设置
             bindEditTable_TableFields(oldData) {
 
-                var formId=flowBpmnJsIntegrated.TryGetFormId(this.propFromId);
-                RemoteUtility.GetFormResourceBindMainTable(formId).then((tablePO)=>{
-                        var fieldsData = [];
+                var formId = flowBpmnJsIntegrated.TryGetFormId(this.propFromId);
+                RemoteUtility.GetFormResourceBindMainTable(formId).then((tablePO) => {
+                    var fieldsData = [];
 
-                        if(tablePO) {
-                            for (var i = 0; i < tablePO.tableFieldPOList.length; i++) {
-                                fieldsData.push({
-                                    Value: tablePO.tableFieldPOList[i].fieldName,
-                                    Text: tablePO.tableFieldPOList[i].fieldCaption
-                                });
-                            }
-                            this.field.editTableConfig.Templates[0].DefaultValue = {
-                                Type: "Const",
-                                Value: tablePO.tableName
-                            };
-
-                            this.field.editTableConfig.Templates[1].ClientDataSource = fieldsData;
-
-                            if (!this.field.editTableObject) {
-                                this.field.editTableObject = Object.create(EditTable);
-                                this.field.editTableObject.Initialization(this.field.editTableConfig);
-                            }
+                    if (tablePO) {
+                        for (var i = 0; i < tablePO.tableFieldPOList.length; i++) {
+                            fieldsData.push({
+                                Value: tablePO.tableFieldPOList[i].fieldName,
+                                Text: tablePO.tableFieldPOList[i].fieldCaption
+                            });
                         }
+                        this.field.editTableConfig.Templates[0].DefaultValue = {
+                            Type: "Const",
+                            Value: tablePO.tableName
+                        };
+
+                        this.field.editTableConfig.Templates[1].ClientDataSource = fieldsData;
+
+                        if (!this.field.editTableObject) {
+                            this.field.editTableObject = Object.create(EditTable);
+                            this.field.editTableObject.Initialization(this.field.editTableConfig);
+                        }
+
                         this.oldFormId = this.formId;
-                        if(oldData){
+                        if (oldData) {
                             this.field.editTableObject.LoadJsonData(oldData);
                         }
+                    }
                 });
 
-                if(this.field.editTableObject){
+                if (this.field.editTableObject) {
                     this.field.editTableObject.RemoveAllRow();
                 }
-                if(oldData&&this.field.editTableObject){
+                if (oldData && this.field.editTableObject) {
                     this.field.editTableObject.LoadJsonData(oldData);
                 }
             },
