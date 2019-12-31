@@ -643,12 +643,14 @@ class BpmnJsUtility {
         var mayBeUserTaskListBusinessObject=this.JB4DC_TryGetMayUserTaskBusinessObjectBySequenceFlowId(bpmnModeler,elementId);
         var result=[];
         for (var i = 0; i < mayBeUserTaskListBusinessObject.length; i++) {
-            var userTaskElemId=mayBeUserTaskListBusinessObject[i].id;
-            var userTaskElem=this.GetElement(bpmnModeler,userTaskElemId);
-            var actionArray=this.JB4DC_GetActionsArray(userTaskElem);
+            var userTaskElemId = mayBeUserTaskListBusinessObject[i].id;
+            var userTaskElem = this.GetElement(bpmnModeler, userTaskElemId);
+            var actionArray = this.JB4DC_GetActionsArray(userTaskElem);
             result.push({
-               taskElem:userTaskElem,
-                actionArray:actionArray
+                taskElem: userTaskElem,
+                taskName:userTaskElem.businessObject.name,
+                taskId:userTaskElem.businessObject.id,
+                actionArray: actionArray
             });
             //console.log(actionArray);
         }

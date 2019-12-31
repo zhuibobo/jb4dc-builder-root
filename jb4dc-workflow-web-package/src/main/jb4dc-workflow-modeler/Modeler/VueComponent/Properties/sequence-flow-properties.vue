@@ -23,31 +23,98 @@
                     </tr>
 
                     <tr>
-                        <td rowspan="2">绑定条件：</td>
+                        <td rowspan="3">绑定条件：</td>
                         <td colspan="3">
-                            <textarea id="txtFlowProcessTitle" v-model="jb4dc.jb4dcProcessTitle" rows="1"></textarea>
+                            <textarea ref="txtSequenceFlowConditionEditText" v-model="jb4dc.jb4dcProcessTitle" rows="1"></textarea>
                         </td>
-                        <td>
+                        <td rowspan="2">
                             <Button type="primary" @click="beginEditContextJuelForFlowProcessTitle">编辑</Button>
                         </td>
                     </tr>
                     <tr>
-                        <td colspan="4">
-                            <div style="height: 208px;width: 800px;overflow-y: auto;overflow-x: hidden;margin: auto">
-                                <Carousel v-model="value1" loop>
-                                    <CarouselItem v-for="fromTask in mayBeFromTaskList">
-                                        <div class="demo-carousel">
-                                            {{fromTask.taskElem.businessObject.name}}
-                                        </div>
-                                    </CarouselItem>
-                                </Carousel>
+                        <td colspan="3" style="background-color: #ffffff">
+                            <textarea v-model="bpmn.name" disabled row="2" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="4" style="background-color: #ffffff">
+                            <div style="height: 190px;width: 100%;overflow-y: auto;overflow-x: hidden;margin: auto">
+                                <div class="sfp-task-action-group" v-for="mayBeFromTask in mayBeFromTaskList">
+                                    <div class="sfp-tag-task-name">{{mayBeFromTask.taskName}}</div>
+                                    <div class="sfp-tag-task-action-inner-group">
+                                        <div class="sfp-tag-task-action" v-for="action in mayBeFromTask.actionArray" @click="insertCodeAtCursor(mayBeFromTask,action)">{{action.actionCaption}}</div>
+                                    </div>
+                                </div>
+                                <!--<div class="sfp-task-action-group">
+                                    <div class="sfp-tag-task-name">TaskName</div>
+                                    <div class="sfp-tag-task-action-inner-group">
+                                        <div class="sfp-tag-task-action">actionName</div>
+                                        <div class="sfp-tag-task-action">actionName</div>
+                                        <div class="sfp-tag-task-action">actionName age ok </div>
+                                        <div class="sfp-tag-task-action">actionName data date</div>
+                                        <div class="sfp-tag-task-action">actionName</div>
+                                        <div class="sfp-tag-task-action">actionName</div>
+                                        <div class="sfp-tag-task-action">actionName vue</div>
+                                        <div class="sfp-tag-task-action">actionName</div>
+                                        <div class="sfp-tag-task-action">actionName age ok </div>
+                                        <div class="sfp-tag-task-action">actionName data date</div>
+                                        <div class="sfp-tag-task-action">actionName data date</div>
+                                        <div class="sfp-tag-task-action">actionName</div>
+                                        <div class="sfp-tag-task-action">actionName</div>
+                                        <div class="sfp-tag-task-action">actionName vue</div>
+                                        <div class="sfp-tag-task-action">actionName</div>
+                                        <div class="sfp-tag-task-action">actionName age ok </div>
+                                    </div>
+                                </div>
+                                <div class="sfp-task-action-group">
+                                    <div class="sfp-tag-task-name">TaskName</div>
+                                    <div class="sfp-tag-task-action-inner-group">
+                                        <div class="sfp-tag-task-action">actionName</div>
+                                        <div class="sfp-tag-task-action">actionName</div>
+                                        <div class="sfp-tag-task-action">actionName age ok </div>
+                                        <div class="sfp-tag-task-action">actionName data date</div>
+                                        <div class="sfp-tag-task-action">actionName</div>
+                                        <div class="sfp-tag-task-action">actionName</div>
+                                        <div class="sfp-tag-task-action">actionName vue</div>
+                                        <div class="sfp-tag-task-action">actionName</div>
+                                        <div class="sfp-tag-task-action">actionName age ok </div>
+                                        <div class="sfp-tag-task-action">actionName data date</div>
+                                        <div class="sfp-tag-task-action">actionName data date</div>
+                                        <div class="sfp-tag-task-action">actionName</div>
+                                        <div class="sfp-tag-task-action">actionName</div>
+                                        <div class="sfp-tag-task-action">actionName vue</div>
+                                        <div class="sfp-tag-task-action">actionName</div>
+                                        <div class="sfp-tag-task-action">actionName age ok </div>
+                                    </div>
+                                </div>
+                                <div class="sfp-task-action-group">
+                                    <div class="sfp-tag-task-name">TaskName</div>
+                                    <div class="sfp-tag-task-action-inner-group">
+                                        <div class="sfp-tag-task-action">actionName</div>
+                                        <div class="sfp-tag-task-action">actionName</div>
+                                        <div class="sfp-tag-task-action">actionName age ok </div>
+                                        <div class="sfp-tag-task-action">actionName data date</div>
+                                        <div class="sfp-tag-task-action">actionName</div>
+                                        <div class="sfp-tag-task-action">actionName</div>
+                                        <div class="sfp-tag-task-action">actionName vue</div>
+                                        <div class="sfp-tag-task-action">actionName</div>
+                                        <div class="sfp-tag-task-action">actionName age ok </div>
+                                        <div class="sfp-tag-task-action">actionName data date</div>
+                                        <div class="sfp-tag-task-action">actionName data date</div>
+                                        <div class="sfp-tag-task-action">actionName</div>
+                                        <div class="sfp-tag-task-action">actionName</div>
+                                        <div class="sfp-tag-task-action">actionName vue</div>
+                                        <div class="sfp-tag-task-action">actionName</div>
+                                        <div class="sfp-tag-task-action">actionName age ok </div>
+                                    </div>
+                                </div>-->
                             </div>
                         </td>
                     </tr>
                     <tr>
                         <td>Documentation：</td>
                         <td colspan="4">
-                            <textarea rows="6" v-model="bpmn.documentation"></textarea>
+                            <textarea rows="2" v-model="bpmn.documentation"></textarea>
                         </td>
                     </tr>
                     </tbody>
@@ -88,8 +155,18 @@
                 bpmn: PODefinition.GetDialogPropertiesPO().bpmn,
                 camunda: PODefinition.GetDialogPropertiesPO().camunda,
                 jb4dc: PODefinition.GetDialogPropertiesPO().jb4dc,
-                mayBeFromTaskList:[]
+                mayBeFromTaskList:[],
+                selectedCodeMirror:null
             }
+        },
+        mounted(){
+            this.selectedCodeMirror = CodeMirror.fromTextArea(this.$refs.txtSequenceFlowConditionEditText, {
+                mode: "text/x-sql",
+                lineWrapping: true,
+                foldGutter: true,
+                theme: "monokai"
+            });
+            this.selectedCodeMirror.setSize("100%", 56);
         },
         created(){
             this.bpmn=this.propElemProperties.bpmn;
@@ -100,6 +177,14 @@
             console.log();
         },
         methods:{
+            insertCodeAtCursor(mayBeFromTask,action){
+                console.log(mayBeFromTask);
+                console.log(action);
+                var code="${FlowAction."+mayBeFromTask.taskId+"."+mayBeFromTask.taskName+"."+action.actionCode+"}";
+                var doc = this.selectedCodeMirror.getDoc();
+                var cursor = doc.getCursor();
+                doc.replaceRange(code, cursor);
+            },
             beginEditContextJuelForFlowProcessTitle(){
             }
         }
@@ -107,8 +192,44 @@
 </script>
 
 <style scoped>
-    .demo-carousel{
-        height: 206px;
-        background-color: #e6f6f9;
+    .sfp-task-action-group{
+        border-radius: 4px;
+        /*border: #a3b0c9 solid 1px;*/
+        float: left;
+        padding: 4px;
+        clear: left;
+        width: 100%;
+        margin-bottom: 8px;
+        padding: 4px 4px 0px 4px;
+    }
+
+    .sfp-task-action-group .sfp-tag-task-name{
+        float: left;
+        border-radius: 4px;
+        padding: 4px;
+        width: 10%;
+    }
+
+    .sfp-task-action-group .sfp-tag-task-action-inner-group{
+        float: left;
+        width: 89%;
+    }
+
+
+    .sfp-task-action-group .sfp-tag-task-action{
+        float: left;
+        border-radius: 4px;
+        border: #a3b0c9 solid 1px;
+        padding: 4px;
+        margin-left: 6px;
+        margin-bottom: 4px;
+        min-width: 134px;
+        text-align: center;
+    }
+
+    .sfp-task-action-group .sfp-tag-task-action:hover{
+        background-color: #2d8cf0;
+        color: #fff;
+        cursor: pointer;
     }
 </style>
