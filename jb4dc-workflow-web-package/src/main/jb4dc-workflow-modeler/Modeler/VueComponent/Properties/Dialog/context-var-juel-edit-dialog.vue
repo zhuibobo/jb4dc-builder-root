@@ -235,15 +235,25 @@
                     editValue:editValue
                 }
             },
-            insertCodeAtCursor(code) {
+            insertCodeAtCursor(editText,editValue) {
                 //console.log(code);
                 var doc = this.selectedCodeMirror.getDoc();
+
                 var cursor = doc.getCursor();
-                doc.replaceRange(code, cursor);
+                doc.replaceRange(editValue, cursor);
+
+                var htmlNode = document.createElement("span");
+                htmlNode.innerText=editText;
+                htmlNode.className="code-mirror-mark-text";
+                doc.markText({line: cursor.line,ch: cursor.ch}, {line: cursor.line,ch: cursor.ch + editValue.length}, {
+                    replacedWith: htmlNode
+                });
             },
             insertTableFieldToCodeMirror:function (fieldJson) {
                 console.log(fieldJson);
-                this.insertCodeAtCursor('${表字段.'+fieldJson.tableCaption+"."+fieldJson.fieldCaption+'}');
+                var editText='${表字段.'+fieldJson.tableCaption+"."+fieldJson.fieldCaption+'}';
+                var editValue='${TableField.'+fieldJson.fieldTableId+"."+fieldJson.fieldName+'}';
+                this.insertCodeAtCursor(editText,editValue);
             },
             insertEnvVarToEditor:function(evnJson) {
                 //console.log(evnJson);
