@@ -63,7 +63,7 @@ public class TableFieldServiceImpl extends BaseServiceImpl<TableFieldEntity> imp
 
     @Override
     public List<TableFieldPO> getTemplateFieldsByName(String templateName) throws IOException {
-        return TableFieldPO.EntityListToVoList(templateName,tableFieldMapper.selectTemplateFieldsByName(templateName));
+        return TableFieldPO.EntityListToVoList(templateName,"逻辑模版表",tableFieldMapper.selectTemplateFieldsByName(templateName));
     }
 
     @Override
@@ -235,12 +235,12 @@ public class TableFieldServiceImpl extends BaseServiceImpl<TableFieldEntity> imp
         if(tableEntity==null){
             return null;
         }
-        return TableFieldPO.EntityListToVoList(tableEntity.getTableName(),tableFieldMapper.selectByTableId(tableId));
+        return TableFieldPO.EntityListToVoList(tableEntity.getTableName(),tableEntity.getTableCaption(),tableFieldMapper.selectByTableId(tableId));
     }
 
     @Override
     public List<TableFieldPO> getTableFieldsByTableName(String rtTableName) throws IOException {
-        return TableFieldPO.EntityListToVoList(rtTableName,tableFieldMapper.selectByTableName(rtTableName));
+        return TableFieldPO.EntityListToVoList(rtTableName,rtTableName,tableFieldMapper.selectByTableName(rtTableName));
     }
 
     @Override

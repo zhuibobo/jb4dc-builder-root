@@ -242,8 +242,8 @@
                 doc.replaceRange(code, cursor);
             },
             insertTableFieldToCodeMirror:function (fieldJson) {
-                //console.log(fieldJson);
-                this.insertCodeAtCursor('${表字段.'+fieldJson.tableName+"."+fieldJson.fieldCaption+'}');
+                console.log(fieldJson);
+                this.insertCodeAtCursor('${表字段.'+fieldJson.tableCaption+"."+fieldJson.fieldCaption+'}');
             },
             insertEnvVarToEditor:function(evnJson) {
                 //console.log(evnJson);

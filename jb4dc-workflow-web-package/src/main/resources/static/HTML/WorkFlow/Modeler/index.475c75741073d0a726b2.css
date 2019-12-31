@@ -77,13 +77,53 @@ body {
 .flow-design-modeler-wraper .modeler-bpmn-wraper .flow-bpmnjs-selected-element-container {
   position: absolute;
   top: 41px;
-  opacity: 0.9;
   right: 0px;
   width: 200px;
   bottom: 0px;
   border-left: #dafcf0 solid 1px;
   z-index: 1000;
+  background-color: rgba(251, 251, 251, 0.7);
+  display: none;
+}
+.flow-design-modeler-wraper .modeler-bpmn-wraper .flow-bpmnjs-selected-element-container .fbse-inner-container {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  bottom: 10px;
+  right: 10px;
+  border: #6cc096 solid 1px;
+  border-radius: 10px;
   background-color: #fbfbfb;
+  overflow: auto;
+}
+.flow-design-modeler-wraper .modeler-bpmn-wraper .flow-bpmnjs-selected-element-container .fbse-inner-container .fbse-inner-title {
+  font-size: 20px;
+  font-weight: bold;
+  text-align: center;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+.flow-design-modeler-wraper .modeler-bpmn-wraper .flow-bpmnjs-selected-element-container .fbse-inner-container .fbse-inner-single-attr {
+  font-size: 14px;
+  margin: 8px 0px 8px 8px;
+  float: left;
+  clear: left;
+  font-weight: bold;
+  min-width: 170px;
+}
+.flow-design-modeler-wraper .modeler-bpmn-wraper .flow-bpmnjs-selected-element-container .fbse-inner-container .fbse-inner-single-value {
+  font-size: 14px;
+  margin: 8px;
+  float: left;
+  max-width: 100%;
+  word-break: break-all;
+  white-space: normal;
+}
+@media (min-width: 1900px) {
+  .flow-design-modeler-wraper .modeler-bpmn-wraper .flow-bpmnjs-selected-element-container {
+    width: 400px;
+    display: block;
+  }
 }
 .flow-design-modeler-wraper .xml-design-wraper {
   position: relative;
@@ -154,6 +194,13 @@ body {
 .properties-dialog-table-wraper > tbody > tr > td input[type=text]:hover {
   border-color: #57a3f3;
 }
+.properties-dialog-table-wraper > tbody > tr > td textarea[disabled],
+.properties-dialog-table-wraper > tbody > tr > td input[type=text][disabled] {
+  background-color: #f3f3f3;
+  opacity: 1;
+  cursor: not-allowed;
+  color: #000000;
+}
 .properties-dialog-table-wraper > tbody > tr > td:nth-child(1),
 .properties-dialog-table-wraper > tbody > tr > td:nth-child(3),
 .properties-dialog-table-wraper > tbody > tr > td:nth-child(5) {
@@ -173,5 +220,62 @@ body {
   background-image: url(Images/cog.png) !important;
   background-position: 3px 3px !important;
   background-repeat: no-repeat !important;
+}
+.wf-list-font-icon-button-class {
+  font-size: 20px;
+  cursor: pointer;
+  display: inline-block;
+}
+.wf-list-font-icon-button-class:hover {
+  color: #348fcd;
+}
+.hello {
+  color: red;
+}
+
+
+.jb4dc-general-properties-icon-class1[data-v-fb97727e]{
+    font-size: 20px;
+    cursor: pointer;
+}
+.jb4dc-general-properties-icon-class1[data-v-fb97727e]:hover{
+    color: #348fcd;
+}
+
+
+.sfp-task-action-group[data-v-06469518]{
+    border-radius: 4px;
+    /*border: #a3b0c9 solid 1px;*/
+    float: left;
+    padding: 4px;
+    clear: left;
+    width: 100%;
+    margin-bottom: 8px;
+    padding: 4px 4px 0px 4px;
+}
+.sfp-task-action-group .sfp-tag-task-name[data-v-06469518]{
+    float: left;
+    border-radius: 4px;
+    padding: 4px;
+    width: 10%;
+}
+.sfp-task-action-group .sfp-tag-task-action-inner-group[data-v-06469518]{
+    float: left;
+    width: 89%;
+}
+.sfp-task-action-group .sfp-tag-task-action[data-v-06469518]{
+    float: left;
+    border-radius: 4px;
+    border: #a3b0c9 solid 1px;
+    padding: 4px;
+    margin-left: 6px;
+    margin-bottom: 4px;
+    min-width: 134px;
+    text-align: center;
+}
+.sfp-task-action-group .sfp-tag-task-action[data-v-06469518]:hover{
+    background-color: #2d8cf0;
+    color: #fff;
+    cursor: pointer;
 }
 
