@@ -173,17 +173,80 @@
             this.camunda=this.propElemProperties.camunda;
             this.jb4dc=this.propElemProperties.jb4dc;
             this.mayBeFromTaskList=BpmnJsUtility.JB4DC_TryGetMayBeActionsBySequenceFlowId(FlowBpmnJsIntegrated.GetInstance().GetModeler(),this.bpmn.id);
-            console.log(this.bpmn.id);
-            console.log();
+            //console.log(this.bpmn.id);
+            //console.log();
         },
         methods:{
             insertCodeAtCursor(mayBeFromTask,action){
-                console.log(mayBeFromTask);
-                console.log(action);
+
+                var defaultValue="${FlowAction.Task_1uhc294.action_613177548}${FlowAction.UserTask_0wq4xdg.action_613177548}12${FlowAction.UserTask_0wq4xdg.action_612991045}3${FlowAction.UserTask_0nrtkgj.action_613177548}";
+                this.selectedCodeMirror.getDoc().setValue(defaultValue);
+
+                var reg = new RegExp("\\$\\{[^\\}]*\\}","g");
+                var result="";
+                var doc = this.selectedCodeMirror.getDoc();
+                while ((result = reg.exec(defaultValue)) != null)  {
+                    var text=result.toString();
+                    console.log(text);
+                    var cursor = this.selectedCodeMirror.getSearchCursor(text);
+                    cursor.findNext();
+                    var htmlNode = document.createElement("span");
+                    htmlNode.innerText="hello";
+                    htmlNode.className="hello";
+                    doc.markText(cursor.from(), {line: cursor.to().line,ch: cursor.to().ch}, {
+                        replacedWith: htmlNode
+                    });
+                }
+                console.log(doc.getValue());
+                var text = $(this.$refs.txtSequenceFlowConditionEditText).next().find(".CodeMirror-code").text();
+                console.log(text);
+                return;
+
+                var doc = this.selectedCodeMirror.getDoc();
+                var cursor = doc.getCursor();
+                console.log(cursor);
+
+                var code="${FlowAction."+mayBeFromTask.taskId+"."+action.actionCode+"}";
+                doc.replaceRange(code, cursor);
+
+                var htmlNode = document.createElement("span");
+                htmlNode.innerText="hello";
+                htmlNode.className="hello";
+                doc.markText({line: cursor.line,ch: cursor.ch}, {line: cursor.line,ch: cursor.ch + code.length}, {
+                    replacedWith: htmlNode
+                });
+
+                console.log(doc.getValue());
+                return;
+
+                var lineNumber = 0;
+                var charNumber = 0;
+                var snippet = "[[tag]]"
+                this.selectedCodeMirror.doc.replaceRange(snippet, {line:lineNumber, from: charNumber});
+                var htmlNode = document.createElement("span");
+                htmlNode.innerText="hello";
+                htmlNode.className="hello";
+
+                this.selectedCodeMirror.doc.markText({line: lineNumber,ch: charNumber}, {line: lineNumber,ch: charNumber + snippet.length}, {
+                    replacedWith: htmlNode
+                });
+
+                console.log(cursor);
+                console.log(this.selectedCodeMirror.doc.getValue());
+                //console.log(this.selectedCodeMirror.doc.getRange());
+                return;
+                //console.log(mayBeFromTask);
+                //console.log(action);
                 var code="${FlowAction."+mayBeFromTask.taskId+"."+mayBeFromTask.taskName+"."+action.actionCode+"}";
                 var doc = this.selectedCodeMirror.getDoc();
                 var cursor = doc.getCursor();
+                var object=doc.setBookmark(cursor);
+                console.log(object);
                 doc.replaceRange(code, cursor);
+                console.log(doc.getSelection());
+            },
+            tryResolveConditionTextToValue(conditionText){
+
             },
             beginEditContextJuelForFlowProcessTitle(){
             }

@@ -187,14 +187,14 @@
                 this.editData = instance.getValue();
             });
 
-            this.tryResolveTextToValue();
+            //this.tryResolveTextToValue();
         },
         methods: {
             tryResolveTextToValue(editText){
-                //editText="${表字段.TDEV_TEST_2.记录时间}${表字段.TDEV_TEST_2.组织名称}${表字段.TDEV_TEST_2.F_NTEXT_1}${环境变量.年年年年-月月-日日 时:分:秒}${环境变量.年年年年/月月/日日}${环境变量.静态值-否}${表字段.TDEV_TEST_2.F_TABLE1_ID}";
+                //editText="${FlowAction.Task_1uhc294.起草.action_612991045}${FlowAction.UserTask_0wq4xdg.起草1.action_612991045}${表字段.TDEV_TEST_2.记录时间}${表字段.TDEV_TEST_2.组织名称}${表字段.TDEV_TEST_2.F_NTEXT_1}${环境变量.年年年年-月月-日日 时:分:秒}${环境变量.年年年年/月月/日日}${环境变量.静态值-否}${表字段.TDEV_TEST_2.F_TABLE1_ID}";
                 //console.log(editText);
                 var editValue=editText;
-                var reg = new RegExp("\\$\\{[^\\}]*\\}","g");
+                var reg = new RegExp("\\$\\{[表字段|环境变量][^\\}]*\\}","g");
                 //console.log(reg.exec(editText));
                 var result="";
 
@@ -223,11 +223,11 @@
                     valueItemFull="${"+itemTypeValue+"."+itemValue+"}";
                     editValue = editValue.replace(textItemFull,valueItemFull);
 
-                    /*console.log(editText);
-                    console.log(editValue);
-                    console.log(result);
-                    console.log(result.toString());
-                    console.log(reg.lastIndex);*/
+                    //console.log(editText);
+                    //console.log(editValue);
+                    //console.log(result);
+                    //console.log(result.toString());
+                    //console.log(reg.lastIndex);
                 }
 
                 return {
