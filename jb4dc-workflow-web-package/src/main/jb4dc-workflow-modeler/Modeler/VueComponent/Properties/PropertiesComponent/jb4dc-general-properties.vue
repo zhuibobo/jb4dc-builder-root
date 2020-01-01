@@ -115,7 +115,7 @@
                 //var
                 var _self=this;
                 var formId=flowBpmnJsIntegrated.TryGetFormId(this.jb4dc.jb4dcFormId);
-                this.$refs.contextVarJuelEditDialog.beginEditContextJuel("编辑实例标题",this.jb4dc.jb4dcProcessTitleEditText,formId,function(result){
+                this.$refs.contextVarJuelEditDialog.beginEditContextJuel("编辑实例标题",this.jb4dc.jb4dcProcessTitleEditValue,formId,function(result){
                     _self.jb4dc.jb4dcProcessTitleEditText=result.editText;
                     _self.jb4dc.jb4dcProcessTitleEditValue=result.editValue;
                 });
@@ -123,7 +123,7 @@
             beginEditContextJuelForFlowProcessDescription(){
                 var _self=this;
                 var formId=flowBpmnJsIntegrated.TryGetFormId(this.jb4dc.jb4dcFormId);
-                this.$refs.contextVarJuelEditDialog.beginEditContextJuel("编辑实例备注",this.jb4dc.jb4dcProcessDescriptionEditText,formId,function(result){
+                this.$refs.contextVarJuelEditDialog.beginEditContextJuel("编辑实例备注",this.jb4dc.jb4dcProcessDescriptionEditValue,formId,function(result){
                     _self.jb4dc.jb4dcProcessDescriptionEditText=result.editText;
                     _self.jb4dc.jb4dcProcessDescriptionEditValue=result.editValue;
                 });

@@ -25,15 +25,15 @@
                     <tr>
                         <td rowspan="3">绑定条件：</td>
                         <td colspan="3">
-                            <textarea ref="txtSequenceFlowConditionEditText" v-model="jb4dc.jb4dcProcessTitle" rows="1"></textarea>
+                            <textarea ref="txtSequenceFlowConditionEditValue" rows="1"></textarea>
                         </td>
                         <td rowspan="2">
-                            <Button type="primary" @click="beginEditContextJuelForFlowProcessTitle">编辑</Button>
+                            <Button type="primary" @click="beginEditContextJuelForSequenceFlowCondition">编辑</Button>
                         </td>
                     </tr>
                     <tr>
                         <td colspan="3" style="background-color: #ffffff">
-                            <textarea v-model="bpmn.name" disabled row="2" />
+                            <textarea v-model="jb4dc.jb4dcSequenceFlowConditionEditValue" disabled row="2" />
                         </td>
                     </tr>
                     <tr>
@@ -127,6 +127,7 @@
                 <extensionsProperties ref="extensionsProperties" :prop-extensions-properties-data="camunda.extensionProperties"></extensionsProperties>
             </tab-pane>
         </tabs>
+        <contextVarJuelEditDialog ref="contextVarJuelEditDialog"></contextVarJuelEditDialog>
     </div>
 </template>
 
@@ -136,9 +137,12 @@
     import extensionsProperties from "./PropertiesComponent/extensions-properties.vue";
     import jb4dcGeneralProperties from "./PropertiesComponent/jb4dc-general-properties.vue";
     import jb4dcActionsProperties from "./PropertiesComponent/jb4dc-actions-properties.vue";
+    import contextVarJuelEditDialog from "./Dialog/context-var-juel-edit-dialog.vue";
     import { PODefinition } from "../BpmnJsExtend/PODefinition.js"
     import { BpmnJsUtility } from '../BpmnJsExtend/BpmnJsUtility';
     import { FlowBpmnJsIntegrated } from '../BpmnJsExtend/FlowBpmnJsIntegrated';
+    import { CodeMirrorUtility } from '../BpmnJsExtend/CodeMirrorUtility';
+    var flowBpmnJsIntegrated=null;
     export default {
         name: "sequence-flow-properties",
         components: {
@@ -146,7 +150,8 @@
             listenersProperties,
             extensionsProperties,
             jb4dcGeneralProperties,
-            jb4dcActionsProperties
+            jb4dcActionsProperties,
+            contextVarJuelEditDialog
         },
         props:["propElemProperties"],
         data() {
@@ -160,13 +165,14 @@
             }
         },
         mounted(){
-            this.selectedCodeMirror = CodeMirror.fromTextArea(this.$refs.txtSequenceFlowConditionEditText, {
+            this.selectedCodeMirror = CodeMirror.fromTextArea(this.$refs.txtSequenceFlowConditionEditValue, {
                 mode: "text/x-sql",
                 lineWrapping: true,
                 foldGutter: true,
                 theme: "monokai"
             });
             this.selectedCodeMirror.setSize("100%", 56);
+            flowBpmnJsIntegrated=FlowBpmnJsIntegrated.GetInstance();
         },
         created(){
             this.bpmn=this.propElemProperties.bpmn;
@@ -177,9 +183,16 @@
             //console.log();
         },
         methods:{
-            insertCodeAtCursor(mayBeFromTask,action){
-
-                var defaultValue="${FlowAction.Task_1uhc294.action_613177548}${FlowAction.UserTask_0wq4xdg.action_613177548}12${FlowAction.UserTask_0wq4xdg.action_612991045}3${FlowAction.UserTask_0nrtkgj.action_613177548}";
+            insertCodeAtCursor(mayBeFromTask,action) {
+                var editValue = "LastAction=${FlowAction." + mayBeFromTask.taskId + "." + action.actionCode + '}';
+                var doc = this.selectedCodeMirror.getDoc();
+                var cursor = doc.getCursor();
+                doc.replaceRange(editValue, cursor);
+                var editResult=CodeMirrorUtility.TryResolveCodeMirrorValueToMarkText(this.selectedCodeMirror,this.$refs.txtSequenceFlowConditionEditValue);
+                this.jb4dc.jb4dcSequenceFlowConditionEditText=editResult.editText;
+                this.bpmn.conditionExpression=editResult.editValue;
+                //#region
+                /*var defaultValue="${FlowAction.Task_1uhc294.action_613177548}${FlowAction.UserTask_0wq4xdg.action_613177548}12${FlowAction.UserTask_0wq4xdg.action_612991045}3${FlowAction.UserTask_0nrtkgj.action_613177548}";
                 this.selectedCodeMirror.getDoc().setValue(defaultValue);
 
                 var reg = new RegExp("\\$\\{[^\\}]*\\}","g");
@@ -233,22 +246,29 @@
 
                 console.log(cursor);
                 console.log(this.selectedCodeMirror.doc.getValue());
-                //console.log(this.selectedCodeMirror.doc.getRange());
                 return;
-                //console.log(mayBeFromTask);
-                //console.log(action);
                 var code="${FlowAction."+mayBeFromTask.taskId+"."+mayBeFromTask.taskName+"."+action.actionCode+"}";
                 var doc = this.selectedCodeMirror.getDoc();
                 var cursor = doc.getCursor();
                 var object=doc.setBookmark(cursor);
                 console.log(object);
                 doc.replaceRange(code, cursor);
-                console.log(doc.getSelection());
+                console.log(doc.getSelection());*/
+                //#endregion
             },
             tryResolveConditionTextToValue(conditionText){
 
             },
-            beginEditContextJuelForFlowProcessTitle(){
+            beginEditContextJuelForSequenceFlowCondition(){
+                var _self=this;
+                var formId=flowBpmnJsIntegrated.TryGetFormId("");
+                this.$refs.contextVarJuelEditDialog.beginEditContextJuel("编辑执行条件",this.jb4dc.jb4dcSequenceFlowConditionEditValue,formId,function(result){
+                    _self.jb4dc.jb4dcSequenceFlowConditionEditText=result.editText;
+                    _self.bpmn.conditionExpression=result.editValue;
+                    var doc = _self.selectedCodeMirror.getDoc();
+                    doc.setValue(_self.jb4dc.jb4dcSequenceFlowConditionEditValue);
+                    CodeMirrorUtility.TryResolveCodeMirrorValueToMarkText(_self.selectedCodeMirror,_self.$refs.txtSequenceFlowConditionEditValue);
+                });
             }
         }
     }

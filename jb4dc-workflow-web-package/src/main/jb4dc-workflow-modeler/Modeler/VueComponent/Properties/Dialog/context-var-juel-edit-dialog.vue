@@ -54,6 +54,7 @@
 
 <script>
     import {RemoteUtility} from '../../../Remote/RemoteUtility';
+    import {CodeMirrorUtility} from '../../BpmnJsExtend/CodeMirrorUtility';
 
     export default {
         name: "context-juel-edit-dialog",
@@ -153,7 +154,11 @@
                 buttons: {
                     "确认": function () {
                         if(typeof (_self.callBackFunc=="function")) {
-                            var result=_self.tryResolveTextToValue(_self.editData);
+                            //var result=_self.tryResolveTextToValue(_self.editData);
+                            var result={
+                                editText:$(_self.$refs.txtContextVarJuelEdit).next().find(".CodeMirror-code").text(),
+                                editValue:_self.selectedCodeMirror.getDoc().getValue()
+                            };
                             _self.callBackFunc(result);
                         }
                         DialogUtility.CloseDialogElem(_self.$refs.editDialogWrap);
@@ -161,7 +166,11 @@
                     "清空": function () {
                         _self.editData="";
                         if(typeof (_self.callBackFunc=="function")) {
-                            _self.callBackFunc(_self.tryResolveTextToValue(""));
+                            var result={
+                                editText:"",
+                                editValue:""
+                            };
+                            _self.callBackFunc(result);
                         }
                         DialogUtility.CloseDialogElem(_self.$refs.editDialogWrap);
                     },
@@ -235,19 +244,76 @@
                     editValue:editValue
                 }
             },
+            del_tryResolveCodeMirrorValueToMarkText(value){
+                this.selectedCodeMirror.getDoc().setValue(value);
+                var reg = new RegExp("\\$\\{[TableField|EnvVar][^\\}]*\\}","g");
+                var result="";
+                var doc = this.selectedCodeMirror.getDoc();
+
+                var itemTypeText;
+                var itemTypeValue;
+                var itemText;
+                var itemValue;
+                while ((result = reg.exec(value)) != null)  {
+                    var valueItemFull=result.toString();
+                    itemTypeValue=valueItemFull.substring(2,valueItemFull.indexOf("."));
+                    itemValue=valueItemFull.substring(valueItemFull.indexOf(".")+1,valueItemFull.length-1);
+
+                    console.log(valueItemFull);
+                    var cursor = this.selectedCodeMirror.getSearchCursor(valueItemFull);
+                    cursor.findNext();
+                    while (cursor.atOccurrence) {
+                        /*console.log(cursor);
+                    cursor.findNext();
+                    console.log(cursor);
+                    cursor.findNext();
+                    console.log(cursor);*/
+
+                        switch (itemTypeValue) {
+                            case "EnvVar": {
+                                itemTypeText = "环境变量";
+                                itemText = RemoteUtility.GetEnvVariableTextByEnvValue(itemValue);
+                            }
+                                break;
+                            case "TableField": {
+                                itemTypeText = "表字段";
+                                var tempTableName = itemValue.split(".")[0];
+                                var tempFieldName = itemValue.split(".")[1];
+                                var tempPO = RemoteUtility.GetTableFieldPO(tempTableName, tempFieldName);
+                                itemText = tempPO.tableCaption + "." + tempPO.fieldCaption;
+                            }
+                                break;
+                            default:
+                                break;
+                        }
+
+                        var htmlNode = document.createElement("span");
+                        htmlNode.innerText = "${" + itemTypeText + "." + itemText + "}";
+                        htmlNode.className = "code-mirror-mark-text";
+                        doc.markText(cursor.from(), {line: cursor.to().line, ch: cursor.to().ch}, {
+                            replacedWith: htmlNode
+                        });
+                        cursor.findNext();
+                    }
+                }
+                //console.log(doc.getValue());
+                //var text = $(this.$refs.txtSequenceFlowConditionEditText).next().find(".CodeMirror-code").text();
+                //console.log(text);
+            },
             insertCodeAtCursor(editText,editValue) {
                 //console.log(code);
                 var doc = this.selectedCodeMirror.getDoc();
 
                 var cursor = doc.getCursor();
                 doc.replaceRange(editValue, cursor);
-
-                var htmlNode = document.createElement("span");
+                CodeMirrorUtility.TryResolveCodeMirrorValueToMarkText(this.selectedCodeMirror,this.$refs.txtContextVarJuelEdit)
+                //this.tryResolveCodeMirrorValueToMarkText(doc.getValue());
+                /*var htmlNode = document.createElement("span");
                 htmlNode.innerText=editText;
                 htmlNode.className="code-mirror-mark-text";
                 doc.markText({line: cursor.line,ch: cursor.ch}, {line: cursor.line,ch: cursor.ch + editValue.length}, {
                     replacedWith: htmlNode
-                });
+                });*/
             },
             insertTableFieldToCodeMirror:function (fieldJson) {
                 console.log(fieldJson);
@@ -257,7 +323,9 @@
             },
             insertEnvVarToEditor:function(evnJson) {
                 //console.log(evnJson);
-                this.insertCodeAtCursor('${环境变量.' + evnJson.envVarText + '}');
+                var editText='${环境变量.' + evnJson.envVarText + '}';
+                var editValue='${EnvVar.' + evnJson.envVarValue + '}';
+                this.insertCodeAtCursor(editText,editValue);
             },
             envGroupTreeNodeSelected(event, treeId, treeNode) {
                 // 根节点不触发任何事件1
@@ -274,7 +342,8 @@
                 this.selectedCodeMirror.setValue(this.editData);
                 this.callBackFunc=callBackFunc;
                 //this.selectedCodeMirror = this.flowProcessTitleCodeMirror;
-
+                //this.tryResolveCodeMirrorValueToMarkText(this.editData);
+                CodeMirrorUtility.TryResolveCodeMirrorValueToMarkText(this.selectedCodeMirror,this.$refs.txtContextVarJuelEdit)
                 RemoteUtility.GetEnvGroupPOList().then((envGroupPOList) => {
                     this.tree.envGroupTreeObj = $.fn.zTree.init($(this.$refs.envGroupZTreeUL), this.tree.envGroupTreeSetting, envGroupPOList);
                     this.tree.envGroupTreeObj.expandAll(true);

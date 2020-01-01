@@ -5,7 +5,8 @@ class PODefinition{
                 id:"",
                 name:"",
                 isExecutable:"true",
-                documentation:""
+                documentation:"",
+                conditionExpression:""
             },
             camunda: {
                 jobPriority: "",
@@ -33,7 +34,8 @@ class PODefinition{
                 jb4dcProcessTitleEditValue:"",
                 jb4dcProcessDescriptionEditText:"",
                 jb4dcProcessDescriptionEditValue:"",
-                jb4dcActions:[]
+                jb4dcActions:[],
+                jb4dcSequenceFlowConditionEditText:""
             }
         }
     }
