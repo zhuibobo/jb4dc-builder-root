@@ -101,7 +101,7 @@
                 var ps = new PerfectScrollbar('#fbseInnerContainer');
             },
             showProperties (componentName,title,element,elemToDialogProps) {
-                console.log(elemToDialogProps);
+                //console.log(elemToDialogProps);
                 //console.log(elemToDialogProps);
                 //DialogUtility.AlertText("11");
                 var dialogElemId="properties-window";

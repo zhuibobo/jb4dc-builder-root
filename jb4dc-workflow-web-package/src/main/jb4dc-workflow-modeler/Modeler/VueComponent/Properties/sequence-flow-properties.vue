@@ -164,7 +164,7 @@
                 selectedCodeMirror:null
             }
         },
-        mounted(){
+        mounted() {
             this.selectedCodeMirror = CodeMirror.fromTextArea(this.$refs.txtSequenceFlowConditionEditValue, {
                 mode: "text/x-sql",
                 lineWrapping: true,
@@ -174,8 +174,9 @@
             this.selectedCodeMirror.setSize("100%", 56);
             var doc = this.selectedCodeMirror.getDoc();
             doc.setValue(this.bpmn.conditionExpression);
-            CodeMirrorUtility.TryResolveCodeMirrorValueToMarkText(this.selectedCodeMirror,this.$refs.txtSequenceFlowConditionEditValue);
-            flowBpmnJsIntegrated=FlowBpmnJsIntegrated.GetInstance();
+            var resolveMark = CodeMirrorUtility.TryResolveCodeMirrorValueToMarkText(this.selectedCodeMirror, this.$refs.txtSequenceFlowConditionEditValue);
+            this.jb4dc.jb4dcSequenceFlowConditionEditText=resolveMark.editText;
+            flowBpmnJsIntegrated = FlowBpmnJsIntegrated.GetInstance();
         },
         created(){
             this.bpmn=this.propElemProperties.bpmn;
@@ -279,6 +280,7 @@
                     camunda:this.camunda,
                     jb4dc:this.jb4dc
                 };
+                //result.bpmn.jb4dcSequenceFlowConditionEditText =
                 return result;
             }
         }

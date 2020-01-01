@@ -74,8 +74,7 @@ class FlowBpmnJsIntegrated {
                 //console.log(BpmnJsUtility.GetElement(this.modeler,"P004_001"));
                 //console.log(BpmnJsUtility.GetProcessElement(this.modeler));
                 this.setting.ChangeSelectedElemCB(BpmnJsUtility.GetProcessElement(this.modeler));
-
-                console.log(this.modeler._definitions);
+                //console.log(this.modeler._definitions);
             }
         });
         eventBus = this.modeler.get('eventBus');
@@ -384,7 +383,7 @@ class FlowBpmnJsIntegrated {
     }
     SetXML(xml){
         this.modeler.importXML(xml, function (err) {
-            console.log(err);
+            //console.log(err);
         });
     }
     GetSelectedElement() {

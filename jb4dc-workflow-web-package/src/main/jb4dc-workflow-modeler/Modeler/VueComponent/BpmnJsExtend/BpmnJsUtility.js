@@ -161,7 +161,7 @@ class BpmnJsUtility {
 
     static BPMN_GetConditionExpression(element) {
         var bo = element.businessObject;
-        console.log(bo);
+        //console.log(bo);
         if (bo.conditionExpression) {
             if(bo.conditionExpression.body){
                 return bo.conditionExpression.body;

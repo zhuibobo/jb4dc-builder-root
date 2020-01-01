@@ -19,7 +19,7 @@ class CodeMirrorUtility{
             itemTypeValue = valueItemFull.substring(2, valueItemFull.indexOf("."));
             itemValue = valueItemFull.substring(valueItemFull.indexOf(".") + 1, valueItemFull.length - 1);
 
-            console.log(valueItemFull);
+            //console.log(valueItemFull);
             var cursor = codeMirrorInstance.getSearchCursor(valueItemFull);
             cursor.findNext();
             while (cursor.atOccurrence) {
