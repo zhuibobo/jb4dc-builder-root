@@ -33,7 +33,7 @@
                     </tr>
                     <tr>
                         <td colspan="3" style="background-color: #ffffff">
-                            <textarea v-model="jb4dc.jb4dcSequenceFlowConditionEditValue" disabled row="2" />
+                            <textarea v-model="bpmn.conditionExpression" disabled row="2" />
                         </td>
                     </tr>
                     <tr>
@@ -172,6 +172,9 @@
                 theme: "monokai"
             });
             this.selectedCodeMirror.setSize("100%", 56);
+            var doc = this.selectedCodeMirror.getDoc();
+            doc.setValue(this.bpmn.conditionExpression);
+            CodeMirrorUtility.TryResolveCodeMirrorValueToMarkText(this.selectedCodeMirror,this.$refs.txtSequenceFlowConditionEditValue);
             flowBpmnJsIntegrated=FlowBpmnJsIntegrated.GetInstance();
         },
         created(){
@@ -262,13 +265,21 @@
             beginEditContextJuelForSequenceFlowCondition(){
                 var _self=this;
                 var formId=flowBpmnJsIntegrated.TryGetFormId("");
-                this.$refs.contextVarJuelEditDialog.beginEditContextJuel("编辑执行条件",this.jb4dc.jb4dcSequenceFlowConditionEditValue,formId,function(result){
+                this.$refs.contextVarJuelEditDialog.beginEditContextJuel("编辑执行条件",this.bpmn.conditionExpression,formId,function(result){
                     _self.jb4dc.jb4dcSequenceFlowConditionEditText=result.editText;
                     _self.bpmn.conditionExpression=result.editValue;
                     var doc = _self.selectedCodeMirror.getDoc();
-                    doc.setValue(_self.jb4dc.jb4dcSequenceFlowConditionEditValue);
+                    doc.setValue(_self.bpmn.conditionExpression);
                     CodeMirrorUtility.TryResolveCodeMirrorValueToMarkText(_self.selectedCodeMirror,_self.$refs.txtSequenceFlowConditionEditValue);
                 });
+            },
+            getValue(){
+                var result= {
+                    bpmn:this.bpmn,
+                    camunda:this.camunda,
+                    jb4dc:this.jb4dc
+                };
+                return result;
             }
         }
     }

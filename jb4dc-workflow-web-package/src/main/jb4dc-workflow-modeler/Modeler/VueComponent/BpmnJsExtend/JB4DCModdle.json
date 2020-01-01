@@ -57,6 +57,20 @@
       ]
     },
     {
+      "name": "Jb4dcSequenceFlow",
+      "isAbstract": true,
+      "extends": [
+        "bpmn:SequenceFlow"
+      ],
+      "properties": [
+        {
+          "name": "jb4dcSequenceFlowConditionEditText",
+          "isAttr": true,
+          "type": "String"
+        }
+      ]
+    },
+    {
       "name": "Jb4dcUserTask",
       "extends": [ "bpmn:UserTask" ],
       "properties": [

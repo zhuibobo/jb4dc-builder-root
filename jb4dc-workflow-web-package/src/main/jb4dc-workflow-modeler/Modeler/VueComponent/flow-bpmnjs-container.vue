@@ -97,7 +97,7 @@
             changeSelectedElem(selectedElem){
                 //console.log(selectedElem);
                 //console.log(elemToDialogProps);
-                this.elemHTMLDisplay=flowBpmnJsIntegrated.convertElemToHTMLDisplay(selectedElem);
+                this.elemHTMLDisplay=flowBpmnJsIntegrated.ConvertElemToHTMLDisplay(selectedElem);
                 var ps = new PerfectScrollbar('#fbseInnerContainer');
             },
             showProperties (componentName,title,element,elemToDialogProps) {

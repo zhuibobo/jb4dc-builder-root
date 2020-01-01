@@ -47,6 +47,9 @@ class BpmnJsUtility {
     static Is_UserTask(element){
         return element.type=="bpmn:UserTask";
     }
+    static Is_SequenceFlow(element){
+        return element.type=="bpmn:SequenceFlow";
+    }
     //#endregion
 
     //#region
@@ -151,6 +154,27 @@ class BpmnJsUtility {
         var outgoing = bo.get('outgoing');
         //console.log(outgoing);
         return outgoing;
+    }
+
+    static BPMN_GetConditionExpression(element) {
+        var bo = element.businessObject;
+        console.log(bo);
+        if (bo.conditionExpression) {
+            return bo.conditionExpression.body;
+        }
+        return "";
+    }
+    static BPMN_SetConditionExpression(element,conditionExpression){
+        var bo = element.businessObject;
+        //console.log(bo);
+        if (bo.conditionExpression) {
+            bo.conditionExpression.body = conditionExpression;
+        }
+        else{
+            var formalExpression = bo.$model.create('bpmn:FormalExpression',{});
+            formalExpression.body=conditionExpression;
+            bo.conditionExpression=formalExpression;
+        }
     }
     //#endregion
 
@@ -482,6 +506,13 @@ class BpmnJsUtility {
     }
     static JB4DC_Attr_SetJb4dcCode(element, jb4dcCode){
         this.SetAttr(element,"jb4dcCode",jb4dcCode);
+    }
+
+    static JB4DC_Attr_GetJb4dcSequenceFlowConditionEditText(element){
+        return this.GetAttr(element,"jb4dcSequenceFlowConditionEditText");
+    }
+    static JB4DC_Attr_SetJb4dcSequenceFlowConditionEditText(element, jb4dcSequenceFlowConditionEditText){
+        this.SetAttr(element,"jb4dcSequenceFlowConditionEditText",jb4dcSequenceFlowConditionEditText);
     }
 
     static JB4DC_Attr_GetJb4dcFormId(element){

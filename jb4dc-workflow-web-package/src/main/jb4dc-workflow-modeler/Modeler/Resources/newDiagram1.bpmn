@@ -1,11 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
-                  xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI"
-                  xmlns:dc="http://www.omg.org/spec/DD/20100524/DC"
-                  xmlns:di="http://www.omg.org/spec/DD/20100524/DI"
-                  xmlns:camunda="http://camunda.org/schema/1.0/bpmn"
-                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="Definitions_15b9usu" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="3.4.1">
-  <bpmn:process id="P004_001" name="发文流程" isExecutable="true" camunda:jobPriority="12123" camunda:candidateStarterGroups="csg" camunda:candidateStarterUsers="csu" camunda:versionTag="发文流程V1" camunda:taskPriority="123">
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="Definitions_15b9usu" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="3.4.1">
+  <bpmn:process id="P004_001" name="发文流程" isExecutable="true" camunda:jobPriority="12123" camunda:candidateStarterGroups="csg" camunda:candidateStarterUsers="csu" camunda:versionTag="发文流程V1" camunda:historyTimeToLive="123" camunda:taskPriority="123">
     <bpmn:documentation>de1</bpmn:documentation>
     <bpmn:extensionElements>
       <camunda:executionListener class="a" event="start" />
@@ -60,7 +55,7 @@
       <bpmn:outgoing>SequenceFlow_13q810g</bpmn:outgoing>
       <bpmn:outgoing>SequenceFlow_04zk5fe</bpmn:outgoing>
     </bpmn:userTask>
-    <bpmn:exclusiveGateway id="ExclusiveGateway_0xr70ty" name="123">
+    <bpmn:exclusiveGateway id="ExclusiveGateway_0xr70ty" name="444">
       <bpmn:documentation>123123</bpmn:documentation>
       <bpmn:extensionElements>
         <camunda:executionListener class="123" event="start">
@@ -87,7 +82,9 @@
       <bpmn:outgoing>SequenceFlow_1dbs1dm</bpmn:outgoing>
     </bpmn:exclusiveGateway>
     <bpmn:sequenceFlow id="SequenceFlow_13q810g" sourceRef="Task_1uhc294" targetRef="ExclusiveGateway_0xr70ty" />
-    <bpmn:sequenceFlow id="SequenceFlow_10r3erf" name="送负责人" sourceRef="ExclusiveGateway_0xr70ty" targetRef="Task_021j3de" />
+    <bpmn:sequenceFlow id="SequenceFlow_10r3erf" name="送负责人" sourceRef="ExclusiveGateway_0xr70ty" targetRef="Task_021j3de">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">123&gt;1&lt;/1$%^&amp;*()_+</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
     <bpmn:sequenceFlow id="SequenceFlow_1mam5st" name="送部门负责人" sourceRef="ExclusiveGateway_0xr70ty" targetRef="Task_1hghzrv" />
     <bpmn:sequenceFlow id="SequenceFlow_0a4xio6" name="送核稿" sourceRef="ExclusiveGateway_0xr70ty" targetRef="Task_0wn7bzs" />
     <bpmn:sequenceFlow id="SequenceFlow_0vt52qy" name="送分管领导" sourceRef="ExclusiveGateway_0xr70ty" targetRef="Task_0l7j5un" />
@@ -350,7 +347,7 @@
       <bpmndi:BPMNShape id="ExclusiveGateway_0xr70ty_di" bpmnElement="ExclusiveGateway_0xr70ty" isMarkerVisible="true">
         <dc:Bounds x="575" y="515" width="50" height="50" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="591" y="485" width="19" height="14" />
+          <dc:Bounds x="560" y="565" width="20" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="SequenceFlow_13q810g_di" bpmnElement="SequenceFlow_13q810g">

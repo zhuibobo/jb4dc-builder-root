@@ -1,7 +1,7 @@
 import BpmnModeler from 'bpmn-js/lib/Modeler';
 import camundaModdleDescriptor from 'camunda-bpmn-moddle/resources/camunda';
 import jb4dcModdleDescriptor from './JB4DCModdle.json';
-import diagramXML from '../../Resources/newDiagram3.bpmn';
+import diagramXML from '../../Resources/newDiagram1.bpmn';
 import CustomTranslate from './CustomTranslate';
 import propertiesPadEntity from './AdditionalModules/PropertiesPadEntity';
 import {BpmnJsUtility} from './BpmnJsUtility';
@@ -117,7 +117,10 @@ class FlowBpmnJsIntegrated {
                 this.setting.ChangeSelectedElemCB(event.element);
             }
             //console.log(event.element);
-            BpmnJsUtility.JB4DC_TryGetMayBeActionsBySequenceFlowId(this.modeler,BpmnJsUtility.BPMN_Attr_GetId(event.element));
+            //BpmnJsUtility.JB4DC_TryGetMayBeActionsBySequenceFlowId(this.modeler,BpmnJsUtility.BPMN_Attr_GetId(event.element));
+            //var conditionExpression = BpmnJsUtility.BPMN_GetConditionExpression(event.element);
+            //BpmnJsUtility.BPMN_SetConditionExpression(event.element,"<11111>>><<<<><111>");
+            //console.log(conditionExpression);
             var clickEventName = event.element.type.replace("bpmn:", "BPMN_") + "ClickEvent";
             if (this[clickEventName] && typeof (this[clickEventName]) == "function") {
                 this[clickEventName](event, event.element);
@@ -250,7 +253,7 @@ class FlowBpmnJsIntegrated {
         result.bpmn.name=BpmnJsUtility.BPMN_Attr_GetName(elem);
         result.bpmn.isExecutable=BpmnJsUtility.BPMN_Attr_Process_GetIsExecutable(elem);
         result.bpmn.documentation=BpmnJsUtility.BPMN_GetElementDocumentationText(elem);
-
+        result.bpmn.conditionExpression=BpmnJsUtility.BPMN_GetConditionExpression(elem);
         //camunda
         result.camunda.versionTag=BpmnJsUtility.CAMUNDA_Attr_GetVersionTag(elem);
         result.camunda.taskPriority=BpmnJsUtility.CAMUNDA_Attr_GetTaskPriority(elem);
@@ -289,6 +292,7 @@ class FlowBpmnJsIntegrated {
         result.jb4dc.jb4dcProcessDescriptionEditText=BpmnJsUtility.JB4DC_Attr_GetJb4dcProcessDescriptionEditText(elem);
         result.jb4dc.jb4dcProcessDescriptionEditValue=BpmnJsUtility.JB4DC_Attr_GetJb4dcProcessDescriptionEditValue(elem);
         result.jb4dc.jb4dcActions=BpmnJsUtility.JB4DC_GetActionsArray(elem);
+        result.jb4dc.jb4dcSequenceFlowConditionEditText=BpmnJsUtility.JB4DC_Attr_GetJb4dcSequenceFlowConditionEditText(elem);
         if(!result.jb4dc.jb4dcActions){
             result.jb4dc.jb4dcActions=[];
         }
@@ -339,6 +343,10 @@ class FlowBpmnJsIntegrated {
         else if(BpmnJsUtility.Is_UserTask(elem)){
             console.log(props.jb4dc.jb4dcActions);
             BpmnJsUtility.JB4DC_SetActionsArray(elem,props.jb4dc.jb4dcActions,true);
+        }
+        else if(BpmnJsUtility.Is_SequenceFlow(elem)){
+            BpmnJsUtility.JB4DC_Attr_SetJb4dcSequenceFlowConditionEditText(elem,props.jb4dc.jb4dcSequenceFlowConditionEditText,true);
+            BpmnJsUtility.BPMN_SetConditionExpression(elem,props.bpmn.conditionExpression,true);
         }
         else{
 
@@ -395,7 +403,7 @@ class FlowBpmnJsIntegrated {
         }
         return formId;
     }
-    convertElemToHTMLDisplay(elem){
+    ConvertElemToHTMLDisplay(elem){
         var elemToDialogProps=this.SerializationElemToDialogProps(elem);
         var type=elem.type;
         var name=elemToDialogProps.bpmn.name;
