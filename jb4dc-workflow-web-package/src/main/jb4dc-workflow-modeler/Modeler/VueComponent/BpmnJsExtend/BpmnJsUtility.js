@@ -74,7 +74,10 @@ class BpmnJsUtility {
         if(docs==null||docs.length==0){
             return "";
         }
-        return docs[0].text;
+        if(docs[0].text) {
+            return docs[0].text;
+        }
+        return "";
     }
     static BPMN_SetElementDocumentationText(element,text) {
         let documentation = this.BPMN_GetElementDocumentation(element, true);
@@ -160,7 +163,9 @@ class BpmnJsUtility {
         var bo = element.businessObject;
         console.log(bo);
         if (bo.conditionExpression) {
-            return bo.conditionExpression.body;
+            if(bo.conditionExpression.body){
+                return bo.conditionExpression.body;
+            }
         }
         return "";
     }
