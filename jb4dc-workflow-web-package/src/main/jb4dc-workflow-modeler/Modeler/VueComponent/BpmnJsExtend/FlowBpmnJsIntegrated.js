@@ -6,6 +6,7 @@ import CustomTranslate from './CustomTranslate';
 import propertiesPadEntity from './AdditionalModules/PropertiesPadEntity';
 import {BpmnJsUtility} from './BpmnJsUtility';
 import {PODefinition} from './PODefinition.js';
+import he from 'he';
 
 let modeler = null;
 let eventBus = null;
@@ -410,23 +411,27 @@ class FlowBpmnJsIntegrated {
 
         result.push(`<div class="fbse-inner-title">【${type}】${name}</div>`);
         
-        function build(props) {
+        function build(propGroupName,props) {
             for(var key in props){
                 var value=props[key];
-                if(ArrayUtility.IsArray(value)){
-                    value="<pre style='min-width: 300px'>"+JsonUtility.JsonToStringFormat(value)+"</pre>";
+                var keyCN=PODefinition.TranslatePropertiesToCN(propGroupName,key);
+                if(keyCN) {
+                    if (ArrayUtility.IsArray(value)) {
+                        if(value.length>0) {
+                            value = "<pre style='min-width: 300px'>" + JsonUtility.JsonToStringFormat(value) + "</pre>";
+                        }
+                    } else {
+                        value = "<pre>" + he.encode(value) + "</pre>";
+                    }
+                    result.push(`<div class="fbse-inner-single-attr">${keyCN}：</div>
+                                 <div class="fbse-inner-single-value">${value}</div>`);
                 }
-                else {
-
-                }
-                result.push(`<div class="fbse-inner-single-attr">${key}:</div>
-                <div class="fbse-inner-single-value">${value}</div>`);
             }
-        }
+        };
 
-        build(elemToDialogProps.jb4dc);
-        build(elemToDialogProps.bpmn);
-        build(elemToDialogProps.camunda);
+        build("jb4dc",elemToDialogProps.jb4dc);
+        build("bpmn",elemToDialogProps.bpmn);
+        build("camunda",elemToDialogProps.camunda);
         
         return result.join("");
     }
