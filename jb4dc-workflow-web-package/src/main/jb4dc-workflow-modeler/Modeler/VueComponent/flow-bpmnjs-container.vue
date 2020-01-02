@@ -5,17 +5,17 @@
         </div>
         <div class="flow-bpmnjs-toolbar-outer">
             <div class="flow-bpmnjs-toolbar-inner">
-                <div class="toolbar-item zoom-to" title="自适应缩放" @click="zoomAuto"></div>
-                <div class="toolbar-item zoom-in" title="放大"></div>
-                <div class="toolbar-item zoom-out" title="缩小"></div>
-                <div class="toolbar-item zoom-out" title="缩小"></div>
-                <div class="toolbar-item zoom-out" title="缩小"></div>
-                <div class="toolbar-item zoom-out" title="缩小"></div>
-                <div class="toolbar-item zoom-out" title="缩小"></div>
-                <div class="toolbar-item zoom-out" title="缩小"></div>
-                <div class="toolbar-item zoom-out" title="缩小"></div>
-                <div class="toolbar-item zoom-out" title="缩小"></div>
-                <div class="toolbar-item zoom-out" title="缩小"></div>
+                <div class="toolbar-item zoom-auto" title="自适应缩放1" @click="zoomAuto"></div>
+                <div class="toolbar-item zoom-p100" title="100%" @click="zoomP100"></div>
+                <div class="toolbar-item zoom-p50" title="50%" @click="zoomP50"></div>
+                <div class="toolbar-item zoom-align" title="缩小" @click="align('left')"></div>
+                <div class="toolbar-item zoom-center" title="缩小" @click="align('center')"></div>
+                <div class="toolbar-item zoom-right" title="缩小" @click="align('right')"></div>
+                <div class="toolbar-item zoom-top" title="缩小" @click="align('top')"></div>
+                <div class="toolbar-item zoom-middle" title="缩小" @click="align('middle')"></div>
+                <div class="toolbar-item zoom-bottom" title="缩小" @click="align('bottom')"></div>
+                <div class="toolbar-item zoom-horizontal" title="缩小" @click="distribute('horizontal')"></div>
+                <div class="toolbar-item zoom-vertical" title="缩小" @click="distribute('vertical')"></div>
                 <div class="toolbar-item zoom-out" title="缩小"></div>
             </div>
         </div>
@@ -148,6 +148,18 @@
             },
             zoomAuto(){
                 flowBpmnJsIntegrated.ZoomAuto();
+            },
+            zoomP100(){
+                flowBpmnJsIntegrated.ZoomP100();
+            },
+            zoomP50(){
+                flowBpmnJsIntegrated.ZoomP50();
+            },
+            align(type){
+                flowBpmnJsIntegrated.Align(type);
+            },
+            distribute(type){
+                flowBpmnJsIntegrated.Distribute(type);
             }
         }
     }

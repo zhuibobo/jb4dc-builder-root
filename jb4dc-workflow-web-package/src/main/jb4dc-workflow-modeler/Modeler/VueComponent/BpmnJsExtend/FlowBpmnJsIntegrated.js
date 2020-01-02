@@ -370,7 +370,26 @@ class FlowBpmnJsIntegrated {
         modeling.updateProperties(elem,{});
     }
     ZoomAuto(){
+        //debugger;
         this.modeler.get('canvas').zoom('fit-viewport', 'auto');
+    }
+    ZoomP100(){
+        this.modeler.get('canvas').zoom(1, 'auto');
+    }
+    ZoomP50(){
+        this.modeler.get('canvas').zoom(0.5, 'auto');
+        //var type="horizontal";
+        //this.modeler.get('editorActions').trigger("distributeElements",{type});
+    }
+    Align(type){
+        const modeler = this.modeler;
+        const selection = modeler.get('selection').get();
+        modeler.get('alignElements').trigger(selection, type);
+    }
+    Distribute(type){
+        //var type="horizontal";
+        //alert(type);
+        this.modeler.get('editorActions').trigger("distributeElements",{type});
     }
     LogXML(){
         console.log(this.GetXML());
