@@ -90,7 +90,7 @@ class FlowBpmnJsIntegrated {
             console.log(_self.setting);
             _self.setting.FlowBpmnJsContainer.showProperties();
         });*/
-
+        console.log(this.modeler);
         eventBus.on("propertiesPadEntity.click", (e) => {
             //console.log(e);
             //console.log(this);
