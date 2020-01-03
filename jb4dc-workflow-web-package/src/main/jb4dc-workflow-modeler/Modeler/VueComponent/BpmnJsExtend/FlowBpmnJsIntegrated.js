@@ -393,12 +393,12 @@ class FlowBpmnJsIntegrated {
         //alert(type);
         this.modeler.get('editorActions').trigger("distributeElements",{type});
 
-        var fill="rgb(187, 222, 251)";
+        /*var fill="rgb(187, 222, 251)";
         var stroke="rgb(30, 136, 229)";
         this.modeler.get('editorActions').trigger('setColor', {
             fill,
             stroke
-        });
+        });*/
     }
     LogXML(){
         console.log(this.GetXML());
