@@ -4,6 +4,7 @@ import jb4dcModdleDescriptor from './JB4DCModdle.json';
 import diagramXML from '../../Resources/newDiagram2.bpmn';
 import CustomTranslate from './CustomTranslate';
 import propertiesPadEntity from './AdditionalModules/PropertiesPadEntity';
+import changeColorPadEntity from './AdditionalModules/ChangeColorPadEntity';
 import {BpmnJsUtility} from './BpmnJsUtility';
 import {PODefinition} from './PODefinition.js';
 import he from 'he';
@@ -50,7 +51,8 @@ class FlowBpmnJsIntegrated {
             "container": $("#" + exConfig.RendererToElemId)[0],
             "additionalModules": [
                 customTranslateModule,
-                propertiesPadEntity
+                propertiesPadEntity,
+                changeColorPadEntity
             ],
             keyboard: {
                 bindTo: document
@@ -390,6 +392,13 @@ class FlowBpmnJsIntegrated {
         //var type="horizontal";
         //alert(type);
         this.modeler.get('editorActions').trigger("distributeElements",{type});
+
+        var fill="rgb(187, 222, 251)";
+        var stroke="rgb(30, 136, 229)";
+        this.modeler.get('editorActions').trigger('setColor', {
+            fill,
+            stroke
+        });
     }
     LogXML(){
         console.log(this.GetXML());
@@ -429,7 +438,7 @@ class FlowBpmnJsIntegrated {
         var result=[];
 
         result.push(`<div class="fbse-inner-title">【${type}】${name}</div>`);
-        
+
         function build(propGroupName,props) {
             for(var key in props){
                 var value=props[key];
@@ -451,7 +460,7 @@ class FlowBpmnJsIntegrated {
         build("jb4dc",elemToDialogProps.jb4dc);
         build("bpmn",elemToDialogProps.bpmn);
         build("camunda",elemToDialogProps.camunda);
-        
+
         return result.join("");
     }
 }

@@ -11,31 +11,42 @@ import {
  * @param {ContextPad} contextPad
  * @param {CommandStack} commandStack
  */
-export default function PropertiesPadEntity(eventBus, contextPad, commandStack) {
+export default function PropertiesPadEntity(eventBus, contextPad, commandStack,popupMenu) {
 
     contextPad.registerProvider(this);
 
-    commandStack.registerHandler('shape.updateColor', UpdateColorHandler);
+    commandStack.registerHandler('shape.settingProperties', SettingPropertiesHandler);
 
-    function changeColor(event, element) {
+    function settingPropertiesClick(event, element) {
 
         //var color = window.prompt('type a color code');
         //FlowBpmnJsExtendContainer.a1();
         //commandStack.execute('shape.updateColor', { element: element, color: "red" });
         eventBus.fire('propertiesPadEntity.click',   { element: element, eventBus: eventBus })
-        //console.log(contextPad);
+        /*console.log(contextPad);
+        console.log(event);
+        console.log(element);
+        var tempElem=$("<div>11</div>");
+        tempElem.css({
+            "position":"absolute",
+            "left":0,
+            "top":100,
+            "color":"red"
+        })
+        $("[data-overlay-id='"+contextPad._overlayId+"']").append(tempElem);
+        console.log(popupMenu);*/
     }
 
     this.getContextPadEntries = function(element) {
         //console.log(element);
         if (is(element, 'bpmn:SequenceFlow')||is(element, 'bpmn:UserTask')) {
             return {
-                'changeColor': {
+                'settingProperties': {
                     group: 'edit',
                     className: 'properties-pad-entity',
-                    title: 'Change element color',
+                    title: '属性设置',
                     action: {
-                        click: changeColor
+                        click: settingPropertiesClick
                     }
                 }
             };
@@ -48,7 +59,7 @@ export default function PropertiesPadEntity(eventBus, contextPad, commandStack) 
 /**
  * A handler updating an elements color.
  */
-function UpdateColorHandler() {
+function SettingPropertiesHandler() {
 
     this.execute = function(context) {
         context.oldColor = context.element.color;

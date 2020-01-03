@@ -259,6 +259,13 @@ body{
   background-repeat: no-repeat !important;
 }
 
+.change-color-pad-entity {
+  /*background-color: red !important; */
+  background-image: url("Images/grade.png") !important;
+  background-position: 3px 3px !important;
+  background-repeat: no-repeat !important;
+}
+
 .wf-list-font-icon-button-class{
   font-size: 20px;
   cursor: pointer;
@@ -274,4 +281,28 @@ body{
   border-radius: 4px;
   padding: 2px;
   margin: 2px;
+}
+
+.change-color-pad-wrap {
+  position: absolute;
+  left: 0px;
+  top: 120px;
+  width: 100px;
+  height: 180px;
+  border: #e5e5e5 1px solid;
+  border-radius: 6px;
+  background-color: #fff;
+
+  .change-color-pad-item{
+    margin: 4px;
+    border: #4d4d4d solid 1px;
+    border-radius: 4px;
+    height: 25px;
+  }
+
+  .change-color-pad-item:hover{
+    opacity: 0.8;
+    border-color: red !important;
+    cursor: pointer;
+  }
 }
