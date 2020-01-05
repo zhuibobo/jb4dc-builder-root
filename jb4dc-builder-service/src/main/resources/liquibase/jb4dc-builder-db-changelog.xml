@@ -1,7 +1,7 @@
 <?xml version="1.1" encoding="UTF-8" standalone="no"?>
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
     <!--模块构建-->
-    <changeSet author="zhuangrb" id="changeSet-Builder-0001" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
+    <changeSet author="zhuangrb" id="changeSet-Builder-Base" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
 
         <createTable tableName="TBUILD_DB_LINK" remarks="业务数据库连接">
             <column name="DB_ID" type="NVARCHAR(100)" remarks="主键:UUID">
@@ -76,7 +76,7 @@
                 <constraints nullable="false"/>
             </column>
             <column name="TABLE_STATUS" type="NVARCHAR(10)" remarks="状态" />
-            <column name="TABLE_LINK_ID" type="NVARCHAR(100)" remarks="所属连接ID:关联到表TBUILD_DB_LINK.DB_ID"/>
+            <!--<column name="TABLE_LINK_ID" type="NVARCHAR(100)" remarks="所属连接ID:关联到表TBUILD_DB_LINK.DB_ID"/>-->
             <column name="TABLE_ORGAN_ID" type="NVARCHAR(100)" remarks="组织ID" />
             <column name="TABLE_ORGAN_NAME" type="NVARCHAR(100)" remarks="组织名称" />
         </createTable>
@@ -295,7 +295,7 @@
             <column name="MODULE_ORGAN_NAME" type="NVARCHAR(100)" remarks="组织名称"/>
         </createTable>
 
-        <createTable tableName="TBUILD_FLOW_MODEL" remarks="流程模型表">
+        <createTable tableName="TBUILD_FLOW_INTEGRATED" remarks="流程模型表">
             <column name="MODEL_ID" type="NVARCHAR(100)" remarks="主键:UUID">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
@@ -460,10 +460,12 @@
             <column name="BUTTON_CUST_PROP3" type="NVARCHAR(200)" remarks="用户自定义属性3"/>
             <column name="BUTTON_CUST_PROP4" type="NVARCHAR(200)" remarks="用户自定义属性4"/>
             <column name="BUTTON_DESC" type="NVARCHAR(400)" remarks="备注" />
+            <column name="BUTTON_INNER_CONFIG" type="NVARCHAR(4000)" remarks="按钮的内部配置:例如窗体按钮的innerbuttonjsonstring属性"/>
+            <column name="BUTTON_OPERATION_TYPE" type="NVARCHAR(20)" remarks="操作类型:add,update,view"/>
         </createTable>
     </changeSet>
 
-    <changeSet author="zhuangrb" id="changeSet-Builder-0002" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
+    <changeSet author="zhuangrb" id="changeSet-Builder-Env-Variable" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
         <createTable tableName="TBUILD_ENV_GROUP" remarks="环境变量分组">
             <column name="ENV_GROUP_ID" type="NVARCHAR(100)" remarks="主键:UUID">
                 <constraints primaryKey="true" nullable="false"/>
@@ -526,7 +528,7 @@
         </createTable>
     </changeSet>
 
-    <changeSet author="zhuangrb" id="changeSet-Builder-0003" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
+    <changeSet author="zhuangrb" id="changeSet-Builder-Api" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
         <createTable tableName="TBUILD_API_GROUP" remarks="API分组">
             <column name="API_GROUP_ID" type="NVARCHAR(100)" remarks="主键:UUID">
                 <constraints primaryKey="true" nullable="false"/>
@@ -588,17 +590,5 @@
             <column name="API_ITEM_ORGAN_NAME" type="NVARCHAR(100)" remarks="创建组织名称"/>
         </createTable>
     </changeSet>
-
-    <changeSet author="zhuangrb" id="changeSet-Builder-0004" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
-        <addColumn tableName="TBUILD_LIST_BUTTON">
-            <column name="BUTTON_INNER_CONFIG" type="NVARCHAR(4000)" remarks="按钮的内部配置:例如窗体按钮的innerbuttonjsonstring属性"/>
-        </addColumn>
-    </changeSet>
-    <changeSet author="zhuangrb" id="changeSet-Builder-0005" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
-        <addColumn tableName="TBUILD_LIST_BUTTON">
-            <column name="BUTTON_OPERATION_TYPE" type="NVARCHAR(20)" remarks="操作类型:add,update,view"/>
-        </addColumn>
-    </changeSet>
-
 
 </databaseChangeLog>

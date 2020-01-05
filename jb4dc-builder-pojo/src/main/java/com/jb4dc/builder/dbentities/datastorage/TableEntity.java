@@ -60,9 +60,6 @@ public class TableEntity {
     //TABLE_STATUS:状态
     private String tableStatus;
 
-    //TABLE_LINK_ID:所属连接ID:关联到表TBUILD_DB_LINK.DB_ID
-    private String tableLinkId;
-
     //TABLE_ORGAN_ID:组织ID
     private String tableOrganId;
 
@@ -86,11 +83,10 @@ public class TableEntity {
      * @param tableDesc 备注
      * @param tableGroupId 所属分组ID
      * @param tableStatus 状态
-     * @param tableLinkId 所属连接ID
      * @param tableOrganId 组织ID
      * @param tableOrganName 组织名称
      **/
-    public TableEntity(String tableId, String tableCode, String tableCaption, String tableName, Date tableCreateTime, String tableCreator, Date tableUpdateTime, String tableUpdater, String tableServiceValue, String tableType, String tableIsSystem, Integer tableOrderNum, String tableDesc, String tableGroupId, String tableStatus, String tableLinkId, String tableOrganId, String tableOrganName) {
+    public TableEntity(String tableId, String tableCode, String tableCaption, String tableName, Date tableCreateTime, String tableCreator, Date tableUpdateTime, String tableUpdater, String tableServiceValue, String tableType, String tableIsSystem, Integer tableOrderNum, String tableDesc, String tableGroupId, String tableStatus, String tableOrganId, String tableOrganName) {
         this.tableId = tableId;
         this.tableCode = tableCode;
         this.tableCaption = tableCaption;
@@ -106,7 +102,6 @@ public class TableEntity {
         this.tableDesc = tableDesc;
         this.tableGroupId = tableGroupId;
         this.tableStatus = tableStatus;
-        this.tableLinkId = tableLinkId;
         this.tableOrganId = tableOrganId;
         this.tableOrganName = tableOrganName;
     }
@@ -353,22 +348,6 @@ public class TableEntity {
      **/
     public void setTableStatus(String tableStatus) {
         this.tableStatus = tableStatus == null ? null : tableStatus.trim();
-    }
-
-    /**
-     * 所属连接ID:关联到表TBUILD_DB_LINK.DB_ID
-     * @return java.lang.String
-     **/
-    public String getTableLinkId() {
-        return tableLinkId;
-    }
-
-    /**
-     * 所属连接ID:关联到表TBUILD_DB_LINK.DB_ID
-     * @param tableLinkId 所属连接ID
-     **/
-    public void setTableLinkId(String tableLinkId) {
-        this.tableLinkId = tableLinkId == null ? null : tableLinkId.trim();
     }
 
     /**

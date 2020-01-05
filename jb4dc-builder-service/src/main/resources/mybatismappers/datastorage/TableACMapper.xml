@@ -18,7 +18,6 @@
             <arg column="TABLE_DESC" javaType="java.lang.String" jdbcType="NVARCHAR" />
             <arg column="TABLE_GROUP_ID" javaType="java.lang.String" jdbcType="NVARCHAR" />
             <arg column="TABLE_STATUS" javaType="java.lang.String" jdbcType="NVARCHAR" />
-            <arg column="TABLE_LINK_ID" javaType="java.lang.String" jdbcType="NVARCHAR" />
             <arg column="TABLE_ORGAN_ID" javaType="java.lang.String" jdbcType="NVARCHAR" />
             <arg column="TABLE_ORGAN_NAME" javaType="java.lang.String" jdbcType="NVARCHAR" />
         </constructor>
@@ -26,8 +25,7 @@
     <sql id="Base_Column_List">
     TABLE_ID, TABLE_CODE, TABLE_CAPTION, TABLE_NAME, TABLE_CREATE_TIME, TABLE_CREATOR,
     TABLE_UPDATE_TIME, TABLE_UPDATER, TABLE_SERVICE_VALUE, TABLE_TYPE, TABLE_IS_SYSTEM,
-    TABLE_ORDER_NUM, TABLE_DESC, TABLE_GROUP_ID, TABLE_STATUS, TABLE_LINK_ID, TABLE_ORGAN_ID,
-    TABLE_ORGAN_NAME
+    TABLE_ORDER_NUM, TABLE_DESC, TABLE_GROUP_ID, TABLE_STATUS, TABLE_ORGAN_ID, TABLE_ORGAN_NAME
   </sql>
     <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
         select
@@ -45,15 +43,13 @@
       TABLE_UPDATE_TIME, TABLE_UPDATER, TABLE_SERVICE_VALUE,
       TABLE_TYPE, TABLE_IS_SYSTEM, TABLE_ORDER_NUM,
       TABLE_DESC, TABLE_GROUP_ID, TABLE_STATUS,
-      TABLE_LINK_ID, TABLE_ORGAN_ID, TABLE_ORGAN_NAME
-      )
+      TABLE_ORGAN_ID, TABLE_ORGAN_NAME)
     values (#{tableId,jdbcType=NVARCHAR}, #{tableCode,jdbcType=NVARCHAR}, #{tableCaption,jdbcType=NVARCHAR},
       #{tableName,jdbcType=NVARCHAR}, #{tableCreateTime,jdbcType=TIMESTAMP}, #{tableCreator,jdbcType=NVARCHAR},
       #{tableUpdateTime,jdbcType=TIMESTAMP}, #{tableUpdater,jdbcType=NVARCHAR}, #{tableServiceValue,jdbcType=NVARCHAR},
       #{tableType,jdbcType=NVARCHAR}, #{tableIsSystem,jdbcType=NVARCHAR}, #{tableOrderNum,jdbcType=INTEGER},
       #{tableDesc,jdbcType=NVARCHAR}, #{tableGroupId,jdbcType=NVARCHAR}, #{tableStatus,jdbcType=NVARCHAR},
-      #{tableLinkId,jdbcType=NVARCHAR}, #{tableOrganId,jdbcType=NVARCHAR}, #{tableOrganName,jdbcType=NVARCHAR}
-      )
+      #{tableOrganId,jdbcType=NVARCHAR}, #{tableOrganName,jdbcType=NVARCHAR})
   </insert>
     <insert id="insertSelective" parameterType="com.jb4dc.builder.dbentities.datastorage.TableEntity">
         insert into TBUILD_TABLE
@@ -102,9 +98,6 @@
             </if>
             <if test="tableStatus != null">
                 TABLE_STATUS,
-            </if>
-            <if test="tableLinkId != null">
-                TABLE_LINK_ID,
             </if>
             <if test="tableOrganId != null">
                 TABLE_ORGAN_ID,
@@ -159,9 +152,6 @@
             <if test="tableStatus != null">
                 #{tableStatus,jdbcType=NVARCHAR},
             </if>
-            <if test="tableLinkId != null">
-                #{tableLinkId,jdbcType=NVARCHAR},
-            </if>
             <if test="tableOrganId != null">
                 #{tableOrganId,jdbcType=NVARCHAR},
             </if>
@@ -215,9 +205,6 @@
             <if test="tableStatus != null">
                 TABLE_STATUS = #{tableStatus,jdbcType=NVARCHAR},
             </if>
-            <if test="tableLinkId != null">
-                TABLE_LINK_ID = #{tableLinkId,jdbcType=NVARCHAR},
-            </if>
             <if test="tableOrganId != null">
                 TABLE_ORGAN_ID = #{tableOrganId,jdbcType=NVARCHAR},
             </if>
@@ -243,7 +230,6 @@
       TABLE_DESC = #{tableDesc,jdbcType=NVARCHAR},
       TABLE_GROUP_ID = #{tableGroupId,jdbcType=NVARCHAR},
       TABLE_STATUS = #{tableStatus,jdbcType=NVARCHAR},
-      TABLE_LINK_ID = #{tableLinkId,jdbcType=NVARCHAR},
       TABLE_ORGAN_ID = #{tableOrganId,jdbcType=NVARCHAR},
       TABLE_ORGAN_NAME = #{tableOrganName,jdbcType=NVARCHAR}
     where TABLE_ID = #{tableId,jdbcType=NVARCHAR}

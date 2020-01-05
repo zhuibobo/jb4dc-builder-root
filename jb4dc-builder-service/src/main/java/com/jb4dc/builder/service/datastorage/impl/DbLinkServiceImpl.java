@@ -101,7 +101,7 @@ public class DbLinkServiceImpl extends BaseServiceImpl<DbLinkEntity> implements 
         dbLinkEntity.setDbType("sqlserver");
         dbLinkEntity.setDbDriverName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
         dbLinkEntity.setDbDatabaseName("JB4DC_SSO_V01");
-        dbLinkEntity.setDbUrl("jdbc:sqlserver://127.0.0.1:1433; DatabaseName=JB4DC_SSO_V01");
+        dbLinkEntity.setDbUrl("jdbc:sqlserver://192.168.3.166:1433; DatabaseName=JB4DC_SSO_V01");
         dbLinkEntity.setDbUser("sa");
         dbLinkEntity.setDbPassword("sql");
         dbLinkEntity.setDbDesc("单点登录数据库连接");
@@ -118,7 +118,7 @@ public class DbLinkServiceImpl extends BaseServiceImpl<DbLinkEntity> implements 
         dbLinkEntity.setDbType("sqlserver");
         dbLinkEntity.setDbDriverName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
         dbLinkEntity.setDbDatabaseName("JB4DC_DEV_MOCK_V01");
-        dbLinkEntity.setDbUrl("jdbc:sqlserver://127.0.0.1:1433; DatabaseName=JB4DC_DEV_MOCK_V01");
+        dbLinkEntity.setDbUrl("jdbc:sqlserver://192.168.3.166:1433; DatabaseName=JB4DC_DEV_MOCK_V01");
         dbLinkEntity.setDbUser("sa");
         dbLinkEntity.setDbPassword("sql");
         dbLinkEntity.setDbDesc("开发样例数据库连接");

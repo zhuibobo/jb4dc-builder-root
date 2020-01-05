@@ -128,7 +128,7 @@ public class TableServiceImpl extends BaseServiceImpl<TableEntity> implements IT
                         //tableEntity.setTableDbName(dbLinkEntity.getDbDatabaseName());
                         tableEntity.setTableOrganId(jb4DCSession.getOrganId());
                         tableEntity.setTableOrganName(jb4DCSession.getOrganName());
-                        tableEntity.setTableLinkId(dbLinkEntity.getDbId());
+                        //tableEntity.setTableLinkId(dbLinkEntity.getDbId());
                         if(tableEntity.getTableStatus()==null||tableEntity.getTableStatus().equals("")){
                             tableEntity.setTableStatus(EnableTypeEnum.enable.getDisplayName());
                         }
@@ -249,7 +249,8 @@ public class TableServiceImpl extends BaseServiceImpl<TableEntity> implements IT
     public ValidateTableUpdateResultPO validateTableUpdateEnable(JB4DCSession jb4DCSession, UpdateTableResolvePO resolveVo) throws JBuild4DCGenerallyException, PropertyVetoException {
         ValidateTableUpdateResultPO validateTableUpdateResultPO =new ValidateTableUpdateResultPO();
 
-        DbLinkEntity dbLinkEntity=dbLinkService.getByPrimaryKey(jb4DCSession,resolveVo.getNewTableEntity().getTableLinkId());
+        TableGroupEntity tableGroupEntity=tableGroupService.getByPrimaryKey(jb4DCSession,resolveVo.getNewTableEntity().getTableGroupId());
+        DbLinkEntity dbLinkEntity=dbLinkService.getByPrimaryKey(jb4DCSession,tableGroupEntity.getTableGroupLinkId());
 
         if(!resolveVo.getOldTableEntity().getTableName().equals(resolveVo.getNewTableEntity().getTableName())){
             validateTableUpdateResultPO.setEnable(false);
@@ -282,14 +283,15 @@ public class TableServiceImpl extends BaseServiceImpl<TableEntity> implements IT
 
         UpdateTableResolvePO updateTableResolvePO =updateTableResolve(jb4DCSession,newTableEntity, newTableFieldPOList);
 
+        TableGroupEntity tableGroupEntity=tableGroupService.getByPrimaryKey(jb4DCSession,newTableEntity.getTableGroupId());
         if(newTableEntity.getTableGroupId()==null||newTableEntity.getTableGroupId().equals("")) {
             throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_BUILDER_CODE,"newTableEntity中的TableGroupId不能为空!");
         }
-        if(newTableEntity.getTableLinkId()==null||newTableEntity.getTableLinkId().equals("")) {
+        if(tableGroupEntity.getTableGroupLinkId()==null||tableGroupEntity.getTableGroupLinkId().equals("")) {
             throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_BUILDER_CODE,"newTableEntity中的TableLinkId不能为空!");
         }
-        TableGroupEntity tableGroupEntity=tableGroupService.getByPrimaryKey(jb4DCSession,newTableEntity.getTableGroupId());
-        DbLinkEntity dbLinkEntity=dbLinkService.getByPrimaryKey(jb4DCSession,newTableEntity.getTableLinkId());
+        //TableGroupEntity tableGroupEntity=tableGroupService.getByPrimaryKey(jb4DCSession,newTableEntity.getTableGroupId());
+        DbLinkEntity dbLinkEntity=dbLinkService.getByPrimaryKey(jb4DCSession,tableGroupEntity.getTableGroupLinkId());
 
         //判断能否进行表的修改
         ValidateTableUpdateResultPO validateTableUpdateResultPO =this.validateTableUpdateEnable(jb4DCSession, updateTableResolvePO);
@@ -358,7 +360,8 @@ public class TableServiceImpl extends BaseServiceImpl<TableEntity> implements IT
         if(tableEntity==null){
             return false;
         }
-        DbLinkEntity dbLinkEntity=dbLinkService.getByPrimaryKey(jb4DCSession,tableEntity.getTableLinkId());
+        TableGroupEntity tableGroupEntity=tableGroupService.getByPrimaryKey(jb4DCSession,tableEntity.getTableGroupId());
+        DbLinkEntity dbLinkEntity=dbLinkService.getByPrimaryKey(jb4DCSession,tableGroupEntity.getTableGroupLinkId());
         return tableBuilederFace.isExistTable(tableName,dbLinkEntity);
     }
 
@@ -366,7 +369,8 @@ public class TableServiceImpl extends BaseServiceImpl<TableEntity> implements IT
     public boolean deletePhysicsTable(JB4DCSession jb4DCSession, String tableName, String warningOperationCode, boolean validateDeleteEnable) throws JBuild4DCSQLKeyWordException, JBuild4DCPhysicalTableException, JBuild4DCGenerallyException, PropertyVetoException {
         if(JBuild4DCYaml.getWarningOperationCode().equals(warningOperationCode)) {
             TableEntity tableEntity=tableMapper.selectByTableName(tableName);
-            DbLinkEntity dbLinkEntity=dbLinkService.getByPrimaryKey(jb4DCSession,tableEntity.getTableLinkId());
+            TableGroupEntity tableGroupEntity=tableGroupService.getByPrimaryKey(jb4DCSession,tableEntity.getTableGroupId());
+            DbLinkEntity dbLinkEntity=dbLinkService.getByPrimaryKey(jb4DCSession,tableGroupEntity.getTableGroupLinkId());
             return tableBuilederFace.deleteTable(tableName,dbLinkEntity,validateDeleteEnable);
         }
         throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_BUILDER_CODE,"删除失败WarningOperationCode错误");
@@ -431,10 +435,10 @@ public class TableServiceImpl extends BaseServiceImpl<TableEntity> implements IT
             tableEntity.setTableDesc(tableComment);
             tableEntity.setTableGroupId(tableGroupEntity.getTableGroupId());
             tableEntity.setTableStatus(EnableTypeEnum.enable.getDisplayName());
-            tableEntity.setTableLinkId("");
+            //tableEntity.setTableLinkId("");
             tableEntity.setTableOrganId(jb4DCSession.getOrganId());
             tableEntity.setTableOrganName(jb4DCSession.getOrganName());
-            tableEntity.setTableLinkId(dbLinkEntity.getDbId());
+            //tableEntity.setTableLinkId(dbLinkEntity.getDbId());
             //tableEntity.setTableDbName();
             tableMapper.insert(tableEntity);
 
@@ -463,14 +467,15 @@ public class TableServiceImpl extends BaseServiceImpl<TableEntity> implements IT
         for (Object o : tableList) {
             String tableName=o.toString();
             TableEntity tableEntity=tableMapper.selectByTableName(tableName);
+            TableGroupEntity tableGroupEntity=tableGroupService.getByPrimaryKey(jb4DCSession,tableEntity.getTableGroupId());
             if(tableEntity==null){
                 throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_BUILDER_CODE,"不存在表:"+tableName);
             }
             if(sameDBLinkId.equals("")){
-                sameDBLinkId=tableEntity.getTableLinkId();
+                sameDBLinkId=tableGroupEntity.getTableGroupLinkId();
             }
             else{
-                if(!sameDBLinkId.equals(tableEntity.getTableLinkId())){
+                if(!sameDBLinkId.equals(tableGroupEntity.getTableGroupLinkId())){
                     return false;
                 }
             }
@@ -481,7 +486,8 @@ public class TableServiceImpl extends BaseServiceImpl<TableEntity> implements IT
     @Override
     public DbLinkEntity getDBLinkByTableName(JB4DCSession jb4DCSession,String tableName) throws JBuild4DCGenerallyException {
         TableEntity tableEntity=tableMapper.selectByTableName(tableName);
-        return dbLinkService.getByPrimaryKey(jb4DCSession,tableEntity.getTableLinkId());
+        TableGroupEntity tableGroupEntity=tableGroupService.getByPrimaryKey(jb4DCSession,tableEntity.getTableGroupId());
+        return dbLinkService.getByPrimaryKey(jb4DCSession,tableGroupEntity.getTableGroupLinkId());
     }
 
     private void registerSystemTableFieldToBuilderToModule(JB4DCSession jb4DCSession,TableEntity tableEntity,IntrospectedColumn column,boolean isKey) throws JBuild4DCGenerallyException {

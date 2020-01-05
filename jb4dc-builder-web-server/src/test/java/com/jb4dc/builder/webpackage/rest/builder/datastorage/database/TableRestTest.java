@@ -298,7 +298,7 @@ public class TableRestTest extends TableGroupRestTest {
         tableEntity.setTableIsSystem(TrueFalseEnum.False.getDisplayName());
         tableEntity.setTableOrderNum(0);
         tableEntity.setTableDesc("");
-        tableEntity.setTableLinkId(testDBLinkId);
+        //tableEntity.setTableLinkId(testDBLinkId);
 
         /*TableGroupEntity tableGroupEntity=tableGroupService.getByGroupText(jb4DCSession,"开发测试");
         if(tableGroupEntity==null){
@@ -319,7 +319,7 @@ public class TableRestTest extends TableGroupRestTest {
 
         tableEntity.setTableGroupId(tableGroupId);
         tableEntity.setTableStatus("");
-        tableEntity.setTableLinkId("");
+        //tableEntity.setTableLinkId("");
         return tableEntity;
     }
 

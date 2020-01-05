@@ -32,7 +32,7 @@
         </div>
     </div>
     <div class="right-outer-wrap iv-list-page-wrap" style="padding: 10px;left: 260px">
-        <tabs type="card" @on-click="selectedRelationChange">
+        <tabs type="card" @on-click="selectedRelationChange" :value="selectedRelationId">
             <tab-pane v-for="relation in relationList" :label="relation.relationName" :name="relation.relationId">
                 <table-relation-content-comp :relation="relation" v-if="relation.relationId==selectedRelationId"></table-relation-content-comp>
             </tab-pane>
@@ -234,8 +234,9 @@
             },
             <!--Tabs-->
             selectedRelationChange:function(name){
+                //console.log(name);
                 this.selectedRelationId=name;
-                //alert(name);
+                //alert(name1);
             },
             addRelation: function () {
                 if(this.treeSelectedNode!=null) {
@@ -319,7 +320,10 @@
                             _self.relationList=result.data;
                             if(_self.relationList.length>0){
                                 if(!_self.selectedRelationId) {
-                                    _self.selectedRelationId = _self.relationList[0].relationId;
+                                    window.setTimeout(function () {
+                                        _self.selectedRelationId = _self.relationList[0].relationId;
+                                        console.log(_self.selectedRelationId);
+                                    },1000);
                                 }
                             }
                             else{

@@ -33,7 +33,7 @@ public class DBLinkRestTest extends RestTestBase {
         dbLinkEntity.setDbType("sqlserver");
         dbLinkEntity.setDbDriverName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
         dbLinkEntity.setDbDatabaseName("JB4DC_DEV_MOCK_V01");
-        dbLinkEntity.setDbUrl("jdbc:sqlserver://127.0.0.1:1433; DatabaseName=JB4DC_DEV_MOCK_V01");
+        dbLinkEntity.setDbUrl("jdbc:sqlserver://192.168.3.166:1433; DatabaseName=JB4DC_DEV_MOCK_V01");
         dbLinkEntity.setDbUser("sa");
         dbLinkEntity.setDbPassword("sql");
         dbLinkEntity.setDbDesc("单元测试修改");

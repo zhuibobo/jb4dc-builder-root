@@ -46,7 +46,7 @@ public class ZTreeNodePOConvert extends ZTreeNodePO {
             nodeVo.setParentId(tableEntity.getTableGroupId());
             nodeVo.setNodeTypeName("Table");
             nodeVo.setNocheck(false);
-            nodeVo.setOuterId(tableEntity.getTableLinkId());
+            //nodeVo.setOuterId(tableEntity.getTableLinkId());
             nodeVo.setCode(tableEntity.getTableCode());
             result.add(nodeVo);
         }
