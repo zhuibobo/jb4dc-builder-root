@@ -82,7 +82,7 @@ public class InitializationSystemRest {
 
         tableRelationGroupService.createSystemTableRelationGroupNode(jb4DCSession,rootTableRelationGroupEntity);
 
-        datasetGroupService.initSystemData(jb4DCSession);
+        //datasetGroupService.initSystemData(jb4DCSession);
 
         dbLinkService.initSystemData(jb4DCSession);
 

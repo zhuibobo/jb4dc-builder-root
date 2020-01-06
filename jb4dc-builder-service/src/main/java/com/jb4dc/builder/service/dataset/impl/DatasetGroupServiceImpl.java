@@ -1,5 +1,6 @@
 package com.jb4dc.builder.service.dataset.impl;
 
+import com.jb4dc.base.service.exenum.EnableTypeEnum;
 import com.jb4dc.base.service.exenum.TrueFalseEnum;
 import com.jb4dc.base.service.IAddBefore;
 import com.jb4dc.base.service.ISQLBuilderService;
@@ -14,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.
@@ -45,17 +47,18 @@ public class DatasetGroupServiceImpl extends BaseServiceImpl<DatasetGroupEntity>
                 sourceEntity.setDsGroupCreateTime(new Date());
                 sourceEntity.setDsGroupOrganId(jb4DCSession.getOrganId());
                 sourceEntity.setDsGroupOrganName(jb4DCSession.getOrganName());
-                String parentIdList;
+                String parentIdList="-1";
                 if(sourceEntity.getDsGroupId().equals(rootId)){
                     parentIdList=rootParentId;
                     sourceEntity.setDsGroupParentId(rootParentId);
                 }
-                else
+                else if(!sourceEntity.getDsGroupParentId().equals(rootParentId))
                 {
                     DatasetGroupEntity parentEntity=datasetGroupMapper.selectByPrimaryKey(sourceEntity.getDsGroupParentId());
                     parentIdList=parentEntity.getDsGroupPidList();
                     parentEntity.setDsGroupChildCount(parentEntity.getDsGroupChildCount()+1);
                     datasetGroupMapper.updateByPrimaryKeySelective(parentEntity);
+                    record.setDsGroupLinkId(parentEntity.getDsGroupLinkId());
                 }
                 sourceEntity.setDsGroupPidList(parentIdList+"*"+sourceEntity.getDsGroupId());
                 return sourceEntity;
@@ -63,7 +66,7 @@ public class DatasetGroupServiceImpl extends BaseServiceImpl<DatasetGroupEntity>
         });
     }
 
-    @Override
+    /*@Override
     public DatasetGroupEntity initSystemData(JB4DCSession jb4DCSession) throws JBuild4DCGenerallyException {
         DatasetGroupEntity rootEntity=new DatasetGroupEntity();
         rootEntity.setDsGroupId(rootId);
@@ -73,11 +76,30 @@ public class DatasetGroupServiceImpl extends BaseServiceImpl<DatasetGroupEntity>
         rootEntity.setDsGroupValue("数据集分组");
         this.saveSimple(jb4DCSession,rootEntity.getDsGroupId(),rootEntity);
         return rootEntity;
-    }
+    }*/
 
     @Override
     public String getRootId() {
         return rootId;
+    }
+
+    @Override
+    public void createRootNode(JB4DCSession jb4DCSession, String id, String dbLinkName, String dbLinkValue) throws JBuild4DCGenerallyException {
+        DatasetGroupEntity rootEntity=new DatasetGroupEntity();
+        rootEntity.setDsGroupId(id);
+        rootEntity.setDsGroupParentId(rootParentId);
+        rootEntity.setDsGroupIsSystem(TrueFalseEnum.True.getDisplayName());
+        rootEntity.setDsGroupStatus(EnableTypeEnum.enable.getDisplayName());
+        rootEntity.setDsGroupDelEnable(TrueFalseEnum.False.getDisplayName());
+        rootEntity.setDsGroupLinkId(id);
+        rootEntity.setDsGroupText(dbLinkName);
+        rootEntity.setDsGroupValue(dbLinkValue);
+        this.saveSimple(jb4DCSession,rootEntity.getDsGroupId(),rootEntity);
+    }
+
+    @Override
+    public List<DatasetGroupEntity> getByDBLinkId(JB4DCSession session, String dbLinkId) {
+        return datasetGroupMapper.selectDataSetGroupsByDBLinkId(dbLinkId);
     }
 
     @Override

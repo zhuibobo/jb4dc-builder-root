@@ -8,6 +8,7 @@ import com.jb4dc.base.ymls.DBYaml;
 import com.jb4dc.base.ymls.JBuild4DCYaml;
 import com.jb4dc.builder.dao.datastorage.DbLinkMapper;
 import com.jb4dc.builder.dbentities.datastorage.DbLinkEntity;
+import com.jb4dc.builder.service.dataset.IDatasetGroupService;
 import com.jb4dc.builder.service.datastorage.IDbLinkService;
 import com.jb4dc.builder.service.datastorage.ITableGroupService;
 import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
@@ -26,6 +27,9 @@ public class DbLinkServiceImpl extends BaseServiceImpl<DbLinkEntity> implements 
     ITableGroupService tableGroupService;
 
     @Autowired
+    IDatasetGroupService datasetGroupService;
+
+    @Autowired
     public DbLinkServiceImpl(DbLinkMapper _defaultBaseMapper){
         super(_defaultBaseMapper);
         dbLinkMapper=_defaultBaseMapper;
@@ -39,6 +43,9 @@ public class DbLinkServiceImpl extends BaseServiceImpl<DbLinkEntity> implements 
                 //自动创建该连接的表分组根节点
                 tableGroupService.deleteByKeyNotValidate(jb4DCSession,id, JBuild4DCYaml.getWarningOperationCode());
                 tableGroupService.createRootNode(jb4DCSession,id,record.getDbLinkName(),record.getDbLinkValue());
+
+                datasetGroupService.deleteByKeyNotValidate(jb4DCSession,id,JBuild4DCYaml.getWarningOperationCode());
+                datasetGroupService.createRootNode(jb4DCSession,id,record.getDbLinkName(),record.getDbLinkValue());
 
                 sourceEntity.setDbCreateTime(new Date());
                 sourceEntity.setDbOrderNum(dbLinkMapper.nextOrderNum());

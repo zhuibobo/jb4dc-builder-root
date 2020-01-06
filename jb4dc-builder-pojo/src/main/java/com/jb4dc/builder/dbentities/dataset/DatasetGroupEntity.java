@@ -50,6 +50,9 @@ public class DatasetGroupEntity {
     //DS_GROUP_CHILD_COUNT:子节点数量
     private Integer dsGroupChildCount;
 
+    //DS_GROUP_LINK_ID:所属连接ID:关联到表TBUILD_DB_LINK.DB_ID
+    private String dsGroupLinkId;
+
     //DS_GROUP_ORGAN_ID:组织ID
     private String dsGroupOrganId;
 
@@ -70,10 +73,11 @@ public class DatasetGroupEntity {
      * @param dsGroupDelEnable 内否进行删除
      * @param dsGroupPidList 父节点ID列表
      * @param dsGroupChildCount 子节点数量
+     * @param dsGroupLinkId 所属连接ID
      * @param dsGroupOrganId 组织ID
      * @param dsGroupOrganName 组织ID名称
      **/
-    public DatasetGroupEntity(String dsGroupId, String dsGroupValue, String dsGroupText, Integer dsGroupOrderNum, Date dsGroupCreateTime, String dsGroupDesc, String dsGroupStatus, String dsGroupParentId, String dsGroupIsSystem, String dsGroupDelEnable, String dsGroupPidList, Integer dsGroupChildCount, String dsGroupOrganId, String dsGroupOrganName) {
+    public DatasetGroupEntity(String dsGroupId, String dsGroupValue, String dsGroupText, Integer dsGroupOrderNum, Date dsGroupCreateTime, String dsGroupDesc, String dsGroupStatus, String dsGroupParentId, String dsGroupIsSystem, String dsGroupDelEnable, String dsGroupPidList, Integer dsGroupChildCount, String dsGroupLinkId, String dsGroupOrganId, String dsGroupOrganName) {
         this.dsGroupId = dsGroupId;
         this.dsGroupValue = dsGroupValue;
         this.dsGroupText = dsGroupText;
@@ -86,6 +90,7 @@ public class DatasetGroupEntity {
         this.dsGroupDelEnable = dsGroupDelEnable;
         this.dsGroupPidList = dsGroupPidList;
         this.dsGroupChildCount = dsGroupChildCount;
+        this.dsGroupLinkId = dsGroupLinkId;
         this.dsGroupOrganId = dsGroupOrganId;
         this.dsGroupOrganName = dsGroupOrganName;
     }
@@ -284,6 +289,22 @@ public class DatasetGroupEntity {
      **/
     public void setDsGroupChildCount(Integer dsGroupChildCount) {
         this.dsGroupChildCount = dsGroupChildCount;
+    }
+
+    /**
+     * 所属连接ID:关联到表TBUILD_DB_LINK.DB_ID
+     * @return java.lang.String
+     **/
+    public String getDsGroupLinkId() {
+        return dsGroupLinkId;
+    }
+
+    /**
+     * 所属连接ID:关联到表TBUILD_DB_LINK.DB_ID
+     * @param dsGroupLinkId 所属连接ID
+     **/
+    public void setDsGroupLinkId(String dsGroupLinkId) {
+        this.dsGroupLinkId = dsGroupLinkId == null ? null : dsGroupLinkId.trim();
     }
 
     /**

@@ -16,7 +16,8 @@
                 },
                 "modules": "commonjs",
                 "debug":true,
-                "useBuiltIns": "entry"
+                "useBuiltIns": "entry",
+                "corejs": "2"
             }
         ]
     ],

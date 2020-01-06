@@ -4,6 +4,8 @@ import com.jb4dc.base.dbaccess.dao.BaseMapper;
 import com.jb4dc.builder.dbentities.dataset.DatasetGroupEntity;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.List;
+
 /**
  * Created with IntelliJ IDEA.
  * User: zhuangrb
@@ -16,4 +18,5 @@ public interface DatasetGroupMapper extends BaseMapper<DatasetGroupEntity> {
 
     DatasetGroupEntity selectGreaterThanRecord(@Param("id") String id, @Param("parentId") String parentId);
 
+    List<DatasetGroupEntity> selectDataSetGroupsByDBLinkId(String dbLinkId);
 }

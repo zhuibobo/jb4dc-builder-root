@@ -1,5 +1,6 @@
 package com.jb4dc.builder.service.datastorage.impl;
 
+import com.jb4dc.base.service.exenum.EnableTypeEnum;
 import com.jb4dc.base.service.exenum.TrueFalseEnum;
 import com.jb4dc.base.service.IAddBefore;
 import com.jb4dc.base.service.impl.BaseServiceImpl;
@@ -87,15 +88,17 @@ public class TableGroupServiceImpl extends BaseServiceImpl<TableGroupEntity> imp
 
     @Override
     public TableGroupEntity createRootNode(JB4DCSession jb4DCSession,String dbLinkId,String text,String value) throws JBuild4DCGenerallyException {
-        TableGroupEntity treeTableEntity=new TableGroupEntity();
-        treeTableEntity.setTableGroupId(dbLinkId);
-        treeTableEntity.setTableGroupParentId(rootParentId);
-        treeTableEntity.setTableGroupIsSystem(TrueFalseEnum.True.getDisplayName());
-        treeTableEntity.setTableGroupText(text);
-        treeTableEntity.setTableGroupValue(value);
-        treeTableEntity.setTableGroupLinkId(dbLinkId);
-        this.saveSimple(jb4DCSession,treeTableEntity.getTableGroupId(),treeTableEntity);
-        return treeTableEntity;
+        TableGroupEntity tableGroupEntity=new TableGroupEntity();
+        tableGroupEntity.setTableGroupId(dbLinkId);
+        tableGroupEntity.setTableGroupParentId(rootParentId);
+        tableGroupEntity.setTableGroupIsSystem(TrueFalseEnum.True.getDisplayName());
+        tableGroupEntity.setTableGroupStatus(EnableTypeEnum.enable.getDisplayName());
+        tableGroupEntity.setTableGroupDelEnable(TrueFalseEnum.False.getDisplayName());
+        tableGroupEntity.setTableGroupText(text);
+        tableGroupEntity.setTableGroupValue(value);
+        tableGroupEntity.setTableGroupLinkId(dbLinkId);
+        this.saveSimple(jb4DCSession,tableGroupEntity.getTableGroupId(),tableGroupEntity);
+        return tableGroupEntity;
     }
 
 

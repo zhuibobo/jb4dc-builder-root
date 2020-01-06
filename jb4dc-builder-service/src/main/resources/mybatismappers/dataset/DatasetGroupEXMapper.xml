@@ -13,6 +13,7 @@
         <if test="dsGroupIsSystem !=null and dsGroupIsSystem !=''"> and DS_GROUP_IS_SYSTEM like #{dsGroupIsSystem} </if>
         <if test="dsGroupDelEnable !=null and dsGroupDelEnable !=''"> and DS_GROUP_DEL_ENABLE like #{dsGroupDelEnable} </if>
         <if test="dsGroupPidList !=null and dsGroupPidList !=''"> and DS_GROUP_PID_LIST like #{dsGroupPidList} </if>
+        <if test="dsGroupLinkId !=null and dsGroupLinkId !=''"> and DS_GROUP_LINK_ID like #{dsGroupLinkId} </if>
         <if test="dsGroupOrganId !=null and dsGroupOrganId !=''"> and DS_GROUP_ORGAN_ID like #{dsGroupOrganId} </if>
         <if test="dsGroupOrganName !=null and dsGroupOrganName !=''"> and DS_GROUP_ORGAN_NAME like #{dsGroupOrganName} </if>
     </where>ORDER by DS_GROUP_ORDER_NUM DESC</select>
@@ -30,6 +31,14 @@
             *
         from TBUILD_DATASET_GROUP
         where DS_GROUP_ORDER_NUM = (select min(DS_GROUP_ORDER_NUM) from TBUILD_DATASET_GROUP where DS_GROUP_ORDER_NUM>(select DS_GROUP_ORDER_NUM from TBUILD_DATASET_GROUP where DS_GROUP_ID=#{id,jdbcType=NVARCHAR}) and DS_GROUP_PARENT_ID=#{parentId,jdbcType=NVARCHAR}) and DS_GROUP_PARENT_ID=#{parentId,jdbcType=NVARCHAR}
+        ]]>
+    </select>
+    <select id="selectDataSetGroupsByDBLinkId" resultMap="BaseResultMap">
+        <![CDATA[
+        select
+            *
+        from TBUILD_DATASET_GROUP
+        where DS_GROUP_LINK_ID=#{dbLinkId} order by DS_GROUP_ORDER_NUM asc
         ]]>
     </select>
 </mapper>

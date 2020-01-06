@@ -14,10 +14,11 @@
 </head>
 <body>
     <div id="appList" class="list-2column">
-        <div class="left-outer-wrap">
-            <div class="inner-wrap" style="width: 250px">
+        <div class="left-outer-wrap" style="width: 250px">
+            <select-dblink-single-comp @on-selected-dblink="changeDBLink" ref="selectDBLinkComp"></select-dblink-single-comp>
+            <div class="inner-wrap" style="position:absolute;top: 30px;bottom: 10px;height: auto">
                 <div class="tool-bar-wrap">
-                    <div alt="新增分类组" title="新增分类组" class="add" @click="addGroup()"></div>
+                    <div alt="新增分类组1" title="新增分类组" class="add" @click="addGroup()"></div>
                     <div alt="修改分类组" title="修改分类组" class="edit" @click="editGroup"></div>
                     <div alt="删除分类组" title="删除分类组" class="del" @click="delGroup"></div>
                     <div alt="浏览分类组" title="浏览分类组" class="view" @click="viewGroup"></div>
@@ -76,7 +77,11 @@
         var appList=new Vue({
             el:"#appList",
             mounted:function () {
-                this.initTree();
+                var oldSelectedDBLinkId=CookieUtility.GetCookie("DSGLINKID");
+                if(oldSelectedDBLinkId){
+                    this.$refs.selectDBLinkComp.setOldSelectedDBLink(oldSelectedDBLinkId);
+                    this.initTree(oldSelectedDBLinkId);
+                }
                 window.setTimeout(function () {
                     appList.listHeight=ListPageUtility.GetGeneralPageHeight(-20);
                 },500);
@@ -199,32 +204,38 @@
                 }
             },
             methods:{
+                <!--DBLink-->
+                changeDBLink:function(dbLinkData){
+                    //console.log(dbLinkData);
+                    CookieUtility.SetCookie1Month("DSGLINKID",dbLinkData.dbId);
+                    this.initTree(dbLinkData.dbId);
+                    this.clearSearchCondition();
+                    this.tableData=[];
+                },
                 <!--Tree-->
-                initTree:function () {
+                initTree:function (dbLinkId) {
                     //this.treeSetting.async.url = BaseUtility.BuildAction(this.acInterface.getGroupTreeData, {});
                     //this.treeObj=$.fn.zTree.init($("#zTreeUL"), this.treeSetting);
 
-                    var _self=this;
-                    AjaxUtility.Post(this.acInterface.getGroupTreeData, {}, function (result) {
-                        if(result.success){
-                            if(result.data!=null&&result.data.length>0){
-                                for(var i=0;i<result.data.length;i++) {
-                                    if(result.data[i].dsGroupIsSystem=="是"&&result.data[i].dsGroupChildCount==0) {
+                    var _self = this;
+                    AjaxUtility.Post(this.acInterface.getGroupTreeData, {dbLinkId: dbLinkId}, function (result) {
+                        if (result.success) {
+                            if (result.data != null && result.data.length > 0) {
+                                for (var i = 0; i < result.data.length; i++) {
+                                    if (result.data[i].dsGroupIsSystem == "是" && result.data[i].dsGroupChildCount == 0) {
                                         result.data[i].icon = "../../../Themes/Png16X16/table_key.png";
-                                    }
-                                    else if(result.data[i].dsGroupIsSystem=="否"&&result.data[i].dsGroupChildCount==0) {
+                                    } else if (result.data[i].dsGroupIsSystem == "否" && result.data[i].dsGroupChildCount == 0) {
                                         result.data[i].icon = "../../../Themes/Png16X16/note_edit.png";
-                                    }
-                                    else if(result.data[i].dsGroupParentId=="-1"){
+                                    } else if (result.data[i].dsGroupParentId == "-1") {
                                         result.data[i].icon = "../../../Themes/Png16X16/package.png";
                                     }
                                 }
                             }
-                            _self.treeObj=$.fn.zTree.init($("#zTreeUL"), _self.treeSetting,result.data);
+                            _self.treeObj = $.fn.zTree.init($("#zTreeUL"), _self.treeSetting, result.data);
                             _self.treeObj.expandAll(true);
-                        }
-                        else {
-                            DialogUtility.Alert(window, DialogUtility.DialogAlertId, {}, result.message, function () {});
+                        } else {
+                            DialogUtility.Alert(window, DialogUtility.DialogAlertId, {}, result.message, function () {
+                            });
                         }
                     }, this);
                 },

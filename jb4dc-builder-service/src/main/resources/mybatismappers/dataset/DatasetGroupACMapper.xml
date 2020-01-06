@@ -15,6 +15,7 @@
             <arg column="DS_GROUP_DEL_ENABLE" javaType="java.lang.String" jdbcType="NVARCHAR" />
             <arg column="DS_GROUP_PID_LIST" javaType="java.lang.String" jdbcType="NVARCHAR" />
             <arg column="DS_GROUP_CHILD_COUNT" javaType="java.lang.Integer" jdbcType="INTEGER" />
+            <arg column="DS_GROUP_LINK_ID" javaType="java.lang.String" jdbcType="NVARCHAR" />
             <arg column="DS_GROUP_ORGAN_ID" javaType="java.lang.String" jdbcType="NVARCHAR" />
             <arg column="DS_GROUP_ORGAN_NAME" javaType="java.lang.String" jdbcType="NVARCHAR" />
         </constructor>
@@ -22,7 +23,7 @@
     <sql id="Base_Column_List">
     DS_GROUP_ID, DS_GROUP_VALUE, DS_GROUP_TEXT, DS_GROUP_ORDER_NUM, DS_GROUP_CREATE_TIME,
     DS_GROUP_DESC, DS_GROUP_STATUS, DS_GROUP_PARENT_ID, DS_GROUP_IS_SYSTEM, DS_GROUP_DEL_ENABLE,
-    DS_GROUP_PID_LIST, DS_GROUP_CHILD_COUNT, DS_GROUP_ORGAN_ID, DS_GROUP_ORGAN_NAME
+    DS_GROUP_PID_LIST, DS_GROUP_CHILD_COUNT, DS_GROUP_LINK_ID, DS_GROUP_ORGAN_ID, DS_GROUP_ORGAN_NAME
   </sql>
     <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
         select
@@ -39,12 +40,14 @@
       DS_GROUP_ORDER_NUM, DS_GROUP_CREATE_TIME, DS_GROUP_DESC,
       DS_GROUP_STATUS, DS_GROUP_PARENT_ID, DS_GROUP_IS_SYSTEM,
       DS_GROUP_DEL_ENABLE, DS_GROUP_PID_LIST, DS_GROUP_CHILD_COUNT,
-      DS_GROUP_ORGAN_ID, DS_GROUP_ORGAN_NAME)
+      DS_GROUP_LINK_ID, DS_GROUP_ORGAN_ID, DS_GROUP_ORGAN_NAME
+      )
     values (#{dsGroupId,jdbcType=NVARCHAR}, #{dsGroupValue,jdbcType=NVARCHAR}, #{dsGroupText,jdbcType=NVARCHAR},
       #{dsGroupOrderNum,jdbcType=INTEGER}, #{dsGroupCreateTime,jdbcType=TIMESTAMP}, #{dsGroupDesc,jdbcType=NVARCHAR},
       #{dsGroupStatus,jdbcType=NVARCHAR}, #{dsGroupParentId,jdbcType=NVARCHAR}, #{dsGroupIsSystem,jdbcType=NVARCHAR},
       #{dsGroupDelEnable,jdbcType=NVARCHAR}, #{dsGroupPidList,jdbcType=NVARCHAR}, #{dsGroupChildCount,jdbcType=INTEGER},
-      #{dsGroupOrganId,jdbcType=NVARCHAR}, #{dsGroupOrganName,jdbcType=NVARCHAR})
+      #{dsGroupLinkId,jdbcType=NVARCHAR}, #{dsGroupOrganId,jdbcType=NVARCHAR}, #{dsGroupOrganName,jdbcType=NVARCHAR}
+      )
   </insert>
     <insert id="insertSelective" parameterType="com.jb4dc.builder.dbentities.dataset.DatasetGroupEntity">
         insert into TBUILD_DATASET_GROUP
@@ -84,6 +87,9 @@
             </if>
             <if test="dsGroupChildCount != null">
                 DS_GROUP_CHILD_COUNT,
+            </if>
+            <if test="dsGroupLinkId != null">
+                DS_GROUP_LINK_ID,
             </if>
             <if test="dsGroupOrganId != null">
                 DS_GROUP_ORGAN_ID,
@@ -129,6 +135,9 @@
             <if test="dsGroupChildCount != null">
                 #{dsGroupChildCount,jdbcType=INTEGER},
             </if>
+            <if test="dsGroupLinkId != null">
+                #{dsGroupLinkId,jdbcType=NVARCHAR},
+            </if>
             <if test="dsGroupOrganId != null">
                 #{dsGroupOrganId,jdbcType=NVARCHAR},
             </if>
@@ -173,6 +182,9 @@
             <if test="dsGroupChildCount != null">
                 DS_GROUP_CHILD_COUNT = #{dsGroupChildCount,jdbcType=INTEGER},
             </if>
+            <if test="dsGroupLinkId != null">
+                DS_GROUP_LINK_ID = #{dsGroupLinkId,jdbcType=NVARCHAR},
+            </if>
             <if test="dsGroupOrganId != null">
                 DS_GROUP_ORGAN_ID = #{dsGroupOrganId,jdbcType=NVARCHAR},
             </if>
@@ -195,6 +207,7 @@
       DS_GROUP_DEL_ENABLE = #{dsGroupDelEnable,jdbcType=NVARCHAR},
       DS_GROUP_PID_LIST = #{dsGroupPidList,jdbcType=NVARCHAR},
       DS_GROUP_CHILD_COUNT = #{dsGroupChildCount,jdbcType=INTEGER},
+      DS_GROUP_LINK_ID = #{dsGroupLinkId,jdbcType=NVARCHAR},
       DS_GROUP_ORGAN_ID = #{dsGroupOrganId,jdbcType=NVARCHAR},
       DS_GROUP_ORGAN_NAME = #{dsGroupOrganName,jdbcType=NVARCHAR}
     where DS_GROUP_ID = #{dsGroupId,jdbcType=NVARCHAR}

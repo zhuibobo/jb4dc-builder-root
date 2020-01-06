@@ -30,8 +30,9 @@ public class DataSetGroupRest extends GeneralRest<DatasetGroupEntity> {
     }
 
     @RequestMapping(value = "GetTreeData", method = RequestMethod.POST)
-    public JBuild4DCResponseVo getTreeData() {
-        List<DatasetGroupEntity> datasetGroupEntityList=datasetGroupService.getALL(JB4DCSessionUtility.getSession());
+    public JBuild4DCResponseVo getTreeData(String dbLinkId) {
+        List<DatasetGroupEntity> datasetGroupEntityList=datasetGroupService.getByDBLinkId(JB4DCSessionUtility.getSession(),dbLinkId);
+        //List<DatasetGroupEntity> datasetGroupEntityList=datasetGroupService.getALL(JB4DCSessionUtility.getSession());
         return JBuild4DCResponseVo.getDataSuccess(datasetGroupEntityList);
     }
 }

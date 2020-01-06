@@ -196,6 +196,7 @@
                 <constraints nullable="false"/>
             </column>
             <column name="DS_GROUP_CHILD_COUNT" type="INT" remarks="子节点数量"/>
+            <column name="DS_GROUP_LINK_ID" type="NVARCHAR(100)" remarks="所属连接ID:关联到表TBUILD_DB_LINK.DB_ID"/>
             <column name="DS_GROUP_ORGAN_ID" type="NVARCHAR(100)" remarks="组织ID"/>
             <column name="DS_GROUP_ORGAN_NAME" type="NVARCHAR(100)" remarks="组织ID名称"/>
         </createTable>

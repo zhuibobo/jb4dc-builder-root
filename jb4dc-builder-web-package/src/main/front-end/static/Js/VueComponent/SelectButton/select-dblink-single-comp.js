@@ -77,7 +77,7 @@ Vue.component("select-dblink-single-comp", {
                 if (result.success) {
                     _self.dbLinkTree.treeData = result.data;
                     for(var i=0;i<_self.dbLinkTree.treeData.length;i++){
-                        _self.dbLinkTree.treeData[i].icon = "../../../../Themes/Png16X16/database_connect.png";
+                        _self.dbLinkTree.treeData[i].icon = BaseUtility.GetRootPath() + "/Themes/Png16X16/database_connect.png";
                     }
                     _self.$refs.dbLinkZTreeUL.setAttribute("id","select-dbLink-single-comp-"+StringUtility.Guid());
                     _self.dbLinkTree.treeObj = $.fn.zTree.init($(_self.$refs.dbLinkZTreeUL), _self.dbLinkTree.treeSetting, _self.dbLinkTree.treeData);
