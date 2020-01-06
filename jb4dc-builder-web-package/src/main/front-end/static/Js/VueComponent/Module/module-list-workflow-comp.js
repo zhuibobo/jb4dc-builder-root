@@ -1,4 +1,4 @@
-/*html编辑器中的元素辅助列表*/
+/*html编辑器中的元素辅助列表1*/
 Vue.component("module-list-workflow-comp", {
     props:['listHeight','moduleData','activeTabName'],
     data: function () {
@@ -31,7 +31,7 @@ Vue.component("module-list-workflow-comp", {
                     width: 80
                 },
                 {
-                    title: '列表名称',
+                    title: '模型名称',
                     key: 'integratedName',
                     align: "center"
                 }, {
@@ -147,7 +147,8 @@ Vue.component("module-list-workflow-comp", {
                     "moduleId": this.moduleData.moduleId
                 });
                 //alert(url);
-                DialogUtility.OpenNewWindow(window, DialogUtility.DialogId, url, {width: 0, height: 0}, 2);
+                //DialogUtility.OpenNewWindow(window, DialogUtility.DialogId, url, {width: 0, height: 0}, 2);
+                DialogUtility.OpenNewTabWindow(url);
             }
             else {
                 DialogUtility.Alert(window, DialogUtility.DialogAlertId, {}, "请选择模块!", null);
@@ -159,7 +160,8 @@ Vue.component("module-list-workflow-comp", {
                 "op": "update",
                 "recordId": recordId
             });
-            DialogUtility.OpenNewWindow(window, DialogUtility.DialogId, url, {width: 0, height: 0}, 2);
+            //DialogUtility.OpenNewWindow(window, DialogUtility.DialogId, url, {width: 0, height: 0}, 2);
+            DialogUtility.OpenNewTabWindow(url);
         },
         del: function (recordId) {
             ListPageUtility.IViewTableDeleteRow(this.acInterface.delete, recordId, this);
