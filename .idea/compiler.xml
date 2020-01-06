@@ -9,13 +9,10 @@
         <module name="jb4dc-builder-service" />
         <module name="jb4dc-builder-web-package" />
         <module name="jb4dc-dev-mock-service" />
-        <module name="jb4dc-workflow-service" />
         <module name="jb4dc-dev-mock-web-server" />
         <module name="jb4dc-builder-web-server" />
         <module name="jb4dc-builder-client" />
         <module name="jb4dc-builder-pojo" />
-        <module name="jb4dc-workflow-client" />
-        <module name="jb4dc-workflow-web-package" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>

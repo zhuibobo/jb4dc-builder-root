@@ -7,13 +7,13 @@ Vue.component("module-list-workflow-comp", {
         return {
             acInterface:{
                 editView: "/HTML/WorkFlow/Modeler/Index.html",
-                reloadData: "/Rest/Builder/List/GetListData",
-                delete: "/Rest/Builder/List/Delete",
-                move: "/Rest/Builder/List/Move",
+                reloadData: "/Rest/Builder/FlowIntegrated/GetListData",
+                delete: "/Rest/Builder/FlowIntegrated/Delete",
+                move: "/Rest/Builder/FlowIntegrated/Move",
             },
-            idFieldName: "listId",
+            idFieldName: "integratedId",
             searchCondition: {
-                listModuleId: {
+                integratedModuleId: {
                     value: "",
                     type: SearchUtility.SearchFieldType.StringType
                 }
@@ -26,33 +26,33 @@ Vue.component("module-list-workflow-comp", {
                 },
                 {
                     title: '编号',
-                    key: 'listCode',
+                    key: 'integratedCode',
                     align: "center",
                     width: 80
                 },
                 {
                     title: '列表名称',
-                    key: 'listName',
+                    key: 'integratedName',
                     align: "center"
                 }, {
-                    title: '唯一名',
-                    key: 'listSingleName',
+                    title: '启动Key',
+                    key: 'integratedStartKey',
                     align: "center"
                 }, {
                     title: '备注',
-                    key: 'listDesc',
+                    key: 'integratedDesc',
                     align: "center"
                 }, {
                     title: '编辑时间',
-                    key: 'listUpdateTime',
+                    key: 'integratedUpdateTime',
                     width: 100,
                     align: "center",
                     render: function (h, params) {
-                        return ListPageUtility.IViewTableRenderer.ToDateYYYY_MM_DD(h, params.row.listUpdateTime);
+                        return ListPageUtility.IViewTableRenderer.ToDateYYYY_MM_DD(h, params.row.integratedUpdateTime);
                     }
                 }, {
                     title: '操作',
-                    key: 'listId',
+                    key: 'integratedId',
                     width: 120,
                     align: "center",
                     render: function (h, params) {
@@ -119,7 +119,7 @@ Vue.component("module-list-workflow-comp", {
         reloadData: function () {
             //debugger;
             if(this.moduleData!=null&&this.activeTabName=="list-weblist") {
-                this.searchCondition.listModuleId.value = this.moduleData.moduleId;
+                this.searchCondition.integratedModuleId.value = this.moduleData.moduleId;
                 /*ListPageUtility.IViewTableLoadDataSearch(this.acInterface.reloadData, this.pageNum, this.pageSize, this.searchCondition, this, this.idFieldName, true, function (result,pageAppObj) {
                     pageAppObj.tableDataOriginal=result.data.list;
                 },false);*/
