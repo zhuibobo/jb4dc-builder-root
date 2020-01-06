@@ -432,8 +432,12 @@
                 }
             },
             saveClose:function () {
-                this.save(function () {
-                    window.close();
+                this.save(function (result) {
+                    if(result.success) {
+                        DialogUtility.Alert(window,DialogUtility.DialogAlertId,{},result.message,function () {
+                            window.close();
+                        },this);
+                    }
                 });
             },
             savePreview:function () {

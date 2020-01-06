@@ -27,11 +27,11 @@ public class FormRestTest  extends ModuleRestTest {
         createForm(builderFormId,builderModuleId,"构建库-开发测试窗体");
     }
 
-    private void createForm(String formId,String moduleId,String text) throws com.jb4dc.core.base.exception.JBuild4DCGenerallyException {
+    private void createForm(String formId,String moduleId,String formName) throws com.jb4dc.core.base.exception.JBuild4DCGenerallyException {
         FormResourceEntity formResourceEntity=new FormResourceEntity();
         formResourceEntity.setFormId(formId);
         formResourceEntity.setFormCode(formId);
-        formResourceEntity.setFormName(text);
+        formResourceEntity.setFormName(formName);
         formResourceEntity.setFormSingleName(formId);
         formResourceEntity.setFormType("业务表单");
         formResourceEntity.setFormIsSystem(TrueFalseEnum.False.getDisplayName());

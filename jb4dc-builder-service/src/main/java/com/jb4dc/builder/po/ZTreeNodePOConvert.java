@@ -24,6 +24,7 @@ import java.util.Map;
 public class ZTreeNodePOConvert extends ZTreeNodePO {
     public static List<ZTreeNodePO> parseTableToZTreeNodeList(List<TableGroupEntity> tableGroupEntityList, List<TableEntity> tableEntityList){
         List<ZTreeNodePO> result=new ArrayList<>();
+
         for (TableGroupEntity tableGroupEntity : tableGroupEntityList) {
             ZTreeNodePO nodeVo=new ZTreeNodePO();
             nodeVo.setId(tableGroupEntity.getTableGroupId());
@@ -46,7 +47,9 @@ public class ZTreeNodePOConvert extends ZTreeNodePO {
             nodeVo.setParentId(tableEntity.getTableGroupId());
             nodeVo.setNodeTypeName("Table");
             nodeVo.setNocheck(false);
+            TableGroupEntity tableGroupEntity=tableGroupEntityList.stream().filter(item->item.getTableGroupId().equals(tableEntity.getTableGroupId())).findFirst().get();
             //nodeVo.setOuterId(tableEntity.getTableLinkId());
+            nodeVo.setOuterId(tableGroupEntity.getTableGroupLinkId());
             nodeVo.setCode(tableEntity.getTableCode());
             result.add(nodeVo);
         }

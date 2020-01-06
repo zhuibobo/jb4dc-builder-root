@@ -297,33 +297,33 @@
         </createTable>
 
         <createTable tableName="TBUILD_FLOW_INTEGRATED" remarks="流程模型表">
-            <column name="MODEL_ID" type="NVARCHAR(100)" remarks="主键:UUID">
+            <column name="INTEGRATED_ID" type="NVARCHAR(100)" remarks="主键:UUID">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
-            <column name="MODEL_DE_ID" type="NVARCHAR(100)" remarks="act_de_model表的ID">
+            <column name="INTEGRATED_DE_ID" type="NVARCHAR(100)" remarks="act_de_model表的ID">
                 <constraints nullable="false"/>
             </column>
-            <column name="MODEL_MODULE_ID" type="NVARCHAR(100)" remarks="所属的模块ID">
+            <column name="INTEGRATED_MODULE_ID" type="NVARCHAR(100)" remarks="所属的模块ID">
                 <constraints nullable="false"/>
             </column>
-            <column name="MODEL_CODE" type="NVARCHAR(50)" remarks="模型编码">
+            <column name="INTEGRATED_CODE" type="NVARCHAR(50)" remarks="模型编码">
                 <constraints nullable="false"/>
             </column>
-            <column name="MODEL_NAME" type="NVARCHAR(100)" remarks="模型名称">
+            <column name="INTEGRATED_NAME" type="NVARCHAR(100)" remarks="模型名称">
                 <constraints nullable="false"/>
             </column>
-            <column name="MODEL_CREATE_TIME" type="datetime(6)" remarks="创建时间"/>
-            <column name="MODEL_CREATOR" type="NVARCHAR(100)" remarks="创建者"/>
-            <column name="MODEL_UPDATE_TIME" type="datetime(6)" remarks="更新时间"/>
-            <column name="MODEL_UPDATER" type="NVARCHAR(100)" remarks="更新人"/>
-            <column name="MODEL_DESC" type="NVARCHAR(1000)" remarks="备注"/>
-            <column name="MODEL_STATUS" type="NVARCHAR(10)" remarks="状态"/>
-            <column name="MODEL_ORDER_NUM" type="INT" remarks="排序号"/>
-            <column name="MODEL_DEPLOYMENT_ID" type="NVARCHAR(1000)" remarks="部署ID"/>
-            <column name="MODEL_START_KEY" type="NVARCHAR(1000)" remarks="启动键"/>
-            <column name="MODEL_RESOURCE_NAME" type="NVARCHAR(1000)" remarks="资源名称"/>
-            <column name="MODEL_FROM_TYPE" type="NVARCHAR(50)" remarks="流程模型来自上传或者页面设计"/>
-            <column name="MODEL_MAIN_IMAGE_ID" type="NVARCHAR(100)" remarks="关联到TFS_FILE_INFO表的FILE_ID"/>
+            <column name="INTEGRATED_CREATE_TIME" type="datetime(6)" remarks="创建时间"/>
+            <column name="INTEGRATED_CREATOR" type="NVARCHAR(100)" remarks="创建者"/>
+            <column name="INTEGRATED_UPDATE_TIME" type="datetime(6)" remarks="更新时间"/>
+            <column name="INTEGRATED_UPDATER" type="NVARCHAR(100)" remarks="更新人"/>
+            <column name="INTEGRATED_DESC" type="NVARCHAR(1000)" remarks="备注"/>
+            <column name="INTEGRATED_STATUS" type="NVARCHAR(10)" remarks="状态"/>
+            <column name="INTEGRATED_ORDER_NUM" type="INT" remarks="排序号"/>
+            <column name="INTEGRATED_DEPLOYMENT_ID" type="NVARCHAR(1000)" remarks="部署ID"/>
+            <column name="INTEGRATED_START_KEY" type="NVARCHAR(1000)" remarks="启动键"/>
+            <column name="INTEGRATED_RESOURCE_NAME" type="NVARCHAR(1000)" remarks="资源名称"/>
+            <column name="INTEGRATED_FROM_TYPE" type="NVARCHAR(50)" remarks="流程模型来自上传或者页面设计"/>
+            <column name="INTEGRATED_MAIN_IMAGE_ID" type="NVARCHAR(100)" remarks="关联到TFS_FILE_INFO表的FILE_ID"/>
         </createTable>
 
         <createTable tableName="TBUILD_FORM_RESOURCE" remarks="窗体资源存储表:用于存储窗体设计的文件">

@@ -46,7 +46,44 @@
             return {
                 isLoading:false,
                 oldSelectedTabName:"",
-                selectedTabName:"Bpmn"
+                selectedTabName:"Bpmn",
+                /*Js Bean*/
+                flowIntegratedEntity:{
+//主键:UUID
+                    integratedId:"",
+//act_de_model表的ID
+                    integratedDeId:"",
+//所属的模块ID
+                    integratedModuleId:"",
+//模型编码
+                    integratedCode:"",
+//模型名称
+                    integratedName:"",
+//创建时间
+                    integratedCreateTime:DateUtility.GetCurrentData(),
+//创建者
+                    integratedCreator:"",
+//更新时间
+                    integratedUpdateTime:DateUtility.GetCurrentData(),
+//更新人
+                    integratedUpdater:"",
+//备注
+                    integratedDesc:"",
+//状态
+                    integratedStatus:"启用",
+//排序号
+                    integratedOrderNum:"",
+//部署ID
+                    integratedDeploymentId:"",
+//启动键
+                    integratedStartKey:"",
+//资源名称
+                    integratedResourceName:"",
+//流程模型来自上传或者页面设计
+                    integratedFromType:"",
+//关联到TFS_FILE_INFO表的FILE_ID
+                    integratedMainImageId:""
+                }
             }
         },
         mounted:function(){

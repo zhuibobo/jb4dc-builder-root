@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jb4dc.builder.dao.flow.FlowIntegratedMapper">
+    <resultMap id="BaseResultMap" type="com.jb4dc.builder.dbentities.flow.FlowIntegratedEntity">
+        <constructor>
+            <idArg column="INTEGRATED_ID" javaType="java.lang.String" jdbcType="NVARCHAR" />
+            <arg column="INTEGRATED_DE_ID" javaType="java.lang.String" jdbcType="NVARCHAR" />
+            <arg column="INTEGRATED_MODULE_ID" javaType="java.lang.String" jdbcType="NVARCHAR" />
+            <arg column="INTEGRATED_CODE" javaType="java.lang.String" jdbcType="NVARCHAR" />
+            <arg column="INTEGRATED_NAME" javaType="java.lang.String" jdbcType="NVARCHAR" />
+            <arg column="INTEGRATED_CREATE_TIME" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+            <arg column="INTEGRATED_CREATOR" javaType="java.lang.String" jdbcType="NVARCHAR" />
+            <arg column="INTEGRATED_UPDATE_TIME" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+            <arg column="INTEGRATED_UPDATER" javaType="java.lang.String" jdbcType="NVARCHAR" />
+            <arg column="INTEGRATED_DESC" javaType="java.lang.String" jdbcType="NVARCHAR" />
+            <arg column="INTEGRATED_STATUS" javaType="java.lang.String" jdbcType="NVARCHAR" />
+            <arg column="INTEGRATED_ORDER_NUM" javaType="java.lang.Integer" jdbcType="INTEGER" />
+            <arg column="INTEGRATED_DEPLOYMENT_ID" javaType="java.lang.String" jdbcType="NVARCHAR" />
+            <arg column="INTEGRATED_START_KEY" javaType="java.lang.String" jdbcType="NVARCHAR" />
+            <arg column="INTEGRATED_RESOURCE_NAME" javaType="java.lang.String" jdbcType="NVARCHAR" />
+            <arg column="INTEGRATED_FROM_TYPE" javaType="java.lang.String" jdbcType="NVARCHAR" />
+            <arg column="INTEGRATED_MAIN_IMAGE_ID" javaType="java.lang.String" jdbcType="NVARCHAR" />
+        </constructor>
+    </resultMap>
+    <sql id="Base_Column_List">
+    INTEGRATED_ID, INTEGRATED_DE_ID, INTEGRATED_MODULE_ID, INTEGRATED_CODE, INTEGRATED_NAME,
+    INTEGRATED_CREATE_TIME, INTEGRATED_CREATOR, INTEGRATED_UPDATE_TIME, INTEGRATED_UPDATER,
+    INTEGRATED_DESC, INTEGRATED_STATUS, INTEGRATED_ORDER_NUM, INTEGRATED_DEPLOYMENT_ID,
+    INTEGRATED_START_KEY, INTEGRATED_RESOURCE_NAME, INTEGRATED_FROM_TYPE, INTEGRATED_MAIN_IMAGE_ID
+  </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from TBUILD_FLOW_INTEGRATED
+        where INTEGRATED_ID = #{integratedId,jdbcType=NVARCHAR}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from TBUILD_FLOW_INTEGRATED
+    where INTEGRATED_ID = #{integratedId,jdbcType=NVARCHAR}
+  </delete>
+    <insert id="insert" parameterType="com.jb4dc.builder.dbentities.flow.FlowIntegratedEntity">
+    insert into TBUILD_FLOW_INTEGRATED (INTEGRATED_ID, INTEGRATED_DE_ID, INTEGRATED_MODULE_ID,
+      INTEGRATED_CODE, INTEGRATED_NAME, INTEGRATED_CREATE_TIME,
+      INTEGRATED_CREATOR, INTEGRATED_UPDATE_TIME,
+      INTEGRATED_UPDATER, INTEGRATED_DESC, INTEGRATED_STATUS,
+      INTEGRATED_ORDER_NUM, INTEGRATED_DEPLOYMENT_ID,
+      INTEGRATED_START_KEY, INTEGRATED_RESOURCE_NAME,
+      INTEGRATED_FROM_TYPE, INTEGRATED_MAIN_IMAGE_ID
+      )
+    values (#{integratedId,jdbcType=NVARCHAR}, #{integratedDeId,jdbcType=NVARCHAR}, #{integratedModuleId,jdbcType=NVARCHAR},
+      #{integratedCode,jdbcType=NVARCHAR}, #{integratedName,jdbcType=NVARCHAR}, #{integratedCreateTime,jdbcType=TIMESTAMP},
+      #{integratedCreator,jdbcType=NVARCHAR}, #{integratedUpdateTime,jdbcType=TIMESTAMP},
+      #{integratedUpdater,jdbcType=NVARCHAR}, #{integratedDesc,jdbcType=NVARCHAR}, #{integratedStatus,jdbcType=NVARCHAR},
+      #{integratedOrderNum,jdbcType=INTEGER}, #{integratedDeploymentId,jdbcType=NVARCHAR},
+      #{integratedStartKey,jdbcType=NVARCHAR}, #{integratedResourceName,jdbcType=NVARCHAR},
+      #{integratedFromType,jdbcType=NVARCHAR}, #{integratedMainImageId,jdbcType=NVARCHAR}
+      )
+  </insert>
+    <insert id="insertSelective" parameterType="com.jb4dc.builder.dbentities.flow.FlowIntegratedEntity">
+        insert into TBUILD_FLOW_INTEGRATED
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="integratedId != null">
+                INTEGRATED_ID,
+            </if>
+            <if test="integratedDeId != null">
+                INTEGRATED_DE_ID,
+            </if>
+            <if test="integratedModuleId != null">
+                INTEGRATED_MODULE_ID,
+            </if>
+            <if test="integratedCode != null">
+                INTEGRATED_CODE,
+            </if>
+            <if test="integratedName != null">
+                INTEGRATED_NAME,
+            </if>
+            <if test="integratedCreateTime != null">
+                INTEGRATED_CREATE_TIME,
+            </if>
+            <if test="integratedCreator != null">
+                INTEGRATED_CREATOR,
+            </if>
+            <if test="integratedUpdateTime != null">
+                INTEGRATED_UPDATE_TIME,
+            </if>
+            <if test="integratedUpdater != null">
+                INTEGRATED_UPDATER,
+            </if>
+            <if test="integratedDesc != null">
+                INTEGRATED_DESC,
+            </if>
+            <if test="integratedStatus != null">
+                INTEGRATED_STATUS,
+            </if>
+            <if test="integratedOrderNum != null">
+                INTEGRATED_ORDER_NUM,
+            </if>
+            <if test="integratedDeploymentId != null">
+                INTEGRATED_DEPLOYMENT_ID,
+            </if>
+            <if test="integratedStartKey != null">
+                INTEGRATED_START_KEY,
+            </if>
+            <if test="integratedResourceName != null">
+                INTEGRATED_RESOURCE_NAME,
+            </if>
+            <if test="integratedFromType != null">
+                INTEGRATED_FROM_TYPE,
+            </if>
+            <if test="integratedMainImageId != null">
+                INTEGRATED_MAIN_IMAGE_ID,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="integratedId != null">
+                #{integratedId,jdbcType=NVARCHAR},
+            </if>
+            <if test="integratedDeId != null">
+                #{integratedDeId,jdbcType=NVARCHAR},
+            </if>
+            <if test="integratedModuleId != null">
+                #{integratedModuleId,jdbcType=NVARCHAR},
+            </if>
+            <if test="integratedCode != null">
+                #{integratedCode,jdbcType=NVARCHAR},
+            </if>
+            <if test="integratedName != null">
+                #{integratedName,jdbcType=NVARCHAR},
+            </if>
+            <if test="integratedCreateTime != null">
+                #{integratedCreateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="integratedCreator != null">
+                #{integratedCreator,jdbcType=NVARCHAR},
+            </if>
+            <if test="integratedUpdateTime != null">
+                #{integratedUpdateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="integratedUpdater != null">
+                #{integratedUpdater,jdbcType=NVARCHAR},
+            </if>
+            <if test="integratedDesc != null">
+                #{integratedDesc,jdbcType=NVARCHAR},
+            </if>
+            <if test="integratedStatus != null">
+                #{integratedStatus,jdbcType=NVARCHAR},
+            </if>
+            <if test="integratedOrderNum != null">
+                #{integratedOrderNum,jdbcType=INTEGER},
+            </if>
+            <if test="integratedDeploymentId != null">
+                #{integratedDeploymentId,jdbcType=NVARCHAR},
+            </if>
+            <if test="integratedStartKey != null">
+                #{integratedStartKey,jdbcType=NVARCHAR},
+            </if>
+            <if test="integratedResourceName != null">
+                #{integratedResourceName,jdbcType=NVARCHAR},
+            </if>
+            <if test="integratedFromType != null">
+                #{integratedFromType,jdbcType=NVARCHAR},
+            </if>
+            <if test="integratedMainImageId != null">
+                #{integratedMainImageId,jdbcType=NVARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.jb4dc.builder.dbentities.flow.FlowIntegratedEntity">
+        update TBUILD_FLOW_INTEGRATED
+        <set>
+            <if test="integratedDeId != null">
+                INTEGRATED_DE_ID = #{integratedDeId,jdbcType=NVARCHAR},
+            </if>
+            <if test="integratedModuleId != null">
+                INTEGRATED_MODULE_ID = #{integratedModuleId,jdbcType=NVARCHAR},
+            </if>
+            <if test="integratedCode != null">
+                INTEGRATED_CODE = #{integratedCode,jdbcType=NVARCHAR},
+            </if>
+            <if test="integratedName != null">
+                INTEGRATED_NAME = #{integratedName,jdbcType=NVARCHAR},
+            </if>
+            <if test="integratedCreateTime != null">
+                INTEGRATED_CREATE_TIME = #{integratedCreateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="integratedCreator != null">
+                INTEGRATED_CREATOR = #{integratedCreator,jdbcType=NVARCHAR},
+            </if>
+            <if test="integratedUpdateTime != null">
+                INTEGRATED_UPDATE_TIME = #{integratedUpdateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="integratedUpdater != null">
+                INTEGRATED_UPDATER = #{integratedUpdater,jdbcType=NVARCHAR},
+            </if>
+            <if test="integratedDesc != null">
+                INTEGRATED_DESC = #{integratedDesc,jdbcType=NVARCHAR},
+            </if>
+            <if test="integratedStatus != null">
+                INTEGRATED_STATUS = #{integratedStatus,jdbcType=NVARCHAR},
+            </if>
+            <if test="integratedOrderNum != null">
+                INTEGRATED_ORDER_NUM = #{integratedOrderNum,jdbcType=INTEGER},
+            </if>
+            <if test="integratedDeploymentId != null">
+                INTEGRATED_DEPLOYMENT_ID = #{integratedDeploymentId,jdbcType=NVARCHAR},
+            </if>
+            <if test="integratedStartKey != null">
+                INTEGRATED_START_KEY = #{integratedStartKey,jdbcType=NVARCHAR},
+            </if>
+            <if test="integratedResourceName != null">
+                INTEGRATED_RESOURCE_NAME = #{integratedResourceName,jdbcType=NVARCHAR},
+            </if>
+            <if test="integratedFromType != null">
+                INTEGRATED_FROM_TYPE = #{integratedFromType,jdbcType=NVARCHAR},
+            </if>
+            <if test="integratedMainImageId != null">
+                INTEGRATED_MAIN_IMAGE_ID = #{integratedMainImageId,jdbcType=NVARCHAR},
+            </if>
+        </set>
+        where INTEGRATED_ID = #{integratedId,jdbcType=NVARCHAR}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.jb4dc.builder.dbentities.flow.FlowIntegratedEntity">
+    update TBUILD_FLOW_INTEGRATED
+    set INTEGRATED_DE_ID = #{integratedDeId,jdbcType=NVARCHAR},
+      INTEGRATED_MODULE_ID = #{integratedModuleId,jdbcType=NVARCHAR},
+      INTEGRATED_CODE = #{integratedCode,jdbcType=NVARCHAR},
+      INTEGRATED_NAME = #{integratedName,jdbcType=NVARCHAR},
+      INTEGRATED_CREATE_TIME = #{integratedCreateTime,jdbcType=TIMESTAMP},
+      INTEGRATED_CREATOR = #{integratedCreator,jdbcType=NVARCHAR},
+      INTEGRATED_UPDATE_TIME = #{integratedUpdateTime,jdbcType=TIMESTAMP},
+      INTEGRATED_UPDATER = #{integratedUpdater,jdbcType=NVARCHAR},
+      INTEGRATED_DESC = #{integratedDesc,jdbcType=NVARCHAR},
+      INTEGRATED_STATUS = #{integratedStatus,jdbcType=NVARCHAR},
+      INTEGRATED_ORDER_NUM = #{integratedOrderNum,jdbcType=INTEGER},
+      INTEGRATED_DEPLOYMENT_ID = #{integratedDeploymentId,jdbcType=NVARCHAR},
+      INTEGRATED_START_KEY = #{integratedStartKey,jdbcType=NVARCHAR},
+      INTEGRATED_RESOURCE_NAME = #{integratedResourceName,jdbcType=NVARCHAR},
+      INTEGRATED_FROM_TYPE = #{integratedFromType,jdbcType=NVARCHAR},
+      INTEGRATED_MAIN_IMAGE_ID = #{integratedMainImageId,jdbcType=NVARCHAR}
+    where INTEGRATED_ID = #{integratedId,jdbcType=NVARCHAR}
+  </update>
+</mapper>

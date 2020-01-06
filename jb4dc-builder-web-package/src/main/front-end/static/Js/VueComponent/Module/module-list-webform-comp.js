@@ -146,7 +146,8 @@ Vue.component("module-list-webform-comp", {
                     "moduleId": this.moduleData.moduleId
                 });
                 //alert(url);
-                DialogUtility.OpenNewWindow(window, DialogUtility.DialogId, url, {width: 0, height: 0}, 2);
+                //DialogUtility.OpenNewWindow(window, DialogUtility.DialogId, url, {width: 0, height: 0}, 2);
+                DialogUtility.OpenNewTabWindow(url);
             }
             else {
                 DialogUtility.Alert(window, DialogUtility.DialogAlertId, {}, "请选择模块!", null);
@@ -158,7 +159,8 @@ Vue.component("module-list-webform-comp", {
                 "op": "update",
                 "recordId": recordId
             });
-            DialogUtility.OpenNewWindow(window, DialogUtility.DialogId, url, {width: 0, height: 0}, 2);
+            //DialogUtility.OpenNewWindow(window, DialogUtility.DialogId, url, {width: 0, height: 0}, 2);
+            DialogUtility.OpenNewTabWindow(url);
         },
         del: function (recordId) {
             ListPageUtility.IViewTableDeleteRow(this.acInterface.delete, recordId, this);
