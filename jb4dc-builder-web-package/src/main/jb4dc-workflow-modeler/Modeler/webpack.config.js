@@ -15,7 +15,8 @@ module.exports = {
     context: path.resolve(__dirname, ""),
     output: {
         // 把所有依赖的模块合并输出到一个 bundle.js 文件
-        filename: '[name].[hash].js',
+        //filename: '[name].[hash].js',
+        filename: '[name].js',
         // 输出文件都放到 dist 目录下
         path: path.resolve(__dirname, '../../resources/static/HTML/WorkFlow/Modeler'),
         //path: path.resolve(__dirname, './dist'),
@@ -106,8 +107,10 @@ module.exports = {
         new MiniCssExtractPlugin({
             // Options similar to the same options in webpackOptions.output
             // both options are optional
-            filename: "[name].[hash].css",
-            chunkFilename: "[id].[hash].css"
+            //filename: "[name].[hash].css",
+            //chunkFilename: "[id].[hash].css"
+            filename: "[name].css",
+            chunkFilename: "[id].css"
         }),
         new VueLoaderPlugin()/*,
         new webpack.ProvidePlugin({

@@ -19,6 +19,12 @@ public class FlowIntegratedEntity {
     //INTEGRATED_DE_ID:act_de_model表的ID
     private String integratedDeId;
 
+    //INTEGRATED_DE_MESSAGE:部署结果消息
+    private String integratedDeMessage;
+
+    //INTEGRATED_DE_SUCCESS:部署是否成功
+    private String integratedDeSuccess;
+
     //INTEGRATED_MODULE_ID:所属的模块ID
     private String integratedModuleId;
 
@@ -63,13 +69,12 @@ public class FlowIntegratedEntity {
     //INTEGRATED_FROM_TYPE:流程模型来自上传或者页面设计
     private String integratedFromType;
 
-    //INTEGRATED_MAIN_IMAGE_ID:关联到TFS_FILE_INFO表的FILE_ID
-    private String integratedMainImageId;
-
     /**
      * 构造函数
      * @param integratedId 主键
      * @param integratedDeId act_de_model表的ID
+     * @param integratedDeMessage 部署结果消息
+     * @param integratedDeSuccess 部署是否成功
      * @param integratedModuleId 所属的模块ID
      * @param integratedCode 模型编码
      * @param integratedName 模型名称
@@ -84,11 +89,12 @@ public class FlowIntegratedEntity {
      * @param integratedStartKey 启动键
      * @param integratedResourceName 资源名称
      * @param integratedFromType 流程模型来自上传或者页面设计
-     * @param integratedMainImageId 关联到TFS_FILE_INFO表的FILE_ID
      **/
-    public FlowIntegratedEntity(String integratedId, String integratedDeId, String integratedModuleId, String integratedCode, String integratedName, Date integratedCreateTime, String integratedCreator, Date integratedUpdateTime, String integratedUpdater, String integratedDesc, String integratedStatus, Integer integratedOrderNum, String integratedDeploymentId, String integratedStartKey, String integratedResourceName, String integratedFromType, String integratedMainImageId) {
+    public FlowIntegratedEntity(String integratedId, String integratedDeId, String integratedDeMessage, String integratedDeSuccess, String integratedModuleId, String integratedCode, String integratedName, Date integratedCreateTime, String integratedCreator, Date integratedUpdateTime, String integratedUpdater, String integratedDesc, String integratedStatus, Integer integratedOrderNum, String integratedDeploymentId, String integratedStartKey, String integratedResourceName, String integratedFromType) {
         this.integratedId = integratedId;
         this.integratedDeId = integratedDeId;
+        this.integratedDeMessage = integratedDeMessage;
+        this.integratedDeSuccess = integratedDeSuccess;
         this.integratedModuleId = integratedModuleId;
         this.integratedCode = integratedCode;
         this.integratedName = integratedName;
@@ -103,7 +109,6 @@ public class FlowIntegratedEntity {
         this.integratedStartKey = integratedStartKey;
         this.integratedResourceName = integratedResourceName;
         this.integratedFromType = integratedFromType;
-        this.integratedMainImageId = integratedMainImageId;
     }
 
     public FlowIntegratedEntity() {
@@ -140,6 +145,38 @@ public class FlowIntegratedEntity {
      **/
     public void setIntegratedDeId(String integratedDeId) {
         this.integratedDeId = integratedDeId == null ? null : integratedDeId.trim();
+    }
+
+    /**
+     * 部署结果消息
+     * @return java.lang.String
+     **/
+    public String getIntegratedDeMessage() {
+        return integratedDeMessage;
+    }
+
+    /**
+     * 部署结果消息
+     * @param integratedDeMessage 部署结果消息
+     **/
+    public void setIntegratedDeMessage(String integratedDeMessage) {
+        this.integratedDeMessage = integratedDeMessage == null ? null : integratedDeMessage.trim();
+    }
+
+    /**
+     * 部署是否成功
+     * @return java.lang.String
+     **/
+    public String getIntegratedDeSuccess() {
+        return integratedDeSuccess;
+    }
+
+    /**
+     * 部署是否成功
+     * @param integratedDeSuccess 部署是否成功
+     **/
+    public void setIntegratedDeSuccess(String integratedDeSuccess) {
+        this.integratedDeSuccess = integratedDeSuccess == null ? null : integratedDeSuccess.trim();
     }
 
     /**
@@ -364,21 +401,5 @@ public class FlowIntegratedEntity {
      **/
     public void setIntegratedFromType(String integratedFromType) {
         this.integratedFromType = integratedFromType == null ? null : integratedFromType.trim();
-    }
-
-    /**
-     * 关联到TFS_FILE_INFO表的FILE_ID
-     * @return java.lang.String
-     **/
-    public String getIntegratedMainImageId() {
-        return integratedMainImageId;
-    }
-
-    /**
-     * 关联到TFS_FILE_INFO表的FILE_ID
-     * @param integratedMainImageId 关联到TFS_FILE_INFO表的FILE_ID
-     **/
-    public void setIntegratedMainImageId(String integratedMainImageId) {
-        this.integratedMainImageId = integratedMainImageId == null ? null : integratedMainImageId.trim();
     }
 }

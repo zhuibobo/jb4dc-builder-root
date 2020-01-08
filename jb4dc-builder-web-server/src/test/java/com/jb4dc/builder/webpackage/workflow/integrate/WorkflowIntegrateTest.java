@@ -2,7 +2,7 @@ package com.jb4dc.builder.webpackage.workflow.integrate;
 
 
 import com.jb4dc.base.tools.XMLUtility;
-import com.jb4dc.builder.workflow.integrate.WorkflowIntegrate;
+import com.jb4dc.builder.workflow.integrate.impl.WorkflowIntegrateServiceImpl;
 import com.jb4dc.builder.workflow.po.bpmn.BpmnDefinitions;
 import org.junit.Assert;
 import org.junit.Test;
@@ -30,7 +30,7 @@ public class WorkflowIntegrateTest {
         //RepositoryService repositoryService = processEngine.getRepositoryService();
         //repositoryService.createDeployment().name("P004Test-NAME").source("P004Test-Source").tenantId("P004Test-TenantId").addClasspathResource("bpmn/P004_001_发文流程.bpmn").deploy();
 
-        WorkflowIntegrate workflowIntegrate=new WorkflowIntegrate();
+        WorkflowIntegrateServiceImpl workflowIntegrate=new WorkflowIntegrateServiceImpl(null);
         BpmnDefinitions bpmnDefinitions=workflowIntegrate.parseToPO(is);
 
         Assert.assertEquals("发文流程",bpmnDefinitions.getBpmnProcess().getName());

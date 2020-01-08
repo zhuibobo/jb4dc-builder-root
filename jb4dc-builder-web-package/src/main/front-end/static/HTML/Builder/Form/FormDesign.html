@@ -207,7 +207,9 @@
                 formCustServerRenderer:"",
                 formCustRefJs:"",
                 formCustClientRenderer:"",
-                formCustDesc:""
+                formCustDesc:"",
+
+                tryDeployment:true
             },
             status: BaseUtility.GetUrlParaValue("op"),
             oldSelectedTabName:"",
@@ -302,8 +304,6 @@
                     JsEditorUtility.InitializeJsCodeDesign(_self.status);
 
                     _self.$refs.jsDesignCodeFragment.setJSEditorInstance(JsEditorUtility.GetJsEditorInst());
-
-
 
                 },this);
             },
@@ -407,7 +407,6 @@
                     //debugger;
                     AjaxUtility.PostRequestBody(this.acInterface.saveDataUrl, sendData, function (result) {
                         //debugger;
-
                         if(typeof(successFunc)=="function") {
                             successFunc.call(this,result);
                         }

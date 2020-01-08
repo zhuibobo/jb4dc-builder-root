@@ -173,22 +173,27 @@ Vue.component("module-list-workflow-comp", {
             ListPageUtility.IViewMoveFace(this.acInterface.move, this.selectionRows, this.idFieldName, type, this);
         }
     },
-    template: '<div class="module-list-wrap">\
-                    <div id="list-button-wrap" class="list-button-outer-wrap">\
-                        <div class="module-list-name"><Icon type="ios-arrow-dropright-circle" />&nbsp;模块【{{getModuleName()}}】</div>\
-                        <div class="list-button-inner-wrap">\
+    template: `<div class="module-list-wrap">
+                    <div id="list-button-wrap" class="list-button-outer-wrap">
+                        <div class="module-list-name"><Icon type="ios-arrow-dropright-circle" />&nbsp;模块【{{getModuleName()}}】</div>
+                        <div class="list-button-inner-wrap">
                             <ButtonGroup>\
-                                <i-button  type="success" @click="add()" icon="md-add">新增</i-button>\
-                            </ButtonGroup>\
-                        </div>\
-                         <div style="float: right;width: 200px;margin-right: 10px;">\
-                            <i-input search class="input_border_bottom" v-model="searchText">\
-                            </i-input>\
-                        </div>\
-                        <div style="clear: both"></div>\
-                    </div>\
-                    <i-table :height="listHeight" stripe border :columns="columnsConfig" :data="tableData"\
-                             class="iv-list-table" :highlight-row="true"\
-                             @on-selection-change="selectionChange"></i-table>\
-                </div>'
+                                <i-button  type="success" @click="add()" icon="md-add">新增</i-button>
+                                <i-button type="error" icon="md-albums" disabled>复制</i-button>
+                                <i-button type="error" icon="md-bookmarks" disabled>历史版本</i-button>
+                                <i-button type="error" icon="md-brush" disabled>复制ID</i-button>
+                                <i-button type="error" icon="md-arrow-up" disabled>上移</i-button>
+                                <i-button type="error" icon="md-arrow-down" disabled>下移</i-button>
+                            </ButtonGroup>
+                        </div>
+                         <div style="float: right;width: 200px;margin-right: 10px;">
+                            <i-input search class="input_border_bottom" v-model="searchText">
+                            </i-input>
+                        </div>
+                        <div style="clear: both"></div>
+                    </div>
+                    <i-table :height="listHeight" stripe border :columns="columnsConfig" :data="tableData"
+                             class="iv-list-table" :highlight-row="true"
+                             @on-selection-change="selectionChange"></i-table>
+                </div>`
 });

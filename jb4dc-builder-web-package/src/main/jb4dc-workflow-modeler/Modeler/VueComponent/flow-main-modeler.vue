@@ -4,10 +4,8 @@
         <div style="position: absolute;right: 10px;top: 6px;z-index: 100">
             <button-group size="small">
                 <i-button icon="md-cloud-done" type="primary" @click="save()">保存</i-button>
-                <i-button icon="md-cloud-done" type="primary">保存并部署</i-button>
-                <i-button icon="md-checkmark" type="primary">校验窗体</i-button>
-                <i-button icon="md-search" type="primary">历史版本</i-button>
-                <i-button icon="md-search" type="primary" @click="consoleLogBpmnJsXml">console-log</i-button>
+                <i-button icon="md-cloud-done" type="primary" @click="saveAndClose()">保存并关闭</i-button>
+                <i-button icon="md-cloud-done" type="primary" @click="saveAndDeployment()">保存并部署</i-button>
                 <i-button icon="md-search" type="primary">关闭</i-button>
             </button-group>
         </div>
@@ -20,6 +18,8 @@
             </tab-pane>
             <tab-pane tab="flow-design-modeler-tabs" name="Info" label="Document&Description">
                 <flow-base-container ref="flowBaseContainer"></flow-base-container>
+            </tab-pane>
+            <tab-pane tab="flow-design-modeler-tabs" name="History" label="History">
             </tab-pane>
         </tabs>
 
@@ -48,41 +48,45 @@
                 oldSelectedTabName:"",
                 selectedTabName:"Bpmn",
                 /*Js Bean*/
-                flowIntegratedEntity:{
-//主键:UUID
+                flowIntegratedPO:{
+                    //主键:UUID
                     integratedId:"",
-//act_de_model表的ID
+                    //act_de_model表的ID
                     integratedDeId:"",
-//所属的模块ID
+                    //部署结果消息
+                    integratedDeMessage:"",
+                    //部署是否成功
+                    integratedDeSuccess:"",
+                    //所属的模块ID
                     integratedModuleId:"",
-//模型编码
+                    //模型编码
                     integratedCode:"",
-//模型名称
+                    //模型名称
                     integratedName:"",
-//创建时间
+                    //创建时间
                     integratedCreateTime:DateUtility.GetCurrentData(),
-//创建者
+                    //创建者
                     integratedCreator:"",
-//更新时间
+                    //更新时间
                     integratedUpdateTime:DateUtility.GetCurrentData(),
-//更新人
+                    //更新人
                     integratedUpdater:"",
-//备注
+                    //备注
                     integratedDesc:"",
-//状态
+                    //状态
                     integratedStatus:"启用",
-//排序号
+                    //排序号
                     integratedOrderNum:"",
-//部署ID
+                    //部署ID
                     integratedDeploymentId:"",
-//启动键
+                    //启动键
                     integratedStartKey:"",
-//资源名称
+                    //资源名称
                     integratedResourceName:"",
-//流程模型来自上传或者页面设计
+                    //流程模型来自上传或者页面设计
                     integratedFromType:"",
-//关联到TFS_FILE_INFO表的FILE_ID
-                    integratedMainImageId:""
+                    bpmnXMLModeler:"",
+                    tryDeployment:false
                 }
             }
         },
@@ -96,10 +100,8 @@
                 return name;
             };*/
             function char_convert() {
-
                 var chars = ["©","Û","®","ž","Ü","Ÿ","Ý","$","Þ","%","¡","ß","¢","à","£","á","À","¤","â","Á","¥","ã","Â","¦","ä","Ã","§","å","Ä","¨","æ","Å","©","ç","Æ","ª","è","Ç","«","é","È","¬","ê","É","­","ë","Ê","®","ì","Ë","¯","í","Ì","°","î","Í","±","ï","Î","²","ð","Ï","³","ñ","Ð","´","ò","Ñ","µ","ó","Õ","¶","ô","Ö","·","õ","Ø","¸","ö","Ù","¹","÷","Ú","º","ø","Û","»","ù","Ü","@","¼","ú","Ý","½","û","Þ","€","¾","ü","ß","¿","ý","à","‚","À","þ","á","ƒ","Á","ÿ","å","„","Â","æ","…","Ã","ç","†","Ä","è","‡","Å","é","ˆ","Æ","ê","‰","Ç","ë","Š","È","ì","‹","É","í","Œ","Ê","î","Ë","ï","Ž","Ì","ð","Í","ñ","Î","ò","‘","Ï","ó","’","Ð","ô","“","Ñ","õ","”","Ò","ö","•","Ó","ø","–","Ô","ù","—","Õ","ú","˜","Ö","û","™","×","ý","š","Ø","þ","›","Ù","ÿ","œ","Ú"];
                 var codes = ["&copy;","&#219;","&reg;","&#158;","&#220;","&#159;","&#221;","&#36;","&#222;","&#37;","&#161;","&#223;","&#162;","&#224;","&#163;","&#225;","&Agrave;","&#164;","&#226;","&Aacute;","&#165;","&#227;","&Acirc;","&#166;","&#228;","&Atilde;","&#167;","&#229;","&Auml;","&#168;","&#230;","&Aring;","&#169;","&#231;","&AElig;","&#170;","&#232;","&Ccedil;","&#171;","&#233;","&Egrave;","&#172;","&#234;","&Eacute;","&#173;","&#235;","&Ecirc;","&#174;","&#236;","&Euml;","&#175;","&#237;","&Igrave;","&#176;","&#238;","&Iacute;","&#177;","&#239;","&Icirc;","&#178;","&#240;","&Iuml;","&#179;","&#241;","&ETH;","&#180;","&#242;","&Ntilde;","&#181;","&#243;","&Otilde;","&#182;","&#244;","&Ouml;","&#183;","&#245;","&Oslash;","&#184;","&#246;","&Ugrave;","&#185;","&#247;","&Uacute;","&#186;","&#248;","&Ucirc;","&#187;","&#249;","&Uuml;","&#64;","&#188;","&#250;","&Yacute;","&#189;","&#251;","&THORN;","&#128;","&#190;","&#252","&szlig;","&#191;","&#253;","&agrave;","&#130;","&#192;","&#254;","&aacute;","&#131;","&#193;","&#255;","&aring;","&#132;","&#194;","&aelig;","&#133;","&#195;","&ccedil;","&#134;","&#196;","&egrave;","&#135;","&#197;","&eacute;","&#136;","&#198;","&ecirc;","&#137;","&#199;","&euml;","&#138;","&#200;","&igrave;","&#139;","&#201;","&iacute;","&#140;","&#202;","&icirc;","&#203;","&iuml;","&#142;","&#204;","&eth;","&#205;","&ntilde;","&#206;","&ograve;","&#145;","&#207;","&oacute;","&#146;","&#208;","&ocirc;","&#147;","&#209;","&otilde;","&#148;","&#210;","&ouml;","&#149;","&#211;","&oslash;","&#150;","&#212;","&ugrave;","&#151;","&#213;","&uacute;","&#152;","&#214;","&ucirc;","&#153;","&#215;","&yacute;","&#154;","&#216;","&thorn;","&#155;","&#217;","&yuml;","&#156;","&#218;"];
-
                 for(x=0; x<chars.length; x++){
                     for (i=0; i<arguments.length; i++){
                         arguments[i].value = arguments[i].value.replace(chars[x], codes[x]);
@@ -121,7 +123,15 @@
             initPageUI:function(){
                 this.isLoading=true;
                 this.oldSelectedTabName=this.selectedTabName;
-                RemoteUtility.TryLoadModuleContext("");
+                var moduleId=BaseUtility.GetUrlParaValue("moduleId");
+                var recordId=BaseUtility.GetUrlParaValue("recordId");
+                var op=BaseUtility.GetUrlParaValue("op");
+                RemoteUtility.TryLoadModuleContext(moduleId);
+                RemoteUtility.GetFlowModel(recordId,op,(flowModelPO)=>{
+
+                    this.flowIntegratedPO=flowModelPO;
+                    console.log(this.flowIntegratedPO);
+                });
                 window.setTimeout(() => {
                     this.isLoading=false;
                 },200);
@@ -160,6 +170,23 @@
                     //CKEditorUtility.SetCKEditorHTML(html);
                 }
                 this.oldSelectedTabName=name;
+            },
+            save:function () {
+                var bpmnXMLModeler=this.$refs["flowBpmnjsContainer"].getXML();
+                this.flowIntegratedPO.bpmnXMLModeler=bpmnXMLModeler;
+                this.flowIntegratedPO.tryDeployment = false;
+                RemoteUtility.Save(this.flowIntegratedPO);
+            },
+            saveAndClose:function () {
+
+            },
+            saveAndDeployment:function () {
+                var bpmnXMLModeler=this.$refs["flowBpmnjsContainer"].getXML();
+                this.flowIntegratedPO.tryDeployment = true;
+                this.flowIntegratedPO.bpmnXMLModeler=bpmnXMLModeler;
+                RemoteUtility.Save(this.flowIntegratedPO,function () {
+
+                });
             }
         }
     }

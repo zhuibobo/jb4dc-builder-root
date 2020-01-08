@@ -301,7 +301,10 @@
                 <constraints primaryKey="true" nullable="false"/>
             </column>
             <column name="INTEGRATED_DE_ID" type="NVARCHAR(100)" remarks="act_de_model表的ID">
-                <constraints nullable="false"/>
+            </column>
+            <column name="INTEGRATED_DE_MESSAGE" type="NVARCHAR(1000)" remarks="部署结果消息">
+            </column>
+            <column name="INTEGRATED_DE_SUCCESS" type="NVARCHAR(50)" remarks="部署是否成功">
             </column>
             <column name="INTEGRATED_MODULE_ID" type="NVARCHAR(100)" remarks="所属的模块ID">
                 <constraints nullable="false"/>
@@ -323,7 +326,6 @@
             <column name="INTEGRATED_START_KEY" type="NVARCHAR(1000)" remarks="启动键"/>
             <column name="INTEGRATED_RESOURCE_NAME" type="NVARCHAR(1000)" remarks="资源名称"/>
             <column name="INTEGRATED_FROM_TYPE" type="NVARCHAR(50)" remarks="流程模型来自上传或者页面设计"/>
-            <column name="INTEGRATED_MAIN_IMAGE_ID" type="NVARCHAR(100)" remarks="关联到TFS_FILE_INFO表的FILE_ID"/>
         </createTable>
 
         <createTable tableName="TBUILD_FORM_RESOURCE" remarks="窗体资源存储表:用于存储窗体设计的文件">

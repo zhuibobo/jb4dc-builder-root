@@ -3,9 +3,13 @@ import qs from'qs';
 
 class RemoteUtility{
     static _moduleContext=null
-
+    static acInterface={
+        saveDataUrl:"/Rest/Builder/FlowIntegrated/SaveFlowModel",
+        getDataUrl:"/Rest/Builder/FlowIntegrated/GetFlowModel",
+        getModuleContext:"/Rest/Workflow/Modeler/Properties/GetModuleContext"
+    }
     static TryLoadModuleContext(moduleId){
-        var url=this.BuildUrl("/Rest/Workflow/Modeler/Properties/GetModuleContext");
+        var url=this.BuildUrl(this.acInterface.getModuleContext);
         axios.post(url, qs.stringify({
             "moduleId":"DevMockModuleId"
         })).then( (result) => {
@@ -118,6 +122,45 @@ class RemoteUtility{
     }
     static GetEnvVariableValueByEnvText(text){
         return this.GetEnvVariablePOByEnvText(text).envVarValue;
+    }
+
+    static GetFlowModel(recordId,op,callbackFunc){
+        var url=this.BuildUrl(this.acInterface.getDataUrl);
+        axios.post(url, qs.stringify({
+            "recordId":recordId,
+            "op":op
+        })).then( (result) => {
+            //console.log(JsonUtility.JsonToString(result.data));
+            //console.log(result.data);
+            if(result.status==200) {
+                if(result.data.success) {
+                    if (typeof (callbackFunc) == "function") {
+                        callbackFunc(result.data.data);
+                    }
+                }
+                else{
+                    DialogUtility.AlertText(result.data.message);
+                }
+            }
+            else{
+                DialogUtility.AlertText(result.statusText);
+            }
+            //resolve(result.data);
+            //this._moduleContext=result.data;
+        });
+    }
+
+    static Save(formResourceEntity,callbackFunc) {
+        var url = this.BuildUrl(this.acInterface.saveDataUrl);
+        axios.post(url, formResourceEntity).then((result) => {
+            //console.log(JsonUtility.JsonToString(result.data));
+            console.log(result.data);
+            if(typeof(callbackFunc)=="function") {
+                callbackFunc(result.data);
+            }
+            //resolve(result.data);
+            //this._moduleContext = result.data;
+        });
     }
 
     static BuildUrl(url) {

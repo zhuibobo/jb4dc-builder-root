@@ -40,6 +40,8 @@ public class LiQuiBaseBeansConfig {
 
             liquibase = new Liquibase("liquibase/jb4dc-builder-db-changelog.xml", new ClassLoaderResourceAccessor(), database);
             liquibase.update("zhuangrb");
+            liquibase = new Liquibase("liquibase/jb4dc-files-db-changelog.xml", new ClassLoaderResourceAccessor(), database);
+            liquibase.update("zhuangrb");
             return liquibase;
 
         } catch (Exception e) {
