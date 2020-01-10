@@ -25,4 +25,10 @@
  where INTEGRATED_ORDER_NUM = (select max(INTEGRATED_ORDER_NUM) from TBUILD_FLOW_INTEGRATED where INTEGRATED_ORDER_NUM<(select INTEGRATED_ORDER_NUM from TBUILD_FLOW_INTEGRATED where INTEGRATED_ID=#{Id,jdbcType=NVARCHAR}))]]></select>
     <select id="selectGreaterThanRecord" parameterType="java.lang.String" resultMap="BaseResultMap"><![CDATA[select * from TBUILD_FLOW_INTEGRATED
  where INTEGRATED_ORDER_NUM = (select min(INTEGRATED_ORDER_NUM) from TBUILD_FLOW_INTEGRATED where INTEGRATED_ORDER_NUM>(select INTEGRATED_ORDER_NUM from TBUILD_FLOW_INTEGRATED where INTEGRATED_ID=#{Id,jdbcType=NVARCHAR}))]]></select>
+    <select id="selectByStartKey" resultMap="BaseResultMap">
+        select<include refid="Base_Column_List"/> from TBUILD_FLOW_INTEGRATED where INTEGRATED_START_KEY=#{integratedStartKey}
+    </select>
+    <select id="selectByCode" resultMap="BaseResultMap">
+        select<include refid="Base_Column_List"/> from TBUILD_FLOW_INTEGRATED where INTEGRATED_CODE=#{integratedCode}
+    </select>
 </mapper>

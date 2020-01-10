@@ -121,7 +121,7 @@ public class DatasetServiceImpl extends BaseServiceImpl<DatasetEntity> implement
         DatasetEntity datasetEntity=super.getByPrimaryKey(jb4DCSession, id);
         if(datasetEntity==null)
             return null;
-        DataSetPO dataSetPO = DataSetPO.parseToVo(datasetEntity);
+        DataSetPO dataSetPO = DataSetPO.parseToPO(datasetEntity);
         List<DataSetColumnPO> dataSetColumnVos=datasetColumnService.getByDataSetId(jb4DCSession,id);
         List<DataSetRelatedTablePO> dataSetRelatedTablePOS =datasetRelatedTableService.getByDataSetId(jb4DCSession,id);
 

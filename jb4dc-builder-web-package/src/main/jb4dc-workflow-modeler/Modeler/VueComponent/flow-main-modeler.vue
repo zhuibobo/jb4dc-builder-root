@@ -91,6 +91,7 @@
             }
         },
         mounted:function(){
+            //alert(2);
             this.initPageUI();
             //console.log(EditTable_SelectDefaultValue);
             /*function changeDum(name){
@@ -128,9 +129,9 @@
                 var op=BaseUtility.GetUrlParaValue("op");
                 RemoteUtility.TryLoadModuleContext(moduleId);
                 RemoteUtility.GetFlowModel(recordId,op,(flowModelPO)=>{
-
                     this.flowIntegratedPO=flowModelPO;
                     console.log(this.flowIntegratedPO);
+                    this.$refs.flowBpmnjsContainer.initCanvas(flowModelPO);
                 });
                 window.setTimeout(() => {
                     this.isLoading=false;
@@ -172,18 +173,18 @@
                 this.oldSelectedTabName=name;
             },
             save:function () {
-                var bpmnXMLModeler=this.$refs["flowBpmnjsContainer"].getXML();
-                this.flowIntegratedPO.bpmnXMLModeler=bpmnXMLModeler;
                 this.flowIntegratedPO.tryDeployment = false;
+                this.flowIntegratedPO.integratedStartKey=this.$refs["flowBpmnjsContainer"].getStartKey();
+                this.flowIntegratedPO.bpmnXMLModeler=this.$refs["flowBpmnjsContainer"].getXML();
                 RemoteUtility.Save(this.flowIntegratedPO);
             },
             saveAndClose:function () {
 
             },
             saveAndDeployment:function () {
-                var bpmnXMLModeler=this.$refs["flowBpmnjsContainer"].getXML();
                 this.flowIntegratedPO.tryDeployment = true;
-                this.flowIntegratedPO.bpmnXMLModeler=bpmnXMLModeler;
+                this.flowIntegratedPO.integratedStartKey=this.$refs["flowBpmnjsContainer"].getStartKey();
+                this.flowIntegratedPO.bpmnXMLModeler=this.$refs["flowBpmnjsContainer"].getXML();
                 RemoteUtility.Save(this.flowIntegratedPO,function () {
 
                 });

@@ -87,6 +87,9 @@ class BpmnJsUtility {
     static BPMN_Attr_GetId(element){
         return this.GetAttr(element,"id");
     }
+    static BPMN_Attr_SetId(element,id){
+        return this.SetAttr(element,"id",id);
+    }
 
     static BPMN_Attr_GetName(element){
         return this.GetAttr(element,"name");

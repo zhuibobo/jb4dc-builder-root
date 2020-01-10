@@ -150,17 +150,42 @@ class RemoteUtility{
         });
     }
 
+    static SaveEnable(formResourceEntity){
+        var result={
+            success:true,
+            message:""
+        }
+        if(!formResourceEntity.integratedStartKey) {
+            result.message = "启动Key不能为空!";
+            result.success = false;
+        }
+        else if(formResourceEntity.integratedStartKey=="Model_Empty_Flow") {
+            result.message = "启动Key不能为默认值!";
+            result.success = false;
+        }
+        else if(!ValidateUtility.ValidateSingle(formResourceEntity.integratedStartKey,ValidateUtility.ValidateType.SimpleCode,"启动Key",null,null).success);
+        {
+
+        }
+        return result;
+    }
     static Save(formResourceEntity,callbackFunc) {
         var url = this.BuildUrl(this.acInterface.saveDataUrl);
-        axios.post(url, formResourceEntity).then((result) => {
-            //console.log(JsonUtility.JsonToString(result.data));
-            console.log(result.data);
-            if(typeof(callbackFunc)=="function") {
-                callbackFunc(result.data);
-            }
-            //resolve(result.data);
-            //this._moduleContext = result.data;
-        });
+        var saveValidateResult=this.SaveEnable(formResourceEntity);
+        if(saveValidateResult.success) {
+            axios.post(url, formResourceEntity).then((result) => {
+                //console.log(JsonUtility.JsonToString(result.data));
+                console.log(result.data);
+                if (typeof (callbackFunc) == "function") {
+                    callbackFunc(result.data);
+                }
+                //resolve(result.data);
+                //this._moduleContext = result.data;
+            });
+        }
+        else{
+            DialogUtility.AlertText(saveValidateResult.message);
+        }
     }
 
     static BuildUrl(url) {

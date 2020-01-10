@@ -76,3 +76,18 @@ feign:
         connectTimeout: 1000
         readTimeout: 12000
         retryer: feign.Retryer.Default
+
+
+camunda:
+  bpm:
+    application:
+      delete-upon-undeploy: false
+      scan-for-process-definitions: false
+      deploy-changed-only: true
+      resume-previous-versions: true
+      resume-previous-by: a value
+    job-execution:
+      enabled: true
+    metrics:
+      enabled: false
+      db-reporter-activate: false

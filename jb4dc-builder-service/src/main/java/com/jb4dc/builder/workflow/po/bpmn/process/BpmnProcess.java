@@ -22,6 +22,14 @@ import java.util.List;
         "candidateStarterGroups",
         "candidateStarterUsers",
         "versionTag",
+        "jb4dcCode",
+        "jb4dcFlowCategory",
+        "jb4dcFormId",
+        "jb4dcTenantId",
+        "jb4dcProcessTitleEditText",
+        "jb4dcProcessTitleEditValue",
+        "jb4dcProcessDescriptionEditText",
+        "jb4dcProcessDescriptionEditValue",
         "documentation",
         "extensionElements",
         "startEvent",
@@ -61,6 +69,30 @@ public class BpmnProcess {
 
     @XmlAttribute(name = "versionTag",namespace = BpmnNs.CAMUNDA_URI)
     String versionTag;
+
+    @XmlAttribute(name = "jb4dcCode")
+    String jb4dcCode;
+
+    @XmlAttribute(name = "jb4dcFlowCategory")
+    String jb4dcFlowCategory;
+
+    @XmlAttribute(name = "jb4dcFormId")
+    String jb4dcFormId;
+
+    @XmlAttribute(name = "jb4dcTenantId")
+    String jb4dcTenantId;
+
+    @XmlAttribute(name = "jb4dcProcessTitleEditText")
+    String jb4dcProcessTitleEditText;
+
+    @XmlAttribute(name = "jb4dcProcessTitleEditValue")
+    String jb4dcProcessTitleEditValue;
+
+    @XmlAttribute(name = "jb4dcProcessDescriptionEditText")
+    String jb4dcProcessDescriptionEditText;
+
+    @XmlAttribute(name = "jb4dcProcessDescriptionEditValue")
+    String jb4dcProcessDescriptionEditValue;
 
     @XmlElement(name = "documentation",namespace = BpmnNs.BPMN_URI)
     BpmnDocumentation documentation;
@@ -149,6 +181,70 @@ public class BpmnProcess {
 
     public void setVersionTag(String versionTag) {
         this.versionTag = versionTag;
+    }
+
+    public String getJb4dcCode() {
+        return jb4dcCode;
+    }
+
+    public void setJb4dcCode(String jb4dcCode) {
+        this.jb4dcCode = jb4dcCode;
+    }
+
+    public String getJb4dcFlowCategory() {
+        return jb4dcFlowCategory;
+    }
+
+    public void setJb4dcFlowCategory(String jb4dcFlowCategory) {
+        this.jb4dcFlowCategory = jb4dcFlowCategory;
+    }
+
+    public String getJb4dcFormId() {
+        return jb4dcFormId;
+    }
+
+    public void setJb4dcFormId(String jb4dcFormId) {
+        this.jb4dcFormId = jb4dcFormId;
+    }
+
+    public String getJb4dcTenantId() {
+        return jb4dcTenantId;
+    }
+
+    public void setJb4dcTenantId(String jb4dcTenantId) {
+        this.jb4dcTenantId = jb4dcTenantId;
+    }
+
+    public String getJb4dcProcessTitleEditText() {
+        return jb4dcProcessTitleEditText;
+    }
+
+    public void setJb4dcProcessTitleEditText(String jb4dcProcessTitleEditText) {
+        this.jb4dcProcessTitleEditText = jb4dcProcessTitleEditText;
+    }
+
+    public String getJb4dcProcessTitleEditValue() {
+        return jb4dcProcessTitleEditValue;
+    }
+
+    public void setJb4dcProcessTitleEditValue(String jb4dcProcessTitleEditValue) {
+        this.jb4dcProcessTitleEditValue = jb4dcProcessTitleEditValue;
+    }
+
+    public String getJb4dcProcessDescriptionEditText() {
+        return jb4dcProcessDescriptionEditText;
+    }
+
+    public void setJb4dcProcessDescriptionEditText(String jb4dcProcessDescriptionEditText) {
+        this.jb4dcProcessDescriptionEditText = jb4dcProcessDescriptionEditText;
+    }
+
+    public String getJb4dcProcessDescriptionEditValue() {
+        return jb4dcProcessDescriptionEditValue;
+    }
+
+    public void setJb4dcProcessDescriptionEditValue(String jb4dcProcessDescriptionEditValue) {
+        this.jb4dcProcessDescriptionEditValue = jb4dcProcessDescriptionEditValue;
     }
 
     public String getCandidateStarterGroups() {

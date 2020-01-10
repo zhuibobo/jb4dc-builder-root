@@ -104,6 +104,7 @@
     <orderEntry type="library" name="Maven: org.jboss.logging:jboss-logging:3.3.2.Final" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-webmvc:5.1.8.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-expression:5.1.8.RELEASE" level="project" />
+    <orderEntry type="library" name="Maven: jb4dc:jb4dc-base-files-service:1.0-SNAPSHOT" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.cloud:spring-cloud-starter-openfeign:2.1.2.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.cloud:spring-cloud-starter:2.1.0.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.cloud:spring-cloud-context:2.1.0.RELEASE" level="project" />
@@ -119,7 +120,6 @@
     <orderEntry type="library" name="Maven: io.github.openfeign.form:feign-form:3.5.0" level="project" />
     <orderEntry type="library" name="Maven: commons-fileupload:commons-fileupload:1.3.3" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-web:5.1.8.RELEASE" level="project" />
-    <orderEntry type="library" name="Maven: org.springframework:spring-beans:5.1.8.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-core:5.1.8.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-jcl:5.1.8.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.cloud:spring-cloud-commons:2.1.0.RELEASE" level="project" />
@@ -145,11 +145,9 @@
     <orderEntry type="library" scope="RUNTIME" name="Maven: com.netflix.netflix-commons:netflix-eventbus:0.3.0" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Maven: com.netflix.netflix-commons:netflix-infix:0.3.0" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Maven: commons-jxpath:commons-jxpath:1.3" level="project" />
-    <orderEntry type="library" scope="RUNTIME" name="Maven: joda-time:joda-time:2.10.2" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Maven: org.antlr:antlr-runtime:3.4" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Maven: org.antlr:stringtemplate:3.2.1" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Maven: antlr:antlr:2.7.7" level="project" />
-    <orderEntry type="library" scope="RUNTIME" name="Maven: com.google.code.gson:gson:2.8.5" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Maven: org.apache.commons:commons-math:2.2" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Maven: javax.ws.rs:jsr311-api:1.1.1" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Maven: com.netflix.servo:servo-core:0.12.21" level="project" />
@@ -184,6 +182,20 @@
     <orderEntry type="library" name="Maven: xpp3:xpp3_min:1.1.4c" level="project" />
     <orderEntry type="library" name="Maven: org.jsoup:jsoup:1.11.3" level="project" />
     <orderEntry type="library" name="Maven: org.ehcache:ehcache:3.6.2" level="project" />
+    <orderEntry type="library" name="Maven: org.camunda.bpm:camunda-engine:7.11.0" level="project" />
+    <orderEntry type="library" name="Maven: org.camunda.bpm.model:camunda-bpmn-model:7.11.0" level="project" />
+    <orderEntry type="library" name="Maven: org.camunda.bpm.model:camunda-xml-model:7.11.0" level="project" />
+    <orderEntry type="library" name="Maven: org.camunda.bpm.model:camunda-cmmn-model:7.11.0" level="project" />
+    <orderEntry type="library" name="Maven: org.camunda.bpm.dmn:camunda-engine-dmn:7.11.0" level="project" />
+    <orderEntry type="library" name="Maven: org.camunda.commons:camunda-commons-utils:1.7.1" level="project" />
+    <orderEntry type="library" name="Maven: org.camunda.bpm.model:camunda-dmn-model:7.11.0" level="project" />
+    <orderEntry type="library" name="Maven: org.camunda.bpm.dmn:camunda-engine-feel-api:7.11.0" level="project" />
+    <orderEntry type="library" name="Maven: org.camunda.bpm.dmn:camunda-engine-feel-juel:7.11.0" level="project" />
+    <orderEntry type="library" name="Maven: org.camunda.commons:camunda-commons-logging:1.7.1" level="project" />
+    <orderEntry type="library" name="Maven: org.camunda.commons:camunda-commons-typed-values:1.7.1" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework:spring-beans:5.1.8.RELEASE" level="project" />
+    <orderEntry type="library" name="Maven: com.google.code.gson:gson:2.8.5" level="project" />
+    <orderEntry type="library" name="Maven: joda-time:joda-time:2.10.2" level="project" />
     <orderEntry type="library" name="Maven: org.slf4j:slf4j-api:1.7.26" level="project" />
   </component>
 </module>

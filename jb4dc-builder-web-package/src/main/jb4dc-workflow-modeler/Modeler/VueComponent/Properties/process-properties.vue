@@ -11,9 +11,10 @@
                     </colgroup>
                     <tbody>
                         <tr>
-                            <td>ID：</td>
+                            <td style="color: red">ID (Start Key)：</td>
                             <td>
-                                <input type="text" v-model="bpmn.id" disabled="disabled" />
+                                <input type="text" v-model="bpmn.id" style="width:200px" />
+                                <Button type="primary">随机生成</Button>
                             </td>
                             <td>IsExecutable：</td>
                             <td style="text-align: left">

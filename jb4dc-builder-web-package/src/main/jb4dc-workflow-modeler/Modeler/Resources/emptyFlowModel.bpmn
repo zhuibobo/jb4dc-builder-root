@@ -12,11 +12,11 @@
         exporter="JB4DC Web Modeler"
         exporterVersion="0.0.1"
 >
-  <bpmn:process id="Process_1" isExecutable="true">
+  <bpmn:process id="Model_Empty_Flow" isExecutable="true">
     <bpmn:startEvent id="StartEvent_1"/>
   </bpmn:process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
-    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Process_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Model_Empty_Flow">
       <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
         <dc:Bounds height="36.0" width="36.0" x="412.0" y="240.0"/>
       </bpmndi:BPMNShape>

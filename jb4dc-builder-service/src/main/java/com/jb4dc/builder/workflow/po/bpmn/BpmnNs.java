@@ -24,4 +24,7 @@ public class BpmnNs {
 
     public static final String XSI_PREFIX="xsi";
     public static final String XSI_URI="http://www.w3.org/2001/XMLSchema-instance";
+
+    public static final String JB4DC_PREFIX="jb4dc";
+    public static final String JB4DC_URI="http://jb4dc.org/schema/1.0/bpmn";
 }

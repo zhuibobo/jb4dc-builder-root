@@ -1,6 +1,12 @@
 package com.jb4dc.builder.workflow.integrate.impl;
+import java.io.IOException;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
+import java.util.Date;
 
 import com.jb4dc.base.service.IAddBefore;
+import com.jb4dc.base.service.exenum.EnableTypeEnum;
+import com.jb4dc.base.service.general.JB4DCSessionUtility;
 import com.jb4dc.base.service.impl.BaseServiceImpl;
 import com.jb4dc.base.tools.XMLUtility;
 import com.jb4dc.builder.dao.flow.FlowIntegratedMapper;
@@ -10,6 +16,15 @@ import com.jb4dc.builder.workflow.integrate.IWorkFlowIntegratedService;
 import com.jb4dc.builder.workflow.po.bpmn.BpmnDefinitions;
 import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
 import com.jb4dc.core.base.session.JB4DCSession;
+import com.jb4dc.core.base.tools.BaseUtility;
+import com.jb4dc.core.base.tools.IMustBeUnique;
+import com.jb4dc.core.base.tools.ValidateUtility;
+import com.jb4dc.files.dbentities.FileInfoEntity;
+import com.jb4dc.files.service.IFileInfoService;
+import org.camunda.bpm.engine.ProcessEngine;
+import org.camunda.bpm.engine.RepositoryService;
+import org.camunda.bpm.engine.repository.Deployment;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.xml.bind.JAXBException;
@@ -26,6 +41,10 @@ import java.io.InputStream;
 public class WorkflowIntegrateServiceImpl extends BaseServiceImpl<FlowIntegratedEntity> implements IWorkFlowIntegratedService
 {
     FlowIntegratedMapper flowIntegratedMapper;
+
+    @Autowired
+    private IFileInfoService fileInfoService;
+
     public WorkflowIntegrateServiceImpl(FlowIntegratedMapper _defaultBaseMapper){
         super(_defaultBaseMapper);
         flowIntegratedMapper=_defaultBaseMapper;
@@ -57,14 +76,73 @@ public class WorkflowIntegrateServiceImpl extends BaseServiceImpl<FlowIntegrated
     }
 
     @Override
-    public FlowIntegratedPO saveFlowModel(JB4DCSession jb4DSession, String recordID, FlowIntegratedPO flowIntegratedPO) throws JBuild4DCGenerallyException {
+    public FlowIntegratedPO saveFlowModel(JB4DCSession jb4DSession, String recordID, FlowIntegratedPO flowIntegratedPO) throws JBuild4DCGenerallyException, IOException, JAXBException, XMLStreamException {
         FlowIntegratedEntity flowIntegratedEntity=flowIntegratedMapper.selectByPrimaryKey(recordID);
-        if(flowIntegratedEntity==null){
+        ValidateUtility.isNotEmptyException(flowIntegratedPO.getIntegratedStartKey(),JBuild4DCGenerallyException.EXCEPTION_BUILDER_CODE,"启动KEY");
+        ValidateUtility.isNotEmptyException(flowIntegratedPO.getIntegratedCode(),JBuild4DCGenerallyException.EXCEPTION_BUILDER_CODE,"Code");
+        ValidateUtility.isNotEmptyException(flowIntegratedPO.getIntegratedModuleId(),JBuild4DCGenerallyException.EXCEPTION_BUILDER_CODE,"所属模块");
+        BpmnDefinitions bpmnDefinitions=parseToPO(flowIntegratedPO.getBpmnXMLModeler());
+        if(flowIntegratedEntity==null) {
+            ValidateUtility.isBeUnique(recordID, new IMustBeUnique() {
+                @Override
+                public String beUniquePOId() {
+                    FlowIntegratedEntity entity=flowIntegratedMapper.selectByStartKey(flowIntegratedPO.getIntegratedStartKey());
+                    return entity!=null?entity.getIntegratedId():null;
+                }
+            }, BaseUtility.getAddOperationName(), "模型的Key必须唯一,且不能更改!");
+            ValidateUtility.isBeUnique(recordID, new IMustBeUnique() {
+                @Override
+                public String beUniquePOId() {
+                    FlowIntegratedEntity entity=flowIntegratedMapper.selectByCode(flowIntegratedPO.getIntegratedCode());
+                    return entity!=null?entity.getIntegratedId():null;
+                }
+            }, BaseUtility.getAddOperationName(), "模型的Code必须唯一,且不能更改!");
             //add
+            //flowIntegratedPO.setIntegratedDeId("");
+            //flowIntegratedPO.setIntegratedDeMessage("");
+            //flowIntegratedPO.setIntegratedDeSuccess("");
+            //flowIntegratedPO.setIntegratedDeploymentId("");
+            flowIntegratedPO.setIntegratedCreateTime(new Date());
+            flowIntegratedPO.setIntegratedCreator(jb4DSession.getUserName());
+            flowIntegratedPO.setIntegratedUpdateTime(new Date());
+            flowIntegratedPO.setIntegratedUpdater(jb4DSession.getUserName());
+            flowIntegratedPO.setIntegratedStatus(EnableTypeEnum.enable.getDisplayName());
+            flowIntegratedPO.setIntegratedOrderNum(flowIntegratedMapper.nextOrderNum());
+            flowIntegratedPO.setIntegratedResourceName("");
+            flowIntegratedPO.setIntegratedFromType("BPMN-JS-Web-DESIGN");
+            flowIntegratedMapper.insert(flowIntegratedPO);
         }
         else {
             //update
+            ValidateUtility.isBeUnique(recordID, new IMustBeUnique() {
+                @Override
+                public String beUniquePOId() {
+                    FlowIntegratedEntity entity=flowIntegratedMapper.selectByStartKey(flowIntegratedPO.getIntegratedStartKey());
+                    return entity!=null?entity.getIntegratedId():null;
+                }
+            }, BaseUtility.getUpdateOperationName(), "模型的Key必须唯一,且不能更改!");
+            ValidateUtility.isBeUnique(recordID, new IMustBeUnique() {
+                @Override
+                public String beUniquePOId() {
+                    FlowIntegratedEntity entity=flowIntegratedMapper.selectByCode(flowIntegratedPO.getIntegratedCode());
+                    return entity!=null?entity.getIntegratedId():null;
+                }
+            }, BaseUtility.getUpdateOperationName(), "模型的Code必须唯一,且不能更改!");
+
+            flowIntegratedPO.setIntegratedUpdateTime(new Date());
+            flowIntegratedPO.setIntegratedUpdater(jb4DSession.getUserName());
+            flowIntegratedMapper.updateByPrimaryKey(flowIntegratedPO);
         }
+        byte[] flowModelerByte=flowIntegratedPO.getBpmnXMLModeler().getBytes(StandardCharsets.UTF_8);
+        FileInfoEntity fileInfoEntity =fileInfoService.addSmallFileToDB(jb4DSession,"模型文件.bpmn",flowModelerByte,flowIntegratedPO.getIntegratedId(),"TBUILD_FLOW_INTEGRATED",IFileInfoService.FILE_OBJ_TYPE_TABLE_NAME,IFileInfoService.FILE_CATEGORY_BPMN_XML);
+
+        ProcessEngine processEngine= CamundaIntegrate.getProcessEngine();
+        RepositoryService repositoryService = processEngine.getRepositoryService();
+        Deployment deployment =repositoryService.createDeployment()
+                .name(flowIntegratedPO.getIntegratedName())
+                .source(flowIntegratedPO.getIntegratedFromType())
+                .tenantId(bpmnDefinitions.getBpmnProcess().getJb4dcTenantId()).addString(flowIntegratedPO.getIntegratedName(),flowIntegratedPO.getBpmnXMLModeler()).deploy();
+        System.out.println(deployment);
         return flowIntegratedPO;
     }
 }

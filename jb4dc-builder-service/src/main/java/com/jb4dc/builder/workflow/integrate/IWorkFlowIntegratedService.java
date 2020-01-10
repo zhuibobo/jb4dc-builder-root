@@ -6,6 +6,10 @@ import com.jb4dc.builder.po.FlowIntegratedPO;
 import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
 import com.jb4dc.core.base.session.JB4DCSession;
 
+import javax.xml.bind.JAXBException;
+import javax.xml.stream.XMLStreamException;
+import java.io.IOException;
+
 /**
  * Created with IntelliJ IDEA.
  * User: zhuangrb
@@ -15,5 +19,5 @@ import com.jb4dc.core.base.session.JB4DCSession;
 public interface IWorkFlowIntegratedService extends IBaseService<FlowIntegratedEntity> {
     FlowIntegratedPO getPOByIntegratedId(JB4DCSession jb4DSession, String recordId);
 
-    FlowIntegratedPO saveFlowModel(JB4DCSession jb4DSession, String recordID, FlowIntegratedPO flowIntegratedPO) throws JBuild4DCGenerallyException;
+    FlowIntegratedPO saveFlowModel(JB4DCSession jb4DSession, String recordID, FlowIntegratedPO flowIntegratedPO) throws JBuild4DCGenerallyException, IOException, JAXBException, XMLStreamException;
 }

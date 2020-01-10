@@ -1,7 +1,7 @@
 import BpmnModeler from 'bpmn-js/lib/Modeler';
 import camundaModdleDescriptor from 'camunda-bpmn-moddle/resources/camunda';
 import jb4dcModdleDescriptor from './JB4DCModdle.json';
-import diagramXML from '../../Resources/emptyFlowModel.bpmn';
+import emptyBPMNXML from '../../Resources/emptyFlowModel.bpmn';
 import CustomTranslate from './CustomTranslate';
 import propertiesPadEntity from './AdditionalModules/PropertiesPadEntity';
 import changeColorPadEntity from './AdditionalModules/ChangeColorPadEntity';
@@ -33,7 +33,8 @@ class FlowBpmnJsIntegrated {
         RendererToElemId:"",
         FlowBpmnJsContainer:"",
         SelectedElement:null,
-        ChangeSelectedElemCB:null
+        ChangeSelectedElemCB:null,
+        Op:BaseUtility.GetAddOperationName()
     };
     setting={};
     modeler=null;
@@ -43,7 +44,7 @@ class FlowBpmnJsIntegrated {
 
     }
 
-    Initialize (exConfig) {
+    Initialize (exConfig,savedBpmnModelXML) {
         //debugger;
         exConfig = $.extend(true, {}, this.defaultSetting, exConfig);
         this.setting = exConfig;
@@ -66,9 +67,14 @@ class FlowBpmnJsIntegrated {
         });
         //propertiesPadEntity.propertiesPadEntity.f1();
         //console.log(propertiesPadEntity.propertiesPadEntity);
-
-        this.modeler.importXML(diagramXML,  (err) => {
-
+        var bpmnModelXML;
+        if(BaseUtility.IsAddOperation(exConfig.Op)) {
+            bpmnModelXML=emptyBPMNXML;
+        }
+        else{
+            bpmnModelXML=savedBpmnModelXML;
+        }
+        this.modeler.importXML(bpmnModelXML,  (err) => {
             if (err) {
                 console.log(err);
             }
@@ -77,6 +83,9 @@ class FlowBpmnJsIntegrated {
                 //console.log(BpmnJsUtility.GetElement(this.modeler,"P004_001"));
                 //console.log(BpmnJsUtility.GetProcessElement(this.modeler));
                 this.setting.ChangeSelectedElemCB(BpmnJsUtility.GetProcessElement(this.modeler));
+                if(BaseUtility.IsAddOperation(this.setting.Op)) {
+                    //BpmnJsUtility.BPMN_Attr_SetId(BpmnJsUtility.GetProcessElement(this.modeler), "Model_WD_" + StringUtility.Timestamp());
+                }
                 //console.log(this.modeler._definitions);
             }
         });
@@ -159,9 +168,9 @@ class FlowBpmnJsIntegrated {
             });
         });
     }
-    static CreateInstance(exConfig){
+    static CreateInstance(exConfig,savedBpmnModelXML){
         var instance=new FlowBpmnJsIntegrated();
-        instance.Initialize(exConfig);
+        instance.Initialize(exConfig,savedBpmnModelXML);
         this.singleFlowBpmnJsIntegrated=instance;
         return instance;
     }

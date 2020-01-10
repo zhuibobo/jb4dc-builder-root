@@ -7,6 +7,7 @@
                 @XmlNs(prefix=BpmnNs.DI_PREFIX, namespaceURI=BpmnNs.DI_URI),
                 @XmlNs(prefix=BpmnNs.CAMUNDA_PREFIX, namespaceURI=BpmnNs.CAMUNDA_URI),
                 @XmlNs(prefix=BpmnNs.XSI_PREFIX, namespaceURI=BpmnNs.XSI_URI),
+                @XmlNs(prefix=BpmnNs.JB4DC_PREFIX, namespaceURI=BpmnNs.JB4DC_URI),
         }
 )
 /**

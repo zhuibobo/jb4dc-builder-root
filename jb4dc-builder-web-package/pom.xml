@@ -36,7 +36,6 @@
         <dependency>
             <groupId>jb4dc</groupId>
             <artifactId>jb4dc-base-files-service</artifactId>
-            <version>${platform.version}</version>
         </dependency>
         <dependency>
             <groupId>jb4dc</groupId>
@@ -57,6 +56,15 @@
         <dependency>
             <groupId>org.ehcache</groupId>
             <artifactId>ehcache</artifactId>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.camunda.bpm/camunda-engine -->
+        <dependency>
+            <groupId>org.camunda.bpm</groupId>
+            <artifactId>camunda-engine</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.camunda.bpm.springboot</groupId>
+            <artifactId>camunda-bpm-spring-boot-starter</artifactId>
         </dependency>
     </dependencies>
 </project>

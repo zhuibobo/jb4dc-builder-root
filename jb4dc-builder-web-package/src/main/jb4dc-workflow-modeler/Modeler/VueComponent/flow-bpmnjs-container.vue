@@ -49,6 +49,7 @@
     import sequenceFlowProperties from "./Properties/sequence-flow-properties.vue";
     import processProperties from "./Properties/process-properties.vue";
     import emptyProperties from "./Properties/empty-properties.vue";
+    import {BpmnJsUtility} from "./BpmnJsExtend/BpmnJsUtility";
     let flowBpmnJsIntegrated;
     export default {
         name: "flow-bpmnjs-container",
@@ -62,17 +63,14 @@
             return {
                 elemPropertiesDialogView:"emptyProperties",
                 currentEditProperties:null,
-                elemHTMLDisplay:""
+                elemHTMLDisplay:"",
+                flowIntegratedPO:null
             }
         },
         mounted(){
+            //alert(1);
             //console.log(FlowBpmnJsExtendContainer);
             $("#modeler-bpmn-wraper").height(PageStyleUtility.GetPageHeight()-38);
-            flowBpmnJsIntegrated=FlowBpmnJsIntegrated.CreateInstance({
-                RendererToElemId:"flow-canvas",
-                FlowBpmnJsContainer:this,
-                ChangeSelectedElemCB:this.changeSelectedElem
-            });
             /*flowBpmnJsIntegrated=new FlowBpmnJsIntegrated();
             flowBpmnJsIntegrated.Initialize({
                 RendererToElemId:"flow-canvas",
@@ -82,8 +80,16 @@
             //window.flowBpmnJsIntegrated=flowBpmnJsIntegrated;
         },
         methods:{
+            initCanvas(flowIntegratedPO){
+                flowBpmnJsIntegrated=FlowBpmnJsIntegrated.CreateInstance({
+                    RendererToElemId:"flow-canvas",
+                    FlowBpmnJsContainer:this,
+                    ChangeSelectedElemCB:this.changeSelectedElem,
+                    Op:BaseUtility.GetUrlOPParaValue()
+                },flowIntegratedPO.bpmnXMLModeler);
+            },
             logXML () {
-                flowBpmnJsExtendContainer.LogXML();
+                flowBpmnJsIntegrated.LogXML();
             },
             getXML(){
                 return flowBpmnJsIntegrated.GetXML();
@@ -91,11 +97,19 @@
             setXML(xml){
                 flowBpmnJsIntegrated.SetXML(xml);
             },
+            getStartKey(){
+                var processElement=BpmnJsUtility.GetProcessElement(flowBpmnJsIntegrated.GetModeler());
+                return BpmnJsUtility.BPMN_Attr_GetId(processElement);
+            },
+            getProcessName(){
+                var processElement=BpmnJsUtility.GetProcessElement(flowBpmnJsIntegrated.GetModeler());
+                return BpmnJsUtility.BPMN_Attr_GetName(processElement);
+            },
             getSelectedElement(){
                 return flowBpmnJsIntegrated.GetSelectedElement();
             },
             changeSelectedElem(selectedElem){
-                //console.log(selectedElem);
+                //console.log(selectedElem);1
                 //console.log(elemToDialogProps);
                 this.elemHTMLDisplay=flowBpmnJsIntegrated.ConvertElemToHTMLDisplay(selectedElem);
                 var ps = new PerfectScrollbar('#fbseInnerContainer');

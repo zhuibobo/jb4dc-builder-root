@@ -34,7 +34,7 @@ public class DataSetPO extends DatasetEntity {
         this.relatedTableVoList = relatedTableVoList;
     }
 
-    public static DataSetPO parseToVo(DatasetEntity entity) throws IOException {
+    public static DataSetPO parseToPO(DatasetEntity entity) throws IOException {
         String jsonStr= JsonUtility.toObjectString(entity);
         return JsonUtility.toObject(jsonStr, DataSetPO.class);
     }
