@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jb4dc.builder.dao.site.SiteInfoMapper">
+    <select id="selectAll" resultMap="BaseResultMap">select<include refid="Base_Column_List"/> from TBUILD_SITE_INFO ORDER by SITE_ORDER_NUM DESC</select>
+    <select id="selectAllASC" resultMap="BaseResultMap">select<include refid="Base_Column_List"/> from TBUILD_SITE_INFO ORDER by SITE_ORDER_NUM ASC</select>
+    <delete id="deleteAll">delete from TBUILD_SITE_INFO</delete>
+    <select id="nextOrderNum" resultType="integer">select case when max(SITE_ORDER_NUM) is null then 1 else max(SITE_ORDER_NUM)+1 end ORDERNUM from TBUILD_SITE_INFO</select>
+    <select id="selectBySearch" parameterType="java.util.Map" resultMap="BaseResultMap">select<include refid="Base_Column_List"/>from TBUILD_SITE_INFO<where>
+        <if test="siteName !=null and siteName !=''"> and SITE_NAME like #{siteName} </if>
+        <if test="siteSingleName !=null and siteSingleName !=''"> and SITE_SINGLE_NAME like #{siteSingleName} </if>
+        <if test="sitePublicRootPath !=null and sitePublicRootPath !=''"> and SITE_PUBLIC_ROOT_PATH like #{sitePublicRootPath} </if>
+        <if test="siteDomain !=null and siteDomain !=''"> and SITE_DOMAIN like #{siteDomain} </if>
+        <if test="siteContextPath !=null and siteContextPath !=''"> and SITE_CONTEXT_PATH like #{siteContextPath} </if>
+        <if test="siteCreator !=null and siteCreator !=''"> and SITE_CREATOR like #{siteCreator} </if>
+        <if test="siteUpdater !=null and siteUpdater !=''"> and SITE_UPDATER like #{siteUpdater} </if>
+        <if test="siteDesc !=null and siteDesc !=''"> and SITE_DESC like #{siteDesc} </if>
+        <if test="siteStatus !=null and siteStatus !=''"> and SITE_STATUS like #{siteStatus} </if>
+    </where>ORDER by SITE_ORDER_NUM DESC</select>
+    <select id="selectLessThanRecord" parameterType="java.lang.String" resultMap="BaseResultMap"><![CDATA[select * from TBUILD_SITE_INFO
+ where SITE_ORDER_NUM = (select max(SITE_ORDER_NUM) from TBUILD_SITE_INFO where SITE_ORDER_NUM<(select SITE_ORDER_NUM from TBUILD_SITE_INFO where SITE_ID=#{Id,jdbcType=NVARCHAR}))]]></select>
+    <select id="selectGreaterThanRecord" parameterType="java.lang.String" resultMap="BaseResultMap"><![CDATA[select * from TBUILD_SITE_INFO
+ where SITE_ORDER_NUM = (select min(SITE_ORDER_NUM) from TBUILD_SITE_INFO where SITE_ORDER_NUM>(select SITE_ORDER_NUM from TBUILD_SITE_INFO where SITE_ID=#{Id,jdbcType=NVARCHAR}))]]></select>
+</mapper>

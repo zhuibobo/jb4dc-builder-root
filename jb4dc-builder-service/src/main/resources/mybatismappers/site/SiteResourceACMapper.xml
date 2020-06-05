@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jb4dc.builder.dao.site.SiteResourceMapper">
+    <resultMap id="BaseResultMap" type="com.jb4dc.builder.dbentities.site.SiteResourceEntity">
+        <constructor>
+            <idArg column="RESOURCE_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="RESOURCE_FOLDER_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="RESOURCE_SITE_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="RESOURCE_NAME" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="RESOURCE_FILE_NAME" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="RESOURCE_CREATE_TIME" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+            <arg column="RESOURCE_CREATOR" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="RESOURCE_UPDATE_TIME" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+            <arg column="RESOURCE_UPDATER" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="RESOURCE_DESC" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="RESOURCE_STATUS" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="RESOURCE_ORDER_NUM" javaType="java.lang.Integer" jdbcType="INTEGER" />
+            <arg column="RESOURCE_TYPE" javaType="java.lang.String" jdbcType="VARCHAR" />
+        </constructor>
+    </resultMap>
+    <resultMap id="ResultMapWithBLOBs" type="com.jb4dc.builder.dbentities.site.SiteResourceEntity">
+        <constructor>
+            <idArg column="RESOURCE_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="RESOURCE_FOLDER_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="RESOURCE_SITE_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="RESOURCE_NAME" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="RESOURCE_FILE_NAME" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="RESOURCE_CREATE_TIME" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+            <arg column="RESOURCE_CREATOR" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="RESOURCE_UPDATE_TIME" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+            <arg column="RESOURCE_UPDATER" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="RESOURCE_DESC" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="RESOURCE_STATUS" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="RESOURCE_ORDER_NUM" javaType="java.lang.Integer" jdbcType="INTEGER" />
+            <arg column="RESOURCE_TYPE" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="RESOURCE_CONTENT" javaType="_byte[]" jdbcType="LONGVARBINARY" />
+        </constructor>
+    </resultMap>
+    <sql id="Base_Column_List">
+    RESOURCE_ID, RESOURCE_FOLDER_ID, RESOURCE_SITE_ID, RESOURCE_NAME, RESOURCE_FILE_NAME,
+    RESOURCE_CREATE_TIME, RESOURCE_CREATOR, RESOURCE_UPDATE_TIME, RESOURCE_UPDATER, RESOURCE_DESC,
+    RESOURCE_STATUS, RESOURCE_ORDER_NUM, RESOURCE_TYPE
+  </sql>
+    <sql id="Blob_Column_List">
+    RESOURCE_CONTENT
+  </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="ResultMapWithBLOBs">
+        select
+        <include refid="Base_Column_List" />
+        ,
+        <include refid="Blob_Column_List" />
+        from TBUILD_SITE_RESOURCE
+        where RESOURCE_ID = #{resourceId,jdbcType=VARCHAR}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from TBUILD_SITE_RESOURCE
+    where RESOURCE_ID = #{resourceId,jdbcType=VARCHAR}
+  </delete>
+    <insert id="insert" parameterType="com.jb4dc.builder.dbentities.site.SiteResourceEntity">
+    insert into TBUILD_SITE_RESOURCE (RESOURCE_ID, RESOURCE_FOLDER_ID, RESOURCE_SITE_ID,
+      RESOURCE_NAME, RESOURCE_FILE_NAME, RESOURCE_CREATE_TIME,
+      RESOURCE_CREATOR, RESOURCE_UPDATE_TIME,
+      RESOURCE_UPDATER, RESOURCE_DESC, RESOURCE_STATUS,
+      RESOURCE_ORDER_NUM, RESOURCE_TYPE, RESOURCE_CONTENT
+      )
+    values (#{resourceId,jdbcType=VARCHAR}, #{resourceFolderId,jdbcType=VARCHAR}, #{resourceSiteId,jdbcType=VARCHAR},
+      #{resourceName,jdbcType=VARCHAR}, #{resourceFileName,jdbcType=VARCHAR}, #{resourceCreateTime,jdbcType=TIMESTAMP},
+      #{resourceCreator,jdbcType=VARCHAR}, #{resourceUpdateTime,jdbcType=TIMESTAMP},
+      #{resourceUpdater,jdbcType=VARCHAR}, #{resourceDesc,jdbcType=VARCHAR}, #{resourceStatus,jdbcType=VARCHAR},
+      #{resourceOrderNum,jdbcType=INTEGER}, #{resourceType,jdbcType=VARCHAR}, #{resourceContent,jdbcType=LONGVARBINARY}
+      )
+  </insert>
+    <insert id="insertSelective" parameterType="com.jb4dc.builder.dbentities.site.SiteResourceEntity">
+        insert into TBUILD_SITE_RESOURCE
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="resourceId != null">
+                RESOURCE_ID,
+            </if>
+            <if test="resourceFolderId != null">
+                RESOURCE_FOLDER_ID,
+            </if>
+            <if test="resourceSiteId != null">
+                RESOURCE_SITE_ID,
+            </if>
+            <if test="resourceName != null">
+                RESOURCE_NAME,
+            </if>
+            <if test="resourceFileName != null">
+                RESOURCE_FILE_NAME,
+            </if>
+            <if test="resourceCreateTime != null">
+                RESOURCE_CREATE_TIME,
+            </if>
+            <if test="resourceCreator != null">
+                RESOURCE_CREATOR,
+            </if>
+            <if test="resourceUpdateTime != null">
+                RESOURCE_UPDATE_TIME,
+            </if>
+            <if test="resourceUpdater != null">
+                RESOURCE_UPDATER,
+            </if>
+            <if test="resourceDesc != null">
+                RESOURCE_DESC,
+            </if>
+            <if test="resourceStatus != null">
+                RESOURCE_STATUS,
+            </if>
+            <if test="resourceOrderNum != null">
+                RESOURCE_ORDER_NUM,
+            </if>
+            <if test="resourceType != null">
+                RESOURCE_TYPE,
+            </if>
+            <if test="resourceContent != null">
+                RESOURCE_CONTENT,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="resourceId != null">
+                #{resourceId,jdbcType=VARCHAR},
+            </if>
+            <if test="resourceFolderId != null">
+                #{resourceFolderId,jdbcType=VARCHAR},
+            </if>
+            <if test="resourceSiteId != null">
+                #{resourceSiteId,jdbcType=VARCHAR},
+            </if>
+            <if test="resourceName != null">
+                #{resourceName,jdbcType=VARCHAR},
+            </if>
+            <if test="resourceFileName != null">
+                #{resourceFileName,jdbcType=VARCHAR},
+            </if>
+            <if test="resourceCreateTime != null">
+                #{resourceCreateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="resourceCreator != null">
+                #{resourceCreator,jdbcType=VARCHAR},
+            </if>
+            <if test="resourceUpdateTime != null">
+                #{resourceUpdateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="resourceUpdater != null">
+                #{resourceUpdater,jdbcType=VARCHAR},
+            </if>
+            <if test="resourceDesc != null">
+                #{resourceDesc,jdbcType=VARCHAR},
+            </if>
+            <if test="resourceStatus != null">
+                #{resourceStatus,jdbcType=VARCHAR},
+            </if>
+            <if test="resourceOrderNum != null">
+                #{resourceOrderNum,jdbcType=INTEGER},
+            </if>
+            <if test="resourceType != null">
+                #{resourceType,jdbcType=VARCHAR},
+            </if>
+            <if test="resourceContent != null">
+                #{resourceContent,jdbcType=LONGVARBINARY},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.jb4dc.builder.dbentities.site.SiteResourceEntity">
+        update TBUILD_SITE_RESOURCE
+        <set>
+            <if test="resourceFolderId != null">
+                RESOURCE_FOLDER_ID = #{resourceFolderId,jdbcType=VARCHAR},
+            </if>
+            <if test="resourceSiteId != null">
+                RESOURCE_SITE_ID = #{resourceSiteId,jdbcType=VARCHAR},
+            </if>
+            <if test="resourceName != null">
+                RESOURCE_NAME = #{resourceName,jdbcType=VARCHAR},
+            </if>
+            <if test="resourceFileName != null">
+                RESOURCE_FILE_NAME = #{resourceFileName,jdbcType=VARCHAR},
+            </if>
+            <if test="resourceCreateTime != null">
+                RESOURCE_CREATE_TIME = #{resourceCreateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="resourceCreator != null">
+                RESOURCE_CREATOR = #{resourceCreator,jdbcType=VARCHAR},
+            </if>
+            <if test="resourceUpdateTime != null">
+                RESOURCE_UPDATE_TIME = #{resourceUpdateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="resourceUpdater != null">
+                RESOURCE_UPDATER = #{resourceUpdater,jdbcType=VARCHAR},
+            </if>
+            <if test="resourceDesc != null">
+                RESOURCE_DESC = #{resourceDesc,jdbcType=VARCHAR},
+            </if>
+            <if test="resourceStatus != null">
+                RESOURCE_STATUS = #{resourceStatus,jdbcType=VARCHAR},
+            </if>
+            <if test="resourceOrderNum != null">
+                RESOURCE_ORDER_NUM = #{resourceOrderNum,jdbcType=INTEGER},
+            </if>
+            <if test="resourceType != null">
+                RESOURCE_TYPE = #{resourceType,jdbcType=VARCHAR},
+            </if>
+            <if test="resourceContent != null">
+                RESOURCE_CONTENT = #{resourceContent,jdbcType=LONGVARBINARY},
+            </if>
+        </set>
+        where RESOURCE_ID = #{resourceId,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.jb4dc.builder.dbentities.site.SiteResourceEntity">
+    update TBUILD_SITE_RESOURCE
+    set RESOURCE_FOLDER_ID = #{resourceFolderId,jdbcType=VARCHAR},
+      RESOURCE_SITE_ID = #{resourceSiteId,jdbcType=VARCHAR},
+      RESOURCE_NAME = #{resourceName,jdbcType=VARCHAR},
+      RESOURCE_FILE_NAME = #{resourceFileName,jdbcType=VARCHAR},
+      RESOURCE_CREATE_TIME = #{resourceCreateTime,jdbcType=TIMESTAMP},
+      RESOURCE_CREATOR = #{resourceCreator,jdbcType=VARCHAR},
+      RESOURCE_UPDATE_TIME = #{resourceUpdateTime,jdbcType=TIMESTAMP},
+      RESOURCE_UPDATER = #{resourceUpdater,jdbcType=VARCHAR},
+      RESOURCE_DESC = #{resourceDesc,jdbcType=VARCHAR},
+      RESOURCE_STATUS = #{resourceStatus,jdbcType=VARCHAR},
+      RESOURCE_ORDER_NUM = #{resourceOrderNum,jdbcType=INTEGER},
+      RESOURCE_TYPE = #{resourceType,jdbcType=VARCHAR},
+      RESOURCE_CONTENT = #{resourceContent,jdbcType=LONGVARBINARY}
+    where RESOURCE_ID = #{resourceId,jdbcType=VARCHAR}
+  </update>
+    <update id="updateByPrimaryKey" parameterType="com.jb4dc.builder.dbentities.site.SiteResourceEntity">
+    update TBUILD_SITE_RESOURCE
+    set RESOURCE_FOLDER_ID = #{resourceFolderId,jdbcType=VARCHAR},
+      RESOURCE_SITE_ID = #{resourceSiteId,jdbcType=VARCHAR},
+      RESOURCE_NAME = #{resourceName,jdbcType=VARCHAR},
+      RESOURCE_FILE_NAME = #{resourceFileName,jdbcType=VARCHAR},
+      RESOURCE_CREATE_TIME = #{resourceCreateTime,jdbcType=TIMESTAMP},
+      RESOURCE_CREATOR = #{resourceCreator,jdbcType=VARCHAR},
+      RESOURCE_UPDATE_TIME = #{resourceUpdateTime,jdbcType=TIMESTAMP},
+      RESOURCE_UPDATER = #{resourceUpdater,jdbcType=VARCHAR},
+      RESOURCE_DESC = #{resourceDesc,jdbcType=VARCHAR},
+      RESOURCE_STATUS = #{resourceStatus,jdbcType=VARCHAR},
+      RESOURCE_ORDER_NUM = #{resourceOrderNum,jdbcType=INTEGER},
+      RESOURCE_TYPE = #{resourceType,jdbcType=VARCHAR}
+    where RESOURCE_ID = #{resourceId,jdbcType=VARCHAR}
+  </update>
+</mapper>

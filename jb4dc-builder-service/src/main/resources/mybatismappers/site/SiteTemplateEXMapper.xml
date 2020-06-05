@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jb4dc.builder.dao.site.SiteTemplateMapper">
+    <select id="selectAll" resultMap="BaseResultMap">select<include refid="Base_Column_List"/> from TBUILD_SITE_TEMPLATE ORDER by TEMPLATE_ORDER_NUM DESC</select>
+    <select id="selectAllASC" resultMap="BaseResultMap">select<include refid="Base_Column_List"/> from TBUILD_SITE_TEMPLATE ORDER by TEMPLATE_ORDER_NUM ASC</select>
+    <delete id="deleteAll">delete from TBUILD_SITE_TEMPLATE</delete>
+    <select id="nextOrderNum" resultType="integer">select case when max(TEMPLATE_ORDER_NUM) is null then 1 else max(TEMPLATE_ORDER_NUM)+1 end ORDERNUM from TBUILD_SITE_TEMPLATE</select>
+    <select id="selectBySearch" parameterType="java.util.Map" resultMap="BaseResultMap">select<include refid="Base_Column_List"/>from TBUILD_SITE_TEMPLATE<where>
+        <if test="templateFolderId !=null and templateFolderId !=''"> and TEMPLATE_FOLDER_ID like #{templateFolderId} </if>
+        <if test="templateSiteId !=null and templateSiteId !=''"> and TEMPLATE_SITE_ID like #{templateSiteId} </if>
+        <if test="templateParentId !=null and templateParentId !=''"> and TEMPLATE_PARENT_ID like #{templateParentId} </if>
+        <if test="templateType !=null and templateType !=''"> and TEMPLATE_TYPE like #{templateType} </if>
+        <if test="templateName !=null and templateName !=''"> and TEMPLATE_NAME like #{templateName} </if>
+        <if test="templateFileName !=null and templateFileName !=''"> and TEMPLATE_FILE_NAME like #{templateFileName} </if>
+        <if test="templateCreator !=null and templateCreator !=''"> and TEMPLATE_CREATOR like #{templateCreator} </if>
+        <if test="templateUpdater !=null and templateUpdater !=''"> and TEMPLATE_UPDATER like #{templateUpdater} </if>
+        <if test="templateDesc !=null and templateDesc !=''"> and TEMPLATE_DESC like #{templateDesc} </if>
+        <if test="templateStatus !=null and templateStatus !=''"> and TEMPLATE_STATUS like #{templateStatus} </if>
+        <if test="templateContentHtml !=null and templateContentHtml !=''"> and TEMPLATE_CONTENT_HTML like #{templateContentHtml} </if>
+        <if test="templateContentJs !=null and templateContentJs !=''"> and TEMPLATE_CONTENT_JS like #{templateContentJs} </if>
+        <if test="templateContentCss !=null and templateContentCss !=''"> and TEMPLATE_CONTENT_CSS like #{templateContentCss} </if>
+    </where>ORDER by TEMPLATE_ORDER_NUM DESC</select>
+    <select id="selectLessThanRecord" parameterType="java.lang.String" resultMap="BaseResultMap"><![CDATA[select * from TBUILD_SITE_TEMPLATE
+ where TEMPLATE_ORDER_NUM = (select max(TEMPLATE_ORDER_NUM) from TBUILD_SITE_TEMPLATE where TEMPLATE_ORDER_NUM<(select TEMPLATE_ORDER_NUM from TBUILD_SITE_TEMPLATE where TEMPLATE_ID=#{Id,jdbcType=NVARCHAR}))]]></select>
+    <select id="selectGreaterThanRecord" parameterType="java.lang.String" resultMap="BaseResultMap"><![CDATA[select * from TBUILD_SITE_TEMPLATE
+ where TEMPLATE_ORDER_NUM = (select min(TEMPLATE_ORDER_NUM) from TBUILD_SITE_TEMPLATE where TEMPLATE_ORDER_NUM>(select TEMPLATE_ORDER_NUM from TBUILD_SITE_TEMPLATE where TEMPLATE_ID=#{Id,jdbcType=NVARCHAR}))]]></select>
+</mapper>

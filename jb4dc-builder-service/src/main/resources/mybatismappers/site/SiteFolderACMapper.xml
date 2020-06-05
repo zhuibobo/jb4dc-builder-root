@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jb4dc.builder.dao.site.SiteFolderMapper">
+    <resultMap id="BaseResultMap" type="com.jb4dc.builder.dbentities.site.SiteFolderEntity">
+        <constructor>
+            <idArg column="FOLDER_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="FOLDER_SITE_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="FOLDER_NAME" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="FOLDER_PARENT_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="FOLDER_CREATE_TIME" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+            <arg column="FOLDER_CREATOR" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="FOLDER_UPDATE_TIME" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+            <arg column="FOLDER_UPDATER" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="FOLDER_DESC" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="FOLDER_STATUS" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="FOLDER_ORDER_NUM" javaType="java.lang.Integer" jdbcType="INTEGER" />
+            <arg column="FOLDER_TYPE" javaType="java.lang.String" jdbcType="VARCHAR" />
+        </constructor>
+    </resultMap>
+    <sql id="Base_Column_List">
+    FOLDER_ID, FOLDER_SITE_ID, FOLDER_NAME, FOLDER_PARENT_ID, FOLDER_CREATE_TIME, FOLDER_CREATOR,
+    FOLDER_UPDATE_TIME, FOLDER_UPDATER, FOLDER_DESC, FOLDER_STATUS, FOLDER_ORDER_NUM,
+    FOLDER_TYPE
+  </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from TBUILD_SITE_FOLDER
+        where FOLDER_ID = #{folderId,jdbcType=VARCHAR}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from TBUILD_SITE_FOLDER
+    where FOLDER_ID = #{folderId,jdbcType=VARCHAR}
+  </delete>
+    <insert id="insert" parameterType="com.jb4dc.builder.dbentities.site.SiteFolderEntity">
+    insert into TBUILD_SITE_FOLDER (FOLDER_ID, FOLDER_SITE_ID, FOLDER_NAME,
+      FOLDER_PARENT_ID, FOLDER_CREATE_TIME, FOLDER_CREATOR,
+      FOLDER_UPDATE_TIME, FOLDER_UPDATER, FOLDER_DESC,
+      FOLDER_STATUS, FOLDER_ORDER_NUM, FOLDER_TYPE
+      )
+    values (#{folderId,jdbcType=VARCHAR}, #{folderSiteId,jdbcType=VARCHAR}, #{folderName,jdbcType=VARCHAR},
+      #{folderParentId,jdbcType=VARCHAR}, #{folderCreateTime,jdbcType=TIMESTAMP}, #{folderCreator,jdbcType=VARCHAR},
+      #{folderUpdateTime,jdbcType=TIMESTAMP}, #{folderUpdater,jdbcType=VARCHAR}, #{folderDesc,jdbcType=VARCHAR},
+      #{folderStatus,jdbcType=VARCHAR}, #{folderOrderNum,jdbcType=INTEGER}, #{folderType,jdbcType=VARCHAR}
+      )
+  </insert>
+    <insert id="insertSelective" parameterType="com.jb4dc.builder.dbentities.site.SiteFolderEntity">
+        insert into TBUILD_SITE_FOLDER
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="folderId != null">
+                FOLDER_ID,
+            </if>
+            <if test="folderSiteId != null">
+                FOLDER_SITE_ID,
+            </if>
+            <if test="folderName != null">
+                FOLDER_NAME,
+            </if>
+            <if test="folderParentId != null">
+                FOLDER_PARENT_ID,
+            </if>
+            <if test="folderCreateTime != null">
+                FOLDER_CREATE_TIME,
+            </if>
+            <if test="folderCreator != null">
+                FOLDER_CREATOR,
+            </if>
+            <if test="folderUpdateTime != null">
+                FOLDER_UPDATE_TIME,
+            </if>
+            <if test="folderUpdater != null">
+                FOLDER_UPDATER,
+            </if>
+            <if test="folderDesc != null">
+                FOLDER_DESC,
+            </if>
+            <if test="folderStatus != null">
+                FOLDER_STATUS,
+            </if>
+            <if test="folderOrderNum != null">
+                FOLDER_ORDER_NUM,
+            </if>
+            <if test="folderType != null">
+                FOLDER_TYPE,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="folderId != null">
+                #{folderId,jdbcType=VARCHAR},
+            </if>
+            <if test="folderSiteId != null">
+                #{folderSiteId,jdbcType=VARCHAR},
+            </if>
+            <if test="folderName != null">
+                #{folderName,jdbcType=VARCHAR},
+            </if>
+            <if test="folderParentId != null">
+                #{folderParentId,jdbcType=VARCHAR},
+            </if>
+            <if test="folderCreateTime != null">
+                #{folderCreateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="folderCreator != null">
+                #{folderCreator,jdbcType=VARCHAR},
+            </if>
+            <if test="folderUpdateTime != null">
+                #{folderUpdateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="folderUpdater != null">
+                #{folderUpdater,jdbcType=VARCHAR},
+            </if>
+            <if test="folderDesc != null">
+                #{folderDesc,jdbcType=VARCHAR},
+            </if>
+            <if test="folderStatus != null">
+                #{folderStatus,jdbcType=VARCHAR},
+            </if>
+            <if test="folderOrderNum != null">
+                #{folderOrderNum,jdbcType=INTEGER},
+            </if>
+            <if test="folderType != null">
+                #{folderType,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.jb4dc.builder.dbentities.site.SiteFolderEntity">
+        update TBUILD_SITE_FOLDER
+        <set>
+            <if test="folderSiteId != null">
+                FOLDER_SITE_ID = #{folderSiteId,jdbcType=VARCHAR},
+            </if>
+            <if test="folderName != null">
+                FOLDER_NAME = #{folderName,jdbcType=VARCHAR},
+            </if>
+            <if test="folderParentId != null">
+                FOLDER_PARENT_ID = #{folderParentId,jdbcType=VARCHAR},
+            </if>
+            <if test="folderCreateTime != null">
+                FOLDER_CREATE_TIME = #{folderCreateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="folderCreator != null">
+                FOLDER_CREATOR = #{folderCreator,jdbcType=VARCHAR},
+            </if>
+            <if test="folderUpdateTime != null">
+                FOLDER_UPDATE_TIME = #{folderUpdateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="folderUpdater != null">
+                FOLDER_UPDATER = #{folderUpdater,jdbcType=VARCHAR},
+            </if>
+            <if test="folderDesc != null">
+                FOLDER_DESC = #{folderDesc,jdbcType=VARCHAR},
+            </if>
+            <if test="folderStatus != null">
+                FOLDER_STATUS = #{folderStatus,jdbcType=VARCHAR},
+            </if>
+            <if test="folderOrderNum != null">
+                FOLDER_ORDER_NUM = #{folderOrderNum,jdbcType=INTEGER},
+            </if>
+            <if test="folderType != null">
+                FOLDER_TYPE = #{folderType,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where FOLDER_ID = #{folderId,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.jb4dc.builder.dbentities.site.SiteFolderEntity">
+    update TBUILD_SITE_FOLDER
+    set FOLDER_SITE_ID = #{folderSiteId,jdbcType=VARCHAR},
+      FOLDER_NAME = #{folderName,jdbcType=VARCHAR},
+      FOLDER_PARENT_ID = #{folderParentId,jdbcType=VARCHAR},
+      FOLDER_CREATE_TIME = #{folderCreateTime,jdbcType=TIMESTAMP},
+      FOLDER_CREATOR = #{folderCreator,jdbcType=VARCHAR},
+      FOLDER_UPDATE_TIME = #{folderUpdateTime,jdbcType=TIMESTAMP},
+      FOLDER_UPDATER = #{folderUpdater,jdbcType=VARCHAR},
+      FOLDER_DESC = #{folderDesc,jdbcType=VARCHAR},
+      FOLDER_STATUS = #{folderStatus,jdbcType=VARCHAR},
+      FOLDER_ORDER_NUM = #{folderOrderNum,jdbcType=INTEGER},
+      FOLDER_TYPE = #{folderType,jdbcType=VARCHAR}
+    where FOLDER_ID = #{folderId,jdbcType=VARCHAR}
+  </update>
+</mapper>

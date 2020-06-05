@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jb4dc.builder.dao.site.SiteInfoMapper">
+    <resultMap id="BaseResultMap" type="com.jb4dc.builder.dbentities.site.SiteInfoEntity">
+        <constructor>
+            <idArg column="SITE_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="SITE_NAME" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="SITE_SINGLE_NAME" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="SITE_PUBLIC_ROOT_PATH" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="SITE_DOMAIN" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="SITE_CONTEXT_PATH" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="SITE_CREATE_TIME" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+            <arg column="SITE_CREATOR" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="SITE_UPDATE_TIME" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+            <arg column="SITE_UPDATER" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="SITE_DESC" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="SITE_STATUS" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="SITE_ORDER_NUM" javaType="java.lang.Integer" jdbcType="INTEGER" />
+        </constructor>
+    </resultMap>
+    <sql id="Base_Column_List">
+    SITE_ID, SITE_NAME, SITE_SINGLE_NAME, SITE_PUBLIC_ROOT_PATH, SITE_DOMAIN, SITE_CONTEXT_PATH,
+    SITE_CREATE_TIME, SITE_CREATOR, SITE_UPDATE_TIME, SITE_UPDATER, SITE_DESC, SITE_STATUS,
+    SITE_ORDER_NUM
+  </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from TBUILD_SITE_INFO
+        where SITE_ID = #{siteId,jdbcType=VARCHAR}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from TBUILD_SITE_INFO
+    where SITE_ID = #{siteId,jdbcType=VARCHAR}
+  </delete>
+    <insert id="insert" parameterType="com.jb4dc.builder.dbentities.site.SiteInfoEntity">
+    insert into TBUILD_SITE_INFO (SITE_ID, SITE_NAME, SITE_SINGLE_NAME,
+      SITE_PUBLIC_ROOT_PATH, SITE_DOMAIN, SITE_CONTEXT_PATH,
+      SITE_CREATE_TIME, SITE_CREATOR, SITE_UPDATE_TIME,
+      SITE_UPDATER, SITE_DESC, SITE_STATUS,
+      SITE_ORDER_NUM)
+    values (#{siteId,jdbcType=VARCHAR}, #{siteName,jdbcType=VARCHAR}, #{siteSingleName,jdbcType=VARCHAR},
+      #{sitePublicRootPath,jdbcType=VARCHAR}, #{siteDomain,jdbcType=VARCHAR}, #{siteContextPath,jdbcType=VARCHAR},
+      #{siteCreateTime,jdbcType=TIMESTAMP}, #{siteCreator,jdbcType=VARCHAR}, #{siteUpdateTime,jdbcType=TIMESTAMP},
+      #{siteUpdater,jdbcType=VARCHAR}, #{siteDesc,jdbcType=VARCHAR}, #{siteStatus,jdbcType=VARCHAR},
+      #{siteOrderNum,jdbcType=INTEGER})
+  </insert>
+    <insert id="insertSelective" parameterType="com.jb4dc.builder.dbentities.site.SiteInfoEntity">
+        insert into TBUILD_SITE_INFO
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="siteId != null">
+                SITE_ID,
+            </if>
+            <if test="siteName != null">
+                SITE_NAME,
+            </if>
+            <if test="siteSingleName != null">
+                SITE_SINGLE_NAME,
+            </if>
+            <if test="sitePublicRootPath != null">
+                SITE_PUBLIC_ROOT_PATH,
+            </if>
+            <if test="siteDomain != null">
+                SITE_DOMAIN,
+            </if>
+            <if test="siteContextPath != null">
+                SITE_CONTEXT_PATH,
+            </if>
+            <if test="siteCreateTime != null">
+                SITE_CREATE_TIME,
+            </if>
+            <if test="siteCreator != null">
+                SITE_CREATOR,
+            </if>
+            <if test="siteUpdateTime != null">
+                SITE_UPDATE_TIME,
+            </if>
+            <if test="siteUpdater != null">
+                SITE_UPDATER,
+            </if>
+            <if test="siteDesc != null">
+                SITE_DESC,
+            </if>
+            <if test="siteStatus != null">
+                SITE_STATUS,
+            </if>
+            <if test="siteOrderNum != null">
+                SITE_ORDER_NUM,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="siteId != null">
+                #{siteId,jdbcType=VARCHAR},
+            </if>
+            <if test="siteName != null">
+                #{siteName,jdbcType=VARCHAR},
+            </if>
+            <if test="siteSingleName != null">
+                #{siteSingleName,jdbcType=VARCHAR},
+            </if>
+            <if test="sitePublicRootPath != null">
+                #{sitePublicRootPath,jdbcType=VARCHAR},
+            </if>
+            <if test="siteDomain != null">
+                #{siteDomain,jdbcType=VARCHAR},
+            </if>
+            <if test="siteContextPath != null">
+                #{siteContextPath,jdbcType=VARCHAR},
+            </if>
+            <if test="siteCreateTime != null">
+                #{siteCreateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="siteCreator != null">
+                #{siteCreator,jdbcType=VARCHAR},
+            </if>
+            <if test="siteUpdateTime != null">
+                #{siteUpdateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="siteUpdater != null">
+                #{siteUpdater,jdbcType=VARCHAR},
+            </if>
+            <if test="siteDesc != null">
+                #{siteDesc,jdbcType=VARCHAR},
+            </if>
+            <if test="siteStatus != null">
+                #{siteStatus,jdbcType=VARCHAR},
+            </if>
+            <if test="siteOrderNum != null">
+                #{siteOrderNum,jdbcType=INTEGER},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.jb4dc.builder.dbentities.site.SiteInfoEntity">
+        update TBUILD_SITE_INFO
+        <set>
+            <if test="siteName != null">
+                SITE_NAME = #{siteName,jdbcType=VARCHAR},
+            </if>
+            <if test="siteSingleName != null">
+                SITE_SINGLE_NAME = #{siteSingleName,jdbcType=VARCHAR},
+            </if>
+            <if test="sitePublicRootPath != null">
+                SITE_PUBLIC_ROOT_PATH = #{sitePublicRootPath,jdbcType=VARCHAR},
+            </if>
+            <if test="siteDomain != null">
+                SITE_DOMAIN = #{siteDomain,jdbcType=VARCHAR},
+            </if>
+            <if test="siteContextPath != null">
+                SITE_CONTEXT_PATH = #{siteContextPath,jdbcType=VARCHAR},
+            </if>
+            <if test="siteCreateTime != null">
+                SITE_CREATE_TIME = #{siteCreateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="siteCreator != null">
+                SITE_CREATOR = #{siteCreator,jdbcType=VARCHAR},
+            </if>
+            <if test="siteUpdateTime != null">
+                SITE_UPDATE_TIME = #{siteUpdateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="siteUpdater != null">
+                SITE_UPDATER = #{siteUpdater,jdbcType=VARCHAR},
+            </if>
+            <if test="siteDesc != null">
+                SITE_DESC = #{siteDesc,jdbcType=VARCHAR},
+            </if>
+            <if test="siteStatus != null">
+                SITE_STATUS = #{siteStatus,jdbcType=VARCHAR},
+            </if>
+            <if test="siteOrderNum != null">
+                SITE_ORDER_NUM = #{siteOrderNum,jdbcType=INTEGER},
+            </if>
+        </set>
+        where SITE_ID = #{siteId,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.jb4dc.builder.dbentities.site.SiteInfoEntity">
+    update TBUILD_SITE_INFO
+    set SITE_NAME = #{siteName,jdbcType=VARCHAR},
+      SITE_SINGLE_NAME = #{siteSingleName,jdbcType=VARCHAR},
+      SITE_PUBLIC_ROOT_PATH = #{sitePublicRootPath,jdbcType=VARCHAR},
+      SITE_DOMAIN = #{siteDomain,jdbcType=VARCHAR},
+      SITE_CONTEXT_PATH = #{siteContextPath,jdbcType=VARCHAR},
+      SITE_CREATE_TIME = #{siteCreateTime,jdbcType=TIMESTAMP},
+      SITE_CREATOR = #{siteCreator,jdbcType=VARCHAR},
+      SITE_UPDATE_TIME = #{siteUpdateTime,jdbcType=TIMESTAMP},
+      SITE_UPDATER = #{siteUpdater,jdbcType=VARCHAR},
+      SITE_DESC = #{siteDesc,jdbcType=VARCHAR},
+      SITE_STATUS = #{siteStatus,jdbcType=VARCHAR},
+      SITE_ORDER_NUM = #{siteOrderNum,jdbcType=INTEGER}
+    where SITE_ID = #{siteId,jdbcType=VARCHAR}
+  </update>
+</mapper>

@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jb4dc.builder.dao.site.SiteTemplateHisMapper">
+    <resultMap id="BaseResultMap" type="com.jb4dc.builder.dbentities.site.SiteTemplateHisEntity">
+        <constructor>
+            <idArg column="HIS_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="HIS_TEMPLATE_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="HIS_CREATE_TIME" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+        </constructor>
+    </resultMap>
+    <resultMap id="ResultMapWithBLOBs" type="com.jb4dc.builder.dbentities.site.SiteTemplateHisEntity">
+        <constructor>
+            <idArg column="HIS_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="HIS_TEMPLATE_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="HIS_CREATE_TIME" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+            <arg column="HIS_CONTENT_HTML" javaType="java.lang.String" jdbcType="LONGVARCHAR" />
+            <arg column="HIS_CONTENT_JS" javaType="java.lang.String" jdbcType="LONGVARCHAR" />
+            <arg column="HIS_CONTENT_CSS" javaType="java.lang.String" jdbcType="LONGVARCHAR" />
+        </constructor>
+    </resultMap>
+    <sql id="Base_Column_List">
+    HIS_ID, HIS_TEMPLATE_ID, HIS_CREATE_TIME
+  </sql>
+    <sql id="Blob_Column_List">
+    HIS_CONTENT_HTML, HIS_CONTENT_JS, HIS_CONTENT_CSS
+  </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="ResultMapWithBLOBs">
+        select
+        <include refid="Base_Column_List" />
+        ,
+        <include refid="Blob_Column_List" />
+        from TBUILD_SITE_TEMPLATE_HIS
+        where HIS_ID = #{hisId,jdbcType=VARCHAR}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from TBUILD_SITE_TEMPLATE_HIS
+    where HIS_ID = #{hisId,jdbcType=VARCHAR}
+  </delete>
+    <insert id="insert" parameterType="com.jb4dc.builder.dbentities.site.SiteTemplateHisEntity">
+    insert into TBUILD_SITE_TEMPLATE_HIS (HIS_ID, HIS_TEMPLATE_ID, HIS_CREATE_TIME,
+      HIS_CONTENT_HTML, HIS_CONTENT_JS, HIS_CONTENT_CSS
+      )
+    values (#{hisId,jdbcType=VARCHAR}, #{hisTemplateId,jdbcType=VARCHAR}, #{hisCreateTime,jdbcType=TIMESTAMP},
+      #{hisContentHtml,jdbcType=LONGVARCHAR}, #{hisContentJs,jdbcType=LONGVARCHAR}, #{hisContentCss,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+    <insert id="insertSelective" parameterType="com.jb4dc.builder.dbentities.site.SiteTemplateHisEntity">
+        insert into TBUILD_SITE_TEMPLATE_HIS
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="hisId != null">
+                HIS_ID,
+            </if>
+            <if test="hisTemplateId != null">
+                HIS_TEMPLATE_ID,
+            </if>
+            <if test="hisCreateTime != null">
+                HIS_CREATE_TIME,
+            </if>
+            <if test="hisContentHtml != null">
+                HIS_CONTENT_HTML,
+            </if>
+            <if test="hisContentJs != null">
+                HIS_CONTENT_JS,
+            </if>
+            <if test="hisContentCss != null">
+                HIS_CONTENT_CSS,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="hisId != null">
+                #{hisId,jdbcType=VARCHAR},
+            </if>
+            <if test="hisTemplateId != null">
+                #{hisTemplateId,jdbcType=VARCHAR},
+            </if>
+            <if test="hisCreateTime != null">
+                #{hisCreateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="hisContentHtml != null">
+                #{hisContentHtml,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="hisContentJs != null">
+                #{hisContentJs,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="hisContentCss != null">
+                #{hisContentCss,jdbcType=LONGVARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.jb4dc.builder.dbentities.site.SiteTemplateHisEntity">
+        update TBUILD_SITE_TEMPLATE_HIS
+        <set>
+            <if test="hisTemplateId != null">
+                HIS_TEMPLATE_ID = #{hisTemplateId,jdbcType=VARCHAR},
+            </if>
+            <if test="hisCreateTime != null">
+                HIS_CREATE_TIME = #{hisCreateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="hisContentHtml != null">
+                HIS_CONTENT_HTML = #{hisContentHtml,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="hisContentJs != null">
+                HIS_CONTENT_JS = #{hisContentJs,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="hisContentCss != null">
+                HIS_CONTENT_CSS = #{hisContentCss,jdbcType=LONGVARCHAR},
+            </if>
+        </set>
+        where HIS_ID = #{hisId,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.jb4dc.builder.dbentities.site.SiteTemplateHisEntity">
+    update TBUILD_SITE_TEMPLATE_HIS
+    set HIS_TEMPLATE_ID = #{hisTemplateId,jdbcType=VARCHAR},
+      HIS_CREATE_TIME = #{hisCreateTime,jdbcType=TIMESTAMP},
+      HIS_CONTENT_HTML = #{hisContentHtml,jdbcType=LONGVARCHAR},
+      HIS_CONTENT_JS = #{hisContentJs,jdbcType=LONGVARCHAR},
+      HIS_CONTENT_CSS = #{hisContentCss,jdbcType=LONGVARCHAR}
+    where HIS_ID = #{hisId,jdbcType=VARCHAR}
+  </update>
+    <update id="updateByPrimaryKey" parameterType="com.jb4dc.builder.dbentities.site.SiteTemplateHisEntity">
+    update TBUILD_SITE_TEMPLATE_HIS
+    set HIS_TEMPLATE_ID = #{hisTemplateId,jdbcType=VARCHAR},
+      HIS_CREATE_TIME = #{hisCreateTime,jdbcType=TIMESTAMP}
+    where HIS_ID = #{hisId,jdbcType=VARCHAR}
+  </update>
+</mapper>

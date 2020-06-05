@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jb4dc.builder.dao.site.SiteFolderMapper">
+    <select id="selectAll" resultMap="BaseResultMap">select<include refid="Base_Column_List"/> from TBUILD_SITE_FOLDER ORDER by FOLDER_ORDER_NUM DESC</select>
+    <select id="selectAllASC" resultMap="BaseResultMap">select<include refid="Base_Column_List"/> from TBUILD_SITE_FOLDER ORDER by FOLDER_ORDER_NUM ASC</select>
+    <delete id="deleteAll">delete from TBUILD_SITE_FOLDER</delete>
+    <select id="nextOrderNum" resultType="integer">select case when max(FOLDER_ORDER_NUM) is null then 1 else max(FOLDER_ORDER_NUM)+1 end ORDERNUM from TBUILD_SITE_FOLDER</select>
+    <select id="selectBySearch" parameterType="java.util.Map" resultMap="BaseResultMap">select<include refid="Base_Column_List"/>from TBUILD_SITE_FOLDER<where>
+        <if test="folderSiteId !=null and folderSiteId !=''"> and FOLDER_SITE_ID like #{folderSiteId} </if>
+        <if test="folderName !=null and folderName !=''"> and FOLDER_NAME like #{folderName} </if>
+        <if test="folderParentId !=null and folderParentId !=''"> and FOLDER_PARENT_ID like #{folderParentId} </if>
+        <if test="folderCreator !=null and folderCreator !=''"> and FOLDER_CREATOR like #{folderCreator} </if>
+        <if test="folderUpdater !=null and folderUpdater !=''"> and FOLDER_UPDATER like #{folderUpdater} </if>
+        <if test="folderDesc !=null and folderDesc !=''"> and FOLDER_DESC like #{folderDesc} </if>
+        <if test="folderStatus !=null and folderStatus !=''"> and FOLDER_STATUS like #{folderStatus} </if>
+        <if test="folderType !=null and folderType !=''"> and FOLDER_TYPE like #{folderType} </if>
+    </where>ORDER by FOLDER_ORDER_NUM DESC</select>
+    <select id="selectLessThanRecord" parameterType="java.lang.String" resultMap="BaseResultMap"><![CDATA[select * from TBUILD_SITE_FOLDER
+ where FOLDER_ORDER_NUM = (select max(FOLDER_ORDER_NUM) from TBUILD_SITE_FOLDER where FOLDER_ORDER_NUM<(select FOLDER_ORDER_NUM from TBUILD_SITE_FOLDER where FOLDER_ID=#{Id,jdbcType=NVARCHAR}))]]></select>
+    <select id="selectGreaterThanRecord" parameterType="java.lang.String" resultMap="BaseResultMap"><![CDATA[select * from TBUILD_SITE_FOLDER
+ where FOLDER_ORDER_NUM = (select min(FOLDER_ORDER_NUM) from TBUILD_SITE_FOLDER where FOLDER_ORDER_NUM>(select FOLDER_ORDER_NUM from TBUILD_SITE_FOLDER where FOLDER_ID=#{Id,jdbcType=NVARCHAR}))]]></select>
+</mapper>

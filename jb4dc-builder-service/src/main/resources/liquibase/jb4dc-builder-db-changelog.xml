@@ -466,6 +466,102 @@
             <column name="BUTTON_INNER_CONFIG" type="NVARCHAR(4000)" remarks="按钮的内部配置:例如窗体按钮的innerbuttonjsonstring属性"/>
             <column name="BUTTON_OPERATION_TYPE" type="NVARCHAR(20)" remarks="操作类型:add,update,view"/>
         </createTable>
+
+    </changeSet>
+
+    <!--网站模块-->
+    <changeSet author="zhuangrb" id="changeSet-Builder-Site-Base" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
+        <createTable tableName="TBUILD_SITE_INFO" remarks="站点基础信息表">
+            <column name="SITE_ID" type="NVARCHAR(100)" remarks="主键:UUID">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="SITE_NAME" type="NVARCHAR(200)" remarks="站点名称"/>
+            <column name="SITE_SINGLE_NAME" type="NVARCHAR(100)" remarks="站点唯一名称"/>
+            <column name="SITE_PUBLIC_ROOT_PATH" type="NVARCHAR(300)" remarks="文件发布基础路径"/>
+            <column name="SITE_DOMAIN" type="NVARCHAR(200)" remarks="站点域名"/>
+            <column name="SITE_CONTEXT_PATH" type="NVARCHAR(100)" remarks="站点根路径"/>
+            <column name="SITE_CREATE_TIME" type="datetime(6)" remarks="创建时间"/>
+            <column name="SITE_CREATOR" type="NVARCHAR(100)" remarks="创建者"/>
+            <column name="SITE_UPDATE_TIME" type="datetime(6)" remarks="更新时间"/>
+            <column name="SITE_UPDATER" type="NVARCHAR(100)" remarks="更新人"/>
+            <column name="SITE_DESC" type="NVARCHAR(1000)" remarks="备注"/>
+            <column name="SITE_STATUS" type="NVARCHAR(10)" remarks="状态"/>
+            <column name="SITE_ORDER_NUM" type="INT" remarks="排序号"/>
+        </createTable>
+        <createTable tableName="TBUILD_SITE_FOLDER" remarks="站点文件夹信息表">
+            <column name="FOLDER_ID" type="NVARCHAR(100)" remarks="主键:UUID">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="FOLDER_SITE_ID" type="NVARCHAR(100)" remarks="站点ID"/>
+            <column name="FOLDER_NAME" type="NVARCHAR(200)" remarks="文件夹名称"/>
+            <column name="FOLDER_PARENT_ID" type="NVARCHAR(200)" remarks="父文件夹ID"/>
+            <column name="FOLDER_CREATE_TIME" type="datetime(6)" remarks="创建时间"/>
+            <column name="FOLDER_CREATOR" type="NVARCHAR(100)" remarks="创建者"/>
+            <column name="FOLDER_UPDATE_TIME" type="datetime(6)" remarks="更新时间"/>
+            <column name="FOLDER_UPDATER" type="NVARCHAR(100)" remarks="更新人"/>
+            <column name="FOLDER_DESC" type="NVARCHAR(1000)" remarks="备注"/>
+            <column name="FOLDER_STATUS" type="NVARCHAR(10)" remarks="状态"/>
+            <column name="FOLDER_ORDER_NUM" type="INT" remarks="排序号"/>
+            <column name="FOLDER_TYPE" type="NVARCHAR(10)" remarks="类型"/>
+        </createTable>
+        <createTable tableName="TBUILD_SITE_RESOURCE" remarks="站点资源文件表">
+            <column name="RESOURCE_ID" type="NVARCHAR(100)" remarks="主键:UUID">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="RESOURCE_FOLDER_ID" type="NVARCHAR(100)" remarks="文件夹ID"/>
+            <column name="RESOURCE_SITE_ID" type="NVARCHAR(100)" remarks="站点ID"/>
+            <column name="RESOURCE_NAME" type="NVARCHAR(200)" remarks="资源名称"/>
+            <column name="RESOURCE_FILE_NAME" type="NVARCHAR(200)" remarks="资源文件名称"/>
+            <column name="RESOURCE_CONTENT" type="LONGBLOB" remarks="资源的二进制内容">
+                <constraints nullable="false"/>
+            </column>
+            <column name="RESOURCE_CREATE_TIME" type="datetime(6)" remarks="创建时间"/>
+            <column name="RESOURCE_CREATOR" type="NVARCHAR(100)" remarks="创建者"/>
+            <column name="RESOURCE_UPDATE_TIME" type="datetime(6)" remarks="更新时间"/>
+            <column name="RESOURCE_UPDATER" type="NVARCHAR(100)" remarks="更新人"/>
+            <column name="RESOURCE_DESC" type="NVARCHAR(1000)" remarks="备注"/>
+            <column name="RESOURCE_STATUS" type="NVARCHAR(10)" remarks="状态"/>
+            <column name="RESOURCE_ORDER_NUM" type="INT" remarks="排序号"/>
+            <column name="RESOURCE_TYPE" type="NVARCHAR(10)" remarks="资源类型"/>
+        </createTable>
+        <createTable tableName="TBUILD_SITE_TEMPLATE" remarks="站点模版表">
+            <column name="TEMPLATE_ID" type="NVARCHAR(100)" remarks="主键:UUID">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="TEMPLATE_FOLDER_ID" type="NVARCHAR(100)" remarks="文件夹ID"/>
+            <column name="TEMPLATE_SITE_ID" type="NVARCHAR(100)" remarks="站点ID"/>
+            <column name="TEMPLATE_PARENT_ID" type="NVARCHAR(100)" remarks="父模版ID"/>
+            <column name="TEMPLATE_TYPE" type="NVARCHAR(20)" remarks="模版类型"/>
+            <column name="TEMPLATE_NAME" type="NVARCHAR(200)" remarks="模版名称"/>
+            <column name="TEMPLATE_FILE_NAME" type="NVARCHAR(200)" remarks="模版文件名称"/>
+            <column name="TEMPLATE_CONTENT_HTML" type="CLOB" remarks="模版HTML内容">
+            </column>
+            <column name="TEMPLATE_CONTENT_JS" type="CLOB" remarks="模版JS内容">
+            </column>
+            <column name="TEMPLATE_CONTENT_CSS" type="CLOB" remarks="模版CSS内容">
+            </column>
+            <column name="TEMPLATE_CREATE_TIME" type="datetime(6)" remarks="创建时间"/>
+            <column name="TEMPLATE_CREATOR" type="NVARCHAR(100)" remarks="创建者"/>
+            <column name="TEMPLATE_UPDATE_TIME" type="datetime(6)" remarks="更新时间"/>
+            <column name="TEMPLATE_UPDATER" type="NVARCHAR(100)" remarks="更新人"/>
+            <column name="TEMPLATE_DESC" type="NVARCHAR(1000)" remarks="备注"/>
+            <column name="TEMPLATE_STATUS" type="NVARCHAR(10)" remarks="状态"/>
+            <column name="TEMPLATE_ORDER_NUM" type="INT" remarks="排序号"/>
+        </createTable>
+        <createTable tableName="TBUILD_SITE_TEMPLATE_HIS" remarks="站点模版历史表">
+            <column name="HIS_ID" type="NVARCHAR(100)" remarks="主键:UUID">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="HIS_TEMPLATE_ID" type="NVARCHAR(100)" remarks="主键:UUID">
+            </column>
+            <column name="HIS_CONTENT_HTML" type="CLOB" remarks="模版HTML内容">
+            </column>
+            <column name="HIS_CONTENT_JS" type="CLOB" remarks="模版JS内容">
+            </column>
+            <column name="HIS_CONTENT_CSS" type="CLOB" remarks="模版CSS内容">
+            </column>
+            <column name="HIS_CREATE_TIME" type="datetime(6)" remarks="创建时间"/>
+        </createTable>
     </changeSet>
 
     <changeSet author="zhuangrb" id="changeSet-Builder-Env-Variable" objectQuotingStrategy="QUOTE_ALL_OBJECTS">

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jb4dc.builder.dao.site.SiteTemplateHisMapper">
+    <select id="selectAll" resultMap="BaseResultMap">select<include refid="Base_Column_List"/> from TBUILD_SITE_TEMPLATE_HIS ORDER by  DESC</select>
+    <select id="selectAllASC" resultMap="BaseResultMap">select<include refid="Base_Column_List"/> from TBUILD_SITE_TEMPLATE_HIS ORDER by  ASC</select>
+    <delete id="deleteAll">delete from TBUILD_SITE_TEMPLATE_HIS</delete>
+    <select id="nextOrderNum" resultType="integer">select case when max() is null then 1 else max()+1 end ORDERNUM from TBUILD_SITE_TEMPLATE_HIS</select>
+    <select id="selectBySearch" parameterType="java.util.Map" resultMap="BaseResultMap">select<include refid="Base_Column_List"/>from TBUILD_SITE_TEMPLATE_HIS<where>
+        <if test="hisTemplateId !=null and hisTemplateId !=''"> and HIS_TEMPLATE_ID like #{hisTemplateId} </if>
+        <if test="hisContentHtml !=null and hisContentHtml !=''"> and HIS_CONTENT_HTML like #{hisContentHtml} </if>
+        <if test="hisContentJs !=null and hisContentJs !=''"> and HIS_CONTENT_JS like #{hisContentJs} </if>
+        <if test="hisContentCss !=null and hisContentCss !=''"> and HIS_CONTENT_CSS like #{hisContentCss} </if>
+    </where>ORDER by  DESC</select>
+    <select id="selectLessThanRecord" parameterType="java.lang.String" resultMap="BaseResultMap"><![CDATA[select * from TBUILD_SITE_TEMPLATE_HIS
+ where  = (select max() from TBUILD_SITE_TEMPLATE_HIS where <(select  from TBUILD_SITE_TEMPLATE_HIS where HIS_ID=#{Id,jdbcType=NVARCHAR}))]]></select>
+    <select id="selectGreaterThanRecord" parameterType="java.lang.String" resultMap="BaseResultMap"><![CDATA[select * from TBUILD_SITE_TEMPLATE_HIS
+ where  = (select min() from TBUILD_SITE_TEMPLATE_HIS where >(select  from TBUILD_SITE_TEMPLATE_HIS where HIS_ID=#{Id,jdbcType=NVARCHAR}))]]></select>
+</mapper>
