@@ -31,7 +31,7 @@ public class DBLinkRest extends GeneralRest<DbLinkEntity> {
     }
 
     @RequestMapping(value = "/GetFullDBLink", method = RequestMethod.POST)
-    public JBuild4DCResponseVo getFullOrgan() {
+    public JBuild4DCResponseVo getFullDBLink() {
         List<DbLinkEntity> dbLinkEntityList=dbLinkService.getALL(JB4DCSessionUtility.getSession());
         return JBuild4DCResponseVo.success(JBuild4DCResponseVo.GETDATASUCCESSMSG,dbLinkEntityList);
     }

@@ -19,4 +19,10 @@
  where FOLDER_ORDER_NUM = (select max(FOLDER_ORDER_NUM) from TBUILD_SITE_FOLDER where FOLDER_ORDER_NUM<(select FOLDER_ORDER_NUM from TBUILD_SITE_FOLDER where FOLDER_ID=#{Id,jdbcType=NVARCHAR}))]]></select>
     <select id="selectGreaterThanRecord" parameterType="java.lang.String" resultMap="BaseResultMap"><![CDATA[select * from TBUILD_SITE_FOLDER
  where FOLDER_ORDER_NUM = (select min(FOLDER_ORDER_NUM) from TBUILD_SITE_FOLDER where FOLDER_ORDER_NUM>(select FOLDER_ORDER_NUM from TBUILD_SITE_FOLDER where FOLDER_ID=#{Id,jdbcType=NVARCHAR}))]]></select>
+    <select id="selectFolderBySiteId" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from TBUILD_SITE_FOLDER
+        where FOLDER_SITE_ID = #{siteId,jdbcType=VARCHAR}
+    </select>
 </mapper>

@@ -173,8 +173,8 @@ let replaceBlock = {
     replaceGoJsLib:function (search, file) {
         let replaceArray = new Array();
         let levelPath = calculateFilePath(file);
-        replaceArray.push(refJs(levelPath + "Js/External/Go-2.0.3/go-debug.js"));
-        replaceArray.push(refJs(levelPath + "Js/External/Go-2.0.3/Figures.js"));
+        replaceArray.push(refJs(levelPath + "Js/External/Go-2.1.18/go-debug.js"));
+        replaceArray.push(refJs(levelPath + "Js/External/Go-2.1.18/Figures.js"));
         return replaceArray.join("\n\t");
     },
     replaceWebixLib:function (search, file) {
