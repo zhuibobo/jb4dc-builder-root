@@ -477,7 +477,7 @@
             </column>
             <column name="SITE_NAME" type="NVARCHAR(200)" remarks="站点名称"/>
             <column name="SITE_SINGLE_NAME" type="NVARCHAR(100)" remarks="站点唯一名称"/>
-            <column name="SITE_PUBLIC_ROOT_PATH" type="NVARCHAR(300)" remarks="文件发布基础路径"/>
+            <column name="SITE_PUBLIC_ROOT_PATH" type="NVARCHAR(300)" remarks="文件发布基础路径,存储后台上传的图片,视频等文件"/>
             <column name="SITE_DOMAIN" type="NVARCHAR(200)" remarks="站点域名"/>
             <column name="SITE_CONTEXT_PATH" type="NVARCHAR(100)" remarks="站点根路径"/>
             <column name="SITE_CREATE_TIME" type="datetime(6)" remarks="创建时间"/>
@@ -525,7 +525,7 @@
             <column name="RESOURCE_TYPE" type="NVARCHAR(10)" remarks="资源类型"/>
         </createTable>
         <createTable tableName="TBUILD_SITE_TEMPLATE" remarks="站点模版表">
-            <column name="TEMPLATE_ID" type="NVARCHAR(100)" remarks="主键:UUID">
+            <column name="TEMPLATE_ID" type="NVARCHAR(100)" remarks="主键:模版唯一名称:英文或者_">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
             <column name="TEMPLATE_FOLDER_ID" type="NVARCHAR(100)" remarks="文件夹ID"/>
@@ -547,6 +547,9 @@
             <column name="TEMPLATE_DESC" type="NVARCHAR(1000)" remarks="备注"/>
             <column name="TEMPLATE_STATUS" type="NVARCHAR(10)" remarks="状态"/>
             <column name="TEMPLATE_ORDER_NUM" type="INT" remarks="排序号"/>
+            <column name="TEMPLATE_CONTROLLER_API" type="NVARCHAR(200)" remarks="控制器扩展API"/>
+            <column name="TEMPLATE_LOC_X" type="INT" remarks="图形位置X"/>
+            <column name="TEMPLATE_LOC_Y" type="INT" remarks="图形位置Y"/>
         </createTable>
         <createTable tableName="TBUILD_SITE_TEMPLATE_HIS" remarks="站点模版历史表">
             <column name="HIS_ID" type="NVARCHAR(100)" remarks="主键:UUID">

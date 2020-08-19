@@ -229,6 +229,14 @@ let replaceBlock = {
         replaceArray.push(refJs(levelPath + "Js/HTMLDesign/WebListDesign/Plugins/WLDCT_HideContainer/WLDCT_HideContainerPlugin.js"));
         replaceArray.push(refJs(levelPath + "Js/HTMLDesign/WebFormDesign/Plugins/WFDCT_HideContainer/WFDCT_HideContainerPlugin.js"));
         return replaceArray.join("\n\t");
+    },
+    replaceSiteTemplateDesignLib: function (search, file) {
+        let replaceArray = new Array();
+        let levelPath = calculateFilePath(file);
+
+        replaceArray.push(refJs(levelPath + "Js/SiteTemplateDesign/SiteTemplateDesignUtility.js?refVersion=" + refVersion));
+
+        return replaceArray.join("\n\t");
     }
 }
 

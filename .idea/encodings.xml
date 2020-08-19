@@ -3,14 +3,26 @@
   <component name="Encoding">
     <file url="file://$PROJECT_DIR$" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/jb4dc-builder-client" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/jb4dc-builder-client/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/jb4dc-builder-client/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/jb4dc-builder-pojo" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/jb4dc-builder-pojo/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/jb4dc-builder-pojo/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/jb4dc-builder-service" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/jb4dc-builder-service/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/jb4dc-builder-service/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/jb4dc-builder-web-package" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/jb4dc-builder-web-package/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/jb4dc-builder-web-package/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/jb4dc-builder-web-server" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/jb4dc-builder-web-server/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/jb4dc-builder-web-server/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/jb4dc-dev-mock-service" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/jb4dc-dev-mock-service/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/jb4dc-dev-mock-service/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/jb4dc-dev-mock-web-server" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/jb4dc-workflow-client" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/jb4dc-workflow-service" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/jb4dc-workflow-web-package" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/jb4dc-dev-mock-web-server/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/jb4dc-dev-mock-web-server/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/jb4dc-dev-mock-web-server/src/main/resources/config" charset="UTF-8" />
   </component>
 </project>

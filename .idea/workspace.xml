@@ -1,0 +1,1301 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="4c1726ea-d2d7-4bd0-ba55-67bf5abd523a" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__javax_activation_javax_activation_api_1_2_0.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__javax_xml_bind_jaxb_api_2_3_1.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/front-end/static/HTML/Builder/Site/Template/TemplateDesign.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/front-end/static/Js/SiteTemplateDesign/TemplateCssEditorUtility.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/front-end/static/Js/SiteTemplateDesign/TemplateHtmlEditorUtility.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/front-end/static/Js/SiteTemplateDesign/TemplateJsEditorUtility.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/front-end/static/Themes/Default/Less/SiteTemplateDesignMain.less" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/resources/static/HTML/Builder/Site/Manager.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/resources/static/HTML/Builder/Site/SiteFolderEdit.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jb4dc-builder-client/src/main/resources/static/HTML/Builder/Runtime/WebFormRuntime.html" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-client/src/main/resources/static/HTML/Builder/Runtime/WebFormRuntime.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jb4dc-builder-client/src/main/resources/static/HTML/Builder/Runtime/WebFormSubRuntime.html" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-client/src/main/resources/static/HTML/Builder/Runtime/WebFormSubRuntime.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jb4dc-builder-client/src/main/resources/static/HTML/Builder/Runtime/WebListRuntime.html" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-client/src/main/resources/static/HTML/Builder/Runtime/WebListRuntime.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jb4dc-builder-client/src/main/resources/static/Js/HTMLDesignRuntimeFull.js" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-client/src/main/resources/static/Js/HTMLDesignRuntimeFull.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jb4dc-builder-client/src/main/resources/static/Themes/Default/Css/JBuild4DCBuilder.css" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-client/src/main/resources/static/Themes/Default/Css/JBuild4DCBuilder.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jb4dc-builder-service/src/main/resources/liquibase/jb4dc-builder-db-changelog.xml" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-service/src/main/resources/liquibase/jb4dc-builder-db-changelog.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jb4dc-builder-web-package/jb4dc-builder-web-package.iml" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-web-package/jb4dc-builder-web-package.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/front-end/gulpfile.js" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/front-end/gulpfile.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/front-end/replaceBlock.js" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/front-end/replaceBlock.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/front-end/static/HTML/Builder/Form/FormDesign.html" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/front-end/static/HTML/Builder/Form/FormDesign.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/front-end/static/HTML/Builder/Site/Manager.html" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/front-end/static/HTML/Builder/Site/Manager.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/front-end/static/Js/VueComponent/Comp/site-template-relation-comp.js" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/front-end/static/Js/VueComponent/Comp/site-template-relation-comp.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/front-end/static/Themes/Default/Css/JBuild4DCBuilder.less" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/front-end/static/Themes/Default/Css/JBuild4DCBuilder.less" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/resources/static/HTML/Builder/API/ApiItemEdit.html" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/resources/static/HTML/Builder/API/ApiItemEdit.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/resources/static/HTML/Builder/API/GroupEdit.html" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/resources/static/HTML/Builder/API/GroupEdit.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/resources/static/HTML/Builder/API/Manager.html" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/resources/static/HTML/Builder/API/Manager.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/resources/static/HTML/Builder/DataSet/DataSetEdit.html" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/resources/static/HTML/Builder/DataSet/DataSetEdit.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/resources/static/HTML/Builder/DataSet/DataSetGroupEdit.html" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/resources/static/HTML/Builder/DataSet/DataSetGroupEdit.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/resources/static/HTML/Builder/DataSet/Manager.html" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/resources/static/HTML/Builder/DataSet/Manager.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/resources/static/HTML/Builder/DataSet/SQLDesigner.html" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/resources/static/HTML/Builder/DataSet/SQLDesigner.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/resources/static/HTML/Builder/DataStorage/DBLink/DBLinkEdit.html" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/resources/static/HTML/Builder/DataStorage/DBLink/DBLinkEdit.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/resources/static/HTML/Builder/DataStorage/DBLink/DBLinkList.html" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/resources/static/HTML/Builder/DataStorage/DBLink/DBLinkList.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/resources/static/HTML/Builder/DataStorage/DataBase/Manager.html" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/resources/static/HTML/Builder/DataStorage/DataBase/Manager.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/resources/static/HTML/Builder/DataStorage/DataBase/TableEdit.html" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/resources/static/HTML/Builder/DataStorage/DataBase/TableEdit.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/resources/static/HTML/Builder/DataStorage/DataBase/TableGroupEdit.html" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/resources/static/HTML/Builder/DataStorage/DataBase/TableGroupEdit.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/resources/static/HTML/Builder/DataStorage/DataRelation/Manager.html" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/resources/static/HTML/Builder/DataStorage/DataRelation/Manager.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/resources/static/HTML/Builder/DataStorage/DataRelation/TableRelationEdit.html" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/resources/static/HTML/Builder/DataStorage/DataRelation/TableRelationEdit.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/resources/static/HTML/Builder/DataStorage/DataRelation/TableRelationGroupEdit.html" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/resources/static/HTML/Builder/DataStorage/DataRelation/TableRelationGroupEdit.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/resources/static/HTML/Builder/EnvVar/EnvVarEdit.html" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/resources/static/HTML/Builder/EnvVar/EnvVarEdit.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/resources/static/HTML/Builder/EnvVar/GroupEdit.html" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/resources/static/HTML/Builder/EnvVar/GroupEdit.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/resources/static/HTML/Builder/EnvVar/Manager.html" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/resources/static/HTML/Builder/EnvVar/Manager.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/resources/static/HTML/Builder/Form/FormDesign.html" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/resources/static/HTML/Builder/Form/FormDesign.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/resources/static/HTML/Builder/Form/FormPreview.html" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/resources/static/HTML/Builder/Form/FormPreview.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/resources/static/HTML/Builder/Form/SubFormPreview.html" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/resources/static/HTML/Builder/Form/SubFormPreview.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/resources/static/HTML/Builder/List/Demo/TableDemo1.html" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/resources/static/HTML/Builder/List/Demo/TableDemo1.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/resources/static/HTML/Builder/List/ListDesign.html" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/resources/static/HTML/Builder/List/ListDesign.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/resources/static/HTML/Builder/List/ListPreview.html" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/resources/static/HTML/Builder/List/ListPreview.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/resources/static/HTML/Builder/Module/Manager.html" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/resources/static/HTML/Builder/Module/Manager.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/resources/static/HTML/Builder/Module/ModuleEdit.html" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/resources/static/HTML/Builder/Module/ModuleEdit.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/resources/static/Js/BuilderVueEXComponent.js" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/resources/static/Js/BuilderVueEXComponent.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/resources/static/Js/HTMLDesign/HTMLDesignUtility.js" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/resources/static/Js/HTMLDesign/HTMLDesignUtility.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/resources/static/Js/HTMLDesign/WebFormDesign/Plugins/WFDCT_DropDownSelect/Dialog.html" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/resources/static/Js/HTMLDesign/WebFormDesign/Plugins/WFDCT_DropDownSelect/Dialog.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/resources/static/Js/HTMLDesign/WebFormDesign/Plugins/WFDCT_HideContainer/Dialog.html" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/resources/static/Js/HTMLDesign/WebFormDesign/Plugins/WFDCT_HideContainer/Dialog.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/resources/static/Js/HTMLDesign/WebFormDesign/Plugins/WFDCT_SimpleLabel/Dialog.html" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/resources/static/Js/HTMLDesign/WebFormDesign/Plugins/WFDCT_SimpleLabel/Dialog.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/resources/static/Js/HTMLDesign/WebFormDesign/Plugins/WFDCT_SubFormListContainer/Dialog.html" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/resources/static/Js/HTMLDesign/WebFormDesign/Plugins/WFDCT_SubFormListContainer/Dialog.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/resources/static/Js/HTMLDesign/WebFormDesign/Plugins/WFDCT_Template/Dialog.html" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/resources/static/Js/HTMLDesign/WebFormDesign/Plugins/WFDCT_Template/Dialog.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/resources/static/Js/HTMLDesign/WebFormDesign/Plugins/WFDCT_TextBox/Dialog.html" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/resources/static/Js/HTMLDesign/WebFormDesign/Plugins/WFDCT_TextBox/Dialog.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/resources/static/Js/HTMLDesign/WebFormDesign/Plugins/WFDCT_TextDateTime/Dialog.html" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/resources/static/Js/HTMLDesign/WebFormDesign/Plugins/WFDCT_TextDateTime/Dialog.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/resources/static/Js/HTMLDesign/WebListDesign/Plugins/WLDCT_FormButton/Dialog.html" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/resources/static/Js/HTMLDesign/WebListDesign/Plugins/WLDCT_FormButton/Dialog.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/resources/static/Js/HTMLDesign/WebListDesign/Plugins/WLDCT_HideContainer/Dialog.html" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/resources/static/Js/HTMLDesign/WebListDesign/Plugins/WLDCT_HideContainer/Dialog.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/resources/static/Js/HTMLDesign/WebListDesign/Plugins/WLDCT_LayoutContainer/Dialog.html" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/resources/static/Js/HTMLDesign/WebListDesign/Plugins/WLDCT_LayoutContainer/Dialog.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/resources/static/Js/HTMLDesign/WebListDesign/Plugins/WLDCT_LayoutTemplate/Dialog.html" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/resources/static/Js/HTMLDesign/WebListDesign/Plugins/WLDCT_LayoutTemplate/Dialog.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/resources/static/Js/HTMLDesign/WebListDesign/Plugins/WLDCT_ListButtonContainer/Dialog.html" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/resources/static/Js/HTMLDesign/WebListDesign/Plugins/WLDCT_ListButtonContainer/Dialog.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/resources/static/Js/HTMLDesign/WebListDesign/Plugins/WLDCT_ListComplexSearchContainer/Dialog.html" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/resources/static/Js/HTMLDesign/WebListDesign/Plugins/WLDCT_ListComplexSearchContainer/Dialog.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/resources/static/Js/HTMLDesign/WebListDesign/Plugins/WLDCT_ListSimpleSearchContainer/Dialog.html" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/resources/static/Js/HTMLDesign/WebListDesign/Plugins/WLDCT_ListSimpleSearchContainer/Dialog.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/resources/static/Js/HTMLDesign/WebListDesign/Plugins/WLDCT_ListTableContainer/Dialog.html" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/resources/static/Js/HTMLDesign/WebListDesign/Plugins/WLDCT_ListTableContainer/Dialog.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/resources/static/Js/HTMLDesign/WebListDesign/Plugins/WLDCT_ListTableInnerButtonContainer/Dialog.html" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/resources/static/Js/HTMLDesign/WebListDesign/Plugins/WLDCT_ListTableInnerButtonContainer/Dialog.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/resources/static/Js/HTMLDesign/WebListDesign/Plugins/WLDCT_ListTableInnerButtonSingle/Dialog.html" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/resources/static/Js/HTMLDesign/WebListDesign/Plugins/WLDCT_ListTableInnerButtonSingle/Dialog.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/resources/static/Js/HTMLDesign/WebListDesign/Plugins/WLDCT_ListTableLabel/Dialog.html" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/resources/static/Js/HTMLDesign/WebListDesign/Plugins/WLDCT_ListTableLabel/Dialog.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/resources/static/Js/HTMLDesign/WebListDesign/Plugins/WLDCT_ListTemplate/Dialog.html" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/resources/static/Js/HTMLDesign/WebListDesign/Plugins/WLDCT_ListTemplate/Dialog.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/resources/static/Js/HTMLDesign/WebListDesign/Plugins/WLDCT_Search_TextBox/Dialog.html" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/resources/static/Js/HTMLDesign/WebListDesign/Plugins/WLDCT_Search_TextBox/Dialog.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/resources/static/Js/UIEXComponentForBuilder.js" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/resources/static/Js/UIEXComponentForBuilder.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/resources/static/Themes/Default/Css/JBuild4DCBuilder.css" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/resources/static/Themes/Default/Css/JBuild4DCBuilder.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jb4dc-builder-web-server/jb4dc-builder-web-server.iml" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-web-server/jb4dc-builder-web-server.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jb4dc-dev-mock-web-server/jb4dc-dev-mock-web-server.iml" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-dev-mock-web-server/jb4dc-dev-mock-web-server.iml" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="DefaultGradleProjectSettings">
+    <option name="isMigrated" value="true" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="AnnotationType" />
+        <option value="FxmlFile" />
+        <option value="CSS File" />
+        <option value="Arquillian JUnit Test Class" />
+        <option value="package-info" />
+        <option value="Vue Single File Component" />
+        <option value="Interface" />
+        <option value="Class" />
+        <option value="JavaScript File" />
+        <option value="HTML File" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="JsBowerSettings">
+    <node-interpreter value="project" />
+    <bower-package value="" />
+    <bower.json value="" />
+  </component>
+  <component name="JsFlowSettings">
+    <service-enabled>true</service-enabled>
+    <exe-path />
+    <other-services-enabled>true</other-services-enabled>
+    <auto-save>true</auto-save>
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="mavenHome" value="$PROJECT_DIR$/../../../DevGeneral/Maven/apache-maven-3.5.3" />
+      </MavenGeneralSettings>
+    </option>
+  </component>
+  <component name="ProjectId" id="1fLA3Tc1y4enVHJR3Bu4E3dowmT" />
+  <component name="ProjectViewState">
+    <option name="abbreviatePackageNames" value="true" />
+    <option name="compactDirectories" value="true" />
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="DefaultHtmlFileTemplate" value="HTML File" />
+    <property name="RequestMappingsPanelOrder0" value="0" />
+    <property name="RequestMappingsPanelOrder1" value="1" />
+    <property name="RequestMappingsPanelWidth0" value="75" />
+    <property name="RequestMappingsPanelWidth1" value="75" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary" value="Arquillian JUnit4" />
+    <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.Arquillian JUnit4" value="" />
+    <property name="extract.method.default.visibility" value="private" />
+    <property name="jdk.selected.JAVA_MODULE" value="1.8" />
+    <property name="js.buildTools.gulp.gulp_package_dir" value="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/front-end/node_modules/gulp" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="list.type.of.created.stylesheet" value="CSS" />
+    <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
+    <property name="nodejs_npm_path_reset_for_default_project" value="true" />
+    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.side.proportion" value="0.2" />
+    <property name="recentsLimit" value="12" />
+    <property name="settings.editor.selected.configurable" value="com.zeroturnaround.javarebel.idea.plugin.settings.JRebelSettingsComponent" />
+    <property name="ts.external.directory.path" value="C:\DevInstallation\IntelliJ IDEA 2019.1.2\plugins\JavaScriptLanguage\jsLanguageServicesImpl\external" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CreateTestDialog.RecentsKey">
+      <recent name="com.jb4dc.workflow.integrate" />
+    </key>
+    <key name="CreateTestDialog.Recents.Supers">
+      <recent name="" />
+    </key>
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="com.jb4dc.builder.workflow.integrate.impl" />
+      <recent name="com.jb4dc.builder.webpackage.rest.builder.workflow.modeler" />
+      <recent name="com.jb4dc.builder.webpackage.workflow.integrate" />
+      <recent name="com.jb4dc.builder.workflow" />
+      <recent name="com.jb4dc.builder.workflow.integrate" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\JavaProject\jb4dc\jb4dc-builder-root\jb4dc-builder-web-package\src\main\front-end\static\Js\SiteTemplateDesign" />
+      <recent name="D:\JavaProject\jb4dc\jb4dc-builder-root\jb4dc-builder-web-package\src\main\front-end\static\Themes\Default\Less" />
+      <recent name="D:\JavaProject\jb4dc\jb4dc-builder-root\jb4dc-builder-service\src\main\resources\mybatismappers\site" />
+      <recent name="D:\JavaProject\jb4dc\jb4dc-builder-root\jb4dc-dev-mock-web-server\src\main\resources" />
+      <recent name="D:\JavaProject\jb4dc\jb4dc-builder-root\jb4dc-builder-web-package\src\main\jb4dc-workflow-modeler\Modeler\Externals" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.jb4dc.devmock.webserver.beanconfig.cache" />
+      <recent name="com.jb4dc.builder.workflow.integrate" />
+      <recent name="com.jb4dc.builder.client.service.api.proxy" />
+      <recent name="com.jb4dc.builder.po" />
+      <recent name="com.jb4dc.builder.webpackage.rest.builder.api" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\JavaProject\jb4dc\jb4dc-builder-root\jb4dc-workflow-web-package\src\main\jb4dc-workflow-modeler\Modeler\VueComponent\Properties\Dialog" />
+      <recent name="D:\JavaProject\jb4dc\jb4dc-builder-root\jb4dc-workflow-web-package\src\main\jb4dc-workflow-modeler\Modeler\VueComponent\Properties\PropertiesComponent" />
+      <recent name="D:\JavaProject\jb4dc\jb4dc-builder-root\jb4dc-workflow-web-package\src\main\jb4dc-workflow-modeler\Modeler\VueComponent\Demo" />
+      <recent name="D:\JavaProject\jb4dc\jb4dc-builder-root\jb4dc-workflow-web-package\src\main\jb4dc-workflow-modeler\Modeler" />
+      <recent name="D:\JavaProject\jb4dc\jb4dc-builder-root\jb4dc-workflow-web-package\src\main\jb4dc-workflow-demo\BpmnJsDemo\src\001starter" />
+    </key>
+  </component>
+  <component name="RunDashboard">
+    <option name="configurationTypes">
+      <set>
+        <option value="SpringBootApplicationConfigurationType" />
+      </set>
+    </option>
+  </component>
+  <component name="RunManager" selected="Spring Boot.ApplicationBuilderWebServer">
+    <configuration name="FormRestTest.addDevTestList" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="jb4dc-builder-web-server" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.jb4dc.builder.webpackage.rest.builder.form.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.jb4dc.builder.webpackage.rest.builder.form" />
+      <option name="MAIN_CLASS_NAME" value="com.jb4dc.builder.webpackage.rest.builder.form.FormRestTest" />
+      <option name="METHOD_NAME" value="addDevTestList" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="InitializationSystemRestTest" type="JUnit" factoryName="JUnit" nameIsGenerated="true">
+      <module name="jb4dc-builder-web-server" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.jb4dc.builder.webpackage.rest.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.jb4dc.builder.webpackage.rest" />
+      <option name="MAIN_CLASS_NAME" value="com.jb4dc.builder.webpackage.rest.InitializationSystemRestTest" />
+      <option name="METHOD_NAME" value="" />
+      <option name="TEST_OBJECT" value="class" />
+      <option name="PARAMETERS" value="" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="InitializationSystemRestTest.initializationSystem" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="jb4dc-builder-web-server" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.jb4dc.builder.webpackage.rest.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.jb4dc.builder.webpackage.rest" />
+      <option name="MAIN_CLASS_NAME" value="com.jb4dc.builder.webpackage.rest.InitializationSystemRestTest" />
+      <option name="METHOD_NAME" value="initializationSystem" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ListRestTest.addDevTestList" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="jb4dc-builder-web-server" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.jb4dc.builder.webpackage.rest.builder.list.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.jb4dc.builder.webpackage.rest.builder.list" />
+      <option name="MAIN_CLASS_NAME" value="com.jb4dc.builder.webpackage.rest.builder.list.ListRestTest" />
+      <option name="METHOD_NAME" value="addDevTestList" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="LogTest.debugLog" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="jb4dc-dev-mock-web-server" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.jb4dc.devmock.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.jb4dc.devmock" />
+      <option name="MAIN_CLASS_NAME" value="com.jb4dc.devmock.LogTest" />
+      <option name="METHOD_NAME" value="debugLog" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="RestTestBase.simpleDelete" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="jb4dc-dev-mock-web-server" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.jb4dc.devmock.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.jb4dc.devmock" />
+      <option name="MAIN_CLASS_NAME" value="com.jb4dc.devmock.RestTestBase" />
+      <option name="METHOD_NAME" value="simpleDelete" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="RestTestBase.simpleSaveEdit" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="jb4dc-dev-mock-web-server" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.jb4dc.devmock.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.jb4dc.devmock" />
+      <option name="MAIN_CLASS_NAME" value="com.jb4dc.devmock.RestTestBase" />
+      <option name="METHOD_NAME" value="simpleSaveEdit" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="WorkflowIntegrateTest.parseToPO" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="jb4dc-builder-web-server" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.jb4dc.builder.webpackage.workflow.integrate.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.jb4dc.builder.webpackage.workflow.integrate" />
+      <option name="MAIN_CLASS_NAME" value="com.jb4dc.builder.webpackage.workflow.integrate.WorkflowIntegrateTest" />
+      <option name="METHOD_NAME" value="parseToPO" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ApplicationBuilderWebServer" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="jb4dc-builder-web-server" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.jb4dc.builder.webserver.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.jb4dc.builder.webserver.ApplicationBuilderWebServer" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="UPDATE_ACTION_UPDATE_POLICY" value="UpdateClassesAndResources" />
+      <option name="FRAME_DEACTIVATION_UPDATE_POLICY" value="UpdateClassesAndResources" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+        <option name="LaunchBrowser.Before.Run" browser="98ca6316-2f89-46d9-a9e5-fa9e2b0625b3" url="http://127.0.0.1:9103/JB4DCBuilder/HTML/FrameV2/FrameView.html" />
+      </method>
+    </configuration>
+    <configuration name="ApplicationDevMockWebServer" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <module name="jb4dc-dev-mock-web-server" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.jb4dc.devmock.webserver.ApplicationDevMockWebServer" />
+      <option name="URL_PATH" value="http://127.0.0.1:9102/DevMock/HTML/FrameV2/FrameView.html" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="UPDATE_ACTION_UPDATE_POLICY" value="UpdateClassesAndResources" />
+      <option name="FRAME_DEACTIVATION_UPDATE_POLICY" value="UpdateClassesAndResources" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+        <option name="LaunchBrowser.Before.Run" browser="98ca6316-2f89-46d9-a9e5-fa9e2b0625b3" url="http://127.0.0.1:9102/DevMock/HTML/FrameV2/FrameView.html" />
+      </method>
+    </configuration>
+    <configuration default="true" type="js.build_tools.gulp">
+      <node-interpreter>project</node-interpreter>
+      <node-options />
+      <gulpfile />
+      <tasks />
+      <arguments />
+      <envs />
+      <method v="2" />
+    </configuration>
+    <configuration name="dist-watch (1)" type="js.build_tools.gulp" temporary="true">
+      <node-interpreter>project</node-interpreter>
+      <node-options />
+      <gulpfile>$PROJECT_DIR$/jb4dc-dev-mock-web-server/src/main/front-end/gulpfile.js</gulpfile>
+      <tasks>
+        <task>dist-watch</task>
+      </tasks>
+      <arguments />
+      <envs />
+      <method v="2" />
+    </configuration>
+    <configuration name="dist-watch-debug" type="js.build_tools.gulp" temporary="true">
+      <node-interpreter>project</node-interpreter>
+      <node-options />
+      <gulpfile>$PROJECT_DIR$/jb4dc-builder-web-package/src/main/front-end/gulpfile.js</gulpfile>
+      <tasks>
+        <task>dist-watch-debug</task>
+      </tasks>
+      <arguments />
+      <envs />
+      <method v="2" />
+    </configuration>
+    <configuration name="dist-watch" type="js.build_tools.gulp" temporary="true">
+      <node-interpreter>project</node-interpreter>
+      <node-options />
+      <gulpfile>$PROJECT_DIR$/jb4dc-builder-web-package/src/main/front-end/gulpfile.js</gulpfile>
+      <tasks>
+        <task>dist-watch</task>
+      </tasks>
+      <arguments />
+      <envs />
+      <method v="2" />
+    </configuration>
+    <configuration name="site-template-design-utility" type="js.build_tools.gulp" temporary="true">
+      <node-interpreter>project</node-interpreter>
+      <node-options />
+      <gulpfile>$PROJECT_DIR$/jb4dc-builder-web-package/src/main/front-end/gulpfile.js</gulpfile>
+      <tasks>
+        <task>site-template-design-utility</task>
+      </tasks>
+      <arguments />
+      <envs />
+      <method v="2" />
+    </configuration>
+    <configuration name="modeler-dev-watch" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
+      <package-json value="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/jb4dc-workflow-modeler/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="modeler-dev-watch" />
+      </scripts>
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
+    <list>
+      <item itemvalue="Gulp.js.dist-watch-debug" />
+      <item itemvalue="Gulp.js.dist-watch" />
+      <item itemvalue="Gulp.js.dist-watch (1)" />
+      <item itemvalue="Gulp.js.site-template-design-utility" />
+      <item itemvalue="JUnit.InitializationSystemRestTest" />
+      <item itemvalue="JUnit.FormRestTest.addDevTestList" />
+      <item itemvalue="JUnit.ListRestTest.addDevTestList" />
+      <item itemvalue="JUnit.WorkflowIntegrateTest.parseToPO" />
+      <item itemvalue="JUnit.LogTest.debugLog" />
+      <item itemvalue="JUnit.RestTestBase.simpleDelete" />
+      <item itemvalue="JUnit.RestTestBase.simpleSaveEdit" />
+      <item itemvalue="JUnit.InitializationSystemRestTest.initializationSystem" />
+      <item itemvalue="npm.modeler-dev-watch" />
+      <item itemvalue="Spring Boot.ApplicationBuilderWebServer" />
+      <item itemvalue="Spring Boot.ApplicationDevMockWebServer" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Gulp.js.dist-watch" />
+        <item itemvalue="Gulp.js.dist-watch-debug" />
+        <item itemvalue="Gulp.js.site-template-design-utility" />
+        <item itemvalue="Gulp.js.dist-watch (1)" />
+        <item itemvalue="JUnit.InitializationSystemRestTest.initializationSystem" />
+        <item itemvalue="JUnit.RestTestBase.simpleSaveEdit" />
+        <item itemvalue="JUnit.RestTestBase.simpleDelete" />
+        <item itemvalue="JUnit.LogTest.debugLog" />
+        <item itemvalue="npm.modeler-dev-watch" />
+        <item itemvalue="JUnit.WorkflowIntegrateTest.parseToPO" />
+        <item itemvalue="JUnit.ListRestTest.addDevTestList" />
+        <item itemvalue="JUnit.FormRestTest.addDevTestList" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="4c1726ea-d2d7-4bd0-ba55-67bf5abd523a" name="Default Changelist" comment="" />
+      <created>1564279368829</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1564279368829</updated>
+      <workItem from="1564279370108" duration="14878000" />
+      <workItem from="1564397803145" duration="3093000" />
+      <workItem from="1564449935368" duration="2059000" />
+      <workItem from="1564558408390" duration="13744000" />
+      <workItem from="1564615937637" duration="11548000" />
+      <workItem from="1564640531014" duration="19560000" />
+      <workItem from="1564813059574" duration="13673000" />
+      <workItem from="1564900693682" duration="14014000" />
+      <workItem from="1564964946374" duration="27666000" />
+      <workItem from="1565056724288" duration="23018000" />
+      <workItem from="1565137552061" duration="21750000" />
+      <workItem from="1565227292142" duration="26814000" />
+      <workItem from="1565315742117" duration="17304000" />
+      <workItem from="1565403432563" duration="6307000" />
+      <workItem from="1565486661345" duration="6668000" />
+      <workItem from="1565528167481" duration="2493000" />
+      <workItem from="1565575667706" duration="16220000" />
+      <workItem from="1565691766788" duration="6696000" />
+      <workItem from="1565748638871" duration="19191000" />
+      <workItem from="1565918524679" duration="22353000" />
+      <workItem from="1566004345221" duration="14899000" />
+      <workItem from="1566090536927" duration="19499000" />
+      <workItem from="1566175336669" duration="21193000" />
+      <workItem from="1566216971299" duration="3485000" />
+      <workItem from="1566263241765" duration="26587000" />
+      <workItem from="1566347066662" duration="11268000" />
+      <workItem from="1566564618259" duration="3515000" />
+      <workItem from="1566618698401" duration="9479000" />
+      <workItem from="1566718403043" duration="10071000" />
+      <workItem from="1566786385423" duration="12725000" />
+      <workItem from="1566806811992" duration="10632000" />
+      <workItem from="1566863917229" duration="24943000" />
+      <workItem from="1566955319489" duration="17663000" />
+      <workItem from="1567043402861" duration="16617000" />
+      <workItem from="1567128424938" duration="8315000" />
+      <workItem from="1568033713579" duration="3324000" />
+      <workItem from="1568076974809" duration="27791000" />
+      <workItem from="1568163288238" duration="20010000" />
+      <workItem from="1568208292394" duration="2077000" />
+      <workItem from="1568248058285" duration="19008000" />
+      <workItem from="1568355404840" duration="6622000" />
+      <workItem from="1568420772458" duration="13644000" />
+      <workItem from="1568516749568" duration="19644000" />
+      <workItem from="1568592865611" duration="19630000" />
+      <workItem from="1568697217520" duration="11539000" />
+      <workItem from="1568766186954" duration="4933000" />
+      <workItem from="1568795716811" duration="12004000" />
+      <workItem from="1568857072216" duration="10442000" />
+      <workItem from="1568947551934" duration="5891000" />
+      <workItem from="1569031311039" duration="30885000" />
+      <workItem from="1569113880712" duration="23812000" />
+      <workItem from="1569198236830" duration="1686000" />
+      <workItem from="1569201365108" duration="18568000" />
+      <workItem from="1569286908149" duration="5650000" />
+      <workItem from="1569293602986" duration="15016000" />
+      <workItem from="1569330220311" duration="44000" />
+      <workItem from="1569334575881" duration="2367000" />
+      <workItem from="1569372450762" duration="3213000" />
+      <workItem from="1569400958254" duration="4245000" />
+      <workItem from="1569456771088" duration="17460000" />
+      <workItem from="1569544413604" duration="6937000" />
+      <workItem from="1569900245267" duration="6649000" />
+      <workItem from="1569979772892" duration="3340000" />
+      <workItem from="1570173574652" duration="10970000" />
+      <workItem from="1570247680448" duration="14397000" />
+      <workItem from="1570423853118" duration="1382000" />
+      <workItem from="1570950762247" duration="3548000" />
+      <workItem from="1571021971231" duration="23000" />
+      <workItem from="1571045207736" duration="9771000" />
+      <workItem from="1571101196509" duration="23637000" />
+      <workItem from="1571207584731" duration="16414000" />
+      <workItem from="1571274414662" duration="24150000" />
+      <workItem from="1571363719786" duration="1058000" />
+      <workItem from="1571365767050" duration="17376000" />
+      <workItem from="1571453750574" duration="1243000" />
+      <workItem from="1571536059009" duration="26374000" />
+      <workItem from="1571618687129" duration="8440000" />
+      <workItem from="1571638371891" duration="19745000" />
+      <workItem from="1571901858710" duration="8915000" />
+      <workItem from="1572093615132" duration="1372000" />
+      <workItem from="1572144168665" duration="10978000" />
+      <workItem from="1572191574227" duration="27725000" />
+      <workItem from="1572353129348" duration="7040000" />
+      <workItem from="1572399980115" duration="21847000" />
+      <workItem from="1572480647052" duration="31178000" />
+      <workItem from="1572577889441" duration="20161000" />
+      <workItem from="1572656413520" duration="6327000" />
+      <workItem from="1572833119083" duration="8811000" />
+      <workItem from="1572854223099" duration="53510000" />
+      <workItem from="1573030075125" duration="2173000" />
+      <workItem from="1573042622548" duration="8222000" />
+      <workItem from="1573088139728" duration="36249000" />
+      <workItem from="1573171971245" duration="27193000" />
+      <workItem from="1573273380718" duration="19996000" />
+      <workItem from="1573349307157" duration="10166000" />
+      <workItem from="1573367955293" duration="13138000" />
+      <workItem from="1573433158852" duration="27680000" />
+      <workItem from="1573522014796" duration="1434000" />
+      <workItem from="1573538506555" duration="12283000" />
+      <workItem from="1573607877421" duration="15719000" />
+      <workItem from="1573644317933" duration="10027000" />
+      <workItem from="1573657263468" duration="1070000" />
+      <workItem from="1573658405375" duration="12000" />
+      <workItem from="1573696096275" duration="18175000" />
+      <workItem from="1573800684767" duration="14264000" />
+      <workItem from="1573864267087" duration="11793000" />
+      <workItem from="1573954117369" duration="5617000" />
+      <workItem from="1573980882058" duration="2262000" />
+      <workItem from="1574041129086" duration="2222000" />
+      <workItem from="1574234820196" duration="627000" />
+      <workItem from="1574236762210" duration="2158000" />
+      <workItem from="1574648608714" duration="18876000" />
+      <workItem from="1574729140966" duration="9291000" />
+      <workItem from="1574768348268" duration="905000" />
+      <workItem from="1574824161970" duration="2560000" />
+      <workItem from="1574912345410" duration="10881000" />
+      <workItem from="1574988875014" duration="25297000" />
+      <workItem from="1575073908721" duration="2243000" />
+      <workItem from="1575076714937" duration="6945000" />
+      <workItem from="1575103657096" duration="10361000" />
+      <workItem from="1575160922321" duration="23777000" />
+      <workItem from="1575250424272" duration="27849000" />
+      <workItem from="1575342384656" duration="19267000" />
+      <workItem from="1575427355907" duration="11191000" />
+      <workItem from="1575546395834" duration="9199000" />
+      <workItem from="1575598815287" duration="30690000" />
+      <workItem from="1575778295110" duration="15852000" />
+      <workItem from="1575812241693" duration="76000" />
+      <workItem from="1575877001273" duration="4680000" />
+      <workItem from="1575939556788" duration="13086000" />
+      <workItem from="1576113082965" duration="20581000" />
+      <workItem from="1576143008370" duration="6208000" />
+      <workItem from="1576158504277" duration="2805000" />
+      <workItem from="1576200921792" duration="4797000" />
+      <workItem from="1576241750163" duration="4969000" />
+      <workItem from="1576284877814" duration="7073000" />
+      <workItem from="1576387600839" duration="6647000" />
+      <workItem from="1576461630975" duration="12144000" />
+      <workItem from="1576563038129" duration="19840000" />
+      <workItem from="1576634012145" duration="16849000" />
+      <workItem from="1576714105559" duration="1077000" />
+      <workItem from="1576845554080" duration="3772000" />
+      <workItem from="1576895918714" duration="18704000" />
+      <workItem from="1577064709499" duration="25110000" />
+      <workItem from="1577158064794" duration="16475000" />
+      <workItem from="1577238766083" duration="13622000" />
+      <workItem from="1577408297620" duration="13585000" />
+      <workItem from="1577502315868" duration="3036000" />
+      <workItem from="1577526058309" duration="6026000" />
+      <workItem from="1577582706149" duration="23073000" />
+      <workItem from="1577673762325" duration="38000" />
+      <workItem from="1577673810841" duration="18602000" />
+      <workItem from="1577753463594" duration="20153000" />
+      <workItem from="1577845685359" duration="26374000" />
+      <workItem from="1577929514760" duration="13285000" />
+      <workItem from="1578014179983" duration="18415000" />
+      <workItem from="1578129666043" duration="4177000" />
+      <workItem from="1578191452975" duration="22632000" />
+      <workItem from="1578271238931" duration="13140000" />
+      <workItem from="1578292088068" duration="3486000" />
+      <workItem from="1578295585391" duration="10880000" />
+      <workItem from="1578390361541" duration="6842000" />
+      <workItem from="1578442069664" duration="4713000" />
+      <workItem from="1578463844590" duration="13569000" />
+      <workItem from="1578570406001" duration="5421000" />
+      <workItem from="1578628684999" duration="13606000" />
+      <workItem from="1578990884504" duration="599000" />
+      <workItem from="1579151609258" duration="74000" />
+      <workItem from="1579781764219" duration="1320000" />
+      <workItem from="1584496586337" duration="250000" />
+      <workItem from="1587352048656" duration="72000" />
+      <workItem from="1589177018441" duration="102000" />
+      <workItem from="1591005300134" duration="4348000" />
+      <workItem from="1591065983942" duration="5471000" />
+      <workItem from="1591147033279" duration="15237000" />
+      <workItem from="1591241130211" duration="9643000" />
+      <workItem from="1591325088489" duration="11034000" />
+      <workItem from="1591407419012" duration="16642000" />
+      <workItem from="1591492951107" duration="23769000" />
+      <workItem from="1591576915113" duration="22807000" />
+      <workItem from="1591664935998" duration="1302000" />
+      <workItem from="1593566243487" duration="878000" />
+      <workItem from="1593571818382" duration="35000" />
+      <workItem from="1595986804972" duration="7432000" />
+      <workItem from="1596071981255" duration="1212000" />
+      <workItem from="1596097023583" duration="2552000" />
+      <workItem from="1596178065117" duration="6538000" />
+      <workItem from="1596185628861" duration="2519000" />
+      <workItem from="1596423710331" duration="61000" />
+      <workItem from="1597819650388" duration="638000" />
+    </task>
+    <task id="LOCAL-00287" summary="创建工程">
+      <created>1576647059331</created>
+      <option name="number" value="00287" />
+      <option name="presentableId" value="LOCAL-00287" />
+      <option name="project" value="LOCAL" />
+      <updated>1576647059332</updated>
+    </task>
+    <task id="LOCAL-00288" summary="创建工程">
+      <created>1576652685577</created>
+      <option name="number" value="00288" />
+      <option name="presentableId" value="LOCAL-00288" />
+      <option name="project" value="LOCAL" />
+      <updated>1576652685577</updated>
+    </task>
+    <task id="LOCAL-00289" summary="创建工程">
+      <created>1576655559597</created>
+      <option name="number" value="00289" />
+      <option name="presentableId" value="LOCAL-00289" />
+      <option name="project" value="LOCAL" />
+      <updated>1576655559597</updated>
+    </task>
+    <task id="LOCAL-00290" summary="创建工程">
+      <created>1576672556446</created>
+      <option name="number" value="00290" />
+      <option name="presentableId" value="LOCAL-00290" />
+      <option name="project" value="LOCAL" />
+      <updated>1576672556446</updated>
+    </task>
+    <task id="LOCAL-00291" summary="创建工程">
+      <created>1576920734001</created>
+      <option name="number" value="00291" />
+      <option name="presentableId" value="LOCAL-00291" />
+      <option name="project" value="LOCAL" />
+      <updated>1576920734002</updated>
+    </task>
+    <task id="LOCAL-00292" summary="创建工程">
+      <created>1577064722664</created>
+      <option name="number" value="00292" />
+      <option name="presentableId" value="LOCAL-00292" />
+      <option name="project" value="LOCAL" />
+      <updated>1577064722665</updated>
+    </task>
+    <task id="LOCAL-00293" summary="创建工程">
+      <created>1577091736536</created>
+      <option name="number" value="00293" />
+      <option name="presentableId" value="LOCAL-00293" />
+      <option name="project" value="LOCAL" />
+      <updated>1577091736536</updated>
+    </task>
+    <task id="LOCAL-00294" summary="创建工程">
+      <created>1577101393587</created>
+      <option name="number" value="00294" />
+      <option name="presentableId" value="LOCAL-00294" />
+      <option name="project" value="LOCAL" />
+      <updated>1577101393587</updated>
+    </task>
+    <task id="LOCAL-00295" summary="创建工程">
+      <created>1577108096500</created>
+      <option name="number" value="00295" />
+      <option name="presentableId" value="LOCAL-00295" />
+      <option name="project" value="LOCAL" />
+      <updated>1577108096501</updated>
+    </task>
+    <task id="LOCAL-00296" summary="创建工程">
+      <created>1577167697161</created>
+      <option name="number" value="00296" />
+      <option name="presentableId" value="LOCAL-00296" />
+      <option name="project" value="LOCAL" />
+      <updated>1577167697162</updated>
+    </task>
+    <task id="LOCAL-00297" summary="创建工程">
+      <created>1577168847520</created>
+      <option name="number" value="00297" />
+      <option name="presentableId" value="LOCAL-00297" />
+      <option name="project" value="LOCAL" />
+      <updated>1577168847520</updated>
+    </task>
+    <task id="LOCAL-00298" summary="创建工程">
+      <created>1577169520295</created>
+      <option name="number" value="00298" />
+      <option name="presentableId" value="LOCAL-00298" />
+      <option name="project" value="LOCAL" />
+      <updated>1577169520295</updated>
+    </task>
+    <task id="LOCAL-00299" summary="创建工程">
+      <created>1577170925449</created>
+      <option name="number" value="00299" />
+      <option name="presentableId" value="LOCAL-00299" />
+      <option name="project" value="LOCAL" />
+      <updated>1577170925449</updated>
+    </task>
+    <task id="LOCAL-00300" summary="创建工程">
+      <created>1577171708417</created>
+      <option name="number" value="00300" />
+      <option name="presentableId" value="LOCAL-00300" />
+      <option name="project" value="LOCAL" />
+      <updated>1577171708417</updated>
+    </task>
+    <task id="LOCAL-00301" summary="创建工程">
+      <created>1577177972571</created>
+      <option name="number" value="00301" />
+      <option name="presentableId" value="LOCAL-00301" />
+      <option name="project" value="LOCAL" />
+      <updated>1577177972571</updated>
+    </task>
+    <task id="LOCAL-00302" summary="创建工程">
+      <created>1577185034990</created>
+      <option name="number" value="00302" />
+      <option name="presentableId" value="LOCAL-00302" />
+      <option name="project" value="LOCAL" />
+      <updated>1577185034990</updated>
+    </task>
+    <task id="LOCAL-00303" summary="创建工程">
+      <created>1577281964930</created>
+      <option name="number" value="00303" />
+      <option name="presentableId" value="LOCAL-00303" />
+      <option name="project" value="LOCAL" />
+      <updated>1577281964931</updated>
+    </task>
+    <task id="LOCAL-00304" summary="创建工程">
+      <created>1577452029898</created>
+      <option name="number" value="00304" />
+      <option name="presentableId" value="LOCAL-00304" />
+      <option name="project" value="LOCAL" />
+      <updated>1577452029899</updated>
+    </task>
+    <task id="LOCAL-00305" summary="创建工程">
+      <created>1577502349201</created>
+      <option name="number" value="00305" />
+      <option name="presentableId" value="LOCAL-00305" />
+      <option name="project" value="LOCAL" />
+      <updated>1577502349201</updated>
+    </task>
+    <task id="LOCAL-00306" summary="创建工程">
+      <created>1577531679793</created>
+      <option name="number" value="00306" />
+      <option name="presentableId" value="LOCAL-00306" />
+      <option name="project" value="LOCAL" />
+      <updated>1577531679794</updated>
+    </task>
+    <task id="LOCAL-00307" summary="创建工程">
+      <created>1577543380175</created>
+      <option name="number" value="00307" />
+      <option name="presentableId" value="LOCAL-00307" />
+      <option name="project" value="LOCAL" />
+      <updated>1577543380175</updated>
+    </task>
+    <task id="LOCAL-00308" summary="创建工程">
+      <created>1577588233111</created>
+      <option name="number" value="00308" />
+      <option name="presentableId" value="LOCAL-00308" />
+      <option name="project" value="LOCAL" />
+      <updated>1577588233112</updated>
+    </task>
+    <task id="LOCAL-00309" summary="创建工程">
+      <created>1577604244597</created>
+      <option name="number" value="00309" />
+      <option name="presentableId" value="LOCAL-00309" />
+      <option name="project" value="LOCAL" />
+      <updated>1577604244597</updated>
+    </task>
+    <task id="LOCAL-00310" summary="创建工程">
+      <created>1577707573802</created>
+      <option name="number" value="00310" />
+      <option name="presentableId" value="LOCAL-00310" />
+      <option name="project" value="LOCAL" />
+      <updated>1577707573802</updated>
+    </task>
+    <task id="LOCAL-00311" summary="创建工程">
+      <created>1577769395487</created>
+      <option name="number" value="00311" />
+      <option name="presentableId" value="LOCAL-00311" />
+      <option name="project" value="LOCAL" />
+      <updated>1577769395488</updated>
+    </task>
+    <task id="LOCAL-00312" summary="创建工程">
+      <created>1577797752218</created>
+      <option name="number" value="00312" />
+      <option name="presentableId" value="LOCAL-00312" />
+      <option name="project" value="LOCAL" />
+      <updated>1577797752218</updated>
+    </task>
+    <task id="LOCAL-00313" summary="创建工程">
+      <created>1577799112764</created>
+      <option name="number" value="00313" />
+      <option name="presentableId" value="LOCAL-00313" />
+      <option name="project" value="LOCAL" />
+      <updated>1577799112764</updated>
+    </task>
+    <task id="LOCAL-00314" summary="创建工程">
+      <created>1577799624810</created>
+      <option name="number" value="00314" />
+      <option name="presentableId" value="LOCAL-00314" />
+      <option name="project" value="LOCAL" />
+      <updated>1577799624810</updated>
+    </task>
+    <task id="LOCAL-00315" summary="创建工程">
+      <created>1577873225518</created>
+      <option name="number" value="00315" />
+      <option name="presentableId" value="LOCAL-00315" />
+      <option name="project" value="LOCAL" />
+      <updated>1577873225519</updated>
+    </task>
+    <task id="LOCAL-00316" summary="创建工程">
+      <created>1577881096199</created>
+      <option name="number" value="00316" />
+      <option name="presentableId" value="LOCAL-00316" />
+      <option name="project" value="LOCAL" />
+      <updated>1577881096199</updated>
+    </task>
+    <task id="LOCAL-00317" summary="创建工程">
+      <created>1577881798017</created>
+      <option name="number" value="00317" />
+      <option name="presentableId" value="LOCAL-00317" />
+      <option name="project" value="LOCAL" />
+      <updated>1577881798017</updated>
+    </task>
+    <task id="LOCAL-00318" summary="创建工程">
+      <created>1577885043878</created>
+      <option name="number" value="00318" />
+      <option name="presentableId" value="LOCAL-00318" />
+      <option name="project" value="LOCAL" />
+      <updated>1577885043878</updated>
+    </task>
+    <task id="LOCAL-00319" summary="创建工程">
+      <created>1577966561994</created>
+      <option name="number" value="00319" />
+      <option name="presentableId" value="LOCAL-00319" />
+      <option name="project" value="LOCAL" />
+      <updated>1577966561995</updated>
+    </task>
+    <task id="LOCAL-00320" summary="创建工程">
+      <created>1577966849755</created>
+      <option name="number" value="00320" />
+      <option name="presentableId" value="LOCAL-00320" />
+      <option name="project" value="LOCAL" />
+      <updated>1577966849755</updated>
+    </task>
+    <task id="LOCAL-00321" summary="创建工程">
+      <created>1577972688686</created>
+      <option name="number" value="00321" />
+      <option name="presentableId" value="LOCAL-00321" />
+      <option name="project" value="LOCAL" />
+      <updated>1577972688686</updated>
+    </task>
+    <task id="LOCAL-00322" summary="创建工程">
+      <created>1578029767909</created>
+      <option name="number" value="00322" />
+      <option name="presentableId" value="LOCAL-00322" />
+      <option name="project" value="LOCAL" />
+      <updated>1578029767909</updated>
+    </task>
+    <task id="LOCAL-00323" summary="创建工程">
+      <created>1578032273473</created>
+      <option name="number" value="00323" />
+      <option name="presentableId" value="LOCAL-00323" />
+      <option name="project" value="LOCAL" />
+      <updated>1578032273473</updated>
+    </task>
+    <task id="LOCAL-00324" summary="创建工程">
+      <created>1578032345071</created>
+      <option name="number" value="00324" />
+      <option name="presentableId" value="LOCAL-00324" />
+      <option name="project" value="LOCAL" />
+      <updated>1578032345071</updated>
+    </task>
+    <task id="LOCAL-00325" summary="创建工程">
+      <created>1578228434764</created>
+      <option name="number" value="00325" />
+      <option name="presentableId" value="LOCAL-00325" />
+      <option name="project" value="LOCAL" />
+      <updated>1578228434764</updated>
+    </task>
+    <task id="LOCAL-00326" summary="创建工程">
+      <created>1578276599371</created>
+      <option name="number" value="00326" />
+      <option name="presentableId" value="LOCAL-00326" />
+      <option name="project" value="LOCAL" />
+      <updated>1578276599372</updated>
+    </task>
+    <task id="LOCAL-00327" summary="创建工程">
+      <created>1578287679471</created>
+      <option name="number" value="00327" />
+      <option name="presentableId" value="LOCAL-00327" />
+      <option name="project" value="LOCAL" />
+      <updated>1578287679471</updated>
+    </task>
+    <task id="LOCAL-00328" summary="创建工程">
+      <created>1578292120675</created>
+      <option name="number" value="00328" />
+      <option name="presentableId" value="LOCAL-00328" />
+      <option name="project" value="LOCAL" />
+      <updated>1578292120676</updated>
+    </task>
+    <task id="LOCAL-00329" summary="创建工程">
+      <created>1578295059248</created>
+      <option name="number" value="00329" />
+      <option name="presentableId" value="LOCAL-00329" />
+      <option name="project" value="LOCAL" />
+      <updated>1578295059248</updated>
+    </task>
+    <task id="LOCAL-00330" summary="创建工程">
+      <created>1578295475946</created>
+      <option name="number" value="00330" />
+      <option name="presentableId" value="LOCAL-00330" />
+      <option name="project" value="LOCAL" />
+      <updated>1578295475946</updated>
+    </task>
+    <task id="LOCAL-00331" summary="创建工程">
+      <created>1578455203419</created>
+      <option name="number" value="00331" />
+      <option name="presentableId" value="LOCAL-00331" />
+      <option name="project" value="LOCAL" />
+      <updated>1578455203419</updated>
+    </task>
+    <task id="LOCAL-00332" summary="创建工程">
+      <created>1578662121859</created>
+      <option name="number" value="00332" />
+      <option name="presentableId" value="LOCAL-00332" />
+      <option name="project" value="LOCAL" />
+      <updated>1578662121859</updated>
+    </task>
+    <task id="LOCAL-00333" summary="创建工程">
+      <created>1591337660338</created>
+      <option name="number" value="00333" />
+      <option name="presentableId" value="LOCAL-00333" />
+      <option name="project" value="LOCAL" />
+      <updated>1591337660338</updated>
+    </task>
+    <task id="LOCAL-00334" summary="创建工程">
+      <created>1591534712953</created>
+      <option name="number" value="00334" />
+      <option name="presentableId" value="LOCAL-00334" />
+      <option name="project" value="LOCAL" />
+      <updated>1591534712953</updated>
+    </task>
+    <task id="LOCAL-00335" summary="创建工程">
+      <created>1591626104279</created>
+      <option name="number" value="00335" />
+      <option name="presentableId" value="LOCAL-00335" />
+      <option name="project" value="LOCAL" />
+      <updated>1591626104280</updated>
+    </task>
+    <option name="localTasksCounter" value="336" />
+    <servers />
+  </component>
+  <component name="TestHistory">
+    <history-entry file="LogTest_debugLog - 2020.06.01 at 21h 31m 01s.xml">
+      <configuration name="LogTest.debugLog" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="RestTestBase_simpleDelete - 2020.06.01 at 21h 31m 46s.xml">
+      <configuration name="RestTestBase.simpleDelete" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="InitializationSystemRestTest - 2020.06.01 at 21h 44m 15s.xml">
+      <configuration name="InitializationSystemRestTest" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="InitializationSystemRestTest - 2020.06.01 at 21h 48m 54s.xml">
+      <configuration name="InitializationSystemRestTest" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="RestTestBase_simpleSaveEdit - 2020.06.03 at 11h 24m 07s.xml">
+      <configuration name="RestTestBase.simpleSaveEdit" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="InitializationSystemRestTest_initializationSystem - 2020.06.03 at 11h 28m 12s.xml">
+      <configuration name="InitializationSystemRestTest.initializationSystem" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="InitializationSystemRestTest - 2020.06.03 at 11h 41m 39s.xml">
+      <configuration name="InitializationSystemRestTest" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="InitializationSystemRestTest - 2020.06.05 at 13h 51m 58s.xml">
+      <configuration name="InitializationSystemRestTest" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="InitializationSystemRestTest - 2020.06.06 at 10h 55m 28s.xml">
+      <configuration name="InitializationSystemRestTest" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="InitializationSystemRestTest - 2020.06.06 at 15h 58m 47s.xml">
+      <configuration name="InitializationSystemRestTest" configurationId="JUnit" />
+    </history-entry>
+  </component>
+  <component name="TodoView">
+    <todo-panel id="selected-file">
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+    <todo-panel id="all">
+      <are-packages-shown value="true" />
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="2" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
+    <option name="CHECK_NEW_TODO" value="false" />
+    <MESSAGE value="创建工程" />
+    <option name="LAST_COMMIT_MESSAGE" value="创建工程" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="1060" y="275" key="FileChooserDialogImpl" timestamp="1596423770274">
+      <screen x="0" y="0" width="2560" height="1040" />
+    </state>
+    <state x="1060" y="275" key="FileChooserDialogImpl/0.0.2560.1040/2560.0.1920.1040@0.0.2560.1040" timestamp="1596423770274" />
+    <state width="1999" height="282" key="GridCell.Tab.0.bottom" timestamp="1596179185615">
+      <screen x="0" y="0" width="2560" height="1040" />
+    </state>
+    <state width="1999" height="282" key="GridCell.Tab.0.bottom/0.0.2560.1040/2560.0.1920.1040@0.0.2560.1040" timestamp="1596179185615" />
+    <state width="1485" height="282" key="GridCell.Tab.0.bottom/0.0.2560.1040/2560.0.1920.1040@2560.0.1920.1040" timestamp="1596034460696" />
+    <state width="1999" height="282" key="GridCell.Tab.0.center" timestamp="1596179185615">
+      <screen x="0" y="0" width="2560" height="1040" />
+    </state>
+    <state width="1999" height="282" key="GridCell.Tab.0.center/0.0.2560.1040/2560.0.1920.1040@0.0.2560.1040" timestamp="1596179185615" />
+    <state width="1485" height="282" key="GridCell.Tab.0.center/0.0.2560.1040/2560.0.1920.1040@2560.0.1920.1040" timestamp="1596034460695" />
+    <state width="1999" height="282" key="GridCell.Tab.0.left" timestamp="1596179185615">
+      <screen x="0" y="0" width="2560" height="1040" />
+    </state>
+    <state width="1999" height="282" key="GridCell.Tab.0.left/0.0.2560.1040/2560.0.1920.1040@0.0.2560.1040" timestamp="1596179185615" />
+    <state width="1485" height="282" key="GridCell.Tab.0.left/0.0.2560.1040/2560.0.1920.1040@2560.0.1920.1040" timestamp="1596034460695" />
+    <state width="1999" height="282" key="GridCell.Tab.0.right" timestamp="1596179185615">
+      <screen x="0" y="0" width="2560" height="1040" />
+    </state>
+    <state width="1999" height="282" key="GridCell.Tab.0.right/0.0.2560.1040/2560.0.1920.1040@0.0.2560.1040" timestamp="1596179185615" />
+    <state width="1485" height="282" key="GridCell.Tab.0.right/0.0.2560.1040/2560.0.1920.1040@2560.0.1920.1040" timestamp="1596034460696" />
+    <state width="1999" height="282" key="GridCell.Tab.1.bottom" timestamp="1596179185615">
+      <screen x="0" y="0" width="2560" height="1040" />
+    </state>
+    <state width="1999" height="282" key="GridCell.Tab.1.bottom/0.0.2560.1040/2560.0.1920.1040@0.0.2560.1040" timestamp="1596179185615" />
+    <state width="1485" height="282" key="GridCell.Tab.1.bottom/0.0.2560.1040/2560.0.1920.1040@2560.0.1920.1040" timestamp="1596034460696" />
+    <state width="1999" height="282" key="GridCell.Tab.1.center" timestamp="1596179185615">
+      <screen x="0" y="0" width="2560" height="1040" />
+    </state>
+    <state width="1999" height="282" key="GridCell.Tab.1.center/0.0.2560.1040/2560.0.1920.1040@0.0.2560.1040" timestamp="1596179185615" />
+    <state width="1485" height="282" key="GridCell.Tab.1.center/0.0.2560.1040/2560.0.1920.1040@2560.0.1920.1040" timestamp="1596034460696" />
+    <state width="1999" height="282" key="GridCell.Tab.1.left" timestamp="1596179185615">
+      <screen x="0" y="0" width="2560" height="1040" />
+    </state>
+    <state width="1999" height="282" key="GridCell.Tab.1.left/0.0.2560.1040/2560.0.1920.1040@0.0.2560.1040" timestamp="1596179185615" />
+    <state width="1485" height="282" key="GridCell.Tab.1.left/0.0.2560.1040/2560.0.1920.1040@2560.0.1920.1040" timestamp="1596034460696" />
+    <state width="1999" height="282" key="GridCell.Tab.1.right" timestamp="1596179185615">
+      <screen x="0" y="0" width="2560" height="1040" />
+    </state>
+    <state width="1999" height="282" key="GridCell.Tab.1.right/0.0.2560.1040/2560.0.1920.1040@0.0.2560.1040" timestamp="1596179185615" />
+    <state width="1485" height="282" key="GridCell.Tab.1.right/0.0.2560.1040/2560.0.1920.1040@2560.0.1920.1040" timestamp="1596034460696" />
+    <state width="1999" height="282" key="GridCell.Tab.2.bottom" timestamp="1596179185615">
+      <screen x="0" y="0" width="2560" height="1040" />
+    </state>
+    <state width="1999" height="282" key="GridCell.Tab.2.bottom/0.0.2560.1040/2560.0.1920.1040@0.0.2560.1040" timestamp="1596179185615" />
+    <state width="1485" height="282" key="GridCell.Tab.2.bottom/0.0.2560.1040/2560.0.1920.1040@2560.0.1920.1040" timestamp="1596034460696" />
+    <state width="1999" height="282" key="GridCell.Tab.2.center" timestamp="1596179185615">
+      <screen x="0" y="0" width="2560" height="1040" />
+    </state>
+    <state width="1999" height="282" key="GridCell.Tab.2.center/0.0.2560.1040/2560.0.1920.1040@0.0.2560.1040" timestamp="1596179185615" />
+    <state width="1485" height="282" key="GridCell.Tab.2.center/0.0.2560.1040/2560.0.1920.1040@2560.0.1920.1040" timestamp="1596034460696" />
+    <state width="1999" height="282" key="GridCell.Tab.2.left" timestamp="1596179185615">
+      <screen x="0" y="0" width="2560" height="1040" />
+    </state>
+    <state width="1999" height="282" key="GridCell.Tab.2.left/0.0.2560.1040/2560.0.1920.1040@0.0.2560.1040" timestamp="1596179185615" />
+    <state width="1485" height="282" key="GridCell.Tab.2.left/0.0.2560.1040/2560.0.1920.1040@2560.0.1920.1040" timestamp="1596034460696" />
+    <state width="1999" height="282" key="GridCell.Tab.2.right" timestamp="1596179185615">
+      <screen x="0" y="0" width="2560" height="1040" />
+    </state>
+    <state width="1999" height="282" key="GridCell.Tab.2.right/0.0.2560.1040/2560.0.1920.1040@0.0.2560.1040" timestamp="1596179185615" />
+    <state width="1485" height="282" key="GridCell.Tab.2.right/0.0.2560.1040/2560.0.1920.1040@2560.0.1920.1040" timestamp="1596034460696" />
+    <state x="2560" y="0" width="1936" height="1027" key="dock-window-1" timestamp="1596186866082">
+      <screen x="2560" y="0" width="1920" height="1040" />
+    </state>
+    <state x="2560" y="0" width="1936" height="1027" key="dock-window-1/0.0.2560.1040/2560.0.1920.1040@0.0.2560.1040" timestamp="1596186866082" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/jb4dc-dev-mock-web-server/src/main/java/com/jb4dc/devmock/webserver/rest/devdemo/LogDemoRest.java</url>
+          <line>27</line>
+          <option name="timeStamp" value="22" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/jb4dc-builder-service/src/main/java/com/jb4dc/builder/service/dataset/impl/DatasetGroupServiceImpl.java</url>
+          <line>44</line>
+          <option name="timeStamp" value="31" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/jb4dc-builder-service/src/main/java/com/jb4dc/builder/workflow/integrate/impl/WorkflowIntegrateServiceImpl.java</url>
+          <line>79</line>
+          <option name="timeStamp" value="41" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/jb4dc-builder-service/src/main/java/com/jb4dc/builder/service/datastorage/impl/TableServiceImpl.java</url>
+          <line>403</line>
+          <option name="timeStamp" value="42" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/jb4dc-dev-mock-web-server/src/main/java/com/jb4dc/devmock/webserver/beanconfig/cache/CacheBeansConfig.java</url>
+          <line>24</line>
+          <option name="timeStamp" value="43" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/jb4dc-builder-web-package/src/main/front-end/static/Js/HTMLDesign/CKEditorUtility.js</url>
+          <line>48</line>
+          <option name="timeStamp" value="28" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/jb4dc-builder-web-package/src/main/front-end/static/HTML/Builder/Site/Manager.html</url>
+          <line>471</line>
+          <option name="timeStamp" value="44" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+  <component name="debuggerHistoryManager">
+    <expressions id="evaluateExpression">
+      <expression>
+        <expression-string>tableName</expression-string>
+        <language-id>JAVA</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>dbLinkEntity.getDbUrl()</expression-string>
+        <language-id>JAVA</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>dbLinkEntity.getDbDriverName()</expression-string>
+        <language-id>JAVA</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>flowIntegratedPO</expression-string>
+        <language-id>JAVA</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>entity</expression-string>
+        <language-id>JAVA</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>sourceEntity</expression-string>
+        <language-id>JAVA</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>sourceEntity.getDsGroupParentId()</expression-string>
+        <language-id>JAVA</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>formDataRelationList</expression-string>
+        <language-id>JAVA</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>pendingSQLPO.getExecType()</expression-string>
+        <language-id>JAVA</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+    </expressions>
+  </component>
+  <component name="masterDetails">
+    <states>
+      <state key="ArtifactsStructureConfigurable.UI">
+        <settings>
+          <artifact-editor />
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="FacetStructureConfigurable.UI">
+        <settings>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="GlobalLibrariesConfigurable.UI">
+        <settings>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="JdkListConfigurable.UI">
+        <settings>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ModuleStructureConfigurable.UI">
+        <settings>
+          <last-edited>jb4dc-builder-pojo</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+                <option value="0.6" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ProjectJDKs.UI">
+        <settings>
+          <last-edited>1.8</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ProjectLibrariesConfigurable.UI">
+        <settings>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+    </states>
+  </component>
+</project>

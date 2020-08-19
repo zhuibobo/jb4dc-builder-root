@@ -135,7 +135,7 @@ Vue.component("site-template-relation-comp", {
                         alignment: go.Spot.Center,
                         stroke: "rgba(0, 0, 0, .87)",
                         editable: false  // editing the text automatically updates the model data
-                    }, new go.Binding("text").makeTwoWay())
+                    }, new go.Binding("text", "id").makeTwoWay())
                 )
             );
         },
@@ -338,25 +338,43 @@ Vue.component("site-template-relation-comp", {
             this.diagramObj.model = go.Model.fromJson({
                 "class": "go.GraphLinksModel",
                 "nodeKeyProperty": "id",
-                "nodeDataArray": [
-                    {"id": -3, "loc": "185 -158", "category": "Start", "desc": "那是"},
-                    {"id": -1, "loc": "155 -138", "category": "Start", "desc": "那是"},
-                    {"id": 0, "loc": "190 15", "text": "年", "desc": "那是"},
-                    {"id": 1, "loc": "353 32", "text": "年年", "desc": "那是"},
-                    {"id": 2, "loc": "353 166", "text": "Search Items", "desc": "那是"},
-                    {"id": 3, "loc": "512 12", "text": "View Item", "desc": "那是"},
-                    {"id": 4, "loc": "661 17", "text": "View Cart", "desc": "那是"},
-                    {"id": 5, "loc": "644 171", "text": "Update Cart", "desc": "那是"},
-                    {"id": 6, "loc": "800 96", "text": "Checkout", "desc": "那是"},
-                    {"id": -2, "loc": "757 229", "category": "End", "desc": "那是"}
-                ],
+                "nodeDataArray": [{
+                    "id": -3,
+                    "loc": "185 -158",
+                    "category": "Start",
+                    "desc": "那是"
+                }, {
+                    "id": -1, "loc": "-73 -150", "category": "Start", "desc": "那是"
+                },
+                    {
+                        "id": 0,
+                        "loc": "-24 116",
+                        "text": "最终幻想",
+                        "text2": "最终幻想2",
+                        "desc": "那是"
+                    }, {"id": 1, "loc": "273 94", "text": "雪中悍刀行", "desc": "那是"}, {
+                        "id": "2000A",
+                        "loc": "352 270",
+                        "text": "西藏天路叨叨叨",
+                        "desc": "那是"
+                    }, {"id": 3, "loc": "595 -3", "text": "大亚湾叨叨叨", "desc": "那是"}, {
+                        "id": 4,
+                        "loc": "894 -190",
+                        "text": "View Cart",
+                        "desc": "那是"
+                    }, {"id": 5, "loc": "820 202", "text": "Update Cart", "desc": "那是"}, {
+                        "id": 6,
+                        "loc": "1052 90",
+                        "text": "Checkout",
+                        "desc": "那是"
+                    }, {"id": -2, "loc": "1124 263", "category": "End", "desc": "那是"}],
                 "linkDataArray": [
                     {"from": -1, "to": 0, "text": "Visit online store"},
                     {"from": 0, "to": 1, "progress": "true", "text": "Browse"},
-                    {"from": 0, "to": 2, "progress": "true", "text": "Use search bar"},
-                    {"from": 1, "to": 2, "progress": "true", "text": "Use search bar"},
-                    {"from": 2, "to": 3, "progress": "true", "text": "Click item"},
-                    {"from": 2, "to": 2, "text": "Another search", "curviness": 20},
+                    {"from": 0, "to": "2000A", "progress": "true", "text": "Use search bar"},
+                    {"from": 1, "to": "2000A", "progress": "true", "text": "Use search bar"},
+                    {"from": "2000A", "to": 3, "progress": "true", "text": "Click item"},
+                    {"from": "2000A", "to": "2000A", "text": "Another search", "curviness": 20},
                     {"from": 1, "to": 3, "progress": "true", "text": "Click item"},
                     {"from": 3, "to": 0, "text": "Not interested", "curviness": -100},
                     {"from": 3, "to": 4, "progress": "true", "text": "Add to cart"},
@@ -367,6 +385,27 @@ Vue.component("site-template-relation-comp", {
                     {"from": 6, "to": 5, "text": "Update needed"},
                     {"from": 6, "to": -2, "progress": "true", "text": "Purchase made"}
                 ]
+            });
+
+            this.diagramObj.addDiagramListener("ObjectSingleClicked", function (e) {
+                var part = e.subject.part;
+                console.log(part);
+                //if (!(part instanceof go.Link)) showMessage("Clicked on " + part.data.key);
+            });
+
+            this.diagramObj.addDiagramListener("SelectionMoved", function (e) {
+                var subject = e.subject;
+                console.log(subject);
+                console.log(JsonUtility.JsonToString(e.diagram.model.nodeDataArray));
+
+                var selectedNode = e.diagram.selection.first();
+
+                console.log("selectedNode", selectedNode);
+                console.log("selectedNodeKey", selectedNode.key);
+                console.log("selectedNode", selectedNode.location.toString());
+                console.log("selectedNode", selectedNode.location.x);
+                console.log("selectedNode", selectedNode.location.y);
+                console.log("locationObject", selectedNode.locationObject);
             });
             // read in the JSON data from the "mySavedModel" element
             //load();
