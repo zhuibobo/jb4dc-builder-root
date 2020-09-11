@@ -241,12 +241,6 @@ public class TableGroupServiceImpl extends BaseServiceImpl<TableGroupEntity> imp
         jBuild4DSystemSettingRelevance.setTableGroupLinkId(dbLinkService.JBUILD4DC_SSO_DB_LINK_ID);
         this.saveSimple(jb4DCSession, TableGroupJBuild4DSystemSettingRelevance,jBuild4DSystemSettingRelevance);
 
-        tableService.registerSystemTableToBuilderToModule(jb4DCSession,"TSYS_DICTIONARY_GROUP",jBuild4DSystemSettingRelevance);
-        tableService.registerSystemTableToBuilderToModule(jb4DCSession,"TSYS_DICTIONARY",jBuild4DSystemSettingRelevance);
-        tableService.registerSystemTableToBuilderToModule(jb4DCSession,"TSYS_OPERATION_LOG",jBuild4DSystemSettingRelevance);
-        tableService.registerSystemTableToBuilderToModule(jb4DCSession,"TSYS_SETTING",jBuild4DSystemSettingRelevance);
-        tableService.registerSystemTableToBuilderToModule(jb4DCSession,"TSYS_HISTORY_DATA",jBuild4DSystemSettingRelevance);
-
         String TableGroupJBuild4DSystemFileRelevance ="TABLE_GROUP_JBUILD4DC_FILES_GROUP_ID";
         deleteByKeyNotValidate(jb4DCSession, TableGroupJBuild4DSystemFileRelevance, JBuild4DCYaml.getWarningOperationCode());
         TableGroupEntity jBuild4DSystemFileRelevance=new TableGroupEntity();
@@ -264,35 +258,59 @@ public class TableGroupServiceImpl extends BaseServiceImpl<TableGroupEntity> imp
     }
 
     private void initBuilderSystemTableToBuilderSystem(JB4DCSession jb4DCSession) throws JBuild4DCGenerallyException {
-        //开发示例相关表
+        //应用构建相关表
         String TableGroup_DevDemo="TABLE_GROUP_JBUILD4DC_BUILDER_GROUP_ID";
         deleteByKeyNotValidate(jb4DCSession,TableGroup_DevDemo, JBuild4DCYaml.getWarningOperationCode());
-        TableGroupEntity jBuild4DSystemDevDemo=new TableGroupEntity();
-        jBuild4DSystemDevDemo.setTableGroupId(TableGroup_DevDemo);
-        jBuild4DSystemDevDemo.setTableGroupParentId(IDbLinkService.JBUILD4DC_BUILDER_DB_LINK_ID);
-        jBuild4DSystemDevDemo.setTableGroupIsSystem(TrueFalseEnum.True.getDisplayName());
-        jBuild4DSystemDevDemo.setTableGroupText("系统默认相关表");
-        jBuild4DSystemDevDemo.setTableGroupValue("应用构建默认相关表");
-        jBuild4DSystemDevDemo.setTableGroupLinkId(dbLinkService.JBUILD4DC_BUILDER_DB_LINK_ID);
-        this.saveSimple(jb4DCSession,TableGroup_DevDemo,jBuild4DSystemDevDemo);
+        TableGroupEntity tableGroupEntity=new TableGroupEntity();
+        tableGroupEntity.setTableGroupId(TableGroup_DevDemo);
+        tableGroupEntity.setTableGroupParentId(IDbLinkService.JBUILD4DC_BUILDER_DB_LINK_ID);
+        tableGroupEntity.setTableGroupIsSystem(TrueFalseEnum.True.getDisplayName());
+        tableGroupEntity.setTableGroupText("系统默认相关表");
+        tableGroupEntity.setTableGroupValue("应用构建默认相关表");
+        tableGroupEntity.setTableGroupLinkId(dbLinkService.JBUILD4DC_BUILDER_DB_LINK_ID);
+        this.saveSimple(jb4DCSession,TableGroup_DevDemo,tableGroupEntity);
 
-        tableService.registerSystemTableToBuilderToModule(jb4DCSession,"TBUILD_DB_LINK",jBuild4DSystemDevDemo);
-        tableService.registerSystemTableToBuilderToModule(jb4DCSession,"TBUILD_TABLE_GROUP",jBuild4DSystemDevDemo);
-        tableService.registerSystemTableToBuilderToModule(jb4DCSession,"TBUILD_TABLE",jBuild4DSystemDevDemo);
-        tableService.registerSystemTableToBuilderToModule(jb4DCSession,"TBUILD_TABLE_FIELD",jBuild4DSystemDevDemo);
-        tableService.registerSystemTableToBuilderToModule(jb4DCSession,"TBUILD_TABLE_RELATION_GROUP",jBuild4DSystemDevDemo);
-        tableService.registerSystemTableToBuilderToModule(jb4DCSession,"TBUILD_TABLE_RELATION",jBuild4DSystemDevDemo);
-        tableService.registerSystemTableToBuilderToModule(jb4DCSession,"TBUILD_TABLE_RELATION_HIS",jBuild4DSystemDevDemo);
-        tableService.registerSystemTableToBuilderToModule(jb4DCSession,"TBUILD_DATASET_GROUP",jBuild4DSystemDevDemo);
-        tableService.registerSystemTableToBuilderToModule(jb4DCSession,"TBUILD_DATASET",jBuild4DSystemDevDemo);
-        tableService.registerSystemTableToBuilderToModule(jb4DCSession,"TBUILD_DATASET_COLUMN",jBuild4DSystemDevDemo);
-        tableService.registerSystemTableToBuilderToModule(jb4DCSession,"TBUILD_DATASET_RELATED_TABLE",jBuild4DSystemDevDemo);
-        tableService.registerSystemTableToBuilderToModule(jb4DCSession,"TBUILD_MODULE",jBuild4DSystemDevDemo);
-        tableService.registerSystemTableToBuilderToModule(jb4DCSession,"TBUILD_FLOW_INTEGRATED",jBuild4DSystemDevDemo);
-        tableService.registerSystemTableToBuilderToModule(jb4DCSession,"TBUILD_FORM_CONFIG",jBuild4DSystemDevDemo);
-        tableService.registerSystemTableToBuilderToModule(jb4DCSession,"TBUILD_FORM_RESOURCE",jBuild4DSystemDevDemo);
-        tableService.registerSystemTableToBuilderToModule(jb4DCSession,"TBUILD_LIST_RESOURCE",jBuild4DSystemDevDemo);
-        tableService.registerSystemTableToBuilderToModule(jb4DCSession,"TBUILD_LIST_BUTTON",jBuild4DSystemDevDemo);
+        tableService.registerSystemTableToBuilderToModule(jb4DCSession,"TBUILD_DB_LINK",tableGroupEntity);
+        tableService.registerSystemTableToBuilderToModule(jb4DCSession,"TBUILD_TABLE_GROUP",tableGroupEntity);
+        tableService.registerSystemTableToBuilderToModule(jb4DCSession,"TBUILD_TABLE",tableGroupEntity);
+        tableService.registerSystemTableToBuilderToModule(jb4DCSession,"TBUILD_TABLE_FIELD",tableGroupEntity);
+        tableService.registerSystemTableToBuilderToModule(jb4DCSession,"TBUILD_TABLE_RELATION_GROUP",tableGroupEntity);
+        tableService.registerSystemTableToBuilderToModule(jb4DCSession,"TBUILD_TABLE_RELATION",tableGroupEntity);
+        tableService.registerSystemTableToBuilderToModule(jb4DCSession,"TBUILD_TABLE_RELATION_HIS",tableGroupEntity);
+        tableService.registerSystemTableToBuilderToModule(jb4DCSession,"TBUILD_DATASET_GROUP",tableGroupEntity);
+        tableService.registerSystemTableToBuilderToModule(jb4DCSession,"TBUILD_DATASET",tableGroupEntity);
+        tableService.registerSystemTableToBuilderToModule(jb4DCSession,"TBUILD_DATASET_COLUMN",tableGroupEntity);
+        tableService.registerSystemTableToBuilderToModule(jb4DCSession,"TBUILD_DATASET_RELATED_TABLE",tableGroupEntity);
+        tableService.registerSystemTableToBuilderToModule(jb4DCSession,"TBUILD_MODULE",tableGroupEntity);
+        tableService.registerSystemTableToBuilderToModule(jb4DCSession,"TBUILD_FLOW_INTEGRATED",tableGroupEntity);
+        tableService.registerSystemTableToBuilderToModule(jb4DCSession,"TBUILD_FORM_CONFIG",tableGroupEntity);
+        tableService.registerSystemTableToBuilderToModule(jb4DCSession,"TBUILD_FORM_RESOURCE",tableGroupEntity);
+        tableService.registerSystemTableToBuilderToModule(jb4DCSession,"TBUILD_LIST_RESOURCE",tableGroupEntity);
+        tableService.registerSystemTableToBuilderToModule(jb4DCSession,"TBUILD_LIST_BUTTON",tableGroupEntity);
+
+        tableService.registerSystemTableToBuilderToModule(jb4DCSession,"TSYS_DICTIONARY_GROUP",tableGroupEntity);
+        tableService.registerSystemTableToBuilderToModule(jb4DCSession,"TSYS_DICTIONARY",tableGroupEntity);
+        tableService.registerSystemTableToBuilderToModule(jb4DCSession,"TSYS_OPERATION_LOG",tableGroupEntity);
+        tableService.registerSystemTableToBuilderToModule(jb4DCSession,"TSYS_SETTING",tableGroupEntity);
+        tableService.registerSystemTableToBuilderToModule(jb4DCSession,"TSYS_HISTORY_DATA",tableGroupEntity);
+    }
+
+    private void initQCSystemTableToBuilderSystem(JB4DCSession jb4DCSession) throws JBuild4DCGenerallyException {
+        //QC相关表
+        String TableGroup_QC_Group="TABLE_GROUP_QC_SYSTEM_GROUP_ID";
+        deleteByKeyNotValidate(jb4DCSession,TableGroup_QC_Group, JBuild4DCYaml.getWarningOperationCode());
+        TableGroupEntity tableGroupEntity=new TableGroupEntity();
+        tableGroupEntity.setTableGroupId(TableGroup_QC_Group);
+        tableGroupEntity.setTableGroupParentId(IDbLinkService.JBUILD4DC_QC_DB_LINK_ID);
+        tableGroupEntity.setTableGroupIsSystem(TrueFalseEnum.True.getDisplayName());
+        tableGroupEntity.setTableGroupText("运维系统默认相关表");
+        tableGroupEntity.setTableGroupValue("运维系统默认相关表");
+        tableGroupEntity.setTableGroupLinkId(dbLinkService.JBUILD4DC_QC_DB_LINK_ID);
+        this.saveSimple(jb4DCSession,TableGroup_QC_Group,tableGroupEntity);
+
+        tableService.registerSystemTableToBuilderToModule(jb4DCSession,"TQC_PROJECT",tableGroupEntity);
+        tableService.registerSystemTableToBuilderToModule(jb4DCSession,"TQC_ISSUES",tableGroupEntity);
+        tableService.registerSystemTableToBuilderToModule(jb4DCSession,"TQC_ISSUES_REMARK",tableGroupEntity);
     }
 
     @Override
@@ -300,6 +318,7 @@ public class TableGroupServiceImpl extends BaseServiceImpl<TableGroupEntity> imp
         this.initDevMockSystemTableToBuilderSystem(jb4DCSession);
         this.initSSOSystemTableToBuilderSystem(jb4DCSession);
         this.initBuilderSystemTableToBuilderSystem(jb4DCSession);
+        this.initQCSystemTableToBuilderSystem(jb4DCSession);
     }
 
     @Override

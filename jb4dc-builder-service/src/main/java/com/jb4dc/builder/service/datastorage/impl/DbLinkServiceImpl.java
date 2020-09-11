@@ -123,6 +123,23 @@ public class DbLinkServiceImpl extends BaseServiceImpl<DbLinkEntity> implements 
         this.saveSimple(jb4DCSession,dbLinkEntity.getDbId(),dbLinkEntity);
     }
 
+    public void createQCSystemDBLink(JB4DCSession jb4DCSession) throws JBuild4DCGenerallyException {
+        DbLinkEntity dbLinkEntity=new DbLinkEntity();
+        dbLinkEntity.setDbId(this.JBUILD4DC_QC_DB_LINK_ID);
+        dbLinkEntity.setDbLinkValue(this.JBUILD4DC_QC_DB_LINK_ID);
+        dbLinkEntity.setDbLinkName("运维服务系统库连接");
+        dbLinkEntity.setDbType("mysql");
+        dbLinkEntity.setDbDriverName("com.mysql.cj.jdbc.Driver");
+        dbLinkEntity.setDbDatabaseName("JB4DC_QC_V01");
+        dbLinkEntity.setDbUrl("jdbc:mysql://127.0.0.1:3306/JB4DC_QC_V01?characterEncoding=UTF-8&serverTimezone=Asia/Shanghai&nullCatalogMeansCurrent=true&autoReconnect=true&failOverReadOnly=false");
+        dbLinkEntity.setDbUser("root");
+        dbLinkEntity.setDbPassword("root");
+        dbLinkEntity.setDbDesc("运维服务系统库连接");
+        dbLinkEntity.setDbIsLocation(TrueFalseEnum.False.getDisplayName());
+        dbLinkEntity.setDbStatus(EnableTypeEnum.enable.getDisplayName());
+        this.saveSimple(jb4DCSession,dbLinkEntity.getDbId(),dbLinkEntity);
+    }
+
     public void createDevMockDBLink(JB4DCSession jb4DCSession) throws JBuild4DCGenerallyException {
         DbLinkEntity dbLinkEntity=new DbLinkEntity();
         dbLinkEntity.setDbId(this.JBUILD4DC_DEV_MOCK_DB_LINK_ID);
@@ -168,6 +185,7 @@ public class DbLinkServiceImpl extends BaseServiceImpl<DbLinkEntity> implements 
         this.createBuilderDBLink(jb4DCSession);
         this.createSSODBLink(jb4DCSession);
         this.createDevMockDBLink(jb4DCSession);
+        this.createQCSystemDBLink(jb4DCSession);
         //this.createBusinessTestDBLink(jb4DCSession);
     }
 }
