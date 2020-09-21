@@ -1,7 +1,10 @@
 package com.jb4dc.builder.client.service.datastorage.proxy;
 
+import com.jb4dc.builder.dbentities.datastorage.TableEntity;
 import com.jb4dc.builder.po.TableFieldPO;
 import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
+import com.jb4dc.core.base.vo.JBuild4DCResponseVo;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -13,4 +16,6 @@ import java.util.List;
  */
 public interface ITableRuntimeProxy {
     List<TableFieldPO> getTableFieldsByTableId(String tableId) throws JBuild4DCGenerallyException;
+
+    TableEntity getTableById(String tableId) throws JBuild4DCGenerallyException;
 }

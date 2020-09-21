@@ -1,5 +1,8 @@
 package com.jb4dc.builder.po.formdata;
 
+import com.jb4dc.builder.dbentities.datastorage.TableEntity;
+import com.jb4dc.builder.po.TableFieldPO;
+
 import java.util.List;
 import java.util.Map;
 
@@ -16,6 +19,9 @@ public class FormRecordComplexPO {
     String buttonId;
     String operation;
     List<FormRecordDataRelationPO> formRecordDataRelationPOList;
+
+    Map<String,List<TableFieldPO>> allDataRelationTableFieldsMap;
+    Map<String, TableEntity> allDataRelationTablesMap;
 
     Map<String,Object> exData;
 
@@ -65,5 +71,21 @@ public class FormRecordComplexPO {
 
     public void setExData(Map<String, Object> exData) {
         this.exData = exData;
+    }
+
+    public Map<String, List<TableFieldPO>> getAllDataRelationTableFieldsMap() {
+        return allDataRelationTableFieldsMap;
+    }
+
+    public void setAllDataRelationTableFieldsMap(Map<String, List<TableFieldPO>> allDataRelationTableFieldsMap) {
+        this.allDataRelationTableFieldsMap = allDataRelationTableFieldsMap;
+    }
+
+    public Map<String, TableEntity> getAllDataRelationTablesMap() {
+        return allDataRelationTablesMap;
+    }
+
+    public void setAllDataRelationTablesMap(Map<String, TableEntity> allDataRelationTablesMap) {
+        this.allDataRelationTablesMap = allDataRelationTablesMap;
     }
 }

@@ -188,11 +188,17 @@ let FormRelationPOUtility={
         fieldPO.value = fieldValue;
         recordFieldPOArray.push(fieldPO);
     },
-    CreateIdFieldInRecordFieldPOArray:function(recordFieldPOArray, idValue){
+    CreateIdFieldInRecordFieldPOArray:function(recordFieldPOArray, idValue,formPO,tableId){
         if(!idValue){
             idValue = StringUtility.Guid();
         }
-        this.CreateFieldInRecordFieldPOArray(recordFieldPOArray,"ID",idValue);
+        //console.log(formPO);
+        var pkFieldPO=ArrayUtility.WhereSingle(formPO.formRecordComplexPO.allDataRelationTableFieldsMap[tableId],function (item) {
+            return item.fieldIsPk=="是";
+        });
+        var pkFieldName=pkFieldPO.fieldName;
+        console.log(pkFieldName);
+        this.CreateFieldInRecordFieldPOArray(recordFieldPOArray,pkFieldName,idValue);
         //return idValue;
     }
 }

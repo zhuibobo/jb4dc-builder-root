@@ -108,6 +108,7 @@ let HTMLControl={
         }
     },
     RendererDataChain:function (_rendererDataChainParas) {
+        //console.log(_rendererDataChainParas);
         var $singleControlElem=_rendererDataChainParas.$singleControlElem;
         //debugger;
         for (var i = 0; i < $singleControlElem.children().length; i++) {

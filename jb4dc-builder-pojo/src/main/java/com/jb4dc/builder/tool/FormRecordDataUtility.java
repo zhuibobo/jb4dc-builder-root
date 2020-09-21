@@ -4,9 +4,11 @@ import com.jb4dc.builder.po.TableFieldPO;
 import com.jb4dc.builder.po.formdata.FormRecordDataPO;
 import com.jb4dc.builder.po.formdata.FormRecordDataRelationPO;
 import com.jb4dc.builder.po.formdata.FormRecordFieldDataPO;
+import com.jb4dc.core.base.exception.JBuild4DCErrorCode;
 import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
 import com.jb4dc.core.base.tools.StringUtility;
 import com.jb4dc.core.base.tools.UUIDUtility;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -21,10 +23,12 @@ import java.util.stream.Collectors;
  * To change this template use File | Settings | File Templates.
  */
 public class FormRecordDataUtility {
-    public static String findIdInFormRecordFieldDataPO(FormRecordDataPO formRecordDataPO) throws JBuild4DCGenerallyException {
-        FormRecordFieldDataPO formRecordFieldDataPO =  formRecordDataPO.getRecordFieldPOList().stream().filter(item -> item.getFieldName().toUpperCase().equals("ID")).findFirst().orElse(null);
+
+    public static String findIdInFormRecordFieldDataPO(FormRecordDataPO formRecordDataPO,List<TableFieldPO> tableFieldPOList) throws JBuild4DCGenerallyException {
+        String pkFieldName=tableFieldPOList.stream().filter(item->item.getFieldIsPk().equals("是")).findFirst().get().getFieldName().toUpperCase();
+        FormRecordFieldDataPO formRecordFieldDataPO =  formRecordDataPO.getRecordFieldPOList().stream().filter(item -> item.getFieldName().toUpperCase().equals(pkFieldName)).findFirst().orElse(null);
         if(formRecordFieldDataPO==null) {
-            throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_BUILDER_CODE,"在formRecordDataPO中不存在ID字段!");
+            throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_BUILDER_CODE,"在formRecordDataPO中不存在主键字段"+pkFieldName+"!");
         }
         return formRecordFieldDataPO.getValue().toString();
     }
@@ -60,8 +64,11 @@ public class FormRecordDataUtility {
         return result;
     }
 
-    public static FormRecordDataPO buildFormRecordDataPO(FormRecordDataRelationPO mainDataPO, Map<String,Object> mainRecord,List<TableFieldPO> tableFieldPOList) throws JBuild4DCGenerallyException {
-        String idValue=mainRecord.get("ID").toString();
+    public static FormRecordDataPO buildFormRecordDataPO(FormRecordDataRelationPO mainDataPO, Map<String,Object> mainRecord,List<TableFieldPO> tableFieldPOList,String idValue) throws JBuild4DCGenerallyException {
+        //String idValue=mainRecord.get("ID").toString();
+        if(idValue.equals("")){
+            throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_BUILDER_CODE,"idValue不能为空!");
+        }
         List<FormRecordFieldDataPO> formRecordFieldDataPOList=new ArrayList<>();
         Map<String,TableFieldPO> tableFieldPOMap=convertTableFieldPOListToMap(tableFieldPOList);
 
@@ -83,10 +90,10 @@ public class FormRecordDataUtility {
         return result;
     }
 
-    public static List<FormRecordDataPO> buildFormRecordDataPOList(FormRecordDataRelationPO mainDataPO, List<Map<String,Object>> mainRecordList,List<TableFieldPO> tableFieldPOList) throws JBuild4DCGenerallyException {
+    public static List<FormRecordDataPO> buildFormRecordDataPOList(FormRecordDataRelationPO mainDataPO, List<Map<String,Object>> mainRecordList,List<TableFieldPO> tableFieldPOList,String idValue) throws JBuild4DCGenerallyException {
         List<FormRecordDataPO> result=new ArrayList<>();
         for (Map<String, Object> stringObjectMap : mainRecordList) {
-            FormRecordDataPO singleFormRecordDataPO=buildFormRecordDataPO(mainDataPO,stringObjectMap,tableFieldPOList);
+            FormRecordDataPO singleFormRecordDataPO=buildFormRecordDataPO(mainDataPO,stringObjectMap,tableFieldPOList,idValue);
             result.add(singleFormRecordDataPO);
         }
         return result;

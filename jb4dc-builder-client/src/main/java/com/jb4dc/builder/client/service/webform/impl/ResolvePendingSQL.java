@@ -3,6 +3,7 @@ package com.jb4dc.builder.client.service.webform.impl;
 import com.jb4dc.base.service.ISQLBuilderService;
 import com.jb4dc.builder.client.service.datastorage.proxy.ITableRuntimeProxy;
 import com.jb4dc.builder.client.service.envvar.proxy.IEnvVariableRuntimeResolveProxy;
+import com.jb4dc.builder.dbentities.datastorage.TableFieldEntity;
 import com.jb4dc.builder.po.TableFieldPO;
 import com.jb4dc.builder.po.formdata.*;
 import com.jb4dc.builder.tool.FormRecordComplexPOUtility;
@@ -61,28 +62,30 @@ public class ResolvePendingSQL {
         return null;
     }
 
-    protected void validateFormRecordComplexPO(JB4DCSession jb4DCSession, String recordId, FormRecordComplexPO formRecordComplexPO,String operationTypeName) throws JBuild4DCGenerallyException, JBuild4DCSQLKeyWordException {
+    protected void validateFormRecordComplexPO(JB4DCSession jb4DCSession, String recordId, FormRecordComplexPO formRecordComplexPO,String operationTypeName,List<TableFieldPO> tableFieldPOList) throws JBuild4DCGenerallyException, JBuild4DCSQLKeyWordException {
+        //System.out.println("11111");
         FormRecordDataRelationPO mainFormRecordDataRelationPO = FormRecordComplexPOUtility.findMainFormRecordDataRelationPO(formRecordComplexPO);
         //为新增操作时,判断ID是否已经存在.
         if(BaseUtility.isAddOperation(operationTypeName)){
-            if(this.formRecordDataPOIsExist(mainFormRecordDataRelationPO.getOneDataRecord(),mainFormRecordDataRelationPO.getTableName())){
-                String idValue = FormRecordDataUtility.findIdInFormRecordFieldDataPO(mainFormRecordDataRelationPO.getOneDataRecord());
+            if(this.formRecordDataPOIsExist(mainFormRecordDataRelationPO.getOneDataRecord(),mainFormRecordDataRelationPO.getTableName(),tableFieldPOList)){
+                String idValue = FormRecordDataUtility.findIdInFormRecordFieldDataPO(mainFormRecordDataRelationPO.getOneDataRecord(),tableFieldPOList);
                 throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_BUILDER_CODE,"操作类型:"+operationTypeName+",已经存在ID为:"+idValue+"的记录!");
             }
         }
     }
 
     public List<PendingSQLPO> resolveFormRecordComplexPOTOPendingSQL(JB4DCSession jb4DCSession, String recordId, FormRecordComplexPO formRecordComplexPO, String operationTypeName) throws JBuild4DCGenerallyException, JBuild4DCSQLKeyWordException {
-        //验证数据
-        validateFormRecordComplexPO(jb4DCSession, recordId, formRecordComplexPO, operationTypeName);
 
         List<PendingSQLPO> pendingSQLPOList = new ArrayList<>();
 
         //将主记录转换为SQL语句
         FormRecordDataRelationPO mainFormRecordDataRelationPO = FormRecordComplexPOUtility.findMainFormRecordDataRelationPO(formRecordComplexPO);
-        String idValue = FormRecordDataUtility.findIdInFormRecordFieldDataPO(mainFormRecordDataRelationPO.getOneDataRecord());
-
         List<TableFieldPO> tableFieldPOList = tableRuntimeProxy.getTableFieldsByTableId(mainFormRecordDataRelationPO.getTableId());
+        String idValue = FormRecordDataUtility.findIdInFormRecordFieldDataPO(mainFormRecordDataRelationPO.getOneDataRecord(),tableFieldPOList);
+
+        //验证数据
+        validateFormRecordComplexPO(jb4DCSession, recordId, formRecordComplexPO, operationTypeName,tableFieldPOList);
+
         int nextDBOrderNum=this.getNextDBOrderNum(mainFormRecordDataRelationPO.getTableName(),tableFieldPOList);
         String orderFieldName=this.getOrderNumFieldName(mainFormRecordDataRelationPO.getTableName(),tableFieldPOList);
         PendingSQLPO pendingSQLPO=resolveFormRecordDataPOTOPendingSQL(
@@ -102,7 +105,7 @@ public class ResolvePendingSQL {
                     if (formRecordDataRelationPO.getOneDataRecord() != null) {
                         int subODRNextDBOrderNum = this.getNextDBOrderNum(mainFormRecordDataRelationPO.getTableName(), tableFieldPOList);
                         String subODROrderFieldName = this.getOrderNumFieldName(mainFormRecordDataRelationPO.getTableName(), tableFieldPOList);
-                        String subOneIdValue = FormRecordDataUtility.findIdInFormRecordFieldDataPO(formRecordDataRelationPO.getOneDataRecord());
+                        String subOneIdValue = FormRecordDataUtility.findIdInFormRecordFieldDataPO(formRecordDataRelationPO.getOneDataRecord(),null);
 
                         PendingSQLPO subOnePendingSQLPO = resolveFormRecordDataPOTOPendingSQL(
                                 jb4DCSession,
@@ -124,7 +127,7 @@ public class ResolvePendingSQL {
                         List<FormRecordDataPO> listDataRecord = formRecordDataRelationPO.getListDataRecord();
                         for (int i = 0; i < listDataRecord.size(); i++) {
                             FormRecordDataPO formRecordDataPO = listDataRecord.get(i);
-                            String subListIdValue = FormRecordDataUtility.findIdInFormRecordFieldDataPO(formRecordDataPO);
+                            String subListIdValue = FormRecordDataUtility.findIdInFormRecordFieldDataPO(formRecordDataPO,null);
                             PendingSQLPO subListPendingSQLPO = resolveFormRecordDataPOTOPendingSQL(
                                     jb4DCSession,
                                     recordId,
@@ -153,12 +156,37 @@ public class ResolvePendingSQL {
         }
     }
 
-    protected boolean formRecordDataPOIsExist(FormRecordDataPO formRecordDataPO,String tableName) throws JBuild4DCSQLKeyWordException, JBuild4DCGenerallyException {
-        String idValue = FormRecordDataUtility.findIdInFormRecordFieldDataPO(formRecordDataPO);
+    public TableFieldPO findPrimaryKey(String tableName,List<TableFieldPO> tableFieldPOList) throws JBuild4DCGenerallyException {
+        if(tableFieldPOList.stream().filter(tableFieldPO -> tableFieldPO.getFieldIsPk().equals("是")).count()==0){
+            throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_PLATFORM_CODE,"表["+tableName+"]未定义主键!");
+        }
+        else if(tableFieldPOList.stream().filter(tableFieldPO -> tableFieldPO.getFieldIsPk().equals("是")).count()>1){
+            throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_PLATFORM_CODE,"表["+tableName+"]存在复合主键,系统暂不支持!");
+        }
+        TableFieldPO pkTableFieldPo=tableFieldPOList.stream().filter(tableFieldPO -> tableFieldPO.getFieldIsPk().equals("是")).findFirst().get();
+        return pkTableFieldPo;
+    }
+
+    public String findPrimaryValue(Map recordData,String tableName,List<TableFieldPO> tableFieldPOList) throws JBuild4DCGenerallyException {
+        TableFieldPO primaryKey=findPrimaryKey(tableName,tableFieldPOList);
+        return recordData.get(primaryKey.getFieldName()).toString();
+    }
+
+    protected boolean formRecordDataPOIsExist(FormRecordDataPO formRecordDataPO,String tableName,List<TableFieldPO> tableFieldPOList) throws JBuild4DCSQLKeyWordException, JBuild4DCGenerallyException {
+        String idValue = FormRecordDataUtility.findIdInFormRecordFieldDataPO(formRecordDataPO,tableFieldPOList);
         if (!SQLKeyWordUtility.singleWord(tableName)) {
             throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_BUILDER_CODE, "表名检测失败");
         }
-        String sql = "select count(1) from " + tableName + " where ID=#{ID}";
+
+        /*if(tableFieldPOList.stream().filter(tableFieldPO -> tableFieldPO.getFieldIsPk().equals("是")).count()==0){
+            throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_PLATFORM_CODE,"表["+tableName+"]未定义主键!");
+        }
+        else if(tableFieldPOList.stream().filter(tableFieldPO -> tableFieldPO.getFieldIsPk().equals("是")).count()>1){
+            throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_PLATFORM_CODE,"表["+tableName+"]存在复合主键,系统暂不支持!");
+        }*/
+        TableFieldPO pkTableFieldPo=findPrimaryKey(tableName,tableFieldPOList);
+
+        String sql = "select count(1) from " + tableName + " where "+pkTableFieldPo.getFieldName()+"=#{ID}";
         Map paraMap = new HashMap();
         paraMap.put("ID", idValue);
         Object count = sqlBuilderService.selectOneScalar(sql, paraMap);
@@ -175,10 +203,12 @@ public class ResolvePendingSQL {
             Map<String, Object> sqlMapPara = new HashMap<>();
             List<FormRecordFieldDataPO> recordFieldPOList = formRecordDataPO.getRecordFieldPOList();
             Map<String, FormRecordFieldDataPO> recordFieldPOListMap = FormRecordDataUtility.convertFormRecordFieldDataPOListToMap(recordFieldPOList);
-            if (!this.formRecordDataPOIsExist(formRecordDataPO, tableName)) {
+
+            List<TableFieldPO> tableFieldPOList = tableRuntimeProxy.getTableFieldsByTableId(tableId);
+
+            if (!this.formRecordDataPOIsExist(formRecordDataPO, tableName,tableFieldPOList)) {
                 pendingSQLPO.setExecType(PendingSQLPO.EXEC_TYPE_INSERT);
                 //尝试补完表设计中的默认值
-                List<TableFieldPO> tableFieldPOList = tableRuntimeProxy.getTableFieldsByTableId(tableId);
                 List<TableFieldPO> hasDefaultValueTableFieldPOList = tableFieldPOList.parallelStream().filter(item -> StringUtility.isNotEmpty(item.getFieldDefaultValue())).collect(Collectors.toList());
 
                 this.validateTableFieldDefaultValue(hasDefaultValueTableFieldPOList);
@@ -221,11 +251,13 @@ public class ResolvePendingSQL {
                 }
 
                 for (FormRecordFieldDataPO formRecordFieldDataPO : recordFieldPOList) {
-                    fieldNames.append(formRecordFieldDataPO.getFieldName());
-                    fieldNames.append(",");
-                    fieldValues.append("#{" + formRecordFieldDataPO.getFieldName() + "}");
-                    fieldValues.append(",");
-                    sqlMapPara.put(formRecordFieldDataPO.getFieldName(), formRecordFieldDataPO.getValue());
+                    if(!formRecordFieldDataPO.getValue().equals("")) {
+                        fieldNames.append(formRecordFieldDataPO.getFieldName());
+                        fieldNames.append(",");
+                        fieldValues.append("#{" + formRecordFieldDataPO.getFieldName() + "}");
+                        fieldValues.append(",");
+                        sqlMapPara.put(formRecordFieldDataPO.getFieldName(), formRecordFieldDataPO.getValue());
+                    }
                 }
                 //fieldNames = fieldNames.delete(fieldNames.length() - 2, 1);
                 fieldNames =StringUtility.removeLastChar(fieldNames);

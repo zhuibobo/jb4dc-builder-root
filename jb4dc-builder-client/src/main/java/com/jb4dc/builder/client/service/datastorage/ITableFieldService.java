@@ -29,4 +29,6 @@ public interface ITableFieldService extends IBaseService<TableFieldEntity> {
     void deleteByTableId(JB4DCSession session, String tableId);
 
     List<TableFieldEntity> getTablesFieldsByTableIds(JB4DCSession session, List<String> tableIds);
+
+    TableFieldEntity getSimplePKFieldName(String tableName);
 }

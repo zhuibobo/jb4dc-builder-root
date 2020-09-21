@@ -64,4 +64,9 @@
         </foreach>
         order by FIELD_TABLE_ID,FIELD_ORDER_NUM asc
     </select>
+
+    <select id="selectSinglePKFieldByTableName" resultMap="BaseResultMap">
+        select<include refid="Base_Column_List"/> from TBUILD_TABLE_FIELD WHERE FIELD_TABLE_ID=
+        (select FIELD_TABLE_ID from TBUILD_TABLE where TABLE_NAME=#{tableName})
+    </select>
 </mapper>

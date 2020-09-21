@@ -7,14 +7,14 @@ import java.util.Date;
 /**
  *
  * This class was generated JBuild4DC.
- * This class corresponds to the database table :TBUILD_LIST_RESOURCE
+ * This class corresponds to the database table :tbuild_list_resource
  *
  * JBuild4DC do_not_delete_during_merge
  */
 public class ListResourceEntity {
-    //LIST_ID:主键:UUID
+    //LIST_ID:
     @DBKeyField
-    private String listId;
+    protected String listId;
 
     //LIST_CODE:列表编号:无特殊作用,序列生成,便于查找,禁止用于开发
     private String listCode;
@@ -78,21 +78,6 @@ public class ListResourceEntity {
     //LIST_EVERY_TIME_RESOLVE:是否每次都进行服务端解析:默认为否,只解析一次
     private String listEveryTimeResolve;
 
-    //LIST_HTML_SOURCE:原始的HTML
-    private String listHtmlSource;
-
-    //LIST_HTML_RESOLVE:解析后的HTML
-    private String listHtmlResolve;
-
-    //LIST_JS_CONTENT:JS编辑器中的内容
-    private String listJsContent;
-
-    //LIST_CSS_CONTENT:CSS编辑器中的内容
-    private String listCssContent;
-
-    //LIST_CONFIG_CONTENT:配置编辑器中的内容
-    private String listConfigContent;
-
     //LIST_ENABLE_S_SEAR:是否启用简单查询
     private String listEnableSSear;
 
@@ -114,9 +99,12 @@ public class ListResourceEntity {
     //LIST_CUST_DESC:自定义设置备注:使用了自定义设置相关方法的备注说明
     private String listCustDesc;
 
+    //LIST_DATASET_PRIMARY_KEY:使用的数据集ID的主键字段名称
+    private String listDatasetPrimaryKey;
+
     /**
      * 构造函数
-     * @param listId 主键
+     * @param listId
      * @param listCode 列表编号
      * @param listName 列表名称
      * @param listSingleName 唯一名称
@@ -137,11 +125,6 @@ public class ListResourceEntity {
      * @param listDatasetPageSize 使用的数据集的单页数量
      * @param listIsResolve 是否进行了解析
      * @param listEveryTimeResolve 是否每次都进行服务端解析
-     * @param listHtmlSource 原始的HTML
-     * @param listHtmlResolve 解析后的HTML
-     * @param listJsContent JS编辑器中的内容
-     * @param listCssContent CSS编辑器中的内容
-     * @param listConfigContent 配置编辑器中的内容
      * @param listEnableSSear 是否启用简单查询
      * @param listEnableCSear 是否启用复杂查询
      * @param listTheme 风格主题
@@ -149,8 +132,9 @@ public class ListResourceEntity {
      * @param listCustRefJs 引入的脚本
      * @param listCustClientRenderer 客户端自定义的渲染方法
      * @param listCustDesc 自定义设置备注
+     * @param listDatasetPrimaryKey 使用的数据集ID的主键字段名称
      **/
-    public ListResourceEntity(String listId, String listCode, String listName, String listSingleName, Date listCreateTime, String listCreator, Date listUpdateTime, String listUpdater, String listType, String listIsSystem, Integer listOrderNum, String listDesc, String listModuleId, String listStatus, String listOrganId, String listOrganName, String listDatasetId, String listDatasetName, Integer listDatasetPageSize, String listIsResolve, String listEveryTimeResolve, String listHtmlSource, String listHtmlResolve, String listJsContent, String listCssContent, String listConfigContent, String listEnableSSear, String listEnableCSear, String listTheme, String listCustServerRenderer, String listCustRefJs, String listCustClientRenderer, String listCustDesc) {
+    public ListResourceEntity(String listId, String listCode, String listName, String listSingleName, Date listCreateTime, String listCreator, Date listUpdateTime, String listUpdater, String listType, String listIsSystem, Integer listOrderNum, String listDesc, String listModuleId, String listStatus, String listOrganId, String listOrganName, String listDatasetId, String listDatasetName, Integer listDatasetPageSize, String listIsResolve, String listEveryTimeResolve, String listEnableSSear, String listEnableCSear, String listTheme, String listCustServerRenderer, String listCustRefJs, String listCustClientRenderer, String listCustDesc, String listDatasetPrimaryKey) {
         this.listId = listId;
         this.listCode = listCode;
         this.listName = listName;
@@ -172,11 +156,6 @@ public class ListResourceEntity {
         this.listDatasetPageSize = listDatasetPageSize;
         this.listIsResolve = listIsResolve;
         this.listEveryTimeResolve = listEveryTimeResolve;
-        this.listHtmlSource = listHtmlSource;
-        this.listHtmlResolve = listHtmlResolve;
-        this.listJsContent = listJsContent;
-        this.listCssContent = listCssContent;
-        this.listConfigContent = listConfigContent;
         this.listEnableSSear = listEnableSSear;
         this.listEnableCSear = listEnableCSear;
         this.listTheme = listTheme;
@@ -184,6 +163,7 @@ public class ListResourceEntity {
         this.listCustRefJs = listCustRefJs;
         this.listCustClientRenderer = listCustClientRenderer;
         this.listCustDesc = listCustDesc;
+        this.listDatasetPrimaryKey = listDatasetPrimaryKey;
     }
 
     public ListResourceEntity() {
@@ -191,7 +171,7 @@ public class ListResourceEntity {
     }
 
     /**
-     * 主键:UUID
+     *
      * @return java.lang.String
      **/
     public String getListId() {
@@ -199,8 +179,8 @@ public class ListResourceEntity {
     }
 
     /**
-     * 主键:UUID
-     * @param listId 主键
+     *
+     * @param listId
      **/
     public void setListId(String listId) {
         this.listId = listId == null ? null : listId.trim();
@@ -527,86 +507,6 @@ public class ListResourceEntity {
     }
 
     /**
-     * 原始的HTML
-     * @return java.lang.String
-     **/
-    public String getListHtmlSource() {
-        return listHtmlSource;
-    }
-
-    /**
-     * 原始的HTML
-     * @param listHtmlSource 原始的HTML
-     **/
-    public void setListHtmlSource(String listHtmlSource) {
-        this.listHtmlSource = listHtmlSource == null ? null : listHtmlSource.trim();
-    }
-
-    /**
-     * 解析后的HTML
-     * @return java.lang.String
-     **/
-    public String getListHtmlResolve() {
-        return listHtmlResolve;
-    }
-
-    /**
-     * 解析后的HTML
-     * @param listHtmlResolve 解析后的HTML
-     **/
-    public void setListHtmlResolve(String listHtmlResolve) {
-        this.listHtmlResolve = listHtmlResolve == null ? null : listHtmlResolve.trim();
-    }
-
-    /**
-     * JS编辑器中的内容
-     * @return java.lang.String
-     **/
-    public String getListJsContent() {
-        return listJsContent;
-    }
-
-    /**
-     * JS编辑器中的内容
-     * @param listJsContent JS编辑器中的内容
-     **/
-    public void setListJsContent(String listJsContent) {
-        this.listJsContent = listJsContent == null ? null : listJsContent.trim();
-    }
-
-    /**
-     * CSS编辑器中的内容
-     * @return java.lang.String
-     **/
-    public String getListCssContent() {
-        return listCssContent;
-    }
-
-    /**
-     * CSS编辑器中的内容
-     * @param listCssContent CSS编辑器中的内容
-     **/
-    public void setListCssContent(String listCssContent) {
-        this.listCssContent = listCssContent == null ? null : listCssContent.trim();
-    }
-
-    /**
-     * 配置编辑器中的内容
-     * @return java.lang.String
-     **/
-    public String getListConfigContent() {
-        return listConfigContent;
-    }
-
-    /**
-     * 配置编辑器中的内容
-     * @param listConfigContent 配置编辑器中的内容
-     **/
-    public void setListConfigContent(String listConfigContent) {
-        this.listConfigContent = listConfigContent == null ? null : listConfigContent.trim();
-    }
-
-    /**
      * 是否启用简单查询
      * @return java.lang.String
      **/
@@ -716,5 +616,21 @@ public class ListResourceEntity {
      **/
     public void setListCustDesc(String listCustDesc) {
         this.listCustDesc = listCustDesc == null ? null : listCustDesc.trim();
+    }
+
+    /**
+     * 使用的数据集ID的主键字段名称
+     * @return java.lang.String
+     **/
+    public String getListDatasetPrimaryKey() {
+        return listDatasetPrimaryKey;
+    }
+
+    /**
+     * 使用的数据集ID的主键字段名称
+     * @param listDatasetPrimaryKey 使用的数据集ID的主键字段名称
+     **/
+    public void setListDatasetPrimaryKey(String listDatasetPrimaryKey) {
+        this.listDatasetPrimaryKey = listDatasetPrimaryKey == null ? null : listDatasetPrimaryKey.trim();
     }
 }

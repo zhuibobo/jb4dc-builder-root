@@ -1,8 +1,12 @@
 var WLDCT_ListTableInnerButtonSingle= {
-    RendererChain: HTMLControl.RendererChain,
+    RendererChain: function (_rendererChainParas){
+        //console.log(_rendererChainParas);
+    },
+    _ListRuntimeInstance:null,
     RendererDataChain:function (_rendererDataChainParas){
         var $singleControlElem=_rendererDataChainParas.$singleControlElem;
-        //console.log(_rendererDataChainParas);
+        this._ListRuntimeInstance=_rendererDataChainParas.listRuntimeInstance;
+
         $singleControlElem.bind("click",{"selfInstance":this,"$elem":$singleControlElem,rowData:_rendererDataChainParas.rowData},this.ClickEvent);
         $singleControlElem.html("");
         $singleControlElem.attr("title",$singleControlElem.attr("caption"));
@@ -19,7 +23,8 @@ var WLDCT_ListTableInnerButtonSingle= {
         //取消所有的选择.
         listTableContainerInstance.ClearAllCheckBox();
         //选中当前cb,
-        listTableContainerInstance.SetCheckBoxToCheckedStatus(sender.data.rowData.ID);
+        var primaryKey=sender.data.selfInstance._ListRuntimeInstance.GetPrimaryKey();
+        listTableContainerInstance.SetCheckBoxToCheckedStatus(sender.data.rowData[primaryKey]);
         //触发按钮
         console.log(targetbuttonid);
         $("button#" + targetbuttonid).trigger("click");

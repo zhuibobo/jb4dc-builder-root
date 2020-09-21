@@ -11,6 +11,7 @@ var ListRuntime={
         ListId:"",
         IsPreview:false
     },
+    _ListPO:null,
     _$RendererToElem:null,
     Initialization:function (_config) {
         this._Prop_Config= $.extend(true,{},this._Prop_Config,_config);
@@ -30,13 +31,14 @@ var ListRuntime={
             //alert( "Load was performed.");
             //debugger;
             //console.log("加载列表设置成功!!");
-            //console.log(result);
+            console.log(result);
 
             //console.log(result.data.listHtmlRuntime);
             //var $rootElem=$(result.data.formHtmlRuntime);
             //if($rootElem.)
             //str = str.replace(/word/g,"Excel")
             var _self=this;
+            _self._ListPO=result.data;
             this._$RendererToElem.append(result.data.listHtmlRuntime);
             this._$RendererToElem.append(result.data.listJsRuntime);
             //console.log(result.data.listJsRuntime);
@@ -107,6 +109,21 @@ var ListRuntime={
             },this);*/
 
         },this);
+    },
+    CheckPrimaryKeyInDataSet:function(dataSet,primaryKey){
+        if(dataSet.list&&dataSet.list.length>0){
+            var rowData=dataSet.list[0];
+            for(var key in rowData){
+                if(StringUtility.toUpperCase(key)==StringUtility.toUpperCase(primaryKey)){
+                    return true;
+                }
+            }
+        }
+        return false;
+    },
+    GetPrimaryKey:function(){
+        var primaryKey=this._ListPO.listDatasetPrimaryKey;
+        return primaryKey;
     },
     IsPreview:function () {
         return this._Prop_Config.IsPreview;

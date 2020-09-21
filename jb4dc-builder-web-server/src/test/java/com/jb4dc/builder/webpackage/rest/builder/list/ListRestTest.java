@@ -6,6 +6,7 @@ import com.jb4dc.base.service.general.JB4DCSessionUtility;
 import com.jb4dc.base.ymls.JBuild4DCYaml;
 import com.jb4dc.builder.dbentities.module.ModuleEntity;
 import com.jb4dc.builder.dbentities.weblist.ListResourceEntity;
+import com.jb4dc.builder.dbentities.weblist.ListResourceEntityWithBLOBs;
 import com.jb4dc.builder.service.weblist.IListResourceService;
 import com.jb4dc.builder.webpackage.rest.builder.dataset.DataSetMainRestTest;
 import com.jb4dc.builder.webpackage.rest.builder.module.ModuleRestTest;
@@ -34,7 +35,7 @@ public class ListRestTest extends ModuleRestTest {
 
     private void createList1(String listId,String moduleId,String text,String dateSetId) throws com.jb4dc.core.base.exception.JBuild4DCGenerallyException {
         listResourceService.deleteByKeyNotValidate(JB4DCSessionUtility.getInitSystemSession(),listId, JBuild4DCYaml.getWarningOperationCode());
-        ListResourceEntity listEntity=new ListResourceEntity();
+        ListResourceEntityWithBLOBs listEntity=new ListResourceEntityWithBLOBs();
         listEntity.setListId(listId);
         listEntity.setListCode(listId);
         listEntity.setListName(text);
@@ -490,7 +491,7 @@ public class ListRestTest extends ModuleRestTest {
 
     private void createList2(String listId,String moduleId,String text,String dateSetId) throws com.jb4dc.core.base.exception.JBuild4DCGenerallyException {
         listResourceService.deleteByKeyNotValidate(JB4DCSessionUtility.getInitSystemSession(),listId, JBuild4DCYaml.getWarningOperationCode());
-        ListResourceEntity listEntity=new ListResourceEntity();
+        ListResourceEntityWithBLOBs listEntity=new ListResourceEntityWithBLOBs();
         listEntity.setListId(listId);
         listEntity.setListCode(listId);
         listEntity.setListName(text);

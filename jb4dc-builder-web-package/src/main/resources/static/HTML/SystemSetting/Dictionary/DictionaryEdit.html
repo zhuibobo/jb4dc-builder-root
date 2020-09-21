@@ -1,1 +1,75 @@
-<!DOCTYPE html><html lang="zh" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"><head><meta charset="UTF-8"><title>Title</title><title>JBuild4D</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"><script type="text/javascript" src="../../../Js/External/JQuery-3.4.1/jquery-3.4.1.min.js"></script><script type="text/javascript" src="../../../Js/External/VUE-2.6.10/vue.js"></script><script type="text/javascript" src="../../../Js/External/IView-4.X/dist/iview.min.js"></script><script type="text/javascript" src="../../../Js/External/JQuery-UI-1.12.1/jquery-ui.js"></script><script type="text/javascript" src="../../../Js/External/ZTree-3.5.40/js/jquery.ztree.all.js"></script><script type="text/javascript" src="../../../Js/External/Perfect-Scrollbar-V1.4.0/perfect-scrollbar.js"></script><script type="text/javascript" src="../../../Js/JBuild4DCLib.js?refVersion=2"></script><script type="text/javascript" src="../../../Js/UIEXComponent.js?refVersion=2"></script><script type="text/javascript" src="../../../Js/UIEXComponentForBuilder.js?refVersion=2"></script><script type="text/javascript" src="../../../Js/VueEXComponent.js?refVersion=2"></script><script type="text/javascript" src="../../../Js/BuilderVueEXComponent.js?refVersion=2"></script><link rel="stylesheet" type="text/css" href="../../../Themes/Default/IView-4.X/iview.css"><link rel="stylesheet" type="text/css" href="../../../Themes/Default/JQueryUI/jquery-ui.css"><link rel="stylesheet" type="text/css" href="../../../Themes/Default/JQueryUI/jquery-ui-important.css"><link rel="stylesheet" type="text/css" href="../../../Js/External/Perfect-Scrollbar-V1.4.0/perfect-scrollbar.css"><link rel="stylesheet" type="text/css" href="../../../Themes/Default/ZTree/zTreeStyle/zTreeStyle.css"><link rel="stylesheet" type="text/css" href="../../../Themes/Default/Css/JBuild4DC.css?refVersion=2"><link rel="stylesheet" type="text/css" href="../../../Themes/Default/Css/JBuild4DCBuilder.css?refVersion=2"></head><body><div id="appForm" class="general-edit-page-wrap" v-cloak><i-form ref="formEntity" :model="formEntity" :rules="ruleValidate" :label-width="100"><form-item label="Key："><row><i-col span="10"><form-item prop="dictKey"><i-input v-model="formEntity.dictKey"></i-input></form-item></i-col><i-col span="4" style="text-align:center">状态：</i-col><i-col span="10"><form-item><radio-group v-model="formEntity.dictStatus"><radio label="启用">启用</radio><radio label="禁用">禁用</radio></radio-group></form-item></i-col></row></form-item><form-item label="值：" prop="dictValue"><row><i-col span="10"><form-item prop="dictValue"><i-input v-model="formEntity.dictValue"></i-input></form-item></i-col><i-col span="4" style="text-align:center"><span style="color:red">*</span> 文本：</i-col><i-col span="10"><form-item prop="dictText"><i-input v-model="formEntity.dictText"></i-input></form-item></i-col></row></form-item><form-item label="是否系统："><row><i-col span="10"><form-item><radio-group v-model="formEntity.dictIsSystem"><radio label="是">是</radio><radio label="否">否</radio></radio-group></form-item></i-col><i-col span="4" style="text-align:center">能否删除：</i-col><i-col span="10"><form-item><radio-group v-model="formEntity.dictDelEnable"><radio label="是">是</radio><radio label="否">否</radio></radio-group></form-item></i-col></row></form-item><form-item label="创建时间："><row><i-col span="10"><form-item prop="date"><date-picker type="date" placeholder="选择创建时间" v-model="formEntity.dictCreateTime"></date-picker></form-item></i-col><i-col span="4" style="text-align:center">默认选中：</i-col><i-col span="10"><form-item><radio-group v-model="formEntity.dictIsSelected"><radio label="是">是</radio><radio label="否">否</radio></radio-group></form-item></i-col></row></form-item><form-item label="备注："><i-input v-model="formEntity.dictDesc" type="textarea" :autosize="{minRows: 11,maxRows: 11}"></i-input></form-item></i-form><div class="button-outer-wrap"><div class="button-inner-wrap"><button-group><i-button type="primary" v-if="status!='view'" @click="handleSubmit('formEntity')" icon="md-checkmark">保存</i-button><i-button v-if="status!='view'" @click="handleClose()" icon="md-close">取消</i-button></button-group></div></div></div><script>var appForm=new Vue({el:"#appForm",data:{acInterface:{getDataUrl:"/Rest/SystemSetting/Dict/Dictionary/GetDetailData",saveDataUrl:"/Rest/SystemSetting/Dict/Dictionary/SaveEdit"},recordId:BaseUtility.GetUrlParaValue("recordId"),formEntity:{dictId:"",dictParentId:BaseUtility.GetUrlParaValue("dictParentId"),dictGroupId:BaseUtility.GetUrlParaValue("dictGroupId"),dictKey:"",dictValue:"",dictText:"",dictDesc:"",dictStatus:"启用",dictIsSelected:"否",dictCreateTime:DateUtility.GetCurrentData(),dictIsSystem:"否",dictDelEnable:"是"},ruleValidate:{dictValue:[{required:!0,message:"【字典-值】不能空！",trigger:"blur"}],dictText:[{required:!0,message:"【字典-字】不能空！",trigger:"blur"}]},status:BaseUtility.GetUrlParaValue("op")},mounted:function(){this.bindFormData()},methods:{bindFormData:function(){DetailPageUtility.BindFormData(this.acInterface.getDataUrl,this.formEntity,this.recordId,this.status)},handleSubmit:function(t){var e=this;this.$refs[t].validate(function(t){if(t){var i=JSON.stringify(e.formEntity);AjaxUtility.PostRequestBody(e.acInterface.saveDataUrl,i,function(t){DialogUtility.Alert(window,DialogUtility.DialogAlertId,{},t.message,function(){"add"==appForm.status?window.OpenerWindowObj.appList.newTreeTableNode(e.formEntity.dictId,e.formEntity.dictKey,e.formEntity.dictValue,e.formEntity.dictText,e.formEntity.dictGroupId,e.formEntity.dictCreateTime,e.formEntity.dictStatus,e.formEntity.dictIsSelected):"update"==appForm.status&&window.OpenerWindowObj.appList.updateTreeTableNode(e.formEntity.dictId,e.formEntity.dictKey,e.formEntity.dictValue,e.formEntity.dictText,e.formEntity.dictStatus,e.formEntity.dictIsSelected),DialogUtility.Frame_CloseDialog(window)})},e)}else this.$Message.error("Fail!")})},handleClose:function(){DialogUtility.Frame_CloseDialog(window)}}})</script></body></html>
+<!--
+  Created by IntelliJ IDEA.
+  User: zhuangrb
+  Date: 2018/8/26
+  To change this template use File | Settings | File Templates.
+--><!DOCTYPE html><html lang="zh" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"><head><meta charset="UTF-8"><title>Title</title><title>JBuild4D</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"><script type="text/javascript" src="../../../Js/External/JQuery-3.4.1/jquery-3.4.1.min.js"></script><script type="text/javascript" src="../../../Js/External/VUE-2.6.10/vue.js"></script><script type="text/javascript" src="../../../Js/External/IView-4.X/dist/iview.min.js"></script><script type="text/javascript" src="../../../Js/External/JQuery-UI-1.12.1/jquery-ui.js"></script><script type="text/javascript" src="../../../Js/External/ZTree-3.5.40/js/jquery.ztree.all.js"></script><script type="text/javascript" src="../../../Js/External/Perfect-Scrollbar-V1.4.0/perfect-scrollbar.js"></script><script type="text/javascript" src="../../../Js/JBuild4DCLib.js?refVersion=2"></script><script type="text/javascript" src="../../../Js/UIEXComponent.js?refVersion=2"></script><script type="text/javascript" src="../../../Js/UIEXComponentForBuilder.js?refVersion=2"></script><script type="text/javascript" src="../../../Js/VueEXComponent.js?refVersion=2"></script><script type="text/javascript" src="../../../Js/BuilderVueEXComponent.js?refVersion=2"></script><link rel="stylesheet" type="text/css" href="../../../Themes/Default/IView-4.X/iview.css"><link rel="stylesheet" type="text/css" href="../../../Themes/Default/JQueryUI/jquery-ui.css"><link rel="stylesheet" type="text/css" href="../../../Themes/Default/JQueryUI/jquery-ui-important.css"><link rel="stylesheet" type="text/css" href="../../../Js/External/Perfect-Scrollbar-V1.4.0/perfect-scrollbar.css"><link rel="stylesheet" type="text/css" href="../../../Themes/Default/ZTree/zTreeStyle/zTreeStyle.css"><link rel="stylesheet" type="text/css" href="../../../Themes/Default/Css/JBuild4DC.css?refVersion=2"><link rel="stylesheet" type="text/css" href="../../../Themes/Default/Css/JBuild4DCBuilder.css?refVersion=2"></head><body><div id="appForm" class="general-edit-page-wrap" v-cloak><i-form ref="formEntity" :model="formEntity" :rules="ruleValidate" :label-width="100"><form-item label="Key："><row><i-col span="10"><form-item prop="dictKey"><i-input v-model="formEntity.dictKey"></i-input></form-item></i-col><i-col span="4" style="text-align:center">状态：</i-col><i-col span="10"><form-item><radio-group v-model="formEntity.dictStatus"><radio label="启用">启用</radio><radio label="禁用">禁用</radio></radio-group></form-item></i-col></row></form-item><form-item label="值：" prop="dictValue"><row><i-col span="10"><form-item prop="dictValue"><i-input v-model="formEntity.dictValue"></i-input></form-item></i-col><i-col span="4" style="text-align:center"><span style="color:red">*</span> 文本：</i-col><i-col span="10"><form-item prop="dictText"><i-input v-model="formEntity.dictText"></i-input></form-item></i-col></row></form-item><form-item label="是否系统："><row><i-col span="10"><form-item><radio-group v-model="formEntity.dictIsSystem"><radio label="是">是</radio><radio label="否">否</radio></radio-group></form-item></i-col><i-col span="4" style="text-align:center">能否删除：</i-col><i-col span="10"><form-item><radio-group v-model="formEntity.dictDelEnable"><radio label="是">是</radio><radio label="否">否</radio></radio-group></form-item></i-col></row></form-item><form-item label="创建时间："><row><i-col span="10"><form-item prop="date"><date-picker type="date" placeholder="选择创建时间" v-model="formEntity.dictCreateTime"></date-picker></form-item></i-col><i-col span="4" style="text-align:center">默认选中：</i-col><i-col span="10"><form-item><radio-group v-model="formEntity.dictIsSelected"><radio label="是">是</radio><radio label="否">否</radio></radio-group></form-item></i-col></row></form-item><form-item label="备注："><i-input v-model="formEntity.dictDesc" type="textarea" :autosize="{minRows: 11,maxRows: 11}"></i-input></form-item></i-form><div class="button-outer-wrap"><div class="button-inner-wrap"><button-group><i-button type="primary" v-if="status!='view'" @click="handleSubmit('formEntity')" icon="md-checkmark">保存</i-button><i-button v-if="status!='view'" @click="handleClose()" icon="md-close">取消</i-button></button-group></div></div></div><script>var appForm = new Vue({
+            el:"#appForm",
+            data: {
+                acInterface:{
+                    getDataUrl:"/Rest/SystemSetting/Dict/Dictionary/GetDetailData",
+                    saveDataUrl:"/Rest/SystemSetting/Dict/Dictionary/SaveEdit"
+                },
+                recordId:BaseUtility.GetUrlParaValue("recordId"),
+                formEntity: {
+                    //字典项的ID:随机的UUID,主键
+                    dictId:"",
+                    dictParentId:BaseUtility.GetUrlParaValue("dictParentId"),
+                    dictGroupId:BaseUtility.GetUrlParaValue("dictGroupId"),
+                    dictKey: "",
+                    dictValue: "",
+                    dictText: "",
+                    dictDesc: "",
+                    dictStatus: "启用",
+                    dictIsSelected:"否",
+                    dictCreateTime:DateUtility.GetCurrentData(),
+                    dictIsSystem: "否",
+                    dictDelEnable: "是"
+                },
+                ruleValidate: {
+                    dictValue: [
+                        { required: true, message: '【字典-值】不能空！', trigger: 'blur' }
+                    ],
+                    dictText: [
+                        { required: true, message: '【字典-字】不能空！', trigger: 'blur' }
+                    ]
+                },
+                status:BaseUtility.GetUrlParaValue("op")
+            },
+            mounted:function () {
+                this.bindFormData();
+            },
+            methods: {
+                bindFormData:function(){
+                    //获取数据并赋值
+                    DetailPageUtility.BindFormData(this.acInterface.getDataUrl, this.formEntity, this.recordId, this.status);
+                },
+                handleSubmit: function (name) {
+                    var _self=this;
+                    this.$refs[name].validate(function (valid) {
+                        if (valid) {
+                            var sendData=JSON.stringify(_self.formEntity);
+                            AjaxUtility.PostRequestBody(_self.acInterface.saveDataUrl,sendData,function (result) {
+                                DialogUtility.Alert(window,DialogUtility.DialogAlertId,{},result.message,function () {
+                                    //debugger;
+                                    if (appForm.status=="add") {
+                                        window.OpenerWindowObj.appList.newTreeTableNode(_self.formEntity.dictId, _self.formEntity.dictKey,
+                                            _self.formEntity.dictValue, _self.formEntity.dictText, _self.formEntity.dictGroupId, _self.formEntity.dictCreateTime, _self.formEntity.dictStatus, _self.formEntity.dictIsSelected);
+                                    }
+                                    else if(appForm.status=="update"){
+                                        window.OpenerWindowObj.appList.updateTreeTableNode(_self.formEntity.dictId, _self.formEntity.dictKey,
+                                            _self.formEntity.dictValue, _self.formEntity.dictText, _self.formEntity.dictStatus, _self.formEntity.dictIsSelected);
+                                    }
+                                    DialogUtility.Frame_CloseDialog(window);
+                                });
+                            },_self);
+                        } else {
+                            this.$Message.error('Fail!');
+                        }
+                    })
+                },
+                handleClose: function () {
+                    DialogUtility.Frame_CloseDialog(window);
+                }
+            }
+        });</script></body></html>

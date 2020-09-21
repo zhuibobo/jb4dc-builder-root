@@ -30,6 +30,7 @@
             <result property="listCustRefJs" column="LIST_CUST_REF_JS" javaType="java.lang.String" jdbcType="NVARCHAR" />
             <result property="listCustClientRenderer" column="LIST_CUST_CLIENT_RENDERER" javaType="java.lang.String" jdbcType="NVARCHAR" />
             <result property="listCustDesc" column="LIST_CUST_DESC" javaType="java.lang.String" jdbcType="NVARCHAR" />
+            <result property="listCustDesc" column="LIST_DATASET_PRIMARY_KEY" javaType="java.lang.String" jdbcType="NVARCHAR" />
     </resultMap>
     <sql id="Base_Column_List_Simple">
     LIST_ID, LIST_CODE, LIST_NAME, LIST_SINGLE_NAME, LIST_CREATE_TIME, LIST_CREATOR,
@@ -37,7 +38,7 @@
     LIST_MODULE_ID, LIST_STATUS, LIST_ORGAN_ID, LIST_ORGAN_NAME, LIST_DATASET_ID, LIST_DATASET_NAME,
     LIST_DATASET_PAGE_SIZE, LIST_IS_RESOLVE, LIST_EVERY_TIME_RESOLVE, LIST_ENABLE_S_SEAR,
     LIST_ENABLE_C_SEAR, LIST_THEME, LIST_CUST_SERVER_RENDERER, LIST_CUST_REF_JS, LIST_CUST_CLIENT_RENDERER,
-    LIST_CUST_DESC
+    LIST_CUST_DESC,LIST_DATASET_PRIMARY_KEY
   </sql>
     <select id="selectAll" resultMap="BaseResultMapSimple">select<include refid="Base_Column_List_Simple"/> from TBUILD_LIST_RESOURCE ORDER by LIST_ORDER_NUM DESC</select>
     <select id="selectAllASC" resultMap="BaseResultMapSimple">select<include refid="Base_Column_List_Simple"/> from TBUILD_LIST_RESOURCE ORDER by LIST_ORDER_NUM ASC</select>

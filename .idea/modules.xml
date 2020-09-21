@@ -10,6 +10,9 @@
       <module fileurl="file://$PROJECT_DIR$/jb4dc-builder-web-server/jb4dc-builder-web-server.iml" filepath="$PROJECT_DIR$/jb4dc-builder-web-server/jb4dc-builder-web-server.iml" />
       <module fileurl="file://$PROJECT_DIR$/jb4dc-dev-mock-service/jb4dc-dev-mock-service.iml" filepath="$PROJECT_DIR$/jb4dc-dev-mock-service/jb4dc-dev-mock-service.iml" />
       <module fileurl="file://$PROJECT_DIR$/jb4dc-dev-mock-web-server/jb4dc-dev-mock-web-server.iml" filepath="$PROJECT_DIR$/jb4dc-dev-mock-web-server/jb4dc-dev-mock-web-server.iml" />
+      <module fileurl="file://$PROJECT_DIR$/jb4dc-qc-system-root/jb4dc-qc-system-root.iml" filepath="$PROJECT_DIR$/jb4dc-qc-system-root/jb4dc-qc-system-root.iml" />
+      <module fileurl="file://$PROJECT_DIR$/jb4dc-qc-system-root/jb4dc-qc-system-service/jb4dc-qc-system-service.iml" filepath="$PROJECT_DIR$/jb4dc-qc-system-root/jb4dc-qc-system-service/jb4dc-qc-system-service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/jb4dc-qc-system-root/jb4dc-qc-system-web-server/jb4dc-qc-system-web-server.iml" filepath="$PROJECT_DIR$/jb4dc-qc-system-root/jb4dc-qc-system-web-server/jb4dc-qc-system-web-server.iml" />
     </modules>
   </component>
 </project>

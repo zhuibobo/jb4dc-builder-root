@@ -13,6 +13,7 @@ import com.jb4dc.builder.client.service.envvar.proxy.IEnvVariableRuntimeResolveP
 import com.jb4dc.builder.client.service.webform.IWebFormDataSaveRuntimeService;
 import com.jb4dc.builder.client.service.weblist.proxy.IWebListButtonRuntimeProxy;
 import com.jb4dc.builder.dbentities.api.ApiItemEntity;
+import com.jb4dc.builder.dbentities.datastorage.TableEntity;
 import com.jb4dc.builder.dbentities.weblist.ListButtonEntity;
 import com.jb4dc.builder.po.SubmitResultPO;
 import com.jb4dc.builder.po.TableFieldPO;
@@ -141,62 +142,86 @@ public class WebFormDataSaveRuntimeServiceImpl implements IWebFormDataSaveRuntim
     }
 
     @Override
-    public FormRecordComplexPO getFormRecordComplexPO(JB4DCSession session, String recordId, List<FormRecordDataRelationPO> formRecordDataRelationPOList) throws JBuild4DCSQLKeyWordException, JBuild4DCGenerallyException, JsonProcessingException {
+    public FormRecordComplexPO getFormRecordComplexPO(JB4DCSession session, String recordId, List<FormRecordDataRelationPO> formRecordDataRelationPOList,String operationType) throws JBuild4DCSQLKeyWordException, JBuild4DCGenerallyException, JsonProcessingException {
 
         FormRecordDataRelationPO mainDataPO = FormDataRelationPOUtility.getMainPO(formRecordDataRelationPOList);
-        if(SQLKeyWordUtility.singleWord(mainDataPO.getTableName())) {
-            String sql = "select * from " + mainDataPO.getTableName() + " where ID=#{ID}";
-            List<TableFieldPO> tableFieldPOList=tableRuntimeProxy.getTableFieldsByTableId(mainDataPO.getTableId());
-            Map mainRecord = sqlBuilderService.selectOne(sql, recordId);
-            FormRecordDataPO formRecordDataPO= FormRecordDataUtility.buildFormRecordDataPO(mainDataPO,mainRecord,tableFieldPOList);
-            mainDataPO.setOneDataRecord(formRecordDataPO);
+        if (SQLKeyWordUtility.singleWord(mainDataPO.getTableName())) {
+            FormRecordComplexPO formRecordComplexPO = new FormRecordComplexPO();
+            //加载表结构信息
+            Map<String, List<TableFieldPO>> allDataRelationTableFieldsMap = new HashMap<>();
+            Map<String, TableEntity> allDataRelationTablesMap = new HashMap<>();
 
-            Map<String,List<Map<String,Object>>> dataPool=new HashMap<>();
-            addToDataToPool(dataPool,mainDataPO.getTableName(),mainRecord);
+            TableEntity mainTableEntity = tableRuntimeProxy.getTableById(mainDataPO.getTableId());
+            List<TableFieldPO> mainTableFieldPOList = tableRuntimeProxy.getTableFieldsByTableId(mainDataPO.getTableId());
 
-            for (FormRecordDataRelationPO formRecordDataRelationPO : formRecordDataRelationPOList) {
-                if (FormDataRelationPOUtility.isNotMain(formRecordDataRelationPO)) {
+            for (FormRecordDataRelationPO dataRelationPO : formRecordDataRelationPOList) {
+                String tableId = dataRelationPO.getTableId();
+                TableEntity relTableEntity = tableRuntimeProxy.getTableById(mainDataPO.getTableId());
+                List<TableFieldPO> relTableFieldPOList = tableRuntimeProxy.getTableFieldsByTableId(mainDataPO.getTableId());
+                if (!allDataRelationTableFieldsMap.containsKey(tableId)) {
+                    allDataRelationTablesMap.put(tableId, relTableEntity);
+                    allDataRelationTableFieldsMap.put(tableId, relTableFieldPOList);
+                }
+            }
+            formRecordComplexPO.setAllDataRelationTablesMap(allDataRelationTablesMap);
+            formRecordComplexPO.setAllDataRelationTableFieldsMap(allDataRelationTableFieldsMap);
 
-                    String selfKeyFieldName = formRecordDataRelationPO.getSelfKeyFieldName();
-                    String outerKeyFieldName = formRecordDataRelationPO.getOuterKeyFieldName();
-                    String tableName = formRecordDataRelationPO.getTableName();
+            if (BaseUtility.isUpdateOperation(operationType) || BaseUtility.isViewOperation(operationType)) {
 
-                    FormRecordDataRelationPO parentPO=FormDataRelationPOUtility.getParentPO(formRecordDataRelationPOList,formRecordDataRelationPO);
+                TableFieldPO mainTablePKFieldPo = resolvePendingSQL.findPrimaryKey(mainTableEntity.getTableName(), mainTableFieldPOList);
 
-                    List<String> outerKeyFieldValues=getValuesFromDataPool(dataPool,parentPO.getTableName(),outerKeyFieldName);
-                    if(outerKeyFieldValues.size()==0){
-                        throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_BUILDER_CODE,"在父记录中查找不到所需的字段!");
-                    }
-                    String innerSql="select * from "+formRecordDataRelationPO.getTableName()+" where "+selfKeyFieldName+" in (";
-                    for (String outerKeyFieldValue : outerKeyFieldValues) {
-                        innerSql+=SQLKeyWordUtility.stringWrap(outerKeyFieldValue)+",";
-                    }
-                    innerSql=StringUtility.removeLastChar(innerSql)+")";
-                    List<Map<String, Object>> recordList=sqlBuilderService.selectList(innerSql);
-                    this.addToDataToPool(dataPool,formRecordDataRelationPO.getTableName(),recordList);
+                String sql = "select * from " + mainDataPO.getTableName() + " where " + mainTablePKFieldPo.getFieldName() + "=#{ID}";
+                Map mainRecord = sqlBuilderService.selectOne(sql, recordId);
+                String idValue = resolvePendingSQL.findPrimaryValue(mainRecord, mainTableEntity.getTableName(), mainTableFieldPOList);
+                FormRecordDataPO formRecordDataPO = FormRecordDataUtility.buildFormRecordDataPO(mainDataPO, mainRecord, mainTableFieldPOList, idValue);
+                mainDataPO.setOneDataRecord(formRecordDataPO);
 
-                    if(formRecordDataRelationPO.getRelationType().equals(FormRecordDataRelationPO.RELATION_TYPE_1_T_1)){
-                        if(recordList.size()>0){
-                            List<TableFieldPO> tempTableFieldPOList=tableRuntimeProxy.getTableFieldsByTableId(formRecordDataRelationPO.getTableId());
-                            FormRecordDataPO tempFormRecordDataPO= FormRecordDataUtility.buildFormRecordDataPO(formRecordDataRelationPO,recordList.get(0),tempTableFieldPOList);
-                            formRecordDataRelationPO.setOneDataRecord(tempFormRecordDataPO);
+                Map<String, List<Map<String, Object>>> dataPool = new HashMap<>();
+                addToDataToPool(dataPool, mainDataPO.getTableName(), mainRecord);
+
+                for (FormRecordDataRelationPO formRecordDataRelationPO : formRecordDataRelationPOList) {
+                    if (FormDataRelationPOUtility.isNotMain(formRecordDataRelationPO)) {
+
+                        String selfKeyFieldName = formRecordDataRelationPO.getSelfKeyFieldName();
+                        String outerKeyFieldName = formRecordDataRelationPO.getOuterKeyFieldName();
+                        String tableName = formRecordDataRelationPO.getTableName();
+
+                        FormRecordDataRelationPO parentPO = FormDataRelationPOUtility.getParentPO(formRecordDataRelationPOList, formRecordDataRelationPO);
+
+                        List<String> outerKeyFieldValues = getValuesFromDataPool(dataPool, parentPO.getTableName(), outerKeyFieldName);
+                        if (outerKeyFieldValues.size() == 0) {
+                            throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_BUILDER_CODE, "在父记录中查找不到所需的字段!");
                         }
-                    }
-                    else{
-                        if(recordList.size()>0){
-                            List<TableFieldPO> tempTableFieldPOList=tableRuntimeProxy.getTableFieldsByTableId(formRecordDataRelationPO.getTableId());
-                            List<FormRecordDataPO> tempFormRecordDataPOList= FormRecordDataUtility.buildFormRecordDataPOList(formRecordDataRelationPO,recordList,tempTableFieldPOList);
-                            formRecordDataRelationPO.setListDataRecord(tempFormRecordDataPOList);
+                        String innerSql = "select * from " + formRecordDataRelationPO.getTableName() + " where " + selfKeyFieldName + " in (";
+                        for (String outerKeyFieldValue : outerKeyFieldValues) {
+                            innerSql += SQLKeyWordUtility.stringWrap(outerKeyFieldValue) + ",";
+                        }
+                        innerSql = StringUtility.removeLastChar(innerSql) + ")";
+                        List<Map<String, Object>> recordList = sqlBuilderService.selectList(innerSql);
+                        this.addToDataToPool(dataPool, formRecordDataRelationPO.getTableName(), recordList);
+
+                        if (formRecordDataRelationPO.getRelationType().equals(FormRecordDataRelationPO.RELATION_TYPE_1_T_1)) {
+                            if (recordList.size() > 0) {
+                                List<TableFieldPO> tempTableFieldPOList = tableRuntimeProxy.getTableFieldsByTableId(formRecordDataRelationPO.getTableId());
+                                FormRecordDataPO tempFormRecordDataPO = FormRecordDataUtility.buildFormRecordDataPO(formRecordDataRelationPO, recordList.get(0), tempTableFieldPOList,"");
+                                formRecordDataRelationPO.setOneDataRecord(tempFormRecordDataPO);
+                            }
+                        } else {
+                            if (recordList.size() > 0) {
+                                List<TableFieldPO> tempTableFieldPOList = tableRuntimeProxy.getTableFieldsByTableId(formRecordDataRelationPO.getTableId());
+                                List<FormRecordDataPO> tempFormRecordDataPOList = FormRecordDataUtility.buildFormRecordDataPOList(formRecordDataRelationPO, recordList, tempTableFieldPOList,"");
+                                formRecordDataRelationPO.setListDataRecord(tempFormRecordDataPOList);
+                            }
                         }
                     }
                 }
+                String json = JsonUtility.toObjectString(formRecordDataRelationPOList);
+                logger.debug(BaseUtility.wrapDevLog(json));
+                //return formRecordDataRelationPOList;
+                formRecordComplexPO.setFormRecordDataRelationPOList(formRecordDataRelationPOList);
+                return formRecordComplexPO;
             }
-            String json=JsonUtility.toObjectString(formRecordDataRelationPOList);
-            logger.debug(BaseUtility.wrapDevLog(json));
-            //return formRecordDataRelationPOList;
 
-            FormRecordComplexPO formRecordComplexPO=new FormRecordComplexPO();
-            formRecordComplexPO.setFormRecordDataRelationPOList(formRecordDataRelationPOList);
             return formRecordComplexPO;
         }
         return null;

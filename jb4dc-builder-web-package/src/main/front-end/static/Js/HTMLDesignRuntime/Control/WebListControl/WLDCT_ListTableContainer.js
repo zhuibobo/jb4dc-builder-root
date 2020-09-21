@@ -257,6 +257,7 @@ var WLDCT_ListTableContainer = {
     _QueryPOList: [],
     _CheckedRecordArray: [],
     _$Elem: null,
+    _ListRuntimeInstance:null,
     //_DataSetRuntimeInstance: null,
     GetInstance: function (name) {
         for (var key in this._InstanceMap) {
@@ -274,6 +275,7 @@ var WLDCT_ListTableContainer = {
     RendererChain: function (_rendererChainParas) {
         //$singleControlElem.hide();
         var $singleControlElem = _rendererChainParas.$singleControlElem;
+        this._ListRuntimeInstance=_rendererChainParas.listRuntimeInstance;
         this._$Elem = $singleControlElem;
         //console.log($singleControlElem);
         //console.log($singleControlElem.prevAll("[client_resolve='WLDCT_ListSimpleSearchContainer']"));
@@ -420,9 +422,17 @@ var WLDCT_ListTableContainer = {
         $singleControlElem.find(".wldct-list-table-inner-wrap").width(PageStyleUtility.GetWindowWidth() - 20);
         $templateTable.addClass("stripe row-border order-column");
         $templateTable.width("100%");
-        var scrollY = PageStyleUtility.GetWindowHeight() - $(".wldct-list-simple-search-outer-wrap").height() - $(".wldct-list-button-outer-wrap").height() - 160;
+        var scrollY = PageStyleUtility.GetWindowHeight();
+        if($(".wldct-list-simple-search-outer-wrap").css("display")!="none") {
+            scrollY = scrollY - $(".wldct-list-simple-search-outer-wrap").height();
+        }
+        if($(".wldct-list-button-outer-wrap").css("display")!="none"){
+            scrollY = scrollY - $(".wldct-list-button-outer-wrap").height()-118;
+        }
+        console.log(scrollY);
         //alert(PageStyleUtility.GetWindowHeight()+"|"+$(".wldct-list-simple-search-outer-wrap").height()+"|"+scrollY);
         //return;
+        //debugger;
         var table = $templateTable.DataTable({
             scrollY: scrollY,
             scrollX: true,
@@ -437,13 +447,14 @@ var WLDCT_ListTableContainer = {
         if ($templateTableHeaderRows.length > 1) {
             $th.attr("rowspan", $templateTableHeaderRows.length);
         }
+        var primaryKey=this._ListRuntimeInstance._ListPO.listDatasetPrimaryKey;
         $($templateTableHeaderRows[0]).prepend($th);
         $($templateTableRow.eq(0)).prepend(`<td>
                                     <div 
                                     columnalign="居中对齐" 
-                                    columncaption="ID" 
+                                    columncaption=`+primaryKey+` 
                                     columndatatypename="字符串" 
-                                    columnname="ID" 
+                                    columnname=`+primaryKey+` 
                                     columntablename="" 
                                     control_category="InputControl" 
                                     custclientrenderermethod="" 
@@ -492,7 +503,8 @@ var WLDCT_ListTableContainer = {
                     rowData: rowData,
                     $cloneRow: $cloneRow,
                     $td: $td,
-                    val: val
+                    val: val,
+                    listRuntimeInstance:this._ListRuntimeInstance
                 });
             }
             //this.RendererSingleCell($templateTable,$templateTableRow, dataSet, rowData, $cloneRow, $td, val);
@@ -583,15 +595,24 @@ var WLDCT_ListTableContainer = {
         var _self = sender.data.listInstance;
         DialogUtility.AlertText("未实现!");
     },
+
     GetRecordData: function (id) {
-        console.log(this._DataSet);
+        //console.log(this._DataSet);
+        //console.log(this._ListRuntimeInstance._ListPO);
+        //debugger;
+        var primaryKey=this._ListRuntimeInstance.GetPrimaryKey();
+        if(!this._ListRuntimeInstance.CheckPrimaryKeyInDataSet(this._DataSet,primaryKey)){
+            DialogUtility.AlertText("数据集中找不到主键:" + primaryKey+",请设置配置是否正确!");
+            return;
+        }
+        console.log("主键为:"+primaryKey)
         for (var i = 0; i < this._DataSet.list.length; i++) {
             var recordData = this._DataSet.list[i];
-            if (recordData.ID == id) {
+            if (recordData[primaryKey] == id) {
                 return recordData;
             }
         }
-        DialogUtility.AlertText("找不到ID为:" + id + "的记录!");
+        DialogUtility.AlertText("找不到主键"+primaryKey+"为:" + id + "的记录!");
         return null;
     },
     SaveCheckedRowData: function (id) {
@@ -628,11 +649,10 @@ var WLDCT_ListTableContainer = {
     SetCheckBoxToCheckedStatus: function (id) {
         this._$Elem.find("[row_checkbox_record_id='" + id + "']:checkbox").prop('checked', true);
         this.SaveCheckedRowData(id);
-    }
-    /*,
+    },
     __InnerElemGetInstance: function ($innerElem) {
         var $WLDCT_ListTableContainer = $innerElem.parents("[singlename='WLDCT_ListTableContainer']");
         var listTableContainerInstance = HTMLControl.GetControlInstanceByElem($WLDCT_ListTableContainer);
         return listTableContainerInstance;
-    }*/
+    }
 }

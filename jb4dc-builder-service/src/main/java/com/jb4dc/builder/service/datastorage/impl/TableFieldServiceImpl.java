@@ -308,4 +308,9 @@ public class TableFieldServiceImpl extends BaseServiceImpl<TableFieldEntity> imp
             tableFieldMapper.updateByPrimaryKeySelective(selfEntity);
         }
     }
+
+    @Override
+    public TableFieldEntity getSimplePKFieldName(String tableName){
+        return tableFieldMapper.selectSinglePKFieldByTableName(tableName);
+    }
 }

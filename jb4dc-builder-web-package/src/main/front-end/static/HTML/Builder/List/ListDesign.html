@@ -43,8 +43,11 @@
                         <form-item label="唯一名称：">
                             <i-input v-model="listResourceEntity.listSingleName" placeholder="可以为空"></i-input>
                         </form-item>
-                        <form-item label="绑定数据：">
+                        <form-item label="绑定数据集：">
                             <i-input v-model="listResourceEntity.listDatasetName" placeholder=""></i-input>
+                        </form-item>
+                        <form-item label="数据集主键字段：">
+                            <i-input v-model="listResourceEntity.listDatasetPrimaryKey" placeholder=""></i-input>
                         </form-item>
                         <form-item label="每次解析：">
                             <radio-group v-model="listResourceEntity.listEveryTimeResolve" type="button">
@@ -62,7 +65,7 @@
                             如果风格重新引入CSS则必须在保存后再次打开才生效,或者使用保存并预览功能!
                         </form-item>
                         <form-item label="备注：" style="margin-bottom: 12px">
-                            <i-input v-model="listResourceEntity.listDesc" type="textarea" :autosize="{minRows: 5,maxRows: 5}"></i-input>
+                            <i-input v-model="listResourceEntity.listDesc" type="textarea" :autosize="{minRows: 3,maxRows: 3}"></i-input>
                         </form-item>
                     </i-form>
                 </div>
@@ -181,6 +184,7 @@
                 listOrganName:"",
                 listDatasetId:"",
                 listDatasetName:"",
+                listDatasetPrimaryKey:"ID",
                 listEveryTimeResolve:"否",
                 listEnableSSear:"启用",
                 listEnableCSear:"禁用",

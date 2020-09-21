@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.jb4dc.base.tools.JsonUtility;
 import com.jb4dc.builder.dbentities.webform.FormResourceEntity;
 import com.jb4dc.builder.dbentities.weblist.ListResourceEntity;
+import com.jb4dc.builder.dbentities.weblist.ListResourceEntityWithBLOBs;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -15,7 +16,7 @@ import java.util.List;
  * Date: 2019/8/7
  * To change this template use File | Settings | File Templates.
  */
-public class ListResourcePO extends ListResourceEntity {
+public class ListResourcePO extends ListResourceEntityWithBLOBs {
 
     private String listHtmlRuntime;
 
@@ -40,7 +41,7 @@ public class ListResourcePO extends ListResourceEntity {
     public ListResourcePO() {
     }
 
-    public ListResourcePO(ListResourceEntity source, String listHtmlRuntime, String listJsRuntime) {
+    public ListResourcePO(ListResourceEntityWithBLOBs source, String listHtmlRuntime, String listJsRuntime) {
 
         this.setListId(source.getListId());
         this.setListCode(source.getListCode());
@@ -75,6 +76,7 @@ public class ListResourcePO extends ListResourceEntity {
         this.setListCustRefJs(source.getListCustRefJs());
         this.setListCustClientRenderer(source.getListCustClientRenderer());
         this.setListCustDesc(source.getListCustDesc());
+        this.setListDatasetPrimaryKey(source.getListDatasetPrimaryKey());
 
         this.listHtmlRuntime = listHtmlRuntime;
         this.listJsRuntime=listJsRuntime;

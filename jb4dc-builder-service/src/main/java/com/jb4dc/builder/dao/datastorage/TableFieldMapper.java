@@ -32,4 +32,6 @@ public interface TableFieldMapper extends BaseMapper<TableFieldEntity> {
     List<TableFieldEntity> selectByTableName(String rtTableName);
 
     List<TableFieldEntity> selectByTableIds(@Param("tableIds") List<String> tableIds);
+
+    TableFieldEntity selectSinglePKFieldByTableName(@Param("tableName") String tableName);
 }

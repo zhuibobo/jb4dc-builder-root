@@ -139,6 +139,9 @@ let FormRuntime={
     GetOriginalFormDataRelation:function() {
         return JsonUtility.StringToJson(this._FormPO.formDataRelation);
     },
+    GetFormPO:function(){
+        return this._FormPO;
+    },
     SerializationFormData:function () {
         var formRecordComplexPo = {
             recordId: this._Prop_Config.RecordId,
@@ -149,12 +152,13 @@ let FormRuntime={
         };
 
         var originalFormDataRelation = this.GetOriginalFormDataRelation();
-        //console.log(originalFormDataRelation);
+        console.log(originalFormDataRelation);
 
         for (var i = 0; i < originalFormDataRelation.length; i++) {
             var singleRelation = originalFormDataRelation[i];
             var relationSingleName = singleRelation.singleName;
             var tableName = singleRelation.tableName;
+            var tableId=singleRelation.tableId;
             var isMain = (singleRelation.parentId == "-1");
             singleRelation.isMain = isMain;
             if (isMain) {
@@ -176,9 +180,10 @@ let FormRuntime={
                 var outerFieldName = "";
                 var outerFieldValue = "";
                 var selfFieldName = "";
+                //var mainRelationPO=FormRelationPOUtility.FindMainRelationPO(originalFormDataRelation);
                 //debugger;
                 if (isMain) {
-                    FormRelationPOUtility.CreateIdFieldInRecordFieldPOArray(oneRowRecord, formRecordComplexPo.recordId);
+                    FormRelationPOUtility.CreateIdFieldInRecordFieldPOArray(oneRowRecord, formRecordComplexPo.recordId,this.GetFormPO(),tableId);
                     recordId = formRecordComplexPo.recordId;
                     outerFieldName = "NotOuterField";
                     outerFieldValue = "NotOuterField";

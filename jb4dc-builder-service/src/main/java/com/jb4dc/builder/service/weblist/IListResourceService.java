@@ -3,6 +3,7 @@ package com.jb4dc.builder.service.weblist;
 
 import com.jb4dc.base.service.IBaseService;
 import com.jb4dc.builder.dbentities.weblist.ListResourceEntity;
+import com.jb4dc.builder.dbentities.weblist.ListResourceEntityWithBLOBs;
 import com.jb4dc.builder.po.ListResourcePO;
 import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
 import com.jb4dc.core.base.session.JB4DCSession;
@@ -15,7 +16,7 @@ import java.util.List;
  * Date: 2019/2/18
  * To change this template use File | Settings | File Templates.
  */
-public interface IListResourceService extends IBaseService<ListResourceEntity> {
+public interface IListResourceService extends IBaseService<ListResourceEntityWithBLOBs> {
     //ListResourcePO getFormPreviewHTMLContent(JB4DCSession session, String listId) throws JBuild4DCGenerallyException;
 
     ListResourcePO getListRuntimeHTMLContent(JB4DCSession jb4DCSession, String id) throws JBuild4DCGenerallyException;

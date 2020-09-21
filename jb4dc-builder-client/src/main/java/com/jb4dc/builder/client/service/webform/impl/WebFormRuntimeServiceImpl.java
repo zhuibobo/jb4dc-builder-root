@@ -50,13 +50,13 @@ public class WebFormRuntimeServiceImpl implements IWebFormRuntimeService {
         FormRecordComplexPO formRecordComplexPO =null;
         //List<FormDataRelationPO> recordData=null;
 
-        if(BaseUtility.isUpdateOperation(operationType)||BaseUtility.isViewOperation(operationType)) {
+        //if(BaseUtility.isUpdateOperation(operationType)||BaseUtility.isViewOperation(operationType)) {
 
             if (StringUtility.isNotEmpty(remoteSourcePO.getFormDataRelation())) {
                 List<FormRecordDataRelationPO> formRecordDataRelationPOList = JsonUtility.toObjectList(remoteSourcePO.getFormDataRelation(), FormRecordDataRelationPO.class);
 
                 try {
-                    formRecordComplexPO = webFormDataSaveRuntimeService.getFormRecordComplexPO(session, recordId, formRecordDataRelationPOList);
+                    formRecordComplexPO = webFormDataSaveRuntimeService.getFormRecordComplexPO(session, recordId, formRecordDataRelationPOList,operationType);
                 }
                 catch (Exception ex){
                     String traceMsg=org.apache.commons.lang3.exception.ExceptionUtils.getStackTrace(ex);
@@ -65,7 +65,7 @@ public class WebFormRuntimeServiceImpl implements IWebFormRuntimeService {
             } else {
                 throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_BUILDER_CODE, "该表单未设置数据关系!");
             }
-        }
+        //}
 
         DynamicBindHTMLControlContextPO dynamicBindHTMLControlContextPO=new DynamicBindHTMLControlContextPO();
         dynamicBindHTMLControlContextPO.setRecordId(recordId);
