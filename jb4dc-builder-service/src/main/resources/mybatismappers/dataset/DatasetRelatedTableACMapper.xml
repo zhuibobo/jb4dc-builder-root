@@ -3,37 +3,40 @@
 <mapper namespace="com.jb4dc.builder.dao.dataset.DatasetRelatedTableMapper">
     <resultMap id="BaseResultMap" type="com.jb4dc.builder.dbentities.dataset.DatasetRelatedTableEntity">
         <constructor>
-            <idArg column="RT_ID" javaType="java.lang.String" jdbcType="NVARCHAR" />
-            <arg column="RT_DS_ID" javaType="java.lang.String" jdbcType="NVARCHAR" />
-            <arg column="RT_TABLE_NAME" javaType="java.lang.String" jdbcType="NVARCHAR" />
-            <arg column="RT_TABLE_CAPTION" javaType="java.lang.String" jdbcType="NVARCHAR" />
-            <arg column="RT_TABLE_ID" javaType="java.lang.String" jdbcType="NVARCHAR" />
-            <arg column="RT_TABLE_TYPE" javaType="java.lang.String" jdbcType="NVARCHAR" />
-            <arg column="RT_DESC" javaType="java.lang.String" jdbcType="NVARCHAR" />
+            <idArg column="RT_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="RT_DS_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="RT_TABLE_NAME" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="RT_TABLE_CAPTION" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="RT_TABLE_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="RT_TABLE_TYPE" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="RT_DESC" javaType="java.lang.String" jdbcType="VARCHAR" />
             <arg column="RT_ORDER_NUM" javaType="java.lang.Integer" jdbcType="INTEGER" />
+            <arg column="RT_TABLE_IS_MAIN" javaType="java.lang.String" jdbcType="VARCHAR" />
         </constructor>
     </resultMap>
     <sql id="Base_Column_List">
     RT_ID, RT_DS_ID, RT_TABLE_NAME, RT_TABLE_CAPTION, RT_TABLE_ID, RT_TABLE_TYPE, RT_DESC,
-    RT_ORDER_NUM
+    RT_ORDER_NUM, RT_TABLE_IS_MAIN
   </sql>
     <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List" />
         from TBUILD_DATASET_RELATED_TABLE
-        where RT_ID = #{rtId,jdbcType=NVARCHAR}
+        where RT_ID = #{rtId,jdbcType=VARCHAR}
     </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
     delete from TBUILD_DATASET_RELATED_TABLE
-    where RT_ID = #{rtId,jdbcType=NVARCHAR}
+    where RT_ID = #{rtId,jdbcType=VARCHAR}
   </delete>
     <insert id="insert" parameterType="com.jb4dc.builder.dbentities.dataset.DatasetRelatedTableEntity">
     insert into TBUILD_DATASET_RELATED_TABLE (RT_ID, RT_DS_ID, RT_TABLE_NAME,
       RT_TABLE_CAPTION, RT_TABLE_ID, RT_TABLE_TYPE,
-      RT_DESC, RT_ORDER_NUM)
-    values (#{rtId,jdbcType=NVARCHAR}, #{rtDsId,jdbcType=NVARCHAR}, #{rtTableName,jdbcType=NVARCHAR},
-      #{rtTableCaption,jdbcType=NVARCHAR}, #{rtTableId,jdbcType=NVARCHAR}, #{rtTableType,jdbcType=NVARCHAR},
-      #{rtDesc,jdbcType=NVARCHAR}, #{rtOrderNum,jdbcType=INTEGER})
+      RT_DESC, RT_ORDER_NUM, RT_TABLE_IS_MAIN
+      )
+    values (#{rtId,jdbcType=VARCHAR}, #{rtDsId,jdbcType=VARCHAR}, #{rtTableName,jdbcType=VARCHAR},
+      #{rtTableCaption,jdbcType=VARCHAR}, #{rtTableId,jdbcType=VARCHAR}, #{rtTableType,jdbcType=VARCHAR},
+      #{rtDesc,jdbcType=VARCHAR}, #{rtOrderNum,jdbcType=INTEGER}, #{rtTableIsMain,jdbcType=VARCHAR}
+      )
   </insert>
     <insert id="insertSelective" parameterType="com.jb4dc.builder.dbentities.dataset.DatasetRelatedTableEntity">
         insert into TBUILD_DATASET_RELATED_TABLE
@@ -62,31 +65,37 @@
             <if test="rtOrderNum != null">
                 RT_ORDER_NUM,
             </if>
+            <if test="rtTableIsMain != null">
+                RT_TABLE_IS_MAIN,
+            </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="rtId != null">
-                #{rtId,jdbcType=NVARCHAR},
+                #{rtId,jdbcType=VARCHAR},
             </if>
             <if test="rtDsId != null">
-                #{rtDsId,jdbcType=NVARCHAR},
+                #{rtDsId,jdbcType=VARCHAR},
             </if>
             <if test="rtTableName != null">
-                #{rtTableName,jdbcType=NVARCHAR},
+                #{rtTableName,jdbcType=VARCHAR},
             </if>
             <if test="rtTableCaption != null">
-                #{rtTableCaption,jdbcType=NVARCHAR},
+                #{rtTableCaption,jdbcType=VARCHAR},
             </if>
             <if test="rtTableId != null">
-                #{rtTableId,jdbcType=NVARCHAR},
+                #{rtTableId,jdbcType=VARCHAR},
             </if>
             <if test="rtTableType != null">
-                #{rtTableType,jdbcType=NVARCHAR},
+                #{rtTableType,jdbcType=VARCHAR},
             </if>
             <if test="rtDesc != null">
-                #{rtDesc,jdbcType=NVARCHAR},
+                #{rtDesc,jdbcType=VARCHAR},
             </if>
             <if test="rtOrderNum != null">
                 #{rtOrderNum,jdbcType=INTEGER},
+            </if>
+            <if test="rtTableIsMain != null">
+                #{rtTableIsMain,jdbcType=VARCHAR},
             </if>
         </trim>
     </insert>
@@ -94,38 +103,42 @@
         update TBUILD_DATASET_RELATED_TABLE
         <set>
             <if test="rtDsId != null">
-                RT_DS_ID = #{rtDsId,jdbcType=NVARCHAR},
+                RT_DS_ID = #{rtDsId,jdbcType=VARCHAR},
             </if>
             <if test="rtTableName != null">
-                RT_TABLE_NAME = #{rtTableName,jdbcType=NVARCHAR},
+                RT_TABLE_NAME = #{rtTableName,jdbcType=VARCHAR},
             </if>
             <if test="rtTableCaption != null">
-                RT_TABLE_CAPTION = #{rtTableCaption,jdbcType=NVARCHAR},
+                RT_TABLE_CAPTION = #{rtTableCaption,jdbcType=VARCHAR},
             </if>
             <if test="rtTableId != null">
-                RT_TABLE_ID = #{rtTableId,jdbcType=NVARCHAR},
+                RT_TABLE_ID = #{rtTableId,jdbcType=VARCHAR},
             </if>
             <if test="rtTableType != null">
-                RT_TABLE_TYPE = #{rtTableType,jdbcType=NVARCHAR},
+                RT_TABLE_TYPE = #{rtTableType,jdbcType=VARCHAR},
             </if>
             <if test="rtDesc != null">
-                RT_DESC = #{rtDesc,jdbcType=NVARCHAR},
+                RT_DESC = #{rtDesc,jdbcType=VARCHAR},
             </if>
             <if test="rtOrderNum != null">
                 RT_ORDER_NUM = #{rtOrderNum,jdbcType=INTEGER},
             </if>
+            <if test="rtTableIsMain != null">
+                RT_TABLE_IS_MAIN = #{rtTableIsMain,jdbcType=VARCHAR},
+            </if>
         </set>
-        where RT_ID = #{rtId,jdbcType=NVARCHAR}
+        where RT_ID = #{rtId,jdbcType=VARCHAR}
     </update>
     <update id="updateByPrimaryKey" parameterType="com.jb4dc.builder.dbentities.dataset.DatasetRelatedTableEntity">
     update TBUILD_DATASET_RELATED_TABLE
-    set RT_DS_ID = #{rtDsId,jdbcType=NVARCHAR},
-      RT_TABLE_NAME = #{rtTableName,jdbcType=NVARCHAR},
-      RT_TABLE_CAPTION = #{rtTableCaption,jdbcType=NVARCHAR},
-      RT_TABLE_ID = #{rtTableId,jdbcType=NVARCHAR},
-      RT_TABLE_TYPE = #{rtTableType,jdbcType=NVARCHAR},
-      RT_DESC = #{rtDesc,jdbcType=NVARCHAR},
-      RT_ORDER_NUM = #{rtOrderNum,jdbcType=INTEGER}
-    where RT_ID = #{rtId,jdbcType=NVARCHAR}
+    set RT_DS_ID = #{rtDsId,jdbcType=VARCHAR},
+      RT_TABLE_NAME = #{rtTableName,jdbcType=VARCHAR},
+      RT_TABLE_CAPTION = #{rtTableCaption,jdbcType=VARCHAR},
+      RT_TABLE_ID = #{rtTableId,jdbcType=VARCHAR},
+      RT_TABLE_TYPE = #{rtTableType,jdbcType=VARCHAR},
+      RT_DESC = #{rtDesc,jdbcType=VARCHAR},
+      RT_ORDER_NUM = #{rtOrderNum,jdbcType=INTEGER},
+      RT_TABLE_IS_MAIN = #{rtTableIsMain,jdbcType=VARCHAR}
+    where RT_ID = #{rtId,jdbcType=VARCHAR}
   </update>
 </mapper>

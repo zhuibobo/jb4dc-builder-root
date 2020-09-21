@@ -165,6 +165,7 @@ public class DatasetServiceImpl extends BaseServiceImpl<DatasetEntity> implement
         }
 
         //保存数据集的关联表
+        datasetRelatedTableService.deleteByDataSetId(jb4DCSession,id);
         List<DataSetRelatedTablePO> relatedTableVoList = record.getRelatedTableVoList();
         for (int i = 0; i < relatedTableVoList.size(); i++) {
             DataSetRelatedTablePO dataSetRelatedTablePO = relatedTableVoList.get(i);
@@ -253,6 +254,12 @@ public class DatasetServiceImpl extends BaseServiceImpl<DatasetEntity> implement
                         if(tableEntity!=null){
                             dataSetRelatedTablePO.setRtTableCaption(tableEntity.getTableCaption());
                             dataSetRelatedTablePO.setRtTableId(tableEntity.getTableId());
+                            if(dataSetRelatedTablePOList.size()==1){
+                                dataSetRelatedTablePO.setRtTableIsMain("是");
+                            }
+                            else{
+                                dataSetRelatedTablePO.setRtTableIsMain("否");
+                            }
                         }
                     }
 

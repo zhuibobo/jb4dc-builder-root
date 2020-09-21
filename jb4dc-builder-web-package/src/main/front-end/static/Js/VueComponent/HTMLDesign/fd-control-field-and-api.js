@@ -94,7 +94,7 @@ Vue.component("fd-control-field-and-api", {
             },
             field: {
                 acInterface: {
-                    getFormMainTableFields: "/Rest/Builder/Form/GetFormMainTableFields",
+                    getTableFieldsByTableId: "/Rest/Builder/DataStorage/DataBase/Table/GetTableFieldsByTableId",
                 },
                 editTableObject: null,
                 editTableConfig: {
@@ -132,13 +132,12 @@ Vue.component("fd-control-field-and-api", {
 
     },
     methods: {
-        ready: function (tableDataJson) {
+        ready: function (tableId,tableDataJson) {
             if (tableDataJson != null && tableDataJson != "") {
                 this.tableData = JsonUtility.StringToJson(tableDataJson);
             }
 
-            //由于切换绑定窗体时,绑定的主表可能不一样,所以不在页面初始化时绑定字段选择的表.
-            //this.bindTableFields(null);
+            this.bindTableFields(tableDataJson);
 
             this.bindAPITreeAndInitEditTable(null);
         },
@@ -158,8 +157,7 @@ Vue.component("fd-control-field-and-api", {
         //region 字段列表
         bindTableFields: function (oldData) {
 
-            if (this.oldFormId != this.formId) {
-                AjaxUtility.Post(this.field.acInterface.getFormMainTableFields, {formId: this.formId}, function (result) {
+            AjaxUtility.Post(this.field.acInterface.getTableFieldsByTableId, {formId: this.formId}, function (result) {
                     //console.log(result);
                     var fieldsData = [];
 
@@ -188,7 +186,7 @@ Vue.component("fd-control-field-and-api", {
                     }
 
                 }, this);
-            }
+
             if (this.field.editTableObject) {
                 this.field.editTableObject.RemoveAllRow();
             }

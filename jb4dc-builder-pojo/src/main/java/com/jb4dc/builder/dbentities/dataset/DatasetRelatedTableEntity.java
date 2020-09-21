@@ -6,12 +6,12 @@ import com.jb4dc.base.dbaccess.anno.DBKeyField;
 /**
  *
  * This class was generated JBuild4DC.
- * This class corresponds to the database table :TBUILD_DATASET_RELATED_TABLE
+ * This class corresponds to the database table :tbuild_dataset_related_table
  *
  * JBuild4DC do_not_delete_during_merge
  */
 public class DatasetRelatedTableEntity {
-    //RT_ID:主键:UUID
+    //RT_ID:
     @DBKeyField
     private String rtId;
 
@@ -36,9 +36,12 @@ public class DatasetRelatedTableEntity {
     //RT_ORDER_NUM:排序号
     private Integer rtOrderNum;
 
+    //RT_TABLE_IS_MAIN:是否是数据集的主表:是,否
+    private String rtTableIsMain;
+
     /**
      * 构造函数
-     * @param rtId 主键
+     * @param rtId
      * @param rtDsId 数据集ID
      * @param rtTableName 表名
      * @param rtTableCaption 表标题
@@ -46,8 +49,9 @@ public class DatasetRelatedTableEntity {
      * @param rtTableType 表类型
      * @param rtDesc 备注
      * @param rtOrderNum 排序号
+     * @param rtTableIsMain 是否是数据集的主表
      **/
-    public DatasetRelatedTableEntity(String rtId, String rtDsId, String rtTableName, String rtTableCaption, String rtTableId, String rtTableType, String rtDesc, Integer rtOrderNum) {
+    public DatasetRelatedTableEntity(String rtId, String rtDsId, String rtTableName, String rtTableCaption, String rtTableId, String rtTableType, String rtDesc, Integer rtOrderNum, String rtTableIsMain) {
         this.rtId = rtId;
         this.rtDsId = rtDsId;
         this.rtTableName = rtTableName;
@@ -56,6 +60,7 @@ public class DatasetRelatedTableEntity {
         this.rtTableType = rtTableType;
         this.rtDesc = rtDesc;
         this.rtOrderNum = rtOrderNum;
+        this.rtTableIsMain = rtTableIsMain;
     }
 
     public DatasetRelatedTableEntity() {
@@ -63,7 +68,7 @@ public class DatasetRelatedTableEntity {
     }
 
     /**
-     * 主键:UUID
+     *
      * @return java.lang.String
      **/
     public String getRtId() {
@@ -71,8 +76,8 @@ public class DatasetRelatedTableEntity {
     }
 
     /**
-     * 主键:UUID
-     * @param rtId 主键
+     *
+     * @param rtId
      **/
     public void setRtId(String rtId) {
         this.rtId = rtId == null ? null : rtId.trim();
@@ -188,5 +193,21 @@ public class DatasetRelatedTableEntity {
      **/
     public void setRtOrderNum(Integer rtOrderNum) {
         this.rtOrderNum = rtOrderNum;
+    }
+
+    /**
+     * 是否是数据集的主表:是,否
+     * @return java.lang.String
+     **/
+    public String getRtTableIsMain() {
+        return rtTableIsMain;
+    }
+
+    /**
+     * 是否是数据集的主表:是,否
+     * @param rtTableIsMain 是否是数据集的主表
+     **/
+    public void setRtTableIsMain(String rtTableIsMain) {
+        this.rtTableIsMain = rtTableIsMain == null ? null : rtTableIsMain.trim();
     }
 }

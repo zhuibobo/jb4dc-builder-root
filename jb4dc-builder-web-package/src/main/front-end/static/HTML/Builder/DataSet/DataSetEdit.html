@@ -74,8 +74,7 @@
                                 相关表
                             </div>
                         </div>
-                        <i-table size="small" stripe border :columns="relatedTable.config" :data="relatedTable.data"
-                                 class="iv-list-table" :highlight-row="true"></i-table>
+                        <div id="divRelatedTable" class="edit-table-wrap" style="height: 100px;overflow: auto;width: 100%"></div>
                     </div>
                 </div>
             </div>
@@ -278,7 +277,7 @@
                     TableAttrs:{cellpadding:"1",cellspacing:"1",border:"1"}
                 },
                 status: BaseUtility.GetUrlParaValue("op"),
-                relatedTable: {
+                /*relatedTable: {
                     config: [
                         {
                             title: '表名',
@@ -291,12 +290,71 @@
                         }
                     ],
                     data: []
+                },*/
+                relatedEditTableObj:null,
+                relatedEditTableConfig:{
+                    Status:"Edit",//状态 编辑 Edit 浏览 View
+                    DataField:"fieldName",
+                    //AddAfterRowEvent:TableDetailUtil.AfterInitEvent,
+                    Templates:[
+                        {
+                            Title:"表名ID",
+                            BindName:"rtTableId",
+                            Renderer:"EditTable_Label",
+                            TitleCellClassName:"TitleCell",
+                            Validate:{
+                                Type:"NotEmpty"
+                            },
+                            Hidden:true
+                        },
+                        {
+                            Title:"表名",
+                            BindName:"rtTableName",
+                            Renderer:"EditTable_Label",
+                            TitleCellClassName:"TitleCell",
+                            Hidden:false,
+                            Validate:{
+                                Type:"NotEmpty"
+                            },
+                            Style:{
+                                width:180
+                            }
+                        },
+                        {
+                            Title:"标题",
+                            BindName:"rtTableCaption",
+                            Renderer:"EditTable_TextBox",
+                            TitleCellClassName:"TitleCell",
+                            Validate:{
+                                Type:"NotEmpty"
+                            },
+                            Hidden:false,
+                            TitleCellAttrs:{}
+                        },
+                        {
+                            Title:"主表",
+                            BindName:"rtTableIsMain",
+                            Renderer:"Column_RTTableIsMain",
+                            TitleCellClassName:"TitleCell",
+                            Hidden:false,
+                            TitleCellAttrs:{}
+                        }
+                    ],
+                    RowIdCreater:function(){
+
+                    },
+                    TableClass:"edit-table",
+                    RendererTo:"divRelatedTable",//div elem
+                    TableId:"relatedEditTableObj",
+                    TableAttrs:{cellpadding:"1",cellspacing:"1",border:"1"}
                 }
                 /*,sqlWithEnvText:"请编辑SQL"*/
             },
             mounted:function(){
                 this.editTableObj=Object.create(EditTable);
                 this.editTableObj.Initialization(this.editTableConfig);
+                this.relatedEditTableObj=Object.create(EditTable);
+                this.relatedEditTableObj.Initialization(this.relatedEditTableConfig);
                 this.currUserEntity=SessionUtility.GetSessionUserSync();
                 if(this.status=="add"){
                     //this.editTableObj.LoadJsonData(this.templateFieldGroup[this.useTemplateName]);
@@ -328,7 +386,8 @@
                             _self.datasetEntity=result.data;
                             //alert(_self.datasetEntity.dsType);
                             _self.editTableObj.LoadJsonData(_self.datasetEntity.columnVoList);
-                            _self.relatedTable.data=_self.datasetEntity.relatedTableVoList;
+                            _self.relatedEditTableObj.LoadJsonData(_self.datasetEntity.relatedTableVoList);
+                            //_self.relatedTable.data=_self.datasetEntity.relatedTableVoList;
                             if(op=="view") {
                                 DetailPageUtility.IViewPageToViewStatus();
                             }
@@ -373,12 +432,14 @@
                         return false;
                     }
                     //alert("做到这里");
-                    if (this.editTableObj.CompletedEditingRow()) {
-                        console.log(this.editTableObj.GetSerializeJson());
+                    if (this.editTableObj.CompletedEditingRow()&&this.relatedEditTableObj.CompletedEditingRow()) {
+                        //console.log(this.editTableObj.GetSerializeJson());
 
                         //补完数据
                         this.datasetEntity.columnVoList=this.editTableObj.GetSerializeJson();
-                        this.datasetEntity.relatedTableVoList=this.relatedTable.data;
+                        this.datasetEntity.relatedTableVoList=this.relatedEditTableObj.GetSerializeJson();
+                        console.log(this.datasetEntity.columnVoList);
+                        console.log(this.datasetEntity.relatedTableVoList);
                         //设置ID;
 
                         if(this.datasetEntity.columnVoList) {
@@ -404,6 +465,8 @@
                             dataSetVoJson: JSON.stringify(this.datasetEntity)
                         };
 
+                        //console.log(sendData);
+                        //return;
                         this.isSubmitting=true;
                         //return;
                         AjaxUtility.Post(this.acInterface.saveDataUrl, sendData, function (result) {
@@ -434,11 +497,12 @@
                     DialogUtility.OpenIframeWindow(window, DialogUtility.DialogId, url, {title: "编辑SQL语句",modal:true,height: _height, width: 980});
                 },
                 completedSQLDesign:function (result) {
-                    //console.log(result);
+                    console.log(result);
                     this.datasetEntity.dsSqlSelectText=result.data.sqlWithEnvText;
                     this.datasetEntity.dsSqlSelectValue=result.data.sqlWithEnvValue;
                     this.datasetEntity.dsSqlDbLinkId=result.data.dataSetPO.dsSqlDbLinkId;
-                    this.relatedTable.data=result.data.dataSetPO.relatedTableVoList;
+                    //this.relatedTable.data=result.data.dataSetPO.relatedTableVoList;
+                    this.relatedEditTableObj.LoadJsonData(result.data.dataSetPO.relatedTableVoList);
                     //获取现有的列定义
                     if (this.editTableObj.CompletedEditingRow()) {
                         var oldColumnData = this.editTableObj.GetSerializeJson();

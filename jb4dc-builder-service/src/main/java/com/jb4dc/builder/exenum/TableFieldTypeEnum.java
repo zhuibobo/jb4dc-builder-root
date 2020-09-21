@@ -73,7 +73,7 @@ public enum TableFieldTypeEnum {
         else if(text.toUpperCase().equals("INT")){
             return TableFieldTypeEnum.IntType;
         }
-        else if(text.toUpperCase().equals("NTEXT")){
+        else if(text.toUpperCase().equals("NTEXT")||text.toUpperCase().equals("LONGTEXT")){
             return TableFieldTypeEnum.TextType;
         }
         throw NotSupportException(text);

@@ -48,7 +48,10 @@
                 this.baseInfo.name=this.baseInfo.id;
                 //console.log(actionName);
                 this.actionName=actionName;
-                this.$refs.fdControlFieldAndApi.ready();
+
+                this.dataSetId=CKEditorPluginUtility.TryGetDataSetId(sel,parents);
+                console.log(this.dataSetId);
+                //this.$refs.fdControlFieldAndApi.ready("",);
             },
             getControlProps:function () {
                 this.baseInfo.serialize="false";
