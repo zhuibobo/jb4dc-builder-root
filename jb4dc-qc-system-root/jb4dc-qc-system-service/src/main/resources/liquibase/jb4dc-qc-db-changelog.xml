@@ -1,0 +1,67 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+    <!--QC-->
+    <!--remarks中的:会用于切分注册到构建库中的标题和备注-->
+    <changeSet author="zhuangrb" id="changeSet-QC-0001" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
+        <createTable tableName="TQC_PROJECT" remarks="运维项目表">
+            <column name="PROJECT_ID" type="NVARCHAR(50)" remarks="主键">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="PROJECT_VALUE" type="NVARCHAR(20)" remarks="序号" />
+            <column name="PROJECT_NAME" type="NVARCHAR(200)" remarks="项目名称" />
+            <column name="PROJECT_CREATOR_NAME" type="NVARCHAR(50)" remarks="录入人姓名" />
+            <column name="PROJECT_CREATOR_ID" type="NVARCHAR(50)" remarks="录入人ID" />
+            <column name="PROJECT_CREATOR_DATE" type="datetime(6)" remarks="录入时间" />
+            <column name="PROJECT_REMARK" type="NVARCHAR(2000)" remarks="备注" />
+        </createTable>
+        <createTable tableName="TQC_ISSUES" remarks="运维问题表">
+            <column name="ISS_ID" type="NVARCHAR(50)" remarks="主键">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="ISS_NUM" type="NVARCHAR(20)" remarks="序号" />
+            <column name="ISS_TITLE" type="NVARCHAR(800)" remarks="标题" />
+            <column name="ISS_CONTENT" type="CLOB" remarks="内容详情" />
+            <column name="ISS_PROJECT_ID" type="NVARCHAR(50)" remarks="所属项目ID" />
+            <column name="ISS_SYS_NAME" type="NVARCHAR(200)" remarks="所属系统" />
+            <column name="ISS_SYS_CATEGORY" type="NVARCHAR(30)" remarks="所属系统类别:(Web后台,Web网站,后台服务,安卓APP,IOS,微信公众号)" />
+            <column name="ISS_SYS_VERSION" type="NVARCHAR(15)" remarks="所属系统版本号" />
+            <column name="ISS_SYS_MODULE_NAME" type="NVARCHAR(200)" remarks="所属模块" />
+            <column name="ISS_SYS_PHASE" type="NVARCHAR(30)" remarks="系统状况:(开发中,运维中)" />
+            <column name="ISS_TYPE" type="NVARCHAR(30)" remarks="种类:(缺陷,需求变更,新需求,咨询,运维)" />
+            <column name="ISS_LEVEL" type="NVARCHAR(30)" remarks="严重程度:(高,中,低)" />
+            <column name="ISS_PRIORITY" type="NVARCHAR(30)" remarks="优先级:(高,中,低)" />
+            <column name="ISS_IS_REPEAT" type="NVARCHAR(30)" remarks="可重现:(是,否)" />
+            <column name="ISS_SOURCE" type="NVARCHAR(30)" remarks="来源:(项目组,客户)" />
+            <column name="ISS_CUSTOMER_UNIT" type="NVARCHAR(50)" remarks="客户-单位" />
+            <column name="ISS_CUSTOMER_NAME" type="NVARCHAR(50)" remarks="客户-姓名" />
+            <column name="ISS_CUSTOMER_MOBILE" type="NVARCHAR(30)" remarks="客户-电话" />
+            <column name="ISS_ACCEPT_FROM" type="NVARCHAR(30)" remarks="受理方式:(QQ群,QQ,电话,微信群,微信,邮件)" />
+            <column name="ISS_ACCEPT_DATE" type="datetime(6)" remarks="受理时间" />
+            <column name="ISS_ACCEPT_NAME" type="NVARCHAR(50)" remarks="受理人" />
+            <column name="ISS_CREATOR_NAME" type="NVARCHAR(50)" remarks="录入人姓名" />
+            <column name="ISS_CREATOR_ID" type="NVARCHAR(50)" remarks="录入人ID" />
+            <column name="ISS_CREATOR_DATE" type="datetime(6)" remarks="录入时间" />
+            <column name="ISS_HANDLER_NAME" type="NVARCHAR(50)" remarks="分配给-处理人名称" />
+            <column name="ISS_HANDLER_ID" type="NVARCHAR(50)" remarks="分配给-处理人ID" />
+            <column name="ISS_HANDLER_SEND_DATE" type="datetime(6)" remarks="分配给-分配时间" />
+            <column name="ISS_HANDLER_END_DATE" type="datetime(6)" remarks="分配给-处理时间" />
+            <column name="ISS_STATUS" type="NVARCHAR(30)" remarks="处理状态:(新建,重新打开,延期,建议拒绝,已解决,已发布[测试环境],已发布[生产环境],已关闭[测试环境],已关闭[生产环境])" />
+            <column name="ISS_CLOSER_NAME" type="NVARCHAR(50)" remarks="关闭人姓名" />
+            <column name="ISS_CLOSER_ID" type="NVARCHAR(50)" remarks="关闭人ID" />
+            <column name="ISS_CLOSER_DATE" type="datetime(6)" remarks="关闭时间" />
+            <column name="ISS_PROCESSING_MESSAGE" type="NVARCHAR(1000)" remarks="处理方案" />
+            <column name="ISS_ABOUT_TO_OUT" type="NVARCHAR(50)" remarks="关联第三方:(XX,XX,XX)" />
+        </createTable>
+        <createTable tableName="TQC_ISSUES_REMARK" remarks="运维问题备注表">
+            <column name="REMARK_ID" type="NVARCHAR(50)" remarks="主键">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="REMARK_ISS_ID" type="NVARCHAR(50)" remarks="所属问题ID" />
+            <column name="REMARK_NUM" type="NVARCHAR(20)" remarks="序号" />
+            <column name="REMARK_CONTENT" type="NVARCHAR(1000)" remarks="备注" />
+            <column name="REMARK_INPUTER_NAME" type="NVARCHAR(50)" remarks="录入人姓名" />
+            <column name="REMARK_INPUTER_ID" type="NVARCHAR(50)" remarks="录入人ID" />
+            <column name="REMARK_INPUTER_DATE" type="datetime(6)" remarks="录入时间" />
+        </createTable>
+    </changeSet>
+</databaseChangeLog>

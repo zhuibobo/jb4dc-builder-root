@@ -1,0 +1,78 @@
+jb4dc:
+  system-caption: 运维管理系统
+  system-title: JBuild4DC-运维管理系统
+  warning-operation-code: jb4d82
+  is-debug: true
+  host:
+    operation-system: Window
+  sso:
+    server:
+      name: JB4DC-SSO-WEB-SERVER
+      address: http://localhost:9101
+      context-path: /SSOSystem
+      view:
+        login: /Controller/LoginSSOView
+        logout: /logout
+      excluded:
+  builder:
+    server:
+      name: JB4DC-BUILDER-WEB-SERVER
+      #address: http://localhost:9103
+      context-path: /JB4DCBuilder
+
+spring:
+  application:
+    name: JB4DC-QC-SYSTEM-WEB-SERVER
+    inetutils:
+      #客户端的IP
+      preferred-networks: 192.168.3.206
+  liquibase:
+    enabled: false
+  thymeleaf:
+    prefix: classpath:/static/HTML/
+    suffix: .html
+    enabled: true
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    joda-date-time-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+
+server:
+  port: 9110
+  servlet:
+    session:
+      timeout: 7200
+    context-path: /QCSystem
+
+eureka:
+  client:
+    serviceUrl:
+      #服务端的地址
+      #defaultZone: http://192.168.3.166:9092/eureka/
+      defaultZone: http://localhost:9092/eureka/
+  instance:
+    prefer-ip-address: true
+    instanceId: ${spring.cloud.inetutils.preferred-networks}:${server.port}
+
+logging:
+  level:
+    liquibase: info
+    com:
+      jb4dc:
+        base:
+          dbaccess: TRACE
+        devmock:
+          dao: TRACE
+        sso:
+          client: debug
+        builder:
+          client: debug
+
+feign:
+  client:
+    config:
+      default:
+        connectTimeout: 1000
+        readTimeout: 12000
+        retryer: feign.Retryer.Default
+
