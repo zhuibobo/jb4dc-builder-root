@@ -1,10 +1,10 @@
-package com.jb4dc.builder.client.service.api.proxy;
+package com.jb4dc.builder.client.proxy.impl;
 
 import com.jb4dc.base.service.cache.IBuildGeneralObj;
 import com.jb4dc.builder.client.remote.ApiItemRuntimeRemote;
 import com.jb4dc.builder.client.service.RuntimeProxyBase;
 import com.jb4dc.builder.client.service.api.IApiItemService;
-import com.jb4dc.builder.client.service.api.proxy.IApiRuntimeProxy;
+import com.jb4dc.builder.client.proxy.IApiItemRuntimeProxy;
 import com.jb4dc.builder.dbentities.api.ApiItemEntity;
 import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +17,8 @@ import org.springframework.stereotype.Service;
  * To change this template use File | Settings | File Templates.
  */
 @Service
-public class ApiRuntimeProxyImpl extends RuntimeProxyBase implements IApiRuntimeProxy {
+public class ApiItemRuntimeProxyImpl extends RuntimeProxyBase implements IApiItemRuntimeProxy {
+
     @Autowired(required = false)
     IApiItemService apiItemService;
 

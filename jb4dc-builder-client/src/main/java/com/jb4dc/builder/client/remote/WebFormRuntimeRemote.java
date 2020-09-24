@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
  */
 
 @FeignClient(name= "${jb4dc.builder.server.name}",contextId = "FormRuntimeRemote",configuration = { BuilderClientFeignClientConfig.class },path = "${jb4dc.builder.server.context-path}/Rest/Builder/RunTime/FormRuntime")
-public interface FormRuntimeRemote {
+public interface WebFormRuntimeRemote {
 
     @RequestMapping(value = "/LoadHTML", method = RequestMethod.POST)
     JBuild4DCResponseVo<FormResourcePO> loadHTML(@RequestParam("formId") String formId);

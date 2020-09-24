@@ -1,4 +1,4 @@
-package com.jb4dc.builder.service.weblist;
+package com.jb4dc.builder.client.service.weblist;
 
 
 import com.jb4dc.base.service.IBaseService;

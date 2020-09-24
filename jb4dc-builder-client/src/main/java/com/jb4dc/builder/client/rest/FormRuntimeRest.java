@@ -2,8 +2,8 @@ package com.jb4dc.builder.client.rest;
 
 import com.jb4dc.base.service.general.JB4DCSessionUtility;
 import com.jb4dc.builder.client.service.webform.IWebFormRuntimeService;
-import com.jb4dc.builder.client.service.webform.proxy.IWebFormRuntimeProxy;
-import com.jb4dc.builder.client.service.weblist.proxy.IWebListButtonRuntimeProxy;
+import com.jb4dc.builder.client.proxy.IWebFormRuntimeProxy;
+import com.jb4dc.builder.client.proxy.IWebListButtonRuntimeProxy;
 import com.jb4dc.builder.dbentities.weblist.ListButtonEntity;
 import com.jb4dc.builder.po.FormResourceComplexPO;
 import com.jb4dc.builder.po.FormResourcePO;

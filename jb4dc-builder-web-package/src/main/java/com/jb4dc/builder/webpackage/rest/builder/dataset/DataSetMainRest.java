@@ -17,7 +17,7 @@ import com.jb4dc.builder.dbentities.dataset.DatasetGroupEntity;
 import com.jb4dc.builder.po.DataSetPO;
 import com.jb4dc.builder.po.ZTreeNodePOConvert;
 import com.jb4dc.builder.service.dataset.IDatasetGroupService;
-import com.jb4dc.builder.service.dataset.IDatasetService;
+import com.jb4dc.builder.client.service.dataset.IDatasetService;
 import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
 import com.jb4dc.core.base.session.JB4DCSession;
 import com.jb4dc.core.base.vo.JBuild4DCResponseVo;

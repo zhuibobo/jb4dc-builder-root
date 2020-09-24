@@ -16,7 +16,10 @@ var WLDCT_FormButton= {
         $button.bind("click",{"buttonElem":$button,"selfInstance":this},this.ClickEvent);
         //debugger;
         //console.log($WLDCT_ListButtonContainer.html());
-
+        var isshow=$button.attr("isshow");
+        if(isshow=="false"){
+            $button.hide();
+        }
         return $button;
     },
     RendererDataChain:function (_rendererDataChainParas) {

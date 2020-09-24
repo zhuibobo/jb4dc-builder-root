@@ -21,5 +21,7 @@ public interface IDatasetRuntimeService {
 
     String sqlReplaceEnvValueToRunningValue(JB4DCSession jb4DCSession, String sqlValue) throws JBuild4DCGenerallyException;
 
-    PageInfo<List<Map<String, Object>>> getDataSetData(JB4DCSession session, QueryDataSetPO queryDataSetPO, DataSetPO dataSetPO) throws JBuild4DCGenerallyException ;
+    PageInfo<List<Map<String, Object>>> getDataSetData(JB4DCSession jb4DCSession, QueryDataSetPO queryDataSetPO, DataSetPO dataSetPO) throws JBuild4DCGenerallyException ;
+
+    void deleteDataSetRecord(JB4DCSession jb4DCSession, String dataSetId, String pkValue) throws JBuild4DCGenerallyException;
 }

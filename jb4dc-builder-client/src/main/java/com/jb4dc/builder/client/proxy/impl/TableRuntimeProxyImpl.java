@@ -1,10 +1,10 @@
-package com.jb4dc.builder.client.service.datastorage.proxy;
+package com.jb4dc.builder.client.proxy.impl;
 
 import com.jb4dc.base.service.cache.IBuildGeneralObj;
 import com.jb4dc.builder.client.remote.TableRuntimeRemote;
 import com.jb4dc.builder.client.service.RuntimeProxyBase;
 import com.jb4dc.builder.client.service.datastorage.ITableFieldService;
-import com.jb4dc.builder.client.service.datastorage.proxy.ITableRuntimeProxy;
+import com.jb4dc.builder.client.proxy.ITableRuntimeProxy;
 import com.jb4dc.builder.dbentities.datastorage.TableEntity;
 import com.jb4dc.builder.po.TableFieldPO;
 import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;

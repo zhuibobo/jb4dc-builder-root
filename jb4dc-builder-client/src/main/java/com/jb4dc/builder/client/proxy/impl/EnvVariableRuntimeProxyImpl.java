@@ -1,7 +1,7 @@
-package com.jb4dc.builder.client.service.envvar.proxy;
+package com.jb4dc.builder.client.proxy.impl;
 
 import com.jb4dc.base.service.cache.IBuildGeneralObj;
-import com.jb4dc.builder.client.cache.ProxyBuilderCacheManager;
+import com.jb4dc.builder.client.proxy.IEnvVariableRuntimeProxy;
 import com.jb4dc.builder.client.service.RuntimeProxyBase;
 import com.jb4dc.builder.client.service.envvar.IEnvVariableCreator;
 import com.jb4dc.builder.client.remote.EnvVariableRuntimeRemote;
@@ -20,7 +20,7 @@ import org.springframework.stereotype.Service;
  * To change this template use File | Settings | File Templates.
  */
 @Service
-public class EnvVariableRuntimeResolveProxyImpl extends RuntimeProxyBase implements IEnvVariableRuntimeResolveProxy {
+public class EnvVariableRuntimeProxyImpl extends RuntimeProxyBase implements IEnvVariableRuntimeProxy {
 
     @Autowired(required = false)
     IEnvVariableService envVariableService;

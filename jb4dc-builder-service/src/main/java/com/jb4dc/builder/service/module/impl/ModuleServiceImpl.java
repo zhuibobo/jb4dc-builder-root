@@ -15,7 +15,7 @@ import com.jb4dc.builder.po.ListResourcePO;
 import com.jb4dc.builder.po.ModuleContextPO;
 import com.jb4dc.builder.service.envvar.IEnvGroupService;
 import com.jb4dc.builder.service.module.IModuleService;
-import com.jb4dc.builder.service.weblist.IListResourceService;
+import com.jb4dc.builder.client.service.weblist.IListResourceService;
 import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
 import com.jb4dc.core.base.session.JB4DCSession;
 import org.springframework.beans.factory.annotation.Autowired;

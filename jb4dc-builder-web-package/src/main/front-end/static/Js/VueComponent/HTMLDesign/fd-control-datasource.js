@@ -8,7 +8,10 @@ Vue.component("fd-control-datasource", {
                 dictionaryIdDataSource:"",
                 restDataSource:"",
                 staticDataSource:""
-            }
+            },
+            showSelectDictionary:false,
+            showEditStatic:false,
+            showProp:true
         }
     },
     //新增result的watch，监听变更同步到openStatus
@@ -27,67 +30,77 @@ Vue.component("fd-control-datasource", {
             this.normalDataSource=newValue;
             this.normalDataSource.sqlDataSource=decodeURIComponent(newValue.sqlDataSource);
             this.$refs.sqlGeneralDesignComp.setValue(this.normalDataSource.sqlDataSource);
+        },
+        beginSelectDictionary:function () {
+            this.showSelectDictionary=true;
+            this.showProp=false;
         }
     },
-    template: `<table cellpadding="0" cellspacing="0" border="0" class="html-design-plugin-dialog-table-wraper">
-                    <colgroup>
-                        <col style="width: 100px" />
-                        <col style="width: 280px" />
-                        <col style="width: 100px" />
-                        <col />
-                    </colgroup>
-                    <tbody>
-                        <tr>
-                            <td>
-                                默认空：
-                            </td>
-                            <td>
-                                <radio-group type="button" style="margin: auto" v-model="normalDataSource.defaultIsNull">
-                                    <radio label="true">是</radio>
-                                    <radio label="false">否</radio>
-                                </radio-group>
-                            </td>
-                            <td colspan="2">
-                                获取数据源优先级别->Rest接口->本地接口->sql->静态值
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                静态值：
-                            </td>
-                            <td colspan="3">
-
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                数据字典：
-                            </td>
-                            <td colspan="3">
-
-                            </td>
-                        </tr>
-                        <tr>
-                            <td rowspan="2">
-                                SQL数据源：
-                            </td>
-                            <td colspan="3">
-                                <span style="color: red">[ITEXT与IVALUE请使用大写]</span>示例:【SELECT '1' ITEXT,'2' IVALUE】
-                            </td>
-                        </tr>
-                        <tr>
-                            <td colspan="3" style="background-color: #FFFFFF">
-                                <sql-general-design-comp ref="sqlGeneralDesignComp" :sql-designer-height="74"  v-model="normalDataSource.sqlDataSource"></sql-general-design-comp>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                REST数据源：
-                            </td>
-                            <td colspan="3">
-                                
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>`
+    template: `<div>
+                    <div v-if="showProp">
+                        <table cellpadding="0" cellspacing="0" border="0" class="html-design-plugin-dialog-table-wraper">
+                            <colgroup>
+                                <col style="width: 100px" />
+                                <col style="width: 280px" />
+                                <col style="width: 100px" />
+                                <col />
+                            </colgroup>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        默认空：
+                                    </td>
+                                    <td>
+                                        <radio-group type="button" style="margin: auto" v-model="normalDataSource.defaultIsNull">
+                                            <radio label="true">是</radio>
+                                            <radio label="false">否</radio>
+                                        </radio-group>
+                                    </td>
+                                    <td colspan="2">
+                                        获取数据源优先级别->Rest接口->本地接口->sql->静态值
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        静态值：
+                                    </td>
+                                    <td colspan="3">
+                                        绑定到表<button class="btn-select fright" v-on:click="beginSelectDictionary">...</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        数据字典：
+                                    </td>
+                                    <td colspan="3">
+                                        绑定到表<button class="btn-select fright" v-on:click="beginSelectDictionary">...</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td rowspan="2">
+                                        SQL数据源：
+                                    </td>
+                                    <td colspan="3">
+                                        <span style="color: red">[ITEXT与IVALUE请使用大写]</span>示例:【SELECT '1' ITEXT,'2' IVALUE】
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="3" style="background-color: #FFFFFF">
+                                        <sql-general-design-comp ref="sqlGeneralDesignComp" :sql-designer-height="74"  v-model="normalDataSource.sqlDataSource"></sql-general-design-comp>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        REST数据源：
+                                    </td>
+                                    <td colspan="3">
+                                        
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div name="selectDictionary" v-if="showSelectDictionary">选数据字典</div>
+                    <div name="selectDictionary" v-if="showEditStatic">编辑静态值</div>
+                </div>`
 });

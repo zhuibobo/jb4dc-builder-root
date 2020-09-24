@@ -3,6 +3,7 @@
     <words>
       <w>apivariable</w>
       <w>bindauthority</w>
+      <w>binddatasetid</w>
       <w>bpmn</w>
       <w>bpmndi</w>
       <w>bpmnjs</w>
@@ -15,6 +16,8 @@
       <w>cellpadding</w>
       <w>cellspacing</w>
       <w>ckeditor</w>
+      <w>confirmfield</w>
+      <w>confirmformat</w>
       <w>creater</w>
       <w>cust</w>
       <w>custclickevent</w>
@@ -39,6 +42,8 @@
       <w>defaulttype</w>
       <w>defaultvalue</w>
       <w>defformat</w>
+      <w>deletetableat</w>
+      <w>deletetype</w>
       <w>dialogwindowtitle</w>
       <w>dictionaryiddatasource</w>
       <w>editinrow</w>
@@ -58,6 +63,7 @@
       <w>formname</w>
       <w>htmldesign</w>
       <w>innerbuttonjsonstring</w>
+      <w>isconfirm</w>
       <w>itext</w>
       <w>ivalue</w>
       <w>jbuild</w>

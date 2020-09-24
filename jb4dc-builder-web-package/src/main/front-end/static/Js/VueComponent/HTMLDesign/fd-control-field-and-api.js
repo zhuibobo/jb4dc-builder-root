@@ -94,7 +94,7 @@ Vue.component("fd-control-field-and-api", {
             },
             field: {
                 acInterface: {
-                    getTableFieldsByTableId: "/Rest/Builder/DataStorage/DataBase/Table/GetTableFieldsByTableId",
+                    getDataSetMainTableFields: "/Rest/Builder/DataSet/DatasetRelatedTable/GetDataSetMainTableFields",
                 },
                 editTableObject: null,
                 editTableConfig: {
@@ -132,18 +132,23 @@ Vue.component("fd-control-field-and-api", {
 
     },
     methods: {
-        ready: function (tableId,tableDataJson) {
-            if (tableDataJson != null && tableDataJson != "") {
-                this.tableData = JsonUtility.StringToJson(tableDataJson);
-            }
+        ready: function (dataSetId,tableId,apiOldData,filedOldData) {
+            //if (tableDataJson != null && tableDataJson != "") {
+            //    this.tableData = JsonUtility.StringToJson(tableDataJson);
+            //}
 
-            this.bindTableFields(tableDataJson);
-
-            this.bindAPITreeAndInitEditTable(null);
+            this.dataSetId=dataSetId;
+            this.tableId=tableId;
+            this.bindTableFields(filedOldData);
+            this.bindAPITreeAndInitEditTable(apiOldData);
         },
         getJson: function () {
-            //debugger;
-            return JsonUtility.JsonToString(this.tableData);
+            var result={};
+            this.api.editTableObject.CompletedEditingRow();
+            result.apis=this.api.editTableObject.GetSerializeJson();
+            this.field.editTableObject.CompletedEditingRow();
+            result.fields=this.field.editTableObject.GetSerializeJson();
+            return result;
         },
         /*setJson:function (tableDataJson) {
             if(tableDataJson!=null&&tableDataJson!=""){
@@ -157,8 +162,8 @@ Vue.component("fd-control-field-and-api", {
         //region 字段列表
         bindTableFields: function (oldData) {
 
-            AjaxUtility.Post(this.field.acInterface.getTableFieldsByTableId, {formId: this.formId}, function (result) {
-                    //console.log(result);
+            AjaxUtility.Post(this.field.acInterface.getDataSetMainTableFields, {dataSetId: this.dataSetId}, function (result) {
+                    console.log(result);
                     var fieldsData = [];
 
                     for (var i = 0; i < result.data.length; i++) {
@@ -212,7 +217,7 @@ Vue.component("fd-control-field-and-api", {
         //region api列表
         bindAPITreeAndInitEditTable: function (oldData) {
             //var _self = this;
-            debugger;
+            //debugger;
             if (!this.api.apiData) {
                 AjaxUtility.Post(this.api.acInterface.getAPIData, {}, function (result) {
                     if (result.success) {
@@ -234,13 +239,14 @@ Vue.component("fd-control-field-and-api", {
                     } else {
                         DialogUtility.Alert(window, DialogUtility.DialogAlertId, {}, result.message, null);
                     }
+
+                    this.api.editTableObject = Object.create(EditTable);
+                    this.api.editTableObject.Initialization(this.api.editTableConfig);
+                    this.api.editTableObject.RemoveAllRow();
+                    if (oldData) {
+                        this.api.editTableObject.LoadJsonData(oldData);
+                    }
                 }, this);
-                this.api.editTableObject = Object.create(EditTable);
-                this.api.editTableObject.Initialization(this.api.editTableConfig);
-            }
-            this.api.editTableObject.RemoveAllRow();
-            if (oldData) {
-                this.api.editTableObject.LoadJsonData(oldData);
             }
         },
         getApiConfigAndBindToTable: function () {

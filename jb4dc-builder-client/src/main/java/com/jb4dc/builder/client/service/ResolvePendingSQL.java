@@ -1,9 +1,8 @@
-package com.jb4dc.builder.client.service.webform.impl;
+package com.jb4dc.builder.client.service;
 
 import com.jb4dc.base.service.ISQLBuilderService;
-import com.jb4dc.builder.client.service.datastorage.proxy.ITableRuntimeProxy;
-import com.jb4dc.builder.client.service.envvar.proxy.IEnvVariableRuntimeResolveProxy;
-import com.jb4dc.builder.dbentities.datastorage.TableFieldEntity;
+import com.jb4dc.builder.client.proxy.ITableRuntimeProxy;
+import com.jb4dc.builder.client.proxy.IEnvVariableRuntimeProxy;
 import com.jb4dc.builder.po.TableFieldPO;
 import com.jb4dc.builder.po.formdata.*;
 import com.jb4dc.builder.tool.FormRecordComplexPOUtility;
@@ -39,7 +38,7 @@ public class ResolvePendingSQL {
     private ISQLBuilderService sqlBuilderService;
 
     @Autowired
-    private IEnvVariableRuntimeResolveProxy envVariableRuntimeResolveProxy;
+    private IEnvVariableRuntimeProxy envVariableRuntimeResolveProxy;
 
     protected static int ORDER_SPACE=5;
     protected int getNextDBOrderNum(String tableName,List<TableFieldPO> tableFieldPOList) throws JBuild4DCSQLKeyWordException {
@@ -58,6 +57,10 @@ public class ResolvePendingSQL {
         String ORDER_NUM_FIELD_NAME="F_ORDER_NUM";
         if(tableFieldPOList.parallelStream().anyMatch(item->item.getFieldName().equals(ORDER_NUM_FIELD_NAME))){
             return ORDER_NUM_FIELD_NAME;
+        }
+        else if (tableFieldPOList.stream().filter(item->item.getFieldName().indexOf("_ORDER_NUM")>0).count()==1)
+        {
+            return tableFieldPOList.stream().filter(item->item.getFieldName().indexOf("_ORDER_NUM")>0).findFirst().get().getFieldName();
         }
         return null;
     }
@@ -273,11 +276,16 @@ public class ResolvePendingSQL {
                 sqlBuilder.append("update " + tableName + " set ");
 
                 for (FormRecordFieldDataPO fieldDataPO : recordFieldPOList) {
-                    sqlBuilder.append(String.format("%s=#{%s},", fieldDataPO.getFieldName(), fieldDataPO.getFieldName()));
-                    sqlMapPara.put(fieldDataPO.getFieldName(), fieldDataPO.getValue());
+                    if(!fieldDataPO.getValue().equals("")) {
+                        sqlBuilder.append(String.format("%s=#{%s},", fieldDataPO.getFieldName(), fieldDataPO.getFieldName()));
+                        sqlMapPara.put(fieldDataPO.getFieldName(), fieldDataPO.getValue());
+                    }
                 }
                 sqlBuilder=StringUtility.removeLastChar(sqlBuilder);
-                sqlBuilder.append(" where ID=#{ID}");
+
+                TableFieldPO pkFieldPO=findPrimaryKey(tableName,tableFieldPOList);
+
+                sqlBuilder.append(" where "+pkFieldPO.getFieldName()+"=#{ID}");
                 sqlMapPara.put("ID", idValue);
             }
 

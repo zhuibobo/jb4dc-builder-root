@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
  */
 
 @FeignClient(name= "${jb4dc.builder.server.name}",contextId = "ListButtonRuntimeRemote",configuration = { BuilderClientFeignClientConfig.class },path = "${jb4dc.builder.server.context-path}/Rest/Builder/RunTime/ListButtonRuntime")
-public interface ListButtonRuntimeRemote {
+public interface WebListButtonRuntimeRemote {
 
     @RequestMapping(value = "/GetButtonPO",method = RequestMethod.POST)
     JBuild4DCResponseVo<ListButtonEntity> getButtonPO(@RequestParam("buttonId") String buttonId) throws JBuild4DCGenerallyException;

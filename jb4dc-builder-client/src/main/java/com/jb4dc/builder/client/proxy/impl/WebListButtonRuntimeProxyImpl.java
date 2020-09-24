@@ -1,7 +1,8 @@
-package com.jb4dc.builder.client.service.weblist.proxy;
+package com.jb4dc.builder.client.proxy.impl;
 
 import com.jb4dc.base.service.cache.IBuildGeneralObj;
-import com.jb4dc.builder.client.remote.ListButtonRuntimeRemote;
+import com.jb4dc.builder.client.proxy.IWebListButtonRuntimeProxy;
+import com.jb4dc.builder.client.remote.WebListButtonRuntimeRemote;
 import com.jb4dc.builder.client.service.RuntimeProxyBase;
 import com.jb4dc.builder.client.service.weblist.IWebListButtonService;
 import com.jb4dc.builder.dbentities.weblist.ListButtonEntity;
@@ -22,7 +23,7 @@ public class WebListButtonRuntimeProxyImpl extends RuntimeProxyBase implements I
     IWebListButtonService webListButtonService;
 
     @Autowired
-    ListButtonRuntimeRemote listButtonRuntimeRemote;
+    WebListButtonRuntimeRemote listButtonRuntimeRemote;
 
     @Override
     public ListButtonEntity getButtonPO(String buttonId) throws JBuild4DCGenerallyException {

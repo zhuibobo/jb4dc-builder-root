@@ -6,7 +6,7 @@ import com.jb4dc.builder.dao.dataset.DatasetRelatedTableMapper;
 import com.jb4dc.builder.dbentities.dataset.DatasetRelatedTableEntity;
 import com.jb4dc.builder.po.DataSetRelatedTablePO;
 import com.jb4dc.builder.po.TableFieldPO;
-import com.jb4dc.builder.service.dataset.IDatasetRelatedTableService;
+import com.jb4dc.builder.client.service.dataset.IDatasetRelatedTableService;
 import com.jb4dc.builder.client.service.datastorage.ITableFieldService;
 import com.jb4dc.builder.service.datastorage.ITableService;
 import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
@@ -68,6 +68,20 @@ public class DatasetRelatedTableServiceImpl extends BaseServiceImpl<DatasetRelat
         }
 
         return dataSetRelatedTablePOList;
+    }
+
+    @Override
+    public DataSetRelatedTablePO getMainRTTable(JB4DCSession jb4DCSession, String dataSetId) throws IOException, JBuild4DCGenerallyException {
+        List<DataSetRelatedTablePO> dataSetRelatedTablePOList=getByDataSetId(jb4DCSession,dataSetId);
+        if(dataSetRelatedTablePOList.stream().filter(item->item.getRtTableIsMain().equals("是")).count()==1){
+           return dataSetRelatedTablePOList.stream().filter(item->item.getRtTableIsMain().equals("是")).findFirst().get();
+        }
+        else if(dataSetRelatedTablePOList.stream().filter(item->item.getRtTableIsMain().equals("是")).count()==0){
+            throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_BUILDER_CODE,"DataSet的关联表未设置主表!");
+        }
+        else{
+            throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_BUILDER_CODE,"DataSet的关联表存在一个以上的主表!");
+        }
     }
 }
 

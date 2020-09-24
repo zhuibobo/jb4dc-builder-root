@@ -1,20 +1,15 @@
-package com.jb4dc.builder.client.service.webform.proxy;
+package com.jb4dc.builder.client.proxy.impl;
 
 import com.jb4dc.base.service.cache.IBuildGeneralObj;
-import com.jb4dc.builder.client.remote.FormRuntimeRemote;
-import com.jb4dc.builder.client.remote.ListButtonRuntimeRemote;
+import com.jb4dc.builder.client.proxy.IWebFormRuntimeProxy;
+import com.jb4dc.builder.client.remote.WebFormRuntimeRemote;
 import com.jb4dc.builder.client.service.RuntimeProxyBase;
 import com.jb4dc.builder.client.service.webform.IFormResourceService;
-import com.jb4dc.builder.client.service.webform.IWebFormRuntimeService;
-import com.jb4dc.builder.po.FormResourceComplexPO;
 import com.jb4dc.builder.po.FormResourcePO;
 import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
 import com.jb4dc.core.base.session.JB4DCSession;
-import com.jb4dc.core.base.vo.JBuild4DCResponseVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.io.IOException;
 
 /**
  * Created with IntelliJ IDEA.
@@ -26,7 +21,7 @@ import java.io.IOException;
 public class WebFormRuntimeProxyImpl extends RuntimeProxyBase implements IWebFormRuntimeProxy {
 
     @Autowired
-    FormRuntimeRemote formRuntimeRemote;
+    WebFormRuntimeRemote formRuntimeRemote;
 
     @Autowired(required = false)
     IFormResourceService formResourceService;

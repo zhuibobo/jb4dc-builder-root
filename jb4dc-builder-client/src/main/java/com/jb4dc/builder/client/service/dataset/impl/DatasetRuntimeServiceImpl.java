@@ -3,12 +3,12 @@ package com.jb4dc.builder.client.service.dataset.impl;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.jb4dc.base.dbaccess.dynamic.ISQLBuilderMapper;
+import com.jb4dc.base.service.ISQLBuilderService;
+import com.jb4dc.builder.client.proxy.IDataSetRuntimeProxy;
+import com.jb4dc.builder.client.service.ResolvePendingSQL;
 import com.jb4dc.builder.client.service.dataset.IDatasetRuntimeService;
-import com.jb4dc.builder.client.service.envvar.proxy.IEnvVariableRuntimeResolveProxy;
-import com.jb4dc.builder.po.DataSetPO;
-import com.jb4dc.builder.po.ListQueryPO;
-import com.jb4dc.builder.po.QueryDataSetPO;
-import com.jb4dc.builder.po.ResolvedQueryStringPO;
+import com.jb4dc.builder.client.proxy.IEnvVariableRuntimeProxy;
+import com.jb4dc.builder.po.*;
 import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
 import com.jb4dc.core.base.list.IListWhereCondition;
 import com.jb4dc.core.base.list.ListUtility;
@@ -31,9 +31,18 @@ import java.util.regex.Pattern;
 public class DatasetRuntimeServiceImpl implements IDatasetRuntimeService {
 
     @Autowired
-    IEnvVariableRuntimeResolveProxy envVariableClientResolveService;
+    IEnvVariableRuntimeProxy envVariableClientResolveService;
+
+    @Autowired
+    private ISQLBuilderService sqlBuilderService;
 
     ISQLBuilderMapper sqlBuilderMapper;
+
+    @Autowired
+    IDataSetRuntimeProxy dataSetRuntimeProxy;
+
+    @Autowired
+    ResolvePendingSQL resolvePendingSQL;
 
     @Autowired
     public DatasetRuntimeServiceImpl(ISQLBuilderMapper _sqlBuilderMapper) {
@@ -128,13 +137,13 @@ public class DatasetRuntimeServiceImpl implements IDatasetRuntimeService {
     }
 
     @Override
-    public PageInfo<List<Map<String, Object>>> getDataSetData(JB4DCSession session, QueryDataSetPO queryDataSetPO, DataSetPO dataSetPO) throws JBuild4DCGenerallyException {
+    public PageInfo<List<Map<String, Object>>> getDataSetData(JB4DCSession jb4DCSession, QueryDataSetPO queryDataSetPO, DataSetPO dataSetPO) throws JBuild4DCGenerallyException {
         //DatasetEntity datasetEntity = datasetMapper.selectByPrimaryKey(queryDataSetPO.getDataSetId());
 
         PageHelper.startPage(queryDataSetPO.getPageNum(), queryDataSetPO.getPageSize());
         String sql = dataSetPO.getDsSqlSelectValue();
         sql = sql.toUpperCase();
-        sql = sqlReplaceEnvValueToRunningValue(session, sql);
+        sql = sqlReplaceEnvValueToRunningValue(jb4DCSession, sql);
         /*sql="select TDEV_TEST_3.*,TDEV_TEST_4.F_TABLE3_ID,'ADDRESS' ADDRESS,'SEX' SEX from TDEV_TEST_3 join TDEV_TEST_4 on TDEV_TEST_3.ID=TDEV_TEST_4.F_TABLE3_ID where TDEV_TEST_3.ID like #{q1} or TDEV_TEST_3.ID like #{q3} order by TDEV_TEST_3.F_ORDER_NUM;";
 
         Map<String,Object> queryMap=new HashMap<>();
@@ -162,5 +171,17 @@ public class DatasetRuntimeServiceImpl implements IDatasetRuntimeService {
 
         PageInfo<List<Map<String, Object>>> pageInfo = new PageInfo(list);
         return pageInfo;
+    }
+
+    @Override
+    public void deleteDataSetRecord(JB4DCSession jb4DCSession, String dataSetId, String pkValue) throws JBuild4DCGenerallyException {
+        DataSetRelatedTablePO dataSetRelatedTablePO = dataSetRuntimeProxy.getMainRTTable(jb4DCSession, dataSetId);
+        List<TableFieldPO> tableFieldPOList = dataSetRuntimeProxy.getDataSetMainTableFields(jb4DCSession, dataSetId);
+        TableFieldPO pkFieldPO = resolvePendingSQL.findPrimaryKey(dataSetRelatedTablePO.getRtTableName(), tableFieldPOList);
+        String sql="delete from "+dataSetRelatedTablePO.getRtTableName()+" where "+pkFieldPO.getFieldName()+"=#{ID}";
+        Map paraMap = new HashMap();
+        paraMap.put("ID", pkValue);
+        //System.out.println(sql);
+        Object count = sqlBuilderService.delete(sql,paraMap);
     }
 }

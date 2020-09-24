@@ -1,10 +1,11 @@
 package com.jb4dc.builder.client.rest;
 
 import com.jb4dc.base.service.general.JB4DCSessionUtility;
-import com.jb4dc.builder.client.remote.ListButtonRuntimeRemote;
+import com.jb4dc.builder.client.proxy.IListRuntimeProxy;
 import com.jb4dc.builder.client.remote.ListRuntimeRemote;
 import com.jb4dc.builder.po.ListResourcePO;
 import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
+import com.jb4dc.core.base.session.JB4DCSession;
 import com.jb4dc.core.base.vo.JBuild4DCResponseVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,13 +24,12 @@ public class ListRuntimeRest {
     //@Autowired
     //ListRuntimeProvide listRuntimeProvide;
     @Autowired
-    ListRuntimeRemote listRuntimeRemote;
-
-
+    IListRuntimeProxy listRuntimeProxy;
 
     @RequestMapping("/LoadHTML")
     public JBuild4DCResponseVo<ListResourcePO> loadHTML(String listId) throws JBuild4DCGenerallyException {
-        return listRuntimeRemote.loadHTML(listId);
+        ListResourcePO listResourcePO=listRuntimeProxy.loadHTML(JB4DCSessionUtility.getSession(),listId);
+        return JBuild4DCResponseVo.opSuccess(listResourcePO);
     }
 
 }

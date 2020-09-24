@@ -11,7 +11,7 @@ import com.jb4dc.builder.po.DataSetColumnPO;
 import com.jb4dc.builder.po.DataSetPO;
 import com.jb4dc.builder.po.DataSetRelatedTablePO;
 import com.jb4dc.builder.po.SQLResolveToDataSetPO;
-import com.jb4dc.builder.service.dataset.IDatasetService;
+import com.jb4dc.builder.client.service.dataset.IDatasetService;
 import com.jb4dc.core.base.session.JB4DCSession;
 import com.jb4dc.core.base.tools.UUIDUtility;
 import com.jb4dc.core.base.vo.JBuild4DCResponseVo;

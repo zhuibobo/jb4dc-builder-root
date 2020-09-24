@@ -10,7 +10,7 @@ import com.jb4dc.builder.client.htmldesign.IHTMLRuntimeResolve;
 import com.jb4dc.builder.dbentities.weblist.ListResourceEntityWithBLOBs;
 import com.jb4dc.builder.po.ListResourcePO;
 import com.jb4dc.builder.service.module.IModuleService;
-import com.jb4dc.builder.service.weblist.IListResourceService;
+import com.jb4dc.builder.client.service.weblist.IListResourceService;
 import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
 import com.jb4dc.core.base.session.JB4DCSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,16 +29,18 @@ import java.util.List;
 @Service
 public class ListResourceServiceImpl extends BaseServiceImpl<ListResourceEntityWithBLOBs> implements IListResourceService
 {
+    @Autowired
     IModuleService moduleService;
+
     ListResourceMapper listResourceMapper;
 
     @Autowired
     IHTMLRuntimeResolve htmlRuntimeResolve;
 
-    public ListResourceServiceImpl(ListResourceMapper _defaultBaseMapper, IModuleService _moduleService){
+    public ListResourceServiceImpl(ListResourceMapper _defaultBaseMapper){
         super(_defaultBaseMapper);
         listResourceMapper=_defaultBaseMapper;
-        moduleService=_moduleService;
+        //moduleService=_moduleService;
     }
 
     @Override

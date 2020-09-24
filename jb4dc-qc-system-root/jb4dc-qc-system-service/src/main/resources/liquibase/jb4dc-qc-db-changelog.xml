@@ -13,6 +13,7 @@
             <column name="PROJECT_CREATOR_ID" type="NVARCHAR(50)" remarks="录入人ID" />
             <column name="PROJECT_CREATOR_DATE" type="datetime(6)" remarks="录入时间" />
             <column name="PROJECT_REMARK" type="NVARCHAR(2000)" remarks="备注" />
+            <column name="PROJECT_ORDER_NUM" type="INT" remarks="排序号"/>
         </createTable>
         <createTable tableName="TQC_ISSUES" remarks="运维问题表">
             <column name="ISS_ID" type="NVARCHAR(50)" remarks="主键">
@@ -51,6 +52,7 @@
             <column name="ISS_CLOSER_DATE" type="datetime(6)" remarks="关闭时间" />
             <column name="ISS_PROCESSING_MESSAGE" type="NVARCHAR(1000)" remarks="处理方案" />
             <column name="ISS_ABOUT_TO_OUT" type="NVARCHAR(50)" remarks="关联第三方:(XX,XX,XX)" />
+            <column name="REMARK_ORDER_NUM" type="INT" remarks="排序号"/>
         </createTable>
         <createTable tableName="TQC_ISSUES_REMARK" remarks="运维问题备注表">
             <column name="REMARK_ID" type="NVARCHAR(50)" remarks="主键">
@@ -62,6 +64,7 @@
             <column name="REMARK_INPUTER_NAME" type="NVARCHAR(50)" remarks="录入人姓名" />
             <column name="REMARK_INPUTER_ID" type="NVARCHAR(50)" remarks="录入人ID" />
             <column name="REMARK_INPUTER_DATE" type="datetime(6)" remarks="录入时间" />
+            <column name="REMARK_ORDER_NUM" type="INT" remarks="排序号"/>
         </createTable>
     </changeSet>
 </databaseChangeLog>

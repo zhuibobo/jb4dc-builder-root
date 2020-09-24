@@ -424,7 +424,7 @@ var WLDCT_ListTableContainer = {
         $templateTable.width("100%");
         var scrollY = PageStyleUtility.GetWindowHeight();
         if($(".wldct-list-simple-search-outer-wrap").css("display")!="none") {
-            scrollY = scrollY - $(".wldct-list-simple-search-outer-wrap").height();
+            scrollY = scrollY - $(".wldct-list-simple-search-outer-wrap").height()-42;
         }
         if($(".wldct-list-button-outer-wrap").css("display")!="none"){
             scrollY = scrollY - $(".wldct-list-button-outer-wrap").height()-118;

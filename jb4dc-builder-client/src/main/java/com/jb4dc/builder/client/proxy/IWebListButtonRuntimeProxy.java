@@ -1,4 +1,4 @@
-package com.jb4dc.builder.client.service.weblist.proxy;
+package com.jb4dc.builder.client.proxy;
 
 import com.jb4dc.builder.dbentities.weblist.ListButtonEntity;
 import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;

@@ -27,7 +27,7 @@ let InnerFormButtonRuntime= {
                 if(result.success){
                     var listFormButtonElemId=formRuntimeInstance.GetOpenedListFormButtonId();
                     window.OpenerWindowObj.WLDCT_ListTableContainer.TryReloadForListFormButton(listFormButtonElemId);
-                    //console.log(window.);
+                    //console.log(window);
                     window.setTimeout(function () {
                         DialogUtility.CloseDialog(DialogUtility.DialogLoadingId);
 

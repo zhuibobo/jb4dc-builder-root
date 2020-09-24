@@ -1,4 +1,4 @@
-package com.jb4dc.builder.client.service.datastorage.proxy;
+package com.jb4dc.builder.client.proxy;
 
 import com.jb4dc.builder.dbentities.datastorage.TableEntity;
 import com.jb4dc.builder.po.TableFieldPO;

@@ -17,12 +17,12 @@ import com.jb4dc.builder.dbentities.datastorage.TableEntity;
 import com.jb4dc.builder.extend.IDataSetAPI;
 import com.jb4dc.builder.po.*;
 import com.jb4dc.builder.service.dataset.IDatasetColumnService;
-import com.jb4dc.builder.service.dataset.IDatasetRelatedTableService;
-import com.jb4dc.builder.service.dataset.IDatasetService;
+import com.jb4dc.builder.client.service.dataset.IDatasetRelatedTableService;
+import com.jb4dc.builder.client.service.dataset.IDatasetService;
 import com.jb4dc.builder.service.dataset.builder.SQLDataSetBuilder;
 import com.jb4dc.builder.client.service.datastorage.ITableFieldService;
 import com.jb4dc.builder.service.datastorage.ITableService;
-import com.jb4dc.builder.client.service.envvar.proxy.IEnvVariableRuntimeResolveProxy;
+import com.jb4dc.builder.client.proxy.IEnvVariableRuntimeProxy;
 import com.jb4dc.builder.client.service.envvar.IEnvVariableService;
 import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
 import com.jb4dc.core.base.list.IListWhereCondition;
@@ -64,7 +64,7 @@ public class DatasetServiceImpl extends BaseServiceImpl<DatasetEntity> implement
     IBuilderConfigService builderConfigService;
     ITableService tableService;
     ITableFieldService tableFieldService;
-    IEnvVariableRuntimeResolveProxy envVariableClientResolveService;
+    IEnvVariableRuntimeProxy envVariableClientResolveService;
     ISQLBuilderMapper sqlBuilderMapper;
     IEnvVariableService envVariableService;
     IDatasetRuntimeService datasetClientService;
@@ -79,7 +79,7 @@ public class DatasetServiceImpl extends BaseServiceImpl<DatasetEntity> implement
                               SqlSessionTemplate _sqlSessionTemplate, JdbcOperations _jdbcOperations,
                               IBuilderConfigService _builderConfigService, ITableService _tableService, ITableFieldService _tableFieldService,
                               IDatasetRelatedTableService _datasetRelatedTableService, IDatasetColumnService _datasetColumnService, ISQLBuilderMapper _sqlBuilderMapper,
-                              IEnvVariableService _envVariableService, IEnvVariableRuntimeResolveProxy _envVariableClientResolveService, IDatasetRuntimeService _datasetClientService){
+                              IEnvVariableService _envVariableService, IEnvVariableRuntimeProxy _envVariableClientResolveService, IDatasetRuntimeService _datasetClientService){
         super(_defaultBaseMapper);
         datasetMapper=_defaultBaseMapper;
         jdbcOperations=_jdbcOperations;

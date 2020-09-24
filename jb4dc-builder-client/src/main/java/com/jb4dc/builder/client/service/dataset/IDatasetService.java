@@ -1,4 +1,4 @@
-package com.jb4dc.builder.service.dataset;
+package com.jb4dc.builder.client.service.dataset;
 
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;

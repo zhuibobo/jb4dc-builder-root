@@ -1,7 +1,6 @@
 package com.jb4dc.builder.client.rest;
 
-import com.jb4dc.base.service.general.JB4DCSessionUtility;
-import com.jb4dc.builder.client.remote.ListButtonRuntimeRemote;
+import com.jb4dc.builder.client.remote.WebListButtonRuntimeRemote;
 import com.jb4dc.builder.dbentities.weblist.ListButtonEntity;
 import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
 import com.jb4dc.core.base.vo.JBuild4DCResponseVo;
@@ -20,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(value = "/Rest/Builder/RunTime/ListButtonRuntime")
 public class ListButtonRuntimeRest {
     @Autowired
-    ListButtonRuntimeRemote listButtonRuntimeRemote;
+    WebListButtonRuntimeRemote listButtonRuntimeRemote;
 
     @RequestMapping(value = "/GetButtonPO",method = RequestMethod.POST)
     public JBuild4DCResponseVo<ListButtonEntity> getButtonPO(String buttonId) throws JBuild4DCGenerallyException {
