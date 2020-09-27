@@ -110,6 +110,15 @@
             <Config></Config>
             <Desc></Desc>
         </Control>
+        <Control SingleName="WFDCT_RadioGroup" Text="单选框" ToolbarLocation="LC_Simple_G1,6"
+                 ServerResolve="com.jb4dc.builder.client.htmldesign.control.webform.WebFormRadioGroup"
+                 ClientResolve="WFDCT_RadioGroup"
+                 ClientResolveJs=""
+                 EnableChildControls="*"
+                 DialogWidth="780" DialogHeight="550" IsJBuild4DCData="true" ControlCategory="InputControl" ServerDynamicBind="false" ShowRemoveButton="true" ShowInEditorToolbar="true">
+            <Config></Config>
+            <Desc></Desc>
+        </Control>
     </WebFormControls>
     <AppControls>
 

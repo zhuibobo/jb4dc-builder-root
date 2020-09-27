@@ -212,8 +212,10 @@ class CKEditorPluginUtility {
         normalDataSource:{
             defaultIsNull:"true",
             sqlDataSource:"",
-            dictionaryIdDataSource:"",
+            dictionaryGroupDataSourceId:"",
+            dictionaryGroupDataSourceText:"",
             restDataSource:"",
+            interfaceDataSource:"",
             staticDataSource:""
         }
     }

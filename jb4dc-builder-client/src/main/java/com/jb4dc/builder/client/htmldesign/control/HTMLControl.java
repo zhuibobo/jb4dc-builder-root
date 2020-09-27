@@ -3,7 +3,9 @@ package com.jb4dc.builder.client.htmldesign.control;
 import com.jb4dc.base.dbaccess.dynamic.impl.SQLBuilderMapper;
 import com.jb4dc.builder.client.htmldesign.HTMLControlAttrs;
 import com.jb4dc.builder.client.htmldesign.ICKEditorPluginsService;
+import com.jb4dc.builder.client.proxy.IDictionaryRuntimeProxy;
 import com.jb4dc.builder.client.proxy.IEnvVariableRuntimeProxy;
+import com.jb4dc.builder.dbentities.systemsetting.DictionaryEntity;
 import com.jb4dc.builder.po.DynamicBindHTMLControlContextPO;
 import com.jb4dc.builder.po.HtmlControlDefinitionPO;
 import com.jb4dc.builder.po.ResolveHTMLControlContextPO;
@@ -12,6 +14,7 @@ import com.jb4dc.core.base.session.JB4DCSession;
 import com.jb4dc.core.base.tools.ClassUtility;
 import com.jb4dc.core.base.tools.StringUtility;
 import com.jb4dc.core.base.tools.UUIDUtility;
+import com.sun.xml.internal.ws.client.ClientSchemaValidationTube;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,6 +47,9 @@ public abstract class HTMLControl implements IHTMLControl {
 
     @Autowired
     protected IEnvVariableRuntimeProxy envVariableClientResolveService;
+
+    @Autowired
+    protected IDictionaryRuntimeProxy dictionaryRuntimeProxy;
 
     public IHTMLControl getHTMLControlInstance(String fullClassName) throws IllegalAccessException, InstantiationException,ClassNotFoundException {
 
@@ -162,10 +168,25 @@ public abstract class HTMLControl implements IHTMLControl {
         return "";
     }
 
-    public List<Map<String,Object>> getDataSource(JB4DCSession jb4DCSession, String sourceHTML, Document doc, Element singleControlElem, Element parentElem, Element lastParentJbuild4dCustomElem, DynamicBindHTMLControlContextPO dynamicBindHTMLControlContextPO) throws JBuild4DCGenerallyException {
+    private List<Map<String,Object>> dataSourceBindDD(JB4DCSession jb4DCSession, String sourceHTML, Document doc, Element singleControlElem, Element parentElem, Element lastParentJbuild4dCustomElem, DynamicBindHTMLControlContextPO dynamicBindHTMLControlContextPO) throws JBuild4DCGenerallyException {
         List<Map<String,Object>> datasource=new ArrayList<>();
-        //获取数据源优先级别->Rest接口->本地接口->sql->静态值
+        String dictionaryGroupDataSourceId = singleControlElem.attr("dictionaryGroupDataSourceId");
+        if(StringUtility.isNotEmpty(dictionaryGroupDataSourceId)){
+            List<DictionaryEntity> dictionaryEntityList=dictionaryRuntimeProxy.getDDByGroupId(dictionaryGroupDataSourceId);
+            if(dictionaryEntityList!=null){
+                for (DictionaryEntity dictionaryEntity : dictionaryEntityList) {
+                    Map<String,Object> item=new HashMap<>();
+                    item.put("IVALUE",dictionaryEntity.getDictId());
+                    item.put("ITEXT",dictionaryEntity.getDictText());
+                    datasource.add(item);
+                }
+            }
+        }
+        return datasource;
+    }
 
+    private List<Map<String,Object>> dataSourceBindSQL(JB4DCSession jb4DCSession, String sourceHTML, Document doc, Element singleControlElem, Element parentElem, Element lastParentJbuild4dCustomElem, DynamicBindHTMLControlContextPO dynamicBindHTMLControlContextPO) throws JBuild4DCGenerallyException {
+        List<Map<String,Object>> datasource=new ArrayList<>();
         try {
             String sql = URLDecoder.decode(singleControlElem.attr("sqldatasource"),"utf-8");
             if(StringUtility.isNotEmpty(sql)) {
@@ -173,6 +194,34 @@ public abstract class HTMLControl implements IHTMLControl {
             }
         } catch (UnsupportedEncodingException e) {
             throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_BUILDER_CODE,"decode sqldatasource error"+e.getMessage());
+        }
+        return datasource;
+    }
+
+    public List<Map<String,Object>> getDataSource(JB4DCSession jb4DCSession, String sourceHTML, Document doc, Element singleControlElem, Element parentElem, Element lastParentJbuild4dCustomElem, DynamicBindHTMLControlContextPO dynamicBindHTMLControlContextPO) throws JBuild4DCGenerallyException {
+        List<Map<String, Object>> datasource = new ArrayList<>();
+        //获取数据源优先级别->本地接口->Rest接口->数据字典->sql->静态值
+        //处理本地接口
+
+        //处理Rest接口
+
+        //处理数据字典
+        if(datasource.size()==0) {
+            datasource = dataSourceBindDD(jb4DCSession, sourceHTML, doc, singleControlElem, parentElem, lastParentJbuild4dCustomElem, dynamicBindHTMLControlContextPO);
+        }
+
+        //处理SQL
+        if(datasource.size()==0) {
+            datasource = dataSourceBindSQL(jb4DCSession, sourceHTML, doc, singleControlElem, parentElem, lastParentJbuild4dCustomElem, dynamicBindHTMLControlContextPO);
+        }
+
+        //处理静态值
+        String defaultIsNull = singleControlElem.attr("defaultisnull");
+        if(defaultIsNull.toUpperCase().equals("TRUE")){
+            Map<String,Object> item=new HashMap<>();
+            item.put("IVALUE"," ");
+            item.put("ITEXT","--请选择--");
+            datasource.add(0,item);
         }
 
         return datasource;

@@ -2,11 +2,49 @@
 Vue.component("fd-control-datasource", {
     data: function () {
         return {
+            acInterface:{
+                getDDGroupTreeData:"/Rest/SystemSetting/Dict/DictionaryGroup/GetTreeData"
+            },
+            ddGroupTreeObj:null,
+            ddGroupTreeSetting:{
+                async : {
+                    enable : true,
+                    // Ajax 获取数据的 URL 地址
+                    url :""
+                },
+                // 必须使用data
+                data:{
+                    key:{
+                        name:"dictGroupText"
+                    },
+                    simpleData : {
+                        enable : true,
+                        idKey : "dictGroupId", // id编号命名
+                        pIdKey : "dictGroupParentId",  // 父id编号命名
+                        rootId : 0
+                    }
+                },
+                // 回调函数
+                callback : {
+                    onClick : function(event, treeId, treeNode) {
+                        var _self = this.getZTreeObj(treeId)._host;
+                        _self.selectedDictionaryGroup(treeNode.dictGroupId,treeNode.dictGroupText);
+                        //alert(treeNode.dictGroupId);
+                        //_self.envGroupTreeNodeSelected(event,treeId,treeNode);
+                    },
+                    //成功的回调函数
+                    onAsyncSuccess : function(event, treeId, treeNode, msg){
+                        appList.treeObj.expandAll(true);
+                    }
+                }
+            },
             normalDataSource: {
                 defaultIsNull:"true",
                 sqlDataSource:"",
-                dictionaryIdDataSource:"",
+                dictionaryGroupDataSourceId:"",
+                dictionaryGroupDataSourceText:"",
                 restDataSource:"",
+                interfaceDataSource:"",
                 staticDataSource:""
             },
             showSelectDictionary:false,
@@ -15,29 +53,62 @@ Vue.component("fd-control-datasource", {
         }
     },
     //新增result的watch，监听变更同步到openStatus
-    //监听父组件对props属性result的修改，并同步到组件内的data属性
+    //监听父组件对props属性result的修改，并同步到组件内的data属性1
     watch: {
     },
     mounted: function () {
-
+        this.initDDGroupTree();
     },
     methods: {
         getValue:function () {
             this.normalDataSource.sqlDataSource=encodeURIComponent(this.normalDataSource.sqlDataSource);
             return this.normalDataSource;
         },
-        setValue:function (newValue) {
-            this.normalDataSource=newValue;
-            this.normalDataSource.sqlDataSource=decodeURIComponent(newValue.sqlDataSource);
+        setValue:function (oldValue) {
+            this.normalDataSource=oldValue;
+            this.normalDataSource.sqlDataSource=decodeURIComponent(oldValue.sqlDataSource);
             this.$refs.sqlGeneralDesignComp.setValue(this.normalDataSource.sqlDataSource);
         },
-        beginSelectDictionary:function () {
+        beginSelectDictionaryGroup:function () {
             this.showSelectDictionary=true;
             this.showProp=false;
+        },
+        selectedDictionaryGroup:function(dictionaryGroupDataSourceId,dictionaryGroupDataSourceText){
+            this.normalDataSource.dictionaryGroupDataSourceId=dictionaryGroupDataSourceId;
+            this.normalDataSource.dictionaryGroupDataSourceText=dictionaryGroupDataSourceText;
+            this.showSelectDictionary=false;
+            this.showProp=true;
+        },
+        initDDGroupTree:function () {
+            //this.treeSetting.async.url = BaseUtility.BuildAction(this.acInterface.getGroupTreeData, {});
+            //this.treeObj = $.fn.zTree.init($("#zTreeUL"), this.treeSetting);
+            //debugger;
+            //var _self=this;
+            AjaxUtility.Post(this.acInterface.getDDGroupTreeData, {}, function (result) {
+                //console.log(result);
+                if(result.success){
+                    if(result.data!=null&&result.data.length>0){
+                        for(var i=0;i<result.data.length;i++) {
+                            /*if(result.data[i].dsGroupIssystem=="是"&&result.data[i].dsGroupChildCount==0) {
+                                result.data[i].icon = "../../../Themes/Png16X16/table_key.png";
+                            }
+                            else if(result.data[i].dsGroupIssystem=="否"&&result.data[i].dsGroupChildCount==0) {
+                                result.data[i].icon = "../../../Themes/Png16X16/note_edit.png";
+                            }
+                            else if(result.data[i].dsGroupParentId=="-1"){
+                                result.data[i].icon = "../../../Themes/Png16X16/package.png";
+                            }*/
+                        }
+                    }
+                    this.ddGroupTreeObj=$.fn.zTree.init($("#zTreeUL"), this.ddGroupTreeSetting,result.data);
+                    this.ddGroupTreeObj.expandAll(true);
+                    this.ddGroupTreeObj._host=this;
+                }
+            }, this);
         }
     },
     template: `<div>
-                    <div v-if="showProp">
+                    <div v-show="showProp">
                         <table cellpadding="0" cellspacing="0" border="0" class="html-design-plugin-dialog-table-wraper">
                             <colgroup>
                                 <col style="width: 100px" />
@@ -57,15 +128,23 @@ Vue.component("fd-control-datasource", {
                                         </radio-group>
                                     </td>
                                     <td colspan="2">
-                                        获取数据源优先级别->Rest接口->本地接口->sql->静态值
+                                        获取数据源优先级别->本地接口->Rest接口->数据字典->sql->静态值
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
-                                        静态值：
+                                        REST数据源：
                                     </td>
                                     <td colspan="3">
-                                        绑定到表<button class="btn-select fright" v-on:click="beginSelectDictionary">...</button>
+                                        <input type="text" v-model="normalDataSource.restDataSource" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        本地接口：
+                                    </td>
+                                    <td colspan="3">
+                                        <input type="text" v-model="normalDataSource.interfaceDataSource" />
                                     </td>
                                 </tr>
                                 <tr>
@@ -73,7 +152,7 @@ Vue.component("fd-control-datasource", {
                                         数据字典：
                                     </td>
                                     <td colspan="3">
-                                        绑定到表<button class="btn-select fright" v-on:click="beginSelectDictionary">...</button>
+                                        <div class="fleft">绑定数据字典:【<span style="color: red">{{normalDataSource.dictionaryGroupDataSourceText}}</span>】</div><button class="btn-select fright" v-on:click="beginSelectDictionaryGroup">...</button>
                                     </td>
                                 </tr>
                                 <tr>
@@ -91,16 +170,21 @@ Vue.component("fd-control-datasource", {
                                 </tr>
                                 <tr>
                                     <td>
-                                        REST数据源：
+                                        静态值：
                                     </td>
                                     <td colspan="3">
-                                        
+                                        <button class="btn-select fright">...</button>
                                     </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="4"></td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
-                    <div name="selectDictionary" v-if="showSelectDictionary">选数据字典</div>
-                    <div name="selectDictionary" v-if="showEditStatic">编辑静态值</div>
+                    <div name="selectDictionary" v-show="showSelectDictionary">
+                        <ul id="zTreeUL" class="ztree"></ul>
+                    </div>
+                    <div name="selectDictionary" v-show="showEditStatic">编辑静态值</div>
                 </div>`
 });
