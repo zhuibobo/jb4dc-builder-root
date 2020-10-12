@@ -82,7 +82,9 @@ var WLDCT_FormButton= {
             ButtonId:buttonid,
             ListFormButtonElemId:elemid,
             RecordId:recordId,
-            OperationType:operation
+            OperationType:operation,
+            WindowWidth:windowwidth,
+            WindowHeight:windowheight
         }), {
             width: windowwidth,
             height: windowheight,

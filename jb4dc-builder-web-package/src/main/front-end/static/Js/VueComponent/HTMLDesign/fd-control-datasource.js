@@ -45,7 +45,10 @@ Vue.component("fd-control-datasource", {
                 dictionaryGroupDataSourceText:"",
                 restDataSource:"",
                 interfaceDataSource:"",
-                staticDataSource:""
+                staticDataSource:"",
+                defaultSelected:"",
+                layoutDirection:"vertical",
+                rowNum:"0"
             },
             showSelectDictionary:false,
             showEditStatic:false,
@@ -177,7 +180,29 @@ Vue.component("fd-control-datasource", {
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td colspan="4"></td>
+                                    <td>
+                                        默认选中：
+                                    </td>
+                                    <td colspan="3">
+                                        <input type="text" v-model="normalDataSource.defaultSelected" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        方向：
+                                    </td>
+                                    <td>
+                                        <radio-group type="button" style="margin: auto" v-model="normalDataSource.layoutDirection">
+                                            <radio label="vertical">垂直</radio>
+                                            <radio label="horizontal">水平</radio>
+                                        </radio-group>
+                                    </td>
+                                    <td>
+                                        单列个数：
+                                    </td>
+                                    <td>
+                                        <input type="text" v-model="normalDataSource.rowNum" />
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>

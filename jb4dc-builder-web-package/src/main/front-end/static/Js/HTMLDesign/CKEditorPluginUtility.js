@@ -216,7 +216,10 @@ class CKEditorPluginUtility {
             dictionaryGroupDataSourceText:"",
             restDataSource:"",
             interfaceDataSource:"",
-            staticDataSource:""
+            staticDataSource:"",
+            defaultSelected:"",
+            layoutDirection:"vertical",
+            rowNum:"0"
         }
     }
     static OnCKWysiwygElemDBClickEvent(event,controlSetting){

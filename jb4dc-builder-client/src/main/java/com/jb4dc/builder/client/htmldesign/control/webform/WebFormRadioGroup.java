@@ -30,7 +30,8 @@ import java.util.Map;
 public class WebFormRadioGroup extends HTMLControl implements IHTMLControl {
     @Override
     public void resolveSelf(JB4DCSession jb4DCSession, String sourceHTML, Document doc, Element singleControlElem, Element parentElem, Element lastParentJbuild4dCustomElem, ResolveHTMLControlContextPO resolveHTMLControlContextPO, HtmlControlDefinitionPO htmlControlDefinitionPO) throws JBuild4DCGenerallyException {
-
+        String script=getClientNewInstanceScript(singleControlElem,false,"");
+        singleControlElem.append(script);
     }
 
     @Override

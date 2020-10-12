@@ -92,7 +92,16 @@
             <Config></Config>
             <Desc></Desc>
         </Control>
-        <Control SingleName="WFDCT_TextDateTime" Text="日期时间框" ToolbarLocation="LC_Simple_G1,4"
+        <Control SingleName="WFDCT_CKEditor4" Text="HTML编辑框(CKE4)" ToolbarLocation="LC_Simple_G1,4"
+                 ServerResolve="com.jb4dc.builder.client.htmldesign.control.webform.WebFormCKEditor4"
+                 ClientResolve="WFDCT_CKEditor4"
+                 ClientResolveJs=""
+                 EnableChildControls="*"
+                 DialogWidth="780" DialogHeight="550" IsJBuild4DCData="true" ControlCategory="InputControl" ServerDynamicBind="false" ShowRemoveButton="true" ShowInEditorToolbar="true">
+            <Config></Config>
+            <Desc></Desc>
+        </Control>
+        <Control SingleName="WFDCT_TextDateTime" Text="日期时间框" ToolbarLocation="LC_Simple_G1,5"
                  ServerResolve="com.jb4dc.builder.client.htmldesign.control.webform.WebFormTextDateTime"
                  ClientResolve="WFDCT_TextDateTime"
                  ClientResolveJs=""
@@ -101,7 +110,7 @@
             <Config></Config>
             <Desc></Desc>
         </Control>
-        <Control SingleName="WFDCT_DropDownSelect" Text="下拉选择框" ToolbarLocation="LC_Simple_G1,5"
+        <Control SingleName="WFDCT_DropDownSelect" Text="下拉选择框" ToolbarLocation="LC_Simple_G1,6"
                  ServerResolve="com.jb4dc.builder.client.htmldesign.control.webform.WebFormDropDownSelect"
                  ClientResolve="WFDCT_DropDownSelect"
                  ClientResolveJs=""
@@ -110,9 +119,18 @@
             <Config></Config>
             <Desc></Desc>
         </Control>
-        <Control SingleName="WFDCT_RadioGroup" Text="单选框" ToolbarLocation="LC_Simple_G1,6"
+        <Control SingleName="WFDCT_RadioGroup" Text="单选框组" ToolbarLocation="LC_Simple_G1,7"
                  ServerResolve="com.jb4dc.builder.client.htmldesign.control.webform.WebFormRadioGroup"
                  ClientResolve="WFDCT_RadioGroup"
+                 ClientResolveJs=""
+                 EnableChildControls="*"
+                 DialogWidth="780" DialogHeight="550" IsJBuild4DCData="true" ControlCategory="InputControl" ServerDynamicBind="false" ShowRemoveButton="true" ShowInEditorToolbar="true">
+            <Config></Config>
+            <Desc></Desc>
+        </Control>
+        <Control SingleName="WFDCT_SelectOrganUser" Text="选择机构用户" ToolbarLocation="LC_Simple_G1,8"
+                 ServerResolve="com.jb4dc.builder.client.htmldesign.control.webform.WebFormSelectOrganUser"
+                 ClientResolve="WFDCT_SelectOrganUser"
                  ClientResolveJs=""
                  EnableChildControls="*"
                  DialogWidth="780" DialogHeight="550" IsJBuild4DCData="true" ControlCategory="InputControl" ServerDynamicBind="false" ShowRemoveButton="true" ShowInEditorToolbar="true">

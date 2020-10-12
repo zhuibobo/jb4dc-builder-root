@@ -176,7 +176,7 @@ public abstract class HTMLControl implements IHTMLControl {
             if(dictionaryEntityList!=null){
                 for (DictionaryEntity dictionaryEntity : dictionaryEntityList) {
                     Map<String,Object> item=new HashMap<>();
-                    item.put("IVALUE",dictionaryEntity.getDictId());
+                    item.put("IVALUE",dictionaryEntity.getDictValue());
                     item.put("ITEXT",dictionaryEntity.getDictText());
                     datasource.add(item);
                 }

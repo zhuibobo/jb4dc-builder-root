@@ -2,6 +2,7 @@ package com.jb4dc.builder.webpackage.beanconfig.service;
 
 import com.jb4dc.base.service.IOperationLogService;
 import com.jb4dc.sso.client.remote.OperationLogRemoteServiceImpl;
+import com.jb4dc.sso.client.remote.OperationLogRuntimeRemote;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 

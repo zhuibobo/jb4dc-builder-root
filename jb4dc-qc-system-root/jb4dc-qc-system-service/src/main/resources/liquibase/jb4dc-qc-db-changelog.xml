@@ -22,6 +22,7 @@
             <column name="ISS_NUM" type="NVARCHAR(20)" remarks="序号" />
             <column name="ISS_TITLE" type="NVARCHAR(800)" remarks="标题" />
             <column name="ISS_CONTENT" type="CLOB" remarks="内容详情" />
+            <column name="ISS_SIMPLE_CONTENT" type="NVARCHAR(2000)" remarks="内容简介" />
             <column name="ISS_PROJECT_ID" type="NVARCHAR(50)" remarks="所属项目ID" />
             <column name="ISS_SYS_NAME" type="NVARCHAR(200)" remarks="所属系统" />
             <column name="ISS_SYS_CATEGORY" type="NVARCHAR(30)" remarks="所属系统类别:(Web后台,Web网站,后台服务,安卓APP,IOS,微信公众号)" />

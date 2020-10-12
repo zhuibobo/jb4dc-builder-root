@@ -30,6 +30,7 @@
     <orderEntry type="library" name="Maven: org.apache.httpcomponents:httpcore:4.4.11" level="project" />
     <orderEntry type="library" name="Maven: commons-logging:commons-logging:1.2" level="project" />
     <orderEntry type="library" name="Maven: commons-codec:commons-codec:1.11" level="project" />
+    <orderEntry type="library" name="Maven: jb4dc:jb4dc-sso-pojo:1.0-SNAPSHOT" level="project" />
     <orderEntry type="module" module-name="jb4dc-builder-pojo" />
     <orderEntry type="library" name="Maven: jb4dc:jb4dc-web-app-starter:1.0-SNAPSHOT" level="project" />
     <orderEntry type="library" name="Maven: jb4dc:jb4dc-core-base:1.0-SNAPSHOT" level="project" />

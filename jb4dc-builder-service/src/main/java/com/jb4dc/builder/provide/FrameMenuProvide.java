@@ -4,6 +4,7 @@ import com.jb4dc.base.service.po.MenuPO;
 import com.jb4dc.base.service.provide.IFrameMenuProvide;
 import com.jb4dc.core.base.session.JB4DCSession;
 import com.jb4dc.sso.client.remote.MenuRemote;
+import com.jb4dc.sso.client.remote.MenuRuntimeRemote;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,15 +18,15 @@ import java.util.List;
 @Service
 public class FrameMenuProvide implements IFrameMenuProvide {
 
-    MenuRemote menuRemote;
+    MenuRuntimeRemote menuRemote;
 
-    public FrameMenuProvide(MenuRemote _menuRemote){
+    public FrameMenuProvide(MenuRuntimeRemote _menuRemote){
         this.menuRemote=_menuRemote;
     }
 
     @Override
     public List<MenuPO> getMyFrameMenu(JB4DCSession jb4DCSession) {
-        List<MenuPO> menuPOList =  menuRemote.getMyAuthMenusBySystemId("BuilderMainApp").getData();
+        List<MenuPO> menuPOList =  menuRemote.getMyAuthMenusBySystemIdRT(jb4DCSession.getUserId(),"BuilderMainApp").getData();
         return menuPOList;
     }
 }

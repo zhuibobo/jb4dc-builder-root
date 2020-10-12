@@ -8,7 +8,9 @@ let FormRuntimeSinglePageObject={
                 "ButtonId": BaseUtility.GetUrlParaValue("ButtonId"),
                 "OperationType": BaseUtility.GetUrlParaValue("OperationType"),
                 "ListFormButtonElemId": BaseUtility.GetUrlParaValue("ListFormButtonElemId"),
-                "RecordId": BaseUtility.GetUrlParaValue("RecordId")
+                "RecordId": BaseUtility.GetUrlParaValue("RecordId"),
+                "WindowWidth": BaseUtility.GetUrlParaValue("WindowWidth"),
+                "WindowHeight": BaseUtility.GetUrlParaValue("WindowHeight")
             };
             if(!this._webFormRTParas.RecordId){
                 this._webFormRTParas.RecordId=StringUtility.Guid();
@@ -28,7 +30,8 @@ let FormRuntimeSinglePageObject={
             OperationType:webFormRTParas.OperationType,
             IsPreview:isPreview,
             RendererChainCompletedFunc:rendererChainCompletedFunc,
-            ListFormButtonElemId:webFormRTParas.ListFormButtonElemId
+            ListFormButtonElemId:webFormRTParas.ListFormButtonElemId,
+            WebFormRTParas:webFormRTParas
         });
         //this._formRuntimeInst.webFormRTParas=webFormRTParas;
         return this._formRuntimeInst;
@@ -232,6 +235,9 @@ let FormRuntime={
                 $("#innerButtonWrapOuter").append(buttonElem);
             }
         }
+    },
+    GetWebFormRTParas:function () {
+        return this._Prop_Config.WebFormRTParas;
     }
 }
 

@@ -435,15 +435,23 @@ class CKEditorUtility {
         copyIdButton.addClass("button");
         copyIdButton.addClass("copy-id-img");
         copyIdButton.setAttribute( 'title', '复制ID' );
+        //copyIdButton.setAttribute( 'data-clipboard-text', "123");
         pluginInnerPanel.append(copyIdButton);
         copyIdButton.on('click', function (ev) {
-            alert("暂不支持!");
+            var id=elem.getAttribute("id");
+            BaseUtility.CopyValueClipboard(id);
+            //alert(elem.getAttribute("id"));
             //The DOM event object is passed by the 'data' property.
             var domEvent = ev.data;
             //Prevent the click to chave any effect in the element.
             domEvent.preventDefault();
             domEvent.stopPropagation();
         });
+        /*new ClipboardJS(".copy-id-img", {
+            text: function(trigger) {
+                return "xy";
+            }
+        });*/
 
         /*newDelButton.addClass("del-button");
         elem.append(newDelButton);

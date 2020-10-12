@@ -90,7 +90,9 @@
     <orderEntry type="library" name="Maven: io.springfox:springfox-swagger-ui:2.9.2" level="project" />
     <orderEntry type="library" name="Maven: org.ehcache:ehcache:3.6.2" level="project" />
     <orderEntry type="library" name="Maven: jb4dc:jb4dc-base-client:1.0-SNAPSHOT" level="project" />
+    <orderEntry type="library" name="Maven: jb4dc:jb4dc-base-files-service:1.0-SNAPSHOT" level="project" />
     <orderEntry type="library" name="Maven: jb4dc:jb4dc-sso-client:1.0-SNAPSHOT" level="project" />
+    <orderEntry type="library" name="Maven: jb4dc:jb4dc-sso-pojo:1.0-SNAPSHOT" level="project" />
     <orderEntry type="library" name="Maven: org.apache.httpcomponents:httpclient:4.5.5" level="project" />
     <orderEntry type="library" name="Maven: org.apache.httpcomponents:httpcore:4.4.11" level="project" />
     <orderEntry type="library" name="Maven: commons-logging:commons-logging:1.2" level="project" />

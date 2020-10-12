@@ -38,11 +38,15 @@
             formRuntimeInst=FormRuntimeSinglePageObject.pageReady(false,function () {
 
             });
+
+            var windowHeight=formRuntimeInst.GetWebFormRTParas().WindowHeight;
+            $("#htmlDesignRuntimeWrap").height(windowHeight-120);
+            console.log();
         });
     </script>
 </head>
 <body>
-<div id="htmlDesignRuntimeWrap"></div>
+<div id="htmlDesignRuntimeWrap" style="overflow: auto"></div>
 <div class="html-design-operation-button-outer-wrap">
     <div class="html-design-button-inner-wrap">
         <div class="html-design-buttons-group" id="innerButtonWrapOuter">

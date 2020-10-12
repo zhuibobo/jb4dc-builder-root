@@ -131,7 +131,7 @@ gulp.task('html-design-plugins-less',()=>{
 /*表单设计器的运行时JS库*/
 const html_design_runtime_distPath = "../../../../jb4dc-builder-client/src/main/resources/static";
 gulp.task('html-design-runtime-full-js',()=>{
-    var obj= gulp.src([sourcePath + '/Js/HTMLDesignRuntime/**/*.js'])
+    var obj= gulp.src([sourcePath + '/Js/HTMLDesignRuntime/**/*.js','!'+sourcePath + '/Js/HTMLDesignRuntime/**/WFDCT_CKEditor4_*_Config.js'])
         .pipe(babel({
             presets: ['@babel/env'],
         }))
@@ -149,6 +149,26 @@ gulp.task('html-design-runtime-full-js',()=>{
     return  obj.pipe(sourcemaps.write())
         .pipe(gulp.dest(html_design_runtime_distPath + "/Js"));
 });
+gulp.task('html-design-runtime-wfdct-ckeditor4-config-js',()=>{
+    var obj= gulp.src([sourcePath + '/Js/HTMLDesignRuntime/**/WFDCT_CKEditor4_Def_Config.js'])
+        .pipe(babel({
+            presets: ['@babel/env'],
+        }))
+        .pipe(sourcemaps.init())
+        .pipe(concat('WFDCT_CKEditor4_Def_Config.js'));
+
+    if(!isdebug){
+        obj=obj.pipe(uglify());
+    }
+    /*.pipe(uglify(
+        {
+            compress: {drop_debugger: false}
+        }
+    ))*/
+    return  obj.pipe(sourcemaps.write())
+        .pipe(gulp.dest(html_design_runtime_distPath + "/Js"));
+});
+
 
 gulp.task('html-design-runtime-template',()=>{
     return copyAndResolveHtml(sourcePath + "/HTML/Builder/Runtime/**/*.html",sourcePath + "/HTML",html_design_runtime_distPath + "/HTML");
@@ -188,7 +208,7 @@ gulp.task('html-design-runtime-images-builder-runtime',()=>{
     return gulp.src(sourcePath+"/Themes/Default/Less/Images/BuilderRuntime/*", {base:sourcePath+"/Themes/Default/Less/Images/BuilderRuntime"}).pipe(gulp.dest(html_design_runtime_distPath+"/Themes/Default/Css/Images/BuilderRuntime"));
 });
 
-gulp.task('html-design-all', gulp.series('html-design-utility','html-design-ckeditor-config','html-design-plugins-js','html-design-plugins-css-img','html-design-plugins-html','html-design-runtime-full-js','html-design-runtime-less','html-design-runtime-template','html-design-runtime-images-builder-runtime'));
+gulp.task('html-design-all', gulp.series('html-design-utility','html-design-ckeditor-config','html-design-plugins-js','html-design-plugins-css-img','html-design-plugins-html','html-design-runtime-full-js','html-design-runtime-less','html-design-runtime-template','html-design-runtime-wfdct-ckeditor4-config-js','html-design-runtime-images-builder-runtime'));
 
 gulp.task('html-template-web-builder-package',()=>{
     //gulp.src(jarFromResourcePath+"/HTML/**/*", {base:jarFromResourcePath+"/HTML"}).pipe(gulp.dest(jarToResourcePath+"/HTML"))

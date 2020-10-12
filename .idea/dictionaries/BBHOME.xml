@@ -11,6 +11,7 @@
       <w>bpmnuri</w>
       <w>buttoncaption</w>
       <w>buttonid</w>
+      <w>buttontext</w>
       <w>buttontype</w>
       <w>camunda</w>
       <w>cellpadding</w>
@@ -28,6 +29,7 @@
       <w>custclientrendereraftermethodparapara</w>
       <w>custclientrenderermethod</w>
       <w>custclientrenderermethodpara</w>
+      <w>customconfig</w>
       <w>custprop</w>
       <w>custserverresolvemethod</w>
       <w>custserverresolvemethodpara</w>
@@ -39,6 +41,8 @@
       <w>datetimeonpickedevent</w>
       <w>dbentities</w>
       <w>defaultisnull</w>
+      <w>defaultselected</w>
+      <w>defaultselectedorganid</w>
       <w>defaulttype</w>
       <w>defaultvalue</w>
       <w>defformat</w>
@@ -55,6 +59,7 @@
       <w>fielddatatype</w>
       <w>fieldlength</w>
       <w>fieldname</w>
+      <w>fleft</w>
       <w>formater</w>
       <w>formcode</w>
       <w>formid</w>
@@ -72,9 +77,18 @@
       <w>listmanager</w>
       <w>mockapi</w>
       <w>moddle</w>
+      <w>multiplesplit</w>
       <w>opentype</w>
       <w>relationid</w>
       <w>restdatasource</w>
+      <w>resultnamebindtocontrolfield</w>
+      <w>resultnamebindtocontrolid</w>
+      <w>resultvaluebindtocontrolfield</w>
+      <w>resultvaluebindtocontrolid</w>
+      <w>selectcondition</w>
+      <w>selectdialogtitle</w>
+      <w>selectnumber</w>
+      <w>settingtype</w>
       <w>sflb</w>
       <w>singlename</w>
       <w>sout</w>

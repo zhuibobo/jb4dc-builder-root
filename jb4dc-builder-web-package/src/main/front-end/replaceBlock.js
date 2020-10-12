@@ -90,7 +90,7 @@ let replaceBlock = {
     replaceFormDesignLib: function (search, file) {
         let replaceArray = new Array();
         let levelPath = calculateFilePath(file);
-
+        replaceArray.push(refJs(levelPath + "Js/External/Clipboard/clipboard.min.js"));
         replaceArray.push(refJs(levelPath + "Js/External/Ckeditor-4.11.1-4Design/ckeditor.js"));
         replaceArray.push(refJs(levelPath + "Js/HTMLDesign/HTMLDesignUtility.js?refVersion=" + refVersion));
 
@@ -193,6 +193,7 @@ let replaceBlock = {
         let levelPath = calculateFilePath(file);
 
         replaceArray.push(refJs(levelPath + "Js/External/JQuery-3.4.1/jquery-3.4.1.min.js"));
+        replaceArray.push(refJs(levelPath + "Js/External/Ckeditor_4.15.0_Standard/ckeditor.js"));
         replaceArray.push(refJs(levelPath + "Js/External/VUE-2.6.10/vue.js"));
         replaceArray.push(refJs(levelPath + "Js/External/IView-3.X/dist/iview.min.js"));
         replaceArray.push(refJs(levelPath + "Js/External/JQuery-UI-1.12.1/jquery-ui.js"));

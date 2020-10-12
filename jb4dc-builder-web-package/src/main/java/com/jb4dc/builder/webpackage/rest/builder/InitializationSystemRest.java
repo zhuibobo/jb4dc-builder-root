@@ -17,7 +17,6 @@ import com.jb4dc.builder.service.module.IModuleService;
 import com.jb4dc.builder.service.site.ISiteInfoService;
 import com.jb4dc.builder.service.systemsetting.IDictionaryGroupService;
 import com.jb4dc.builder.service.systemsetting.IDictionaryService;
-import com.jb4dc.builder.service.systemsetting.ISettingService;
 import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
 import com.jb4dc.core.base.session.JB4DCSession;
 import com.jb4dc.core.base.vo.JBuild4DCResponseVo;
@@ -78,9 +77,6 @@ public class InitializationSystemRest {
     private IDictionaryService dictionaryService;
 
     @Autowired
-    private ISettingService settingService;
-
-    @Autowired
     private IOperationLogService operationLogService;
 
     @RequestMapping(value = "/Running", method = RequestMethod.POST)
@@ -114,9 +110,6 @@ public class InitializationSystemRest {
 
         //初始化字典
         dictionaryGroupService.initSystemData(jb4DCSession,dictionaryService);
-
-        //初始化系统参数
-        settingService.initSystemData(jb4DCSession);
 
         //初始化操作日志
         operationLogService.initSystemData(jb4DCSession);
