@@ -17,6 +17,7 @@ let InnerFormButtonRuntime= {
         //console.log(formDataComplexPO);
         var operationType=formRuntimeInstance._Prop_Config.OperationType;
         DialogUtility.AlertLoading(window,DialogUtility.DialogLoadingId,{},"系统处理中,请稍候...");
+        return;
         RuntimeGeneralInstance.SubmitFormDataComplexPOListToServer(
             formDataComplexPO,
             formDataComplexPO.recordId,

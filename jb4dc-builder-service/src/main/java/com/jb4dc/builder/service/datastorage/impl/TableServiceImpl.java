@@ -97,7 +97,7 @@ public class TableServiceImpl extends BaseServiceImpl<TableEntity> implements IT
     }
 
     @Override
-    public int deleteAll(JB4DCSession jb4DCSession) throws JBuild4DCGenerallyException {
+    public int deleteAll(JB4DCSession jb4DCSession, String warningOperationCode) throws JBuild4DCGenerallyException {
         throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_BUILDER_CODE,"未实现该方法");
     }
 

@@ -22,7 +22,8 @@ var WFDCT_CKEditor4={
 
     },
     GetValue:function ($elem,originalData, paras) {
-        originalData.value=$elem.val();
+        originalData.value=this.ckeditorInstance.getData();
+        //console.log(originalData.value);
         return originalData;
     },
     SetValue:function ($elem,fieldPO,relationFormRecordComplexPo,_rendererDataChainParas) {
