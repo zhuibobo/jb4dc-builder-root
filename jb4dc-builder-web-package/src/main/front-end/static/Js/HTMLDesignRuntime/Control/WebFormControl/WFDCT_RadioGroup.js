@@ -2,7 +2,7 @@ var WFDCT_RadioGroup={
     RendererChain:function (_rendererChainParas) {
         var $singleControlElem=_rendererChainParas.$singleControlElem;
         var dataSource=decodeURIComponent($singleControlElem.attr("datasource"));
-        console.log(dataSource);
+        //console.log(dataSource);
         dataSource=JsonUtility.StringToJson(dataSource);
         var defaultIsChecked=true;
         $singleControlElem.hide();

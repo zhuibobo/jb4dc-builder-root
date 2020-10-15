@@ -5,7 +5,7 @@
     };
     CKEditorPluginUtility.Plugins[pluginName].GetHtmlTemplate=function(tipMsg,addDefProp) {
         var tip = CKEditorPluginUtility.GetAutoRemoveTipLabel(tipMsg);
-        var template=`<div class="wysiwyg-wfdct-tabs-outer-wrap wfdct-tabs-outer-wrap-runtime html-design-theme-default-root-elem-class">${tip}
+        var template=`<div class="wysiwyg-wfdct-tabs-outer-wrap wfdct-tabs-outer-wrap-runtime">${tip}
                         <div class="wysiwyg-wfdct-tabs-label wfdct-tabs-label-runtime" tab_id="tab_content_1_1">
                             基础信息
                         </div>

@@ -150,12 +150,7 @@ gulp.task('html-design-runtime-full-js',()=>{
         .pipe(gulp.dest(html_design_runtime_distPath + "/Js"));
 });
 gulp.task('html-design-runtime-wfdct-ckeditor4-config-js',()=>{
-    var obj= gulp.src([sourcePath + '/Js/HTMLDesignRuntime/**/WFDCT_CKEditor4_Def_Config.js'])
-        .pipe(babel({
-            presets: ['@babel/env'],
-        }))
-        .pipe(sourcemaps.init())
-        .pipe(concat('WFDCT_CKEditor4_Def_Config.js'));
+    var obj= gulp.src([sourcePath + '/Js/HTMLDesignRuntime/**/WFDCT_CKEditor4_*_Config.js'])
 
     if(!isdebug){
         obj=obj.pipe(uglify());

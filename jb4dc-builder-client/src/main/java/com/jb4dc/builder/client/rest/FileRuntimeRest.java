@@ -3,6 +3,7 @@ package com.jb4dc.builder.client.rest;
 import com.jb4dc.base.service.general.JB4DCSessionUtility;
 import com.jb4dc.core.base.exception.JBuild4DCBaseException;
 import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
+import com.jb4dc.core.base.tools.DateUtility;
 import com.jb4dc.core.base.vo.JBuild4DCResponseVo;
 import com.jb4dc.files.dbentities.FileInfoEntity;
 import com.jb4dc.files.po.SimpleFilePO;
@@ -38,14 +39,18 @@ public class FileRuntimeRest {
     IFileInfoService fileInfoService;
 
     @RequestMapping(value = "/UploadCKE4Image*")
-    void uploadCKE4Image(HttpServletRequest request, HttpServletResponse response) throws IOException, JBuild4DCGenerallyException {
+    void uploadCKE4Image(HttpServletRequest request, HttpServletResponse response,String uploadType,String objId) throws IOException, JBuild4DCGenerallyException {
 
         SimpleFilePO simpleFilePO = getSingleFilePOFromRequest(request);
-        FileInfoEntity fileInfoEntity = fileInfoService.addFileToFileSystem(JB4DCSessionUtility.getSession(), simpleFilePO.getFileName(), simpleFilePO.getFileByte(), "", "", "CKE4-Image", "Image");
+        FileInfoEntity fileInfoEntity = fileInfoService.addFileToFileSystem(
+                JB4DCSessionUtility.getSession(),
+                simpleFilePO.getFileName(), simpleFilePO.getFileByte(),
+                objId, String.valueOf(System.currentTimeMillis()),
+                "CKE4-Image", "Image");
 
         String imageContextPath = request.getContextPath()+"//Rest/Builder/RunTime/FileRuntime/DownLoadFileByFileId?fileId="+fileInfoEntity.getFileId();
         response.setContentType("text/html;charset=UTF-8");
-        String callback = request.getParameter("CKEditorFuncNum");
+        //String callback = request.getParameter("CKEditorFuncNum");
         PrintWriter out = response.getWriter();
 
         out.println("{\n" +
@@ -56,6 +61,41 @@ public class FileRuntimeRest {
         out.flush();
         out.close();
     }
+
+    @RequestMapping(value = "/UploadFile")
+    JBuild4DCResponseVo UploadFile(HttpServletRequest request, HttpServletResponse response,String objType,String objId,String categoryType) throws IOException, JBuild4DCGenerallyException {
+
+        SimpleFilePO simpleFilePO = getSingleFilePOFromRequest(request);
+
+        FileInfoEntity fileInfoEntity = fileInfoService.addFileToFileSystem(
+                JB4DCSessionUtility.getSession(),
+                simpleFilePO.getFileName(), simpleFilePO.getFileByte(),
+                objId, String.valueOf(System.currentTimeMillis()),
+                objType, categoryType);
+
+        return JBuild4DCResponseVo.opSuccess();
+        /*String imageContextPath = request.getContextPath()+"//Rest/Builder/RunTime/FileRuntime/DownLoadFileByFileId?fileId="+fileInfoEntity.getFileId();
+        response.setContentType("text/html;charset=UTF-8");
+        //String callback = request.getParameter("CKEditorFuncNum");
+        PrintWriter out = response.getWriter();
+
+        out.println("{\n" +
+                "\"uploaded\": 1," +
+                "\"fileName\": \"img.png\"," +
+                "\"url\": \"" +imageContextPath+"\""+
+                "}");
+        out.flush();
+        out.close();*/
+    }
+
+    @RequestMapping(value = "/GetFileListData")
+    JBuild4DCResponseVo getFileListData(HttpServletRequest request, HttpServletResponse response,String objId,String categoryType) throws IOException, JBuild4DCGenerallyException {
+
+        List<FileInfoEntity> fileInfoEntityList=fileInfoService.getFileInfoListByObjectId(JB4DCSessionUtility.getSession(),objId,categoryType);
+
+        return JBuild4DCResponseVo.getDataSuccess(fileInfoEntityList);
+    }
+
 
     @RequestMapping(value = "/DownLoadFileByFileId")
     void downLoadFile(HttpServletRequest request, HttpServletResponse response,String fileId) throws JBuild4DCGenerallyException {
@@ -83,6 +123,13 @@ public class FileRuntimeRest {
                 }
             }
         }
+    }
+
+    @RequestMapping(value = "/DeleteFileByFileId")
+    JBuild4DCResponseVo deleteFileByFileId(HttpServletRequest request, HttpServletResponse response,String fileId) throws IOException, JBuild4DCGenerallyException {
+
+        fileInfoService.deleteByKey(JB4DCSessionUtility.getSession(),fileId);
+        return JBuild4DCResponseVo.opSuccess();
     }
 
     private SimpleFilePO getSingleFilePOFromRequest(HttpServletRequest request) throws IOException, JBuild4DCGenerallyException {

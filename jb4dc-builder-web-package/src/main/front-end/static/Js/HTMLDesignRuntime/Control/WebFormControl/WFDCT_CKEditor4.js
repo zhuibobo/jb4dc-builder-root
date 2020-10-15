@@ -1,5 +1,6 @@
 var _ref_filePath=$("script").last().attr("src");
 var WFDCT_CKEditor4={
+    ckeditorInstance:null,
     /*ResolveSelf:function (_rendererChainParas) {
 
     },*/
@@ -10,11 +11,12 @@ var WFDCT_CKEditor4={
         //$singleControlElem.val("22222");
         //加载默认配置文件
         var filename=_ref_filePath.substr(_ref_filePath.lastIndexOf('/')+1);
+
         var editorConfigUrl = BaseUtility.AppendTimeStampUrl(_ref_filePath.replace(filename,$singleControlElem.attr("customconfig")));
-        var ckeditorInstance=CKEDITOR.replace( $singleControlElem.attr("id"),{
+        this.ckeditorInstance=CKEDITOR.replace( $singleControlElem.attr("id"),{
             customConfig: editorConfigUrl
         });
-        ckeditorInstance.config.height=areaHeight;
+        this.ckeditorInstance.config.height=areaHeight;
     },
     RendererDataChain:function () {
 

@@ -1,7 +1,7 @@
 var WFDCT_TabContainer={
     RendererChain:function(_rendererChainParas){
         var $tabber=_rendererChainParas.$singleControlElem;
-        console.log("1");
+        //console.log("1");
         //var $tabbers = $("[renderer_type='Form_Container_Tabber']");
         //if ($tabbers.length == 0) {
             //return;

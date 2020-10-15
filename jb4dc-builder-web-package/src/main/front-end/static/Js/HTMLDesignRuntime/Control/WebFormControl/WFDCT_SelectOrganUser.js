@@ -45,7 +45,7 @@ var WFDCT_SelectOrganUser={
     selectedUser:{
       data:[]
     },
-    selectProp:{
+    _prop:{
         buttonId:null,
         buttonText:null,
         multipleSplit:null,
@@ -145,7 +145,7 @@ var WFDCT_SelectOrganUser={
                     var userPhoneNumber=StringUtility.EncodeHtml(userData.userPhoneNumber?userData.userPhoneNumber:"");
                     var userDesc=StringUtility.EncodeHtml(userData.userDesc?userData.userDesc:"");
                     var checkBoxId="cbx_user_"+userId;
-                    var selectNumber=_this.selectProp.selectNumber;
+                    var selectNumber=_this._prop.selectNumber;
                     var userIsSelected=_this.TestUserIsSelected(userData);
                     var $tr=$(`<tr><td style="text-align: center"><input type="checkbox" id="${checkBoxId}" /></td><td style="text-align: center">${userName}</td><td style="text-align: center">${userPhoneNumber}</td><td>${userDesc}</td></tr>`);
                     $tr.bind("click",
@@ -257,8 +257,9 @@ var WFDCT_SelectOrganUser={
         var $button = sender.data.buttonElem;
         var _self = sender.data.selfInstance;
 
-        _self.selectProp.buttonId = $button.attr("id");
-        _self.selectProp.buttonText = $button.attr("buttontext");
+        _self._prop.buttonId = $button.attr("id");
+        HTMLControl.TryBindElementAttrToInstanceProp($button,_self._prop);
+        /*_self.selectProp.buttonText = $button.attr("buttontext");
         _self.selectProp.multipleSplit = $button.attr("multiplesplit");
         _self.selectProp.resultNameBindToControlField = $button.attr("resultnamebindtocontrolfield");
         _self.selectProp.resultValueBindToControlField = $button.attr("resultvaluebindtocontrolfield");
@@ -269,16 +270,16 @@ var WFDCT_SelectOrganUser={
         //multiple single
         _self.selectProp.selectNumber =$button.attr("selectnumber");
         _self.selectProp.settingType = $button.attr("settingtype");
-        _self.selectProp.defaultSelectedOrganId = $button.attr("defaultselectedorganid");
+        _self.selectProp.defaultSelectedOrganId = $button.attr("defaultselectedorganid");*/
         var windowWidth = 800;
         var windowHeight = 500;
 
-        _self.selectProp.containerId = _self.BuildContentHTML(_self.selectProp.buttonId,_self.selectProp.defaultSelectedOrganId);
+        _self._prop.containerId = _self.BuildContentHTML(_self._prop.buttonId,_self._prop.defaultSelectedOrganId);
 
-        DialogUtility.DialogElem(_self.selectProp.containerId, {
+        DialogUtility.DialogElem(_self._prop.containerId, {
             width: windowWidth,
             height: windowHeight,
-            title: _self.selectProp.windowCaption,
+            title: _self._prop.windowCaption,
             modal: true
         }, 1, true);
     },
@@ -287,17 +288,17 @@ var WFDCT_SelectOrganUser={
         for (var i = 0; i < this.selectedUser.data.length; i++) {
             names.push(this.selectedUser.data[i].userName);
         }
-        return names.join(this.selectProp.multipleSplit);
+        return names.join(this._prop.multipleSplit);
     },
     BuildSelectedValue:function(){
         var values=[];
         for (var i = 0; i < this.selectedUser.data.length; i++) {
             values.push(this.selectedUser.data[i].userId);
         }
-        return values.join(this.selectProp.multipleSplit);
+        return values.join(this._prop.multipleSplit);
     },
     EnsureClickEvent:function () {
-        var prop=this.selectProp;
+        var prop=this._prop;
         if(prop.settingType=="bingToControl"){
             if(prop.resultNameBindToControlId){
                 $("#"+prop.resultNameBindToControlId).val(this.BuildSelectedName());
@@ -315,6 +316,6 @@ var WFDCT_SelectOrganUser={
         this.CloseClickEvent();
     },
     CloseClickEvent:function () {
-        DialogUtility.CloseByElemId(this.selectProp.containerId)
+        DialogUtility.CloseByElemId(this._prop.containerId)
     }
 }

@@ -498,6 +498,38 @@
         border-collapse: collapse;
         margin: auto;
 
+        .title {
+            color: #585858;
+            text-align: center;
+            font-size: 16px;
+        }
+
+        tr {
+            td, th {
+                padding: 6px;
+                border: 1px solid @g-concrete-color-v04;
+
+                input[type="text"], textarea, select {
+                    /*background: transparent;*/
+                    border: 1px solid @g-concrete-color-v04;
+                    box-sizing: border-box;
+                    padding: 4px;
+                    width: 100%;
+                    /*overflow: auto;*/
+                    font-size: 12px;
+                    border-radius: 3px;
+                }
+            }
+            th {
+                color: #2e6e9e;
+                background-color: @g-concrete-color-v02;
+            }
+        }
+
+        .label {
+            background-color: #f7f7f7;
+            text-align: right;
+        }
 
         .sflt-td-operation-outer-wrap{
             text-align: center;
@@ -987,6 +1019,68 @@
         tr:hover{
             background-color: #efefef;
             cursor: pointer;
+        }
+    }
+}
+
+.upload_file_list_warp{
+    margin:10px;
+
+    .file_list_table {
+        margin: 0px;
+        border-collapse: collapse;
+        font-size: 12px;
+        width: 100%;
+
+        tr {
+            td, th {
+                padding: 6px 8px;
+                border: 1px solid @g-concrete-color-v03;
+
+                input[type="text"], textarea, select {
+                    /*background: transparent;*/
+                    border: 1px solid #d3d7e0;
+                    box-sizing: border-box;
+                    padding: 4px;
+                    width: 100%;
+                    /*overflow: auto;*/
+                    font-size: 12px;
+                    border-radius: 3px;
+                }
+            }
+            th {
+                color: #2e6e9e;
+                background-color: @g-concrete-color-v01;
+            }
+        }
+
+        .file-list-inner-button{
+            width: 20px;
+            height: 20px;
+            display: inline-block;
+            margin: 0px 2px;
+            cursor: pointer;
+            border: transparent dashed 1px;
+            background-repeat: no-repeat;
+            background-position: 1px 1px;
+        }
+        .file-list-inner-button:hover{
+            border: @g-concrete-color-v06 dashed 1px;
+        }
+        .download-button-elem{
+            background-image: url("../../Png16X16/arrow-green--green-downend.png");
+        }
+        .delete-button-elem{
+            background-image: url("../../Png16X16/action_delete.png");
+        }
+        .preview-button-elem{
+            background-image: url("../../Png16X16/page_white_magnify.png");
+        }
+        .move-up-button-elem{
+            background-image: url("../../Png16X16/arrow_large_up_outline.png");
+        }
+        .move-down-button-elem{
+            background-image: url("../../Png16X16/arrow_large_down_outline.png");
         }
     }
 }

@@ -21,7 +21,7 @@
     <!--
         ControlCategory:
                 ContainerControl:模版类型控件,基本上不需要进行获取值和设置值的功能
-                InputControl:输入类控件,需要提供独立的数据并绑定到字段的类型.
+                InputControl:用户交互类控件,需要提供独立的数据并绑定到字段的类型,或则需要与用户进行交互操作.
                 DynamicContainer:动态容器,复杂类的动态容器,控件需要独立提供数据给关系实体,例如WFDCT_SubFormListContainer
     -->
     <WebFormControls>
@@ -62,6 +62,24 @@
                  EnableChildControls="*"
                  DialogWidth="780" DialogHeight="550" IsJBuild4DCData="false" ControlCategory="ContainerControl" ServerDynamicBind="false"
                  ShowRemoveButton="false" ShowInEditorToolbar="true">
+            <Config></Config>
+            <Desc></Desc>
+        </Control>
+        <Control SingleName="WFDCT_SelectOrganUser" Text="选择机构用户" ToolbarLocation="LC_Template,5"
+                 ServerResolve="com.jb4dc.builder.client.htmldesign.control.webform.WebFormSelectOrganUser"
+                 ClientResolve="WFDCT_SelectOrganUser"
+                 ClientResolveJs=""
+                 EnableChildControls="*"
+                 DialogWidth="780" DialogHeight="550" IsJBuild4DCData="true" ControlCategory="InputControl" ServerDynamicBind="false" ShowRemoveButton="true" ShowInEditorToolbar="true">
+            <Config></Config>
+            <Desc></Desc>
+        </Control>
+        <Control SingleName="WFDCT_FileUploadContainer" Text="附件上传" ToolbarLocation="LC_Template,6"
+                 ServerResolve="com.jb4dc.builder.client.htmldesign.control.webform.WebFormFileUploadContainer"
+                 ClientResolve="WFDCT_FileUploadContainer"
+                 ClientResolveJs=""
+                 EnableChildControls="*"
+                 DialogWidth="780" DialogHeight="550" IsJBuild4DCData="true" ControlCategory="InputControl" ServerDynamicBind="false" ShowRemoveButton="true" ShowInEditorToolbar="true">
             <Config></Config>
             <Desc></Desc>
         </Control>
@@ -128,15 +146,7 @@
             <Config></Config>
             <Desc></Desc>
         </Control>
-        <Control SingleName="WFDCT_SelectOrganUser" Text="选择机构用户" ToolbarLocation="LC_Simple_G1,8"
-                 ServerResolve="com.jb4dc.builder.client.htmldesign.control.webform.WebFormSelectOrganUser"
-                 ClientResolve="WFDCT_SelectOrganUser"
-                 ClientResolveJs=""
-                 EnableChildControls="*"
-                 DialogWidth="780" DialogHeight="550" IsJBuild4DCData="true" ControlCategory="InputControl" ServerDynamicBind="false" ShowRemoveButton="true" ShowInEditorToolbar="true">
-            <Config></Config>
-            <Desc></Desc>
-        </Control>
+
     </WebFormControls>
     <AppControls>
 

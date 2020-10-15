@@ -276,5 +276,20 @@ let HTMLControl={
             return null;
         }
         return elem.val();
+    },
+    TryBindElementAttrToInstanceProp:function ($elem,objProp) {
+        //debugger;
+        if($elem.attr("id")) {
+            objProp.elemId = $elem.attr("id");
+        }
+        if($elem.attr("client_instance_name")) {
+            objProp.instanceName = $elem.attr("client_instance_name");
+        }
+        for(var key in objProp){
+            if($elem.attr(key)){
+                objProp[key]=$elem.attr(key);
+            }
+        }
+        objProp.$singleControlElem=$elem;
     }
 }
