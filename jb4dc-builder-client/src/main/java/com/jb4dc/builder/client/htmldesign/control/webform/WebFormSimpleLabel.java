@@ -25,6 +25,7 @@ public class WebFormSimpleLabel extends HTMLControl implements IHTMLControl {
 
     @Override
     public void dynamicBind(JB4DCSession jb4DCSession, String sourceHTML, Document doc, Element singleControlElem, Element parentElem, Element lastParentJbuild4dCustomElem, DynamicBindHTMLControlContextPO dynamicBindHTMLControlContextPO) throws JBuild4DCGenerallyException {
-
+        String defaultValue=defaultValueDynamicBind(jb4DCSession, sourceHTML, doc, singleControlElem, parentElem, lastParentJbuild4dCustomElem, dynamicBindHTMLControlContextPO);
+        singleControlElem.text(defaultValue);
     }
 }

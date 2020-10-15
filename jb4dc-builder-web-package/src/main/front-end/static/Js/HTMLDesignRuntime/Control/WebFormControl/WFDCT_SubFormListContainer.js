@@ -119,7 +119,7 @@ var WFDCT_SubFormListContainer={
                     childRelationPOArray.push(tempPO);
                 }
 
-                this.Dialog_AddRowToContainer(oneDataRecord,childRelationPOArray,true);
+                this.Dialog_AddRowToContainer(oneDataRecord,true);
             }
         }
         this.InnerRow_CompletedLastEdit();
@@ -236,7 +236,8 @@ var WFDCT_SubFormListContainer={
     SaveDataToRowAttr:function (relationPO,$tr,aboutRelationPOArray) {
         $tr.attr("is_sub_list_tr","true");
         //debugger;
-        $tr.attr("tr_record_id",FormRelationPOUtility.FindIdFieldPOByRelationPO(relationPO).value);
+        //$tr.attr("tr_record_id",FormRelationPOUtility.FindIdFieldPOByRelationPO(relationPO).value);
+        $tr.attr("tr_record_id",FormRelationPOUtility.FindFieldPOByRelationPO(relationPO,relationPO.pkFieldName).value);
         $tr.attr("tr_record_data",JsonUtility.JsonToString(relationPO));
         if(aboutRelationPOArray&&aboutRelationPOArray.length>0){
             $tr.attr("child_relation_po_array",JsonUtility.JsonToString(aboutRelationPOArray));
@@ -250,6 +251,7 @@ var WFDCT_SubFormListContainer={
     },
     TryGetRelationPOClone:function(){
         //debugger;
+        //console.log(this._FormDataRelationList);
         if(this._po){
             return JsonUtility.CloneSimple(this._po);
         }
@@ -454,11 +456,12 @@ var WFDCT_SubFormListContainer={
                 "RecordId": BaseUtility.GetUrlParaValue("RecordId")
          */
         var relationPO=this.TryGetRelationPOClone();
-        if(relationPO.outerKeyFieldName!="ID"){
+        console.log("子表外键:"+relationPO.outerKeyFieldName);
+        /*if(relationPO.outerKeyFieldName!="ID"){
             var errMessage="暂时只支持关联父记录的ID字段!";
             DialogUtility.AlertText(errMessage);
             throw errMessage;
-        }
+        }*/
         var para={
             FormId:$singleControlElem.attr("formid"),
             ButtonId:"",
@@ -583,11 +586,12 @@ var WFDCT_SubFormListContainer={
             var subFormMainRelationPO = FormRelationPOUtility.FindMainRelationPO(serializationSubFormData.formRecordDataRelationPOList);
 
             var oneDataRecord = FormRelationPOUtility.Get1To1DataRecord(subFormMainRelationPO);
-            this.Dialog_AddRowToContainer(oneDataRecord, false);
+            //
+            this.Dialog_AddRowToContainer(oneDataRecord, false,subFormMainRelationPO);
 
         }).call(thisInstance, operationType, serializationSubFormData)
     },
-    Dialog_AddRowToContainer:function(oneDataRecord,dataIsFromServer){
+    Dialog_AddRowToContainer:function(oneDataRecord,dataIsFromServer,subFormMainRelationPO){
         if(oneDataRecord) {
             var $tr = this._$TemplateTableRow.clone();
             var controls = HTMLControl.FindALLControls($tr);
@@ -598,8 +602,9 @@ var WFDCT_SubFormListContainer={
                 var fieldPO = FormRelationPOUtility.FindFieldPOInOneDataRecord(oneDataRecord, fieldName)
                 controlInstance.SetValue(control, fieldPO, null, null);
             }
-
-            var idFieldPO=FormRelationPOUtility.FindIDFieldPOInOneDataRecord(oneDataRecord);
+            console.log(subFormMainRelationPO);
+            //var idFieldPO=FormRelationPOUtility.FindIDFieldPOInOneDataRecord(oneDataRecord);
+            var idFieldPO=FormRelationPOUtility.FindFieldPOInOneDataRecord(oneDataRecord,subFormMainRelationPO.pkFieldName);
             //console.log(idFieldPO);
             var lastOperationTd = $("<td><div class='sflt-td-operation-outer-wrap'></div></td>");
             var lastOperationOuterDiv = lastOperationTd.find("div");
@@ -642,223 +647,4 @@ var WFDCT_SubFormListContainer={
         }
     }
     //endregion
-}
-
-var WFDCT_SubFormListContainer1={
-    Dialog_SubFormDialogCompletedEdit:function(instanceName,operationType,serializationSubFormData) {
-        var thisInstance = HTMLControl.GetInstance(instanceName);
-        (function (operationType, serializationSubFormData) {
-            //console.log(serializationSubFormData);
-            //debugger;
-            //父窗体的相关的关联设置
-            var selfRelationPO = this.TryGetRelationPOClone();
-            var selfChildRelationPOArray = this.TryGetChildRelationPOArrayClone(selfRelationPO);
-
-            //子窗体相关的关联设置
-            var subFormMainRelationPO = FormRelationPOUtility.FindMainRelationPO(serializationSubFormData.formRecordDataRelationPOList);
-            var subFormNotMainRelationPO = FormRelationPOUtility.FindNotMainRelationPO(serializationSubFormData.formRecordDataRelationPOList);
-
-            //将子窗体的关联实体装换为主窗体的实体关联.
-            var childRelationPOArray = [];
-            for (var i = 0; i < selfChildRelationPOArray.length; i++) {
-                var tableName = selfChildRelationPOArray[i].tableName;
-                var subRelationPO = FormRelationPOUtility.FindRelationPOByTableName(subFormNotMainRelationPO, tableName);
-                if (subRelationPO) {
-                    subRelationPO.id = selfChildRelationPOArray[i].id;
-                    subRelationPO.parentId = selfChildRelationPOArray[i].parentId;
-                    childRelationPOArray.push(subRelationPO);
-                }
-            }
-
-            var oneDataRecord = FormRelationPOUtility.Get1To1DataRecord(subFormMainRelationPO);
-
-            //debugger;
-            //生成从记录的外键字段
-            for (var i = 0; i < childRelationPOArray.length; i++) {
-                var subRelationPO=childRelationPOArray[i];
-                var selfKeyFieldName=subRelationPO.selfKeyFieldName;
-                var outerKeyFieldName=subRelationPO.outerKeyFieldName;
-                var outerKeyFieldValue=FormRelationPOUtility.FindFieldValueInOneDataRecord(oneDataRecord,outerKeyFieldName);
-
-                for (var j = 0; j < subRelationPO.listDataRecord.length; j++) {
-                    var recordFieldPOList=FormRelationPOUtility.FindRecordFieldPOArray(subRelationPO.listDataRecord[j]);
-                    FormRelationPOUtility.CreateFieldInRecordFieldPOArray(recordFieldPOList,selfKeyFieldName,outerKeyFieldValue);
-                }
-
-            }
-
-            this.Dialog_AddRowToContainer(oneDataRecord, childRelationPOArray, false);
-
-        }).call(thisInstance, operationType, serializationSubFormData);
-    },
-    Dialog_AddRowToContainer:function(oneDataRecord,childRelationPOArray,dataIsFromServer){
-        if(oneDataRecord) {
-            var $tr = this._$TemplateTableRow.clone();
-            var controls = HTMLControl.FindALLControls($tr);
-            for (var i = 0; i < controls.length; i++) {
-                var control = $(controls[i]);
-                var controlInstance = HTMLControl.GetControlInstanceByElem(control);
-                var fieldName = HTMLControl.GetControlBindFieldName(control);
-                var fieldPO = FormRelationPOUtility.FindFieldPOInOneDataRecord(oneDataRecord, fieldName)
-                controlInstance.SetValue(control, fieldPO, null, null);
-            }
-
-            var idFieldPO=FormRelationPOUtility.FindIDFieldPOInOneDataRecord(oneDataRecord);
-            //console.log(idFieldPO);
-            var lastOperationTd = $("<td><div class='sflt-td-operation-outer-wrap'></div></td>");
-            var lastOperationOuterDiv = lastOperationTd.find("div");
-            if(dataIsFromServer) {
-                if (this._Display_OPButtons_View) {
-                    this.Dialog_AddRow_AddViewButton(lastOperationOuterDiv, $tr, idFieldPO.value, oneDataRecord, this._$SingleControlElem, this._FormRuntimeHost.IsPreview());
-                }
-                if (this._Display_OPButtons_Update) {
-                    this.Dialog_AddRow_AddUpdateButton(lastOperationOuterDiv, $tr, idFieldPO.value, oneDataRecord, this._$SingleControlElem, this._FormRuntimeHost.IsPreview());
-                }
-                if (this._Display_OPButtons_Del) {
-                    this.Dialog_AddRow_AddDeleteButton(lastOperationOuterDiv, $tr, idFieldPO.value, oneDataRecord, this._$SingleControlElem, this._FormRuntimeHost.IsPreview());
-                }
-            }
-            else {
-                this.Dialog_AddRow_AddViewButton(lastOperationOuterDiv, $tr, idFieldPO.value, oneDataRecord, this._$SingleControlElem, this._FormRuntimeHost.IsPreview());
-                this.Dialog_AddRow_AddUpdateButton(lastOperationOuterDiv, $tr, idFieldPO.value, oneDataRecord, this._$SingleControlElem, this._FormRuntimeHost.IsPreview());
-                this.Dialog_AddRow_AddDeleteButton(lastOperationOuterDiv, $tr, idFieldPO.value, oneDataRecord, this._$SingleControlElem, this._FormRuntimeHost.IsPreview());
-            }
-
-            $tr.append(lastOperationTd);
-
-            var idValue=idFieldPO.value;
-            var $oldTrElem = this._$SingleControlElem.find("tr[tr_record_id='" + idValue + "']");
-            if($oldTrElem.length==0) {
-                this._$TableBodyElem.append($tr);
-            }
-            else{
-                $oldTrElem.after($tr);
-                $oldTrElem.remove();
-            }
-
-            //构建本身数据关联PO
-            //debugger;
-            var relationPO = this.TryGetRelationPOClone();
-            relationPO = FormRelationPOUtility.Add1To1DataRecord(relationPO, oneDataRecord);
-
-            this.SaveDataToRowAttr(relationPO, $tr, childRelationPOArray);
-            //console.log(childRelationPOArray);
-        }
-    },
-
-    Dialog_AddRow_AddViewButton:function (operationOuterDiv,$tr,idValue,oneDataRecord,$singleControlElem,isPreview) {
-        var btn_operation_view = $("<div title='查看' class='sflt-td-operation-view'></div>");
-        var dialogWindowPara=this.Dialog_Get_Button_Click_Para($singleControlElem);
-        btn_operation_view.bind("click", {
-            "$tr": $tr,
-            "idValue": idValue,
-            "oneDataRecord": oneDataRecord,
-            "dialogWindowPara": dialogWindowPara,
-            "isPreview":isPreview
-        }, function (sender) {
-            var dialogWindowPara = sender.data.dialogWindowPara;
-            dialogWindowPara.OperationType="view";
-            dialogWindowPara.RecordId=sender.data.idValue;
-            var url;
-            if (isPreview) {
-                url = BaseUtility.BuildView("/HTML/Builder/Form/SubFormPreview.html", dialogWindowPara);
-            }
-            else{
-                url = BaseUtility.BuildView("/HTML/Builder/Runtime/WebFormSubRuntime.html", dialogWindowPara);
-            }
-
-            DialogUtility.OpenIframeWindow(window, DialogUtility.DialogId, url, {
-                title: dialogWindowPara.DialogWindowTitle,
-                width: dialogWindowPara.WindowWidth,
-                height: dialogWindowPara.WindowHeight
-            }, 1);
-        });
-
-        operationOuterDiv.append(btn_operation_view);
-    },
-    Dialog_AddRow_AddUpdateButton:function (operationOuterDiv,$tr,idValue,oneDataRecord,$singleControlElem,isPreview) {
-        var btn_operation_view = $("<div title='编辑' class='sflt-td-operation-update'></div>");
-        var dialogWindowPara=this.Dialog_Get_Button_Click_Para($singleControlElem);
-        btn_operation_view.bind("click", {
-            "$tr": $tr,
-            "idValue": idValue,
-            "oneDataRecord": oneDataRecord,
-            "dialogWindowPara": dialogWindowPara,
-            "isPreview":isPreview
-        }, function (sender) {
-            var dialogWindowPara = sender.data.dialogWindowPara;
-            dialogWindowPara.OperationType="update";
-            dialogWindowPara.RecordId=sender.data.idValue;
-            var url;
-            if (isPreview) {
-                url = BaseUtility.BuildView("/HTML/Builder/Form/SubFormPreview.html", dialogWindowPara);
-            }
-            else{
-                url = BaseUtility.BuildView("/HTML/Builder/Runtime/WebFormSubRuntime.html", dialogWindowPara);
-            }
-
-            DialogUtility.OpenIframeWindow(window, DialogUtility.DialogId, url, {
-                title: dialogWindowPara.DialogWindowTitle,
-                width: dialogWindowPara.WindowWidth,
-                height: dialogWindowPara.WindowHeight
-            }, 1);
-        });
-
-        operationOuterDiv.append(btn_operation_view);
-    },
-    Dialog_AddRow_AddDeleteButton:function (operationOuterDiv,$tr,idValue,oneDataRecord,$singleControlElem,isPreview) {
-        var btn_operation_view = $("<div title='删除' class='sflt-td-operation-del'></div>");
-
-        btn_operation_view.bind("click", {
-            "$tr": $tr,
-            "idValue": idValue,
-            "oneDataRecord": oneDataRecord,
-            "isPreview":isPreview
-        }, function (sender) {
-            sender.data.$tr.remove();
-        });
-
-        operationOuterDiv.append(btn_operation_view);
-    },
-
-    Dialog_Get_SubForm_RecordComplexPo:function (instanceName,subFormDataRelationList,idValue) {
-        var thisInstance = HTMLControl.GetInstance(instanceName);
-        (function (subFormDataRelationList, idValue) {
-            //console.log(subFormDataRelationList);
-            //console.log(idValue);
-            var $trElem = this._$SingleControlElem.find("tr[tr_record_id='" + idValue + "']");
-            var tr_record_data = this.GetRowData($trElem);
-            var child_relation_po_array = this.GetChildRelationPOArray($trElem);
-
-            var mainPO = FormRelationPOUtility.FindMainRelationPO(subFormDataRelationList);
-            var oneDataRecord=FormRelationPOUtility.Get1To1DataRecord(tr_record_data);
-            FormRelationPOUtility.Add1To1DataRecordFieldPOList(
-                mainPO,
-                oneDataRecord.recordFieldPOList,
-                oneDataRecord.desc,
-                oneDataRecord.recordId,
-                oneDataRecord.outerFieldName,
-                oneDataRecord.outerFieldValue,
-                oneDataRecord.selfFieldName
-                );
-            //console.log(child_relation_po_array);
-            var childPOList = FormRelationPOUtility.FindNotMainRelationPO(subFormDataRelationList);
-
-            for (var i = 0; i < childPOList.length; i++) {
-                var childPO = childPOList[i];
-                var tableName = childPO.tableName;
-                var child_relation_po = ArrayUtility.WhereSingle(child_relation_po_array, function (item) {
-                    return item.tableName == tableName;
-                });
-                if (child_relation_po) {
-                    FormRelationPOUtility.Add1ToNDataRecord(childPO, FormRelationPOUtility.Get1ToNDataRecord(child_relation_po));
-                }
-            }
-
-        }).call(thisInstance, subFormDataRelationList, idValue);
-        //console.log(subFormDataRelationList);
-        return {
-            formRecordDataRelationPOList: subFormDataRelationList
-        };
-    }
 }

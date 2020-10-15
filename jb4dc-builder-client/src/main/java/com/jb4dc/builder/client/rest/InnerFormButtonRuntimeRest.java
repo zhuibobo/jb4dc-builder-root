@@ -38,7 +38,7 @@ public class InnerFormButtonRuntimeRest {
         System.out.println(String.format("recordId:%s,innerFormButtonId:%s,listButtonId:%s",recordId,innerFormButtonId,listButtonId));
         System.out.println(formRecordComplexPOString);
 
-        FormRecordComplexPO formRecordComplexPO = JsonUtility.toObject(formRecordComplexPOString,FormRecordComplexPO.class);
+        FormRecordComplexPO formRecordComplexPO = JsonUtility.toObjectIgnoreProp(formRecordComplexPOString,FormRecordComplexPO.class);
 
         webFormDataSaveRuntimeService.SaveFormRecordComplexPO(JB4DCSessionUtility.getSession(),recordId,formRecordComplexPO,listButtonId,innerFormButtonId,operationTypeName);
 

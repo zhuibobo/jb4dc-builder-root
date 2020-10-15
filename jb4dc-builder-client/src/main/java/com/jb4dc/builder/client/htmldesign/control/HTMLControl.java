@@ -146,13 +146,14 @@ public abstract class HTMLControl implements IHTMLControl {
         }
     }
 
-    public void defaultValueDynamicBind(JB4DCSession jb4DCSession, String sourceHTML, Document doc, Element singleControlElem, Element parentElem, Element lastParentJbuild4dCustomElem, DynamicBindHTMLControlContextPO dynamicBindHTMLControlContextPO) throws JBuild4DCGenerallyException {
+    public String defaultValueDynamicBind(JB4DCSession jb4DCSession, String sourceHTML, Document doc, Element singleControlElem, Element parentElem, Element lastParentJbuild4dCustomElem, DynamicBindHTMLControlContextPO dynamicBindHTMLControlContextPO) throws JBuild4DCGenerallyException {
         String defaultValue=getDefaultValue(jb4DCSession,sourceHTML,doc,singleControlElem,parentElem,lastParentJbuild4dCustomElem,dynamicBindHTMLControlContextPO,null);
         String value="";
         if (StringUtility.isNotEmpty(defaultValue)){
             value=defaultValue;
         }
         singleControlElem.val(value);
+        return value;
     }
 
     public String getDefaultValue(JB4DCSession jb4DCSession, String sourceHTML, Document doc, Element singleControlElem, Element parentElem, Element lastParentJbuild4dCustomElem, DynamicBindHTMLControlContextPO dynamicBindHTMLControlContextPO, HtmlControlDefinitionPO htmlControlDefinitionPO) throws JBuild4DCGenerallyException {

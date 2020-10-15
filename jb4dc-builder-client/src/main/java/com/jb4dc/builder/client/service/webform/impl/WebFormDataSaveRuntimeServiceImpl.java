@@ -154,10 +154,16 @@ public class WebFormDataSaveRuntimeServiceImpl implements IWebFormDataSaveRuntim
             TableEntity mainTableEntity = tableRuntimeProxy.getTableById(mainDataPO.getTableId());
             List<TableFieldPO> mainTableFieldPOList = tableRuntimeProxy.getTableFieldsByTableId(mainDataPO.getTableId());
 
+            //完善数据关系设置
             for (FormRecordDataRelationPO dataRelationPO : formRecordDataRelationPOList) {
                 String tableId = dataRelationPO.getTableId();
-                TableEntity relTableEntity = tableRuntimeProxy.getTableById(mainDataPO.getTableId());
-                List<TableFieldPO> relTableFieldPOList = tableRuntimeProxy.getTableFieldsByTableId(mainDataPO.getTableId());
+                TableEntity relTableEntity = tableRuntimeProxy.getTableById(tableId);
+                List<TableFieldPO> relTableFieldPOList = tableRuntimeProxy.getTableFieldsByTableId(tableId);
+                TableFieldPO pkFieldPO=resolvePendingSQL.findPrimaryKey(dataRelationPO.getTableName(),relTableFieldPOList);
+                if(dataRelationPO.getParentId().equals("-1")){
+                    dataRelationPO.setisMain(true);
+                }
+                dataRelationPO.setPkFieldName(pkFieldPO.getFieldName());
                 if (!allDataRelationTableFieldsMap.containsKey(tableId)) {
                     allDataRelationTablesMap.put(tableId, relTableEntity);
                     allDataRelationTableFieldsMap.put(tableId, relTableFieldPOList);
@@ -166,6 +172,7 @@ public class WebFormDataSaveRuntimeServiceImpl implements IWebFormDataSaveRuntim
             formRecordComplexPO.setAllDataRelationTablesMap(allDataRelationTablesMap);
             formRecordComplexPO.setAllDataRelationTableFieldsMap(allDataRelationTableFieldsMap);
 
+            //加载记录数据
             if (BaseUtility.isUpdateOperation(operationType) || BaseUtility.isViewOperation(operationType)) {
 
                 TableFieldPO mainTablePKFieldPo = resolvePendingSQL.findPrimaryKey(mainTableEntity.getTableName(), mainTableFieldPOList);
@@ -218,10 +225,11 @@ public class WebFormDataSaveRuntimeServiceImpl implements IWebFormDataSaveRuntim
                 String json = JsonUtility.toObjectString(formRecordDataRelationPOList);
                 logger.debug(BaseUtility.wrapDevLog(json));
                 //return formRecordDataRelationPOList;
-                formRecordComplexPO.setFormRecordDataRelationPOList(formRecordDataRelationPOList);
-                return formRecordComplexPO;
+                //formRecordComplexPO.setFormRecordDataRelationPOList(formRecordDataRelationPOList);
+                //return formRecordComplexPO;
             }
 
+            formRecordComplexPO.setFormRecordDataRelationPOList(formRecordDataRelationPOList);
             return formRecordComplexPO;
         }
         return null;

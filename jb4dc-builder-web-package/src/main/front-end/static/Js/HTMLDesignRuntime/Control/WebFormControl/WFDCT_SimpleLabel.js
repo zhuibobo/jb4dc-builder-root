@@ -1,9 +1,12 @@
 var WFDCT_SimpleLabel={
     RendererChain:HTMLControl.RendererChain,
     RendererDataChain:HTMLControl.RendererDataChain,
-    GetValue:HTMLControl.GetValue,
+    GetValue:function ($elem,originalData, paras) {
+        originalData.value=$elem.text();
+        return originalData;
+    },
     SetValue:function ($elem,fieldPO,relationFormRecordComplexPo,_rendererDataChainParas) {
-        //debugger;
+        //alert("1");
         if(fieldPO) {
             //console.log(fieldPO);
             var defformat = $elem.attr("defformat");

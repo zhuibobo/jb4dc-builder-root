@@ -41,10 +41,14 @@
 
             $("#btnConfirm").click(function () {
                 var formDataComplexPO=formRuntimeInst.SerializationFormData();
+                console.log(formDataComplexPO);
                 var parentRecordId=BaseUtility.GetUrlParaValue("ParentRecordId");
                 var selfKeyFieldName=BaseUtility.GetUrlParaValue("SelfKeyFieldName");
                 var mainPO=FormRelationPOUtility.FindMainRelationPO(formDataComplexPO.formRecordDataRelationPOList);
                 FormRelationPOUtility.CreateFieldInRecordFieldPOArray(FormRelationPOUtility.Get1To1DataRecord(mainPO).recordFieldPOList,selfKeyFieldName,parentRecordId);
+                console.log(formDataComplexPO);
+                //console.log(formRuntimeInst.get)
+                //return;
                 RuntimeGeneralInstance.SubmitFormDataComplexPOListToServer(
                     formDataComplexPO,
                     formDataComplexPO.recordId,
@@ -73,7 +77,7 @@
     <div class="html-design-operation-button-outer-wrap">
         <div class="html-design-button-inner-wrap">
             <div class="html-design-buttons-group">
-                <button type="button" class="operation-button operation-button-primary" id="btnConfirm"><span>确认11</span></button>
+                <button type="button" class="operation-button operation-button-primary" id="btnConfirm"><span>确认</span></button>
                 <button type="button" class="operation-button" id="btnClose"><span>关闭</span></button>
             </div>
         </div>

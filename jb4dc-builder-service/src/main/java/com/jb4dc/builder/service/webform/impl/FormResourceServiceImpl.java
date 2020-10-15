@@ -62,7 +62,6 @@ public class FormResourceServiceImpl extends BaseServiceImpl<FormResourceEntity>
         String resolvedHtml=htmlRuntimeResolve.resolveSourceHTML(jb4DCSession,id,record.getFormHtmlSource());
         record.setFormHtmlResolve(resolvedHtml);
         record.setFormIsResolve(TrueFalseEnum.True.getDisplayName());
-
         return super.save(jb4DCSession, id, record, new IAddBefore<FormResourceEntity>() {
             @Override
             public FormResourceEntity run(JB4DCSession jb4DCSession, FormResourceEntity sourceEntity) throws JBuild4DCGenerallyException {

@@ -376,6 +376,7 @@ Vue.component("db-table-relation-comp", {
             return this.relationTableTree.currentSelectedNode._nodeExType=="MainNode";
         },
         addTableToRelationTableTree: function (newNode) {
+            debugger;
             newNode = this.buildRelationTableNode(newNode);
             var tempNode = this.getMainRelationTableNode();
             if (tempNode != null) {

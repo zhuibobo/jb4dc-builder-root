@@ -19,15 +19,18 @@ public class FormResourceComplexPO extends FormResourcePO {
         super(source, formHtmlRuntime);
     }
 
-    public FormResourceComplexPO(FormResourceEntity source, String formHtmlRuntime, FormRecordComplexPO formRecordComplexPO, ListButtonEntity _listButtonEntity) {
+    public FormResourceComplexPO(FormResourceEntity source, String formHtmlRuntime,List<FormRecordDataRelationPO> formRecordDataRelationPOList, FormRecordComplexPO formRecordComplexPO, ListButtonEntity _listButtonEntity) {
         super(source, formHtmlRuntime);
         this.formRecordComplexPO = formRecordComplexPO;
         this.listButtonEntity = _listButtonEntity;
+        this.formRecordDataRelationPOList=formRecordDataRelationPOList;
     }
 
     FormRecordComplexPO formRecordComplexPO;
 
     ListButtonEntity listButtonEntity;
+
+    List<FormRecordDataRelationPO> formRecordDataRelationPOList;
 
     public FormRecordComplexPO getFormRecordComplexPO() {
         return formRecordComplexPO;
@@ -43,5 +46,13 @@ public class FormResourceComplexPO extends FormResourcePO {
 
     public void setListButtonEntity(ListButtonEntity listButtonEntity) {
         this.listButtonEntity = listButtonEntity;
+    }
+
+    public List<FormRecordDataRelationPO> getFormRecordDataRelationPOList() {
+        return formRecordDataRelationPOList;
+    }
+
+    public void setFormRecordDataRelationPOList(List<FormRecordDataRelationPO> formRecordDataRelationPOList) {
+        this.formRecordDataRelationPOList = formRecordDataRelationPOList;
     }
 }

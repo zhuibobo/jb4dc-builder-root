@@ -75,8 +75,9 @@ public class WebFormRuntimeServiceImpl implements IWebFormRuntimeService {
         //dynamicBindHTMLControlContextPO.setMainRecordData(formDataRelationService.findMainRecordData(formDataRelationPOList));
 
         String formHtmlRuntime=htmlRuntimeResolve.dynamicBind(JB4DCSessionUtility.getSession(),remoteSourcePO.getFormId(),remoteSourcePO.getFormHtmlResolve(),dynamicBindHTMLControlContextPO);
-
-        FormResourceComplexPO formResourceComplexPO=new FormResourceComplexPO(remoteSourcePO,formHtmlRuntime, formRecordComplexPO,listButtonEntity);
+        //清空掉关联设置,设置getFormRecordComplexPO中计算尝试的关联设置
+        //remoteSourcePO.setFormDataRelation("");
+        FormResourceComplexPO formResourceComplexPO=new FormResourceComplexPO(remoteSourcePO,formHtmlRuntime,formRecordComplexPO.getFormRecordDataRelationPOList(), formRecordComplexPO,listButtonEntity);
 
         return formResourceComplexPO;
     }

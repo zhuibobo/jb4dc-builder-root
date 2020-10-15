@@ -21,7 +21,17 @@ var WFDCT_CKEditor4={
     RendererDataChain:function () {
 
     },
-    GetValue:HTMLControl.GetValue,
-    SetValue:HTMLControl.SetValue,
+    GetValue:function ($elem,originalData, paras) {
+        originalData.value=$elem.val();
+        return originalData;
+    },
+    SetValue:function ($elem,fieldPO,relationFormRecordComplexPo,_rendererDataChainParas) {
+        //debugger;
+        if(fieldPO){
+            //console.log(fieldPO);
+            $elem.val(fieldPO.value);
+            $elem.attr("control_value",fieldPO.value);
+        }
+    },
     ToViewStatus:HTMLControl.ToViewStatus
 }

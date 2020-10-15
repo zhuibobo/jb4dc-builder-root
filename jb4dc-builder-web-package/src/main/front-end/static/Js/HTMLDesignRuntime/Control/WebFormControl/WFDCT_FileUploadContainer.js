@@ -76,7 +76,7 @@ var WFDCT_FileUploadContainer={
         else{
             DialogUtility.AlertText("查找不到绑定的记录ID");
         }
-        return "d5414077-0f3f-dc29-f760-073ac6e84d09";
+        //return "d5414077-0f3f-dc29-f760-073ac6e84d09";
         return objId;
     },
     GetThisRecordType:function(){

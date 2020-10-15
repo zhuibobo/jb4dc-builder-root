@@ -56,6 +56,7 @@ let FormRuntime={
     _$RendererToElem:null,
     _FormPO:null,
     _FormDataRelationList:null,
+    _OriginalFormDataRelationList:null,
     //_RelationPOWithDynamicContainerControl:{},
     Initialization:function (_config) {
         this._Prop_Config= $.extend(true,{},this._Prop_Config,_config);
@@ -87,8 +88,11 @@ let FormRuntime={
             console.log(result);
             //console.log(result.data.formHtmlRuntime);
             this._FormPO=result.data;
-            this._FormDataRelationList=JsonUtility.StringToJson(this._FormPO.formDataRelation);
-
+            //this._FormDataRelationList=JsonUtility.StringToJson(this._FormPO.formDataRelation);
+            this._FormPO.formDataRelation="";//清空字符串类型的关联.功能调整
+            this._FormDataRelationList=this._FormPO.formRecordDataRelationPOList;
+            this._OriginalFormDataRelationList=JsonUtility.CloneStringify(this._FormDataRelationList);
+            console.log(this._FormDataRelationList);
             this._$RendererToElem.append(result.data.formHtmlRuntime);
 
             VirtualBodyControl.RendererChain({
@@ -140,7 +144,8 @@ let FormRuntime={
         return this._Prop_Config.ListFormButtonElemId;
     },
     GetOriginalFormDataRelation:function() {
-        return JsonUtility.StringToJson(this._FormPO.formDataRelation);
+        return JsonUtility.CloneStringify(this._OriginalFormDataRelationList);
+        //return JsonUtility.StringToJson(this._FormPO.formDataRelation);
     },
     GetFormPO:function(){
         return this._FormPO;
@@ -162,7 +167,8 @@ let FormRuntime={
             var relationSingleName = singleRelation.singleName;
             var tableName = singleRelation.tableName;
             var tableId=singleRelation.tableId;
-            var isMain = (singleRelation.parentId == "-1");
+            //var isMain = (singleRelation.parentId == "-1");
+            var isMain = singleRelation.main;
             singleRelation.isMain = isMain;
             if (isMain) {
                 singleRelation.relationType = "1To1";
