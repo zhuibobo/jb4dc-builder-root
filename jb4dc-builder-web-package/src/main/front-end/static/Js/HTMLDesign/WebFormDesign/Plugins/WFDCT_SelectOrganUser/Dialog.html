@@ -40,6 +40,21 @@
                         </tr>
                         <tr>
                             <td>
+                                单选时直接选择：
+                            </td>
+                            <td>
+                                <radio-group type="button" style="margin: auto" v-model="normalProps.singleSelectAutoClose">
+                                    <radio label="true">是</radio>
+                                    <radio label="false">否</radio>
+                                </radio-group>
+                            </td>
+                            <td>
+                            </td>
+                            <td>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
                                 按钮Text
                             </td>
                             <td>
@@ -137,6 +152,7 @@
                 normalProps:{
                     settingType:"bingToControl",
                     selectNumber:"single",
+                    singleSelectAutoClose:"false",
                     buttonText:"...",
                     selectDialogTitle:"选择用户",
                     resultValueBindToControlId:"",

@@ -150,6 +150,7 @@ let FormRuntime={
     GetFormPO:function(){
         return this._FormPO;
     },
+
     SerializationFormData:function () {
         var formRecordComplexPo = {
             recordId: this._Prop_Config.RecordId,
@@ -198,7 +199,8 @@ let FormRuntime={
                     outerFieldValue = "NotOuterField";
                     selfFieldName = "NotOuterField";
                 } else {
-                    recordId = FormRelationPOUtility.FindIDFieldPOInOneDataRecord(oneRowRecord).value;
+                    //recordId = FormRelationPOUtility.FindIDFieldPOInOneDataRecord(oneRowRecord).value;
+                    recordId = FormRelationPOUtility.FindFieldPOInOneDataRecord(oneRowRecord,singleRelation.pkFieldName).value;
                     outerFieldName = singleRelation.outerKeyFieldName;
                     outerFieldValue = singleRelation.outerKeyFieldName;
                     selfFieldName = singleRelation.selfKeyFieldName;

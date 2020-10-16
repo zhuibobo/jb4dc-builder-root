@@ -1,4 +1,5 @@
 var WFDCT_DropDownSelect={
+    InitStyle:HTMLControl.InitStyle,
     RendererChain:function (_rendererChainParas) {
         //debugger;
         //var $singleControlElem=_rendererChainParas.$singleControlElem;

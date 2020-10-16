@@ -88,6 +88,9 @@ let HTMLControl={
                     instance.Initialize();
                 }
                 instance.RendererChain(_cloneRendererDataChainParas);
+                if(typeof(instance.InitStyle)=="function"){
+                    instance.InitStyle(_cloneRendererDataChainParas);
+                }
                 /*instance.RendererChain({
                     listEntity:_rendererChainParas.listEntity,
                     sourceHTML:_rendererChainParas.sourceHTML,
@@ -140,7 +143,24 @@ let HTMLControl={
             }
         }
     },
-
+    InitStyle:function(_rendererChainParas){
+        var $singleControlElem=_rendererChainParas.$singleControlElem;
+        HTMLControl.TryAppendValidateStyle($singleControlElem);
+    },
+    TryAppendValidateStyle:function($singleControlElem){
+        var validateRules=ValidateRulesRuntime.getValidateRules($singleControlElem);
+        if(validateRules&&validateRules.rules.length>0){
+            for (let i = 0; i < validateRules.rules.length; i++) {
+                if(validateRules.rules[i].validateType==ValidateRulesRuntime.NoEmpty) {
+                    var $tdTxt = $singleControlElem.parent().prev();
+                    var newTxt = ValidateRulesRuntime.getValidateTipElem() + $tdTxt.text();
+                    $tdTxt.html(newTxt);
+                    //console.log(tdTxt);
+                }
+            }
+            console.log(validateRules);
+        }
+    },
     GetValue:function ($elem,originalData, paras) {
         originalData.value=$elem.val();
         return originalData;

@@ -69,7 +69,7 @@ Vue.component("select-validate-rule-dialog", {
             $(window.document).find(".ui-widget-overlay").css("zIndex", 10100);
             $(window.document).find(".ui-dialog").css("zIndex", 10101);
 
-            this.ruleParas.msg = "字段";
+            this.ruleParas.msg = "auto";
             this.ruleParas.numLength = 4;
             this.ruleParas.decimalLength = 0;
             this.ruleParas.jsMethodName = "";
@@ -84,7 +84,7 @@ Vue.component("select-validate-rule-dialog", {
             //debugger;
             if(oldSelectedValue.rules.length>0) {
                 this.addedValidateRule=oldSelectedValue.rules;
-                this.msg=oldSelectedValue.msg;
+                this.ruleParas.msg=oldSelectedValue.msg;
             }
         },
         getSelectInstanceName:function () {

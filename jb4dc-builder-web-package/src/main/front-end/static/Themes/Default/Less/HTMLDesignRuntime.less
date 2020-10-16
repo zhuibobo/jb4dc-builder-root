@@ -227,6 +227,11 @@
                     font-size: 12px;
                     border-radius: 3px;
                 }
+
+                input[type="text"]:read-only, textarea:read-only {
+                    background-color: @g-concrete-color-v01;
+                    border: 1px solid @g-concrete-color-v03;
+                }
             }
             th {
                 color: #2e6e9e;
@@ -1083,4 +1088,8 @@
             background-image: url("../../Png16X16/arrow_large_down_outline.png");
         }
     }
+}
+
+.html-design-input-control-error-status{
+    border: @g-pomegranate-color-v06 solid 1px !important;
 }
