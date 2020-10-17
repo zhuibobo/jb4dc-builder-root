@@ -38,11 +38,9 @@ public class IssuesServiceImpl extends BaseServiceImpl<IssuesEntity> implements 
 
     @Override
     public String getNextNumByProjectId(String issProjectId) {
-
         String nextCode="00001";
         if(StringUtility.isNotEmpty(issProjectId)) {
             String maxNum=issuesMapper.selectMaxNumByProjectId(issProjectId);
-            //nextFileCode = fileInfoMapper.selectMaxCodeByObjectId(objId);
             if (maxNum.equals("0")) {
                 //nextCode = "10001";
             } else {
