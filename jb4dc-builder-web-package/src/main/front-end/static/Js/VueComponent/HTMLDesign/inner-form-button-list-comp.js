@@ -322,7 +322,7 @@ Vue.component("inner-form-button-list-comp", {
 
             //console.log(singleInnerFormButtonData);
 
-            this.handleClose("innerFormButtonEdit");
+            this.handleClose("addInnerFormSaveButton");
         },
         //endregion
 
@@ -640,7 +640,7 @@ Vue.component("inner-form-button-list-comp", {
                             <div class="button-inner-wrap">
                                 <button-group>
                                     <i-button type="primary" @click="saveInnerSaveButtonToList()"> 保 存</i-button>
-                                    <i-button @click="handleClose('innerFormButtonEdit')">关 闭</i-button>
+                                    <i-button @click="handleClose('addInnerFormSaveButton')">关 闭</i-button>
                                 </button-group>
                             </div>
                         </div>

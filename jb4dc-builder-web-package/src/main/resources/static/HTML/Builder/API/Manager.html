@@ -61,7 +61,7 @@
                 <!--List-->
                 idFieldName:"apiItemId",
                 searchCondition:{
-                    apiVarGroupId:{
+                    apiItemGroupId:{
                         value:"",
                         type:SearchUtility.SearchFieldType.StringType
                     }
@@ -158,7 +158,7 @@
                     this.selectionRows=null;
                     this.pageNum=1;
                     this.clearSearchCondition();
-                    this.searchCondition.apiVarGroupId.value=this.treeSelectedNode[this.treeIdFieldName];
+                    this.searchCondition.apiItemGroupId.value=this.treeSelectedNode[this.treeIdFieldName];
                     this.reloadData();
                     //appList.reloadTreeTableData();
                     //}

@@ -6,7 +6,10 @@ class JsEditorUtility{
         return "<script>var FormPageObjectInstance={" +
             "data:{" +
             "userEntity:{}," +
+            "organEntity:{}," +
             "formEntity:[]," +
+            "recordEntity:[]," +
+            "webFormRTParas:{},"+
             "config:[]" +
             "}," +
             "pageReady:function(){}," +

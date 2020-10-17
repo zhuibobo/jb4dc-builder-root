@@ -1,5 +1,7 @@
 package com.jb4dc.builder.client.service.api;
 
+import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
+
 /**
  * Created with IntelliJ IDEA.
  * User: zhuangrb
@@ -7,5 +9,5 @@ package com.jb4dc.builder.client.service.api;
  * To change this template use File | Settings | File Templates.
  */
 public interface IApiForButton {
-    ApiRunResult runApi(ApiRunPara apiRunPara);
+    ApiRunResult runApi(ApiRunPara apiRunPara) throws JBuild4DCGenerallyException;
 }

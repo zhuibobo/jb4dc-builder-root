@@ -1,0 +1,557 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jb4dc.qcsystem.dao.issues.IssuesMapper">
+    <resultMap id="BaseResultMap" type="com.jb4dc.qcsystem.dbentities.issues.IssuesEntity">
+        <constructor>
+            <idArg column="ISS_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="ISS_NUM" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="ISS_TITLE" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="ISS_SIMPLE_CONTENT" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="ISS_PROJECT_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="ISS_SYS_NAME" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="ISS_SYS_CATEGORY" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="ISS_SYS_VERSION" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="ISS_SYS_MODULE_NAME" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="ISS_SYS_PHASE" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="ISS_TYPE" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="ISS_LEVEL" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="ISS_PRIORITY" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="ISS_IS_REPEAT" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="ISS_SOURCE" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="ISS_CUSTOMER_UNIT" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="ISS_CUSTOMER_NAME" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="ISS_CUSTOMER_MOBILE" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="ISS_ACCEPT_FROM" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="ISS_ACCEPT_DATE" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+            <arg column="ISS_ACCEPT_NAME" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="ISS_CREATOR_NAME" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="ISS_CREATOR_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="ISS_CREATOR_DATE" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+            <arg column="ISS_HANDLER_NAME" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="ISS_HANDLER_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="ISS_HANDLER_SEND_DATE" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+            <arg column="ISS_HANDLER_END_DATE" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+            <arg column="ISS_STATUS" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="ISS_CLOSER_NAME" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="ISS_CLOSER_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="ISS_CLOSER_DATE" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+            <arg column="ISS_PROCESSING_MESSAGE" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="ISS_ABOUT_TO_OUT" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="ISS_ORDER_NUM" javaType="java.lang.Integer" jdbcType="INTEGER" />
+        </constructor>
+    </resultMap>
+    <resultMap id="ResultMapWithBLOBs" type="com.jb4dc.qcsystem.dbentities.issues.IssuesEntityWithBLOBs">
+        <constructor>
+            <idArg column="ISS_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="ISS_NUM" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="ISS_TITLE" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="ISS_SIMPLE_CONTENT" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="ISS_PROJECT_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="ISS_SYS_NAME" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="ISS_SYS_CATEGORY" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="ISS_SYS_VERSION" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="ISS_SYS_MODULE_NAME" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="ISS_SYS_PHASE" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="ISS_TYPE" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="ISS_LEVEL" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="ISS_PRIORITY" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="ISS_IS_REPEAT" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="ISS_SOURCE" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="ISS_CUSTOMER_UNIT" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="ISS_CUSTOMER_NAME" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="ISS_CUSTOMER_MOBILE" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="ISS_ACCEPT_FROM" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="ISS_ACCEPT_DATE" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+            <arg column="ISS_ACCEPT_NAME" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="ISS_CREATOR_NAME" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="ISS_CREATOR_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="ISS_CREATOR_DATE" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+            <arg column="ISS_HANDLER_NAME" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="ISS_HANDLER_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="ISS_HANDLER_SEND_DATE" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+            <arg column="ISS_HANDLER_END_DATE" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+            <arg column="ISS_STATUS" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="ISS_CLOSER_NAME" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="ISS_CLOSER_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="ISS_CLOSER_DATE" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+            <arg column="ISS_PROCESSING_MESSAGE" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="ISS_ABOUT_TO_OUT" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="ISS_ORDER_NUM" javaType="java.lang.Integer" jdbcType="INTEGER" />
+            <arg column="ISS_CONTENT" javaType="java.lang.String" jdbcType="LONGVARCHAR" />
+            <arg column="ISS_SOLUTION" javaType="java.lang.String" jdbcType="LONGVARCHAR" />
+        </constructor>
+    </resultMap>
+    <sql id="Base_Column_List">
+    ISS_ID, ISS_NUM, ISS_TITLE, ISS_SIMPLE_CONTENT, ISS_PROJECT_ID, ISS_SYS_NAME, ISS_SYS_CATEGORY,
+    ISS_SYS_VERSION, ISS_SYS_MODULE_NAME, ISS_SYS_PHASE, ISS_TYPE, ISS_LEVEL, ISS_PRIORITY,
+    ISS_IS_REPEAT, ISS_SOURCE, ISS_CUSTOMER_UNIT, ISS_CUSTOMER_NAME, ISS_CUSTOMER_MOBILE,
+    ISS_ACCEPT_FROM, ISS_ACCEPT_DATE, ISS_ACCEPT_NAME, ISS_CREATOR_NAME, ISS_CREATOR_ID,
+    ISS_CREATOR_DATE, ISS_HANDLER_NAME, ISS_HANDLER_ID, ISS_HANDLER_SEND_DATE, ISS_HANDLER_END_DATE,
+    ISS_STATUS, ISS_CLOSER_NAME, ISS_CLOSER_ID, ISS_CLOSER_DATE, ISS_PROCESSING_MESSAGE,
+    ISS_ABOUT_TO_OUT, ISS_ORDER_NUM
+  </sql>
+    <sql id="Blob_Column_List">
+    ISS_CONTENT, ISS_SOLUTION
+  </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="ResultMapWithBLOBs">
+        select
+        <include refid="Base_Column_List" />
+        ,
+        <include refid="Blob_Column_List" />
+        from TQC_ISSUES
+        where ISS_ID = #{issId,jdbcType=VARCHAR}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from TQC_ISSUES
+    where ISS_ID = #{issId,jdbcType=VARCHAR}
+  </delete>
+    <insert id="insert" parameterType="com.jb4dc.qcsystem.dbentities.issues.IssuesEntityWithBLOBs">
+    insert into TQC_ISSUES (ISS_ID, ISS_NUM, ISS_TITLE,
+      ISS_SIMPLE_CONTENT, ISS_PROJECT_ID, ISS_SYS_NAME,
+      ISS_SYS_CATEGORY, ISS_SYS_VERSION, ISS_SYS_MODULE_NAME,
+      ISS_SYS_PHASE, ISS_TYPE, ISS_LEVEL,
+      ISS_PRIORITY, ISS_IS_REPEAT, ISS_SOURCE,
+      ISS_CUSTOMER_UNIT, ISS_CUSTOMER_NAME, ISS_CUSTOMER_MOBILE,
+      ISS_ACCEPT_FROM, ISS_ACCEPT_DATE, ISS_ACCEPT_NAME,
+      ISS_CREATOR_NAME, ISS_CREATOR_ID, ISS_CREATOR_DATE,
+      ISS_HANDLER_NAME, ISS_HANDLER_ID, ISS_HANDLER_SEND_DATE,
+      ISS_HANDLER_END_DATE, ISS_STATUS, ISS_CLOSER_NAME,
+      ISS_CLOSER_ID, ISS_CLOSER_DATE, ISS_PROCESSING_MESSAGE,
+      ISS_ABOUT_TO_OUT, ISS_ORDER_NUM, ISS_CONTENT,
+      ISS_SOLUTION)
+    values (#{issId,jdbcType=VARCHAR}, #{issNum,jdbcType=VARCHAR}, #{issTitle,jdbcType=VARCHAR},
+      #{issSimpleContent,jdbcType=VARCHAR}, #{issProjectId,jdbcType=VARCHAR}, #{issSysName,jdbcType=VARCHAR},
+      #{issSysCategory,jdbcType=VARCHAR}, #{issSysVersion,jdbcType=VARCHAR}, #{issSysModuleName,jdbcType=VARCHAR},
+      #{issSysPhase,jdbcType=VARCHAR}, #{issType,jdbcType=VARCHAR}, #{issLevel,jdbcType=VARCHAR},
+      #{issPriority,jdbcType=VARCHAR}, #{issIsRepeat,jdbcType=VARCHAR}, #{issSource,jdbcType=VARCHAR},
+      #{issCustomerUnit,jdbcType=VARCHAR}, #{issCustomerName,jdbcType=VARCHAR}, #{issCustomerMobile,jdbcType=VARCHAR},
+      #{issAcceptFrom,jdbcType=VARCHAR}, #{issAcceptDate,jdbcType=TIMESTAMP}, #{issAcceptName,jdbcType=VARCHAR},
+      #{issCreatorName,jdbcType=VARCHAR}, #{issCreatorId,jdbcType=VARCHAR}, #{issCreatorDate,jdbcType=TIMESTAMP},
+      #{issHandlerName,jdbcType=VARCHAR}, #{issHandlerId,jdbcType=VARCHAR}, #{issHandlerSendDate,jdbcType=TIMESTAMP},
+      #{issHandlerEndDate,jdbcType=TIMESTAMP}, #{issStatus,jdbcType=VARCHAR}, #{issCloserName,jdbcType=VARCHAR},
+      #{issCloserId,jdbcType=VARCHAR}, #{issCloserDate,jdbcType=TIMESTAMP}, #{issProcessingMessage,jdbcType=VARCHAR},
+      #{issAboutToOut,jdbcType=VARCHAR}, #{issOrderNum,jdbcType=INTEGER}, #{issContent,jdbcType=LONGVARCHAR},
+      #{issSolution,jdbcType=LONGVARCHAR})
+  </insert>
+    <insert id="insertSelective" parameterType="com.jb4dc.qcsystem.dbentities.issues.IssuesEntityWithBLOBs">
+        insert into TQC_ISSUES
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="issId != null">
+                ISS_ID,
+            </if>
+            <if test="issNum != null">
+                ISS_NUM,
+            </if>
+            <if test="issTitle != null">
+                ISS_TITLE,
+            </if>
+            <if test="issSimpleContent != null">
+                ISS_SIMPLE_CONTENT,
+            </if>
+            <if test="issProjectId != null">
+                ISS_PROJECT_ID,
+            </if>
+            <if test="issSysName != null">
+                ISS_SYS_NAME,
+            </if>
+            <if test="issSysCategory != null">
+                ISS_SYS_CATEGORY,
+            </if>
+            <if test="issSysVersion != null">
+                ISS_SYS_VERSION,
+            </if>
+            <if test="issSysModuleName != null">
+                ISS_SYS_MODULE_NAME,
+            </if>
+            <if test="issSysPhase != null">
+                ISS_SYS_PHASE,
+            </if>
+            <if test="issType != null">
+                ISS_TYPE,
+            </if>
+            <if test="issLevel != null">
+                ISS_LEVEL,
+            </if>
+            <if test="issPriority != null">
+                ISS_PRIORITY,
+            </if>
+            <if test="issIsRepeat != null">
+                ISS_IS_REPEAT,
+            </if>
+            <if test="issSource != null">
+                ISS_SOURCE,
+            </if>
+            <if test="issCustomerUnit != null">
+                ISS_CUSTOMER_UNIT,
+            </if>
+            <if test="issCustomerName != null">
+                ISS_CUSTOMER_NAME,
+            </if>
+            <if test="issCustomerMobile != null">
+                ISS_CUSTOMER_MOBILE,
+            </if>
+            <if test="issAcceptFrom != null">
+                ISS_ACCEPT_FROM,
+            </if>
+            <if test="issAcceptDate != null">
+                ISS_ACCEPT_DATE,
+            </if>
+            <if test="issAcceptName != null">
+                ISS_ACCEPT_NAME,
+            </if>
+            <if test="issCreatorName != null">
+                ISS_CREATOR_NAME,
+            </if>
+            <if test="issCreatorId != null">
+                ISS_CREATOR_ID,
+            </if>
+            <if test="issCreatorDate != null">
+                ISS_CREATOR_DATE,
+            </if>
+            <if test="issHandlerName != null">
+                ISS_HANDLER_NAME,
+            </if>
+            <if test="issHandlerId != null">
+                ISS_HANDLER_ID,
+            </if>
+            <if test="issHandlerSendDate != null">
+                ISS_HANDLER_SEND_DATE,
+            </if>
+            <if test="issHandlerEndDate != null">
+                ISS_HANDLER_END_DATE,
+            </if>
+            <if test="issStatus != null">
+                ISS_STATUS,
+            </if>
+            <if test="issCloserName != null">
+                ISS_CLOSER_NAME,
+            </if>
+            <if test="issCloserId != null">
+                ISS_CLOSER_ID,
+            </if>
+            <if test="issCloserDate != null">
+                ISS_CLOSER_DATE,
+            </if>
+            <if test="issProcessingMessage != null">
+                ISS_PROCESSING_MESSAGE,
+            </if>
+            <if test="issAboutToOut != null">
+                ISS_ABOUT_TO_OUT,
+            </if>
+            <if test="issOrderNum != null">
+                ISS_ORDER_NUM,
+            </if>
+            <if test="issContent != null">
+                ISS_CONTENT,
+            </if>
+            <if test="issSolution != null">
+                ISS_SOLUTION,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="issId != null">
+                #{issId,jdbcType=VARCHAR},
+            </if>
+            <if test="issNum != null">
+                #{issNum,jdbcType=VARCHAR},
+            </if>
+            <if test="issTitle != null">
+                #{issTitle,jdbcType=VARCHAR},
+            </if>
+            <if test="issSimpleContent != null">
+                #{issSimpleContent,jdbcType=VARCHAR},
+            </if>
+            <if test="issProjectId != null">
+                #{issProjectId,jdbcType=VARCHAR},
+            </if>
+            <if test="issSysName != null">
+                #{issSysName,jdbcType=VARCHAR},
+            </if>
+            <if test="issSysCategory != null">
+                #{issSysCategory,jdbcType=VARCHAR},
+            </if>
+            <if test="issSysVersion != null">
+                #{issSysVersion,jdbcType=VARCHAR},
+            </if>
+            <if test="issSysModuleName != null">
+                #{issSysModuleName,jdbcType=VARCHAR},
+            </if>
+            <if test="issSysPhase != null">
+                #{issSysPhase,jdbcType=VARCHAR},
+            </if>
+            <if test="issType != null">
+                #{issType,jdbcType=VARCHAR},
+            </if>
+            <if test="issLevel != null">
+                #{issLevel,jdbcType=VARCHAR},
+            </if>
+            <if test="issPriority != null">
+                #{issPriority,jdbcType=VARCHAR},
+            </if>
+            <if test="issIsRepeat != null">
+                #{issIsRepeat,jdbcType=VARCHAR},
+            </if>
+            <if test="issSource != null">
+                #{issSource,jdbcType=VARCHAR},
+            </if>
+            <if test="issCustomerUnit != null">
+                #{issCustomerUnit,jdbcType=VARCHAR},
+            </if>
+            <if test="issCustomerName != null">
+                #{issCustomerName,jdbcType=VARCHAR},
+            </if>
+            <if test="issCustomerMobile != null">
+                #{issCustomerMobile,jdbcType=VARCHAR},
+            </if>
+            <if test="issAcceptFrom != null">
+                #{issAcceptFrom,jdbcType=VARCHAR},
+            </if>
+            <if test="issAcceptDate != null">
+                #{issAcceptDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="issAcceptName != null">
+                #{issAcceptName,jdbcType=VARCHAR},
+            </if>
+            <if test="issCreatorName != null">
+                #{issCreatorName,jdbcType=VARCHAR},
+            </if>
+            <if test="issCreatorId != null">
+                #{issCreatorId,jdbcType=VARCHAR},
+            </if>
+            <if test="issCreatorDate != null">
+                #{issCreatorDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="issHandlerName != null">
+                #{issHandlerName,jdbcType=VARCHAR},
+            </if>
+            <if test="issHandlerId != null">
+                #{issHandlerId,jdbcType=VARCHAR},
+            </if>
+            <if test="issHandlerSendDate != null">
+                #{issHandlerSendDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="issHandlerEndDate != null">
+                #{issHandlerEndDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="issStatus != null">
+                #{issStatus,jdbcType=VARCHAR},
+            </if>
+            <if test="issCloserName != null">
+                #{issCloserName,jdbcType=VARCHAR},
+            </if>
+            <if test="issCloserId != null">
+                #{issCloserId,jdbcType=VARCHAR},
+            </if>
+            <if test="issCloserDate != null">
+                #{issCloserDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="issProcessingMessage != null">
+                #{issProcessingMessage,jdbcType=VARCHAR},
+            </if>
+            <if test="issAboutToOut != null">
+                #{issAboutToOut,jdbcType=VARCHAR},
+            </if>
+            <if test="issOrderNum != null">
+                #{issOrderNum,jdbcType=INTEGER},
+            </if>
+            <if test="issContent != null">
+                #{issContent,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="issSolution != null">
+                #{issSolution,jdbcType=LONGVARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.jb4dc.qcsystem.dbentities.issues.IssuesEntityWithBLOBs">
+        update TQC_ISSUES
+        <set>
+            <if test="issNum != null">
+                ISS_NUM = #{issNum,jdbcType=VARCHAR},
+            </if>
+            <if test="issTitle != null">
+                ISS_TITLE = #{issTitle,jdbcType=VARCHAR},
+            </if>
+            <if test="issSimpleContent != null">
+                ISS_SIMPLE_CONTENT = #{issSimpleContent,jdbcType=VARCHAR},
+            </if>
+            <if test="issProjectId != null">
+                ISS_PROJECT_ID = #{issProjectId,jdbcType=VARCHAR},
+            </if>
+            <if test="issSysName != null">
+                ISS_SYS_NAME = #{issSysName,jdbcType=VARCHAR},
+            </if>
+            <if test="issSysCategory != null">
+                ISS_SYS_CATEGORY = #{issSysCategory,jdbcType=VARCHAR},
+            </if>
+            <if test="issSysVersion != null">
+                ISS_SYS_VERSION = #{issSysVersion,jdbcType=VARCHAR},
+            </if>
+            <if test="issSysModuleName != null">
+                ISS_SYS_MODULE_NAME = #{issSysModuleName,jdbcType=VARCHAR},
+            </if>
+            <if test="issSysPhase != null">
+                ISS_SYS_PHASE = #{issSysPhase,jdbcType=VARCHAR},
+            </if>
+            <if test="issType != null">
+                ISS_TYPE = #{issType,jdbcType=VARCHAR},
+            </if>
+            <if test="issLevel != null">
+                ISS_LEVEL = #{issLevel,jdbcType=VARCHAR},
+            </if>
+            <if test="issPriority != null">
+                ISS_PRIORITY = #{issPriority,jdbcType=VARCHAR},
+            </if>
+            <if test="issIsRepeat != null">
+                ISS_IS_REPEAT = #{issIsRepeat,jdbcType=VARCHAR},
+            </if>
+            <if test="issSource != null">
+                ISS_SOURCE = #{issSource,jdbcType=VARCHAR},
+            </if>
+            <if test="issCustomerUnit != null">
+                ISS_CUSTOMER_UNIT = #{issCustomerUnit,jdbcType=VARCHAR},
+            </if>
+            <if test="issCustomerName != null">
+                ISS_CUSTOMER_NAME = #{issCustomerName,jdbcType=VARCHAR},
+            </if>
+            <if test="issCustomerMobile != null">
+                ISS_CUSTOMER_MOBILE = #{issCustomerMobile,jdbcType=VARCHAR},
+            </if>
+            <if test="issAcceptFrom != null">
+                ISS_ACCEPT_FROM = #{issAcceptFrom,jdbcType=VARCHAR},
+            </if>
+            <if test="issAcceptDate != null">
+                ISS_ACCEPT_DATE = #{issAcceptDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="issAcceptName != null">
+                ISS_ACCEPT_NAME = #{issAcceptName,jdbcType=VARCHAR},
+            </if>
+            <if test="issCreatorName != null">
+                ISS_CREATOR_NAME = #{issCreatorName,jdbcType=VARCHAR},
+            </if>
+            <if test="issCreatorId != null">
+                ISS_CREATOR_ID = #{issCreatorId,jdbcType=VARCHAR},
+            </if>
+            <if test="issCreatorDate != null">
+                ISS_CREATOR_DATE = #{issCreatorDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="issHandlerName != null">
+                ISS_HANDLER_NAME = #{issHandlerName,jdbcType=VARCHAR},
+            </if>
+            <if test="issHandlerId != null">
+                ISS_HANDLER_ID = #{issHandlerId,jdbcType=VARCHAR},
+            </if>
+            <if test="issHandlerSendDate != null">
+                ISS_HANDLER_SEND_DATE = #{issHandlerSendDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="issHandlerEndDate != null">
+                ISS_HANDLER_END_DATE = #{issHandlerEndDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="issStatus != null">
+                ISS_STATUS = #{issStatus,jdbcType=VARCHAR},
+            </if>
+            <if test="issCloserName != null">
+                ISS_CLOSER_NAME = #{issCloserName,jdbcType=VARCHAR},
+            </if>
+            <if test="issCloserId != null">
+                ISS_CLOSER_ID = #{issCloserId,jdbcType=VARCHAR},
+            </if>
+            <if test="issCloserDate != null">
+                ISS_CLOSER_DATE = #{issCloserDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="issProcessingMessage != null">
+                ISS_PROCESSING_MESSAGE = #{issProcessingMessage,jdbcType=VARCHAR},
+            </if>
+            <if test="issAboutToOut != null">
+                ISS_ABOUT_TO_OUT = #{issAboutToOut,jdbcType=VARCHAR},
+            </if>
+            <if test="issOrderNum != null">
+                ISS_ORDER_NUM = #{issOrderNum,jdbcType=INTEGER},
+            </if>
+            <if test="issContent != null">
+                ISS_CONTENT = #{issContent,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="issSolution != null">
+                ISS_SOLUTION = #{issSolution,jdbcType=LONGVARCHAR},
+            </if>
+        </set>
+        where ISS_ID = #{issId,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.jb4dc.qcsystem.dbentities.issues.IssuesEntityWithBLOBs">
+    update TQC_ISSUES
+    set ISS_NUM = #{issNum,jdbcType=VARCHAR},
+      ISS_TITLE = #{issTitle,jdbcType=VARCHAR},
+      ISS_SIMPLE_CONTENT = #{issSimpleContent,jdbcType=VARCHAR},
+      ISS_PROJECT_ID = #{issProjectId,jdbcType=VARCHAR},
+      ISS_SYS_NAME = #{issSysName,jdbcType=VARCHAR},
+      ISS_SYS_CATEGORY = #{issSysCategory,jdbcType=VARCHAR},
+      ISS_SYS_VERSION = #{issSysVersion,jdbcType=VARCHAR},
+      ISS_SYS_MODULE_NAME = #{issSysModuleName,jdbcType=VARCHAR},
+      ISS_SYS_PHASE = #{issSysPhase,jdbcType=VARCHAR},
+      ISS_TYPE = #{issType,jdbcType=VARCHAR},
+      ISS_LEVEL = #{issLevel,jdbcType=VARCHAR},
+      ISS_PRIORITY = #{issPriority,jdbcType=VARCHAR},
+      ISS_IS_REPEAT = #{issIsRepeat,jdbcType=VARCHAR},
+      ISS_SOURCE = #{issSource,jdbcType=VARCHAR},
+      ISS_CUSTOMER_UNIT = #{issCustomerUnit,jdbcType=VARCHAR},
+      ISS_CUSTOMER_NAME = #{issCustomerName,jdbcType=VARCHAR},
+      ISS_CUSTOMER_MOBILE = #{issCustomerMobile,jdbcType=VARCHAR},
+      ISS_ACCEPT_FROM = #{issAcceptFrom,jdbcType=VARCHAR},
+      ISS_ACCEPT_DATE = #{issAcceptDate,jdbcType=TIMESTAMP},
+      ISS_ACCEPT_NAME = #{issAcceptName,jdbcType=VARCHAR},
+      ISS_CREATOR_NAME = #{issCreatorName,jdbcType=VARCHAR},
+      ISS_CREATOR_ID = #{issCreatorId,jdbcType=VARCHAR},
+      ISS_CREATOR_DATE = #{issCreatorDate,jdbcType=TIMESTAMP},
+      ISS_HANDLER_NAME = #{issHandlerName,jdbcType=VARCHAR},
+      ISS_HANDLER_ID = #{issHandlerId,jdbcType=VARCHAR},
+      ISS_HANDLER_SEND_DATE = #{issHandlerSendDate,jdbcType=TIMESTAMP},
+      ISS_HANDLER_END_DATE = #{issHandlerEndDate,jdbcType=TIMESTAMP},
+      ISS_STATUS = #{issStatus,jdbcType=VARCHAR},
+      ISS_CLOSER_NAME = #{issCloserName,jdbcType=VARCHAR},
+      ISS_CLOSER_ID = #{issCloserId,jdbcType=VARCHAR},
+      ISS_CLOSER_DATE = #{issCloserDate,jdbcType=TIMESTAMP},
+      ISS_PROCESSING_MESSAGE = #{issProcessingMessage,jdbcType=VARCHAR},
+      ISS_ABOUT_TO_OUT = #{issAboutToOut,jdbcType=VARCHAR},
+      ISS_ORDER_NUM = #{issOrderNum,jdbcType=INTEGER},
+      ISS_CONTENT = #{issContent,jdbcType=LONGVARCHAR},
+      ISS_SOLUTION = #{issSolution,jdbcType=LONGVARCHAR}
+    where ISS_ID = #{issId,jdbcType=VARCHAR}
+  </update>
+    <update id="updateByPrimaryKey" parameterType="com.jb4dc.qcsystem.dbentities.issues.IssuesEntity">
+    update TQC_ISSUES
+    set ISS_NUM = #{issNum,jdbcType=VARCHAR},
+      ISS_TITLE = #{issTitle,jdbcType=VARCHAR},
+      ISS_SIMPLE_CONTENT = #{issSimpleContent,jdbcType=VARCHAR},
+      ISS_PROJECT_ID = #{issProjectId,jdbcType=VARCHAR},
+      ISS_SYS_NAME = #{issSysName,jdbcType=VARCHAR},
+      ISS_SYS_CATEGORY = #{issSysCategory,jdbcType=VARCHAR},
+      ISS_SYS_VERSION = #{issSysVersion,jdbcType=VARCHAR},
+      ISS_SYS_MODULE_NAME = #{issSysModuleName,jdbcType=VARCHAR},
+      ISS_SYS_PHASE = #{issSysPhase,jdbcType=VARCHAR},
+      ISS_TYPE = #{issType,jdbcType=VARCHAR},
+      ISS_LEVEL = #{issLevel,jdbcType=VARCHAR},
+      ISS_PRIORITY = #{issPriority,jdbcType=VARCHAR},
+      ISS_IS_REPEAT = #{issIsRepeat,jdbcType=VARCHAR},
+      ISS_SOURCE = #{issSource,jdbcType=VARCHAR},
+      ISS_CUSTOMER_UNIT = #{issCustomerUnit,jdbcType=VARCHAR},
+      ISS_CUSTOMER_NAME = #{issCustomerName,jdbcType=VARCHAR},
+      ISS_CUSTOMER_MOBILE = #{issCustomerMobile,jdbcType=VARCHAR},
+      ISS_ACCEPT_FROM = #{issAcceptFrom,jdbcType=VARCHAR},
+      ISS_ACCEPT_DATE = #{issAcceptDate,jdbcType=TIMESTAMP},
+      ISS_ACCEPT_NAME = #{issAcceptName,jdbcType=VARCHAR},
+      ISS_CREATOR_NAME = #{issCreatorName,jdbcType=VARCHAR},
+      ISS_CREATOR_ID = #{issCreatorId,jdbcType=VARCHAR},
+      ISS_CREATOR_DATE = #{issCreatorDate,jdbcType=TIMESTAMP},
+      ISS_HANDLER_NAME = #{issHandlerName,jdbcType=VARCHAR},
+      ISS_HANDLER_ID = #{issHandlerId,jdbcType=VARCHAR},
+      ISS_HANDLER_SEND_DATE = #{issHandlerSendDate,jdbcType=TIMESTAMP},
+      ISS_HANDLER_END_DATE = #{issHandlerEndDate,jdbcType=TIMESTAMP},
+      ISS_STATUS = #{issStatus,jdbcType=VARCHAR},
+      ISS_CLOSER_NAME = #{issCloserName,jdbcType=VARCHAR},
+      ISS_CLOSER_ID = #{issCloserId,jdbcType=VARCHAR},
+      ISS_CLOSER_DATE = #{issCloserDate,jdbcType=TIMESTAMP},
+      ISS_PROCESSING_MESSAGE = #{issProcessingMessage,jdbcType=VARCHAR},
+      ISS_ABOUT_TO_OUT = #{issAboutToOut,jdbcType=VARCHAR},
+      ISS_ORDER_NUM = #{issOrderNum,jdbcType=INTEGER}
+    where ISS_ID = #{issId,jdbcType=VARCHAR}
+  </update>
+</mapper>

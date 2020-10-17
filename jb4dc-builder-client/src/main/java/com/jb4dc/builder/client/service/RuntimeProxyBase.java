@@ -26,6 +26,9 @@ public class RuntimeProxyBase {
         }
         else{
             Object obj=builder.BuildObj();
+            if(obj==null){
+                throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_BUILDER_CODE, "不能将Null存入缓存,Key:"+cacheKey);
+            }
             proxyBuilderCacheManager.put(ProxyBuilderCacheManager.PROXY_BUILDER_CACHE_NAME,cacheKey,obj);
         }
         return proxyBuilderCacheManager.getObject(ProxyBuilderCacheManager.PROXY_BUILDER_CACHE_NAME,cacheKey);

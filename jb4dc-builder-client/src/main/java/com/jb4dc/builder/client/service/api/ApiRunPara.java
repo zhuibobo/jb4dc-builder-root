@@ -5,6 +5,7 @@ import com.jb4dc.builder.dbentities.weblist.ListButtonEntity;
 import com.jb4dc.builder.po.button.InnerFormButtonConfig;
 import com.jb4dc.builder.po.button.InnerFormButtonConfigAPI;
 import com.jb4dc.builder.po.formdata.FormRecordComplexPO;
+import com.jb4dc.core.base.session.JB4DCSession;
 
 import java.util.List;
 
@@ -21,6 +22,24 @@ public class ApiRunPara {
     ListButtonEntity listButtonEntity;
     List<InnerFormButtonConfig> innerFormButtonConfigList;
     InnerFormButtonConfig innerFormButtonConfig;
+    String recordId;
+    JB4DCSession jb4DCSession;
+
+    public JB4DCSession getJb4DCSession() {
+        return jb4DCSession;
+    }
+
+    public void setJb4DCSession(JB4DCSession jb4DCSession) {
+        this.jb4DCSession = jb4DCSession;
+    }
+
+    public String getRecordId() {
+        return recordId;
+    }
+
+    public void setRecordId(String recordId) {
+        this.recordId = recordId;
+    }
 
     public InnerFormButtonConfigAPI getInnerFormButtonConfigAPI() {
         return innerFormButtonConfigAPI;

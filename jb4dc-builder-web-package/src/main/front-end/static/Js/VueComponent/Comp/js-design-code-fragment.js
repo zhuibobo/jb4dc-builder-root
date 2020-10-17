@@ -28,7 +28,7 @@ Vue.component("js-design-code-fragment", {
 
         },
         refScript:function () {
-            var js="<script type=\"text/javascript\" src=\"${contextPath}/UIComponent/TreeTable/Js/TreeTable.js\"></script>";
+            var js="<script type=\"text/javascript\" src=\"${contextPath}/Js/IssuesUtility.js?ts=${timeStamp}\"></script>";
             this.insertJs(js);
         },
         callServiceMethod:function () {
@@ -37,7 +37,7 @@ Vue.component("js-design-code-fragment", {
     },
     template: '<div class="js-code-fragment-wrap">\
             <div class="js-code-fragment-item" @click="formatJS">格式化</div>\
-            <div class="js-code-fragment-item">说明</div>\
+            <div class="js-code-fragment-item">说明1</div>\
             <div class="js-code-fragment-item" @click="refScript">引入脚本</div>\
             <div class="js-code-fragment-item">获取URL参数</div>\
             <div class="js-code-fragment-item">调用服务方法</div>\

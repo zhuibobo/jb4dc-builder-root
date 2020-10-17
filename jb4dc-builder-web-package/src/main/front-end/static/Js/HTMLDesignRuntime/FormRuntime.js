@@ -57,6 +57,7 @@ let FormRuntime={
     _FormPO:null,
     _FormDataRelationList:null,
     _OriginalFormDataRelationList:null,
+    _FormJSRuntimeInst:null,
     //_RelationPOWithDynamicContainerControl:{},
     Initialization:function (_config) {
         this._Prop_Config= $.extend(true,{},this._Prop_Config,_config);
@@ -94,6 +95,8 @@ let FormRuntime={
             this._OriginalFormDataRelationList=JsonUtility.CloneStringify(this._FormDataRelationList);
             console.log(this._FormDataRelationList);
             this._$RendererToElem.append(result.data.formHtmlRuntime);
+            this._FormJSRuntimeInst = Object.create(FormJSRuntime);
+            this._FormJSRuntimeInst.Initialization({},this._$RendererToElem,this._FormPO);
 
             VirtualBodyControl.RendererChain({
                 po:result.data,

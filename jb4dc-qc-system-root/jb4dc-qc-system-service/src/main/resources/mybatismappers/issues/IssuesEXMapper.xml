@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jb4dc.qcsystem.dao.issues.IssuesMapper">
+    <select id="selectAll" resultMap="BaseResultMap">select<include refid="Base_Column_List"/> from TQC_ISSUES ORDER by ISS_ORDER_NUM DESC</select>
+    <select id="selectAllASC" resultMap="BaseResultMap">select<include refid="Base_Column_List"/> from TQC_ISSUES ORDER by ISS_ORDER_NUM ASC</select>
+    <delete id="deleteAll">delete from TQC_ISSUES</delete>
+    <select id="nextOrderNum" resultType="integer">select case when max(ISS_ORDER_NUM) is null then 1 else max(ISS_ORDER_NUM)+1 end ORDERNUM from TQC_ISSUES</select>
+    <select id="selectBySearch" parameterType="java.util.Map" resultMap="BaseResultMap">select<include refid="Base_Column_List"/>from TQC_ISSUES<where>
+        <if test="issNum !=null and issNum !=''"> and ISS_NUM like #{issNum} </if>
+        <if test="issTitle !=null and issTitle !=''"> and ISS_TITLE like #{issTitle} </if>
+        <if test="issSimpleContent !=null and issSimpleContent !=''"> and ISS_SIMPLE_CONTENT like #{issSimpleContent} </if>
+        <if test="issProjectId !=null and issProjectId !=''"> and ISS_PROJECT_ID like #{issProjectId} </if>
+        <if test="issSysName !=null and issSysName !=''"> and ISS_SYS_NAME like #{issSysName} </if>
+        <if test="issSysCategory !=null and issSysCategory !=''"> and ISS_SYS_CATEGORY like #{issSysCategory} </if>
+        <if test="issSysVersion !=null and issSysVersion !=''"> and ISS_SYS_VERSION like #{issSysVersion} </if>
+        <if test="issSysModuleName !=null and issSysModuleName !=''"> and ISS_SYS_MODULE_NAME like #{issSysModuleName} </if>
+        <if test="issSysPhase !=null and issSysPhase !=''"> and ISS_SYS_PHASE like #{issSysPhase} </if>
+        <if test="issType !=null and issType !=''"> and ISS_TYPE like #{issType} </if>
+        <if test="issLevel !=null and issLevel !=''"> and ISS_LEVEL like #{issLevel} </if>
+        <if test="issPriority !=null and issPriority !=''"> and ISS_PRIORITY like #{issPriority} </if>
+        <if test="issIsRepeat !=null and issIsRepeat !=''"> and ISS_IS_REPEAT like #{issIsRepeat} </if>
+        <if test="issSource !=null and issSource !=''"> and ISS_SOURCE like #{issSource} </if>
+        <if test="issCustomerUnit !=null and issCustomerUnit !=''"> and ISS_CUSTOMER_UNIT like #{issCustomerUnit} </if>
+        <if test="issCustomerName !=null and issCustomerName !=''"> and ISS_CUSTOMER_NAME like #{issCustomerName} </if>
+        <if test="issCustomerMobile !=null and issCustomerMobile !=''"> and ISS_CUSTOMER_MOBILE like #{issCustomerMobile} </if>
+        <if test="issAcceptFrom !=null and issAcceptFrom !=''"> and ISS_ACCEPT_FROM like #{issAcceptFrom} </if>
+        <if test="issAcceptName !=null and issAcceptName !=''"> and ISS_ACCEPT_NAME like #{issAcceptName} </if>
+        <if test="issCreatorName !=null and issCreatorName !=''"> and ISS_CREATOR_NAME like #{issCreatorName} </if>
+        <if test="issCreatorId !=null and issCreatorId !=''"> and ISS_CREATOR_ID like #{issCreatorId} </if>
+        <if test="issHandlerName !=null and issHandlerName !=''"> and ISS_HANDLER_NAME like #{issHandlerName} </if>
+        <if test="issHandlerId !=null and issHandlerId !=''"> and ISS_HANDLER_ID like #{issHandlerId} </if>
+        <if test="issStatus !=null and issStatus !=''"> and ISS_STATUS like #{issStatus} </if>
+        <if test="issCloserName !=null and issCloserName !=''"> and ISS_CLOSER_NAME like #{issCloserName} </if>
+        <if test="issCloserId !=null and issCloserId !=''"> and ISS_CLOSER_ID like #{issCloserId} </if>
+        <if test="issProcessingMessage !=null and issProcessingMessage !=''"> and ISS_PROCESSING_MESSAGE like #{issProcessingMessage} </if>
+        <if test="issAboutToOut !=null and issAboutToOut !=''"> and ISS_ABOUT_TO_OUT like #{issAboutToOut} </if>
+        <if test="issContent !=null and issContent !=''"> and ISS_CONTENT like #{issContent} </if>
+        <if test="issSolution !=null and issSolution !=''"> and ISS_SOLUTION like #{issSolution} </if>
+    </where>ORDER by ISS_ORDER_NUM DESC</select>
+    <select id="selectLessThanRecord" parameterType="java.lang.String" resultMap="BaseResultMap"><![CDATA[select * from TQC_ISSUES
+ where ISS_ORDER_NUM = (select max(ISS_ORDER_NUM) from TQC_ISSUES where ISS_ORDER_NUM<(select ISS_ORDER_NUM from TQC_ISSUES where ISS_ID=#{Id,jdbcType=NVARCHAR}))]]></select>
+    <select id="selectGreaterThanRecord" parameterType="java.lang.String" resultMap="BaseResultMap"><![CDATA[select * from TQC_ISSUES
+ where ISS_ORDER_NUM = (select min(ISS_ORDER_NUM) from TQC_ISSUES where ISS_ORDER_NUM>(select ISS_ORDER_NUM from TQC_ISSUES where ISS_ID=#{Id,jdbcType=NVARCHAR}))]]></select>
+
+    <select id="selectMaxNumByProjectId" resultType="string">
+        select case when max(ISS_NUM) is null then 0 else  max(ISS_NUM) end from TQC_ISSUES where ISS_PROJECT_ID=#{projectId}
+    </select>
+
+    <update id="updateNumByPrimaryKey">
+         update TQC_ISSUES
+    set ISS_NUM = #{issNum,jdbcType=VARCHAR}
+    where ISS_ID = #{issId,jdbcType=VARCHAR}
+    </update>
+</mapper>
