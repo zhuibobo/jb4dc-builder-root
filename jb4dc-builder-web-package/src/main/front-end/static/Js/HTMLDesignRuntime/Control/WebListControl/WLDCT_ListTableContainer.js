@@ -247,6 +247,12 @@ var WLDCT_ListTableContainer = {
             "        </tbody>\n" +
             "    </table>"
     },
+    _objectType:"Instance",//Static;
+    _prop:{
+        $singleControlElem:null,
+        instanceName:null,
+        elemId:null
+    },
     _InstanceMap: {},
     _CurrentPageNum: 1,
     _DataSet: null,
@@ -389,6 +395,8 @@ var WLDCT_ListTableContainer = {
                 //console.log(HTMLControl._InstanceMap);
                 _rendererDataChainParas.dataSet = result.data;
                 this._DataSet = result.data;
+
+                this._CheckedRecordArray = [];
                 this.CreateTable(_rendererDataChainParas.$singleControlElem, this._DataSet,false);
                 window.setTimeout(function () {
                     DialogUtility.CloseDialog(DialogUtility.DialogLoadingId);
@@ -423,12 +431,16 @@ var WLDCT_ListTableContainer = {
         $templateTable.addClass("stripe row-border order-column");
         $templateTable.width("100%");
         var scrollY = PageStyleUtility.GetWindowHeight();
-        if($(".wldct-list-simple-search-outer-wrap").css("display")!="none") {
-            scrollY = scrollY - $(".wldct-list-simple-search-outer-wrap").height()-42;
-        }
+
+        scrollY = scrollY - 110;
+
         if($(".wldct-list-button-outer-wrap").css("display")!="none"){
-            scrollY = scrollY - $(".wldct-list-button-outer-wrap").height()-118;
+            scrollY = scrollY - $(".wldct-list-button-outer-wrap").height()-12;
         }
+        if($(".wldct-list-simple-search-outer-wrap").css("display")!="none") {
+            scrollY = scrollY - $(".wldct-list-simple-search-outer-wrap").height()-10;
+        }
+
         console.log(scrollY);
         //alert(PageStyleUtility.GetWindowHeight()+"|"+$(".wldct-list-simple-search-outer-wrap").height()+"|"+scrollY);
         //return;
@@ -481,7 +493,7 @@ var WLDCT_ListTableContainer = {
                                   </td>`);
     },
     RendererSingleRow: function ($templateTable, $templateTableRow, dataSet, rowData) {
-
+        console.log(dataSet);
         var $cloneRow = $templateTableRow.clone();
         //console.log($cloneRow);
         //debugger;
@@ -491,7 +503,7 @@ var WLDCT_ListTableContainer = {
             var $divCTElem = $td.find("div" + HTMLControlAttrs.SELECTED_JBUILD4DC_CUSTOM);
             if ($divCTElem.length > 0) {
                 var bindToField = $divCTElem.attr("columnname");
-                var val = rowData[bindToField];
+                var val = rowData[bindToField]?rowData[bindToField]:"";
                 var clientResolveInstanceName = $divCTElem.attr(HTMLControlAttrs.CLIENT_RESOLVE);
                 var instance = WLDCT_ListTableContainer.GetInstance(clientResolveInstanceName);
 

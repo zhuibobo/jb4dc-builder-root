@@ -1,4 +1,11 @@
 var WLDCT_ListButtonContainer= {
+    _objectType:"Instance",//Static;
+    _prop:{
+        $singleControlElem:null,
+        instanceName:null,
+        elemId:null,
+        status:null
+    },
     RendererChain: function (_rendererChainParas) {
         //$singleControlElem.hide();
         var $singleControlElem=_rendererChainParas.$singleControlElem;
@@ -22,6 +29,11 @@ var WLDCT_ListButtonContainer= {
         }
         innerWrap.append(innerInsideWrapDiv);
         innerWrap.append("<div style=\"clear: both;\"></div>");
+        console.log(this._prop.status);
+
+        if(this._prop.status=="disable"){
+            $singleControlElem.hide();
+        }
     },
     RendererDataChain:HTMLControl.RendererDataChain
 }

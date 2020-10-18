@@ -1,4 +1,11 @@
 var WLDCT_ListSimpleSearchContainer={
+    _objectType:"Instance",//Static;
+    _prop:{
+        $singleControlElem:null,
+        instanceName:null,
+        elemId:null,
+        status:null
+    },
     _$SimpleSearchButton:null,
     _$ShowComplexSearchButton:null,
     _$SingleControlElem:null,

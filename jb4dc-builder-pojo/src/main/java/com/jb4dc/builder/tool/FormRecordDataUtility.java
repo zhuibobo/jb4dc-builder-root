@@ -90,9 +90,11 @@ public class FormRecordDataUtility {
         return result;
     }
 
-    public static List<FormRecordDataPO> buildFormRecordDataPOList(FormRecordDataRelationPO mainDataPO, List<Map<String,Object>> mainRecordList,List<TableFieldPO> tableFieldPOList,String idValue) throws JBuild4DCGenerallyException {
+    public static List<FormRecordDataPO> buildFormRecordDataPOList(FormRecordDataRelationPO mainDataPO, List<Map<String,Object>> recordList,List<TableFieldPO> tableFieldPOList,String pkFieldName,String n) throws JBuild4DCGenerallyException {
         List<FormRecordDataPO> result=new ArrayList<>();
-        for (Map<String, Object> stringObjectMap : mainRecordList) {
+        for (Map<String, Object> stringObjectMap : recordList) {
+            //Reso
+            String idValue=stringObjectMap.get(pkFieldName).toString();
             FormRecordDataPO singleFormRecordDataPO=buildFormRecordDataPO(mainDataPO,stringObjectMap,tableFieldPOList,idValue);
             result.add(singleFormRecordDataPO);
         }

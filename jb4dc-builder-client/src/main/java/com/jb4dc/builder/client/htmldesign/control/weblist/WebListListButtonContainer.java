@@ -134,6 +134,9 @@ public class WebListListButtonContainer  extends HTMLControl implements IHTMLCon
                 }
             }
         }
+
+        String script=getClientNewInstanceScript(singleControlElem,false,"");
+        singleControlElem.ownerDocument().body().append(script);
     }
 
     @Override

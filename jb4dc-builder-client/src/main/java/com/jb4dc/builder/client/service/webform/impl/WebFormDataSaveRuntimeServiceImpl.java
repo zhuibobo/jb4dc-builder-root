@@ -218,8 +218,10 @@ public class WebFormDataSaveRuntimeServiceImpl implements IWebFormDataSaveRuntim
                             }
                         } else {
                             if (recordList.size() > 0) {
+
                                 List<TableFieldPO> tempTableFieldPOList = tableRuntimeProxy.getTableFieldsByTableId(formRecordDataRelationPO.getTableId());
-                                List<FormRecordDataPO> tempFormRecordDataPOList = FormRecordDataUtility.buildFormRecordDataPOList(formRecordDataRelationPO, recordList, tempTableFieldPOList,"");
+                                TableFieldPO pkFieldPO=resolvePendingSQL.findPrimaryKey(formRecordDataRelationPO.getTableName(),tempTableFieldPOList);
+                                List<FormRecordDataPO> tempFormRecordDataPOList = FormRecordDataUtility.buildFormRecordDataPOList(formRecordDataRelationPO, recordList, tempTableFieldPOList,pkFieldPO.getFieldName(),"");
                                 formRecordDataRelationPO.setListDataRecord(tempFormRecordDataPOList);
                             }
                         }

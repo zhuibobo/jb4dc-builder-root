@@ -31,7 +31,7 @@ var WLDCT_FormButton= {
     ClickEvent:function (sender) {
         var $button=sender.data.buttonElem;
         var _self=sender.data.selfInstance;
-        console.log($button);
+        //console.log($button);
         var bindauthority=$button.attr("bindauthority");
         var buttoncaption=$button.attr("buttoncaption");
         var buttontype=$button.attr("buttontype");

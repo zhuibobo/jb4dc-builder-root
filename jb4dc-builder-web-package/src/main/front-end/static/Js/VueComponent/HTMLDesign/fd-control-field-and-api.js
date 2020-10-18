@@ -132,15 +132,15 @@ Vue.component("fd-control-field-and-api", {
 
     },
     methods: {
-        ready: function (dataSetId,tableId,apiOldData,filedOldData) {
+        ready: function (dataSetId,tableId) {
             //if (tableDataJson != null && tableDataJson != "") {
             //    this.tableData = JsonUtility.StringToJson(tableDataJson);
             //}
-
+            //debugger;
             this.dataSetId=dataSetId;
             this.tableId=tableId;
-            this.bindTableFields(filedOldData);
-            this.bindAPITreeAndInitEditTable(apiOldData);
+            this.bindTableFields(null);
+            this.bindAPITreeAndInitEditTable(null);
         },
         getJson: function () {
             var result={};
@@ -150,11 +150,17 @@ Vue.component("fd-control-field-and-api", {
             result.fields=this.field.editTableObject.GetSerializeJson();
             return result;
         },
-        /*setJson:function (tableDataJson) {
-            if(tableDataJson!=null&&tableDataJson!=""){
+        setData:function (apiOldData,filedOldData) {
+            /*if(tableDataJson!=null&&tableDataJson!=""){
                 this.tableData=JsonUtility.StringToJson(tableDataJson);
+            }*/
+            if(apiOldData){
+                this.api.editTableObject.LoadJsonData(apiOldData);
             }
-        },*/
+            if(filedOldData){
+                this.field.editTableObject.LoadJsonData(filedOldData);
+            }
+        },
         handleClose: function (dialogElem) {
             DialogUtility.CloseDialogElem(this.$refs[dialogElem]);
         },

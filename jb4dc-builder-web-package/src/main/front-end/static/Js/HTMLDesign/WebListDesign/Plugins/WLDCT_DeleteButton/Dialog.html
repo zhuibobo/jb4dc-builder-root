@@ -342,6 +342,7 @@
                 this.dataSetId=CKEditorPluginUtility.TryGetDataSetId(sel,parents);
                 this.normalProps.bindDataSetId=this.dataSetId;
                 console.log(this.dataSetId);
+                this.$refs.fdControlFieldAndApi.ready(this.dataSetId,null);
             },
             getControlProps:function () {
                 this.baseInfo.serialize="false";
@@ -414,7 +415,7 @@
                 if(!StringUtility.IsNullOrEmpty(this.normalProps.changeFieldJsonString)&&this.normalProps.changeFieldJsonString!="[]"){
                     oldFieldData=JsonUtility.StringToJson(this.normalProps.changeFieldJsonString);
                 }
-                this.$refs.fdControlFieldAndApi.ready(this.dataSetId,null,oldApiData,oldFieldData);
+                this.$refs.fdControlFieldAndApi.setData(oldApiData,oldFieldData);
                 //this.bindToSearchField = props.bindToSearchField ? props.bindToSearchField : this.bindToSearchField;
                 //this.defaultValue = props.defaultValue ? props.defaultValue : this.defaultValue;
                 //this.$refs.listSearchControlBindToComp.setData(this.bindToSearchField,this.defaultValue);

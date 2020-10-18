@@ -24,13 +24,13 @@ let FormJSRuntime={
     },
     _LoadJSToEl:function () {
         console.log("引入脚本:")
-        console.log(this._FormPO.formJsContent);
+        //console.log(this._FormPO.formJsContent);
         this._$RendererToElem.append(this.ReplaceJSParas(this._FormPO.formJsContent));
         if(!FormPageObjectInstance){
             throw "引入顺序错误!";
         }
         FormPageObjectInstance.formEntity=this._FormPO;
-        console.log(FormPageObjectInstance.formEntity);
+        //console.log(FormPageObjectInstance.formEntity);
         //alert(1);
     }
 }

@@ -1,10 +1,6 @@
 var WFDCT_FileUploadContainer={
-    acInterface:{
-        getFileListData:"/Rest/Builder/RunTime/FileRuntime/GetFileListData",
-        uploadFile:"/Rest/Builder/RunTime/FileRuntime/UploadFile",
-        downloadFile:"/Rest/Builder/RunTime/FileRuntime/DownLoadFileByFileId",
-        deleteFile:"/Rest/Builder/RunTime/FileRuntime/DeleteFileByFileId"
-    },
+    _objectType:"Instance",//Static;
+    _propMap:{},
     _prop: {
         $singleControlElem:null,
         instanceName:null,
@@ -27,6 +23,12 @@ var WFDCT_FileUploadContainer={
         moveOrderEnable:false,
         clickFileNameAction:null
     },
+    acInterface:{
+        getFileListData:"/Rest/Builder/RunTime/FileRuntime/GetFileListData",
+        uploadFile:"/Rest/Builder/RunTime/FileRuntime/UploadFile",
+        downloadFile:"/Rest/Builder/RunTime/FileRuntime/DownLoadFileByFileId",
+        deleteFile:"/Rest/Builder/RunTime/FileRuntime/DeleteFileByFileId"
+    },
     RendererChain:function (_rendererChainParas) {
         //1
         var $singleControlElem=_rendererChainParas.$singleControlElem;
@@ -44,7 +46,8 @@ var WFDCT_FileUploadContainer={
     ToViewStatus:HTMLControl.ToViewStatus,
 
     BindElementAttrToInstanceProp:function($singleControlElem){
-        HTMLControl.TryBindElementAttrToInstanceProp($singleControlElem,this._prop);
+        //HTMLControl.TryBindElementAttrToInstanceProp($singleControlElem,this._prop);
+        //console.log(this._prop);
         if(!this._prop.getBindRecordIdJsMethod){
             this._prop.getBindRecordIdJsMethod=this._prop.instanceName+".GetThisRecordId()";
         }
@@ -66,7 +69,7 @@ var WFDCT_FileUploadContainer={
         if(this._prop.opButtons.indexOf("move-order")>=0){
             this._prop.moveOrderEnable=true;
         }
-        console.log(this._prop.previewEnable);
+        //console.log(this._prop);
     },
     GetThisRecordId:function(){
         var objId="";

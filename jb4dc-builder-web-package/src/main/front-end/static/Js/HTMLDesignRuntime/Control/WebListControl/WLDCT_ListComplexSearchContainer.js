@@ -1,4 +1,11 @@
 var WLDCT_ListComplexSearchContainer= {
+    _objectType:"Instance",//Static;
+    _prop:{
+        $singleControlElem:null,
+        instanceName:null,
+        elemId:null,
+        status:null
+    },
     _$SingleControlElem:null,
     _$ComplexSearchButton:null,
     _$ClearButton:null,

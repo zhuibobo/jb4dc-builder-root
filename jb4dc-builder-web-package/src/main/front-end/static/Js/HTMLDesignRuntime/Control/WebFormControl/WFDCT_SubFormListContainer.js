@@ -74,6 +74,7 @@ var WFDCT_SubFormListContainer={
     },
     RendererDataChain:function(_rendererDataChainParas){
         //console.log("111111111111111111111");
+        //debugger;
         var $singleControlElem = _rendererDataChainParas.$singleControlElem;
         var relationFormRecordComplexPo = _rendererDataChainParas.relationFormRecordComplexPo;
         var relation_po_id=$singleControlElem.attr("relation_po_id");
@@ -90,6 +91,8 @@ var WFDCT_SubFormListContainer={
                 //    this._HasChildRelationPO=FormRelationPOUtility.HasChildRelationPO(relationFormRecordComplexPo.formRecordDataRelationPOList,relation_po_id);
                 //}
                 //debugger;
+
+                //处理一对多 下一级别.
                 var childRelationPOArray=[];
 
                 var subRelationPO=ArrayUtility.WhereSingle(relationFormRecordComplexPo.formRecordDataRelationPOList,function (item) {
@@ -119,7 +122,7 @@ var WFDCT_SubFormListContainer={
                     childRelationPOArray.push(tempPO);
                 }
 
-                this.Dialog_AddRowToContainer(oneDataRecord,true);
+                this.Dialog_AddRowToContainer(oneDataRecord,true,relationPO.pkFieldName);
             }
         }
         this.InnerRow_CompletedLastEdit();
@@ -138,7 +141,8 @@ var WFDCT_SubFormListContainer={
             var $tr = $(trs[i]);
             var singleRelationPO=this.GetRowData($tr);
             var tempRecord=FormRelationPOUtility.Get1To1DataRecord(singleRelationPO);
-            var idValue=FormRelationPOUtility.FindIDFieldPOInOneDataRecord(tempRecord).value;
+            //var idValue=FormRelationPOUtility.FindIDFieldPOInOneDataRecord(tempRecord).value;
+            var idValue=FormRelationPOUtility.FindFieldPOInOneDataRecord(tempRecord,selfPO.pkFieldName).value;
             var tempSelfRecord=this.TryBuildRecord(singleRelationPO,idValue,tempRecord.recordFieldPOList);
             allData.push(tempSelfRecord);
             //console.log(singleJsonData);
@@ -311,7 +315,7 @@ var WFDCT_SubFormListContainer={
             throw errorMessage;
         }
         //debugger;
-        if (FormRelationPOUtility.IsMainRelationPO(parentRelationPO) && outerFieldName == "ID") {
+        if (FormRelationPOUtility.IsMainRelationPO(parentRelationPO)) {
             outerFieldValue = this._FormRuntimeHost.GetRecordId();
         } else {
             var tableId = parentRelationPO.tableId;
@@ -587,11 +591,11 @@ var WFDCT_SubFormListContainer={
 
             var oneDataRecord = FormRelationPOUtility.Get1To1DataRecord(subFormMainRelationPO);
             //
-            this.Dialog_AddRowToContainer(oneDataRecord, false,subFormMainRelationPO);
+            this.Dialog_AddRowToContainer(oneDataRecord, false,subFormMainRelationPO.pkFieldName);
 
         }).call(thisInstance, operationType, serializationSubFormData)
     },
-    Dialog_AddRowToContainer:function(oneDataRecord,dataIsFromServer,subFormMainRelationPO){
+    Dialog_AddRowToContainer:function(oneDataRecord,dataIsFromServer,subTablePKFieldName){
         if(oneDataRecord) {
             var $tr = this._$TemplateTableRow.clone();
             var controls = HTMLControl.FindALLControls($tr);
@@ -602,9 +606,9 @@ var WFDCT_SubFormListContainer={
                 var fieldPO = FormRelationPOUtility.FindFieldPOInOneDataRecord(oneDataRecord, fieldName)
                 controlInstance.SetValue(control, fieldPO, null, null);
             }
-            console.log(subFormMainRelationPO);
+            console.log(subTablePKFieldName);
             //var idFieldPO=FormRelationPOUtility.FindIDFieldPOInOneDataRecord(oneDataRecord);
-            var idFieldPO=FormRelationPOUtility.FindFieldPOInOneDataRecord(oneDataRecord,subFormMainRelationPO.pkFieldName);
+            var idFieldPO=FormRelationPOUtility.FindFieldPOInOneDataRecord(oneDataRecord,subTablePKFieldName);
             //console.log(idFieldPO);
             var lastOperationTd = $("<td><div class='sflt-td-operation-outer-wrap'></div></td>");
             var lastOperationOuterDiv = lastOperationTd.find("div");

@@ -87,10 +87,32 @@ let HTMLControl={
                 if(typeof(instance.Initialize)=="function"){
                     instance.Initialize();
                 }
+
+                //初始化控件实例属性
+                if(instance._objectType=="Instance"){
+                    if(instance._prop){
+                        var instanceProp = HTMLControl.TryBindElementAttrToInstanceProp($childSingleElem,instance._prop);
+                        instance._prop=instanceProp;
+                    }
+                }
+                else {
+                    var elemId = $childSingleElem.attr("id");
+                    if (elemId && instance._propMap && instance._prop) {
+                        if (!instance._propMap[elemId]) {
+                            var instanceProp = HTMLControl.TryBindElementAttrToInstanceProp($childSingleElem, instance._prop);
+                            instance._propMap[elemId]=instanceProp;
+                        }
+                    }
+                }
+
                 instance.RendererChain(_cloneRendererDataChainParas);
                 if(typeof(instance.InitStyle)=="function"){
                     instance.InitStyle(_cloneRendererDataChainParas);
                 }
+
+                /*if(instance._prop){
+                    HTMLControl.TryBindElementAttrToInstanceProp($childSingleElem,instance._prop);
+                }*/
                 /*instance.RendererChain({
                     listEntity:_rendererChainParas.listEntity,
                     sourceHTML:_rendererChainParas.sourceHTML,
@@ -158,7 +180,7 @@ let HTMLControl={
                     //console.log(tdTxt);
                 }
             }
-            console.log(validateRules);
+            //console.log(validateRules);
         }
     },
     GetValue:function ($elem,originalData, paras) {
@@ -299,17 +321,31 @@ let HTMLControl={
     },
     TryBindElementAttrToInstanceProp:function ($elem,objProp) {
         //debugger;
-        if($elem.attr("id")) {
-            objProp.elemId = $elem.attr("id");
+        /*if($elem.attr("id")=="file_upload_wrap_653876393"){
+            debugger;
+        }*/
+        var result={};
+        /*if($elem.attr("id")) {
+            result.elemId = $elem.attr("id");
         }
         if($elem.attr("client_instance_name")) {
-            objProp.instanceName = $elem.attr("client_instance_name");
-        }
+            result.instanceName = $elem.attr("client_instance_name");
+        }*/
         for(var key in objProp){
             if($elem.attr(key)){
-                objProp[key]=$elem.attr(key);
+                result[key]=$elem.attr(key);
+            }
+            else if(key=="elemId"){
+                result.elemId = $elem.attr("id");
+            }
+            else if(key=="instanceName"){
+                result.instanceName = $elem.attr("client_instance_name");
+            }
+            else{
+                result[key]=objProp[key];
             }
         }
-        objProp.$singleControlElem=$elem;
+        result.$singleControlElem=$elem;
+        return result;
     }
 }

@@ -44,7 +44,8 @@ public class IssuesServiceImpl extends BaseServiceImpl<IssuesEntity> implements 
             if (maxNum.equals("0")) {
                 //nextCode = "10001";
             } else {
-                nextCode = String.valueOf(Integer.parseInt(nextCode) + 1);
+                nextCode = String.valueOf(Integer.parseInt(maxNum) + 1);
+                nextCode=StringUtility.fillZero(nextCode,5);
             }
         }
         return nextCode;
