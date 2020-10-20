@@ -5,7 +5,8 @@ var WLDCT_ListTableLabel= {
         $singleControlElem:null,
         instanceName:null,
         elemId:null,
-        columnAlign:null
+        columnAlign:null,
+        defFormat:null
     },
     RendererChain: HTMLControl.RendererChain,
     RendererDataChain:function (_rendererDataChainParas) {
@@ -22,6 +23,7 @@ var WLDCT_ListTableLabel= {
         var value=_rendererDataChainParas.val;
         var elemId=$singleControlElem.attr("id");
         var columnAlign=this._propMap[elemId].columnAlign;
+        var defFormat = this._propMap[elemId].defFormat;
         console.log(columnAlign);
         //console.log(this._propMap);
         var $td=_rendererDataChainParas.$td;
@@ -30,6 +32,14 @@ var WLDCT_ListTableLabel= {
         }
         else if(columnAlign=="左对齐"){
             $td.css("textAlign", "left");
+        }
+
+        if(defFormat=="yyyy-MM-dd"){
+            if(value) {
+                var ctDate = DateUtility.ConvertFromString(value);
+                //console.log(fieldPO);
+                value = DateUtility.Format(ctDate, defFormat);
+            }
         }
         $td.html(value);
     }

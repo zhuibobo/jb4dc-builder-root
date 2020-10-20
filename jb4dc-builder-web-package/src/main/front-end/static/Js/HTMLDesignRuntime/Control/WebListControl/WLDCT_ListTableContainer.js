@@ -455,7 +455,7 @@ var WLDCT_ListTableContainer = {
         });
     },
     AppendCheckBoxColumnTemplate: function ($templateTable, $templateTableHeaderRows, $templateTableRow) {
-        var $th = $("<th style='width: 50px'>选择</th>");
+        var $th = $("<th style='width: 30px'>选择</th>");
         if ($templateTableHeaderRows.length > 1) {
             $th.attr("rowspan", $templateTableHeaderRows.length);
         }

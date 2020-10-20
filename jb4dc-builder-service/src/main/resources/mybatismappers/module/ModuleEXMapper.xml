@@ -40,4 +40,11 @@
           and MODULE_PARENT_ID = #{parentId,jdbcType=NVARCHAR}
         ]]>
     </select>
+
+    <select id="selectModulesByDBLinkId" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from TBUILD_MODULE
+        where MODULE_LINK_ID = #{dbLinkId,jdbcType=NVARCHAR}
+    </select>
 </mapper>

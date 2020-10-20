@@ -181,7 +181,7 @@ Vue.component("list-table-label-bind-to-comp", {
                                 </i-select>
                             </td>
                             <td rowspan="9" valign="top">
-                                <ul ref="zTreeUL" class="ztree"></ul>
+                                <ul ref="zTreeUL" id="list-table-label-bind-to-comp-tree" class="ztree" style="height: 470px;overflow: auto"></ul>
                             </td>
                         </tr>
                         <tr>

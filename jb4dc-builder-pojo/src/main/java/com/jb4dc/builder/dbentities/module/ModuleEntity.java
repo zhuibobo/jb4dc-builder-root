@@ -7,12 +7,12 @@ import java.util.Date;
 /**
  *
  * This class was generated JBuild4DC.
- * This class corresponds to the database table :TBUILD_MODULE
+ * This class corresponds to the database table :tbuild_module
  *
  * JBuild4DC do_not_delete_during_merge
  */
 public class ModuleEntity {
-    //MODULE_ID:主键:UUID
+    //MODULE_ID:
     @DBKeyField
     private String moduleId;
 
@@ -56,9 +56,12 @@ public class ModuleEntity {
     //MODULE_ORGAN_NAME:组织名称
     private String moduleOrganName;
 
+    //MODULE_LINK_ID:所属连接ID:关联到表TBUILD_DB_LINK.DB_ID
+    private String moduleLinkId;
+
     /**
      * 构造函数
-     * @param moduleId 主键
+     * @param moduleId
      * @param moduleValue 模块值
      * @param moduleText 模块标题
      * @param moduleOrderNum 排序号
@@ -72,8 +75,9 @@ public class ModuleEntity {
      * @param moduleChildCount 子节点数量
      * @param moduleOrganId 组织ID
      * @param moduleOrganName 组织名称
+     * @param moduleLinkId 所属连接ID
      **/
-    public ModuleEntity(String moduleId, String moduleValue, String moduleText, Integer moduleOrderNum, Date moduleCreateTime, String moduleDesc, String moduleStatus, String moduleParentId, String moduleIsSystem, String moduleDelEnable, String modulePidList, Integer moduleChildCount, String moduleOrganId, String moduleOrganName) {
+    public ModuleEntity(String moduleId, String moduleValue, String moduleText, Integer moduleOrderNum, Date moduleCreateTime, String moduleDesc, String moduleStatus, String moduleParentId, String moduleIsSystem, String moduleDelEnable, String modulePidList, Integer moduleChildCount, String moduleOrganId, String moduleOrganName, String moduleLinkId) {
         this.moduleId = moduleId;
         this.moduleValue = moduleValue;
         this.moduleText = moduleText;
@@ -88,6 +92,7 @@ public class ModuleEntity {
         this.moduleChildCount = moduleChildCount;
         this.moduleOrganId = moduleOrganId;
         this.moduleOrganName = moduleOrganName;
+        this.moduleLinkId = moduleLinkId;
     }
 
     public ModuleEntity() {
@@ -95,7 +100,7 @@ public class ModuleEntity {
     }
 
     /**
-     * 主键:UUID
+     *
      * @return java.lang.String
      **/
     public String getModuleId() {
@@ -103,8 +108,8 @@ public class ModuleEntity {
     }
 
     /**
-     * 主键:UUID
-     * @param moduleId 主键
+     *
+     * @param moduleId
      **/
     public void setModuleId(String moduleId) {
         this.moduleId = moduleId == null ? null : moduleId.trim();
@@ -316,5 +321,21 @@ public class ModuleEntity {
      **/
     public void setModuleOrganName(String moduleOrganName) {
         this.moduleOrganName = moduleOrganName == null ? null : moduleOrganName.trim();
+    }
+
+    /**
+     * 所属连接ID:关联到表TBUILD_DB_LINK.DB_ID
+     * @return java.lang.String
+     **/
+    public String getModuleLinkId() {
+        return moduleLinkId;
+    }
+
+    /**
+     * 所属连接ID:关联到表TBUILD_DB_LINK.DB_ID
+     * @param moduleLinkId 所属连接ID
+     **/
+    public void setModuleLinkId(String moduleLinkId) {
+        this.moduleLinkId = moduleLinkId == null ? null : moduleLinkId.trim();
     }
 }

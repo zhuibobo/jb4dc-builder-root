@@ -8,14 +8,15 @@
 <html lang="zh" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Title1</title>
     <th:block th:replace="Fragment/GeneralLib::GeneralLib"></th:block>
     <th:block th:replace="Fragment/GeneralLib::ThemesLib"></th:block>
 </head>
 <body>
 <div id="appList" class="list-2column">
-    <div class="left-outer-wrap">
-        <div class="inner-wrap" style="width: 250px">
+    <div class="left-outer-wrap" style="width: 250px">
+        <select-dblink-single-comp @on-selected-dblink="changeDBLink" ref="selectDBLinkComp"></select-dblink-single-comp>
+        <div class="inner-wrap"  style="position:absolute;top: 30px;bottom: 10px;height: auto">
             <div class="tool-bar-wrap">
                 <div alt="新增分类组" title="新增分类组" class="add" @click="addModule()"></div>
                 <div alt="修改分类组" title="修改分类组" class="edit" @click="editModule()"></div>
@@ -68,7 +69,13 @@
     var appList=new Vue({
         el:"#appList",
         mounted:function () {
-            this.initTree();
+            var oldSelectedDBLinkId=CookieUtility.GetCookie("DSGLINKID");
+            if(oldSelectedDBLinkId){
+                this.$refs.selectDBLinkComp.setOldSelectedDBLink(oldSelectedDBLinkId);
+                //alert(oldSelectedDBLinkId);
+                this.initTree(oldSelectedDBLinkId);
+            }
+            //this.initTree();
             window.setTimeout(function () {
                 appList.listHeight=ListPageUtility.GetGeneralPageHeight(-70);
             },500);
@@ -125,13 +132,21 @@
             selectedTabName:"list-webform"
         },
         methods:{
+            <!--DBLink-->
+            changeDBLink:function(dbLinkData){
+                //console.log(dbLinkData);
+                CookieUtility.SetCookie1Month("DSGLINKID",dbLinkData.dbId);
+                this.initTree(dbLinkData.dbId);
+                this.clearSearchCondition();
+                this.tableData=[];
+            },
             <!--Module-->
-            initTree:function () {
+            initTree:function (dbLinkId) {
                 /*this.treeSetting.async.url = BaseUtility.BuildAction(this.acInterface.getModuleData, {});
                 this.treeObj=$.fn.zTree.init($("#zTreeUL"), this.treeSetting);*/
 
                 var _self = this;
-                AjaxUtility.Post(this.acInterface.getModuleData, {}, function (result) {
+                AjaxUtility.Post(this.acInterface.getModuleData, {dbLinkId: dbLinkId}, function (result) {
                     if (result.success) {
                         if (result.data != null && result.data.length > 0) {
                             for (var i = 0; i < result.data.length; i++) {

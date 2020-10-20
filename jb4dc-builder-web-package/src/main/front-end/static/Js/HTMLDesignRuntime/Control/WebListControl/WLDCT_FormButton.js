@@ -1,4 +1,5 @@
 var WLDCT_FormButton= {
+
     _ListTableContainerInstance:null,
     RendererChain: HTMLControl.RendererChain,
     ResolveSelf:function (_rendererChainParas) {

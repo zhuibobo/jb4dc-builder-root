@@ -11,6 +11,7 @@ import com.jb4dc.builder.dbentities.datastorage.DbLinkEntity;
 import com.jb4dc.builder.service.dataset.IDatasetGroupService;
 import com.jb4dc.builder.service.datastorage.IDbLinkService;
 import com.jb4dc.builder.service.datastorage.ITableGroupService;
+import com.jb4dc.builder.service.module.IModuleService;
 import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
 import com.jb4dc.core.base.session.JB4DCSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +31,9 @@ public class DbLinkServiceImpl extends BaseServiceImpl<DbLinkEntity> implements 
     IDatasetGroupService datasetGroupService;
 
     @Autowired
+    IModuleService moduleService;
+
+    @Autowired
     public DbLinkServiceImpl(DbLinkMapper _defaultBaseMapper){
         super(_defaultBaseMapper);
         dbLinkMapper=_defaultBaseMapper;
@@ -46,6 +50,9 @@ public class DbLinkServiceImpl extends BaseServiceImpl<DbLinkEntity> implements 
 
                 datasetGroupService.deleteByKeyNotValidate(jb4DCSession,id,JBuild4DCYaml.getWarningOperationCode());
                 datasetGroupService.createRootNode(jb4DCSession,id,record.getDbLinkName(),record.getDbLinkValue());
+
+                moduleService.deleteByKeyNotValidate(jb4DCSession,id,JBuild4DCYaml.getWarningOperationCode());
+                moduleService.createRootNode(jb4DCSession,id,record.getDbLinkName(),record.getDbLinkValue());
 
                 sourceEntity.setDbCreateTime(new Date());
                 sourceEntity.setDbOrderNum(dbLinkMapper.nextOrderNum());

@@ -14,17 +14,25 @@
                 <list-table-label-bind-to-comp ref="listTableLabelBindToComp">
                 </list-table-label-bind-to-comp>
             </tab-pane>
-            <tab-pane label="基础信息">
-                <fd-control-base-info v-model="baseInfo">
-                </fd-control-base-info>
-            </tab-pane>
-            <tab-pane label="开发扩展">
+            <tab-pane label="标签设置">
                 <table cellpadding="0" cellspacing="0" border="0" class="html-design-plugin-dialog-table-wraper">
                     <colgroup>
-                        <col style="width: 150px" />
+                        <col style="width: 120px" />
                         <col />
                     </colgroup>
                     <tbody>
+                        <tr>
+                            <td>
+                                格式化：
+                            </td>
+                            <td>
+                                <select  v-model="normalProps.defFormat">
+                                    <option value="notFormat">无</option>
+                                    <option value="yyyy-MM-dd">yyyy-MM-dd</option>
+                                    <option value="yyyy-MM-dd HH:mm:ss">yyyy-MM-dd HH:mm:ss</option>
+                                </select>
+                            </td>
+                        </tr>
                         <tr>
                             <td>
                                 服务端解析类：
@@ -60,6 +68,10 @@
                     </tbody>
                 </table>
             </tab-pane>
+            <tab-pane label="基础信息">
+                <fd-control-base-info v-model="baseInfo">
+                </fd-control-base-info>
+            </tab-pane>
         </tabs>
     </div>
     <script>
@@ -76,6 +88,7 @@
                     targetButtonId: "",
                     columnAlign:"",
                     //开发扩展
+                    defFormat:"notFormat",
                     custServerResolveMethod:"",
                     custServerResolveMethodPara:"",
                     custClientRendererMethod:"",
@@ -120,6 +133,7 @@
                             targetButtonId: bindData.bindProp.targetButtonId,
                             columnAlign:bindData.bindProp.columnAlign,
                             //开发扩展
+                            defFormat:this.normalProps.defFormat,
                             custServerResolveMethod:this.normalProps.custServerResolveMethod,
                             custServerResolveMethodPara:this.normalProps.custServerResolveMethodPara,
                             custClientRendererMethod:this.normalProps.custClientRendererMethod,
@@ -145,7 +159,9 @@
                     this.normalProps.custServerResolveMethodPara = $elem.attr("custserverresolvemethodpara");
                     this.normalProps.custClientRendererMethod =$elem.attr("custclientrenderermethod");
                     this.normalProps.custClientRendererMethodPara = $elem.attr("custclientrenderermethodpara");
-
+                    if($elem.attr("defformat")) {
+                        this.normalProps.defFormat = $elem.attr("defformat");
+                    }
                     this.$refs.listTableLabelBindToComp.setData(this.normalProps,this.defaultValue);
                 }
             }

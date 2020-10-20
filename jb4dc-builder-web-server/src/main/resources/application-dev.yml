@@ -10,7 +10,7 @@ jb4dc:
   sso:
     server:
       name: JB4DC-SSO-WEB-SERVER
-      address: http://localhost:9101
+      address: http://localhost:9103
       context-path: /SSOSystem
       view:
         login: /Controller/LoginSSOView
@@ -49,7 +49,7 @@ spring:
       max-request-size: 100MB
 
 server:
-  port: 9103
+  port: 9104
   servlet:
     session:
       timeout: 7200
@@ -60,7 +60,7 @@ eureka:
     serviceUrl:
       #服务端的地址
       #defaultZone: http://192.168.3.166:9092/eureka/
-      defaultZone: http://localhost:9092/eureka/
+      defaultZone: http://localhost:9101/eureka/
   instance:
     prefer-ip-address: true
     instanceId: ${spring.cloud.inetutils.preferred-networks}:${server.port}

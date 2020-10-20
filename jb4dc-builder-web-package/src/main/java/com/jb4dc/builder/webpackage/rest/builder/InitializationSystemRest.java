@@ -104,7 +104,7 @@ public class InitializationSystemRest {
 
         tableGroupService.initSystemData(jb4DCSession);
 
-        moduleService.createRootNode(jb4DCSession);
+        //moduleService.createRootNode(jb4DCSession);
 
         siteInfoService.initSystemData(jb4DCSession);
 

@@ -45,6 +45,7 @@ var WFDCT_SelectOrganUser={
     selectedUser:{
       data:[]
     },
+    _objectType:"Instance",//Static;
     _prop:{
         buttonId:null,
         buttonText:null,
@@ -58,7 +59,8 @@ var WFDCT_SelectOrganUser={
         selectNumber:null,
         settingType:null,
         defaultSelectedOrganId:null,
-        containerId:null
+        containerId:null,
+        singleSelectAutoClose:null
     },
     RendererChain:function (_rendererChainParas) {
         var $singleControlElem=_rendererChainParas.$singleControlElem;
@@ -89,7 +91,7 @@ var WFDCT_SelectOrganUser={
                 `<div id='${containerId}' class="select_organ_user_warp">
                     <div class="left_tree_warp"><ul ref="zTreeUL" class="ztree" id="${treeULId}"></ul></div>
                     <div class="right_selected_warp" id="${userContainerId}"></div>
-                    <div class="buttons_outer_warp"><div class="buttons_inner_warp"><button class="button button-primary" name="btnEnsure">确认</button><button class="button" name="btnClose">关闭</button></div></div>
+                    <div class="buttons_outer_warp"><div class="buttons_inner_warp"><button class="button button-primary" name="btnEnsure">确认</button><button class="button" name="btnClose">关闭</button><button class="button" name="btnClear">清空选择</button></div></div>
                 </div>`;
             var $containerDiv = $(htmlTemplate);
 
@@ -102,6 +104,9 @@ var WFDCT_SelectOrganUser={
             });
             $containerDiv.find("[name='btnClose']").click(function () {
                 _this.CloseClickEvent();
+            });
+            $containerDiv.find("[name='btnClear']").click(function () {
+                _this.ClearClickEvent();
             });
 
             this.userConfig.userWarpElemObj=$containerDiv.find("#"+userContainerId);
@@ -250,6 +255,9 @@ var WFDCT_SelectOrganUser={
             _this.DeleteUserToSelectedData(selectNumber, userData);
         }
         //console.log(sender);
+        if(_this.selectedUser.data.length==1&&_this._prop.singleSelectAutoClose=="true"){
+            _this.EnsureClickEvent();
+        }
         sender.stopPropagation();
         //alert(checkBoxId+$("#"+checkBoxId).prop("checked"));
     },
@@ -258,7 +266,7 @@ var WFDCT_SelectOrganUser={
         var _self = sender.data.selfInstance;
 
         _self._prop.buttonId = $button.attr("id");
-        HTMLControl.TryBindElementAttrToInstanceProp($button,_self._prop);
+        //HTMLControl.TryBindElementAttrToInstanceProp($button,_self._prop);
         /*_self.selectProp.buttonText = $button.attr("buttontext");
         _self.selectProp.multipleSplit = $button.attr("multiplesplit");
         _self.selectProp.resultNameBindToControlField = $button.attr("resultnamebindtocontrolfield");
@@ -298,13 +306,41 @@ var WFDCT_SelectOrganUser={
         return values.join(this._prop.multipleSplit);
     },
     EnsureClickEvent:function () {
+        var prop = this._prop;
+        if (prop.settingType == "bingToControl") {
+            if (prop.resultNameBindToControlId) {
+                $("#" + prop.resultNameBindToControlId).val(this.BuildSelectedName());
+            }
+            if (prop.resultValueBindToControlId) {
+                $("#" + prop.resultValueBindToControlId).val(this.BuildSelectedValue());
+            }
+            if (prop.resultNameBindToControlField) {
+
+            }
+            if (prop.resultValueBindToControlField) {
+
+            }
+        }
+        this.BindResultTo(this.BuildSelectedValue(), this.BuildSelectedName());
+        this.CloseClickEvent();
+    },
+    CloseClickEvent:function () {
+        DialogUtility.CloseByElemId(this._prop.containerId)
+    },
+    ClearClickEvent:function () {
+        this.ClearSelectedUser();
+        this.UnCheckAllUserExclude("not");
+        this.BindResultTo("", "");
+        this.CloseClickEvent();
+    },
+    BindResultTo:function (value,name) {
         var prop=this._prop;
         if(prop.settingType=="bingToControl"){
             if(prop.resultNameBindToControlId){
-                $("#"+prop.resultNameBindToControlId).val(this.BuildSelectedName());
+                $("#"+prop.resultNameBindToControlId).val(name);
             }
             if(prop.resultValueBindToControlId){
-                $("#"+prop.resultValueBindToControlId).val(this.BuildSelectedValue());
+                $("#"+prop.resultValueBindToControlId).val(value);
             }
             if(prop.resultNameBindToControlField){
 
@@ -313,9 +349,5 @@ var WFDCT_SelectOrganUser={
 
             }
         }
-        this.CloseClickEvent();
-    },
-    CloseClickEvent:function () {
-        DialogUtility.CloseByElemId(this._prop.containerId)
     }
 }
