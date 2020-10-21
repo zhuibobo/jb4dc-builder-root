@@ -167,7 +167,7 @@ public class ModuleServiceImpl extends BaseServiceImpl<ModuleEntity> implements 
     public List<Map<String, Object>> getModuleItems(JB4DCSession session, String selectModuleId, String selectModuleObjectType) throws JBuild4DCGenerallyException {
         String sql="";
         if(selectModuleObjectType.equals("Web模块列表")){
-            sql="select LIST_ID as ID,LIST_CODE as CODE,LIST_NAME as NAME,LIST_SINGLE_NAME as SINGLE_NAME from tbuild_list_resource where LIST_TYPE='WebList' and LIST_MODULE_ID=#{module_Id}";
+            sql="select LIST_ID as ID,LIST_CODE as CODE,LIST_NAME as NAME,LIST_SINGLE_NAME as SINGLE_NAME,LIST_TYPE as OBJECT_TYPE,LIST_DESC as DESCRIPTION from tbuild_list_resource where LIST_TYPE='WebList' and LIST_MODULE_ID=#{module_Id}";
         }
         else if(selectModuleObjectType.equals("Web模块窗体")){
             throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_BUILDER_CODE,"暂不支持!");

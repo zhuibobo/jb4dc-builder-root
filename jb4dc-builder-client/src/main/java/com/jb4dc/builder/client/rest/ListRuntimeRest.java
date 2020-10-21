@@ -1,6 +1,7 @@
 package com.jb4dc.builder.client.rest;
 
 import com.jb4dc.base.service.general.JB4DCSessionUtility;
+import com.jb4dc.builder.client.htmldesign.IHTMLRuntimeResolve;
 import com.jb4dc.builder.client.proxy.IListRuntimeProxy;
 import com.jb4dc.builder.client.remote.ListRuntimeRemote;
 import com.jb4dc.builder.po.ListResourcePO;
@@ -26,9 +27,14 @@ public class ListRuntimeRest {
     @Autowired
     IListRuntimeProxy listRuntimeProxy;
 
+    @Autowired
+    IHTMLRuntimeResolve htmlRuntimeResolve;
+
     @RequestMapping("/LoadHTML")
     public JBuild4DCResponseVo<ListResourcePO> loadHTML(String listId) throws JBuild4DCGenerallyException {
         ListResourcePO listResourcePO=listRuntimeProxy.loadHTML(JB4DCSessionUtility.getSession(),listId);
+        String runtimeHTML=htmlRuntimeResolve.dynamicBind(JB4DCSessionUtility.getSession(),listId,listResourcePO.getListHtmlResolve(),null);
+        listResourcePO.setListHtmlRuntime(runtimeHTML);
         return JBuild4DCResponseVo.opSuccess(listResourcePO);
     }
 
