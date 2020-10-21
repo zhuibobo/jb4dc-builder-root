@@ -345,9 +345,15 @@ var WLDCT_ListTableContainer = {
             this._Cache$SingleControlElem = _rendererDataChainParas.$singleControlElem.clone();
         }
         if (isReRenderer) {
+            //查询重新加载
             //console.log(this._Cache$SingleControlElem.html());
             var notScriptHTML=StringUtility.RemoveScript(this._Cache$SingleControlElem.html());
             _rendererDataChainParas.$singleControlElem.html(notScriptHTML);
+        }
+        else{
+            //第一次加载
+            var conditions = this._SimpleSearchContainerInstance.BuilderSearchCondition();
+            this._QueryPOList = conditions;
         }
 
         if (_rendererDataChainParas.listRuntimeInstance.IsPreview()) {
@@ -382,6 +388,8 @@ var WLDCT_ListTableContainer = {
                 title: "系统提示",
                 hide: {effect: "fade", duration: 500}
             }, "数据加载中,请稍候....");
+
+
             RuntimeGeneralInstance.GetDataSetData({
                 dataSetId: dataSetId,
                 pageSize: pageSize,

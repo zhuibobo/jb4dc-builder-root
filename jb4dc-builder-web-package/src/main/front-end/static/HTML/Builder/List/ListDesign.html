@@ -31,8 +31,8 @@
             <i-button icon="md-search" type="primary" @click="savePreview()">历史版本</i-button>
         </button-group>
     </div>
-    <tabs @on-click="tabChange" v-model="selectedTabName">
-        <tab-pane name="Info" label="Info">
+    <tabs @on-click="tabChange" v-model="selectedTabName" name="outer-tabs">
+        <tab-pane tab="outer-tabs" name="Info" label="Info">
             <div style="width: 1024px;margin: auto">
                 <div style="width: 500px;height: 610px;border: #ddddf1 1px solid;border-radius: 4px;padding: 10px 20px 10px 10px;float: left">
                     <divider orientation="left" :dashed="true" style="font-size: 12px">表单信息</divider>
@@ -75,7 +75,7 @@
                 </div>
             </div>
         </tab-pane>
-        <tab-pane name="Design" label="Design">
+        <tab-pane tab="outer-tabs" name="Design" label="Design">
             <div class="form-design-wraper">
                 <div class="left-wraper" style="right: 10px">
                     <textarea name="html_design" id="html_design">
@@ -83,7 +83,7 @@
                 </div>
             </div>
         </tab-pane>
-        <tab-pane name="HTML" label="HTML">
+        <tab-pane tab="outer-tabs" name="HTML" label="HTML">
             <div class="html-design-wraper">
                 <div class="left-wraper code_wraper">
                     <div class="inner">
@@ -91,18 +91,18 @@
                     </div>
                 </div>
                 <div class="right-wraper">
-                    <tabs>
-                        <tab-pane label="CodeFragment">
+                    <tabs name="html-inner-tabs">
+                        <tab-pane tab="html-inner-tabs" label="CodeFragment">
                             <div>Config</div>
                         </tab-pane>
-                        <tab-pane label="Element">
+                        <tab-pane tab="html-inner-tabs" label="Element">
                             <div>Element</div>
                         </tab-pane>
                     </tabs>
                 </div>
             </div>
         </tab-pane>
-        <tab-pane name="JS" label="JS">
+        <tab-pane tab="outer-tabs" name="JS" label="JS">
             <div class="js-design-wraper">
                 <div class="left-wraper code_wraper">
                     <div class="inner">
@@ -110,18 +110,18 @@
                     </div>
                 </div>
                 <div class="right-wraper">
-                    <tabs>
-                        <tab-pane label="CodeFragment">
+                    <tabs name="js-inner-tabs">
+                        <tab-pane tab="js-inner-tabs" label="CodeFragment">
                             <js-design-code-fragment ref="jsDesignCodeFragment"></js-design-code-fragment>
                         </tab-pane>
-                        <tab-pane label="Element">
+                        <tab-pane tab="js-inner-tabs" label="Element">
                             <design-html-elem-list ref="designHtmlElemList"></design-html-elem-list>
                         </tab-pane>
                     </tabs>
                 </div>
             </div>
         </tab-pane>
-        <tab-pane name="EXProp" label="EXProp">
+        <tab-pane tab="outer-tabs" name="EXProp" label="EXProp">
             <div style="width: 1024px;margin: auto">
                 <div style="width: 1024px;height: 615px;border: #ddddf1 1px solid;border-radius: 4px;padding: 10px 20px 10px 10px;">
                     <divider orientation="left" :dashed="true" style="font-size: 12px">扩展信息</divider>
@@ -142,9 +142,9 @@
                 </div>
             </div>
         </tab-pane>
-        <tab-pane name="ExDataSet" label="ExDataSet"></tab-pane>
-        <tab-pane name="BeReferred" label="BeReferred"></tab-pane>
-        <tab-pane name="Config" label="Config"></tab-pane>
+        <tab-pane tab="outer-tabs" name="ExDataSet" label="ExDataSet"></tab-pane>
+        <tab-pane tab="outer-tabs" name="BeReferred" label="BeReferred"></tab-pane>
+        <tab-pane tab="outer-tabs" name="Config" label="Config"></tab-pane>
     </tabs>
     <div>
         <!--各类对话框的引用-->

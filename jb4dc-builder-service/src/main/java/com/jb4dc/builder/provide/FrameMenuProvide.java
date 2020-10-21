@@ -3,7 +3,6 @@ package com.jb4dc.builder.provide;
 import com.jb4dc.base.service.po.MenuPO;
 import com.jb4dc.base.service.provide.IFrameMenuProvide;
 import com.jb4dc.core.base.session.JB4DCSession;
-import com.jb4dc.sso.client.remote.MenuRemote;
 import com.jb4dc.sso.client.remote.MenuRuntimeRemote;
 import org.springframework.stereotype.Service;
 
