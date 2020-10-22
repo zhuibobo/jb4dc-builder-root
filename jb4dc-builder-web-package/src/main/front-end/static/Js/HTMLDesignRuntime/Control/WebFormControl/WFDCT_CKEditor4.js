@@ -10,13 +10,19 @@ var WFDCT_CKEditor4={
         var areaHeight=$singleControlElem.height();
         //$singleControlElem.val("22222");
         //加载默认配置文件
-        var filename=_ref_filePath.substr(_ref_filePath.lastIndexOf('/')+1);
 
-        var editorConfigUrl = BaseUtility.AppendTimeStampUrl(_ref_filePath.replace(filename,$singleControlElem.attr("customconfig")));
-        this.ckeditorInstance=CKEDITOR.replace( $singleControlElem.attr("id"),{
-            customConfig: editorConfigUrl
-        });
-        this.ckeditorInstance.config.height=areaHeight;
+        if(BaseUtility.IsViewOperation(formRuntimeInst.GetOperationType())) {
+
+        }
+        else {
+            var filename = _ref_filePath.substr(_ref_filePath.lastIndexOf('/') + 1);
+
+            var editorConfigUrl = BaseUtility.AppendTimeStampUrl(_ref_filePath.replace(filename, $singleControlElem.attr("customconfig")));
+            this.ckeditorInstance = CKEDITOR.replace($singleControlElem.attr("id"), {
+                customConfig: editorConfigUrl
+            });
+            this.ckeditorInstance.config.height = areaHeight;
+        }
     },
     RendererDataChain:function () {
 
@@ -34,5 +40,17 @@ var WFDCT_CKEditor4={
             $elem.attr("control_value",fieldPO.value);
         }
     },
-    ToViewStatus:HTMLControl.ToViewStatus
+    ToViewStatus:function($elem,fieldPO,relationFormRecordComplexPo,_rendererDataChainParas){
+        //var htmlData=this.ckeditorInstance.getData();
+        //console.log(htmlData);
+        //debugger;
+        var $viewElem=$("<div></div>");
+        var oldAllAttrs=BaseUtility.GetElemAllAttr($elem);
+        $viewElem.attr(oldAllAttrs);
+        $viewElem.removeClass();
+        $viewElem.html(fieldPO.value);
+        $viewElem.css("overflow","auto");
+        $viewElem.height($viewElem.height()+100);
+        $elem.replaceWith($viewElem);
+    }
 }

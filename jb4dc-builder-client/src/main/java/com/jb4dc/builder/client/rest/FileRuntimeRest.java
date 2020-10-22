@@ -48,7 +48,7 @@ public class FileRuntimeRest {
                 objId, String.valueOf(System.currentTimeMillis()),
                 "CKE4-Image", "Image");
 
-        String imageContextPath = request.getContextPath()+"//Rest/Builder/RunTime/FileRuntime/DownLoadFileByFileId?fileId="+fileInfoEntity.getFileId();
+        String imageContextPath = request.getContextPath()+"/Rest/Builder/RunTime/FileRuntime/DownLoadFileByFileId?fileId="+fileInfoEntity.getFileId();
         response.setContentType("text/html;charset=UTF-8");
         //String callback = request.getParameter("CKEditorFuncNum");
         PrintWriter out = response.getWriter();

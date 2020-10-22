@@ -47,5 +47,14 @@ var WFDCT_RadioGroup={
             $("[name='"+this.radioGroupName+"'][value='"+fieldPO.value+"']").prop("checked",true);
         }
     },
-    ToViewStatus:HTMLControl.ToViewStatus
+    ToViewStatus:function($elem,fieldPO,relationFormRecordComplexPo,_rendererDataChainParas){
+        $("[name='"+this.radioGroupName+"']").parent().remove();
+        var oldAllAttrs=BaseUtility.GetElemAllAttr($elem);
+        var $viewElem=$("<label />");
+        $viewElem.attr(oldAllAttrs);
+        $viewElem.removeClass();
+        $viewElem.show();
+        $viewElem.text($elem.val());
+        $elem.replaceWith($viewElem);
+    }
 }

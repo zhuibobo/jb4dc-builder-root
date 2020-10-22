@@ -43,7 +43,13 @@ var WFDCT_FileUploadContainer={
     },
     GetValue:HTMLControl.GetValue,
     SetValue:HTMLControl.SetValue,
-    ToViewStatus:HTMLControl.ToViewStatus,
+    ToViewStatus:function($elem,fieldPO,relationFormRecordComplexPo,_rendererDataChainParas){
+        $("#"+this._prop.uploadWarpId).hide();
+        //debugger;
+        $("#"+this._prop.elemId).find(".delete-button-elem").hide();
+        $("#"+this._prop.elemId).find(".move-up-button-elem").hide();
+        $("#"+this._prop.elemId).find(".move-down-button-elem").hide();
+    },
 
     BindElementAttrToInstanceProp:function($singleControlElem){
         //HTMLControl.TryBindElementAttrToInstanceProp($singleControlElem,this._prop);
@@ -180,7 +186,9 @@ var WFDCT_FileUploadContainer={
     BuildUploadContainer:function(){
         if(this._prop.uploadEnable) {
             var $singleControlElem = this._prop.$singleControlElem;
-            var $uploadWarp = $("<div id='uploadWarp'></div>");
+            var uploadWarpId='uploadWarp_'+this._prop.elemId;
+            this._prop.uploadWarpId=uploadWarpId;
+            var $uploadWarp = $("<div id='"+uploadWarpId+"'></div>");
             $singleControlElem.append($uploadWarp);
             var templateId = "qq-template_" + this._prop.elemId;
             if (this._prop.useTemplate == "defaultTemplate") {
@@ -232,6 +240,9 @@ var WFDCT_FileUploadContainer={
                     var fileInfo=result.data[i];
                     $tbody.append(this.BuildFileInfoTableRow(result,fileInfo));
                 }
+            }
+            if(BaseUtility.IsViewOperation(formRuntimeInst.GetOperationType())) {
+                this.ToViewStatus();
             }
             console.log(result);
         },this);
