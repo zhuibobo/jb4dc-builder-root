@@ -501,7 +501,7 @@ var WLDCT_ListTableContainer = {
                                   </td>`);
     },
     RendererSingleRow: function ($templateTable, $templateTableRow, dataSet, rowData) {
-        console.log(dataSet);
+        //console.log(dataSet);
         var $cloneRow = $templateTableRow.clone();
         //console.log($cloneRow);
         //debugger;

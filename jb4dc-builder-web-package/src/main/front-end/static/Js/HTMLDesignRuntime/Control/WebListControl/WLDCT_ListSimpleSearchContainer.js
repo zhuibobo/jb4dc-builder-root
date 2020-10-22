@@ -40,9 +40,12 @@ var WLDCT_ListSimpleSearchContainer={
         var result=[];
         /*String operator;
         String value;
-        String tableName;
+        String tableName;1
         String fieldName;*/
         var allControls=this._$SingleControlElem.find(HTMLControlAttrs.SELECTED_JBUILD4DC_CUSTOM);
+        var hidControls=this._$SingleControlElem.parent().find("[singlename='WLDCT_HideContainer']").find("[columnname][columnoperator]");
+        //console.log(hidControls);
+        $.merge(allControls,hidControls);
         for(var i=0;i<allControls.length;i++){
             var $elem=$(allControls[i]);
             var instance=HTMLControl.GetControlInstanceByElem($elem);

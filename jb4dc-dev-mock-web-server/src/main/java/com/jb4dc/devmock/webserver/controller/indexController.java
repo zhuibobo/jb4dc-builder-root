@@ -4,7 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.jb4dc.base.tools.JsonUtility;
 import com.jb4dc.core.base.vo.JBuild4DCResponseVo;
 import com.jb4dc.sso.client.remote.FeignRequestInterceptor;
-import com.jb4dc.sso.client.remote.SessionRemote;
+import com.jb4dc.sso.client.remote.SessionRuntimeRemote;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,7 +22,7 @@ import javax.servlet.http.HttpServletRequest;
 public class indexController {
 
     @Autowired
-    SessionRemote sessionRemote;
+    SessionRuntimeRemote sessionRemote;
 
     @RequestMapping("/hello")
     public String index(String name, HttpServletRequest request) throws JsonProcessingException {

@@ -3,7 +3,6 @@ package com.jb4dc.devmock.provide;
 import com.jb4dc.base.service.po.DictionaryPO;
 import com.jb4dc.base.service.provide.IDictionaryProvide;
 import com.jb4dc.core.base.session.JB4DCSession;
-import com.jb4dc.sso.client.remote.DictionaryRemote;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,13 +16,17 @@ import java.util.List;
  */
 @Service
 public class DictionaryProvide implements IDictionaryProvide {
+    @Override
+    public List<DictionaryPO> getListDataByGroupValue(JB4DCSession session, String groupValue) {
+        return null;
+    }
 
-    @Autowired
+    /*@Autowired
     DictionaryRemote dictionaryRemote;
 
     @Override
     public List<DictionaryPO> getListDataByGroupValue(JB4DCSession session, String groupValue) {
         List<DictionaryPO> dictionaryPOList = dictionaryRemote.getEnableListDataByGroupId(groupValue).getData();
         return dictionaryPOList;
-    }
+    }*/
 }

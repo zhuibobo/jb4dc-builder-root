@@ -24,7 +24,7 @@ var WLDCT_ListTableLabel= {
         var elemId=$singleControlElem.attr("id");
         var columnAlign=this._propMap[elemId].columnAlign;
         var defFormat = this._propMap[elemId].defFormat;
-        console.log(columnAlign);
+        //console.log(columnAlign);
         //console.log(this._propMap);
         var $td=_rendererDataChainParas.$td;
         if(columnAlign=="居中对齐") {

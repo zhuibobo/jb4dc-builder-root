@@ -5,7 +5,6 @@ import com.jb4dc.base.service.provide.IFrameMenuProvide;
 import com.jb4dc.core.base.list.IListWhereCondition;
 import com.jb4dc.core.base.list.ListUtility;
 import com.jb4dc.core.base.session.JB4DCSession;
-import com.jb4dc.sso.client.remote.MenuRemote;
 import com.jb4dc.sso.client.remote.MenuRuntimeRemote;
 import org.springframework.stereotype.Service;
 
