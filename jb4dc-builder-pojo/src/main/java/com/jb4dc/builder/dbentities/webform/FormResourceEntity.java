@@ -7,12 +7,12 @@ import java.util.Date;
 /**
  *
  * This class was generated JBuild4DC.
- * This class corresponds to the database table :TBUILD_FORM_RESOURCE
+ * This class corresponds to the database table :tbuild_form_resource
  *
  * JBuild4DC do_not_delete_during_merge
  */
 public class FormResourceEntity {
-    //FORM_ID:主键:UUID
+    //FORM_ID:
     @DBKeyField
     private String formId;
 
@@ -81,21 +81,6 @@ public class FormResourceEntity {
     //FORM_EVERY_TIME_RESOLVE:是否每次都进行服务端解析:默认为否,只解析一次
     private String formEveryTimeResolve;
 
-    //FORM_HTML_SOURCE:原始的HTML
-    private String formHtmlSource;
-
-    //FORM_HTML_RESOLVE:解析后的HTML
-    private String formHtmlResolve;
-
-    //FORM_JS_CONTENT:JS编辑器中的内容
-    private String formJsContent;
-
-    //FORM_CSS_CONTENT:CSS编辑器中的内容
-    private String formCssContent;
-
-    //FORM_CONFIG_CONTENT:配置编辑器中的内容
-    private String formConfigContent;
-
     //FORM_SOURCE:表单的来源:Web设计器,URL引入...
     private String formSource;
 
@@ -117,9 +102,12 @@ public class FormResourceEntity {
     //FORM_CUST_DESC:自定义设置备注:使用了自定义设置相关方法的备注说明
     private String formCustDesc;
 
+    //FORM_MAIN_TABLE_ID:表单的主表ID:从数据关系字段FORM_DATA_RELATION提取
+    private String formMainTableId;
+
     /**
      * 构造函数
-     * @param formId 主键
+     * @param formId
      * @param formCode 窗体编号
      * @param formName 窗体名称
      * @param formSingleName 唯一名称
@@ -141,11 +129,6 @@ public class FormResourceEntity {
      * @param formIsTemplate 是否模版
      * @param formIsResolve 是否进行了解析
      * @param formEveryTimeResolve 是否每次都进行服务端解析
-     * @param formHtmlSource 原始的HTML
-     * @param formHtmlResolve 解析后的HTML
-     * @param formJsContent JS编辑器中的内容
-     * @param formCssContent CSS编辑器中的内容
-     * @param formConfigContent 配置编辑器中的内容
      * @param formSource 表单的来源
      * @param formContentUrl 引入表单的URL地址
      * @param formTheme 风格主题
@@ -153,8 +136,9 @@ public class FormResourceEntity {
      * @param formCustRefJs 引入的脚本
      * @param formCustClientRenderer 客户端自定义的渲染方法
      * @param formCustDesc 自定义设置备注
+     * @param formMainTableId 表单的主表ID
      **/
-    public FormResourceEntity(String formId, String formCode, String formName, String formSingleName, Date formCreateTime, String formCreator, Date formUpdateTime, String formUpdater, String formType, String formIsSystem, Integer formOrderNum, String formDesc, String formModuleId, String formStatus, String formOrganId, String formOrganName, String formMainTableName, String formMainTableCaption, String formDataRelation, String formIsTemplate, String formIsResolve, String formEveryTimeResolve, String formHtmlSource, String formHtmlResolve, String formJsContent, String formCssContent, String formConfigContent, String formSource, String formContentUrl, String formTheme, String formCustServerRenderer, String formCustRefJs, String formCustClientRenderer, String formCustDesc) {
+    public FormResourceEntity(String formId, String formCode, String formName, String formSingleName, Date formCreateTime, String formCreator, Date formUpdateTime, String formUpdater, String formType, String formIsSystem, Integer formOrderNum, String formDesc, String formModuleId, String formStatus, String formOrganId, String formOrganName, String formMainTableName, String formMainTableCaption, String formDataRelation, String formIsTemplate, String formIsResolve, String formEveryTimeResolve, String formSource, String formContentUrl, String formTheme, String formCustServerRenderer, String formCustRefJs, String formCustClientRenderer, String formCustDesc, String formMainTableId) {
         this.formId = formId;
         this.formCode = formCode;
         this.formName = formName;
@@ -177,11 +161,6 @@ public class FormResourceEntity {
         this.formIsTemplate = formIsTemplate;
         this.formIsResolve = formIsResolve;
         this.formEveryTimeResolve = formEveryTimeResolve;
-        this.formHtmlSource = formHtmlSource;
-        this.formHtmlResolve = formHtmlResolve;
-        this.formJsContent = formJsContent;
-        this.formCssContent = formCssContent;
-        this.formConfigContent = formConfigContent;
         this.formSource = formSource;
         this.formContentUrl = formContentUrl;
         this.formTheme = formTheme;
@@ -189,6 +168,7 @@ public class FormResourceEntity {
         this.formCustRefJs = formCustRefJs;
         this.formCustClientRenderer = formCustClientRenderer;
         this.formCustDesc = formCustDesc;
+        this.formMainTableId = formMainTableId;
     }
 
     public FormResourceEntity() {
@@ -196,7 +176,7 @@ public class FormResourceEntity {
     }
 
     /**
-     * 主键:UUID
+     *
      * @return java.lang.String
      **/
     public String getFormId() {
@@ -204,8 +184,8 @@ public class FormResourceEntity {
     }
 
     /**
-     * 主键:UUID
-     * @param formId 主键
+     *
+     * @param formId
      **/
     public void setFormId(String formId) {
         this.formId = formId == null ? null : formId.trim();
@@ -548,86 +528,6 @@ public class FormResourceEntity {
     }
 
     /**
-     * 原始的HTML
-     * @return java.lang.String
-     **/
-    public String getFormHtmlSource() {
-        return formHtmlSource;
-    }
-
-    /**
-     * 原始的HTML
-     * @param formHtmlSource 原始的HTML
-     **/
-    public void setFormHtmlSource(String formHtmlSource) {
-        this.formHtmlSource = formHtmlSource == null ? null : formHtmlSource.trim();
-    }
-
-    /**
-     * 解析后的HTML
-     * @return java.lang.String
-     **/
-    public String getFormHtmlResolve() {
-        return formHtmlResolve;
-    }
-
-    /**
-     * 解析后的HTML
-     * @param formHtmlResolve 解析后的HTML
-     **/
-    public void setFormHtmlResolve(String formHtmlResolve) {
-        this.formHtmlResolve = formHtmlResolve == null ? null : formHtmlResolve.trim();
-    }
-
-    /**
-     * JS编辑器中的内容
-     * @return java.lang.String
-     **/
-    public String getFormJsContent() {
-        return formJsContent;
-    }
-
-    /**
-     * JS编辑器中的内容
-     * @param formJsContent JS编辑器中的内容
-     **/
-    public void setFormJsContent(String formJsContent) {
-        this.formJsContent = formJsContent == null ? null : formJsContent.trim();
-    }
-
-    /**
-     * CSS编辑器中的内容
-     * @return java.lang.String
-     **/
-    public String getFormCssContent() {
-        return formCssContent;
-    }
-
-    /**
-     * CSS编辑器中的内容
-     * @param formCssContent CSS编辑器中的内容
-     **/
-    public void setFormCssContent(String formCssContent) {
-        this.formCssContent = formCssContent == null ? null : formCssContent.trim();
-    }
-
-    /**
-     * 配置编辑器中的内容
-     * @return java.lang.String
-     **/
-    public String getFormConfigContent() {
-        return formConfigContent;
-    }
-
-    /**
-     * 配置编辑器中的内容
-     * @param formConfigContent 配置编辑器中的内容
-     **/
-    public void setFormConfigContent(String formConfigContent) {
-        this.formConfigContent = formConfigContent == null ? null : formConfigContent.trim();
-    }
-
-    /**
      * 表单的来源:Web设计器,URL引入...
      * @return java.lang.String
      **/
@@ -737,5 +637,21 @@ public class FormResourceEntity {
      **/
     public void setFormCustDesc(String formCustDesc) {
         this.formCustDesc = formCustDesc == null ? null : formCustDesc.trim();
+    }
+
+    /**
+     * 表单的主表ID:从数据关系字段FORM_DATA_RELATION提取
+     * @return java.lang.String
+     **/
+    public String getFormMainTableId() {
+        return formMainTableId;
+    }
+
+    /**
+     * 表单的主表ID:从数据关系字段FORM_DATA_RELATION提取
+     * @param formMainTableId 表单的主表ID
+     **/
+    public void setFormMainTableId(String formMainTableId) {
+        this.formMainTableId = formMainTableId == null ? null : formMainTableId.trim();
     }
 }

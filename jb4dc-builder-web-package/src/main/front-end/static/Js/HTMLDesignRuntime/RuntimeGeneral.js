@@ -75,5 +75,41 @@ var RuntimeGeneralInstance= {
             });*/
             func.call(sender,getDataSetResult);
         },sender);
+    },
+    GetUrlParas:function () {
+        var paraStr=BaseUtility.GetUrlParaValue("menuRightUrlPara");
+        if(StringUtility.IsNullOrEmpty(paraStr)){
+            return "";
+        }
+        if(paraStr.charAt(0)=="{"||paraStr.charAt(0)=="["){
+            try {
+                var json=JsonUtility.StringToJson(paraStr);
+                return json;
+            }
+            catch (e) {
+
+            }
+        }
+        return paraStr;
+    },
+    TryGetUrlParaValueByFieldName:function (actionName,fieldName) {
+        var paraJson;
+        if(this["menuRightUrlParaJson"]){
+            paraJson=this["menuRightUrlParaJson"];
+        }
+        else{
+            paraJson=this.GetUrlParas();
+            this["menuRightUrlParaJson"]=paraJson;
+        }
+
+        if(paraJson&&typeof(paraJson)!="string"){
+            for (var i = 0; i < paraJson.length; i++) {
+                var singlePara=paraJson[i];
+                if(singlePara.ActionType==actionName&&singlePara.FieldName==fieldName){
+                    return singlePara.Value;
+                }
+            }
+        }
+        return "";
     }
 }

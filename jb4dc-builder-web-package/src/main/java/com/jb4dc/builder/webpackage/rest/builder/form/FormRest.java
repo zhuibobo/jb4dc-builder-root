@@ -4,6 +4,7 @@ import com.jb4dc.base.service.IBaseService;
 import com.jb4dc.base.service.general.JB4DCSessionUtility;
 import com.jb4dc.builder.dbentities.module.ModuleEntity;
 import com.jb4dc.builder.dbentities.webform.FormResourceEntity;
+import com.jb4dc.builder.dbentities.webform.FormResourceEntityWithBLOBs;
 import com.jb4dc.builder.po.TableFieldPO;
 import com.jb4dc.builder.po.ZTreeNodePOConvert;
 import com.jb4dc.builder.client.service.datastorage.ITableFieldService;
@@ -23,7 +24,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping(value = "/Rest/Builder/Form")
-public class FormRest extends GeneralRest<FormResourceEntity> {
+public class FormRest extends GeneralRest<FormResourceEntityWithBLOBs> {
 
     @Autowired
     IFormResourceService formResourceService;
@@ -35,7 +36,7 @@ public class FormRest extends GeneralRest<FormResourceEntity> {
     ITableFieldService tableFieldService;
 
     @Override
-    protected IBaseService<FormResourceEntity> getBaseService() {
+    protected IBaseService<FormResourceEntityWithBLOBs> getBaseService() {
         return formResourceService;
     }
 
@@ -54,7 +55,7 @@ public class FormRest extends GeneralRest<FormResourceEntity> {
             JB4DCSession jb4DCSession= JB4DCSessionUtility.getSession();
 
             List<ModuleEntity> moduleEntityList=moduleService.getALL(jb4DCSession);
-            List<FormResourceEntity> formResourceEntityList=formResourceService.getALL(jb4DCSession);
+            List<FormResourceEntityWithBLOBs> formResourceEntityList=formResourceService.getALL(jb4DCSession);
 
             responseVo.setData(ZTreeNodePOConvert.parseWebFormToZTreeNodeList(moduleEntityList,formResourceEntityList));
 
@@ -68,7 +69,7 @@ public class FormRest extends GeneralRest<FormResourceEntity> {
     @RequestMapping(value = "GetFormMainTableFields",method = RequestMethod.POST)
     public JBuild4DCResponseVo getFormMainTableFields(String formId) throws JBuild4DCGenerallyException, IOException {
         FormResourceEntity formResourceEntity=formResourceService.getByPrimaryKey(JB4DCSessionUtility.getSession(),formId);
-        List<TableFieldPO> tableFieldPOList =tableFieldService.getTableFieldsByTableName(formResourceEntity.getFormMainTableName());
+        List<TableFieldPO> tableFieldPOList =tableFieldService.getTableFieldsByTableName(formResourceEntity.getFormMainTableId(),formResourceEntity.getFormMainTableName(),formResourceEntity.getFormMainTableCaption());
         return JBuild4DCResponseVo.getDataSuccess(tableFieldPOList);
     }
 }

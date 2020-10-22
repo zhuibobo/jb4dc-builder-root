@@ -10,6 +10,7 @@ import com.jb4dc.builder.dbentities.datastorage.TableEntity;
 import com.jb4dc.builder.dbentities.datastorage.TableFieldEntity;
 import com.jb4dc.builder.dbentities.webform.FormResourceEntity;
 import com.jb4dc.builder.client.htmldesign.IHTMLRuntimeResolve;
+import com.jb4dc.builder.dbentities.webform.FormResourceEntityWithBLOBs;
 import com.jb4dc.builder.po.FormResourcePO;
 import com.jb4dc.builder.po.TableFieldPO;
 import com.jb4dc.builder.po.TablePO;
@@ -31,7 +32,7 @@ import java.util.*;
  * To change this template use File | Settings | File Templates.
  */
 @Service
-public class FormResourceServiceImpl extends BaseServiceImpl<FormResourceEntity> implements IFormResourceService {
+public class FormResourceServiceImpl extends BaseServiceImpl<FormResourceEntityWithBLOBs> implements IFormResourceService {
 
     FormResourceMapper formResourceMapper;
 
@@ -54,7 +55,7 @@ public class FormResourceServiceImpl extends BaseServiceImpl<FormResourceEntity>
     }
 
     @Override
-    public int saveSimple(JB4DCSession jb4DCSession, String id, FormResourceEntity record) throws JBuild4DCGenerallyException {
+    public int saveSimple(JB4DCSession jb4DCSession, String id, FormResourceEntityWithBLOBs record) throws JBuild4DCGenerallyException {
 
         //修改时设置为未解析的状态.
         //record.setFormIsResolve(TrueFalseEnum.False.getDisplayName());
@@ -62,9 +63,9 @@ public class FormResourceServiceImpl extends BaseServiceImpl<FormResourceEntity>
         String resolvedHtml=htmlRuntimeResolve.resolveSourceHTML(jb4DCSession,id,record.getFormHtmlSource());
         record.setFormHtmlResolve(resolvedHtml);
         record.setFormIsResolve(TrueFalseEnum.True.getDisplayName());
-        return super.save(jb4DCSession, id, record, new IAddBefore<FormResourceEntity>() {
+        return super.save(jb4DCSession, id, record, new IAddBefore<FormResourceEntityWithBLOBs>() {
             @Override
-            public FormResourceEntity run(JB4DCSession jb4DCSession, FormResourceEntity sourceEntity) throws JBuild4DCGenerallyException {
+            public FormResourceEntityWithBLOBs run(JB4DCSession jb4DCSession, FormResourceEntityWithBLOBs sourceEntity) throws JBuild4DCGenerallyException {
                 //设置排序,以及其他参数--nextOrderNum()
                 sourceEntity.setFormOrderNum(formResourceMapper.nextOrderNum());
                 sourceEntity.setFormCreator(jb4DCSession.getUserName());
@@ -84,19 +85,19 @@ public class FormResourceServiceImpl extends BaseServiceImpl<FormResourceEntity>
 
     @Override
     public void moveUp(JB4DCSession jb4DCSession, String id) throws JBuild4DCGenerallyException {
-        FormResourceEntity selfEntity = formResourceMapper.selectByPrimaryKey(id);
-        FormResourceEntity ltEntity = formResourceMapper.selectGreaterThanRecord(id, selfEntity.getFormModuleId());
+        FormResourceEntityWithBLOBs selfEntity = formResourceMapper.selectByPrimaryKey(id);
+        FormResourceEntityWithBLOBs ltEntity = formResourceMapper.selectGreaterThanRecord(id, selfEntity.getFormModuleId());
         switchOrder(ltEntity, selfEntity);
     }
 
     @Override
     public void moveDown(JB4DCSession jb4DCSession, String id) throws JBuild4DCGenerallyException {
-        FormResourceEntity selfEntity = formResourceMapper.selectByPrimaryKey(id);
-        FormResourceEntity ltEntity = formResourceMapper.selectLessThanRecord(id, selfEntity.getFormModuleId());
+        FormResourceEntityWithBLOBs selfEntity = formResourceMapper.selectByPrimaryKey(id);
+        FormResourceEntityWithBLOBs ltEntity = formResourceMapper.selectLessThanRecord(id, selfEntity.getFormModuleId());
         switchOrder(ltEntity, selfEntity);
     }
 
-    private void switchOrder(FormResourceEntity toEntity, FormResourceEntity selfEntity) {
+    private void switchOrder(FormResourceEntityWithBLOBs toEntity, FormResourceEntityWithBLOBs selfEntity) {
         if (toEntity != null) {
             int newNum = toEntity.getFormOrderNum();
             toEntity.setFormOrderNum(selfEntity.getFormOrderNum());
@@ -113,7 +114,7 @@ public class FormResourceServiceImpl extends BaseServiceImpl<FormResourceEntity>
 
     @Override
     public FormResourcePO getFormRuntimePageContent(JB4DCSession jb4DCSession, String id) throws JBuild4DCGenerallyException {
-        FormResourceEntity formResourceEntity=getByPrimaryKey(jb4DCSession,id);
+        FormResourceEntityWithBLOBs formResourceEntity=getByPrimaryKey(jb4DCSession,id);
         //String formHtmlRuntime=htmlRuntimeResolve.dynamicBind(jb4DCSession,id,formResourceEntity.getFormHtmlResolve());
         return new FormResourcePO(formResourceEntity,"");
     }

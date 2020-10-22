@@ -5,6 +5,7 @@ import com.jb4dc.base.service.exenum.TrueFalseEnum;
 import com.jb4dc.base.service.general.JB4DCSessionUtility;
 import com.jb4dc.builder.dbentities.webform.FormResourceEntity;
 import com.jb4dc.builder.client.service.webform.IFormResourceService;
+import com.jb4dc.builder.dbentities.webform.FormResourceEntityWithBLOBs;
 import com.jb4dc.builder.webpackage.rest.builder.module.ModuleRestTest;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +29,7 @@ public class FormRestTest  extends ModuleRestTest {
     }
 
     private void createForm(String formId,String moduleId,String formName) throws com.jb4dc.core.base.exception.JBuild4DCGenerallyException {
-        FormResourceEntity formResourceEntity=new FormResourceEntity();
+        FormResourceEntityWithBLOBs formResourceEntity=new FormResourceEntityWithBLOBs();
         formResourceEntity.setFormId(formId);
         formResourceEntity.setFormCode(formId);
         formResourceEntity.setFormName(formName);

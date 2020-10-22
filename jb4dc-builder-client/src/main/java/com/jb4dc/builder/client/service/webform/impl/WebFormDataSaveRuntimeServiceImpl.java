@@ -278,18 +278,21 @@ public class WebFormDataSaveRuntimeServiceImpl implements IWebFormDataSaveRuntim
             String fieldDefaultText = field.getFieldDefaultText();
             String fieldDefaultValue = field.getFieldDefaultValue();
             String value = envVariableRuntimeResolveProxy.execDefaultValueResult(jb4DCSession, fieldDefaultType, fieldDefaultValue);
+
+            List<TableFieldPO> tempTableFieldPOList = tableRuntimeProxy.getTableFieldsByTableId(field.getTableId());
+            TableFieldPO pkFieldPO = resolvePendingSQL.findPrimaryKey(field.getTableName(), tempTableFieldPOList);
+            String pkFieldName = pkFieldPO.getFieldName();
             //value = "123";
-            String sql = String.format("update %s set %s=#{%s} where id=#{id}", tableName, fieldName, fieldName);
+            String sql = String.format("update %s set %s=#{%s} where " + pkFieldName + "=#{id}", tableName, fieldName, fieldName);
             Map paraMap = new HashMap();
             paraMap.put(fieldName, value);
             paraMap.put("id", formRecordComplexPO.getRecordId());
             //paraMap.put("id","57d35380-844f-c403-29e4-3d3e88a87b3c");
-            logger.debug(BaseUtility.wrapDevLog("保存数据解析-修改字段-待执行SQL："+sql));
-            logger.debug(BaseUtility.wrapDevLog("保存数据解析-修改字段-待执行SQL参数："+JsonUtility.toObjectString(paraMap)));
+            logger.debug(BaseUtility.wrapDevLog("保存数据解析-修改字段-待执行SQL：" + sql));
+            logger.debug(BaseUtility.wrapDevLog("保存数据解析-修改字段-待执行SQL参数：" + JsonUtility.toObjectString(paraMap)));
             sqlBuilderService.update(sql, paraMap);
-        }
-        catch (Exception ex){
-            throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_BUILDER_CODE,ex.getMessage(),ex,ex.getStackTrace());
+        } catch (Exception ex) {
+            throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_BUILDER_CODE, ex.getMessage(), ex, ex.getStackTrace());
         }
     }
 

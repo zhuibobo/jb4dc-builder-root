@@ -24,7 +24,7 @@ public interface ITableFieldService extends IBaseService<TableFieldEntity> {
 
     List<TableFieldPO> getTableFieldsByTableId(String tableId) throws IOException;
 
-    List<TableFieldPO> getTableFieldsByTableName(String rtTableName) throws IOException;
+    List<TableFieldPO> getTableFieldsByTableName(String rtTableId,String rtTableName,String rtTableCaption) throws IOException;
 
     void deleteByTableId(JB4DCSession session, String tableId);
 

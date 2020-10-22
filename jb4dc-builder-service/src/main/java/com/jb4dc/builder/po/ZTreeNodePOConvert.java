@@ -9,6 +9,7 @@ import com.jb4dc.builder.dbentities.datastorage.TableEntity;
 import com.jb4dc.builder.dbentities.datastorage.TableGroupEntity;
 import com.jb4dc.builder.dbentities.module.ModuleEntity;
 import com.jb4dc.builder.dbentities.webform.FormResourceEntity;
+import com.jb4dc.builder.dbentities.webform.FormResourceEntityWithBLOBs;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -86,7 +87,7 @@ public class ZTreeNodePOConvert extends ZTreeNodePO {
         return result;
     }
 
-    public static List<ZTreeNodePO> parseWebFormToZTreeNodeList(List<ModuleEntity> moduleEntityList, List<FormResourceEntity> formResourceEntityList) {
+    public static List<ZTreeNodePO> parseWebFormToZTreeNodeList(List<ModuleEntity> moduleEntityList, List<FormResourceEntityWithBLOBs> formResourceEntityList) {
         Map<String, ModuleEntity> temp=new HashMap<>();
         List<ZTreeNodePO> result=new ArrayList<>();
         for (ModuleEntity moduleEntity : moduleEntityList) {

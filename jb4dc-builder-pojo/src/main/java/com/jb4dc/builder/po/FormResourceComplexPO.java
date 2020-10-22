@@ -1,6 +1,7 @@
 package com.jb4dc.builder.po;
 
 import com.jb4dc.builder.dbentities.webform.FormResourceEntity;
+import com.jb4dc.builder.dbentities.webform.FormResourceEntityWithBLOBs;
 import com.jb4dc.builder.dbentities.weblist.ListButtonEntity;
 import com.jb4dc.builder.po.formdata.FormRecordComplexPO;
 import com.jb4dc.builder.po.formdata.FormRecordDataRelationPO;
@@ -15,11 +16,11 @@ import java.util.List;
  */
 public class FormResourceComplexPO extends FormResourcePO {
 
-    public FormResourceComplexPO(FormResourceEntity source, String formHtmlRuntime) {
+    public FormResourceComplexPO(FormResourceEntityWithBLOBs source, String formHtmlRuntime) {
         super(source, formHtmlRuntime);
     }
 
-    public FormResourceComplexPO(FormResourceEntity source, String formHtmlRuntime,List<FormRecordDataRelationPO> formRecordDataRelationPOList, FormRecordComplexPO formRecordComplexPO, ListButtonEntity _listButtonEntity) {
+    public FormResourceComplexPO(FormResourceEntityWithBLOBs source, String formHtmlRuntime,List<FormRecordDataRelationPO> formRecordDataRelationPOList, FormRecordComplexPO formRecordComplexPO, ListButtonEntity _listButtonEntity) {
         super(source, formHtmlRuntime);
         this.formRecordComplexPO = formRecordComplexPO;
         this.listButtonEntity = _listButtonEntity;

@@ -23,7 +23,17 @@ public class TableFieldPO extends TableFieldEntity {
 
     private String tableCaption;
 
+    private String tableId;
+
     private String value;
+
+    public String getTableId() {
+        return tableId;
+    }
+
+    public void setTableId(String tableId) {
+        this.tableId = tableId;
+    }
 
     public String getOldFieldName() {
         return oldFieldName;
@@ -81,7 +91,7 @@ public class TableFieldPO extends TableFieldEntity {
         return entityList;
     }
 
-    public static List<TableFieldPO> EntityListToVoList(String tableName,String tableCaption, List<TableFieldEntity> source) throws IOException {
+    public static List<TableFieldPO> EntityListToVoList(String tableId,String tableName,String tableCaption, List<TableFieldEntity> source) throws IOException {
         if(source==null)
             return null;
         else if(source.size()==0){
@@ -90,6 +100,7 @@ public class TableFieldPO extends TableFieldEntity {
         String json= JsonUtility.toObjectString(source);
         List<TableFieldPO> result=JsonUtility.toObjectListIgnoreProp(json, TableFieldPO.class);
         for (TableFieldPO tableFieldPO : result) {
+            tableFieldPO.setTableId(tableId);
             tableFieldPO.setTableName(tableName);
             tableFieldPO.setTableCaption(tableCaption);
         }

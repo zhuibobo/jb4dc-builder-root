@@ -77,19 +77,21 @@ var WLDCT_FormButton= {
             }
         }
 
+        var paraStr=BaseUtility.GetUrlParaValue("menuRightUrlPara");
         //debugger;
         DialogUtility.Frame_OpenIframeWindow(window,DialogUtility.DialogId,BaseUtility.BuildView("/HTML/Builder/Runtime/WebFormRuntime.html",{
-            FormId:formid,
-            ButtonId:buttonid,
-            ListFormButtonElemId:elemid,
-            RecordId:recordId,
-            OperationType:operation,
-            WindowWidth:windowwidth,
-            WindowHeight:windowheight
+            "formId":formid,
+            "buttonId":buttonid,
+            "listFormButtonElemId":elemid,
+            "recordId":recordId,
+            "operationType":operation,
+            "windowWidth":windowwidth,
+            "windowHeight":windowheight,
+            "menuRightUrlPara":paraStr
         }), {
-            width: windowwidth,
-            height: windowheight,
-            title:windowcaption
+            "width": windowwidth,
+            "height": windowheight,
+            "title":windowcaption
         },1,true);
     }
 }

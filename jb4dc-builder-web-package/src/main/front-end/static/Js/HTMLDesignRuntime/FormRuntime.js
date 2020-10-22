@@ -4,13 +4,13 @@ let FormRuntimeSinglePageObject={
     getWebFormRTParas:function () {
         if(!this._webFormRTParas) {
             this._webFormRTParas = {
-                "FormId": BaseUtility.GetUrlParaValue("FormId"),
-                "ButtonId": BaseUtility.GetUrlParaValue("ButtonId"),
-                "OperationType": BaseUtility.GetUrlParaValue("OperationType"),
-                "ListFormButtonElemId": BaseUtility.GetUrlParaValue("ListFormButtonElemId"),
-                "RecordId": BaseUtility.GetUrlParaValue("RecordId"),
-                "WindowWidth": BaseUtility.GetUrlParaValue("WindowWidth"),
-                "WindowHeight": BaseUtility.GetUrlParaValue("WindowHeight")
+                "FormId": BaseUtility.GetUrlParaValue("formId"),
+                "ButtonId": BaseUtility.GetUrlParaValue("buttonId"),
+                "OperationType": BaseUtility.GetUrlParaValue("operationType"),
+                "ListFormButtonElemId": BaseUtility.GetUrlParaValue("listFormButtonElemId"),
+                "RecordId": BaseUtility.GetUrlParaValue("recordId"),
+                "WindowWidth": BaseUtility.GetUrlParaValue("windowWidth"),
+                "WindowHeight": BaseUtility.GetUrlParaValue("windowHeight")
             };
             if(!this._webFormRTParas.RecordId){
                 this._webFormRTParas.RecordId=StringUtility.Guid();

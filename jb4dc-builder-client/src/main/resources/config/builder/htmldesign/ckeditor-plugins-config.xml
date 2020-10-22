@@ -198,7 +198,7 @@
                  ServerResolve="com.jb4dc.builder.client.htmldesign.control.weblist.WebListListSimpleSearchContainer"
                  ClientResolve="WLDCT_ListSimpleSearchContainer"
                  ClientResolveJs=""
-                 EnableChildControls="WLDCT_Search_TextBox;WLDCT_Search_DropDownSelect"
+                 EnableChildControls="WLDCT_Search_TextBox;WLDCT_Search_DropDownSelect;WLDCT_Search_TextDateTime"
                  DialogWidth="780" DialogHeight="550" IsJBuild4DCData="false" ControlCategory="ContainerControl" ServerDynamicBind="false"
                  ShowRemoveButton="false" ShowInEditorToolbar="true">
             <Config></Config>
@@ -257,6 +257,16 @@
         <Control SingleName="WLDCT_Search_DropDownSelect" Text="查询-下拉选择框" ToolbarLocation="LC_Simple_G1,2"
                  ServerResolve="com.jb4dc.builder.client.htmldesign.control.weblist.WebListSearchDropDownSelect"
                  ClientResolve="WLDCT_Search_DropDownSelect"
+                 ClientResolveJs=""
+                 EnableChildControls="*"
+                 DialogWidth="780" DialogHeight="550" IsJBuild4DCData="true" ControlCategory="InputControl" ServerDynamicBind="false"
+                 ShowRemoveButton="true" ShowInEditorToolbar="true">
+            <Config></Config>
+            <Desc></Desc>
+        </Control>
+        <Control SingleName="WLDCT_Search_TextDateTime" Text="查询-日期输入框" ToolbarLocation="LC_Simple_G1,3"
+                 ServerResolve="com.jb4dc.builder.client.htmldesign.control.weblist.WebListSearchTextDateTime"
+                 ClientResolve="WLDCT_Search_TextDateTime"
                  ClientResolveJs=""
                  EnableChildControls="*"
                  DialogWidth="780" DialogHeight="550" IsJBuild4DCData="true" ControlCategory="InputControl" ServerDynamicBind="false"

@@ -214,7 +214,7 @@ public class DatasetServiceImpl extends BaseServiceImpl<DatasetEntity> implement
                     List<DataSetColumnPO> dataSetColumnVoList=resultVo.getColumnVoList();
                     //从dbo.TBUILD_TABLE和dbo.TBUILD_TABLE_FIELD中尝试查找
                     for (DataSetRelatedTablePO dataSetRelatedTablePO : resultVo.getRelatedTableVoList()) {
-                        List<TableFieldPO> tableFieldEntityList=tableFieldService.getTableFieldsByTableName(dataSetRelatedTablePO.getRtTableName());
+                        List<TableFieldPO> tableFieldEntityList=tableFieldService.getTableFieldsByTableName(dataSetRelatedTablePO.getRtTableId(),dataSetRelatedTablePO.getRtTableName(),dataSetRelatedTablePO.getRtTableCaption());
                         if(tableFieldEntityList!=null&&tableFieldEntityList.size()>0){
                             for (DataSetColumnPO columnVo : dataSetColumnVoList) {
                                 TableFieldPO fieldVO= ListUtility.WhereSingle(tableFieldEntityList, new IListWhereCondition<TableFieldPO>() {

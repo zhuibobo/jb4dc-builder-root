@@ -7,11 +7,20 @@ package com.jb4dc.builder.po.button;
  * To change this template use File | Settings | File Templates.
  */
 public class InnerFormButtonConfigField {
+    String tableId;
     String tableName;
     String fieldName;
     String fieldDefaultType;
     String fieldDefaultText;
     String fieldDefaultValue;
+
+    public String getTableId() {
+        return tableId;
+    }
+
+    public void setTableId(String tableId) {
+        this.tableId = tableId;
+    }
 
     public String getTableName() {
         return tableName;

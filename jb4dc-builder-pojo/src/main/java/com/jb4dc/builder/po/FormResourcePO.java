@@ -3,6 +3,7 @@ package com.jb4dc.builder.po;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.jb4dc.base.tools.JsonUtility;
 import com.jb4dc.builder.dbentities.webform.FormResourceEntity;
+import com.jb4dc.builder.dbentities.webform.FormResourceEntityWithBLOBs;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -14,7 +15,7 @@ import java.util.List;
  * Date: 2019/8/6
  * To change this template use File | Settings | File Templates.
  */
-public class FormResourcePO extends FormResourceEntity {
+public class FormResourcePO extends FormResourceEntityWithBLOBs {
 
     public String getFormHtmlRuntime() {
         return formHtmlRuntime;
@@ -31,7 +32,7 @@ public class FormResourcePO extends FormResourceEntity {
     public FormResourcePO() {
     }
 
-    public FormResourcePO(FormResourceEntity source,String formHtmlRuntime){
+    public FormResourcePO(FormResourceEntityWithBLOBs source,String formHtmlRuntime){
         this.setFormId(source.getFormId());
         this.setFormCode(source.getFormCode());
         this.setFormName(source.getFormName());

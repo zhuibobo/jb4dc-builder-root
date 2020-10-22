@@ -3,40 +3,75 @@
 <mapper namespace="com.jb4dc.builder.dao.webform.FormResourceMapper">
     <resultMap id="BaseResultMap" type="com.jb4dc.builder.dbentities.webform.FormResourceEntity">
         <constructor>
-            <idArg column="FORM_ID" javaType="java.lang.String" jdbcType="NVARCHAR" />
-            <arg column="FORM_CODE" javaType="java.lang.String" jdbcType="NVARCHAR" />
-            <arg column="FORM_NAME" javaType="java.lang.String" jdbcType="NVARCHAR" />
-            <arg column="FORM_SINGLE_NAME" javaType="java.lang.String" jdbcType="NVARCHAR" />
+            <idArg column="FORM_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="FORM_CODE" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="FORM_NAME" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="FORM_SINGLE_NAME" javaType="java.lang.String" jdbcType="VARCHAR" />
             <arg column="FORM_CREATE_TIME" javaType="java.util.Date" jdbcType="TIMESTAMP" />
-            <arg column="FORM_CREATOR" javaType="java.lang.String" jdbcType="NVARCHAR" />
+            <arg column="FORM_CREATOR" javaType="java.lang.String" jdbcType="VARCHAR" />
             <arg column="FORM_UPDATE_TIME" javaType="java.util.Date" jdbcType="TIMESTAMP" />
-            <arg column="FORM_UPDATER" javaType="java.lang.String" jdbcType="NVARCHAR" />
-            <arg column="FORM_TYPE" javaType="java.lang.String" jdbcType="NVARCHAR" />
-            <arg column="FORM_IS_SYSTEM" javaType="java.lang.String" jdbcType="NVARCHAR" />
+            <arg column="FORM_UPDATER" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="FORM_TYPE" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="FORM_IS_SYSTEM" javaType="java.lang.String" jdbcType="VARCHAR" />
             <arg column="FORM_ORDER_NUM" javaType="java.lang.Integer" jdbcType="INTEGER" />
-            <arg column="FORM_DESC" javaType="java.lang.String" jdbcType="NVARCHAR" />
-            <arg column="FORM_MODULE_ID" javaType="java.lang.String" jdbcType="NVARCHAR" />
-            <arg column="FORM_STATUS" javaType="java.lang.String" jdbcType="NVARCHAR" />
-            <arg column="FORM_ORGAN_ID" javaType="java.lang.String" jdbcType="NVARCHAR" />
-            <arg column="FORM_ORGAN_NAME" javaType="java.lang.String" jdbcType="NVARCHAR" />
-            <arg column="FORM_MAIN_TABLE_NAME" javaType="java.lang.String" jdbcType="NVARCHAR" />
-            <arg column="FORM_MAIN_TABLE_CAPTION" javaType="java.lang.String" jdbcType="NVARCHAR" />
-            <arg column="FORM_DATA_RELATION" javaType="java.lang.String" jdbcType="NVARCHAR" />
-            <arg column="FORM_IS_TEMPLATE" javaType="java.lang.String" jdbcType="NVARCHAR" />
-            <arg column="FORM_IS_RESOLVE" javaType="java.lang.String" jdbcType="NVARCHAR" />
-            <arg column="FORM_EVERY_TIME_RESOLVE" javaType="java.lang.String" jdbcType="NVARCHAR" />
-            <arg column="FORM_HTML_SOURCE" javaType="java.lang.String" jdbcType="VARCHAR" />
-            <arg column="FORM_HTML_RESOLVE" javaType="java.lang.String" jdbcType="VARCHAR" />
-            <arg column="FORM_JS_CONTENT" javaType="java.lang.String" jdbcType="VARCHAR" />
-            <arg column="FORM_CSS_CONTENT" javaType="java.lang.String" jdbcType="VARCHAR" />
-            <arg column="FORM_CONFIG_CONTENT" javaType="java.lang.String" jdbcType="VARCHAR" />
-            <arg column="FORM_SOURCE" javaType="java.lang.String" jdbcType="NVARCHAR" />
-            <arg column="FORM_CONTENT_URL" javaType="java.lang.String" jdbcType="NVARCHAR" />
-            <arg column="FORM_THEME" javaType="java.lang.String" jdbcType="NVARCHAR" />
-            <arg column="FORM_CUST_SERVER_RENDERER" javaType="java.lang.String" jdbcType="NVARCHAR" />
-            <arg column="FORM_CUST_REF_JS" javaType="java.lang.String" jdbcType="NVARCHAR" />
-            <arg column="FORM_CUST_CLIENT_RENDERER" javaType="java.lang.String" jdbcType="NVARCHAR" />
-            <arg column="FORM_CUST_DESC" javaType="java.lang.String" jdbcType="NVARCHAR" />
+            <arg column="FORM_DESC" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="FORM_MODULE_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="FORM_STATUS" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="FORM_ORGAN_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="FORM_ORGAN_NAME" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="FORM_MAIN_TABLE_NAME" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="FORM_MAIN_TABLE_CAPTION" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="FORM_DATA_RELATION" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="FORM_IS_TEMPLATE" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="FORM_IS_RESOLVE" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="FORM_EVERY_TIME_RESOLVE" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="FORM_SOURCE" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="FORM_CONTENT_URL" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="FORM_THEME" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="FORM_CUST_SERVER_RENDERER" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="FORM_CUST_REF_JS" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="FORM_CUST_CLIENT_RENDERER" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="FORM_CUST_DESC" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="FORM_MAIN_TABLE_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
+        </constructor>
+    </resultMap>
+    <resultMap id="ResultMapWithBLOBs" type="com.jb4dc.builder.dbentities.webform.FormResourceEntityWithBLOBs">
+        <constructor>
+            <idArg column="FORM_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="FORM_CODE" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="FORM_NAME" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="FORM_SINGLE_NAME" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="FORM_CREATE_TIME" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+            <arg column="FORM_CREATOR" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="FORM_UPDATE_TIME" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+            <arg column="FORM_UPDATER" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="FORM_TYPE" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="FORM_IS_SYSTEM" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="FORM_ORDER_NUM" javaType="java.lang.Integer" jdbcType="INTEGER" />
+            <arg column="FORM_DESC" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="FORM_MODULE_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="FORM_STATUS" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="FORM_ORGAN_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="FORM_ORGAN_NAME" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="FORM_MAIN_TABLE_NAME" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="FORM_MAIN_TABLE_CAPTION" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="FORM_DATA_RELATION" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="FORM_IS_TEMPLATE" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="FORM_IS_RESOLVE" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="FORM_EVERY_TIME_RESOLVE" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="FORM_SOURCE" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="FORM_CONTENT_URL" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="FORM_THEME" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="FORM_CUST_SERVER_RENDERER" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="FORM_CUST_REF_JS" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="FORM_CUST_CLIENT_RENDERER" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="FORM_CUST_DESC" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="FORM_MAIN_TABLE_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="FORM_HTML_SOURCE" javaType="java.lang.String" jdbcType="LONGVARCHAR" />
+            <arg column="FORM_HTML_RESOLVE" javaType="java.lang.String" jdbcType="LONGVARCHAR" />
+            <arg column="FORM_JS_CONTENT" javaType="java.lang.String" jdbcType="LONGVARCHAR" />
+            <arg column="FORM_CSS_CONTENT" javaType="java.lang.String" jdbcType="LONGVARCHAR" />
+            <arg column="FORM_CONFIG_CONTENT" javaType="java.lang.String" jdbcType="LONGVARCHAR" />
         </constructor>
     </resultMap>
     <sql id="Base_Column_List">
@@ -44,21 +79,25 @@
     FORM_UPDATE_TIME, FORM_UPDATER, FORM_TYPE, FORM_IS_SYSTEM, FORM_ORDER_NUM, FORM_DESC,
     FORM_MODULE_ID, FORM_STATUS, FORM_ORGAN_ID, FORM_ORGAN_NAME, FORM_MAIN_TABLE_NAME,
     FORM_MAIN_TABLE_CAPTION, FORM_DATA_RELATION, FORM_IS_TEMPLATE, FORM_IS_RESOLVE, FORM_EVERY_TIME_RESOLVE,
-    FORM_HTML_SOURCE, FORM_HTML_RESOLVE, FORM_JS_CONTENT, FORM_CSS_CONTENT, FORM_CONFIG_CONTENT,
     FORM_SOURCE, FORM_CONTENT_URL, FORM_THEME, FORM_CUST_SERVER_RENDERER, FORM_CUST_REF_JS,
-    FORM_CUST_CLIENT_RENDERER, FORM_CUST_DESC
+    FORM_CUST_CLIENT_RENDERER, FORM_CUST_DESC, FORM_MAIN_TABLE_ID
   </sql>
-    <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    <sql id="Blob_Column_List">
+    FORM_HTML_SOURCE, FORM_HTML_RESOLVE, FORM_JS_CONTENT, FORM_CSS_CONTENT, FORM_CONFIG_CONTENT
+  </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="ResultMapWithBLOBs">
         select
         <include refid="Base_Column_List" />
+        ,
+        <include refid="Blob_Column_List" />
         from TBUILD_FORM_RESOURCE
-        where FORM_ID = #{formId,jdbcType=NVARCHAR}
+        where FORM_ID = #{formId,jdbcType=VARCHAR}
     </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
     delete from TBUILD_FORM_RESOURCE
-    where FORM_ID = #{formId,jdbcType=NVARCHAR}
+    where FORM_ID = #{formId,jdbcType=VARCHAR}
   </delete>
-    <insert id="insert" parameterType="com.jb4dc.builder.dbentities.webform.FormResourceEntity">
+    <insert id="insert" parameterType="com.jb4dc.builder.dbentities.webform.FormResourceEntityWithBLOBs">
     insert into TBUILD_FORM_RESOURCE (FORM_ID, FORM_CODE, FORM_NAME,
       FORM_SINGLE_NAME, FORM_CREATE_TIME, FORM_CREATOR,
       FORM_UPDATE_TIME, FORM_UPDATER, FORM_TYPE,
@@ -66,25 +105,27 @@
       FORM_MODULE_ID, FORM_STATUS, FORM_ORGAN_ID,
       FORM_ORGAN_NAME, FORM_MAIN_TABLE_NAME, FORM_MAIN_TABLE_CAPTION,
       FORM_DATA_RELATION, FORM_IS_TEMPLATE, FORM_IS_RESOLVE,
-      FORM_EVERY_TIME_RESOLVE, FORM_HTML_SOURCE,
-      FORM_HTML_RESOLVE, FORM_JS_CONTENT, FORM_CSS_CONTENT,
-      FORM_CONFIG_CONTENT, FORM_SOURCE, FORM_CONTENT_URL,
+      FORM_EVERY_TIME_RESOLVE, FORM_SOURCE, FORM_CONTENT_URL,
       FORM_THEME, FORM_CUST_SERVER_RENDERER, FORM_CUST_REF_JS,
-      FORM_CUST_CLIENT_RENDERER, FORM_CUST_DESC)
-    values (#{formId,jdbcType=NVARCHAR}, #{formCode,jdbcType=NVARCHAR}, #{formName,jdbcType=NVARCHAR},
-      #{formSingleName,jdbcType=NVARCHAR}, #{formCreateTime,jdbcType=TIMESTAMP}, #{formCreator,jdbcType=NVARCHAR},
-      #{formUpdateTime,jdbcType=TIMESTAMP}, #{formUpdater,jdbcType=NVARCHAR}, #{formType,jdbcType=NVARCHAR},
-      #{formIsSystem,jdbcType=NVARCHAR}, #{formOrderNum,jdbcType=INTEGER}, #{formDesc,jdbcType=NVARCHAR},
-      #{formModuleId,jdbcType=NVARCHAR}, #{formStatus,jdbcType=NVARCHAR}, #{formOrganId,jdbcType=NVARCHAR},
-      #{formOrganName,jdbcType=NVARCHAR}, #{formMainTableName,jdbcType=NVARCHAR}, #{formMainTableCaption,jdbcType=NVARCHAR},
-      #{formDataRelation,jdbcType=NVARCHAR}, #{formIsTemplate,jdbcType=NVARCHAR}, #{formIsResolve,jdbcType=NVARCHAR},
-      #{formEveryTimeResolve,jdbcType=NVARCHAR}, #{formHtmlSource,jdbcType=VARCHAR},
-      #{formHtmlResolve,jdbcType=VARCHAR}, #{formJsContent,jdbcType=VARCHAR}, #{formCssContent,jdbcType=VARCHAR},
-      #{formConfigContent,jdbcType=VARCHAR}, #{formSource,jdbcType=NVARCHAR}, #{formContentUrl,jdbcType=NVARCHAR},
-      #{formTheme,jdbcType=NVARCHAR}, #{formCustServerRenderer,jdbcType=NVARCHAR}, #{formCustRefJs,jdbcType=NVARCHAR},
-      #{formCustClientRenderer,jdbcType=NVARCHAR}, #{formCustDesc,jdbcType=NVARCHAR})
+      FORM_CUST_CLIENT_RENDERER, FORM_CUST_DESC, FORM_MAIN_TABLE_ID,
+      FORM_HTML_SOURCE, FORM_HTML_RESOLVE,
+      FORM_JS_CONTENT, FORM_CSS_CONTENT,
+      FORM_CONFIG_CONTENT)
+    values (#{formId,jdbcType=VARCHAR}, #{formCode,jdbcType=VARCHAR}, #{formName,jdbcType=VARCHAR},
+      #{formSingleName,jdbcType=VARCHAR}, #{formCreateTime,jdbcType=TIMESTAMP}, #{formCreator,jdbcType=VARCHAR},
+      #{formUpdateTime,jdbcType=TIMESTAMP}, #{formUpdater,jdbcType=VARCHAR}, #{formType,jdbcType=VARCHAR},
+      #{formIsSystem,jdbcType=VARCHAR}, #{formOrderNum,jdbcType=INTEGER}, #{formDesc,jdbcType=VARCHAR},
+      #{formModuleId,jdbcType=VARCHAR}, #{formStatus,jdbcType=VARCHAR}, #{formOrganId,jdbcType=VARCHAR},
+      #{formOrganName,jdbcType=VARCHAR}, #{formMainTableName,jdbcType=VARCHAR}, #{formMainTableCaption,jdbcType=VARCHAR},
+      #{formDataRelation,jdbcType=VARCHAR}, #{formIsTemplate,jdbcType=VARCHAR}, #{formIsResolve,jdbcType=VARCHAR},
+      #{formEveryTimeResolve,jdbcType=VARCHAR}, #{formSource,jdbcType=VARCHAR}, #{formContentUrl,jdbcType=VARCHAR},
+      #{formTheme,jdbcType=VARCHAR}, #{formCustServerRenderer,jdbcType=VARCHAR}, #{formCustRefJs,jdbcType=VARCHAR},
+      #{formCustClientRenderer,jdbcType=VARCHAR}, #{formCustDesc,jdbcType=VARCHAR}, #{formMainTableId,jdbcType=VARCHAR},
+      #{formHtmlSource,jdbcType=LONGVARCHAR}, #{formHtmlResolve,jdbcType=LONGVARCHAR},
+      #{formJsContent,jdbcType=LONGVARCHAR}, #{formCssContent,jdbcType=LONGVARCHAR},
+      #{formConfigContent,jdbcType=LONGVARCHAR})
   </insert>
-    <insert id="insertSelective" parameterType="com.jb4dc.builder.dbentities.webform.FormResourceEntity">
+    <insert id="insertSelective" parameterType="com.jb4dc.builder.dbentities.webform.FormResourceEntityWithBLOBs">
         insert into TBUILD_FORM_RESOURCE
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="formId != null">
@@ -153,21 +194,6 @@
             <if test="formEveryTimeResolve != null">
                 FORM_EVERY_TIME_RESOLVE,
             </if>
-            <if test="formHtmlSource != null">
-                FORM_HTML_SOURCE,
-            </if>
-            <if test="formHtmlResolve != null">
-                FORM_HTML_RESOLVE,
-            </if>
-            <if test="formJsContent != null">
-                FORM_JS_CONTENT,
-            </if>
-            <if test="formCssContent != null">
-                FORM_CSS_CONTENT,
-            </if>
-            <if test="formConfigContent != null">
-                FORM_CONFIG_CONTENT,
-            </if>
             <if test="formSource != null">
                 FORM_SOURCE,
             </if>
@@ -189,252 +215,310 @@
             <if test="formCustDesc != null">
                 FORM_CUST_DESC,
             </if>
+            <if test="formMainTableId != null">
+                FORM_MAIN_TABLE_ID,
+            </if>
+            <if test="formHtmlSource != null">
+                FORM_HTML_SOURCE,
+            </if>
+            <if test="formHtmlResolve != null">
+                FORM_HTML_RESOLVE,
+            </if>
+            <if test="formJsContent != null">
+                FORM_JS_CONTENT,
+            </if>
+            <if test="formCssContent != null">
+                FORM_CSS_CONTENT,
+            </if>
+            <if test="formConfigContent != null">
+                FORM_CONFIG_CONTENT,
+            </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="formId != null">
-                #{formId,jdbcType=NVARCHAR},
+                #{formId,jdbcType=VARCHAR},
             </if>
             <if test="formCode != null">
-                #{formCode,jdbcType=NVARCHAR},
+                #{formCode,jdbcType=VARCHAR},
             </if>
             <if test="formName != null">
-                #{formName,jdbcType=NVARCHAR},
+                #{formName,jdbcType=VARCHAR},
             </if>
             <if test="formSingleName != null">
-                #{formSingleName,jdbcType=NVARCHAR},
+                #{formSingleName,jdbcType=VARCHAR},
             </if>
             <if test="formCreateTime != null">
                 #{formCreateTime,jdbcType=TIMESTAMP},
             </if>
             <if test="formCreator != null">
-                #{formCreator,jdbcType=NVARCHAR},
+                #{formCreator,jdbcType=VARCHAR},
             </if>
             <if test="formUpdateTime != null">
                 #{formUpdateTime,jdbcType=TIMESTAMP},
             </if>
             <if test="formUpdater != null">
-                #{formUpdater,jdbcType=NVARCHAR},
+                #{formUpdater,jdbcType=VARCHAR},
             </if>
             <if test="formType != null">
-                #{formType,jdbcType=NVARCHAR},
+                #{formType,jdbcType=VARCHAR},
             </if>
             <if test="formIsSystem != null">
-                #{formIsSystem,jdbcType=NVARCHAR},
+                #{formIsSystem,jdbcType=VARCHAR},
             </if>
             <if test="formOrderNum != null">
                 #{formOrderNum,jdbcType=INTEGER},
             </if>
             <if test="formDesc != null">
-                #{formDesc,jdbcType=NVARCHAR},
+                #{formDesc,jdbcType=VARCHAR},
             </if>
             <if test="formModuleId != null">
-                #{formModuleId,jdbcType=NVARCHAR},
+                #{formModuleId,jdbcType=VARCHAR},
             </if>
             <if test="formStatus != null">
-                #{formStatus,jdbcType=NVARCHAR},
+                #{formStatus,jdbcType=VARCHAR},
             </if>
             <if test="formOrganId != null">
-                #{formOrganId,jdbcType=NVARCHAR},
+                #{formOrganId,jdbcType=VARCHAR},
             </if>
             <if test="formOrganName != null">
-                #{formOrganName,jdbcType=NVARCHAR},
+                #{formOrganName,jdbcType=VARCHAR},
             </if>
             <if test="formMainTableName != null">
-                #{formMainTableName,jdbcType=NVARCHAR},
+                #{formMainTableName,jdbcType=VARCHAR},
             </if>
             <if test="formMainTableCaption != null">
-                #{formMainTableCaption,jdbcType=NVARCHAR},
+                #{formMainTableCaption,jdbcType=VARCHAR},
             </if>
             <if test="formDataRelation != null">
-                #{formDataRelation,jdbcType=NVARCHAR},
+                #{formDataRelation,jdbcType=VARCHAR},
             </if>
             <if test="formIsTemplate != null">
-                #{formIsTemplate,jdbcType=NVARCHAR},
+                #{formIsTemplate,jdbcType=VARCHAR},
             </if>
             <if test="formIsResolve != null">
-                #{formIsResolve,jdbcType=NVARCHAR},
+                #{formIsResolve,jdbcType=VARCHAR},
             </if>
             <if test="formEveryTimeResolve != null">
-                #{formEveryTimeResolve,jdbcType=NVARCHAR},
-            </if>
-            <if test="formHtmlSource != null">
-                #{formHtmlSource,jdbcType=VARCHAR},
-            </if>
-            <if test="formHtmlResolve != null">
-                #{formHtmlResolve,jdbcType=VARCHAR},
-            </if>
-            <if test="formJsContent != null">
-                #{formJsContent,jdbcType=VARCHAR},
-            </if>
-            <if test="formCssContent != null">
-                #{formCssContent,jdbcType=VARCHAR},
-            </if>
-            <if test="formConfigContent != null">
-                #{formConfigContent,jdbcType=VARCHAR},
+                #{formEveryTimeResolve,jdbcType=VARCHAR},
             </if>
             <if test="formSource != null">
-                #{formSource,jdbcType=NVARCHAR},
+                #{formSource,jdbcType=VARCHAR},
             </if>
             <if test="formContentUrl != null">
-                #{formContentUrl,jdbcType=NVARCHAR},
+                #{formContentUrl,jdbcType=VARCHAR},
             </if>
             <if test="formTheme != null">
-                #{formTheme,jdbcType=NVARCHAR},
+                #{formTheme,jdbcType=VARCHAR},
             </if>
             <if test="formCustServerRenderer != null">
-                #{formCustServerRenderer,jdbcType=NVARCHAR},
+                #{formCustServerRenderer,jdbcType=VARCHAR},
             </if>
             <if test="formCustRefJs != null">
-                #{formCustRefJs,jdbcType=NVARCHAR},
+                #{formCustRefJs,jdbcType=VARCHAR},
             </if>
             <if test="formCustClientRenderer != null">
-                #{formCustClientRenderer,jdbcType=NVARCHAR},
+                #{formCustClientRenderer,jdbcType=VARCHAR},
             </if>
             <if test="formCustDesc != null">
-                #{formCustDesc,jdbcType=NVARCHAR},
+                #{formCustDesc,jdbcType=VARCHAR},
+            </if>
+            <if test="formMainTableId != null">
+                #{formMainTableId,jdbcType=VARCHAR},
+            </if>
+            <if test="formHtmlSource != null">
+                #{formHtmlSource,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="formHtmlResolve != null">
+                #{formHtmlResolve,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="formJsContent != null">
+                #{formJsContent,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="formCssContent != null">
+                #{formCssContent,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="formConfigContent != null">
+                #{formConfigContent,jdbcType=LONGVARCHAR},
             </if>
         </trim>
     </insert>
-    <update id="updateByPrimaryKeySelective" parameterType="com.jb4dc.builder.dbentities.webform.FormResourceEntity">
+    <update id="updateByPrimaryKeySelective" parameterType="com.jb4dc.builder.dbentities.webform.FormResourceEntityWithBLOBs">
         update TBUILD_FORM_RESOURCE
         <set>
             <if test="formCode != null">
-                FORM_CODE = #{formCode,jdbcType=NVARCHAR},
+                FORM_CODE = #{formCode,jdbcType=VARCHAR},
             </if>
             <if test="formName != null">
-                FORM_NAME = #{formName,jdbcType=NVARCHAR},
+                FORM_NAME = #{formName,jdbcType=VARCHAR},
             </if>
             <if test="formSingleName != null">
-                FORM_SINGLE_NAME = #{formSingleName,jdbcType=NVARCHAR},
+                FORM_SINGLE_NAME = #{formSingleName,jdbcType=VARCHAR},
             </if>
             <if test="formCreateTime != null">
                 FORM_CREATE_TIME = #{formCreateTime,jdbcType=TIMESTAMP},
             </if>
             <if test="formCreator != null">
-                FORM_CREATOR = #{formCreator,jdbcType=NVARCHAR},
+                FORM_CREATOR = #{formCreator,jdbcType=VARCHAR},
             </if>
             <if test="formUpdateTime != null">
                 FORM_UPDATE_TIME = #{formUpdateTime,jdbcType=TIMESTAMP},
             </if>
             <if test="formUpdater != null">
-                FORM_UPDATER = #{formUpdater,jdbcType=NVARCHAR},
+                FORM_UPDATER = #{formUpdater,jdbcType=VARCHAR},
             </if>
             <if test="formType != null">
-                FORM_TYPE = #{formType,jdbcType=NVARCHAR},
+                FORM_TYPE = #{formType,jdbcType=VARCHAR},
             </if>
             <if test="formIsSystem != null">
-                FORM_IS_SYSTEM = #{formIsSystem,jdbcType=NVARCHAR},
+                FORM_IS_SYSTEM = #{formIsSystem,jdbcType=VARCHAR},
             </if>
             <if test="formOrderNum != null">
                 FORM_ORDER_NUM = #{formOrderNum,jdbcType=INTEGER},
             </if>
             <if test="formDesc != null">
-                FORM_DESC = #{formDesc,jdbcType=NVARCHAR},
+                FORM_DESC = #{formDesc,jdbcType=VARCHAR},
             </if>
             <if test="formModuleId != null">
-                FORM_MODULE_ID = #{formModuleId,jdbcType=NVARCHAR},
+                FORM_MODULE_ID = #{formModuleId,jdbcType=VARCHAR},
             </if>
             <if test="formStatus != null">
-                FORM_STATUS = #{formStatus,jdbcType=NVARCHAR},
+                FORM_STATUS = #{formStatus,jdbcType=VARCHAR},
             </if>
             <if test="formOrganId != null">
-                FORM_ORGAN_ID = #{formOrganId,jdbcType=NVARCHAR},
+                FORM_ORGAN_ID = #{formOrganId,jdbcType=VARCHAR},
             </if>
             <if test="formOrganName != null">
-                FORM_ORGAN_NAME = #{formOrganName,jdbcType=NVARCHAR},
+                FORM_ORGAN_NAME = #{formOrganName,jdbcType=VARCHAR},
             </if>
             <if test="formMainTableName != null">
-                FORM_MAIN_TABLE_NAME = #{formMainTableName,jdbcType=NVARCHAR},
+                FORM_MAIN_TABLE_NAME = #{formMainTableName,jdbcType=VARCHAR},
             </if>
             <if test="formMainTableCaption != null">
-                FORM_MAIN_TABLE_CAPTION = #{formMainTableCaption,jdbcType=NVARCHAR},
+                FORM_MAIN_TABLE_CAPTION = #{formMainTableCaption,jdbcType=VARCHAR},
             </if>
             <if test="formDataRelation != null">
-                FORM_DATA_RELATION = #{formDataRelation,jdbcType=NVARCHAR},
+                FORM_DATA_RELATION = #{formDataRelation,jdbcType=VARCHAR},
             </if>
             <if test="formIsTemplate != null">
-                FORM_IS_TEMPLATE = #{formIsTemplate,jdbcType=NVARCHAR},
+                FORM_IS_TEMPLATE = #{formIsTemplate,jdbcType=VARCHAR},
             </if>
             <if test="formIsResolve != null">
-                FORM_IS_RESOLVE = #{formIsResolve,jdbcType=NVARCHAR},
+                FORM_IS_RESOLVE = #{formIsResolve,jdbcType=VARCHAR},
             </if>
             <if test="formEveryTimeResolve != null">
-                FORM_EVERY_TIME_RESOLVE = #{formEveryTimeResolve,jdbcType=NVARCHAR},
-            </if>
-            <if test="formHtmlSource != null">
-                FORM_HTML_SOURCE = #{formHtmlSource,jdbcType=VARCHAR},
-            </if>
-            <if test="formHtmlResolve != null">
-                FORM_HTML_RESOLVE = #{formHtmlResolve,jdbcType=VARCHAR},
-            </if>
-            <if test="formJsContent != null">
-                FORM_JS_CONTENT = #{formJsContent,jdbcType=VARCHAR},
-            </if>
-            <if test="formCssContent != null">
-                FORM_CSS_CONTENT = #{formCssContent,jdbcType=VARCHAR},
-            </if>
-            <if test="formConfigContent != null">
-                FORM_CONFIG_CONTENT = #{formConfigContent,jdbcType=VARCHAR},
+                FORM_EVERY_TIME_RESOLVE = #{formEveryTimeResolve,jdbcType=VARCHAR},
             </if>
             <if test="formSource != null">
-                FORM_SOURCE = #{formSource,jdbcType=NVARCHAR},
+                FORM_SOURCE = #{formSource,jdbcType=VARCHAR},
             </if>
             <if test="formContentUrl != null">
-                FORM_CONTENT_URL = #{formContentUrl,jdbcType=NVARCHAR},
+                FORM_CONTENT_URL = #{formContentUrl,jdbcType=VARCHAR},
             </if>
             <if test="formTheme != null">
-                FORM_THEME = #{formTheme,jdbcType=NVARCHAR},
+                FORM_THEME = #{formTheme,jdbcType=VARCHAR},
             </if>
             <if test="formCustServerRenderer != null">
-                FORM_CUST_SERVER_RENDERER = #{formCustServerRenderer,jdbcType=NVARCHAR},
+                FORM_CUST_SERVER_RENDERER = #{formCustServerRenderer,jdbcType=VARCHAR},
             </if>
             <if test="formCustRefJs != null">
-                FORM_CUST_REF_JS = #{formCustRefJs,jdbcType=NVARCHAR},
+                FORM_CUST_REF_JS = #{formCustRefJs,jdbcType=VARCHAR},
             </if>
             <if test="formCustClientRenderer != null">
-                FORM_CUST_CLIENT_RENDERER = #{formCustClientRenderer,jdbcType=NVARCHAR},
+                FORM_CUST_CLIENT_RENDERER = #{formCustClientRenderer,jdbcType=VARCHAR},
             </if>
             <if test="formCustDesc != null">
-                FORM_CUST_DESC = #{formCustDesc,jdbcType=NVARCHAR},
+                FORM_CUST_DESC = #{formCustDesc,jdbcType=VARCHAR},
+            </if>
+            <if test="formMainTableId != null">
+                FORM_MAIN_TABLE_ID = #{formMainTableId,jdbcType=VARCHAR},
+            </if>
+            <if test="formHtmlSource != null">
+                FORM_HTML_SOURCE = #{formHtmlSource,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="formHtmlResolve != null">
+                FORM_HTML_RESOLVE = #{formHtmlResolve,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="formJsContent != null">
+                FORM_JS_CONTENT = #{formJsContent,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="formCssContent != null">
+                FORM_CSS_CONTENT = #{formCssContent,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="formConfigContent != null">
+                FORM_CONFIG_CONTENT = #{formConfigContent,jdbcType=LONGVARCHAR},
             </if>
         </set>
-        where FORM_ID = #{formId,jdbcType=NVARCHAR}
+        where FORM_ID = #{formId,jdbcType=VARCHAR}
     </update>
+    <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.jb4dc.builder.dbentities.webform.FormResourceEntityWithBLOBs">
+    update TBUILD_FORM_RESOURCE
+    set FORM_CODE = #{formCode,jdbcType=VARCHAR},
+      FORM_NAME = #{formName,jdbcType=VARCHAR},
+      FORM_SINGLE_NAME = #{formSingleName,jdbcType=VARCHAR},
+      FORM_CREATE_TIME = #{formCreateTime,jdbcType=TIMESTAMP},
+      FORM_CREATOR = #{formCreator,jdbcType=VARCHAR},
+      FORM_UPDATE_TIME = #{formUpdateTime,jdbcType=TIMESTAMP},
+      FORM_UPDATER = #{formUpdater,jdbcType=VARCHAR},
+      FORM_TYPE = #{formType,jdbcType=VARCHAR},
+      FORM_IS_SYSTEM = #{formIsSystem,jdbcType=VARCHAR},
+      FORM_ORDER_NUM = #{formOrderNum,jdbcType=INTEGER},
+      FORM_DESC = #{formDesc,jdbcType=VARCHAR},
+      FORM_MODULE_ID = #{formModuleId,jdbcType=VARCHAR},
+      FORM_STATUS = #{formStatus,jdbcType=VARCHAR},
+      FORM_ORGAN_ID = #{formOrganId,jdbcType=VARCHAR},
+      FORM_ORGAN_NAME = #{formOrganName,jdbcType=VARCHAR},
+      FORM_MAIN_TABLE_NAME = #{formMainTableName,jdbcType=VARCHAR},
+      FORM_MAIN_TABLE_CAPTION = #{formMainTableCaption,jdbcType=VARCHAR},
+      FORM_DATA_RELATION = #{formDataRelation,jdbcType=VARCHAR},
+      FORM_IS_TEMPLATE = #{formIsTemplate,jdbcType=VARCHAR},
+      FORM_IS_RESOLVE = #{formIsResolve,jdbcType=VARCHAR},
+      FORM_EVERY_TIME_RESOLVE = #{formEveryTimeResolve,jdbcType=VARCHAR},
+      FORM_SOURCE = #{formSource,jdbcType=VARCHAR},
+      FORM_CONTENT_URL = #{formContentUrl,jdbcType=VARCHAR},
+      FORM_THEME = #{formTheme,jdbcType=VARCHAR},
+      FORM_CUST_SERVER_RENDERER = #{formCustServerRenderer,jdbcType=VARCHAR},
+      FORM_CUST_REF_JS = #{formCustRefJs,jdbcType=VARCHAR},
+      FORM_CUST_CLIENT_RENDERER = #{formCustClientRenderer,jdbcType=VARCHAR},
+      FORM_CUST_DESC = #{formCustDesc,jdbcType=VARCHAR},
+      FORM_MAIN_TABLE_ID = #{formMainTableId,jdbcType=VARCHAR},
+      FORM_HTML_SOURCE = #{formHtmlSource,jdbcType=LONGVARCHAR},
+      FORM_HTML_RESOLVE = #{formHtmlResolve,jdbcType=LONGVARCHAR},
+      FORM_JS_CONTENT = #{formJsContent,jdbcType=LONGVARCHAR},
+      FORM_CSS_CONTENT = #{formCssContent,jdbcType=LONGVARCHAR},
+      FORM_CONFIG_CONTENT = #{formConfigContent,jdbcType=LONGVARCHAR}
+    where FORM_ID = #{formId,jdbcType=VARCHAR}
+  </update>
     <update id="updateByPrimaryKey" parameterType="com.jb4dc.builder.dbentities.webform.FormResourceEntity">
     update TBUILD_FORM_RESOURCE
-    set FORM_CODE = #{formCode,jdbcType=NVARCHAR},
-      FORM_NAME = #{formName,jdbcType=NVARCHAR},
-      FORM_SINGLE_NAME = #{formSingleName,jdbcType=NVARCHAR},
+    set FORM_CODE = #{formCode,jdbcType=VARCHAR},
+      FORM_NAME = #{formName,jdbcType=VARCHAR},
+      FORM_SINGLE_NAME = #{formSingleName,jdbcType=VARCHAR},
       FORM_CREATE_TIME = #{formCreateTime,jdbcType=TIMESTAMP},
-      FORM_CREATOR = #{formCreator,jdbcType=NVARCHAR},
+      FORM_CREATOR = #{formCreator,jdbcType=VARCHAR},
       FORM_UPDATE_TIME = #{formUpdateTime,jdbcType=TIMESTAMP},
-      FORM_UPDATER = #{formUpdater,jdbcType=NVARCHAR},
-      FORM_TYPE = #{formType,jdbcType=NVARCHAR},
-      FORM_IS_SYSTEM = #{formIsSystem,jdbcType=NVARCHAR},
+      FORM_UPDATER = #{formUpdater,jdbcType=VARCHAR},
+      FORM_TYPE = #{formType,jdbcType=VARCHAR},
+      FORM_IS_SYSTEM = #{formIsSystem,jdbcType=VARCHAR},
       FORM_ORDER_NUM = #{formOrderNum,jdbcType=INTEGER},
-      FORM_DESC = #{formDesc,jdbcType=NVARCHAR},
-      FORM_MODULE_ID = #{formModuleId,jdbcType=NVARCHAR},
-      FORM_STATUS = #{formStatus,jdbcType=NVARCHAR},
-      FORM_ORGAN_ID = #{formOrganId,jdbcType=NVARCHAR},
-      FORM_ORGAN_NAME = #{formOrganName,jdbcType=NVARCHAR},
-      FORM_MAIN_TABLE_NAME = #{formMainTableName,jdbcType=NVARCHAR},
-      FORM_MAIN_TABLE_CAPTION = #{formMainTableCaption,jdbcType=NVARCHAR},
-      FORM_DATA_RELATION = #{formDataRelation,jdbcType=NVARCHAR},
-      FORM_IS_TEMPLATE = #{formIsTemplate,jdbcType=NVARCHAR},
-      FORM_IS_RESOLVE = #{formIsResolve,jdbcType=NVARCHAR},
-      FORM_EVERY_TIME_RESOLVE = #{formEveryTimeResolve,jdbcType=NVARCHAR},
-      FORM_HTML_SOURCE = #{formHtmlSource,jdbcType=VARCHAR},
-      FORM_HTML_RESOLVE = #{formHtmlResolve,jdbcType=VARCHAR},
-      FORM_JS_CONTENT = #{formJsContent,jdbcType=VARCHAR},
-      FORM_CSS_CONTENT = #{formCssContent,jdbcType=VARCHAR},
-      FORM_CONFIG_CONTENT = #{formConfigContent,jdbcType=VARCHAR},
-      FORM_SOURCE = #{formSource,jdbcType=NVARCHAR},
-      FORM_CONTENT_URL = #{formContentUrl,jdbcType=NVARCHAR},
-      FORM_THEME = #{formTheme,jdbcType=NVARCHAR},
-      FORM_CUST_SERVER_RENDERER = #{formCustServerRenderer,jdbcType=NVARCHAR},
-      FORM_CUST_REF_JS = #{formCustRefJs,jdbcType=NVARCHAR},
-      FORM_CUST_CLIENT_RENDERER = #{formCustClientRenderer,jdbcType=NVARCHAR},
-      FORM_CUST_DESC = #{formCustDesc,jdbcType=NVARCHAR}
-    where FORM_ID = #{formId,jdbcType=NVARCHAR}
+      FORM_DESC = #{formDesc,jdbcType=VARCHAR},
+      FORM_MODULE_ID = #{formModuleId,jdbcType=VARCHAR},
+      FORM_STATUS = #{formStatus,jdbcType=VARCHAR},
+      FORM_ORGAN_ID = #{formOrganId,jdbcType=VARCHAR},
+      FORM_ORGAN_NAME = #{formOrganName,jdbcType=VARCHAR},
+      FORM_MAIN_TABLE_NAME = #{formMainTableName,jdbcType=VARCHAR},
+      FORM_MAIN_TABLE_CAPTION = #{formMainTableCaption,jdbcType=VARCHAR},
+      FORM_DATA_RELATION = #{formDataRelation,jdbcType=VARCHAR},
+      FORM_IS_TEMPLATE = #{formIsTemplate,jdbcType=VARCHAR},
+      FORM_IS_RESOLVE = #{formIsResolve,jdbcType=VARCHAR},
+      FORM_EVERY_TIME_RESOLVE = #{formEveryTimeResolve,jdbcType=VARCHAR},
+      FORM_SOURCE = #{formSource,jdbcType=VARCHAR},
+      FORM_CONTENT_URL = #{formContentUrl,jdbcType=VARCHAR},
+      FORM_THEME = #{formTheme,jdbcType=VARCHAR},
+      FORM_CUST_SERVER_RENDERER = #{formCustServerRenderer,jdbcType=VARCHAR},
+      FORM_CUST_REF_JS = #{formCustRefJs,jdbcType=VARCHAR},
+      FORM_CUST_CLIENT_RENDERER = #{formCustClientRenderer,jdbcType=VARCHAR},
+      FORM_CUST_DESC = #{formCustDesc,jdbcType=VARCHAR},
+      FORM_MAIN_TABLE_ID = #{formMainTableId,jdbcType=VARCHAR}
+    where FORM_ID = #{formId,jdbcType=VARCHAR}
   </update>
 </mapper>

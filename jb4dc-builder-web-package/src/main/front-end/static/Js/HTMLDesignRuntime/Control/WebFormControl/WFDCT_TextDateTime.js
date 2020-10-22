@@ -4,6 +4,8 @@ var WFDCT_TextDateTime= {
         //debugger;
         //var $singleControlElem=_rendererChainParas.$singleControlElem;
         //$singleControlElem.val("22222");
+        var $singleControlElem=_rendererChainParas.$singleControlElem;
+        $singleControlElem.attr("autocomplete","off");
     },
     RendererDataChain: HTMLControl.RendererDataChain,
     GetValue: HTMLControl.GetValue,

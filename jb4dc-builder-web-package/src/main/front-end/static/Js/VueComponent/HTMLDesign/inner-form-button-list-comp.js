@@ -158,6 +158,10 @@ Vue.component("inner-form-button-list-comp", {
                             BindName:"defaultValue",
                             Renderer:"EditTable_SelectDefaultValue",
                             Hidden:false
+                        },{
+                            Title: "表ID",
+                            BindName: "tableId",
+                            Renderer: "EditTable_Label"
                         }
                     ],
                     RowIdCreater: function () {
@@ -335,7 +339,7 @@ Vue.component("inner-form-button-list-comp", {
 
             if(this.oldFormId!=this.formId) {
                 AjaxUtility.Post(this.field.acInterface.getFormMainTableFields, {formId: this.formId}, function (result) {
-                    //console.log(result);
+                    console.log(result);
                     var fieldsData = [];
 
                     for (var i = 0; i < result.data.length; i++) {
@@ -348,7 +352,10 @@ Vue.component("inner-form-button-list-comp", {
                         Type: "Const",
                         Value: result.data[0].tableName
                     };
-
+                    this.field.editTableConfig.Templates[3].DefaultValue = {
+                        Type: "Const",
+                        Value: result.data[0].tableId
+                    };
                     this.field.editTableConfig.Templates[1].ClientDataSource = fieldsData;
 
                     if(!this.field.editTableObject) {

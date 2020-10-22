@@ -76,9 +76,9 @@ let HTMLControl={
         for (var i = 0; i < $singleControlElem.children().length; i++) {
             var $childSingleElem = $($singleControlElem.children()[i]);
 
-            var _cloneRendererDataChainParas = {};
-            JsonUtility.SimpleCloneAttr(_cloneRendererDataChainParas, _rendererChainParas);
-            _cloneRendererDataChainParas.$singleControlElem = $childSingleElem;
+            var _cloneRendererChainParas = {};
+            JsonUtility.SimpleCloneAttr(_cloneRendererChainParas, _rendererChainParas);
+            _cloneRendererChainParas.$singleControlElem = $childSingleElem;
             //console.log($childSingleElem.html());
             if ($childSingleElem.attr(HTMLControlAttrs.JBUILD4DC_CUSTOM)=="true"&&$childSingleElem.attr(HTMLControlAttrs.CLIENT_RESOLVE)) {
                 //debugger;
@@ -105,11 +105,13 @@ let HTMLControl={
                     }
                 }
 
-                instance.RendererChain(_cloneRendererDataChainParas);
+                instance.RendererChain(_cloneRendererChainParas);
                 if(typeof(instance.InitStyle)=="function"){
-                    instance.InitStyle(_cloneRendererDataChainParas);
+                    instance.InitStyle(_cloneRendererChainParas);
                 }
-
+                if(typeof(instance.TryBindUrlValue)=="function") {
+                    instance.TryBindUrlValue(_cloneRendererChainParas);
+                }
                 /*if(instance._prop){
                     HTMLControl.TryBindElementAttrToInstanceProp($childSingleElem,instance._prop);
                 }*/
@@ -121,7 +123,7 @@ let HTMLControl={
                     $singleControlElem:$childSingleElem
                 });*/
             } else {
-                HTMLControl.RendererChain(_cloneRendererDataChainParas);
+                HTMLControl.RendererChain(_cloneRendererChainParas);
                 /*HTMLControl.RendererChain({
                     listEntity:_rendererChainParas.listEntity,
                     sourceHTML:_rendererChainParas.sourceHTML,
@@ -154,6 +156,7 @@ let HTMLControl={
                     fieldPO = HTMLControl.TryGetFieldPOInRelationFormRecordComplexPo($childSingleElem,_rendererDataChainParas.relationFormRecordComplexPo);
                     instance.SetValue($childSingleElem,fieldPO,_rendererDataChainParas.relationFormRecordComplexPo,_rendererDataChainParas);
                 }
+
                 //console.log(_rendererDataChainParas.callToViewStatusFunc);
                 if(_rendererDataChainParas.callToViewStatusFunc) {
                     if(typeof(instance.ToViewStatus)=="function") {
@@ -211,7 +214,19 @@ let HTMLControl={
         }
         $elem.replaceWith($viewElem);
     },
-
+    TryBindUrlValue:function (_rendererChainParas) {
+        //debugger;
+        var $singleControlElem=_rendererChainParas.$singleControlElem;
+        var columnName=$singleControlElem.attr("columnname");
+        if(!columnName){
+            columnName=$singleControlElem.attr("fieldname");
+        }
+        var urlValue=RuntimeGeneralInstance.TryGetUrlParaValueByFieldName("BindToField",columnName);
+        if(urlValue) {
+            $singleControlElem.val(urlValue);
+            console.log(urlValue);
+        }
+    },
     TryGetFieldPOInRelationFormRecordComplexPo:function($elem,relationFormRecordComplexPo) {
         var relationId = HTMLControl.GetControlBindRelationId($elem);
         var bindTableName = HTMLControl.GetControlBindTableName($elem);

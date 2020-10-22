@@ -11,5 +11,6 @@ var WFDCT_TextBox={
     },
     GetValue:HTMLControl.GetValue,
     SetValue:HTMLControl.SetValue,
-    ToViewStatus:HTMLControl.ToViewStatus
+    ToViewStatus:HTMLControl.ToViewStatus,
+    TryBindUrlValue:HTMLControl.TryBindUrlValue
 }
