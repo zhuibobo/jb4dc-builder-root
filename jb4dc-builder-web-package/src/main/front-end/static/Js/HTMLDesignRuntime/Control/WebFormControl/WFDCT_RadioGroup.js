@@ -20,7 +20,7 @@ var WFDCT_RadioGroup={
                 var itemRadio = $("<input type='radio' name='" + this.radioGroupName + "' />");
                 itemRadio.val(value);
                 if(value==defaultSelected){
-                    itemRadio.attr("checked","checked");
+                    itemRadio.prop("checked",true);
                 }
                 radioGroupDiv.append(itemRadio);
                 radioGroupDiv.append("<span>" + text + "</span>");
@@ -44,6 +44,7 @@ var WFDCT_RadioGroup={
             //console.log(fieldPO);
             $elem.val(fieldPO.value);
             $elem.attr("control_value",fieldPO.value);
+            $("[name='"+this.radioGroupName+"'][value='"+fieldPO.value+"']").prop("checked",true);
         }
     },
     ToViewStatus:HTMLControl.ToViewStatus

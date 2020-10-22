@@ -467,17 +467,17 @@ var WFDCT_SubFormListContainer={
             throw errMessage;
         }*/
         var para={
-            FormId:$singleControlElem.attr("formid"),
-            ButtonId:"",
-            ElemId:"",
-            RecordId:"",
-            WindowHeight:$singleControlElem.attr("windowheight"),
-            WindowWidth:$singleControlElem.attr("windowwidth"),
-            InstanceName:$singleControlElem.attr("client_instance_name"),
-            DialogWindowTitle:$singleControlElem.attr("dialogwindowtitle"),
-            ParentRecordId:this._FormRuntimeHost.GetRecordId(),
-            SelfKeyFieldName:relationPO.selfKeyFieldName,
-            OuterKeyFieldName:relationPO.outerKeyFieldName
+            formId:$singleControlElem.attr("formid"),
+            buttonId:"",
+            elemId:"",
+            recordId:"",
+            windowHeight:$singleControlElem.attr("windowheight"),
+            windowWidth:$singleControlElem.attr("windowwidth"),
+            instanceName:$singleControlElem.attr("client_instance_name"),
+            dialogWindowTitle:$singleControlElem.attr("dialogwindowtitle"),
+            parentRecordId:this._FormRuntimeHost.GetRecordId(),
+            selfKeyFieldName:relationPO.selfKeyFieldName,
+            outerKeyFieldName:relationPO.outerKeyFieldName
         };
         return para;
     },
@@ -493,7 +493,7 @@ var WFDCT_SubFormListContainer={
         }, function (sender) {
             var dialogWindowPara = sender.data.dialogWindowPara;
             dialogWindowPara.OperationType="view";
-            dialogWindowPara.RecordId=sender.data.idValue;
+            dialogWindowPara.recordId=sender.data.idValue;
             var url;
             if (isPreview) {
                 url = BaseUtility.BuildView("/HTML/Builder/Form/SubFormPreview.html", dialogWindowPara);
@@ -503,9 +503,9 @@ var WFDCT_SubFormListContainer={
             }
 
             DialogUtility.OpenIframeWindow(window, DialogUtility.DialogId, url, {
-                title: dialogWindowPara.DialogWindowTitle,
-                width: dialogWindowPara.WindowWidth,
-                height: dialogWindowPara.WindowHeight
+                title: dialogWindowPara.dialogWindowTitle,
+                width: dialogWindowPara.windowWidth,
+                height: dialogWindowPara.windowHeight
             }, 1);
         });
 
@@ -522,8 +522,8 @@ var WFDCT_SubFormListContainer={
             "isPreview":isPreview
         }, function (sender) {
             var dialogWindowPara = sender.data.dialogWindowPara;
-            dialogWindowPara.OperationType="update";
-            dialogWindowPara.RecordId=sender.data.idValue;
+            dialogWindowPara.operationType="update";
+            dialogWindowPara.recordId=sender.data.idValue;
             var url;
             if (isPreview) {
                 url = BaseUtility.BuildView("/HTML/Builder/Form/SubFormPreview.html", dialogWindowPara);
@@ -533,9 +533,9 @@ var WFDCT_SubFormListContainer={
             }
 
             DialogUtility.OpenIframeWindow(window, DialogUtility.DialogId, url, {
-                title: dialogWindowPara.DialogWindowTitle,
-                width: dialogWindowPara.WindowWidth,
-                height: dialogWindowPara.WindowHeight
+                title: dialogWindowPara.dialogWindowTitle,
+                width: dialogWindowPara.windowWidth,
+                height: dialogWindowPara.windowHeight
             }, 1);
         });
 
@@ -557,12 +557,12 @@ var WFDCT_SubFormListContainer={
     },
     Dialog_ShowAddRowSubFormDialog:function(sender,$singleControlElem,_rendererChainParas,instanceName) {
         var dialogWindowPara=this.Dialog_Get_Button_Click_Para($singleControlElem);
-        if (!dialogWindowPara.DialogWindowTitle) {
-            dialogWindowPara.DialogWindowTitle = "应用构建系统";
+        if (!dialogWindowPara.dialogWindowTitle) {
+            dialogWindowPara.dialogWindowTitle = "应用构建系统";
         }
 
-        dialogWindowPara.OperationType="add";
-        dialogWindowPara.RecordId=StringUtility.Guid();
+        dialogWindowPara.operationType="add";
+        dialogWindowPara.recordId=StringUtility.Guid();
 
         var isPreview = this._FormRuntimeHost.IsPreview();
         var url;
@@ -574,9 +574,9 @@ var WFDCT_SubFormListContainer={
         }
 
         DialogUtility.OpenIframeWindow(window, DialogUtility.DialogId, url, {
-            title: dialogWindowPara.DialogWindowTitle,
-            width: dialogWindowPara.WindowWidth,
-            height: dialogWindowPara.WindowHeight
+            title: dialogWindowPara.dialogWindowTitle,
+            width: dialogWindowPara.windowWidth,
+            height: dialogWindowPara.windowHeight
         }, 1);
     },
     Dialog_SubFormDialogCompletedEdit:function(instanceName,operationType,serializationSubFormData) {
