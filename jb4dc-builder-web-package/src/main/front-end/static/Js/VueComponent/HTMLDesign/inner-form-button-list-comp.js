@@ -65,7 +65,7 @@ Vue.component("inner-form-button-list-comp", {
                 custClientClickBeforeMethod:"",
                 custClientClickBeforeMethodPara:"",
             },
-            api: {
+            api:{
                 acInterface: {
                     getAPIData: "/Rest/Builder/ApiItem/GetAPISForZTreeNodeList"
                 },
@@ -258,12 +258,8 @@ Vue.component("inner-form-button-list-comp", {
 
                 this.innerSaveButtonEditData.id = "inner_form_button_" + StringUtility.Timestamp();
 
-
-                //if(this.formId!=this.oldformId){
-                    this.bindTableFields(null);
-                    this.clearAPI();
-                //    this.oldformId=this.formId;
-                //}
+                this.bindTableFields(null);
+                this.clearAPI();
             }
             else{
                 DialogUtility.AlertText("请先设置绑定的窗体!");

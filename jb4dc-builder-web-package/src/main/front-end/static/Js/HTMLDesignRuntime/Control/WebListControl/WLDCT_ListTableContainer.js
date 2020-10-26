@@ -340,6 +340,10 @@ var WLDCT_ListTableContainer = {
             pageSize = _rendererDataChainParas.po.listDatasetPageSize;
         }
 
+        if(RuntimeGeneralInstance.TryGetUrlParaChangeMainDataSetId()){
+            dataSetId = RuntimeGeneralInstance.TryGetUrlParaChangeMainDataSetId();
+        }
+
         if (!this._CacheRendererDataChainParas) {
             this._CacheRendererDataChainParas = _rendererDataChainParas;
             this._Cache$SingleControlElem = _rendererDataChainParas.$singleControlElem.clone();
@@ -449,6 +453,13 @@ var WLDCT_ListTableContainer = {
             scrollY = scrollY - $(".wldct-list-simple-search-outer-wrap").height()-10;
         }
 
+        if(RuntimeGeneralInstance.TryGetUrlParaViewOnly()){
+            if($singleControlElem.find("tr").find("th:last").text()=="操作"){
+                $singleControlElem.find("tr").find("th:last").hide();
+                $singleControlElem.find("tr").find("td:last").hide();
+            }
+        }
+        console.log($singleControlElem.find("tr").find("th:last"));
         console.log(scrollY);
         //alert(PageStyleUtility.GetWindowHeight()+"|"+$(".wldct-list-simple-search-outer-wrap").height()+"|"+scrollY);
         //return;

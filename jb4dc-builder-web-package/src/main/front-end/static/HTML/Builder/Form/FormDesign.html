@@ -23,7 +23,10 @@
         .cm-s-monokai div.CodeMirror-selected { background: #69685d; }
         .cm-s-monokai .CodeMirror-line::selection, .cm-s-monokai .CodeMirror-line > span::selection, .cm-s-monokai .CodeMirror-line > span > span::selection { background: rgba(255,210,77, 0.99); }
         .cm-s-monokai .CodeMirror-line::-moz-selection, .cm-s-monokai .CodeMirror-line > span::-moz-selection, .cm-s-monokai .CodeMirror-line > span > span::-moz-selection { background: rgba(255,210,77, 0.99); }
-
+        .iv-list-page-wrap .iv-list-table{
+            margin-top: 0px;
+            margin-bottom: 0px;
+        }
     </style>
 </head>
 <body>
@@ -126,22 +129,39 @@
                 </div>
             </div>
         </tab-pane>
-        <tab-pane tab="outer-tabs" name="EXProp" label="EXProp">
+        <tab-pane tab="outer-tabs" name="EXConfig" label="EXConfig">
             <div style="width: 1024px;margin: auto">
                 <div style="width: 1024px;height: 615px;border: #ddddf1 1px solid;border-radius: 4px;padding: 10px 20px 10px 10px;">
                     <divider orientation="left" :dashed="true" style="font-size: 12px">扩展信息</divider>
                     <i-form :label-width="150">
-                        <form-item label="服务端渲染方法：">
+                        <form-item label="内部按钮：" class="margin-bottom-12-imp">
+                            <div v-if="status=='add'">
+                                修改时才可设置内部按钮
+                            </div>
+                            <div v-if="status=='update'">
+                                <inner-form-button-list-comp ref="innerFormButtonListComp" :form-id="formResourceEntity.formId"></inner-form-button-list-comp>
+                            </div>
+                        </form-item>
+                        <form-item label="操作类型：" class="margin-bottom-12-imp">
+                            <radio-group v-model="formResourceEntity.formOperationType">
+                                <radio label="add">始终新增</radio>
+                                <radio label="judge">条件判断</radio>
+                            </radio-group>
+                        </form-item>
+                        <form-item label="判定API：" class="margin-bottom-12-imp">
+                            <i-input v-model="formResourceEntity.formJudgeApi" placeholder="API需要继承接口XXX" />
+                        </form-item>
+                        <form-item label="判定SQL：" class="margin-bottom-12-imp">
+                            <i-input v-model="formResourceEntity.formJudgeSql" search enter-button="编辑SQL" placeholder="编辑SQL,用于判断是否存在唯一的记录!" @on-search="beginDesignInnerButton" />
+                        </form-item>
+                        <form-item label="服务端渲染方法：" class="margin-bottom-12-imp">
                             <i-input v-model="formResourceEntity.formCustServerRenderer" placeholder="服务端自定义的渲染方法:继承IFormSeverRenderer"></i-input>
                         </form-item>
-                        <form-item label="客户端渲染方法：">
+                        <form-item label="客户端渲染方法：" class="margin-bottom-12-imp">
                             <i-input v-model="formResourceEntity.formCustClientRenderer" placeholder="客户端自定义的渲染方法:需要指明具体的方法名称"></i-input>
                         </form-item>
-                        <form-item label="引入JS：" style="margin-bottom: 12px">
-                            <i-input v-model="formResourceEntity.formCustRefJs" placeholder="引入的脚本:多个通过;分割" type="textarea" :autosize="{minRows: 2,maxRows: 2}"></i-input>
-                        </form-item>
-                        <form-item label="备注：" style="margin-bottom: 12px">
-                            <i-input v-model="formResourceEntity.formCustDesc" type="textarea" :autosize="{minRows: 4,maxRows: 4}"></i-input>
+                        <form-item label="备注：" style="margin-bottom: 12px" class="margin-bottom-12-imp">
+                            <i-input v-model="formResourceEntity.formCustDesc" type="textarea" :autosize="{minRows: 3,maxRows: 3}"></i-input>
                         </form-item>
                     </i-form>
                 </div>
@@ -208,7 +228,14 @@
                 formCustRefJs:"",
                 formCustClientRenderer:"",
                 formCustDesc:"",
-
+                //按钮的内部配置:例如窗体按钮的innerbuttonjsonstring属性
+                formInnerButton:"",
+                //操作类型:add 新增,judge 按照条件判断
+                formOperationType:"add",
+                //API判断条件
+                formJudgeApi:"",
+                //SQL判断条件
+                formJudgeSql:"",
                 tryDeployment:true
             },
             status: BaseUtility.GetUrlParaValue("op"),
@@ -221,6 +248,9 @@
             this.initPageUI();
             BaseUtility.SetSystemFavicon();
             //this.bindStatusData();
+            if (this.$refs.innerFormButtonListComp) {
+                this.$refs.innerFormButtonListComp.ready(null);
+            }
         },
         methods: {
             /*Dialog*/
@@ -401,6 +431,9 @@
                 }
                 this.formResourceEntity.formJsContent=JsEditorUtility.GetJsEditorJs();
 
+                if(this.$refs.innerFormButtonListComp) {
+                    this.formResourceEntity.formInnerButton = this.$refs.innerFormButtonListComp.getJson();
+                }
                 var validateResult=this.validateSaveEnable(this.formResourceEntity);
                 if(validateResult.result){
                     var sendData = JSON.stringify(this.formResourceEntity);
@@ -470,6 +503,9 @@
                 if(this.validateSaveEnable(formResourceEntity)){
 
                 }
+            },
+            beginDesignInnerButton:function () {
+
             }
         }
     });

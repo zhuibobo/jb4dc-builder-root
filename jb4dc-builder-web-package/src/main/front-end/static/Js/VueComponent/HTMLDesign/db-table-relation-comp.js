@@ -598,7 +598,7 @@ Vue.component("db-table-relation-comp", {
                 <div id="divSelectTable" title="请选择表" style="display: none">
                     <i-input search class="input_border_bottom" ref="txt_table_search_text" placeholder="请输入表名或者标题">
                         <i-select v-model="selectTableTree.oldSelectedDBLinkId" slot="prepend" style="width: 280px" @on-change="changeDBLink" :disabled="selectTableTree.disabledDBLink">
-                            <i-option :value="item.dbId" v-for="item in selectTableTree.dbLinkEntities">{{item.dbLinkName}}</i-option>
+                            <i-option :value="item.dbId" v-for="item in selectTableTree.dbLinkEntities" :key="item.dbId">{{item.dbLinkName}}</i-option>
                         </i-select>
                     </i-input>
                     <ul id="selectTableZTreeUL" class="ztree div-custom-scroll" style="height: 500px;overflow-y:scroll;overflow-x:hidden"></ul>

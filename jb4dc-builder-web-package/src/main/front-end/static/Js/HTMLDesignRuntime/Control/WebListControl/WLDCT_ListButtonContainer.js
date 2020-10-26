@@ -31,7 +31,7 @@ var WLDCT_ListButtonContainer= {
         innerWrap.append("<div style=\"clear: both;\"></div>");
         console.log(this._prop.status);
 
-        if(this._prop.status=="disable"){
+        if(this._prop.status=="disable"||RuntimeGeneralInstance.TryGetUrlParaViewOnly()){
             $singleControlElem.hide();
         }
     },

@@ -10,6 +10,8 @@ var WLDCT_ListTableInnerButtonSingle= {
         $singleControlElem.bind("click",{"selfInstance":this,"$elem":$singleControlElem,rowData:_rendererDataChainParas.rowData},this.ClickEvent);
         $singleControlElem.html("");
         $singleControlElem.attr("title",$singleControlElem.attr("caption"));
+
+
     },
     ClickEvent:function (sender) {
         //console.log(sender.data.rowData.ID);

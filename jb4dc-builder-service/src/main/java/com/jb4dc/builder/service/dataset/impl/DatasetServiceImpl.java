@@ -30,6 +30,7 @@ import com.jb4dc.core.base.list.ListUtility;
 import com.jb4dc.core.base.session.JB4DCSession;
 import com.jb4dc.core.base.tools.ClassUtility;
 import com.jb4dc.core.base.tools.StringUtility;
+import com.jb4dc.core.base.tools.UUIDUtility;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -55,7 +56,7 @@ import java.util.regex.Pattern;
  * To change this template use File | Settings | File Templates.
  */
 @Service
-public class DatasetServiceImpl extends BaseServiceImpl<DatasetEntity> implements IDatasetService
+            public class DatasetServiceImpl extends BaseServiceImpl<DatasetEntity> implements IDatasetService
 {
     DatasetMapper datasetMapper;
     IDatasetRelatedTableService datasetRelatedTableService;
@@ -133,20 +134,20 @@ public class DatasetServiceImpl extends BaseServiceImpl<DatasetEntity> implement
 
     @Override
     @Transactional(rollbackFor=JBuild4DCGenerallyException.class)
-    public int saveDataSetVo(JB4DCSession jb4DCSession, String id, DataSetPO record) throws JBuild4DCGenerallyException, IOException {
+    public int saveDataSetPO(JB4DCSession jb4DCSession, String id, DataSetPO record) throws JBuild4DCGenerallyException, IOException {
         //保存数据集的列
-        if(record.getColumnVoList()!=null) {
+        if (record.getColumnVoList() != null) {
             //DataSetVo oldDataSetVo=getVoByPrimaryKey(jb4DCSession,id);
 
             //删除旧的列设置
-            datasetColumnService.deleteByDataSetId(jb4DCSession,id);
+            datasetColumnService.deleteByDataSetId(jb4DCSession, id);
 
             List<DataSetColumnPO> columnVoList = record.getColumnVoList();
             for (int i = 0; i < columnVoList.size(); i++) {
                 DataSetColumnPO dataSetColumnVo = columnVoList.get(i);
                 dataSetColumnVo.setColumnOrderNum(i + 1);
                 if (StringUtility.isEmpty(dataSetColumnVo.getColumnId())) {
-                    throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_BUILDER_CODE,"DataSetColumnVo:请在客户端设置DataSetColumnVo的ColumnId");
+                    throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_BUILDER_CODE, "DataSetColumnVo:请在客户端设置DataSetColumnVo的ColumnId");
                 }
                 datasetColumnService.save(jb4DCSession, dataSetColumnVo.getColumnId(), dataSetColumnVo, (jb4DCSession1, sourceEntity) -> {
                     sourceEntity.setColumnCreator(jb4DCSession1.getUserName());
@@ -165,13 +166,13 @@ public class DatasetServiceImpl extends BaseServiceImpl<DatasetEntity> implement
         }
 
         //保存数据集的关联表
-        datasetRelatedTableService.deleteByDataSetId(jb4DCSession,id);
+        datasetRelatedTableService.deleteByDataSetId(jb4DCSession, id);
         List<DataSetRelatedTablePO> relatedTableVoList = record.getRelatedTableVoList();
         for (int i = 0; i < relatedTableVoList.size(); i++) {
             DataSetRelatedTablePO dataSetRelatedTablePO = relatedTableVoList.get(i);
-            dataSetRelatedTablePO.setRtOrderNum(i+1);
-            if(StringUtility.isEmpty(dataSetRelatedTablePO.getRtId())){
-                throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_BUILDER_CODE,"DataSetRelatedTableVo:请在客户端设置DataSetRelatedTableVo的RTId");
+            dataSetRelatedTablePO.setRtOrderNum(i + 1);
+            if (StringUtility.isEmpty(dataSetRelatedTablePO.getRtId())) {
+                throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_BUILDER_CODE, "DataSetRelatedTableVo:请在客户端设置DataSetRelatedTableVo的RTId");
             }
             datasetRelatedTableService.save(jb4DCSession, dataSetRelatedTablePO.getRtId(), dataSetRelatedTablePO, (jb4DCSession13, sourceEntity) -> {
                 sourceEntity.setRtDsId(record.getDsId());
@@ -180,9 +181,9 @@ public class DatasetServiceImpl extends BaseServiceImpl<DatasetEntity> implement
         }
 
         //保存数据集的基本信息
-        DatasetEntity datasetEntity=datasetMapper.selectByPrimaryKey(id);
-        if(datasetEntity==null){
-            record.setDsCode("DS_"+StringUtility.build1W5DCode(datasetMapper.nextOrderNum()));
+        DatasetEntity datasetEntity = datasetMapper.selectByPrimaryKey(id);
+        if (datasetEntity == null) {
+            record.setDsCode("DS_" + StringUtility.build1W5DCode(datasetMapper.nextOrderNum()));
             record.setDsOrganId(jb4DCSession.getOrganId());
             record.setDsOrganName(jb4DCSession.getOrganName());
             record.setDsOrderNum(datasetMapper.nextOrderNum());
@@ -191,8 +192,7 @@ public class DatasetServiceImpl extends BaseServiceImpl<DatasetEntity> implement
             record.setDsCreateTime(new Date());
             record.setDsUpdateTime(new Date());
             return datasetMapper.insertSelective(record);
-        }
-        else {
+        } else {
             record.setDsUpdater(jb4DCSession.getUserName());
             record.setDsUpdateTime(new Date());
             return datasetMapper.updateByPrimaryKeySelective(record);
@@ -387,6 +387,24 @@ public class DatasetServiceImpl extends BaseServiceImpl<DatasetEntity> implement
     public PageInfo<List<Map<String, Object>>> getDataSetData(JB4DCSession jb4DCSession,QueryDataSetPO queryDataSetPO) throws JBuild4DCGenerallyException, IOException {
         DataSetPO dataSetPO=getVoByPrimaryKey(jb4DCSession,queryDataSetPO.getDataSetId());
         return datasetClientService.getDataSetData(jb4DCSession,queryDataSetPO,dataSetPO);
+    }
+
+    @Override
+    public void copyDataSet(JB4DCSession jb4DCSession,String dataSetId) throws IOException, JBuild4DCGenerallyException {
+        DataSetPO sourcePO = getVoByPrimaryKey(jb4DCSession, dataSetId);
+        String copyId = UUIDUtility.getUUID();
+        sourcePO.setDsId(copyId);
+        sourcePO.setDsCaption(sourcePO.getDsCaption()+"[复制]");
+        for (DataSetColumnPO dataSetColumnPO : sourcePO.getColumnVoList()) {
+            dataSetColumnPO.setColumnDsId(copyId);
+            dataSetColumnPO.setColumnId(UUIDUtility.getUUID());
+        }
+        for (DataSetRelatedTablePO dataSetRelatedTablePO : sourcePO.getRelatedTableVoList()) {
+            dataSetRelatedTablePO.setRtDsId(copyId);
+            dataSetRelatedTablePO.setRtId(UUIDUtility.getUUID());
+        }
+
+        saveDataSetPO(jb4DCSession, copyId, sourcePO);
     }
 
     private boolean validateResolveResult(DataSetPO resultVo) throws JBuild4DCGenerallyException {

@@ -27,7 +27,7 @@ import java.util.Map;
 public interface IDatasetService extends IBaseService<DatasetEntity> {
     DataSetPO getVoByPrimaryKey(JB4DCSession jb4DCSession, String id) throws JBuild4DCGenerallyException, IOException;
 
-    int saveDataSetVo(JB4DCSession jb4DCSession, String id, DataSetPO record) throws JBuild4DCGenerallyException, IOException;
+    int saveDataSetPO(JB4DCSession jb4DCSession, String id, DataSetPO record) throws JBuild4DCGenerallyException, IOException;
 
     DataSetPO resolveSQLToDataSet(JB4DCSession jb4DCSession, String sql) throws JBuild4DCGenerallyException, SAXException, ParserConfigurationException, XPathExpressionException, IOException, PropertyVetoException;
 
@@ -44,4 +44,6 @@ public interface IDatasetService extends IBaseService<DatasetEntity> {
     DataSetPO getApiDataSetVoStructure(JB4DCSession session, String recordId, String op, String groupId, String fullClassName) throws IllegalAccessException, InstantiationException;
 
     PageInfo<List<Map<String, Object>>> getDataSetData(JB4DCSession session, QueryDataSetPO queryDataSetPO) throws JBuild4DCGenerallyException, IOException;
+
+    void copyDataSet(JB4DCSession jb4DCSession,String dataSetId) throws IOException, JBuild4DCGenerallyException;
 }

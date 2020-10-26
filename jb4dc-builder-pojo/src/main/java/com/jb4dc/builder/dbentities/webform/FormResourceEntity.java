@@ -105,6 +105,18 @@ public class FormResourceEntity {
     //FORM_MAIN_TABLE_ID:表单的主表ID:从数据关系字段FORM_DATA_RELATION提取
     private String formMainTableId;
 
+    //FORM_INNER_BUTTON:按钮的内部配置:例如窗体按钮的innerbuttonjsonstring属性
+    private String formInnerButton;
+
+    //FORM_OPERATION_TYPE:操作类型:add 新增,judge 按照条件判断
+    private String formOperationType;
+
+    //FORM_JUDGE_API:API判断条件
+    private String formJudgeApi;
+
+    //FORM_JUDGE_SQL:SQL判断条件
+    private String formJudgeSql;
+
     /**
      * 构造函数
      * @param formId
@@ -137,8 +149,12 @@ public class FormResourceEntity {
      * @param formCustClientRenderer 客户端自定义的渲染方法
      * @param formCustDesc 自定义设置备注
      * @param formMainTableId 表单的主表ID
+     * @param formInnerButton 按钮的内部配置
+     * @param formOperationType 操作类型
+     * @param formJudgeApi API判断条件
+     * @param formJudgeSql SQL判断条件
      **/
-    public FormResourceEntity(String formId, String formCode, String formName, String formSingleName, Date formCreateTime, String formCreator, Date formUpdateTime, String formUpdater, String formType, String formIsSystem, Integer formOrderNum, String formDesc, String formModuleId, String formStatus, String formOrganId, String formOrganName, String formMainTableName, String formMainTableCaption, String formDataRelation, String formIsTemplate, String formIsResolve, String formEveryTimeResolve, String formSource, String formContentUrl, String formTheme, String formCustServerRenderer, String formCustRefJs, String formCustClientRenderer, String formCustDesc, String formMainTableId) {
+    public FormResourceEntity(String formId, String formCode, String formName, String formSingleName, Date formCreateTime, String formCreator, Date formUpdateTime, String formUpdater, String formType, String formIsSystem, Integer formOrderNum, String formDesc, String formModuleId, String formStatus, String formOrganId, String formOrganName, String formMainTableName, String formMainTableCaption, String formDataRelation, String formIsTemplate, String formIsResolve, String formEveryTimeResolve, String formSource, String formContentUrl, String formTheme, String formCustServerRenderer, String formCustRefJs, String formCustClientRenderer, String formCustDesc, String formMainTableId, String formInnerButton, String formOperationType, String formJudgeApi, String formJudgeSql) {
         this.formId = formId;
         this.formCode = formCode;
         this.formName = formName;
@@ -169,6 +185,10 @@ public class FormResourceEntity {
         this.formCustClientRenderer = formCustClientRenderer;
         this.formCustDesc = formCustDesc;
         this.formMainTableId = formMainTableId;
+        this.formInnerButton = formInnerButton;
+        this.formOperationType = formOperationType;
+        this.formJudgeApi = formJudgeApi;
+        this.formJudgeSql = formJudgeSql;
     }
 
     public FormResourceEntity() {
@@ -653,5 +673,69 @@ public class FormResourceEntity {
      **/
     public void setFormMainTableId(String formMainTableId) {
         this.formMainTableId = formMainTableId == null ? null : formMainTableId.trim();
+    }
+
+    /**
+     * 按钮的内部配置:例如窗体按钮的innerbuttonjsonstring属性
+     * @return java.lang.String
+     **/
+    public String getFormInnerButton() {
+        return formInnerButton;
+    }
+
+    /**
+     * 按钮的内部配置:例如窗体按钮的innerbuttonjsonstring属性
+     * @param formInnerButton 按钮的内部配置
+     **/
+    public void setFormInnerButton(String formInnerButton) {
+        this.formInnerButton = formInnerButton == null ? null : formInnerButton.trim();
+    }
+
+    /**
+     * 操作类型:add 新增,judge 按照条件判断
+     * @return java.lang.String
+     **/
+    public String getFormOperationType() {
+        return formOperationType;
+    }
+
+    /**
+     * 操作类型:add 新增,judge 按照条件判断
+     * @param formOperationType 操作类型
+     **/
+    public void setFormOperationType(String formOperationType) {
+        this.formOperationType = formOperationType == null ? null : formOperationType.trim();
+    }
+
+    /**
+     * API判断条件
+     * @return java.lang.String
+     **/
+    public String getFormJudgeApi() {
+        return formJudgeApi;
+    }
+
+    /**
+     * API判断条件
+     * @param formJudgeApi API判断条件
+     **/
+    public void setFormJudgeApi(String formJudgeApi) {
+        this.formJudgeApi = formJudgeApi == null ? null : formJudgeApi.trim();
+    }
+
+    /**
+     * SQL判断条件
+     * @return java.lang.String
+     **/
+    public String getFormJudgeSql() {
+        return formJudgeSql;
+    }
+
+    /**
+     * SQL判断条件
+     * @param formJudgeSql SQL判断条件
+     **/
+    public void setFormJudgeSql(String formJudgeSql) {
+        this.formJudgeSql = formJudgeSql == null ? null : formJudgeSql.trim();
     }
 }

@@ -55,7 +55,7 @@ public class DataSetMainRest  {
     @RequestMapping(value = "/SaveDataSetEdit")
     public JBuild4DCResponseVo saveDataSetEdit(String op,String dataSetId, String dataSetVoJson) throws JBuild4DCGenerallyException, IOException {
         DataSetPO dataSetPO = JsonUtility.toObjectIgnoreProp(dataSetVoJson, DataSetPO.class);
-        datasetService.saveDataSetVo(JB4DCSessionUtility.getSession(), dataSetId, dataSetPO);
+        datasetService.saveDataSetPO(JB4DCSessionUtility.getSession(), dataSetId, dataSetPO);
         return JBuild4DCResponseVo.opSuccess();
     }
 
@@ -97,5 +97,12 @@ public class DataSetMainRest  {
         catch (Exception ex){
             return JBuild4DCResponseVo.error(ex.getMessage());
         }
+    }
+
+    @RequestMapping(value = "/CopyDataSetData",method = RequestMethod.POST)
+    public JBuild4DCResponseVo copyDataSet(String dataSetId) throws JBuild4DCGenerallyException, IOException {
+
+        datasetService.copyDataSet(JB4DCSessionUtility.getSession(),dataSetId);
+        return JBuild4DCResponseVo.opSuccess();
     }
 }

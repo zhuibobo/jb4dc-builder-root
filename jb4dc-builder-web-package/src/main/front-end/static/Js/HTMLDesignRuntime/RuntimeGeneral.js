@@ -77,31 +77,30 @@ var RuntimeGeneralInstance= {
         },sender);
     },
     GetUrlParas:function () {
-        var paraStr=BaseUtility.GetUrlParaValue("menuRightUrlPara");
-        if(StringUtility.IsNullOrEmpty(paraStr)){
-            return "";
-        }
-        if(paraStr.charAt(0)=="{"||paraStr.charAt(0)=="["){
-            try {
-                var json=JsonUtility.StringToJson(paraStr);
-                return json;
-            }
-            catch (e) {
-
-            }
-        }
-        return paraStr;
-    },
-    TryGetUrlParaValueByFieldName:function (actionName,fieldName) {
-        var paraJson;
+        //var paraJson;
         if(this["menuRightUrlParaJson"]){
-            paraJson=this["menuRightUrlParaJson"];
+            return this["menuRightUrlParaJson"];
         }
         else{
-            paraJson=this.GetUrlParas();
-            this["menuRightUrlParaJson"]=paraJson;
-        }
+            var paraStr=BaseUtility.GetUrlParaValue("menuRightUrlPara");
+            if(StringUtility.IsNullOrEmpty(paraStr)){
+                return "";
+            }
+            if(paraStr.charAt(0)=="{"||paraStr.charAt(0)=="["){
+                try {
+                    var json=JsonUtility.StringToJson(paraStr);
+                    return json;
+                }
+                catch (e) {
 
+                }
+            }
+            this["menuRightUrlParaJson"]=paraStr;
+            return paraStr;
+        }
+    },
+    TryGetUrlParaValueByFieldName:function (actionName,fieldName) {
+        var paraJson=this.GetUrlParas();
         if(paraJson&&typeof(paraJson)!="string"){
             for (var i = 0; i < paraJson.length; i++) {
                 var singlePara=paraJson[i];
@@ -111,5 +110,30 @@ var RuntimeGeneralInstance= {
             }
         }
         return "";
+    },
+    TryGetUrlParaChangeMainDataSetId:function () {
+        //debugger;
+        var paraJson=this.GetUrlParas();
+        if(paraJson&&typeof(paraJson)!="string"){
+            for (var i = 0; i < paraJson.length; i++) {
+                var singlePara=paraJson[i];
+                if(singlePara.ActionType=="ChangeMainDataSet"){
+                    return singlePara.DataSetId;
+                }
+            }
+        }
+        return "";
+    },
+    TryGetUrlParaViewOnly:function () {
+        var paraJson=this.GetUrlParas();
+        if(paraJson&&typeof(paraJson)!="string"){
+            for (var i = 0; i < paraJson.length; i++) {
+                var singlePara=paraJson[i];
+                if(singlePara.ActionType=="ViewOnly"){
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 }
