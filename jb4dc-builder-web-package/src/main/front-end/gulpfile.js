@@ -78,13 +78,26 @@ gulp.task('html-design-utility',()=> {
 
 /*CKEditor的配置文件*/
 gulp.task('html-design-ckeditor-config',()=> {
-    return gulp.src([
-        sourcePath + "/Js/HTMLDesign/CKEditorConfig/*.js"
+    /*return gulp.src([
+        sourcePath + "/Js/HTMLDesign/CKEditorConfig/!*.js"
     ])
         .pipe(babel())
         .pipe(sourcemaps.init())
         .pipe(concat('CKEditorConfig.js'))
         .pipe(sourcemaps.write())
+        .pipe(gulp.dest(distPath + "/Js/HTMLDesign/CKEditorConfig"));*/
+
+    var obj= gulp.src([sourcePath + '/Js/HTMLDesign/CKEditorConfig/*Config.js'])
+
+    if(!isdebug){
+        obj=obj.pipe(uglify());
+    }
+    /*.pipe(uglify(
+        {
+            compress: {drop_debugger: false}
+        }
+    ))*/
+    return  obj.pipe(sourcemaps.write())
         .pipe(gulp.dest(distPath + "/Js/HTMLDesign/CKEditorConfig"));
 });
 

@@ -70,6 +70,7 @@
             <arg column="LIST_JS_CONTENT" javaType="java.lang.String" jdbcType="LONGVARCHAR" />
             <arg column="LIST_CSS_CONTENT" javaType="java.lang.String" jdbcType="LONGVARCHAR" />
             <arg column="LIST_CONFIG_CONTENT" javaType="java.lang.String" jdbcType="LONGVARCHAR" />
+            <arg column="LIST_DESIGN_REMARK" javaType="java.lang.String" jdbcType="LONGVARCHAR" />
         </constructor>
     </resultMap>
     <sql id="Base_Column_List">
@@ -81,7 +82,8 @@
     LIST_CUST_DESC, LIST_DATASET_PRIMARY_KEY
   </sql>
     <sql id="Blob_Column_List">
-    LIST_HTML_SOURCE, LIST_HTML_RESOLVE, LIST_JS_CONTENT, LIST_CSS_CONTENT, LIST_CONFIG_CONTENT
+    LIST_HTML_SOURCE, LIST_HTML_RESOLVE, LIST_JS_CONTENT, LIST_CSS_CONTENT, LIST_CONFIG_CONTENT,
+    LIST_DESIGN_REMARK
   </sql>
     <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="ResultMapWithBLOBs">
         select
@@ -108,7 +110,8 @@
       LIST_CUST_CLIENT_RENDERER, LIST_CUST_DESC, LIST_DATASET_PRIMARY_KEY,
       LIST_HTML_SOURCE, LIST_HTML_RESOLVE,
       LIST_JS_CONTENT, LIST_CSS_CONTENT,
-      LIST_CONFIG_CONTENT)
+      LIST_CONFIG_CONTENT, LIST_DESIGN_REMARK
+      )
     values (#{listId,jdbcType=VARCHAR}, #{listCode,jdbcType=VARCHAR}, #{listName,jdbcType=VARCHAR},
       #{listSingleName,jdbcType=VARCHAR}, #{listCreateTime,jdbcType=TIMESTAMP}, #{listCreator,jdbcType=VARCHAR},
       #{listUpdateTime,jdbcType=TIMESTAMP}, #{listUpdater,jdbcType=VARCHAR}, #{listType,jdbcType=VARCHAR},
@@ -121,7 +124,8 @@
       #{listCustClientRenderer,jdbcType=VARCHAR}, #{listCustDesc,jdbcType=VARCHAR}, #{listDatasetPrimaryKey,jdbcType=VARCHAR},
       #{listHtmlSource,jdbcType=LONGVARCHAR}, #{listHtmlResolve,jdbcType=LONGVARCHAR},
       #{listJsContent,jdbcType=LONGVARCHAR}, #{listCssContent,jdbcType=LONGVARCHAR},
-      #{listConfigContent,jdbcType=LONGVARCHAR})
+      #{listConfigContent,jdbcType=LONGVARCHAR}, #{listDesignRemark,jdbcType=LONGVARCHAR}
+      )
   </insert>
     <insert id="insertSelective" parameterType="com.jb4dc.builder.dbentities.weblist.ListResourceEntityWithBLOBs">
         insert into TBUILD_LIST_RESOURCE
@@ -228,6 +232,9 @@
             <if test="listConfigContent != null">
                 LIST_CONFIG_CONTENT,
             </if>
+            <if test="listDesignRemark != null">
+                LIST_DESIGN_REMARK,
+            </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="listId != null">
@@ -331,6 +338,9 @@
             </if>
             <if test="listConfigContent != null">
                 #{listConfigContent,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="listDesignRemark != null">
+                #{listDesignRemark,jdbcType=LONGVARCHAR},
             </if>
         </trim>
     </insert>
@@ -436,6 +446,9 @@
             <if test="listConfigContent != null">
                 LIST_CONFIG_CONTENT = #{listConfigContent,jdbcType=LONGVARCHAR},
             </if>
+            <if test="listDesignRemark != null">
+                LIST_DESIGN_REMARK = #{listDesignRemark,jdbcType=LONGVARCHAR},
+            </if>
         </set>
         where LIST_ID = #{listId,jdbcType=VARCHAR}
     </update>
@@ -473,7 +486,8 @@
       LIST_HTML_RESOLVE = #{listHtmlResolve,jdbcType=LONGVARCHAR},
       LIST_JS_CONTENT = #{listJsContent,jdbcType=LONGVARCHAR},
       LIST_CSS_CONTENT = #{listCssContent,jdbcType=LONGVARCHAR},
-      LIST_CONFIG_CONTENT = #{listConfigContent,jdbcType=LONGVARCHAR}
+      LIST_CONFIG_CONTENT = #{listConfigContent,jdbcType=LONGVARCHAR},
+      LIST_DESIGN_REMARK = #{listDesignRemark,jdbcType=LONGVARCHAR}
     where LIST_ID = #{listId,jdbcType=VARCHAR}
   </update>
     <update id="updateByPrimaryKey" parameterType="com.jb4dc.builder.dbentities.weblist.ListResourceEntity">

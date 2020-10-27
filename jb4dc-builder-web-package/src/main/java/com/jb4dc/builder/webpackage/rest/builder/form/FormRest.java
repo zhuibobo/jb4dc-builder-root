@@ -72,4 +72,10 @@ public class FormRest extends GeneralRest<FormResourceEntityWithBLOBs> {
         List<TableFieldPO> tableFieldPOList =tableFieldService.getTableFieldsByTableName(formResourceEntity.getFormMainTableId(),formResourceEntity.getFormMainTableName(),formResourceEntity.getFormMainTableCaption());
         return JBuild4DCResponseVo.getDataSuccess(tableFieldPOList);
     }
+
+    @RequestMapping(value = "CopyForm",method = RequestMethod.POST)
+    public JBuild4DCResponseVo copyForm(String formId) throws JBuild4DCGenerallyException, IOException {
+        formResourceService.copyForm(JB4DCSessionUtility.getSession(),formId);
+        return JBuild4DCResponseVo.opSuccess();
+    }
 }

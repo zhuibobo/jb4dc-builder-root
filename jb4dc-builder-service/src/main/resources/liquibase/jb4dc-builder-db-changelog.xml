@@ -502,6 +502,21 @@
             <column name="FORM_JUDGE_SQL" type="NVARCHAR(600)" remarks="SQL判断条件"/>
         </addColumn>
     </changeSet>
+
+    <changeSet id="changeSet-Builder-Base-ex6" author="zhuangrb" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
+        <addColumn tableName="TBUILD_FORM_RESOURCE">
+            <column name="FORM_DESIGN_REMARK" type="CLOB" remarks="设计详细说明"/>
+        </addColumn>
+        <addColumn tableName="TBUILD_LIST_RESOURCE">
+            <column name="LIST_DESIGN_REMARK" type="CLOB" remarks="设计详细说明"/>
+        </addColumn>
+        <addColumn tableName="TBUILD_MODULE">
+            <column name="MODULE_DESIGN_REMARK" type="CLOB" remarks="设计详细说明"/>
+        </addColumn>
+        <addColumn tableName="TBUILD_FLOW_INTEGRATED">
+            <column name="INTEGRATED_DESIGN_REMARK" type="CLOB" remarks="设计详细说明"/>
+        </addColumn>
+    </changeSet>
     <!--网站模块-->
     <changeSet author="zhuangrb" id="changeSet-Builder-Site-Base" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
         <createTable tableName="TBUILD_SITE_INFO" remarks="站点基础信息表">

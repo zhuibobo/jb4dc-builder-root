@@ -3,24 +3,47 @@
 <mapper namespace="com.jb4dc.builder.dao.flow.FlowIntegratedMapper">
     <resultMap id="BaseResultMap" type="com.jb4dc.builder.dbentities.flow.FlowIntegratedEntity">
         <constructor>
-            <idArg column="INTEGRATED_ID" javaType="java.lang.String" jdbcType="NVARCHAR" />
-            <arg column="INTEGRATED_DE_ID" javaType="java.lang.String" jdbcType="NVARCHAR" />
-            <arg column="INTEGRATED_DE_MESSAGE" javaType="java.lang.String" jdbcType="NVARCHAR" />
-            <arg column="INTEGRATED_DE_SUCCESS" javaType="java.lang.String" jdbcType="NVARCHAR" />
-            <arg column="INTEGRATED_MODULE_ID" javaType="java.lang.String" jdbcType="NVARCHAR" />
-            <arg column="INTEGRATED_CODE" javaType="java.lang.String" jdbcType="NVARCHAR" />
-            <arg column="INTEGRATED_NAME" javaType="java.lang.String" jdbcType="NVARCHAR" />
+            <idArg column="INTEGRATED_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="INTEGRATED_DE_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="INTEGRATED_DE_MESSAGE" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="INTEGRATED_DE_SUCCESS" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="INTEGRATED_MODULE_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="INTEGRATED_CODE" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="INTEGRATED_NAME" javaType="java.lang.String" jdbcType="VARCHAR" />
             <arg column="INTEGRATED_CREATE_TIME" javaType="java.util.Date" jdbcType="TIMESTAMP" />
-            <arg column="INTEGRATED_CREATOR" javaType="java.lang.String" jdbcType="NVARCHAR" />
+            <arg column="INTEGRATED_CREATOR" javaType="java.lang.String" jdbcType="VARCHAR" />
             <arg column="INTEGRATED_UPDATE_TIME" javaType="java.util.Date" jdbcType="TIMESTAMP" />
-            <arg column="INTEGRATED_UPDATER" javaType="java.lang.String" jdbcType="NVARCHAR" />
-            <arg column="INTEGRATED_DESC" javaType="java.lang.String" jdbcType="NVARCHAR" />
-            <arg column="INTEGRATED_STATUS" javaType="java.lang.String" jdbcType="NVARCHAR" />
+            <arg column="INTEGRATED_UPDATER" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="INTEGRATED_DESC" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="INTEGRATED_STATUS" javaType="java.lang.String" jdbcType="VARCHAR" />
             <arg column="INTEGRATED_ORDER_NUM" javaType="java.lang.Integer" jdbcType="INTEGER" />
-            <arg column="INTEGRATED_DEPLOYMENT_ID" javaType="java.lang.String" jdbcType="NVARCHAR" />
-            <arg column="INTEGRATED_START_KEY" javaType="java.lang.String" jdbcType="NVARCHAR" />
-            <arg column="INTEGRATED_RESOURCE_NAME" javaType="java.lang.String" jdbcType="NVARCHAR" />
-            <arg column="INTEGRATED_FROM_TYPE" javaType="java.lang.String" jdbcType="NVARCHAR" />
+            <arg column="INTEGRATED_DEPLOYMENT_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="INTEGRATED_START_KEY" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="INTEGRATED_RESOURCE_NAME" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="INTEGRATED_FROM_TYPE" javaType="java.lang.String" jdbcType="VARCHAR" />
+        </constructor>
+    </resultMap>
+    <resultMap id="ResultMapWithBLOBs" type="com.jb4dc.builder.dbentities.flow.FlowIntegratedEntity">
+        <constructor>
+            <idArg column="INTEGRATED_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="INTEGRATED_DE_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="INTEGRATED_DE_MESSAGE" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="INTEGRATED_DE_SUCCESS" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="INTEGRATED_MODULE_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="INTEGRATED_CODE" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="INTEGRATED_NAME" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="INTEGRATED_CREATE_TIME" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+            <arg column="INTEGRATED_CREATOR" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="INTEGRATED_UPDATE_TIME" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+            <arg column="INTEGRATED_UPDATER" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="INTEGRATED_DESC" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="INTEGRATED_STATUS" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="INTEGRATED_ORDER_NUM" javaType="java.lang.Integer" jdbcType="INTEGER" />
+            <arg column="INTEGRATED_DEPLOYMENT_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="INTEGRATED_START_KEY" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="INTEGRATED_RESOURCE_NAME" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="INTEGRATED_FROM_TYPE" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="INTEGRATED_DESIGN_REMARK" javaType="java.lang.String" jdbcType="LONGVARCHAR" />
         </constructor>
     </resultMap>
     <sql id="Base_Column_List">
@@ -29,15 +52,20 @@
     INTEGRATED_UPDATER, INTEGRATED_DESC, INTEGRATED_STATUS, INTEGRATED_ORDER_NUM, INTEGRATED_DEPLOYMENT_ID,
     INTEGRATED_START_KEY, INTEGRATED_RESOURCE_NAME, INTEGRATED_FROM_TYPE
   </sql>
-    <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    <sql id="Blob_Column_List">
+    INTEGRATED_DESIGN_REMARK
+  </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="ResultMapWithBLOBs">
         select
         <include refid="Base_Column_List" />
+        ,
+        <include refid="Blob_Column_List" />
         from TBUILD_FLOW_INTEGRATED
-        where INTEGRATED_ID = #{integratedId,jdbcType=NVARCHAR}
+        where INTEGRATED_ID = #{integratedId,jdbcType=VARCHAR}
     </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
     delete from TBUILD_FLOW_INTEGRATED
-    where INTEGRATED_ID = #{integratedId,jdbcType=NVARCHAR}
+    where INTEGRATED_ID = #{integratedId,jdbcType=VARCHAR}
   </delete>
     <insert id="insert" parameterType="com.jb4dc.builder.dbentities.flow.FlowIntegratedEntity">
     insert into TBUILD_FLOW_INTEGRATED (INTEGRATED_ID, INTEGRATED_DE_ID, INTEGRATED_DE_MESSAGE,
@@ -47,15 +75,17 @@
       INTEGRATED_UPDATER, INTEGRATED_DESC, INTEGRATED_STATUS,
       INTEGRATED_ORDER_NUM, INTEGRATED_DEPLOYMENT_ID,
       INTEGRATED_START_KEY, INTEGRATED_RESOURCE_NAME,
-      INTEGRATED_FROM_TYPE)
-    values (#{integratedId,jdbcType=NVARCHAR}, #{integratedDeId,jdbcType=NVARCHAR}, #{integratedDeMessage,jdbcType=NVARCHAR},
-      #{integratedDeSuccess,jdbcType=NVARCHAR}, #{integratedModuleId,jdbcType=NVARCHAR},
-      #{integratedCode,jdbcType=NVARCHAR}, #{integratedName,jdbcType=NVARCHAR}, #{integratedCreateTime,jdbcType=TIMESTAMP},
-      #{integratedCreator,jdbcType=NVARCHAR}, #{integratedUpdateTime,jdbcType=TIMESTAMP},
-      #{integratedUpdater,jdbcType=NVARCHAR}, #{integratedDesc,jdbcType=NVARCHAR}, #{integratedStatus,jdbcType=NVARCHAR},
-      #{integratedOrderNum,jdbcType=INTEGER}, #{integratedDeploymentId,jdbcType=NVARCHAR},
-      #{integratedStartKey,jdbcType=NVARCHAR}, #{integratedResourceName,jdbcType=NVARCHAR},
-      #{integratedFromType,jdbcType=NVARCHAR})
+      INTEGRATED_FROM_TYPE, INTEGRATED_DESIGN_REMARK
+      )
+    values (#{integratedId,jdbcType=VARCHAR}, #{integratedDeId,jdbcType=VARCHAR}, #{integratedDeMessage,jdbcType=VARCHAR},
+      #{integratedDeSuccess,jdbcType=VARCHAR}, #{integratedModuleId,jdbcType=VARCHAR},
+      #{integratedCode,jdbcType=VARCHAR}, #{integratedName,jdbcType=VARCHAR}, #{integratedCreateTime,jdbcType=TIMESTAMP},
+      #{integratedCreator,jdbcType=VARCHAR}, #{integratedUpdateTime,jdbcType=TIMESTAMP},
+      #{integratedUpdater,jdbcType=VARCHAR}, #{integratedDesc,jdbcType=VARCHAR}, #{integratedStatus,jdbcType=VARCHAR},
+      #{integratedOrderNum,jdbcType=INTEGER}, #{integratedDeploymentId,jdbcType=VARCHAR},
+      #{integratedStartKey,jdbcType=VARCHAR}, #{integratedResourceName,jdbcType=VARCHAR},
+      #{integratedFromType,jdbcType=VARCHAR}, #{integratedDesignRemark,jdbcType=LONGVARCHAR}
+      )
   </insert>
     <insert id="insertSelective" parameterType="com.jb4dc.builder.dbentities.flow.FlowIntegratedEntity">
         insert into TBUILD_FLOW_INTEGRATED
@@ -114,61 +144,67 @@
             <if test="integratedFromType != null">
                 INTEGRATED_FROM_TYPE,
             </if>
+            <if test="integratedDesignRemark != null">
+                INTEGRATED_DESIGN_REMARK,
+            </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="integratedId != null">
-                #{integratedId,jdbcType=NVARCHAR},
+                #{integratedId,jdbcType=VARCHAR},
             </if>
             <if test="integratedDeId != null">
-                #{integratedDeId,jdbcType=NVARCHAR},
+                #{integratedDeId,jdbcType=VARCHAR},
             </if>
             <if test="integratedDeMessage != null">
-                #{integratedDeMessage,jdbcType=NVARCHAR},
+                #{integratedDeMessage,jdbcType=VARCHAR},
             </if>
             <if test="integratedDeSuccess != null">
-                #{integratedDeSuccess,jdbcType=NVARCHAR},
+                #{integratedDeSuccess,jdbcType=VARCHAR},
             </if>
             <if test="integratedModuleId != null">
-                #{integratedModuleId,jdbcType=NVARCHAR},
+                #{integratedModuleId,jdbcType=VARCHAR},
             </if>
             <if test="integratedCode != null">
-                #{integratedCode,jdbcType=NVARCHAR},
+                #{integratedCode,jdbcType=VARCHAR},
             </if>
             <if test="integratedName != null">
-                #{integratedName,jdbcType=NVARCHAR},
+                #{integratedName,jdbcType=VARCHAR},
             </if>
             <if test="integratedCreateTime != null">
                 #{integratedCreateTime,jdbcType=TIMESTAMP},
             </if>
             <if test="integratedCreator != null">
-                #{integratedCreator,jdbcType=NVARCHAR},
+                #{integratedCreator,jdbcType=VARCHAR},
             </if>
             <if test="integratedUpdateTime != null">
                 #{integratedUpdateTime,jdbcType=TIMESTAMP},
             </if>
             <if test="integratedUpdater != null">
-                #{integratedUpdater,jdbcType=NVARCHAR},
+                #{integratedUpdater,jdbcType=VARCHAR},
             </if>
             <if test="integratedDesc != null">
-                #{integratedDesc,jdbcType=NVARCHAR},
+                #{integratedDesc,jdbcType=VARCHAR},
             </if>
             <if test="integratedStatus != null">
-                #{integratedStatus,jdbcType=NVARCHAR},
+                #{integratedStatus,jdbcType=VARCHAR},
             </if>
             <if test="integratedOrderNum != null">
                 #{integratedOrderNum,jdbcType=INTEGER},
             </if>
             <if test="integratedDeploymentId != null">
-                #{integratedDeploymentId,jdbcType=NVARCHAR},
+                #{integratedDeploymentId,jdbcType=VARCHAR},
             </if>
             <if test="integratedStartKey != null">
-                #{integratedStartKey,jdbcType=NVARCHAR},
+                #{integratedStartKey,jdbcType=VARCHAR},
             </if>
             <if test="integratedResourceName != null">
-                #{integratedResourceName,jdbcType=NVARCHAR},
+                #{integratedResourceName,jdbcType=VARCHAR},
             </if>
             <if test="integratedFromType != null">
-                #{integratedFromType,jdbcType=NVARCHAR},
+                #{integratedFromType,jdbcType=VARCHAR},
+            </if>
+            <if test="integratedDesignRemark != null">
+                #{integratedDesignRemark,jdbcType=LONGVARCHAR},
             </if>
         </trim>
     </insert>
@@ -176,78 +212,103 @@
         update TBUILD_FLOW_INTEGRATED
         <set>
             <if test="integratedDeId != null">
-                INTEGRATED_DE_ID = #{integratedDeId,jdbcType=NVARCHAR},
+                INTEGRATED_DE_ID = #{integratedDeId,jdbcType=VARCHAR},
             </if>
             <if test="integratedDeMessage != null">
-                INTEGRATED_DE_MESSAGE = #{integratedDeMessage,jdbcType=NVARCHAR},
+                INTEGRATED_DE_MESSAGE = #{integratedDeMessage,jdbcType=VARCHAR},
             </if>
             <if test="integratedDeSuccess != null">
-                INTEGRATED_DE_SUCCESS = #{integratedDeSuccess,jdbcType=NVARCHAR},
+                INTEGRATED_DE_SUCCESS = #{integratedDeSuccess,jdbcType=VARCHAR},
             </if>
             <if test="integratedModuleId != null">
-                INTEGRATED_MODULE_ID = #{integratedModuleId,jdbcType=NVARCHAR},
+                INTEGRATED_MODULE_ID = #{integratedModuleId,jdbcType=VARCHAR},
             </if>
             <if test="integratedCode != null">
-                INTEGRATED_CODE = #{integratedCode,jdbcType=NVARCHAR},
+                INTEGRATED_CODE = #{integratedCode,jdbcType=VARCHAR},
             </if>
             <if test="integratedName != null">
-                INTEGRATED_NAME = #{integratedName,jdbcType=NVARCHAR},
+                INTEGRATED_NAME = #{integratedName,jdbcType=VARCHAR},
             </if>
             <if test="integratedCreateTime != null">
                 INTEGRATED_CREATE_TIME = #{integratedCreateTime,jdbcType=TIMESTAMP},
             </if>
             <if test="integratedCreator != null">
-                INTEGRATED_CREATOR = #{integratedCreator,jdbcType=NVARCHAR},
+                INTEGRATED_CREATOR = #{integratedCreator,jdbcType=VARCHAR},
             </if>
             <if test="integratedUpdateTime != null">
                 INTEGRATED_UPDATE_TIME = #{integratedUpdateTime,jdbcType=TIMESTAMP},
             </if>
             <if test="integratedUpdater != null">
-                INTEGRATED_UPDATER = #{integratedUpdater,jdbcType=NVARCHAR},
+                INTEGRATED_UPDATER = #{integratedUpdater,jdbcType=VARCHAR},
             </if>
             <if test="integratedDesc != null">
-                INTEGRATED_DESC = #{integratedDesc,jdbcType=NVARCHAR},
+                INTEGRATED_DESC = #{integratedDesc,jdbcType=VARCHAR},
             </if>
             <if test="integratedStatus != null">
-                INTEGRATED_STATUS = #{integratedStatus,jdbcType=NVARCHAR},
+                INTEGRATED_STATUS = #{integratedStatus,jdbcType=VARCHAR},
             </if>
             <if test="integratedOrderNum != null">
                 INTEGRATED_ORDER_NUM = #{integratedOrderNum,jdbcType=INTEGER},
             </if>
             <if test="integratedDeploymentId != null">
-                INTEGRATED_DEPLOYMENT_ID = #{integratedDeploymentId,jdbcType=NVARCHAR},
+                INTEGRATED_DEPLOYMENT_ID = #{integratedDeploymentId,jdbcType=VARCHAR},
             </if>
             <if test="integratedStartKey != null">
-                INTEGRATED_START_KEY = #{integratedStartKey,jdbcType=NVARCHAR},
+                INTEGRATED_START_KEY = #{integratedStartKey,jdbcType=VARCHAR},
             </if>
             <if test="integratedResourceName != null">
-                INTEGRATED_RESOURCE_NAME = #{integratedResourceName,jdbcType=NVARCHAR},
+                INTEGRATED_RESOURCE_NAME = #{integratedResourceName,jdbcType=VARCHAR},
             </if>
             <if test="integratedFromType != null">
-                INTEGRATED_FROM_TYPE = #{integratedFromType,jdbcType=NVARCHAR},
+                INTEGRATED_FROM_TYPE = #{integratedFromType,jdbcType=VARCHAR},
+            </if>
+            <if test="integratedDesignRemark != null">
+                INTEGRATED_DESIGN_REMARK = #{integratedDesignRemark,jdbcType=LONGVARCHAR},
             </if>
         </set>
-        where INTEGRATED_ID = #{integratedId,jdbcType=NVARCHAR}
+        where INTEGRATED_ID = #{integratedId,jdbcType=VARCHAR}
     </update>
+    <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.jb4dc.builder.dbentities.flow.FlowIntegratedEntity">
+    update TBUILD_FLOW_INTEGRATED
+    set INTEGRATED_DE_ID = #{integratedDeId,jdbcType=VARCHAR},
+      INTEGRATED_DE_MESSAGE = #{integratedDeMessage,jdbcType=VARCHAR},
+      INTEGRATED_DE_SUCCESS = #{integratedDeSuccess,jdbcType=VARCHAR},
+      INTEGRATED_MODULE_ID = #{integratedModuleId,jdbcType=VARCHAR},
+      INTEGRATED_CODE = #{integratedCode,jdbcType=VARCHAR},
+      INTEGRATED_NAME = #{integratedName,jdbcType=VARCHAR},
+      INTEGRATED_CREATE_TIME = #{integratedCreateTime,jdbcType=TIMESTAMP},
+      INTEGRATED_CREATOR = #{integratedCreator,jdbcType=VARCHAR},
+      INTEGRATED_UPDATE_TIME = #{integratedUpdateTime,jdbcType=TIMESTAMP},
+      INTEGRATED_UPDATER = #{integratedUpdater,jdbcType=VARCHAR},
+      INTEGRATED_DESC = #{integratedDesc,jdbcType=VARCHAR},
+      INTEGRATED_STATUS = #{integratedStatus,jdbcType=VARCHAR},
+      INTEGRATED_ORDER_NUM = #{integratedOrderNum,jdbcType=INTEGER},
+      INTEGRATED_DEPLOYMENT_ID = #{integratedDeploymentId,jdbcType=VARCHAR},
+      INTEGRATED_START_KEY = #{integratedStartKey,jdbcType=VARCHAR},
+      INTEGRATED_RESOURCE_NAME = #{integratedResourceName,jdbcType=VARCHAR},
+      INTEGRATED_FROM_TYPE = #{integratedFromType,jdbcType=VARCHAR},
+      INTEGRATED_DESIGN_REMARK = #{integratedDesignRemark,jdbcType=LONGVARCHAR}
+    where INTEGRATED_ID = #{integratedId,jdbcType=VARCHAR}
+  </update>
     <update id="updateByPrimaryKey" parameterType="com.jb4dc.builder.dbentities.flow.FlowIntegratedEntity">
     update TBUILD_FLOW_INTEGRATED
-    set INTEGRATED_DE_ID = #{integratedDeId,jdbcType=NVARCHAR},
-      INTEGRATED_DE_MESSAGE = #{integratedDeMessage,jdbcType=NVARCHAR},
-      INTEGRATED_DE_SUCCESS = #{integratedDeSuccess,jdbcType=NVARCHAR},
-      INTEGRATED_MODULE_ID = #{integratedModuleId,jdbcType=NVARCHAR},
-      INTEGRATED_CODE = #{integratedCode,jdbcType=NVARCHAR},
-      INTEGRATED_NAME = #{integratedName,jdbcType=NVARCHAR},
+    set INTEGRATED_DE_ID = #{integratedDeId,jdbcType=VARCHAR},
+      INTEGRATED_DE_MESSAGE = #{integratedDeMessage,jdbcType=VARCHAR},
+      INTEGRATED_DE_SUCCESS = #{integratedDeSuccess,jdbcType=VARCHAR},
+      INTEGRATED_MODULE_ID = #{integratedModuleId,jdbcType=VARCHAR},
+      INTEGRATED_CODE = #{integratedCode,jdbcType=VARCHAR},
+      INTEGRATED_NAME = #{integratedName,jdbcType=VARCHAR},
       INTEGRATED_CREATE_TIME = #{integratedCreateTime,jdbcType=TIMESTAMP},
-      INTEGRATED_CREATOR = #{integratedCreator,jdbcType=NVARCHAR},
+      INTEGRATED_CREATOR = #{integratedCreator,jdbcType=VARCHAR},
       INTEGRATED_UPDATE_TIME = #{integratedUpdateTime,jdbcType=TIMESTAMP},
-      INTEGRATED_UPDATER = #{integratedUpdater,jdbcType=NVARCHAR},
-      INTEGRATED_DESC = #{integratedDesc,jdbcType=NVARCHAR},
-      INTEGRATED_STATUS = #{integratedStatus,jdbcType=NVARCHAR},
+      INTEGRATED_UPDATER = #{integratedUpdater,jdbcType=VARCHAR},
+      INTEGRATED_DESC = #{integratedDesc,jdbcType=VARCHAR},
+      INTEGRATED_STATUS = #{integratedStatus,jdbcType=VARCHAR},
       INTEGRATED_ORDER_NUM = #{integratedOrderNum,jdbcType=INTEGER},
-      INTEGRATED_DEPLOYMENT_ID = #{integratedDeploymentId,jdbcType=NVARCHAR},
-      INTEGRATED_START_KEY = #{integratedStartKey,jdbcType=NVARCHAR},
-      INTEGRATED_RESOURCE_NAME = #{integratedResourceName,jdbcType=NVARCHAR},
-      INTEGRATED_FROM_TYPE = #{integratedFromType,jdbcType=NVARCHAR}
-    where INTEGRATED_ID = #{integratedId,jdbcType=NVARCHAR}
+      INTEGRATED_DEPLOYMENT_ID = #{integratedDeploymentId,jdbcType=VARCHAR},
+      INTEGRATED_START_KEY = #{integratedStartKey,jdbcType=VARCHAR},
+      INTEGRATED_RESOURCE_NAME = #{integratedResourceName,jdbcType=VARCHAR},
+      INTEGRATED_FROM_TYPE = #{integratedFromType,jdbcType=VARCHAR}
+    where INTEGRATED_ID = #{integratedId,jdbcType=VARCHAR}
   </update>
 </mapper>

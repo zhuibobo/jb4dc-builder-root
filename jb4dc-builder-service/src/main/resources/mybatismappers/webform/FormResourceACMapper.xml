@@ -80,6 +80,7 @@
             <arg column="FORM_JS_CONTENT" javaType="java.lang.String" jdbcType="LONGVARCHAR" />
             <arg column="FORM_CSS_CONTENT" javaType="java.lang.String" jdbcType="LONGVARCHAR" />
             <arg column="FORM_CONFIG_CONTENT" javaType="java.lang.String" jdbcType="LONGVARCHAR" />
+            <arg column="FORM_DESIGN_REMARK" javaType="java.lang.String" jdbcType="LONGVARCHAR" />
         </constructor>
     </resultMap>
     <sql id="Base_Column_List">
@@ -92,7 +93,8 @@
     FORM_OPERATION_TYPE, FORM_JUDGE_API, FORM_JUDGE_SQL
   </sql>
     <sql id="Blob_Column_List">
-    FORM_HTML_SOURCE, FORM_HTML_RESOLVE, FORM_JS_CONTENT, FORM_CSS_CONTENT, FORM_CONFIG_CONTENT
+    FORM_HTML_SOURCE, FORM_HTML_RESOLVE, FORM_JS_CONTENT, FORM_CSS_CONTENT, FORM_CONFIG_CONTENT,
+    FORM_DESIGN_REMARK
   </sql>
     <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="ResultMapWithBLOBs">
         select
@@ -120,7 +122,8 @@
       FORM_INNER_BUTTON, FORM_OPERATION_TYPE, FORM_JUDGE_API,
       FORM_JUDGE_SQL, FORM_HTML_SOURCE, FORM_HTML_RESOLVE,
       FORM_JS_CONTENT, FORM_CSS_CONTENT,
-      FORM_CONFIG_CONTENT)
+      FORM_CONFIG_CONTENT, FORM_DESIGN_REMARK
+      )
     values (#{formId,jdbcType=VARCHAR}, #{formCode,jdbcType=VARCHAR}, #{formName,jdbcType=VARCHAR},
       #{formSingleName,jdbcType=VARCHAR}, #{formCreateTime,jdbcType=TIMESTAMP}, #{formCreator,jdbcType=VARCHAR},
       #{formUpdateTime,jdbcType=TIMESTAMP}, #{formUpdater,jdbcType=VARCHAR}, #{formType,jdbcType=VARCHAR},
@@ -134,7 +137,8 @@
       #{formInnerButton,jdbcType=VARCHAR}, #{formOperationType,jdbcType=VARCHAR}, #{formJudgeApi,jdbcType=VARCHAR},
       #{formJudgeSql,jdbcType=VARCHAR}, #{formHtmlSource,jdbcType=LONGVARCHAR}, #{formHtmlResolve,jdbcType=LONGVARCHAR},
       #{formJsContent,jdbcType=LONGVARCHAR}, #{formCssContent,jdbcType=LONGVARCHAR},
-      #{formConfigContent,jdbcType=LONGVARCHAR})
+      #{formConfigContent,jdbcType=LONGVARCHAR}, #{formDesignRemark,jdbcType=LONGVARCHAR}
+      )
   </insert>
     <insert id="insertSelective" parameterType="com.jb4dc.builder.dbentities.webform.FormResourceEntityWithBLOBs">
         insert into TBUILD_FORM_RESOURCE
@@ -256,6 +260,9 @@
             <if test="formConfigContent != null">
                 FORM_CONFIG_CONTENT,
             </if>
+            <if test="formDesignRemark != null">
+                FORM_DESIGN_REMARK,
+            </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="formId != null">
@@ -374,6 +381,9 @@
             </if>
             <if test="formConfigContent != null">
                 #{formConfigContent,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="formDesignRemark != null">
+                #{formDesignRemark,jdbcType=LONGVARCHAR},
             </if>
         </trim>
     </insert>
@@ -494,6 +504,9 @@
             <if test="formConfigContent != null">
                 FORM_CONFIG_CONTENT = #{formConfigContent,jdbcType=LONGVARCHAR},
             </if>
+            <if test="formDesignRemark != null">
+                FORM_DESIGN_REMARK = #{formDesignRemark,jdbcType=LONGVARCHAR},
+            </if>
         </set>
         where FORM_ID = #{formId,jdbcType=VARCHAR}
     </update>
@@ -536,7 +549,8 @@
       FORM_HTML_RESOLVE = #{formHtmlResolve,jdbcType=LONGVARCHAR},
       FORM_JS_CONTENT = #{formJsContent,jdbcType=LONGVARCHAR},
       FORM_CSS_CONTENT = #{formCssContent,jdbcType=LONGVARCHAR},
-      FORM_CONFIG_CONTENT = #{formConfigContent,jdbcType=LONGVARCHAR}
+      FORM_CONFIG_CONTENT = #{formConfigContent,jdbcType=LONGVARCHAR},
+      FORM_DESIGN_REMARK = #{formDesignRemark,jdbcType=LONGVARCHAR}
     where FORM_ID = #{formId,jdbcType=VARCHAR}
   </update>
     <update id="updateByPrimaryKey" parameterType="com.jb4dc.builder.dbentities.webform.FormResourceEntity">

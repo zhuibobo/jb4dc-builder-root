@@ -59,6 +59,9 @@ public class ModuleEntity {
     //MODULE_LINK_ID:所属连接ID:关联到表TBUILD_DB_LINK.DB_ID
     private String moduleLinkId;
 
+    //MODULE_DESIGN_REMARK:设计详细说明
+    private String moduleDesignRemark;
+
     /**
      * 构造函数
      * @param moduleId
@@ -93,6 +96,44 @@ public class ModuleEntity {
         this.moduleOrganId = moduleOrganId;
         this.moduleOrganName = moduleOrganName;
         this.moduleLinkId = moduleLinkId;
+    }
+
+    /**
+     * 构造函数
+     * @param moduleId
+     * @param moduleValue 模块值
+     * @param moduleText 模块标题
+     * @param moduleOrderNum 排序号
+     * @param moduleCreateTime 创建时间
+     * @param moduleDesc 备注
+     * @param moduleStatus 状态
+     * @param moduleParentId 父节点ID
+     * @param moduleIsSystem 是否系统所有
+     * @param moduleDelEnable 能否删除
+     * @param modulePidList 父节点ID列表
+     * @param moduleChildCount 子节点数量
+     * @param moduleOrganId 组织ID
+     * @param moduleOrganName 组织名称
+     * @param moduleLinkId 所属连接ID
+     * @param moduleDesignRemark 设计详细说明
+     **/
+    public ModuleEntity(String moduleId, String moduleValue, String moduleText, Integer moduleOrderNum, Date moduleCreateTime, String moduleDesc, String moduleStatus, String moduleParentId, String moduleIsSystem, String moduleDelEnable, String modulePidList, Integer moduleChildCount, String moduleOrganId, String moduleOrganName, String moduleLinkId, String moduleDesignRemark) {
+        this.moduleId = moduleId;
+        this.moduleValue = moduleValue;
+        this.moduleText = moduleText;
+        this.moduleOrderNum = moduleOrderNum;
+        this.moduleCreateTime = moduleCreateTime;
+        this.moduleDesc = moduleDesc;
+        this.moduleStatus = moduleStatus;
+        this.moduleParentId = moduleParentId;
+        this.moduleIsSystem = moduleIsSystem;
+        this.moduleDelEnable = moduleDelEnable;
+        this.modulePidList = modulePidList;
+        this.moduleChildCount = moduleChildCount;
+        this.moduleOrganId = moduleOrganId;
+        this.moduleOrganName = moduleOrganName;
+        this.moduleLinkId = moduleLinkId;
+        this.moduleDesignRemark = moduleDesignRemark;
     }
 
     public ModuleEntity() {
@@ -337,5 +378,21 @@ public class ModuleEntity {
      **/
     public void setModuleLinkId(String moduleLinkId) {
         this.moduleLinkId = moduleLinkId == null ? null : moduleLinkId.trim();
+    }
+
+    /**
+     * 设计详细说明
+     * @return java.lang.String
+     **/
+    public String getModuleDesignRemark() {
+        return moduleDesignRemark;
+    }
+
+    /**
+     * 设计详细说明
+     * @param moduleDesignRemark 设计详细说明
+     **/
+    public void setModuleDesignRemark(String moduleDesignRemark) {
+        this.moduleDesignRemark = moduleDesignRemark == null ? null : moduleDesignRemark.trim();
     }
 }

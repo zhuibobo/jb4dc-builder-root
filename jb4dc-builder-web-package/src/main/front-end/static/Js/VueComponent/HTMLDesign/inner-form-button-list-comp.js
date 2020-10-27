@@ -657,10 +657,12 @@ Vue.component("inner-form-button-list-comp", {
                         <div style="float: left;width: 15%;margin-left: 8px">
                             <ButtonGroup vertical>
                                 <i-button type="success" @click="addInnerFormSaveButton()" icon="md-add">保存按钮</i-button>
-                                <i-button icon="md-add" disabled>意见按钮</i-button>
                                 <i-button type="primary" @click="addInnerFormCloseButton()" icon="md-add">关闭按钮</i-button>
-                                <i-button disabled icon="md-add">拷贝Json</i-button>
-                                <i-button disabled icon="md-add">黏贴Json</i-button>
+                                <i-button size="small" icon="md-add" disabled>脚本按钮</i-button>
+                                <i-button size="small" icon="md-add" disabled>意见按钮</i-button>
+                                <i-button size="small" icon="md-add" disabled>流程按钮</i-button>
+                                <i-button size="small" disabled icon="md-add">拷贝Json</i-button>
+                                <i-button size="small" disabled icon="md-add">黏贴Json</i-button>
                             </ButtonGroup>
                         </div>
                     </div>

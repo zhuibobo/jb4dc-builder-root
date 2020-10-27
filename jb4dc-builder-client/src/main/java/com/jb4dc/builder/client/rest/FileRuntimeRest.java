@@ -46,7 +46,7 @@ public class FileRuntimeRest {
                 JB4DCSessionUtility.getSession(),
                 simpleFilePO.getFileName(), simpleFilePO.getFileByte(),
                 objId, String.valueOf(System.currentTimeMillis()),
-                "CKE4-Image", "Image");
+                "Builder-Runtime-CKE4-Image", "Image");
 
         String imageContextPath = request.getContextPath()+"/Rest/Builder/RunTime/FileRuntime/DownLoadFileByFileId?fileId="+fileInfoEntity.getFileId();
         response.setContentType("text/html;charset=UTF-8");

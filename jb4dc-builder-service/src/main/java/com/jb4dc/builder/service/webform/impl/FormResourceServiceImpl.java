@@ -19,6 +19,7 @@ import com.jb4dc.builder.service.module.IModuleService;
 import com.jb4dc.builder.client.service.webform.IFormResourceService;
 import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
 import com.jb4dc.core.base.session.JB4DCSession;
+import com.jb4dc.core.base.tools.UUIDUtility;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -156,5 +157,13 @@ public class FormResourceServiceImpl extends BaseServiceImpl<FormResourceEntityW
                 System.out.println(formDataRelationList);
             }
         }
+    }
+
+    @Override
+    public void copyForm(JB4DCSession jb4DCSession, String formId) throws JBuild4DCGenerallyException {
+        FormResourceEntityWithBLOBs source=getByPrimaryKey(jb4DCSession,formId);
+        source.setFormId(UUIDUtility.getUUID());
+        source.setFormName(source.getFormName()+"[复制]");
+        saveSimple(jb4DCSession,source.getFormId(),source);
     }
 }

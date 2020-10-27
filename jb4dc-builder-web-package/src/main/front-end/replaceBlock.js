@@ -91,7 +91,7 @@ let replaceBlock = {
         let replaceArray = new Array();
         let levelPath = calculateFilePath(file);
         replaceArray.push(refJs(levelPath + "Js/External/Clipboard/clipboard.min.js"));
-        replaceArray.push(refJs(levelPath + "Js/External/Ckeditor-4.11.1-4Design/ckeditor.js"));
+        replaceArray.push(refJs(levelPath + "Js/External/Ckeditor-4.15.0-4Design/ckeditor.js"));
         replaceArray.push(refJs(levelPath + "Js/HTMLDesign/HTMLDesignUtility.js?refVersion=" + refVersion));
 
         return replaceArray.join("\n\t");

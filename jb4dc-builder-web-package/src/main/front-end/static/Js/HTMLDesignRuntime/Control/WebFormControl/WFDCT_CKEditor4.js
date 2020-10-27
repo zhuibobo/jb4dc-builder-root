@@ -22,6 +22,7 @@ var WFDCT_CKEditor4={
                 customConfig: editorConfigUrl
             });
             this.ckeditorInstance.config.height = areaHeight;
+            console.log(this.ckeditorInstance.config.plugins);
         }
     },
     RendererDataChain:function () {
@@ -35,7 +36,7 @@ var WFDCT_CKEditor4={
     SetValue:function ($elem,fieldPO,relationFormRecordComplexPo,_rendererDataChainParas) {
         //debugger;
         if(fieldPO){
-            //console.log(fieldPO);
+            //console.log(fieldPO);1
             $elem.val(fieldPO.value);
             $elem.attr("control_value",fieldPO.value);
         }

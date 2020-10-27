@@ -15,7 +15,10 @@
     <th:block th:replace="Fragment/GeneralLib::CodeMirrorLib"></th:block>
     <th:block th:replace="Fragment/GeneralLib::ThemesLib"></th:block>
     <style>
-        .cke_button_label {
+        .hide_cke_button_label .cke_button_label{
+            display:none !important;
+        }
+        .form-design-wraper .cke_button_label {
             display:inline !important;
         }
         /* Based on Sublime Text's Monokai theme */
@@ -41,8 +44,9 @@
             <i-button icon="md-search" type="primary" @click="savePreview()">历史版本</i-button>
         </button-group>
     </div>
+
     <tabs @on-click="tabChange" v-model="selectedTabName" name="outer-tabs">
-        <tab-pane tab="outer-tabs" name="Info" label="Info">
+        <tab-pane tab="outer-tabs" name="Info" label="基础信息">
             <div style="width: 1024px;margin: auto">
                 <div style="width: 1024px;height: 615px;border: #ddddf1 1px solid;border-radius: 4px;padding: 10px 20px 10px 10px;">
                     <divider orientation="left" :dashed="true" style="font-size: 12px">表单信息</divider>
@@ -83,7 +87,7 @@
                 </div>
             </div>
         </tab-pane>
-        <tab-pane tab="outer-tabs" name="Design" label="Design">
+        <tab-pane tab="outer-tabs" name="Design" label="表单设计">
             <div class="form-design-wraper">
                 <div class="left-wraper" style="right: 10px">
                     <textarea name="html_design" id="html_design">
@@ -91,7 +95,7 @@
                 </div>
             </div>
         </tab-pane>
-        <tab-pane tab="outer-tabs" name="HTML" label="HTML">
+        <tab-pane tab="outer-tabs" name="HTML" label="源码">
             <div class="html-design-wraper">
                 <div class="left-wraper code_wraper">
                     <div class="inner">
@@ -110,7 +114,7 @@
                 </div>
             </div>
         </tab-pane>
-        <tab-pane tab="outer-tabs" name="JS" label="JS">
+        <tab-pane tab="outer-tabs" name="JS" label="JS源码">
             <div class="js-design-wraper">
                 <div class="left-wraper code_wraper">
                     <div class="inner">
@@ -129,9 +133,9 @@
                 </div>
             </div>
         </tab-pane>
-        <tab-pane tab="outer-tabs" name="EXConfig" label="EXConfig">
+        <tab-pane tab="outer-tabs" name="EXConfig" label="扩展设置">
             <div style="width: 1024px;margin: auto">
-                <div style="width: 1024px;height: 615px;border: #ddddf1 1px solid;border-radius: 4px;padding: 10px 20px 10px 10px;">
+                <div style="width: 1024px;height: 751px;border: #ddddf1 1px solid;border-radius: 4px;padding: 10px 20px 10px 10px;">
                     <divider orientation="left" :dashed="true" style="font-size: 12px">扩展信息</divider>
                     <i-form :label-width="150">
                         <form-item label="内部按钮：" class="margin-bottom-12-imp">
@@ -152,7 +156,10 @@
                             <i-input v-model="formResourceEntity.formJudgeApi" placeholder="API需要继承接口XXX" />
                         </form-item>
                         <form-item label="判定SQL：" class="margin-bottom-12-imp">
-                            <i-input v-model="formResourceEntity.formJudgeSql" search enter-button="编辑SQL" placeholder="编辑SQL,用于判断是否存在唯一的记录!" @on-search="beginDesignInnerButton" />
+                            <span style="color: red">[只能返回一条记录,列名必须为RECORDID,大写,作为主键,用于判定数据是否存在]</span>
+                            <br />
+                            示例:【SELECT XXXID as RECORDID FROM X_TABLE where F_USER_ID='xxx'】
+                            <sql-general-design-comp ref="sqlGeneralDesignComp" :sql-designer-height="60" v-model="formResourceEntity.formJudgeSql" :show-field="false"></sql-general-design-comp>
                         </form-item>
                         <form-item label="服务端渲染方法：" class="margin-bottom-12-imp">
                             <i-input v-model="formResourceEntity.formCustServerRenderer" placeholder="服务端自定义的渲染方法:继承IFormSeverRenderer"></i-input>
@@ -161,15 +168,23 @@
                             <i-input v-model="formResourceEntity.formCustClientRenderer" placeholder="客户端自定义的渲染方法:需要指明具体的方法名称"></i-input>
                         </form-item>
                         <form-item label="备注：" style="margin-bottom: 12px" class="margin-bottom-12-imp">
-                            <i-input v-model="formResourceEntity.formCustDesc" type="textarea" :autosize="{minRows: 3,maxRows: 3}"></i-input>
+                            <i-input v-model="formResourceEntity.formCustDesc" type="textarea" :autosize="{minRows: 5,maxRows: 5}"></i-input>
                         </form-item>
                     </i-form>
                 </div>
             </div>
         </tab-pane>
-        <tab-pane tab="outer-tabs" name="ExDataSet" label="ExDataSet"></tab-pane>
-        <tab-pane tab="outer-tabs" name="BeReferred" label="BeReferred"></tab-pane>
-        <tab-pane tab="outer-tabs" name="Config" label="Config"></tab-pane>
+        <tab-pane tab="outer-tabs" name="DesignRemark" label="设计说明">
+            <div style="width: 1024px;margin: auto" class="hide_cke_button_label">
+                <div style="width: 1024px;height: 751px;border: #ddddf1 1px solid;border-radius: 4px;padding: 10px 10px 10px 10px;">
+                    <divider orientation="left" :dashed="true" style="font-size: 12px">表单的设计说明信息</divider>
+                    <textarea id="txt_Design_Remark" v-model="formResourceEntity.formDesignRemark"></textarea>
+                </div>
+            </div>
+        </tab-pane>
+        <tab-pane tab="outer-tabs" name="ExDataSet" label="扩展数据集"></tab-pane>
+        <tab-pane tab="outer-tabs" name="BeReferred" label="引用位置"></tab-pane>
+        <tab-pane tab="outer-tabs" name="Config" label="扩展参数"></tab-pane>
     </tabs>
     <div>
         <!--各类对话框的引用-->
@@ -236,21 +251,21 @@
                 formJudgeApi:"",
                 //SQL判断条件
                 formJudgeSql:"",
+                //设计详细说明
+                formDesignRemark:"",
                 tryDeployment:true
             },
             status: BaseUtility.GetUrlParaValue("op"),
             oldSelectedTabName:"",
             selectedTabName:"",
             designThemes:[],
-            pluginVoList:null
+            pluginVoList:null,
+            designRemarkCKEditorInstance:null
         },
         mounted:function () {
             this.initPageUI();
             BaseUtility.SetSystemFavicon();
-            //this.bindStatusData();
-            if (this.$refs.innerFormButtonListComp) {
-                this.$refs.innerFormButtonListComp.ready(null);
-            }
+
         },
         methods: {
             /*Dialog*/
@@ -299,7 +314,7 @@
                     DetailPageUtility.BindFormData(_self.acInterface.getDataUrl, _self.formResourceEntity, _self.recordId, _self.status,null,function (result) {
 
                         if(_self.status=="add"){
-                            _self.formResourceEntity.formType="业务表单";
+                            _self.formResourceEntity.formType="WebForm";
                             _self.formResourceEntity.formModuleId=BaseUtility.GetUrlParaValue("moduleId");
                             _self.oldSelectedTabName="Info";
                         }
@@ -328,6 +343,13 @@
                             _self.isLoading=false;
                         },"../../HTMLDesign/CKEditorConfig/CKEditorConfig.js","../../HTMLDesign/WebFormDesign/Plugins/",themeVo);
 
+                        //自身持有的窗体内按钮
+                        //this.bindStatusData();
+                        if (_self.$refs.innerFormButtonListComp) {
+                            _self.$refs.innerFormButtonListComp.ready(_self.formResourceEntity.formInnerButton);
+                        }
+                        _self.$refs.sqlGeneralDesignComp.setValue(_self.formResourceEntity.formJudgeSql);
+                        _self.initCKEditorForRemark();
                     });
 
                     HTMLEditorUtility.InitializeHTMLCodeDesign();
@@ -335,7 +357,21 @@
 
                     _self.$refs.jsDesignCodeFragment.setJSEditorInstance(JsEditorUtility.GetJsEditorInst());
 
+
                 },this);
+            },
+            initCKEditorForRemark:function() {
+                window["providerCKEditor4ImageObject"]=function () {
+                    return {
+                        "objId": appForm.formResourceEntity.formId,
+                        "objType": "WebForm"
+                    }
+                }
+                var editorConfigUrl = BaseUtility.AppendTimeStampUrl("../../HTMLDesign/CKEditorConfig/CKEditor4_Min_Config.js");
+                this.designRemarkCKEditorInstance = CKEDITOR.replace("txt_Design_Remark", {
+                    customConfig: editorConfigUrl
+                });
+                this.designRemarkCKEditorInstance.config.height = "572";
             },
             getTheme:function(value){
                 for(var i=0;i<this.designThemes.length;i++){
@@ -434,6 +470,7 @@
                 if(this.$refs.innerFormButtonListComp) {
                     this.formResourceEntity.formInnerButton = this.$refs.innerFormButtonListComp.getJson();
                 }
+                this.formResourceEntity.formDesignRemark=this.designRemarkCKEditorInstance.getData();
                 var validateResult=this.validateSaveEnable(this.formResourceEntity);
                 if(validateResult.result){
                     var sendData = JSON.stringify(this.formResourceEntity);

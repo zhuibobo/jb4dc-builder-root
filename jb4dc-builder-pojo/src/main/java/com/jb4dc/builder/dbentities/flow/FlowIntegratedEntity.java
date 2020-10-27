@@ -7,12 +7,12 @@ import java.util.Date;
 /**
  *
  * This class was generated JBuild4DC.
- * This class corresponds to the database table :TBUILD_FLOW_INTEGRATED
+ * This class corresponds to the database table :tbuild_flow_integrated
  *
  * JBuild4DC do_not_delete_during_merge
  */
 public class FlowIntegratedEntity {
-    //INTEGRATED_ID:主键:UUID
+    //INTEGRATED_ID:
     @DBKeyField
     private String integratedId;
 
@@ -69,9 +69,12 @@ public class FlowIntegratedEntity {
     //INTEGRATED_FROM_TYPE:流程模型来自上传或者页面设计
     private String integratedFromType;
 
+    //INTEGRATED_DESIGN_REMARK:设计详细说明
+    private String integratedDesignRemark;
+
     /**
      * 构造函数
-     * @param integratedId 主键
+     * @param integratedId
      * @param integratedDeId act_de_model表的ID
      * @param integratedDeMessage 部署结果消息
      * @param integratedDeSuccess 部署是否成功
@@ -111,12 +114,56 @@ public class FlowIntegratedEntity {
         this.integratedFromType = integratedFromType;
     }
 
+    /**
+     * 构造函数
+     * @param integratedId
+     * @param integratedDeId act_de_model表的ID
+     * @param integratedDeMessage 部署结果消息
+     * @param integratedDeSuccess 部署是否成功
+     * @param integratedModuleId 所属的模块ID
+     * @param integratedCode 模型编码
+     * @param integratedName 模型名称
+     * @param integratedCreateTime 创建时间
+     * @param integratedCreator 创建者
+     * @param integratedUpdateTime 更新时间
+     * @param integratedUpdater 更新人
+     * @param integratedDesc 备注
+     * @param integratedStatus 状态
+     * @param integratedOrderNum 排序号
+     * @param integratedDeploymentId 部署ID
+     * @param integratedStartKey 启动键
+     * @param integratedResourceName 资源名称
+     * @param integratedFromType 流程模型来自上传或者页面设计
+     * @param integratedDesignRemark 设计详细说明
+     **/
+    public FlowIntegratedEntity(String integratedId, String integratedDeId, String integratedDeMessage, String integratedDeSuccess, String integratedModuleId, String integratedCode, String integratedName, Date integratedCreateTime, String integratedCreator, Date integratedUpdateTime, String integratedUpdater, String integratedDesc, String integratedStatus, Integer integratedOrderNum, String integratedDeploymentId, String integratedStartKey, String integratedResourceName, String integratedFromType, String integratedDesignRemark) {
+        this.integratedId = integratedId;
+        this.integratedDeId = integratedDeId;
+        this.integratedDeMessage = integratedDeMessage;
+        this.integratedDeSuccess = integratedDeSuccess;
+        this.integratedModuleId = integratedModuleId;
+        this.integratedCode = integratedCode;
+        this.integratedName = integratedName;
+        this.integratedCreateTime = integratedCreateTime;
+        this.integratedCreator = integratedCreator;
+        this.integratedUpdateTime = integratedUpdateTime;
+        this.integratedUpdater = integratedUpdater;
+        this.integratedDesc = integratedDesc;
+        this.integratedStatus = integratedStatus;
+        this.integratedOrderNum = integratedOrderNum;
+        this.integratedDeploymentId = integratedDeploymentId;
+        this.integratedStartKey = integratedStartKey;
+        this.integratedResourceName = integratedResourceName;
+        this.integratedFromType = integratedFromType;
+        this.integratedDesignRemark = integratedDesignRemark;
+    }
+
     public FlowIntegratedEntity() {
         super();
     }
 
     /**
-     * 主键:UUID
+     *
      * @return java.lang.String
      **/
     public String getIntegratedId() {
@@ -124,8 +171,8 @@ public class FlowIntegratedEntity {
     }
 
     /**
-     * 主键:UUID
-     * @param integratedId 主键
+     *
+     * @param integratedId
      **/
     public void setIntegratedId(String integratedId) {
         this.integratedId = integratedId == null ? null : integratedId.trim();
@@ -401,5 +448,21 @@ public class FlowIntegratedEntity {
      **/
     public void setIntegratedFromType(String integratedFromType) {
         this.integratedFromType = integratedFromType == null ? null : integratedFromType.trim();
+    }
+
+    /**
+     * 设计详细说明
+     * @return java.lang.String
+     **/
+    public String getIntegratedDesignRemark() {
+        return integratedDesignRemark;
+    }
+
+    /**
+     * 设计详细说明
+     * @param integratedDesignRemark 设计详细说明
+     **/
+    public void setIntegratedDesignRemark(String integratedDesignRemark) {
+        this.integratedDesignRemark = integratedDesignRemark == null ? null : integratedDesignRemark.trim();
     }
 }

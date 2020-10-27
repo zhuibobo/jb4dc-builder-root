@@ -25,4 +25,6 @@ public interface IFormResourceService extends IBaseService<FormResourceEntityWit
     List<FormResourceEntity> getByModuleId(JB4DCSession jb4DCSession, String moduleId);
 
     void tryLoadAboutTable(JB4DCSession jb4DCSession,List<FormResourcePO> formResourceEntityList) throws IOException, JBuild4DCGenerallyException;
+
+    void copyForm(JB4DCSession jb4DCSession, String formId) throws JBuild4DCGenerallyException;
 }

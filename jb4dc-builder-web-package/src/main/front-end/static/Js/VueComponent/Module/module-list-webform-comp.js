@@ -9,7 +9,8 @@ Vue.component("module-list-webform-comp", {
                 previewWebFormUrl:"/HTML/Builder/Form/FormPreview.html",
                 reloadData: "/Rest/Builder/Form/GetListData",
                 delete: "/Rest/Builder/Form/Delete",
-                move: "/Rest/Builder/Form/Move"
+                move: "/Rest/Builder/Form/Move",
+                copyForm:"/Rest/Builder/Form/CopyForm"
             },
             idFieldName: "formId",
             searchCondition: {
@@ -189,6 +190,18 @@ Vue.component("module-list-webform-comp", {
                     height: 0
                 }, 1);*/
             });
+        },
+        copy:function () {
+            ListPageUtility.IViewTableMareSureSelectedOne(this.selectionRows,this).then(function (selectionRows) {
+                var recordId = selectionRows[0][this.idFieldName];
+                AjaxUtility.Post(this.acInterface.copyForm, {formId: recordId}, function (result) {
+                    if (result.success) {
+                        DialogUtility.Alert(window, DialogUtility.DialogAlertId, {}, result.message, function () {
+                            this.reloadData();
+                        },this);
+                    }
+                }, this);
+            });
         }
     },
     template: `<div class="module-list-wrap">
@@ -197,11 +210,10 @@ Vue.component("module-list-webform-comp", {
                         <div class="list-button-inner-wrap">
                             <ButtonGroup>
                                 <i-button  type="success" @click="add()" icon="md-add">新增</i-button>
+                                <i-button type="primary" @click="copy()" icon="md-albums">复制</i-button>
                                 <i-button type="primary" @click="previewWebForm()"  icon="md-pricetag">预览</i-button>
                                 <i-button type="primary" disabled icon="md-add">引入URL </i-button>
-                                <i-button type="primary" disabled icon="md-albums">复制</i-button>
                                 <i-button type="primary" disabled icon="md-bookmarks">历史版本</i-button>
-                                <i-button type="primary" disabled icon="md-brush">复制ID</i-button>
                                 <i-button type="primary" @click="move(\'up\')" icon="md-arrow-up">上移</i-button>
                                 <i-button type="primary" @click="move(\'down\')" icon="md-arrow-down">下移</i-button>
                             </ButtonGroup>
