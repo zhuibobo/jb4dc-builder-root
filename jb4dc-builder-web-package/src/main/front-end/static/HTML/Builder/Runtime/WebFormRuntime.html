@@ -37,11 +37,11 @@
             BaseUtility.SetSystemFavicon();
             formRuntimeInst=FormRuntimeSinglePageObject.pageReady(false,function () {
 
-            });
+            },FormRuntimeSinglePageObject.getWebFormRTParasWithListButtonId());
 
             var windowHeight=formRuntimeInst.GetWebFormRTParas().WindowHeight;
             $("#htmlDesignRuntimeWrap").height(windowHeight-120);
-            console.log();
+            //console.log();
         });
     </script>
 </head>

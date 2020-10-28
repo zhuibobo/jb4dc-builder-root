@@ -135,5 +135,8 @@ var RuntimeGeneralInstance= {
             }
         }
         return false;
+    },
+    TryGetMenuOuterId:function () {
+        return BaseUtility.GetUrlParaValue("menuOuterId");
     }
 }

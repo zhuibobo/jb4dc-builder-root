@@ -21,7 +21,7 @@ Vue.component("inner-form-button-list-comp", {
                     align: "center",
                     render: function (h, params) {
                         var buttons=[];
-                        if(params.row.buttonType=="保存按钮"){
+                        if(params.row.buttonType!="关闭按钮"){
                             buttons.push(ListPageUtility.IViewTableInnerButton.EditButton(h,params,"id",_self));
                         }
                         buttons.push(ListPageUtility.IViewTableInnerButton.DeleteButton(h,params,"id",_self));
@@ -172,7 +172,24 @@ Vue.component("inner-form-button-list-comp", {
                     TableAttrs: {cellpadding: "1", cellspacing: "1", border: "1"}
                 }
             },
-            oldFormId:""
+            oldFormId:"",
+            innerJsClientButtonEditData:{
+                caption:"",
+                execAndClose:"true",
+                //开发扩展
+                id:"",
+                buttonType:"脚本按钮",
+                actionType:"reloadData",
+                callJsMethod:"",
+                custServerResolveMethod:"",
+                custServerResolveMethodPara:"",
+                custClientRendererMethod:"",
+                custClientRendererMethodPara:"",
+                custClientRendererAfterMethod:"",
+                custClientRendererAfterMethodPara:"",
+                custClientClickBeforeMethod:"",
+                custClientClickBeforeMethodPara:"",
+            }
         }
     },
     mounted:function(){
@@ -198,14 +215,14 @@ Vue.component("inner-form-button-list-comp", {
                 this.tableData=JsonUtility.StringToJson(tableDataJson);
             }
         },*/
-        handleClose:function(dialogElem){
-            DialogUtility.CloseDialogElem(this.$refs[dialogElem]);
-        },
         //region 列表按钮相关方法
         edit:function(id,params){
             //console.log(params);
             if(params.row["buttonType"]=="保存按钮"){
                 this.editInnerFormSaveButton(params);
+            }
+            else if(params.row["buttonType"]=="脚本按钮"){
+                this.editInnerFormJsClientButton(params);
             }
         },
         del:function(id,params){
@@ -244,19 +261,19 @@ Vue.component("inner-form-button-list-comp", {
                 //重置编辑表单
                 this.resetInnerSaveButtonData();
 
-                var elem = this.$refs.addInnerFormSaveButton;
+                var elem = this.$refs.innerFormSaveButtonWrap;
 
                 DialogUtility.DialogElemObj(elem, {
                     modal: true,
                     height: 520,
                     width: 720,
-                    title: "窗体内按钮"
+                    title: "窗体内保存按钮"
                 });
 
                 $(window.document).find(".ui-widget-overlay").css("zIndex", 10100);
                 $(window.document).find(".ui-dialog").css("zIndex", 10101);
 
-                this.innerSaveButtonEditData.id = "inner_form_button_" + StringUtility.Timestamp();
+                this.innerSaveButtonEditData.id = "inner_form_save_button_" + StringUtility.Timestamp();
 
                 this.bindTableFields(null);
                 this.clearAPI();
@@ -264,6 +281,9 @@ Vue.component("inner-form-button-list-comp", {
             else{
                 DialogUtility.AlertText("请先设置绑定的窗体!");
             }
+        },
+        handleClose:function(dialogElem){
+            DialogUtility.CloseDialogElem(this.$refs[dialogElem]);
         },
         editInnerFormSaveButton:function(params){
             this.addInnerFormSaveButton();
@@ -324,12 +344,6 @@ Vue.component("inner-form-button-list-comp", {
 
             this.handleClose("addInnerFormSaveButton");
         },
-        //endregion
-
-        //region 关闭按钮
-
-        //endregion
-
         //region 字段列表
         bindTableFields:function(oldData) {
 
@@ -381,14 +395,7 @@ Vue.component("inner-form-button-list-comp", {
             this.field.editTableObject.RemoveRow();
         },
         //endregion
-        addInnerFormCloseButton:function () {
-            var closeButtonData={
-                caption:"关闭",
-                id:"inner_close_button_"+StringUtility.Timestamp(),
-                buttonType:"关闭按钮"
-            };
-            this.tableData.push(closeButtonData);
-        },
+
         //region api列表
         bindAPITreeAndInitEditTable: function (oldData) {
             //var _self = this;
@@ -500,13 +507,90 @@ Vue.component("inner-form-button-list-comp", {
                 }
             }
             return "";
+        },
+        //endregion
+        //endregion
+
+        //region 关闭按钮
+        addInnerFormCloseButton:function () {
+            var closeButtonData={
+                caption:"关闭",
+                id:"inner_close_button_"+StringUtility.Timestamp(),
+                buttonType:"关闭按钮"
+            };
+            this.tableData.push(closeButtonData);
+        },
+        //endregion
+
+        //region 脚本按钮
+        addInnerFormJsClientButton:function () {
+            this.editJsClientButtonStatuc="add";
+            //重置编辑表单
+            this.resetInnerJsClientButtonData();
+
+            var elem = this.$refs.innerFormJsClientButtonWrap;
+
+            DialogUtility.DialogElemObj(elem, {
+                modal: true,
+                height: 520,
+                width: 720,
+                title: "窗体内脚本按钮"
+            });
+
+            $(window.document).find(".ui-widget-overlay").css("zIndex", 10100);
+            $(window.document).find(".ui-dialog").css("zIndex", 10101);
+
+            this.innerJsClientButtonEditData.id = "inner_form_js_client_button_" + StringUtility.Timestamp();
+        },
+        editInnerFormJsClientButton:function(params){
+            this.addInnerFormJsClientButton();
+            this.innerJsClientButtonEditData=JsonUtility.CloneStringify(params.row);
+            this.editJsClientButtonStatuc="edit";
+        },
+        resetInnerJsClientButtonData:function(){
+            this.innerJsClientButtonEditData={
+                caption:"",
+                execAndClose:"true",
+                id:"",
+                buttonType:"脚本按钮",
+                actionType:"reloadData",
+                callJsMethod:"",
+                custServerResolveMethod:"",
+                custServerResolveMethodPara:"",
+                custClientRendererMethod:"",
+                custClientRendererMethodPara:"",
+                custClientRendererAfterMethod:"",
+                custClientRendererAfterMethodPara:"",
+                custClientClickBeforeMethod:"",
+                custClientClickBeforeMethodPara:"",
+            };
+        },
+        saveInnerJsClientButtonToList:function () {
+            //debugger;
+            var singleInnerFormButtonData=JsonUtility.CloneSimple(this.innerJsClientButtonEditData);
+            if(this.editJsClientButtonStatuc=="add") {
+                //存储到列表数据中
+                this.tableData.push(singleInnerFormButtonData);
+            }
+            else{
+                for(var i=0;i<this.tableData.length;i++){
+                    if(this.tableData[i].id==singleInnerFormButtonData.id) {
+                        //this.tableData[i]=singleInnerFormButtonData;
+                        Vue.set(this.tableData, i, singleInnerFormButtonData);
+                    }
+                }
+            }
+
+            //console.log(singleInnerFormButtonData);
+
+            this.handleClose("innerFormJsClientButtonWrap");
         }
         //endregion
     },
     template: `<div style="height: 210px" class="iv-list-page-wrap">
-                    <div ref="addInnerFormSaveButton" class="html-design-plugin-dialog-wraper general-edit-page-wrap" style="display: none;margin-top: 0px">
-                        <tabs size="small" name="inner-form-button-edit-tabs">
-                            <tab-pane tab="inner-form-button-edit-tabs" label="绑定信息">
+                    <div ref="innerFormSaveButtonWrap" class="html-design-plugin-dialog-wraper general-edit-page-wrap" style="display: none;margin-top: 0px">
+                        <tabs size="small" name="inner-form-save-button-edit-tabs">
+                            <tab-pane tab="inner-form-save-button-edit-tabs" label="绑定信息">
                                 <table cellpadding="0" cellspacing="0" border="0" class="html-design-plugin-dialog-table-wraper">
                                     <colgroup>
                                         <col style="width: 60px" />
@@ -533,7 +617,7 @@ Vue.component("inner-form-button-list-comp", {
                                             <td colspan="3">
                                                 <div style="height: 140px">
                                                     <div style="float: left;width: 94%">
-                                                        <div id="fieldContainer" class="edit-table-wrap" style="height: 320px;overflow: auto;width: 98%;margin: auto"></div>
+                                                        <div id="fieldContainer" class="edit-table-wrap" style="height: 310px;overflow: auto;width: 98%;margin: auto"></div>
                                                     </div>
                                                     <div style="float: right;width: 5%">
                                                         <button-group vertical>
@@ -547,7 +631,7 @@ Vue.component("inner-form-button-list-comp", {
                                     </tbody>
                                 </table>
                             </tab-pane>
-                            <tab-pane tab="inner-form-button-edit-tabs" label="API设置">
+                            <tab-pane tab="inner-form-save-button-edit-tabs" label="API设置">
                                 <table cellpadding="0" cellspacing="0" border="0" class="html-design-plugin-dialog-table-wraper">
                                     <colgroup>
                                         <col style="width: 320px" />
@@ -574,7 +658,7 @@ Vue.component("inner-form-button-list-comp", {
                                     </tbody>
                                 </table>
                             </tab-pane>
-                            <tab-pane tab="inner-form-button-edit-tabs" label="开发扩展">
+                            <tab-pane tab="inner-form-save-button-edit-tabs" label="开发扩展">
                                 <table cellpadding="0" cellspacing="0" border="0" class="html-design-plugin-dialog-table-wraper">
                                     <colgroup>
                                         <col style="width: 150px" />
@@ -639,11 +723,127 @@ Vue.component("inner-form-button-list-comp", {
                                 </table>
                             </tab-pane>
                         </tabs>
-                        <div class="button-outer-wrap">
-                            <div class="button-inner-wrap">
+                        <div class="button-outer-wrap" style="padding-top:4px">
+                            <div class="button-inner-wrap" style="margin-right: 4px">
                                 <button-group>
                                     <i-button type="primary" @click="saveInnerSaveButtonToList()"> 保 存</i-button>
-                                    <i-button @click="handleClose('addInnerFormSaveButton')">关 闭</i-button>
+                                    <i-button @click="handleClose('innerFormSaveButtonWrap')">关 闭</i-button>
+                                </button-group>
+                            </div>
+                        </div>
+                    </div>
+                    <div ref="innerFormJsClientButtonWrap" class="html-design-plugin-dialog-wraper general-edit-page-wrap" style="display: none;margin-top: 0px">
+                        <tabs size="small" name="inner-form-js-client-button-edit-tabs">
+                            <tab-pane tab="inner-form-js-client-button-edit-tabs" label="绑定信息">
+                                <table cellpadding="0" cellspacing="0" border="0" class="html-design-plugin-dialog-table-wraper">
+                                    <colgroup>
+                                        <col style="width: 80px" />
+                                        <col style="width: 220px" />
+                                        <col style="width: 100px" />
+                                        <col />
+                                    </colgroup>
+                                    <tbody>
+                                        <tr>
+                                            <td>标题：</td>
+                                            <td>
+                                                <i-input v-model="innerJsClientButtonEditData.caption" />
+                                            </td>
+                                            <td>保存并关闭：</td>
+                                            <td>
+                                                <radio-group type="button" style="margin: auto" v-model="innerJsClientButtonEditData.execAndClose">
+                                                    <radio label="true">是</radio>
+                                                    <radio label="false">否</radio>
+                                                </radio-group>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>动作：</td>
+                                            <td colspan="3">
+                                                <radio-group type="button" style="margin: auto" v-model="innerJsClientButtonEditData.actionType">
+                                                    <radio label="reloadData">重新加载</radio>
+                                                    <radio label="callJsMethod">调用JS方法</radio>
+                                                </radio-group>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>执行方法：</td>
+                                            <td colspan="3">
+                                                <i-input v-model="innerJsClientButtonEditData.callJsMethod" placeholder="调用JS方法" />
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </tab-pane>
+                            <tab-pane tab="inner-form-js-client-button-edit-tabs" label="开发扩展">
+                                <table cellpadding="0" cellspacing="0" border="0" class="html-design-plugin-dialog-table-wraper">
+                                    <colgroup>
+                                        <col style="width: 150px" />
+                                        <col />
+                                    </colgroup>
+                                    <tbody>
+                                        <tr>
+                                            <td>ID：</td>
+                                            <td>
+                                                <i-input v-model="innerJsClientButtonEditData.id" size="small" placeholder="" />
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>服务端解析类：</td>
+                                            <td>
+                                                <i-input v-model="innerJsClientButtonEditData.custServerResolveMethod" size="small" placeholder="按钮进行服务端解析时,类全称,将调用该类,需要实现接口IFormButtonCustResolve" />
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>参数：</td>
+                                            <td>
+                                                <i-input v-model="innerJsClientButtonEditData.custServerResolveMethodPara" size="small" placeholder="服务端解析类的参数" />
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>客户端渲染方法：</td>
+                                            <td>
+                                                <i-input v-model="innerJsClientButtonEditData.custClientRendererMethod" size="small" placeholder="客户端渲染方法,按钮将经由该方法渲染,最终形成页面元素,需要返回最终元素的HTML对象" />
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>参数：</td>
+                                            <td>
+                                                <i-input v-model="innerJsClientButtonEditData.custClientRendererMethodPara" size="small" placeholder="客户端渲染方法的参数" />
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>客户端渲染后方法：</td>
+                                            <td>
+                                                <i-input v-model="innerJsClientButtonEditData.custClientRendererAfterMethod" size="small" placeholder="客户端渲染后调用方法,经过默认的渲染,无返回值" />
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>参数：</td>
+                                            <td>
+                                                <i-input v-model="innerJsClientButtonEditData.custClientRendererAfterMethodPara" size="small" placeholder="客户端渲染后方法的参数" />
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>客户端点击前方法：</td>
+                                            <td>
+                                                <i-input v-model="innerJsClientButtonEditData.custClientClickBeforeMethod" size="small" placeholder="客户端点击该按钮时的前置方法,如果返回false将阻止默认调用" />
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>参数：</td>
+                                            <td>
+                                                <i-input v-model="innerJsClientButtonEditData.custClientClickBeforeMethodPara" size="small" placeholder="客户端点击前方法的参数" />
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </tab-pane>
+                        </tabs>
+                        <div class="button-outer-wrap" style="padding-top:4px">
+                            <div class="button-inner-wrap" style="margin-right: 4px">
+                                <button-group>
+                                    <i-button type="primary" @click="saveInnerJsClientButtonToList()"> 保 存</i-button>
+                                    <i-button @click="handleClose('innerFormJsClientButtonWrap')">关 闭</i-button>
                                 </button-group>
                             </div>
                         </div>
@@ -655,15 +855,15 @@ Vue.component("inner-form-button-list-comp", {
                                                      size="small"></i-table>
                         </div>
                         <div style="float: left;width: 15%;margin-left: 8px">
-                            <ButtonGroup vertical>
+                            <button-group vertical>
                                 <i-button type="success" @click="addInnerFormSaveButton()" icon="md-add">保存按钮</i-button>
                                 <i-button type="primary" @click="addInnerFormCloseButton()" icon="md-add">关闭按钮</i-button>
-                                <i-button size="small" icon="md-add" disabled>脚本按钮</i-button>
+                                <i-button type="primary" @click="addInnerFormJsClientButton()" icon="md-add">脚本按钮</i-button>
                                 <i-button size="small" icon="md-add" disabled>意见按钮</i-button>
                                 <i-button size="small" icon="md-add" disabled>流程按钮</i-button>
                                 <i-button size="small" disabled icon="md-add">拷贝Json</i-button>
                                 <i-button size="small" disabled icon="md-add">黏贴Json</i-button>
-                            </ButtonGroup>
+                            </button-group>
                         </div>
                     </div>
                 </div>`

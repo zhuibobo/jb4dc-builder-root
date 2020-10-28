@@ -33,7 +33,7 @@
             });*/
             formRuntimeInst=FormRuntimeSinglePageObject.pageReady(false,function () {
 
-            });
+            },FormRuntimeSinglePageObject.getWebFormRTParasWithListButtonId());
 
             if(BaseUtility.IsViewOperation(FormRuntimeSinglePageObject.getWebFormRTParas().OperationType)){
                 $("#btnConfirm").hide();

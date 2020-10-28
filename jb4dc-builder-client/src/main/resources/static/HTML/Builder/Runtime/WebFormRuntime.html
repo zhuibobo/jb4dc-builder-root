@@ -29,9 +29,9 @@
             BaseUtility.SetSystemFavicon();
             formRuntimeInst=FormRuntimeSinglePageObject.pageReady(false,function () {
 
-            });
+            },FormRuntimeSinglePageObject.getWebFormRTParasWithListButtonId());
 
             var windowHeight=formRuntimeInst.GetWebFormRTParas().WindowHeight;
             $("#htmlDesignRuntimeWrap").height(windowHeight-120);
-            console.log();
+            //console.log();
         });</script></head><body><div id="htmlDesignRuntimeWrap" style="overflow:auto"></div><div class="html-design-operation-button-outer-wrap"><div class="html-design-button-inner-wrap"><div class="html-design-buttons-group" id="innerButtonWrapOuter"></div></div></div></body></html>

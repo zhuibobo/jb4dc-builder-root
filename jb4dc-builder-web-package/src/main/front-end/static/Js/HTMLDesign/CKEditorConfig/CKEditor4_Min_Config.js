@@ -37,11 +37,11 @@ CKEDITOR.editorConfig = function( config ) {
     config.removeDialogTabs = 'image:advanced;link:advanced';
 
     var providerCKEditor4ImageObjectJson=null;
-    if(typeof(providerCKEditor4ImageObjectJson)=="function"){
+    if(typeof(providerCKEditor4ImageObject)=="function"){
         providerCKEditor4ImageObjectJson=providerCKEditor4ImageObject();
     }
     else{
-        alert("请通过providerCKEditor4ImageObjectId方法提供上传图片的关联记录ID");
+        alert("请通过providerCKEditor4ImageObject方法提供上传图片的关联记录参数");
     }
     config.filebrowserImageUploadUrl = BaseUtility.GetRootPath()+"/Rest/Builder/File/UploadCKE4Image?uploadType="+providerCKEditor4ImageObjectJson.objType+"&objId="+providerCKEditor4ImageObjectJson.objId;
 };

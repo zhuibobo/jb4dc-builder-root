@@ -136,7 +136,7 @@
         <tab-pane tab="outer-tabs" name="EXConfig" label="扩展设置">
             <div style="width: 1024px;margin: auto">
                 <div style="width: 1024px;height: 751px;border: #ddddf1 1px solid;border-radius: 4px;padding: 10px 20px 10px 10px;">
-                    <divider orientation="left" :dashed="true" style="font-size: 12px">扩展信息</divider>
+                    <divider orientation="left" :dashed="true" style="font-size: 12px">扩展信息(主要用于独立链接的页面)</divider>
                     <i-form :label-width="150">
                         <form-item label="内部按钮：" class="margin-bottom-12-imp">
                             <div v-if="status=='add'">
@@ -183,7 +183,6 @@
             </div>
         </tab-pane>
         <tab-pane tab="outer-tabs" name="ExDataSet" label="扩展数据集"></tab-pane>
-        <tab-pane tab="outer-tabs" name="BeReferred" label="引用位置"></tab-pane>
         <tab-pane tab="outer-tabs" name="Config" label="扩展参数"></tab-pane>
     </tabs>
     <div>
@@ -453,7 +452,7 @@
                 this.oldSelectedTabName=name;
             },
             save:function (successFunc) {
-                //debugger;
+                //debugger;1
                 var relationConfig=this.$refs.dbTableRelationComp.getValue();
                 this.formResourceEntity.formDataRelation=JsonUtility.JsonToString(relationConfig.relationData);
                 this.formResourceEntity.formMainTableId=relationConfig.mainTableId;

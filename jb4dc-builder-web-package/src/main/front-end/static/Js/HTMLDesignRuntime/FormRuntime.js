@@ -1,7 +1,7 @@
 let FormRuntimeSinglePageObject={
     _webFormRTParas:null,
     _formRuntimeInst:null,
-    getWebFormRTParas:function () {
+    getWebFormRTParasWithListButtonId:function () {
         if(!this._webFormRTParas) {
             this._webFormRTParas = {
                 "FormId": BaseUtility.GetUrlParaValue("formId"),
@@ -10,7 +10,8 @@ let FormRuntimeSinglePageObject={
                 "ListFormButtonElemId": BaseUtility.GetUrlParaValue("listFormButtonElemId"),
                 "RecordId": BaseUtility.GetUrlParaValue("recordId"),
                 "WindowWidth": BaseUtility.GetUrlParaValue("windowWidth"),
-                "WindowHeight": BaseUtility.GetUrlParaValue("windowHeight")
+                "WindowHeight": BaseUtility.GetUrlParaValue("windowHeight"),
+                "IsIndependence":"false"
             };
             if(!this._webFormRTParas.RecordId){
                 this._webFormRTParas.RecordId=StringUtility.Guid();
@@ -18,20 +19,40 @@ let FormRuntimeSinglePageObject={
         }
         return this._webFormRTParas;
     },
-    pageReady:function (isPreview,rendererChainCompletedFunc) {
+    getWebFormRTParasWithIndependence:function(){
+        //debugger;
+        var formId=RuntimeGeneralInstance.TryGetMenuOuterId();
+        //console.log(formId);
+        if(!this._webFormRTParas) {
+            this._webFormRTParas = {
+                "FormId": formId,
+                "ButtonId": "IndependenceButtons",
+                "OperationType": "WaitForServerRunTest",
+                "ListFormButtonElemId": "IndependenceButtons",
+                "RecordId": "WaitForServerRunTest",
+                "WindowWidth": "",
+                "WindowHeight": "",
+                "IsIndependence":"true"
+            };
+        }
+        return this._webFormRTParas;
+    },
+    pageReady:function (isPreview,rendererChainCompletedFunc,getWebFormRTParasFunc) {
         //debugger;
         this._formRuntimeInst = Object.create(FormRuntime);
-        var webFormRTParas=this.getWebFormRTParas();
+        //var webFormRTParas=this.getWebFormRTParas();
+        var webFormRTParas=getWebFormRTParasFunc.call(this);
         this._formRuntimeInst.Initialization({
-            RendererToId: "htmlDesignRuntimeWrap",
-            FormId:webFormRTParas.FormId,
-            RecordId:webFormRTParas.RecordId,
-            ButtonId:webFormRTParas.ButtonId,
-            OperationType:webFormRTParas.OperationType,
-            IsPreview:isPreview,
-            RendererChainCompletedFunc:rendererChainCompletedFunc,
-            ListFormButtonElemId:webFormRTParas.ListFormButtonElemId,
-            WebFormRTParas:webFormRTParas
+            "RendererToId": "htmlDesignRuntimeWrap",
+            "FormId":webFormRTParas.FormId,
+            "RecordId":webFormRTParas.RecordId,
+            "ButtonId":webFormRTParas.ButtonId,
+            "OperationType":webFormRTParas.OperationType,
+            "IsPreview":isPreview,
+            "RendererChainCompletedFunc":rendererChainCompletedFunc,
+            "ListFormButtonElemId":webFormRTParas.ListFormButtonElemId,
+            "WebFormRTParas":webFormRTParas,
+            "IsIndependence":webFormRTParas.IsIndependence
         });
         //this._formRuntimeInst.webFormRTParas=webFormRTParas;
         return this._formRuntimeInst;
@@ -51,7 +72,8 @@ let FormRuntime={
         ButtonId:"",
         IsPreview:false,
         OperationType:"",
-        ListFormButtonElemId:""
+        ListFormButtonElemId:"",
+        IsIndependence:"false"
     },
     _$RendererToElem:null,
     _FormPO:null,
@@ -82,10 +104,12 @@ let FormRuntime={
             formId: this._Prop_Config.FormId,
             recordId: this._Prop_Config.RecordId,
             buttonId: this._Prop_Config.ButtonId,
-            operationType:this.GetOperationType()
+            operationType:this.GetOperationType(),
+            isIndependence:this._Prop_Config.IsIndependence
         }, function (result) {
             //alert( "Load was performed.");
             //console.log("加载预览窗体成功!!");
+            //debugger;
             console.log(result);
             //console.log(result.data.formHtmlRuntime);
             this._FormPO=result.data;

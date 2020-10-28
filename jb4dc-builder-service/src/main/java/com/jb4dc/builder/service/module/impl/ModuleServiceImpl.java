@@ -170,7 +170,7 @@ public class ModuleServiceImpl extends BaseServiceImpl<ModuleEntity> implements 
             sql="select LIST_ID as ID,LIST_CODE as CODE,LIST_NAME as NAME,LIST_SINGLE_NAME as SINGLE_NAME,LIST_TYPE as OBJECT_TYPE,LIST_DESC as DESCRIPTION,LIST_MODULE_ID,LIST_ORGAN_ID,LIST_DATASET_ID,LIST_DATASET_NAME,LIST_DATASET_PRIMARY_KEY from tbuild_list_resource where LIST_TYPE='WebList' and LIST_MODULE_ID=#{module_Id}";
         }
         else if(selectModuleObjectType.equals("Web模块窗体")){
-            throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_BUILDER_CODE,"暂不支持!");
+            sql="select FORM_ID as ID,FORM_CODE as CODE,FORM_NAME as NAME,FORM_SINGLE_NAME as SINGLE_NAME,FORM_TYPE as OBJECT_TYPE,FORM_DESC as DESCRIPTION,FORM_MODULE_ID,FORM_ORGAN_ID,FORM_MAIN_TABLE_ID,FORM_MAIN_TABLE_NAME,FORM_MAIN_TABLE_CAPTION from tbuild_form_resource where FORM_TYPE='WebForm' and FORM_MODULE_ID=#{module_Id}";
         }
         else if(selectModuleObjectType.equals("流程分组")){
             throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_BUILDER_CODE,"暂不支持!");

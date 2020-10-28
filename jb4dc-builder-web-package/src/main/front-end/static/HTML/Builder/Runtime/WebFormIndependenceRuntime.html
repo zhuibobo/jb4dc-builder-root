@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>表单</title>
+    <th:block th:replace="Fragment/GeneralLib::HTMLDesignRuntimeLib"></th:block>
+    <th:block th:replace="Fragment/GeneralLib::ThemesLib"></th:block>
+    <script>
+        var formRuntimeInst;
+        $(function () {
+            BaseUtility.SetSystemFavicon();
+            formRuntimeInst=FormRuntimeSinglePageObject.pageReady(false,function () {
+                autoHeight("txt_area_145647319",580);
+            },FormRuntimeSinglePageObject.getWebFormRTParasWithIndependence);
+
+            var windowHeight=formRuntimeInst.GetWebFormRTParas().WindowHeight;
+            //$("#htmlDesignRuntimeWrap").height(windowHeight-120);
+            //console.log();
+            //console.log("GetWindowHeight:"+PageStyleUtility.GetWindowHeight());
+            //console.log("GetWindowWidth:"+PageStyleUtility.GetWindowWidth());
+            console.log("GetPageHeight:"+PageStyleUtility.GetPageHeight());
+            console.log("GetPageWidth:"+PageStyleUtility.GetPageWidth());
+            console.log("screenwidth:"+screen.width);
+            console.log("screenheight:"+screen.height );
+
+        });
+        function autoHeight(elemId,fixHeight) {
+            var pageHeight=PageStyleUtility.GetPageHeight();
+            var newHeight=pageHeight-fixHeight;
+            $("#"+elemId).height(newHeight);
+        }
+    </script>
+</head>
+<body>
+<div id="htmlDesignRuntimeWrap" style="overflow: auto;position: absolute;top: 0px;left: 0px;right: 0px;bottom: 50px"></div>
+<div class="html-design-operation-button-outer-wrap">
+    <div class="html-design-button-inner-wrap">
+        <div class="html-design-buttons-group" id="innerButtonWrapOuter">
+        </div>
+    </div>
+</div>
+</body>
+</html>

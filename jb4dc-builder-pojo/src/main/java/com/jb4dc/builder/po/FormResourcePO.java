@@ -29,6 +29,8 @@ public class FormResourcePO extends FormResourceEntityWithBLOBs {
 
     private List<TablePO> tablePOList;
 
+    private String isIndependenceCurrentOperationType;
+
     public FormResourcePO() {
     }
 
@@ -67,6 +69,12 @@ public class FormResourcePO extends FormResourceEntityWithBLOBs {
         this.setFormCustRefJs(source.getFormCustRefJs());
         this.setFormCustClientRenderer(source.getFormCustClientRenderer());
         this.setFormCustDesc(source.getFormCustDesc());
+        this.setFormMainTableId(source.getFormMainTableId());
+        this.setFormInnerButton(source.getFormInnerButton());
+        this.setFormOperationType(source.getFormOperationType());
+        this.setFormJudgeApi(source.getFormJudgeApi());
+        this.setFormJudgeSql(source.getFormJudgeSql());
+        this.setFormDesignRemark(source.getFormDesignRemark());
         this.formHtmlRuntime=formHtmlRuntime;
     }
 
@@ -89,5 +97,13 @@ public class FormResourcePO extends FormResourceEntityWithBLOBs {
 
     public void setTablePOList(List<TablePO> tablePOList) {
         this.tablePOList = tablePOList;
+    }
+
+    public String getIsIndependenceCurrentOperationType() {
+        return isIndependenceCurrentOperationType;
+    }
+
+    public void setIsIndependenceCurrentOperationType(String isIndependenceCurrentOperationType) {
+        this.isIndependenceCurrentOperationType = isIndependenceCurrentOperationType;
     }
 }
