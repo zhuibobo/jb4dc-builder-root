@@ -10,7 +10,7 @@
         $(function () {
             BaseUtility.SetSystemFavicon();
             formRuntimeInst=FormRuntimeSinglePageObject.pageReady(false,function () {
-                autoHeight("txt_area_145647319",580);
+                autoHeightInTableLayout("#txt_area_145647319","#layout-table-wraper-939613799");
             },FormRuntimeSinglePageObject.getWebFormRTParasWithIndependence);
 
             var windowHeight=formRuntimeInst.GetWebFormRTParas().WindowHeight;
@@ -24,10 +24,24 @@
             console.log("screenheight:"+screen.height );
 
         });
-        function autoHeight(elemId,fixHeight) {
+        function autoHeight(elemSelector,fixHeight) {
             var pageHeight=PageStyleUtility.GetPageHeight();
             var newHeight=pageHeight-fixHeight;
-            $("#"+elemId).height(newHeight);
+            $(elemSelector).height(newHeight);
+        }
+        function autoHeightInTableLayout(elemSelector,tableSelector) {
+            var pageHeight=PageStyleUtility.GetPageHeight();
+            var tableHeight=$(tableSelector).height();
+            if(pageHeight>tableHeight){
+                var elemHeight=$(elemSelector).height();
+                var fixHeight=pageHeight-tableHeight;
+
+                var height=elemHeight+fixHeight-60;
+                if($(".ui-tabs").length>0) {
+                    height = height - 70;
+                }
+                $(elemSelector).height(height);
+            }
         }
     </script>
 </head>
