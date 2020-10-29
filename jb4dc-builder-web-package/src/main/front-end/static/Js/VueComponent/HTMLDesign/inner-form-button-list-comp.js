@@ -342,7 +342,7 @@ Vue.component("inner-form-button-list-comp", {
 
             //console.log(singleInnerFormButtonData);
 
-            this.handleClose("addInnerFormSaveButton");
+            this.handleClose("innerFormSaveButtonWrap");
         },
         //region 字段列表
         bindTableFields:function(oldData) {

@@ -439,10 +439,10 @@ var WLDCT_ListTableContainer = {
         //debugger;
         $singleControlElem.find(".wldct-list-table-inner-wrap").append(this.CreatePaging());
         //alert(PageStyleUtility.GetWindowWidth());
-        $singleControlElem.find(".wldct-list-table-inner-wrap").width(PageStyleUtility.GetWindowWidth() - 20);
+        $singleControlElem.find(".wldct-list-table-inner-wrap").width(PageStyleUtility.GetPageWidth() - 20);
         $templateTable.addClass("stripe row-border order-column");
         $templateTable.width("100%");
-        var scrollY = PageStyleUtility.GetWindowHeight();
+        var scrollY = PageStyleUtility.GetPageHeight();
 
         scrollY = scrollY - 110;
 

@@ -15,7 +15,9 @@ import com.jb4dc.builder.client.service.webform.IWebFormDataSaveRuntimeService;
 import com.jb4dc.builder.client.proxy.IWebListButtonRuntimeProxy;
 import com.jb4dc.builder.dbentities.api.ApiItemEntity;
 import com.jb4dc.builder.dbentities.datastorage.TableEntity;
+import com.jb4dc.builder.dbentities.webform.FormResourceEntityWithBLOBs;
 import com.jb4dc.builder.dbentities.weblist.ListButtonEntity;
+import com.jb4dc.builder.po.FormResourceComplexPO;
 import com.jb4dc.builder.po.SubmitResultPO;
 import com.jb4dc.builder.po.TableFieldPO;
 import com.jb4dc.builder.po.button.InnerFormButtonConfig;
@@ -77,7 +79,7 @@ public class WebFormDataSaveRuntimeServiceImpl implements IWebFormDataSaveRuntim
     @Override
     @Transactional(rollbackFor= {JBuild4DCGenerallyException.class,JBuild4DCSQLKeyWordException.class})
     @CalculationRunTime(note = "执行保存数据的解析")
-    public SubmitResultPO SaveFormRecordComplexPO(JB4DCSession jb4DCSession, String recordId, FormRecordComplexPO formRecordComplexPO, String listButtonId, String innerFormButtonId,String operationTypeName) throws JBuild4DCGenerallyException, IOException, JBuild4DCSQLKeyWordException {
+    public SubmitResultPO SaveFormRecordComplexPO(JB4DCSession jb4DCSession, String recordId, FormRecordComplexPO formRecordComplexPO, String listButtonId, String innerFormButtonId, String operationTypeName, FormResourceEntityWithBLOBs formResourceEntityWithBLOBs) throws JBuild4DCGenerallyException, IOException, JBuild4DCSQLKeyWordException {
         SubmitResultPO submitResultPO = new SubmitResultPO();
 
         logger.debug(BaseUtility.wrapDevLog("保存数据解析-开始：-----------------------------------------"+recordId+"/"+ DateUtility.getDate_yyyy_MM_dd_HH_mm_ss_SSS()+"-----------------------------------------"));
@@ -86,9 +88,15 @@ public class WebFormDataSaveRuntimeServiceImpl implements IWebFormDataSaveRuntim
         List<InnerFormButtonConfig> innerFormButtonConfigList=null;
         InnerFormButtonConfig innerFormButtonConfig=null;
         if(StringUtility.isNotEmpty(listButtonId)) {
-            listButtonEntity = webListButtonRuntimeResolveService.getButtonPO(listButtonId);
-            innerFormButtonConfigList = JsonUtility.toObjectListIgnoreProp(listButtonEntity.getButtonInnerConfig(), InnerFormButtonConfig.class);
-            innerFormButtonConfig = innerFormButtonConfigList.parallelStream().filter(item -> item.id.equals(innerFormButtonId)).findFirst().get();
+            if(formRecordComplexPO.getFormRuntimeCategory().toLowerCase().equals(FormResourceComplexPO.FORM_RUNTIME_CATEGORY_LIST.toLowerCase())) {
+                listButtonEntity = webListButtonRuntimeResolveService.getButtonPO(listButtonId);
+                innerFormButtonConfigList = JsonUtility.toObjectListIgnoreProp(listButtonEntity.getButtonInnerConfig(), InnerFormButtonConfig.class);
+                innerFormButtonConfig = innerFormButtonConfigList.parallelStream().filter(item -> item.id.equals(innerFormButtonId)).findFirst().get();
+            }
+            else if(formRecordComplexPO.getFormRuntimeCategory().toLowerCase().equals(FormResourceComplexPO.FORM_RUNTIME_CATEGORY_INDEPENDENCE.toLowerCase())) {
+                innerFormButtonConfigList = JsonUtility.toObjectListIgnoreProp(formResourceEntityWithBLOBs.getFormInnerButton(), InnerFormButtonConfig.class);
+                innerFormButtonConfig = innerFormButtonConfigList.parallelStream().filter(item -> item.id.equals(innerFormButtonId)).findFirst().get();
+            }
 
             //执行前置API
             if (innerFormButtonConfig.getApis() != null && innerFormButtonConfig.getApis().size() > 0) {

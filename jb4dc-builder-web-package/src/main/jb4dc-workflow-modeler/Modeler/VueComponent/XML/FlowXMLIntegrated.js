@@ -65,7 +65,7 @@ class FlowXMLIntegrated {
             lineNumbers: true,
             lineWrapping: true
         });
-        this._HTMLEditorInst.setSize("100%", PageStyleUtility.GetWindowHeight() - 95);
+        this._HTMLEditorInst.setSize("100%", PageStyleUtility.GetPageHeight() - 95);
         //$(".CodeMirror").height(PageStyleUtility.GetWindowHeight()-60);
         /**/
     }

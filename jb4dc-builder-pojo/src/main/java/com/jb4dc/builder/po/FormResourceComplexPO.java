@@ -16,15 +16,28 @@ import java.util.List;
  */
 public class FormResourceComplexPO extends FormResourcePO {
 
+    public static String FORM_RUNTIME_CATEGORY_INDEPENDENCE="IsIndependence";
+    public static String FORM_RUNTIME_CATEGORY_LIST="IsDependenceList";
+    public static String FORM_RUNTIME_CATEGORY_FLOW="IsDependenceFlow";
+
     public FormResourceComplexPO(FormResourceEntityWithBLOBs source, String formHtmlRuntime) {
         super(source, formHtmlRuntime);
     }
 
-    public FormResourceComplexPO(FormResourceEntityWithBLOBs source, String formHtmlRuntime,List<FormRecordDataRelationPO> formRecordDataRelationPOList, FormRecordComplexPO formRecordComplexPO, ListButtonEntity _listButtonEntity) {
+    public FormResourceComplexPO(FormResourceEntityWithBLOBs source,
+                                 String formHtmlRuntime,
+                                 List<FormRecordDataRelationPO> formRecordDataRelationPOList,
+                                 FormRecordComplexPO formRecordComplexPO,
+                                 ListButtonEntity _listButtonEntity,
+                                 String formRuntimeCategory,
+                                 String isIndependenceCurrentOperationType
+    ) {
         super(source, formHtmlRuntime);
         this.formRecordComplexPO = formRecordComplexPO;
         this.listButtonEntity = _listButtonEntity;
         this.formRecordDataRelationPOList=formRecordDataRelationPOList;
+        this.formRuntimeCategory=formRuntimeCategory;
+        this.isIndependenceCurrentOperationType=isIndependenceCurrentOperationType;
     }
 
     FormRecordComplexPO formRecordComplexPO;
@@ -32,6 +45,9 @@ public class FormResourceComplexPO extends FormResourcePO {
     ListButtonEntity listButtonEntity;
 
     List<FormRecordDataRelationPO> formRecordDataRelationPOList;
+
+    private String isIndependenceCurrentOperationType;
+    private String formRuntimeCategory;
 
     public FormRecordComplexPO getFormRecordComplexPO() {
         return formRecordComplexPO;
@@ -55,5 +71,21 @@ public class FormResourceComplexPO extends FormResourcePO {
 
     public void setFormRecordDataRelationPOList(List<FormRecordDataRelationPO> formRecordDataRelationPOList) {
         this.formRecordDataRelationPOList = formRecordDataRelationPOList;
+    }
+
+    public String getIsIndependenceCurrentOperationType() {
+        return isIndependenceCurrentOperationType;
+    }
+
+    public void setIsIndependenceCurrentOperationType(String isIndependenceCurrentOperationType) {
+        this.isIndependenceCurrentOperationType = isIndependenceCurrentOperationType;
+    }
+
+    public String getFormRuntimeCategory() {
+        return formRuntimeCategory;
+    }
+
+    public void setFormRuntimeCategory(String formRuntimeCategory) {
+        this.formRuntimeCategory = formRuntimeCategory;
     }
 }

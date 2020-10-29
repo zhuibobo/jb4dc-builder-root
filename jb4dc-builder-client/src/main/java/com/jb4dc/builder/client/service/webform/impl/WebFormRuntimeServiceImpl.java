@@ -45,39 +45,43 @@ public class WebFormRuntimeServiceImpl implements IWebFormRuntimeService {
     IWebFormDataSaveRuntimeService webFormDataSaveRuntimeService;
 
     @Override
-    public FormResourceComplexPO resolveFormResourceComplex(JB4DCSession session,String recordId, FormResourcePO remoteSourcePO, ListButtonEntity listButtonEntity,String operationType) throws IOException, JBuild4DCGenerallyException, JBuild4DCSQLKeyWordException {
+    public FormResourceComplexPO resolveFormResourceComplex(JB4DCSession session,String recordId,
+                                                            FormResourcePO remoteSourcePO,
+                                                            ListButtonEntity listButtonEntity,
+                                                            String operationType,
+                                                            String formRuntimeCategory,
+                                                            String isIndependenceCurrentOperationType) throws IOException, JBuild4DCGenerallyException, JBuild4DCSQLKeyWordException {
 
-        FormRecordComplexPO formRecordComplexPO =null;
+        FormRecordComplexPO formRecordComplexPO = null;
         //List<FormDataRelationPO> recordData=null;
 
         //if(BaseUtility.isUpdateOperation(operationType)||BaseUtility.isViewOperation(operationType)) {
 
-            if (StringUtility.isNotEmpty(remoteSourcePO.getFormDataRelation())) {
-                List<FormRecordDataRelationPO> formRecordDataRelationPOList = JsonUtility.toObjectList(remoteSourcePO.getFormDataRelation(), FormRecordDataRelationPO.class);
+        if (StringUtility.isNotEmpty(remoteSourcePO.getFormDataRelation())) {
+            List<FormRecordDataRelationPO> formRecordDataRelationPOList = JsonUtility.toObjectList(remoteSourcePO.getFormDataRelation(), FormRecordDataRelationPO.class);
 
-                try {
-                    formRecordComplexPO = webFormDataSaveRuntimeService.getFormRecordComplexPO(session, recordId, formRecordDataRelationPOList,operationType);
-                }
-                catch (Exception ex){
-                    String traceMsg=org.apache.commons.lang3.exception.ExceptionUtils.getStackTrace(ex);
-                    throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_BUILDER_CODE,"根据数据源加载数据失败:"+traceMsg,ex,ex.getStackTrace());
-                }
-            } else {
-                throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_BUILDER_CODE, "该表单未设置数据关系!");
+            try {
+                formRecordComplexPO = webFormDataSaveRuntimeService.getFormRecordComplexPO(session, recordId, formRecordDataRelationPOList, operationType);
+            } catch (Exception ex) {
+                String traceMsg = org.apache.commons.lang3.exception.ExceptionUtils.getStackTrace(ex);
+                throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_BUILDER_CODE, "根据数据源加载数据失败:" + traceMsg, ex, ex.getStackTrace());
             }
+        } else {
+            throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_BUILDER_CODE, "该表单未设置数据关系!");
+        }
         //}
 
-        DynamicBindHTMLControlContextPO dynamicBindHTMLControlContextPO=new DynamicBindHTMLControlContextPO();
+        DynamicBindHTMLControlContextPO dynamicBindHTMLControlContextPO = new DynamicBindHTMLControlContextPO();
         dynamicBindHTMLControlContextPO.setRecordId(recordId);
         dynamicBindHTMLControlContextPO.setRemoteSourcePO(remoteSourcePO);
         dynamicBindHTMLControlContextPO.setListButtonEntity(listButtonEntity);
         dynamicBindHTMLControlContextPO.setFormRecordComplexPO(formRecordComplexPO);
         //dynamicBindHTMLControlContextPO.setMainRecordData(formDataRelationService.findMainRecordData(formDataRelationPOList));
 
-        String formHtmlRuntime=htmlRuntimeResolve.dynamicBind(JB4DCSessionUtility.getSession(),remoteSourcePO.getFormId(),remoteSourcePO.getFormHtmlResolve(),dynamicBindHTMLControlContextPO);
+        String formHtmlRuntime = htmlRuntimeResolve.dynamicBind(JB4DCSessionUtility.getSession(), remoteSourcePO.getFormId(), remoteSourcePO.getFormHtmlResolve(), dynamicBindHTMLControlContextPO);
         //清空掉关联设置,设置getFormRecordComplexPO中计算尝试的关联设置
         //remoteSourcePO.setFormDataRelation("");
-        FormResourceComplexPO formResourceComplexPO=new FormResourceComplexPO(remoteSourcePO,formHtmlRuntime,formRecordComplexPO.getFormRecordDataRelationPOList(), formRecordComplexPO,listButtonEntity);
+        FormResourceComplexPO formResourceComplexPO = new FormResourceComplexPO(remoteSourcePO, formHtmlRuntime, formRecordComplexPO.getFormRecordDataRelationPOList(), formRecordComplexPO, listButtonEntity,formRuntimeCategory,isIndependenceCurrentOperationType);
 
         return formResourceComplexPO;
     }

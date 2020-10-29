@@ -22,7 +22,7 @@ var WFDCT_CKEditor4={
                 customConfig: editorConfigUrl
             });
             this.ckeditorInstance.config.height = areaHeight;
-            console.log(this.ckeditorInstance.config.plugins);
+            //console.log(this.ckeditorInstance.config.plugins);
         }
     },
     RendererDataChain:function () {

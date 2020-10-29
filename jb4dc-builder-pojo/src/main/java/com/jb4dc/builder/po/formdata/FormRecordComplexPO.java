@@ -25,6 +25,8 @@ public class FormRecordComplexPO {
 
     Map<String,Object> exData;
 
+    private String formRuntimeCategory;
+
     public String getRecordId() {
         return recordId;
     }
@@ -87,5 +89,13 @@ public class FormRecordComplexPO {
 
     public void setAllDataRelationTablesMap(Map<String, TableEntity> allDataRelationTablesMap) {
         this.allDataRelationTablesMap = allDataRelationTablesMap;
+    }
+
+    public String getFormRuntimeCategory() {
+        return formRuntimeCategory;
+    }
+
+    public void setFormRuntimeCategory(String formRuntimeCategory) {
+        this.formRuntimeCategory = formRuntimeCategory;
     }
 }

@@ -1,6 +1,9 @@
 let FormRuntimeSinglePageObject={
     _webFormRTParas:null,
     _formRuntimeInst:null,
+    FORM_RUNTIME_CATEGORY_INDEPENDENCE:"IsIndependence",
+    FORM_RUNTIME_CATEGORY_LIST:"IsDependenceList",
+    FORM_RUNTIME_CATEGORY_FLOW:"IsDependenceFlow",
     getWebFormRTParasWithListButtonId:function () {
         if(!this._webFormRTParas) {
             this._webFormRTParas = {
@@ -11,7 +14,7 @@ let FormRuntimeSinglePageObject={
                 "RecordId": BaseUtility.GetUrlParaValue("recordId"),
                 "WindowWidth": BaseUtility.GetUrlParaValue("windowWidth"),
                 "WindowHeight": BaseUtility.GetUrlParaValue("windowHeight"),
-                "IsIndependence":"false"
+                "FormRuntimeCategory":this.FORM_RUNTIME_CATEGORY_LIST
             };
             if(!this._webFormRTParas.RecordId){
                 this._webFormRTParas.RecordId=StringUtility.Guid();
@@ -26,13 +29,13 @@ let FormRuntimeSinglePageObject={
         if(!this._webFormRTParas) {
             this._webFormRTParas = {
                 "FormId": formId,
-                "ButtonId": "IndependenceButtons",
-                "OperationType": "WaitForServerRunTest",
-                "ListFormButtonElemId": "IndependenceButtons",
-                "RecordId": "WaitForServerRunTest",
+                "ButtonId": this.FORM_RUNTIME_CATEGORY_INDEPENDENCE,
+                "OperationType": this.FORM_RUNTIME_CATEGORY_INDEPENDENCE,
+                "ListFormButtonElemId": this.FORM_RUNTIME_CATEGORY_INDEPENDENCE,
+                "RecordId": this.FORM_RUNTIME_CATEGORY_INDEPENDENCE,
                 "WindowWidth": "",
                 "WindowHeight": "",
-                "IsIndependence":"true"
+                "FormRuntimeCategory":this.FORM_RUNTIME_CATEGORY_INDEPENDENCE
             };
         }
         return this._webFormRTParas;
@@ -52,7 +55,7 @@ let FormRuntimeSinglePageObject={
             "RendererChainCompletedFunc":rendererChainCompletedFunc,
             "ListFormButtonElemId":webFormRTParas.ListFormButtonElemId,
             "WebFormRTParas":webFormRTParas,
-            "IsIndependence":webFormRTParas.IsIndependence
+            "FormRuntimeCategory":webFormRTParas.FormRuntimeCategory
         });
         //this._formRuntimeInst.webFormRTParas=webFormRTParas;
         return this._formRuntimeInst;
@@ -73,7 +76,7 @@ let FormRuntime={
         IsPreview:false,
         OperationType:"",
         ListFormButtonElemId:"",
-        IsIndependence:"false"
+        FormRuntimeCategory:"IsDependenceList"
     },
     _$RendererToElem:null,
     _FormPO:null,
@@ -105,7 +108,7 @@ let FormRuntime={
             recordId: this._Prop_Config.RecordId,
             buttonId: this._Prop_Config.ButtonId,
             operationType:this.GetOperationType(),
-            isIndependence:this._Prop_Config.IsIndependence
+            formRuntimeCategory:this._Prop_Config.FormRuntimeCategory
         }, function (result) {
             //alert( "Load was performed.");
             //console.log("加载预览窗体成功!!");
@@ -135,13 +138,16 @@ let FormRuntime={
                 this.CallRendererChainCompletedFunc();
             }
             else{
-                RuntimeGeneralInstance.LoadInnerFormButton(this._Prop_Config.ButtonId,{},function (result) {
-                    //console.log(result);
+                /*RuntimeGeneralInstance.LoadInnerFormButton(this._Prop_Config.ButtonId,{},function (result) {
                     if(result.data) {
                         this.CreateALLInnerFormButton(result.data);
                     }
                     this.CallRendererChainCompletedFunc();
-                },this);
+                },this);*/
+                if(this._FormPO.listButtonEntity){
+                    this.CreateALLInnerFormButton(this._FormPO.listButtonEntity);
+                    this.CallRendererChainCompletedFunc();
+                }
             }
 
             if(BaseUtility.IsUpdateOperation(this.GetOperationType())||BaseUtility.IsViewOperation(this.GetOperationType())){
@@ -157,6 +163,7 @@ let FormRuntime={
         if (typeof (this._Prop_Config.RendererChainCompletedFunc) == "function") {
             this._Prop_Config.RendererChainCompletedFunc.call(this);
         }
+        FormPageObjectInstanceProxy.CallPageReady();
     },
     IsPreview: function () {
         return this._Prop_Config.IsPreview
@@ -183,6 +190,7 @@ let FormRuntime={
             recordId: this._Prop_Config.RecordId,
             formId: this._Prop_Config.FormId,
             buttonId: this._Prop_Config.ButtonId,
+            formRuntimeCategory:this._Prop_Config.FormRuntimeCategory,
             formRecordDataRelationPOList: null,
             exData: null
         };

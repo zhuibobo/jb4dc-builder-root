@@ -49,7 +49,7 @@ class JsEditorUtility{
             theme: "monokai",
             gutters: ["CodeMirror-linenumbers", "CodeMirror-foldgutter"]
         });
-        this._JsEditorInst.setSize("100%",PageStyleUtility.GetWindowHeight()-85);
+        this._JsEditorInst.setSize("100%",PageStyleUtility.GetPageHeight()-85);
         if(status=="add"){
             this.SetJsEditorJs(this._GetNewFormJsString());
             //this.SetJsEditorJs("111111111");

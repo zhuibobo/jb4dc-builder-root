@@ -63,7 +63,7 @@ class HTMLEditorUtility{
             lineNumbers: true,
             lineWrapping: true
         });
-        this._HTMLEditorInst.setSize("100%",PageStyleUtility.GetWindowHeight()-85);
+        this._HTMLEditorInst.setSize("100%",PageStyleUtility.GetPageHeight()-85);
         //$(".CodeMirror").height(PageStyleUtility.GetWindowHeight()-60);
         /**/
     }

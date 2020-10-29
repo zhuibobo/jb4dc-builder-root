@@ -2,7 +2,10 @@ package com.jb4dc.builder.client.rest;
 
 import com.jb4dc.base.service.general.JB4DCSessionUtility;
 import com.jb4dc.base.tools.JsonUtility;
+import com.jb4dc.builder.client.proxy.IWebFormRuntimeProxy;
 import com.jb4dc.builder.client.service.webform.IWebFormDataSaveRuntimeService;
+import com.jb4dc.builder.dbentities.webform.FormResourceEntityWithBLOBs;
+import com.jb4dc.builder.po.FormResourceComplexPO;
 import com.jb4dc.builder.po.SubmitResultPO;
 import com.jb4dc.builder.po.formdata.FormRecordComplexPO;
 import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
@@ -29,6 +32,9 @@ public class InnerFormButtonRuntimeRest {
     @Autowired
     IWebFormDataSaveRuntimeService webFormDataSaveRuntimeService;
 
+    @Autowired
+    IWebFormRuntimeProxy webFormRuntimeProxy;
+
     @RequestMapping("/ReceiveHandler")
     public JBuild4DCResponseVo<SubmitResultPO> receiveHandler(String formRecordComplexPOString, String recordId, String innerFormButtonId,String listButtonId,String operationTypeName) throws JBuild4DCGenerallyException, IOException, JBuild4DCSQLKeyWordException {
         SubmitResultPO submitResultPO=new SubmitResultPO();
@@ -40,7 +46,12 @@ public class InnerFormButtonRuntimeRest {
 
         FormRecordComplexPO formRecordComplexPO = JsonUtility.toObjectIgnoreProp(formRecordComplexPOString,FormRecordComplexPO.class);
 
-        webFormDataSaveRuntimeService.SaveFormRecordComplexPO(JB4DCSessionUtility.getSession(),recordId,formRecordComplexPO,listButtonId,innerFormButtonId,operationTypeName);
+        FormResourceEntityWithBLOBs formResourceEntityWithBLOBs=null;
+        if(formRecordComplexPO.getFormRuntimeCategory().toLowerCase().equals(FormResourceComplexPO.FORM_RUNTIME_CATEGORY_INDEPENDENCE.toLowerCase())) {
+            formResourceEntityWithBLOBs = webFormRuntimeProxy.getFormRuntimePageContentById(JB4DCSessionUtility.getSession(), formRecordComplexPO.getFormId());
+        }
+
+        webFormDataSaveRuntimeService.SaveFormRecordComplexPO(JB4DCSessionUtility.getSession(),recordId,formRecordComplexPO,listButtonId,innerFormButtonId,operationTypeName,formResourceEntityWithBLOBs);
 
         submitResultPO.setRecordId(recordId);
         return JBuild4DCResponseVo.opSuccess(submitResultPO);

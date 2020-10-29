@@ -10,7 +10,7 @@
         $(function () {
             BaseUtility.SetSystemFavicon();
             formRuntimeInst=FormRuntimeSinglePageObject.pageReady(false,function () {
-                autoHeightInTableLayout("#txt_area_145647319","#layout-table-wraper-939613799");
+                //autoHeightInTableLayout("#txt_area_145647319","#layout-table-wraper-939613799");
             },FormRuntimeSinglePageObject.getWebFormRTParasWithIndependence);
 
             var windowHeight=formRuntimeInst.GetWebFormRTParas().WindowHeight;
@@ -18,13 +18,13 @@
             //console.log();
             //console.log("GetWindowHeight:"+PageStyleUtility.GetWindowHeight());
             //console.log("GetWindowWidth:"+PageStyleUtility.GetWindowWidth());
-            console.log("GetPageHeight:"+PageStyleUtility.GetPageHeight());
+            /*console.log("GetPageHeight:"+PageStyleUtility.GetPageHeight());
             console.log("GetPageWidth:"+PageStyleUtility.GetPageWidth());
             console.log("screenwidth:"+screen.width);
-            console.log("screenheight:"+screen.height );
+            console.log("screenheight:"+screen.height);*/
 
         });
-        function autoHeight(elemSelector,fixHeight) {
+        /*function autoHeight(elemSelector,fixHeight) {
             var pageHeight=PageStyleUtility.GetPageHeight();
             var newHeight=pageHeight-fixHeight;
             $(elemSelector).height(newHeight);
@@ -42,7 +42,7 @@
                 }
                 $(elemSelector).height(height);
             }
-        }
+        }*/
     </script>
 </head>
 <body>

@@ -16,5 +16,6 @@ import java.io.IOException;
  * To change this template use File | Settings | File Templates.
  */
 public interface IWebFormRuntimeService {
-    FormResourceComplexPO resolveFormResourceComplex(JB4DCSession session,String recordId, FormResourcePO data, ListButtonEntity listButtonEntity,String operationType) throws IOException, JBuild4DCGenerallyException, JBuild4DCSQLKeyWordException;
+    FormResourceComplexPO resolveFormResourceComplex(JB4DCSession session,String recordId, FormResourcePO data, ListButtonEntity listButtonEntity,String operationType,String formRuntimeCategory,
+                                                     String isIndependenceCurrentOperationType) throws IOException, JBuild4DCGenerallyException, JBuild4DCSQLKeyWordException;
 }

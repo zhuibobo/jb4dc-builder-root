@@ -29,7 +29,7 @@ public class FormResourcePO extends FormResourceEntityWithBLOBs {
 
     private List<TablePO> tablePOList;
 
-    private String isIndependenceCurrentOperationType;
+
 
     public FormResourcePO() {
     }
@@ -99,11 +99,4 @@ public class FormResourcePO extends FormResourceEntityWithBLOBs {
         this.tablePOList = tablePOList;
     }
 
-    public String getIsIndependenceCurrentOperationType() {
-        return isIndependenceCurrentOperationType;
-    }
-
-    public void setIsIndependenceCurrentOperationType(String isIndependenceCurrentOperationType) {
-        this.isIndependenceCurrentOperationType = isIndependenceCurrentOperationType;
-    }
 }
