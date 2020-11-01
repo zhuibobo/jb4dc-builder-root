@@ -27,6 +27,6 @@ public class PropertiesRest {
     @RequestMapping(value = "/GetModuleContext")
     public JBuild4DCResponseVo getModuleContext(String moduleId) throws JBuild4DCGenerallyException, IOException {
         ModuleContextPO moduleContextPO=moduleService.getModuleContextPO(JB4DCSessionUtility.getSession(),moduleId);
-        return JBuild4DCResponseVo.success("获取插件定义成功!",moduleContextPO);
+        return JBuild4DCResponseVo.success("获取流程上下文定义!",moduleContextPO);
     }
 }

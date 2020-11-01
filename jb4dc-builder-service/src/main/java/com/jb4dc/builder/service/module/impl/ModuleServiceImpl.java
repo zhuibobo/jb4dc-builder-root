@@ -20,6 +20,15 @@ import com.jb4dc.builder.service.module.IModuleService;
 import com.jb4dc.builder.client.service.weblist.IListResourceService;
 import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
 import com.jb4dc.core.base.session.JB4DCSession;
+import com.jb4dc.core.base.vo.JBuild4DCResponseVo;
+import com.jb4dc.sso.client.proxy.IOrganRuntimeProxy;
+import com.jb4dc.sso.client.proxy.IRoleGroupRuntimeProxy;
+import com.jb4dc.sso.client.proxy.IRoleRuntimeProxy;
+import com.jb4dc.sso.client.proxy.IUserRuntimeProxy;
+import com.jb4dc.sso.dbentities.organ.OrganEntity;
+import com.jb4dc.sso.dbentities.role.RoleEntity;
+import com.jb4dc.sso.dbentities.role.RoleGroupEntity;
+import com.jb4dc.sso.dbentities.user.UserEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -50,6 +59,18 @@ public class ModuleServiceImpl extends BaseServiceImpl<ModuleEntity> implements 
 
     @Autowired
     IEnvVariableService envVariableService;
+
+    @Autowired
+    IRoleGroupRuntimeProxy roleGroupRuntimeProxy;
+
+    @Autowired
+    IRoleRuntimeProxy roleRuntimeProxy;
+
+    @Autowired
+    IOrganRuntimeProxy organRuntimeProxy;
+
+    @Autowired
+    IUserRuntimeProxy userRuntimeProxy;
 
     ModuleMapper moduleMapper;
     public ModuleServiceImpl(ModuleMapper _defaultBaseMapper){
@@ -155,6 +176,15 @@ public class ModuleServiceImpl extends BaseServiceImpl<ModuleEntity> implements 
         moduleContextPO.setEnvGroupPOList(envGroupService.getALLASC(jb4DCSession));
         moduleContextPO.setEnvVariablePOList(envVariableService.getALL(jb4DCSession));
 
+        JBuild4DCResponseVo<List<RoleGroupEntity>> jBuild4DCResponseVoRoleGroupEntity=roleGroupRuntimeProxy.getALLRoleGroup();
+        JBuild4DCResponseVo<List<RoleEntity>> jBuild4DCResponseVoRoleEntity=roleRuntimeProxy.getFullEnableRoleRT();
+        JBuild4DCResponseVo<List<OrganEntity>> jBuild4DCResponseVoOrganEntity=organRuntimeProxy.getEnableOrganMinPropRT();
+        JBuild4DCResponseVo<List<UserEntity>> jBuild4DCResponseVoUserEntity=userRuntimeProxy.getEnableUserMinPropRT();
+
+        moduleContextPO.setRoleGroupEntityList(jBuild4DCResponseVoRoleGroupEntity.getData());
+        moduleContextPO.setRoleEntityList(jBuild4DCResponseVoRoleEntity.getData());
+        moduleContextPO.setOrganEntityList(jBuild4DCResponseVoOrganEntity.getData());
+        moduleContextPO.setUserEntityList(jBuild4DCResponseVoUserEntity.getData());
         return moduleContextPO;
     }
 

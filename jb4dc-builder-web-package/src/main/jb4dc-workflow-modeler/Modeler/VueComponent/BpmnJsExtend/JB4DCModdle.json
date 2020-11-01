@@ -53,6 +53,16 @@
           "name": "jb4dcProcessDescriptionEditValue",
           "isAttr": true,
           "type": "String"
+        },
+        {
+          "name": "jb4dcProcessCandidateStarterGroupsDesc",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "jb4dcProcessCandidateStarterUsersDesc",
+          "isAttr": true,
+          "type": "String"
         }
       ]
     },

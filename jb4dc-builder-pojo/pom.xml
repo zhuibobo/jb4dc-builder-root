@@ -16,5 +16,9 @@
             <groupId>jb4dc</groupId>
             <artifactId>jb4dc-web-app-starter</artifactId>
         </dependency>
+        <dependency>
+            <groupId>jb4dc</groupId>
+            <artifactId>jb4dc-sso-pojo</artifactId>
+        </dependency>
     </dependencies>
 </project>

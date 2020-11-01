@@ -128,7 +128,7 @@ public class FormResourceServiceImpl extends BaseServiceImpl<FormResourceEntityW
     @Override
     public void tryLoadAboutTable(JB4DCSession jb4DCSession, List<FormResourcePO> formResourcePOList) throws IOException, JBuild4DCGenerallyException {
         if(formResourcePOList!=null){
-            Map<String,TablePO> tablePOCahceMap=new HashMap<>();
+            Map<String,TablePO> tablePOCacheMap=new HashMap<>();
             for (FormResourcePO formResourcePO : formResourcePOList) {
                 String formDataRelation=formResourcePO.getFormDataRelation();
                 List<TablePO> thisFormAboutTables=new ArrayList<>();
@@ -136,7 +136,7 @@ public class FormResourceServiceImpl extends BaseServiceImpl<FormResourceEntityW
                 List<HashMap> formDataRelationList= JsonUtility.toObjectList(formDataRelation, HashMap.class);
                 for (HashMap hashMap : formDataRelationList) {
                     String tableId=hashMap.get("tableId").toString();
-                    if(!tablePOCahceMap.containsKey(tableId)){
+                    if(!tablePOCacheMap.containsKey(tableId)){
                         TableEntity tableEntity=tableService.getByPrimaryKey(jb4DCSession,tableId);
                         TablePO tablePO=JsonUtility.parseEntityToPO(tableEntity,TablePO.class);
                         if(hashMap.get("parentId").equals("-1")){
@@ -147,9 +147,9 @@ public class FormResourceServiceImpl extends BaseServiceImpl<FormResourceEntityW
                         }
                         List<TableFieldPO> tableFieldPOList=tableFieldService.getTableFieldsByTableId(tableId);
                         tablePO.setTableFieldPOList(tableFieldPOList);
-                        tablePOCahceMap.put(tableId,tablePO);
+                        tablePOCacheMap.put(tableId,tablePO);
                     }
-                    thisFormAboutTables.add(tablePOCahceMap.get(tableId));
+                    thisFormAboutTables.add(tablePOCacheMap.get(tableId));
                 }
 
                 formResourcePO.setTablePOList(thisFormAboutTables);

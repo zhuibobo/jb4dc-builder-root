@@ -83,6 +83,15 @@
             <Config></Config>
             <Desc></Desc>
         </Control>
+        <Control SingleName="WFDCT_BaiduMapContainer" Text="百度地图" ToolbarLocation="LC_Template,7"
+                 ServerResolve="com.jb4dc.builder.client.htmldesign.control.webform.WebFormBaiduMapContainer"
+                 ClientResolve="WFDCT_BaiduMapContainer"
+                 ClientResolveJs=""
+                 EnableChildControls="*"
+                 DialogWidth="780" DialogHeight="550" IsJBuild4DCData="true" ControlCategory="InputControl" ServerDynamicBind="false" ShowRemoveButton="true" ShowInEditorToolbar="true">
+            <Config></Config>
+            <Desc></Desc>
+        </Control>
         <Control SingleName="WFDCT_SimpleLabel" Text="文本标签" ToolbarLocation="LC_Simple_G1,1"
                  ServerResolve="com.jb4dc.builder.client.htmldesign.control.webform.WebFormSimpleLabel"
                  ClientResolve="WFDCT_SimpleLabel"

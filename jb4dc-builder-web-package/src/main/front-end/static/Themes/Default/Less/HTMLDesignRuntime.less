@@ -1105,3 +1105,36 @@
 .list-td-click-enable:hover{
     color: @g-pomegranate-color-v05;
 }
+
+.baidu-map-draw-control-wrap{
+    background-color: #ffffff;
+    border: 1px solid @g-concrete-color-v04;
+    position: absolute;
+    top: 60px;
+    right: 30px;
+    padding: 4px;
+    z-index: 100;
+
+    .control{
+        width: 80px;
+        height: 34px;
+        background-repeat: no-repeat;
+        padding-left: 36px;
+        line-height: 34px;
+        margin-bottom: 6px;
+        background-color: @g-concrete-color-v01;
+        border: 1px solid @g-concrete-color-v02;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+    .control:hover{
+        background-color: @g-concrete-color-v02;
+        border: 1px solid @g-concrete-color-v04;
+    }
+    .control:last-child{
+        margin-bottom: 0px;
+    }
+    .polygon-control{
+        background-image: url("../../Png32X32/0347.png");
+    }
+}

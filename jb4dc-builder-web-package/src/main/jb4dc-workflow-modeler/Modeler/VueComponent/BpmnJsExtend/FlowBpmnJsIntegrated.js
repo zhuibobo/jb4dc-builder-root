@@ -30,21 +30,21 @@ var customTranslateModule = {
 
 class FlowBpmnJsIntegrated {
     defaultSetting = {
-        RendererToElemId:"",
-        FlowBpmnJsContainer:"",
-        SelectedElement:null,
-        ChangeSelectedElemCB:null,
-        Op:BaseUtility.GetAddOperationName()
+        RendererToElemId: "",
+        FlowBpmnJsContainer: "",
+        SelectedElement: null,
+        ChangeSelectedElemCB: null,
+        Op: BaseUtility.GetAddOperationName()
     };
-    setting={};
-    modeler=null;
-    static singleFlowBpmnJsIntegrated=null;
+    setting = {};
+    modeler = null;
+    static singleFlowBpmnJsIntegrated = null;
 
     constructor() {
 
     }
 
-    Initialize (exConfig,savedBpmnModelXML) {
+    Initialize(exConfig, savedBpmnModelXML) {
         //debugger;
         exConfig = $.extend(true, {}, this.defaultSetting, exConfig);
         this.setting = exConfig;
@@ -68,22 +68,22 @@ class FlowBpmnJsIntegrated {
         //propertiesPadEntity.propertiesPadEntity.f1();
         //console.log(propertiesPadEntity.propertiesPadEntity);
         var bpmnModelXML;
-        if(BaseUtility.IsAddOperation(exConfig.Op)) {
-            bpmnModelXML=emptyBPMNXML;
+        if (BaseUtility.IsAddOperation(exConfig.Op)) {
+            bpmnModelXML = emptyBPMNXML;
+            bpmnModelXML = bpmnModelXML.replace("id=\"Model_Empty_Flow\"", "id=\"Flow_Model_" + StringUtility.Timestamp() + "\"");
+            //console.log(bpmnModelXML);
+        } else {
+            bpmnModelXML = savedBpmnModelXML;
         }
-        else{
-            bpmnModelXML=savedBpmnModelXML;
-        }
-        this.modeler.importXML(bpmnModelXML,  (err) => {
+        this.modeler.importXML(bpmnModelXML, (err) => {
             if (err) {
                 console.log(err);
-            }
-            else {
+            } else {
                 //console.log(this.modeler);
                 //console.log(BpmnJsUtility.GetElement(this.modeler,"P004_001"));
                 //console.log(BpmnJsUtility.GetProcessElement(this.modeler));
                 this.setting.ChangeSelectedElemCB(BpmnJsUtility.GetProcessElement(this.modeler));
-                if(BaseUtility.IsAddOperation(this.setting.Op)) {
+                if (BaseUtility.IsAddOperation(this.setting.Op)) {
                     //BpmnJsUtility.BPMN_Attr_SetId(BpmnJsUtility.GetProcessElement(this.modeler), "Model_WD_" + StringUtility.Timestamp());
                 }
                 //console.log(this.modeler._definitions);
@@ -122,8 +122,8 @@ class FlowBpmnJsIntegrated {
         });
 
         eventBus.on("element.click", event => {
-            this.setting.SelectedElement=event.element;
-            if(typeof (this.setting.ChangeSelectedElemCB)=="function"){
+            this.setting.SelectedElement = event.element;
+            if (typeof (this.setting.ChangeSelectedElemCB) == "function") {
                 //var elemToDialogProps=this.SerializationElemToDialogProps(event.element);
                 this.setting.ChangeSelectedElemCB(event.element);
             }
@@ -136,7 +136,7 @@ class FlowBpmnJsIntegrated {
             if (this[clickEventName] && typeof (this[clickEventName]) == "function") {
                 this[clickEventName](event, event.element);
             } else {
-                console.log("未定义:"+clickEventName)
+                console.log("未定义:" + clickEventName)
             }
         });
         eventBus.on("element.dblclick", event => {
@@ -144,7 +144,7 @@ class FlowBpmnJsIntegrated {
             if (this[clickEventName] && typeof (this[clickEventName]) == "function") {
                 this[clickEventName](event, event.element);
             } else {
-                console.log("未定义:"+clickEventName)
+                console.log("未定义:" + clickEventName)
             }
         });
 
@@ -168,19 +168,23 @@ class FlowBpmnJsIntegrated {
             });
         });
     }
-    static CreateInstance(exConfig,savedBpmnModelXML){
-        var instance=new FlowBpmnJsIntegrated();
-        instance.Initialize(exConfig,savedBpmnModelXML);
-        this.singleFlowBpmnJsIntegrated=instance;
+
+    static CreateInstance(exConfig, savedBpmnModelXML) {
+        var instance = new FlowBpmnJsIntegrated();
+        instance.Initialize(exConfig, savedBpmnModelXML);
+        this.singleFlowBpmnJsIntegrated = instance;
         return instance;
     }
-    static GetInstance(){
+
+    static GetInstance() {
         return this.singleFlowBpmnJsIntegrated;
     }
-    GetModeler(){
+
+    GetModeler() {
         return this.modeler;
     }
-    BPMN_ProcessClickEvent (event,element){
+
+    BPMN_ProcessClickEvent(event, element) {
         return;
         console.log(element);
         console.log(element.businessObject);
@@ -203,40 +207,43 @@ class FlowBpmnJsIntegrated {
         code = BpmnJsUtility.JB4DC_Attr_GetJb4dcCode(element);
         console.log(code);
 
-        var versionTag=BpmnJsUtility.CAMUNDA_Attr_GetVersionTag(element);
+        var versionTag = BpmnJsUtility.CAMUNDA_Attr_GetVersionTag(element);
         BpmnJsUtility.CAMUNDA_Attr_SetVersionTag(element, "SetElementCode-" + versionTag);
-        versionTag=BpmnJsUtility.CAMUNDA_Attr_GetVersionTag(element);
+        versionTag = BpmnJsUtility.CAMUNDA_Attr_GetVersionTag(element);
         console.log(versionTag);
 
-        var extensionElements=BpmnJsUtility.BPMN_GetExtensionElements(element);
+        var extensionElements = BpmnJsUtility.BPMN_GetExtensionElements(element);
         console.log(extensionElements);
         BpmnJsUtility.BPMN_CreateExtensionElements(element);
 
-        BpmnJsUtility.CAMUNDA_SetExecutionListenerArray(element,[
-                {listenerType:"class",value:"a",eventName:"start"},
-                {listenerType:"class",value:"b",eventName:"start"},
-                {listenerType:"expression",value:"expression1111",eventName:"start"},
-                {listenerType:"expression",value:"expression2222",eventName:"start"},
-                {listenerType:"delegateExpression",value:"delegateExpression1111",eventName:"start"},
-                {listenerType:"delegateExpression",value:"delegateExpression2222",eventName:"start"}
+        BpmnJsUtility.CAMUNDA_SetExecutionListenerArray(element, [
+                {listenerType: "class", value: "a", eventName: "start"},
+                {listenerType: "class", value: "b", eventName: "start"},
+                {listenerType: "expression", value: "expression1111", eventName: "start"},
+                {listenerType: "expression", value: "expression2222", eventName: "start"},
+                {listenerType: "delegateExpression", value: "delegateExpression1111", eventName: "start"},
+                {listenerType: "delegateExpression", value: "delegateExpression2222", eventName: "start"}
             ]
         );
-        var executionListener=BpmnJsUtility.CAMUNDA_GetExecutionListenerArray(element);
+        var executionListener = BpmnJsUtility.CAMUNDA_GetExecutionListenerArray(element);
         console.log(executionListener);
         console.log(BpmnJsUtility.CAMUNDA_GetExecutionListenerJson(element));
 
-        BpmnJsUtility.CAMUNDA_SetPropertiesArray(element,[{name:"a",value:"11111"},{name:"b",value:"22222"}])
-        var propertyList=BpmnJsUtility.CAMUNDA_GetPropertiesArray(element);
+        BpmnJsUtility.CAMUNDA_SetPropertiesArray(element, [{name: "a", value: "11111"}, {name: "b", value: "22222"}])
+        var propertyList = BpmnJsUtility.CAMUNDA_GetPropertiesArray(element);
         console.log(propertyList);
     }
-    BPMN_ProcessDBClickEvent (event,element){
-        this.ShowPropertiesWindow(event,element);
+
+    BPMN_ProcessDBClickEvent(event, element) {
+        this.ShowPropertiesWindow(event, element);
     }
-    BPMN_UserTaskClickEvent (event,element){
+
+    BPMN_UserTaskClickEvent(event, element) {
         BpmnJsUtility.BPMN_GetIncomingSequenceFlowArray(element);
         BpmnJsUtility.BPMN_GetOutgoingSequenceFlowArray(element);
     }
-    ShowPropertiesWindow (event,element) {
+
+    ShowPropertiesWindow(event, element) {
         var elementType = element.type;
         var componentName = "";
         var title = "";
@@ -252,70 +259,72 @@ class FlowBpmnJsIntegrated {
         }
         //console.log(event);
         //console.log(element);
-        var elemToDialogProps=this.SerializationElemToDialogProps(element);
-        this.setting.FlowBpmnJsContainer.showProperties(componentName, title, element,elemToDialogProps);
+        var elemToDialogProps = this.SerializationElemToDialogProps(element);
+        this.setting.FlowBpmnJsContainer.showProperties(componentName, title, element, elemToDialogProps);
         //alert("1");
     }
-    SerializationElemToDialogProps(elem){
-        var result=PODefinition.GetDialogPropertiesPO();
+
+    SerializationElemToDialogProps(elem) {
+        var result = PODefinition.GetDialogPropertiesPO();
 
         //bpmn
-        result.bpmn.id=BpmnJsUtility.BPMN_Attr_GetId(elem);
-        result.bpmn.name=BpmnJsUtility.BPMN_Attr_GetName(elem);
-        result.bpmn.isExecutable=BpmnJsUtility.BPMN_Attr_Process_GetIsExecutable(elem);
-        result.bpmn.documentation=BpmnJsUtility.BPMN_GetElementDocumentationText(elem);
-        result.bpmn.conditionExpression=BpmnJsUtility.BPMN_GetConditionExpression(elem);
+        result.bpmn.id = BpmnJsUtility.BPMN_Attr_GetId(elem);
+        result.bpmn.name = BpmnJsUtility.BPMN_Attr_GetName(elem);
+        result.bpmn.isExecutable = BpmnJsUtility.BPMN_Attr_Process_GetIsExecutable(elem);
+        result.bpmn.documentation = BpmnJsUtility.BPMN_GetElementDocumentationText(elem);
+        result.bpmn.conditionExpression = BpmnJsUtility.BPMN_GetConditionExpression(elem);
         //camunda
-        result.camunda.versionTag=BpmnJsUtility.CAMUNDA_Attr_GetVersionTag(elem);
-        result.camunda.taskPriority=BpmnJsUtility.CAMUNDA_Attr_GetTaskPriority(elem);
-        result.camunda.jobPriority=BpmnJsUtility.CAMUNDA_Attr_GetJobPriority(elem);
-        result.camunda.candidateStarterGroups=BpmnJsUtility.CAMUNDA_Attr_GetCandidateStarterGroups(elem);
-        result.camunda.candidateStarterUsers=BpmnJsUtility.CAMUNDA_Attr_GetCandidateStarterUsers(elem);
-        result.camunda.historyTimeToLive=BpmnJsUtility.CAMUNDA_Attr_GetHistoryTimeToLive(elem);
+        result.camunda.versionTag = BpmnJsUtility.CAMUNDA_Attr_GetVersionTag(elem);
+        result.camunda.taskPriority = BpmnJsUtility.CAMUNDA_Attr_GetTaskPriority(elem);
+        result.camunda.jobPriority = BpmnJsUtility.CAMUNDA_Attr_GetJobPriority(elem);
+        result.camunda.candidateStarterGroups = BpmnJsUtility.CAMUNDA_Attr_GetCandidateStarterGroups(elem);
+        result.camunda.candidateStarterUsers = BpmnJsUtility.CAMUNDA_Attr_GetCandidateStarterUsers(elem);
+        result.camunda.historyTimeToLive = BpmnJsUtility.CAMUNDA_Attr_GetHistoryTimeToLive(elem);
 
-        result.camunda.assignee=BpmnJsUtility.CAMUNDA_Attr_GetAssignee(elem);
-        result.camunda.priority=BpmnJsUtility.CAMUNDA_Attr_GetPriority(elem);
-        result.camunda.candidateUsers=BpmnJsUtility.CAMUNDA_Attr_GetCandidateUsers(elem);
-        result.camunda.candidateGroups=BpmnJsUtility.CAMUNDA_Attr_GetCandidateGroups(elem);
-        result.camunda.dueDate=BpmnJsUtility.CAMUNDA_Attr_GetDueDate(elem);
-        result.camunda.followUpDate=BpmnJsUtility.CAMUNDA_Attr_GetFollowUpDate(elem);
+        result.camunda.assignee = BpmnJsUtility.CAMUNDA_Attr_GetAssignee(elem);
+        result.camunda.priority = BpmnJsUtility.CAMUNDA_Attr_GetPriority(elem);
+        result.camunda.candidateUsers = BpmnJsUtility.CAMUNDA_Attr_GetCandidateUsers(elem);
+        result.camunda.candidateGroups = BpmnJsUtility.CAMUNDA_Attr_GetCandidateGroups(elem);
+        result.camunda.dueDate = BpmnJsUtility.CAMUNDA_Attr_GetDueDate(elem);
+        result.camunda.followUpDate = BpmnJsUtility.CAMUNDA_Attr_GetFollowUpDate(elem);
 
-        result.camunda.executionListener=BpmnJsUtility.CAMUNDA_GetExecutionListenerJson(elem);
-        if(!result.camunda.executionListener){
-            result.camunda.executionListener=[];
+        result.camunda.executionListener = BpmnJsUtility.CAMUNDA_GetExecutionListenerJson(elem);
+        if (!result.camunda.executionListener) {
+            result.camunda.executionListener = [];
         }
-        result.camunda.extensionProperties=BpmnJsUtility.CAMUNDA_GetPropertiesJson(elem);
-        if(!result.camunda.extensionProperties){
-            result.camunda.extensionProperties=[];
+        result.camunda.extensionProperties = BpmnJsUtility.CAMUNDA_GetPropertiesJson(elem);
+        if (!result.camunda.extensionProperties) {
+            result.camunda.extensionProperties = [];
         }
-        result.camunda.taskListener=BpmnJsUtility.CAMUNDA_GetTaskListenerArrayJson(elem);
-        if(!result.camunda.taskListener){
-            result.camunda.taskListener=[];
+        result.camunda.taskListener = BpmnJsUtility.CAMUNDA_GetTaskListenerArrayJson(elem);
+        if (!result.camunda.taskListener) {
+            result.camunda.taskListener = [];
         }
 
         //jb4dc
-        result.jb4dc.jb4dcFlowCategory=BpmnJsUtility.JB4DC_Attr_GetJb4dcFlowCategory(elem);
-        result.jb4dc.jb4dcCode=BpmnJsUtility.JB4DC_Attr_GetJb4dcCode(elem);
-        result.jb4dc.jb4dcFormId=BpmnJsUtility.JB4DC_Attr_GetJb4dcFormId(elem);
-        result.jb4dc.jb4dcTenantId=BpmnJsUtility.JB4DC_Attr_GetJb4dcTenantId(elem);
-        result.jb4dc.jb4dcProcessTitleEditText=BpmnJsUtility.JB4DC_Attr_GetJb4dcProcessTitleEditText(elem);
-        result.jb4dc.jb4dcProcessTitleEditValue=BpmnJsUtility.JB4DC_Attr_GetJb4dcProcessTitleEditValue(elem);
-        result.jb4dc.jb4dcProcessDescriptionEditText=BpmnJsUtility.JB4DC_Attr_GetJb4dcProcessDescriptionEditText(elem);
-        result.jb4dc.jb4dcProcessDescriptionEditValue=BpmnJsUtility.JB4DC_Attr_GetJb4dcProcessDescriptionEditValue(elem);
-        result.jb4dc.jb4dcActions=BpmnJsUtility.JB4DC_GetActionsArray(elem);
-        result.jb4dc.jb4dcSequenceFlowConditionEditText=BpmnJsUtility.JB4DC_Attr_GetJb4dcSequenceFlowConditionEditText(elem);
-        if(!result.jb4dc.jb4dcActions){
-            result.jb4dc.jb4dcActions=[];
+        result.jb4dc.jb4dcFlowCategory = BpmnJsUtility.JB4DC_Attr_GetJb4dcFlowCategory(elem);
+        result.jb4dc.jb4dcCode = BpmnJsUtility.JB4DC_Attr_GetJb4dcCode(elem);
+        result.jb4dc.jb4dcFormId = BpmnJsUtility.JB4DC_Attr_GetJb4dcFormId(elem);
+        result.jb4dc.jb4dcTenantId = BpmnJsUtility.JB4DC_Attr_GetJb4dcTenantId(elem);
+        result.jb4dc.jb4dcProcessTitleEditText = BpmnJsUtility.JB4DC_Attr_GetJb4dcProcessTitleEditText(elem);
+        result.jb4dc.jb4dcProcessTitleEditValue = BpmnJsUtility.JB4DC_Attr_GetJb4dcProcessTitleEditValue(elem);
+        result.jb4dc.jb4dcProcessDescriptionEditText = BpmnJsUtility.JB4DC_Attr_GetJb4dcProcessDescriptionEditText(elem);
+        result.jb4dc.jb4dcProcessDescriptionEditValue = BpmnJsUtility.JB4DC_Attr_GetJb4dcProcessDescriptionEditValue(elem);
+        result.jb4dc.jb4dcActions = BpmnJsUtility.JB4DC_GetActionsArray(elem);
+        result.jb4dc.jb4dcSequenceFlowConditionEditText = BpmnJsUtility.JB4DC_Attr_GetJb4dcSequenceFlowConditionEditText(elem);
+        if (!result.jb4dc.jb4dcActions) {
+            result.jb4dc.jb4dcActions = [];
         }
         //console.log(PODefinition.GetDialogPropertiesPO().bpmn.id);
         //console.log(result.bpmn.id);
         //console.log(result);
         return result;
     }
-    DeSerializationDialogPropsToElem(props,elem){
+
+    DeSerializationDialogPropsToElem(props, elem) {
         console.log(props);
-        BpmnJsUtility.BPMN_Attr_SetName(elem,props.bpmn.name);
-        BpmnJsUtility.BPMN_SetElementDocumentationText(elem,props.bpmn.documentation);
+        BpmnJsUtility.BPMN_Attr_SetName(elem, props.bpmn.name);
+        BpmnJsUtility.BPMN_SetElementDocumentationText(elem, props.bpmn.documentation);
 
         BpmnJsUtility.JB4DC_Attr_SetJb4dcCode(elem, props.jb4dc.jb4dcCode);
         BpmnJsUtility.JB4DC_Attr_SetJb4dcFormId(elem, props.jb4dc.jb4dcFormId);
@@ -325,21 +334,19 @@ class FlowBpmnJsIntegrated {
         BpmnJsUtility.JB4DC_Attr_SetJb4dcProcessDescriptionEditText(elem, props.jb4dc.jb4dcProcessDescriptionEditText);
         BpmnJsUtility.JB4DC_Attr_SetJb4dcProcessDescriptionEditValue(elem, props.jb4dc.jb4dcProcessDescriptionEditValue);
 
-        if(props.camunda.executionListener&&props.camunda.executionListener.length>0) {
+        if (props.camunda.executionListener && props.camunda.executionListener.length > 0) {
             BpmnJsUtility.CAMUNDA_SetExecutionListenerArray(elem, props.camunda.executionListener, true);
-        }
-        else {
+        } else {
             BpmnJsUtility.CAMUNDA_ClearExecutionListenerArray(elem);
         }
-        if(props.camunda.extensionProperties&&props.camunda.extensionProperties.length>0) {
-            BpmnJsUtility.CAMUNDA_SetPropertiesArray(elem, props.camunda.extensionProperties,true);
-        }
-        else{
+        if (props.camunda.extensionProperties && props.camunda.extensionProperties.length > 0) {
+            BpmnJsUtility.CAMUNDA_SetPropertiesArray(elem, props.camunda.extensionProperties, true);
+        } else {
             BpmnJsUtility.CAMUNDA_ClearPropertiesArray(elem);
         }
 
         //console.log(elem);
-        if(BpmnJsUtility.Is_Process(elem)) {
+        if (BpmnJsUtility.Is_Process(elem)) {
             BpmnJsUtility.BPMN_Attr_Process_SetIsExecutable(elem, props.bpmn.isExecutable);
 
             BpmnJsUtility.CAMUNDA_Attr_SetVersionTag(elem, props.camunda.versionTag);
@@ -350,16 +357,13 @@ class FlowBpmnJsIntegrated {
             BpmnJsUtility.CAMUNDA_Attr_SetHistoryTimeToLive(elem, props.camunda.historyTimeToLive);
 
             BpmnJsUtility.JB4DC_Attr_SetJb4dcFlowCategory(elem, props.jb4dc.jb4dcFlowCategory);
-        }
-        else if(BpmnJsUtility.Is_UserTask(elem)){
+        } else if (BpmnJsUtility.Is_UserTask(elem)) {
             console.log(props.jb4dc.jb4dcActions);
-            BpmnJsUtility.JB4DC_SetActionsArray(elem,props.jb4dc.jb4dcActions,true);
-        }
-        else if(BpmnJsUtility.Is_SequenceFlow(elem)){
-            BpmnJsUtility.JB4DC_Attr_SetJb4dcSequenceFlowConditionEditText(elem,props.jb4dc.jb4dcSequenceFlowConditionEditText,true);
-            BpmnJsUtility.BPMN_SetConditionExpression(elem,props.bpmn.conditionExpression,true);
-        }
-        else{
+            BpmnJsUtility.JB4DC_SetActionsArray(elem, props.jb4dc.jb4dcActions, true);
+        } else if (BpmnJsUtility.Is_SequenceFlow(elem)) {
+            BpmnJsUtility.JB4DC_Attr_SetJb4dcSequenceFlowConditionEditText(elem, props.jb4dc.jb4dcSequenceFlowConditionEditText, true);
+            BpmnJsUtility.BPMN_SetConditionExpression(elem, props.bpmn.conditionExpression, true);
+        } else {
 
             BpmnJsUtility.CAMUNDA_Attr_SetAssignee(elem, props.camunda.assignee);
             BpmnJsUtility.CAMUNDA_Attr_SetPriority(elem, props.camunda.priority);
@@ -368,39 +372,43 @@ class FlowBpmnJsIntegrated {
             BpmnJsUtility.CAMUNDA_Attr_SetDueDate(elem, props.camunda.dueDate);
             BpmnJsUtility.CAMUNDA_Attr_SetFollowUpDate(elem, props.camunda.followUpDate);
 
-            if(props.camunda.taskListener&&props.camunda.taskListener.length>0) {
-                BpmnJsUtility.CAMUNDA_SetTaskListenerArray(elem, props.camunda.taskListener,true);
-            }
-            else {
+            if (props.camunda.taskListener && props.camunda.taskListener.length > 0) {
+                BpmnJsUtility.CAMUNDA_SetTaskListenerArray(elem, props.camunda.taskListener, true);
+            } else {
                 BpmnJsUtility.CAMUNDA_ClearTaskListenerArray(elem);
             }
         }
 
         var modeling = this.modeler.get('modeling');
 
-        modeling.updateProperties(elem,{});
+        modeling.updateProperties(elem, {});
     }
-    ZoomAuto(){
+
+    ZoomAuto() {
         //debugger;
         this.modeler.get('canvas').zoom('fit-viewport', 'auto');
     }
-    ZoomP100(){
+
+    ZoomP100() {
         this.modeler.get('canvas').zoom(1, 'auto');
     }
-    ZoomP50(){
+
+    ZoomP50() {
         this.modeler.get('canvas').zoom(0.5, 'auto');
         //var type="horizontal";
         //this.modeler.get('editorActions').trigger("distributeElements",{type});
     }
-    Align(type){
+
+    Align(type) {
         const modeler = this.modeler;
         const selection = modeler.get('selection').get();
         modeler.get('alignElements').trigger(selection, type);
     }
-    Distribute(type){
+
+    Distribute(type) {
         //var type="horizontal";
         //alert(type);
-        this.modeler.get('editorActions').trigger("distributeElements",{type});
+        this.modeler.get('editorActions').trigger("distributeElements", {type});
 
         /*var fill="rgb(187, 222, 251)";
         var stroke="rgb(30, 136, 229)";
@@ -409,52 +417,60 @@ class FlowBpmnJsIntegrated {
             stroke
         });*/
     }
-    LogXML(){
+
+    LogXML() {
         console.log(this.GetXML());
     }
-    GetXML(){
+
+    GetXML() {
         var xml;
-        this.modeler.saveXML(null,function (error,_xml) {
-            xml=_xml;
+        this.modeler.saveXML(null, function (error, _xml) {
+            xml = _xml;
         })
         return xml;
     }
-    SetXML(xml){
+
+    SetXML(xml) {
         this.modeler.importXML(xml, function (err) {
             //console.log(err);
         });
     }
+
     GetSelectedElement() {
         return this.setting.SelectedElement;
     }
-    GetProcessElement(){
+
+    GetProcessElement() {
         return BpmnJsUtility.GetProcessElement(this.modeler);
     }
-    GetProcessBindFormId(){
+
+    GetProcessBindFormId() {
         return BpmnJsUtility.GetProcessFormId(this.GetProcessElement());
     }
-    TryGetFormId(defaultFormId){
-        var formId=defaultFormId;
-        if(!formId){
-            formId=this.GetProcessBindFormId();
+
+    TryGetFormId(defaultFormId) {
+        var formId = defaultFormId;
+        if (!formId) {
+            formId = this.GetProcessBindFormId();
         }
         return formId;
     }
-    ConvertElemToHTMLDisplay(elem){
-        var elemToDialogProps=this.SerializationElemToDialogProps(elem);
-        var type=elem.type;
-        var name=elemToDialogProps.bpmn.name;
-        var result=[];
+
+    ConvertElemToHTMLDisplay(elem) {
+        var elemToDialogProps = this.SerializationElemToDialogProps(elem);
+        var type = elem.type;
+        var name = elemToDialogProps.bpmn.name;
+        var result = [];
 
         result.push(`<div class="fbse-inner-title">【${type}】${name}</div>`);
 
-        function build(propGroupName,props) {
-            for(var key in props){
-                var value=props[key];
-                var keyCN=PODefinition.TranslatePropertiesToCN(propGroupName,key);
-                if(keyCN) {
+        function build(propGroupName, props) {
+            for (var key in props) {
+                var value = props[key];
+                var keyCN = PODefinition.TranslatePropertiesToCN(propGroupName, key);
+                if (keyCN) {
                     if (ArrayUtility.IsArray(value)) {
-                        if(value.length>0) {
+                        if (value.length > 0) {
                             value = "<pre style='min-width: 300px'>" + JsonUtility.JsonToStringFormat(value) + "</pre>";
                         }
                     } else {
@@ -466,9 +482,9 @@ class FlowBpmnJsIntegrated {
             }
         };
 
-        build("jb4dc",elemToDialogProps.jb4dc);
-        build("bpmn",elemToDialogProps.bpmn);
-        build("camunda",elemToDialogProps.camunda);
+        build("jb4dc", elemToDialogProps.jb4dc);
+        build("bpmn", elemToDialogProps.bpmn);
+        build("camunda", elemToDialogProps.camunda);
 
         return result.join("");
     }

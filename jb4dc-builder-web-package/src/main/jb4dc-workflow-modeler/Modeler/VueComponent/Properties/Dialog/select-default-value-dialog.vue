@@ -48,6 +48,7 @@
                 selectText:"",
                 constValue:"",
                 tree:{
+                    envGroupTreeObj:null,
                     treeIdFieldName:"envGroupId",
                     envGroupTreeSelectedNode:null,
                     envGroupTreeSetting:{

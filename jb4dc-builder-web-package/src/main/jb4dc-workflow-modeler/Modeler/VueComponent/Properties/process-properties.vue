@@ -4,19 +4,19 @@
             <tab-pane tab="process-properties-tabs" label="CMA-General">
                 <table class="properties-dialog-table-wraper" cellpadding="0" cellspacing="0" border="0">
                     <colgroup>
-                        <col style="width: 18%" />
-                        <col style="width: 32%" />
-                        <col style="width: 18%" />
-                        <col style="width: 32%" />
+                        <col style="width: 14%" />
+                        <col style="width: 36%" />
+                        <col style="width: 15%" />
+                        <col style="width: 35%" />
                     </colgroup>
                     <tbody>
                         <tr>
-                            <td style="color: red">ID (Start Key)：</td>
+                            <td style="color: red">启动键：</td>
                             <td>
-                                <input type="text" v-model="bpmn.id" style="width:200px" />
-                                <Button type="primary">随机生成</Button>
+                                <input type="text" placeholder="ID (Start Key) 必须唯一" v-model="bpmn.id" style="width:240px" />
+                                <Button type="primary" @click="randomId">随机生成</Button>
                             </td>
-                            <td>IsExecutable：</td>
+                            <td>可执行/IsExecutable：</td>
                             <td style="text-align: left">
                                 <radio-group type="button" style="margin: auto" v-model="bpmn.isExecutable">
                                     <radio label="true">是</radio>
@@ -25,39 +25,49 @@
                             </td>
                         </tr>
                         <tr>
-                            <td>Name：</td>
+                            <td>名称：</td>
                             <td>
-                                <input type="text" v-model="bpmn.name" />
+                                <input placeholder="Name" type="text" v-model="bpmn.name" />
                             </td>
-                            <td>Version Tag：</td>
+                            <td>版本：</td>
                             <td>
-                                <input type="text" v-model="camunda.versionTag" />
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Task Priority：</td>
-                            <td>
-                                <input type="text" v-model="camunda.taskPriority" disabled="disabled" />
-                            </td>
-                            <td>Job Priority：</td>
-                            <td>
-                                <input type="text" v-model="camunda.jobPriority" disabled="disabled" />
+                                <input placeholder="Version Tag" type="text" v-model="camunda.versionTag" />
                             </td>
                         </tr>
                         <tr>
-                            <td>Candidate Starter Groups：</td>
+                            <td>任务优先级：</td>
                             <td>
-                                <input type="text" v-model="camunda.candidateStarterGroups" />
+                                <input placeholder="Task Priority" type="text" v-model="camunda.taskPriority" disabled="disabled" />
                             </td>
-                            <td>Candidate Starter Users：</td>
+                            <td>工作优先级：</td>
                             <td>
-                                <input type="text" v-model="camunda.candidateStarterUsers" />
+                                <input placeholder="Job Priority" type="text" v-model="camunda.jobPriority" disabled="disabled" />
                             </td>
                         </tr>
                         <tr>
-                            <td>History Time To Live：</td>
+                            <td>启动分组：</td>
                             <td>
-                                <input type="text" v-model="camunda.historyTimeToLive" disabled="disabled" />
+                                <input type="text" placeholder="Candidate Starter Groups" v-model="camunda.candidateStarterGroups" style="width:262px" />
+                                <Button type="primary" @click="beginSelectRole">选择</Button>
+                            </td>
+                            <td colspan="2">
+                                {{jb4dc.jb4dcProcessCandidateStarterGroupsDesc}}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>启动用户：</td>
+                            <td>
+                                <input type="text" placeholder="Candidate Starter Users" v-model="camunda.candidateStarterUsers" style="width:262px" />
+                                <Button type="primary">选择</Button>
+                            </td>
+                            <td colspan="2">
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>历史记录存活时间：</td>
+                            <td>
+                                <input type="text" placeholder="History Time To Live" v-model="camunda.historyTimeToLive" disabled="disabled" />
                             </td>
                             <td>
                             </td>
@@ -66,9 +76,9 @@
                             </td>
                         </tr>
                         <tr>
-                            <td>Element Documentation：</td>
+                            <td>备注：</td>
                             <td colspan="3">
-                                <textarea rows="11" v-model="bpmn.documentation"></textarea>
+                                <textarea rows="8" placeholder="Element Documentation" v-model="bpmn.documentation"></textarea>
                             </td>
                         </tr>
                     </tbody>
@@ -90,6 +100,7 @@
                 <extensionsProperties ref="extensionsProperties" :prop-extensions-properties-data="camunda.extensionProperties"></extensionsProperties>
             </tab-pane>
         </tabs>
+        <selectRoleDialog ref="selectRoleDialog"></selectRoleDialog>
     </div>
 </template>
 
@@ -97,14 +108,16 @@
     import listenersProperties from "./PropertiesComponent/listeners-properties.vue";
     import extensionsProperties from "./PropertiesComponent/extensions-properties.vue";
     import jb4dcGeneralProperties from "./PropertiesComponent/jb4dc-general-properties.vue";
-    import { PODefinition } from "../BpmnJsExtend/PODefinition.js"
+    import { PODefinition } from "../BpmnJsExtend/PODefinition.js";
+    import selectRoleDialog from "./Dialog/select-role-dialog.vue";
 
     export default {
         name: "process-properties",
         components: {
             listenersProperties,
             extensionsProperties,
-            jb4dcGeneralProperties
+            jb4dcGeneralProperties,
+            selectRoleDialog
         },
         props:["propElemProperties"],
         data:function () {
@@ -129,6 +142,18 @@
 
         },
         methods:{
+            randomId(){
+                this.bpmn.id="Flow_Model_"+StringUtility.Timestamp();
+            },
+            beginSelectRole(){
+                this.$refs.selectRoleDialog.beginSelectRole("选择角色","",(result)=>{
+                    //console.log(result);
+                    //EditTable_SelectDefaultValue.SetSelectEnvVariableResultValue(result);
+                    //_self.innerDetailInfo.actionDisplayCondition=result;
+                    this.camunda.candidateStarterGroups=result.Value;
+                    this.jb4dc.jb4dcProcessCandidateStarterGroupsDesc=result.Text;
+                });
+            },
             getValue(){
                 var result= {
                     bpmn:this.bpmn,
