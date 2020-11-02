@@ -90,8 +90,8 @@
             logXML () {
                 flowBpmnJsIntegrated.LogXML();
             },
-            getXML(){
-                return flowBpmnJsIntegrated.GetXML();
+            getXML(func){
+                return flowBpmnJsIntegrated.GetXML(func);
             },
             setXML(xml){
                 flowBpmnJsIntegrated.SetXML(xml);

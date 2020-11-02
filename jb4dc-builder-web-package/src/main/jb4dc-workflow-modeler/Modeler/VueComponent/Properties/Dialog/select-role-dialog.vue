@@ -1,21 +1,22 @@
 <template>
     <div ref="selectRoleDialogWrap" style="display: none">
-        <div style="width: 30%;float: left;height: 350px">
+        <div style="width: 30%;float: left;height: 452px;border: #a9b7d1 1px solid;border-radius: 4px;margin-right: 10px">
             <div class="inner-wrap">
                 <div>
                     <ul ref="roleGroupZTreeUL" class="ztree"></ul>
                 </div>
             </div>
         </div>
-        <div style="width: 68%;float: left;height: 350px" class="iv-list-page-wrap">
-            <i-table :height="340" stripe border :columns="roleColumnsConfig" :data="roleTableData"
-                     class="iv-list-table" :highlight-row="true">
-                <template slot-scope="{ row, index }" slot="action">
-                    <div class="wf-list-font-icon-button-class" @click="selectedRole(row)">
-                        <Icon type="ios-checkmark-circle" />
-                    </div>
-                </template>
+        <div style="width: 40%;float: left;height: 452px" class="iv-list-page-wrap select-dialog-single-select-table">
+            <i-table :height="452" stripe border :columns="roleColumnsConfig" :data="roleTableData"
+                     :highlight-row="true" @on-row-click="selectedRole">
             </i-table>
+        </div>
+        <div style="width: 27%;float: right;height: 452px;border: #e8eaec 1px solid;border-radius: 4px;">
+            <div style="border-bottom: #e8eaec 1px solid;background-color: #f8f8f9;height: 36px;line-height: 36px;padding-left: 10px;border-radius: 4px 4px 0px 0px">选定角色</div>
+            <div style="margin-left: 10px;margin-top: 8px">
+                <tag type="border" color="success" :closable="true" v-for="item in selectedRoleArray" :key="item.roleId" :name="item.roleId" @on-close="deleteSelectedRole">{{item.roleName}}</tag>
+            </div>
         </div>
     </div>
 </template>
@@ -66,22 +67,13 @@
                 roleTableData:[],
                 roleColumnsConfig: [
                     {
-                        title: '角色ID',
-                        key: 'roleId',
-                        align: "center"
-                    }, {
                         title: '角色名称',
                         key: 'roleName',
                         align: "center"
-                    }, {
-                        title: '操作',
-                        slot: 'action',
-                        key: 'roleId',
-                        width: 120,
-                        align: "center"
                     }
                 ],
-                callBackFunc:null
+                callBackFunc:null,
+                selectedRoleArray:[]
             }
         },
         mounted() {
@@ -93,10 +85,8 @@
                 modal:true,
                 buttons: {
                     "确认": function () {
-                        var result={};
-                        result.Value = _self.selectValue;
-                        result.Text = _self.selectText;
                         if(typeof (_self.callBackFunc=="function")) {
+                            var result=JsonUtility.CloneArraySimple(_self.selectedRoleArray);
                             _self.callBackFunc(result);
                         }
                         DialogUtility.CloseDialogElem(_self.$refs.selectRoleDialogWrap);
@@ -117,13 +107,10 @@
         },
         methods:{
             beginSelectRole(dialogTitle,oldData,callBackFunc) {
-                //console.log("...........1...");
-                //console.log(formId);
+                this.selectedRoleArray=[];
                 $(this.$refs.selectRoleDialogWrap).dialog("open");
                 $(this.$refs.selectRoleDialogWrap).dialog("option", "title", dialogTitle );
-                //this.selectValue="";
                 this.callBackFunc=callBackFunc;
-
                 RemoteUtility.GetRoleGroupPOList().then((roleGroupPOList) => {
                     this.tree.roleGroupTreeObj = $.fn.zTree.init($(this.$refs.roleGroupZTreeUL), this.tree.roleGroupTreeSetting, roleGroupPOList);
                     this.tree.roleGroupTreeObj.expandAll(true);
@@ -135,15 +122,29 @@
                 this.tree.roleGroupTreeSelectedNode=treeNode;
                 // 根节点不触发任何事件1
                 RemoteUtility.GetRolePOListByGroupId(treeNode.roleGroupId).then((roleTableData) => {
-                    console.log(roleTableData);
+                    //console.log(roleTableData);
                     this.roleTableData = roleTableData;
                 });
             },
-            selectedRole:function (row) {
+            selectedRole(row) {
                 //this.selectType="EnvVar";
-                var selectText=TreeUtility.BuildNodePathName(this.tree.roleGroupTreeSelectedNode,"roleGroupName",row.roleName);
-                this.selectValue=row.roleId;
-                this.selectText=selectText;
+                var rolePath = TreeUtility.BuildNodePathName(this.tree.roleGroupTreeSelectedNode, "roleGroupName", row.roleName, 1);
+                var roleId = row.roleId;
+                ArrayUtility.PushWhenNotExist(this.selectedRoleArray, {
+                    roleId: roleId,
+                    rolePath: rolePath,
+                    roleName: row.roleName
+                }, function (item) {
+                    return item.roleId == roleId
+                });
+            },
+            deleteSelectedRole(event, name){
+                console.log(name);
+                for (let i = 0; i < this.selectedRoleArray.length; i++) {
+                    if(this.selectedRoleArray[i].roleId==name){
+                        ArrayUtility.Delete(this.selectedRoleArray,i);
+                    }
+                }
             }
         }
     }

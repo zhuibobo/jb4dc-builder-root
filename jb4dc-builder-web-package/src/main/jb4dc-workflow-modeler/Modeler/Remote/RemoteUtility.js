@@ -86,6 +86,23 @@ class RemoteUtility{
         return "找不到对应的字段!";
     }
 
+    static GetUserPOListByOrganId(organId){
+        var userEntityList=this._moduleContext.data.userEntityList;
+        userEntityList=ArrayUtility.Where(userEntityList,function (item) {
+            return item.userOrganId==organId;
+        });
+        const promise = new Promise((resolve, reject)=>{
+            resolve(userEntityList);
+        });
+        return promise;
+    }
+    static GetOrganPOList(){
+        const promise = new Promise((resolve, reject) => {
+            var organEntityList = this._moduleContext.data.organEntityList;
+            resolve(organEntityList);
+        });
+        return promise;
+    }
     static GetRolePOListByGroupId(groupId){
         var roleEntityList=this._moduleContext.data.roleEntityList;
         roleEntityList=ArrayUtility.Where(roleEntityList,function (item) {

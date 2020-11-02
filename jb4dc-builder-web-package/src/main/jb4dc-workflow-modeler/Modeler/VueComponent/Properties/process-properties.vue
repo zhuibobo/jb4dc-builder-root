@@ -46,22 +46,26 @@
                         </tr>
                         <tr>
                             <td>启动分组：</td>
-                            <td>
-                                <input type="text" placeholder="Candidate Starter Groups" v-model="camunda.candidateStarterGroups" style="width:262px" />
-                                <Button type="primary" @click="beginSelectRole">选择</Button>
-                            </td>
-                            <td colspan="2">
-                                {{jb4dc.jb4dcProcessCandidateStarterGroupsDesc}}
+
+                            <td colspan="3">
+                                <div style="float: left;width: 92%">
+                                    <tag type="border" color="success" v-for="item in jb4dc.jb4dcProcessCandidateStarterGroupsDesc.split(',')">{{item}}</tag>
+                                </div>
+                                <div style="float: right;width: 7%">
+                                    <Button type="primary" @click="beginSelectRole">选择</Button>
+                                </div>
+
                             </td>
                         </tr>
                         <tr>
                             <td>启动用户：</td>
-                            <td>
-                                <input type="text" placeholder="Candidate Starter Users" v-model="camunda.candidateStarterUsers" style="width:262px" />
-                                <Button type="primary">选择</Button>
-                            </td>
-                            <td colspan="2">
-
+                            <td colspan="3">
+                                <div style="float: left;width: 92%">
+                                    <tag type="border" color="success" v-for="item in jb4dc.jb4dcProcessCandidateStarterUsersDesc.split(',')">{{item}}</tag>
+                                </div>
+                                <div style="float: right;width: 7%">
+                                    <Button type="primary" @click="beginSelectUser">选择</Button>
+                                </div>
                             </td>
                         </tr>
                         <tr>
@@ -78,7 +82,7 @@
                         <tr>
                             <td>备注：</td>
                             <td colspan="3">
-                                <textarea rows="8" placeholder="Element Documentation" v-model="bpmn.documentation"></textarea>
+                                <textarea rows="4" placeholder="Element Documentation" v-model="bpmn.documentation"></textarea>
                             </td>
                         </tr>
                     </tbody>
@@ -101,6 +105,7 @@
             </tab-pane>
         </tabs>
         <selectRoleDialog ref="selectRoleDialog"></selectRoleDialog>
+        <selectUserDialog ref="selectUserDialog"></selectUserDialog>
     </div>
 </template>
 
@@ -110,6 +115,7 @@
     import jb4dcGeneralProperties from "./PropertiesComponent/jb4dc-general-properties.vue";
     import { PODefinition } from "../BpmnJsExtend/PODefinition.js";
     import selectRoleDialog from "./Dialog/select-role-dialog.vue";
+    import selectUserDialog from "./Dialog/select-user-dialog.vue";
 
     export default {
         name: "process-properties",
@@ -117,7 +123,8 @@
             listenersProperties,
             extensionsProperties,
             jb4dcGeneralProperties,
-            selectRoleDialog
+            selectRoleDialog,
+            selectUserDialog
         },
         props:["propElemProperties"],
         data:function () {
@@ -146,12 +153,29 @@
                 this.bpmn.id="Flow_Model_"+StringUtility.Timestamp();
             },
             beginSelectRole(){
-                this.$refs.selectRoleDialog.beginSelectRole("选择角色","",(result)=>{
-                    //console.log(result);
-                    //EditTable_SelectDefaultValue.SetSelectEnvVariableResultValue(result);
-                    //_self.innerDetailInfo.actionDisplayCondition=result;
-                    this.camunda.candidateStarterGroups=result.Value;
-                    this.jb4dc.jb4dcProcessCandidateStarterGroupsDesc=result.Text;
+                this.$refs.selectRoleDialog.beginSelectRole("选择角色","",(selectedRoleArray)=>{
+                    var roleIdS=[];
+                    var rolePaths=[];
+                    for (let i = 0; i < selectedRoleArray.length; i++) {
+                        roleIdS.push(selectedRoleArray[i].roleId);
+                        rolePaths.push(selectedRoleArray[i].rolePath);
+                    }
+                    //this.startRoleArray=selectedRoleArray;
+                    this.camunda.candidateStarterGroups=roleIdS.join(",");
+                    this.jb4dc.jb4dcProcessCandidateStarterGroupsDesc=rolePaths.join(",");
+                });
+            },
+            beginSelectUser(){
+                this.$refs.selectUserDialog.beginSelectUser("选择用户","",(selectedUserArray)=>{
+                    var userIdS=[];
+                    var userPaths=[];
+                    for (let i = 0; i < selectedUserArray.length; i++) {
+                        userIdS.push(selectedUserArray[i].userId);
+                        userPaths.push(selectedUserArray[i].userPath);
+                    }
+                    //this.startRoleArray=selectedRoleArray;
+                    this.camunda.candidateStarterUsers=userIdS.join(",");
+                    this.jb4dc.jb4dcProcessCandidateStarterUsersDesc=userPaths.join(",");
                 });
             },
             getValue(){

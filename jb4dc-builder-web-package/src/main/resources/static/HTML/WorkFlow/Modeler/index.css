@@ -288,6 +288,9 @@ body {
   border-color: red !important;
   cursor: pointer;
 }
+.select-dialog-single-select-table .ivu-table-row {
+  cursor: pointer !important;
+}
 
 
 .jb4dc-general-properties-icon-class1[data-v-fb97727e]{

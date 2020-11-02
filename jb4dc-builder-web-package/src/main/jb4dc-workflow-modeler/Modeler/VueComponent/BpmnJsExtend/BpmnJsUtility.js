@@ -565,6 +565,20 @@ class BpmnJsUtility {
         this.SetAttr(element,"jb4dcProcessDescriptionEditValue",jb4dcProcessDescriptionEditValue);
     }
 
+    static JB4DC_Attr_GetJb4dcProcessCandidateStarterGroupsDesc(element){
+        return this.GetAttr(element,"jb4dcProcessCandidateStarterGroupsDesc");
+    }
+    static JB4DC_Attr_SetJb4dcProcessCandidateStarterGroupsDesc(element, jb4dcProcessCandidateStarterGroupsDesc){
+        this.SetAttr(element,"jb4dcProcessCandidateStarterGroupsDesc",jb4dcProcessCandidateStarterGroupsDesc);
+    }
+
+    static JB4DC_Attr_GetJb4dcProcessCandidateStarterUsersDesc(element){
+        return this.GetAttr(element,"jb4dcProcessCandidateStarterUsersDesc");
+    }
+    static JB4DC_Attr_SetJb4dcProcessCandidateStarterUsersDesc(element, jb4dcProcessCandidateStarterUsersDesc){
+        this.SetAttr(element,"jb4dcProcessCandidateStarterUsersDesc",jb4dcProcessCandidateStarterUsersDesc);
+    }
+
     static JB4DC_GetActionsArray(element){
         var extensionElements=this.BPMN_GetExtensionElements(element);
         if(extensionElements){

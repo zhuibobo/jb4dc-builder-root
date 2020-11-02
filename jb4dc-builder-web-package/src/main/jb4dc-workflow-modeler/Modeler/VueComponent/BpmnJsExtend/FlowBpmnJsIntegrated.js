@@ -89,6 +89,10 @@ class FlowBpmnJsIntegrated {
                 //console.log(this.modeler._definitions);
             }
         });
+
+        //const result = await this.modeler.importXML(bpmnModelXML);
+        //const { warnings } = result;
+
         eventBus = this.modeler.get('eventBus');
         //eventBus.aaa="11111";
         //console.log(eventBus);
@@ -312,6 +316,10 @@ class FlowBpmnJsIntegrated {
         result.jb4dc.jb4dcProcessDescriptionEditValue = BpmnJsUtility.JB4DC_Attr_GetJb4dcProcessDescriptionEditValue(elem);
         result.jb4dc.jb4dcActions = BpmnJsUtility.JB4DC_GetActionsArray(elem);
         result.jb4dc.jb4dcSequenceFlowConditionEditText = BpmnJsUtility.JB4DC_Attr_GetJb4dcSequenceFlowConditionEditText(elem);
+
+        result.jb4dc.jb4dcProcessCandidateStarterGroupsDesc = BpmnJsUtility.JB4DC_Attr_GetJb4dcProcessCandidateStarterGroupsDesc(elem);
+        result.jb4dc.jb4dcProcessCandidateStarterUsersDesc = BpmnJsUtility.JB4DC_Attr_GetJb4dcProcessCandidateStarterUsersDesc(elem);
+
         if (!result.jb4dc.jb4dcActions) {
             result.jb4dc.jb4dcActions = [];
         }
@@ -357,6 +365,10 @@ class FlowBpmnJsIntegrated {
             BpmnJsUtility.CAMUNDA_Attr_SetHistoryTimeToLive(elem, props.camunda.historyTimeToLive);
 
             BpmnJsUtility.JB4DC_Attr_SetJb4dcFlowCategory(elem, props.jb4dc.jb4dcFlowCategory);
+
+            BpmnJsUtility.JB4DC_Attr_SetJb4dcProcessCandidateStarterGroupsDesc(elem, props.jb4dc.jb4dcProcessCandidateStarterGroupsDesc);
+            BpmnJsUtility.JB4DC_Attr_SetJb4dcProcessCandidateStarterUsersDesc(elem, props.jb4dc.jb4dcProcessCandidateStarterUsersDesc);
+            console.log(props.jb4dc);
         } else if (BpmnJsUtility.Is_UserTask(elem)) {
             console.log(props.jb4dc.jb4dcActions);
             BpmnJsUtility.JB4DC_SetActionsArray(elem, props.jb4dc.jb4dcActions, true);
@@ -422,11 +434,16 @@ class FlowBpmnJsIntegrated {
         console.log(this.GetXML());
     }
 
-    GetXML() {
+    GetXML(func) {
+        //const result = await this.modeler.saveXML(options);
+        //debugger;
         var xml;
         this.modeler.saveXML(null, function (error, _xml) {
             xml = _xml;
+            console.log(_xml);
+            func(xml);
         })
+        //console.log(xml);
         return xml;
     }
 

@@ -118,9 +118,6 @@
             consoleLogBpmnJsXml:function () {
                 this.$refs["flowBpmnjsContainer"].logXML();
             },
-            tabChange:function () {
-
-            },
             initPageUI:function(){
                 this.isLoading=true;
                 this.oldSelectedTabName=this.selectedTabName;
@@ -156,19 +153,17 @@
             },
             tabChange:function (name) {
                 if(this.isBpmnDesignToOther(name)){
-                    var xml=this.$refs["flowBpmnjsContainer"].getXML();
-                    //console.log(xml);
-                    var selectedElem=this.$refs["flowBpmnjsContainer"].getSelectedElement();
-                    this.$refs["flowXmlContainer"].setXML(xml,selectedElem);
-                    //var html=CKEditorUtility.GetCKEditorHTML();
-                    //JBuild4DC.FormDesign.SetHTMLEditorHTML("<div id='aaa'><div><div><div>ssssssssss</div></div></div></div>");
-                    //HTMLEditorUtility.SetHTMLEditorHTML(html);
+                    var _self=this;
+                    var xml=this.$refs["flowBpmnjsContainer"].getXML(function (xml) {
+                        var selectedElem=_self.$refs["flowBpmnjsContainer"].getSelectedElement();
+                        _self.$refs["flowXmlContainer"].setXML(xml,selectedElem);
+                    });
+                    //var selectedElem=this.$refs["flowBpmnjsContainer"].getSelectedElement();
+                    //this.$refs["flowXmlContainer"].setXML(xml,selectedElem);
                 }
                 else if(this.isXMLToOther(name)){
                     var xml=this.$refs["flowXmlContainer"].getXML();
                     this.$refs["flowBpmnjsContainer"].setXML(xml);
-                    //alert(html);
-                    //CKEditorUtility.SetCKEditorHTML(html);
                 }
                 this.oldSelectedTabName=name;
             },
