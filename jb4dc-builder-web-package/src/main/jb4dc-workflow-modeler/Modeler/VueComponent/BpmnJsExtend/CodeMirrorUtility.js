@@ -2,7 +2,7 @@ import {RemoteUtility} from '../../Remote/RemoteUtility';
 
 class CodeMirrorUtility{
     static TryResolveCodeMirrorValueToMarkText(codeMirrorInstance,sourceTextAreaElem) {
-        //var
+
         var doc = codeMirrorInstance.getDoc();
         var editValue=doc.getValue();
         doc.setValue(editValue);
@@ -36,10 +36,12 @@ class CodeMirrorUtility{
                     }
                         break;
                     case "TableField": {
+                        //debugger;
                         itemTypeText = "表字段";
                         var tempTableName = itemValue.split(".")[0];
+                        var tempTableId = itemValue.split(".")[0];
                         var tempFieldName = itemValue.split(".")[1];
-                        var tempPO = RemoteUtility.GetTableFieldPO(tempTableName, tempFieldName);
+                        var tempPO = RemoteUtility.GetTableFieldPOByTableId(tempTableId, tempFieldName);
                         itemText = tempPO.tableCaption + "." + tempPO.fieldCaption;
                     }
                         break;

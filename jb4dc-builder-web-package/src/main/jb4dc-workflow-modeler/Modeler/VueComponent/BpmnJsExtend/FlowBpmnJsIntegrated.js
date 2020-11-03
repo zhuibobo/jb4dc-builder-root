@@ -1,7 +1,8 @@
 import BpmnModeler from 'bpmn-js/lib/Modeler';
 import camundaModdleDescriptor from 'camunda-bpmn-moddle/resources/camunda';
 import jb4dcModdleDescriptor from './JB4DCModdle.json';
-import emptyBPMNXML from '../../Resources/emptyFlowModel.bpmn';
+/*import emptyBPMNXML from '../../Resources/emptyFlowModel.bpmn';*/
+import emptyBPMNXML from '../../Resources/newDiagram1.bpmn';
 import CustomTranslate from './CustomTranslate';
 import propertiesPadEntity from './AdditionalModules/PropertiesPadEntity';
 import changeColorPadEntity from './AdditionalModules/ChangeColorPadEntity';
@@ -287,8 +288,13 @@ class FlowBpmnJsIntegrated {
 
         result.camunda.assignee = BpmnJsUtility.CAMUNDA_Attr_GetAssignee(elem);
         result.camunda.priority = BpmnJsUtility.CAMUNDA_Attr_GetPriority(elem);
+
         result.camunda.candidateUsers = BpmnJsUtility.CAMUNDA_Attr_GetCandidateUsers(elem);
         result.camunda.candidateGroups = BpmnJsUtility.CAMUNDA_Attr_GetCandidateGroups(elem);
+
+        result.jb4dc.jb4dcCandidateUsersDesc = BpmnJsUtility.JB4DC_Attr_GetJb4dcCandidateUsersDesc(elem);
+        result.jb4dc.jb4dcCandidateGroupsDesc = BpmnJsUtility.JB4DC_Attr_GetJb4dcCandidateGroupsDesc(elem);
+
         result.camunda.dueDate = BpmnJsUtility.CAMUNDA_Attr_GetDueDate(elem);
         result.camunda.followUpDate = BpmnJsUtility.CAMUNDA_Attr_GetFollowUpDate(elem);
 
@@ -330,7 +336,7 @@ class FlowBpmnJsIntegrated {
     }
 
     DeSerializationDialogPropsToElem(props, elem) {
-        console.log(props);
+        //console.log(props);
         BpmnJsUtility.BPMN_Attr_SetName(elem, props.bpmn.name);
         BpmnJsUtility.BPMN_SetElementDocumentationText(elem, props.bpmn.documentation);
 
@@ -368,19 +374,19 @@ class FlowBpmnJsIntegrated {
 
             BpmnJsUtility.JB4DC_Attr_SetJb4dcProcessCandidateStarterGroupsDesc(elem, props.jb4dc.jb4dcProcessCandidateStarterGroupsDesc);
             BpmnJsUtility.JB4DC_Attr_SetJb4dcProcessCandidateStarterUsersDesc(elem, props.jb4dc.jb4dcProcessCandidateStarterUsersDesc);
-            console.log(props.jb4dc);
+            //console.log(props.jb4dc);
         } else if (BpmnJsUtility.Is_UserTask(elem)) {
-            console.log(props.jb4dc.jb4dcActions);
+            //console.log(props.jb4dc.jb4dcActions);
             BpmnJsUtility.JB4DC_SetActionsArray(elem, props.jb4dc.jb4dcActions, true);
-        } else if (BpmnJsUtility.Is_SequenceFlow(elem)) {
-            BpmnJsUtility.JB4DC_Attr_SetJb4dcSequenceFlowConditionEditText(elem, props.jb4dc.jb4dcSequenceFlowConditionEditText, true);
-            BpmnJsUtility.BPMN_SetConditionExpression(elem, props.bpmn.conditionExpression, true);
-        } else {
-
             BpmnJsUtility.CAMUNDA_Attr_SetAssignee(elem, props.camunda.assignee);
             BpmnJsUtility.CAMUNDA_Attr_SetPriority(elem, props.camunda.priority);
+
             BpmnJsUtility.CAMUNDA_Attr_SetCandidateUsers(elem, props.camunda.candidateUsers);
             BpmnJsUtility.CAMUNDA_Attr_SetCandidateGroups(elem, props.camunda.candidateGroups);
+
+            BpmnJsUtility.JB4DC_Attr_SetJb4dcCandidateUsersDesc(elem, props.jb4dc.jb4dcCandidateUsersDesc);
+            BpmnJsUtility.JB4DC_Attr_SetJb4dcCandidateGroupsDesc(elem, props.jb4dc.jb4dcCandidateGroupsDesc);
+
             BpmnJsUtility.CAMUNDA_Attr_SetDueDate(elem, props.camunda.dueDate);
             BpmnJsUtility.CAMUNDA_Attr_SetFollowUpDate(elem, props.camunda.followUpDate);
 
@@ -389,6 +395,12 @@ class FlowBpmnJsIntegrated {
             } else {
                 BpmnJsUtility.CAMUNDA_ClearTaskListenerArray(elem);
             }
+        } else if (BpmnJsUtility.Is_SequenceFlow(elem)) {
+            BpmnJsUtility.JB4DC_Attr_SetJb4dcSequenceFlowConditionEditText(elem, props.jb4dc.jb4dcSequenceFlowConditionEditText, true);
+            BpmnJsUtility.BPMN_SetConditionExpression(elem, props.bpmn.conditionExpression, true);
+        } else {
+
+
         }
 
         var modeling = this.modeler.get('modeling');

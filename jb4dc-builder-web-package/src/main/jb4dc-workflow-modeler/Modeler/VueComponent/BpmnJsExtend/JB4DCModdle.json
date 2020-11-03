@@ -113,6 +113,16 @@
           "name": "jb4dcProcessDescriptionEditValue",
           "isAttr": true,
           "type": "String"
+        },
+        {
+          "name": "jb4dcCandidateUsersDesc",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "jb4dcCandidateGroupsDesc",
+          "isAttr": true,
+          "type": "String"
         }
       ]
     },

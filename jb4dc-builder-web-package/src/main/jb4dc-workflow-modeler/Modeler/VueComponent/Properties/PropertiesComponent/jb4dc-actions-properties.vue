@@ -30,8 +30,7 @@
                                 <col style="width: 12%" />
                                 <col style="width: 38%" />
                                 <col style="width: 12%" />
-                                <col style="width: 32%" />
-                                <col style="width: 6%" />
+                                <col style="width: 38%" />
                             </colgroup>
                             <tbody>
                                 <tr>
@@ -43,7 +42,7 @@
                                         </Select>
                                     </td>
                                     <td>编号：</td>
-                                    <td colspan="2">
+                                    <td>
                                         <input type="text" v-model="innerDetailInfo.actionCode" disabled />
                                     </td>
                                 </tr>
@@ -53,7 +52,7 @@
                                         <input type="text" v-model="innerDetailInfo.actionCaption" />
                                     </td>
                                     <td>弹出意见框：</td>
-                                    <td colspan="2">
+                                    <td>
                                         <radio-group type="button" style="margin: auto" v-model="innerDetailInfo.actionShowOpinionDialog">
                                             <radio label="true">是</radio>
                                             <radio label="false">否</radio>
@@ -66,23 +65,53 @@
                                         <input type="text" v-model="innerDetailInfo.actionHTMLId" />
                                     </td>
                                     <td>HTML Class：</td>
-                                    <td colspan="2">
+                                    <td>
                                         <input type="text" v-model="innerDetailInfo.actionHTMLClass" />
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td>备注：</td>
-                                    <td colspan="4" style="background-color: #ffffff">
-                                        <textarea rows="5" v-model="innerDetailInfo.actionDescription"></textarea>
+                                    <td>执行变量：</td>
+                                    <td colspan="3" style="background-color: #ffffff">
+                                        <div class="wf-list-button-outer-wrap" style="margin-top: 0px">
+                                            <div class="list-button-inner-wrap">
+                                                <button-group>
+                                                    <i-button type="success" @click="showAddActionExecuteVariableDialog(null)" icon="md-add"> </i-button>
+                                                    <i-button type="primary" icon="md-arrow-up" disabled>  </i-button>
+                                                    <i-button type="primary" icon="md-arrow-down" disabled>  </i-button>
+                                                </button-group>
+                                            </div>
+                                            <div style="clear: both"></div>
+                                        </div>
+                                        <i-table border :columns="addedActionExecuteVariableTableConfig" :data="addedActionExecuteVariableTableData"
+                                                 class="iv-list-table" size="small" no-data-text="添加执行变量,可以通过执行变量控制流程走向!" height="210">
+                                            <template slot-scope="{ row, index }" slot="action">
+                                                <div class="wf-list-font-icon-button-class" @click="deleteAction(index,row)">
+                                                    <Icon type="md-close" />
+                                                </div>
+                                                <div class="wf-list-font-icon-button-class" @click="editAction(index,row)">
+                                                    <Icon type="md-settings" />
+                                                </div>
+                                            </template>
+                                        </i-table>
                                     </td>
                                 </tr>
-                                <tr>
-
-                                </tr>
+                            </tbody>
+                        </table>
+                    </tab-pane>
+                    <tab-pane tab="add-action-properties-inner-dialog-tabs" label="显示条件">
+                        <table class="properties-dialog-table-wraper" cellpadding="0" cellspacing="0" border="0">
+                            <colgroup>
+                                <col style="width: 12%" />
+                                <col style="width: 38%" />
+                                <col style="width: 12%" />
+                                <col style="width: 32%" />
+                                <col style="width: 6%" />
+                            </colgroup>
+                            <tbody>
                                 <tr>
                                     <td rowspan="2">显示条件：</td>
                                     <td colspan="3" style="background-color: #ffffff">
-                                        <textarea rows="2" v-model="innerDetailInfo.actionDisplayConditionEditText" disabled></textarea>
+                                        <textarea rows="8" v-model="innerDetailInfo.actionDisplayConditionEditText" disabled></textarea>
                                     </td>
                                     <td style="background-color: #f8f8f8" rowspan="2">
                                         <Button type="primary" @click="beginEditContextJuelForActionDisplayCondition">编辑</Button>
@@ -90,7 +119,7 @@
                                 </tr>
                                 <tr>
                                     <td colspan="3" style="background-color: #ffffff">
-                                        <textarea rows="2" v-model="innerDetailInfo.actionDisplayConditionEditValue" disabled></textarea>
+                                        <textarea rows="8" v-model="innerDetailInfo.actionDisplayConditionEditValue" disabled></textarea>
                                     </td>
                                 </tr>
                             </tbody>
@@ -163,8 +192,65 @@
                             </tbody>
                         </table>
                     </tab-pane>
+                    <tab-pane tab="add-action-properties-inner-dialog-tabs" label="备注">
+                        <table class="properties-dialog-table-wraper" cellpadding="0" cellspacing="0" border="0">
+                            <colgroup>
+                                <col style="width: 12%" />
+                                <col style="width: 38%" />
+                                <col style="width: 12%" />
+                                <col style="width: 32%" />
+                                <col style="width: 6%" />
+                            </colgroup>
+                            <tbody>
+                                <tr>
+                                    <td>备注：</td>
+                                    <td colspan="4" style="background-color: #ffffff">
+                                        <textarea rows="21" v-model="innerDetailInfo.actionDescription"></textarea>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </tab-pane>
                 </tabs>
-
+            </div>
+        </div>
+        <div ref="addedActionExecuteVariableDialog" style="display: none">
+            <div>
+                <table class="properties-dialog-table-wraper" cellpadding="0" cellspacing="0" border="0">
+                    <colgroup>
+                        <col style="width: 18%" />
+                        <col style="width: 82%" />
+                    </colgroup>
+                    <tbody>
+                        <tr>
+                            <td>类型：</td>
+                            <td>
+                                <radio-group type="button" style="margin: auto" v-model="innerDetailInfo.actionShowOpinionDialog">
+                                    <radio label="静态变量">静态变量</radio>
+                                    <radio label="AIP变量">API变量</radio>
+                                </radio-group>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>键：</td>
+                            <td>
+                                <input type="text" v-model="innerDetailInfo.value" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>值：</td>
+                            <td>
+                                <input type="text" v-model="innerDetailInfo.value" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>备注：</td>
+                            <td>
+                                <textarea rows="9" v-model="innerDetailInfo.actionDescription"></textarea>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
         <contextVarJuelEditDialog ref="contextVarJuelEditDialog"></contextVarJuelEditDialog>
@@ -281,7 +367,28 @@
                 ],
                 addedActionData:[
 
-                ]
+                ],
+                formId:"",
+                addedActionExecuteVariableTableConfig:[
+                    {
+                        title: '键',
+                        key: 'actionShowOpinionDialog',
+                        align: "center",
+                        width: 120
+                    },
+                    {
+                        title: '值',
+                        key: 'actionHTMLId',
+                        align: "center"
+                    },
+                    {
+                        title: '操作',
+                        slot: 'action',
+                        width: 120,
+                        align: "center"
+                    }
+                ],
+                addedActionExecuteVariableTableData:[]
             }
         },
         mounted(){
@@ -291,43 +398,8 @@
             EditTable_SelectDefaultValue.ClickSelectedButtonCB=function () {
                 _self.beginSelectDefaultValue();
             }
-            DialogUtility.DialogElemObj(_self.$refs.addActionDialog,{
-                title:"新增动作",
-                width:850,
-                height:560,
-                modal:true,
-                buttons: {
-                    "确认": function () {
-
-                        if(_self.field.editTableObject) {
-                            _self.innerDetailInfo.actionUpdateFields = _self.field.editTableObject.GetAllRowDataExUndefinedTextProp();
-                        }
-                        else{
-                            _self.innerDetailInfo.actionUpdateFields =[];
-                        }
-                        _self.innerDetailInfo.actionCallApis=_self.api.editTableObject.GetAllRowDataExUndefinedTextProp();
-                        var cloneInnerDetailInfo=JsonUtility.CloneObjectProp(_self.innerDetailInfo,function (key,sourcePropValue) {
-                            if(key=="actionUpdateFields"||key=="actionCallApis"){
-                                return JsonUtility.JsonToString(sourcePropValue);
-                            }
-                        });
-                        console.log(cloneInnerDetailInfo);
-                        if(ArrayUtility.ExistReplaceItem(_self.addedActionData,cloneInnerDetailInfo,function (item) {
-                           return item.actionCode==cloneInnerDetailInfo.actionCode
-                        })){
-
-                        }
-                        else {
-                            _self.addedActionData.push(cloneInnerDetailInfo);
-                        }
-                        DialogUtility.CloseDialogElem(_self.$refs.addActionDialog);
-                    },
-                    "取消": function () {
-                        DialogUtility.CloseDialogElem(_self.$refs.addActionDialog);
-                    }
-                }
-            },null,{},this);
-            $(this.$refs.addActionDialog).dialog("close");
+            this.initAddActionDialog();
+            this.initAddActionExecuteVariableDialog();
         },
         beforeDestroy(){
             //console.log("beforeDestroy");
@@ -353,6 +425,46 @@
                     _self.innerDetailInfo.actionDisplayConditionEditValue=result.editValue;
                 });
             },
+            initAddActionDialog(){
+                var _self=this;
+                DialogUtility.DialogElemObj(_self.$refs.addActionDialog,{
+                    title:"新增动作",
+                    width:850,
+                    height:560,
+                    modal:true,
+                    buttons: {
+                        "确认": function () {
+
+                            if(_self.field.editTableObject) {
+                                _self.innerDetailInfo.actionUpdateFields = _self.field.editTableObject.GetAllRowDataExUndefinedTextProp();
+                            }
+                            else{
+                                _self.innerDetailInfo.actionUpdateFields =[];
+                            }
+                            _self.innerDetailInfo.actionCallApis=_self.api.editTableObject.GetAllRowDataExUndefinedTextProp();
+                            var cloneInnerDetailInfo=JsonUtility.CloneObjectProp(_self.innerDetailInfo,function (key,sourcePropValue) {
+                                if(key=="actionUpdateFields"||key=="actionCallApis"){
+                                    return JsonUtility.JsonToString(sourcePropValue);
+                                }
+                            });
+                            console.log(cloneInnerDetailInfo);
+                            if(ArrayUtility.ExistReplaceItem(_self.addedActionData,cloneInnerDetailInfo,function (item) {
+                                return item.actionCode==cloneInnerDetailInfo.actionCode
+                            })){
+
+                            }
+                            else {
+                                _self.addedActionData.push(cloneInnerDetailInfo);
+                            }
+                            DialogUtility.CloseDialogElem(_self.$refs.addActionDialog);
+                        },
+                        "取消": function () {
+                            DialogUtility.CloseDialogElem(_self.$refs.addActionDialog);
+                        }
+                    }
+                },null,{},this);
+                $(this.$refs.addActionDialog).dialog("close");
+            },
             showAddActionDialog(oldInnerDetailInfo){
                 if(!oldInnerDetailInfo){
                     this.innerDetailInfo=PODefinition.GetJB4DCActionPO();
@@ -367,7 +479,54 @@
                 this.bindEditTable_TableFields(this.innerDetailInfo.actionUpdateFields);
                 this.bindEditTable_APIs(this.innerDetailInfo.actionCallApis);
             },
-            //API设置
+            //region 动作执行变量设置
+            initAddActionExecuteVariableDialog(){
+                var _self=this;
+                //console.log("新增动作执行变量");
+                DialogUtility.DialogElemObj(_self.$refs.addedActionExecuteVariableDialog,{
+                    title:"新增动作执行变量",
+                    width:650,
+                    height:460,
+                    modal:true,
+                    buttons: {
+                        "确认": function () {
+
+                            if(_self.field.editTableObject) {
+                                _self.innerDetailInfo.actionUpdateFields = _self.field.editTableObject.GetAllRowDataExUndefinedTextProp();
+                            }
+                            else{
+                                _self.innerDetailInfo.actionUpdateFields =[];
+                            }
+                            _self.innerDetailInfo.actionCallApis=_self.api.editTableObject.GetAllRowDataExUndefinedTextProp();
+                            var cloneInnerDetailInfo=JsonUtility.CloneObjectProp(_self.innerDetailInfo,function (key,sourcePropValue) {
+                                if(key=="actionUpdateFields"||key=="actionCallApis"){
+                                    return JsonUtility.JsonToString(sourcePropValue);
+                                }
+                            });
+                            console.log(cloneInnerDetailInfo);
+                            if(ArrayUtility.ExistReplaceItem(_self.addedActionData,cloneInnerDetailInfo,function (item) {
+                                return item.actionCode==cloneInnerDetailInfo.actionCode
+                            })){
+
+                            }
+                            else {
+                                _self.addedActionData.push(cloneInnerDetailInfo);
+                            }
+                            DialogUtility.CloseDialogElem(_self.$refs.addActionDialog);
+                        },
+                        "取消": function () {
+                            DialogUtility.CloseDialogElem(_self.$refs.addActionDialog);
+                        }
+                    }
+                },null,{},this);
+                $(this.$refs.addedActionExecuteVariableDialog).dialog("close");
+            },
+            showAddActionExecuteVariableDialog(){
+                //debugger;
+                $(this.$refs.addedActionExecuteVariableDialog).dialog("open");
+            },
+            //endregion
+            //region API设置
             bindEditTable_APIs(oldData){
                 if (!this.api.editTableObject) {
                     this.api.editTableObject = Object.create(EditTable);
@@ -387,10 +546,12 @@
             removeAPI(){
                 this.api.editTableObject.RemoveRow();
             },
-            //表字段设置
+            //endregion API设置
+            //region 表字段设置
             bindEditTable_TableFields(oldData) {
-
+                //debugger;
                 var formId = flowBpmnJsIntegrated.TryGetFormId(this.propFromId);
+                this.formId = formId;
                 RemoteUtility.GetFormResourceBindMainTable(formId).then((tablePO) => {
                     var fieldsData = [];
 
@@ -413,7 +574,7 @@
                             this.field.editTableObject.Initialization(this.field.editTableConfig);
                         }
 
-                        this.oldFormId = this.formId;
+                        //this.oldFormId = this.formId;
                         if (oldData) {
                             this.field.editTableObject.LoadJsonData(oldData);
                         }
@@ -428,10 +589,22 @@
                 }
             },
             addUpdateField(){
-                this.field.editTableObject.AddEditingRowByTemplate();
+                if(this.formId) {
+                    this.field.editTableObject.AddEditingRowByTemplate();
+                }
+                else {
+                    //this.$Message.info('请先设置绑定的窗体,需要根据绑定的窗体确定数据源表!');
+                    DialogUtility.ToastMessage(this,'请先设置绑定的窗体,需要根据绑定的窗体确定数据源表!');
+                }
             },
             removeUpdateField(){
-                this.field.editTableObject.RemoveRow();
+                if(this.formId) {
+                    this.field.editTableObject.RemoveRow();
+                }
+                else {
+                    //this.$Message.info('请先设置绑定的窗体,需要根据绑定的窗体确定数据源表!');
+                    DialogUtility.ToastMessage(this,'请先设置绑定的窗体,需要根据绑定的窗体确定数据源表!');
+                }
             },
 
             deleteAction(index,row){
@@ -453,6 +626,7 @@
             getHostResultProperties(){
                 return this.addedActionData;
             }
+            //endregion 表字段设置
         }
     }
     function ReplaceItem(source, newItem, condition) {

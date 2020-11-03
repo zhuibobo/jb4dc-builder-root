@@ -37,7 +37,9 @@ class PODefinition{
                 jb4dcActions:[],
                 jb4dcSequenceFlowConditionEditText:"",
                 jb4dcProcessCandidateStarterGroupsDesc:"",
-                jb4dcProcessCandidateStarterUsersDesc:""
+                jb4dcProcessCandidateStarterUsersDesc:"",
+                jb4dcCandidateUsersDesc:"",
+                jb4dcCandidateGroupsDesc:"",
             }
         }
     }

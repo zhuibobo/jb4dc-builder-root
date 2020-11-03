@@ -68,6 +68,21 @@ class RemoteUtility{
         }
         return "找不到对应的字段!";
     }
+    static GetTableFieldPOByTableId(tableId,fieldName){
+        if(this._moduleContext.data.formResourcePOList) {
+            for (var i = 0; i < this._moduleContext.data.formResourcePOList.length; i++) {
+                var tablePOList=this._moduleContext.data.formResourcePOList[i].tablePOList;
+                for (var j = 0; j < tablePOList.length; j++) {
+                    var tablePO=tablePOList[j];
+                    var fieldPO=ArrayUtility.WhereSingle(tablePO.tableFieldPOList,function (fieldPOItem) {
+                        return fieldPOItem.tableId==tableId&&fieldPOItem.fieldName==fieldName;
+                    })
+                    return fieldPO;
+                }
+            }
+        }
+        return "找不到对应的字段!";
+    }
     static GetTableFieldNameByFieldCaption(tableName,fieldCaption){
         if(this._moduleContext.data.formResourcePOList) {
             for (var i = 0; i < this._moduleContext.data.formResourcePOList.length; i++) {

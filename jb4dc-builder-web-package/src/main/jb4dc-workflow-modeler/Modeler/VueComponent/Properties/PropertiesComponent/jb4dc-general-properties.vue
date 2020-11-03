@@ -14,6 +14,11 @@
                     <td>
                         <Select v-model="jb4dc.jb4dcFlowCategory" style="width:200px">
                             <Option value="通用流程">通用流程</Option>
+                            <Option value="公文收文流程">公文收文流程</Option>
+                            <Option value="公文发文流程">公文发文流程</Option>
+                            <Option value="行政审批流程">行政审批流程</Option>
+                            <Option value="行政许可流程">行政许可流程</Option>
+                            <Option value="社区服务流程">社区服务流程</Option>
                         </Select>
                     </td>
                     <td>

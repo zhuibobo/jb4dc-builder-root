@@ -129,7 +129,7 @@
                         buttons: {
                             "确认": function () {
                                 var dialogComponentProperties=_self.$refs.dialogPropertiesWindow.getValue();
-                                //console.log(dialogComponentJson);
+                                console.log(dialogComponentProperties);
                                 flowBpmnJsIntegrated.DeSerializationDialogPropsToElem(dialogComponentProperties,element);
                                 DialogUtility.CloseByElemId(dialogElemId);
                                 _self.elemPropertiesDialogView=emptyProperties;

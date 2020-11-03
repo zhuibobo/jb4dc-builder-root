@@ -240,6 +240,14 @@ body {
 .wf-list-button-outer-wrap .list-button-inner-wrap {
   float: right;
 }
+.wf-list-button-outer-wrap .list-button-inner-wrap .ivu-menu-horizontal {
+  height: 30px;
+  line-height: 30px;
+}
+.wf-list-button-outer-wrap .list-button-inner-wrap .ivu-menu-submenu-title {
+  height: 30px;
+  line-height: 30px;
+}
 .properties-pad-entity {
   /*background-color: red !important; */
   background-image: url(Images/cog.png) !important;

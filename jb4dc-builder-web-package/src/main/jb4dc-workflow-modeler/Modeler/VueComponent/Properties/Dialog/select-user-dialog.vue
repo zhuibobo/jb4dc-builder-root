@@ -91,11 +91,10 @@
                         DialogUtility.CloseDialogElem(_self.$refs.selectUserDialogWrap);
                     },
                     "清空": function () {
-                        _self.editData="";
                         if(typeof (_self.callBackFunc=="function")) {
-                            _self.callBackFunc(_self.editData);
+                            _self.callBackFunc([]);
                         }
-                        DialogUtility.CloseDialogElem(_self.$refs.selectDefaultValueDialogWrap);
+                        DialogUtility.CloseDialogElem(_self.$refs.selectUserDialogWrap);
                     },
                     "取消": function () {
                         DialogUtility.CloseDialogElem(_self.$refs.selectUserDialogWrap);

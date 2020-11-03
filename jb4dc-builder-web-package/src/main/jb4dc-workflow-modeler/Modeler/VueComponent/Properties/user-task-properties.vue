@@ -2,7 +2,7 @@
     <div>
         <tabs name="user-task-properties-tabs">
             <tab-pane tab="user-task-properties-tabs" label="CMA-General">
-                <taskGeneralProperties :prop-bpmn-general-data="bpmn" :prop-camunda-general-data="camunda"></taskGeneralProperties>
+                <taskGeneralProperties :prop-bpmn-general-data="bpmn" :prop-camunda-general-data="camunda" :prop-jb4dc-general-data="jb4dc"></taskGeneralProperties>
             </tab-pane>
             <tab-pane tab="user-task-properties-tabs" label="基础设置">
                 <jb4dcGeneralProperties ref="jb4dcGeneralProperties" :prop-jb4dc-general-data="jb4dc" :propIsProcess="false"></jb4dcGeneralProperties>
@@ -11,9 +11,7 @@
                 <jb4dcActionsProperties ref="jb4dcActionsProperties" :propFromId="jb4dc.jb4dcFormId" :propActionData="jb4dc.jb4dcActions"></jb4dcActionsProperties>
             </tab-pane>
             <tab-pane tab="user-task-properties-tabs" label="人员设置">
-                <div>
-                    先沿用camunda中对于接收人的设置
-                </div>
+                <jb4dcReceiveProperties ref="jb4dcReceiveProperties"></jb4dcReceiveProperties>
             </tab-pane>
             <tab-pane tab="user-task-properties-tabs" label="权限设置">
                 <div>
@@ -39,6 +37,7 @@
     import extensionsProperties from "./PropertiesComponent/extensions-properties.vue";
     import jb4dcGeneralProperties from "./PropertiesComponent/jb4dc-general-properties.vue";
     import jb4dcActionsProperties from "./PropertiesComponent/jb4dc-actions-properties.vue";
+    import jb4dcReceiveProperties from "./PropertiesComponent/jb4dc-receive-properties.vue";
     import { PODefinition } from "../BpmnJsExtend/PODefinition.js"
 
     export default {
@@ -48,7 +47,8 @@
             listenersProperties,
             extensionsProperties,
             jb4dcGeneralProperties,
-            jb4dcActionsProperties
+            jb4dcActionsProperties,
+            jb4dcReceiveProperties
         },
         props:["propElemProperties"],
         data:function () {
