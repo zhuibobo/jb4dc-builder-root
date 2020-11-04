@@ -29,6 +29,7 @@
                         </td>
                         <td rowspan="2">
                             <Button type="primary" @click="beginEditContextJuelForSequenceFlowCondition">编辑</Button>
+                            <Button type="success" @click="clearEditContextJuelForSequenceFlowCondition" style="margin-top: 8px">清空</Button>
                         </td>
                     </tr>
                     <tr>
@@ -39,6 +40,10 @@
                     <tr>
                         <td colspan="4" style="background-color: #ffffff">
                             <div style="height: 190px;width: 100%;overflow-y: auto;overflow-x: hidden;margin: auto">
+                                <div class="sfp-task-action-group">
+                                    <div class="sfp-tag-task-name" style="border-bottom: #1dc116 1px solid;background-color: #f3f3f3;border-radius:0px">前置环节</div>
+                                    <div class="sfp-tag-task-action-inner-group" style="border-bottom: #1dc116 1px solid;padding: 4px;text-align: center;background-color: #f3f3f3">环节动作</div>
+                                </div>
                                 <div class="sfp-task-action-group" v-for="mayBeFromTask in mayBeFromTaskList">
                                     <div class="sfp-tag-task-name">{{mayBeFromTask.taskName}}</div>
                                     <div class="sfp-tag-task-action-inner-group">
@@ -174,7 +179,7 @@
             this.selectedCodeMirror.setSize("100%", 56);
             var doc = this.selectedCodeMirror.getDoc();
             doc.setValue(this.bpmn.conditionExpression);
-            var resolveMark = CodeMirrorUtility.TryResolveCodeMirrorValueToMarkText(this.selectedCodeMirror, this.$refs.txtSequenceFlowConditionEditValue);
+            var resolveMark = CodeMirrorUtility.TryResolveCodeMirrorValueToMarkText(this.selectedCodeMirror, this.$refs.txtSequenceFlowConditionEditValue,this.mayBeFromTaskList);
             this.jb4dc.jb4dcSequenceFlowConditionEditText=resolveMark.editText;
             flowBpmnJsIntegrated = FlowBpmnJsIntegrated.GetInstance();
         },
@@ -183,6 +188,7 @@
             this.camunda=this.propElemProperties.camunda;
             this.jb4dc=this.propElemProperties.jb4dc;
             this.mayBeFromTaskList=BpmnJsUtility.JB4DC_TryGetMayBeActionsBySequenceFlowId(FlowBpmnJsIntegrated.GetInstance().GetModeler(),this.bpmn.id);
+            console.log(this.mayBeFromTaskList);
             //console.log(this.bpmn.id);
             //console.log();
         },
@@ -192,7 +198,7 @@
                 var doc = this.selectedCodeMirror.getDoc();
                 var cursor = doc.getCursor();
                 doc.replaceRange(editValue, cursor);
-                var editResult=CodeMirrorUtility.TryResolveCodeMirrorValueToMarkText(this.selectedCodeMirror,this.$refs.txtSequenceFlowConditionEditValue);
+                var editResult=CodeMirrorUtility.TryResolveCodeMirrorValueToMarkText(this.selectedCodeMirror,this.$refs.txtSequenceFlowConditionEditValue,this.mayBeFromTaskList);
                 this.jb4dc.jb4dcSequenceFlowConditionEditText=editResult.editText;
                 this.bpmn.conditionExpression=editResult.editValue;
                 //#region
@@ -262,6 +268,11 @@
             },
             tryResolveConditionTextToValue(conditionText){
 
+            },
+            clearEditContextJuelForSequenceFlowCondition(){
+                this.bpmn.conditionExpression="";
+                var doc = this.selectedCodeMirror.getDoc();
+                doc.setValue("");
             },
             beginEditContextJuelForSequenceFlowCondition(){
                 var _self=this;

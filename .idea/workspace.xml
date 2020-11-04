@@ -2,23 +2,17 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4c1726ea-d2d7-4bd0-ba55-67bf5abd523a" name="Default Changelist" comment="2020-10-15">
-      <change afterPath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/jb4dc-workflow-modeler/Modeler/VueComponent/Properties/PropertiesComponent/jb4dc-receive-properties.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/jb4dc-workflow-modeler/Modeler/Resources/newDiagram3.bpmn" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/resources/static/HTML/WorkFlow/Modeler/Images/cog-b.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/jb4dc-workflow-modeler/Modeler/Less/ModelerApp.less" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/jb4dc-workflow-modeler/Modeler/Less/ModelerApp.less" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/jb4dc-workflow-modeler/Modeler/Remote/RemoteUtility.js" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/jb4dc-workflow-modeler/Modeler/Remote/RemoteUtility.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/jb4dc-workflow-modeler/Modeler/VueComponent/BpmnJsExtend/BpmnJsUtility.js" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/jb4dc-workflow-modeler/Modeler/VueComponent/BpmnJsExtend/BpmnJsUtility.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/jb4dc-workflow-modeler/Modeler/Less/Images/cog.png" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/jb4dc-workflow-modeler/Modeler/Less/Images/cog.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/jb4dc-workflow-modeler/Modeler/VueComponent/BpmnJsExtend/CodeMirrorUtility.js" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/jb4dc-workflow-modeler/Modeler/VueComponent/BpmnJsExtend/CodeMirrorUtility.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/jb4dc-workflow-modeler/Modeler/VueComponent/BpmnJsExtend/FlowBpmnJsIntegrated.js" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/jb4dc-workflow-modeler/Modeler/VueComponent/BpmnJsExtend/FlowBpmnJsIntegrated.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/jb4dc-workflow-modeler/Modeler/VueComponent/BpmnJsExtend/JB4DCModdle.json" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/jb4dc-workflow-modeler/Modeler/VueComponent/BpmnJsExtend/JB4DCModdle.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/jb4dc-workflow-modeler/Modeler/VueComponent/BpmnJsExtend/PODefinition.js" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/jb4dc-workflow-modeler/Modeler/VueComponent/BpmnJsExtend/PODefinition.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/jb4dc-workflow-modeler/Modeler/VueComponent/Properties/Dialog/select-role-dialog.vue" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/jb4dc-workflow-modeler/Modeler/VueComponent/Properties/Dialog/select-role-dialog.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/jb4dc-workflow-modeler/Modeler/VueComponent/Properties/Dialog/select-user-dialog.vue" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/jb4dc-workflow-modeler/Modeler/VueComponent/Properties/Dialog/select-user-dialog.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/jb4dc-workflow-modeler/Modeler/VueComponent/Properties/PropertiesComponent/jb4dc-actions-properties.vue" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/jb4dc-workflow-modeler/Modeler/VueComponent/Properties/PropertiesComponent/jb4dc-actions-properties.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/jb4dc-workflow-modeler/Modeler/VueComponent/Properties/PropertiesComponent/jb4dc-general-properties.vue" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/jb4dc-workflow-modeler/Modeler/VueComponent/Properties/PropertiesComponent/jb4dc-general-properties.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/jb4dc-workflow-modeler/Modeler/VueComponent/Properties/PropertiesComponent/task-general-properties.vue" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/jb4dc-workflow-modeler/Modeler/VueComponent/Properties/PropertiesComponent/task-general-properties.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/jb4dc-workflow-modeler/Modeler/VueComponent/Properties/user-task-properties.vue" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/jb4dc-workflow-modeler/Modeler/VueComponent/Properties/user-task-properties.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/jb4dc-workflow-modeler/Modeler/VueComponent/flow-bpmnjs-container.vue" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/jb4dc-workflow-modeler/Modeler/VueComponent/flow-bpmnjs-container.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/resources/static/HTML/WorkFlow/Modeler/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/resources/static/HTML/WorkFlow/Modeler/index.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/jb4dc-workflow-modeler/Modeler/VueComponent/Properties/sequence-flow-properties.vue" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/jb4dc-workflow-modeler/Modeler/VueComponent/Properties/sequence-flow-properties.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/resources/static/HTML/WorkFlow/Modeler/Images/cog.png" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/resources/static/HTML/WorkFlow/Modeler/Images/cog.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/resources/static/HTML/WorkFlow/Modeler/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/resources/static/HTML/WorkFlow/Modeler/index.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -102,7 +96,7 @@
     <property name="extract.method.default.visibility" value="private" />
     <property name="jdk.selected.JAVA_MODULE" value="1.8" />
     <property name="js.buildTools.gulp.gulp_package_dir" value="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/front-end/node_modules/gulp" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/resources/static/HTML/WorkFlow/Modeler/Images" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/jb4dc-workflow-modeler/Modeler/Resources" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.jscs" value="true" />
@@ -133,19 +127,19 @@
     <key name="CreateTestDialog.Recents.Supers">
       <recent name="" />
     </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="D:\JavaProject\jb4dc\jb4dc-builder-root\jb4dc-builder-web-package\src\main\front-end\static\Js\HTMLDesignRuntime\Control\WebListControl" />
-      <recent name="D:\JavaProject\jb4dc\jb4dc-builder-root\jb4dc-workflow-web-package\src\main\jb4dc-workflow-modeler\Modeler\VueComponent\Properties\Dialog" />
-      <recent name="D:\JavaProject\jb4dc\jb4dc-builder-root\jb4dc-workflow-web-package\src\main\jb4dc-workflow-modeler\Modeler\VueComponent\Properties\PropertiesComponent" />
-      <recent name="D:\JavaProject\jb4dc\jb4dc-builder-root\jb4dc-workflow-web-package\src\main\jb4dc-workflow-modeler\Modeler\VueComponent\Demo" />
-      <recent name="D:\JavaProject\jb4dc\jb4dc-builder-root\jb4dc-workflow-web-package\src\main\jb4dc-workflow-modeler\Modeler" />
-    </key>
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
       <recent name="com.jb4dc.builder.client.service" />
       <recent name="com.jb4dc.builder.client.proxy" />
       <recent name="com.jb4dc.builder.client.service.weblist" />
       <recent name="com.jb4dc.builder.client.proxy.impl" />
       <recent name="com.jb4dc.builder.client.service.dataset" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\JavaProject\jb4dc\jb4dc-builder-root\jb4dc-builder-web-package\src\main\jb4dc-workflow-modeler\Modeler\Resources" />
+      <recent name="D:\JavaProject\jb4dc\jb4dc-builder-root\jb4dc-builder-web-package\src\main\resources\static\HTML\WorkFlow\Modeler\Images" />
+      <recent name="D:\JavaProject\jb4dc\jb4dc-builder-root\jb4dc-builder-web-package\src\main\jb4dc-workflow-modeler\Modeler\Less\Images" />
+      <recent name="D:\JavaProject\jb4dc\jb4dc-builder-root\jb4dc-builder-web-package\src\main\jb4dc-workflow-modeler\Modeler\Externals" />
+      <recent name="D:\JavaProject\jb4dc\jb4dc-builder-root\jb4dc-builder-web-package\src\main\front-end\static\Js\HTMLDesign\WebFormDesign\Plugins\WFDCT_BaiduMapContainer" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="com.jb4dc.builder.client.remote" />
@@ -154,12 +148,12 @@
       <recent name="com.jb4dc.builder.client.service.api.proxy" />
       <recent name="com.jb4dc.builder.po" />
     </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="D:\JavaProject\jb4dc\jb4dc-builder-root\jb4dc-builder-web-package\src\main\resources\static\HTML\WorkFlow\Modeler\Images" />
-      <recent name="D:\JavaProject\jb4dc\jb4dc-builder-root\jb4dc-builder-web-package\src\main\jb4dc-workflow-modeler\Modeler\Less\Images" />
-      <recent name="D:\JavaProject\jb4dc\jb4dc-builder-root\jb4dc-builder-web-package\src\main\jb4dc-workflow-modeler\Modeler\Externals" />
-      <recent name="D:\JavaProject\jb4dc\jb4dc-builder-root\jb4dc-builder-web-package\src\main\front-end\static\Js\HTMLDesign\WebFormDesign\Plugins\WFDCT_BaiduMapContainer" />
-      <recent name="D:\JavaProject\jb4dc\jb4dc-builder-root\jb4dc-builder-web-package\src\main\resources\static\Js\External\Ckeditor-4.15.0-4Design\plugins" />
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\JavaProject\jb4dc\jb4dc-builder-root\jb4dc-builder-web-package\src\main\front-end\static\Js\HTMLDesignRuntime\Control\WebListControl" />
+      <recent name="D:\JavaProject\jb4dc\jb4dc-builder-root\jb4dc-workflow-web-package\src\main\jb4dc-workflow-modeler\Modeler\VueComponent\Properties\Dialog" />
+      <recent name="D:\JavaProject\jb4dc\jb4dc-builder-root\jb4dc-workflow-web-package\src\main\jb4dc-workflow-modeler\Modeler\VueComponent\Properties\PropertiesComponent" />
+      <recent name="D:\JavaProject\jb4dc\jb4dc-builder-root\jb4dc-workflow-web-package\src\main\jb4dc-workflow-modeler\Modeler\VueComponent\Demo" />
+      <recent name="D:\JavaProject\jb4dc\jb4dc-builder-root\jb4dc-workflow-web-package\src\main\jb4dc-workflow-modeler\Modeler" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -703,14 +697,9 @@
       <workItem from="1604278184952" duration="27926000" />
       <workItem from="1604365952113" duration="837000" />
       <workItem from="1604366877479" duration="4142000" />
-      <workItem from="1604386821854" duration="11933000" />
-    </task>
-    <task id="LOCAL-00316" summary="创建工程">
-      <created>1577881096199</created>
-      <option name="number" value="00316" />
-      <option name="presentableId" value="LOCAL-00316" />
-      <option name="project" value="LOCAL" />
-      <updated>1577881096199</updated>
+      <workItem from="1604386821854" duration="11958000" />
+      <workItem from="1604413106437" duration="57000" />
+      <workItem from="1604452954239" duration="12420000" />
     </task>
     <task id="LOCAL-00317" summary="创建工程">
       <created>1577881798017</created>
@@ -1048,7 +1037,14 @@
       <option name="project" value="LOCAL" />
       <updated>1604302854751</updated>
     </task>
-    <option name="localTasksCounter" value="365" />
+    <task id="LOCAL-00365" summary="2020-10-15">
+      <created>1604413066020</created>
+      <option name="number" value="00365" />
+      <option name="presentableId" value="LOCAL-00365" />
+      <option name="project" value="LOCAL" />
+      <updated>1604413066020</updated>
+    </task>
+    <option name="localTasksCounter" value="366" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -1111,10 +1107,10 @@
       <screen x="0" y="0" width="2560" height="1040" />
     </state>
     <state x="582" y="388" width="1361" height="596" key="#xdebugger.evaluate/0.0.2560.1040/2560.0.1920.1040@0.0.2560.1040" timestamp="1604234738479" />
-    <state x="751" y="87" key="CommitChangelistDialog2" timestamp="1604408157444">
+    <state x="751" y="87" key="CommitChangelistDialog2" timestamp="1604458198614">
       <screen x="0" y="0" width="2560" height="1040" />
     </state>
-    <state x="751" y="87" key="CommitChangelistDialog2/0.0.2560.1040/2560.0.1920.1040@0.0.2560.1040" timestamp="1604408157444" />
+    <state x="751" y="87" key="CommitChangelistDialog2/0.0.2560.1040/2560.0.1920.1040@0.0.2560.1040" timestamp="1604458198614" />
     <state width="1337" height="576" key="DebuggerActiveHint" timestamp="1604234714280">
       <screen x="0" y="0" width="2560" height="1040" />
     </state>
@@ -1132,77 +1128,77 @@
       <screen x="0" y="0" width="2560" height="1040" />
     </state>
     <state x="822" y="178" key="GrepConsoleSettings/0.0.2560.1040/2560.0.1920.1040@0.0.2560.1040" timestamp="1600675011533" />
-    <state width="2299" height="201" key="GridCell.Tab.0.bottom" timestamp="1604387410565">
+    <state width="2299" height="344" key="GridCell.Tab.0.bottom" timestamp="1604461564506">
       <screen x="0" y="0" width="2560" height="1040" />
     </state>
     <state width="1999" height="254" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1598532348954" />
-    <state width="2299" height="201" key="GridCell.Tab.0.bottom/0.0.2560.1040/2560.0.1920.1040@0.0.2560.1040" timestamp="1604387410565" />
+    <state width="2299" height="344" key="GridCell.Tab.0.bottom/0.0.2560.1040/2560.0.1920.1040@0.0.2560.1040" timestamp="1604461564506" />
     <state width="1485" height="282" key="GridCell.Tab.0.bottom/0.0.2560.1040/2560.0.1920.1040@2560.0.1920.1040" timestamp="1596034460696" />
-    <state width="2299" height="201" key="GridCell.Tab.0.center" timestamp="1604387410565">
+    <state width="2299" height="344" key="GridCell.Tab.0.center" timestamp="1604461564506">
       <screen x="0" y="0" width="2560" height="1040" />
     </state>
     <state width="1999" height="254" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1598532348954" />
-    <state width="2299" height="201" key="GridCell.Tab.0.center/0.0.2560.1040/2560.0.1920.1040@0.0.2560.1040" timestamp="1604387410565" />
+    <state width="2299" height="344" key="GridCell.Tab.0.center/0.0.2560.1040/2560.0.1920.1040@0.0.2560.1040" timestamp="1604461564506" />
     <state width="1485" height="282" key="GridCell.Tab.0.center/0.0.2560.1040/2560.0.1920.1040@2560.0.1920.1040" timestamp="1596034460695" />
-    <state width="2299" height="201" key="GridCell.Tab.0.left" timestamp="1604387410565">
+    <state width="2299" height="344" key="GridCell.Tab.0.left" timestamp="1604461564506">
       <screen x="0" y="0" width="2560" height="1040" />
     </state>
     <state width="1999" height="254" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1598532348953" />
-    <state width="2299" height="201" key="GridCell.Tab.0.left/0.0.2560.1040/2560.0.1920.1040@0.0.2560.1040" timestamp="1604387410565" />
+    <state width="2299" height="344" key="GridCell.Tab.0.left/0.0.2560.1040/2560.0.1920.1040@0.0.2560.1040" timestamp="1604461564506" />
     <state width="1485" height="282" key="GridCell.Tab.0.left/0.0.2560.1040/2560.0.1920.1040@2560.0.1920.1040" timestamp="1596034460695" />
-    <state width="2299" height="201" key="GridCell.Tab.0.right" timestamp="1604387410565">
+    <state width="2299" height="344" key="GridCell.Tab.0.right" timestamp="1604461564506">
       <screen x="0" y="0" width="2560" height="1040" />
     </state>
     <state width="1999" height="254" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1598532348954" />
-    <state width="2299" height="201" key="GridCell.Tab.0.right/0.0.2560.1040/2560.0.1920.1040@0.0.2560.1040" timestamp="1604387410565" />
+    <state width="2299" height="344" key="GridCell.Tab.0.right/0.0.2560.1040/2560.0.1920.1040@0.0.2560.1040" timestamp="1604461564506" />
     <state width="1485" height="282" key="GridCell.Tab.0.right/0.0.2560.1040/2560.0.1920.1040@2560.0.1920.1040" timestamp="1596034460696" />
-    <state width="2299" height="201" key="GridCell.Tab.1.bottom" timestamp="1604387410566">
+    <state width="2299" height="344" key="GridCell.Tab.1.bottom" timestamp="1604461564507">
       <screen x="0" y="0" width="2560" height="1040" />
     </state>
     <state width="1999" height="254" key="GridCell.Tab.1.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1598532348954" />
-    <state width="2299" height="201" key="GridCell.Tab.1.bottom/0.0.2560.1040/2560.0.1920.1040@0.0.2560.1040" timestamp="1604387410566" />
+    <state width="2299" height="344" key="GridCell.Tab.1.bottom/0.0.2560.1040/2560.0.1920.1040@0.0.2560.1040" timestamp="1604461564507" />
     <state width="1485" height="282" key="GridCell.Tab.1.bottom/0.0.2560.1040/2560.0.1920.1040@2560.0.1920.1040" timestamp="1596034460696" />
-    <state width="2299" height="201" key="GridCell.Tab.1.center" timestamp="1604387410566">
+    <state width="2299" height="344" key="GridCell.Tab.1.center" timestamp="1604461564506">
       <screen x="0" y="0" width="2560" height="1040" />
     </state>
     <state width="1999" height="254" key="GridCell.Tab.1.center/0.0.1920.1040@0.0.1920.1040" timestamp="1598532348954" />
-    <state width="2299" height="201" key="GridCell.Tab.1.center/0.0.2560.1040/2560.0.1920.1040@0.0.2560.1040" timestamp="1604387410566" />
+    <state width="2299" height="344" key="GridCell.Tab.1.center/0.0.2560.1040/2560.0.1920.1040@0.0.2560.1040" timestamp="1604461564506" />
     <state width="1485" height="282" key="GridCell.Tab.1.center/0.0.2560.1040/2560.0.1920.1040@2560.0.1920.1040" timestamp="1596034460696" />
-    <state width="2299" height="201" key="GridCell.Tab.1.left" timestamp="1604387410566">
+    <state width="2299" height="344" key="GridCell.Tab.1.left" timestamp="1604461564506">
       <screen x="0" y="0" width="2560" height="1040" />
     </state>
     <state width="1999" height="254" key="GridCell.Tab.1.left/0.0.1920.1040@0.0.1920.1040" timestamp="1598532348954" />
-    <state width="2299" height="201" key="GridCell.Tab.1.left/0.0.2560.1040/2560.0.1920.1040@0.0.2560.1040" timestamp="1604387410566" />
+    <state width="2299" height="344" key="GridCell.Tab.1.left/0.0.2560.1040/2560.0.1920.1040@0.0.2560.1040" timestamp="1604461564506" />
     <state width="1485" height="282" key="GridCell.Tab.1.left/0.0.2560.1040/2560.0.1920.1040@2560.0.1920.1040" timestamp="1596034460696" />
-    <state width="2299" height="201" key="GridCell.Tab.1.right" timestamp="1604387410566">
+    <state width="2299" height="344" key="GridCell.Tab.1.right" timestamp="1604461564506">
       <screen x="0" y="0" width="2560" height="1040" />
     </state>
     <state width="1999" height="254" key="GridCell.Tab.1.right/0.0.1920.1040@0.0.1920.1040" timestamp="1598532348954" />
-    <state width="2299" height="201" key="GridCell.Tab.1.right/0.0.2560.1040/2560.0.1920.1040@0.0.2560.1040" timestamp="1604387410566" />
+    <state width="2299" height="344" key="GridCell.Tab.1.right/0.0.2560.1040/2560.0.1920.1040@0.0.2560.1040" timestamp="1604461564506" />
     <state width="1485" height="282" key="GridCell.Tab.1.right/0.0.2560.1040/2560.0.1920.1040@2560.0.1920.1040" timestamp="1596034460696" />
-    <state width="2299" height="201" key="GridCell.Tab.2.bottom" timestamp="1604387410566">
+    <state width="2299" height="344" key="GridCell.Tab.2.bottom" timestamp="1604461564507">
       <screen x="0" y="0" width="2560" height="1040" />
     </state>
     <state width="1999" height="254" key="GridCell.Tab.2.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1598532348954" />
-    <state width="2299" height="201" key="GridCell.Tab.2.bottom/0.0.2560.1040/2560.0.1920.1040@0.0.2560.1040" timestamp="1604387410566" />
+    <state width="2299" height="344" key="GridCell.Tab.2.bottom/0.0.2560.1040/2560.0.1920.1040@0.0.2560.1040" timestamp="1604461564507" />
     <state width="1485" height="282" key="GridCell.Tab.2.bottom/0.0.2560.1040/2560.0.1920.1040@2560.0.1920.1040" timestamp="1596034460696" />
-    <state width="2299" height="201" key="GridCell.Tab.2.center" timestamp="1604387410566">
+    <state width="2299" height="344" key="GridCell.Tab.2.center" timestamp="1604461564507">
       <screen x="0" y="0" width="2560" height="1040" />
     </state>
     <state width="1999" height="254" key="GridCell.Tab.2.center/0.0.1920.1040@0.0.1920.1040" timestamp="1598532348954" />
-    <state width="2299" height="201" key="GridCell.Tab.2.center/0.0.2560.1040/2560.0.1920.1040@0.0.2560.1040" timestamp="1604387410566" />
+    <state width="2299" height="344" key="GridCell.Tab.2.center/0.0.2560.1040/2560.0.1920.1040@0.0.2560.1040" timestamp="1604461564507" />
     <state width="1485" height="282" key="GridCell.Tab.2.center/0.0.2560.1040/2560.0.1920.1040@2560.0.1920.1040" timestamp="1596034460696" />
-    <state width="2299" height="201" key="GridCell.Tab.2.left" timestamp="1604387410566">
+    <state width="2299" height="344" key="GridCell.Tab.2.left" timestamp="1604461564507">
       <screen x="0" y="0" width="2560" height="1040" />
     </state>
     <state width="1999" height="254" key="GridCell.Tab.2.left/0.0.1920.1040@0.0.1920.1040" timestamp="1598532348954" />
-    <state width="2299" height="201" key="GridCell.Tab.2.left/0.0.2560.1040/2560.0.1920.1040@0.0.2560.1040" timestamp="1604387410566" />
+    <state width="2299" height="344" key="GridCell.Tab.2.left/0.0.2560.1040/2560.0.1920.1040@0.0.2560.1040" timestamp="1604461564507" />
     <state width="1485" height="282" key="GridCell.Tab.2.left/0.0.2560.1040/2560.0.1920.1040@2560.0.1920.1040" timestamp="1596034460696" />
-    <state width="2299" height="201" key="GridCell.Tab.2.right" timestamp="1604387410566">
+    <state width="2299" height="344" key="GridCell.Tab.2.right" timestamp="1604461564507">
       <screen x="0" y="0" width="2560" height="1040" />
     </state>
     <state width="1999" height="254" key="GridCell.Tab.2.right/0.0.1920.1040@0.0.1920.1040" timestamp="1598532348954" />
-    <state width="2299" height="201" key="GridCell.Tab.2.right/0.0.2560.1040/2560.0.1920.1040@0.0.2560.1040" timestamp="1604387410566" />
+    <state width="2299" height="344" key="GridCell.Tab.2.right/0.0.2560.1040/2560.0.1920.1040@0.0.2560.1040" timestamp="1604461564507" />
     <state width="1485" height="282" key="GridCell.Tab.2.right/0.0.2560.1040/2560.0.1920.1040@2560.0.1920.1040" timestamp="1596034460696" />
     <state width="2517" height="374" key="GridCell.Tab.3.bottom" timestamp="1604326132442">
       <screen x="0" y="0" width="2560" height="1040" />
@@ -1236,10 +1232,10 @@
       <screen x="0" y="0" width="2560" height="1040" />
     </state>
     <state width="254" height="198" key="ShowFilterAction_Filter_Popup/0.0.2560.1040/2560.0.1920.1040@0.0.2560.1040" timestamp="1600658507424" />
-    <state x="872" y="253" key="Vcs.Push.Dialog.v2" timestamp="1604302857107">
+    <state x="872" y="253" key="Vcs.Push.Dialog.v2" timestamp="1604413162045">
       <screen x="0" y="0" width="2560" height="1040" />
     </state>
-    <state x="872" y="253" key="Vcs.Push.Dialog.v2/0.0.2560.1040/2560.0.1920.1040@0.0.2560.1040" timestamp="1604302857107" />
+    <state x="872" y="253" key="Vcs.Push.Dialog.v2/0.0.2560.1040/2560.0.1920.1040@0.0.2560.1040" timestamp="1604413162045" />
     <state width="1288" height="528" key="XDebugger.FullValuePopup" timestamp="1603960676441">
       <screen x="0" y="0" width="2560" height="1040" />
     </state>
@@ -1264,10 +1260,10 @@
       <screen x="0" y="0" width="2560" height="1040" />
     </state>
     <state x="860" y="175" key="editAsTableFormatDialogDimension/0.0.2560.1040/2560.0.1920.1040@0.0.2560.1040" timestamp="1603958054530" />
-    <state x="748" y="283" width="1376" height="594" key="find.popup" timestamp="1604370064108">
+    <state x="748" y="283" width="1376" height="594" key="find.popup" timestamp="1604455320260">
       <screen x="0" y="0" width="2560" height="1040" />
     </state>
-    <state x="748" y="283" width="1376" height="594" key="find.popup/0.0.2560.1040/2560.0.1920.1040@0.0.2560.1040" timestamp="1604370064108" />
+    <state x="748" y="283" width="1376" height="594" key="find.popup/0.0.2560.1040/2560.0.1920.1040@0.0.2560.1040" timestamp="1604455320260" />
     <state width="600" height="428" key="javadoc.popup" timestamp="1603957988837">
       <screen x="0" y="0" width="2560" height="1040" />
     </state>

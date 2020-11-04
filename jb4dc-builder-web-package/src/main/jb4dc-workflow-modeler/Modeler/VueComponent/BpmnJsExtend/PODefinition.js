@@ -86,6 +86,15 @@ class PODefinition{
     static TranslatePropertiesToCN(propGroupName,propName){
         return this.GetDialogPropertiesPOCN()[propGroupName+"CN"][propName+"CN"];
     }
+    static GetJB4DCActionExecuteVariablePO(){
+        return {
+            actionExecuteVariableType:"静态变量",
+            actionExecuteVariableCode:"actionExecuteVariable_"+StringUtility.Timestamp(),
+            actionExecuteVariableKey:"",
+            actionExecuteVariableValue:"",
+            actionExecuteVariableDesc:""
+        }
+    }
     static GetJB4DCActionPO(){
         return {
             actionType:"send",
@@ -99,7 +108,8 @@ class PODefinition{
             actionHTMLId:"",
             actionHTMLClass:"",
             actionUpdateFields:[],
-            actionCallApis:[]
+            actionCallApis:[],
+            actionExecuteVariables:[]
         }
     }
     static RemoveExcludeProp(templatePO,actualPO){

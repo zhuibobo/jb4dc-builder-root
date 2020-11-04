@@ -201,6 +201,11 @@
           "name": "actionCallApis",
           "isAttr": true,
           "type": "String"
+        },
+        {
+          "name": "actionExecuteVariables",
+          "isAttr": true,
+          "type": "String"
         }
       ]
     }

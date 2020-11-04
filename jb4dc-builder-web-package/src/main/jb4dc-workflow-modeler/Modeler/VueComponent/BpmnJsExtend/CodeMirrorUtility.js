@@ -1,7 +1,7 @@
 import {RemoteUtility} from '../../Remote/RemoteUtility';
 
 class CodeMirrorUtility{
-    static TryResolveCodeMirrorValueToMarkText(codeMirrorInstance,sourceTextAreaElem) {
+    static TryResolveCodeMirrorValueToMarkText(codeMirrorInstance,sourceTextAreaElem,resolveSourceObject) {
 
         var doc = codeMirrorInstance.getDoc();
         var editValue=doc.getValue();
@@ -19,7 +19,7 @@ class CodeMirrorUtility{
             itemTypeValue = valueItemFull.substring(2, valueItemFull.indexOf("."));
             itemValue = valueItemFull.substring(valueItemFull.indexOf(".") + 1, valueItemFull.length - 1);
 
-            //console.log(valueItemFull);
+
             var cursor = codeMirrorInstance.getSearchCursor(valueItemFull);
             cursor.findNext();
             while (cursor.atOccurrence) {
@@ -46,8 +46,27 @@ class CodeMirrorUtility{
                     }
                         break;
                     case "FlowAction":{
+                        console.log(itemTypeValue);
+                        console.log(itemValue);
+                        var taskId=itemValue.split(".")[0];
+                        var taskName="";
+                        var actionId=itemValue.split(".")[1];
+                        var actionName="";
+                        for (var i = 0; i < resolveSourceObject.length; i++) {
+                            var taskObj = resolveSourceObject[i];
+                            if (taskObj.taskId == taskId) {
+                                taskName = taskObj.taskName;
+
+                                for (let j = 0; j < taskObj.actionArray.length; j++) {
+                                    var actionObj=taskObj.actionArray[j];
+                                    if(actionObj.actionCode==actionId){
+                                        actionName=actionObj.actionCaption;
+                                    }
+                                }
+                            }
+                        }
                         itemTypeText = "流程动作";
-                        itemText = "环节名称.动作名称";
+                        itemText = taskName+"."+actionName;
                     }
                     default:
                         break;

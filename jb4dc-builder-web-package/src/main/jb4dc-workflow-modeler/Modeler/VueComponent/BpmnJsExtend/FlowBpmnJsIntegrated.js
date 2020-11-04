@@ -2,7 +2,7 @@ import BpmnModeler from 'bpmn-js/lib/Modeler';
 import camundaModdleDescriptor from 'camunda-bpmn-moddle/resources/camunda';
 import jb4dcModdleDescriptor from './JB4DCModdle.json';
 /*import emptyBPMNXML from '../../Resources/emptyFlowModel.bpmn';*/
-import emptyBPMNXML from '../../Resources/newDiagram1.bpmn';
+import emptyBPMNXML from '../../Resources/newDiagram3.bpmn';
 import CustomTranslate from './CustomTranslate';
 import propertiesPadEntity from './AdditionalModules/PropertiesPadEntity';
 import changeColorPadEntity from './AdditionalModules/ChangeColorPadEntity';
