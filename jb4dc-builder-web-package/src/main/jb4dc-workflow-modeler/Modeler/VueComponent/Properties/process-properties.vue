@@ -1,7 +1,7 @@
 <template>
     <div>
         <tabs name="process-properties-tabs">
-            <tab-pane tab="process-properties-tabs" label="CMA-General">
+            <tab-pane tab="process-properties-tabs" label="基础设置">
                 <table class="properties-dialog-table-wraper" cellpadding="0" cellspacing="0" border="0">
                     <colgroup>
                         <col style="width: 14%" />
@@ -74,21 +74,25 @@
                                 <input type="text" placeholder="History Time To Live" v-model="camunda.historyTimeToLive" disabled="disabled" />
                             </td>
                             <td>
+                                发送前确认：
                             </td>
                             <td>
-
+                                <radio-group type="button" style="margin: auto" v-model="jb4dc.jb4dcActionConfirm">
+                                    <radio label="true">是</radio>
+                                    <radio label="false">否</radio>
+                                </radio-group>
                             </td>
                         </tr>
                         <tr>
                             <td>备注：</td>
                             <td colspan="3">
-                                <textarea rows="4" placeholder="Element Documentation" v-model="bpmn.documentation"></textarea>
+                                <textarea rows="3" placeholder="Element Documentation" v-model="bpmn.documentation"></textarea>
                             </td>
                         </tr>
                     </tbody>
                 </table>
             </tab-pane>
-            <tab-pane tab="process-properties-tabs" label="基础设置">
+            <tab-pane tab="process-properties-tabs" label="绑定设置">
                 <jb4dcGeneralProperties ref="jb4dcGeneralProperties" :prop-jb4dc-general-data="jb4dc"></jb4dcGeneralProperties>
             </tab-pane>
             <tab-pane tab="process-properties-tabs" label="通知设置">
@@ -153,20 +157,19 @@
                 this.bpmn.id="Flow_Model_"+StringUtility.Timestamp();
             },
             beginSelectRole(){
-                this.$refs.selectRoleDialog.beginSelectRole("选择角色","",(selectedRoleArray)=>{
+                this.$refs.selectRoleDialog.beginSelectRole("选择启动角色-只支持全局","",(selectedRoleArray)=>{
                     var roleIdS=[];
                     var rolePaths=[];
                     for (let i = 0; i < selectedRoleArray.length; i++) {
                         roleIdS.push(selectedRoleArray[i].roleId);
                         rolePaths.push(selectedRoleArray[i].rolePath);
                     }
-                    //this.startRoleArray=selectedRoleArray;
                     this.camunda.candidateStarterGroups=roleIdS.join(",");
                     this.jb4dc.jb4dcProcessCandidateStarterGroupsDesc=rolePaths.join(",");
                 });
             },
             beginSelectUser(){
-                this.$refs.selectUserDialog.beginSelectUser("选择用户","",(selectedUserArray)=>{
+                this.$refs.selectUserDialog.beginSelectUser("选择启动用户","",(selectedUserArray)=>{
                     var userIdS=[];
                     var userPaths=[];
                     for (let i = 0; i < selectedUserArray.length; i++) {
@@ -184,9 +187,6 @@
                     camunda:this.camunda,
                     jb4dc:this.jb4dc
                 };
-                //console.log(this.camunda.executionListener);
-                //var executionListener=this.$refs.listenersProperties.getHostResultProperties();
-                //result.camunda.executionListener=executionListener;
                 return result;
             }
         }

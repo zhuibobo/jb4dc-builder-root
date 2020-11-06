@@ -104,7 +104,7 @@
         },
         methods:{
             beginSelectUser(){
-                this.$refs.selectUserDialog.beginSelectUser("选择用户","",(selectedUserArray)=>{
+                this.$refs.selectUserDialog.beginSelectUser("选择候选用户","",(selectedUserArray)=>{
                     var userIdS=[];
                     var userPaths=[];
                     for (let i = 0; i < selectedUserArray.length; i++) {
@@ -117,7 +117,7 @@
                 });
             },
             beginSelectRole(){
-                this.$refs.selectRoleDialog.beginSelectRole("选择角色","",(selectedRoleArray)=>{
+                this.$refs.selectRoleDialog.beginSelectRole("选择候选角色-只支持全局","",(selectedRoleArray)=>{
                     var roleIdS=[];
                     var rolePaths=[];
                     for (let i = 0; i < selectedRoleArray.length; i++) {

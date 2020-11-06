@@ -326,6 +326,10 @@ class FlowBpmnJsIntegrated {
         result.jb4dc.jb4dcProcessCandidateStarterGroupsDesc = BpmnJsUtility.JB4DC_Attr_GetJb4dcProcessCandidateStarterGroupsDesc(elem);
         result.jb4dc.jb4dcProcessCandidateStarterUsersDesc = BpmnJsUtility.JB4DC_Attr_GetJb4dcProcessCandidateStarterUsersDesc(elem);
 
+        result.jb4dc.jb4dcActionsOpinionBindToField = BpmnJsUtility.JB4DC_Attr_GetJb4dcActionsOpinionBindToField(elem);
+        result.jb4dc.jb4dcActionsOpinionBindToElemId = BpmnJsUtility.JB4DC_Attr_GetJb4dcActionsOpinionBindToElemId(elem);
+        result.jb4dc.jb4dcActionConfirm = BpmnJsUtility.JB4DC_Attr_GetJb4dcActionConfirm(elem);
+
         if (!result.jb4dc.jb4dcActions) {
             result.jb4dc.jb4dcActions = [];
         }
@@ -374,10 +378,14 @@ class FlowBpmnJsIntegrated {
 
             BpmnJsUtility.JB4DC_Attr_SetJb4dcProcessCandidateStarterGroupsDesc(elem, props.jb4dc.jb4dcProcessCandidateStarterGroupsDesc);
             BpmnJsUtility.JB4DC_Attr_SetJb4dcProcessCandidateStarterUsersDesc(elem, props.jb4dc.jb4dcProcessCandidateStarterUsersDesc);
-            //console.log(props.jb4dc);
+            BpmnJsUtility.JB4DC_Attr_SetJb4dcActionConfirm(elem, props.jb4dc.jb4dcActionConfirm);
+            //console.log(props.jb4dc1);
         } else if (BpmnJsUtility.Is_UserTask(elem)) {
             //console.log(props.jb4dc.jb4dcActions);
             BpmnJsUtility.JB4DC_SetActionsArray(elem, props.jb4dc.jb4dcActions, true);
+            BpmnJsUtility.JB4DC_Attr_SetJb4dcActionsOpinionBindToField(elem, props.jb4dc.jb4dcActionsOpinionBindToField);
+            BpmnJsUtility.JB4DC_Attr_SetJb4dcActionsOpinionBindToElemId(elem, props.jb4dc.jb4dcActionsOpinionBindToElemId);
+
             BpmnJsUtility.CAMUNDA_Attr_SetAssignee(elem, props.camunda.assignee);
             BpmnJsUtility.CAMUNDA_Attr_SetPriority(elem, props.camunda.priority);
 

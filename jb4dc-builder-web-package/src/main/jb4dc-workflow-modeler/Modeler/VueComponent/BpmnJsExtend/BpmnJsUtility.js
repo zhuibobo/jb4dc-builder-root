@@ -593,6 +593,27 @@ class BpmnJsUtility {
         this.SetAttr(element,"jb4dcCandidateGroupsDesc",CandidateGroupsDesc);
     }
 
+    static JB4DC_Attr_GetJb4dcActionsOpinionBindToField(element){
+        return this.GetAttr(element,"jb4dcActionsOpinionBindToField");
+    }
+    static JB4DC_Attr_SetJb4dcActionsOpinionBindToField(element, jb4dcActionsOpinionBindToField){
+        this.SetAttr(element,"jb4dcActionsOpinionBindToField",jb4dcActionsOpinionBindToField);
+    }
+
+    static JB4DC_Attr_GetJb4dcActionsOpinionBindToElemId(element){
+        return this.GetAttr(element,"jb4dcActionsOpinionBindToElemId");
+    }
+    static JB4DC_Attr_SetJb4dcActionsOpinionBindToElemId(element, jb4dcActionsOpinionBindToElemId){
+        this.SetAttr(element,"jb4dcActionsOpinionBindToElemId",jb4dcActionsOpinionBindToElemId);
+    }
+
+    static JB4DC_Attr_GetJb4dcActionConfirm(element){
+        return this.GetAttr(element,"jb4dcActionConfirm");
+    }
+    static JB4DC_Attr_SetJb4dcActionConfirm(element, jb4dcActionConfirm){
+        this.SetAttr(element,"jb4dcActionConfirm",jb4dcActionConfirm);
+    }
+
     static JB4DC_GetActionsArray(element){
         var extensionElements=this.BPMN_GetExtensionElements(element);
         if(extensionElements){

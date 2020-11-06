@@ -1,30 +1,30 @@
 <template>
     <div>
         <tabs name="user-task-properties-tabs">
-            <tab-pane tab="user-task-properties-tabs" label="CMA-General">
+            <tab-pane tab="user-task-properties-tabs" label="基础设置">
                 <taskGeneralProperties :prop-bpmn-general-data="bpmn" :prop-camunda-general-data="camunda" :prop-jb4dc-general-data="jb4dc"></taskGeneralProperties>
             </tab-pane>
-            <tab-pane tab="user-task-properties-tabs" label="基础设置">
-                <jb4dcGeneralProperties ref="jb4dcGeneralProperties" :prop-jb4dc-general-data="jb4dc" :propIsProcess="false"></jb4dcGeneralProperties>
+            <tab-pane tab="user-task-properties-tabs" label="绑定设置">
+                <jb4dcGeneralProperties ref="jb4dcGeneralProperties" :prop-jb4dc-general-data="jb4dc" :prop-is-process="false"></jb4dcGeneralProperties>
             </tab-pane>
             <tab-pane tab="user-task-properties-tabs" label="动作设置">
-                <jb4dcActionsProperties ref="jb4dcActionsProperties" :propFromId="jb4dc.jb4dcFormId" :propActionData="jb4dc.jb4dcActions"></jb4dcActionsProperties>
+                <jb4dcActionsProperties ref="jb4dcActionsProperties" :prop-jb4dc-general-data="jb4dc" :prop-from-id="jb4dc.jb4dcFormId" :prop-action-data="jb4dc.jb4dcActions"></jb4dcActionsProperties>
             </tab-pane>
             <tab-pane tab="user-task-properties-tabs" label="人员设置">
-                <jb4dcReceiveProperties ref="jb4dcReceiveProperties"></jb4dcReceiveProperties>
+                <jb4dcReceiveObjectProperties ref="jb4dcReceiveObjectProperties"></jb4dcReceiveObjectProperties>
             </tab-pane>
             <tab-pane tab="user-task-properties-tabs" label="权限设置">
                 <div>
                     开发中
                 </div>
             </tab-pane>
-            <tab-pane tab="user-task-properties-tabs" label="CMA-Execution-Listeners">
+            <tab-pane tab="user-task-properties-tabs" label="执行监听">
                 <listenersProperties ref="listenersProperties" :prop-listener-data="camunda.executionListener"></listenersProperties>
             </tab-pane>
-            <tab-pane tab="user-task-properties-tabs" label="CMA-Task-Listeners">
+            <tab-pane tab="user-task-properties-tabs" label="任务监听">
                 <listenersProperties ref="listenersProperties" :prop-listener-data="camunda.taskListener"></listenersProperties>
             </tab-pane>
-            <tab-pane tab="user-task-properties-tabs" label="CMA-Extensions">
+            <tab-pane tab="user-task-properties-tabs" label="扩展属性">
                 <extensionsProperties ref="extensionsProperties" :prop-extensions-properties-data="camunda.extensionProperties"></extensionsProperties>
             </tab-pane>
         </tabs>
@@ -37,7 +37,7 @@
     import extensionsProperties from "./PropertiesComponent/extensions-properties.vue";
     import jb4dcGeneralProperties from "./PropertiesComponent/jb4dc-general-properties.vue";
     import jb4dcActionsProperties from "./PropertiesComponent/jb4dc-actions-properties.vue";
-    import jb4dcReceiveProperties from "./PropertiesComponent/jb4dc-receive-properties.vue";
+    import jb4dcReceiveObjectProperties from "./PropertiesComponent/jb4dc-receive-object-properties.vue";
     import { PODefinition } from "../BpmnJsExtend/PODefinition.js"
 
     export default {
@@ -48,7 +48,7 @@
             extensionsProperties,
             jb4dcGeneralProperties,
             jb4dcActionsProperties,
-            jb4dcReceiveProperties
+            jb4dcReceiveObjectProperties
         },
         props:["propElemProperties"],
         data:function () {
@@ -66,6 +66,7 @@
         },
         mounted() {
             //alert("hello alex");
+            console.log(this.jb4dc.jb4dcActions);
         },
         beforeDestroy(){
 

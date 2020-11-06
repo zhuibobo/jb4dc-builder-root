@@ -63,6 +63,11 @@
           "name": "jb4dcProcessCandidateStarterUsersDesc",
           "isAttr": true,
           "type": "String"
+        },
+        {
+          "name": "jb4dcActionConfirm",
+          "isAttr": true,
+          "type": "String"
         }
       ]
     },
@@ -121,6 +126,16 @@
         },
         {
           "name": "jb4dcCandidateGroupsDesc",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "jb4dcActionsOpinionBindToField",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "jb4dcActionsOpinionBindToElemId",
           "isAttr": true,
           "type": "String"
         }
@@ -204,6 +219,26 @@
         },
         {
           "name": "actionExecuteVariables",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "actionConfirm",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "actionValidate",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "actionsOpinionBindToField",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "actionsOpinionBindToElemId",
           "isAttr": true,
           "type": "String"
         }

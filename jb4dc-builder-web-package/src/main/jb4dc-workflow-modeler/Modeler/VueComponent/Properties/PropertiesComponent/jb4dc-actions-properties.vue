@@ -1,6 +1,15 @@
 <template>
     <div>
         <div id="list-button-wrap" class="wf-list-button-outer-wrap">
+            <div style="float: left;height: 32px;line-height: 32px">
+                输入意见绑定到字段：
+                <Select style="width:400px" v-model="jb4dc.jb4dcActionsOpinionBindToField">
+                    <Option v-for="item in actionBindToEnableFields" :value="item.fieldName" :key="item.fieldName">【{{ item.fieldCaption }}】{{ item.fieldName }}</Option>
+                </Select>
+            </div>
+            <div style="float: left;height: 32px;line-height: 32px;margin-left: 10px">
+                <i-input placeholder="输入意见绑定到控件ID" v-model="jb4dc.jb4dcActionsOpinionBindToElemId" type="text" />
+            </div>
             <div class="list-button-inner-wrap">
                 <button-group>
                     <i-button type="success" @click="showAddActionDialog(null)" icon="md-add"> </i-button>
@@ -27,19 +36,16 @@
                     <tab-pane tab="add-action-properties-inner-dialog-tabs" label="动作设置">
                         <table class="properties-dialog-table-wraper" cellpadding="0" cellspacing="0" border="0">
                             <colgroup>
+                                <col style="width: 14%" />
+                                <col style="width: 40%" />
                                 <col style="width: 12%" />
-                                <col style="width: 38%" />
-                                <col style="width: 12%" />
-                                <col style="width: 38%" />
+                                <col style="width: 34%" />
                             </colgroup>
                             <tbody>
                                 <tr>
-                                    <td>类型：</td>
+                                    <td><span style="color: red">*</span> 标题：</td>
                                     <td>
-                                        <Select v-model="actionInnerDetailInfo.actionType" style="width:300px">
-                                            <Option value="send">发送</Option>
-                                            <Option value="temporaryStorage">暂存</Option>
-                                        </Select>
+                                        <input type="text" v-model="actionInnerDetailInfo.actionCaption" />
                                     </td>
                                     <td>编号：</td>
                                     <td>
@@ -47,9 +53,12 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td>标题：</td>
+                                    <td>类型：</td>
                                     <td>
-                                        <input type="text" v-model="actionInnerDetailInfo.actionCaption" />
+                                        <Select v-model="actionInnerDetailInfo.actionType" style="width:200px">
+                                            <Option value="send">发送</Option>
+                                            <Option value="temporaryStorage">暂存</Option>
+                                        </Select>
                                     </td>
                                     <td>弹出意见框：</td>
                                     <td>
@@ -67,6 +76,36 @@
                                     <td>HTML Class：</td>
                                     <td>
                                         <input type="text" v-model="actionInnerDetailInfo.actionHTMLClass" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>发送前确认：</td>
+                                    <td>
+                                        <radio-group type="button" style="margin: auto" v-model="actionInnerDetailInfo.actionConfirm">
+                                            <radio label="true">是</radio>
+                                            <radio label="false">否</radio>
+                                        </radio-group>
+                                    </td>
+                                    <td>验证规则：</td>
+                                    <td>
+                                        <Select v-model="actionInnerDetailInfo.actionValidate" style="width:200px">
+                                            <Option value="notValidate">无</Option>
+                                            <Option value="inputOpinion">必须填写意见</Option>
+                                        </Select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>输入意见<br />绑定到字段：</td>
+                                    <td>
+                                        <i-select v-model="actionInnerDetailInfo.actionsOpinionBindToField">
+                                            <Option v-for="item in actionBindToEnableFields" :value="item.fieldName" :key="item.fieldName">【{{ item.fieldCaption }}】{{ item.fieldName }}</Option>
+                                        </i-select>
+                                    </td>
+                                    <td>
+                                        绑定到控件：
+                                    </td>
+                                    <td>
+                                        <input placeholder="输入意见绑定到控件ID" type="text" v-model="actionInnerDetailInfo.actionsOpinionBindToElemId" />
                                     </td>
                                 </tr>
                                 <tr>
@@ -125,7 +164,7 @@
                             </tbody>
                         </table>
                     </tab-pane>
-                    <tab-pane tab="add-action-properties-inner-dialog-tabs" label="数据设置">
+                    <tab-pane tab="add-action-properties-inner-dialog-tabs" label="数据更新设置">
                         <table class="properties-dialog-table-wraper" cellpadding="0" cellspacing="0" border="0">
                             <colgroup>
                                 <col style="width: 12%" />
@@ -279,7 +318,13 @@
             contextVarJuelEditDialog,
             selectDefaultValueDialog
         },
-        props:["propActionData","propFromId"],
+        props:["propActionData","propFromId","propJb4dcGeneralData"],
+        watch: {
+            actionOpinionBindToField: function (newVal) {
+                // 必须是input
+                this.$emit('input', newVal)
+            }
+        },
         data(){
             return {
                 field:{
@@ -375,6 +420,10 @@
                 addedActionData:[
 
                 ],
+                jb4dc:{
+                    jb4dcActionsOpinionBindToField:"",
+                    jb4dcActionsOpinionBindToElemId:""
+                },
                 formId:"",
                 //执行变量内部使用详情属性
                 executeVariableInnerDetailInfo:PODefinition.GetJB4DCActionExecuteVariablePO(),
@@ -403,11 +452,15 @@
                         align: "center"
                     }
                 ],
-                addedActionExecuteVariableTableData:[]
+                addedActionExecuteVariableTableData:[],
+                actionBindToEnableFields:[]
             }
         },
         mounted(){
+            this.jb4dc=this.propJb4dcGeneralData;
             this.addedActionData = this.propActionData;
+            //this.actionOpinionBindToField=this.propActionsOpinionBindToField;
+            //this.actionOpinionBindToElemId=this.propActionsOpinionBindToElemId;
             flowBpmnJsIntegrated=FlowBpmnJsIntegrated.GetInstance();
             var _self=this;
             EditTable_SelectDefaultValue.ClickSelectedButtonCB=function () {
@@ -415,6 +468,7 @@
             }
             this.initAddActionDialog();
             this.initAddActionExecuteVariableDialog();
+            this.initActionBindToEnableFields();
         },
         beforeDestroy(){
             //console.log("beforeDestroy");
@@ -444,7 +498,7 @@
                 DialogUtility.DialogElemObj(_self.$refs.addActionDialog,{
                     title:"新增动作",
                     width:850,
-                    height:560,
+                    height:660,
                     modal:true,
                     buttons: {
                         "确认": function () {
@@ -513,6 +567,22 @@
             },
             getHostResultProperties(){
                 return this.addedActionData;
+            },
+            initActionBindToEnableFields(){
+                //debugger;
+                var formId=flowBpmnJsIntegrated.TryGetFormId(this.propFromId);
+                if(formId) {
+                    //var result
+                    RemoteUtility.GetFormResourceBindMainTable(formId).then((tablePO)=>{
+                        if(tablePO&&tablePO.tableFieldPOList){
+                            //console.log(tablePO&&tablePO.tableFieldPOList);
+                            this.actionBindToEnableFields=tablePO&&tablePO.tableFieldPOList;
+                        }
+                    });
+                }
+                else{
+                    this.actionBindToEnableFields=[];
+                }
             },
             //region 动作执行变量设置
             initAddActionExecuteVariableDialog(){

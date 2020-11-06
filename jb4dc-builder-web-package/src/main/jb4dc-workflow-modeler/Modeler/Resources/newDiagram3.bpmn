@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:jb4dc="http://jb4dc.org/schema/1.0/bpmn" id="Definitions_15b9usu" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="3.4.1">
-  <bpmn:process id="P004_001" name="发文流程" isExecutable="true" camunda:jobPriority="12123" camunda:candidateStarterGroups="csg" camunda:candidateStarterUsers="csu" camunda:versionTag="发文流程V1" camunda:historyTimeToLive="123" camunda:taskPriority="123">
+  <bpmn:process id="P004_001" name="发文流程" isExecutable="true" camunda:jobPriority="12123" camunda:candidateStarterGroups="csg" camunda:candidateStarterUsers="csu" camunda:versionTag="发文流程V1" camunda:historyTimeToLive="123" camunda:taskPriority="123" jb4dc:jb4dcFlowCategory="通用流程" jb4dc:jb4dcFormId="806f4618-0ddd-480c-af32-71be5bf4727d" jb4dc:jb4dcTenantId="JBuild4DC-Tenant">
     <bpmn:documentation>de1
     </bpmn:documentation>
     <bpmn:extensionElements>
-      <camunda:executionListener class="a" event="start" />
-      <camunda:executionListener class="b" event="start" />
       <camunda:properties>
         <camunda:property name="e1" value="1" />
         <camunda:property name="e2" value="2" />
         <camunda:property name="e3" value="3" />
       </camunda:properties>
+      <camunda:executionListener class="a" event="start" />
+      <camunda:executionListener class="b" event="start" />
       <camunda:executionListener class="123" event="end" />
     </bpmn:extensionElements>
     <bpmn:sequenceFlow id="SequenceFlow_0mk257b" name="123" sourceRef="StartEvent_1" targetRef="Task_1uhc294">

@@ -1,18 +1,26 @@
 <template>
     <div ref="selectRoleDialogWrap" style="display: none">
-        <div style="width: 30%;float: left;height: 452px;border: #a9b7d1 1px solid;border-radius: 4px;margin-right: 10px">
+        <div style="width: 100%;float: left;height: 40px"  name="ExConfig">
+            <div style="float: right">
+                <radio-group type="button" style="margin: auto" v-model="roleFilterConfig">
+                    <radio label="全局">全局</radio>
+                    <radio label="本组织下角色">本组织下角色</radio>
+                </radio-group>
+            </div>
+        </div>
+        <div v-bind:style="{ 'width': '30%', 'float': 'left','height':selectWrapHeight+'px','border':' #a9b7d1 1px solid','border-radius':'4px','margin-right': '10px'}">
             <div class="inner-wrap">
                 <div>
-                    <ul ref="roleGroupZTreeUL" class="ztree"></ul>
+                    <ul id="select-role-dialog-roleGroupZTreeUL" ref="roleGroupZTreeUL" class="ztree"></ul>
                 </div>
             </div>
         </div>
-        <div style="width: 40%;float: left;height: 452px" class="iv-list-page-wrap select-dialog-single-select-table">
-            <i-table :height="452" stripe border :columns="roleColumnsConfig" :data="roleTableData"
+        <div style="width: 40%;float: left;height: 412px" class="iv-list-page-wrap select-dialog-single-select-table">
+            <i-table :height="412" stripe border :columns="roleColumnsConfig" :data="roleTableData"
                      :highlight-row="true" @on-row-click="selectedRole">
             </i-table>
         </div>
-        <div style="width: 27%;float: right;height: 452px;border: #e8eaec 1px solid;border-radius: 4px;">
+        <div style="width: 27%;float: right;height: 412px;border: #e8eaec 1px solid;border-radius: 4px;">
             <div style="border-bottom: #e8eaec 1px solid;background-color: #f8f8f9;height: 36px;line-height: 36px;padding-left: 10px;border-radius: 4px 4px 0px 0px">选定角色</div>
             <div style="margin-left: 10px;margin-top: 8px">
                 <tag type="border" color="success" :closable="true" v-for="item in selectedRoleArray" :key="item.roleId" :name="item.roleId" @on-close="deleteSelectedRole">{{item.roleName}}</tag>
@@ -28,6 +36,8 @@
         name: "select-role-dialog",
         data(){
             return {
+                selectWrapHeight:412,
+                roleFilterConfig:"全局",
                 tree:{
                     roleGroupTreeObj:null,
                     treeIdFieldName:"roleGroupId",

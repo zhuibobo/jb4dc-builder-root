@@ -34,12 +34,15 @@ class PODefinition{
                 jb4dcProcessTitleEditValue:"",
                 jb4dcProcessDescriptionEditText:"",
                 jb4dcProcessDescriptionEditValue:"",
-                jb4dcActions:[],
                 jb4dcSequenceFlowConditionEditText:"",
                 jb4dcProcessCandidateStarterGroupsDesc:"",
                 jb4dcProcessCandidateStarterUsersDesc:"",
                 jb4dcCandidateUsersDesc:"",
                 jb4dcCandidateGroupsDesc:"",
+                jb4dcActionsOpinionBindToField:"",
+                jb4dcActionsOpinionBindToElemId:"",
+                jb4dcActions:[],
+                jb4dcActionConfirm:"false"
             }
         }
     }
@@ -109,7 +112,11 @@ class PODefinition{
             actionHTMLClass:"",
             actionUpdateFields:[],
             actionCallApis:[],
-            actionExecuteVariables:[]
+            actionExecuteVariables:[],
+            actionConfirm:"false",
+            actionValidate:"无",
+            actionsOpinionBindToField:"",
+            actionsOpinionBindToElemId:""
         }
     }
     static RemoveExcludeProp(templatePO,actualPO){

@@ -3,7 +3,7 @@
         <div style="width: 30%;float: left;height: 452px;border: #a9b7d1 1px solid;border-radius: 4px;margin-right: 10px">
             <div class="inner-wrap">
                 <div>
-                    <ul ref="organZTreeUL" class="ztree"></ul>
+                    <ul id="select-user-dialog-organZTreeUL" ref="organZTreeUL" class="ztree"></ul>
                 </div>
             </div>
         </div>
