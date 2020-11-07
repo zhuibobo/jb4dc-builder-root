@@ -14,8 +14,11 @@
         <module name="jb4dc-builder-web-server" />
         <module name="jb4dc-qc-system-service" />
         <module name="jb4dc-qc-system-web-package" />
+        <module name="jb4dc-grid-system-service" />
+        <module name="jb4dc-grid-system-web-package" />
         <module name="jb4dc-builder-client" />
         <module name="jb4dc-builder-pojo" />
+        <module name="jb4dc-grid-system-web-server" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
@@ -29,6 +32,9 @@
       <module name="jb4dc-dev-mock-service" target="1.8" />
       <module name="jb4dc-dev-mock-web-server" target="1.8" />
       <module name="jb4dc-grid-system-root" target="1.8" />
+      <module name="jb4dc-grid-system-service" target="1.8" />
+      <module name="jb4dc-grid-system-web-package" target="1.8" />
+      <module name="jb4dc-grid-system-web-server" target="1.8" />
       <module name="jb4dc-qc-system-root" target="1.8" />
       <module name="jb4dc-qc-system-service" target="1.8" />
       <module name="jb4dc-qc-system-web-package" target="1.8" />
@@ -49,6 +55,9 @@
       <module name="jb4dc-dev-mock-service" options="-parameters" />
       <module name="jb4dc-dev-mock-web-server" options="-parameters" />
       <module name="jb4dc-grid-system-root" options="" />
+      <module name="jb4dc-grid-system-service" options="-parameters" />
+      <module name="jb4dc-grid-system-web-package" options="-parameters" />
+      <module name="jb4dc-grid-system-web-server" options="-parameters" />
       <module name="jb4dc-qc-system-service" options="-parameters" />
       <module name="jb4dc-qc-system-web-package" options="-parameters" />
       <module name="jb4dc-qc-system-web-server" options="-parameters" />
