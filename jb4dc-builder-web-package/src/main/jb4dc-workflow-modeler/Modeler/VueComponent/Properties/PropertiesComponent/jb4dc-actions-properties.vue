@@ -43,7 +43,7 @@
                             </colgroup>
                             <tbody>
                                 <tr>
-                                    <td><span style="color: red">*</span> 标题：</td>
+                                    <td style="color: red">标题：</td>
                                     <td>
                                         <input type="text" v-model="actionInnerDetailInfo.actionCaption" />
                                     </td>
@@ -320,10 +320,10 @@
         },
         props:["propActionData","propFromId","propJb4dcGeneralData"],
         watch: {
-            actionOpinionBindToField: function (newVal) {
+            /*actionOpinionBindToField: function (newVal) {
                 // 必须是input
                 this.$emit('input', newVal)
-            }
+            }*/
         },
         data(){
             return {

@@ -142,6 +142,53 @@
       ]
     },
     {
+      "name": "Jb4dcReceiveObjects",
+      "superClass": [ "Element" ],
+      "meta": {
+        "allowedIn": [
+          "bpmn:UserTask"
+        ]
+      },
+      "properties": [
+        {
+          "name": "values",
+          "type": "Jb4dcReceiveObject",
+          "isMany": true
+        }
+      ]
+    },
+    {
+      "name": "Jb4dcReceiveObject",
+      "superClass": [ "Element" ],
+      "properties": [
+        {
+          "name": "receiveObjectCode",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "receiveObjectType",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "receiveObjectValue",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "receiveObjectText",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "receiveObjectConfig",
+          "isAttr": true,
+          "type": "String"
+        }
+      ]
+    },
+    {
       "name": "Jb4dcActions",
       "superClass": [ "Element" ],
       "meta": {

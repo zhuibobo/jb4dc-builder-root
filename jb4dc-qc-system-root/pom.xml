@@ -14,6 +14,7 @@
     <modules>
         <module>jb4dc-qc-system-service</module>
         <module>jb4dc-qc-system-web-server</module>
+        <module>jb4dc-qc-system-web-package</module>
     </modules>
     <properties>
         <jb4dc.builder.version>1.0-SNAPSHOT</jb4dc.builder.version>
@@ -23,6 +24,11 @@
             <dependency>
                 <groupId>jb4dc</groupId>
                 <artifactId>jb4dc-qc-system-service</artifactId>
+                <version>1.0-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>jb4dc</groupId>
+                <artifactId>jb4dc-qc-system-web-package</artifactId>
                 <version>1.0-SNAPSHOT</version>
             </dependency>
         </dependencies>

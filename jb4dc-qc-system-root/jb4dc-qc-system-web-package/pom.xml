@@ -9,7 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>jb4dc-qc-system-web-server</artifactId>
+    <artifactId>jb4dc-qc-system-web-package</artifactId>
     <dependencies>
         <dependency>
             <groupId>jb4dc</groupId>
@@ -48,54 +48,6 @@
             <groupId>jb4dc</groupId>
             <artifactId>jb4dc-qc-system-service</artifactId>
         </dependency>
-        <dependency>
-            <groupId>jb4dc</groupId>
-            <artifactId>jb4dc-qc-system-web-package</artifactId>
-        </dependency>
     </dependencies>
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-                <version>2.0.4.RELEASE</version>
-                <configuration>
-                    <outputDirectory>${project.build.directory}/public/</outputDirectory>
-                </configuration>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>repackage</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-        </plugins>
-        <resources>
-            <resource>
-                <directory>src/main/resources</directory>
-                <filtering>true</filtering>
-                <includes>
-                    <include>**/*</include>
-                </includes>
-            </resource>
-            <resource>
-                <directory>${basedir}/src/main/resources/config</directory>
-                <targetPath>../public/config</targetPath>
-            </resource>
-            <!--<resource>
-                <directory>${basedir}/src/main/resources/config</directory>
-                <targetPath>config</targetPath>
-            </resource>-->
-        </resources>
-        <!--<resources>
-            <resource>
-                <directory>src/main/resources</directory>
-                <filtering>true</filtering>
-                <includes>
-                    <include>**/*</include>
-                </includes>
-            </resource>
-        </resources>-->
-    </build>
+
 </project>

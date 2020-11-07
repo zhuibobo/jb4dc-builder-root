@@ -669,6 +669,61 @@ class BpmnJsUtility {
         }
     }
 
+    static JB4DC_GetReceiveObjectsArray(element){
+        var extensionElements=this.BPMN_GetExtensionElements(element);
+        if(extensionElements){
+            if(extensionElements.values){
+                var actions;
+                actions = ArrayUtility.WhereSingle(extensionElements.values, function (item) {
+                    return item.$type == "jb4dc:Jb4dcReceiveObjects";
+                });
+                if(actions&&actions.values){
+                    return actions.values
+                }
+                return null;
+            }
+        }
+        return null;
+    }
+    static JB4DC_SetReceiveObjectsArray(element,ary,autoCreate){
+        var extensionElements=this.BPMN_GetExtensionElements(element);
+        if(autoCreate&&!extensionElements){
+            this.BPMN_CreateExtensionElements(element);
+            extensionElements=this.BPMN_GetExtensionElements(element);
+        }
+        if(extensionElements){
+            if(ary) {
+                //debugger;
+                var bo = element.businessObject;
+
+                var actions = null;
+                if (extensionElements.values) {
+                    actions = ArrayUtility.WhereSingle(extensionElements.values, function (item) {
+                        return item.$type == "jb4dc:Jb4dcReceiveObjects";
+                    });
+                }
+                else{
+                    extensionElements.values=[];
+                }
+
+                if(!actions){
+                    actions=bo.$model.create('jb4dc:Jb4dcReceiveObjects');
+                    extensionElements.values.push(actions);
+                }
+                actions.values=[];
+
+                ary.forEach(function (item) {
+                    var jb4dcAction = bo.$model.create('jb4dc:Jb4dcReceiveObject', PODefinition.RemoveExcludeProp(PODefinition.GetJB4DCReceiveObjectPO(),item));
+                    actions.values.push(jb4dcAction);
+                })
+            }
+        }
+        else{
+            var message="元素"+this.BPMN_Attr_GetId(element)+"不存在bpmn:extensionElements子元素!";
+            BaseUtility.ThrowMessage(message);
+        }
+    }
+
     static _LoopFindSourceRefIsUserTaskBusinessObject(elemBusinessObject,userTaskListBusinessObject,searchedElemId){
         //debugger;
         if(!searchedElemId){

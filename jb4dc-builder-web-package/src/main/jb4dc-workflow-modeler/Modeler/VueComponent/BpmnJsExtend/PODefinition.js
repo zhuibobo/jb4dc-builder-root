@@ -42,6 +42,7 @@ class PODefinition{
                 jb4dcActionsOpinionBindToField:"",
                 jb4dcActionsOpinionBindToElemId:"",
                 jb4dcActions:[],
+                jb4dcReceiveObjects:[],
                 jb4dcActionConfirm:"false"
             }
         }
@@ -117,6 +118,15 @@ class PODefinition{
             actionValidate:"无",
             actionsOpinionBindToField:"",
             actionsOpinionBindToElemId:""
+        }
+    }
+    static GetJB4DCReceiveObjectPO(){
+        return {
+            receiveObjectCode:"receiveObject_"+StringUtility.Timestamp(),
+            receiveObjectType:"",
+            receiveObjectValue:"",
+            receiveObjectText:"",
+            receiveObjectConfig:""
         }
     }
     static RemoveExcludeProp(templatePO,actualPO){

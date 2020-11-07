@@ -14,8 +14,8 @@
         <module>jb4dc-builder-service</module>
         <module>jb4dc-builder-web-package</module>
         <module>jb4dc-builder-web-server</module>
-        <module>jb4dc-dev-mock-service</module>
-        <module>jb4dc-dev-mock-web-server</module>
+        <module>jb4dc-dev-mock-root</module>
+        <module>jb4dc-grid-system-root</module>
     </modules>
     <properties>
         <jb4dc.builder.version>1.0-SNAPSHOT</jb4dc.builder.version>

@@ -97,7 +97,7 @@
                     "确认": function () {
                         if(typeof (_self.callBackFunc=="function")) {
                             var result=JsonUtility.CloneArraySimple(_self.selectedRoleArray);
-                            _self.callBackFunc(result);
+                            _self.callBackFunc(result,_self.roleFilterConfig);
                         }
                         DialogUtility.CloseDialogElem(_self.$refs.selectRoleDialogWrap);
                     },
@@ -125,7 +125,6 @@
                     this.tree.roleGroupTreeObj.expandAll(true);
                     this.tree.roleGroupTreeObj._host = this;
                 });
-
             },
             roleGroupTreeNodeSelected(event, treeId, treeNode) {
                 this.tree.roleGroupTreeSelectedNode=treeNode;

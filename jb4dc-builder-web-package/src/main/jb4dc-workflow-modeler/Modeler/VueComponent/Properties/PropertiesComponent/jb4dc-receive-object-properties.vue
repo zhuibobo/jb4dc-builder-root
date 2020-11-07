@@ -32,6 +32,7 @@
         </div>
         <selectRoleDialog ref="selectRoleDialog"></selectRoleDialog>
         <selectUserDialog ref="selectUserDialog"></selectUserDialog>
+        <selectOrganDialog ref="selectOrganDialog"></selectOrganDialog>
     </div>
 </template>
 
@@ -39,13 +40,15 @@
     import {PODefinition} from "../../BpmnJsExtend/PODefinition";
     import selectRoleDialog from "../Dialog/select-role-dialog.vue";
     import selectUserDialog from "../Dialog/select-user-dialog.vue";
+    import selectOrganDialog from "../Dialog/select-organ-dialog.vue";
 
     export default {
         name: "jb4dc-receive-object-properties",
-        props:["propElemProperties"],
+        props:["propElemProperties","propReceiveObjectsData"],
         components: {
             selectRoleDialog,
-            selectUserDialog
+            selectUserDialog,
+            selectOrganDialog
         },
         data:function () {
             return {
@@ -74,19 +77,19 @@
         created(){
         },
         mounted() {
+            this.receiveObjectTableData = this.propReceiveObjectsData;
         },
         beforeDestroy(){
 
         },
         methods: {
-            newReceiverObjectRow(type,value,text,config){
-                return {
-                    receiveObjectCode:"receiveObject_"+StringUtility.Timestamp(),
-                    receiveObjectType:type,
-                    receiveObjectValue:value,
-                    receiveObjectText:text,
-                    receiveObjectConfig:config
-                }
+            newReceiverObjectRow(type,value,text,config) {
+                var receiveObject = JsonUtility.CloneStringify(PODefinition.GetJB4DCReceiveObjectPO());
+                receiveObject.receiveObjectType = type;
+                receiveObject.receiveObjectValue = value;
+                receiveObject.receiveObjectText = text;
+                receiveObject.receiveObjectConfig = config;
+                return receiveObject;
             },
             addToReceiveObjectTableData:function(receiverObjectRow){
                 this.receiveObjectTableData.push(receiverObjectRow);
@@ -123,24 +126,41 @@
                 });
             },
             addOrgan(){
-                DialogUtility.ToastMessage(this,"未实现!");
+                this.$refs.selectOrganDialog.beginSelectOrgan("选择组织","",(selectedOrganArray)=>{
+                    var organIdS=[];
+                    var organPaths=[];
+                    for (let i = 0; i < selectedOrganArray.length; i++) {
+                        organIdS.push(selectedOrganArray[i].organId);
+                        organPaths.push(selectedOrganArray[i].organPath);
+                    }
+                    this.addToReceiveObjectTableData(this.newReceiverObjectRow("Organs",organIdS.join(","),organPaths.join(","),""));
+                });
             },
             addRole(){
-                this.$refs.selectRoleDialog.beginSelectRole("选择角色","",(selectedRoleArray)=>{
+                this.$refs.selectRoleDialog.beginSelectRole("选择角色","",(selectedRoleArray,roleFilterConfig)=>{
                     var roleIdS=[];
                     var rolePaths=[];
                     for (let i = 0; i < selectedRoleArray.length; i++) {
                         roleIdS.push(selectedRoleArray[i].roleId);
                         rolePaths.push(selectedRoleArray[i].rolePath);
                     }
-                    this.addToReceiveObjectTableData(this.newReceiverObjectRow("Role",roleIdS.join(","),rolePaths.join(","),""));
+                    //console.log(roleFilterConfig);
+                    this.addToReceiveObjectTableData(this.newReceiverObjectRow("Role",roleIdS.join(","),rolePaths.join(","),roleFilterConfig));
                 });
             },
             addFlowAboutUser(){
                 DialogUtility.ToastMessage(this,"未实现!");
             },
             addExcludeUser(){
-                DialogUtility.ToastMessage(this,"未实现!");
+                this.$refs.selectUserDialog.beginSelectUser("选择排除用户","",(selectedUserArray)=>{
+                    var userIdS=[];
+                    var userPaths=[];
+                    for (let i = 0; i < selectedUserArray.length; i++) {
+                        userIdS.push(selectedUserArray[i].userId);
+                        userPaths.push(selectedUserArray[i].userPath);
+                    }
+                    this.addToReceiveObjectTableData(this.newReceiverObjectRow("ExcludeUsers",userIdS.join(","),userPaths.join(","),""));
+                });
             },
             addAPI(){
                 DialogUtility.ToastMessage(this,"未实现!");

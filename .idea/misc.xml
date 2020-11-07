@@ -8,7 +8,14 @@
       <list>
         <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/jb4dc-qc-system-root/pom.xml" />
+        <option value="$PROJECT_DIR$/jb4dc-dev-mock-root/jb4dc-dev-mock-service/pom.xml" />
+        <option value="$PROJECT_DIR$/jb4dc-dev-mock-root/jb4dc-dev-mock-web-server/pom.xml" />
       </list>
+    </option>
+    <option name="ignoredFiles">
+      <set>
+        <option value="$PROJECT_DIR$/jb4dc-qc-system-web-package/pom.xml" />
+      </set>
     </option>
   </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_12" default="false" project-jdk-name="openjdk-1.8" project-jdk-type="JavaSDK" />
