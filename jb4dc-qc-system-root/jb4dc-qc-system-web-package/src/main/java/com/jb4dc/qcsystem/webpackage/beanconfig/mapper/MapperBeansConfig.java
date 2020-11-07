@@ -1,4 +1,4 @@
-package com.jb4dc.qcsystem.webserver.beanconfig.mapper;
+package com.jb4dc.qcsystem.webpackage.beanconfig.mapper;
 
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.context.annotation.Configuration;

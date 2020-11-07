@@ -1,4 +1,4 @@
-package com.jb4dc.qcsystem.webserver.beanconfig.cache;
+package com.jb4dc.qcsystem.webpackage.beanconfig.cache;
 
 import com.jb4dc.builder.client.cache.BuilderCacheManager;
 import org.ehcache.CacheManager;

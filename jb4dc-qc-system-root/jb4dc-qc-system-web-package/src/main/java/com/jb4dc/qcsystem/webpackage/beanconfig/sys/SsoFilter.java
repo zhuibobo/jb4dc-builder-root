@@ -1,4 +1,4 @@
-package com.jb4dc.qcsystem.webserver.beanconfig.sys;
+package com.jb4dc.qcsystem.webpackage.beanconfig.sys;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.jb4dc.base.tools.JsonUtility;

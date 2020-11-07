@@ -1,4 +1,4 @@
-package com.jb4dc.qcsystem.webserver.beanconfig.mybatis;
+package com.jb4dc.qcsystem.webpackage.beanconfig.mybatis;
 
 import com.github.pagehelper.PageInterceptor;
 import com.jb4dc.base.dbaccess.dynamic.GeneralMapper;

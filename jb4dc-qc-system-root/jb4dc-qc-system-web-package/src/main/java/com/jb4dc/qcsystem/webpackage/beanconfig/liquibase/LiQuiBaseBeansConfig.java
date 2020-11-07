@@ -1,4 +1,4 @@
-package com.jb4dc.qcsystem.webserver.beanconfig.liquibase;
+package com.jb4dc.qcsystem.webpackage.beanconfig.liquibase;
 
 import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
 import liquibase.Liquibase;

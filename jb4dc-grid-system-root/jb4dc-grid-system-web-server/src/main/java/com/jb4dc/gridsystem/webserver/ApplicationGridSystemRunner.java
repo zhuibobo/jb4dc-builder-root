@@ -1,7 +1,5 @@
-package com.jb4dc.qcsystem.webserver;
+package com.jb4dc.gridsystem.webserver;
 
-import com.jb4dc.base.service.general.JB4DCSessionUtility;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
@@ -13,7 +11,7 @@ import org.springframework.stereotype.Component;
  * To change this template use File | Settings | File Templates.
  */
 @Component
-public class ApplicationQCSystemRunner implements ApplicationRunner {
+public class ApplicationGridSystemRunner implements ApplicationRunner {
 
     @Override
     public void run(ApplicationArguments args) throws Exception {

@@ -16,5 +16,18 @@
         <module>jb4dc-grid-system-web-package</module>
         <module>jb4dc-grid-system-web-server</module>
     </modules>
-
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>jb4dc</groupId>
+                <artifactId>jb4dc-grid-system-service</artifactId>
+                <version>1.0-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>jb4dc</groupId>
+                <artifactId>jb4dc-grid-system-web-package</artifactId>
+                <version>1.0-SNAPSHOT</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 </project>
