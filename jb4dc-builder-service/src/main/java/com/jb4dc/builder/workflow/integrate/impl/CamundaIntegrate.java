@@ -2,6 +2,7 @@ package com.jb4dc.builder.workflow.integrate.impl;
 
 import org.camunda.bpm.engine.ProcessEngine;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 /**
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Service;
  * To change this template use File | Settings | File Templates.
  */
 @Service
+@Lazy
 public class CamundaIntegrate {
     public static ProcessEngine processEngine;
 

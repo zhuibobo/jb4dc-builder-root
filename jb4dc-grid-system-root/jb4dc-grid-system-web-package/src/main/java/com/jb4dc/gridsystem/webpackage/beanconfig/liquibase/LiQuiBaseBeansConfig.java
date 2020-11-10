@@ -1,4 +1,4 @@
-package com.jb4dc.builder.webpackage.beanconfig.liquibase;
+package com.jb4dc.gridsystem.webpackage.beanconfig.liquibase;
 
 import com.jb4dc.base.service.liquibase.NVarcharTypeCust;
 import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
@@ -41,7 +41,7 @@ public class LiQuiBaseBeansConfig {
             database.setDatabaseChangeLogLockTableName(database.getDatabaseChangeLogLockTableName());
 
             DataTypeFactory.getInstance().register(new NVarcharTypeCust());
-            liquibase = new Liquibase("liquibase/jb4dc-builder-db-changelog.xml", new ClassLoaderResourceAccessor(), database);
+            liquibase = new Liquibase("liquibase/jb4dc-grid-db-changelog.xml", new ClassLoaderResourceAccessor(), database);
             liquibase.update("zhuangrb");
             liquibase = new Liquibase("liquibase/jb4dc-files-db-changelog.xml", new ClassLoaderResourceAccessor(), database);
             liquibase.update("zhuangrb");

@@ -32,6 +32,7 @@ spring:
       preferred-networks: 127.0.0.1
   liquibase:
     enabled: false
+
   thymeleaf:
     prefix: classpath:/static/HTML/
     suffix: .html
@@ -88,6 +89,9 @@ feign:
 
 camunda:
   bpm:
+    database:
+
+      schema-update: false
     application:
       delete-upon-undeploy: false
       scan-for-process-definitions: false

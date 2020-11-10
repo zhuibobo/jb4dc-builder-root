@@ -40,12 +40,12 @@ import java.util.Map;
 @Service
 public class ModuleServiceImpl extends BaseServiceImpl<ModuleEntity> implements IModuleService
 {
-    @Override
+    /*@Override
     public String getRootId() {
         return rootId;
-    }
+    }*/
 
-    private String rootId="0";
+    //private String rootId="0";
     private String rootParentId="-1";
 
     @Autowired
@@ -110,7 +110,7 @@ public class ModuleServiceImpl extends BaseServiceImpl<ModuleEntity> implements 
                 sourceEntity.setModuleOrganId(jb4DCSession.getOrganId());
                 sourceEntity.setModuleOrganName(jb4DCSession.getOrganName());
                 String parentIdList;
-                if(sourceEntity.getModuleId().equals(rootId)){
+                if(sourceEntity.getModuleParentId().equals(rootParentId)){
                     parentIdList=rootParentId;
                     sourceEntity.setModuleParentId(rootParentId);
                 }

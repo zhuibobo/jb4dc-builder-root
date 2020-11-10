@@ -1,9 +1,10 @@
 <?xml version="1.1" encoding="UTF-8" standalone="no"?>
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+    <!--<property name="NVARCHAR" value="VARCHAR" dbms="mysql" global="true"/>
+    <property name="NVARCHAR" value="NVARCHAR" dbms="oracle,mssql" global="true"/>-->
     <!--模块构建-->
     <!--remarks中的:会用于切分注册到构建库中的标题和备注-->
     <changeSet author="zhuangrb" id="changeSet-Builder-Base" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
-
         <createTable tableName="TBUILD_DB_LINK" remarks="业务数据库连接">
             <column name="DB_ID" type="NVARCHAR(100)" remarks="主键:UUID">
                 <constraints primaryKey="true" nullable="false"/>
@@ -864,5 +865,57 @@
             <column name="HISTORY_TABLE_NAME" type="NVARCHAR(100)" remarks="删除记录的表名"/>
             <column name="HISTORY_RECORD_ID" type="NVARCHAR(100)" remarks="删除记录的主键值"/>
         </createTable>
+    </changeSet>
+
+    <changeSet id="changeSet-camunda-0001" author="zhuangrb" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
+        <sqlFile dbms="mysql"
+                 encoding="utf8"
+                 endDelimiter=";"
+                 path="activiti.mysql.create.engine.sql"
+                 relativeToChangelogFile="true"
+                 splitStatements="true"
+                 stripComments="true"/>
+        <sqlFile dbms="mysql"
+                 encoding="utf8"
+                 endDelimiter=";"
+                 path="activiti.mysql.create.history.sql"
+                 relativeToChangelogFile="true"
+                 splitStatements="true"
+                 stripComments="true"/>
+        <sqlFile dbms="mysql"
+                 encoding="utf8"
+                 endDelimiter=";"
+                 path="activiti.mysql.create.identity.sql"
+                 relativeToChangelogFile="true"
+                 splitStatements="true"
+                 stripComments="true"/>
+        <sqlFile dbms="mysql"
+                 encoding="utf8"
+                 endDelimiter=";"
+                 path="activiti.mysql.create.case.engine.sql"
+                 relativeToChangelogFile="true"
+                 splitStatements="true"
+                 stripComments="true"/>
+        <sqlFile dbms="mysql"
+                 encoding="utf8"
+                 endDelimiter=";"
+                 path="activiti.mysql.create.case.history.sql"
+                 relativeToChangelogFile="true"
+                 splitStatements="true"
+                 stripComments="true"/>
+        <sqlFile dbms="mysql"
+                 encoding="utf8"
+                 endDelimiter=";"
+                 path="activiti.mysql.create.decision.engine.sql"
+                 relativeToChangelogFile="true"
+                 splitStatements="true"
+                 stripComments="true"/>
+        <sqlFile dbms="mysql"
+                 encoding="utf8"
+                 endDelimiter=";"
+                 path="activiti.mysql.create.decision.history.sql"
+                 relativeToChangelogFile="true"
+                 splitStatements="true"
+                 stripComments="true"/>
     </changeSet>
 </databaseChangeLog>

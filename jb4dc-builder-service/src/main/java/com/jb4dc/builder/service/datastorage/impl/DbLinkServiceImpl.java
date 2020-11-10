@@ -120,10 +120,10 @@ public class DbLinkServiceImpl extends BaseServiceImpl<DbLinkEntity> implements 
         dbLinkEntity.setDbPassword("sql");*/
         dbLinkEntity.setDbType("mysql");
         dbLinkEntity.setDbDriverName("com.mysql.cj.jdbc.Driver");
-        dbLinkEntity.setDbDatabaseName("JB4DC_SSO_V01");
-        dbLinkEntity.setDbUrl("jdbc:mysql://127.0.0.1:3306/JB4DC_SSO_V01?characterEncoding=UTF-8&serverTimezone=Asia/Shanghai&nullCatalogMeansCurrent=true&autoReconnect=true&failOverReadOnly=false");
+        dbLinkEntity.setDbDatabaseName("JB4DC_SSO_V02");
+        dbLinkEntity.setDbUrl("jdbc:mysql://58.51.184.124:6316/JB4DC_SSO_V02?characterEncoding=UTF-8&serverTimezone=Asia/Shanghai&nullCatalogMeansCurrent=true&autoReconnect=true&failOverReadOnly=false");
         dbLinkEntity.setDbUser("root");
-        dbLinkEntity.setDbPassword("root");
+        dbLinkEntity.setDbPassword("jb4dc#sz#1234");
         dbLinkEntity.setDbDesc("单点登录数据库连接");
         dbLinkEntity.setDbIsLocation(TrueFalseEnum.False.getDisplayName());
         dbLinkEntity.setDbStatus(EnableTypeEnum.enable.getDisplayName());
@@ -137,10 +137,10 @@ public class DbLinkServiceImpl extends BaseServiceImpl<DbLinkEntity> implements 
         dbLinkEntity.setDbLinkName("运维服务系统库连接");
         dbLinkEntity.setDbType("mysql");
         dbLinkEntity.setDbDriverName("com.mysql.cj.jdbc.Driver");
-        dbLinkEntity.setDbDatabaseName("JB4DC_QC_V01");
-        dbLinkEntity.setDbUrl("jdbc:mysql://127.0.0.1:3306/JB4DC_QC_V01?characterEncoding=UTF-8&serverTimezone=Asia/Shanghai&nullCatalogMeansCurrent=true&autoReconnect=true&failOverReadOnly=false");
+        dbLinkEntity.setDbDatabaseName("JB4DC_QC_V02");
+        dbLinkEntity.setDbUrl("jdbc:mysql://58.51.184.124:6316/JB4DC_QC_V02?characterEncoding=UTF-8&serverTimezone=Asia/Shanghai&nullCatalogMeansCurrent=true&autoReconnect=true&failOverReadOnly=false");
         dbLinkEntity.setDbUser("root");
-        dbLinkEntity.setDbPassword("root");
+        dbLinkEntity.setDbPassword("jb4dc#sz#1234");
         dbLinkEntity.setDbDesc("运维服务系统库连接");
         dbLinkEntity.setDbIsLocation(TrueFalseEnum.False.getDisplayName());
         dbLinkEntity.setDbStatus(EnableTypeEnum.enable.getDisplayName());
@@ -191,7 +191,7 @@ public class DbLinkServiceImpl extends BaseServiceImpl<DbLinkEntity> implements 
     public void initSystemData(JB4DCSession jb4DCSession) throws JBuild4DCGenerallyException {
         this.createBuilderDBLink(jb4DCSession);
         this.createSSODBLink(jb4DCSession);
-        this.createDevMockDBLink(jb4DCSession);
+        //this.createDevMockDBLink(jb4DCSession);
         this.createQCSystemDBLink(jb4DCSession);
         //this.createBusinessTestDBLink(jb4DCSession);
     }

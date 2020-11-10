@@ -315,7 +315,7 @@ public class TableGroupServiceImpl extends BaseServiceImpl<TableGroupEntity> imp
 
     @Override
     public void initSystemData(JB4DCSession jb4DCSession) throws JBuild4DCGenerallyException {
-        this.initDevMockSystemTableToBuilderSystem(jb4DCSession);
+        //this.initDevMockSystemTableToBuilderSystem(jb4DCSession);
         this.initSSOSystemTableToBuilderSystem(jb4DCSession);
         this.initBuilderSystemTableToBuilderSystem(jb4DCSession);
         this.initQCSystemTableToBuilderSystem(jb4DCSession);

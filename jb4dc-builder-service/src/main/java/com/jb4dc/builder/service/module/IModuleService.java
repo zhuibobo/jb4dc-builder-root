@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Map;
 
 public interface IModuleService extends IBaseService<ModuleEntity> {
-    String getRootId();
+    //String getRootId();
 
     ModuleEntity createRootNode(JB4DCSession jb4DCSession, String id, String dbLinkName, String dbLinkValue) throws JBuild4DCGenerallyException;
 

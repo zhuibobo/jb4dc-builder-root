@@ -80,11 +80,13 @@
       <w>multiplesplit</w>
       <w>opentype</w>
       <w>relationid</w>
+      <w>relevanter</w>
       <w>restdatasource</w>
       <w>resultnamebindtocontrolfield</w>
       <w>resultnamebindtocontrolid</w>
       <w>resultvaluebindtocontrolfield</w>
       <w>resultvaluebindtocontrolid</w>
+      <w>reter</w>
       <w>selectcondition</w>
       <w>selectdialogtitle</w>
       <w>selectnumber</w>
@@ -100,6 +102,7 @@
       <w>tablename</w>
       <w>targetbuttonid</w>
       <w>tbuild</w>
+      <w>tgrid</w>
       <w>tsso</w>
       <w>tsys</w>
       <w>validaterules</w>
