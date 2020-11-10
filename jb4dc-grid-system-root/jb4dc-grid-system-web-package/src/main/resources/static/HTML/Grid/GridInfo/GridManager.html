@@ -1,0 +1,101 @@
+<!DOCTYPE html><html lang="zh" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"><head><meta charset="UTF-8"><title>Title</title><title>JBuild4D</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"><script type="text/javascript" src="../../../Js/External/JQuery-3.4.1/jquery-3.4.1.min.js"></script><script type="text/javascript" src="../../../Js/External/VUE-2.6.10/vue.js"></script><script type="text/javascript" src="../../../Js/External/IView-3.X/dist/iview.min.js"></script><script type="text/javascript" src="../../../Js/External/JQuery-UI-1.12.1/jquery-ui.js"></script><script type="text/javascript" src="../../../Js/External/ZTree-3.5.40/js/jquery.ztree.all.js"></script><script type="text/javascript" src="../../../Js/JBuild4DCLib.js?refVersion=1"></script><script type="text/javascript" src="../../../Js/UIEXComponent.js?refVersion=1"></script><script type="text/javascript" src="../../../Js/VueEXComponent.js?refVersion=1"></script><link rel="stylesheet" type="text/css" href="../../../Themes/Default/Css/JBuild4DC.css?refVersion=1"><link rel="stylesheet" type="text/css" href="../../../Themes/Default/IView-3.X/iview.css"><link rel="stylesheet" type="text/css" href="../../../Themes/Default/JQueryUI/jquery-ui.css"><link rel="stylesheet" type="text/css" href="../../../Themes/Default/JQueryUI/jquery-ui-important.css"><link rel="stylesheet" type="text/css" href="../../../Themes/Default/ZTree/zTreeStyle/zTreeStyle.css"><style></style></head><body><div id="gridManager" class="list-2column"><div class="left-outer-wrap" style="width:250px"><div class="inner-wrap"><div class="tool-bar-wrap"></div><div><ul id="zTreeUL" class="ztree"></ul></div></div></div><div class="right-outer-wrap iv-list-page-wrap" style="padding:10px;left:260px"><tabs><tab-pane label="网格地图"><div id="baidu_map_028697996" style="height:500px"></div></tab-pane><tab-pane label="网格简介"></tab-pane><tab-pane label="机构信息"></tab-pane><tab-pane label="成员"></tab-pane><tab-pane label="备注"></tab-pane></tabs></div></div><script>var BaiduMapUtility= {
+        LoadJsCompleted: function (cbFuncName) {
+            AjaxUtility.Get("/Rest/Props/SystemProperties/GetBaiduMapJsUrl", {}, function (result) {
+                if (result.success) {
+                    var url = result.data;
+                    var script = document.createElement("script");
+                    script.src = url + "&callback=" + cbFuncName;
+                    document.body.appendChild(script);
+                }
+            })
+        }
+    }
+    function f1111() {
+        var mp = new BMapGL.Map('baidu_map_028697996');
+        mp.centerAndZoom(new BMapGL.Point(121.491, 31.233), 11);
+    }
+    var gridManager = new Vue({
+        el: "#gridManager",
+        mounted: function () {
+            this.initTree();
+            BaiduMapUtility.LoadJsCompleted("f1111");
+        },
+        data: {
+            acInterface: {
+                <!--Tree -->
+                getOrganAndUserData: "/Rest/Grid/SSOProxy/OrganAndUser/GetOrganAndUserData",
+                groupEditView: "/HTML/SSO/Role/RoleGroupEdit.html"
+            },
+            <!--Tree-->
+            OrganTree:{
+                treeSetting: {
+                    async: {
+                        enable: true,
+                        // Ajax 获取数据的 URL 地址
+                        url: ""
+                    },
+                    // 必须使用data
+                    data: {
+                        key: {
+                            name: "organName"
+                        },
+                        simpleData: {
+                            enable: true,
+                            idKey: "organId", // id编号命名
+                            pIdKey: "organParentId",  // 父id编号命名
+                            rootId: 0
+                        }
+                    },
+                    // 回调函数
+                    callback: {
+                        onClick: function (event, treeId, treeNode) {
+                            gridManager.treeNodeSelected(event, treeId, treeNode);
+                        },
+                        //成功的回调函数
+                        onAsyncSuccess: function (event, treeId, treeNode, msg) {
+                            gridManager.OrganTree.treeObj.expandAll(true);
+                        }
+                    }
+                },
+                treeIdFieldName: "roleGroupId",
+                treeObj: null,
+                treeSelectedNode: null
+            }
+        },
+        methods: {
+            <!--Tree12-->
+            initTree: function () {
+                var _self=this;
+                AjaxUtility.Post(this.acInterface.getOrganAndUserData, {}, function (result) {
+                    console.log(result);
+                    if(result.success){
+                        var treeData=result.data.ALLOrganMinProp;
+                        if(treeData!=null&&treeData.length>0){
+                            for(var i=0;i<treeData.length;i++) {
+                                if(treeData[i].organId!="0") {
+                                    treeData[i].icon = "../../../Themes/Png16X16/icons8-registry-editor-16.png";
+                                }
+                            }
+                        }
+                        _self.treeObj=$.fn.zTree.init($("#zTreeUL"), _self.OrganTree.treeSetting,treeData);
+                        _self.treeObj.expandAll(true);
+                    }
+                    else {
+                        DialogUtility.Alert(window, DialogUtility.DialogAlertId, {}, result.message, function () {});
+                    }
+                }, this);
+            },
+            treeNodeSelected: function (event, treeId, treeNode) {
+                // 根节点不触发任何事件
+                //if(treeNode.level != 0) {
+                this.treeSelectedNode = treeNode;
+                this.roleList.selectionRows = null;
+                this.roleList.pageNum = 1;
+                this.clearSearchCondition();
+                this.roleList.searchCondition.roleGroupId.value = this.treeSelectedNode[this.treeIdFieldName];
+                this.reloadData();
+                //appList.reloadTreeTableData();
+                //}
+            }
+        }
+    });</script></body></html>

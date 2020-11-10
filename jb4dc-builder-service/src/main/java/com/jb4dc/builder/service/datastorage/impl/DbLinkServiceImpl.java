@@ -147,6 +147,23 @@ public class DbLinkServiceImpl extends BaseServiceImpl<DbLinkEntity> implements 
         this.saveSimple(jb4DCSession,dbLinkEntity.getDbId(),dbLinkEntity);
     }
 
+    public void createGridSystemDBLink(JB4DCSession jb4DCSession) throws JBuild4DCGenerallyException {
+        DbLinkEntity dbLinkEntity=new DbLinkEntity();
+        dbLinkEntity.setDbId(this.JBUILD4DC_GRID_DB_LINK_ID);
+        dbLinkEntity.setDbLinkValue(this.JBUILD4DC_GRID_DB_LINK_ID);
+        dbLinkEntity.setDbLinkName("网格化社会管理系统库连接");
+        dbLinkEntity.setDbType("mysql");
+        dbLinkEntity.setDbDriverName("com.mysql.cj.jdbc.Driver");
+        dbLinkEntity.setDbDatabaseName("JB4DC_GRID_V02");
+        dbLinkEntity.setDbUrl("jdbc:mysql://58.51.184.124:6316/JB4DC_GRID_V02?characterEncoding=UTF-8&serverTimezone=Asia/Shanghai&nullCatalogMeansCurrent=true&autoReconnect=true&failOverReadOnly=false");
+        dbLinkEntity.setDbUser("root");
+        dbLinkEntity.setDbPassword("jb4dc#sz#1234");
+        dbLinkEntity.setDbDesc("网格化社会管理系统库连接");
+        dbLinkEntity.setDbIsLocation(TrueFalseEnum.False.getDisplayName());
+        dbLinkEntity.setDbStatus(EnableTypeEnum.enable.getDisplayName());
+        this.saveSimple(jb4DCSession,dbLinkEntity.getDbId(),dbLinkEntity);
+    }
+
     public void createDevMockDBLink(JB4DCSession jb4DCSession) throws JBuild4DCGenerallyException {
         DbLinkEntity dbLinkEntity=new DbLinkEntity();
         dbLinkEntity.setDbId(this.JBUILD4DC_DEV_MOCK_DB_LINK_ID);
@@ -193,6 +210,7 @@ public class DbLinkServiceImpl extends BaseServiceImpl<DbLinkEntity> implements 
         this.createSSODBLink(jb4DCSession);
         //this.createDevMockDBLink(jb4DCSession);
         this.createQCSystemDBLink(jb4DCSession);
+        this.createGridSystemDBLink(jb4DCSession);
         //this.createBusinessTestDBLink(jb4DCSession);
     }
 }

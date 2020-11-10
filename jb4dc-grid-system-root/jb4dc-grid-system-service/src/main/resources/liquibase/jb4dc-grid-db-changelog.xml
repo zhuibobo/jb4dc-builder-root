@@ -23,6 +23,7 @@
             <column name="BUILD_STREET_ID" type="NVARCHAR(50)" remarks="街道Id:街道,乡镇" />
             <column name="BUILD_COMMUNITY_ID" type="NVARCHAR(50)" remarks="社区Id:社区,村" />
             <column name="BUILD_GRID_ID" type="NVARCHAR(50)" remarks="所属网格Id" />
+            <column name="BUILD_MAP_LOCATION" type="NVARCHAR(500)" remarks="建筑物的地理坐标" />
             <column name="BUILD_CODE" type="NVARCHAR(50)" remarks="建筑物编码:441325 -______-____-____" />
             <column name="BUILD_TYPE" type="NVARCHAR(50)" remarks="建筑物类型:楼房,平房,别墅" />
             <column name="BUILD_STATUS" type="NVARCHAR(50)" remarks="建筑状态:已竣工,在建,停建" />
@@ -63,6 +64,12 @@
             <column name="BUILD_SP_OWNER_ADDRESS" type="NVARCHAR(20)" remarks="特殊类建筑物-建筑物业主-联系地址" />
             <column name="BUILD_SP_OWNER_PHONE" type="NVARCHAR(20)" remarks="特殊类建筑物-建筑物业主-联系电话" />
             <column name="BUILD_SP_TYPE" type="NVARCHAR(20)" remarks="特殊类建筑物-建筑物类型:铁皮房,工棚,窝棚,看守棚,集装箱、大型装箱,危房,其它" />
+            <column name="BUILD_CHILD_COUNT" type="INT" remarks="子节点数量" />
+            <column name="BUILD_IS_VIRTUAL" type="NVARCHAR(10)" remarks="是否虚拟" />
+            <column name="BUILD_ORDER_NUM" type="INT" remarks="排序号" />
+            <column name="BUILD_PARENT_ID" type="NVARCHAR(100)" remarks="父节点ID" />
+            <column name="BUILD_PARENT_ID_LIST" type="NVARCHAR(1200)" remarks="父节点列表" />
+            <column name="BUILD_RECORD_STATUS" type="NVARCHAR(20)" remarks="状态" />
         </createTable>
         <createTable tableName="TGRID_HOUSE_INFO" remarks="房屋表">
             <column name="HOUSE_ID" type="NVARCHAR(50)" remarks="主键">
@@ -213,7 +220,7 @@
             <column name="EVENT_ACCEPT_USER_ID" type="NVARCHAR(50)" remarks="受理人ID" />
             <column name="EVENT_ACCEPT_TIMES" type="NUMBER(0)" remarks="受理次数" />
             <column name="EVENT_ACCEPT_GRID_ID" type="NVARCHAR(50)" remarks="发生区域" />
-            <column name="EVENT_ACCEPT_MAP_ADDRESS" type="NVARCHAR(500)" remarks="事件的地理坐标" />
+            <column name="EVENT_ACCEPT_MAP_LOCATION" type="NVARCHAR(500)" remarks="事件的地理坐标" />
             <column name="EVENT_SOURCE" type="NVARCHAR(40)" remarks="事件来源:群众来访,群众来信,群众来电,领导批办,上级交办,部门转来,排查发现,媒体曝光,网络发现,其他途径" />
             <column name="EVENT_TYPE_1" type="NVARCHAR(40)" remarks="事件类型第1级:矛盾纠纷,问题隐患" />
             <column name="EVENT_TYPE_2" type="NVARCHAR(40)" remarks="事件类型第2级:[矛盾纠纷]家庭邻里,劳动社保,房屋租赁,房地产业,物业管理,行政管理,涉法涉诉,规划建设,村民股份,经济关系,特殊问题,其他矛盾,党纪政纪||[问题隐患]社会治安,市监食监,交通运输,城市管理,安全生产,消防隐患,环保生态,建设水务,计划生育,人口房屋,教育校园,药品监管,民政事务,其他隐患" />
@@ -233,8 +240,8 @@
             <column name="EVENT_ABOUT_MONEY" type="NUMBER(2)" remarks="涉及金额" />
             <column name="EVENT_IS_SP_DIFFICULT" type="NVARCHAR(20)" remarks="是否特别疑难件" />
             <column name="EVENT_WARRING_LEVEL" type="NVARCHAR(20)" remarks="预警级别" />
-            <column name="EVENT_PROCESS_NAME" type="NVARCHAR(200)" remarks="办理状况名称" />
-            <column name="EVENT_PROCESS_VALUE" type="NVARCHAR(200)" remarks="办理状况值" />
+            <column name="EVENT_PROCESS_NODE_NAME" type="NVARCHAR(200)" remarks="办理状况名称" />
+            <column name="EVENT_PROCESS_NODE_VALUE" type="NVARCHAR(200)" remarks="办理状况值" />
             <column name="EVENT_REMARK" type="NVARCHAR(2000)" remarks="备注" />
         </createTable>
         <createTable tableName="TGRID_EVENT_RELEVANTER" remarks="事件关联人">
@@ -259,8 +266,18 @@
             <column name="EVT_PROCESS_ID" type="NVARCHAR(50)" remarks="主键">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
-            <column name="EVT_EVENT_ID" type="NVARCHAR(50)" />
-
+            <column name="EVT_PROCESS_EVENT_ID" type="NVARCHAR(50)" remarks="关联的时间ID" />
+            <column name="EVT_PROCESS_UNIT_ID" type="NVARCHAR(50)" remarks="处理单位ID" />
+            <column name="EVT_PROCESS_UNIT_NAME" type="NVARCHAR(50)" remarks="处理单位名称" />
+            <column name="EVT_PROCESS_RECEIVE_DATE" type="DATETIME(6)" remarks="接受时间" />
+            <column name="EVT_PROCESS_HANDLE_USER_ID" type="NVARCHAR(50)" remarks="处理人ID" />
+            <column name="EVT_PROCESS_HANDLE_USER_NAME" type="NVARCHAR(50)" remarks="处理人姓名" />
+            <column name="EVT_PROCESS_HANDLE_DATE" type="DATETIME(6)" remarks="处理时间" />
+            <column name="EVT_PROCESS_NODE_NAME" type="NVARCHAR(200)" remarks="办理状况名称" />
+            <column name="EVT_PROCESS_NODE_VALUE" type="NVARCHAR(200)" remarks="办理状况值" />
+            <column name="EVT_PROCESS_ACTION" type="NVARCHAR(200)" remarks="执行动作" />
+            <column name="EVT_PROCESS_OPINION" type="NVARCHAR(2000)" remarks="办理意见" />
+            <column name="EVT_PROCESS_REMARK" type="NVARCHAR(2000)" remarks="备注" />
         </createTable>
     </changeSet>
 </databaseChangeLog>

@@ -18,7 +18,7 @@ import java.net.URL;
 
 @Configuration
 public class CacheBeansConfig {
-    @Bean
+    /*@Bean
     public BuilderCacheManager cacheManager() {
         URL myUrl = getClass().getResource("/builder-ehcache.xml");
         //2、实例化一个XmlConfiguration，将XML文件URL传递给它
@@ -29,5 +29,5 @@ public class CacheBeansConfig {
         myCacheManager.init();
         BuilderCacheManager builderCacheManager=new BuilderCacheManager(myCacheManager);
         return builderCacheManager;
-    }
+    }*/
 }

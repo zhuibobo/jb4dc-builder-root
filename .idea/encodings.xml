@@ -17,6 +17,7 @@
     <file url="file://$PROJECT_DIR$/jb4dc-builder-web-server" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/jb4dc-builder-web-server/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/jb4dc-builder-web-server/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/jb4dc-builder-web-server/src/main/resources/config" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/jb4dc-dev-mock-root/jb4dc-dev-mock-service/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/jb4dc-dev-mock-root/jb4dc-dev-mock-service/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/jb4dc-dev-mock-root/jb4dc-dev-mock-web-server/src/main/java" charset="UTF-8" />
@@ -30,12 +31,14 @@
     <file url="file://$PROJECT_DIR$/jb4dc-grid-system-root/jb4dc-grid-system-web-package/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/jb4dc-grid-system-root/jb4dc-grid-system-web-server/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/jb4dc-grid-system-root/jb4dc-grid-system-web-server/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/jb4dc-grid-system-root/jb4dc-grid-system-web-server/src/main/resources/config" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/jb4dc-qc-system-root/jb4dc-qc-system-service/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/jb4dc-qc-system-root/jb4dc-qc-system-service/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/jb4dc-qc-system-root/jb4dc-qc-system-web-package/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/jb4dc-qc-system-root/jb4dc-qc-system-web-package/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/jb4dc-qc-system-root/jb4dc-qc-system-web-server/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/jb4dc-qc-system-root/jb4dc-qc-system-web-server/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/jb4dc-qc-system-root/jb4dc-qc-system-web-server/src/main/resources/config" charset="UTF-8" />
     <file url="PROJECT" charset="UTF-8" />
   </component>
 </project>

@@ -12,6 +12,7 @@ public interface IDbLinkService extends IBaseService<DbLinkEntity> {
     String JBUILD4DC_DEV_MOCK_DB_LINK_ID="JBuild4DCDevMockDBLink";
     String JBUILD4DC_BUSINESS_TEST_DB_LINK_ID="JBuild4DCBusinessTestDBLink";
     String JBUILD4DC_QC_DB_LINK_ID="JBuild4DCQCDBLink";
+    String JBUILD4DC_GRID_DB_LINK_ID="JBuild4DCGRIDDBLink";
 
     //String getLocationDBLinkId();
 

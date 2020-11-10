@@ -184,6 +184,19 @@ public class TableGroupServiceImpl extends BaseServiceImpl<TableGroupEntity> imp
         return tableGroupMapper.selectTableGroupsByDBLinkId(dbLinkId);
     }
 
+    private TableGroupEntity deleteAndSaveGroup(JB4DCSession jb4DCSession,String groupId,String groupName,String dbLinkId) throws JBuild4DCGenerallyException {
+        deleteByKeyNotValidate(jb4DCSession,groupId, JBuild4DCYaml.getWarningOperationCode());
+        TableGroupEntity tableGroupEntity=new TableGroupEntity();
+        tableGroupEntity.setTableGroupId(groupId);
+        tableGroupEntity.setTableGroupParentId(dbLinkId);
+        tableGroupEntity.setTableGroupIsSystem(TrueFalseEnum.True.getDisplayName());
+        tableGroupEntity.setTableGroupText(groupName);
+        tableGroupEntity.setTableGroupValue(groupName);
+        tableGroupEntity.setTableGroupLinkId(dbLinkId);
+        this.saveSimple(jb4DCSession,groupId,tableGroupEntity);
+        return tableGroupEntity;
+    }
+
     private void initDevMockSystemTableToBuilderSystem(JB4DCSession jb4DCSession) throws JBuild4DCGenerallyException {
         //开发示例相关表
         String TableGroup_DevDemo="TABLE_GROUP_JBUILD4DC_DEV_MOCK_GROUP_ID";
@@ -313,12 +326,44 @@ public class TableGroupServiceImpl extends BaseServiceImpl<TableGroupEntity> imp
         tableService.registerSystemTableToBuilderToModule(jb4DCSession,"TQC_ISSUES_REMARK",tableGroupEntity);
     }
 
+    private void initGridSystemTableToBuilderSystem(JB4DCSession jb4DCSession) throws JBuild4DCGenerallyException {
+
+        //网格相关信息
+        TableGroupEntity gridBaseGroupEnt=this.deleteAndSaveGroup(jb4DCSession,"TABLE_GROUP_GRID_SYSTEM_GRID_BASE_GROUP_ID","网格信息相关表",IDbLinkService.JBUILD4DC_GRID_DB_LINK_ID);
+        tableService.registerSystemTableToBuilderToModule(jb4DCSession,"TGRID_GRID_INFO",gridBaseGroupEnt);
+        tableService.registerSystemTableToBuilderToModule(jb4DCSession,"TGRID_GATHER_TERMINAL_INFO",gridBaseGroupEnt);
+
+        //建筑物相关信息
+        TableGroupEntity buildGroupEnt=this.deleteAndSaveGroup(jb4DCSession,"TABLE_GROUP_GRID_SYSTEM_BUILD_GROUP_ID","人房楼相关表",IDbLinkService.JBUILD4DC_GRID_DB_LINK_ID);
+        tableService.registerSystemTableToBuilderToModule(jb4DCSession,"TGRID_BUILD_INFO",buildGroupEnt);
+        tableService.registerSystemTableToBuilderToModule(jb4DCSession,"TGRID_HOUSE_INFO",buildGroupEnt);
+        tableService.registerSystemTableToBuilderToModule(jb4DCSession,"TGRID_HOUSE_RELEVANTER",buildGroupEnt);
+        tableService.registerSystemTableToBuilderToModule(jb4DCSession,"TGRID_PERSON_INFO",buildGroupEnt);
+
+        //企业相关信息
+        TableGroupEntity entGroupEnt=this.deleteAndSaveGroup(jb4DCSession,"TABLE_GROUP_GRID_SYSTEM_ENTERPRISE_GROUP_ID","企业法人相关表",IDbLinkService.JBUILD4DC_GRID_DB_LINK_ID);
+        tableService.registerSystemTableToBuilderToModule(jb4DCSession,"TGRID_ENTERPRISE_INFO",entGroupEnt);
+
+        //网格事件相关信息
+        TableGroupEntity eventGroupEnt=this.deleteAndSaveGroup(jb4DCSession,"TABLE_GROUP_GRID_SYSTEM_EVENT_GROUP_ID","网格事件相关表",IDbLinkService.JBUILD4DC_GRID_DB_LINK_ID);
+        tableService.registerSystemTableToBuilderToModule(jb4DCSession,"TGRID_EVENT_INFO",eventGroupEnt);
+        tableService.registerSystemTableToBuilderToModule(jb4DCSession,"TGRID_EVENT_RELEVANTER",eventGroupEnt);
+        tableService.registerSystemTableToBuilderToModule(jb4DCSession,"TGRID_EVENT_PROCESS",eventGroupEnt);
+
+        //文件存储表
+        TableGroupEntity fileGroupEnt=this.deleteAndSaveGroup(jb4DCSession,"TABLE_GROUP_GRID_SYSTEM_FILE_GROUP_ID","文件存储相关表",IDbLinkService.JBUILD4DC_GRID_DB_LINK_ID);
+        tableService.registerSystemTableToBuilderToModule(jb4DCSession,"TFS_FILE_INFO",fileGroupEnt);
+        tableService.registerSystemTableToBuilderToModule(jb4DCSession,"TFS_FILE_CONTENT",fileGroupEnt);
+        tableService.registerSystemTableToBuilderToModule(jb4DCSession,"TFS_FILE_REF",fileGroupEnt);
+    }
+
     @Override
     public void initSystemData(JB4DCSession jb4DCSession) throws JBuild4DCGenerallyException {
         //this.initDevMockSystemTableToBuilderSystem(jb4DCSession);
         this.initSSOSystemTableToBuilderSystem(jb4DCSession);
         this.initBuilderSystemTableToBuilderSystem(jb4DCSession);
         this.initQCSystemTableToBuilderSystem(jb4DCSession);
+        this.initGridSystemTableToBuilderSystem(jb4DCSession);
     }
 
     @Override
