@@ -15,6 +15,11 @@ import org.jsoup.select.Elements;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.AutowireCapableBeanFactory;
 import org.springframework.stereotype.Service;
+import org.xml.sax.SAXException;
+
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.xpath.XPathExpressionException;
+import java.io.IOException;
 
 @Service
 public class HTMLRuntimeResolveImpl implements IHTMLRuntimeResolve {
@@ -26,7 +31,7 @@ public class HTMLRuntimeResolveImpl implements IHTMLRuntimeResolve {
     private ICKEditorPluginsService ckEditorPluginsService;
 
     @Override
-    public String resolveSourceHTML(JB4DCSession jb4DCSession, String id, String htmlSource) throws JBuild4DCGenerallyException {
+    public String resolveSourceHTML(JB4DCSession jb4DCSession, String id, String htmlSource) throws JBuild4DCGenerallyException, ParserConfigurationException, SAXException, XPathExpressionException, IOException {
         String sourceHTML=htmlSource;
         if(sourceHTML!=null&&!sourceHTML.equals("")){
             //获取并解析HTML
@@ -91,7 +96,7 @@ public class HTMLRuntimeResolveImpl implements IHTMLRuntimeResolve {
 
     //控件是否动态绑定,交由控件解析时,控件本身解析自行设定,动态绑定完成字后,需要控件自身移除敏感属性.
     @Override
-    public String dynamicBind(JB4DCSession jb4DCSession, String id, String resolveHtml,DynamicBindHTMLControlContextPO dynamicBindHTMLControlContextPO) throws JBuild4DCGenerallyException {
+    public String dynamicBind(JB4DCSession jb4DCSession, String id, String resolveHtml,DynamicBindHTMLControlContextPO dynamicBindHTMLControlContextPO) throws JBuild4DCGenerallyException, ParserConfigurationException, SAXException, XPathExpressionException, IOException {
         String sourceHTML=resolveHtml;
         if(sourceHTML!=null&&!sourceHTML.equals("")){
             //获取并解析HTML

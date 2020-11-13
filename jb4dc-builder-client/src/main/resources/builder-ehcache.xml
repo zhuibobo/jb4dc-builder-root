@@ -17,14 +17,9 @@
     <!--5、<cache-template>可以让你创建一个抽象的<cache>配置文件，该配置文件可以进一步的被扩展。-->
     <cache-template name="JB4DCCacheDefault">
         <key-type>java.lang.String</key-type>
-        <value-type>java.lang.Object</value-type>
+        <value-type>java.lang.String</value-type>
         <heap unit="entries">200</heap>
     </cache-template>
     <cache alias="JB4DCBuilder" uses-template="JB4DCCacheDefault">
-    </cache>
-    <cache alias="JB4DCProxyBuilderCacheManager" uses-template="JB4DCCacheDefault">
-        <expiry>
-            <ttl>10</ttl>
-        </expiry>
     </cache>
 </config>

@@ -6,7 +6,10 @@ import com.jb4dc.builder.po.FormResourcePO;
 import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
 import com.jb4dc.core.base.exception.JBuild4DCSQLKeyWordException;
 import com.jb4dc.core.base.session.JB4DCSession;
+import org.xml.sax.SAXException;
 
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.xpath.XPathExpressionException;
 import java.io.IOException;
 
 /**
@@ -17,5 +20,5 @@ import java.io.IOException;
  */
 public interface IWebFormRuntimeService {
     FormResourceComplexPO resolveFormResourceComplex(JB4DCSession session,String recordId, FormResourcePO data, ListButtonEntity listButtonEntity,String operationType,String formRuntimeCategory,
-                                                     String isIndependenceCurrentOperationType) throws IOException, JBuild4DCGenerallyException, JBuild4DCSQLKeyWordException;
+                                                     String isIndependenceCurrentOperationType,String loadTimeDesc) throws IOException, JBuild4DCGenerallyException, JBuild4DCSQLKeyWordException, XPathExpressionException, SAXException, ParserConfigurationException;
 }

@@ -8,6 +8,7 @@ import com.jb4dc.base.service.IUpdateBefore;
 import com.jb4dc.base.service.impl.BaseServiceImpl;
 import com.jb4dc.base.ymls.JBuild4DCYaml;
 import com.jb4dc.builder.client.service.dataset.IDatasetRuntimeService;
+import com.jb4dc.builder.client.service.dataset.IDatasetService;
 import com.jb4dc.builder.config.IBuilderConfigService;
 import com.jb4dc.builder.config.IDataSetColumnCaptionConfigService;
 import com.jb4dc.builder.config.impl.DataSetColumnCaptionConfigServiceImpl;
@@ -18,7 +19,6 @@ import com.jb4dc.builder.extend.IDataSetAPI;
 import com.jb4dc.builder.po.*;
 import com.jb4dc.builder.service.dataset.IDatasetColumnService;
 import com.jb4dc.builder.client.service.dataset.IDatasetRelatedTableService;
-import com.jb4dc.builder.client.service.dataset.IDatasetService;
 import com.jb4dc.builder.service.dataset.builder.SQLDataSetBuilder;
 import com.jb4dc.builder.client.service.datastorage.ITableFieldService;
 import com.jb4dc.builder.service.datastorage.ITableService;
@@ -45,6 +45,7 @@ import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.xpath.XPathExpressionException;
 import java.beans.PropertyVetoException;
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -56,7 +57,7 @@ import java.util.regex.Pattern;
  * To change this template use File | Settings | File Templates.
  */
 @Service
-            public class DatasetServiceImpl extends BaseServiceImpl<DatasetEntity> implements IDatasetService
+public class DatasetServiceImpl extends BaseServiceImpl<DatasetEntity> implements IDatasetService
 {
     DatasetMapper datasetMapper;
     IDatasetRelatedTableService datasetRelatedTableService;
@@ -200,7 +201,7 @@ import java.util.regex.Pattern;
     }
 
     @Override
-    public DataSetPO resolveSQLToDataSet(JB4DCSession jb4DCSession, String sql) throws JBuild4DCGenerallyException, SAXException, ParserConfigurationException, XPathExpressionException, IOException, PropertyVetoException {
+    public DataSetPO resolveSQLToDataSet(JB4DCSession jb4DCSession, String sql) throws JBuild4DCGenerallyException, SAXException, ParserConfigurationException, XPathExpressionException, IOException, PropertyVetoException, URISyntaxException {
         if(builderConfigService.getResolveSQLEnable()) {
 
             if(datasetClientService.validateResolveSqlWithKeyWord(sql)) {
@@ -324,7 +325,6 @@ import java.util.regex.Pattern;
         return datasetClientService.sqlReplaceEnvValueToRunningValue(jb4DCSession,sqlValue);
     }
 
-
     @Override
     public String sqlReplaceRunningValueToEmptyFilter(JB4DCSession jb4DCSession, String sqlRunValue) {
         sqlRunValue=sqlRunValue.toUpperCase();
@@ -340,7 +340,7 @@ import java.util.regex.Pattern;
     }
 
     @Override
-    public SQLResolveToDataSetPO sqlResolveToDataSetVo(JB4DCSession jb4DCSession, String sqlWithEnvText) throws XPathExpressionException, JBuild4DCGenerallyException, IOException, SAXException, ParserConfigurationException, PropertyVetoException {
+    public SQLResolveToDataSetPO sqlResolveToDataSetVo(JB4DCSession jb4DCSession, String sqlWithEnvText) throws XPathExpressionException, JBuild4DCGenerallyException, IOException, SAXException, ParserConfigurationException, PropertyVetoException, URISyntaxException {
         SQLResolveToDataSetPO resolveToDataSetVo=new SQLResolveToDataSetPO();
         resolveToDataSetVo.setSqlWithEnvText(sqlWithEnvText);
         String sqlReplaceEnvTextToEnvValue=sqlReplaceEnvTextToEnvValue(jb4DCSession,sqlWithEnvText);

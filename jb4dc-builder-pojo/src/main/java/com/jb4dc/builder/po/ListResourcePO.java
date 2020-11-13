@@ -7,6 +7,7 @@ import com.jb4dc.builder.dbentities.weblist.ListResourceEntity;
 import com.jb4dc.builder.dbentities.weblist.ListResourceEntityWithBLOBs;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,7 +17,8 @@ import java.util.List;
  * Date: 2019/8/7
  * To change this template use File | Settings | File Templates.
  */
-public class ListResourcePO extends ListResourceEntityWithBLOBs {
+
+public class ListResourcePO extends ListResourceEntityWithBLOBs implements Serializable {
 
     private String listHtmlRuntime;
 

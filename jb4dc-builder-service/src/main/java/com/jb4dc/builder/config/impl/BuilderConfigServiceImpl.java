@@ -12,6 +12,7 @@ import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.xpath.XPathExpressionException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URISyntaxException;
 
 /**
  * Created with IntelliJ IDEA.
@@ -26,7 +27,7 @@ public class BuilderConfigServiceImpl implements IBuilderConfigService {
     static Document xmlDocument=null;
     static String _tablePrefix=null;
 
-    public BuilderConfigServiceImpl() throws ParserConfigurationException, SAXException, IOException {
+    public BuilderConfigServiceImpl() throws ParserConfigurationException, SAXException, IOException, URISyntaxException {
         if(xmlDocument==null) {
             //InputStream inputStream = this.getClass().getClassLoader().getResourceAsStream(configResource);
             //xmlDocument = XMLUtility.parseForDoc(inputStream);
@@ -34,7 +35,7 @@ public class BuilderConfigServiceImpl implements IBuilderConfigService {
         }
     }
 
-    private void loadDocument() throws ParserConfigurationException, SAXException, IOException {
+    private void loadDocument() throws ParserConfigurationException, SAXException, IOException, URISyntaxException {
         //InputStream inputStream = this.getClass().getResourceAsStream(configResource);
         InputStream is = FileUtility.getStreamByLevel(configResource);
         xmlDocument = XMLDocumentUtility.parseForDoc(is);
@@ -50,7 +51,7 @@ public class BuilderConfigServiceImpl implements IBuilderConfigService {
     }
 
     @Override
-    public boolean getResolveSQLEnable() throws IOException, SAXException, ParserConfigurationException, XPathExpressionException {
+    public boolean getResolveSQLEnable() throws IOException, SAXException, ParserConfigurationException, XPathExpressionException, URISyntaxException {
         //重新加载配置文件
         loadDocument();
         Node resolveSQLEnableNode= XMLDocumentUtility.parseForNode(xmlDocument,"/Config/DataSetConfig/ResolveSQLEnable");

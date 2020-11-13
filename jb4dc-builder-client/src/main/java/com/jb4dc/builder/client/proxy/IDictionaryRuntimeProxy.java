@@ -3,6 +3,7 @@ package com.jb4dc.builder.client.proxy;
 import com.jb4dc.builder.dbentities.systemsetting.DictionaryEntity;
 import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
 
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -12,5 +13,5 @@ import java.util.List;
  * To change this template use File | Settings | File Templates.
  */
 public interface IDictionaryRuntimeProxy  {
-    List<DictionaryEntity> getDDByGroupId(String groupId) throws JBuild4DCGenerallyException;
+    List<DictionaryEntity> getDDByGroupId(String groupId) throws JBuild4DCGenerallyException, IOException;
 }

@@ -11,6 +11,11 @@ import com.jb4dc.core.base.vo.JBuild4DCResponseVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.xml.sax.SAXException;
+
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.xpath.XPathExpressionException;
+import java.io.IOException;
 
 /**
  * Created with IntelliJ IDEA.
@@ -31,7 +36,7 @@ public class ListRuntimeRest {
     IHTMLRuntimeResolve htmlRuntimeResolve;
 
     @RequestMapping("/LoadHTML")
-    public JBuild4DCResponseVo<ListResourcePO> loadHTML(String listId) throws JBuild4DCGenerallyException {
+    public JBuild4DCResponseVo<ListResourcePO> loadHTML(String listId) throws JBuild4DCGenerallyException, ParserConfigurationException, SAXException, XPathExpressionException, IOException {
         ListResourcePO listResourcePO=listRuntimeProxy.loadHTML(JB4DCSessionUtility.getSession(),listId);
         String runtimeHTML=htmlRuntimeResolve.dynamicBind(JB4DCSessionUtility.getSession(),listId,listResourcePO.getListHtmlResolve(),null);
         listResourcePO.setListHtmlRuntime(runtimeHTML);

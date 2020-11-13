@@ -18,7 +18,11 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.AutowireCapableBeanFactory;
+import org.xml.sax.SAXException;
 
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.xpath.XPathExpressionException;
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.util.ArrayList;
@@ -64,7 +68,7 @@ public abstract class HTMLControl implements IHTMLControl {
     }
 
     @Override
-    public void rendererChain(JB4DCSession jb4DCSession, String sourceHTML, Document doc, Element singleControlElem, Element parentElem, Element lastParentJbuild4dCustomElem, ResolveHTMLControlContextPO resolveHTMLControlContextPO) throws JBuild4DCGenerallyException {
+    public void rendererChain(JB4DCSession jb4DCSession, String sourceHTML, Document doc, Element singleControlElem, Element parentElem, Element lastParentJbuild4dCustomElem, ResolveHTMLControlContextPO resolveHTMLControlContextPO) throws JBuild4DCGenerallyException, ParserConfigurationException, SAXException, XPathExpressionException, IOException {
         for (Element singleElem : singleControlElem.children()) {
 
             if(singleElem.attr(HTMLControlAttrs.JBUILD4DC_CUSTOM).equals("true")){
@@ -105,7 +109,7 @@ public abstract class HTMLControl implements IHTMLControl {
     }
 
     @Override
-    public void dynamicBindChain(JB4DCSession jb4DCSession, String sourceHTML, Document doc, Element singleControlElem, Element parentElem, Element lastParentJbuild4dCustomElem, DynamicBindHTMLControlContextPO dynamicBindHTMLControlContextPO) throws JBuild4DCGenerallyException {
+    public void dynamicBindChain(JB4DCSession jb4DCSession, String sourceHTML, Document doc, Element singleControlElem, Element parentElem, Element lastParentJbuild4dCustomElem, DynamicBindHTMLControlContextPO dynamicBindHTMLControlContextPO) throws JBuild4DCGenerallyException, ParserConfigurationException, SAXException, XPathExpressionException, IOException {
         for (Element singleElem : singleControlElem.children()) {
 
             if(singleElem.attr(HTMLControlAttrs.JBUILD4DC_CUSTOM).equals("true")){
@@ -145,7 +149,7 @@ public abstract class HTMLControl implements IHTMLControl {
         }
     }
 
-    public String defaultValueDynamicBind(JB4DCSession jb4DCSession, String sourceHTML, Document doc, Element singleControlElem, Element parentElem, Element lastParentJbuild4dCustomElem, DynamicBindHTMLControlContextPO dynamicBindHTMLControlContextPO) throws JBuild4DCGenerallyException {
+    public String defaultValueDynamicBind(JB4DCSession jb4DCSession, String sourceHTML, Document doc, Element singleControlElem, Element parentElem, Element lastParentJbuild4dCustomElem, DynamicBindHTMLControlContextPO dynamicBindHTMLControlContextPO) throws JBuild4DCGenerallyException, IOException {
         String defaultValue=getDefaultValue(jb4DCSession,sourceHTML,doc,singleControlElem,parentElem,lastParentJbuild4dCustomElem,dynamicBindHTMLControlContextPO,null);
         String value="";
         if (StringUtility.isNotEmpty(defaultValue)){
@@ -155,7 +159,7 @@ public abstract class HTMLControl implements IHTMLControl {
         return value;
     }
 
-    public String getDefaultValue(JB4DCSession jb4DCSession, String sourceHTML, Document doc, Element singleControlElem, Element parentElem, Element lastParentJbuild4dCustomElem, DynamicBindHTMLControlContextPO dynamicBindHTMLControlContextPO, HtmlControlDefinitionPO htmlControlDefinitionPO) throws JBuild4DCGenerallyException {
+    public String getDefaultValue(JB4DCSession jb4DCSession, String sourceHTML, Document doc, Element singleControlElem, Element parentElem, Element lastParentJbuild4dCustomElem, DynamicBindHTMLControlContextPO dynamicBindHTMLControlContextPO, HtmlControlDefinitionPO htmlControlDefinitionPO) throws JBuild4DCGenerallyException, IOException {
         String valueType = singleControlElem.attr("defaulttype");
         String value = singleControlElem.attr("defaultvalue");
         if (StringUtility.isNotEmpty(valueType)) {
@@ -168,7 +172,7 @@ public abstract class HTMLControl implements IHTMLControl {
         return "";
     }
 
-    private List<Map<String,Object>> dataSourceBindDD(JB4DCSession jb4DCSession, String sourceHTML, Document doc, Element singleControlElem, Element parentElem, Element lastParentJbuild4dCustomElem, DynamicBindHTMLControlContextPO dynamicBindHTMLControlContextPO) throws JBuild4DCGenerallyException {
+    private List<Map<String,Object>> dataSourceBindDD(JB4DCSession jb4DCSession, String sourceHTML, Document doc, Element singleControlElem, Element parentElem, Element lastParentJbuild4dCustomElem, DynamicBindHTMLControlContextPO dynamicBindHTMLControlContextPO) throws JBuild4DCGenerallyException, IOException {
         List<Map<String,Object>> datasource=new ArrayList<>();
         String dictionaryGroupDataSourceId = singleControlElem.attr("dictionaryGroupDataSourceId");
         if(StringUtility.isNotEmpty(dictionaryGroupDataSourceId)){
@@ -198,7 +202,7 @@ public abstract class HTMLControl implements IHTMLControl {
         return datasource;
     }
 
-    public List<Map<String,Object>> getDataSource(JB4DCSession jb4DCSession, String sourceHTML, Document doc, Element singleControlElem, Element parentElem, Element lastParentJbuild4dCustomElem, DynamicBindHTMLControlContextPO dynamicBindHTMLControlContextPO) throws JBuild4DCGenerallyException {
+    public List<Map<String,Object>> getDataSource(JB4DCSession jb4DCSession, String sourceHTML, Document doc, Element singleControlElem, Element parentElem, Element lastParentJbuild4dCustomElem, DynamicBindHTMLControlContextPO dynamicBindHTMLControlContextPO) throws JBuild4DCGenerallyException, IOException {
         List<Map<String, Object>> datasource = new ArrayList<>();
         //获取数据源优先级别->本地接口->Rest接口->数据字典->sql->静态值
         //处理本地接口

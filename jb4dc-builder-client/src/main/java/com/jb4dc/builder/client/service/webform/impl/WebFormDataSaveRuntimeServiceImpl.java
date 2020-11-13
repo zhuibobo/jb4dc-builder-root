@@ -326,7 +326,7 @@ public class WebFormDataSaveRuntimeServiceImpl implements IWebFormDataSaveRuntim
             return apiForButton.runApi(apiRunPara);
         } catch (IllegalAccessException e) {
             throw new JBuild4DCGenerallyException(e.hashCode(),e.getMessage(),e,e.getStackTrace());
-        } catch (InstantiationException e) {
+        } catch (InstantiationException | IOException e) {
             throw new JBuild4DCGenerallyException(e.hashCode(),e.getMessage(),e,e.getStackTrace());
         }
     }

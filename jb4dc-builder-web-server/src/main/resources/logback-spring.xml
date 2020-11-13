@@ -13,7 +13,7 @@ debug：当此属性设置为true时，将打印出logback内部日志信息，�
     <!-- 定义日志的根目录 -->
     <property name="LogHomeDev" value="log"/>
     <property name="AppNameDev" value="JB4DCLog-Builder"></property>
-    <property name="LogHomeProd" value="d:/JB4DLog"/>
+    <property name="LogHomeProd" value="E:/JavaPlat/jb4dcsystem/builder/JB4DLog"/>
     <property name="AppNameProd" value="JB4DCLog"></property>
     <!-- ch.qos.logback.core.ConsoleAppender 表示控制台输出 -->
     <appender name="ConsoleAppender" class="ch.qos.logback.core.ConsoleAppender">
@@ -282,7 +282,7 @@ debug：当此属性设置为true时，将打印出logback内部日志信息，�
         </layout>
     </appender>
 
-    <springProfile name="prod">
+    <springProfile name="xgprod">
         <root level="info">
             <appender-ref ref="ConsoleAppender"/>
             <appender-ref ref="FileLogInfoAppenderProd"/>

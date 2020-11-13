@@ -7,7 +7,11 @@ import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
 import com.jb4dc.core.base.session.JB4DCSession;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
+import org.xml.sax.SAXException;
 
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.xpath.XPathExpressionException;
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
@@ -26,7 +30,7 @@ public interface IHTMLControl {
                      Element parentElem,
                      Element lastParentJbuild4dCustomElem,
                      ResolveHTMLControlContextPO resolveHTMLControlContextPO,
-                     HtmlControlDefinitionPO htmlControlDefinitionPO) throws JBuild4DCGenerallyException;
+                     HtmlControlDefinitionPO htmlControlDefinitionPO) throws JBuild4DCGenerallyException, ParserConfigurationException, SAXException, XPathExpressionException, IOException;
 
     void resolveDefAttr(JB4DCSession jb4DCSession,
                         String sourceHTML,
@@ -37,11 +41,11 @@ public interface IHTMLControl {
                         ResolveHTMLControlContextPO resolveHTMLControlContextPO,
                         HtmlControlDefinitionPO htmlControlDefinitionPO) throws JBuild4DCGenerallyException;
 
-    void dynamicBind(JB4DCSession jb4DCSession, String sourceHTML, Document doc, Element singleControlElem, Element parentElem, Element lastParentJbuild4dCustomElem, DynamicBindHTMLControlContextPO dynamicBindHTMLControlContextPO) throws JBuild4DCGenerallyException;
+    void dynamicBind(JB4DCSession jb4DCSession, String sourceHTML, Document doc, Element singleControlElem, Element parentElem, Element lastParentJbuild4dCustomElem, DynamicBindHTMLControlContextPO dynamicBindHTMLControlContextPO) throws JBuild4DCGenerallyException, IOException;
 
-    void rendererChain(JB4DCSession jb4DCSession, String sourceHTML, Document doc, Element singleControlElem, Element parentElem, Element lastParentJbuild4dCustomElem, ResolveHTMLControlContextPO resolveHTMLControlContextPO) throws JBuild4DCGenerallyException;
+    void rendererChain(JB4DCSession jb4DCSession, String sourceHTML, Document doc, Element singleControlElem, Element parentElem, Element lastParentJbuild4dCustomElem, ResolveHTMLControlContextPO resolveHTMLControlContextPO) throws JBuild4DCGenerallyException, ParserConfigurationException, SAXException, XPathExpressionException, IOException;
 
-    void dynamicBindChain(JB4DCSession jb4DCSession, String sourceHTML, Document doc, Element singleControlElem, Element parentElem, Element lastParentJbuild4dCustomElem, DynamicBindHTMLControlContextPO dynamicBindHTMLControlContextPO) throws JBuild4DCGenerallyException;
+    void dynamicBindChain(JB4DCSession jb4DCSession, String sourceHTML, Document doc, Element singleControlElem, Element parentElem, Element lastParentJbuild4dCustomElem, DynamicBindHTMLControlContextPO dynamicBindHTMLControlContextPO) throws JBuild4DCGenerallyException, ParserConfigurationException, SAXException, XPathExpressionException, IOException;
 
     String parseToJson(JB4DCSession jb4DCSession,
                        String sourceHTML,

@@ -1,0 +1,105 @@
+jb4dc:
+  system-caption: JB4DC-Builder
+  system-title: JBuild4DC-应用构建系统
+  warning-operation-code: jb4d82
+  is-debug: true
+  host:
+    operation-system: Window
+  file:
+    root-path: production-files
+  sso:
+    server:
+      name: JB4DC-SSO-WEB-SERVER
+      address: http://58.51.184.124:9103
+      context-path: /SSOSystem
+      view:
+        login: /Controller/LoginSSOView
+        logout: http://58.51.184.124:9103/SSOSystem/Controller/LogoutSSOView
+      excluded: /**/*.js,/**/*.css,/**/*.woff2,/**/*.ttf,/**/*.png,/**/*.jpg,/**/*.jpeg,/**/*.gif
+  builder:
+    server:
+      name: JB4DC-BUILDER-WEB-SERVER
+      #address: http://localhost:9103
+      context-path: /JB4DCBuilder
+
+
+spring:
+  application:
+    name: JB4DC-BUILDER-WEB-SERVER
+    inetutils:
+      #客户端的IP
+      #preferred-networks: 192.168.3.153
+      preferred-networks: 58.51.184.124
+  liquibase:
+    enabled: false
+
+  thymeleaf:
+    prefix: classpath:/static/HTML/
+    suffix: .html
+    enabled: true
+  mvc:
+    favicon:
+      enabled: true
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    joda-date-time-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+  servlet:
+    multipart:
+      max-file-size: 50MB
+      max-request-size: 100MB
+
+server:
+  port: 9104
+  servlet:
+    session:
+      timeout: 7200
+    context-path: /JB4DCBuilder
+
+eureka:
+  client:
+    serviceUrl:
+      #服务端的地址
+      #defaultZone: http://192.168.3.166:9092/eureka/
+      defaultZone: http://localhost:9101/eureka/
+  instance:
+    prefer-ip-address: true
+    instanceId: ${spring.cloud.inetutils.preferred-networks}:${server.port}
+
+
+logging:
+  level:
+    com:
+      jb4dc:
+        builder:
+          dao: TRACE
+        devmock:
+          dao: TRACE
+        sso:
+          client: debug
+
+feign:
+  client:
+    config:
+      default:
+        connectTimeout: 1000
+        readTimeout: 12000
+        retryer: feign.Retryer.Default
+
+
+camunda:
+  bpm:
+    database:
+
+      schema-update: false
+    application:
+      delete-upon-undeploy: false
+      scan-for-process-definitions: false
+      deploy-changed-only: true
+      resume-previous-versions: true
+      resume-previous-by: a value
+    job-execution:
+      enabled: true
+    metrics:
+      enabled: false
+      db-reporter-activate: false

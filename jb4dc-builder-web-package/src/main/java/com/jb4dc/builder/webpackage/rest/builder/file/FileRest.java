@@ -17,6 +17,7 @@ import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
+import java.net.URISyntaxException;
 import java.util.Iterator;
 import java.util.List;
 
@@ -33,10 +34,16 @@ public class FileRest {
     IFileInfoService fileInfoService;
 
     @RequestMapping(value = "/UploadCKE4Image")
-    void uploadCKE4Image(HttpServletRequest request, HttpServletResponse response, String uploadType, String objId,String saveTo) throws IOException, JBuild4DCGenerallyException {
+    void uploadCKE4Image(HttpServletRequest request, HttpServletResponse response, String uploadType, String objId,String saveTo) throws IOException, JBuild4DCGenerallyException, URISyntaxException {
 
         SimpleFilePO simpleFilePO = getSingleFilePOFromRequest(request);
-        FileInfoEntity fileInfoEntity = fileInfoService.addSmallFileToDB(
+        /*FileInfoEntity fileInfoEntity = fileInfoService.addSmallFileToDB(
+                JB4DCSessionUtility.getSession(),
+                simpleFilePO.getFileName(), simpleFilePO.getFileByte(),
+                objId, String.valueOf(System.currentTimeMillis()),
+                "CKE4-Image", "Image");*/
+
+        FileInfoEntity fileInfoEntity = fileInfoService.addFileToFileSystem(
                 JB4DCSessionUtility.getSession(),
                 simpleFilePO.getFileName(), simpleFilePO.getFileByte(),
                 objId, String.valueOf(System.currentTimeMillis()),
@@ -86,14 +93,17 @@ public class FileRest {
         response.setContentType("application/octet-stream");
         FileInputStream fis = null;
         try {
-            byte[] fileContent=fileInfoService.getContentInDB(fileId);
+            String filePath=fileInfoService.buildFilePath(fileInfoEntity);
+            File file = new File(filePath);
+            fis = new FileInputStream(file);
             response.setHeader("Content-Disposition", "attachment; filename="+fileInfoEntity.getFileName());
-            response.getOutputStream().write(fileContent);
-            //IOUtils.copy(fis,response.getOutputStream());
+            IOUtils.copy(fis,response.getOutputStream());
             response.flushBuffer();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
+            e.printStackTrace();
+        } catch (URISyntaxException e) {
             e.printStackTrace();
         } finally {
             if (fis != null) {

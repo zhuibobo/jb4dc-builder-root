@@ -2,7 +2,7 @@ package com.jb4dc.builder.client.proxy.impl;
 
 import com.jb4dc.base.service.cache.IBuildGeneralObj;
 import com.jb4dc.builder.client.remote.TableRuntimeRemote;
-import com.jb4dc.builder.client.service.RuntimeProxyBase;
+import com.jb4dc.builder.client.proxy.RuntimeProxyBase;
 import com.jb4dc.builder.client.service.datastorage.ITableFieldService;
 import com.jb4dc.builder.client.proxy.ITableRuntimeProxy;
 import com.jb4dc.builder.dbentities.datastorage.TableEntity;
@@ -39,12 +39,12 @@ public class TableRuntimeProxyImpl extends RuntimeProxyBase implements ITableRun
                 //则通过rest接口远程获取.
                 //return tableRuntimeRemote.getTableFieldsByTableId(tableId).getData();
 
-                tableFieldPOList=autoGetFromCache(this.getClass(), tableId+"_FIELDS", new IBuildGeneralObj<List<TableFieldPO>>() {
+                tableFieldPOList=autoGetFromCacheList(this.getClass(), tableId+"_FIELDS", new IBuildGeneralObj<List<TableFieldPO>>() {
                     @Override
                     public List<TableFieldPO> BuildObj() throws JBuild4DCGenerallyException {
                         return tableRuntimeRemote.getTableFieldsByTableId(tableId).getData();
                     }
-                });
+                },TableFieldPO.class);
             }
             return tableFieldPOList;
         }
@@ -62,7 +62,7 @@ public class TableRuntimeProxyImpl extends RuntimeProxyBase implements ITableRun
                 public TableEntity BuildObj() throws JBuild4DCGenerallyException {
                     return tableRuntimeRemote.getTableById(tableId).getData();
                 }
-            });
+            },TableEntity.class);
             return tableEntity;
         }
         catch (Exception ex){

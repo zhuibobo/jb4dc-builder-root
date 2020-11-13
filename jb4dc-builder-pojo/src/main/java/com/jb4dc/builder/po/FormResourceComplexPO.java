@@ -49,6 +49,8 @@ public class FormResourceComplexPO extends FormResourcePO {
     private String isIndependenceCurrentOperationType;
     private String formRuntimeCategory;
 
+    private String loadTimeDesc;
+
     public FormRecordComplexPO getFormRecordComplexPO() {
         return formRecordComplexPO;
     }
@@ -87,5 +89,13 @@ public class FormResourceComplexPO extends FormResourcePO {
 
     public void setFormRuntimeCategory(String formRuntimeCategory) {
         this.formRuntimeCategory = formRuntimeCategory;
+    }
+
+    public String getLoadTimeDesc() {
+        return loadTimeDesc;
+    }
+
+    public void setLoadTimeDesc(String loadTimeDesc) {
+        this.loadTimeDesc = loadTimeDesc;
     }
 }

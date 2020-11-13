@@ -22,6 +22,7 @@ import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
+import java.net.URISyntaxException;
 import java.util.Iterator;
 import java.util.List;
 
@@ -39,7 +40,7 @@ public class FileRuntimeRest {
     IFileInfoService fileInfoService;
 
     @RequestMapping(value = "/UploadCKE4Image*")
-    void uploadCKE4Image(HttpServletRequest request, HttpServletResponse response,String uploadType,String objId) throws IOException, JBuild4DCGenerallyException {
+    void uploadCKE4Image(HttpServletRequest request, HttpServletResponse response,String uploadType,String objId) throws IOException, JBuild4DCGenerallyException, URISyntaxException {
 
         SimpleFilePO simpleFilePO = getSingleFilePOFromRequest(request);
         FileInfoEntity fileInfoEntity = fileInfoService.addFileToFileSystem(
@@ -63,7 +64,7 @@ public class FileRuntimeRest {
     }
 
     @RequestMapping(value = "/UploadFile")
-    JBuild4DCResponseVo UploadFile(HttpServletRequest request, HttpServletResponse response,String objType,String objId,String categoryType) throws IOException, JBuild4DCGenerallyException {
+    JBuild4DCResponseVo UploadFile(HttpServletRequest request, HttpServletResponse response,String objType,String objId,String categoryType) throws IOException, JBuild4DCGenerallyException, URISyntaxException {
 
         SimpleFilePO simpleFilePO = getSingleFilePOFromRequest(request);
 
@@ -113,6 +114,8 @@ public class FileRuntimeRest {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
+            e.printStackTrace();
+        } catch (URISyntaxException e) {
             e.printStackTrace();
         } finally {
             if (fis != null) {

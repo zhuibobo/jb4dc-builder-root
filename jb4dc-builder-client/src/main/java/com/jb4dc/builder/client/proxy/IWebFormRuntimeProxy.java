@@ -4,6 +4,8 @@ import com.jb4dc.builder.po.FormResourcePO;
 import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
 import com.jb4dc.core.base.session.JB4DCSession;
 
+import java.io.IOException;
+
 /**
  * Created with IntelliJ IDEA.
  * User: zhuangrb
@@ -11,5 +13,5 @@ import com.jb4dc.core.base.session.JB4DCSession;
  * To change this template use File | Settings | File Templates.
  */
 public interface IWebFormRuntimeProxy {
-    FormResourcePO getFormRuntimePageContentById(JB4DCSession jb4DCSession, String formId) throws JBuild4DCGenerallyException;
+    FormResourcePO getFormRuntimePageContentById(JB4DCSession jb4DCSession, String formId) throws JBuild4DCGenerallyException, IOException;
 }

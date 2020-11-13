@@ -22,7 +22,10 @@ import com.jb4dc.core.base.session.JB4DCSession;
 import com.jb4dc.core.base.tools.UUIDUtility;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.xml.sax.SAXException;
 
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.xpath.XPathExpressionException;
 import java.io.IOException;
 import java.util.*;
 
@@ -61,7 +64,18 @@ public class FormResourceServiceImpl extends BaseServiceImpl<FormResourceEntityW
         //修改时设置为未解析的状态.
         //record.setFormIsResolve(TrueFalseEnum.False.getDisplayName());
         //保存时进行同步的表单内容的解析,并存入对应的字段中.
-        String resolvedHtml=htmlRuntimeResolve.resolveSourceHTML(jb4DCSession,id,record.getFormHtmlSource());
+        String resolvedHtml= null;
+        try {
+            resolvedHtml = htmlRuntimeResolve.resolveSourceHTML(jb4DCSession,id,record.getFormHtmlSource());
+        } catch (ParserConfigurationException e) {
+            e.printStackTrace();
+        } catch (SAXException e) {
+            e.printStackTrace();
+        } catch (XPathExpressionException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         record.setFormHtmlResolve(resolvedHtml);
         record.setFormIsResolve(TrueFalseEnum.True.getDisplayName());
         return super.save(jb4DCSession, id, record, new IAddBefore<FormResourceEntityWithBLOBs>() {

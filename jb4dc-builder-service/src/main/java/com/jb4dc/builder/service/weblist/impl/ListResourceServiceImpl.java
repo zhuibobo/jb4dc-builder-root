@@ -15,7 +15,11 @@ import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
 import com.jb4dc.core.base.session.JB4DCSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.xml.sax.SAXException;
 
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.xpath.XPathExpressionException;
+import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 
@@ -48,7 +52,18 @@ public class ListResourceServiceImpl extends BaseServiceImpl<ListResourceEntityW
         //修改时设置为未解析的状态.
         //record.setFormIsResolve(TrueFalseEnum.False.getDisplayName());
         //保存时进行同步的表单内容的解析,并存入对应的字段中.
-        String resolvedHtml=htmlRuntimeResolve.resolveSourceHTML(jb4DCSession,id,record.getListHtmlSource());
+        String resolvedHtml= null;
+        try {
+            resolvedHtml = htmlRuntimeResolve.resolveSourceHTML(jb4DCSession,id,record.getListHtmlSource());
+        } catch (ParserConfigurationException e) {
+            e.printStackTrace();
+        } catch (SAXException e) {
+            e.printStackTrace();
+        } catch (XPathExpressionException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         record.setListHtmlResolve(resolvedHtml);
         record.setListIsResolve(TrueFalseEnum.True.getDisplayName());
 

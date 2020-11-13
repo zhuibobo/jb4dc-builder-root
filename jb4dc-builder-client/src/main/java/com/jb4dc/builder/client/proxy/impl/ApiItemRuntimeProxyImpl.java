@@ -2,13 +2,15 @@ package com.jb4dc.builder.client.proxy.impl;
 
 import com.jb4dc.base.service.cache.IBuildGeneralObj;
 import com.jb4dc.builder.client.remote.ApiItemRuntimeRemote;
-import com.jb4dc.builder.client.service.RuntimeProxyBase;
+import com.jb4dc.builder.client.proxy.RuntimeProxyBase;
 import com.jb4dc.builder.client.service.api.IApiItemService;
 import com.jb4dc.builder.client.proxy.IApiItemRuntimeProxy;
 import com.jb4dc.builder.dbentities.api.ApiItemEntity;
 import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.io.IOException;
 
 /**
  * Created with IntelliJ IDEA.
@@ -26,7 +28,7 @@ public class ApiItemRuntimeProxyImpl extends RuntimeProxyBase implements IApiIte
     ApiItemRuntimeRemote apiItemRuntimeRemote;
 
     @Override
-    public ApiItemEntity getApiPOByValue(String apiValue) throws JBuild4DCGenerallyException {
+    public ApiItemEntity getApiPOByValue(String apiValue) throws JBuild4DCGenerallyException, IOException {
         //通过本地bean获取环境变量实体,如果不存在业务bean,则通过rest接口远程获取.
         ApiItemEntity apiItemEntity;
         if(apiItemService!=null){
@@ -41,7 +43,7 @@ public class ApiItemRuntimeProxyImpl extends RuntimeProxyBase implements IApiIte
                     ApiItemEntity temp=apiItemRuntimeRemote.GetApiPOByValue(apiValue).getData();
                     return temp;
                 }
-            });
+            },ApiItemEntity.class);
         }
         return  apiItemEntity;
     }

@@ -14,7 +14,7 @@ jb4dc:
       context-path: /SSOSystem
       view:
         login: /Controller/LoginSSOView
-        logout: /logout
+        logout: http://localhost:9103/SSOSystem/Controller/LogoutSSOView
       excluded:
   builder:
     server:

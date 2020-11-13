@@ -41,9 +41,9 @@ public class LiQuiBaseBeansConfig {
             database.setDatabaseChangeLogLockTableName(database.getDatabaseChangeLogLockTableName());
 
             DataTypeFactory.getInstance().register(new NVarcharTypeCust());
-            liquibase = new Liquibase("liquibase/jb4dc-builder-db-changelog.xml", new ClassLoaderResourceAccessor(), database);
+            liquibase = new Liquibase("classpath:liquibase/jb4dc-builder-db-changelog.xml", new ClassLoaderResourceAccessor(), database);
             liquibase.update("zhuangrb");
-            liquibase = new Liquibase("liquibase/jb4dc-files-db-changelog.xml", new ClassLoaderResourceAccessor(), database);
+            liquibase = new Liquibase("classpath:liquibase/jb4dc-files-db-changelog.xml", new ClassLoaderResourceAccessor(), database);
             liquibase.update("zhuangrb");
 
             return liquibase;

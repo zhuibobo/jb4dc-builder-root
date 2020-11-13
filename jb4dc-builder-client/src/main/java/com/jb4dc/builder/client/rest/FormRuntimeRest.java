@@ -16,7 +16,10 @@ import com.jb4dc.core.base.vo.JBuild4DCResponseVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.xml.sax.SAXException;
 
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.xpath.XPathExpressionException;
 import java.io.IOException;
 
 /**
@@ -45,9 +48,13 @@ public class FormRuntimeRest {
 
     //加载html同时会根据数据关系,加载数据
     @RequestMapping("/LoadHTML")
-    public JBuild4DCResponseVo<FormResourceComplexPO> loadHTML(String formId, String recordId, String buttonId,String operationType,String formRuntimeCategory) throws JBuild4DCGenerallyException, IOException, JBuild4DCSQLKeyWordException {
+    public JBuild4DCResponseVo<FormResourceComplexPO> loadHTML(String formId, String recordId, String buttonId,String operationType,String formRuntimeCategory) throws JBuild4DCGenerallyException, IOException, JBuild4DCSQLKeyWordException, ParserConfigurationException, XPathExpressionException, SAXException {
 
+        String loadTimeDesc="";
+        long startTime=System.currentTimeMillis();
         FormResourcePO formResourcePO = webFormRuntimeProxy.getFormRuntimePageContentById(JB4DCSessionUtility.getSession(), formId);
+        long endTime=System.currentTimeMillis(); //获取结束时间
+        loadTimeDesc="从构建系统加载原始记录信息时间:"+(endTime-startTime)+"ms;";
 
         ListButtonEntity listButtonEntity = null;
         //String formRuntimeCategory=FormResourceComplexPO.FORM_RUNTIME_CATEGORY_LIST;
@@ -98,8 +105,15 @@ public class FormRuntimeRest {
         //if (!listButtonEntityJBuild4DCResponseVo.isSuccess()) {
         //    throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_BUILDER_CODE, "获取远程按钮设置失败!" + listButtonEntityJBuild4DCResponseVo.getMessage());
         //}
+        //startTime=System.currentTimeMillis();
+        FormResourceComplexPO formResourceComplexPO = webFormRuntimeService.resolveFormResourceComplex(JB4DCSessionUtility.getSession(), recordId, formResourcePO, listButtonEntity, operationType,formRuntimeCategory,isIndependenceCurrentOperationType,loadTimeDesc);
+        //endTime=System.currentTimeMillis(); //获取结束时间
+        //loadTimeDesc=formResourceComplexPO.getLoadTimeDesc() + ";解析表单总耗时:"+(endTime-startTime)+"ms;";
 
-        FormResourceComplexPO formResourceComplexPO = webFormRuntimeService.resolveFormResourceComplex(JB4DCSessionUtility.getSession(), recordId, formResourcePO, listButtonEntity, operationType,formRuntimeCategory,isIndependenceCurrentOperationType);
+        //formResourceComplexPO.setFormSource("");
+        formResourceComplexPO.setFormHtmlSource("");
+        formResourceComplexPO.setFormHtmlResolve("");
+        //formResourceComplexPO.setLoadTimeDesc(loadTimeDesc);
         return JBuild4DCResponseVo.getDataSuccess(formResourceComplexPO);
     }
 

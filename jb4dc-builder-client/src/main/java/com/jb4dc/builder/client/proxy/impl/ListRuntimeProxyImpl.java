@@ -1,23 +1,15 @@
 package com.jb4dc.builder.client.proxy.impl;
 
 import com.jb4dc.base.service.cache.IBuildGeneralObj;
-import com.jb4dc.builder.client.proxy.IEnvVariableRuntimeProxy;
 import com.jb4dc.builder.client.proxy.IListRuntimeProxy;
 import com.jb4dc.builder.client.remote.ListRuntimeRemote;
-import com.jb4dc.builder.client.service.RuntimeProxyBase;
+import com.jb4dc.builder.client.proxy.RuntimeProxyBase;
 import com.jb4dc.builder.client.service.weblist.IListResourceService;
 import com.jb4dc.builder.po.ListResourcePO;
-import com.jb4dc.builder.po.TableFieldPO;
 import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
 import com.jb4dc.core.base.session.JB4DCSession;
-import com.jb4dc.core.base.vo.JBuild4DCResponseVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-
-import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.
@@ -27,6 +19,7 @@ import java.util.List;
  */
 @Service
 public class ListRuntimeProxyImpl  extends RuntimeProxyBase implements IListRuntimeProxy {
+
 
     @Autowired(required = false)
     IListResourceService listResourceService;
@@ -46,7 +39,7 @@ public class ListRuntimeProxyImpl  extends RuntimeProxyBase implements IListRunt
                     public ListResourcePO BuildObj() throws JBuild4DCGenerallyException {
                         return listRuntimeRemote.loadHTML(listId).getData();
                     }
-                });
+                },ListResourcePO.class);
             }
             return listResourcePO;
         }

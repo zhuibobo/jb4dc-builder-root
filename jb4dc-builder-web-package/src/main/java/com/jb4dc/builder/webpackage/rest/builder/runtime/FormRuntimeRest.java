@@ -11,6 +11,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import org.xml.sax.SAXException;
+
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.xpath.XPathExpressionException;
+import java.io.IOException;
 
 /**
  * Created with IntelliJ IDEA.
@@ -35,7 +40,7 @@ public class FormRuntimeRest {
     }
 
     @RequestMapping(value = "/LoadHTMLForPreView",method = RequestMethod.POST)
-    public JBuild4DCResponseVo<FormResourcePO> loadHTMLForPreView(String formId) throws JBuild4DCGenerallyException {
+    public JBuild4DCResponseVo<FormResourcePO> loadHTMLForPreView(String formId) throws JBuild4DCGenerallyException, ParserConfigurationException, SAXException, XPathExpressionException, IOException {
         FormResourcePO formResourcePO=formResourceService.getFormRuntimePageContent(JB4DCSessionUtility.getSession(),formId);
         DynamicBindHTMLControlContextPO dynamicBindHTMLControlContextPO=new DynamicBindHTMLControlContextPO();
         String runTimeHtml=htmlRuntimeResolve.dynamicBind(JB4DCSessionUtility.getSession(),formId,formResourcePO.getFormHtmlResolve(),dynamicBindHTMLControlContextPO);

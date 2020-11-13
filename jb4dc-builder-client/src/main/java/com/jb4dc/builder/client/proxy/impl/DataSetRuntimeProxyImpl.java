@@ -3,7 +3,7 @@ package com.jb4dc.builder.client.proxy.impl;
 import com.jb4dc.base.service.cache.IBuildGeneralObj;
 import com.jb4dc.builder.client.proxy.IDataSetRuntimeProxy;
 import com.jb4dc.builder.client.remote.DataSetRuntimeRemote;
-import com.jb4dc.builder.client.service.RuntimeProxyBase;
+import com.jb4dc.builder.client.proxy.RuntimeProxyBase;
 import com.jb4dc.builder.client.service.dataset.IDatasetRelatedTableService;
 import com.jb4dc.builder.client.service.dataset.IDatasetService;
 import com.jb4dc.builder.client.service.datastorage.ITableFieldService;
@@ -50,7 +50,7 @@ public class DataSetRuntimeProxyImpl extends RuntimeProxyBase implements IDataSe
                     public DataSetPO BuildObj() throws JBuild4DCGenerallyException {
                         return dataSetRuntimeRemote.getByDataSetId(dataSetId).getData();
                     }
-                });
+                },DataSetPO.class);
             }
             return dataSetPO;
         }
@@ -71,7 +71,7 @@ public class DataSetRuntimeProxyImpl extends RuntimeProxyBase implements IDataSe
                     public DataSetRelatedTablePO BuildObj() throws JBuild4DCGenerallyException {
                         return dataSetRuntimeRemote.getMainRTTable(dataSetId).getData();
                     }
-                });
+                },DataSetRelatedTablePO.class);
             }
             return dataSetRelatedTablePO;
         }
@@ -88,12 +88,12 @@ public class DataSetRuntimeProxyImpl extends RuntimeProxyBase implements IDataSe
             if (tableFieldService != null) {
                 tableFieldPOList = tableFieldService.getTableFieldsByTableId(dataSetRelatedTablePO.getRtTableId());
             } else {
-                tableFieldPOList=autoGetFromCache(this.getClass(), dataSetId+"_getDataSetMainTableFields", new IBuildGeneralObj<List<TableFieldPO>>() {
+                tableFieldPOList=autoGetFromCacheList(this.getClass(), dataSetId+"_getDataSetMainTableFields", new IBuildGeneralObj<List<TableFieldPO>>() {
                     @Override
                     public List<TableFieldPO> BuildObj() throws JBuild4DCGenerallyException {
                         return dataSetRuntimeRemote.getDataSetMainTableFields(dataSetId).getData();
                     }
-                });
+                },TableFieldPO.class);
             }
             return tableFieldPOList;
         }

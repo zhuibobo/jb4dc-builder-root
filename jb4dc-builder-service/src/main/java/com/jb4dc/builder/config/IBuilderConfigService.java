@@ -5,6 +5,7 @@ import org.xml.sax.SAXException;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.xpath.XPathExpressionException;
 import java.io.IOException;
+import java.net.URISyntaxException;
 
 /**
  * Created with IntelliJ IDEA.
@@ -16,6 +17,6 @@ public interface IBuilderConfigService {
 
     String getTablePrefix() throws XPathExpressionException;
 
-    boolean getResolveSQLEnable() throws IOException, SAXException, ParserConfigurationException, XPathExpressionException;
+    boolean getResolveSQLEnable() throws IOException, SAXException, ParserConfigurationException, XPathExpressionException, URISyntaxException;
 
 }

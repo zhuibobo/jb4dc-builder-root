@@ -12,6 +12,7 @@ import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.xpath.XPathExpressionException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URISyntaxException;
 import java.util.List;
 
 /**
@@ -25,11 +26,11 @@ public class DataSetColumnCaptionConfigServiceImpl implements IDataSetColumnCapt
     String configResource= "/config/builder/dataset/dataset-column-caption-config.xml";
     Document xmlDocument=null;
 
-    public DataSetColumnCaptionConfigServiceImpl() throws IOException, SAXException, ParserConfigurationException {
+    public DataSetColumnCaptionConfigServiceImpl() throws IOException, SAXException, ParserConfigurationException, URISyntaxException {
         loadDocument();
     }
 
-    private void loadDocument() throws ParserConfigurationException, SAXException, IOException {
+    private void loadDocument() throws ParserConfigurationException, SAXException, IOException, URISyntaxException {
         InputStream inputStream = FileUtility.getStreamByLevel(configResource);
         xmlDocument = XMLDocumentUtility.parseForDoc(inputStream);
     }
