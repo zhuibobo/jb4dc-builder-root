@@ -279,7 +279,7 @@ var WFDCT_SelectOrganUser={
         _self.selectProp.selectNumber =$button.attr("selectnumber");
         _self.selectProp.settingType = $button.attr("settingtype");
         _self.selectProp.defaultSelectedOrganId = $button.attr("defaultselectedorganid");*/
-        var windowWidth = 800;
+        var windowWidth = 700;
         var windowHeight = 500;
 
         _self._prop.containerId = _self.BuildContentHTML(_self._prop.buttonId,_self._prop.defaultSelectedOrganId);

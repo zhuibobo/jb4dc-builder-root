@@ -11,15 +11,14 @@ CKEDITOR.editorConfig = function(config) {
         'justify,menubutton,language,link,list,liststyle,magicline,maximize,newpage,pagebreak,pastetext,' +
         'pastefromword,preview,print,removeformat,save,selectall,showblocks,showborders,sourcearea,' +
         'specialchar,scayt,stylescombo,tab,table,tabletools,undo,wsc';*/
-    /*config.plugins = 'iframedialog,dialogui,dialog,dialogadvtab,basicstyles,' +
+    config.plugins = 'iframedialog,dialogui,dialog,dialogadvtab,basicstyles,' +
         'blockquote,clipboard,button,panelbutton,panel,floatpanel,colorbutton,colordialog,' +
         'templates,menu,contextmenu,div,resize,toolbar,elementspath,enterkey,entities,popup,' +
         'find,fakeobjects,floatingspace,listblock,richcombo,font,format,' +
         'horizontalrule,htmlwriter,iframe,wysiwygarea,image,indent,indentblock,indentlist,smiley,' +
         'justify,menubutton,link,list,liststyle,magicline,maximize,newpage,pagebreak,pastetext,' +
         'pastefromword,removeformat,save,selectall,showblocks,showborders,sourcearea,' +
-        'specialchar,scayt,stylescombo,tab,table,tabletools,undo,wsc';*/
-    config.plugins = 'iframedialog,dialogui,dialog,about,a11yhelp,basicstyles,blockquote,notification,button,toolbar,clipboard,panel,floatpanel,menu,contextmenu,resize,elementspath,enterkey,entities,popup,filetools,filebrowser,floatingspace,listblock,richcombo,format,horizontalrule,htmlwriter,wysiwygarea,image,indent,indentlist,fakeobjects,link,list,magicline,maximize,pastetext,pastetools,pastefromgdocs,pastefromword,removeformat,showborders,sourcearea,specialchar,menubutton,scayt,stylescombo,tab,table,tabletools,tableselection,undo,lineutils,widgetselection,widget,notificationaggregator,uploadwidget,uploadimage,wsc';
+        'specialchar,scayt,stylescombo,tab,table,tabletools,undo,wsc';
     config.skin = 'moono-lisa';
     //config.uiColor = '#F7B42C';
     config.toolbarGroups = [
