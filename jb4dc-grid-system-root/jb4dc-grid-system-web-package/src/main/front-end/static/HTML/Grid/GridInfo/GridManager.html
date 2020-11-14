@@ -34,16 +34,45 @@
                     </div>
                 </div>
             </tab-pane>
-            <tab-pane label="网格简介">
-
-            </tab-pane>
-            <tab-pane label="机构信息">
-
+            <tab-pane label="网格信息">
+                <div class="general-edit-page-wrap">
+                    <table class="light-gray-table" cellpadding="0" cellspacing="0" border="0">
+                        <colgroup>
+                            <col style="width: 100px" />
+                            <col />
+                        </colgroup>
+                        <tbody>
+                            <tr>
+                                <td class="label">编码：</td>
+                                <td style="text-align: center">
+                                    <input type="text" v-model="gridInfoEntity.gridCode" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="label">简介：</td>
+                                <td colspan="5">
+                                    <textarea rows="8" v-model="gridInfoEntity.gridContent"></textarea>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="label">备注：</td>
+                                <td colspan="5">
+                                    <textarea rows="4" v-model="gridInfoEntity.gridRemark"></textarea>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div>
+                        <div style="float: right">
+                            <button-group>
+                                <i-button type="primary" @click="saveGridInfo" icon="md-checkmark">保存</i-button>
+                                <i-button @click="clearGridInfo" icon="md-close">清空</i-button>
+                            </button-group>
+                        </div>
+                    </div>
+                </div>
             </tab-pane>
             <tab-pane label="成员">
-
-            </tab-pane>
-            <tab-pane label="备注">
 
             </tab-pane>
         </tabs>
@@ -97,7 +126,8 @@
                 saveMapPath:"/Rest/Grid/GridInfo/GridInfoMain/SaveGridMapPath",
                 <!--Grid-->
                 getGridInfo:"/Rest/Grid/GridInfo/GridInfoMain/GetGridInfo",
-                getSameLevelGrid:"/Rest/Grid/GridInfo/GridInfoMain/GetSameLevelGrid"
+                getSameLevelGrid:"/Rest/Grid/GridInfo/GridInfoMain/GetSameLevelGrid",
+                saveGridInfo:"/Rest/Grid/GridInfo/GridInfoMain/SaveGridInfo",
             },
             <!--Map-->
             map:{
@@ -140,6 +170,14 @@
                 treeIdFieldName: "roleGroupId",
                 treeObj: null,
                 treeSelectedNode: null
+            },
+            gridInfoEntity:{
+                gridCode:"",//网格编号:作为房屋编号的前缀编号
+                gridOrganId:"",//关联组织机构ID
+                gridRemark:"",//备注
+                gridParentId:"",//父节点ID
+                gridContent:"",//网格介绍
+                gridMapPath:""//地图上网格的路径
             }
         },
         methods: {
@@ -326,9 +364,40 @@
                     if(result.success){
                         if(result.data&&StringUtility.IsNotNullOrEmpty(result.data.gridMapPath)){
                             this.drawSingleGridPath(result.data.gridMapPath,true,"");
+                            this.gridInfoEntity=result.data;
+                        }
+                        else{
+                            this.gridInfoEntity= {
+                                gridCode:"",//网格编号:作为房屋编号的前缀编号
+                                gridOrganId:"",//关联组织机构ID
+                                gridRemark:"",//备注
+                                gridParentId:"",//父节点ID
+                                gridContent:"",//网格介绍
+                                gridMapPath:""//地图上网格的路径
+                            }
                         }
                     }
                 },this);
+            },
+            saveGridInfo:function () {
+                var selectOrgan=this.OrganTree.treeSelectedNode;
+                if(selectOrgan==null){
+                    DialogUtility.ToastMessage(this,"请先选择组织机构!");
+                    return;
+                }
+                AjaxUtility.Post(this.acInterface.saveGridInfo,{
+                    organId:selectOrgan.organId,
+                    gridCode:this.gridInfoEntity.gridCode,
+                    gridContent:this.gridInfoEntity.gridContent,
+                    gridRemark:this.gridInfoEntity.gridRemark,
+                    gridParentId:selectOrgan.organParentId},function (result) {
+                    if(result.success){
+                        DialogUtility.AlertText("保存成功!");
+                    }
+                })
+            },
+            clearGridInfo:function () {
+
             }
         }
     });

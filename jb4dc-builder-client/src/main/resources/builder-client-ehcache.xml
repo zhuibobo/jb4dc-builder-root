@@ -13,7 +13,7 @@
     </cache-template>
     <cache alias="JB4DCProxyBuilderCacheManager" uses-template="JB4DCCacheDefault">
         <expiry>
-            <ttl>1200</ttl>
+            <ttl>20</ttl>
         </expiry>
     </cache>
 </config>

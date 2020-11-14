@@ -25,6 +25,12 @@ public class GridInfoRest {
     @Autowired
     IGridInfoService gridInfoService;
 
+    @RequestMapping(value = "/SaveGridInfo", method = RequestMethod.POST)
+    public JBuild4DCResponseVo saveGridInfo(String organId,String gridCode,String gridContent,String gridRemark,String gridParentId) throws JBuild4DCGenerallyException {
+        gridInfoService.saveGridInfo(JB4DCSessionUtility.getSession(), organId, gridCode, gridContent, gridRemark, gridParentId);
+        return JBuild4DCResponseVo.opSuccess();
+    }
+
     @RequestMapping(value = "/SaveGridMapPath", method = RequestMethod.POST)
     public JBuild4DCResponseVo saveGridMapPath(String organId,String gridMapPath,String parentId) throws JBuild4DCGenerallyException {
         gridInfoService.saveGridMapPath(JB4DCSessionUtility.getSession(),organId,gridMapPath,parentId);

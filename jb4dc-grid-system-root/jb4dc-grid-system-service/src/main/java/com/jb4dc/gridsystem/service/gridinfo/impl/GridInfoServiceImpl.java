@@ -51,4 +51,16 @@ public class GridInfoServiceImpl extends BaseServiceImpl<GridInfoEntityWithBLOBs
     public List<GridInfoEntityWithBLOBs> getByParentId(JB4DCSession session, String parentId,String excludeId) {
         return gridInfoMapper.selectByParentId(parentId,excludeId);
     }
+
+    @Override
+    public void saveGridInfo(JB4DCSession jb4DCSession, String organId, String gridCode, String gridContent, String gridRemark, String gridParentId) throws JBuild4DCGenerallyException {
+        GridInfoEntityWithBLOBs gridInfoEntityWithBLOBs=new GridInfoEntityWithBLOBs();
+        gridInfoEntityWithBLOBs.setGridId(organId);
+        gridInfoEntityWithBLOBs.setGridCode(gridCode);
+        gridInfoEntityWithBLOBs.setGridContent(gridContent);
+        gridInfoEntityWithBLOBs.setGridRemark(gridRemark);
+        gridInfoEntityWithBLOBs.setGridParentId(gridParentId);
+        gridInfoEntityWithBLOBs.setGridOrganId(organId);
+        this.saveSimple(jb4DCSession,organId,gridInfoEntityWithBLOBs);
+    }
 }
