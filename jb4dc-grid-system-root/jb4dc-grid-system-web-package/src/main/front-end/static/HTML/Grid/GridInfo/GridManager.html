@@ -73,7 +73,9 @@
                 </div>
             </tab-pane>
             <tab-pane label="成员">
-
+                <i-table :height="member.listHeight" stripe border :columns="member.columnsConfig"
+                         :data="member.tableData"
+                         class="iv-list-table" :highlight-row="true"></i-table>
             </tab-pane>
         </tabs>
     </div>
@@ -170,6 +172,26 @@
                 treeIdFieldName: "roleGroupId",
                 treeObj: null,
                 treeSelectedNode: null
+            },
+            member:{
+                allMemberData:[],
+                listHeight: ListPageUtility.DefaultListHeight(),
+                tableData:[],
+                columnsConfig:[
+                    {
+                        title: '用户名',
+                        key: 'userName',
+                        align: "center"
+                    }, {
+                        title: '账号',
+                        key: 'userAccount',
+                        align: "center"
+                    }, {
+                        title: '联系电话',
+                        key: 'userPhoneNumber',
+                        align: "center"
+                    }
+                ]
             },
             gridInfoEntity:{
                 gridCode:"",//网格编号:作为房屋编号的前缀编号
@@ -278,6 +300,7 @@
                                 }
                             }
                         }
+                        _self.member.allMemberData=result.data.ALLUserMinProp;
                         _self.OrganTree.treeObj=$.fn.zTree.init($("#zTreeUL"), _self.OrganTree.treeSetting,treeData);
                         _self.OrganTree.treeObj.expandAll(true);
                     }
@@ -288,9 +311,11 @@
             },
             treeNodeSelected: function (event, treeId, treeNode) {
                 // 根节点不触发任何事件
+                //var selectOrgan = this.OrganTree.treeSelectedNode;
                 this.OrganTree.treeSelectedNode = treeNode;
                 this.map.selectedLngLat=null;
-                this.getGridInfo();
+                this.getGridInfo(treeNode);
+                this.bindOrganMember(treeNode);
             },
             //endregion
             saveThisGridPath:function () {
@@ -354,9 +379,8 @@
                     }
                 }
             },
-            getGridInfo:function() {
+            getGridInfo:function(selectOrgan) {
                 //debugger;
-                var selectOrgan = this.OrganTree.treeSelectedNode;
                 this.clearCurrentGridEditArea();
                 this.showSameLevelGridPath(false);
                 AjaxUtility.Get(this.acInterface.getGridInfo, {organId: selectOrgan.organId}, function (result) {
@@ -398,7 +422,17 @@
             },
             clearGridInfo:function () {
 
+            },
+            //region 网格成员
+            bindOrganMember:function (selectOrgan) {
+                this.member.tableData=[];
+                for (var i = 0; i < this.member.allMemberData.length; i++) {
+                    if(this.member.allMemberData[i].userOrganId==selectOrgan.organId){
+                        this.member.tableData.push(this.member.allMemberData[i]);
+                    }
+                }
             }
+            //endregion
         }
     });
 </script>
