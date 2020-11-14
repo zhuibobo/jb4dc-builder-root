@@ -23,7 +23,7 @@ import java.util.Map;
  */
 @RestController
 @RequestMapping(value = "/Rest/Grid/SSOProxy/OrganAndUser")
-public class OrganAndUser {
+public class OrganAndUserRest {
     @Autowired
     IOrganRuntimeProxy organRuntimeProxy;
 

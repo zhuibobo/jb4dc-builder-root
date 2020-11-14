@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jb4dc.gridsystem.dao.gridinfo.GridInfoMapper">
+    <resultMap id="BaseResultMap" type="com.jb4dc.gridsystem.dbentities.gridinfo.GridInfoEntity">
+        <constructor>
+            <idArg column="GRID_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="GRID_CODE" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="GRID_ORGAN_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="GRID_REMARK" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="GRID_PARENT_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
+        </constructor>
+    </resultMap>
+    <resultMap id="ResultMapWithBLOBs" type="com.jb4dc.gridsystem.dbentities.gridinfo.GridInfoEntityWithBLOBs">
+        <constructor>
+            <idArg column="GRID_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="GRID_CODE" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="GRID_ORGAN_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="GRID_REMARK" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="GRID_PARENT_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="GRID_CONTENT" javaType="java.lang.String" jdbcType="LONGVARCHAR" />
+            <arg column="GRID_MAP_PATH" javaType="java.lang.String" jdbcType="LONGVARCHAR" />
+        </constructor>
+    </resultMap>
+    <sql id="Base_Column_List">
+    GRID_ID, GRID_CODE, GRID_ORGAN_ID, GRID_REMARK, GRID_PARENT_ID
+  </sql>
+    <sql id="Blob_Column_List">
+    GRID_CONTENT, GRID_MAP_PATH
+  </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="ResultMapWithBLOBs">
+        select
+        <include refid="Base_Column_List" />
+        ,
+        <include refid="Blob_Column_List" />
+        from TGRID_GRID_INFO
+        where GRID_ID = #{gridId,jdbcType=VARCHAR}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from TGRID_GRID_INFO
+    where GRID_ID = #{gridId,jdbcType=VARCHAR}
+  </delete>
+    <insert id="insert" parameterType="com.jb4dc.gridsystem.dbentities.gridinfo.GridInfoEntityWithBLOBs">
+    insert into TGRID_GRID_INFO (GRID_ID, GRID_CODE, GRID_ORGAN_ID,
+      GRID_REMARK, GRID_PARENT_ID, GRID_CONTENT,
+      GRID_MAP_PATH)
+    values (#{gridId,jdbcType=VARCHAR}, #{gridCode,jdbcType=VARCHAR}, #{gridOrganId,jdbcType=VARCHAR},
+      #{gridRemark,jdbcType=VARCHAR}, #{gridParentId,jdbcType=VARCHAR}, #{gridContent,jdbcType=LONGVARCHAR},
+      #{gridMapPath,jdbcType=LONGVARCHAR})
+  </insert>
+    <insert id="insertSelective" parameterType="com.jb4dc.gridsystem.dbentities.gridinfo.GridInfoEntityWithBLOBs">
+        insert into TGRID_GRID_INFO
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="gridId != null">
+                GRID_ID,
+            </if>
+            <if test="gridCode != null">
+                GRID_CODE,
+            </if>
+            <if test="gridOrganId != null">
+                GRID_ORGAN_ID,
+            </if>
+            <if test="gridRemark != null">
+                GRID_REMARK,
+            </if>
+            <if test="gridParentId != null">
+                GRID_PARENT_ID,
+            </if>
+            <if test="gridContent != null">
+                GRID_CONTENT,
+            </if>
+            <if test="gridMapPath != null">
+                GRID_MAP_PATH,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="gridId != null">
+                #{gridId,jdbcType=VARCHAR},
+            </if>
+            <if test="gridCode != null">
+                #{gridCode,jdbcType=VARCHAR},
+            </if>
+            <if test="gridOrganId != null">
+                #{gridOrganId,jdbcType=VARCHAR},
+            </if>
+            <if test="gridRemark != null">
+                #{gridRemark,jdbcType=VARCHAR},
+            </if>
+            <if test="gridParentId != null">
+                #{gridParentId,jdbcType=VARCHAR},
+            </if>
+            <if test="gridContent != null">
+                #{gridContent,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="gridMapPath != null">
+                #{gridMapPath,jdbcType=LONGVARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.jb4dc.gridsystem.dbentities.gridinfo.GridInfoEntityWithBLOBs">
+        update TGRID_GRID_INFO
+        <set>
+            <if test="gridCode != null">
+                GRID_CODE = #{gridCode,jdbcType=VARCHAR},
+            </if>
+            <if test="gridOrganId != null">
+                GRID_ORGAN_ID = #{gridOrganId,jdbcType=VARCHAR},
+            </if>
+            <if test="gridRemark != null">
+                GRID_REMARK = #{gridRemark,jdbcType=VARCHAR},
+            </if>
+            <if test="gridParentId != null">
+                GRID_PARENT_ID = #{gridParentId,jdbcType=VARCHAR},
+            </if>
+            <if test="gridContent != null">
+                GRID_CONTENT = #{gridContent,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="gridMapPath != null">
+                GRID_MAP_PATH = #{gridMapPath,jdbcType=LONGVARCHAR},
+            </if>
+        </set>
+        where GRID_ID = #{gridId,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.jb4dc.gridsystem.dbentities.gridinfo.GridInfoEntityWithBLOBs">
+    update TGRID_GRID_INFO
+    set GRID_CODE = #{gridCode,jdbcType=VARCHAR},
+      GRID_ORGAN_ID = #{gridOrganId,jdbcType=VARCHAR},
+      GRID_REMARK = #{gridRemark,jdbcType=VARCHAR},
+      GRID_PARENT_ID = #{gridParentId,jdbcType=VARCHAR},
+      GRID_CONTENT = #{gridContent,jdbcType=LONGVARCHAR},
+      GRID_MAP_PATH = #{gridMapPath,jdbcType=LONGVARCHAR}
+    where GRID_ID = #{gridId,jdbcType=VARCHAR}
+  </update>
+    <update id="updateByPrimaryKey" parameterType="com.jb4dc.gridsystem.dbentities.gridinfo.GridInfoEntity">
+    update TGRID_GRID_INFO
+    set GRID_CODE = #{gridCode,jdbcType=VARCHAR},
+      GRID_ORGAN_ID = #{gridOrganId,jdbcType=VARCHAR},
+      GRID_REMARK = #{gridRemark,jdbcType=VARCHAR},
+      GRID_PARENT_ID = #{gridParentId,jdbcType=VARCHAR}
+    where GRID_ID = #{gridId,jdbcType=VARCHAR}
+  </update>
+</mapper>

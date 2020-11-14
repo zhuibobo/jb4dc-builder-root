@@ -42,6 +42,18 @@ gulp.task('html-only',()=>{
     return copyAndResolveHtml(sourcePath + "/HTML/**/*.html",sourcePath + "/HTML",distPath + "/HTML");
 });
 
+/*编译表单设计器插件的相关Less文件*/
+gulp.task('grid-system-less',()=>{
+    return gulp.src(sourcePath+"/Themes/Default/Grid/Css/*.less")
+        .pipe(sourcemaps.init())
+        .pipe(less({
+            paths: [ path.join(__dirname, 'less', 'includes') ]
+        }))
+        .pipe(sourcemaps.write())
+        .pipe(concat('JBuild4DCGridSystem.css'))
+        .pipe(gulp.dest(distPath+'/Themes/Default/Grid/Css'));
+});
+
 gulp.task('dist-watch', function() {
     isdebug=false;
     gulp.watch(sourcePath+"/HTML/**/*", gulp.series('html-only'));
@@ -52,6 +64,7 @@ gulp.task('dist-watch-debug', function() {
     isdebug=true;
     gulp.watch(sourcePath+"/HTML/**/*", gulp.series('html-only'));
     gulp.watch(sourcePath + "/Js/VueComponent/**/*.js", gulp.series('js-vue-ex-component'));
+    gulp.watch(sourcePath+"/Themes/Default/Grid/**/*.less", gulp.series('grid-system-less'));
 });
 //endregion
 
@@ -59,6 +72,7 @@ function copyAndResolveHtml(sourcePath,base,toPath) {
     /*拷贝HTML文件*/
     var obj=gulp.src(sourcePath, {base: base})
         .pipe(replacecust(replaceBlockObj.replaceBlock('GeneralLib'), replaceBlockObj.replaceGeneralLib))
+        .pipe(replacecust(replaceBlockObj.replaceBlock('TurfLib'), replaceBlockObj.replaceTurfLib))
         .pipe(replacecust(replaceBlockObj.replaceBlock('CodeMirrorLib'), replaceBlockObj.replaceCodeMirrorLib))
         .pipe(replacecust(replaceBlockObj.replaceBlock('FormDesignLib'), replaceBlockObj.replaceFormDesignLib))
         .pipe(replacecust(replaceBlockObj.replaceBlock('JBuild4DFormDesignLib'), replaceBlockObj.replaceJBuild4DFormDesignLib))

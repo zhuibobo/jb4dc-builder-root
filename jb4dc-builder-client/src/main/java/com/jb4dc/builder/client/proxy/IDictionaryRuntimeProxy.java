@@ -13,5 +13,7 @@ import java.util.List;
  * To change this template use File | Settings | File Templates.
  */
 public interface IDictionaryRuntimeProxy  {
+    List<DictionaryEntity> loadAllDD() throws IOException, JBuild4DCGenerallyException;
+
     List<DictionaryEntity> getDDByGroupId(String groupId) throws JBuild4DCGenerallyException, IOException;
 }

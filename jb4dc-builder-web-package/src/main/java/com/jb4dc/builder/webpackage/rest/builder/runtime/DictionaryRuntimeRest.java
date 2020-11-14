@@ -26,9 +26,15 @@ public class DictionaryRuntimeRest {
     @Autowired
     IDictionaryService dictionaryService;
 
-    @RequestMapping(value = "/GetDDByGroupId", method = RequestMethod.POST)
+    @RequestMapping(value = "/GetDDByGroupId", method = RequestMethod.GET)
     public JBuild4DCResponseVo<List<DictionaryEntity>> getDDByGroupId(String groupId) {
         List<DictionaryEntity> dictionaryEntityList=dictionaryService.getListDataByGroupId(JB4DCSessionUtility.getSession(),groupId);
+        return JBuild4DCResponseVo.success("",dictionaryEntityList);
+    }
+
+    @RequestMapping(value = "/GetAllDictionary", method = RequestMethod.GET)
+    public JBuild4DCResponseVo<List<DictionaryEntity>> getAllDictionary(String groupId) {
+        List<DictionaryEntity> dictionaryEntityList=dictionaryService.getALLASC(JB4DCSessionUtility.getSession());
         return JBuild4DCResponseVo.success("",dictionaryEntityList);
     }
 }

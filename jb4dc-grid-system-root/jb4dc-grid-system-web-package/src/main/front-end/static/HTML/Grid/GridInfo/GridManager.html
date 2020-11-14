@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <th:block th:replace="Fragment/GeneralLib::GeneralLib"></th:block>
+    <th:block th:replace="Fragment/GeneralLib::TurfLib"></th:block>
     <th:block th:replace="Fragment/GeneralLib::ThemesLib"></th:block>
     <style>
 
@@ -15,7 +16,7 @@
         <div class="inner-wrap">
             <div class="tool-bar-wrap">
             </div>
-            <div>
+            <div style="position: absolute;top: 45px;bottom: 20px;overflow: auto">
                 <ul id="zTreeUL" class="ztree"></ul>
             </div>
         </div>
@@ -23,7 +24,15 @@
     <div class="right-outer-wrap iv-list-page-wrap" style="padding: 10px;left: 260px">
         <tabs>
             <tab-pane label="网格地图">
-                <div id="baidu_map_028697996" style="height: 500px"></div>
+                <div id="map-wrap-grid" class="map-wrap-grid" style="">
+                    <div id="baidu_map_grid" style="height: 100%"></div>
+                    <div class="map-operation-button-wrap" style="display: none">
+                        <div class="map-operation-button"><input id="cb_show_same_level_grid_path" type="checkbox" style="width: 30px;height: 30px;margin: 9px 9px;" title="显示同级网格图形" ></div>
+                        <div class="map-operation-button" @click="addEmptyAreaInMap">添加区域</div>
+                        <div class="map-operation-button" @click="clearCurrentGridEditArea">清空区域</div>
+                        <div class="map-operation-button" @click="saveThisGridPath">保存</div>
+                    </div>
+                </div>
             </tab-pane>
             <tab-pane label="网格简介">
 
@@ -52,23 +61,50 @@
                     document.body.appendChild(script);
                 }
             })
+        },
+        GetLatLngCenter: function (polygonPathArray) {
+            var ary=[];
+            for (var i = 0; i < polygonPathArray.length; i++) {
+                ary.push([polygonPathArray[i].lng,polygonPathArray[i].lat]);
+            }
+            //console.log(ary);
+            var polygon = turf.polygon([ary]);
+            var center = turf.center(polygon);
+            //console.log(center);
+            return {lng:center.geometry.coordinates[0],lat:center.geometry.coordinates[1]};
         }
-    }
-    function f1111() {
-        var mp = new BMapGL.Map('baidu_map_028697996');
-        mp.centerAndZoom(new BMapGL.Point(121.491, 31.233), 11);
     }
     var gridManager = new Vue({
         el: "#gridManager",
         mounted: function () {
             this.initTree();
-            BaiduMapUtility.LoadJsCompleted("f1111");
+            BaiduMapUtility.LoadJsCompleted("gridManager.initBaiduMap");
+            $("#map-wrap-grid").height(PageStyleUtility.GetPageHeight()-80);
+            $("#cb_show_same_level_grid_path").click(function () {
+                if($(this).prop("checked")){
+                    gridManager.showSameLevelGridPath(true);
+                }
+                else{
+                    gridManager.showSameLevelGridPath(false);
+                }
+            })
         },
         data: {
             acInterface: {
                 <!--Tree -->
                 getOrganAndUserData: "/Rest/Grid/SSOProxy/OrganAndUser/GetOrganAndUserData",
-                groupEditView: "/HTML/SSO/Role/RoleGroupEdit.html"
+                <!--Map-->
+                saveMapPath:"/Rest/Grid/GridInfo/GridInfoMain/SaveGridMapPath",
+                <!--Grid-->
+                getGridInfo:"/Rest/Grid/GridInfo/GridInfoMain/GetGridInfo",
+                getSameLevelGrid:"/Rest/Grid/GridInfo/GridInfoMain/GetSameLevelGrid"
+            },
+            <!--Map-->
+            map:{
+                mapObj:null,
+                selectedLngLat:null,
+                editObjs:[],
+                viewObjs:[]
             },
             <!--Tree-->
             OrganTree:{
@@ -107,7 +143,90 @@
             }
         },
         methods: {
-            <!--Tree12-->
+            //region 地图
+            initBaiduMap:function(){
+                this.map.mapObj = new BMapGL.Map('baidu_map_grid');
+                this.map.mapObj.centerAndZoom(new BMapGL.Point(114.54200132645097, 22.754142795907825), 16);
+                this.map.mapObj.enableScrollWheelZoom(true);
+                this.map.mapObj.addEventListener('click', function(e) {
+                    gridManager.map.selectedLngLat=e.latlng;
+                    console.log(e.latlng);
+                    /*alert('点击的经纬度：' + e.latlng.lng + ', ' + e.latlng.lat);
+                    var mercator = gridManager.map.mapObj.lnglatToMercator(e.latlng.lng, e.latlng.lat);
+                    alert('点的墨卡托坐标：' + mercator[0] + ', ' + mercator[1]);*/
+                });
+                $(".map-operation-button-wrap").show();
+            },
+            addToEditObjs:function(editObj){
+                this.map.editObjs.push(editObj);
+                editObj.obj.enableEditing();
+            },
+            addToViewObjs:function(viewObj){
+                this.map.viewObjs.push(viewObj);
+            },
+            addEmptyAreaInMap:function(){
+                if(this.OrganTree.treeSelectedNode==null){
+                    DialogUtility.ToastMessage(this,"请先选择行政区划!");
+                    return;
+                }
+                if(this.map.selectedLngLat==null){
+                    DialogUtility.ToastMessage(this,"请先在地图上选择初始位置!");
+                    return;
+                }
+                var lngLat=gridManager.map.selectedLngLat;
+                var polygon = new BMapGL.Polygon([
+                    new BMapGL.Point(lngLat.lng, lngLat.lat),
+                    new BMapGL.Point(lngLat.lng, lngLat.lat+0.001),
+                    new BMapGL.Point(lngLat.lng+0.001, lngLat.lat+0.001),
+                    new BMapGL.Point(lngLat.lng+0.001, lngLat.lat)
+                ], {
+                    strokeColor: 'blue',
+                    strokeWeight: 2,
+                    strokeOpacity: 0.8,
+                    fillColor:'#cd6155',
+                    fillOpacity: 0.5,
+                });
+                this.map.mapObj.addOverlay(polygon);
+                this.addToEditObjs({"type":"Polygon","obj":polygon});
+            },
+            showSameLevelGridPath:function(isShow) {
+                if (isShow) {
+                    if (this.OrganTree.treeSelectedNode == null) {
+                        DialogUtility.ToastMessage(this, "请先选择行政区划!");
+                        return;
+                    }
+                    var selectOrgan = this.OrganTree.treeSelectedNode;
+                    AjaxUtility.Get(this.acInterface.getSameLevelGrid, {
+                        parentId: selectOrgan.organParentId,
+                        excludeId: selectOrgan.organId
+                    }, function (result) {
+                        //console.log(result);
+                        if (result.success) {
+                            for (var i = 0; i < result.data.length; i++) {
+                                var singleGridInfo = result.data[i];
+                                var node=this.OrganTree.treeObj.getNodesByParam("organId",singleGridInfo.gridId)[0];
+                                console.log(node);
+                                this.drawSingleGridPath(singleGridInfo.gridMapPath,false,node.organName);
+                            }
+                        }
+                    }, this);
+                } else {
+                    for (var i = 0; i < this.map.viewObjs.length; i++) {
+                        this.map.mapObj.removeOverlay(this.map.viewObjs[i].obj);
+                        $("#cb_show_same_level_grid_path").prop("checked",false);
+                    }
+                    this.map.viewObjs=[];
+                }
+            },
+            clearCurrentGridEditArea:function(){
+                var selectOrgan = this.OrganTree.treeSelectedNode;
+                for (var i = 0; i < this.map.editObjs.length; i++) {
+                    this.map.mapObj.removeOverlay(this.map.editObjs[i].obj);
+                }
+                this.map.editObjs=[];
+            },
+            //endregion
+            //region 组织机构树
             initTree: function () {
                 var _self=this;
                 AjaxUtility.Post(this.acInterface.getOrganAndUserData, {}, function (result) {
@@ -121,8 +240,8 @@
                                 }
                             }
                         }
-                        _self.treeObj=$.fn.zTree.init($("#zTreeUL"), _self.OrganTree.treeSetting,treeData);
-                        _self.treeObj.expandAll(true);
+                        _self.OrganTree.treeObj=$.fn.zTree.init($("#zTreeUL"), _self.OrganTree.treeSetting,treeData);
+                        _self.OrganTree.treeObj.expandAll(true);
                     }
                     else {
                         DialogUtility.Alert(window, DialogUtility.DialogAlertId, {}, result.message, function () {});
@@ -131,15 +250,85 @@
             },
             treeNodeSelected: function (event, treeId, treeNode) {
                 // 根节点不触发任何事件
-                //if(treeNode.level != 0) {
-                this.treeSelectedNode = treeNode;
-                this.roleList.selectionRows = null;
-                this.roleList.pageNum = 1;
-                this.clearSearchCondition();
-                this.roleList.searchCondition.roleGroupId.value = this.treeSelectedNode[this.treeIdFieldName];
-                this.reloadData();
-                //appList.reloadTreeTableData();
-                //}
+                this.OrganTree.treeSelectedNode = treeNode;
+                this.map.selectedLngLat=null;
+                this.getGridInfo();
+            },
+            //endregion
+            saveThisGridPath:function () {
+                if(this.OrganTree.treeSelectedNode==null){
+                    DialogUtility.ToastMessage(this,"请先选择行政区划!");
+                    return;
+                }
+                /*if(this.map.editObjs.length==0){
+                    DialogUtility.ToastMessage(this,"请先在地图上绘制网格!");
+                    return;
+                }*/
+                var selectOrgan=this.OrganTree.treeSelectedNode;
+                var path=[];
+                for (var i = 0; i < this.map.editObjs.length; i++) {
+                    path.push({"type":this.map.editObjs[i].type,"path":this.map.editObjs[i].obj.getPath()});
+                }
+                var pathStr=JsonUtility.JsonToString(path);
+                AjaxUtility.Post(this.acInterface.saveMapPath,{organId:selectOrgan.organId,gridMapPath:pathStr,parentId:selectOrgan.organParentId},function (result) {
+                    if(result.success){
+                        DialogUtility.AlertText("保存成功!");
+                    }
+                })
+            },
+            drawSingleGridPath:function(gridMapPath,isEditing,txt){
+                var objs=JsonUtility.StringToJson(gridMapPath);
+                for (var i = 0; i < objs.length; i++) {
+                    var obj=objs[i];
+                    if(obj.type=="Polygon") {
+                        var polygonPath = obj.path;
+                        console.log(polygonPath);
+                        var polygonPathArray = [];
+
+                        for (var j = 0; j < polygonPath.length; j++) {
+                            polygonPathArray.push(new BMapGL.Point(polygonPath[j].lng, polygonPath[j].lat))
+                        }
+                        var polygon = new BMapGL.Polygon(polygonPathArray, {
+                            strokeColor: 'blue',
+                            strokeWeight: 2,
+                            strokeOpacity: 0.8,
+                            fillColor: '#CD6155',
+                            fillOpacity: 0.5,
+                        });
+                        this.map.mapObj.addOverlay(polygon);
+                        if (isEditing) {
+                            this.addToEditObjs({"type": "Polygon", "obj": polygon});
+                        }
+                        else{
+                            this.addToViewObjs({"type": "Polygon", "obj": polygon});
+
+                            var centerPoint=BaiduMapUtility.GetLatLngCenter(polygonPathArray);
+                            //console.log(centerPoint);
+                            var point = new BMapGL.Point(centerPoint.lng, centerPoint.lat);
+                            var content = "label";
+                            var label = new BMapGL.Label(txt, {       // 创建文本标注
+                                position: point,                          // 设置标注的地理位置
+                                offset: new BMapGL.Size(-10, -10)           // 设置标注的偏移量
+                            })
+                            this.map.mapObj.addOverlay(label);
+                            this.addToViewObjs({"type": "text", "obj": label});
+                        }
+                    }
+                }
+            },
+            getGridInfo:function() {
+                //debugger;
+                var selectOrgan = this.OrganTree.treeSelectedNode;
+                this.clearCurrentGridEditArea();
+                this.showSameLevelGridPath(false);
+                AjaxUtility.Get(this.acInterface.getGridInfo, {organId: selectOrgan.organId}, function (result) {
+                    console.log(result);
+                    if(result.success){
+                        if(result.data&&StringUtility.IsNotNullOrEmpty(result.data.gridMapPath)){
+                            this.drawSingleGridPath(result.data.gridMapPath,true,"");
+                        }
+                    }
+                },this);
             }
         }
     });

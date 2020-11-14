@@ -7,7 +7,6 @@
             <column name="GRID_ID" type="NVARCHAR(50)" remarks="主键">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
-            <column name="GRID_CODE" type="NVARCHAR(50)" remarks="网格编号:作为房屋编号的前缀编号" />
             <column name="GRID_CONTENT" type="CLOB" remarks="网格介绍" />
             <column name="GRID_ORGAN_ID" type="NVARCHAR(50)" remarks="关联组织机构ID" />
             <column name="GRID_MAP_PATH" type="CLOB" remarks="地图上网格的路径" />
@@ -105,6 +104,65 @@
             <column name="RETER_PERCENT" type="NUMBER(2)" remarks="产权比例" />
             <column name="RETER_REMARK" type="NVARCHAR(1000)" remarks="备注" />
         </createTable>
+        <createTable tableName="TGRID_PERSON_INFO" remarks="人口表:居住人口与外籍人员">
+            <column name="PERSON_ID" type="NVARCHAR(50)" remarks="主键">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="PERSON_GRID_ID" type="NVARCHAR(50)" remarks="所属网格Id" />
+            <column name="PERSON_HOUSE_ID" type="NVARCHAR(50)" remarks="房屋ID" />
+            <column name="PERSON_HOUSE_CODE" type="NVARCHAR(50)" remarks="房屋编号" />
+            <column name="PERSON_CATEGORY" type="NVARCHAR(50)" remarks="人口类别:中国居民,外国人" />
+            <column name="PERSON_FORE_EN_NAME" type="NVARCHAR(50)" remarks="外国人-外文姓名" />
+            <column name="PERSON_FORE_NATIONALITY" type="NVARCHAR(50)" remarks="外国人-国籍" />
+            <column name="PERSON_FORE_CERTIFICATE_TYPE" type="NVARCHAR(50)" remarks="证件类型" />
+            <column name="PERSON_FORE_CERTIFICATE_NUM" type="NVARCHAR(50)" remarks="证件号码" />
+            <column name="PERSON_NAME" type="NVARCHAR(50)" remarks="姓名:外国人时存其中文姓名" />
+            <column name="PERSON_BIRTHDAY" type="DATETIME(6)" remarks="出生日期" />
+            <column name="PERSON_NATION" type="NVARCHAR(20)" remarks="民族" />
+            <column name="PERSON_STATURE" type="NUMBER(2)" remarks="身高" />
+            <column name="PERSON_PHONE" type="NVARCHAR(40)" remarks="联系电话" />
+            <column name="PERSON_ID_CARD" type="NVARCHAR(40)" remarks="公民身份号码" />
+            <column name="PERSON_SEX" type="NVARCHAR(20)" remarks="性别:1 男,2 女" />
+            <column name="PERSON_PHONE_ID" type="NVARCHAR(50)" remarks="照片ID" />
+            <column name="PERSON_HR_PROVINCE" type="NVARCHAR(50)" remarks="户籍地址-省（直辖市、自治区）" />
+            <column name="PERSON_HR_CITY" type="NVARCHAR(50)" remarks="户籍地址-市（盟、州）" />
+            <column name="PERSON_HR_COUNTY" type="NVARCHAR(50)" remarks="户籍地址-县（市、区、旗）" />
+            <column name="PERSON_HR_ADDRESS" type="NVARCHAR(200)" remarks="户籍地址-详细地址" />
+            <column name="PERSON_HR_ADDRESS_TYPE" type="NVARCHAR(20)" remarks="户籍地址类型:1 城镇,2 农村" />
+            <column name="PERSON_HOUSEHOLD_NAME" type="NVARCHAR(30)" remarks="在惠户主-姓名" />
+            <column name="PERSON_HOUSEHOLD_ID_CARD" type="NVARCHAR(50)" remarks="在惠户主-身份证号码" />
+            <column name="PERSON_HOUSEHOLD_RELATION" type="NVARCHAR(50)" remarks="在惠户主-与户主关系:1 家庭户户主,3 配偶,4 子,5 女,6 父,7 母,8 其他亲属,9 非亲属" />
+            <column name="PERSON_MARITAL" type="NVARCHAR(20)" remarks="婚姻状况:1 未婚,2 已婚,3 丧偶,4 离婚,9 未说明" />
+            <column name="PERSON_EDUCATION" type="NVARCHAR(40)" remarks="文化程度:0 博士,1 研究生,2 本科,3 大专,4 中专,5 高中,6 初中,7 初中以下,8 义务教育在读,9 学龄前" />
+            <column name="PERSON_RESIDENCE_CATEGORY" type="NVARCHAR(40)" remarks="住所类别:1 旅店,2 居民家中,3 单位内部,4 工地现场,5 租赁房屋,6 自购房,9 其它" />
+            <column name="PERSON_LIVE_FOR" type="NVARCHAR(40)" remarks="居住事由:1 务工,2 务农,3 经商,4 服务,5 因公出差,6 借读培训,7 治病疗养,8 保 姆,9 投靠亲友,10 探亲访友,11 旅游观光,12 其他" />
+            <column name="PERSON_EDUCATION_IN_CITY" type="NVARCHAR(40)" remarks="在本市受教育情况:义务教育在读,学龄前" />
+            <column name="PERSON_INDUSTRY" type="NVARCHAR(40)" remarks="行业:1 工业,4 交通运输业,7 其它,2 商业,5 农林牧渔业,8 无业,3 服务业,6 建筑业,9 非劳动年龄" />
+            <column name="PERSON_TITLE" type="NVARCHAR(40)" remarks="职称:1 正高级职称,4 初级职称,2 副高级职称,5 技术员,3 中级职称,6 无职称" />
+            <column name="PERSON_POLITICAL" type="NVARCHAR(40)" remarks="政治面貌:1 群众,2 中共党员,3 中共预备党员,4 共青团员,5 民主党派,6 不详" />
+            <column name="PERSON_WAY_OF_LIVING" type="NVARCHAR(40)" remarks="居住方式:1 单身居住,2 家庭居住,3 合伙居住,4 集体居住,9 其他" />
+            <column name="PERSON_WORK_UNIT" type="NVARCHAR(200)" remarks="服务单位" />
+            <column name="PERSON_WORK_PHONE" type="NVARCHAR(40)" remarks="服务单位-联系电话" />
+            <column name="PERSON_WORK_ADDRESS" type="NVARCHAR(200)" remarks="服务单位-地址" />
+            <column name="PERSON_INFO_RP" type="NVARCHAR(40)" remarks="是否告知办理居住证:是,否" />
+            <column name="PERSON_INFO_RP_DATE" type="DATETIME(6)" remarks="告知办理时间" />
+            <column name="PERSON_INFO_RA" type="NVARCHAR(40)" remarks="是否告知居住地址改写:是,否" />
+            <column name="PERSON_INFO_RA_DATE" type="DATETIME(6)" remarks="告知改写时间" />
+            <column name="PERSON_IN_CITY_DATE" type="DATETIME(6)" remarks="来惠日期" />
+            <column name="PERSON_IN_DATE" type="DATETIME(6)" remarks="入住日期" />
+            <column name="PERSON_LEAVE_DATE" type="DATETIME(6)" remarks="离开日期" />
+            <column name="PERSON_FP_CHILD_C" type="NVARCHAR(40)" remarks="计生情况-生育动态:一孩,二孩,多孩" />
+            <column name="PERSON_FP_CONTRACEPTION" type="NVARCHAR(40)" remarks="计生情况-避孕动态:药具,上环,结扎" />
+            <column name="PERSON_FP_CERTIFICATE" type="NVARCHAR(40)" remarks="计生情况-持证情况:服务证,婚育证,无证" />
+            <column name="PERSON_FP_PREGNANCY" type="NVARCHAR(40)" remarks="计生情况-是否怀孕:是,否" />
+            <column name="PERSON_FP_PREGNANCY_DATE" type="DATETIME(6)" remarks="计生情况-预产期" />
+            <column name="PERSON_REMARK" type="NVARCHAR(1000)" remarks="备注" />
+            <column name="PERSON_INPUT_UNIT_NAME" type="NVARCHAR(20)" remarks="填报单位" />
+            <column name="PERSON_INPUT_UNIT_ID" type="NVARCHAR(20)" remarks="填报单位" />
+            <column name="PERSON_INPUT_DATE" type="DATETIME(6)" remarks="登记时间" />
+            <column name="PERSON_INPUT_USER_NAME" type="NVARCHAR(20)" remarks="登记人" />
+            <column name="PERSON_INPUT_USER_ID" type="NVARCHAR(20)" remarks="登记人ID" />
+        </createTable>
         <createTable tableName="TGRID_ENTERPRISE_INFO" remarks="企业法人信息表">
             <column name="ENT_ID" type="NVARCHAR(50)" remarks="主键">
                 <constraints primaryKey="true" nullable="false"/>
@@ -155,7 +213,6 @@
             <column name="EVENT_ID" type="NVARCHAR(50)" remarks="主键">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
-            <column name="EVENT_CODE" type="NVARCHAR(50)" remarks="事件编号" />
             <column name="EVENT_ACCEPT_DATE" type="DATETIME(6)" remarks="受理时间" />
             <column name="EVENT_ACCEPT_UNIT_NAME" type="NVARCHAR(50)" remarks="受理单位" />
             <column name="EVENT_ACCEPT_UNIT_ID" type="NVARCHAR(50)" remarks="受理人单位ID" />
@@ -222,10 +279,5 @@
             <column name="EVT_PROCESS_OPINION" type="NVARCHAR(2000)" remarks="办理意见" />
             <column name="EVT_PROCESS_REMARK" type="NVARCHAR(2000)" remarks="备注" />
         </createTable>
-    </changeSet>
-    <changeSet author="zhuangrb" id="changeSet-GRID-0002" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
-        <addColumn tableName="TGRID_GRID_INFO">
-            <column name="GRID_PARENT_ID" type="NVARCHAR(50)" remarks="父节点ID"/>
-        </addColumn>
     </changeSet>
 </databaseChangeLog>

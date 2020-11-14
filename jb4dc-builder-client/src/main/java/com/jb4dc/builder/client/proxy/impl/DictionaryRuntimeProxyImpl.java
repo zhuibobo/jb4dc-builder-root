@@ -10,7 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Created with IntelliJ IDEA.
@@ -27,16 +29,28 @@ public class DictionaryRuntimeProxyImpl extends RuntimeProxyBase implements IDic
     @Autowired
     DictionaryRuntimeRemote dictionaryRuntimeRemote;
 
+    //static List<DictionaryEntity> allDD=new ArrayList<>();
+
+    @Override
+    public List<DictionaryEntity> loadAllDD() throws IOException, JBuild4DCGenerallyException {
+        List<DictionaryEntity> allDD = autoGetFromCacheList(this.getClass(), "loadAllDD", () -> {
+            List<DictionaryEntity> temp = dictionaryRuntimeRemote.getAllDictionary().getData();
+            return temp;
+        },DictionaryEntity.class);
+        return allDD;
+        //return dictionaryEntityList;
+    }
+
     @Override
     public List<DictionaryEntity> getDDByGroupId(String groupId) throws JBuild4DCGenerallyException, IOException {
-        List<DictionaryEntity> dictionaryEntityList;
-        dictionaryEntityList = autoGetFromCacheList(this.getClass(), "getDDByGroupId_"+groupId, new IBuildGeneralObj<List<DictionaryEntity>>() {
-            @Override
-            public List<DictionaryEntity> BuildObj() throws JBuild4DCGenerallyException {
-                List<DictionaryEntity> temp = dictionaryRuntimeRemote.getDDByGroupId(groupId).getData();
-                return temp;
-            }
+        /*List<DictionaryEntity> dictionaryEntityList;
+        dictionaryEntityList = autoGetFromCacheList(this.getClass(), "getDDByGroupId_"+groupId, () -> {
+            List<DictionaryEntity> temp = dictionaryRuntimeRemote.getDDByGroupId(groupId).getData();
+            return temp;
         },DictionaryEntity.class);
+        return dictionaryEntityList;*/
+        List<DictionaryEntity> allDD = loadAllDD();
+        List<DictionaryEntity> dictionaryEntityList=allDD.stream().filter(item->item.getDictGroupId().equals(groupId)).collect(Collectors.toList());
         return dictionaryEntityList;
     }
 }

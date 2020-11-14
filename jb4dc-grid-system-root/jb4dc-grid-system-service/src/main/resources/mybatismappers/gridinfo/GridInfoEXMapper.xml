@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jb4dc.gridsystem.dao.gridinfo.GridInfoMapper">
+    <select id="selectAll" resultMap="BaseResultMap">select<include refid="Base_Column_List"/> from TGRID_GRID_INFO ORDER by  DESC</select>
+    <select id="selectAllASC" resultMap="BaseResultMap">select<include refid="Base_Column_List"/> from TGRID_GRID_INFO ORDER by  ASC</select>
+    <delete id="deleteAll">delete from TGRID_GRID_INFO</delete>
+    <select id="nextOrderNum" resultType="integer">select case when max() is null then 1 else max()+1 end ORDERNUM from TGRID_GRID_INFO</select>
+    <select id="selectBySearch" parameterType="java.util.Map" resultMap="BaseResultMap">select<include refid="Base_Column_List"/>from TGRID_GRID_INFO<where>
+        <if test="gridCode !=null and gridCode !=''"> and GRID_CODE like #{gridCode} </if>
+        <if test="gridOrganId !=null and gridOrganId !=''"> and GRID_ORGAN_ID like #{gridOrganId} </if>
+        <if test="gridRemark !=null and gridRemark !=''"> and GRID_REMARK like #{gridRemark} </if>
+        <if test="gridContent !=null and gridContent !=''"> and GRID_CONTENT like #{gridContent} </if>
+        <if test="gridMapPath !=null and gridMapPath !=''"> and GRID_MAP_PATH like #{gridMapPath} </if>
+    </where>ORDER by  DESC</select>
+    <select id="selectLessThanRecord" parameterType="java.lang.String" resultMap="BaseResultMap"><![CDATA[select * from TGRID_GRID_INFO
+ where  = (select max() from TGRID_GRID_INFO where <(select  from TGRID_GRID_INFO where GRID_ID=#{Id,jdbcType=NVARCHAR}))]]></select>
+    <select id="selectGreaterThanRecord" parameterType="java.lang.String" resultMap="BaseResultMap"><![CDATA[select * from TGRID_GRID_INFO
+ where  = (select min() from TGRID_GRID_INFO where >(select  from TGRID_GRID_INFO where GRID_ID=#{Id,jdbcType=NVARCHAR}))]]></select>
+
+    <select id="selectByParentId" resultMap="ResultMapWithBLOBs">
+        select * from TGRID_GRID_INFO where GRID_PARENT_ID=#{parentId} and GRID_ID!=#{excludeId}
+    </select>
+</mapper>

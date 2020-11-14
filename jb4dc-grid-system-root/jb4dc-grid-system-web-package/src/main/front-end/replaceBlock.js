@@ -53,6 +53,14 @@ let replaceBlock = {
         //replaceArray.push(refJs(levelPath + "Js/SSOVueEXComponent.js?refVersion=" + refVersion));
         return replaceArray.join("\n\t");
     },
+    replaceTurfLib:function(search, file){
+        let replaceArray = new Array();
+        let levelPath = calculateFilePath(file);
+
+        replaceArray.push(refJs(levelPath + "Js/External/Turf/turf.min.js"));
+
+        return replaceArray.join("\n\t");
+    },
     replaceCodeMirrorLib: function (search, file) {
         let replaceArray = new Array();
         let levelPath = calculateFilePath(file);
@@ -117,6 +125,7 @@ let replaceBlock = {
         replaceArray.push(refCss(levelPath + 'Themes/Default/JQueryUI/jquery-ui.css'));
         replaceArray.push(refCss(levelPath + 'Themes/Default/JQueryUI/jquery-ui-important.css'));
         replaceArray.push(refCss(levelPath + 'Themes/Default/ZTree/zTreeStyle/zTreeStyle.css'));
+        replaceArray.push(refCss(levelPath + 'Themes/Default/Grid/Css/JBuild4DCGridSystem.css'));
         return replaceArray.join("\n\t");
 
         /*replaceArray.push("<script>");

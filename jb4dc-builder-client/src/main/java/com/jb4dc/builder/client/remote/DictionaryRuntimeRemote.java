@@ -19,6 +19,9 @@ import java.util.List;
 @FeignClient(name= "${jb4dc.builder.server.name}",contextId = "DictionaryRuntimeRemote",configuration = { BuilderClientFeignClientConfig.class },path = "${jb4dc.builder.server.context-path}/Rest/Builder/RunTime/DictionaryRuntime")
 public interface DictionaryRuntimeRemote {
 
-    @RequestMapping(value = "/GetDDByGroupId",method = RequestMethod.POST)
+    @RequestMapping(value = "/GetDDByGroupId",method = RequestMethod.GET)
     JBuild4DCResponseVo<List<DictionaryEntity>> getDDByGroupId(@RequestParam("groupId") String groupId);
+
+    @RequestMapping(value = "/GetAllDictionary",method = RequestMethod.GET)
+    JBuild4DCResponseVo<List<DictionaryEntity>> getAllDictionary();
 }
