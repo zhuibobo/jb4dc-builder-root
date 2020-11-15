@@ -24,7 +24,7 @@
                 <table style="width: 100%">
                     <tr>
                         <td style="width: 160px">
-                            <radio-group type="button">
+                            <radio-group type="button" @on-change="changeBuildRange" v-model="buildTree.isShowGridBuild">
                                 <radio label="true">我的建筑</radio>
                                 <radio label="false">网格建筑</radio>
                             </radio-group>
@@ -57,16 +57,16 @@
     var gridManager = new Vue({
         el: "#gridManager",
         mounted: function () {
-            //this.initTree();
+            this.initTree("false");
         },
         data: {
             acInterface: {
-                <!--Tree -->
-                getOrganAndUserData: "/Rest/Grid/SSOProxy/OrganAndUser/GetOrganAndUserData",
-                groupEditView: "/HTML/SSO/Role/RoleGroupEdit.html"
+                <!--Build-->
+                getMyBuild: "/Rest/Grid/Build/BuildMain/GetMyBuild"
             },
-            <!--Tree-->
-            OrganTree:{
+            <!--Build-->
+            buildTree:{
+                isShowGridBuild:"false",
                 treeSetting: {
                     async: {
                         enable: true,
@@ -103,24 +103,34 @@
         },
         methods: {
             <!--Tree12-->
-            initTree: function () {
+            changeBuildRange:function(){
+                this.initTree(this.buildTree.isShowGridBuild);
+            },
+            initTree: function (includeGrid) {
                 var _self=this;
-                AjaxUtility.Post(this.acInterface.getOrganAndUserData, {}, function (result) {
+                AjaxUtility.Get(this.acInterface.getMyBuild, {includeGrid:includeGrid}, function (result) {
                     console.log(result);
                     if(result.success){
-                        var treeData=result.data.ALLOrganMinProp;
+                        var treeData=result.data;
                         if(treeData!=null&&treeData.length>0){
                             for(var i=0;i<treeData.length;i++) {
-                                if(treeData[i].organId!="0") {
-                                    treeData[i].icon = "../../../Themes/Png16X16/icons8-registry-editor-16.png";
+                                var singleBuild=treeData[i];
+                                if(singleBuild.buildCategory=="一般建筑物") {
+                                    singleBuild.icon = "../../../Themes/Png16X16/icons8-registry-editor-16.png";
+                                    singleBuild.displayName=singleBuild.buildAddress+"["+singleBuild.buildCode+"]";
+                                }
+                                else if(singleBuild.buildCategory=="特殊建筑物") {
+                                    singleBuild.icon = "../../../Themes/Png16X16/icons8-registry-editor-16.png";
+                                    singleBuild.displayName=singleBuild.buildSpAddress+"["+singleBuild.buildCode+"]";
                                 }
                             }
+                            var rootNode=JsonUtility.CloneStringify(singleBuild);
+                            rootNode.displayName="建筑物";
+                            rootNode.buildId="0";
+
+                            _self.treeObj=$.fn.zTree.init($("#zTreeUL"), _self.OrganTree.treeSetting,treeData);
+                            _self.treeObj.expandAll(true);
                         }
-                        _self.treeObj=$.fn.zTree.init($("#zTreeUL"), _self.OrganTree.treeSetting,treeData);
-                        _self.treeObj.expandAll(true);
-                    }
-                    else {
-                        DialogUtility.Alert(window, DialogUtility.DialogAlertId, {}, result.message, function () {});
                     }
                 }, this);
             },

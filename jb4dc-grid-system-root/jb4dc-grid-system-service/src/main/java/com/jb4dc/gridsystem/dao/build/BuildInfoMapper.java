@@ -4,6 +4,8 @@ import com.jb4dc.base.dbaccess.dao.BaseMapper;
 import com.jb4dc.gridsystem.dbentities.build.BuildInfoEntity;
 import com.jb4dc.gridsystem.dbentities.gridinfo.GridInfoEntityWithBLOBs;
 
+import java.util.List;
+
 /**
  * Created with IntelliJ IDEA.
  * User: zhuangrb
@@ -11,4 +13,7 @@ import com.jb4dc.gridsystem.dbentities.gridinfo.GridInfoEntityWithBLOBs;
  * To change this template use File | Settings | File Templates.
  */
 public interface BuildInfoMapper extends BaseMapper<BuildInfoEntity> {
+    List<BuildInfoEntity> selectByInputUnitId(String organId);
+
+    List<BuildInfoEntity> selectByInputUserId(String userId);
 }

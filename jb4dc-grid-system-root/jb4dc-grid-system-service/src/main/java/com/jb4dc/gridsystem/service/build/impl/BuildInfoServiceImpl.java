@@ -9,6 +9,8 @@ import com.jb4dc.gridsystem.dbentities.build.BuildInfoEntity;
 import com.jb4dc.gridsystem.service.build.IBuildInfoService;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * Created with IntelliJ IDEA.
  * User: zhuangrb
@@ -33,5 +35,15 @@ public class BuildInfoServiceImpl extends BaseServiceImpl<BuildInfoEntity> imple
                 return sourceEntity;
             }
         });
+    }
+
+    @Override
+    public List<BuildInfoEntity> getMyBuild(JB4DCSession session, String userId, String organId, String includeGrid) {
+        if(includeGrid.toLowerCase().equals("true")){
+            return buildInfoMapper.selectByInputUnitId(organId);
+        }
+        else{
+            return buildInfoMapper.selectByInputUserId(userId);
+        }
     }
 }

@@ -57,4 +57,12 @@
  where BUILD_ORDER_NUM = (select max(BUILD_ORDER_NUM) from TGRID_BUILD_INFO where BUILD_ORDER_NUM<(select BUILD_ORDER_NUM from TGRID_BUILD_INFO where BUILD_ID=#{Id,jdbcType=NVARCHAR}))]]></select>
     <select id="selectGreaterThanRecord" parameterType="java.lang.String" resultMap="BaseResultMap"><![CDATA[select * from TGRID_BUILD_INFO
  where BUILD_ORDER_NUM = (select min(BUILD_ORDER_NUM) from TGRID_BUILD_INFO where BUILD_ORDER_NUM>(select BUILD_ORDER_NUM from TGRID_BUILD_INFO where BUILD_ID=#{Id,jdbcType=NVARCHAR}))]]></select>
+
+    <select id="selectByInputUnitId" resultMap="BaseResultMap">
+        select<include refid="Base_Column_List"/> from TGRID_BUILD_INFO where BUILD_INPUT_UNIT_ID=#{organId} ORDER by BUILD_CODE DESC
+    </select>
+
+    <select id="selectByInputUserId" resultMap="BaseResultMap">
+        select<include refid="Base_Column_List"/> from TGRID_BUILD_INFO where BUILD_INPUT_USER_ID=#{userId} ORDER by BUILD_CODE DESC
+    </select>
 </mapper>
