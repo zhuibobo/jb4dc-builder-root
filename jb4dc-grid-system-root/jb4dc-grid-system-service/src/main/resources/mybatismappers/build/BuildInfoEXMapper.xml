@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jb4dc.gridsystem.dao.build.BuildInfoMapper">
+    <select id="selectAll" resultMap="BaseResultMap">select<include refid="Base_Column_List"/> from TGRID_BUILD_INFO ORDER by BUILD_ORDER_NUM DESC</select>
+    <select id="selectAllASC" resultMap="BaseResultMap">select<include refid="Base_Column_List"/> from TGRID_BUILD_INFO ORDER by BUILD_ORDER_NUM ASC</select>
+    <delete id="deleteAll">delete from TGRID_BUILD_INFO</delete>
+    <select id="nextOrderNum" resultType="integer">select case when max(BUILD_ORDER_NUM) is null then 1 else max(BUILD_ORDER_NUM)+1 end ORDERNUM from TGRID_BUILD_INFO</select>
+    <select id="selectBySearch" parameterType="java.util.Map" resultMap="BaseResultMap">select<include refid="Base_Column_List"/>from TGRID_BUILD_INFO<where>
+        <if test="buildCategory !=null and buildCategory !=''"> and BUILD_CATEGORY like #{buildCategory} </if>
+        <if test="buildFileCode !=null and buildFileCode !=''"> and BUILD_FILE_CODE like #{buildFileCode} </if>
+        <if test="buildCityId !=null and buildCityId !=''"> and BUILD_CITY_ID like #{buildCityId} </if>
+        <if test="buildAreaId !=null and buildAreaId !=''"> and BUILD_AREA_ID like #{buildAreaId} </if>
+        <if test="buildStreetId !=null and buildStreetId !=''"> and BUILD_STREET_ID like #{buildStreetId} </if>
+        <if test="buildCommunityId !=null and buildCommunityId !=''"> and BUILD_COMMUNITY_ID like #{buildCommunityId} </if>
+        <if test="buildGridId !=null and buildGridId !=''"> and BUILD_GRID_ID like #{buildGridId} </if>
+        <if test="buildMapLocation !=null and buildMapLocation !=''"> and BUILD_MAP_LOCATION like #{buildMapLocation} </if>
+        <if test="buildCode !=null and buildCode !=''"> and BUILD_CODE like #{buildCode} </if>
+        <if test="buildType !=null and buildType !=''"> and BUILD_TYPE like #{buildType} </if>
+        <if test="buildStatus !=null and buildStatus !=''"> and BUILD_STATUS like #{buildStatus} </if>
+        <if test="buildAddress !=null and buildAddress !=''"> and BUILD_ADDRESS like #{buildAddress} </if>
+        <if test="buildAddressTitleCer !=null and buildAddressTitleCer !=''"> and BUILD_ADDRESS_TITLE_CER like #{buildAddressTitleCer} </if>
+        <if test="buildName !=null and buildName !=''"> and BUILD_NAME like #{buildName} </if>
+        <if test="buildFunctionCategory !=null and buildFunctionCategory !=''"> and BUILD_FUNCTION_CATEGORY like #{buildFunctionCategory} </if>
+        <if test="buildProperty !=null and buildProperty !=''"> and BUILD_PROPERTY like #{buildProperty} </if>
+        <if test="buildIsEntranceGuard !=null and buildIsEntranceGuard !=''"> and BUILD_IS_ENTRANCE_GUARD like #{buildIsEntranceGuard} </if>
+        <if test="buildIsVideoMonitoring !=null and buildIsVideoMonitoring !=''"> and BUILD_IS_VIDEO_MONITORING like #{buildIsVideoMonitoring} </if>
+        <if test="buildManagement !=null and buildManagement !=''"> and BUILD_MANAGEMENT like #{buildManagement} </if>
+        <if test="buildContact !=null and buildContact !=''"> and BUILD_CONTACT like #{buildContact} </if>
+        <if test="buildContactPhone !=null and buildContactPhone !=''"> and BUILD_CONTACT_PHONE like #{buildContactPhone} </if>
+        <if test="buildStructure !=null and buildStructure !=''"> and BUILD_STRUCTURE like #{buildStructure} </if>
+        <if test="buildDesignFor !=null and buildDesignFor !=''"> and BUILD_DESIGN_FOR like #{buildDesignFor} </if>
+        <if test="buildFloorDes !=null and buildFloorDes !=''"> and BUILD_FLOOR_DES like #{buildFloorDes} </if>
+        <if test="buildIsElevator !=null and buildIsElevator !=''"> and BUILD_IS_ELEVATOR like #{buildIsElevator} </if>
+        <if test="buildCheckIsGrid !=null and buildCheckIsGrid !=''"> and BUILD_CHECK_IS_GRID like #{buildCheckIsGrid} </if>
+        <if test="buildCheckIsCode !=null and buildCheckIsCode !=''"> and BUILD_CHECK_IS_CODE like #{buildCheckIsCode} </if>
+        <if test="buildCheckIsAddress !=null and buildCheckIsAddress !=''"> and BUILD_CHECK_IS_ADDRESS like #{buildCheckIsAddress} </if>
+        <if test="buildCheckIsMap !=null and buildCheckIsMap !=''"> and BUILD_CHECK_IS_MAP like #{buildCheckIsMap} </if>
+        <if test="buildCheckIsGroupCode !=null and buildCheckIsGroupCode !=''"> and BUILD_CHECK_IS_GROUP_CODE like #{buildCheckIsGroupCode} </if>
+        <if test="buildCheckIsFloorNum !=null and buildCheckIsFloorNum !=''"> and BUILD_CHECK_IS_FLOOR_NUM like #{buildCheckIsFloorNum} </if>
+        <if test="buildCheckIsUser !=null and buildCheckIsUser !=''"> and BUILD_CHECK_IS_USER like #{buildCheckIsUser} </if>
+        <if test="buildInputUnitName !=null and buildInputUnitName !=''"> and BUILD_INPUT_UNIT_NAME like #{buildInputUnitName} </if>
+        <if test="buildInputUnitId !=null and buildInputUnitId !=''"> and BUILD_INPUT_UNIT_ID like #{buildInputUnitId} </if>
+        <if test="buildInputUserName !=null and buildInputUserName !=''"> and BUILD_INPUT_USER_NAME like #{buildInputUserName} </if>
+        <if test="buildInputUserId !=null and buildInputUserId !=''"> and BUILD_INPUT_USER_ID like #{buildInputUserId} </if>
+        <if test="buildRemark !=null and buildRemark !=''"> and BUILD_REMARK like #{buildRemark} </if>
+        <if test="buildSpAddress !=null and buildSpAddress !=''"> and BUILD_SP_ADDRESS like #{buildSpAddress} </if>
+        <if test="buildSpOwnerName !=null and buildSpOwnerName !=''"> and BUILD_SP_OWNER_NAME like #{buildSpOwnerName} </if>
+        <if test="buildSpOwnerAddress !=null and buildSpOwnerAddress !=''"> and BUILD_SP_OWNER_ADDRESS like #{buildSpOwnerAddress} </if>
+        <if test="buildSpOwnerPhone !=null and buildSpOwnerPhone !=''"> and BUILD_SP_OWNER_PHONE like #{buildSpOwnerPhone} </if>
+        <if test="buildSpType !=null and buildSpType !=''"> and BUILD_SP_TYPE like #{buildSpType} </if>
+        <if test="buildIsVirtual !=null and buildIsVirtual !=''"> and BUILD_IS_VIRTUAL like #{buildIsVirtual} </if>
+        <if test="buildParentId !=null and buildParentId !=''"> and BUILD_PARENT_ID like #{buildParentId} </if>
+        <if test="buildParentIdList !=null and buildParentIdList !=''"> and BUILD_PARENT_ID_LIST like #{buildParentIdList} </if>
+        <if test="buildRecordStatus !=null and buildRecordStatus !=''"> and BUILD_RECORD_STATUS like #{buildRecordStatus} </if>
+    </where>ORDER by BUILD_ORDER_NUM DESC</select>
+    <select id="selectLessThanRecord" parameterType="java.lang.String" resultMap="BaseResultMap"><![CDATA[select * from TGRID_BUILD_INFO
+ where BUILD_ORDER_NUM = (select max(BUILD_ORDER_NUM) from TGRID_BUILD_INFO where BUILD_ORDER_NUM<(select BUILD_ORDER_NUM from TGRID_BUILD_INFO where BUILD_ID=#{Id,jdbcType=NVARCHAR}))]]></select>
+    <select id="selectGreaterThanRecord" parameterType="java.lang.String" resultMap="BaseResultMap"><![CDATA[select * from TGRID_BUILD_INFO
+ where BUILD_ORDER_NUM = (select min(BUILD_ORDER_NUM) from TGRID_BUILD_INFO where BUILD_ORDER_NUM>(select BUILD_ORDER_NUM from TGRID_BUILD_INFO where BUILD_ID=#{Id,jdbcType=NVARCHAR}))]]></select>
+</mapper>

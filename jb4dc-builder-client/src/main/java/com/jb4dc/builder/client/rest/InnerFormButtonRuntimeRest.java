@@ -47,6 +47,7 @@ public class InnerFormButtonRuntimeRest {
         FormRecordComplexPO formRecordComplexPO = JsonUtility.toObjectIgnoreProp(formRecordComplexPOString,FormRecordComplexPO.class);
 
         FormResourceEntityWithBLOBs formResourceEntityWithBLOBs=null;
+        //如果是独立运行窗体,需要尝试从表单内部获取按钮设置
         if(formRecordComplexPO.getFormRuntimeCategory().toLowerCase().equals(FormResourceComplexPO.FORM_RUNTIME_CATEGORY_INDEPENDENCE.toLowerCase())) {
             formResourceEntityWithBLOBs = webFormRuntimeProxy.getFormRuntimePageContentById(JB4DCSessionUtility.getSession(), formRecordComplexPO.getFormId());
         }

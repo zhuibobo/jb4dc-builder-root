@@ -25,6 +25,9 @@ let FormRuntimeSinglePageObject={
     getWebFormRTParasWithIndependence:function(){
         //debugger;
         var formId=RuntimeGeneralInstance.TryGetMenuOuterId();
+        if(StringUtility.IsNullOrEmpty(formId)){
+            formId=BaseUtility.GetUrlParaValue("formId")
+        }
         //console.log(formId);
         if(!this._webFormRTParas) {
             this._webFormRTParas = {
@@ -32,11 +35,20 @@ let FormRuntimeSinglePageObject={
                 "ButtonId": this.FORM_RUNTIME_CATEGORY_INDEPENDENCE,
                 "OperationType": this.FORM_RUNTIME_CATEGORY_INDEPENDENCE,
                 "ListFormButtonElemId": this.FORM_RUNTIME_CATEGORY_INDEPENDENCE,
-                "RecordId": this.FORM_RUNTIME_CATEGORY_INDEPENDENCE,
+                "RecordId": "",
                 "WindowWidth": "",
                 "WindowHeight": "",
                 "FormRuntimeCategory":this.FORM_RUNTIME_CATEGORY_INDEPENDENCE
             };
+            if(StringUtility.IsNotNullOrEmpty(BaseUtility.GetUrlParaValue("operationType"))){
+                this._webFormRTParas.OperationType=BaseUtility.GetUrlParaValue("operationType");
+            };
+            if(StringUtility.IsNotNullOrEmpty(BaseUtility.GetUrlParaValue("recordId"))){
+                this._webFormRTParas.RecordId=BaseUtility.GetUrlParaValue("recordId");
+            };
+            if(!this._webFormRTParas.RecordId){
+                this._webFormRTParas.RecordId=StringUtility.Guid();
+            }
         }
         return this._webFormRTParas;
     },

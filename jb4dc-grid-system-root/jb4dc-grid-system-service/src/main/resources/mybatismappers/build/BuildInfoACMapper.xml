@@ -1,0 +1,692 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jb4dc.gridsystem.dao.build.BuildInfoMapper">
+    <resultMap id="BaseResultMap" type="com.jb4dc.gridsystem.dbentities.build.BuildInfoEntity">
+        <constructor>
+            <idArg column="BUILD_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="BUILD_CATEGORY" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="BUILD_FILE_CODE" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="BUILD_CITY_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="BUILD_AREA_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="BUILD_STREET_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="BUILD_COMMUNITY_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="BUILD_GRID_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="BUILD_MAP_LOCATION" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="BUILD_CODE" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="BUILD_TYPE" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="BUILD_STATUS" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="BUILD_COVERED_AREA" javaType="java.lang.Short" jdbcType="DECIMAL" />
+            <arg column="BUILD_FLOOR_GROUND" javaType="java.lang.Short" jdbcType="DECIMAL" />
+            <arg column="BUILD_FLOOR_UNDERGROUND" javaType="java.lang.Short" jdbcType="DECIMAL" />
+            <arg column="BUILD_ADDRESS" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="BUILD_ADDRESS_TITLE_CER" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="BUILD_NAME" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="BUILD_FUNCTION_CATEGORY" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="BUILD_PROPERTY" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="BUILD_IS_ENTRANCE_GUARD" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="BUILD_IS_VIDEO_MONITORING" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="BUILD_MANAGEMENT" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="BUILD_CONTACT" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="BUILD_CONTACT_PHONE" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="BUILD_STRUCTURE" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="BUILD_DESIGN_FOR" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="BUILD_FLOOR_DES" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="BUILD_PARKING_NUM" javaType="java.lang.Integer" jdbcType="INTEGER" />
+            <arg column="BUILD_IS_ELEVATOR" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="BUILD_CHECK_IS_GRID" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="BUILD_CHECK_IS_CODE" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="BUILD_CHECK_IS_ADDRESS" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="BUILD_CHECK_IS_MAP" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="BUILD_CHECK_IS_GROUP_CODE" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="BUILD_CHECK_IS_FLOOR_NUM" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="BUILD_CHECK_IS_USER" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="BUILD_CHECK_IS_DATE" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+            <arg column="BUILD_INPUT_UNIT_NAME" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="BUILD_INPUT_UNIT_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="BUILD_INPUT_DATE" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+            <arg column="BUILD_INPUT_USER_NAME" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="BUILD_INPUT_USER_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="BUILD_REMARK" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="BUILD_SP_ADDRESS" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="BUILD_SP_OWNER_NAME" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="BUILD_SP_OWNER_ADDRESS" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="BUILD_SP_OWNER_PHONE" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="BUILD_SP_TYPE" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="BUILD_CHILD_COUNT" javaType="java.lang.Integer" jdbcType="INTEGER" />
+            <arg column="BUILD_IS_VIRTUAL" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="BUILD_ORDER_NUM" javaType="java.lang.Integer" jdbcType="INTEGER" />
+            <arg column="BUILD_PARENT_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="BUILD_PARENT_ID_LIST" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="BUILD_RECORD_STATUS" javaType="java.lang.String" jdbcType="VARCHAR" />
+        </constructor>
+    </resultMap>
+    <sql id="Base_Column_List">
+    BUILD_ID, BUILD_CATEGORY, BUILD_FILE_CODE, BUILD_CITY_ID, BUILD_AREA_ID, BUILD_STREET_ID,
+    BUILD_COMMUNITY_ID, BUILD_GRID_ID, BUILD_MAP_LOCATION, BUILD_CODE, BUILD_TYPE, BUILD_STATUS,
+    BUILD_COVERED_AREA, BUILD_FLOOR_GROUND, BUILD_FLOOR_UNDERGROUND, BUILD_ADDRESS, BUILD_ADDRESS_TITLE_CER,
+    BUILD_NAME, BUILD_FUNCTION_CATEGORY, BUILD_PROPERTY, BUILD_IS_ENTRANCE_GUARD, BUILD_IS_VIDEO_MONITORING,
+    BUILD_MANAGEMENT, BUILD_CONTACT, BUILD_CONTACT_PHONE, BUILD_STRUCTURE, BUILD_DESIGN_FOR,
+    BUILD_FLOOR_DES, BUILD_PARKING_NUM, BUILD_IS_ELEVATOR, BUILD_CHECK_IS_GRID, BUILD_CHECK_IS_CODE,
+    BUILD_CHECK_IS_ADDRESS, BUILD_CHECK_IS_MAP, BUILD_CHECK_IS_GROUP_CODE, BUILD_CHECK_IS_FLOOR_NUM,
+    BUILD_CHECK_IS_USER, BUILD_CHECK_IS_DATE, BUILD_INPUT_UNIT_NAME, BUILD_INPUT_UNIT_ID,
+    BUILD_INPUT_DATE, BUILD_INPUT_USER_NAME, BUILD_INPUT_USER_ID, BUILD_REMARK, BUILD_SP_ADDRESS,
+    BUILD_SP_OWNER_NAME, BUILD_SP_OWNER_ADDRESS, BUILD_SP_OWNER_PHONE, BUILD_SP_TYPE,
+    BUILD_CHILD_COUNT, BUILD_IS_VIRTUAL, BUILD_ORDER_NUM, BUILD_PARENT_ID, BUILD_PARENT_ID_LIST,
+    BUILD_RECORD_STATUS
+  </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from TGRID_BUILD_INFO
+        where BUILD_ID = #{buildId,jdbcType=VARCHAR}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from TGRID_BUILD_INFO
+    where BUILD_ID = #{buildId,jdbcType=VARCHAR}
+  </delete>
+    <insert id="insert" parameterType="com.jb4dc.gridsystem.dbentities.build.BuildInfoEntity">
+    insert into TGRID_BUILD_INFO (BUILD_ID, BUILD_CATEGORY, BUILD_FILE_CODE,
+      BUILD_CITY_ID, BUILD_AREA_ID, BUILD_STREET_ID,
+      BUILD_COMMUNITY_ID, BUILD_GRID_ID, BUILD_MAP_LOCATION,
+      BUILD_CODE, BUILD_TYPE, BUILD_STATUS,
+      BUILD_COVERED_AREA, BUILD_FLOOR_GROUND, BUILD_FLOOR_UNDERGROUND,
+      BUILD_ADDRESS, BUILD_ADDRESS_TITLE_CER, BUILD_NAME,
+      BUILD_FUNCTION_CATEGORY, BUILD_PROPERTY, BUILD_IS_ENTRANCE_GUARD,
+      BUILD_IS_VIDEO_MONITORING, BUILD_MANAGEMENT,
+      BUILD_CONTACT, BUILD_CONTACT_PHONE, BUILD_STRUCTURE,
+      BUILD_DESIGN_FOR, BUILD_FLOOR_DES, BUILD_PARKING_NUM,
+      BUILD_IS_ELEVATOR, BUILD_CHECK_IS_GRID, BUILD_CHECK_IS_CODE,
+      BUILD_CHECK_IS_ADDRESS, BUILD_CHECK_IS_MAP, BUILD_CHECK_IS_GROUP_CODE,
+      BUILD_CHECK_IS_FLOOR_NUM, BUILD_CHECK_IS_USER,
+      BUILD_CHECK_IS_DATE, BUILD_INPUT_UNIT_NAME,
+      BUILD_INPUT_UNIT_ID, BUILD_INPUT_DATE, BUILD_INPUT_USER_NAME,
+      BUILD_INPUT_USER_ID, BUILD_REMARK, BUILD_SP_ADDRESS,
+      BUILD_SP_OWNER_NAME, BUILD_SP_OWNER_ADDRESS,
+      BUILD_SP_OWNER_PHONE, BUILD_SP_TYPE, BUILD_CHILD_COUNT,
+      BUILD_IS_VIRTUAL, BUILD_ORDER_NUM, BUILD_PARENT_ID,
+      BUILD_PARENT_ID_LIST, BUILD_RECORD_STATUS)
+    values (#{buildId,jdbcType=VARCHAR}, #{buildCategory,jdbcType=VARCHAR}, #{buildFileCode,jdbcType=VARCHAR},
+      #{buildCityId,jdbcType=VARCHAR}, #{buildAreaId,jdbcType=VARCHAR}, #{buildStreetId,jdbcType=VARCHAR},
+      #{buildCommunityId,jdbcType=VARCHAR}, #{buildGridId,jdbcType=VARCHAR}, #{buildMapLocation,jdbcType=VARCHAR},
+      #{buildCode,jdbcType=VARCHAR}, #{buildType,jdbcType=VARCHAR}, #{buildStatus,jdbcType=VARCHAR},
+      #{buildCoveredArea,jdbcType=DECIMAL}, #{buildFloorGround,jdbcType=DECIMAL}, #{buildFloorUnderground,jdbcType=DECIMAL},
+      #{buildAddress,jdbcType=VARCHAR}, #{buildAddressTitleCer,jdbcType=VARCHAR}, #{buildName,jdbcType=VARCHAR},
+      #{buildFunctionCategory,jdbcType=VARCHAR}, #{buildProperty,jdbcType=VARCHAR}, #{buildIsEntranceGuard,jdbcType=VARCHAR},
+      #{buildIsVideoMonitoring,jdbcType=VARCHAR}, #{buildManagement,jdbcType=VARCHAR},
+      #{buildContact,jdbcType=VARCHAR}, #{buildContactPhone,jdbcType=VARCHAR}, #{buildStructure,jdbcType=VARCHAR},
+      #{buildDesignFor,jdbcType=VARCHAR}, #{buildFloorDes,jdbcType=VARCHAR}, #{buildParkingNum,jdbcType=INTEGER},
+      #{buildIsElevator,jdbcType=VARCHAR}, #{buildCheckIsGrid,jdbcType=VARCHAR}, #{buildCheckIsCode,jdbcType=VARCHAR},
+      #{buildCheckIsAddress,jdbcType=VARCHAR}, #{buildCheckIsMap,jdbcType=VARCHAR}, #{buildCheckIsGroupCode,jdbcType=VARCHAR},
+      #{buildCheckIsFloorNum,jdbcType=VARCHAR}, #{buildCheckIsUser,jdbcType=VARCHAR},
+      #{buildCheckIsDate,jdbcType=TIMESTAMP}, #{buildInputUnitName,jdbcType=VARCHAR},
+      #{buildInputUnitId,jdbcType=VARCHAR}, #{buildInputDate,jdbcType=TIMESTAMP}, #{buildInputUserName,jdbcType=VARCHAR},
+      #{buildInputUserId,jdbcType=VARCHAR}, #{buildRemark,jdbcType=VARCHAR}, #{buildSpAddress,jdbcType=VARCHAR},
+      #{buildSpOwnerName,jdbcType=VARCHAR}, #{buildSpOwnerAddress,jdbcType=VARCHAR},
+      #{buildSpOwnerPhone,jdbcType=VARCHAR}, #{buildSpType,jdbcType=VARCHAR}, #{buildChildCount,jdbcType=INTEGER},
+      #{buildIsVirtual,jdbcType=VARCHAR}, #{buildOrderNum,jdbcType=INTEGER}, #{buildParentId,jdbcType=VARCHAR},
+      #{buildParentIdList,jdbcType=VARCHAR}, #{buildRecordStatus,jdbcType=VARCHAR})
+  </insert>
+    <insert id="insertSelective" parameterType="com.jb4dc.gridsystem.dbentities.build.BuildInfoEntity">
+        insert into TGRID_BUILD_INFO
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="buildId != null">
+                BUILD_ID,
+            </if>
+            <if test="buildCategory != null">
+                BUILD_CATEGORY,
+            </if>
+            <if test="buildFileCode != null">
+                BUILD_FILE_CODE,
+            </if>
+            <if test="buildCityId != null">
+                BUILD_CITY_ID,
+            </if>
+            <if test="buildAreaId != null">
+                BUILD_AREA_ID,
+            </if>
+            <if test="buildStreetId != null">
+                BUILD_STREET_ID,
+            </if>
+            <if test="buildCommunityId != null">
+                BUILD_COMMUNITY_ID,
+            </if>
+            <if test="buildGridId != null">
+                BUILD_GRID_ID,
+            </if>
+            <if test="buildMapLocation != null">
+                BUILD_MAP_LOCATION,
+            </if>
+            <if test="buildCode != null">
+                BUILD_CODE,
+            </if>
+            <if test="buildType != null">
+                BUILD_TYPE,
+            </if>
+            <if test="buildStatus != null">
+                BUILD_STATUS,
+            </if>
+            <if test="buildCoveredArea != null">
+                BUILD_COVERED_AREA,
+            </if>
+            <if test="buildFloorGround != null">
+                BUILD_FLOOR_GROUND,
+            </if>
+            <if test="buildFloorUnderground != null">
+                BUILD_FLOOR_UNDERGROUND,
+            </if>
+            <if test="buildAddress != null">
+                BUILD_ADDRESS,
+            </if>
+            <if test="buildAddressTitleCer != null">
+                BUILD_ADDRESS_TITLE_CER,
+            </if>
+            <if test="buildName != null">
+                BUILD_NAME,
+            </if>
+            <if test="buildFunctionCategory != null">
+                BUILD_FUNCTION_CATEGORY,
+            </if>
+            <if test="buildProperty != null">
+                BUILD_PROPERTY,
+            </if>
+            <if test="buildIsEntranceGuard != null">
+                BUILD_IS_ENTRANCE_GUARD,
+            </if>
+            <if test="buildIsVideoMonitoring != null">
+                BUILD_IS_VIDEO_MONITORING,
+            </if>
+            <if test="buildManagement != null">
+                BUILD_MANAGEMENT,
+            </if>
+            <if test="buildContact != null">
+                BUILD_CONTACT,
+            </if>
+            <if test="buildContactPhone != null">
+                BUILD_CONTACT_PHONE,
+            </if>
+            <if test="buildStructure != null">
+                BUILD_STRUCTURE,
+            </if>
+            <if test="buildDesignFor != null">
+                BUILD_DESIGN_FOR,
+            </if>
+            <if test="buildFloorDes != null">
+                BUILD_FLOOR_DES,
+            </if>
+            <if test="buildParkingNum != null">
+                BUILD_PARKING_NUM,
+            </if>
+            <if test="buildIsElevator != null">
+                BUILD_IS_ELEVATOR,
+            </if>
+            <if test="buildCheckIsGrid != null">
+                BUILD_CHECK_IS_GRID,
+            </if>
+            <if test="buildCheckIsCode != null">
+                BUILD_CHECK_IS_CODE,
+            </if>
+            <if test="buildCheckIsAddress != null">
+                BUILD_CHECK_IS_ADDRESS,
+            </if>
+            <if test="buildCheckIsMap != null">
+                BUILD_CHECK_IS_MAP,
+            </if>
+            <if test="buildCheckIsGroupCode != null">
+                BUILD_CHECK_IS_GROUP_CODE,
+            </if>
+            <if test="buildCheckIsFloorNum != null">
+                BUILD_CHECK_IS_FLOOR_NUM,
+            </if>
+            <if test="buildCheckIsUser != null">
+                BUILD_CHECK_IS_USER,
+            </if>
+            <if test="buildCheckIsDate != null">
+                BUILD_CHECK_IS_DATE,
+            </if>
+            <if test="buildInputUnitName != null">
+                BUILD_INPUT_UNIT_NAME,
+            </if>
+            <if test="buildInputUnitId != null">
+                BUILD_INPUT_UNIT_ID,
+            </if>
+            <if test="buildInputDate != null">
+                BUILD_INPUT_DATE,
+            </if>
+            <if test="buildInputUserName != null">
+                BUILD_INPUT_USER_NAME,
+            </if>
+            <if test="buildInputUserId != null">
+                BUILD_INPUT_USER_ID,
+            </if>
+            <if test="buildRemark != null">
+                BUILD_REMARK,
+            </if>
+            <if test="buildSpAddress != null">
+                BUILD_SP_ADDRESS,
+            </if>
+            <if test="buildSpOwnerName != null">
+                BUILD_SP_OWNER_NAME,
+            </if>
+            <if test="buildSpOwnerAddress != null">
+                BUILD_SP_OWNER_ADDRESS,
+            </if>
+            <if test="buildSpOwnerPhone != null">
+                BUILD_SP_OWNER_PHONE,
+            </if>
+            <if test="buildSpType != null">
+                BUILD_SP_TYPE,
+            </if>
+            <if test="buildChildCount != null">
+                BUILD_CHILD_COUNT,
+            </if>
+            <if test="buildIsVirtual != null">
+                BUILD_IS_VIRTUAL,
+            </if>
+            <if test="buildOrderNum != null">
+                BUILD_ORDER_NUM,
+            </if>
+            <if test="buildParentId != null">
+                BUILD_PARENT_ID,
+            </if>
+            <if test="buildParentIdList != null">
+                BUILD_PARENT_ID_LIST,
+            </if>
+            <if test="buildRecordStatus != null">
+                BUILD_RECORD_STATUS,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="buildId != null">
+                #{buildId,jdbcType=VARCHAR},
+            </if>
+            <if test="buildCategory != null">
+                #{buildCategory,jdbcType=VARCHAR},
+            </if>
+            <if test="buildFileCode != null">
+                #{buildFileCode,jdbcType=VARCHAR},
+            </if>
+            <if test="buildCityId != null">
+                #{buildCityId,jdbcType=VARCHAR},
+            </if>
+            <if test="buildAreaId != null">
+                #{buildAreaId,jdbcType=VARCHAR},
+            </if>
+            <if test="buildStreetId != null">
+                #{buildStreetId,jdbcType=VARCHAR},
+            </if>
+            <if test="buildCommunityId != null">
+                #{buildCommunityId,jdbcType=VARCHAR},
+            </if>
+            <if test="buildGridId != null">
+                #{buildGridId,jdbcType=VARCHAR},
+            </if>
+            <if test="buildMapLocation != null">
+                #{buildMapLocation,jdbcType=VARCHAR},
+            </if>
+            <if test="buildCode != null">
+                #{buildCode,jdbcType=VARCHAR},
+            </if>
+            <if test="buildType != null">
+                #{buildType,jdbcType=VARCHAR},
+            </if>
+            <if test="buildStatus != null">
+                #{buildStatus,jdbcType=VARCHAR},
+            </if>
+            <if test="buildCoveredArea != null">
+                #{buildCoveredArea,jdbcType=DECIMAL},
+            </if>
+            <if test="buildFloorGround != null">
+                #{buildFloorGround,jdbcType=DECIMAL},
+            </if>
+            <if test="buildFloorUnderground != null">
+                #{buildFloorUnderground,jdbcType=DECIMAL},
+            </if>
+            <if test="buildAddress != null">
+                #{buildAddress,jdbcType=VARCHAR},
+            </if>
+            <if test="buildAddressTitleCer != null">
+                #{buildAddressTitleCer,jdbcType=VARCHAR},
+            </if>
+            <if test="buildName != null">
+                #{buildName,jdbcType=VARCHAR},
+            </if>
+            <if test="buildFunctionCategory != null">
+                #{buildFunctionCategory,jdbcType=VARCHAR},
+            </if>
+            <if test="buildProperty != null">
+                #{buildProperty,jdbcType=VARCHAR},
+            </if>
+            <if test="buildIsEntranceGuard != null">
+                #{buildIsEntranceGuard,jdbcType=VARCHAR},
+            </if>
+            <if test="buildIsVideoMonitoring != null">
+                #{buildIsVideoMonitoring,jdbcType=VARCHAR},
+            </if>
+            <if test="buildManagement != null">
+                #{buildManagement,jdbcType=VARCHAR},
+            </if>
+            <if test="buildContact != null">
+                #{buildContact,jdbcType=VARCHAR},
+            </if>
+            <if test="buildContactPhone != null">
+                #{buildContactPhone,jdbcType=VARCHAR},
+            </if>
+            <if test="buildStructure != null">
+                #{buildStructure,jdbcType=VARCHAR},
+            </if>
+            <if test="buildDesignFor != null">
+                #{buildDesignFor,jdbcType=VARCHAR},
+            </if>
+            <if test="buildFloorDes != null">
+                #{buildFloorDes,jdbcType=VARCHAR},
+            </if>
+            <if test="buildParkingNum != null">
+                #{buildParkingNum,jdbcType=INTEGER},
+            </if>
+            <if test="buildIsElevator != null">
+                #{buildIsElevator,jdbcType=VARCHAR},
+            </if>
+            <if test="buildCheckIsGrid != null">
+                #{buildCheckIsGrid,jdbcType=VARCHAR},
+            </if>
+            <if test="buildCheckIsCode != null">
+                #{buildCheckIsCode,jdbcType=VARCHAR},
+            </if>
+            <if test="buildCheckIsAddress != null">
+                #{buildCheckIsAddress,jdbcType=VARCHAR},
+            </if>
+            <if test="buildCheckIsMap != null">
+                #{buildCheckIsMap,jdbcType=VARCHAR},
+            </if>
+            <if test="buildCheckIsGroupCode != null">
+                #{buildCheckIsGroupCode,jdbcType=VARCHAR},
+            </if>
+            <if test="buildCheckIsFloorNum != null">
+                #{buildCheckIsFloorNum,jdbcType=VARCHAR},
+            </if>
+            <if test="buildCheckIsUser != null">
+                #{buildCheckIsUser,jdbcType=VARCHAR},
+            </if>
+            <if test="buildCheckIsDate != null">
+                #{buildCheckIsDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="buildInputUnitName != null">
+                #{buildInputUnitName,jdbcType=VARCHAR},
+            </if>
+            <if test="buildInputUnitId != null">
+                #{buildInputUnitId,jdbcType=VARCHAR},
+            </if>
+            <if test="buildInputDate != null">
+                #{buildInputDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="buildInputUserName != null">
+                #{buildInputUserName,jdbcType=VARCHAR},
+            </if>
+            <if test="buildInputUserId != null">
+                #{buildInputUserId,jdbcType=VARCHAR},
+            </if>
+            <if test="buildRemark != null">
+                #{buildRemark,jdbcType=VARCHAR},
+            </if>
+            <if test="buildSpAddress != null">
+                #{buildSpAddress,jdbcType=VARCHAR},
+            </if>
+            <if test="buildSpOwnerName != null">
+                #{buildSpOwnerName,jdbcType=VARCHAR},
+            </if>
+            <if test="buildSpOwnerAddress != null">
+                #{buildSpOwnerAddress,jdbcType=VARCHAR},
+            </if>
+            <if test="buildSpOwnerPhone != null">
+                #{buildSpOwnerPhone,jdbcType=VARCHAR},
+            </if>
+            <if test="buildSpType != null">
+                #{buildSpType,jdbcType=VARCHAR},
+            </if>
+            <if test="buildChildCount != null">
+                #{buildChildCount,jdbcType=INTEGER},
+            </if>
+            <if test="buildIsVirtual != null">
+                #{buildIsVirtual,jdbcType=VARCHAR},
+            </if>
+            <if test="buildOrderNum != null">
+                #{buildOrderNum,jdbcType=INTEGER},
+            </if>
+            <if test="buildParentId != null">
+                #{buildParentId,jdbcType=VARCHAR},
+            </if>
+            <if test="buildParentIdList != null">
+                #{buildParentIdList,jdbcType=VARCHAR},
+            </if>
+            <if test="buildRecordStatus != null">
+                #{buildRecordStatus,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.jb4dc.gridsystem.dbentities.build.BuildInfoEntity">
+        update TGRID_BUILD_INFO
+        <set>
+            <if test="buildCategory != null">
+                BUILD_CATEGORY = #{buildCategory,jdbcType=VARCHAR},
+            </if>
+            <if test="buildFileCode != null">
+                BUILD_FILE_CODE = #{buildFileCode,jdbcType=VARCHAR},
+            </if>
+            <if test="buildCityId != null">
+                BUILD_CITY_ID = #{buildCityId,jdbcType=VARCHAR},
+            </if>
+            <if test="buildAreaId != null">
+                BUILD_AREA_ID = #{buildAreaId,jdbcType=VARCHAR},
+            </if>
+            <if test="buildStreetId != null">
+                BUILD_STREET_ID = #{buildStreetId,jdbcType=VARCHAR},
+            </if>
+            <if test="buildCommunityId != null">
+                BUILD_COMMUNITY_ID = #{buildCommunityId,jdbcType=VARCHAR},
+            </if>
+            <if test="buildGridId != null">
+                BUILD_GRID_ID = #{buildGridId,jdbcType=VARCHAR},
+            </if>
+            <if test="buildMapLocation != null">
+                BUILD_MAP_LOCATION = #{buildMapLocation,jdbcType=VARCHAR},
+            </if>
+            <if test="buildCode != null">
+                BUILD_CODE = #{buildCode,jdbcType=VARCHAR},
+            </if>
+            <if test="buildType != null">
+                BUILD_TYPE = #{buildType,jdbcType=VARCHAR},
+            </if>
+            <if test="buildStatus != null">
+                BUILD_STATUS = #{buildStatus,jdbcType=VARCHAR},
+            </if>
+            <if test="buildCoveredArea != null">
+                BUILD_COVERED_AREA = #{buildCoveredArea,jdbcType=DECIMAL},
+            </if>
+            <if test="buildFloorGround != null">
+                BUILD_FLOOR_GROUND = #{buildFloorGround,jdbcType=DECIMAL},
+            </if>
+            <if test="buildFloorUnderground != null">
+                BUILD_FLOOR_UNDERGROUND = #{buildFloorUnderground,jdbcType=DECIMAL},
+            </if>
+            <if test="buildAddress != null">
+                BUILD_ADDRESS = #{buildAddress,jdbcType=VARCHAR},
+            </if>
+            <if test="buildAddressTitleCer != null">
+                BUILD_ADDRESS_TITLE_CER = #{buildAddressTitleCer,jdbcType=VARCHAR},
+            </if>
+            <if test="buildName != null">
+                BUILD_NAME = #{buildName,jdbcType=VARCHAR},
+            </if>
+            <if test="buildFunctionCategory != null">
+                BUILD_FUNCTION_CATEGORY = #{buildFunctionCategory,jdbcType=VARCHAR},
+            </if>
+            <if test="buildProperty != null">
+                BUILD_PROPERTY = #{buildProperty,jdbcType=VARCHAR},
+            </if>
+            <if test="buildIsEntranceGuard != null">
+                BUILD_IS_ENTRANCE_GUARD = #{buildIsEntranceGuard,jdbcType=VARCHAR},
+            </if>
+            <if test="buildIsVideoMonitoring != null">
+                BUILD_IS_VIDEO_MONITORING = #{buildIsVideoMonitoring,jdbcType=VARCHAR},
+            </if>
+            <if test="buildManagement != null">
+                BUILD_MANAGEMENT = #{buildManagement,jdbcType=VARCHAR},
+            </if>
+            <if test="buildContact != null">
+                BUILD_CONTACT = #{buildContact,jdbcType=VARCHAR},
+            </if>
+            <if test="buildContactPhone != null">
+                BUILD_CONTACT_PHONE = #{buildContactPhone,jdbcType=VARCHAR},
+            </if>
+            <if test="buildStructure != null">
+                BUILD_STRUCTURE = #{buildStructure,jdbcType=VARCHAR},
+            </if>
+            <if test="buildDesignFor != null">
+                BUILD_DESIGN_FOR = #{buildDesignFor,jdbcType=VARCHAR},
+            </if>
+            <if test="buildFloorDes != null">
+                BUILD_FLOOR_DES = #{buildFloorDes,jdbcType=VARCHAR},
+            </if>
+            <if test="buildParkingNum != null">
+                BUILD_PARKING_NUM = #{buildParkingNum,jdbcType=INTEGER},
+            </if>
+            <if test="buildIsElevator != null">
+                BUILD_IS_ELEVATOR = #{buildIsElevator,jdbcType=VARCHAR},
+            </if>
+            <if test="buildCheckIsGrid != null">
+                BUILD_CHECK_IS_GRID = #{buildCheckIsGrid,jdbcType=VARCHAR},
+            </if>
+            <if test="buildCheckIsCode != null">
+                BUILD_CHECK_IS_CODE = #{buildCheckIsCode,jdbcType=VARCHAR},
+            </if>
+            <if test="buildCheckIsAddress != null">
+                BUILD_CHECK_IS_ADDRESS = #{buildCheckIsAddress,jdbcType=VARCHAR},
+            </if>
+            <if test="buildCheckIsMap != null">
+                BUILD_CHECK_IS_MAP = #{buildCheckIsMap,jdbcType=VARCHAR},
+            </if>
+            <if test="buildCheckIsGroupCode != null">
+                BUILD_CHECK_IS_GROUP_CODE = #{buildCheckIsGroupCode,jdbcType=VARCHAR},
+            </if>
+            <if test="buildCheckIsFloorNum != null">
+                BUILD_CHECK_IS_FLOOR_NUM = #{buildCheckIsFloorNum,jdbcType=VARCHAR},
+            </if>
+            <if test="buildCheckIsUser != null">
+                BUILD_CHECK_IS_USER = #{buildCheckIsUser,jdbcType=VARCHAR},
+            </if>
+            <if test="buildCheckIsDate != null">
+                BUILD_CHECK_IS_DATE = #{buildCheckIsDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="buildInputUnitName != null">
+                BUILD_INPUT_UNIT_NAME = #{buildInputUnitName,jdbcType=VARCHAR},
+            </if>
+            <if test="buildInputUnitId != null">
+                BUILD_INPUT_UNIT_ID = #{buildInputUnitId,jdbcType=VARCHAR},
+            </if>
+            <if test="buildInputDate != null">
+                BUILD_INPUT_DATE = #{buildInputDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="buildInputUserName != null">
+                BUILD_INPUT_USER_NAME = #{buildInputUserName,jdbcType=VARCHAR},
+            </if>
+            <if test="buildInputUserId != null">
+                BUILD_INPUT_USER_ID = #{buildInputUserId,jdbcType=VARCHAR},
+            </if>
+            <if test="buildRemark != null">
+                BUILD_REMARK = #{buildRemark,jdbcType=VARCHAR},
+            </if>
+            <if test="buildSpAddress != null">
+                BUILD_SP_ADDRESS = #{buildSpAddress,jdbcType=VARCHAR},
+            </if>
+            <if test="buildSpOwnerName != null">
+                BUILD_SP_OWNER_NAME = #{buildSpOwnerName,jdbcType=VARCHAR},
+            </if>
+            <if test="buildSpOwnerAddress != null">
+                BUILD_SP_OWNER_ADDRESS = #{buildSpOwnerAddress,jdbcType=VARCHAR},
+            </if>
+            <if test="buildSpOwnerPhone != null">
+                BUILD_SP_OWNER_PHONE = #{buildSpOwnerPhone,jdbcType=VARCHAR},
+            </if>
+            <if test="buildSpType != null">
+                BUILD_SP_TYPE = #{buildSpType,jdbcType=VARCHAR},
+            </if>
+            <if test="buildChildCount != null">
+                BUILD_CHILD_COUNT = #{buildChildCount,jdbcType=INTEGER},
+            </if>
+            <if test="buildIsVirtual != null">
+                BUILD_IS_VIRTUAL = #{buildIsVirtual,jdbcType=VARCHAR},
+            </if>
+            <if test="buildOrderNum != null">
+                BUILD_ORDER_NUM = #{buildOrderNum,jdbcType=INTEGER},
+            </if>
+            <if test="buildParentId != null">
+                BUILD_PARENT_ID = #{buildParentId,jdbcType=VARCHAR},
+            </if>
+            <if test="buildParentIdList != null">
+                BUILD_PARENT_ID_LIST = #{buildParentIdList,jdbcType=VARCHAR},
+            </if>
+            <if test="buildRecordStatus != null">
+                BUILD_RECORD_STATUS = #{buildRecordStatus,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where BUILD_ID = #{buildId,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.jb4dc.gridsystem.dbentities.build.BuildInfoEntity">
+    update TGRID_BUILD_INFO
+    set BUILD_CATEGORY = #{buildCategory,jdbcType=VARCHAR},
+      BUILD_FILE_CODE = #{buildFileCode,jdbcType=VARCHAR},
+      BUILD_CITY_ID = #{buildCityId,jdbcType=VARCHAR},
+      BUILD_AREA_ID = #{buildAreaId,jdbcType=VARCHAR},
+      BUILD_STREET_ID = #{buildStreetId,jdbcType=VARCHAR},
+      BUILD_COMMUNITY_ID = #{buildCommunityId,jdbcType=VARCHAR},
+      BUILD_GRID_ID = #{buildGridId,jdbcType=VARCHAR},
+      BUILD_MAP_LOCATION = #{buildMapLocation,jdbcType=VARCHAR},
+      BUILD_CODE = #{buildCode,jdbcType=VARCHAR},
+      BUILD_TYPE = #{buildType,jdbcType=VARCHAR},
+      BUILD_STATUS = #{buildStatus,jdbcType=VARCHAR},
+      BUILD_COVERED_AREA = #{buildCoveredArea,jdbcType=DECIMAL},
+      BUILD_FLOOR_GROUND = #{buildFloorGround,jdbcType=DECIMAL},
+      BUILD_FLOOR_UNDERGROUND = #{buildFloorUnderground,jdbcType=DECIMAL},
+      BUILD_ADDRESS = #{buildAddress,jdbcType=VARCHAR},
+      BUILD_ADDRESS_TITLE_CER = #{buildAddressTitleCer,jdbcType=VARCHAR},
+      BUILD_NAME = #{buildName,jdbcType=VARCHAR},
+      BUILD_FUNCTION_CATEGORY = #{buildFunctionCategory,jdbcType=VARCHAR},
+      BUILD_PROPERTY = #{buildProperty,jdbcType=VARCHAR},
+      BUILD_IS_ENTRANCE_GUARD = #{buildIsEntranceGuard,jdbcType=VARCHAR},
+      BUILD_IS_VIDEO_MONITORING = #{buildIsVideoMonitoring,jdbcType=VARCHAR},
+      BUILD_MANAGEMENT = #{buildManagement,jdbcType=VARCHAR},
+      BUILD_CONTACT = #{buildContact,jdbcType=VARCHAR},
+      BUILD_CONTACT_PHONE = #{buildContactPhone,jdbcType=VARCHAR},
+      BUILD_STRUCTURE = #{buildStructure,jdbcType=VARCHAR},
+      BUILD_DESIGN_FOR = #{buildDesignFor,jdbcType=VARCHAR},
+      BUILD_FLOOR_DES = #{buildFloorDes,jdbcType=VARCHAR},
+      BUILD_PARKING_NUM = #{buildParkingNum,jdbcType=INTEGER},
+      BUILD_IS_ELEVATOR = #{buildIsElevator,jdbcType=VARCHAR},
+      BUILD_CHECK_IS_GRID = #{buildCheckIsGrid,jdbcType=VARCHAR},
+      BUILD_CHECK_IS_CODE = #{buildCheckIsCode,jdbcType=VARCHAR},
+      BUILD_CHECK_IS_ADDRESS = #{buildCheckIsAddress,jdbcType=VARCHAR},
+      BUILD_CHECK_IS_MAP = #{buildCheckIsMap,jdbcType=VARCHAR},
+      BUILD_CHECK_IS_GROUP_CODE = #{buildCheckIsGroupCode,jdbcType=VARCHAR},
+      BUILD_CHECK_IS_FLOOR_NUM = #{buildCheckIsFloorNum,jdbcType=VARCHAR},
+      BUILD_CHECK_IS_USER = #{buildCheckIsUser,jdbcType=VARCHAR},
+      BUILD_CHECK_IS_DATE = #{buildCheckIsDate,jdbcType=TIMESTAMP},
+      BUILD_INPUT_UNIT_NAME = #{buildInputUnitName,jdbcType=VARCHAR},
+      BUILD_INPUT_UNIT_ID = #{buildInputUnitId,jdbcType=VARCHAR},
+      BUILD_INPUT_DATE = #{buildInputDate,jdbcType=TIMESTAMP},
+      BUILD_INPUT_USER_NAME = #{buildInputUserName,jdbcType=VARCHAR},
+      BUILD_INPUT_USER_ID = #{buildInputUserId,jdbcType=VARCHAR},
+      BUILD_REMARK = #{buildRemark,jdbcType=VARCHAR},
+      BUILD_SP_ADDRESS = #{buildSpAddress,jdbcType=VARCHAR},
+      BUILD_SP_OWNER_NAME = #{buildSpOwnerName,jdbcType=VARCHAR},
+      BUILD_SP_OWNER_ADDRESS = #{buildSpOwnerAddress,jdbcType=VARCHAR},
+      BUILD_SP_OWNER_PHONE = #{buildSpOwnerPhone,jdbcType=VARCHAR},
+      BUILD_SP_TYPE = #{buildSpType,jdbcType=VARCHAR},
+      BUILD_CHILD_COUNT = #{buildChildCount,jdbcType=INTEGER},
+      BUILD_IS_VIRTUAL = #{buildIsVirtual,jdbcType=VARCHAR},
+      BUILD_ORDER_NUM = #{buildOrderNum,jdbcType=INTEGER},
+      BUILD_PARENT_ID = #{buildParentId,jdbcType=VARCHAR},
+      BUILD_PARENT_ID_LIST = #{buildParentIdList,jdbcType=VARCHAR},
+      BUILD_RECORD_STATUS = #{buildRecordStatus,jdbcType=VARCHAR}
+    where BUILD_ID = #{buildId,jdbcType=VARCHAR}
+  </update>
+</mapper>

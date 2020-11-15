@@ -150,6 +150,7 @@
                             <radio-group v-model="formResourceEntity.formOperationType">
                                 <radio label="add">始终新增</radio>
                                 <radio label="judge">条件判断</radio>
+                                <radio label="dev">开发自行控制</radio>
                             </radio-group>
                         </form-item>
                         <form-item label="判定API：" class="margin-bottom-12-imp">
@@ -244,7 +245,7 @@
                 formCustDesc:"",
                 //按钮的内部配置:例如窗体按钮的innerbuttonjsonstring属性
                 formInnerButton:"",
-                //操作类型:add 新增,judge 按照条件判断
+                //操作类型:add 新增,judge 按照条件判断,dev 开发自行控制
                 formOperationType:"add",
                 //API判断条件
                 formJudgeApi:"",

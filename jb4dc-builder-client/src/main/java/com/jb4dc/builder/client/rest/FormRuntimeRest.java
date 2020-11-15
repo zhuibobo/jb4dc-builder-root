@@ -50,6 +50,9 @@ public class FormRuntimeRest {
     @RequestMapping("/LoadHTML")
     public JBuild4DCResponseVo<FormResourceComplexPO> loadHTML(String formId, String recordId, String buttonId,String operationType,String formRuntimeCategory) throws JBuild4DCGenerallyException, IOException, JBuild4DCSQLKeyWordException, ParserConfigurationException, XPathExpressionException, SAXException {
 
+        if(StringUtility.isEmpty(formId)){
+            throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_BUILDER_CODE, "FormRuntimeRest.loadHTML:formId不能为空!");
+        }
         String loadTimeDesc="";
         long startTime=System.currentTimeMillis();
         FormResourcePO formResourcePO = webFormRuntimeProxy.getFormRuntimePageContentById(JB4DCSessionUtility.getSession(), formId);

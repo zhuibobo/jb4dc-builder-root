@@ -24,6 +24,15 @@ public class ApiRunPara {
     InnerFormButtonConfig innerFormButtonConfig;
     String recordId;
     JB4DCSession jb4DCSession;
+    String operationTypeName;
+
+    public String getOperationTypeName() {
+        return operationTypeName;
+    }
+
+    public void setOperationTypeName(String operationTypeName) {
+        this.operationTypeName = operationTypeName;
+    }
 
     public JB4DCSession getJb4DCSession() {
         return jb4DCSession;

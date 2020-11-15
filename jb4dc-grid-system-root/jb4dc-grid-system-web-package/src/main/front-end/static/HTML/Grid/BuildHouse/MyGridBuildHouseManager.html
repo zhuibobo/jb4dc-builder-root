@@ -14,17 +14,16 @@
     <div class="left-outer-wrap" style="width: 450px">
         <div class="inner-wrap">
             <div class="tool-bar-wrap">
-                <div alt="新增部门" title="新增部门" class="add" ></div>
-                <div alt="修改部门" title="修改部门" class="edit"></div>
-                <div alt="删除部门" title="删除部门" class="del" ></div>
-                <div alt="浏览部门" title="浏览部门" class="view" ></div>
-                <div alt="上移" title="上移" class="order-up" ></div>
-                <div alt="下移" title="下移" class="order-down last"></div>
+                <div alt="新增建筑物" title="新增建筑物" class="add" @click="addBuild"></div>
+                <div alt="新增特殊建筑物" title="新增特殊建筑物" class="add" @click="addBuild"></div>
+                <div alt="修改楼栋" title="修改楼栋" class="edit"></div>
+                <div alt="删除楼栋" title="删除楼栋" class="del" ></div>
+                <div alt="浏览楼栋" title="浏览楼栋" class="view last" ></div>
             </div>
             <div>
-                <table>
+                <table style="width: 100%">
                     <tr>
-                        <td>
+                        <td style="width: 160px">
                             <radio-group type="button">
                                 <radio label="true">我的建筑</radio>
                                 <radio label="false">网格建筑</radio>
@@ -136,7 +135,25 @@
                 this.reloadData();
                 //appList.reloadTreeTableData();
                 //}
+            },
+            //region 建筑物
+            addBuild:function () {
+                DialogUtility.Frame_OpenIframeWindow(window,DialogUtility.DialogId,BaseUtility.BuildView("/HTML/Builder/Runtime/WebFormIndependenceRuntime.html",{
+                    "formId":"ea18a1c7-7c47-4a94-a057-660f83088205",
+                    "buttonId":"",
+                    "listFormButtonElemId":"",
+                    "recordId":"",
+                    "operationType":"add",
+                    "windowWidth":1224,
+                    "windowHeight":668,
+                    "menuRightUrlPara":""
+                }), {
+                    "width": 1224,
+                    "height": 668,
+                    "title":"建筑物采集"
+                },1,true);
             }
+            //endregion
         }
     });
 </script>

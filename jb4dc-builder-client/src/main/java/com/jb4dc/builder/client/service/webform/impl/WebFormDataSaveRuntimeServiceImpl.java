@@ -102,7 +102,7 @@ public class WebFormDataSaveRuntimeServiceImpl implements IWebFormDataSaveRuntim
             if (innerFormButtonConfig.getApis() != null && innerFormButtonConfig.getApis().size() > 0) {
                 List<InnerFormButtonConfigAPI> beforeApiList = innerFormButtonConfig.getApis().parallelStream().filter(item -> item.getRunTime().equals("之前")).collect(Collectors.toList());
                 for (InnerFormButtonConfigAPI innerFormButtonConfigAPI : beforeApiList) {
-                    ApiRunResult apiRunResult = rubApi(jb4DCSession,recordId,innerFormButtonConfigAPI, formRecordComplexPO, listButtonEntity, innerFormButtonConfigList, innerFormButtonConfig);
+                    ApiRunResult apiRunResult = rubApi(jb4DCSession,recordId,innerFormButtonConfigAPI, formRecordComplexPO, listButtonEntity, innerFormButtonConfigList, innerFormButtonConfig,operationTypeName);
                     logger.debug(BaseUtility.wrapDevLog("保存数据解析-调用前置API："+JsonUtility.toObjectString(innerFormButtonConfigAPI)));
                     if (!apiRunResult.isSuccess()) {
                         throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_BUILDER_CODE, "执行前置API" + innerFormButtonConfigAPI.getValue() + "失败!");
@@ -135,7 +135,7 @@ public class WebFormDataSaveRuntimeServiceImpl implements IWebFormDataSaveRuntim
             if (innerFormButtonConfig.getApis() != null && innerFormButtonConfig.getApis().size() > 0) {
                 List<InnerFormButtonConfigAPI> afterApiList = innerFormButtonConfig.getApis().parallelStream().filter(item -> item.getRunTime().equals("之后")).collect(Collectors.toList());
                 for (InnerFormButtonConfigAPI innerFormButtonConfigAPI : afterApiList) {
-                    ApiRunResult apiRunResult = rubApi(jb4DCSession,recordId,innerFormButtonConfigAPI, formRecordComplexPO, listButtonEntity, innerFormButtonConfigList, innerFormButtonConfig);
+                    ApiRunResult apiRunResult = rubApi(jb4DCSession,recordId,innerFormButtonConfigAPI, formRecordComplexPO, listButtonEntity, innerFormButtonConfigList, innerFormButtonConfig,operationTypeName);
                     logger.debug(BaseUtility.wrapDevLog("保存数据解析-调用后置API："+JsonUtility.toObjectString(innerFormButtonConfigAPI)));
                     if(apiRunResult==null){
                         throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_BUILDER_CODE, "API的返回结果不能为null!API["+innerFormButtonConfigAPI.getValue()+"]");
@@ -304,13 +304,14 @@ public class WebFormDataSaveRuntimeServiceImpl implements IWebFormDataSaveRuntim
         }
     }
 
-    protected ApiRunResult rubApi(JB4DCSession jb4DCSession,String recordId,InnerFormButtonConfigAPI innerFormButtonConfigAPI, FormRecordComplexPO formRecordComplexPO, ListButtonEntity listButtonEntity,List<InnerFormButtonConfig> innerFormButtonConfigList,InnerFormButtonConfig innerFormButtonConfig) throws JBuild4DCGenerallyException {
+    protected ApiRunResult rubApi(JB4DCSession jb4DCSession,String recordId,InnerFormButtonConfigAPI innerFormButtonConfigAPI, FormRecordComplexPO formRecordComplexPO, ListButtonEntity listButtonEntity,List<InnerFormButtonConfig> innerFormButtonConfigList,InnerFormButtonConfig innerFormButtonConfig,String operationTypeName) throws JBuild4DCGenerallyException {
         try {
             ApiItemEntity apiItemEntity = apiRuntimeService.getApiPOByValue(innerFormButtonConfigAPI.getValue());
             if(apiItemEntity==null){
                 throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_BUILDER_CODE, "查找API失败,不存在Value为" + innerFormButtonConfigAPI.getValue() + "的API!");
             }
             ApiRunPara apiRunPara = new ApiRunPara();
+            apiRunPara.setOperationTypeName(operationTypeName);
             apiRunPara.setInnerFormButtonConfigAPI(innerFormButtonConfigAPI);
             apiRunPara.setApiItemEntity(apiItemEntity);
             apiRunPara.setFormRecordComplexPO(formRecordComplexPO);
