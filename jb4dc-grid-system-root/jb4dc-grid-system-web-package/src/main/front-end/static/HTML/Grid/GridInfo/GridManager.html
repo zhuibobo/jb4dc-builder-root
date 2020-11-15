@@ -2,7 +2,7 @@
 <html lang="zh" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Title1</title>
     <th:block th:replace="Fragment/GeneralLib::GeneralLib"></th:block>
     <th:block th:replace="Fragment/GeneralLib::TurfLib"></th:block>
     <th:block th:replace="Fragment/GeneralLib::ThemesLib"></th:block>
@@ -16,8 +16,8 @@
         <div class="inner-wrap">
             <div class="tool-bar-wrap">
             </div>
-            <div style="position: absolute;top: 45px;bottom: 20px;overflow: auto">
-                <ul id="zTreeUL" class="ztree"></ul>
+            <div style="position: absolute;top: 40px;bottom: 20px;overflow: auto;width: 245px">
+                <ul id="zTreeUL" class="ztree" style="width: 100%"></ul>
             </div>
         </div>
     </div>
@@ -28,9 +28,9 @@
                     <div id="baidu_map_grid" style="height: 100%"></div>
                     <div class="map-operation-button-wrap" style="display: none">
                         <div class="map-operation-button"><input id="cb_show_same_level_grid_path" type="checkbox" style="width: 30px;height: 30px;margin: 9px 9px;" title="显示同级网格图形" ></div>
-                        <div class="map-operation-button" @click="addEmptyAreaInMap">添加区域</div>
-                        <div class="map-operation-button" @click="clearCurrentGridEditArea">清空区域</div>
-                        <div class="map-operation-button" @click="saveThisGridPath">保存</div>
+                        <div class="map-operation-button map-operation-button-add" @click="addEmptyAreaInMap" title="添加区域"></div>
+                        <div class="map-operation-button map-operation-button-clear" @click="clearCurrentGridEditArea" title="清空区域"></div>
+                        <div class="map-operation-button map-operation-button-save" @click="saveThisGridPath" title="保存"></div>
                     </div>
                 </div>
             </tab-pane>
