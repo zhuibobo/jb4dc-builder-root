@@ -5,6 +5,7 @@
     <title>Title</title>
     <th:block th:replace="Fragment/GeneralLib::GeneralLib"></th:block>
     <th:block th:replace="Fragment/GeneralLib::ThemesLib"></th:block>
+    <th:block th:replace="Fragment/GeneralLib::ZTreeExtendLib"></th:block>
     <style>
 
     </style>
@@ -21,22 +22,23 @@
                 <div alt="浏览楼栋" title="浏览楼栋" class="view last" ></div>
             </div>
             <div>
-                <table style="width: 100%">
+                <table style="width: 96%;margin-right: auto;margin-left: auto" class="light-gray-table">
                     <tr>
-                        <td style="width: 160px">
+                        <td style="width: 180px">
                             <radio-group type="button" @on-change="changeBuildRange" v-model="buildTree.isShowGridBuild">
-                                <radio label="true">我的建筑</radio>
-                                <radio label="false">网格建筑</radio>
+                                <radio label="false">我的建筑</radio>
+                                <radio label="true">网格建筑</radio>
                             </radio-group>
                         </td>
                         <td>
-                            <i-input search class="input_border_bottom" ref="txt_form_search_text" placeholder="请输入建筑物编号,或者地址" />
+                            <input type="text" id="txtSearchBuildTree" placeholder="请输入建筑物编号,或者地址" style="width: 100%" />
+                            <!--<i-input id="txtSearchBuildTree" search class="input_border_bottom" ref="txt_form_search_text" placeholder="请输入建筑物编号,或者地址" />-->
                         </td>
                     </tr>
                 </table>
             </div>
             <div>
-                <ul id="zTreeUL" class="ztree"></ul>
+                <ul id="zBuildTreeUL" class="ztree"></ul>
             </div>
         </div>
     </div>
@@ -54,6 +56,9 @@
     </div>
 </div>
 <script>
+    function reInitBuildTree(data) {
+        gridManager.initTree(gridManager.buildTree.isShowGridBuild);
+    }
     var gridManager = new Vue({
         el: "#gridManager",
         mounted: function () {
@@ -76,12 +81,12 @@
                     // 必须使用data
                     data: {
                         key: {
-                            name: "organName"
+                            name: "displayName"
                         },
                         simpleData: {
                             enable: true,
-                            idKey: "organId", // id编号命名
-                            pIdKey: "organParentId",  // 父id编号命名
+                            idKey: "buildId", // id编号命名
+                            pIdKey: "buildParentId",  // 父id编号命名
                             rootId: 0
                         }
                     },
@@ -116,20 +121,23 @@
                             for(var i=0;i<treeData.length;i++) {
                                 var singleBuild=treeData[i];
                                 if(singleBuild.buildCategory=="一般建筑物") {
-                                    singleBuild.icon = "../../../Themes/Png16X16/icons8-registry-editor-16.png";
+                                    singleBuild.icon = "../../../Themes/Png16X16/tag_green.png";
                                     singleBuild.displayName=singleBuild.buildAddress+"["+singleBuild.buildCode+"]";
                                 }
                                 else if(singleBuild.buildCategory=="特殊建筑物") {
-                                    singleBuild.icon = "../../../Themes/Png16X16/icons8-registry-editor-16.png";
-                                    singleBuild.displayName=singleBuild.buildSpAddress+"["+singleBuild.buildCode+"]";
+                                    singleBuild.icon = "../../../Themes/Png16X16/tag_red.png";
+                                    singleBuild.displayName=singleBuild.buildAddress+"["+singleBuild.buildCode+"]";
                                 }
                             }
                             var rootNode=JsonUtility.CloneStringify(singleBuild);
                             rootNode.displayName="建筑物";
                             rootNode.buildId="0";
+                            rootNode.icon="../../../Themes/Png16X16/map.png";
+                            treeData.push(rootNode);
 
-                            _self.treeObj=$.fn.zTree.init($("#zTreeUL"), _self.OrganTree.treeSetting,treeData);
-                            _self.treeObj.expandAll(true);
+                            _self.buildTree.treeObj=$.fn.zTree.init($("#zBuildTreeUL"), _self.buildTree.treeSetting,treeData);
+                            _self.buildTree.treeObj.expandAll(true);
+                            fuzzySearch("zBuildTreeUL","#txtSearchBuildTree",null,true);
                         }
                     }
                 }, this);
@@ -156,7 +164,8 @@
                     "operationType":"add",
                     "windowWidth":1224,
                     "windowHeight":668,
-                    "menuRightUrlPara":""
+                    "menuRightUrlPara":"",
+                    "devOperationEndFunc":"reInitBuildTree"
                 }), {
                     "width": 1224,
                     "height": 668,

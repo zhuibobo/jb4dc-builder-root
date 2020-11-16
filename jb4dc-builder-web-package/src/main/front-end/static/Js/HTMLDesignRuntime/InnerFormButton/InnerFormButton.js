@@ -12,16 +12,21 @@ var InnerFormButton= {
             "innerButtonConfig": innerButtonConfig,
             "formRuntimeInstance": formRuntimeInstance,
             "listButtonPO": listButtonPO,
+            "formRuntimeCategory":formRuntimeCategory,
             "_this": this
         }, this.ButtonClickEvent);
-        this._prop.elem = elem;
-        this._prop.innerButtonConfig = innerButtonConfig;
-        this._prop.formRuntimeInstance = formRuntimeInstance;
-        this._prop.listButtonPO = listButtonPO;
-        this._prop.formRuntimeCategory = formRuntimeCategory;
+        return {
+            elem:elem
+        }
     },
-    GetButtonElem: function () {
-        return this._prop.elem;
+    GetProp:function(sender){
+        return {
+            elem: sender.data._this,
+            innerButtonConfig: sender.data.innerButtonConfig,
+            formRuntimeInstance: sender.data.formRuntimeInstance,
+            listButtonPO: sender.data.listButtonPO,
+            formRuntimeCategory: sender.data.formRuntimeCategory
+        }
     },
     ButtonClickEvent: function (sender) {
         DialogUtility.Frame_CloseDialog(window);

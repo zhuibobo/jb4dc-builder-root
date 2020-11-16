@@ -5,26 +5,27 @@ let InnerFormButtonRuntime= {
         console.log(innerButtonConfig);
         //console.log(listButtonPO);
         var InnerFormButton;
+        var buttonElem;
         var formRuntimeCategory=formRuntimeInstance._Prop_Config.FormRuntimeCategory;
 
         if(innerButtonConfig.buttonType=="关闭按钮"){
             InnerFormButton=Object.create(InnerFormCloseButton);
-            InnerFormButton.Instance(innerButtonConfig,formRuntimeInstance,listButtonPO,formRuntimeCategory);
+            buttonElem=InnerFormButton.Instance(innerButtonConfig,formRuntimeInstance,listButtonPO,formRuntimeCategory).elem;
         }
         else if(innerButtonConfig.buttonType=="保存按钮"){
             InnerFormButton=Object.create(InnerFormSaveButton);
-            InnerFormButton.Instance(innerButtonConfig,formRuntimeInstance,listButtonPO,formRuntimeCategory);
+            buttonElem=InnerFormButton.Instance(innerButtonConfig,formRuntimeInstance,listButtonPO,formRuntimeCategory).elem;
         }
         else if(innerButtonConfig.buttonType=="脚本按钮"){
             InnerFormButton=Object.create(InnerFormJsClientButton);
-            InnerFormButton.Instance(innerButtonConfig,formRuntimeInstance,listButtonPO,formRuntimeCategory);
+            buttonElem=InnerFormButton.Instance(innerButtonConfig,formRuntimeInstance,listButtonPO,formRuntimeCategory).elem;
         }
         else{
             var errorText="不支持的按钮类型:InnerFormButtonRuntime.RendererSingleInnerFormButton";
             DialogUtility.AlertText(errorText);
             throw errorText;
         }
-        return InnerFormButton.GetButtonElem();
+        return buttonElem;
         /*var elem = $('<button type="button" class="operation-button operation-button-primary" id="' + innerButtonConfig.id + '"><span>' + innerButtonConfig.caption + '</span></button>');
         elem.bind("click", {
             "innerButtonConfig":innerButtonConfig,

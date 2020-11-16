@@ -10,7 +10,7 @@ var InnerFormSaveButton= {
         var saveAndClose=innerButtonConfig.saveAndClose;
         var validateResult=ValidateRulesRuntime.ValidateSubmitEnable();
 
-
+        _this._prop=InnerFormButton.GetProp(sender);
         if (ValidateRulesRuntime.AlertValidateErrors(validateResult)) {
             var formDataComplexPO = formRuntimeInstance.SerializationFormData();
             var operationType = formRuntimeInstance._Prop_Config.OperationType;
@@ -23,7 +23,9 @@ var InnerFormSaveButton= {
                 operationType,
                 function (result) {
                     if (result.success) {
+                        //debugger;
                         if(this._prop.formRuntimeCategory==FormRuntimeSinglePageObject.FORM_RUNTIME_CATEGORY_LIST) {
+                            console.log(this._prop);
                             var listFormButtonElemId = formRuntimeInstance.GetOpenedListFormButtonId();
                             window.OpenerWindowObj.WLDCT_ListTableContainer.TryReloadForListFormButton(listFormButtonElemId);
                             //console.log(window);
@@ -36,13 +38,32 @@ var InnerFormSaveButton= {
                             }, 500);
                         }
                         else if(this._prop.formRuntimeCategory==FormRuntimeSinglePageObject.FORM_RUNTIME_CATEGORY_INDEPENDENCE){
-                            DialogUtility.CloseDialog(DialogUtility.DialogLoadingId);
-                            DialogUtility.Alert(window, DialogUtility.DialogId02, {}, result.message, function () {
-                                if(saveAndClose){
-                                    DialogUtility.AlertText("关闭窗口,未完成!");
+                            console.log(this._prop);
+                            debugger;
+                            if(this._prop.formRuntimeInstance._FormPO.formOperationType=="dev"){
+                                var devOperationEndFunc=BaseUtility.GetUrlParaValue("devOperationEndFunc");
+                                if(StringUtility.IsNotNullOrEmpty(devOperationEndFunc)){
+                                    window.OpenerWindowObj[devOperationEndFunc](this._prop);
                                 }
-                                window.location.href=window.location.href;
-                            }, this);
+                                if(this._prop.innerButtonConfig.saveAndClose=="true"){
+                                    window.setTimeout(function () {
+                                        DialogUtility.CloseDialog(DialogUtility.DialogLoadingId);
+
+                                        DialogUtility.Alert(window, DialogUtility.DialogId02, {}, result.message, function () {
+                                            DialogUtility.Frame_CloseDialog(window);
+                                        }, this);
+                                    }, 500);
+                                }
+                            }
+                            else {
+                                DialogUtility.CloseDialog(DialogUtility.DialogLoadingId);
+                                DialogUtility.Alert(window, DialogUtility.DialogId02, {}, result.message, function () {
+                                    if (saveAndClose) {
+                                        DialogUtility.AlertText("关闭窗口,未完成!");
+                                    }
+                                    window.location.href = window.location.href;
+                                }, this);
+                            }
                         }
                     }
                 }, _this);
