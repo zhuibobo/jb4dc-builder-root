@@ -145,7 +145,7 @@ let FormRuntime={
                 $singleControlElem: this._$RendererToElem,
                 formRuntimeInstance: this
             });
-
+            //debugger;
             if(this.IsPreview()){
                 this.CallRendererChainCompletedFunc();
             }
@@ -165,6 +165,9 @@ let FormRuntime={
             if(BaseUtility.IsUpdateOperation(this.GetOperationType())||BaseUtility.IsViewOperation(this.GetOperationType())){
                 var formRecordComplexPO=result.data.formRecordComplexPO;
                 this.DeSerializationFormData(formRecordComplexPO);
+            }
+            if(BaseUtility.IsViewOperation(this.GetOperationType())){
+                $("#innerButtonWrapOuter").hide();
             }
             //var relationFormRecordComplexPo=FormRuntimeMock.GetMockData();
             //this.DeSerializationFormData(relationFormRecordComplexPo);
