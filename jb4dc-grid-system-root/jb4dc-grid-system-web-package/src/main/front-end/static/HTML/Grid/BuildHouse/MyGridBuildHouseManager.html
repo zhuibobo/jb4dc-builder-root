@@ -15,11 +15,11 @@
     <div class="left-outer-wrap" style="width: 450px">
         <div class="inner-wrap">
             <div class="tool-bar-wrap">
-                <div alt="新增建筑物" title="新增建筑物" class="add" @click="addBuild"></div>
-                <div alt="新增特殊建筑物" title="新增特殊建筑物" class="add" @click="addBuild"></div>
-                <div alt="修改楼栋" title="修改楼栋" class="edit"></div>
-                <div alt="删除楼栋" title="删除楼栋" class="del" ></div>
-                <div alt="浏览楼栋" title="浏览楼栋" class="view last" ></div>
+                <div alt="新增建筑物" title="新增一般建筑物" class="add" @click="addBuild('一般建筑物')"></div>
+                <div alt="新增特殊建筑物" title="新增特殊建筑物" class="add" @click="addBuild('特殊建筑物')"></div>
+                <div alt="修改楼栋" title="修改楼栋" class="edit" @click="editBuild"></div>
+                <div alt="删除楼栋" title="删除楼栋" class="del" @click="deleteBuild"></div>
+                <div alt="浏览楼栋" title="浏览楼栋" class="view last" @click="viewBuild"></div>
             </div>
             <div>
                 <table style="width: 96%;margin-right: auto;margin-left: auto" class="light-gray-table">
@@ -67,7 +67,11 @@
         data: {
             acInterface: {
                 <!--Build-->
-                getMyBuild: "/Rest/Grid/Build/BuildMain/GetMyBuild"
+                getMyBuild: "/Rest/Grid/Build/BuildMain/GetMyBuild",
+                editBuildView:"/HTML/Builder/Runtime/WebFormIndependenceRuntime.html",
+                editNormalBuildFormId:"ea18a1c7-7c47-4a94-a057-660f83088205",
+                editSpecialBuildFormId:"fd770a12-5412-4a80-8ebf-de5f85d6359f",
+                deleteBuild:"/Rest/Grid/Build/BuildMain/Delete"
             },
             <!--Build-->
             buildTree:{
@@ -144,24 +148,21 @@
             },
             treeNodeSelected: function (event, treeId, treeNode) {
                 // 根节点不触发任何事件
-                //if(treeNode.level != 0) {
-                this.treeSelectedNode = treeNode;
-                this.roleList.selectionRows = null;
-                this.roleList.pageNum = 1;
-                this.clearSearchCondition();
-                this.roleList.searchCondition.roleGroupId.value = this.treeSelectedNode[this.treeIdFieldName];
-                this.reloadData();
-                //appList.reloadTreeTableData();
-                //}
+                this.buildTree.treeSelectedNode = treeNode;
+
             },
             //region 建筑物
-            addBuild:function () {
-                DialogUtility.Frame_OpenIframeWindow(window,DialogUtility.DialogId,BaseUtility.BuildView("/HTML/Builder/Runtime/WebFormIndependenceRuntime.html",{
-                    "formId":"ea18a1c7-7c47-4a94-a057-660f83088205",
+            addBuild:function (buildCategory) {
+                var formId=this.acInterface.editNormalBuildFormId;
+                if(buildCategory=="特殊建筑物"){
+                    formId=this.acInterface.editSpecialBuildFormId;
+                }
+                DialogUtility.Frame_OpenIframeWindow(window,DialogUtility.DialogId,BaseUtility.BuildView(this.acInterface.editBuildView,{
+                    "formId":formId,
                     "buttonId":"",
                     "listFormButtonElemId":"",
                     "recordId":"",
-                    "operationType":"add",
+                    "operationType":BaseUtility.GetAddOperationName(),
                     "windowWidth":1224,
                     "windowHeight":668,
                     "menuRightUrlPara":"",
@@ -169,7 +170,73 @@
                 }), {
                     "width": 1224,
                     "height": 668,
-                    "title":"建筑物采集"
+                    "title":"登记建筑物信息"
+                },1,true);
+            },
+            editBuild:function () {
+                var selectedBuild=this.buildTree.treeSelectedNode;
+                if(selectedBuild==null){
+                    DialogUtility.AlertText("请先选择要编辑的建筑物!")
+                }
+                var formId=this.acInterface.editNormalBuildFormId;
+                if(selectedBuild.buildCategory=="特殊建筑物"){
+                    formId=this.acInterface.editSpecialBuildFormId;
+                }
+                DialogUtility.Frame_OpenIframeWindow(window,DialogUtility.DialogId,BaseUtility.BuildView(this.acInterface.editBuildView,{
+                    "formId":formId,
+                    "buttonId":"",
+                    "listFormButtonElemId":"",
+                    "recordId":selectedBuild.buildId,
+                    "operationType":BaseUtility.GetUpdateOperationName(),
+                    "windowWidth":1224,
+                    "windowHeight":668,
+                    "menuRightUrlPara":"",
+                    "devOperationEndFunc":"reInitBuildTree"
+                }), {
+                    "width": 1224,
+                    "height": 668,
+                    "title":"编辑建筑物信息"
+                },1,true);
+            },
+            deleteBuild:function(){
+                var selectedBuild=this.buildTree.treeSelectedNode;
+                if(selectedBuild==null){
+                    DialogUtility.AlertText("请先选择要编辑的建筑物!")
+                }
+                DialogUtility.Confirm(window,"你确认要删除该建筑物信息吗?",function () {
+                    AjaxUtility.Delete(this.acInterface.deleteBuild, {recordId: selectedBuild.buildId}, function (result) {
+                        if (result.success) {
+                            DialogUtility.Alert(window, DialogUtility.DialogAlertId, {}, result.message, function () {
+                                gridManager.initTree(gridManager.buildTree.isShowGridBuild);
+                                this.buildTree.treeSelectedNode=null;
+                            },this);
+                        }
+                    },this);
+                },this);
+            },
+            viewBuild:function () {
+                var selectedBuild=this.buildTree.treeSelectedNode;
+                if(selectedBuild==null){
+                    DialogUtility.AlertText("请先选择要编辑的建筑物!")
+                }
+                var formId=this.acInterface.editNormalBuildFormId;
+                if(selectedBuild.buildCategory=="特殊建筑物"){
+                    formId=this.acInterface.editSpecialBuildFormId;
+                }
+                DialogUtility.Frame_OpenIframeWindow(window,DialogUtility.DialogId,BaseUtility.BuildView(this.acInterface.editBuildView,{
+                    "formId":formId,
+                    "buttonId":"",
+                    "listFormButtonElemId":"",
+                    "recordId":selectedBuild.buildId,
+                    "operationType":BaseUtility.GetViewOperationName(),
+                    "windowWidth":1224,
+                    "windowHeight":668,
+                    "menuRightUrlPara":"",
+                    "devOperationEndFunc":"reInitBuildTree"
+                }), {
+                    "width": 1224,
+                    "height": 668,
+                    "title":"查看建筑物信息"
                 },1,true);
             }
             //endregion

@@ -1,9 +1,12 @@
 package com.jb4dc.gridsystem.webpackage.rest.grid.build;
 
+import com.jb4dc.base.service.IBaseService;
 import com.jb4dc.base.service.general.JB4DCSessionUtility;
+import com.jb4dc.builder.dbentities.site.SiteFolderEntity;
 import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
 import com.jb4dc.core.base.session.JB4DCSession;
 import com.jb4dc.core.base.vo.JBuild4DCResponseVo;
+import com.jb4dc.feb.dist.webserver.rest.base.GeneralRest;
 import com.jb4dc.gridsystem.dbentities.build.BuildInfoEntity;
 import com.jb4dc.gridsystem.dbentities.gridinfo.GridInfoEntityWithBLOBs;
 import com.jb4dc.gridsystem.service.build.IBuildInfoService;
@@ -22,7 +25,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping(value = "/Rest/Grid/Build/BuildMain")
-public class BuildInfoRest {
+public class BuildInfoRest extends GeneralRest<BuildInfoEntity> {
     @Autowired
     IBuildInfoService buildInfoService;
 
@@ -31,5 +34,15 @@ public class BuildInfoRest {
         JB4DCSession jb4DCSession=JB4DCSessionUtility.getSession();
         List<BuildInfoEntity> buildInfoEntityList=buildInfoService.getMyBuild(JB4DCSessionUtility.getSession(),jb4DCSession.getUserId(),jb4DCSession.getOrganId(),includeGrid);
         return JBuild4DCResponseVo.getDataSuccess(buildInfoEntityList);
+    }
+
+    @Override
+    public String getModuleName() {
+        return "网格化社会管理系统-建筑物管理";
+    }
+
+    @Override
+    protected IBaseService<BuildInfoEntity> getBaseService() {
+        return buildInfoService;
     }
 }
