@@ -171,7 +171,6 @@ let FormRuntime={
             }
             //var relationFormRecordComplexPo=FormRuntimeMock.GetMockData();
             //this.DeSerializationFormData(relationFormRecordComplexPo);
-
         }, this);
     },
     CallRendererChainCompletedFunc:function() {

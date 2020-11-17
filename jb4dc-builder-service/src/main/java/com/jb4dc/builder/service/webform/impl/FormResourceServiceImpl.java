@@ -65,7 +65,7 @@ public class FormResourceServiceImpl extends BaseServiceImpl<FormResourceEntityW
         //record.setFormIsResolve(TrueFalseEnum.False.getDisplayName());
         //保存时进行同步的表单内容的解析,并存入对应的字段中.
         String resolvedHtml= null;
-        try {
+        /*try {
             resolvedHtml = htmlRuntimeResolve.resolveSourceHTML(jb4DCSession,id,record.getFormHtmlSource());
         } catch (ParserConfigurationException e) {
             e.printStackTrace();
@@ -75,7 +75,7 @@ public class FormResourceServiceImpl extends BaseServiceImpl<FormResourceEntityW
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
-        }
+        }*/
         record.setFormHtmlResolve(resolvedHtml);
         record.setFormIsResolve(TrueFalseEnum.True.getDisplayName());
         return super.save(jb4DCSession, id, record, new IAddBefore<FormResourceEntityWithBLOBs>() {

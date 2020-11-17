@@ -1,4 +1,4 @@
-refVersion = 2;
+refVersion = Date.now();
 
 function calculateFilePath(file) {
     console.log(file.path);

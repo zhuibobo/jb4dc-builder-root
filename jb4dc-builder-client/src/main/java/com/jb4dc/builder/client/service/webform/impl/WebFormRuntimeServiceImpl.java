@@ -85,7 +85,8 @@ public class WebFormRuntimeServiceImpl implements IWebFormRuntimeService {
         //dynamicBindHTMLControlContextPO.setMainRecordData(formDataRelationService.findMainRecordData(formDataRelationPOList));
 
         long  startTime=System.currentTimeMillis();
-        String formHtmlRuntime = htmlRuntimeResolve.dynamicBind(JB4DCSessionUtility.getSession(), remoteSourcePO.getFormId(), remoteSourcePO.getFormHtmlResolve(), dynamicBindHTMLControlContextPO);
+        String resolvedHtml = htmlRuntimeResolve.resolveSourceHTML(JB4DCSessionUtility.getSession(), remoteSourcePO.getFormId(),remoteSourcePO.getFormHtmlSource());
+        String formHtmlRuntime = htmlRuntimeResolve.dynamicBind(JB4DCSessionUtility.getSession(), remoteSourcePO.getFormId(), resolvedHtml, dynamicBindHTMLControlContextPO);
         long endTime = System.currentTimeMillis(); //获取结束时间
         loadTimeDesc += "绑定动态表单时间:" + (endTime - startTime) + "ms;";
 

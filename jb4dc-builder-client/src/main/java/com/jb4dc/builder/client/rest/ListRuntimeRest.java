@@ -38,7 +38,8 @@ public class ListRuntimeRest {
     @RequestMapping("/LoadHTML")
     public JBuild4DCResponseVo<ListResourcePO> loadHTML(String listId) throws JBuild4DCGenerallyException, ParserConfigurationException, SAXException, XPathExpressionException, IOException {
         ListResourcePO listResourcePO=listRuntimeProxy.loadHTML(JB4DCSessionUtility.getSession(),listId);
-        String runtimeHTML=htmlRuntimeResolve.dynamicBind(JB4DCSessionUtility.getSession(),listId,listResourcePO.getListHtmlResolve(),null);
+        String resolveHTML=htmlRuntimeResolve.resolveSourceHTML(JB4DCSessionUtility.getSession(),listId,listResourcePO.getListHtmlSource());
+        String runtimeHTML=htmlRuntimeResolve.dynamicBind(JB4DCSessionUtility.getSession(),listId,resolveHTML,null);
         listResourcePO.setListHtmlRuntime(runtimeHTML);
         return JBuild4DCResponseVo.opSuccess(listResourcePO);
     }

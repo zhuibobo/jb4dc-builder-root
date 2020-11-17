@@ -53,7 +53,7 @@ public class ListResourceServiceImpl extends BaseServiceImpl<ListResourceEntityW
         //record.setFormIsResolve(TrueFalseEnum.False.getDisplayName());
         //保存时进行同步的表单内容的解析,并存入对应的字段中.
         String resolvedHtml= null;
-        try {
+        /*try {
             resolvedHtml = htmlRuntimeResolve.resolveSourceHTML(jb4DCSession,id,record.getListHtmlSource());
         } catch (ParserConfigurationException e) {
             e.printStackTrace();
@@ -63,7 +63,7 @@ public class ListResourceServiceImpl extends BaseServiceImpl<ListResourceEntityW
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
-        }
+        }*/
         record.setListHtmlResolve(resolvedHtml);
         record.setListIsResolve(TrueFalseEnum.True.getDisplayName());
 

@@ -43,7 +43,7 @@ public class ListResourcePO extends ListResourceEntityWithBLOBs implements Seria
     public ListResourcePO() {
     }
 
-    public ListResourcePO(ListResourceEntityWithBLOBs source, String listHtmlRuntime, String listJsRuntime) {
+    public ListResourcePO(ListResourceEntityWithBLOBs source, String listHtmlRuntime, String listJsRuntime ) {
 
         this.setListId(source.getListId());
         this.setListCode(source.getListCode());

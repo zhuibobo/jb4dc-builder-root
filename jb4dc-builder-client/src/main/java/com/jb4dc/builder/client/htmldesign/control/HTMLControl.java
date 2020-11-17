@@ -275,14 +275,15 @@ public abstract class HTMLControl implements IHTMLControl {
     public String getClientNewInstanceScript(Element singleControlElem, boolean needInitialize, String initializeParas){
         StringBuilder script=new StringBuilder();
         String clientClassName=singleControlElem.attr("client_resolve");
+        String elemId=singleControlElem.attr("id");
         String clientInstanceName=clientClassName+"_"+UUIDUtility.getUUIDNotSplit();
                 script.append("<script>");
         //script.append("$(function(){");
         script.append("var "+clientInstanceName+"=Object.create("+clientClassName+");");
         if(needInitialize){
-            script.append("clientInstanceName.Initialize("+initializeParas+")");
+            script.append(clientInstanceName+".InitializeAtInstance("+initializeParas+",'"+clientInstanceName+"','"+elemId+"');");
         }
-        script.append("HTMLControl._SaveControlNewInstanceToPool(\""+clientInstanceName+"\","+clientInstanceName+")");
+        script.append("HTMLControl._SaveControlNewInstanceToPool(\""+clientInstanceName+"\","+clientInstanceName+");");
         //script.append("})");
         script.append("</script>");
         singleControlElem.attr("client_instance_name",clientInstanceName);

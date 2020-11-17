@@ -43,7 +43,8 @@ public class FormRuntimeRest {
     public JBuild4DCResponseVo<FormResourcePO> loadHTMLForPreView(String formId) throws JBuild4DCGenerallyException, ParserConfigurationException, SAXException, XPathExpressionException, IOException {
         FormResourcePO formResourcePO=formResourceService.getFormRuntimePageContent(JB4DCSessionUtility.getSession(),formId);
         DynamicBindHTMLControlContextPO dynamicBindHTMLControlContextPO=new DynamicBindHTMLControlContextPO();
-        String runTimeHtml=htmlRuntimeResolve.dynamicBind(JB4DCSessionUtility.getSession(),formId,formResourcePO.getFormHtmlResolve(),dynamicBindHTMLControlContextPO);
+        String resolvedHtml = htmlRuntimeResolve.resolveSourceHTML(JB4DCSessionUtility.getSession(),formId,formResourcePO.getFormHtmlSource());
+        String runTimeHtml=htmlRuntimeResolve.dynamicBind(JB4DCSessionUtility.getSession(),formId,resolvedHtml,dynamicBindHTMLControlContextPO);
         formResourcePO.setFormHtmlRuntime(runTimeHtml);
         return JBuild4DCResponseVo.getDataSuccess(formResourcePO);
     }
