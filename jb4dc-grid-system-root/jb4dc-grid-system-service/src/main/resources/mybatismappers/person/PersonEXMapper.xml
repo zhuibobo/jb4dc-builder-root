@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jb4dc.gridsystem.dao.person.PersonMapper">
+    <select id="selectAll" resultMap="BaseResultMap">select<include refid="Base_Column_List"/> from TGRID_PERSON ORDER by PERSON_ORDER_NUM DESC</select>
+    <select id="selectAllASC" resultMap="BaseResultMap">select<include refid="Base_Column_List"/> from TGRID_PERSON ORDER by PERSON_ORDER_NUM ASC</select>
+    <delete id="deleteAll">delete from TGRID_PERSON</delete>
+    <select id="nextOrderNum" resultType="integer">select case when max(PERSON_ORDER_NUM) is null then 1 else max(PERSON_ORDER_NUM)+1 end ORDERNUM from TGRID_PERSON</select>
+    <select id="selectBySearch" parameterType="java.util.Map" resultMap="BaseResultMap">select<include refid="Base_Column_List"/>from TGRID_PERSON<where>
+        <if test="personFamilyId !=null and personFamilyId !=''"> and PERSON_FAMILY_ID like #{personFamilyId} </if>
+        <if test="personHouseId !=null and personHouseId !=''"> and PERSON_HOUSE_ID like #{personHouseId} </if>
+        <if test="personName !=null and personName !=''"> and PERSON_NAME like #{personName} </if>
+        <if test="personRelationship !=null and personRelationship !=''"> and PERSON_RELATIONSHIP like #{personRelationship} </if>
+        <if test="personIdCard !=null and personIdCard !=''"> and PERSON_ID_CARD like #{personIdCard} </if>
+        <if test="personSex !=null and personSex !=''"> and PERSON_SEX like #{personSex} </if>
+        <if test="personNation !=null and personNation !=''"> and PERSON_NATION like #{personNation} </if>
+        <if test="personHrLocation !=null and personHrLocation !=''"> and PERSON_HR_LOCATION like #{personHrLocation} </if>
+        <if test="personHrLeave !=null and personHrLeave !=''"> and PERSON_HR_LEAVE like #{personHrLeave} </if>
+        <if test="personHrLeaveFor !=null and personHrLeaveFor !=''"> and PERSON_HR_LEAVE_FOR like #{personHrLeaveFor} </if>
+        <if test="personEducation !=null and personEducation !=''"> and PERSON_EDUCATION like #{personEducation} </if>
+        <if test="personSpType !=null and personSpType !=''"> and PERSON_SP_TYPE like #{personSpType} </if>
+        <if test="personPhoneId !=null and personPhoneId !=''"> and PERSON_PHONE_ID like #{personPhoneId} </if>
+        <if test="personPhone !=null and personPhone !=''"> and PERSON_PHONE like #{personPhone} </if>
+        <if test="personInputUnitName !=null and personInputUnitName !=''"> and PERSON_INPUT_UNIT_NAME like #{personInputUnitName} </if>
+        <if test="personInputUnitId !=null and personInputUnitId !=''"> and PERSON_INPUT_UNIT_ID like #{personInputUnitId} </if>
+        <if test="personInputUserName !=null and personInputUserName !=''"> and PERSON_INPUT_USER_NAME like #{personInputUserName} </if>
+        <if test="personInputUserId !=null and personInputUserId !=''"> and PERSON_INPUT_USER_ID like #{personInputUserId} </if>
+        <if test="personCityId !=null and personCityId !=''"> and PERSON_CITY_ID like #{personCityId} </if>
+        <if test="personAreaId !=null and personAreaId !=''"> and PERSON_AREA_ID like #{personAreaId} </if>
+        <if test="personStreetId !=null and personStreetId !=''"> and PERSON_STREET_ID like #{personStreetId} </if>
+        <if test="personCommunityId !=null and personCommunityId !=''"> and PERSON_COMMUNITY_ID like #{personCommunityId} </if>
+        <if test="personGridId !=null and personGridId !=''"> and PERSON_GRID_ID like #{personGridId} </if>
+        <if test="personCategory !=null and personCategory !=''"> and PERSON_CATEGORY like #{personCategory} </if>
+        <if test="personForeEnName !=null and personForeEnName !=''"> and PERSON_FORE_EN_NAME like #{personForeEnName} </if>
+        <if test="personForeNationality !=null and personForeNationality !=''"> and PERSON_FORE_NATIONALITY like #{personForeNationality} </if>
+        <if test="personForeCertificateType !=null and personForeCertificateType !=''"> and PERSON_FORE_CERTIFICATE_TYPE like #{personForeCertificateType} </if>
+        <if test="personForeCertificateNum !=null and personForeCertificateNum !=''"> and PERSON_FORE_CERTIFICATE_NUM like #{personForeCertificateNum} </if>
+        <if test="personRemark !=null and personRemark !=''"> and PERSON_REMARK like #{personRemark} </if>
+    </where>ORDER by PERSON_ORDER_NUM DESC</select>
+    <select id="selectLessThanRecord" parameterType="java.lang.String" resultMap="BaseResultMap"><![CDATA[select * from TGRID_PERSON
+ where PERSON_ORDER_NUM = (select max(PERSON_ORDER_NUM) from TGRID_PERSON where PERSON_ORDER_NUM<(select PERSON_ORDER_NUM from TGRID_PERSON where PERSON_ID=#{Id,jdbcType=NVARCHAR}))]]></select>
+    <select id="selectGreaterThanRecord" parameterType="java.lang.String" resultMap="BaseResultMap"><![CDATA[select * from TGRID_PERSON
+ where PERSON_ORDER_NUM = (select min(PERSON_ORDER_NUM) from TGRID_PERSON where PERSON_ORDER_NUM>(select PERSON_ORDER_NUM from TGRID_PERSON where PERSON_ID=#{Id,jdbcType=NVARCHAR}))]]></select>
+</mapper>

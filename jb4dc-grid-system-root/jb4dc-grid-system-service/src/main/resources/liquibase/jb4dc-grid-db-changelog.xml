@@ -79,7 +79,7 @@
             </column>
             <column name="HOUSE_BUILD_ID" type="NVARCHAR(50)" remarks="所在建筑物ID" />
             <column name="HOUSE_CODE" type="NVARCHAR(20)" remarks="房屋编码" />
-            <column name="HOUSE_CODE_NUM" type="NVARCHAR(20)" remarks="房号" />
+            <column name="HOUSE_NUM_NAME" type="NVARCHAR(50)" remarks="房号" />
             <column name="HOUSE_CODE_FULL" type="NVARCHAR(40)" remarks="完整编码" />
             <column name="HOUSE_FLOOR_NUM" type="NUMBER(1)" remarks="楼层" />
             <column name="HOUSE_USED_DESC" type="NVARCHAR(100)" remarks="使用情况" />
@@ -307,6 +307,12 @@
             <column name="BUILD_ADDRESS_EX2" type="NVARCHAR(200)" remarks="门牌地址2" />
             <column name="BUILD_OTHER_ADDRESS_EX1" type="NVARCHAR(200)" remarks="其他地址1" />
             <column name="BUILD_OTHER_ADDRESS_EX2" type="NVARCHAR(200)" remarks="其他地址2" />
+        </addColumn>
+    </changeSet>
+    <changeSet author="zhuangrb" id="changeSet-GRID-0005" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
+        <addColumn tableName="TGRID_HOUSE_INFO">
+            <column name="HOUSE_DESIGN_AREA" type="NUMBER(2)" remarks="设计面积" />
+            <column name="HOUSE_USE_AREA" type="NUMBER(2)" remarks="使用面积" />
         </addColumn>
     </changeSet>
 </databaseChangeLog>

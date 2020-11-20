@@ -22,8 +22,8 @@ public class HouseInfoEntity {
     //HOUSE_CODE:房屋编码
     private String houseCode;
 
-    //HOUSE_CODE_NUM:房号
-    private String houseCodeNum;
+    //HOUSE_NUM_NAME:房号
+    private String houseNumName;
 
     //HOUSE_CODE_FULL:完整编码
     private String houseCodeFull;
@@ -68,12 +68,18 @@ public class HouseInfoEntity {
     //HOUSE_INPUT_USER_ID:登记人ID
     private String houseInputUserId;
 
+    //HOUSE_DESIGN_AREA:设计面积
+    private Short houseDesignArea;
+
+    //HOUSE_USE_AREA:使用面积
+    private Short houseUseArea;
+
     /**
      * 构造函数
      * @param houseId
      * @param houseBuildId 所在建筑物ID
      * @param houseCode 房屋编码
-     * @param houseCodeNum 房号
+     * @param houseNumName 房号
      * @param houseCodeFull 完整编码
      * @param houseFloorNum 楼层
      * @param houseUsedDesc 使用情况
@@ -88,12 +94,14 @@ public class HouseInfoEntity {
      * @param houseInputDate 登记时间
      * @param houseInputUserName 登记人
      * @param houseInputUserId 登记人ID
+     * @param houseDesignArea 设计面积
+     * @param houseUseArea 使用面积
      **/
-    public HouseInfoEntity(String houseId, String houseBuildId, String houseCode, String houseCodeNum, String houseCodeFull, Short houseFloorNum, String houseUsedDesc, String houseDesignFor, String houseUseFor, String houseStructure, String houseIsRentalHousing, String houseRemark, Integer houseOrderNum, String houseInputUnitName, String houseInputUnitId, Date houseInputDate, String houseInputUserName, String houseInputUserId) {
+    public HouseInfoEntity(String houseId, String houseBuildId, String houseCode, String houseNumName, String houseCodeFull, Short houseFloorNum, String houseUsedDesc, String houseDesignFor, String houseUseFor, String houseStructure, String houseIsRentalHousing, String houseRemark, Integer houseOrderNum, String houseInputUnitName, String houseInputUnitId, Date houseInputDate, String houseInputUserName, String houseInputUserId, Short houseDesignArea, Short houseUseArea) {
         this.houseId = houseId;
         this.houseBuildId = houseBuildId;
         this.houseCode = houseCode;
-        this.houseCodeNum = houseCodeNum;
+        this.houseNumName = houseNumName;
         this.houseCodeFull = houseCodeFull;
         this.houseFloorNum = houseFloorNum;
         this.houseUsedDesc = houseUsedDesc;
@@ -108,6 +116,8 @@ public class HouseInfoEntity {
         this.houseInputDate = houseInputDate;
         this.houseInputUserName = houseInputUserName;
         this.houseInputUserId = houseInputUserId;
+        this.houseDesignArea = houseDesignArea;
+        this.houseUseArea = houseUseArea;
     }
 
     public HouseInfoEntity() {
@@ -166,16 +176,16 @@ public class HouseInfoEntity {
      * 房号
      * @return java.lang.String
      **/
-    public String getHouseCodeNum() {
-        return houseCodeNum;
+    public String getHouseNumName() {
+        return houseNumName;
     }
 
     /**
      * 房号
-     * @param houseCodeNum 房号
+     * @param houseNumName 房号
      **/
-    public void setHouseCodeNum(String houseCodeNum) {
-        this.houseCodeNum = houseCodeNum == null ? null : houseCodeNum.trim();
+    public void setHouseNumName(String houseNumName) {
+        this.houseNumName = houseNumName == null ? null : houseNumName.trim();
     }
 
     /**
@@ -400,5 +410,37 @@ public class HouseInfoEntity {
      **/
     public void setHouseInputUserId(String houseInputUserId) {
         this.houseInputUserId = houseInputUserId == null ? null : houseInputUserId.trim();
+    }
+
+    /**
+     * 设计面积
+     * @return java.lang.Short
+     **/
+    public Short getHouseDesignArea() {
+        return houseDesignArea;
+    }
+
+    /**
+     * 设计面积
+     * @param houseDesignArea 设计面积
+     **/
+    public void setHouseDesignArea(Short houseDesignArea) {
+        this.houseDesignArea = houseDesignArea;
+    }
+
+    /**
+     * 使用面积
+     * @return java.lang.Short
+     **/
+    public Short getHouseUseArea() {
+        return houseUseArea;
+    }
+
+    /**
+     * 使用面积
+     * @param houseUseArea 使用面积
+     **/
+    public void setHouseUseArea(Short houseUseArea) {
+        this.houseUseArea = houseUseArea;
     }
 }

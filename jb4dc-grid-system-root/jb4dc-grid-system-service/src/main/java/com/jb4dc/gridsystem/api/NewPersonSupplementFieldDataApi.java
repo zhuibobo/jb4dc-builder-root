@@ -1,4 +1,5 @@
 package com.jb4dc.gridsystem.api;
+import java.util.Date;
 
 import com.jb4dc.base.service.general.JB4DCSessionUtility;
 import com.jb4dc.builder.client.service.api.ApiRunPara;
@@ -13,9 +14,7 @@ import com.jb4dc.gridsystem.service.build.IBuildInfoService;
 import com.jb4dc.gridsystem.service.build.IHouseInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.util.Date;
-
-public class NewHouseSupplementFieldDataApi implements IApiForButton {
+public class NewPersonSupplementFieldDataApi implements IApiForButton {
 
     @Autowired
     IHouseInfoService houseInfoService;

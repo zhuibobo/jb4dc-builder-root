@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jb4dc.gridsystem.dao.person.FamilyMapper">
+    <select id="selectAll" resultMap="BaseResultMap">select<include refid="Base_Column_List"/> from TGRID_FAMILY ORDER by  DESC</select>
+    <select id="selectAllASC" resultMap="BaseResultMap">select<include refid="Base_Column_List"/> from TGRID_FAMILY ORDER by  ASC</select>
+    <delete id="deleteAll">delete from TGRID_FAMILY</delete>
+    <select id="nextOrderNum" resultType="integer">select case when max() is null then 1 else max()+1 end ORDERNUM from TGRID_FAMILY</select>
+    <select id="selectBySearch" parameterType="java.util.Map" resultMap="BaseResultMap">select<include refid="Base_Column_List"/>from TGRID_FAMILY<where>
+        <if test="familyHouseId !=null and familyHouseId !=''"> and FAMILY_HOUSE_ID like #{familyHouseId} </if>
+        <if test="familyType !=null and familyType !=''"> and FAMILY_TYPE like #{familyType} </if>
+        <if test="familyPhone !=null and familyPhone !=''"> and FAMILY_PHONE like #{familyPhone} </if>
+        <if test="familyHrProvince !=null and familyHrProvince !=''"> and FAMILY_HR_PROVINCE like #{familyHrProvince} </if>
+        <if test="familyHrCity !=null and familyHrCity !=''"> and FAMILY_HR_CITY like #{familyHrCity} </if>
+        <if test="familyHrCounty !=null and familyHrCounty !=''"> and FAMILY_HR_COUNTY like #{familyHrCounty} </if>
+        <if test="familyHouseType !=null and familyHouseType !=''"> and FAMILY_HOUSE_TYPE like #{familyHouseType} </if>
+        <if test="familyInputUnitName !=null and familyInputUnitName !=''"> and FAMILY_INPUT_UNIT_NAME like #{familyInputUnitName} </if>
+        <if test="familyInputUnitId !=null and familyInputUnitId !=''"> and FAMILY_INPUT_UNIT_ID like #{familyInputUnitId} </if>
+        <if test="familyInputUserName !=null and familyInputUserName !=''"> and FAMILY_INPUT_USER_NAME like #{familyInputUserName} </if>
+        <if test="familyInputUserId !=null and familyInputUserId !=''"> and FAMILY_INPUT_USER_ID like #{familyInputUserId} </if>
+        <if test="familyCityId !=null and familyCityId !=''"> and FAMILY_CITY_ID like #{familyCityId} </if>
+        <if test="familyAreaId !=null and familyAreaId !=''"> and FAMILY_AREA_ID like #{familyAreaId} </if>
+        <if test="familyStreetId !=null and familyStreetId !=''"> and FAMILY_STREET_ID like #{familyStreetId} </if>
+        <if test="familyCommunityId !=null and familyCommunityId !=''"> and FAMILY_COMMUNITY_ID like #{familyCommunityId} </if>
+        <if test="familyGridId !=null and familyGridId !=''"> and FAMILY_GRID_ID like #{familyGridId} </if>
+    </where>ORDER by  DESC</select>
+    <select id="selectLessThanRecord" parameterType="java.lang.String" resultMap="BaseResultMap"><![CDATA[select * from TGRID_FAMILY
+ where  = (select max() from TGRID_FAMILY where <(select  from TGRID_FAMILY where FAMILY_ID=#{Id,jdbcType=NVARCHAR}))]]></select>
+    <select id="selectGreaterThanRecord" parameterType="java.lang.String" resultMap="BaseResultMap"><![CDATA[select * from TGRID_FAMILY
+ where  = (select min() from TGRID_FAMILY where >(select  from TGRID_FAMILY where FAMILY_ID=#{Id,jdbcType=NVARCHAR}))]]></select>
+</mapper>

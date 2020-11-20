@@ -1,0 +1,311 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jb4dc.gridsystem.dao.person.FamilyMapper">
+    <resultMap id="BaseResultMap" type="com.jb4dc.gridsystem.dbentities.person.FamilyEntity">
+        <constructor>
+            <idArg column="FAMILY_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="FAMILY_HOUSE_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="FAMILY_PER_COUNT" javaType="java.lang.Integer" jdbcType="INTEGER" />
+            <arg column="FAMILY_PER_IN" javaType="java.lang.Integer" jdbcType="INTEGER" />
+            <arg column="FAMILY_PER_OUT" javaType="java.lang.Integer" jdbcType="INTEGER" />
+            <arg column="FAMILY_TYPE" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="FAMILY_PHONE" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="FAMILY_HR_PROVINCE" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="FAMILY_HR_CITY" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="FAMILY_HR_COUNTY" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="FAMILY_HOUSE_TYPE" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="FAMILY_HOUSE_AREA" javaType="java.lang.Short" jdbcType="DECIMAL" />
+            <arg column="FAMILY_HOUSE_ROOM_NUM" javaType="java.lang.Integer" jdbcType="INTEGER" />
+            <arg column="FAMILY_INPUT_UNIT_NAME" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="FAMILY_INPUT_UNIT_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="FAMILY_INPUT_DATE" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+            <arg column="FAMILY_INPUT_USER_NAME" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="FAMILY_INPUT_USER_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="FAMILY_CITY_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="FAMILY_AREA_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="FAMILY_STREET_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="FAMILY_COMMUNITY_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="FAMILY_GRID_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
+        </constructor>
+    </resultMap>
+    <sql id="Base_Column_List">
+    FAMILY_ID, FAMILY_HOUSE_ID, FAMILY_PER_COUNT, FAMILY_PER_IN, FAMILY_PER_OUT, FAMILY_TYPE,
+    FAMILY_PHONE, FAMILY_HR_PROVINCE, FAMILY_HR_CITY, FAMILY_HR_COUNTY, FAMILY_HOUSE_TYPE,
+    FAMILY_HOUSE_AREA, FAMILY_HOUSE_ROOM_NUM, FAMILY_INPUT_UNIT_NAME, FAMILY_INPUT_UNIT_ID,
+    FAMILY_INPUT_DATE, FAMILY_INPUT_USER_NAME, FAMILY_INPUT_USER_ID, FAMILY_CITY_ID,
+    FAMILY_AREA_ID, FAMILY_STREET_ID, FAMILY_COMMUNITY_ID, FAMILY_GRID_ID
+  </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from TGRID_FAMILY
+        where FAMILY_ID = #{familyId,jdbcType=VARCHAR}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from TGRID_FAMILY
+    where FAMILY_ID = #{familyId,jdbcType=VARCHAR}
+  </delete>
+    <insert id="insert" parameterType="com.jb4dc.gridsystem.dbentities.person.FamilyEntity">
+    insert into TGRID_FAMILY (FAMILY_ID, FAMILY_HOUSE_ID, FAMILY_PER_COUNT,
+      FAMILY_PER_IN, FAMILY_PER_OUT, FAMILY_TYPE,
+      FAMILY_PHONE, FAMILY_HR_PROVINCE, FAMILY_HR_CITY,
+      FAMILY_HR_COUNTY, FAMILY_HOUSE_TYPE, FAMILY_HOUSE_AREA,
+      FAMILY_HOUSE_ROOM_NUM, FAMILY_INPUT_UNIT_NAME,
+      FAMILY_INPUT_UNIT_ID, FAMILY_INPUT_DATE, FAMILY_INPUT_USER_NAME,
+      FAMILY_INPUT_USER_ID, FAMILY_CITY_ID, FAMILY_AREA_ID,
+      FAMILY_STREET_ID, FAMILY_COMMUNITY_ID, FAMILY_GRID_ID
+      )
+    values (#{familyId,jdbcType=VARCHAR}, #{familyHouseId,jdbcType=VARCHAR}, #{familyPerCount,jdbcType=INTEGER},
+      #{familyPerIn,jdbcType=INTEGER}, #{familyPerOut,jdbcType=INTEGER}, #{familyType,jdbcType=VARCHAR},
+      #{familyPhone,jdbcType=VARCHAR}, #{familyHrProvince,jdbcType=VARCHAR}, #{familyHrCity,jdbcType=VARCHAR},
+      #{familyHrCounty,jdbcType=VARCHAR}, #{familyHouseType,jdbcType=VARCHAR}, #{familyHouseArea,jdbcType=DECIMAL},
+      #{familyHouseRoomNum,jdbcType=INTEGER}, #{familyInputUnitName,jdbcType=VARCHAR},
+      #{familyInputUnitId,jdbcType=VARCHAR}, #{familyInputDate,jdbcType=TIMESTAMP}, #{familyInputUserName,jdbcType=VARCHAR},
+      #{familyInputUserId,jdbcType=VARCHAR}, #{familyCityId,jdbcType=VARCHAR}, #{familyAreaId,jdbcType=VARCHAR},
+      #{familyStreetId,jdbcType=VARCHAR}, #{familyCommunityId,jdbcType=VARCHAR}, #{familyGridId,jdbcType=VARCHAR}
+      )
+  </insert>
+    <insert id="insertSelective" parameterType="com.jb4dc.gridsystem.dbentities.person.FamilyEntity">
+        insert into TGRID_FAMILY
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="familyId != null">
+                FAMILY_ID,
+            </if>
+            <if test="familyHouseId != null">
+                FAMILY_HOUSE_ID,
+            </if>
+            <if test="familyPerCount != null">
+                FAMILY_PER_COUNT,
+            </if>
+            <if test="familyPerIn != null">
+                FAMILY_PER_IN,
+            </if>
+            <if test="familyPerOut != null">
+                FAMILY_PER_OUT,
+            </if>
+            <if test="familyType != null">
+                FAMILY_TYPE,
+            </if>
+            <if test="familyPhone != null">
+                FAMILY_PHONE,
+            </if>
+            <if test="familyHrProvince != null">
+                FAMILY_HR_PROVINCE,
+            </if>
+            <if test="familyHrCity != null">
+                FAMILY_HR_CITY,
+            </if>
+            <if test="familyHrCounty != null">
+                FAMILY_HR_COUNTY,
+            </if>
+            <if test="familyHouseType != null">
+                FAMILY_HOUSE_TYPE,
+            </if>
+            <if test="familyHouseArea != null">
+                FAMILY_HOUSE_AREA,
+            </if>
+            <if test="familyHouseRoomNum != null">
+                FAMILY_HOUSE_ROOM_NUM,
+            </if>
+            <if test="familyInputUnitName != null">
+                FAMILY_INPUT_UNIT_NAME,
+            </if>
+            <if test="familyInputUnitId != null">
+                FAMILY_INPUT_UNIT_ID,
+            </if>
+            <if test="familyInputDate != null">
+                FAMILY_INPUT_DATE,
+            </if>
+            <if test="familyInputUserName != null">
+                FAMILY_INPUT_USER_NAME,
+            </if>
+            <if test="familyInputUserId != null">
+                FAMILY_INPUT_USER_ID,
+            </if>
+            <if test="familyCityId != null">
+                FAMILY_CITY_ID,
+            </if>
+            <if test="familyAreaId != null">
+                FAMILY_AREA_ID,
+            </if>
+            <if test="familyStreetId != null">
+                FAMILY_STREET_ID,
+            </if>
+            <if test="familyCommunityId != null">
+                FAMILY_COMMUNITY_ID,
+            </if>
+            <if test="familyGridId != null">
+                FAMILY_GRID_ID,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="familyId != null">
+                #{familyId,jdbcType=VARCHAR},
+            </if>
+            <if test="familyHouseId != null">
+                #{familyHouseId,jdbcType=VARCHAR},
+            </if>
+            <if test="familyPerCount != null">
+                #{familyPerCount,jdbcType=INTEGER},
+            </if>
+            <if test="familyPerIn != null">
+                #{familyPerIn,jdbcType=INTEGER},
+            </if>
+            <if test="familyPerOut != null">
+                #{familyPerOut,jdbcType=INTEGER},
+            </if>
+            <if test="familyType != null">
+                #{familyType,jdbcType=VARCHAR},
+            </if>
+            <if test="familyPhone != null">
+                #{familyPhone,jdbcType=VARCHAR},
+            </if>
+            <if test="familyHrProvince != null">
+                #{familyHrProvince,jdbcType=VARCHAR},
+            </if>
+            <if test="familyHrCity != null">
+                #{familyHrCity,jdbcType=VARCHAR},
+            </if>
+            <if test="familyHrCounty != null">
+                #{familyHrCounty,jdbcType=VARCHAR},
+            </if>
+            <if test="familyHouseType != null">
+                #{familyHouseType,jdbcType=VARCHAR},
+            </if>
+            <if test="familyHouseArea != null">
+                #{familyHouseArea,jdbcType=DECIMAL},
+            </if>
+            <if test="familyHouseRoomNum != null">
+                #{familyHouseRoomNum,jdbcType=INTEGER},
+            </if>
+            <if test="familyInputUnitName != null">
+                #{familyInputUnitName,jdbcType=VARCHAR},
+            </if>
+            <if test="familyInputUnitId != null">
+                #{familyInputUnitId,jdbcType=VARCHAR},
+            </if>
+            <if test="familyInputDate != null">
+                #{familyInputDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="familyInputUserName != null">
+                #{familyInputUserName,jdbcType=VARCHAR},
+            </if>
+            <if test="familyInputUserId != null">
+                #{familyInputUserId,jdbcType=VARCHAR},
+            </if>
+            <if test="familyCityId != null">
+                #{familyCityId,jdbcType=VARCHAR},
+            </if>
+            <if test="familyAreaId != null">
+                #{familyAreaId,jdbcType=VARCHAR},
+            </if>
+            <if test="familyStreetId != null">
+                #{familyStreetId,jdbcType=VARCHAR},
+            </if>
+            <if test="familyCommunityId != null">
+                #{familyCommunityId,jdbcType=VARCHAR},
+            </if>
+            <if test="familyGridId != null">
+                #{familyGridId,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.jb4dc.gridsystem.dbentities.person.FamilyEntity">
+        update TGRID_FAMILY
+        <set>
+            <if test="familyHouseId != null">
+                FAMILY_HOUSE_ID = #{familyHouseId,jdbcType=VARCHAR},
+            </if>
+            <if test="familyPerCount != null">
+                FAMILY_PER_COUNT = #{familyPerCount,jdbcType=INTEGER},
+            </if>
+            <if test="familyPerIn != null">
+                FAMILY_PER_IN = #{familyPerIn,jdbcType=INTEGER},
+            </if>
+            <if test="familyPerOut != null">
+                FAMILY_PER_OUT = #{familyPerOut,jdbcType=INTEGER},
+            </if>
+            <if test="familyType != null">
+                FAMILY_TYPE = #{familyType,jdbcType=VARCHAR},
+            </if>
+            <if test="familyPhone != null">
+                FAMILY_PHONE = #{familyPhone,jdbcType=VARCHAR},
+            </if>
+            <if test="familyHrProvince != null">
+                FAMILY_HR_PROVINCE = #{familyHrProvince,jdbcType=VARCHAR},
+            </if>
+            <if test="familyHrCity != null">
+                FAMILY_HR_CITY = #{familyHrCity,jdbcType=VARCHAR},
+            </if>
+            <if test="familyHrCounty != null">
+                FAMILY_HR_COUNTY = #{familyHrCounty,jdbcType=VARCHAR},
+            </if>
+            <if test="familyHouseType != null">
+                FAMILY_HOUSE_TYPE = #{familyHouseType,jdbcType=VARCHAR},
+            </if>
+            <if test="familyHouseArea != null">
+                FAMILY_HOUSE_AREA = #{familyHouseArea,jdbcType=DECIMAL},
+            </if>
+            <if test="familyHouseRoomNum != null">
+                FAMILY_HOUSE_ROOM_NUM = #{familyHouseRoomNum,jdbcType=INTEGER},
+            </if>
+            <if test="familyInputUnitName != null">
+                FAMILY_INPUT_UNIT_NAME = #{familyInputUnitName,jdbcType=VARCHAR},
+            </if>
+            <if test="familyInputUnitId != null">
+                FAMILY_INPUT_UNIT_ID = #{familyInputUnitId,jdbcType=VARCHAR},
+            </if>
+            <if test="familyInputDate != null">
+                FAMILY_INPUT_DATE = #{familyInputDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="familyInputUserName != null">
+                FAMILY_INPUT_USER_NAME = #{familyInputUserName,jdbcType=VARCHAR},
+            </if>
+            <if test="familyInputUserId != null">
+                FAMILY_INPUT_USER_ID = #{familyInputUserId,jdbcType=VARCHAR},
+            </if>
+            <if test="familyCityId != null">
+                FAMILY_CITY_ID = #{familyCityId,jdbcType=VARCHAR},
+            </if>
+            <if test="familyAreaId != null">
+                FAMILY_AREA_ID = #{familyAreaId,jdbcType=VARCHAR},
+            </if>
+            <if test="familyStreetId != null">
+                FAMILY_STREET_ID = #{familyStreetId,jdbcType=VARCHAR},
+            </if>
+            <if test="familyCommunityId != null">
+                FAMILY_COMMUNITY_ID = #{familyCommunityId,jdbcType=VARCHAR},
+            </if>
+            <if test="familyGridId != null">
+                FAMILY_GRID_ID = #{familyGridId,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where FAMILY_ID = #{familyId,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.jb4dc.gridsystem.dbentities.person.FamilyEntity">
+    update TGRID_FAMILY
+    set FAMILY_HOUSE_ID = #{familyHouseId,jdbcType=VARCHAR},
+      FAMILY_PER_COUNT = #{familyPerCount,jdbcType=INTEGER},
+      FAMILY_PER_IN = #{familyPerIn,jdbcType=INTEGER},
+      FAMILY_PER_OUT = #{familyPerOut,jdbcType=INTEGER},
+      FAMILY_TYPE = #{familyType,jdbcType=VARCHAR},
+      FAMILY_PHONE = #{familyPhone,jdbcType=VARCHAR},
+      FAMILY_HR_PROVINCE = #{familyHrProvince,jdbcType=VARCHAR},
+      FAMILY_HR_CITY = #{familyHrCity,jdbcType=VARCHAR},
+      FAMILY_HR_COUNTY = #{familyHrCounty,jdbcType=VARCHAR},
+      FAMILY_HOUSE_TYPE = #{familyHouseType,jdbcType=VARCHAR},
+      FAMILY_HOUSE_AREA = #{familyHouseArea,jdbcType=DECIMAL},
+      FAMILY_HOUSE_ROOM_NUM = #{familyHouseRoomNum,jdbcType=INTEGER},
+      FAMILY_INPUT_UNIT_NAME = #{familyInputUnitName,jdbcType=VARCHAR},
+      FAMILY_INPUT_UNIT_ID = #{familyInputUnitId,jdbcType=VARCHAR},
+      FAMILY_INPUT_DATE = #{familyInputDate,jdbcType=TIMESTAMP},
+      FAMILY_INPUT_USER_NAME = #{familyInputUserName,jdbcType=VARCHAR},
+      FAMILY_INPUT_USER_ID = #{familyInputUserId,jdbcType=VARCHAR},
+      FAMILY_CITY_ID = #{familyCityId,jdbcType=VARCHAR},
+      FAMILY_AREA_ID = #{familyAreaId,jdbcType=VARCHAR},
+      FAMILY_STREET_ID = #{familyStreetId,jdbcType=VARCHAR},
+      FAMILY_COMMUNITY_ID = #{familyCommunityId,jdbcType=VARCHAR},
+      FAMILY_GRID_ID = #{familyGridId,jdbcType=VARCHAR}
+    where FAMILY_ID = #{familyId,jdbcType=VARCHAR}
+  </update>
+</mapper>

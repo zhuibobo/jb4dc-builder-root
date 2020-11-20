@@ -6,7 +6,7 @@
             <idArg column="HOUSE_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
             <arg column="HOUSE_BUILD_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
             <arg column="HOUSE_CODE" javaType="java.lang.String" jdbcType="VARCHAR" />
-            <arg column="HOUSE_CODE_NUM" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="HOUSE_NUM_NAME" javaType="java.lang.String" jdbcType="VARCHAR" />
             <arg column="HOUSE_CODE_FULL" javaType="java.lang.String" jdbcType="VARCHAR" />
             <arg column="HOUSE_FLOOR_NUM" javaType="java.lang.Short" jdbcType="DECIMAL" />
             <arg column="HOUSE_USED_DESC" javaType="java.lang.String" jdbcType="VARCHAR" />
@@ -21,13 +21,15 @@
             <arg column="HOUSE_INPUT_DATE" javaType="java.util.Date" jdbcType="TIMESTAMP" />
             <arg column="HOUSE_INPUT_USER_NAME" javaType="java.lang.String" jdbcType="VARCHAR" />
             <arg column="HOUSE_INPUT_USER_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="HOUSE_DESIGN_AREA" javaType="java.lang.Short" jdbcType="DECIMAL" />
+            <arg column="HOUSE_USE_AREA" javaType="java.lang.Short" jdbcType="DECIMAL" />
         </constructor>
     </resultMap>
     <sql id="Base_Column_List">
-    HOUSE_ID, HOUSE_BUILD_ID, HOUSE_CODE, HOUSE_CODE_NUM, HOUSE_CODE_FULL, HOUSE_FLOOR_NUM,
+    HOUSE_ID, HOUSE_BUILD_ID, HOUSE_CODE, HOUSE_NUM_NAME, HOUSE_CODE_FULL, HOUSE_FLOOR_NUM,
     HOUSE_USED_DESC, HOUSE_DESIGN_FOR, HOUSE_USE_FOR, HOUSE_STRUCTURE, HOUSE_IS_RENTAL_HOUSING,
     HOUSE_REMARK, HOUSE_ORDER_NUM, HOUSE_INPUT_UNIT_NAME, HOUSE_INPUT_UNIT_ID, HOUSE_INPUT_DATE,
-    HOUSE_INPUT_USER_NAME, HOUSE_INPUT_USER_ID
+    HOUSE_INPUT_USER_NAME, HOUSE_INPUT_USER_ID, HOUSE_DESIGN_AREA, HOUSE_USE_AREA
   </sql>
     <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
         select
@@ -41,19 +43,19 @@
   </delete>
     <insert id="insert" parameterType="com.jb4dc.gridsystem.dbentities.build.HouseInfoEntity">
     insert into TGRID_HOUSE_INFO (HOUSE_ID, HOUSE_BUILD_ID, HOUSE_CODE,
-      HOUSE_CODE_NUM, HOUSE_CODE_FULL, HOUSE_FLOOR_NUM,
+      HOUSE_NUM_NAME, HOUSE_CODE_FULL, HOUSE_FLOOR_NUM,
       HOUSE_USED_DESC, HOUSE_DESIGN_FOR, HOUSE_USE_FOR,
       HOUSE_STRUCTURE, HOUSE_IS_RENTAL_HOUSING, HOUSE_REMARK,
       HOUSE_ORDER_NUM, HOUSE_INPUT_UNIT_NAME, HOUSE_INPUT_UNIT_ID,
-      HOUSE_INPUT_DATE, HOUSE_INPUT_USER_NAME, HOUSE_INPUT_USER_ID
-      )
+      HOUSE_INPUT_DATE, HOUSE_INPUT_USER_NAME, HOUSE_INPUT_USER_ID,
+      HOUSE_DESIGN_AREA, HOUSE_USE_AREA)
     values (#{houseId,jdbcType=VARCHAR}, #{houseBuildId,jdbcType=VARCHAR}, #{houseCode,jdbcType=VARCHAR},
-      #{houseCodeNum,jdbcType=VARCHAR}, #{houseCodeFull,jdbcType=VARCHAR}, #{houseFloorNum,jdbcType=DECIMAL},
+      #{houseNumName,jdbcType=VARCHAR}, #{houseCodeFull,jdbcType=VARCHAR}, #{houseFloorNum,jdbcType=DECIMAL},
       #{houseUsedDesc,jdbcType=VARCHAR}, #{houseDesignFor,jdbcType=VARCHAR}, #{houseUseFor,jdbcType=VARCHAR},
       #{houseStructure,jdbcType=VARCHAR}, #{houseIsRentalHousing,jdbcType=VARCHAR}, #{houseRemark,jdbcType=VARCHAR},
       #{houseOrderNum,jdbcType=INTEGER}, #{houseInputUnitName,jdbcType=VARCHAR}, #{houseInputUnitId,jdbcType=VARCHAR},
-      #{houseInputDate,jdbcType=TIMESTAMP}, #{houseInputUserName,jdbcType=VARCHAR}, #{houseInputUserId,jdbcType=VARCHAR}
-      )
+      #{houseInputDate,jdbcType=TIMESTAMP}, #{houseInputUserName,jdbcType=VARCHAR}, #{houseInputUserId,jdbcType=VARCHAR},
+      #{houseDesignArea,jdbcType=DECIMAL}, #{houseUseArea,jdbcType=DECIMAL})
   </insert>
     <insert id="insertSelective" parameterType="com.jb4dc.gridsystem.dbentities.build.HouseInfoEntity">
         insert into TGRID_HOUSE_INFO
@@ -67,8 +69,8 @@
             <if test="houseCode != null">
                 HOUSE_CODE,
             </if>
-            <if test="houseCodeNum != null">
-                HOUSE_CODE_NUM,
+            <if test="houseNumName != null">
+                HOUSE_NUM_NAME,
             </if>
             <if test="houseCodeFull != null">
                 HOUSE_CODE_FULL,
@@ -112,6 +114,12 @@
             <if test="houseInputUserId != null">
                 HOUSE_INPUT_USER_ID,
             </if>
+            <if test="houseDesignArea != null">
+                HOUSE_DESIGN_AREA,
+            </if>
+            <if test="houseUseArea != null">
+                HOUSE_USE_AREA,
+            </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="houseId != null">
@@ -123,8 +131,8 @@
             <if test="houseCode != null">
                 #{houseCode,jdbcType=VARCHAR},
             </if>
-            <if test="houseCodeNum != null">
-                #{houseCodeNum,jdbcType=VARCHAR},
+            <if test="houseNumName != null">
+                #{houseNumName,jdbcType=VARCHAR},
             </if>
             <if test="houseCodeFull != null">
                 #{houseCodeFull,jdbcType=VARCHAR},
@@ -168,6 +176,12 @@
             <if test="houseInputUserId != null">
                 #{houseInputUserId,jdbcType=VARCHAR},
             </if>
+            <if test="houseDesignArea != null">
+                #{houseDesignArea,jdbcType=DECIMAL},
+            </if>
+            <if test="houseUseArea != null">
+                #{houseUseArea,jdbcType=DECIMAL},
+            </if>
         </trim>
     </insert>
     <update id="updateByPrimaryKeySelective" parameterType="com.jb4dc.gridsystem.dbentities.build.HouseInfoEntity">
@@ -179,8 +193,8 @@
             <if test="houseCode != null">
                 HOUSE_CODE = #{houseCode,jdbcType=VARCHAR},
             </if>
-            <if test="houseCodeNum != null">
-                HOUSE_CODE_NUM = #{houseCodeNum,jdbcType=VARCHAR},
+            <if test="houseNumName != null">
+                HOUSE_NUM_NAME = #{houseNumName,jdbcType=VARCHAR},
             </if>
             <if test="houseCodeFull != null">
                 HOUSE_CODE_FULL = #{houseCodeFull,jdbcType=VARCHAR},
@@ -224,6 +238,12 @@
             <if test="houseInputUserId != null">
                 HOUSE_INPUT_USER_ID = #{houseInputUserId,jdbcType=VARCHAR},
             </if>
+            <if test="houseDesignArea != null">
+                HOUSE_DESIGN_AREA = #{houseDesignArea,jdbcType=DECIMAL},
+            </if>
+            <if test="houseUseArea != null">
+                HOUSE_USE_AREA = #{houseUseArea,jdbcType=DECIMAL},
+            </if>
         </set>
         where HOUSE_ID = #{houseId,jdbcType=VARCHAR}
     </update>
@@ -231,7 +251,7 @@
     update TGRID_HOUSE_INFO
     set HOUSE_BUILD_ID = #{houseBuildId,jdbcType=VARCHAR},
       HOUSE_CODE = #{houseCode,jdbcType=VARCHAR},
-      HOUSE_CODE_NUM = #{houseCodeNum,jdbcType=VARCHAR},
+      HOUSE_NUM_NAME = #{houseNumName,jdbcType=VARCHAR},
       HOUSE_CODE_FULL = #{houseCodeFull,jdbcType=VARCHAR},
       HOUSE_FLOOR_NUM = #{houseFloorNum,jdbcType=DECIMAL},
       HOUSE_USED_DESC = #{houseUsedDesc,jdbcType=VARCHAR},
@@ -245,7 +265,9 @@
       HOUSE_INPUT_UNIT_ID = #{houseInputUnitId,jdbcType=VARCHAR},
       HOUSE_INPUT_DATE = #{houseInputDate,jdbcType=TIMESTAMP},
       HOUSE_INPUT_USER_NAME = #{houseInputUserName,jdbcType=VARCHAR},
-      HOUSE_INPUT_USER_ID = #{houseInputUserId,jdbcType=VARCHAR}
+      HOUSE_INPUT_USER_ID = #{houseInputUserId,jdbcType=VARCHAR},
+      HOUSE_DESIGN_AREA = #{houseDesignArea,jdbcType=DECIMAL},
+      HOUSE_USE_AREA = #{houseUseArea,jdbcType=DECIMAL}
     where HOUSE_ID = #{houseId,jdbcType=VARCHAR}
   </update>
 </mapper>

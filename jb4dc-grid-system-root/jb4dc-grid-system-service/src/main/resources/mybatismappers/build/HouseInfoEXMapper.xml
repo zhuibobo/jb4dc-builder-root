@@ -8,7 +8,7 @@
     <select id="selectBySearch" parameterType="java.util.Map" resultMap="BaseResultMap">select<include refid="Base_Column_List"/>from TGRID_HOUSE_INFO<where>
         <if test="houseBuildId !=null and houseBuildId !=''"> and HOUSE_BUILD_ID like #{houseBuildId} </if>
         <if test="houseCode !=null and houseCode !=''"> and HOUSE_CODE like #{houseCode} </if>
-        <if test="houseCodeNum !=null and houseCodeNum !=''"> and HOUSE_CODE_NUM like #{houseCodeNum} </if>
+        <if test="houseNumName !=null and houseNumName !=''"> and HOUSE_NUM_NAME like #{houseNumName} </if>
         <if test="houseCodeFull !=null and houseCodeFull !=''"> and HOUSE_CODE_FULL like #{houseCodeFull} </if>
         <if test="houseUsedDesc !=null and houseUsedDesc !=''"> and HOUSE_USED_DESC like #{houseUsedDesc} </if>
         <if test="houseDesignFor !=null and houseDesignFor !=''"> and HOUSE_DESIGN_FOR like #{houseDesignFor} </if>
