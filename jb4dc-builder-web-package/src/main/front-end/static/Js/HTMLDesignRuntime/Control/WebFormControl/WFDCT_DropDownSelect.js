@@ -1,9 +1,12 @@
 var WFDCT_DropDownSelect={
     InitStyle:HTMLControl.InitStyle,
     RendererChain:function (_rendererChainParas) {
+        var $singleControlElem=_rendererChainParas.$singleControlElem;
+        var defaultSelected=$singleControlElem.attr("defaultselected");
         //debugger;
-        //var $singleControlElem=_rendererChainParas.$singleControlElem;
-        //$singleControlElem.val("22222");
+        if(defaultSelected){
+            $singleControlElem.val(defaultSelected);
+        }
     },
     RendererDataChain:HTMLControl.RendererDataChain,
     GetValue:HTMLControl.GetValue,

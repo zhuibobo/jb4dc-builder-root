@@ -38,8 +38,8 @@ var InnerFormSaveButton= {
                             }, 500);
                         }
                         else if(this._prop.formRuntimeCategory==FormRuntimeSinglePageObject.FORM_RUNTIME_CATEGORY_INDEPENDENCE){
-                            console.log(this._prop);
-                            debugger;
+                            //console.log(this._prop);
+                            //debugger;
                             if(this._prop.formRuntimeInstance._FormPO.formOperationType=="dev"){
                                 var devOperationEndFunc=BaseUtility.GetUrlParaValue("devOperationEndFunc");
                                 if(StringUtility.IsNotNullOrEmpty(devOperationEndFunc)){

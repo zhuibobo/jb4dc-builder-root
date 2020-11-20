@@ -34,7 +34,7 @@ Vue.component("module-list-webform-comp", {
                 {
                     title: '表单名称',
                     key: 'formName',
-                    align: "center"
+                    align: "left"
                 }, {
                     title: '唯一名',
                     key: 'formSingleName',

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jb4dc.gridsystem.dao.build.HouseInfoMapper">
+    <select id="selectAll" resultMap="BaseResultMap">select<include refid="Base_Column_List"/> from TGRID_HOUSE_INFO ORDER by HOUSE_ORDER_NUM DESC</select>
+    <select id="selectAllASC" resultMap="BaseResultMap">select<include refid="Base_Column_List"/> from TGRID_HOUSE_INFO ORDER by HOUSE_ORDER_NUM ASC</select>
+    <delete id="deleteAll">delete from TGRID_HOUSE_INFO</delete>
+    <select id="nextOrderNum" resultType="integer">select case when max(HOUSE_ORDER_NUM) is null then 1 else max(HOUSE_ORDER_NUM)+1 end ORDERNUM from TGRID_HOUSE_INFO</select>
+    <select id="selectBySearch" parameterType="java.util.Map" resultMap="BaseResultMap">select<include refid="Base_Column_List"/>from TGRID_HOUSE_INFO<where>
+        <if test="houseBuildId !=null and houseBuildId !=''"> and HOUSE_BUILD_ID like #{houseBuildId} </if>
+        <if test="houseCode !=null and houseCode !=''"> and HOUSE_CODE like #{houseCode} </if>
+        <if test="houseCodeNum !=null and houseCodeNum !=''"> and HOUSE_CODE_NUM like #{houseCodeNum} </if>
+        <if test="houseCodeFull !=null and houseCodeFull !=''"> and HOUSE_CODE_FULL like #{houseCodeFull} </if>
+        <if test="houseUsedDesc !=null and houseUsedDesc !=''"> and HOUSE_USED_DESC like #{houseUsedDesc} </if>
+        <if test="houseDesignFor !=null and houseDesignFor !=''"> and HOUSE_DESIGN_FOR like #{houseDesignFor} </if>
+        <if test="houseUseFor !=null and houseUseFor !=''"> and HOUSE_USE_FOR like #{houseUseFor} </if>
+        <if test="houseStructure !=null and houseStructure !=''"> and HOUSE_STRUCTURE like #{houseStructure} </if>
+        <if test="houseIsRentalHousing !=null and houseIsRentalHousing !=''"> and HOUSE_IS_RENTAL_HOUSING like #{houseIsRentalHousing} </if>
+        <if test="houseRemark !=null and houseRemark !=''"> and HOUSE_REMARK like #{houseRemark} </if>
+        <if test="houseInputUnitName !=null and houseInputUnitName !=''"> and HOUSE_INPUT_UNIT_NAME like #{houseInputUnitName} </if>
+        <if test="houseInputUnitId !=null and houseInputUnitId !=''"> and HOUSE_INPUT_UNIT_ID like #{houseInputUnitId} </if>
+        <if test="houseInputUserName !=null and houseInputUserName !=''"> and HOUSE_INPUT_USER_NAME like #{houseInputUserName} </if>
+        <if test="houseInputUserId !=null and houseInputUserId !=''"> and HOUSE_INPUT_USER_ID like #{houseInputUserId} </if>
+    </where>ORDER by HOUSE_ORDER_NUM DESC</select>
+    <select id="selectLessThanRecord" parameterType="java.lang.String" resultMap="BaseResultMap"><![CDATA[select * from TGRID_HOUSE_INFO
+ where HOUSE_ORDER_NUM = (select max(HOUSE_ORDER_NUM) from TGRID_HOUSE_INFO where HOUSE_ORDER_NUM<(select HOUSE_ORDER_NUM from TGRID_HOUSE_INFO where HOUSE_ID=#{Id,jdbcType=NVARCHAR}))]]></select>
+    <select id="selectGreaterThanRecord" parameterType="java.lang.String" resultMap="BaseResultMap"><![CDATA[select * from TGRID_HOUSE_INFO
+ where HOUSE_ORDER_NUM = (select min(HOUSE_ORDER_NUM) from TGRID_HOUSE_INFO where HOUSE_ORDER_NUM>(select HOUSE_ORDER_NUM from TGRID_HOUSE_INFO where HOUSE_ID=#{Id,jdbcType=NVARCHAR}))]]></select>
+
+    <select id="selectByBuildId" resultMap="BaseResultMap">
+        select<include refid="Base_Column_List"/> from TGRID_HOUSE_INFO where HOUSE_BUILD_ID=#{buildId} ORDER by HOUSE_ORDER_NUM ASC
+    </select>
+</mapper>

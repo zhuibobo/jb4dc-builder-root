@@ -48,7 +48,8 @@ Vue.component("fd-control-datasource", {
                 staticDataSource:"",
                 defaultSelected:"",
                 layoutDirection:"vertical",
-                rowNum:"0"
+                rowNum:"0",
+                displayValueInText:"false"
             },
             showSelectDictionary:false,
             showEditStatic:false,
@@ -183,8 +184,17 @@ Vue.component("fd-control-datasource", {
                                     <td>
                                         默认选中：
                                     </td>
-                                    <td colspan="3">
+                                    <td>
                                         <input type="text" v-model="normalDataSource.defaultSelected" />
+                                    </td>
+                                    <td>
+                                        显示Value：
+                                    </td>
+                                    <td>
+                                        <radio-group type="button" style="margin: auto" v-model="normalDataSource.displayValueInText">
+                                            <radio label="true">是</radio>
+                                            <radio label="false">否</radio>
+                                        </radio-group>
                                     </td>
                                 </tr>
                                 <tr>

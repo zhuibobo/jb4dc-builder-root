@@ -124,13 +124,15 @@ public class ResolvePendingSQL {
                     }
                     if (formRecordDataRelationPO.getListDataRecord() != null && formRecordDataRelationPO.getListDataRecord().size() > 0) {
 
-                        int subLDRNextDBOrderNum = this.getNextDBOrderNum(mainFormRecordDataRelationPO.getTableName(), tableFieldPOList);
-                        String subLDROrderFieldName = this.getOrderNumFieldName(mainFormRecordDataRelationPO.getTableName(), tableFieldPOList);
+                        List<TableFieldPO> subTableFieldPOList = tableRuntimeProxy.getTableFieldsByTableId(formRecordDataRelationPO.getTableId());
+                        int subLDRNextDBOrderNum = this.getNextDBOrderNum(formRecordDataRelationPO.getTableName(), subTableFieldPOList);
+                        String subLDROrderFieldName = this.getOrderNumFieldName(formRecordDataRelationPO.getTableName(), subTableFieldPOList);
 
                         List<FormRecordDataPO> listDataRecord = formRecordDataRelationPO.getListDataRecord();
                         for (int i = 0; i < listDataRecord.size(); i++) {
                             FormRecordDataPO formRecordDataPO = listDataRecord.get(i);
-                            String subListIdValue = FormRecordDataUtility.findIdInFormRecordFieldDataPO(formRecordDataPO,null);
+
+                            String subListIdValue = FormRecordDataUtility.findIdInFormRecordFieldDataPO(formRecordDataPO,subTableFieldPOList);
                             PendingSQLPO subListPendingSQLPO = resolveFormRecordDataPOTOPendingSQL(
                                     jb4DCSession,
                                     recordId,
@@ -254,12 +256,12 @@ public class ResolvePendingSQL {
                 }
 
                 for (FormRecordFieldDataPO formRecordFieldDataPO : recordFieldPOList) {
-                    if(!formRecordFieldDataPO.getValue().equals("")) {
+                    if(formRecordFieldDataPO.getValue()!=null&&!formRecordFieldDataPO.getValue().equals("")) {
                         fieldNames.append(formRecordFieldDataPO.getFieldName());
                         fieldNames.append(",");
                         fieldValues.append("#{" + formRecordFieldDataPO.getFieldName() + "}");
                         fieldValues.append(",");
-                        sqlMapPara.put(formRecordFieldDataPO.getFieldName(), formRecordFieldDataPO.getValue());
+                        sqlMapPara.put(formRecordFieldDataPO.getFieldName(), formRecordFieldDataPO.getValue().toString());
                     }
                 }
                 //fieldNames = fieldNames.delete(fieldNames.length() - 2, 1);
@@ -278,7 +280,7 @@ public class ResolvePendingSQL {
                 for (FormRecordFieldDataPO fieldDataPO : recordFieldPOList) {
                     if(!fieldDataPO.getValue().equals("")) {
                         sqlBuilder.append(String.format("%s=#{%s},", fieldDataPO.getFieldName(), fieldDataPO.getFieldName()));
-                        sqlMapPara.put(fieldDataPO.getFieldName(), fieldDataPO.getValue());
+                        sqlMapPara.put(fieldDataPO.getFieldName(), fieldDataPO.getValue().toString());
                     }
                 }
                 sqlBuilder=StringUtility.removeLastChar(sqlBuilder);

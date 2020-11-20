@@ -23,28 +23,29 @@ let ValidateRulesRuntime={
             //var hasError = false;
             if (validateRules && validateRules.rules.length > 0) {
                 var singleControlErrors = {
-                    labName:this.tryGetValidateErrorName($controlElem),
-                    errors:[],
-                    $elem:null
+                    labName: this.tryGetValidateErrorName($controlElem),
+                    errors: [],
+                    $elem: null
                 }
                 var fieldTransferPO = HTMLControl.TryGetFieldTransferPO($controlElem, "ValidateSubmitEnable", "ValidateSubmitEnable", "ValidateSubmitEnable");
                 var controlValue = fieldTransferPO.value;
                 for (let j = 0; j < validateRules.rules.length; j++) {
                     var singleRule = validateRules.rules[j];
                     if (singleRule.validateType == ValidateRulesRuntime.NoEmpty) {
-                        if(StringUtility.Trim(controlValue)==""||StringUtility.IsNullOrEmpty(controlValue)){
+                        if (StringUtility.Trim(controlValue) == "" || StringUtility.IsNullOrEmpty(controlValue)) {
                             //hasError=true;
                             singleControlErrors.errors.push("不能为空!");
                         }
                     }
-                    if(singleControlErrors.errors.length>0){
-                        singleControlErrors.$elem=$controlElem;
-                        validateResult.success=false;
+                    if (singleControlErrors.errors.length > 0) {
+                        singleControlErrors.$elem = $controlElem;
+                        validateResult.success = false;
                         validateResult.errors.push(singleControlErrors);
                     }
                 }
             }
         }
+        var validateResult = FormPageObjectInstanceProxy.CallValidateEveryFromControl(validateResult);
         return validateResult;
     },
     tryGetValidateErrorName:function($control) {
@@ -56,7 +57,7 @@ let ValidateRulesRuntime={
         return name;
     },
     AlertValidateErrors:function(validateResult){
-        console.log(validateResult);
+
         if(!validateResult.success){
             let message="";
             for (let i = 0; i < validateResult.errors.length; i++) {

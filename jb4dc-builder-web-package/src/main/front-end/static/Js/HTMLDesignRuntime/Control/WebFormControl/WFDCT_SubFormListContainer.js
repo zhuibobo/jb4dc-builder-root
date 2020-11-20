@@ -83,7 +83,7 @@ var WFDCT_SubFormListContainer={
         for (var i = 0; i < listDataRecord.length; i++) {
             var oneDataRecord = listDataRecord[i];
             if(this._EditInRow){
-                this.InnerRow_AddRowToContainer(oneDataRecord);
+                this.InnerRow_AddRowToContainer(oneDataRecord,relationPO.pkFieldName);
             }
             else {
                 //console.log(relationFormRecordComplexPo);
@@ -197,7 +197,7 @@ var WFDCT_SubFormListContainer={
         var rendererChainParas = sender.data._rendererChainParas;
         //debugger;
         if (selfObj._EditInRow) {
-            selfObj.InnerRow_AddRowToContainer(null);
+            selfObj.InnerRow_AddRowToContainer(null,null);
         } else {
             selfObj.Dialog_ShowAddRowSubFormDialog(sender, $hostElem, rendererChainParas, instanceName);
         }
@@ -266,14 +266,18 @@ var WFDCT_SubFormListContainer={
             //po=this._FormRuntimeHost.FindRelationPOByTableName(bindTableName);
             po = FormRelationPOUtility.FindRelationPOByTableName(this._FormDataRelationList, bindTableName);
             if (po == null) {
-                DialogUtility.AlertText("WFDCT_SubFormListContainer.TryGetRelationPO:通过内部控件绑定的表找不到具体的数据关联实体！");
+                var errMsg="WFDCT_SubFormListContainer.TryGetRelationPO:通过内部控件绑定的表找不到具体的数据关联实体！";
+                DialogUtility.AlertText(errMsg);
+                throw errMsg;
             }
         }
         else {
             //po=this._FormRuntimeHost.FindRelationPOById(bindDataSource);
             po = FormRelationPOUtility.FindRelationPOById(this._FormDataRelationList, bindDataSource);
             if (po == null) {
-                DialogUtility.AlertText("WFDCT_SubFormListContainer.TryGetRelationPO:通过ID" + bindDataSource + "找不到具体的数据关联实体！");
+                var errMsg="WFDCT_SubFormListContainer.TryGetRelationPO:通过ID" + bindDataSource + "找不到具体的数据关联实体！";
+                DialogUtility.AlertText(errMsg);
+                throw errMsg;
             }
         }
         this._po=po;
@@ -332,7 +336,8 @@ var WFDCT_SubFormListContainer={
 
     //region 行内编辑相关方法
     _$LastEditRow:null,
-    InnerRow_AddRowToContainer:function (oneDataRecord) {
+    InnerRow_AddRowToContainer:function (oneDataRecord,subTablePKFieldName) {
+        //debugger;
         this.InnerRow_CompletedLastEdit();
         var $tr = this._$TemplateTableRow.clone();
         var lastOperationTd = $("<td><div class='sflt-td-operation-outer-wrap'></div></td>");
@@ -365,6 +370,16 @@ var WFDCT_SubFormListContainer={
         this._$TableBodyElem.append($tr);
         this._$LastEditRow = $tr;
 
+        var controls = HTMLControl.FindALLControls(this._$LastEditRow);
+        for (var i = 0; i < controls.length; i++) {
+            var control = $(controls[i]);
+            var controlInstance = HTMLControl.GetControlInstanceByElem(control);
+            var fieldName = HTMLControl.GetControlBindFieldName(control);
+            controlInstance.RendererChain({
+                $singleControlElem:control
+            });
+        }
+
         if(oneDataRecord){
             var controls = HTMLControl.FindALLControls(this._$LastEditRow);
             for (var i = 0; i < controls.length; i++) {
@@ -372,10 +387,12 @@ var WFDCT_SubFormListContainer={
                 var controlInstance = HTMLControl.GetControlInstanceByElem(control);
                 var fieldName = HTMLControl.GetControlBindFieldName(control);
                 //debugger;
-                var fieldPO = FormRelationPOUtility.FindFieldPOInOneDataRecord(oneDataRecord, fieldName)
+                var fieldPO = FormRelationPOUtility.FindFieldPOInOneDataRecordEnableNull(oneDataRecord, fieldName)
                 controlInstance.SetValue(control,fieldPO, null, null);
             }
-            var idValue=FormRelationPOUtility.FindIDFieldPOInOneDataRecord(oneDataRecord).value;
+            //debugger
+            //var idValue=FormRelationPOUtility.FindIDFieldPOInOneDataRecord(oneDataRecord).value;
+            var idValue=FormRelationPOUtility.FindFieldPOInOneDataRecord(oneDataRecord,subTablePKFieldName).value;
             this.SetRowId($tr,idValue);
             //$tr.attr("tr_record_id",idValue);
         }
@@ -421,6 +438,7 @@ var WFDCT_SubFormListContainer={
     },
     InnerRow_CompletedLastEdit:function(){
         if(this._$LastEditRow){
+            //debugger;
             var controls = HTMLControl.FindALLControls(this._$LastEditRow);
 
             var relationPO=this.TryGetRelationPOClone();
@@ -436,7 +454,7 @@ var WFDCT_SubFormListContainer={
                 idValue=StringUtility.Guid();
             }
             //if(!id){
-            FormRelationPOUtility.CreateIdFieldInRecordFieldPOArray(recordFieldPOList,idValue);
+            FormRelationPOUtility.CreateIdFieldInRecordFieldPOArray(recordFieldPOList,idValue,this._FormRuntimeHost._FormPO,relationPO.tableId);
             //}
 
             //console.log(relationPO);

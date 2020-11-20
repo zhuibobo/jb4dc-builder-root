@@ -267,7 +267,7 @@
             //region 组织机构树
             initTree: function () {
                 var _self=this;
-                AjaxUtility.Post(this.acInterface.getOrganAndUserData, {}, function (result) {
+                AjaxUtility.Get(this.acInterface.getOrganAndUserData, {}, function (result) {
                     console.log(result);
                     if(result.success){
                         var treeData=result.data.ALLOrganMinProp;
@@ -364,9 +364,14 @@
                 AjaxUtility.Get(this.acInterface.getGridInfo, {organId: selectOrgan.organId}, function (result) {
                     console.log(result);
                     if(result.success){
-                        if(result.data&&StringUtility.IsNotNullOrEmpty(result.data.gridMapPath)){
-                            this.drawSingleGridPath(result.data.gridMapPath,true,"");
+                        if(result.data){
                             this.gridInfoEntity=result.data;
+                            /*this.gridInfoEntity.gridCode=result.data.gridCode;
+                            this.gridInfoEntity.gridRemark=result.data.gridRemark;
+                            this.gridInfoEntity.gridContent=result.data.gridContent;*/
+                            if(StringUtility.IsNotNullOrEmpty(result.data.gridMapPath)){
+                                this.drawSingleGridPath(result.data.gridMapPath,true,"");
+                            }
                         }
                         else{
                             this.gridInfoEntity= {

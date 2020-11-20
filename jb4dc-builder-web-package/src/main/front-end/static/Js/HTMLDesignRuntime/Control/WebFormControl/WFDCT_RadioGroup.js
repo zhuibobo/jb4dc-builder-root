@@ -11,11 +11,17 @@ var WFDCT_RadioGroup={
         var radioGroupDiv=$("<div class='radioGroupContainer' />");
         var defaultSelected=$singleControlElem.attr("defaultselected");
         this.radioGroupName="radioGroupName_"+$singleControlElem.attr("id");
+        var rownum=$singleControlElem.attr("rownum");
         for (var i = 0; i < dataSource.length; i++) {
             var item=dataSource[i];
             var text=item.ITEXT;
             var value=item.IVALUE;
             //console.log(text);
+            var newRow=false;
+            if(rownum>1){
+                newRow=(((i)%rownum)==0);
+            }
+
             if(text!="--请选择--") {
                 var itemRadio = $("<input type='radio' name='" + this.radioGroupName + "' />");
                 itemRadio.val(value);
@@ -24,6 +30,9 @@ var WFDCT_RadioGroup={
                 }
                 radioGroupDiv.append(itemRadio);
                 radioGroupDiv.append("<span>" + text + "</span>");
+                if(newRow){
+                    radioGroupDiv.append("<br />");
+                }
             }
             //$singleControlElem
         }

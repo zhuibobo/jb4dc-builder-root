@@ -13,7 +13,8 @@ Vue.component("fd-control-base-info", {
                 custDisabled: "",
                 style: "",
                 desc: "",
-                status:""
+                status:"",
+                groupName:""
             }
         }
     },
@@ -97,6 +98,18 @@ Vue.component("fd-control-base-info", {
                             </td>
                         </tr>
                         <tr>
+                            <td>Group</td>
+                            <td>
+                                <input type="text" v-model="baseInfo.groupName" />
+                            </td>
+                            <td></td>
+                            <td style="text-align: center">
+                            </td>
+                            <td></td>
+                            <td style="text-align: center">
+                            </td>
+                        </tr>
+                        <tr>
                             <td>样式：</td>
                             <td colspan="5">
                                 <textarea rows="7" v-model="baseInfo.style"></textarea>
@@ -105,7 +118,7 @@ Vue.component("fd-control-base-info", {
                         <tr>
                             <td>备注：</td>
                             <td colspan="5">
-                                <textarea rows="8" v-model="baseInfo.desc"></textarea>
+                                <textarea rows="5" v-model="baseInfo.desc"></textarea>
                             </td>
                         </tr>
                     </tbody>

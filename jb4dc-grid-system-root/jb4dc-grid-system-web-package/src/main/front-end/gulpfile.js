@@ -38,6 +38,24 @@ gulp.task('js-vue-ex-component',()=>{
         .pipe(gulp.dest(distPath + "/Js"));
 });
 
+gulp.task('js-utility-component',()=>{
+    var obj = gulp.src([sourcePath + '/Js/Utility/**/*.js'])
+        .pipe(babel({
+            presets: ['@babel/env']
+        }))
+        .pipe(sourcemaps.init())
+        //.pipe(sourcemaps.identityMap())
+        .pipe(concat('GridUtility.js'))
+    //.pipe(uglify())
+
+    if(!isdebug){
+        obj=obj.pipe(uglify());
+    }
+
+    return  obj.pipe(sourcemaps.write())
+        .pipe(gulp.dest(distPath + "/Js"));
+});
+
 gulp.task('html-only',()=>{
     return copyAndResolveHtml(sourcePath + "/HTML/**/*.html",sourcePath + "/HTML",distPath + "/HTML");
 });
@@ -64,6 +82,7 @@ gulp.task('dist-watch-debug', function() {
     isdebug=true;
     gulp.watch(sourcePath+"/HTML/**/*", gulp.series('html-only'));
     gulp.watch(sourcePath + "/Js/VueComponent/**/*.js", gulp.series('js-vue-ex-component'));
+    gulp.watch(sourcePath + "/Js/Utility/**/*.js", gulp.series('js-utility-component'));
     gulp.watch(sourcePath+"/Themes/Default/Grid/**/*.less", gulp.series('grid-system-less'));
 });
 //endregion

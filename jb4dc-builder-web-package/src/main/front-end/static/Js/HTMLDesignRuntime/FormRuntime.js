@@ -158,7 +158,6 @@ let FormRuntime={
                 },this);*/
                 if(this._FormPO.listButtonEntity){
                     this.CreateALLInnerFormButton(this._FormPO.listButtonEntity);
-                    this.CallRendererChainCompletedFunc();
                 }
             }
 
@@ -169,6 +168,8 @@ let FormRuntime={
             if(BaseUtility.IsViewOperation(this.GetOperationType())){
                 $("#innerButtonWrapOuter").hide();
             }
+
+            this.CallRendererChainCompletedFunc();
             //var relationFormRecordComplexPo=FormRuntimeMock.GetMockData();
             //this.DeSerializationFormData(relationFormRecordComplexPo);
         }, this);
@@ -177,6 +178,7 @@ let FormRuntime={
         if (typeof (this._Prop_Config.RendererChainCompletedFunc) == "function") {
             this._Prop_Config.RendererChainCompletedFunc.call(this);
         }
+        FormPageObjectInstanceProxy.Init(this._Prop_Config,this._FormPO);
         FormPageObjectInstanceProxy.CallPageReady();
     },
     IsPreview: function () {

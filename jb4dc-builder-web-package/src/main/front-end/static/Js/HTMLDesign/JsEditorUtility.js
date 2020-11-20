@@ -7,14 +7,14 @@ class JsEditorUtility{
             "data:{" +
             "userEntity:{}," +
             "organEntity:{}," +
-            "formEntity:[]," +
-            "recordEntity:[]," +
+            "formPO:[]," +
+            "formRecordComplexPO:[]," +
             "webFormRTParas:{},"+
             "config:[]" +
             "}," +
             "pageReady:function(){}," +
             "bindRecordDataReady:function(){}," +
-            "validateEveryFromControl:function(controlObj){}" +
+            "validateEveryFromControl:function(validateResult){return validateResult;}" +
             "}</script>";
 
     }

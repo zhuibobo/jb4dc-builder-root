@@ -33,7 +33,7 @@ Vue.component("module-list-workflow-comp", {
                 {
                     title: '模型名称',
                     key: 'integratedName',
-                    align: "center"
+                    align: "left"
                 }, {
                     title: '启动Key',
                     key: 'integratedStartKey',

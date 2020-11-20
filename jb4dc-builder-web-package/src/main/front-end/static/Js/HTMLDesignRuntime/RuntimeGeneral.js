@@ -77,7 +77,7 @@ var RuntimeGeneralInstance= {
         },sender);
     },
     GetUrlParas:function () {
-        //var paraJson;
+        //debugger
         if(this["menuRightUrlParaJson"]){
             return this["menuRightUrlParaJson"];
         }

@@ -33,7 +33,7 @@ Vue.component("module-list-weblist-comp", {
                 {
                     title: '列表名称',
                     key: 'listName',
-                    align: "center"
+                    align: "left"
                 }, {
                     title: '唯一名',
                     key: 'listSingleName',

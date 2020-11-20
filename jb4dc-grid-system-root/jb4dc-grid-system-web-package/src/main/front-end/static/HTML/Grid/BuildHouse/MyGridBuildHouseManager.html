@@ -12,7 +12,7 @@
 </head>
 <body>
 <div id="gridManager" class="list-2column">
-    <div class="left-outer-wrap" style="width: 450px">
+    <div class="left-outer-wrap" style="width: 350px">
         <div class="inner-wrap">
             <div class="tool-bar-wrap">
                 <div alt="新增建筑物" title="新增一般建筑物" class="add" @click="addBuild('一般建筑物')"></div>
@@ -42,29 +42,49 @@
             </div>
         </div>
     </div>
-    <div class="right-outer-wrap iv-list-page-wrap" style="padding: 10px;left: 460px">
+    <div class="right-outer-wrap iv-list-page-wrap" style="padding: 10px;left: 360px;right: 350px;">
         <tabs>
             <tab-pane label="房屋信息">
-                <div id="list-button-wrap" class="list-button-outer-wrap">
+                <div class="list-button-outer-wrap">
                     <div class="list-button-inner-wrap">
                         <button-group>
-                            <i-button type="success" @click="add()" icon="md-add"> 新增 </i-button>
-                            <i-button type="primary" icon="md-arrow-up" disabled> 上移 </i-button>
-                            <i-button type="primary" icon="md-arrow-down" disabled> 下移 </i-button>
+                            <i-button type="success" @click="addHouse()" icon="md-add"> 新增 </i-button>
                         </button-group>
                     </div>
                     <div style="clear: both"></div>
                 </div>
+                <i-table :height="listHeight" stripe border :columns="house.columnsConfig" :data="house.tableData"
+                         class="iv-list-table" :highlight-row="true"
+                         @on-selection-change="selectionHouseChange"></i-table>
             </tab-pane>
             <tab-pane label="地理位置">
             </tab-pane>
         </tabs>
-
+    </div>
+    <div class="right-outer-wrap iv-list-page-wrap" style="padding: 10px;width: 340px;right: 0px;">
+        <tabs>
+            <tab-pane label="人口信息">
+                <div class="list-button-outer-wrap">
+                    <div class="list-button-inner-wrap">
+                        <button-group>
+                            <i-button type="success" @click="addPerson()" icon="md-add"> 新增 </i-button>
+                        </button-group>
+                    </div>
+                    <div style="clear: both"></div>
+                </div>
+                <i-table :height="listHeight" stripe border :columns="person.columnsConfig" :data="person.tableData"
+                         class="iv-list-table" :highlight-row="true"
+                         @on-selection-change="selectionPersonChange"></i-table>
+            </tab-pane>
+        </tabs>
     </div>
 </div>
 <script>
     function reInitBuildTree(data) {
         gridManager.initTree(gridManager.buildTree.isShowGridBuild);
+    }
+    function reLoadHouse(data){
+        gridManager.loadHouseData(gridManager.buildTree.treeSelectedNode.buildId);
     }
     var gridManager = new Vue({
         el: "#gridManager",
@@ -78,7 +98,14 @@
                 editBuildView:"/HTML/Builder/Runtime/WebFormIndependenceRuntime.html",
                 editNormalBuildFormId:"ea18a1c7-7c47-4a94-a057-660f83088205",
                 editSpecialBuildFormId:"fd770a12-5412-4a80-8ebf-de5f85d6359f",
-                deleteBuild:"/Rest/Grid/Build/BuildMain/Delete"
+                deleteBuild:"/Rest/Grid/Build/BuildMain/Delete",
+                <!--House-->
+                getHouseByBuildId: "/Rest/Grid/Build/HouseInfo/GetHouseByBuildId",
+                editHouseView:"/HTML/Builder/Runtime/WebFormIndependenceRuntime.html",
+                editHouseFormId:"ccfdac63-d9d7-4a67-ad9f-747e88a48f5d",
+                <!--Person-->
+                editPersonView:"/HTML/Builder/Runtime/WebFormIndependenceRuntime.html",
+                editPersonFormId:"1488ee50-efb6-409a-afc7-eb0f9710713f"
             },
             <!--Build-->
             buildTree:{
@@ -86,7 +113,7 @@
                 treeSetting: {
                     async: {
                         enable: true,
-                        // Ajax 获取数据的 URL 地址
+                        // Ajax 获取数据的 URL 地址1
                         url: ""
                     },
                     // 必须使用data
@@ -115,10 +142,120 @@
                 treeIdFieldName: "roleGroupId",
                 treeObj: null,
                 treeSelectedNode: null
+            },
+            listHeight: ListPageUtility.DefaultListHeight(),
+            <!--House-->
+            house:{
+                columnsConfig: [
+                    {
+                        title: '房屋编码',
+                        key: 'houseCode',
+                        align: "left"
+                    }, {
+                        title: '房号',
+                        key: 'houseCodeNum',
+                        align: "center"
+                    }, {
+                        title: '使用情况',
+                        key: 'houseUsedDesc',
+                        align: "center"
+                    }, {
+                        title: '操作',
+                        key: 'houseId',
+                        width: 110,
+                        align: "center",
+                        render: function (h, params) {
+                            return h('div', {class: "list-row-button-wrap"}, [
+                                h('Tooltip', {
+                                    props: {
+                                        content: "查看"
+                                    }
+                                }, [h('div', {
+                                    class: "list-row-button view",
+                                    on: {
+                                        click: function click() {
+                                            gridManager.viewHouse(params);
+                                        }
+                                    }
+                                })]),
+                                h('Tooltip', {
+                                    props: {
+                                        content: "修改"
+                                    }
+                                }, [h('div', {
+                                    class: "list-row-button edit",
+                                    on: {
+                                        click: function click() {
+                                            gridManager.editHouse(params);
+                                        }
+                                    }
+                                })]),
+                                h('Tooltip', {
+                                    props: {
+                                        content: "删除"
+                                    }
+                                }, [h('div', {
+                                    class: "list-row-button del",
+                                    on: {
+                                        click: function click() {
+                                            gridManager.delHouse(params);
+                                        }
+                                    }
+                                })])
+                            ]);
+                        }
+                    }
+                ],
+                tableData: []
+            },
+            person:{
+                columnsConfig: [
+                    {
+                        title: '姓名',
+                        key: 'logText',
+                        align: "left"
+                    }, {
+                        title: '联系电话',
+                        key: 'logSystemName',
+                        align: "center"
+                    }, {
+                        title: '操作',
+                        key: 'dictGroupId',
+                        width: 70,
+                        align: "center",
+                        render: function (h, params) {
+                            return h('div',{class: "list-row-button-wrap"},[
+                                ListPageUtility.IViewTableInnerButton.ViewButton(h,params,appList.idFieldName,appList)
+                            ]);
+                        }
+                    }
+                ],
+                tableData: []
             }
         },
         methods: {
-            <!--Tree12-->
+            getFormPara:function (formId,opName,recordId,menuRightUrlPara,endFunc){
+               return  {
+                    "formId":formId,
+                    "buttonId":"",
+                    "listFormButtonElemId":"",
+                    "recordId":recordId,
+                    "operationType":opName,
+                    "windowWidth":1324,
+                    "windowHeight":900,
+                    "menuRightUrlPara":menuRightUrlPara,
+                    "devOperationEndFunc":endFunc,
+                    "menuRightUrlParaJson":""
+                }
+            },
+            getFormDialogPara:function (title){
+                return  {
+                    "width": 1324,
+                    "height": 900,
+                    "title":title
+                }
+            },
+            //region 建筑物1
             changeBuildRange:function(){
                 this.initTree(this.buildTree.isShowGridBuild);
             },
@@ -156,54 +293,28 @@
             treeNodeSelected: function (event, treeId, treeNode) {
                 // 根节点不触发任何事件
                 this.buildTree.treeSelectedNode = treeNode;
-
+                this.loadHouseData(treeNode.buildId);
             },
-            //region 建筑物
             addBuild:function (buildCategory) {
                 var formId=this.acInterface.editNormalBuildFormId;
                 if(buildCategory=="特殊建筑物"){
                     formId=this.acInterface.editSpecialBuildFormId;
                 }
-                DialogUtility.Frame_OpenIframeWindow(window,DialogUtility.DialogId,BaseUtility.BuildView(this.acInterface.editBuildView,{
-                    "formId":formId,
-                    "buttonId":"",
-                    "listFormButtonElemId":"",
-                    "recordId":"",
-                    "operationType":BaseUtility.GetAddOperationName(),
-                    "windowWidth":1224,
-                    "windowHeight":668,
-                    "menuRightUrlPara":"",
-                    "devOperationEndFunc":"reInitBuildTree"
-                }), {
-                    "width": 1224,
-                    "height": 668,
-                    "title":"登记建筑物信息"
-                },1,true);
+                var formPara=this.getFormPara(formId,BaseUtility.GetAddOperationName(),"","","reInitBuildTree");
+                DialogUtility.Frame_OpenIframeWindow(window,DialogUtility.DialogId,BaseUtility.BuildView(this.acInterface.editBuildView,formPara), this.getFormDialogPara("建筑物登记"),1,true);
             },
             editBuild:function () {
                 var selectedBuild=this.buildTree.treeSelectedNode;
                 if(selectedBuild==null){
                     DialogUtility.AlertText("请先选择要编辑的建筑物!")
+                    return;
                 }
                 var formId=this.acInterface.editNormalBuildFormId;
                 if(selectedBuild.buildCategory=="特殊建筑物"){
                     formId=this.acInterface.editSpecialBuildFormId;
                 }
-                DialogUtility.Frame_OpenIframeWindow(window,DialogUtility.DialogId,BaseUtility.BuildView(this.acInterface.editBuildView,{
-                    "formId":formId,
-                    "buttonId":"",
-                    "listFormButtonElemId":"",
-                    "recordId":selectedBuild.buildId,
-                    "operationType":BaseUtility.GetUpdateOperationName(),
-                    "windowWidth":1224,
-                    "windowHeight":668,
-                    "menuRightUrlPara":"",
-                    "devOperationEndFunc":"reInitBuildTree"
-                }), {
-                    "width": 1224,
-                    "height": 668,
-                    "title":"编辑建筑物信息"
-                },1,true);
+                var formPara=this.getFormPara(formId,BaseUtility.GetUpdateOperationName(),selectedBuild.buildId,"","reInitBuildTree");
+                DialogUtility.Frame_OpenIframeWindow(window,DialogUtility.DialogId,BaseUtility.BuildView(this.acInterface.editBuildView,formPara), this.getFormDialogPara("编辑建筑物信息"),1,true);
             },
             deleteBuild:function(){
                 var selectedBuild=this.buildTree.treeSelectedNode;
@@ -224,27 +335,75 @@
             viewBuild:function () {
                 var selectedBuild=this.buildTree.treeSelectedNode;
                 if(selectedBuild==null){
-                    DialogUtility.AlertText("请先选择要编辑的建筑物!")
+                    DialogUtility.AlertText("请先选择要编辑的建筑物!");
+                    return;
                 }
                 var formId=this.acInterface.editNormalBuildFormId;
                 if(selectedBuild.buildCategory=="特殊建筑物"){
                     formId=this.acInterface.editSpecialBuildFormId;
                 }
-                DialogUtility.Frame_OpenIframeWindow(window,DialogUtility.DialogId,BaseUtility.BuildView(this.acInterface.editBuildView,{
-                    "formId":formId,
-                    "buttonId":"",
-                    "listFormButtonElemId":"",
-                    "recordId":selectedBuild.buildId,
-                    "operationType":BaseUtility.GetViewOperationName(),
-                    "windowWidth":1224,
-                    "windowHeight":668,
-                    "menuRightUrlPara":"",
-                    "devOperationEndFunc":"reInitBuildTree"
-                }), {
-                    "width": 1224,
-                    "height": 668,
-                    "title":"查看建筑物信息"
-                },1,true);
+                var formPara=this.getFormPara(formId,BaseUtility.GetViewOperationName(),selectedBuild.buildId,"","reInitBuildTree");
+                DialogUtility.Frame_OpenIframeWindow(window,DialogUtility.DialogId,BaseUtility.BuildView(this.acInterface.editBuildView,formPara),this.getFormDialogPara("查看建筑物信息"),1,true);
+            },
+            //endregion
+            //region 房屋
+            selectionHouseChange:function (){
+
+            },
+            loadHouseData:function (buildId){
+                AjaxUtility.Get(this.acInterface.getHouseByBuildId, {buildId:buildId}, function (result) {
+                    console.log(result);
+                    if(result.success){
+                        this.house.tableData=result.data;
+                    }
+                }, this);
+            },
+            addHouse:function () {
+                var selectedBuild = this.buildTree.treeSelectedNode;
+                if (selectedBuild == null) {
+                    DialogUtility.AlertText("请先选择建筑物!");
+                    return;
+                }
+                var menuRightUrlPara = [{
+                    "ActionType": "BindToField",
+                    "FieldName": "HOUSE_BUILD_ID",
+                    "Value": selectedBuild.buildId
+                }];
+                var formPara = this.getFormPara(this.acInterface.editHouseFormId, BaseUtility.GetAddOperationName(), "",JsonUtility.JsonToString(menuRightUrlPara), "reLoadHouse");
+                DialogUtility.Frame_OpenIframeWindow(window, DialogUtility.DialogId, BaseUtility.BuildView(this.acInterface.editBuildView, formPara), this.getFormDialogPara("房屋登记"), 1, true);
+            },
+            viewHouse:function (para){
+                var houseId=para.row.houseId;
+                var formPara = this.getFormPara(this.acInterface.editHouseFormId, BaseUtility.GetViewOperationName(), houseId,"", "reLoadHouse");
+                DialogUtility.Frame_OpenIframeWindow(window, DialogUtility.DialogId, BaseUtility.BuildView(this.acInterface.editBuildView, formPara), this.getFormDialogPara("房屋登记"), 1, true);
+            },
+            editHouse:function (para){
+                //debugger;
+                var houseId=para.row.houseId;
+                var formPara = this.getFormPara(this.acInterface.editHouseFormId, BaseUtility.GetUpdateOperationName(), houseId,"", "reLoadHouse");
+                DialogUtility.Frame_OpenIframeWindow(window, DialogUtility.DialogId, BaseUtility.BuildView(this.acInterface.editBuildView, formPara), this.getFormDialogPara("房屋登记"), 1, true);
+            },
+            delHouse:function (para) {
+
+            },
+            //endregion
+            //region 人口
+            selectionPersonChange:function (){
+
+            },
+            addPerson:function (){
+                /*var selectedBuild = this.buildTree.treeSelectedNode;
+                if (selectedBuild == null) {
+                    DialogUtility.AlertText("请先选择建筑物!");
+                    return;
+                }*/
+                var menuRightUrlPara = [{
+                    "ActionType": "BindToField",
+                    "FieldName": "HOUSE_BUILD_ID",
+                    "Value": ""
+                }];
+                var formPara = this.getFormPara(this.acInterface.editPersonFormId, BaseUtility.GetAddOperationName(), "",JsonUtility.JsonToString(menuRightUrlPara), "reLoadHouse");
+                DialogUtility.Frame_OpenIframeWindow(window, DialogUtility.DialogId, BaseUtility.BuildView(this.acInterface.editBuildView, formPara), this.getFormDialogPara("房屋登记"), 1, true);
             }
             //endregion
         }

@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jb4dc.gridsystem.dao.build.HouseInfoMapper">
+    <resultMap id="BaseResultMap" type="com.jb4dc.gridsystem.dbentities.build.HouseInfoEntity">
+        <constructor>
+            <idArg column="HOUSE_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="HOUSE_BUILD_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="HOUSE_CODE" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="HOUSE_CODE_NUM" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="HOUSE_CODE_FULL" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="HOUSE_FLOOR_NUM" javaType="java.lang.Short" jdbcType="DECIMAL" />
+            <arg column="HOUSE_USED_DESC" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="HOUSE_DESIGN_FOR" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="HOUSE_USE_FOR" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="HOUSE_STRUCTURE" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="HOUSE_IS_RENTAL_HOUSING" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="HOUSE_REMARK" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="HOUSE_ORDER_NUM" javaType="java.lang.Integer" jdbcType="INTEGER" />
+            <arg column="HOUSE_INPUT_UNIT_NAME" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="HOUSE_INPUT_UNIT_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="HOUSE_INPUT_DATE" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+            <arg column="HOUSE_INPUT_USER_NAME" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="HOUSE_INPUT_USER_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
+        </constructor>
+    </resultMap>
+    <sql id="Base_Column_List">
+    HOUSE_ID, HOUSE_BUILD_ID, HOUSE_CODE, HOUSE_CODE_NUM, HOUSE_CODE_FULL, HOUSE_FLOOR_NUM,
+    HOUSE_USED_DESC, HOUSE_DESIGN_FOR, HOUSE_USE_FOR, HOUSE_STRUCTURE, HOUSE_IS_RENTAL_HOUSING,
+    HOUSE_REMARK, HOUSE_ORDER_NUM, HOUSE_INPUT_UNIT_NAME, HOUSE_INPUT_UNIT_ID, HOUSE_INPUT_DATE,
+    HOUSE_INPUT_USER_NAME, HOUSE_INPUT_USER_ID
+  </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from TGRID_HOUSE_INFO
+        where HOUSE_ID = #{houseId,jdbcType=VARCHAR}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from TGRID_HOUSE_INFO
+    where HOUSE_ID = #{houseId,jdbcType=VARCHAR}
+  </delete>
+    <insert id="insert" parameterType="com.jb4dc.gridsystem.dbentities.build.HouseInfoEntity">
+    insert into TGRID_HOUSE_INFO (HOUSE_ID, HOUSE_BUILD_ID, HOUSE_CODE,
+      HOUSE_CODE_NUM, HOUSE_CODE_FULL, HOUSE_FLOOR_NUM,
+      HOUSE_USED_DESC, HOUSE_DESIGN_FOR, HOUSE_USE_FOR,
+      HOUSE_STRUCTURE, HOUSE_IS_RENTAL_HOUSING, HOUSE_REMARK,
+      HOUSE_ORDER_NUM, HOUSE_INPUT_UNIT_NAME, HOUSE_INPUT_UNIT_ID,
+      HOUSE_INPUT_DATE, HOUSE_INPUT_USER_NAME, HOUSE_INPUT_USER_ID
+      )
+    values (#{houseId,jdbcType=VARCHAR}, #{houseBuildId,jdbcType=VARCHAR}, #{houseCode,jdbcType=VARCHAR},
+      #{houseCodeNum,jdbcType=VARCHAR}, #{houseCodeFull,jdbcType=VARCHAR}, #{houseFloorNum,jdbcType=DECIMAL},
+      #{houseUsedDesc,jdbcType=VARCHAR}, #{houseDesignFor,jdbcType=VARCHAR}, #{houseUseFor,jdbcType=VARCHAR},
+      #{houseStructure,jdbcType=VARCHAR}, #{houseIsRentalHousing,jdbcType=VARCHAR}, #{houseRemark,jdbcType=VARCHAR},
+      #{houseOrderNum,jdbcType=INTEGER}, #{houseInputUnitName,jdbcType=VARCHAR}, #{houseInputUnitId,jdbcType=VARCHAR},
+      #{houseInputDate,jdbcType=TIMESTAMP}, #{houseInputUserName,jdbcType=VARCHAR}, #{houseInputUserId,jdbcType=VARCHAR}
+      )
+  </insert>
+    <insert id="insertSelective" parameterType="com.jb4dc.gridsystem.dbentities.build.HouseInfoEntity">
+        insert into TGRID_HOUSE_INFO
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="houseId != null">
+                HOUSE_ID,
+            </if>
+            <if test="houseBuildId != null">
+                HOUSE_BUILD_ID,
+            </if>
+            <if test="houseCode != null">
+                HOUSE_CODE,
+            </if>
+            <if test="houseCodeNum != null">
+                HOUSE_CODE_NUM,
+            </if>
+            <if test="houseCodeFull != null">
+                HOUSE_CODE_FULL,
+            </if>
+            <if test="houseFloorNum != null">
+                HOUSE_FLOOR_NUM,
+            </if>
+            <if test="houseUsedDesc != null">
+                HOUSE_USED_DESC,
+            </if>
+            <if test="houseDesignFor != null">
+                HOUSE_DESIGN_FOR,
+            </if>
+            <if test="houseUseFor != null">
+                HOUSE_USE_FOR,
+            </if>
+            <if test="houseStructure != null">
+                HOUSE_STRUCTURE,
+            </if>
+            <if test="houseIsRentalHousing != null">
+                HOUSE_IS_RENTAL_HOUSING,
+            </if>
+            <if test="houseRemark != null">
+                HOUSE_REMARK,
+            </if>
+            <if test="houseOrderNum != null">
+                HOUSE_ORDER_NUM,
+            </if>
+            <if test="houseInputUnitName != null">
+                HOUSE_INPUT_UNIT_NAME,
+            </if>
+            <if test="houseInputUnitId != null">
+                HOUSE_INPUT_UNIT_ID,
+            </if>
+            <if test="houseInputDate != null">
+                HOUSE_INPUT_DATE,
+            </if>
+            <if test="houseInputUserName != null">
+                HOUSE_INPUT_USER_NAME,
+            </if>
+            <if test="houseInputUserId != null">
+                HOUSE_INPUT_USER_ID,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="houseId != null">
+                #{houseId,jdbcType=VARCHAR},
+            </if>
+            <if test="houseBuildId != null">
+                #{houseBuildId,jdbcType=VARCHAR},
+            </if>
+            <if test="houseCode != null">
+                #{houseCode,jdbcType=VARCHAR},
+            </if>
+            <if test="houseCodeNum != null">
+                #{houseCodeNum,jdbcType=VARCHAR},
+            </if>
+            <if test="houseCodeFull != null">
+                #{houseCodeFull,jdbcType=VARCHAR},
+            </if>
+            <if test="houseFloorNum != null">
+                #{houseFloorNum,jdbcType=DECIMAL},
+            </if>
+            <if test="houseUsedDesc != null">
+                #{houseUsedDesc,jdbcType=VARCHAR},
+            </if>
+            <if test="houseDesignFor != null">
+                #{houseDesignFor,jdbcType=VARCHAR},
+            </if>
+            <if test="houseUseFor != null">
+                #{houseUseFor,jdbcType=VARCHAR},
+            </if>
+            <if test="houseStructure != null">
+                #{houseStructure,jdbcType=VARCHAR},
+            </if>
+            <if test="houseIsRentalHousing != null">
+                #{houseIsRentalHousing,jdbcType=VARCHAR},
+            </if>
+            <if test="houseRemark != null">
+                #{houseRemark,jdbcType=VARCHAR},
+            </if>
+            <if test="houseOrderNum != null">
+                #{houseOrderNum,jdbcType=INTEGER},
+            </if>
+            <if test="houseInputUnitName != null">
+                #{houseInputUnitName,jdbcType=VARCHAR},
+            </if>
+            <if test="houseInputUnitId != null">
+                #{houseInputUnitId,jdbcType=VARCHAR},
+            </if>
+            <if test="houseInputDate != null">
+                #{houseInputDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="houseInputUserName != null">
+                #{houseInputUserName,jdbcType=VARCHAR},
+            </if>
+            <if test="houseInputUserId != null">
+                #{houseInputUserId,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.jb4dc.gridsystem.dbentities.build.HouseInfoEntity">
+        update TGRID_HOUSE_INFO
+        <set>
+            <if test="houseBuildId != null">
+                HOUSE_BUILD_ID = #{houseBuildId,jdbcType=VARCHAR},
+            </if>
+            <if test="houseCode != null">
+                HOUSE_CODE = #{houseCode,jdbcType=VARCHAR},
+            </if>
+            <if test="houseCodeNum != null">
+                HOUSE_CODE_NUM = #{houseCodeNum,jdbcType=VARCHAR},
+            </if>
+            <if test="houseCodeFull != null">
+                HOUSE_CODE_FULL = #{houseCodeFull,jdbcType=VARCHAR},
+            </if>
+            <if test="houseFloorNum != null">
+                HOUSE_FLOOR_NUM = #{houseFloorNum,jdbcType=DECIMAL},
+            </if>
+            <if test="houseUsedDesc != null">
+                HOUSE_USED_DESC = #{houseUsedDesc,jdbcType=VARCHAR},
+            </if>
+            <if test="houseDesignFor != null">
+                HOUSE_DESIGN_FOR = #{houseDesignFor,jdbcType=VARCHAR},
+            </if>
+            <if test="houseUseFor != null">
+                HOUSE_USE_FOR = #{houseUseFor,jdbcType=VARCHAR},
+            </if>
+            <if test="houseStructure != null">
+                HOUSE_STRUCTURE = #{houseStructure,jdbcType=VARCHAR},
+            </if>
+            <if test="houseIsRentalHousing != null">
+                HOUSE_IS_RENTAL_HOUSING = #{houseIsRentalHousing,jdbcType=VARCHAR},
+            </if>
+            <if test="houseRemark != null">
+                HOUSE_REMARK = #{houseRemark,jdbcType=VARCHAR},
+            </if>
+            <if test="houseOrderNum != null">
+                HOUSE_ORDER_NUM = #{houseOrderNum,jdbcType=INTEGER},
+            </if>
+            <if test="houseInputUnitName != null">
+                HOUSE_INPUT_UNIT_NAME = #{houseInputUnitName,jdbcType=VARCHAR},
+            </if>
+            <if test="houseInputUnitId != null">
+                HOUSE_INPUT_UNIT_ID = #{houseInputUnitId,jdbcType=VARCHAR},
+            </if>
+            <if test="houseInputDate != null">
+                HOUSE_INPUT_DATE = #{houseInputDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="houseInputUserName != null">
+                HOUSE_INPUT_USER_NAME = #{houseInputUserName,jdbcType=VARCHAR},
+            </if>
+            <if test="houseInputUserId != null">
+                HOUSE_INPUT_USER_ID = #{houseInputUserId,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where HOUSE_ID = #{houseId,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.jb4dc.gridsystem.dbentities.build.HouseInfoEntity">
+    update TGRID_HOUSE_INFO
+    set HOUSE_BUILD_ID = #{houseBuildId,jdbcType=VARCHAR},
+      HOUSE_CODE = #{houseCode,jdbcType=VARCHAR},
+      HOUSE_CODE_NUM = #{houseCodeNum,jdbcType=VARCHAR},
+      HOUSE_CODE_FULL = #{houseCodeFull,jdbcType=VARCHAR},
+      HOUSE_FLOOR_NUM = #{houseFloorNum,jdbcType=DECIMAL},
+      HOUSE_USED_DESC = #{houseUsedDesc,jdbcType=VARCHAR},
+      HOUSE_DESIGN_FOR = #{houseDesignFor,jdbcType=VARCHAR},
+      HOUSE_USE_FOR = #{houseUseFor,jdbcType=VARCHAR},
+      HOUSE_STRUCTURE = #{houseStructure,jdbcType=VARCHAR},
+      HOUSE_IS_RENTAL_HOUSING = #{houseIsRentalHousing,jdbcType=VARCHAR},
+      HOUSE_REMARK = #{houseRemark,jdbcType=VARCHAR},
+      HOUSE_ORDER_NUM = #{houseOrderNum,jdbcType=INTEGER},
+      HOUSE_INPUT_UNIT_NAME = #{houseInputUnitName,jdbcType=VARCHAR},
+      HOUSE_INPUT_UNIT_ID = #{houseInputUnitId,jdbcType=VARCHAR},
+      HOUSE_INPUT_DATE = #{houseInputDate,jdbcType=TIMESTAMP},
+      HOUSE_INPUT_USER_NAME = #{houseInputUserName,jdbcType=VARCHAR},
+      HOUSE_INPUT_USER_ID = #{houseInputUserId,jdbcType=VARCHAR}
+    where HOUSE_ID = #{houseId,jdbcType=VARCHAR}
+  </update>
+</mapper>

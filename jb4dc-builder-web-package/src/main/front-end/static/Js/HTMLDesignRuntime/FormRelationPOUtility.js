@@ -75,7 +75,7 @@ let FormRelationPOUtility={
     Get1ToNDataRecord:function (relationPO) {
         return relationPO.listDataRecord;
     },
-    FindFieldPOInOneDataRecord:function(oneDataRecord,fieldName){
+    FindFieldPOInOneDataRecordEnableNull:function (oneDataRecord,fieldName){
         var fieldPOArray=this.FindRecordFieldPOArray(oneDataRecord);
         var fieldPO=ArrayUtility.WhereSingle(fieldPOArray,function (item) {
             return item.fieldName==fieldName;
@@ -83,7 +83,14 @@ let FormRelationPOUtility={
         if(fieldPO){
             return fieldPO;
         }
-        throw "FormRuntime.FindFieldPOInOneDataRecord:找不到字段"+fieldName+"的数据值!";
+        return null;
+    },
+    FindFieldPOInOneDataRecord:function(oneDataRecord,fieldName){
+        var fieldPO=this.FindFieldPOInOneDataRecordEnableNull(oneDataRecord,fieldName);
+        if (!fieldPO){
+            throw "FormRuntime.FindFieldPOInOneDataRecord:找不到字段"+fieldName+"的数据值!";
+        }
+        return fieldPO;
     },
     FindFieldValueInOneDataRecord:function(oneDataRecord,fieldName) {
         var recordFieldPOList = this.FindRecordFieldPOArray(oneDataRecord);
@@ -191,6 +198,9 @@ let FormRelationPOUtility={
     CreateIdFieldInRecordFieldPOArray:function(recordFieldPOArray, idValue,formPO,tableId){
         if(!idValue){
             idValue = StringUtility.Guid();
+        }
+        if(!tableId){
+            throw "FormRelationPOUtility.CreateIdFieldInRecordFieldPOArray:tableId不能为空!";
         }
         //console.log(formPO);
         var pkFieldPO=ArrayUtility.WhereSingle(formPO.formRecordComplexPO.allDataRelationTableFieldsMap[tableId],function (item) {

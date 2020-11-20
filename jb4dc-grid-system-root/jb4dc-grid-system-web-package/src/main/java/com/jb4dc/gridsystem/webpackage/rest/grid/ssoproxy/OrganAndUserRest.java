@@ -1,5 +1,8 @@
 package com.jb4dc.gridsystem.webpackage.rest.grid.ssoproxy;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.jb4dc.base.service.general.JB4DCSessionUtility;
+import com.jb4dc.base.tools.JsonUtility;
 import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
 import com.jb4dc.core.base.vo.JBuild4DCResponseVo;
 import com.jb4dc.sso.client.proxy.IOrganRuntimeProxy;
@@ -30,7 +33,16 @@ public class OrganAndUserRest {
     @Autowired
     IUserRuntimeProxy userRuntimeProxy;
 
-    @RequestMapping(value = "/GetOrganAndUserData", method = RequestMethod.POST)
+    @RequestMapping(value = "/GetALLOrganMinPropData", method = RequestMethod.GET)
+    public JBuild4DCResponseVo getALLOrganMinPropData() throws JBuild4DCGenerallyException, JsonProcessingException {
+        JBuild4DCResponseVo<List<OrganEntity>> jBuild4DCResponseVoOrganEntity=organRuntimeProxy.getEnableOrganMinPropRT();
+        Map<String,Object> organAndUserMap=new HashMap<>();
+        organAndUserMap.put("ALLOrganMinProp",jBuild4DCResponseVoOrganEntity.getData());
+        organAndUserMap.put("MySessionData", JB4DCSessionUtility.getSession());
+        return JBuild4DCResponseVo.getDataSuccess(organAndUserMap);
+    }
+
+    @RequestMapping(value = "/GetOrganAndUserData", method = RequestMethod.GET)
     public JBuild4DCResponseVo getOrganAndUserData() throws JBuild4DCGenerallyException {
         JBuild4DCResponseVo<List<OrganEntity>> jBuild4DCResponseVoOrganEntity=organRuntimeProxy.getEnableOrganMinPropRT();
         JBuild4DCResponseVo<List<UserEntity>> jBuild4DCResponseVoUserEntity=userRuntimeProxy.getEnableUserMinPropRT();

@@ -11,6 +11,7 @@ import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
 import com.jb4dc.core.base.session.JB4DCSession;
 import com.jb4dc.core.base.tools.ClassUtility;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.config.AutowireCapableBeanFactory;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -23,6 +24,9 @@ import java.io.IOException;
  */
 @Service
 public class EnvVariableRuntimeProxyImpl extends RuntimeProxyBase implements IEnvVariableRuntimeProxy {
+
+    @Autowired
+    private AutowireCapableBeanFactory autowireCapableBeanFactory;
 
     @Autowired(required = false)
     IEnvVariableService envVariableService;
@@ -69,6 +73,8 @@ public class EnvVariableRuntimeProxyImpl extends RuntimeProxyBase implements IEn
         IEnvVariableCreator varCreater=null;
         try {
             varCreater=(IEnvVariableCreator) ClassUtility.loadClass(envVariableEntity.getEnvVarClassName()).newInstance();
+            autowireCapableBeanFactory.autowireBean(varCreater);
+
         } catch (InstantiationException ex) {
             ex.printStackTrace();
             throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_BUILDER_CODE,ex.getMessage());

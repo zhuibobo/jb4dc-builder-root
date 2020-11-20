@@ -25,6 +25,9 @@ import java.util.stream.Collectors;
 public class FormRecordDataUtility {
 
     public static String findIdInFormRecordFieldDataPO(FormRecordDataPO formRecordDataPO,List<TableFieldPO> tableFieldPOList) throws JBuild4DCGenerallyException {
+        if(tableFieldPOList==null){
+            throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_BUILDER_CODE,"FormRecordDataUtility.findIdInFormRecordFieldDataPO:tableFieldPOList不能为Null");
+        }
         String pkFieldName=tableFieldPOList.stream().filter(item->item.getFieldIsPk().equals("是")).findFirst().get().getFieldName().toUpperCase();
         FormRecordFieldDataPO formRecordFieldDataPO =  formRecordDataPO.getRecordFieldPOList().stream().filter(item -> item.getFieldName().toUpperCase().equals(pkFieldName)).findFirst().orElse(null);
         if(formRecordFieldDataPO==null) {

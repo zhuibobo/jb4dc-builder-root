@@ -199,7 +199,8 @@ class CKEditorPluginUtility {
             custDisabled:"nodisabled",
             style:"",
             desc:"",
-            status:"enable"
+            status:"enable",
+            groupName:""
         },
         bindToSearchField:{
             columnTitle:"",
@@ -219,7 +220,8 @@ class CKEditorPluginUtility {
             staticDataSource:"",
             defaultSelected:"",
             layoutDirection:"vertical",
-            rowNum:"0"
+            rowNum:"0",
+            displayValueInText:"false"
         }
     }
     static OnCKWysiwygElemDBClickEvent(event,controlSetting){

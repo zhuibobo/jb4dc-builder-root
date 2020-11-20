@@ -5,7 +5,9 @@ var WFDCT_BaiduMapContainer= {
         $singleControlElem:null,
         mapObj:null,
         mapSelectedLngLat:"",
-        mapObjs:null
+        mapEditObjs:[],
+        mapViewObjs:[],
+        oldEditData:null
     },
     LoadBaiDuJsCompleted:function() {
         var _this=this;
@@ -16,6 +18,20 @@ var WFDCT_BaiduMapContainer= {
             _this._prop.mapSelectedLngLat=e.latlng;
         });
         this.InitDrawControl();
+
+        if(this._prop.oldEditData){
+            var mapData=this._prop.oldEditData;
+            for (var i = 0; i <mapData.length; i++) {
+                if(mapData[i].type=="point"){
+                    var point = new BMapGL.Point(mapData[i].path.lng,mapData[i].path.lat);
+                    var marker = new BMapGL.Marker(point, {
+                        enableDragging: true
+                    });
+                    this._prop.mapObj.addOverlay(marker);
+                    this.addToMapEditObjs("point",marker);
+                }
+            }
+        }
     },
     InitializeAtInstance:function(initializeParas,clientInstanceName,elemId){
         //debugger;
@@ -40,9 +56,36 @@ var WFDCT_BaiduMapContainer= {
     RendererDataChain: function () {
 
     },
-    GetValue: HTMLControl.GetValue,
-    SetValue: HTMLControl.SetValue,
+    GetValue: function ($elem, originalData, paras){
+        var mapData = [];
+        //debugger;
+        if(this._prop.mapEditObjs&&this._prop.mapEditObjs.length>0) {
+
+            for (var i = 0; i < this._prop.mapEditObjs.length; i++) {
+                if(this._prop.mapEditObjs[i].type=="point") {
+                    mapData.push({
+                        "type": this._prop.mapEditObjs[i].type,
+                        "path": this._prop.mapEditObjs[i].obj.getPosition()
+                    });
+                }
+            }
+            mapData = JsonUtility.JsonToString(mapData);
+        }
+        originalData.value=mapData;
+        return originalData;
+    },
+    SetValue: function ($elem, fieldPO, relationFormRecordComplexPo, _rendererDataChainParas){
+        if(fieldPO&&fieldPO.value){
+            //console.log(fieldPO);
+            //$elem.val(fieldPO.value);
+            //$elem.attr("control_value",fieldPO.value);
+            this._prop.oldEditData=JsonUtility.StringToJson(fieldPO.value);
+        }
+    },
     ToViewStatus: HTMLControl.ToViewStatus,
+    addToMapEditObjs:function(type,editObj){
+        this._prop.mapEditObjs.push({"type":type, "obj": editObj});
+    },
     //region 区域绘制功能
     InitDrawControl:function () {
         var $singleControlElem=this._prop.$singleControlElem;
@@ -65,7 +108,11 @@ var WFDCT_BaiduMapContainer= {
                 enableDragging: true
             });
             _this._prop.mapObj.addOverlay(marker);
+            _this.addToMapEditObjs("point",marker);
             //_this._prop.mapAction="appNewPoint";
+        });
+        $appendClearControl.click(function (){
+
         });
     }
     //endregion

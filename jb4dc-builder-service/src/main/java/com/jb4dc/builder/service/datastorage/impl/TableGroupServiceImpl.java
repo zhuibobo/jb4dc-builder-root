@@ -334,11 +334,16 @@ public class TableGroupServiceImpl extends BaseServiceImpl<TableGroupEntity> imp
         tableService.registerSystemTableToBuilderToModule(jb4DCSession,"TGRID_GATHER_TERMINAL_INFO",gridBaseGroupEnt);
 
         //建筑物相关信息
-        TableGroupEntity buildGroupEnt=this.deleteAndSaveGroup(jb4DCSession,"TABLE_GROUP_GRID_SYSTEM_BUILD_GROUP_ID","人房楼相关表",IDbLinkService.JBUILD4DC_GRID_DB_LINK_ID);
+        TableGroupEntity buildGroupEnt=this.deleteAndSaveGroup(jb4DCSession,"TABLE_GROUP_GRID_SYSTEM_BUILD_GROUP_ID","房楼相关表",IDbLinkService.JBUILD4DC_GRID_DB_LINK_ID);
         tableService.registerSystemTableToBuilderToModule(jb4DCSession,"TGRID_BUILD_INFO",buildGroupEnt);
         tableService.registerSystemTableToBuilderToModule(jb4DCSession,"TGRID_HOUSE_INFO",buildGroupEnt);
         tableService.registerSystemTableToBuilderToModule(jb4DCSession,"TGRID_HOUSE_RELEVANTER",buildGroupEnt);
         //tableService.registerSystemTableToBuilderToModule(jb4DCSession,"TGRID_PERSON_INFO",buildGroupEnt);
+
+        //人口相关信息
+        TableGroupEntity personGroupEnt=this.deleteAndSaveGroup(jb4DCSession,"TABLE_GROUP_GRID_SYSTEM_PERSON_GROUP_ID","人口相关表",IDbLinkService.JBUILD4DC_GRID_DB_LINK_ID);
+        tableService.registerSystemTableToBuilderToModule(jb4DCSession,"TGRID_FAMILY",personGroupEnt);
+        tableService.registerSystemTableToBuilderToModule(jb4DCSession,"TGRID_PERSON",personGroupEnt);
 
         //企业相关信息
         TableGroupEntity entGroupEnt=this.deleteAndSaveGroup(jb4DCSession,"TABLE_GROUP_GRID_SYSTEM_ENTERPRISE_GROUP_ID","企业法人相关表",IDbLinkService.JBUILD4DC_GRID_DB_LINK_ID);
