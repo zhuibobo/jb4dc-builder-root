@@ -14,7 +14,7 @@ var InnerFormSaveButton= {
         if (ValidateRulesRuntime.AlertValidateErrors(validateResult)) {
             var formDataComplexPO = formRuntimeInstance.SerializationFormData();
             var operationType = formRuntimeInstance._Prop_Config.OperationType;
-            DialogUtility.AlertLoading(window, DialogUtility.DialogLoadingId, {}, "系统处理中,请稍候...");
+            DialogUtility.AlertLoading(window, DialogUtility.DialogLoadingId, {title:"系统提示"}, "系统处理中,请稍候...");
             RuntimeGeneralInstance.SubmitFormDataComplexPOListToServer(
                 formDataComplexPO,
                 formDataComplexPO.recordId,
@@ -65,6 +65,9 @@ var InnerFormSaveButton= {
                                 }, this);
                             }
                         }
+                    }
+                    else{
+                        DialogUtility.CloseDialog(DialogUtility.DialogLoadingId);
                     }
                 }, _this);
         }

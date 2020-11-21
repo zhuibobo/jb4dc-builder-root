@@ -50,8 +50,11 @@ public class NewFamilyPersonSupplementFieldDataApi implements IApiForButton {
         if(personEntityList.size()==0){
             throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_GRID_CODE,"必须填写户主信息!");
         }
+        if(personEntityList.size()>1){
+            throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_GRID_CODE,"只能有一个户主!");
+        }
         //获取户主
-        PersonEntity headHouseHoldPersonEntity=personEntityList.stream().filter(item->item.getPersonRelationship().equals("0")).findFirst().get();
+        PersonEntity headHouseHoldPersonEntity=personEntityList.stream().filter(item->item.getPersonRelationship()!=null&&item.getPersonRelationship().equals("0")).findFirst().orElse(null);
         if(headHouseHoldPersonEntity==null){
             throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_GRID_CODE,"必须填写户主信息!");
         }
@@ -74,6 +77,19 @@ public class NewFamilyPersonSupplementFieldDataApi implements IApiForButton {
             personEntity.setPersonCategory("中国居民");
             personEntity.setPersonHeadHouseholdId(headHouseHoldPersonEntity.getPersonId());
             personEntity.setPersonHeadHouseholdName(headHouseHoldPersonEntity.getPersonName());
+
+            if(StringUtility.isEmpty(personEntity.getPersonName())){
+                throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_GRID_CODE,"姓名不能为空!");
+            }
+
+            if(StringUtility.isEmpty(personEntity.getPersonRelationship())){
+                throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_GRID_CODE,personEntity.getPersonName()+"与户主关系不能为空!");
+            }
+
+            String idCard=personEntity.getPersonIdCard();
+            if(idCard.length()!=18){
+                throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_GRID_CODE,personEntity.getPersonName()+"的身份证长度必须为18位!");
+            }
 
             personService.updateByKeySelective(jb4DCSession,personEntity);
         }

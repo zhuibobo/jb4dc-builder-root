@@ -27,7 +27,8 @@
                 deleteHouse:"/Rest/Grid/Build/HouseInfo/Delete",
                 <!--Person-->
                 editPersonView:"/HTML/Builder/Runtime/WebFormIndependenceRuntime.html",
-                editPersonFormId:"1488ee50-efb6-409a-afc7-eb0f9710713f",
+                editFamilyFormId:"1488ee50-efb6-409a-afc7-eb0f9710713f",
+                editPersonFormId:"5d6de388-ce1e-43c7-b592-c9e80b71435c",
                 getPersonByHouseId:"/Rest/Grid/Person/PersonMain/GetPersonByHouseId",
                 deletePerson:"/Rest/Grid/Person/PersonMain/DeletePersonWithFamily"
             },
@@ -149,7 +150,7 @@
                     }, {
                         title: '操作',
                         key: 'personId',
-                        width: 120,
+                        width: 140,
                         align: "center",
                         render: function (h, params) {
                             var buttons=[];
@@ -162,7 +163,7 @@
                                 class: "list-row-button view",
                                 on: {
                                     click: function click() {
-                                        gridManager.viewHouse(params);
+                                        gridManager.viewPerson(params);
                                     }
                                 }
                             })]));
@@ -176,7 +177,7 @@
                                     class: "list-row-button edit",
                                     on: {
                                         click: function click() {
-                                            gridManager.editHouse(params);
+                                            gridManager.editPerson(params);
                                         }
                                     }
                                 })]),
@@ -194,6 +195,21 @@
                                     }
                                 }
                             })]));
+
+                            if(params.row.personRelationship=="0"){
+                                buttons.push(h('Tooltip', {
+                                    props: {
+                                        content: "编辑户信息"
+                                    }
+                                }, [h('div', {
+                                    class: "list-row-button kword",
+                                    on: {
+                                        click: function click() {
+                                            gridManager.editFamily(params);
+                                        }
+                                    }
+                                })]));
+                            }
 
                             var eh=h('div', {class: "list-row-button-wrap"},buttons);
                             return eh;
@@ -271,7 +287,7 @@
                     formId=this.acInterface.editSpecialBuildFormId;
                 }
                 var formPara=this.getFormPara(formId,BaseUtility.GetAddOperationName(),"","","reInitBuildTree");
-                DialogUtility.Frame_OpenIframeWindow(window,DialogUtility.DialogId,BaseUtility.BuildView(this.acInterface.editBuildView,formPara), this.getFormDialogPara("建筑物登记"),1,true);
+                DialogUtility.Frame_OpenIframeWindow(window,DialogUtility.DialogId,BaseUtility.BuildView(this.acInterface.editBuildView,formPara), this.getFormDialogPara(buildCategory+"登记"),1,true);
             },
             editBuild:function () {
                 var selectedBuild=this.buildTree.treeSelectedNode;
@@ -407,8 +423,8 @@
                     "FieldName": "FAMILY_HOUSE_CODE_FULL",
                     "Value": selectedHouse.houseCodeFull
                 }];
-                var formPara = this.getFormPara(this.acInterface.editPersonFormId, BaseUtility.GetAddOperationName(), "",JsonUtility.JsonToString(menuRightUrlPara), "reLoadPerson");
-                DialogUtility.Frame_OpenIframeWindow(window, DialogUtility.DialogId, BaseUtility.BuildView(this.acInterface.editBuildView, formPara), this.getFormDialogPara("房屋登记"), 1, true);
+                var formPara = this.getFormPara(this.acInterface.editFamilyFormId, BaseUtility.GetAddOperationName(), "",JsonUtility.JsonToString(menuRightUrlPara), "reLoadPerson");
+                DialogUtility.Frame_OpenIframeWindow(window, DialogUtility.DialogId, BaseUtility.BuildView(this.acInterface.editBuildView, formPara), this.getFormDialogPara("户登记"), 1, true);
             },
             delPerson:function (para){
                 var personId=para.row.personId;
@@ -423,6 +439,16 @@
                         }
                     }, this);
                 }, this);
+            },
+            editPerson:function (para){
+                var personId=para.row.personId;
+                var formPara = this.getFormPara(this.acInterface.editPersonFormId, BaseUtility.GetUpdateOperationName(), personId,"", "reLoadPerson");
+                DialogUtility.Frame_OpenIframeWindow(window, DialogUtility.DialogId, BaseUtility.BuildView(this.acInterface.editBuildView, formPara), this.getFormDialogPara("人员信息维护"), 1, true);
+            },
+            editFamily:function (para){
+                var personFamilyId=para.row.personFamilyId;
+                var formPara = this.getFormPara(this.acInterface.editFamilyFormId, BaseUtility.GetUpdateOperationName(), personFamilyId,"", "reLoadPerson");
+                DialogUtility.Frame_OpenIframeWindow(window, DialogUtility.DialogId, BaseUtility.BuildView(this.acInterface.editBuildView, formPara), this.getFormDialogPara("户登记"), 1, true);
             }
             //endregion
         }

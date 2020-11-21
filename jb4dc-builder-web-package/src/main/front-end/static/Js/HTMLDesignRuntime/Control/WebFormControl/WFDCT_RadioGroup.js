@@ -21,6 +21,9 @@ var WFDCT_RadioGroup={
             if(rownum>1){
                 newRow=(((i)%rownum)==0);
             }
+            else if(rownum==1){
+                newRow=true;
+            }
 
             if(text!="--请选择--") {
                 var itemRadio = $("<input type='radio' name='" + this.radioGroupName + "' />");

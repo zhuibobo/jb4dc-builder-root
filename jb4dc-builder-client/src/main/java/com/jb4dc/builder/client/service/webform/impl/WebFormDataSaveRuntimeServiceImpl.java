@@ -215,6 +215,11 @@ public class WebFormDataSaveRuntimeServiceImpl implements IWebFormDataSaveRuntim
                             innerSql += SQLKeyWordUtility.stringWrap(outerKeyFieldValue) + ",";
                         }
                         innerSql = StringUtility.removeLastChar(innerSql) + ")";
+
+                        if(StringUtility.isNotEmpty(formRecordDataRelationPO.getCondition())){
+                            innerSql+=" "+formRecordDataRelationPO.getCondition();
+                        }
+
                         List<Map<String, Object>> recordList = sqlBuilderService.selectList(innerSql);
                         this.addToDataToPool(dataPool, formRecordDataRelationPO.getTableName(), recordList);
 

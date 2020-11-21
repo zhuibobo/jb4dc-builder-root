@@ -69,6 +69,8 @@
             <column name="BUILD_SP_OWNER_ADDRESS" type="NVARCHAR(20)" remarks="特殊类建筑物-建筑物业主-联系地址" />
             <column name="BUILD_SP_OWNER_PHONE" type="NVARCHAR(20)" remarks="特殊类建筑物-建筑物业主-联系电话" />
             <column name="BUILD_SP_TYPE" type="NVARCHAR(20)" remarks="特殊类建筑物-建筑物类型:铁皮房,工棚,窝棚,看守棚,集装箱、大型装箱,危房,其它" />
+            <column name="BUILD_SP_USE_FOR" type="NVARCHAR(20)" remarks="特殊类建筑物-使用用途" />
+            <column name="BUILD_SP_STRUCTURE" type="NVARCHAR(100)" remarks="特殊类建筑物-结构" />
             <column name="BUILD_CHILD_COUNT" type="INT" remarks="子节点数量" />
             <column name="BUILD_IS_VIRTUAL" type="NVARCHAR(10)" remarks="是否虚拟" />
             <column name="BUILD_ORDER_NUM" type="INT" remarks="排序号" />
@@ -267,12 +269,16 @@
             <column name="FAMILY_STREET_ID" type="NVARCHAR(50)" remarks="街道Id:街道,乡镇" />
             <column name="FAMILY_COMMUNITY_ID" type="NVARCHAR(50)" remarks="社区Id:社区,村" />
             <column name="FAMILY_GRID_ID" type="NVARCHAR(50)" remarks="所属网格Id" />
+            <column name="FAMILY_HEAD_HOUSEHOLD_NAME" type="NVARCHAR(50)" remarks="户主姓名" />
+            <column name="FAMILY_HEAD_HOUSEHOLD_ID" type="NVARCHAR(50)" remarks="户主ID" />
         </createTable>
         <createTable tableName="TGRID_PERSON" remarks="人口信息表">
             <column name="PERSON_ID" type="NVARCHAR(50)" remarks="主键">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
             <column name="PERSON_FAMILY_ID" type="NVARCHAR(50)" remarks="家庭ID" />
+            <column name="PERSON_HEAD_HOUSEHOLD_NAME" type="NVARCHAR(50)" remarks="户主姓名" />
+            <column name="PERSON_HEAD_HOUSEHOLD_ID" type="NVARCHAR(50)" remarks="户主ID" />
             <column name="PERSON_HOUSE_ID" type="NVARCHAR(50)" remarks="房屋ID" />
             <column name="PERSON_HOUSE_CODE_FULL" type="NVARCHAR(50)" remarks="房屋编号" />
             <column name="PERSON_NAME" type="NVARCHAR(50)" remarks="姓名" />
@@ -305,15 +311,5 @@
             <column name="PERSON_REMARK" type="NVARCHAR(1000)" remarks="备注" />
             <column name="PERSON_ORDER_NUM" type="INT" remarks="排序号" />
         </createTable>
-    </changeSet>
-    <changeSet author="zhuangrb" id="changeSet-GRID-0003" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
-        <addColumn tableName="TGRID_FAMILY">
-            <column name="FAMILY_HEAD_HOUSEHOLD_NAME" type="NVARCHAR(50)" remarks="户主姓名" />
-            <column name="FAMILY_HEAD_HOUSEHOLD_ID" type="NVARCHAR(50)" remarks="户主ID" />
-        </addColumn>
-        <addColumn tableName="TGRID_PERSON">
-            <column name="PERSON_HEAD_HOUSEHOLD_NAME" type="NVARCHAR(50)" remarks="户主姓名" />
-            <column name="PERSON_HEAD_HOUSEHOLD_ID" type="NVARCHAR(50)" remarks="户主ID" />
-        </addColumn>
     </changeSet>
 </databaseChangeLog>
