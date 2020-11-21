@@ -6,6 +6,7 @@ import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
 import com.jb4dc.core.base.session.JB4DCSession;
 import com.jb4dc.gridsystem.dao.build.BuildInfoMapper;
 import com.jb4dc.gridsystem.dbentities.build.BuildInfoEntity;
+import com.jb4dc.gridsystem.dbentities.build.HouseInfoEntity;
 import com.jb4dc.gridsystem.service.build.IBuildInfoService;
 import org.springframework.stereotype.Service;
 
@@ -45,5 +46,10 @@ public class BuildInfoServiceImpl extends BaseServiceImpl<BuildInfoEntity> imple
         else{
             return buildInfoMapper.selectByInputUserId(userId);
         }
+    }
+
+    @Override
+    public List<BuildInfoEntity> getByBuildCode(String buildCode) {
+        return buildInfoMapper.selectByBuildCode(buildCode);
     }
 }

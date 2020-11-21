@@ -29,10 +29,13 @@
             <column name="BUILD_CODE" type="NVARCHAR(50)" remarks="建筑物编码:441325 -______-____-____" />
             <column name="BUILD_TYPE" type="NVARCHAR(50)" remarks="建筑物类型:楼房,平房,别墅" />
             <column name="BUILD_STATUS" type="NVARCHAR(50)" remarks="建筑状态:已竣工,在建,停建" />
-            <column name="BUILD_COVERED_AREA" type="NUMBER(4)" remarks="总建筑面积*（M²）" />
-            <column name="BUILD_FLOOR_GROUND" type="NUMBER(1)" remarks="总楼层-地面" />
-            <column name="BUILD_FLOOR_UNDERGROUND" type="NUMBER(1)" remarks="总楼层-地下" />
+            <column name="BUILD_COVERED_AREA" type="NUMBER(15,4)" remarks="总建筑面积*（M²）" />
+            <column name="BUILD_FLOOR_GROUND" type="NUMBER(15,1)" remarks="总楼层-地面" />
+            <column name="BUILD_FLOOR_UNDERGROUND" type="NUMBER(15,1)" remarks="总楼层-地下" />
             <column name="BUILD_ADDRESS" type="NVARCHAR(200)" remarks="门牌地址" />
+            <column name="BUILD_ADDRESS_EX2" type="NVARCHAR(200)" remarks="门牌地址2" />
+            <column name="BUILD_OTHER_ADDRESS_EX1" type="NVARCHAR(200)" remarks="其他地址1" />
+            <column name="BUILD_OTHER_ADDRESS_EX2" type="NVARCHAR(200)" remarks="其他地址2" />
             <column name="BUILD_ADDRESS_TITLE_CER" type="NVARCHAR(200)" remarks="产权证地址" />
             <column name="BUILD_NAME" type="NVARCHAR(200)" remarks="建筑物名称" />
             <column name="BUILD_FUNCTION_CATEGORY" type="NVARCHAR(50)" remarks="建筑物功能分类" />
@@ -81,10 +84,12 @@
             <column name="HOUSE_CODE" type="NVARCHAR(20)" remarks="房屋编码" />
             <column name="HOUSE_NUM_NAME" type="NVARCHAR(50)" remarks="房号" />
             <column name="HOUSE_CODE_FULL" type="NVARCHAR(40)" remarks="完整编码" />
-            <column name="HOUSE_FLOOR_NUM" type="NUMBER(1)" remarks="楼层" />
+            <column name="HOUSE_FLOOR_NUM" type="NUMBER(10,1)" remarks="楼层" />
             <column name="HOUSE_USED_DESC" type="NVARCHAR(100)" remarks="使用情况" />
             <column name="HOUSE_DESIGN_FOR" type="NVARCHAR(100)" remarks="设计用途:商业,办公,住宅,厂房,仓库,其它" />
+            <column name="HOUSE_DESIGN_AREA" type="NUMBER(15,2)" remarks="设计面积" />
             <column name="HOUSE_USE_FOR" type="NVARCHAR(100)" remarks="使用用途:商业,办公,住宅,厂房,仓库,其它" />
+            <column name="HOUSE_USE_AREA" type="NUMBER(15,2)" remarks="使用面积" />
             <column name="HOUSE_STRUCTURE" type="NVARCHAR(100)" remarks="住宅房型" />
             <column name="HOUSE_IS_RENTAL_HOUSING" type="NVARCHAR(20)" remarks="是否出租屋:是,否" />
             <column name="HOUSE_REMARK" type="NVARCHAR(2000)" remarks="备注" />
@@ -106,7 +111,7 @@
             <column name="RETER_CERT_CATEGORY" type="NVARCHAR(50)" remarks="相关人员证件类别" />
             <column name="RETER_CERT_CODE" type="NVARCHAR(50)" remarks="证件号码" />
             <column name="RETER_ADDRESS" type="NVARCHAR(500)" remarks="地址" />
-            <column name="RETER_PERCENT" type="NUMBER(2)" remarks="产权比例" />
+            <column name="RETER_PERCENT" type="NUMBER(15,2)" remarks="产权比例" />
             <column name="RETER_REMARK" type="NVARCHAR(1000)" remarks="备注" />
             <column name="RETER_ORDER_NUM" type="INT" remarks="排序号" />
         </createTable>
@@ -121,7 +126,7 @@
             <column name="ENT_BUSINESS_NUM" type="NVARCHAR(50)" remarks="营业执照号" />
             <column name="ENT_ORGAN_CODE" type="NVARCHAR(50)" remarks="组织机构代码" />
             <column name="ENT_PLACE_PHONE" type="NVARCHAR(50)" remarks="单位联系电话" />
-            <column name="ENT_PLACE_AREA" type="NUMBER(2)" remarks="单位营业面积（平方米）" />
+            <column name="ENT_PLACE_AREA" type="NUMBER(15,2)" remarks="单位营业面积（平方米）" />
             <column name="ENT_PLACE_ADDRESS" type="NVARCHAR(200)" remarks="单位详细地址" />
             <column name="ENT_IS_ANNUAL_INSPECTION" type="NVARCHAR(20)" remarks="是否年检:是,否" />
             <column name="ENT_LEGAL_NAME" type="NVARCHAR(50)" remarks="法定代表人（经营者）姓名" />
@@ -168,7 +173,7 @@
             <column name="EVENT_ACCEPT_UNIT_ID" type="NVARCHAR(50)" remarks="受理人单位ID" />
             <column name="EVENT_ACCEPT_USER_NAME" type="NVARCHAR(50)" remarks="受理人" />
             <column name="EVENT_ACCEPT_USER_ID" type="NVARCHAR(50)" remarks="受理人ID" />
-            <column name="EVENT_ACCEPT_TIMES" type="NUMBER(0)" remarks="受理次数" />
+            <column name="EVENT_ACCEPT_TIMES" type="NUMBER(15,0)" remarks="受理次数" />
             <column name="EVENT_ACCEPT_GRID_ID" type="NVARCHAR(50)" remarks="发生区域" />
             <column name="EVENT_ACCEPT_MAP_LOCATION" type="NVARCHAR(500)" remarks="事件的地理坐标" />
             <column name="EVENT_SOURCE" type="NVARCHAR(40)" remarks="事件来源:群众来访,群众来信,群众来电,领导批办,上级交办,部门转来,排查发现,媒体曝光,网络发现,其他途径" />
@@ -178,16 +183,16 @@
             <column name="EVENT_SEVERITY" type="NVARCHAR(40)" remarks="严重程度:一般,中等,重大" />
             <column name="EVENT_ADDRESS" type="NVARCHAR(200)" remarks="发生地点" />
             <column name="EVENT_APPEAL_PURPOSE" type="NVARCHAR(40)" remarks="诉求目的:反映建议,申诉,求决,投诉,其他" />
-            <column name="EVENT_APPEAL_PERSON_NUM" type="NUMBER(0)" remarks="诉求人数" />
+            <column name="EVENT_APPEAL_PERSON_NUM" type="NUMBER(15,0)" remarks="诉求人数" />
             <column name="EVENT_APPEAL_QUESTION" type="NVARCHAR(2000)" remarks="诉求问题及要求" />
-            <column name="EVENT_ABOUT_PERSON_NUM" type="NUMBER(0)" remarks="涉及人数" />
+            <column name="EVENT_ABOUT_PERSON_NUM" type="NUMBER(15,0)" remarks="涉及人数" />
             <column name="EVENT_IS_PETITION" type="NVARCHAR(20)" remarks="是否信访件" />
             <column name="EVENT_IS_RENTAL_HOUSING" type="NVARCHAR(20)" remarks="是否出租屋事件" />
             <column name="EVENT_IS_GROUP" type="NVARCHAR(20)" remarks="是否群体性事件" />
             <column name="EVENT_FROM_CODE" type="NVARCHAR(200)" remarks="转来文号" />
             <column name="EVENT_FROM_DATE" type="DATETIME(6)" remarks="转来日期" />
             <column name="EVENT_IS_EMERGENCY" type="NVARCHAR(20)" remarks="是否紧急事件" />
-            <column name="EVENT_ABOUT_MONEY" type="NUMBER(2)" remarks="涉及金额" />
+            <column name="EVENT_ABOUT_MONEY" type="NUMBER(15,2)" remarks="涉及金额" />
             <column name="EVENT_IS_SP_DIFFICULT" type="NVARCHAR(20)" remarks="是否特别疑难件" />
             <column name="EVENT_WARRING_LEVEL" type="NVARCHAR(20)" remarks="预警级别" />
             <column name="EVENT_PROCESS_NODE_NAME" type="NVARCHAR(200)" remarks="办理状况名称" />
@@ -233,12 +238,14 @@
             <column name="EVT_PROCESS_ORDER_NUM" type="INT" remarks="排序号" />
         </createTable>
     </changeSet>
+    <!--家庭与人口-->
     <changeSet author="zhuangrb" id="changeSet-GRID-0002" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
         <createTable tableName="TGRID_FAMILY" remarks="家庭表">
             <column name="FAMILY_ID" type="NVARCHAR(50)" remarks="主键">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
             <column name="FAMILY_HOUSE_ID" type="NVARCHAR(50)" remarks="房屋ID" />
+            <column name="FAMILY_HOUSE_CODE_FULL" type="NVARCHAR(50)" remarks="房屋编号" />
             <column name="FAMILY_PER_COUNT" type="INT" remarks="户口-应登记总数" />
             <column name="FAMILY_PER_IN" type="INT" remarks="户口-在家人数" />
             <column name="FAMILY_PER_OUT" type="INT" remarks="户口-不在家人数" />
@@ -248,7 +255,7 @@
             <column name="FAMILY_HR_CITY" type="NVARCHAR(50)" remarks="户籍地址-市（盟、州）" />
             <column name="FAMILY_HR_COUNTY" type="NVARCHAR(50)" remarks="户籍地址-县（市、区、旗）" />
             <column name="FAMILY_HOUSE_TYPE" type="NVARCHAR(50)" remarks="住宅类型:普通住宅,集体住所,工作地住所,其他住房,无住房" />
-            <column name="FAMILY_HOUSE_AREA" type="NUMBER(2)" remarks="本户现住房建筑面积" />
+            <column name="FAMILY_HOUSE_AREA" type="NUMBER(15,2)" remarks="本户现住房建筑面积" />
             <column name="FAMILY_HOUSE_ROOM_NUM" type="INT" remarks="本户现住房间数" />
             <column name="FAMILY_INPUT_UNIT_NAME" type="NVARCHAR(50)" remarks="填报单位" />
             <column name="FAMILY_INPUT_UNIT_ID" type="NVARCHAR(50)" remarks="填报单位" />
@@ -267,6 +274,7 @@
             </column>
             <column name="PERSON_FAMILY_ID" type="NVARCHAR(50)" remarks="家庭ID" />
             <column name="PERSON_HOUSE_ID" type="NVARCHAR(50)" remarks="房屋ID" />
+            <column name="PERSON_HOUSE_CODE_FULL" type="NVARCHAR(50)" remarks="房屋编号" />
             <column name="PERSON_NAME" type="NVARCHAR(50)" remarks="姓名" />
             <column name="PERSON_RELATIONSHIP" type="NVARCHAR(50)" remarks="与户主关系:户主;配偶;子女;父母;岳父母或公婆;祖父母;媳婿;孙子女;兄弟姐妹;其他" />
             <column name="PERSON_ID_CARD" type="NVARCHAR(50)" remarks="身份证号" />
@@ -295,24 +303,17 @@
             <column name="PERSON_FORE_CERTIFICATE_TYPE" type="NVARCHAR(50)" remarks="证件类型" />
             <column name="PERSON_FORE_CERTIFICATE_NUM" type="NVARCHAR(50)" remarks="证件号码" />
             <column name="PERSON_REMARK" type="NVARCHAR(1000)" remarks="备注" />
+            <column name="PERSON_ORDER_NUM" type="INT" remarks="排序号" />
         </createTable>
     </changeSet>
     <changeSet author="zhuangrb" id="changeSet-GRID-0003" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
+        <addColumn tableName="TGRID_FAMILY">
+            <column name="FAMILY_HEAD_HOUSEHOLD_NAME" type="NVARCHAR(50)" remarks="户主姓名" />
+            <column name="FAMILY_HEAD_HOUSEHOLD_ID" type="NVARCHAR(50)" remarks="户主ID" />
+        </addColumn>
         <addColumn tableName="TGRID_PERSON">
-            <column name="PERSON_ORDER_NUM" type="INT" remarks="排序号" />
-        </addColumn>
-    </changeSet>
-    <changeSet author="zhuangrb" id="changeSet-GRID-0004" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
-        <addColumn tableName="TGRID_BUILD_INFO">
-            <column name="BUILD_ADDRESS_EX2" type="NVARCHAR(200)" remarks="门牌地址2" />
-            <column name="BUILD_OTHER_ADDRESS_EX1" type="NVARCHAR(200)" remarks="其他地址1" />
-            <column name="BUILD_OTHER_ADDRESS_EX2" type="NVARCHAR(200)" remarks="其他地址2" />
-        </addColumn>
-    </changeSet>
-    <changeSet author="zhuangrb" id="changeSet-GRID-0005" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
-        <addColumn tableName="TGRID_HOUSE_INFO">
-            <column name="HOUSE_DESIGN_AREA" type="NUMBER(2)" remarks="设计面积" />
-            <column name="HOUSE_USE_AREA" type="NUMBER(2)" remarks="使用面积" />
+            <column name="PERSON_HEAD_HOUSEHOLD_NAME" type="NVARCHAR(50)" remarks="户主姓名" />
+            <column name="PERSON_HEAD_HOUSEHOLD_ID" type="NVARCHAR(50)" remarks="户主ID" />
         </addColumn>
     </changeSet>
 </databaseChangeLog>

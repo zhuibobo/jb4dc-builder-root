@@ -14,6 +14,7 @@ import com.jb4dc.gridsystem.service.build.IBuildInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.
@@ -29,8 +30,8 @@ public class NewBuildSupplementFieldDataApi implements IApiForButton {
     public ApiRunResult runApi(ApiRunPara apiRunPara) throws JBuild4DCGenerallyException {
         //apiRunPara.
         JB4DCSession jb4DCSession=JB4DCSessionUtility.getSession();
+        BuildInfoEntity buildInfoEntity=buildInfoService.getByPrimaryKey(jb4DCSession,apiRunPara.getRecordId());
         if(BaseUtility.isAddOperation(apiRunPara.getOperationTypeName())){
-            BuildInfoEntity buildInfoEntity=buildInfoService.getByPrimaryKey(jb4DCSession,apiRunPara.getRecordId());
             buildInfoEntity.setBuildInputDate(new Date());
             buildInfoEntity.setBuildInputUnitName(jb4DCSession.getOrganName());
             buildInfoEntity.setBuildInputUnitId(jb4DCSession.getOrganId());
@@ -43,6 +44,15 @@ public class NewBuildSupplementFieldDataApi implements IApiForButton {
             buildInfoEntity.setBuildRecordStatus(EnableTypeEnum.enable.getDisplayName());
             buildInfoService.updateByKeySelective(jb4DCSession,buildInfoEntity);
         }
+        //判断编号是否唯一
+        List<BuildInfoEntity> codeBuildInfoEntities=buildInfoService.getByBuildCode(buildInfoEntity.getBuildCode());
+        if(codeBuildInfoEntities.size()>1){
+            throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_GRID_CODE,"建筑物编码不能重复!");
+        }
+        if(!codeBuildInfoEntities.get(0).getBuildId().equals(buildInfoEntity.getBuildId())){
+            throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_GRID_CODE,"建筑物编码不能重复!");
+        }
+
         return ApiRunResult.successResult();
     }
 }

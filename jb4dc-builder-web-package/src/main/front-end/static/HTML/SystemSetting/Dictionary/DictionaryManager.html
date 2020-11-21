@@ -23,7 +23,7 @@
                     <div alt="删除组" title="删除组" class="del" @click="delGroup"></div>
                     <div alt="浏览组" title="浏览组" class="view" @click="viewGroup"></div>
                 </div>
-                <div>
+                <div id="zTreeULWrap" style="position: absolute;top: 40px;bottom: 0px;left: 0px;right: 0px;overflow: auto">
                     <ul id="zTreeUL" class="ztree"></ul>
                 </div>
             </div>
@@ -164,7 +164,7 @@
 
                     var _self=this;
                     AjaxUtility.Post(this.acInterface.getGroupTreeData, {}, function (result) {
-                        //console.log(result);
+                        console.log(result);
                         if(result.success){
                             if(result.data!=null&&result.data.length>0){
                                 for(var i=0;i<result.data.length;i++) {
@@ -177,10 +177,14 @@
                                     else if(result.data[i].dsGroupParentId=="-1"){
                                         result.data[i].icon = "../../../Themes/Png16X16/package.png";
                                     }*/
+                                    //if(result.data[i].dsGroupChildCount==0){
+                                        result.data[i].icon = "../../../Themes/Png16X16/package.png";
+                                    //}
                                 }
                             }
                             _self.treeObj=$.fn.zTree.init($("#zTreeUL"), _self.treeSetting,result.data);
                             _self.treeObj.expandAll(true);
+                            var ps = new PerfectScrollbar('#zTreeULWrap');
                         }
                     }, this);
                 },

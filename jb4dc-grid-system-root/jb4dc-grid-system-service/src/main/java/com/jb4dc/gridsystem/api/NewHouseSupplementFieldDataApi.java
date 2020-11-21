@@ -14,6 +14,7 @@ import com.jb4dc.gridsystem.service.build.IHouseInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Date;
+import java.util.List;
 
 public class NewHouseSupplementFieldDataApi implements IApiForButton {
 
@@ -27,16 +28,13 @@ public class NewHouseSupplementFieldDataApi implements IApiForButton {
     public ApiRunResult runApi(ApiRunPara apiRunPara) throws JBuild4DCGenerallyException {
         //apiRunPara.
         JB4DCSession jb4DCSession= JB4DCSessionUtility.getSession();
+        HouseInfoEntity houseInfoEntity=houseInfoService.getByPrimaryKey(jb4DCSession,apiRunPara.getRecordId());
+        BuildInfoEntity buildInfoEntity=buildInfoService.getByPrimaryKey(jb4DCSession,houseInfoEntity.getHouseBuildId());
+        if(buildInfoEntity==null){
+            throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_GRID_CODE,"找不到关联的房屋信息!");
+        }
+
         if(BaseUtility.isAddOperation(apiRunPara.getOperationTypeName())){
-            HouseInfoEntity houseInfoEntity=houseInfoService.getByPrimaryKey(jb4DCSession,apiRunPara.getRecordId());
-
-            BuildInfoEntity buildInfoEntity=buildInfoService.getByPrimaryKey(jb4DCSession,houseInfoEntity.getHouseBuildId());
-            if(buildInfoEntity==null){
-                throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_GRID_CODE,"找不到关联的房屋信息!");
-            }
-            //houseInfoEntity.setHouseBuildId("");
-
-            //houseInfoEntity.setHouseNumName("");
             houseInfoEntity.setHouseCodeFull(buildInfoEntity.getBuildCode()+houseInfoEntity.getHouseCode());
             houseInfoEntity.setHouseInputUnitName(jb4DCSession.getOrganName());
             houseInfoEntity.setHouseInputUnitId(jb4DCSession.getOrganId());
@@ -46,6 +44,19 @@ public class NewHouseSupplementFieldDataApi implements IApiForButton {
 
             houseInfoService.updateByKeySelective(jb4DCSession,houseInfoEntity);
         }
+        else{
+            houseInfoEntity.setHouseCodeFull(buildInfoEntity.getBuildCode()+houseInfoEntity.getHouseCode());
+            houseInfoService.updateByKeySelective(jb4DCSession,houseInfoEntity);
+        }
+        //判断编号是否唯一
+        List<HouseInfoEntity> codeHouseInfoEntities=houseInfoService.getByHouseFullCode(houseInfoEntity.getHouseCodeFull());
+        if(codeHouseInfoEntities.size()>1){
+            throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_GRID_CODE,"房屋编码不能重复!");
+        }
+        if(!codeHouseInfoEntities.get(0).getHouseId().equals(houseInfoEntity.getHouseId())){
+            throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_GRID_CODE,"房屋编码不能重复!");
+        }
+
         return ApiRunResult.successResult();
     }
 }

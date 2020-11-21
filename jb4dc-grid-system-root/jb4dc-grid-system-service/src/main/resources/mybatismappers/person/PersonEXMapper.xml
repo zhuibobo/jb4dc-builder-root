@@ -40,4 +40,12 @@
  where PERSON_ORDER_NUM = (select max(PERSON_ORDER_NUM) from TGRID_PERSON where PERSON_ORDER_NUM<(select PERSON_ORDER_NUM from TGRID_PERSON where PERSON_ID=#{Id,jdbcType=NVARCHAR}))]]></select>
     <select id="selectGreaterThanRecord" parameterType="java.lang.String" resultMap="BaseResultMap"><![CDATA[select * from TGRID_PERSON
  where PERSON_ORDER_NUM = (select min(PERSON_ORDER_NUM) from TGRID_PERSON where PERSON_ORDER_NUM>(select PERSON_ORDER_NUM from TGRID_PERSON where PERSON_ID=#{Id,jdbcType=NVARCHAR}))]]></select>
+
+    <select id="selectByFamilyId" resultMap="BaseResultMap">
+        select<include refid="Base_Column_List"/> from TGRID_PERSON where PERSON_FAMILY_ID=#{familyId} ORDER by PERSON_ORDER_NUM DESC
+    </select>
+
+    <select id="selectByHouseId" resultMap="BaseResultMap">
+        select<include refid="Base_Column_List"/> from TGRID_PERSON where PERSON_HOUSE_ID=#{houseId} ORDER by PERSON_FAMILY_ID, PERSON_RELATIONSHIP asc
+    </select>
 </mapper>

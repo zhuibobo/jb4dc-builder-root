@@ -22,6 +22,9 @@ public class PersonEntity {
     //PERSON_HOUSE_ID:房屋ID
     private String personHouseId;
 
+    //PERSON_HOUSE_CODE_FULL:房屋编号
+    private String personHouseCodeFull;
+
     //PERSON_NAME:姓名
     private String personName;
 
@@ -110,11 +113,18 @@ public class PersonEntity {
     //PERSON_ORDER_NUM:排序号
     private Integer personOrderNum;
 
+    //PERSON_HEAD_HOUSEHOLD_NAME:户主姓名
+    private String personHeadHouseholdName;
+
+    //PERSON_HEAD_HOUSEHOLD_ID:户主ID
+    private String personHeadHouseholdId;
+
     /**
      * 构造函数
      * @param personId
      * @param personFamilyId 家庭ID
      * @param personHouseId 房屋ID
+     * @param personHouseCodeFull 房屋编号
      * @param personName 姓名
      * @param personRelationship 与户主关系
      * @param personIdCard 身份证号
@@ -144,11 +154,14 @@ public class PersonEntity {
      * @param personForeCertificateNum 证件号码
      * @param personRemark 备注
      * @param personOrderNum 排序号
+     * @param personHeadHouseholdName 户主姓名
+     * @param personHeadHouseholdId 户主ID
      **/
-    public PersonEntity(String personId, String personFamilyId, String personHouseId, String personName, String personRelationship, String personIdCard, String personSex, String personNation, String personHrLocation, String personHrLeave, String personHrLeaveFor, String personEducation, String personSpType, String personPhoneId, String personPhone, String personInputUnitName, String personInputUnitId, Date personInputDate, String personInputUserName, String personInputUserId, String personCityId, String personAreaId, String personStreetId, String personCommunityId, String personGridId, String personCategory, String personForeEnName, String personForeNationality, String personForeCertificateType, String personForeCertificateNum, String personRemark, Integer personOrderNum) {
+    public PersonEntity(String personId, String personFamilyId, String personHouseId, String personHouseCodeFull, String personName, String personRelationship, String personIdCard, String personSex, String personNation, String personHrLocation, String personHrLeave, String personHrLeaveFor, String personEducation, String personSpType, String personPhoneId, String personPhone, String personInputUnitName, String personInputUnitId, Date personInputDate, String personInputUserName, String personInputUserId, String personCityId, String personAreaId, String personStreetId, String personCommunityId, String personGridId, String personCategory, String personForeEnName, String personForeNationality, String personForeCertificateType, String personForeCertificateNum, String personRemark, Integer personOrderNum, String personHeadHouseholdName, String personHeadHouseholdId) {
         this.personId = personId;
         this.personFamilyId = personFamilyId;
         this.personHouseId = personHouseId;
+        this.personHouseCodeFull = personHouseCodeFull;
         this.personName = personName;
         this.personRelationship = personRelationship;
         this.personIdCard = personIdCard;
@@ -178,6 +191,8 @@ public class PersonEntity {
         this.personForeCertificateNum = personForeCertificateNum;
         this.personRemark = personRemark;
         this.personOrderNum = personOrderNum;
+        this.personHeadHouseholdName = personHeadHouseholdName;
+        this.personHeadHouseholdId = personHeadHouseholdId;
     }
 
     public PersonEntity() {
@@ -230,6 +245,22 @@ public class PersonEntity {
      **/
     public void setPersonHouseId(String personHouseId) {
         this.personHouseId = personHouseId == null ? null : personHouseId.trim();
+    }
+
+    /**
+     * 房屋编号
+     * @return java.lang.String
+     **/
+    public String getPersonHouseCodeFull() {
+        return personHouseCodeFull;
+    }
+
+    /**
+     * 房屋编号
+     * @param personHouseCodeFull 房屋编号
+     **/
+    public void setPersonHouseCodeFull(String personHouseCodeFull) {
+        this.personHouseCodeFull = personHouseCodeFull == null ? null : personHouseCodeFull.trim();
     }
 
     /**
@@ -694,5 +725,37 @@ public class PersonEntity {
      **/
     public void setPersonOrderNum(Integer personOrderNum) {
         this.personOrderNum = personOrderNum;
+    }
+
+    /**
+     * 户主姓名
+     * @return java.lang.String
+     **/
+    public String getPersonHeadHouseholdName() {
+        return personHeadHouseholdName;
+    }
+
+    /**
+     * 户主姓名
+     * @param personHeadHouseholdName 户主姓名
+     **/
+    public void setPersonHeadHouseholdName(String personHeadHouseholdName) {
+        this.personHeadHouseholdName = personHeadHouseholdName == null ? null : personHeadHouseholdName.trim();
+    }
+
+    /**
+     * 户主ID
+     * @return java.lang.String
+     **/
+    public String getPersonHeadHouseholdId() {
+        return personHeadHouseholdId;
+    }
+
+    /**
+     * 户主ID
+     * @param personHeadHouseholdId 户主ID
+     **/
+    public void setPersonHeadHouseholdId(String personHeadHouseholdId) {
+        this.personHeadHouseholdId = personHeadHouseholdId == null ? null : personHeadHouseholdId.trim();
     }
 }

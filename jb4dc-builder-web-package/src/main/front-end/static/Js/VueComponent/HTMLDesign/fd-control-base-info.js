@@ -118,7 +118,7 @@ Vue.component("fd-control-base-info", {
                         <tr>
                             <td>备注：</td>
                             <td colspan="5">
-                                <textarea rows="5" v-model="baseInfo.desc"></textarea>
+                                <textarea rows="4" v-model="baseInfo.desc"></textarea>
                             </td>
                         </tr>
                     </tbody>

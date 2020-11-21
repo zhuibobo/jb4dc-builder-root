@@ -29,4 +29,8 @@
     <select id="selectByBuildId" resultMap="BaseResultMap">
         select<include refid="Base_Column_List"/> from TGRID_HOUSE_INFO where HOUSE_BUILD_ID=#{buildId} ORDER by HOUSE_ORDER_NUM ASC
     </select>
+
+    <select id="selectByHouseFullCode" resultMap="BaseResultMap">
+        select<include refid="Base_Column_List"/> from TGRID_HOUSE_INFO where HOUSE_CODE_FULL=#{houseCodeFull}
+    </select>
 </mapper>

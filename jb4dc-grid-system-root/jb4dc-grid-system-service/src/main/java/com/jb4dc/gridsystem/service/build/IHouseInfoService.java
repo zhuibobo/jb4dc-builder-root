@@ -9,4 +9,6 @@ import java.util.List;
 
 public interface IHouseInfoService extends IBaseService<HouseInfoEntity> {
     List<HouseInfoEntity> getHouseByBuildId(JB4DCSession session, String buildId);
+
+    List<HouseInfoEntity> getByHouseFullCode(String houseCodeFull);
 }

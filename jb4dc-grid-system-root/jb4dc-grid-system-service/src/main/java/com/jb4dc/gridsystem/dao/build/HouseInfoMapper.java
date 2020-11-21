@@ -8,4 +8,6 @@ import java.util.List;
 
 public interface HouseInfoMapper extends BaseMapper<HouseInfoEntity> {
     List<HouseInfoEntity> selectByBuildId(String buildId);
+
+    List<HouseInfoEntity> selectByHouseFullCode(String houseCodeFull);
 }

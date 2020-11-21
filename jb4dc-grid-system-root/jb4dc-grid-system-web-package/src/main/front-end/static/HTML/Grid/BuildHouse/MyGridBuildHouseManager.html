@@ -16,7 +16,7 @@
         <div class="inner-wrap">
             <div class="tool-bar-wrap">
                 <div alt="新增建筑物" title="新增一般建筑物" class="add" @click="addBuild('一般建筑物')"></div>
-                <div alt="新增特殊建筑物" title="新增特殊建筑物" class="add" @click="addBuild('特殊建筑物')"></div>
+                <div alt="新增特殊建筑物" title="新增特殊建筑物" class="add2" @click="addBuild('特殊建筑物')"></div>
                 <div alt="修改楼栋" title="修改楼栋" class="edit" @click="editBuild"></div>
                 <div alt="删除楼栋" title="删除楼栋" class="del" @click="deleteBuild"></div>
                 <div alt="浏览楼栋" title="浏览楼栋" class="view last" @click="viewBuild"></div>
@@ -55,7 +55,7 @@
                 </div>
                 <i-table :height="listHeight" stripe border :columns="house.columnsConfig" :data="house.tableData"
                          class="iv-list-table" :highlight-row="true"
-                         @on-selection-change="selectionHouseChange"></i-table>
+                         @on-row-click="selectionHouseChange"></i-table>
             </tab-pane>
             <tab-pane label="地理位置">
             </tab-pane>
@@ -86,6 +86,9 @@
     function reLoadHouse(data){
         gridManager.loadHouseData(gridManager.buildTree.treeSelectedNode.buildId);
     }
+    function reLoadPerson(data){
+        gridManager.loadPersonData();
+    }
     var gridManager = new Vue({
         el: "#gridManager",
         mounted: function () {
@@ -103,9 +106,12 @@
                 getHouseByBuildId: "/Rest/Grid/Build/HouseInfo/GetHouseByBuildId",
                 editHouseView:"/HTML/Builder/Runtime/WebFormIndependenceRuntime.html",
                 editHouseFormId:"ccfdac63-d9d7-4a67-ad9f-747e88a48f5d",
+                deleteHouse:"/Rest/Grid/Build/HouseInfo/Delete",
                 <!--Person-->
                 editPersonView:"/HTML/Builder/Runtime/WebFormIndependenceRuntime.html",
-                editPersonFormId:"1488ee50-efb6-409a-afc7-eb0f9710713f"
+                editPersonFormId:"1488ee50-efb6-409a-afc7-eb0f9710713f",
+                getPersonByHouseId:"/Rest/Grid/Person/PersonMain/GetPersonByHouseId",
+                deletePerson:"/Rest/Grid/Person/PersonMain/DeletePersonWithFamily"
             },
             <!--Build-->
             buildTree:{
@@ -145,7 +151,8 @@
             },
             listHeight: ListPageUtility.DefaultListHeight(),
             <!--House-->
-            house:{
+            house: {
+                selectedHouse: null,
                 columnsConfig: [
                     {
                         title: '房屋编码',
@@ -165,19 +172,22 @@
                         width: 110,
                         align: "center",
                         render: function (h, params) {
-                            return h('div', {class: "list-row-button-wrap"}, [
-                                h('Tooltip', {
-                                    props: {
-                                        content: "查看"
+                            var buttons=[];
+
+                            buttons.push(h('Tooltip', {
+                                props: {
+                                    content: "查看"
+                                }
+                            }, [h('div', {
+                                class: "list-row-button view",
+                                on: {
+                                    click: function click() {
+                                        gridManager.viewHouse(params);
                                     }
-                                }, [h('div', {
-                                    class: "list-row-button view",
-                                    on: {
-                                        click: function click() {
-                                            gridManager.viewHouse(params);
-                                        }
-                                    }
-                                })]),
+                                }
+                            })]));
+
+                            buttons.push(
                                 h('Tooltip', {
                                     props: {
                                         content: "修改"
@@ -190,19 +200,23 @@
                                         }
                                     }
                                 })]),
-                                h('Tooltip', {
-                                    props: {
-                                        content: "删除"
+                            );
+
+                            buttons.push(h('Tooltip', {
+                                props: {
+                                    content: "删除"
+                                }
+                            }, [h('div', {
+                                class: "list-row-button del",
+                                on: {
+                                    click: function click() {
+                                        gridManager.delHouse(params);
                                     }
-                                }, [h('div', {
-                                    class: "list-row-button del",
-                                    on: {
-                                        click: function click() {
-                                            gridManager.delHouse(params);
-                                        }
-                                    }
-                                })])
-                            ]);
+                                }
+                            })]));
+
+                            var eh=h('div', {class: "list-row-button-wrap"},buttons);
+                            return eh;
                         }
                     }
                 ],
@@ -211,22 +225,60 @@
             person:{
                 columnsConfig: [
                     {
-                        title: '姓名',
-                        key: 'logText',
+                        title: '人员',
+                        key: 'displayText',
                         align: "left"
                     }, {
-                        title: '联系电话',
-                        key: 'logSystemName',
-                        align: "center"
-                    }, {
                         title: '操作',
-                        key: 'dictGroupId',
-                        width: 70,
+                        key: 'personId',
+                        width: 120,
                         align: "center",
                         render: function (h, params) {
-                            return h('div',{class: "list-row-button-wrap"},[
-                                ListPageUtility.IViewTableInnerButton.ViewButton(h,params,appList.idFieldName,appList)
-                            ]);
+                            var buttons=[];
+
+                            buttons.push(h('Tooltip', {
+                                props: {
+                                    content: "查看"
+                                }
+                            }, [h('div', {
+                                class: "list-row-button view",
+                                on: {
+                                    click: function click() {
+                                        gridManager.viewHouse(params);
+                                    }
+                                }
+                            })]));
+
+                            buttons.push(
+                                h('Tooltip', {
+                                    props: {
+                                        content: "修改"
+                                    }
+                                }, [h('div', {
+                                    class: "list-row-button edit",
+                                    on: {
+                                        click: function click() {
+                                            gridManager.editHouse(params);
+                                        }
+                                    }
+                                })]),
+                            );
+
+                            buttons.push(h('Tooltip', {
+                                props: {
+                                    content: "删除"
+                                }
+                            }, [h('div', {
+                                class: "list-row-button del",
+                                on: {
+                                    click: function click() {
+                                        gridManager.delPerson(params);
+                                    }
+                                }
+                            })]));
+
+                            var eh=h('div', {class: "list-row-button-wrap"},buttons);
+                            return eh;
                         }
                     }
                 ],
@@ -255,7 +307,7 @@
                     "title":title
                 }
             },
-            //region 建筑物1
+            //region 建筑物
             changeBuildRange:function(){
                 this.initTree(this.buildTree.isShowGridBuild);
             },
@@ -270,11 +322,11 @@
                                 var singleBuild=treeData[i];
                                 if(singleBuild.buildCategory=="一般建筑物") {
                                     singleBuild.icon = "../../../Themes/Png16X16/tag_green.png";
-                                    singleBuild.displayName=singleBuild.buildAddress+"["+singleBuild.buildCode+"]";
+                                    singleBuild.displayName="["+singleBuild.buildCode+"]"+singleBuild.buildAddress;
                                 }
                                 else if(singleBuild.buildCategory=="特殊建筑物") {
                                     singleBuild.icon = "../../../Themes/Png16X16/tag_red.png";
-                                    singleBuild.displayName=singleBuild.buildAddress+"["+singleBuild.buildCode+"]";
+                                    singleBuild.displayName="["+singleBuild.buildCode+"]"+singleBuild.buildAddress;
                                 }
                             }
                             var rootNode=JsonUtility.CloneStringify(singleBuild);
@@ -347,8 +399,10 @@
             },
             //endregion
             //region 房屋
-            selectionHouseChange:function (){
-
+            selectionHouseChange:function (row,index){
+                console.log(row);
+                this.house.selectedHouse=row;
+                this.loadPersonData()
             },
             loadHouseData:function (buildId){
                 AjaxUtility.Get(this.acInterface.getHouseByBuildId, {buildId:buildId}, function (result) {
@@ -384,26 +438,73 @@
                 DialogUtility.Frame_OpenIframeWindow(window, DialogUtility.DialogId, BaseUtility.BuildView(this.acInterface.editBuildView, formPara), this.getFormDialogPara("房屋登记"), 1, true);
             },
             delHouse:function (para) {
-
+                var houseId=para.row.houseId;
+                DialogUtility.Confirm(window, "确认要删除当前房屋吗？", function () {
+                    AjaxUtility.Delete(this.acInterface.deleteHouse, {
+                        recordId: houseId
+                    }, function (result) {
+                        if (result.success) {
+                            //this.buildTree.treeSelectedNode = treeNode;
+                            DialogUtility.AlertText(result.message);
+                            this.loadHouseData(this.buildTree.treeSelectedNode.buildId);
+                        }
+                    }, this);
+                }, this);
             },
             //endregion
             //region 人口
             selectionPersonChange:function (){
 
             },
+            loadPersonData:function (){
+                var houseId=this.house.selectedHouse.houseId;
+                AjaxUtility.Get(this.acInterface.getPersonByHouseId, {houseId:houseId}, function (result) {
+                    console.log(result);
+                    if(result.success){
+                        for (var i = 0; i < result.data.length; i++) {
+                            result.data[i].displayText=result.data[i].personName;
+                            if(result.data[i].personRelationship=="0"){
+                                result.data[i].displayText="[户主]"+result.data[i].displayText;
+                            }
+                            else{
+                                result.data[i].displayText="[成员]"+result.data[i].displayText;
+                            }
+                        }
+                        this.person.tableData=result.data;
+                    }
+                }, this);
+            },
             addPerson:function (){
-                /*var selectedBuild = this.buildTree.treeSelectedNode;
-                if (selectedBuild == null) {
-                    DialogUtility.AlertText("请先选择建筑物!");
+                var selectedHouse = this.house.selectedHouse;
+                if (selectedHouse == null) {
+                    DialogUtility.AlertText("请先选择房屋!");
                     return;
-                }*/
+                }
                 var menuRightUrlPara = [{
                     "ActionType": "BindToField",
-                    "FieldName": "HOUSE_BUILD_ID",
-                    "Value": ""
+                    "FieldName": "FAMILY_HOUSE_ID",
+                    "Value": selectedHouse.houseId
+                },{
+                    "ActionType": "BindToField",
+                    "FieldName": "FAMILY_HOUSE_CODE_FULL",
+                    "Value": selectedHouse.houseCodeFull
                 }];
-                var formPara = this.getFormPara(this.acInterface.editPersonFormId, BaseUtility.GetAddOperationName(), "",JsonUtility.JsonToString(menuRightUrlPara), "reLoadHouse");
+                var formPara = this.getFormPara(this.acInterface.editPersonFormId, BaseUtility.GetAddOperationName(), "",JsonUtility.JsonToString(menuRightUrlPara), "reLoadPerson");
                 DialogUtility.Frame_OpenIframeWindow(window, DialogUtility.DialogId, BaseUtility.BuildView(this.acInterface.editBuildView, formPara), this.getFormDialogPara("房屋登记"), 1, true);
+            },
+            delPerson:function (para){
+                var personId=para.row.personId;
+                DialogUtility.Confirm(window, "确认要删除当前人员吗？<br />1:需要先删除户中的其他成员,才可以删除户主.<br />2删除户主时,将同时删除该户的信息.", function () {
+                    AjaxUtility.Delete(this.acInterface.deletePerson, {
+                        personId: personId
+                    }, function (result) {
+                        if (result.success) {
+                            //this.buildTree.treeSelectedNode = treeNode;
+                            DialogUtility.AlertText(result.message);
+                            this.loadPersonData();
+                        }
+                    }, this);
+                }, this);
             }
             //endregion
         }

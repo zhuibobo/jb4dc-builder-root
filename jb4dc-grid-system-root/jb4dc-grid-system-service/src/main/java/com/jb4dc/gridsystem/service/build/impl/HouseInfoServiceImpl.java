@@ -36,4 +36,9 @@ public class HouseInfoServiceImpl extends BaseServiceImpl<HouseInfoEntity> imple
     public List<HouseInfoEntity> getHouseByBuildId(JB4DCSession session, String buildId) {
         return houseInfoMapper.selectByBuildId(buildId);
     }
+
+    @Override
+    public List<HouseInfoEntity> getByHouseFullCode(String houseCodeFull) {
+        return houseInfoMapper.selectByHouseFullCode(houseCodeFull);
+    }
 }

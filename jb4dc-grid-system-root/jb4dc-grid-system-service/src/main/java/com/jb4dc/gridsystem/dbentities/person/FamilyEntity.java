@@ -2,6 +2,7 @@ package com.jb4dc.gridsystem.dbentities.person;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.jb4dc.base.dbaccess.anno.DBKeyField;
+import java.math.BigDecimal;
 import java.util.Date;
 
 /**
@@ -18,6 +19,9 @@ public class FamilyEntity {
 
     //FAMILY_HOUSE_ID:房屋ID
     private String familyHouseId;
+
+    //FAMILY_HOUSE_CODE_FULL:房屋编号
+    private String familyHouseCodeFull;
 
     //FAMILY_PER_COUNT:户口-应登记总数
     private Integer familyPerCount;
@@ -47,7 +51,7 @@ public class FamilyEntity {
     private String familyHouseType;
 
     //FAMILY_HOUSE_AREA:本户现住房建筑面积
-    private Short familyHouseArea;
+    private BigDecimal familyHouseArea;
 
     //FAMILY_HOUSE_ROOM_NUM:本户现住房间数
     private Integer familyHouseRoomNum;
@@ -83,10 +87,17 @@ public class FamilyEntity {
     //FAMILY_GRID_ID:所属网格Id
     private String familyGridId;
 
+    //FAMILY_HEAD_HOUSEHOLD_NAME:户主姓名
+    private String familyHeadHouseholdName;
+
+    //FAMILY_HEAD_HOUSEHOLD_ID:户主ID
+    private String familyHeadHouseholdId;
+
     /**
      * 构造函数
      * @param familyId
      * @param familyHouseId 房屋ID
+     * @param familyHouseCodeFull 房屋编号
      * @param familyPerCount 户口-应登记总数
      * @param familyPerIn 户口-在家人数
      * @param familyPerOut 户口-不在家人数
@@ -108,10 +119,13 @@ public class FamilyEntity {
      * @param familyStreetId 街道Id
      * @param familyCommunityId 社区Id
      * @param familyGridId 所属网格Id
+     * @param familyHeadHouseholdName 户主姓名
+     * @param familyHeadHouseholdId 户主ID
      **/
-    public FamilyEntity(String familyId, String familyHouseId, Integer familyPerCount, Integer familyPerIn, Integer familyPerOut, String familyType, String familyPhone, String familyHrProvince, String familyHrCity, String familyHrCounty, String familyHouseType, Short familyHouseArea, Integer familyHouseRoomNum, String familyInputUnitName, String familyInputUnitId, Date familyInputDate, String familyInputUserName, String familyInputUserId, String familyCityId, String familyAreaId, String familyStreetId, String familyCommunityId, String familyGridId) {
+    public FamilyEntity(String familyId, String familyHouseId, String familyHouseCodeFull, Integer familyPerCount, Integer familyPerIn, Integer familyPerOut, String familyType, String familyPhone, String familyHrProvince, String familyHrCity, String familyHrCounty, String familyHouseType, BigDecimal familyHouseArea, Integer familyHouseRoomNum, String familyInputUnitName, String familyInputUnitId, Date familyInputDate, String familyInputUserName, String familyInputUserId, String familyCityId, String familyAreaId, String familyStreetId, String familyCommunityId, String familyGridId, String familyHeadHouseholdName, String familyHeadHouseholdId) {
         this.familyId = familyId;
         this.familyHouseId = familyHouseId;
+        this.familyHouseCodeFull = familyHouseCodeFull;
         this.familyPerCount = familyPerCount;
         this.familyPerIn = familyPerIn;
         this.familyPerOut = familyPerOut;
@@ -133,6 +147,8 @@ public class FamilyEntity {
         this.familyStreetId = familyStreetId;
         this.familyCommunityId = familyCommunityId;
         this.familyGridId = familyGridId;
+        this.familyHeadHouseholdName = familyHeadHouseholdName;
+        this.familyHeadHouseholdId = familyHeadHouseholdId;
     }
 
     public FamilyEntity() {
@@ -169,6 +185,22 @@ public class FamilyEntity {
      **/
     public void setFamilyHouseId(String familyHouseId) {
         this.familyHouseId = familyHouseId == null ? null : familyHouseId.trim();
+    }
+
+    /**
+     * 房屋编号
+     * @return java.lang.String
+     **/
+    public String getFamilyHouseCodeFull() {
+        return familyHouseCodeFull;
+    }
+
+    /**
+     * 房屋编号
+     * @param familyHouseCodeFull 房屋编号
+     **/
+    public void setFamilyHouseCodeFull(String familyHouseCodeFull) {
+        this.familyHouseCodeFull = familyHouseCodeFull == null ? null : familyHouseCodeFull.trim();
     }
 
     /**
@@ -317,9 +349,9 @@ public class FamilyEntity {
 
     /**
      * 本户现住房建筑面积
-     * @return java.lang.Short
+     * @return java.math.BigDecimal
      **/
-    public Short getFamilyHouseArea() {
+    public BigDecimal getFamilyHouseArea() {
         return familyHouseArea;
     }
 
@@ -327,7 +359,7 @@ public class FamilyEntity {
      * 本户现住房建筑面积
      * @param familyHouseArea 本户现住房建筑面积
      **/
-    public void setFamilyHouseArea(Short familyHouseArea) {
+    public void setFamilyHouseArea(BigDecimal familyHouseArea) {
         this.familyHouseArea = familyHouseArea;
     }
 
@@ -505,5 +537,37 @@ public class FamilyEntity {
      **/
     public void setFamilyGridId(String familyGridId) {
         this.familyGridId = familyGridId == null ? null : familyGridId.trim();
+    }
+
+    /**
+     * 户主姓名
+     * @return java.lang.String
+     **/
+    public String getFamilyHeadHouseholdName() {
+        return familyHeadHouseholdName;
+    }
+
+    /**
+     * 户主姓名
+     * @param familyHeadHouseholdName 户主姓名
+     **/
+    public void setFamilyHeadHouseholdName(String familyHeadHouseholdName) {
+        this.familyHeadHouseholdName = familyHeadHouseholdName == null ? null : familyHeadHouseholdName.trim();
+    }
+
+    /**
+     * 户主ID
+     * @return java.lang.String
+     **/
+    public String getFamilyHeadHouseholdId() {
+        return familyHeadHouseholdId;
+    }
+
+    /**
+     * 户主ID
+     * @param familyHeadHouseholdId 户主ID
+     **/
+    public void setFamilyHeadHouseholdId(String familyHeadHouseholdId) {
+        this.familyHeadHouseholdId = familyHeadHouseholdId == null ? null : familyHeadHouseholdId.trim();
     }
 }

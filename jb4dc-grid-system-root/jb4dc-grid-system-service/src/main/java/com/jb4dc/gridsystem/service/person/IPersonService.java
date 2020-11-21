@@ -1,4 +1,16 @@
 package com.jb4dc.gridsystem.service.person;
 
-public interface IPersonService {
+import com.jb4dc.base.service.IBaseService;
+import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
+import com.jb4dc.core.base.session.JB4DCSession;
+import com.jb4dc.gridsystem.dbentities.person.PersonEntity;
+
+import java.util.List;
+
+public interface IPersonService extends IBaseService<PersonEntity> {
+    List<PersonEntity> getByFamilyId(String familyId);
+
+    List<PersonEntity> getPersonByHouseId(JB4DCSession session, String houseId);
+
+    void deletePersonWithFamily(JB4DCSession session, String personId) throws JBuild4DCGenerallyException;
 }

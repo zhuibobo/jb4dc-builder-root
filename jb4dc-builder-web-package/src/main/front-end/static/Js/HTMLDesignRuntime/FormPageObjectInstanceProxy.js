@@ -35,7 +35,7 @@ var FormPageObjectInstanceProxy={
                 }
             }
             catch (e){
-
+                DialogUtility.AlertText("自定义校验方法执行失败!");
             }
         }
         return validateResult

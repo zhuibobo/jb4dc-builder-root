@@ -5,6 +5,7 @@
         <constructor>
             <idArg column="FAMILY_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
             <arg column="FAMILY_HOUSE_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="FAMILY_HOUSE_CODE_FULL" javaType="java.lang.String" jdbcType="VARCHAR" />
             <arg column="FAMILY_PER_COUNT" javaType="java.lang.Integer" jdbcType="INTEGER" />
             <arg column="FAMILY_PER_IN" javaType="java.lang.Integer" jdbcType="INTEGER" />
             <arg column="FAMILY_PER_OUT" javaType="java.lang.Integer" jdbcType="INTEGER" />
@@ -14,7 +15,7 @@
             <arg column="FAMILY_HR_CITY" javaType="java.lang.String" jdbcType="VARCHAR" />
             <arg column="FAMILY_HR_COUNTY" javaType="java.lang.String" jdbcType="VARCHAR" />
             <arg column="FAMILY_HOUSE_TYPE" javaType="java.lang.String" jdbcType="VARCHAR" />
-            <arg column="FAMILY_HOUSE_AREA" javaType="java.lang.Short" jdbcType="DECIMAL" />
+            <arg column="FAMILY_HOUSE_AREA" javaType="java.math.BigDecimal" jdbcType="DECIMAL" />
             <arg column="FAMILY_HOUSE_ROOM_NUM" javaType="java.lang.Integer" jdbcType="INTEGER" />
             <arg column="FAMILY_INPUT_UNIT_NAME" javaType="java.lang.String" jdbcType="VARCHAR" />
             <arg column="FAMILY_INPUT_UNIT_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
@@ -26,14 +27,17 @@
             <arg column="FAMILY_STREET_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
             <arg column="FAMILY_COMMUNITY_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
             <arg column="FAMILY_GRID_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="FAMILY_HEAD_HOUSEHOLD_NAME" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="FAMILY_HEAD_HOUSEHOLD_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
         </constructor>
     </resultMap>
     <sql id="Base_Column_List">
-    FAMILY_ID, FAMILY_HOUSE_ID, FAMILY_PER_COUNT, FAMILY_PER_IN, FAMILY_PER_OUT, FAMILY_TYPE,
-    FAMILY_PHONE, FAMILY_HR_PROVINCE, FAMILY_HR_CITY, FAMILY_HR_COUNTY, FAMILY_HOUSE_TYPE,
-    FAMILY_HOUSE_AREA, FAMILY_HOUSE_ROOM_NUM, FAMILY_INPUT_UNIT_NAME, FAMILY_INPUT_UNIT_ID,
-    FAMILY_INPUT_DATE, FAMILY_INPUT_USER_NAME, FAMILY_INPUT_USER_ID, FAMILY_CITY_ID,
-    FAMILY_AREA_ID, FAMILY_STREET_ID, FAMILY_COMMUNITY_ID, FAMILY_GRID_ID
+    FAMILY_ID, FAMILY_HOUSE_ID, FAMILY_HOUSE_CODE_FULL, FAMILY_PER_COUNT, FAMILY_PER_IN,
+    FAMILY_PER_OUT, FAMILY_TYPE, FAMILY_PHONE, FAMILY_HR_PROVINCE, FAMILY_HR_CITY, FAMILY_HR_COUNTY,
+    FAMILY_HOUSE_TYPE, FAMILY_HOUSE_AREA, FAMILY_HOUSE_ROOM_NUM, FAMILY_INPUT_UNIT_NAME,
+    FAMILY_INPUT_UNIT_ID, FAMILY_INPUT_DATE, FAMILY_INPUT_USER_NAME, FAMILY_INPUT_USER_ID,
+    FAMILY_CITY_ID, FAMILY_AREA_ID, FAMILY_STREET_ID, FAMILY_COMMUNITY_ID, FAMILY_GRID_ID,
+    FAMILY_HEAD_HOUSEHOLD_NAME, FAMILY_HEAD_HOUSEHOLD_ID
   </sql>
     <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
         select
@@ -46,23 +50,25 @@
     where FAMILY_ID = #{familyId,jdbcType=VARCHAR}
   </delete>
     <insert id="insert" parameterType="com.jb4dc.gridsystem.dbentities.person.FamilyEntity">
-    insert into TGRID_FAMILY (FAMILY_ID, FAMILY_HOUSE_ID, FAMILY_PER_COUNT,
-      FAMILY_PER_IN, FAMILY_PER_OUT, FAMILY_TYPE,
-      FAMILY_PHONE, FAMILY_HR_PROVINCE, FAMILY_HR_CITY,
-      FAMILY_HR_COUNTY, FAMILY_HOUSE_TYPE, FAMILY_HOUSE_AREA,
-      FAMILY_HOUSE_ROOM_NUM, FAMILY_INPUT_UNIT_NAME,
+    insert into TGRID_FAMILY (FAMILY_ID, FAMILY_HOUSE_ID, FAMILY_HOUSE_CODE_FULL,
+      FAMILY_PER_COUNT, FAMILY_PER_IN, FAMILY_PER_OUT,
+      FAMILY_TYPE, FAMILY_PHONE, FAMILY_HR_PROVINCE,
+      FAMILY_HR_CITY, FAMILY_HR_COUNTY, FAMILY_HOUSE_TYPE,
+      FAMILY_HOUSE_AREA, FAMILY_HOUSE_ROOM_NUM, FAMILY_INPUT_UNIT_NAME,
       FAMILY_INPUT_UNIT_ID, FAMILY_INPUT_DATE, FAMILY_INPUT_USER_NAME,
       FAMILY_INPUT_USER_ID, FAMILY_CITY_ID, FAMILY_AREA_ID,
-      FAMILY_STREET_ID, FAMILY_COMMUNITY_ID, FAMILY_GRID_ID
+      FAMILY_STREET_ID, FAMILY_COMMUNITY_ID, FAMILY_GRID_ID,
+      FAMILY_HEAD_HOUSEHOLD_NAME, FAMILY_HEAD_HOUSEHOLD_ID
       )
-    values (#{familyId,jdbcType=VARCHAR}, #{familyHouseId,jdbcType=VARCHAR}, #{familyPerCount,jdbcType=INTEGER},
-      #{familyPerIn,jdbcType=INTEGER}, #{familyPerOut,jdbcType=INTEGER}, #{familyType,jdbcType=VARCHAR},
-      #{familyPhone,jdbcType=VARCHAR}, #{familyHrProvince,jdbcType=VARCHAR}, #{familyHrCity,jdbcType=VARCHAR},
-      #{familyHrCounty,jdbcType=VARCHAR}, #{familyHouseType,jdbcType=VARCHAR}, #{familyHouseArea,jdbcType=DECIMAL},
-      #{familyHouseRoomNum,jdbcType=INTEGER}, #{familyInputUnitName,jdbcType=VARCHAR},
+    values (#{familyId,jdbcType=VARCHAR}, #{familyHouseId,jdbcType=VARCHAR}, #{familyHouseCodeFull,jdbcType=VARCHAR},
+      #{familyPerCount,jdbcType=INTEGER}, #{familyPerIn,jdbcType=INTEGER}, #{familyPerOut,jdbcType=INTEGER},
+      #{familyType,jdbcType=VARCHAR}, #{familyPhone,jdbcType=VARCHAR}, #{familyHrProvince,jdbcType=VARCHAR},
+      #{familyHrCity,jdbcType=VARCHAR}, #{familyHrCounty,jdbcType=VARCHAR}, #{familyHouseType,jdbcType=VARCHAR},
+      #{familyHouseArea,jdbcType=DECIMAL}, #{familyHouseRoomNum,jdbcType=INTEGER}, #{familyInputUnitName,jdbcType=VARCHAR},
       #{familyInputUnitId,jdbcType=VARCHAR}, #{familyInputDate,jdbcType=TIMESTAMP}, #{familyInputUserName,jdbcType=VARCHAR},
       #{familyInputUserId,jdbcType=VARCHAR}, #{familyCityId,jdbcType=VARCHAR}, #{familyAreaId,jdbcType=VARCHAR},
-      #{familyStreetId,jdbcType=VARCHAR}, #{familyCommunityId,jdbcType=VARCHAR}, #{familyGridId,jdbcType=VARCHAR}
+      #{familyStreetId,jdbcType=VARCHAR}, #{familyCommunityId,jdbcType=VARCHAR}, #{familyGridId,jdbcType=VARCHAR},
+      #{familyHeadHouseholdName,jdbcType=VARCHAR}, #{familyHeadHouseholdId,jdbcType=VARCHAR}
       )
   </insert>
     <insert id="insertSelective" parameterType="com.jb4dc.gridsystem.dbentities.person.FamilyEntity">
@@ -73,6 +79,9 @@
             </if>
             <if test="familyHouseId != null">
                 FAMILY_HOUSE_ID,
+            </if>
+            <if test="familyHouseCodeFull != null">
+                FAMILY_HOUSE_CODE_FULL,
             </if>
             <if test="familyPerCount != null">
                 FAMILY_PER_COUNT,
@@ -137,6 +146,12 @@
             <if test="familyGridId != null">
                 FAMILY_GRID_ID,
             </if>
+            <if test="familyHeadHouseholdName != null">
+                FAMILY_HEAD_HOUSEHOLD_NAME,
+            </if>
+            <if test="familyHeadHouseholdId != null">
+                FAMILY_HEAD_HOUSEHOLD_ID,
+            </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="familyId != null">
@@ -144,6 +159,9 @@
             </if>
             <if test="familyHouseId != null">
                 #{familyHouseId,jdbcType=VARCHAR},
+            </if>
+            <if test="familyHouseCodeFull != null">
+                #{familyHouseCodeFull,jdbcType=VARCHAR},
             </if>
             <if test="familyPerCount != null">
                 #{familyPerCount,jdbcType=INTEGER},
@@ -208,6 +226,12 @@
             <if test="familyGridId != null">
                 #{familyGridId,jdbcType=VARCHAR},
             </if>
+            <if test="familyHeadHouseholdName != null">
+                #{familyHeadHouseholdName,jdbcType=VARCHAR},
+            </if>
+            <if test="familyHeadHouseholdId != null">
+                #{familyHeadHouseholdId,jdbcType=VARCHAR},
+            </if>
         </trim>
     </insert>
     <update id="updateByPrimaryKeySelective" parameterType="com.jb4dc.gridsystem.dbentities.person.FamilyEntity">
@@ -215,6 +239,9 @@
         <set>
             <if test="familyHouseId != null">
                 FAMILY_HOUSE_ID = #{familyHouseId,jdbcType=VARCHAR},
+            </if>
+            <if test="familyHouseCodeFull != null">
+                FAMILY_HOUSE_CODE_FULL = #{familyHouseCodeFull,jdbcType=VARCHAR},
             </if>
             <if test="familyPerCount != null">
                 FAMILY_PER_COUNT = #{familyPerCount,jdbcType=INTEGER},
@@ -279,12 +306,19 @@
             <if test="familyGridId != null">
                 FAMILY_GRID_ID = #{familyGridId,jdbcType=VARCHAR},
             </if>
+            <if test="familyHeadHouseholdName != null">
+                FAMILY_HEAD_HOUSEHOLD_NAME = #{familyHeadHouseholdName,jdbcType=VARCHAR},
+            </if>
+            <if test="familyHeadHouseholdId != null">
+                FAMILY_HEAD_HOUSEHOLD_ID = #{familyHeadHouseholdId,jdbcType=VARCHAR},
+            </if>
         </set>
         where FAMILY_ID = #{familyId,jdbcType=VARCHAR}
     </update>
     <update id="updateByPrimaryKey" parameterType="com.jb4dc.gridsystem.dbentities.person.FamilyEntity">
     update TGRID_FAMILY
     set FAMILY_HOUSE_ID = #{familyHouseId,jdbcType=VARCHAR},
+      FAMILY_HOUSE_CODE_FULL = #{familyHouseCodeFull,jdbcType=VARCHAR},
       FAMILY_PER_COUNT = #{familyPerCount,jdbcType=INTEGER},
       FAMILY_PER_IN = #{familyPerIn,jdbcType=INTEGER},
       FAMILY_PER_OUT = #{familyPerOut,jdbcType=INTEGER},
@@ -305,7 +339,9 @@
       FAMILY_AREA_ID = #{familyAreaId,jdbcType=VARCHAR},
       FAMILY_STREET_ID = #{familyStreetId,jdbcType=VARCHAR},
       FAMILY_COMMUNITY_ID = #{familyCommunityId,jdbcType=VARCHAR},
-      FAMILY_GRID_ID = #{familyGridId,jdbcType=VARCHAR}
+      FAMILY_GRID_ID = #{familyGridId,jdbcType=VARCHAR},
+      FAMILY_HEAD_HOUSEHOLD_NAME = #{familyHeadHouseholdName,jdbcType=VARCHAR},
+      FAMILY_HEAD_HOUSEHOLD_ID = #{familyHeadHouseholdId,jdbcType=VARCHAR}
     where FAMILY_ID = #{familyId,jdbcType=VARCHAR}
   </update>
 </mapper>

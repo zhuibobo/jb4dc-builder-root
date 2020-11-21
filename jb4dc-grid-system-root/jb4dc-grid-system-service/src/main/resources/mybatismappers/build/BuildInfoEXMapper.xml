@@ -65,4 +65,8 @@
     <select id="selectByInputUserId" resultMap="BaseResultMap">
         select<include refid="Base_Column_List"/> from TGRID_BUILD_INFO where BUILD_INPUT_USER_ID=#{userId} ORDER by BUILD_CODE DESC
     </select>
+
+    <select id="selectByBuildCode" resultMap="BaseResultMap">
+        select<include refid="Base_Column_List"/> from TGRID_BUILD_INFO where BUILD_CODE=#{buildCode}
+    </select>
 </mapper>
