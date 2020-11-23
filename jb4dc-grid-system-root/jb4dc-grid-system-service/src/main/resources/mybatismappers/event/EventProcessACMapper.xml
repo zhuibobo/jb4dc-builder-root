@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jb4dc.gridsystem.dao.event.EventProcessMapper">
+    <resultMap id="BaseResultMap" type="com.jb4dc.gridsystem.dbentities.event.EventProcessEntity">
+        <constructor>
+            <idArg column="EVT_PROCESS_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="EVT_PROCESS_EVENT_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="EVT_PROCESS_UNIT_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="EVT_PROCESS_UNIT_NAME" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="EVT_PROCESS_RECEIVE_DATE" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+            <arg column="EVT_PROCESS_HANDLE_USER_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="EVT_PROCESS_HANDLE_USER_NAME" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="EVT_PROCESS_HANDLE_DATE" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+            <arg column="EVT_PROCESS_NODE_NAME" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="EVT_PROCESS_NODE_VALUE" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="EVT_PROCESS_ACTION" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="EVT_PROCESS_OPINION" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="EVT_PROCESS_REMARK" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="EVT_PROCESS_ORDER_NUM" javaType="java.lang.Integer" jdbcType="INTEGER" />
+        </constructor>
+    </resultMap>
+    <sql id="Base_Column_List">
+    EVT_PROCESS_ID, EVT_PROCESS_EVENT_ID, EVT_PROCESS_UNIT_ID, EVT_PROCESS_UNIT_NAME,
+    EVT_PROCESS_RECEIVE_DATE, EVT_PROCESS_HANDLE_USER_ID, EVT_PROCESS_HANDLE_USER_NAME,
+    EVT_PROCESS_HANDLE_DATE, EVT_PROCESS_NODE_NAME, EVT_PROCESS_NODE_VALUE, EVT_PROCESS_ACTION,
+    EVT_PROCESS_OPINION, EVT_PROCESS_REMARK, EVT_PROCESS_ORDER_NUM
+  </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from TGRID_EVENT_PROCESS
+        where EVT_PROCESS_ID = #{evtProcessId,jdbcType=VARCHAR}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from TGRID_EVENT_PROCESS
+    where EVT_PROCESS_ID = #{evtProcessId,jdbcType=VARCHAR}
+  </delete>
+    <insert id="insert" parameterType="com.jb4dc.gridsystem.dbentities.event.EventProcessEntity">
+    insert into TGRID_EVENT_PROCESS (EVT_PROCESS_ID, EVT_PROCESS_EVENT_ID,
+      EVT_PROCESS_UNIT_ID, EVT_PROCESS_UNIT_NAME, EVT_PROCESS_RECEIVE_DATE,
+      EVT_PROCESS_HANDLE_USER_ID, EVT_PROCESS_HANDLE_USER_NAME,
+      EVT_PROCESS_HANDLE_DATE, EVT_PROCESS_NODE_NAME,
+      EVT_PROCESS_NODE_VALUE, EVT_PROCESS_ACTION,
+      EVT_PROCESS_OPINION, EVT_PROCESS_REMARK, EVT_PROCESS_ORDER_NUM
+      )
+    values (#{evtProcessId,jdbcType=VARCHAR}, #{evtProcessEventId,jdbcType=VARCHAR},
+      #{evtProcessUnitId,jdbcType=VARCHAR}, #{evtProcessUnitName,jdbcType=VARCHAR}, #{evtProcessReceiveDate,jdbcType=TIMESTAMP},
+      #{evtProcessHandleUserId,jdbcType=VARCHAR}, #{evtProcessHandleUserName,jdbcType=VARCHAR},
+      #{evtProcessHandleDate,jdbcType=TIMESTAMP}, #{evtProcessNodeName,jdbcType=VARCHAR},
+      #{evtProcessNodeValue,jdbcType=VARCHAR}, #{evtProcessAction,jdbcType=VARCHAR},
+      #{evtProcessOpinion,jdbcType=VARCHAR}, #{evtProcessRemark,jdbcType=VARCHAR}, #{evtProcessOrderNum,jdbcType=INTEGER}
+      )
+  </insert>
+    <insert id="insertSelective" parameterType="com.jb4dc.gridsystem.dbentities.event.EventProcessEntity">
+        insert into TGRID_EVENT_PROCESS
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="evtProcessId != null">
+                EVT_PROCESS_ID,
+            </if>
+            <if test="evtProcessEventId != null">
+                EVT_PROCESS_EVENT_ID,
+            </if>
+            <if test="evtProcessUnitId != null">
+                EVT_PROCESS_UNIT_ID,
+            </if>
+            <if test="evtProcessUnitName != null">
+                EVT_PROCESS_UNIT_NAME,
+            </if>
+            <if test="evtProcessReceiveDate != null">
+                EVT_PROCESS_RECEIVE_DATE,
+            </if>
+            <if test="evtProcessHandleUserId != null">
+                EVT_PROCESS_HANDLE_USER_ID,
+            </if>
+            <if test="evtProcessHandleUserName != null">
+                EVT_PROCESS_HANDLE_USER_NAME,
+            </if>
+            <if test="evtProcessHandleDate != null">
+                EVT_PROCESS_HANDLE_DATE,
+            </if>
+            <if test="evtProcessNodeName != null">
+                EVT_PROCESS_NODE_NAME,
+            </if>
+            <if test="evtProcessNodeValue != null">
+                EVT_PROCESS_NODE_VALUE,
+            </if>
+            <if test="evtProcessAction != null">
+                EVT_PROCESS_ACTION,
+            </if>
+            <if test="evtProcessOpinion != null">
+                EVT_PROCESS_OPINION,
+            </if>
+            <if test="evtProcessRemark != null">
+                EVT_PROCESS_REMARK,
+            </if>
+            <if test="evtProcessOrderNum != null">
+                EVT_PROCESS_ORDER_NUM,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="evtProcessId != null">
+                #{evtProcessId,jdbcType=VARCHAR},
+            </if>
+            <if test="evtProcessEventId != null">
+                #{evtProcessEventId,jdbcType=VARCHAR},
+            </if>
+            <if test="evtProcessUnitId != null">
+                #{evtProcessUnitId,jdbcType=VARCHAR},
+            </if>
+            <if test="evtProcessUnitName != null">
+                #{evtProcessUnitName,jdbcType=VARCHAR},
+            </if>
+            <if test="evtProcessReceiveDate != null">
+                #{evtProcessReceiveDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="evtProcessHandleUserId != null">
+                #{evtProcessHandleUserId,jdbcType=VARCHAR},
+            </if>
+            <if test="evtProcessHandleUserName != null">
+                #{evtProcessHandleUserName,jdbcType=VARCHAR},
+            </if>
+            <if test="evtProcessHandleDate != null">
+                #{evtProcessHandleDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="evtProcessNodeName != null">
+                #{evtProcessNodeName,jdbcType=VARCHAR},
+            </if>
+            <if test="evtProcessNodeValue != null">
+                #{evtProcessNodeValue,jdbcType=VARCHAR},
+            </if>
+            <if test="evtProcessAction != null">
+                #{evtProcessAction,jdbcType=VARCHAR},
+            </if>
+            <if test="evtProcessOpinion != null">
+                #{evtProcessOpinion,jdbcType=VARCHAR},
+            </if>
+            <if test="evtProcessRemark != null">
+                #{evtProcessRemark,jdbcType=VARCHAR},
+            </if>
+            <if test="evtProcessOrderNum != null">
+                #{evtProcessOrderNum,jdbcType=INTEGER},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.jb4dc.gridsystem.dbentities.event.EventProcessEntity">
+        update TGRID_EVENT_PROCESS
+        <set>
+            <if test="evtProcessEventId != null">
+                EVT_PROCESS_EVENT_ID = #{evtProcessEventId,jdbcType=VARCHAR},
+            </if>
+            <if test="evtProcessUnitId != null">
+                EVT_PROCESS_UNIT_ID = #{evtProcessUnitId,jdbcType=VARCHAR},
+            </if>
+            <if test="evtProcessUnitName != null">
+                EVT_PROCESS_UNIT_NAME = #{evtProcessUnitName,jdbcType=VARCHAR},
+            </if>
+            <if test="evtProcessReceiveDate != null">
+                EVT_PROCESS_RECEIVE_DATE = #{evtProcessReceiveDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="evtProcessHandleUserId != null">
+                EVT_PROCESS_HANDLE_USER_ID = #{evtProcessHandleUserId,jdbcType=VARCHAR},
+            </if>
+            <if test="evtProcessHandleUserName != null">
+                EVT_PROCESS_HANDLE_USER_NAME = #{evtProcessHandleUserName,jdbcType=VARCHAR},
+            </if>
+            <if test="evtProcessHandleDate != null">
+                EVT_PROCESS_HANDLE_DATE = #{evtProcessHandleDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="evtProcessNodeName != null">
+                EVT_PROCESS_NODE_NAME = #{evtProcessNodeName,jdbcType=VARCHAR},
+            </if>
+            <if test="evtProcessNodeValue != null">
+                EVT_PROCESS_NODE_VALUE = #{evtProcessNodeValue,jdbcType=VARCHAR},
+            </if>
+            <if test="evtProcessAction != null">
+                EVT_PROCESS_ACTION = #{evtProcessAction,jdbcType=VARCHAR},
+            </if>
+            <if test="evtProcessOpinion != null">
+                EVT_PROCESS_OPINION = #{evtProcessOpinion,jdbcType=VARCHAR},
+            </if>
+            <if test="evtProcessRemark != null">
+                EVT_PROCESS_REMARK = #{evtProcessRemark,jdbcType=VARCHAR},
+            </if>
+            <if test="evtProcessOrderNum != null">
+                EVT_PROCESS_ORDER_NUM = #{evtProcessOrderNum,jdbcType=INTEGER},
+            </if>
+        </set>
+        where EVT_PROCESS_ID = #{evtProcessId,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.jb4dc.gridsystem.dbentities.event.EventProcessEntity">
+    update TGRID_EVENT_PROCESS
+    set EVT_PROCESS_EVENT_ID = #{evtProcessEventId,jdbcType=VARCHAR},
+      EVT_PROCESS_UNIT_ID = #{evtProcessUnitId,jdbcType=VARCHAR},
+      EVT_PROCESS_UNIT_NAME = #{evtProcessUnitName,jdbcType=VARCHAR},
+      EVT_PROCESS_RECEIVE_DATE = #{evtProcessReceiveDate,jdbcType=TIMESTAMP},
+      EVT_PROCESS_HANDLE_USER_ID = #{evtProcessHandleUserId,jdbcType=VARCHAR},
+      EVT_PROCESS_HANDLE_USER_NAME = #{evtProcessHandleUserName,jdbcType=VARCHAR},
+      EVT_PROCESS_HANDLE_DATE = #{evtProcessHandleDate,jdbcType=TIMESTAMP},
+      EVT_PROCESS_NODE_NAME = #{evtProcessNodeName,jdbcType=VARCHAR},
+      EVT_PROCESS_NODE_VALUE = #{evtProcessNodeValue,jdbcType=VARCHAR},
+      EVT_PROCESS_ACTION = #{evtProcessAction,jdbcType=VARCHAR},
+      EVT_PROCESS_OPINION = #{evtProcessOpinion,jdbcType=VARCHAR},
+      EVT_PROCESS_REMARK = #{evtProcessRemark,jdbcType=VARCHAR},
+      EVT_PROCESS_ORDER_NUM = #{evtProcessOrderNum,jdbcType=INTEGER}
+    where EVT_PROCESS_ID = #{evtProcessId,jdbcType=VARCHAR}
+  </update>
+</mapper>

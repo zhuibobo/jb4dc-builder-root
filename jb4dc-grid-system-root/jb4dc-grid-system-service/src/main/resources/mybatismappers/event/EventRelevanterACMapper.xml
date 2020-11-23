@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jb4dc.gridsystem.dao.event.EventRelevanterMapper">
+    <resultMap id="BaseResultMap" type="com.jb4dc.gridsystem.dbentities.event.EventRelevanterEntity">
+        <constructor>
+            <idArg column="EVT_REL_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="EVT_REL_EVENT_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="EVT_REL_TYPE" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="EVT_REL_NAME" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="EVT_REL_SEX" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="EVT_REL_BIRTHDAY" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+            <arg column="EVT_REL_ID_CARD" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="EVT_REL_PHONE" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="EVT_REL_ADDRESS" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="EVT_REL_BUSINESS_NATURE" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="EVT_REL_CREATED_DATE" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+            <arg column="EVT_REL_ORGAN_CODE" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="EVT_REL_BUSINESS_NUMBER" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="EVT_REL_REMARK" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="EVT_REL_ORDER_NUM" javaType="java.lang.Integer" jdbcType="INTEGER" />
+        </constructor>
+    </resultMap>
+    <sql id="Base_Column_List">
+    EVT_REL_ID, EVT_REL_EVENT_ID, EVT_REL_TYPE, EVT_REL_NAME, EVT_REL_SEX, EVT_REL_BIRTHDAY,
+    EVT_REL_ID_CARD, EVT_REL_PHONE, EVT_REL_ADDRESS, EVT_REL_BUSINESS_NATURE, EVT_REL_CREATED_DATE,
+    EVT_REL_ORGAN_CODE, EVT_REL_BUSINESS_NUMBER, EVT_REL_REMARK, EVT_REL_ORDER_NUM
+  </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from TGRID_EVENT_RELEVANTER
+        where EVT_REL_ID = #{evtRelId,jdbcType=VARCHAR}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from TGRID_EVENT_RELEVANTER
+    where EVT_REL_ID = #{evtRelId,jdbcType=VARCHAR}
+  </delete>
+    <insert id="insert" parameterType="com.jb4dc.gridsystem.dbentities.event.EventRelevanterEntity">
+    insert into TGRID_EVENT_RELEVANTER (EVT_REL_ID, EVT_REL_EVENT_ID, EVT_REL_TYPE,
+      EVT_REL_NAME, EVT_REL_SEX, EVT_REL_BIRTHDAY,
+      EVT_REL_ID_CARD, EVT_REL_PHONE, EVT_REL_ADDRESS,
+      EVT_REL_BUSINESS_NATURE, EVT_REL_CREATED_DATE,
+      EVT_REL_ORGAN_CODE, EVT_REL_BUSINESS_NUMBER,
+      EVT_REL_REMARK, EVT_REL_ORDER_NUM)
+    values (#{evtRelId,jdbcType=VARCHAR}, #{evtRelEventId,jdbcType=VARCHAR}, #{evtRelType,jdbcType=VARCHAR},
+      #{evtRelName,jdbcType=VARCHAR}, #{evtRelSex,jdbcType=VARCHAR}, #{evtRelBirthday,jdbcType=TIMESTAMP},
+      #{evtRelIdCard,jdbcType=VARCHAR}, #{evtRelPhone,jdbcType=VARCHAR}, #{evtRelAddress,jdbcType=VARCHAR},
+      #{evtRelBusinessNature,jdbcType=VARCHAR}, #{evtRelCreatedDate,jdbcType=TIMESTAMP},
+      #{evtRelOrganCode,jdbcType=VARCHAR}, #{evtRelBusinessNumber,jdbcType=VARCHAR},
+      #{evtRelRemark,jdbcType=VARCHAR}, #{evtRelOrderNum,jdbcType=INTEGER})
+  </insert>
+    <insert id="insertSelective" parameterType="com.jb4dc.gridsystem.dbentities.event.EventRelevanterEntity">
+        insert into TGRID_EVENT_RELEVANTER
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="evtRelId != null">
+                EVT_REL_ID,
+            </if>
+            <if test="evtRelEventId != null">
+                EVT_REL_EVENT_ID,
+            </if>
+            <if test="evtRelType != null">
+                EVT_REL_TYPE,
+            </if>
+            <if test="evtRelName != null">
+                EVT_REL_NAME,
+            </if>
+            <if test="evtRelSex != null">
+                EVT_REL_SEX,
+            </if>
+            <if test="evtRelBirthday != null">
+                EVT_REL_BIRTHDAY,
+            </if>
+            <if test="evtRelIdCard != null">
+                EVT_REL_ID_CARD,
+            </if>
+            <if test="evtRelPhone != null">
+                EVT_REL_PHONE,
+            </if>
+            <if test="evtRelAddress != null">
+                EVT_REL_ADDRESS,
+            </if>
+            <if test="evtRelBusinessNature != null">
+                EVT_REL_BUSINESS_NATURE,
+            </if>
+            <if test="evtRelCreatedDate != null">
+                EVT_REL_CREATED_DATE,
+            </if>
+            <if test="evtRelOrganCode != null">
+                EVT_REL_ORGAN_CODE,
+            </if>
+            <if test="evtRelBusinessNumber != null">
+                EVT_REL_BUSINESS_NUMBER,
+            </if>
+            <if test="evtRelRemark != null">
+                EVT_REL_REMARK,
+            </if>
+            <if test="evtRelOrderNum != null">
+                EVT_REL_ORDER_NUM,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="evtRelId != null">
+                #{evtRelId,jdbcType=VARCHAR},
+            </if>
+            <if test="evtRelEventId != null">
+                #{evtRelEventId,jdbcType=VARCHAR},
+            </if>
+            <if test="evtRelType != null">
+                #{evtRelType,jdbcType=VARCHAR},
+            </if>
+            <if test="evtRelName != null">
+                #{evtRelName,jdbcType=VARCHAR},
+            </if>
+            <if test="evtRelSex != null">
+                #{evtRelSex,jdbcType=VARCHAR},
+            </if>
+            <if test="evtRelBirthday != null">
+                #{evtRelBirthday,jdbcType=TIMESTAMP},
+            </if>
+            <if test="evtRelIdCard != null">
+                #{evtRelIdCard,jdbcType=VARCHAR},
+            </if>
+            <if test="evtRelPhone != null">
+                #{evtRelPhone,jdbcType=VARCHAR},
+            </if>
+            <if test="evtRelAddress != null">
+                #{evtRelAddress,jdbcType=VARCHAR},
+            </if>
+            <if test="evtRelBusinessNature != null">
+                #{evtRelBusinessNature,jdbcType=VARCHAR},
+            </if>
+            <if test="evtRelCreatedDate != null">
+                #{evtRelCreatedDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="evtRelOrganCode != null">
+                #{evtRelOrganCode,jdbcType=VARCHAR},
+            </if>
+            <if test="evtRelBusinessNumber != null">
+                #{evtRelBusinessNumber,jdbcType=VARCHAR},
+            </if>
+            <if test="evtRelRemark != null">
+                #{evtRelRemark,jdbcType=VARCHAR},
+            </if>
+            <if test="evtRelOrderNum != null">
+                #{evtRelOrderNum,jdbcType=INTEGER},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.jb4dc.gridsystem.dbentities.event.EventRelevanterEntity">
+        update TGRID_EVENT_RELEVANTER
+        <set>
+            <if test="evtRelEventId != null">
+                EVT_REL_EVENT_ID = #{evtRelEventId,jdbcType=VARCHAR},
+            </if>
+            <if test="evtRelType != null">
+                EVT_REL_TYPE = #{evtRelType,jdbcType=VARCHAR},
+            </if>
+            <if test="evtRelName != null">
+                EVT_REL_NAME = #{evtRelName,jdbcType=VARCHAR},
+            </if>
+            <if test="evtRelSex != null">
+                EVT_REL_SEX = #{evtRelSex,jdbcType=VARCHAR},
+            </if>
+            <if test="evtRelBirthday != null">
+                EVT_REL_BIRTHDAY = #{evtRelBirthday,jdbcType=TIMESTAMP},
+            </if>
+            <if test="evtRelIdCard != null">
+                EVT_REL_ID_CARD = #{evtRelIdCard,jdbcType=VARCHAR},
+            </if>
+            <if test="evtRelPhone != null">
+                EVT_REL_PHONE = #{evtRelPhone,jdbcType=VARCHAR},
+            </if>
+            <if test="evtRelAddress != null">
+                EVT_REL_ADDRESS = #{evtRelAddress,jdbcType=VARCHAR},
+            </if>
+            <if test="evtRelBusinessNature != null">
+                EVT_REL_BUSINESS_NATURE = #{evtRelBusinessNature,jdbcType=VARCHAR},
+            </if>
+            <if test="evtRelCreatedDate != null">
+                EVT_REL_CREATED_DATE = #{evtRelCreatedDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="evtRelOrganCode != null">
+                EVT_REL_ORGAN_CODE = #{evtRelOrganCode,jdbcType=VARCHAR},
+            </if>
+            <if test="evtRelBusinessNumber != null">
+                EVT_REL_BUSINESS_NUMBER = #{evtRelBusinessNumber,jdbcType=VARCHAR},
+            </if>
+            <if test="evtRelRemark != null">
+                EVT_REL_REMARK = #{evtRelRemark,jdbcType=VARCHAR},
+            </if>
+            <if test="evtRelOrderNum != null">
+                EVT_REL_ORDER_NUM = #{evtRelOrderNum,jdbcType=INTEGER},
+            </if>
+        </set>
+        where EVT_REL_ID = #{evtRelId,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.jb4dc.gridsystem.dbentities.event.EventRelevanterEntity">
+    update TGRID_EVENT_RELEVANTER
+    set EVT_REL_EVENT_ID = #{evtRelEventId,jdbcType=VARCHAR},
+      EVT_REL_TYPE = #{evtRelType,jdbcType=VARCHAR},
+      EVT_REL_NAME = #{evtRelName,jdbcType=VARCHAR},
+      EVT_REL_SEX = #{evtRelSex,jdbcType=VARCHAR},
+      EVT_REL_BIRTHDAY = #{evtRelBirthday,jdbcType=TIMESTAMP},
+      EVT_REL_ID_CARD = #{evtRelIdCard,jdbcType=VARCHAR},
+      EVT_REL_PHONE = #{evtRelPhone,jdbcType=VARCHAR},
+      EVT_REL_ADDRESS = #{evtRelAddress,jdbcType=VARCHAR},
+      EVT_REL_BUSINESS_NATURE = #{evtRelBusinessNature,jdbcType=VARCHAR},
+      EVT_REL_CREATED_DATE = #{evtRelCreatedDate,jdbcType=TIMESTAMP},
+      EVT_REL_ORGAN_CODE = #{evtRelOrganCode,jdbcType=VARCHAR},
+      EVT_REL_BUSINESS_NUMBER = #{evtRelBusinessNumber,jdbcType=VARCHAR},
+      EVT_REL_REMARK = #{evtRelRemark,jdbcType=VARCHAR},
+      EVT_REL_ORDER_NUM = #{evtRelOrderNum,jdbcType=INTEGER}
+    where EVT_REL_ID = #{evtRelId,jdbcType=VARCHAR}
+  </update>
+</mapper>

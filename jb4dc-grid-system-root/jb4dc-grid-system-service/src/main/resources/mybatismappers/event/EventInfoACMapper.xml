@@ -1,0 +1,434 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jb4dc.gridsystem.dao.event.EventInfoMapper">
+    <resultMap id="BaseResultMap" type="com.jb4dc.gridsystem.dbentities.event.EventInfoEntity">
+        <constructor>
+            <idArg column="EVENT_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="EVENT_CODE" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="EVENT_ACCEPT_DATE" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+            <arg column="EVENT_ACCEPT_UNIT_NAME" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="EVENT_ACCEPT_UNIT_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="EVENT_ACCEPT_USER_NAME" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="EVENT_ACCEPT_USER_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="EVENT_ACCEPT_TIMES" javaType="java.lang.Long" jdbcType="DECIMAL" />
+            <arg column="EVENT_ACCEPT_GRID_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="EVENT_ACCEPT_MAP_LOCATION" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="EVENT_SOURCE" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="EVENT_TYPE_1" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="EVENT_TYPE_2" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="EVENT_LEVEL" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="EVENT_SEVERITY" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="EVENT_ADDRESS" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="EVENT_APPEAL_PURPOSE" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="EVENT_APPEAL_PERSON_NUM" javaType="java.lang.Long" jdbcType="DECIMAL" />
+            <arg column="EVENT_APPEAL_QUESTION" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="EVENT_ABOUT_PERSON_NUM" javaType="java.lang.Long" jdbcType="DECIMAL" />
+            <arg column="EVENT_IS_PETITION" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="EVENT_IS_RENTAL_HOUSING" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="EVENT_IS_GROUP" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="EVENT_FROM_CODE" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="EVENT_FROM_DATE" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+            <arg column="EVENT_IS_EMERGENCY" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="EVENT_ABOUT_MONEY" javaType="java.math.BigDecimal" jdbcType="DECIMAL" />
+            <arg column="EVENT_IS_SP_DIFFICULT" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="EVENT_WARRING_LEVEL" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="EVENT_PROCESS_NODE_NAME" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="EVENT_PROCESS_NODE_VALUE" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="EVENT_REMARK" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="EVENT_ORDER_NUM" javaType="java.lang.Integer" jdbcType="INTEGER" />
+        </constructor>
+    </resultMap>
+    <sql id="Base_Column_List">
+    EVENT_ID, EVENT_CODE, EVENT_ACCEPT_DATE, EVENT_ACCEPT_UNIT_NAME, EVENT_ACCEPT_UNIT_ID,
+    EVENT_ACCEPT_USER_NAME, EVENT_ACCEPT_USER_ID, EVENT_ACCEPT_TIMES, EVENT_ACCEPT_GRID_ID,
+    EVENT_ACCEPT_MAP_LOCATION, EVENT_SOURCE, EVENT_TYPE_1, EVENT_TYPE_2, EVENT_LEVEL,
+    EVENT_SEVERITY, EVENT_ADDRESS, EVENT_APPEAL_PURPOSE, EVENT_APPEAL_PERSON_NUM, EVENT_APPEAL_QUESTION,
+    EVENT_ABOUT_PERSON_NUM, EVENT_IS_PETITION, EVENT_IS_RENTAL_HOUSING, EVENT_IS_GROUP,
+    EVENT_FROM_CODE, EVENT_FROM_DATE, EVENT_IS_EMERGENCY, EVENT_ABOUT_MONEY, EVENT_IS_SP_DIFFICULT,
+    EVENT_WARRING_LEVEL, EVENT_PROCESS_NODE_NAME, EVENT_PROCESS_NODE_VALUE, EVENT_REMARK,
+    EVENT_ORDER_NUM
+  </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from TGRID_EVENT_INFO
+        where EVENT_ID = #{eventId,jdbcType=VARCHAR}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from TGRID_EVENT_INFO
+    where EVENT_ID = #{eventId,jdbcType=VARCHAR}
+  </delete>
+    <insert id="insert" parameterType="com.jb4dc.gridsystem.dbentities.event.EventInfoEntity">
+    insert into TGRID_EVENT_INFO (EVENT_ID, EVENT_CODE, EVENT_ACCEPT_DATE,
+      EVENT_ACCEPT_UNIT_NAME, EVENT_ACCEPT_UNIT_ID,
+      EVENT_ACCEPT_USER_NAME, EVENT_ACCEPT_USER_ID,
+      EVENT_ACCEPT_TIMES, EVENT_ACCEPT_GRID_ID, EVENT_ACCEPT_MAP_LOCATION,
+      EVENT_SOURCE, EVENT_TYPE_1, EVENT_TYPE_2,
+      EVENT_LEVEL, EVENT_SEVERITY, EVENT_ADDRESS,
+      EVENT_APPEAL_PURPOSE, EVENT_APPEAL_PERSON_NUM,
+      EVENT_APPEAL_QUESTION, EVENT_ABOUT_PERSON_NUM,
+      EVENT_IS_PETITION, EVENT_IS_RENTAL_HOUSING,
+      EVENT_IS_GROUP, EVENT_FROM_CODE, EVENT_FROM_DATE,
+      EVENT_IS_EMERGENCY, EVENT_ABOUT_MONEY, EVENT_IS_SP_DIFFICULT,
+      EVENT_WARRING_LEVEL, EVENT_PROCESS_NODE_NAME,
+      EVENT_PROCESS_NODE_VALUE, EVENT_REMARK, EVENT_ORDER_NUM
+      )
+    values (#{eventId,jdbcType=VARCHAR}, #{eventCode,jdbcType=VARCHAR}, #{eventAcceptDate,jdbcType=TIMESTAMP},
+      #{eventAcceptUnitName,jdbcType=VARCHAR}, #{eventAcceptUnitId,jdbcType=VARCHAR},
+      #{eventAcceptUserName,jdbcType=VARCHAR}, #{eventAcceptUserId,jdbcType=VARCHAR},
+      #{eventAcceptTimes,jdbcType=DECIMAL}, #{eventAcceptGridId,jdbcType=VARCHAR}, #{eventAcceptMapLocation,jdbcType=VARCHAR},
+      #{eventSource,jdbcType=VARCHAR}, #{eventType1,jdbcType=VARCHAR}, #{eventType2,jdbcType=VARCHAR},
+      #{eventLevel,jdbcType=VARCHAR}, #{eventSeverity,jdbcType=VARCHAR}, #{eventAddress,jdbcType=VARCHAR},
+      #{eventAppealPurpose,jdbcType=VARCHAR}, #{eventAppealPersonNum,jdbcType=DECIMAL},
+      #{eventAppealQuestion,jdbcType=VARCHAR}, #{eventAboutPersonNum,jdbcType=DECIMAL},
+      #{eventIsPetition,jdbcType=VARCHAR}, #{eventIsRentalHousing,jdbcType=VARCHAR},
+      #{eventIsGroup,jdbcType=VARCHAR}, #{eventFromCode,jdbcType=VARCHAR}, #{eventFromDate,jdbcType=TIMESTAMP},
+      #{eventIsEmergency,jdbcType=VARCHAR}, #{eventAboutMoney,jdbcType=DECIMAL}, #{eventIsSpDifficult,jdbcType=VARCHAR},
+      #{eventWarringLevel,jdbcType=VARCHAR}, #{eventProcessNodeName,jdbcType=VARCHAR},
+      #{eventProcessNodeValue,jdbcType=VARCHAR}, #{eventRemark,jdbcType=VARCHAR}, #{eventOrderNum,jdbcType=INTEGER}
+      )
+  </insert>
+    <insert id="insertSelective" parameterType="com.jb4dc.gridsystem.dbentities.event.EventInfoEntity">
+        insert into TGRID_EVENT_INFO
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="eventId != null">
+                EVENT_ID,
+            </if>
+            <if test="eventCode != null">
+                EVENT_CODE,
+            </if>
+            <if test="eventAcceptDate != null">
+                EVENT_ACCEPT_DATE,
+            </if>
+            <if test="eventAcceptUnitName != null">
+                EVENT_ACCEPT_UNIT_NAME,
+            </if>
+            <if test="eventAcceptUnitId != null">
+                EVENT_ACCEPT_UNIT_ID,
+            </if>
+            <if test="eventAcceptUserName != null">
+                EVENT_ACCEPT_USER_NAME,
+            </if>
+            <if test="eventAcceptUserId != null">
+                EVENT_ACCEPT_USER_ID,
+            </if>
+            <if test="eventAcceptTimes != null">
+                EVENT_ACCEPT_TIMES,
+            </if>
+            <if test="eventAcceptGridId != null">
+                EVENT_ACCEPT_GRID_ID,
+            </if>
+            <if test="eventAcceptMapLocation != null">
+                EVENT_ACCEPT_MAP_LOCATION,
+            </if>
+            <if test="eventSource != null">
+                EVENT_SOURCE,
+            </if>
+            <if test="eventType1 != null">
+                EVENT_TYPE_1,
+            </if>
+            <if test="eventType2 != null">
+                EVENT_TYPE_2,
+            </if>
+            <if test="eventLevel != null">
+                EVENT_LEVEL,
+            </if>
+            <if test="eventSeverity != null">
+                EVENT_SEVERITY,
+            </if>
+            <if test="eventAddress != null">
+                EVENT_ADDRESS,
+            </if>
+            <if test="eventAppealPurpose != null">
+                EVENT_APPEAL_PURPOSE,
+            </if>
+            <if test="eventAppealPersonNum != null">
+                EVENT_APPEAL_PERSON_NUM,
+            </if>
+            <if test="eventAppealQuestion != null">
+                EVENT_APPEAL_QUESTION,
+            </if>
+            <if test="eventAboutPersonNum != null">
+                EVENT_ABOUT_PERSON_NUM,
+            </if>
+            <if test="eventIsPetition != null">
+                EVENT_IS_PETITION,
+            </if>
+            <if test="eventIsRentalHousing != null">
+                EVENT_IS_RENTAL_HOUSING,
+            </if>
+            <if test="eventIsGroup != null">
+                EVENT_IS_GROUP,
+            </if>
+            <if test="eventFromCode != null">
+                EVENT_FROM_CODE,
+            </if>
+            <if test="eventFromDate != null">
+                EVENT_FROM_DATE,
+            </if>
+            <if test="eventIsEmergency != null">
+                EVENT_IS_EMERGENCY,
+            </if>
+            <if test="eventAboutMoney != null">
+                EVENT_ABOUT_MONEY,
+            </if>
+            <if test="eventIsSpDifficult != null">
+                EVENT_IS_SP_DIFFICULT,
+            </if>
+            <if test="eventWarringLevel != null">
+                EVENT_WARRING_LEVEL,
+            </if>
+            <if test="eventProcessNodeName != null">
+                EVENT_PROCESS_NODE_NAME,
+            </if>
+            <if test="eventProcessNodeValue != null">
+                EVENT_PROCESS_NODE_VALUE,
+            </if>
+            <if test="eventRemark != null">
+                EVENT_REMARK,
+            </if>
+            <if test="eventOrderNum != null">
+                EVENT_ORDER_NUM,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="eventId != null">
+                #{eventId,jdbcType=VARCHAR},
+            </if>
+            <if test="eventCode != null">
+                #{eventCode,jdbcType=VARCHAR},
+            </if>
+            <if test="eventAcceptDate != null">
+                #{eventAcceptDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="eventAcceptUnitName != null">
+                #{eventAcceptUnitName,jdbcType=VARCHAR},
+            </if>
+            <if test="eventAcceptUnitId != null">
+                #{eventAcceptUnitId,jdbcType=VARCHAR},
+            </if>
+            <if test="eventAcceptUserName != null">
+                #{eventAcceptUserName,jdbcType=VARCHAR},
+            </if>
+            <if test="eventAcceptUserId != null">
+                #{eventAcceptUserId,jdbcType=VARCHAR},
+            </if>
+            <if test="eventAcceptTimes != null">
+                #{eventAcceptTimes,jdbcType=DECIMAL},
+            </if>
+            <if test="eventAcceptGridId != null">
+                #{eventAcceptGridId,jdbcType=VARCHAR},
+            </if>
+            <if test="eventAcceptMapLocation != null">
+                #{eventAcceptMapLocation,jdbcType=VARCHAR},
+            </if>
+            <if test="eventSource != null">
+                #{eventSource,jdbcType=VARCHAR},
+            </if>
+            <if test="eventType1 != null">
+                #{eventType1,jdbcType=VARCHAR},
+            </if>
+            <if test="eventType2 != null">
+                #{eventType2,jdbcType=VARCHAR},
+            </if>
+            <if test="eventLevel != null">
+                #{eventLevel,jdbcType=VARCHAR},
+            </if>
+            <if test="eventSeverity != null">
+                #{eventSeverity,jdbcType=VARCHAR},
+            </if>
+            <if test="eventAddress != null">
+                #{eventAddress,jdbcType=VARCHAR},
+            </if>
+            <if test="eventAppealPurpose != null">
+                #{eventAppealPurpose,jdbcType=VARCHAR},
+            </if>
+            <if test="eventAppealPersonNum != null">
+                #{eventAppealPersonNum,jdbcType=DECIMAL},
+            </if>
+            <if test="eventAppealQuestion != null">
+                #{eventAppealQuestion,jdbcType=VARCHAR},
+            </if>
+            <if test="eventAboutPersonNum != null">
+                #{eventAboutPersonNum,jdbcType=DECIMAL},
+            </if>
+            <if test="eventIsPetition != null">
+                #{eventIsPetition,jdbcType=VARCHAR},
+            </if>
+            <if test="eventIsRentalHousing != null">
+                #{eventIsRentalHousing,jdbcType=VARCHAR},
+            </if>
+            <if test="eventIsGroup != null">
+                #{eventIsGroup,jdbcType=VARCHAR},
+            </if>
+            <if test="eventFromCode != null">
+                #{eventFromCode,jdbcType=VARCHAR},
+            </if>
+            <if test="eventFromDate != null">
+                #{eventFromDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="eventIsEmergency != null">
+                #{eventIsEmergency,jdbcType=VARCHAR},
+            </if>
+            <if test="eventAboutMoney != null">
+                #{eventAboutMoney,jdbcType=DECIMAL},
+            </if>
+            <if test="eventIsSpDifficult != null">
+                #{eventIsSpDifficult,jdbcType=VARCHAR},
+            </if>
+            <if test="eventWarringLevel != null">
+                #{eventWarringLevel,jdbcType=VARCHAR},
+            </if>
+            <if test="eventProcessNodeName != null">
+                #{eventProcessNodeName,jdbcType=VARCHAR},
+            </if>
+            <if test="eventProcessNodeValue != null">
+                #{eventProcessNodeValue,jdbcType=VARCHAR},
+            </if>
+            <if test="eventRemark != null">
+                #{eventRemark,jdbcType=VARCHAR},
+            </if>
+            <if test="eventOrderNum != null">
+                #{eventOrderNum,jdbcType=INTEGER},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.jb4dc.gridsystem.dbentities.event.EventInfoEntity">
+        update TGRID_EVENT_INFO
+        <set>
+            <if test="eventCode != null">
+                EVENT_CODE = #{eventCode,jdbcType=VARCHAR},
+            </if>
+            <if test="eventAcceptDate != null">
+                EVENT_ACCEPT_DATE = #{eventAcceptDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="eventAcceptUnitName != null">
+                EVENT_ACCEPT_UNIT_NAME = #{eventAcceptUnitName,jdbcType=VARCHAR},
+            </if>
+            <if test="eventAcceptUnitId != null">
+                EVENT_ACCEPT_UNIT_ID = #{eventAcceptUnitId,jdbcType=VARCHAR},
+            </if>
+            <if test="eventAcceptUserName != null">
+                EVENT_ACCEPT_USER_NAME = #{eventAcceptUserName,jdbcType=VARCHAR},
+            </if>
+            <if test="eventAcceptUserId != null">
+                EVENT_ACCEPT_USER_ID = #{eventAcceptUserId,jdbcType=VARCHAR},
+            </if>
+            <if test="eventAcceptTimes != null">
+                EVENT_ACCEPT_TIMES = #{eventAcceptTimes,jdbcType=DECIMAL},
+            </if>
+            <if test="eventAcceptGridId != null">
+                EVENT_ACCEPT_GRID_ID = #{eventAcceptGridId,jdbcType=VARCHAR},
+            </if>
+            <if test="eventAcceptMapLocation != null">
+                EVENT_ACCEPT_MAP_LOCATION = #{eventAcceptMapLocation,jdbcType=VARCHAR},
+            </if>
+            <if test="eventSource != null">
+                EVENT_SOURCE = #{eventSource,jdbcType=VARCHAR},
+            </if>
+            <if test="eventType1 != null">
+                EVENT_TYPE_1 = #{eventType1,jdbcType=VARCHAR},
+            </if>
+            <if test="eventType2 != null">
+                EVENT_TYPE_2 = #{eventType2,jdbcType=VARCHAR},
+            </if>
+            <if test="eventLevel != null">
+                EVENT_LEVEL = #{eventLevel,jdbcType=VARCHAR},
+            </if>
+            <if test="eventSeverity != null">
+                EVENT_SEVERITY = #{eventSeverity,jdbcType=VARCHAR},
+            </if>
+            <if test="eventAddress != null">
+                EVENT_ADDRESS = #{eventAddress,jdbcType=VARCHAR},
+            </if>
+            <if test="eventAppealPurpose != null">
+                EVENT_APPEAL_PURPOSE = #{eventAppealPurpose,jdbcType=VARCHAR},
+            </if>
+            <if test="eventAppealPersonNum != null">
+                EVENT_APPEAL_PERSON_NUM = #{eventAppealPersonNum,jdbcType=DECIMAL},
+            </if>
+            <if test="eventAppealQuestion != null">
+                EVENT_APPEAL_QUESTION = #{eventAppealQuestion,jdbcType=VARCHAR},
+            </if>
+            <if test="eventAboutPersonNum != null">
+                EVENT_ABOUT_PERSON_NUM = #{eventAboutPersonNum,jdbcType=DECIMAL},
+            </if>
+            <if test="eventIsPetition != null">
+                EVENT_IS_PETITION = #{eventIsPetition,jdbcType=VARCHAR},
+            </if>
+            <if test="eventIsRentalHousing != null">
+                EVENT_IS_RENTAL_HOUSING = #{eventIsRentalHousing,jdbcType=VARCHAR},
+            </if>
+            <if test="eventIsGroup != null">
+                EVENT_IS_GROUP = #{eventIsGroup,jdbcType=VARCHAR},
+            </if>
+            <if test="eventFromCode != null">
+                EVENT_FROM_CODE = #{eventFromCode,jdbcType=VARCHAR},
+            </if>
+            <if test="eventFromDate != null">
+                EVENT_FROM_DATE = #{eventFromDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="eventIsEmergency != null">
+                EVENT_IS_EMERGENCY = #{eventIsEmergency,jdbcType=VARCHAR},
+            </if>
+            <if test="eventAboutMoney != null">
+                EVENT_ABOUT_MONEY = #{eventAboutMoney,jdbcType=DECIMAL},
+            </if>
+            <if test="eventIsSpDifficult != null">
+                EVENT_IS_SP_DIFFICULT = #{eventIsSpDifficult,jdbcType=VARCHAR},
+            </if>
+            <if test="eventWarringLevel != null">
+                EVENT_WARRING_LEVEL = #{eventWarringLevel,jdbcType=VARCHAR},
+            </if>
+            <if test="eventProcessNodeName != null">
+                EVENT_PROCESS_NODE_NAME = #{eventProcessNodeName,jdbcType=VARCHAR},
+            </if>
+            <if test="eventProcessNodeValue != null">
+                EVENT_PROCESS_NODE_VALUE = #{eventProcessNodeValue,jdbcType=VARCHAR},
+            </if>
+            <if test="eventRemark != null">
+                EVENT_REMARK = #{eventRemark,jdbcType=VARCHAR},
+            </if>
+            <if test="eventOrderNum != null">
+                EVENT_ORDER_NUM = #{eventOrderNum,jdbcType=INTEGER},
+            </if>
+        </set>
+        where EVENT_ID = #{eventId,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.jb4dc.gridsystem.dbentities.event.EventInfoEntity">
+    update TGRID_EVENT_INFO
+    set EVENT_CODE = #{eventCode,jdbcType=VARCHAR},
+      EVENT_ACCEPT_DATE = #{eventAcceptDate,jdbcType=TIMESTAMP},
+      EVENT_ACCEPT_UNIT_NAME = #{eventAcceptUnitName,jdbcType=VARCHAR},
+      EVENT_ACCEPT_UNIT_ID = #{eventAcceptUnitId,jdbcType=VARCHAR},
+      EVENT_ACCEPT_USER_NAME = #{eventAcceptUserName,jdbcType=VARCHAR},
+      EVENT_ACCEPT_USER_ID = #{eventAcceptUserId,jdbcType=VARCHAR},
+      EVENT_ACCEPT_TIMES = #{eventAcceptTimes,jdbcType=DECIMAL},
+      EVENT_ACCEPT_GRID_ID = #{eventAcceptGridId,jdbcType=VARCHAR},
+      EVENT_ACCEPT_MAP_LOCATION = #{eventAcceptMapLocation,jdbcType=VARCHAR},
+      EVENT_SOURCE = #{eventSource,jdbcType=VARCHAR},
+      EVENT_TYPE_1 = #{eventType1,jdbcType=VARCHAR},
+      EVENT_TYPE_2 = #{eventType2,jdbcType=VARCHAR},
+      EVENT_LEVEL = #{eventLevel,jdbcType=VARCHAR},
+      EVENT_SEVERITY = #{eventSeverity,jdbcType=VARCHAR},
+      EVENT_ADDRESS = #{eventAddress,jdbcType=VARCHAR},
+      EVENT_APPEAL_PURPOSE = #{eventAppealPurpose,jdbcType=VARCHAR},
+      EVENT_APPEAL_PERSON_NUM = #{eventAppealPersonNum,jdbcType=DECIMAL},
+      EVENT_APPEAL_QUESTION = #{eventAppealQuestion,jdbcType=VARCHAR},
+      EVENT_ABOUT_PERSON_NUM = #{eventAboutPersonNum,jdbcType=DECIMAL},
+      EVENT_IS_PETITION = #{eventIsPetition,jdbcType=VARCHAR},
+      EVENT_IS_RENTAL_HOUSING = #{eventIsRentalHousing,jdbcType=VARCHAR},
+      EVENT_IS_GROUP = #{eventIsGroup,jdbcType=VARCHAR},
+      EVENT_FROM_CODE = #{eventFromCode,jdbcType=VARCHAR},
+      EVENT_FROM_DATE = #{eventFromDate,jdbcType=TIMESTAMP},
+      EVENT_IS_EMERGENCY = #{eventIsEmergency,jdbcType=VARCHAR},
+      EVENT_ABOUT_MONEY = #{eventAboutMoney,jdbcType=DECIMAL},
+      EVENT_IS_SP_DIFFICULT = #{eventIsSpDifficult,jdbcType=VARCHAR},
+      EVENT_WARRING_LEVEL = #{eventWarringLevel,jdbcType=VARCHAR},
+      EVENT_PROCESS_NODE_NAME = #{eventProcessNodeName,jdbcType=VARCHAR},
+      EVENT_PROCESS_NODE_VALUE = #{eventProcessNodeValue,jdbcType=VARCHAR},
+      EVENT_REMARK = #{eventRemark,jdbcType=VARCHAR},
+      EVENT_ORDER_NUM = #{eventOrderNum,jdbcType=INTEGER}
+    where EVENT_ID = #{eventId,jdbcType=VARCHAR}
+  </update>
+</mapper>

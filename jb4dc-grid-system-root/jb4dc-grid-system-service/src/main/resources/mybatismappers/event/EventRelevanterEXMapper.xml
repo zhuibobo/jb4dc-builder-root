@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jb4dc.gridsystem.dao.event.EventRelevanterMapper">
+    <select id="selectAll" resultMap="BaseResultMap">select<include refid="Base_Column_List"/> from TGRID_EVENT_RELEVANTER ORDER by EVT_REL_ORDER_NUM DESC</select>
+    <select id="selectAllASC" resultMap="BaseResultMap">select<include refid="Base_Column_List"/> from TGRID_EVENT_RELEVANTER ORDER by EVT_REL_ORDER_NUM ASC</select>
+    <delete id="deleteAll">delete from TGRID_EVENT_RELEVANTER</delete>
+    <select id="nextOrderNum" resultType="integer">select case when max(EVT_REL_ORDER_NUM) is null then 1 else max(EVT_REL_ORDER_NUM)+1 end ORDERNUM from TGRID_EVENT_RELEVANTER</select>
+    <select id="selectBySearch" parameterType="java.util.Map" resultMap="BaseResultMap">select<include refid="Base_Column_List"/>from TGRID_EVENT_RELEVANTER<where>
+        <if test="evtRelEventId !=null and evtRelEventId !=''"> and EVT_REL_EVENT_ID like #{evtRelEventId} </if>
+        <if test="evtRelType !=null and evtRelType !=''"> and EVT_REL_TYPE like #{evtRelType} </if>
+        <if test="evtRelName !=null and evtRelName !=''"> and EVT_REL_NAME like #{evtRelName} </if>
+        <if test="evtRelSex !=null and evtRelSex !=''"> and EVT_REL_SEX like #{evtRelSex} </if>
+        <if test="evtRelIdCard !=null and evtRelIdCard !=''"> and EVT_REL_ID_CARD like #{evtRelIdCard} </if>
+        <if test="evtRelPhone !=null and evtRelPhone !=''"> and EVT_REL_PHONE like #{evtRelPhone} </if>
+        <if test="evtRelAddress !=null and evtRelAddress !=''"> and EVT_REL_ADDRESS like #{evtRelAddress} </if>
+        <if test="evtRelBusinessNature !=null and evtRelBusinessNature !=''"> and EVT_REL_BUSINESS_NATURE like #{evtRelBusinessNature} </if>
+        <if test="evtRelOrganCode !=null and evtRelOrganCode !=''"> and EVT_REL_ORGAN_CODE like #{evtRelOrganCode} </if>
+        <if test="evtRelBusinessNumber !=null and evtRelBusinessNumber !=''"> and EVT_REL_BUSINESS_NUMBER like #{evtRelBusinessNumber} </if>
+        <if test="evtRelRemark !=null and evtRelRemark !=''"> and EVT_REL_REMARK like #{evtRelRemark} </if>
+    </where>ORDER by EVT_REL_ORDER_NUM DESC</select>
+    <select id="selectLessThanRecord" parameterType="java.lang.String" resultMap="BaseResultMap"><![CDATA[select * from TGRID_EVENT_RELEVANTER
+ where EVT_REL_ORDER_NUM = (select max(EVT_REL_ORDER_NUM) from TGRID_EVENT_RELEVANTER where EVT_REL_ORDER_NUM<(select EVT_REL_ORDER_NUM from TGRID_EVENT_RELEVANTER where EVT_REL_ID=#{Id,jdbcType=NVARCHAR}))]]></select>
+    <select id="selectGreaterThanRecord" parameterType="java.lang.String" resultMap="BaseResultMap"><![CDATA[select * from TGRID_EVENT_RELEVANTER
+ where EVT_REL_ORDER_NUM = (select min(EVT_REL_ORDER_NUM) from TGRID_EVENT_RELEVANTER where EVT_REL_ORDER_NUM>(select EVT_REL_ORDER_NUM from TGRID_EVENT_RELEVANTER where EVT_REL_ID=#{Id,jdbcType=NVARCHAR}))]]></select>
+</mapper>

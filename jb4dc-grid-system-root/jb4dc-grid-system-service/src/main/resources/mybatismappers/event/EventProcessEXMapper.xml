@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jb4dc.gridsystem.dao.event.EventProcessMapper">
+    <select id="selectAll" resultMap="BaseResultMap">select<include refid="Base_Column_List"/> from TGRID_EVENT_PROCESS ORDER by EVT_PROCESS_ORDER_NUM DESC</select>
+    <select id="selectAllASC" resultMap="BaseResultMap">select<include refid="Base_Column_List"/> from TGRID_EVENT_PROCESS ORDER by EVT_PROCESS_ORDER_NUM ASC</select>
+    <delete id="deleteAll">delete from TGRID_EVENT_PROCESS</delete>
+    <select id="nextOrderNum" resultType="integer">select case when max(EVT_PROCESS_ORDER_NUM) is null then 1 else max(EVT_PROCESS_ORDER_NUM)+1 end ORDERNUM from TGRID_EVENT_PROCESS</select>
+    <select id="selectBySearch" parameterType="java.util.Map" resultMap="BaseResultMap">select<include refid="Base_Column_List"/>from TGRID_EVENT_PROCESS<where>
+        <if test="evtProcessEventId !=null and evtProcessEventId !=''"> and EVT_PROCESS_EVENT_ID like #{evtProcessEventId} </if>
+        <if test="evtProcessUnitId !=null and evtProcessUnitId !=''"> and EVT_PROCESS_UNIT_ID like #{evtProcessUnitId} </if>
+        <if test="evtProcessUnitName !=null and evtProcessUnitName !=''"> and EVT_PROCESS_UNIT_NAME like #{evtProcessUnitName} </if>
+        <if test="evtProcessHandleUserId !=null and evtProcessHandleUserId !=''"> and EVT_PROCESS_HANDLE_USER_ID like #{evtProcessHandleUserId} </if>
+        <if test="evtProcessHandleUserName !=null and evtProcessHandleUserName !=''"> and EVT_PROCESS_HANDLE_USER_NAME like #{evtProcessHandleUserName} </if>
+        <if test="evtProcessNodeName !=null and evtProcessNodeName !=''"> and EVT_PROCESS_NODE_NAME like #{evtProcessNodeName} </if>
+        <if test="evtProcessNodeValue !=null and evtProcessNodeValue !=''"> and EVT_PROCESS_NODE_VALUE like #{evtProcessNodeValue} </if>
+        <if test="evtProcessAction !=null and evtProcessAction !=''"> and EVT_PROCESS_ACTION like #{evtProcessAction} </if>
+        <if test="evtProcessOpinion !=null and evtProcessOpinion !=''"> and EVT_PROCESS_OPINION like #{evtProcessOpinion} </if>
+        <if test="evtProcessRemark !=null and evtProcessRemark !=''"> and EVT_PROCESS_REMARK like #{evtProcessRemark} </if>
+    </where>ORDER by EVT_PROCESS_ORDER_NUM DESC</select>
+    <select id="selectLessThanRecord" parameterType="java.lang.String" resultMap="BaseResultMap"><![CDATA[select * from TGRID_EVENT_PROCESS
+ where EVT_PROCESS_ORDER_NUM = (select max(EVT_PROCESS_ORDER_NUM) from TGRID_EVENT_PROCESS where EVT_PROCESS_ORDER_NUM<(select EVT_PROCESS_ORDER_NUM from TGRID_EVENT_PROCESS where EVT_PROCESS_ID=#{Id,jdbcType=NVARCHAR}))]]></select>
+    <select id="selectGreaterThanRecord" parameterType="java.lang.String" resultMap="BaseResultMap"><![CDATA[select * from TGRID_EVENT_PROCESS
+ where EVT_PROCESS_ORDER_NUM = (select min(EVT_PROCESS_ORDER_NUM) from TGRID_EVENT_PROCESS where EVT_PROCESS_ORDER_NUM>(select EVT_PROCESS_ORDER_NUM from TGRID_EVENT_PROCESS where EVT_PROCESS_ID=#{Id,jdbcType=NVARCHAR}))]]></select>
+</mapper>

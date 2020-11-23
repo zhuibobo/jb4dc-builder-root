@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jb4dc.gridsystem.dao.event.EventInfoMapper">
+    <select id="selectAll" resultMap="BaseResultMap">select<include refid="Base_Column_List"/> from TGRID_EVENT_INFO ORDER by EVENT_ORDER_NUM DESC</select>
+    <select id="selectAllASC" resultMap="BaseResultMap">select<include refid="Base_Column_List"/> from TGRID_EVENT_INFO ORDER by EVENT_ORDER_NUM ASC</select>
+    <delete id="deleteAll">delete from TGRID_EVENT_INFO</delete>
+    <select id="nextOrderNum" resultType="integer">select case when max(EVENT_ORDER_NUM) is null then 1 else max(EVENT_ORDER_NUM)+1 end ORDERNUM from TGRID_EVENT_INFO</select>
+    <select id="selectBySearch" parameterType="java.util.Map" resultMap="BaseResultMap">select<include refid="Base_Column_List"/>from TGRID_EVENT_INFO<where>
+        <if test="eventCode !=null and eventCode !=''"> and EVENT_CODE like #{eventCode} </if>
+        <if test="eventAcceptUnitName !=null and eventAcceptUnitName !=''"> and EVENT_ACCEPT_UNIT_NAME like #{eventAcceptUnitName} </if>
+        <if test="eventAcceptUnitId !=null and eventAcceptUnitId !=''"> and EVENT_ACCEPT_UNIT_ID like #{eventAcceptUnitId} </if>
+        <if test="eventAcceptUserName !=null and eventAcceptUserName !=''"> and EVENT_ACCEPT_USER_NAME like #{eventAcceptUserName} </if>
+        <if test="eventAcceptUserId !=null and eventAcceptUserId !=''"> and EVENT_ACCEPT_USER_ID like #{eventAcceptUserId} </if>
+        <if test="eventAcceptGridId !=null and eventAcceptGridId !=''"> and EVENT_ACCEPT_GRID_ID like #{eventAcceptGridId} </if>
+        <if test="eventAcceptMapLocation !=null and eventAcceptMapLocation !=''"> and EVENT_ACCEPT_MAP_LOCATION like #{eventAcceptMapLocation} </if>
+        <if test="eventSource !=null and eventSource !=''"> and EVENT_SOURCE like #{eventSource} </if>
+        <if test="eventType1 !=null and eventType1 !=''"> and EVENT_TYPE_1 like #{eventType1} </if>
+        <if test="eventType2 !=null and eventType2 !=''"> and EVENT_TYPE_2 like #{eventType2} </if>
+        <if test="eventLevel !=null and eventLevel !=''"> and EVENT_LEVEL like #{eventLevel} </if>
+        <if test="eventSeverity !=null and eventSeverity !=''"> and EVENT_SEVERITY like #{eventSeverity} </if>
+        <if test="eventAddress !=null and eventAddress !=''"> and EVENT_ADDRESS like #{eventAddress} </if>
+        <if test="eventAppealPurpose !=null and eventAppealPurpose !=''"> and EVENT_APPEAL_PURPOSE like #{eventAppealPurpose} </if>
+        <if test="eventAppealQuestion !=null and eventAppealQuestion !=''"> and EVENT_APPEAL_QUESTION like #{eventAppealQuestion} </if>
+        <if test="eventIsPetition !=null and eventIsPetition !=''"> and EVENT_IS_PETITION like #{eventIsPetition} </if>
+        <if test="eventIsRentalHousing !=null and eventIsRentalHousing !=''"> and EVENT_IS_RENTAL_HOUSING like #{eventIsRentalHousing} </if>
+        <if test="eventIsGroup !=null and eventIsGroup !=''"> and EVENT_IS_GROUP like #{eventIsGroup} </if>
+        <if test="eventFromCode !=null and eventFromCode !=''"> and EVENT_FROM_CODE like #{eventFromCode} </if>
+        <if test="eventIsEmergency !=null and eventIsEmergency !=''"> and EVENT_IS_EMERGENCY like #{eventIsEmergency} </if>
+        <if test="eventIsSpDifficult !=null and eventIsSpDifficult !=''"> and EVENT_IS_SP_DIFFICULT like #{eventIsSpDifficult} </if>
+        <if test="eventWarringLevel !=null and eventWarringLevel !=''"> and EVENT_WARRING_LEVEL like #{eventWarringLevel} </if>
+        <if test="eventProcessNodeName !=null and eventProcessNodeName !=''"> and EVENT_PROCESS_NODE_NAME like #{eventProcessNodeName} </if>
+        <if test="eventProcessNodeValue !=null and eventProcessNodeValue !=''"> and EVENT_PROCESS_NODE_VALUE like #{eventProcessNodeValue} </if>
+        <if test="eventRemark !=null and eventRemark !=''"> and EVENT_REMARK like #{eventRemark} </if>
+    </where>ORDER by EVENT_ORDER_NUM DESC</select>
+    <select id="selectLessThanRecord" parameterType="java.lang.String" resultMap="BaseResultMap"><![CDATA[select * from TGRID_EVENT_INFO
+ where EVENT_ORDER_NUM = (select max(EVENT_ORDER_NUM) from TGRID_EVENT_INFO where EVENT_ORDER_NUM<(select EVENT_ORDER_NUM from TGRID_EVENT_INFO where EVENT_ID=#{Id,jdbcType=NVARCHAR}))]]></select>
+    <select id="selectGreaterThanRecord" parameterType="java.lang.String" resultMap="BaseResultMap"><![CDATA[select * from TGRID_EVENT_INFO
+ where EVENT_ORDER_NUM = (select min(EVENT_ORDER_NUM) from TGRID_EVENT_INFO where EVENT_ORDER_NUM>(select EVENT_ORDER_NUM from TGRID_EVENT_INFO where EVENT_ID=#{Id,jdbcType=NVARCHAR}))]]></select>
+</mapper>
