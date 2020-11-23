@@ -72,7 +72,7 @@ public class WebListListButtonContainer  extends HTMLControl implements IHTMLCon
     }*/
 
     @Override
-    public void resolveSelf(JB4DCSession jb4DCSession, String sourceHTML, Document doc, Element singleControlElem, Element parentElem, Element lastParentJbuild4dCustomElem, ResolveHTMLControlContextPO resolveHTMLControlContextPO, HtmlControlDefinitionPO htmlControlDefinitionPO) throws JBuild4DCGenerallyException, ParserConfigurationException, SAXException, XPathExpressionException, IOException {
+    public void resolveAtSave(JB4DCSession jb4DCSession, String sourceHTML, Document doc, Element singleControlElem, Element parentElem, Element lastParentJbuild4dCustomElem, ResolveHTMLControlContextPO resolveHTMLControlContextPO, HtmlControlDefinitionPO htmlControlDefinitionPO) throws JBuild4DCGenerallyException, ParserConfigurationException, SAXException, XPathExpressionException, IOException {
         //获取所有的自定义控件
         Elements allElems=singleControlElem.getElementsByTag("div");
         for (Element singleInnerElem : allElems) {
@@ -138,7 +138,10 @@ public class WebListListButtonContainer  extends HTMLControl implements IHTMLCon
                 }
             }
         }
+    }
 
+    @Override
+    public void resolveAtRuntime(JB4DCSession jb4DCSession, String sourceHTML, Document doc, Element singleControlElem, Element parentElem, Element lastParentJbuild4dCustomElem, ResolveHTMLControlContextPO resolveHTMLControlContextPO, HtmlControlDefinitionPO htmlControlDefinitionPO) throws JBuild4DCGenerallyException, ParserConfigurationException, SAXException, XPathExpressionException, IOException {
         String script=getClientNewInstanceScript(singleControlElem,false,"");
         singleControlElem.ownerDocument().body().append(script);
     }

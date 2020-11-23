@@ -8,7 +8,9 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-
+    <properties>
+        <maven.build.timestamp.format>yyyyMMdd-HHmmss</maven.build.timestamp.format>
+    </properties>
     <artifactId>jb4dc-builder-web-server</artifactId>
     <dependencies>
         <dependency>
@@ -49,7 +51,8 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <version>2.0.4.RELEASE</version>
                 <configuration>
-                    <outputDirectory>${project.build.directory}/public/</outputDirectory>
+                    <outputDirectory>${project.build.directory}/../../../package/builder</outputDirectory>
+                    <finalName>${project.build.finalName}-${maven.build.timestamp}</finalName>
                 </configuration>
                 <executions>
                     <execution>
@@ -73,7 +76,7 @@
             </resource>
             <resource>
                 <directory>${basedir}/src/main/resources/config</directory>
-                <targetPath>../public/config</targetPath>
+                <targetPath>../../../../package/builder/config</targetPath>
             </resource>
             <!--<resource>
                 <directory>${basedir}/src/main/resources/config</directory>

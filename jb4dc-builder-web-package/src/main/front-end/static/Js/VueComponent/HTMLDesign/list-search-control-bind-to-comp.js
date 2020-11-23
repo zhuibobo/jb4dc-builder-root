@@ -188,7 +188,7 @@ Vue.component("list-search-control-bind-to-comp", {
                             </td>
                             <td rowspan="9" valign="top">
                                 <i-input search class="input_border_bottom" ref="txt_search_text" placeholder="请输入列名或者标题"></i-input>\
-                                <ul ref="zTreeUL" class="ztree div-custom-scroll" style="height: 430px;overflow-x:hidden;overflow-y: scroll"></ul>
+                                <ul ref="zTreeUL" class="ztree div-custom-scroll" style="height: 430px;overflow-x:hidden;overflow-y: scroll;width: 382px"></ul>
                             </td>
                         </tr>
                         <tr>

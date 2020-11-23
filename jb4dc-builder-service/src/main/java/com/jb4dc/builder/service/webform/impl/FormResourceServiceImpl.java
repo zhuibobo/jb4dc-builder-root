@@ -7,7 +7,6 @@ import com.jb4dc.base.tools.JsonUtility;
 import com.jb4dc.builder.client.service.datastorage.ITableFieldService;
 import com.jb4dc.builder.dao.webform.FormResourceMapper;
 import com.jb4dc.builder.dbentities.datastorage.TableEntity;
-import com.jb4dc.builder.dbentities.datastorage.TableFieldEntity;
 import com.jb4dc.builder.dbentities.webform.FormResourceEntity;
 import com.jb4dc.builder.client.htmldesign.IHTMLRuntimeResolve;
 import com.jb4dc.builder.dbentities.webform.FormResourceEntityWithBLOBs;
@@ -65,8 +64,8 @@ public class FormResourceServiceImpl extends BaseServiceImpl<FormResourceEntityW
         //record.setFormIsResolve(TrueFalseEnum.False.getDisplayName());
         //保存时进行同步的表单内容的解析,并存入对应的字段中.
         String resolvedHtml= null;
-        /*try {
-            resolvedHtml = htmlRuntimeResolve.resolveSourceHTML(jb4DCSession,id,record.getFormHtmlSource());
+        try {
+            resolvedHtml = htmlRuntimeResolve.resolveSourceHTMLAtSave(jb4DCSession,id,record.getFormHtmlSource());
         } catch (ParserConfigurationException e) {
             e.printStackTrace();
         } catch (SAXException e) {
@@ -75,7 +74,7 @@ public class FormResourceServiceImpl extends BaseServiceImpl<FormResourceEntityW
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
-        }*/
+        }
         record.setFormHtmlResolve(resolvedHtml);
         record.setFormIsResolve(TrueFalseEnum.True.getDisplayName());
         return super.save(jb4DCSession, id, record, new IAddBefore<FormResourceEntityWithBLOBs>() {

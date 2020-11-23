@@ -76,6 +76,9 @@ public enum TableFieldTypeEnum {
         else if(text.toUpperCase().equals("NTEXT")||text.toUpperCase().equals("LONGTEXT")){
             return TableFieldTypeEnum.TextType;
         }
+        else if(text.toUpperCase().equals("DECIMAL")){
+            return TableFieldTypeEnum.NumberType;
+        }
         throw NotSupportException(text);
     }
     /*public static TableFieldTypeEnum parseCode(String _nValue) throws JBuild4DBaseException {

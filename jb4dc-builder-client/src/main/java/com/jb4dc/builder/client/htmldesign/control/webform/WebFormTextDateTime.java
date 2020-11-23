@@ -24,7 +24,7 @@ public class WebFormTextDateTime extends HTMLControl implements IHTMLControl {
     //IDictionaryService dictionaryService;
 
     @Override
-    public void resolveSelf(JB4DCSession jb4DCSession, String sourceHTML, Document doc, Element singleControlElem, Element parentElem, Element lastParentJbuild4dCustomElem, ResolveHTMLControlContextPO resolveHTMLControlContextPO, HtmlControlDefinitionPO htmlControlDefinitionPO) {
+    public void resolveAtRuntime(JB4DCSession jb4DCSession, String sourceHTML, Document doc, Element singleControlElem, Element parentElem, Element lastParentJbuild4dCustomElem, ResolveHTMLControlContextPO resolveHTMLControlContextPO, HtmlControlDefinitionPO htmlControlDefinitionPO) {
         //System.out.println(sourceHTML);
         singleControlElem.tagName("input");
         singleControlElem.text("");

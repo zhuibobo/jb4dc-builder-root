@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title1</title>
+    <th:block th:replace="Fragment/GeneralLib::GeneralLib"></th:block>
+    <th:block th:replace="Fragment/GeneralLib::ThemesLib"></th:block>
+    <th:block th:replace="Fragment/GeneralLib::EChartsLib"></th:block>
+    <style>
+
+    </style>
+</head>
+<body>
+<div id="myGridGatherDataStatistics" class="list-2column">
+    <div class="left-outer-wrap" style="width: 100%">
+        <tabs>
+            <tab-pane label="本网格采集数据统计">
+                <div id="main" style="width: 98%;height:400px;margin: auto"></div>
+            </tab-pane>
+            <tab-pane label="全区采集数据统计">
+
+            </tab-pane>
+        </tabs>
+    </div>
+</div>
+    <script>
+        var myGridGatherDataStatistics = new Vue({
+            el: "#myGridGatherDataStatistics",
+            mounted: function () {
+                $("#main").height(ListPageUtility.DefaultListHeight()+60);
+                this.createGridStatisticChart();
+                debugger;
+            },
+            data: {
+                acInterface: {
+                    getMyGridGatherDataStatistics:"/Rest/Grid/Statistics/GridDataStatistics/GetMyGridGatherDataStatistics"
+                }
+            },
+            methods: {
+                createGridStatisticChart:function (){
+                    AjaxUtility.Get(this.acInterface.getMyGridGatherDataStatistics,{},function (result){
+                        console.log(result);
+
+                        var myChart = echarts.init(document.getElementById('main'));
+                        var option = {
+                            backgroundColor: '#ffffff',
+                            "title": {
+                                "text": "网格数据采集量",
+                                x: "center",
+                                y:"4%",
+                                textStyle: {
+                                    color: '#3e3d3d',
+                                    fontSize: '22'
+                                },
+                                subtextStyle: {
+                                    color: '#6a6d6f',
+                                    fontSize: '16',
+
+                                },
+                            },
+                            tooltip: {
+                                trigger: 'axis',
+                                axisPointer: {
+                                    type: 'shadow'
+                                }
+                            },
+                            grid: {
+                                top: '15%',
+                                right: '3%',
+                                left: '5%',
+                                bottom: '12%'
+                            },
+                            xAxis: [{
+                                type: 'category',
+                                data: [],
+                                axisLine: {
+                                    lineStyle: {
+                                        color: '#696b72'
+                                    }
+                                },
+                                axisLabel: {
+                                    margin: 10,
+                                    color: '#696b72',
+                                    textStyle: {
+                                        fontSize: 14
+                                    },
+                                },
+                            }],
+                            yAxis: [{
+                                name: '单位：数据量',
+                                axisLabel: {
+                                    formatter: '{value}',
+                                    color: '#6b6c6f',
+                                },
+                                minInterval: 1,
+                                axisLine: {
+                                    show: false,
+                                    lineStyle: {
+                                        color: 'rgb(101,97,97)'
+                                    }
+                                },
+                                splitLine: {
+                                    lineStyle: {
+                                        color: '#696b72'
+                                    }
+                                }
+                            }],
+                            series: [{
+                                type: 'bar',
+                                data: [],
+                                barWidth: '20px',
+                                itemStyle: {
+                                    normal: {
+                                        color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                                            offset: 0,
+                                            color: 'rgba(0,244,255,1)' // 0% 处的颜色
+                                        }, {
+                                            offset: 1,
+                                            color: 'rgba(0,77,167,1)' // 100% 处的颜色
+                                        }], false),
+                                        barBorderRadius: [30, 30, 30, 30],
+                                        shadowColor: 'rgba(0,160,221,1)',
+                                        shadowBlur: 4,
+                                    }
+                                },
+                                label: {
+                                    normal: {
+                                        show: true,
+                                        lineHeight: 30,
+                                        width: 80,
+                                        height: 30,
+                                        backgroundColor: 'rgba(0,160,221,0.1)',
+                                        borderRadius: 200,
+                                        position: ['-8', '-60'],
+                                        distance: 1,
+                                        formatter: [
+                                            '    {d|●}',
+                                            ' {a|{c}}     \n',
+                                            '    {b|}'
+                                        ].join(','),
+                                        rich: {
+                                            d: {
+                                                color: '#3CDDCF',
+                                            },
+                                            a: {
+                                                color: '#686666',
+                                                align: 'center',
+                                            },
+                                            b: {
+                                                width: 1,
+                                                height: 30,
+                                                borderWidth: 1,
+                                                borderColor: '#234e6c',
+                                                align: 'left'
+                                            },
+                                        }
+                                    }
+                                }
+                            }]
+                        };
+
+                        for (var i = 0; i < result.data.length; i++) {
+                            var typeData=result.data[i];
+                            option.xAxis[0].data.push(typeData.DATA_NAME);
+                            option.series[0].data.push(typeData.DATA_COUNT);
+                        }
+
+                        // 使用刚指定的配置项和数据显示图表。
+                        myChart.setOption(option);
+                    },this)
+                },
+                createAreaStatisticChart:function (){
+
+                }
+            }
+        });
+    </script>
+</body>
+</html>

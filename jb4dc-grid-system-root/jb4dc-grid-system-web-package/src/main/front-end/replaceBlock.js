@@ -115,6 +115,15 @@ let replaceBlock = {
 
         return replaceArray.join("\n\t");
     },
+    replaceEChartsLib:function (search, file){
+        let replaceArray = new Array();
+        let levelPath = calculateFilePath(file);
+
+        replaceArray.push(refJs(levelPath + "Js/External/ECharts-4.9.0/echarts.min.js"));
+        replaceArray.push(refJs(levelPath + "Js/External/ECharts-4.9.0/echarts.common.min.js"));
+
+        return replaceArray.join("\n\t");
+    },
     replaceThemesLib: function (search, file) {
         let replaceArray = new Array();
         //判断路径后进行引入js的路径

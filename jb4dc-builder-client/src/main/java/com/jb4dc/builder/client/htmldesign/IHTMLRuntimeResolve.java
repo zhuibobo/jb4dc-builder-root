@@ -11,10 +11,12 @@ import javax.xml.xpath.XPathExpressionException;
 import java.io.IOException;
 
 public interface IHTMLRuntimeResolve {
-    String resolveSourceHTML(JB4DCSession jb4DCSession, String id, String htmlSource) throws JBuild4DCGenerallyException, ParserConfigurationException, SAXException, XPathExpressionException, IOException;
+    String resolveSourceHTMLAtRuntime(JB4DCSession jb4DCSession, String id, String htmlSource) throws JBuild4DCGenerallyException, ParserConfigurationException, SAXException, XPathExpressionException, IOException;
 
     //Element lastParentJbuild4dCustomElem=null;
     //void loopResolveElem(JB4DCSession jb4DCSession, Document doc, Element parentElem, String sourceHTML, Element lastParentJbuild4dCustomElem, ResolveHTMLControlContextVo resolveHTMLControlContextVo) throws JBuild4DGenerallyException;
 
     String dynamicBind(JB4DCSession jb4DCSession, String id, String resolveHtml, DynamicBindHTMLControlContextPO dynamicBindHTMLControlContextPO) throws JBuild4DCGenerallyException, ParserConfigurationException, SAXException, XPathExpressionException, IOException;
+
+    String resolveSourceHTMLAtSave(JB4DCSession jb4DCSession, String id, String formHtmlSource) throws JBuild4DCGenerallyException, ParserConfigurationException, SAXException, XPathExpressionException, IOException;
 }

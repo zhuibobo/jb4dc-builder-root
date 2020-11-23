@@ -3,7 +3,6 @@ package com.jb4dc.builder.client.service.webform.impl;
 import com.jb4dc.base.service.general.JB4DCSessionUtility;
 import com.jb4dc.base.tools.JsonUtility;
 import com.jb4dc.builder.client.htmldesign.IHTMLRuntimeResolve;
-import com.jb4dc.builder.client.service.datastorage.IDataStorageRuntimeService;
 import com.jb4dc.builder.client.service.webform.IWebFormDataSaveRuntimeService;
 import com.jb4dc.builder.client.service.webform.IWebFormRuntimeService;
 import com.jb4dc.builder.dbentities.weblist.ListButtonEntity;
@@ -15,7 +14,6 @@ import com.jb4dc.builder.po.FormResourcePO;
 import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
 import com.jb4dc.core.base.exception.JBuild4DCSQLKeyWordException;
 import com.jb4dc.core.base.session.JB4DCSession;
-import com.jb4dc.core.base.tools.BaseUtility;
 import com.jb4dc.core.base.tools.StringUtility;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -85,10 +83,14 @@ public class WebFormRuntimeServiceImpl implements IWebFormRuntimeService {
         //dynamicBindHTMLControlContextPO.setMainRecordData(formDataRelationService.findMainRecordData(formDataRelationPOList));
 
         long  startTime=System.currentTimeMillis();
-        String resolvedHtml = htmlRuntimeResolve.resolveSourceHTML(JB4DCSessionUtility.getSession(), remoteSourcePO.getFormId(),remoteSourcePO.getFormHtmlSource());
-        String formHtmlRuntime = htmlRuntimeResolve.dynamicBind(JB4DCSessionUtility.getSession(), remoteSourcePO.getFormId(), resolvedHtml, dynamicBindHTMLControlContextPO);
+        String resolvedHtml = htmlRuntimeResolve.resolveSourceHTMLAtRuntime(JB4DCSessionUtility.getSession(), remoteSourcePO.getFormId(),remoteSourcePO.getFormHtmlResolve());
         long endTime = System.currentTimeMillis(); //获取结束时间
-        loadTimeDesc += "绑定动态表单时间:" + (endTime - startTime) + "ms;";
+        loadTimeDesc += "解析表单控件时间:" + (endTime - startTime) + "ms;";
+
+        startTime=System.currentTimeMillis();
+        String formHtmlRuntime = htmlRuntimeResolve.dynamicBind(JB4DCSessionUtility.getSession(), remoteSourcePO.getFormId(), resolvedHtml, dynamicBindHTMLControlContextPO);
+        endTime = System.currentTimeMillis(); //获取结束时间
+        loadTimeDesc += "绑定表单动态数据时间:" + (endTime - startTime) + "ms;";
 
         //清空掉关联设置,设置getFormRecordComplexPO中计算尝试的关联设置
         //remoteSourcePO.setFormDataRelation("");

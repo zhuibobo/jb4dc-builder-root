@@ -68,7 +68,12 @@ public abstract class HTMLControl implements IHTMLControl {
     }
 
     @Override
-    public void rendererChain(JB4DCSession jb4DCSession, String sourceHTML, Document doc, Element singleControlElem, Element parentElem, Element lastParentJbuild4dCustomElem, ResolveHTMLControlContextPO resolveHTMLControlContextPO) throws JBuild4DCGenerallyException, ParserConfigurationException, SAXException, XPathExpressionException, IOException {
+    public void resolveAtSave(JB4DCSession jb4DCSession, String sourceHTML, Document doc, Element singleControlElem, Element parentElem, Element lastParentJbuild4dCustomElem, ResolveHTMLControlContextPO resolveHTMLControlContextPO, HtmlControlDefinitionPO htmlControlDefinitionPO) throws JBuild4DCGenerallyException, ParserConfigurationException, SAXException, XPathExpressionException, IOException {
+
+    }
+
+    @Override
+    public void rendererChain(JB4DCSession jb4DCSession, String sourceHTML, Document doc, Element singleControlElem, Element parentElem, Element lastParentJbuild4dCustomElem, ResolveHTMLControlContextPO resolveHTMLControlContextPO,boolean isAtSave) throws JBuild4DCGenerallyException, ParserConfigurationException, SAXException, XPathExpressionException, IOException {
         for (Element singleElem : singleControlElem.children()) {
 
             if(singleElem.attr(HTMLControlAttrs.JBUILD4DC_CUSTOM).equals("true")){
@@ -85,24 +90,27 @@ public abstract class HTMLControl implements IHTMLControl {
 
                         htmlControl.resolveDefAttr(jb4DCSession, sourceHTML, doc, singleElem, parentElem, lastParentJbuild4dCustomElem, resolveHTMLControlContextPO, htmlControlDefinitionPO);
 
-                        htmlControl.resolveSelf(jb4DCSession, sourceHTML, doc, singleElem, parentElem, lastParentJbuild4dCustomElem, resolveHTMLControlContextPO, htmlControlDefinitionPO);
-
-                        htmlControl.rendererChain(jb4DCSession, sourceHTML, doc, singleElem, parentElem, lastParentJbuild4dCustomElem, resolveHTMLControlContextPO);
+                        if(isAtSave) {
+                            htmlControl.resolveAtSave(jb4DCSession, sourceHTML, doc, singleElem, parentElem, lastParentJbuild4dCustomElem, resolveHTMLControlContextPO, htmlControlDefinitionPO);
+                        }
+                        else{
+                            htmlControl.resolveAtRuntime(jb4DCSession, sourceHTML, doc, singleElem, parentElem, lastParentJbuild4dCustomElem, resolveHTMLControlContextPO, htmlControlDefinitionPO);
+                        }
+                        htmlControl.rendererChain(jb4DCSession, sourceHTML, doc, singleElem, parentElem, lastParentJbuild4dCustomElem, resolveHTMLControlContextPO,isAtSave);
                     }
                     catch (Exception ex){
                         singleElem.html("<div class=\"ResolveControllerErrorMsg\">"+htmlControlDefinitionPO.getSingleName()+"控件解析出错！【"+ex.getMessage()+"】</div>");
-                        //throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_BUILDER_CODE,ex);
                     }
                 }
                 else
                 {
-                    rendererChain(jb4DCSession, sourceHTML, doc, singleElem, singleElem, lastParentJbuild4dCustomElem, resolveHTMLControlContextPO);
+                    rendererChain(jb4DCSession, sourceHTML, doc, singleElem, singleElem, lastParentJbuild4dCustomElem, resolveHTMLControlContextPO,isAtSave);
                 }
             }
             else{
                 //如果是普通html元素则直接递归处理,如果是自定义控件,则由控件显示调用
                 if(singleElem.childNodeSize()>0){
-                    rendererChain(jb4DCSession, sourceHTML, doc, singleElem, singleElem, lastParentJbuild4dCustomElem, resolveHTMLControlContextPO);
+                    rendererChain(jb4DCSession, sourceHTML, doc, singleElem, singleElem, lastParentJbuild4dCustomElem, resolveHTMLControlContextPO,isAtSave);
                 }
             }
         }

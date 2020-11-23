@@ -278,7 +278,7 @@ public class ResolvePendingSQL {
                 sqlBuilder.append("update " + tableName + " set ");
 
                 for (FormRecordFieldDataPO fieldDataPO : recordFieldPOList) {
-                    if(!fieldDataPO.getValue().equals("")) {
+                    if(fieldDataPO.getValue()!=null) {
                         sqlBuilder.append(String.format("%s=#{%s},", fieldDataPO.getFieldName(), fieldDataPO.getFieldName()));
                         sqlMapPara.put(fieldDataPO.getFieldName(), fieldDataPO.getValue().toString());
                     }
@@ -299,6 +299,7 @@ public class ResolvePendingSQL {
         catch (Exception ex){
             //String traceMsg=org.apache.commons.lang3.exception.ExceptionUtils.getStackTrace(ex);
             //ex.setStackTrace();
+            ex.printStackTrace();
             throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_PLATFORM_CODE,ex.getMessage(),ex.getCause(),ex.getStackTrace());
         }
     }

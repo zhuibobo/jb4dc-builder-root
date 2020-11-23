@@ -51,6 +51,9 @@
                             <i-button type="success" @click="addHouse()" icon="md-add"> 新增 </i-button>
                         </button-group>
                     </div>
+                    <div style="float: right;width: 230px;margin-right: 10px">
+                        <i-input v-model="house.searchHouseText" @on-change="searchHouse" placeholder="选建筑物后,输入编码或房号进行检索."></i-input>
+                    </div>
                     <div style="clear: both"></div>
                 </div>
                 <i-table :height="listHeight" stripe border :columns="house.columnsConfig" :data="house.tableData"
@@ -58,6 +61,9 @@
                          @on-row-click="selectionHouseChange"></i-table>
             </tab-pane>
             <tab-pane label="地理位置">
+                <div id="map-wrap-grid" class="map-wrap-grid" style="">
+                    <div id="baidu_map_grid" style="height: 100%"></div>
+                </div>
             </tab-pane>
         </tabs>
     </div>
@@ -93,6 +99,8 @@
         el: "#gridManager",
         mounted: function () {
             this.initTree("false");
+            BaiduMapUtility.LoadJsCompleted("gridManager.initBaiduMap");
+            $("#map-wrap-grid").height(PageStyleUtility.GetPageHeight()-80);
         },
         data: {
             acInterface: {
@@ -113,6 +121,13 @@
                 editPersonFormId:"5d6de388-ce1e-43c7-b592-c9e80b71435c",
                 getPersonByHouseId:"/Rest/Grid/Person/PersonMain/GetPersonByHouseId",
                 deletePerson:"/Rest/Grid/Person/PersonMain/DeletePersonWithFamily"
+            },
+            <!--Map-->
+            map:{
+                mapObj:null,
+                selectedLngLat:null,
+                editObjs:[],
+                viewObjs:[]
             },
             <!--Build-->
             buildTree:{
@@ -161,7 +176,7 @@
                         align: "left"
                     }, {
                         title: '房号',
-                        key: 'houseCodeNum',
+                        key: 'houseNumName',
                         align: "center"
                     }, {
                         title: '使用情况',
@@ -221,7 +236,8 @@
                         }
                     }
                 ],
-                tableData: []
+                tableData: [],
+                searchHouseText:""
             },
             person:{
                 columnsConfig: [
@@ -302,8 +318,20 @@
             }
         },
         methods: {
+            initBaiduMap:function(){
+                this.map.mapObj = new BMapGL.Map('baidu_map_grid');
+                this.map.mapObj.centerAndZoom(new BMapGL.Point(114.54200132645097, 22.754142795907825), 16);
+                this.map.mapObj.enableScrollWheelZoom(true);
+                this.map.mapObj.addEventListener('click', function(e) {
+                    gridManager.map.selectedLngLat=e.latlng;
+                    console.log(e.latlng);
+                    /*alert('点击的经纬度：' + e.latlng.lng + ', ' + e.latlng.lat);
+                    var mercator = gridManager.map.mapObj.lnglatToMercator(e.latlng.lng, e.latlng.lat);
+                    alert('点的墨卡托坐标：' + mercator[0] + ', ' + mercator[1]);*/
+                });
+            },
             getFormPara:function (formId,opName,recordId,menuRightUrlPara,endFunc){
-               return  {
+                var para={
                     "formId":formId,
                     "buttonId":"",
                     "listFormButtonElemId":"",
@@ -315,13 +343,22 @@
                     "devOperationEndFunc":endFunc,
                     "menuRightUrlParaJson":""
                 }
+                if(PageStyleUtility.GetPageHeight()<500){
+                    para.windowHeight=600;
+                }
+                return para;
             },
             getFormDialogPara:function (title){
-                return  {
+                //alert(PageStyleUtility.GetPageHeight());
+                var para={
                     "width": 1324,
                     "height": 900,
                     "title":title
                 }
+                if(PageStyleUtility.GetPageHeight()<500){
+                    para.height=600;
+                }
+                return para;
             },
             //region 建筑物
             changeBuildRange:function(){
@@ -362,6 +399,7 @@
                 // 根节点不触发任何事件
                 this.buildTree.treeSelectedNode = treeNode;
                 this.loadHouseData(treeNode.buildId);
+                this.house.searchHouseText="";
             },
             addBuild:function (buildCategory) {
                 var formId=this.acInterface.editNormalBuildFormId;
@@ -427,6 +465,21 @@
                         this.house.tableData=result.data;
                     }
                 }, this);
+            },
+            searchHouse:function (){
+                var text=this.house.searchHouseText;
+                //debugger;
+                if(this.house.sourceTableData) {
+                    this.house.tableData = this.house.sourceTableData;
+                }
+                if(this.house.tableData.length>0&&StringUtility.IsNotNullOrEmpty(text)){
+                    this.house.sourceTableData=this.house.tableData;
+                    this.house.tableData=ArrayUtility.Where(this.house.tableData,function (item){
+                        if(item.houseCode.indexOf(text)>=0||item.houseNumName.indexOf(text)>=0){
+                            return true;
+                        }
+                    })
+                }
             },
             addHouse:function () {
                 var selectedBuild = this.buildTree.treeSelectedNode;

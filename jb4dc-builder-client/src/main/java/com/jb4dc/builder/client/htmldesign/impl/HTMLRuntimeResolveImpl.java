@@ -31,7 +31,7 @@ public class HTMLRuntimeResolveImpl implements IHTMLRuntimeResolve {
     private ICKEditorPluginsService ckEditorPluginsService;
 
     @Override
-    public String resolveSourceHTML(JB4DCSession jb4DCSession, String id, String htmlSource) throws JBuild4DCGenerallyException, ParserConfigurationException, SAXException, XPathExpressionException, IOException {
+    public String resolveSourceHTMLAtSave(JB4DCSession jb4DCSession, String id, String htmlSource) throws JBuild4DCGenerallyException, ParserConfigurationException, SAXException, XPathExpressionException, IOException {
         String sourceHTML=htmlSource;
         if(sourceHTML!=null&&!sourceHTML.equals("")){
             //获取并解析HTML
@@ -50,7 +50,35 @@ public class HTMLRuntimeResolveImpl implements IHTMLRuntimeResolve {
 
             VirtualBodyControl bodyControl= VirtualBodyControl.getInstance();
             autowireCapableBeanFactory.autowireBean(bodyControl);
-            bodyControl.rendererChain(jb4DCSession,htmlSource,doc,doc,doc,null, resolveHTMLControlContextPO);
+            bodyControl.rendererChain(jb4DCSession,htmlSource,doc,doc,doc,null, resolveHTMLControlContextPO,true);
+            //this.loopResolveElem(jb4DCSession,doc,doc,sourceHTML,null,resolveHTMLControlContextVo);
+
+            return doc.getElementsByTag("body").html();
+        }
+        return "解析HTML内容异常!";
+    }
+
+    @Override
+    public String resolveSourceHTMLAtRuntime(JB4DCSession jb4DCSession, String id, String htmlSource) throws JBuild4DCGenerallyException, ParserConfigurationException, SAXException, XPathExpressionException, IOException {
+        String sourceHTML=htmlSource;
+        if(sourceHTML!=null&&!sourceHTML.equals("")){
+            //获取并解析HTML
+            Document doc= Jsoup.parseBodyFragment(sourceHTML);
+
+            ResolveHTMLControlContextPO resolveHTMLControlContextPO =new ResolveHTMLControlContextPO();
+            resolveHTMLControlContextPO.setRecordId(id);
+
+            //将标识为runtime_auto_remove的标签移除掉
+            Elements removeElems = doc.getElementsByAttribute(HTMLControlAttrs.RUNTIME_AUTO_REMOVE);
+            if(removeElems!=null&&removeElems.size()>0){
+                for (Element elem : removeElems) {
+                    elem.remove();
+                }
+            }
+
+            VirtualBodyControl bodyControl= VirtualBodyControl.getInstance();
+            autowireCapableBeanFactory.autowireBean(bodyControl);
+            bodyControl.rendererChain(jb4DCSession,htmlSource,doc,doc,doc,null, resolveHTMLControlContextPO,false);
             //this.loopResolveElem(jb4DCSession,doc,doc,sourceHTML,null,resolveHTMLControlContextVo);
 
             return doc.getElementsByTag("body").html();
@@ -114,4 +142,6 @@ public class HTMLRuntimeResolveImpl implements IHTMLRuntimeResolve {
         }
         return "动态绑定数据异常!";
     }
+
+
 }
