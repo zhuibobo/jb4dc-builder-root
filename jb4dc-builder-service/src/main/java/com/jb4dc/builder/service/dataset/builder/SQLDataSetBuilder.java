@@ -1,7 +1,7 @@
 package com.jb4dc.builder.service.dataset.builder;
 
 import com.jb4dc.builder.dbentities.datastorage.DbLinkEntity;
-import com.jb4dc.builder.exenum.TableFieldTypeEnum;
+import com.jb4dc.builder.client.exenum.TableFieldTypeEnum;
 import com.jb4dc.builder.po.DataSetColumnPO;
 import com.jb4dc.builder.po.DataSetPO;
 import com.jb4dc.builder.po.DataSetRelatedTablePO;

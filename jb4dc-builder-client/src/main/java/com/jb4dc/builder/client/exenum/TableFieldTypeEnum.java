@@ -1,4 +1,4 @@
-package com.jb4dc.builder.exenum;
+package com.jb4dc.builder.client.exenum;
 
 import com.jb4dc.core.base.exception.JBuild4DCBaseException;
 

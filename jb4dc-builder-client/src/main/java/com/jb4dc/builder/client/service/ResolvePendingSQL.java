@@ -1,6 +1,7 @@
 package com.jb4dc.builder.client.service;
 
 import com.jb4dc.base.service.ISQLBuilderService;
+import com.jb4dc.builder.client.exenum.TableFieldTypeEnum;
 import com.jb4dc.builder.client.proxy.ITableRuntimeProxy;
 import com.jb4dc.builder.client.proxy.IEnvVariableRuntimeProxy;
 import com.jb4dc.builder.po.TableFieldPO;
@@ -279,8 +280,13 @@ public class ResolvePendingSQL {
 
                 for (FormRecordFieldDataPO fieldDataPO : recordFieldPOList) {
                     if(fieldDataPO.getValue()!=null) {
-                        sqlBuilder.append(String.format("%s=#{%s},", fieldDataPO.getFieldName(), fieldDataPO.getFieldName()));
-                        sqlMapPara.put(fieldDataPO.getFieldName(), fieldDataPO.getValue().toString());
+                        if (fieldDataPO.getFieldDataType().equals(TableFieldTypeEnum.DataTimeType.getText())&&StringUtility.isEmpty(fieldDataPO.getValue().toString())) {
+                            sqlBuilder.append(String.format("%s=#{%s},", fieldDataPO.getFieldName(), fieldDataPO.getFieldName()));
+                            sqlMapPara.put(fieldDataPO.getFieldName(),null);
+                        } else {
+                            sqlBuilder.append(String.format("%s=#{%s},", fieldDataPO.getFieldName(), fieldDataPO.getFieldName()));
+                            sqlMapPara.put(fieldDataPO.getFieldName(), fieldDataPO.getValue().toString());
+                        }
                     }
                 }
                 sqlBuilder=StringUtility.removeLastChar(sqlBuilder);

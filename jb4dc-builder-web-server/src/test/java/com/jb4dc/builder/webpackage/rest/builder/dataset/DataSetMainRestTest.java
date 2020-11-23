@@ -6,7 +6,7 @@ import com.jb4dc.base.service.general.JB4DCSessionUtility;
 import com.jb4dc.base.tools.JsonUtility;
 import com.jb4dc.base.ymls.JBuild4DCYaml;
 import com.jb4dc.builder.dbentities.dataset.DatasetEntity;
-import com.jb4dc.builder.exenum.DataSetTypeEnum;
+import com.jb4dc.builder.client.exenum.DataSetTypeEnum;
 import com.jb4dc.builder.po.DataSetColumnPO;
 import com.jb4dc.builder.po.DataSetPO;
 import com.jb4dc.builder.po.DataSetRelatedTablePO;

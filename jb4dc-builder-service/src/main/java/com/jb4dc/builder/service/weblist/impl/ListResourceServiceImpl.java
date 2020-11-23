@@ -13,6 +13,7 @@ import com.jb4dc.builder.service.module.IModuleService;
 import com.jb4dc.builder.client.service.weblist.IListResourceService;
 import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
 import com.jb4dc.core.base.session.JB4DCSession;
+import com.jb4dc.core.base.tools.StringUtility;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.xml.sax.SAXException;
@@ -80,6 +81,9 @@ public class ListResourceServiceImpl extends BaseServiceImpl<ListResourceEntityW
                 sourceEntity.setListOrganId(jb4DCSession.getOrganId());
                 sourceEntity.setListOrganName(jb4DCSession.getOrganName());
                 sourceEntity.setListCode(moduleService.buildModuleItemCode(sourceEntity.getListOrderNum()));
+                if(StringUtility.isEmpty(sourceEntity.getListCode())){
+                    throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_BUILDER_CODE,"Code不能为空!");
+                }
                 return sourceEntity;
             }
         });

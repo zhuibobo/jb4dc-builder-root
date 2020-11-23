@@ -10,7 +10,7 @@ import com.jb4dc.builder.dbentities.datastorage.DbLinkEntity;
 import com.jb4dc.builder.dbentities.datastorage.TableEntity;
 import com.jb4dc.builder.dbentities.datastorage.TableFieldEntity;
 import com.jb4dc.builder.dbentities.datastorage.TableGroupEntity;
-import com.jb4dc.builder.exenum.TableFieldTypeEnum;
+import com.jb4dc.builder.client.exenum.TableFieldTypeEnum;
 import com.jb4dc.builder.po.TableFieldPO;
 import com.jb4dc.builder.po.ZTreeNodePOConvert;
 import com.jb4dc.builder.service.datastorage.IDbLinkService;

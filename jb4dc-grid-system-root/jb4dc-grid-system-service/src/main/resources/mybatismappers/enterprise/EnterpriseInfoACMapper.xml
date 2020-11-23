@@ -1,0 +1,360 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jb4dc.gridsystem.dao.enterprise.EnterpriseInfoMapper">
+    <resultMap id="BaseResultMap" type="com.jb4dc.gridsystem.dbentities.enterprise.EnterpriseInfoEntity">
+        <constructor>
+            <idArg column="ENT_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="ENT_GRID_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="ENT_HOUSE_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="ENT_HOUSE_CODE" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="ENT_NAME" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="ENT_BUSINESS_NUM" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="ENT_ORGAN_CODE" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="ENT_PLACE_PHONE" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="ENT_PLACE_AREA" javaType="java.math.BigDecimal" jdbcType="DECIMAL" />
+            <arg column="ENT_PLACE_ADDRESS" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="ENT_IS_ANNUAL_INSPECTION" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="ENT_LEGAL_NAME" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="ENT_LEGAL_PHONE" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="ENT_LEGAL_ADDRESS" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="ENT_LEGAL_CERTIFICATE_TYPE" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="ENT_LEGAL_CERTIFICATE_NUM" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="ENT_SCOPE_OF_BUSINESS" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="ENT_MODE_OF_OPERATION" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="ENT_SET_UP_DATE" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+            <arg column="ENT_CHECK_DATE" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+            <arg column="ENT_INPUT_UNIT_NAME" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="ENT_INPUT_UNIT_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="ENT_INPUT_DATE" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+            <arg column="ENT_INPUT_USER_NAME" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="ENT_INPUT_USER_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="ENT_REMARK" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="ENT_ORDER_NUM" javaType="java.lang.Integer" jdbcType="INTEGER" />
+        </constructor>
+    </resultMap>
+    <sql id="Base_Column_List">
+    ENT_ID, ENT_GRID_ID, ENT_HOUSE_ID, ENT_HOUSE_CODE, ENT_NAME, ENT_BUSINESS_NUM, ENT_ORGAN_CODE,
+    ENT_PLACE_PHONE, ENT_PLACE_AREA, ENT_PLACE_ADDRESS, ENT_IS_ANNUAL_INSPECTION, ENT_LEGAL_NAME,
+    ENT_LEGAL_PHONE, ENT_LEGAL_ADDRESS, ENT_LEGAL_CERTIFICATE_TYPE, ENT_LEGAL_CERTIFICATE_NUM,
+    ENT_SCOPE_OF_BUSINESS, ENT_MODE_OF_OPERATION, ENT_SET_UP_DATE, ENT_CHECK_DATE, ENT_INPUT_UNIT_NAME,
+    ENT_INPUT_UNIT_ID, ENT_INPUT_DATE, ENT_INPUT_USER_NAME, ENT_INPUT_USER_ID, ENT_REMARK,
+    ENT_ORDER_NUM
+  </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from TGRID_ENTERPRISE_INFO
+        where ENT_ID = #{entId,jdbcType=VARCHAR}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from TGRID_ENTERPRISE_INFO
+    where ENT_ID = #{entId,jdbcType=VARCHAR}
+  </delete>
+    <insert id="insert" parameterType="com.jb4dc.gridsystem.dbentities.enterprise.EnterpriseInfoEntity">
+    insert into TGRID_ENTERPRISE_INFO (ENT_ID, ENT_GRID_ID, ENT_HOUSE_ID,
+      ENT_HOUSE_CODE, ENT_NAME, ENT_BUSINESS_NUM,
+      ENT_ORGAN_CODE, ENT_PLACE_PHONE, ENT_PLACE_AREA,
+      ENT_PLACE_ADDRESS, ENT_IS_ANNUAL_INSPECTION,
+      ENT_LEGAL_NAME, ENT_LEGAL_PHONE, ENT_LEGAL_ADDRESS,
+      ENT_LEGAL_CERTIFICATE_TYPE, ENT_LEGAL_CERTIFICATE_NUM,
+      ENT_SCOPE_OF_BUSINESS, ENT_MODE_OF_OPERATION,
+      ENT_SET_UP_DATE, ENT_CHECK_DATE, ENT_INPUT_UNIT_NAME,
+      ENT_INPUT_UNIT_ID, ENT_INPUT_DATE, ENT_INPUT_USER_NAME,
+      ENT_INPUT_USER_ID, ENT_REMARK, ENT_ORDER_NUM
+      )
+    values (#{entId,jdbcType=VARCHAR}, #{entGridId,jdbcType=VARCHAR}, #{entHouseId,jdbcType=VARCHAR},
+      #{entHouseCode,jdbcType=VARCHAR}, #{entName,jdbcType=VARCHAR}, #{entBusinessNum,jdbcType=VARCHAR},
+      #{entOrganCode,jdbcType=VARCHAR}, #{entPlacePhone,jdbcType=VARCHAR}, #{entPlaceArea,jdbcType=DECIMAL},
+      #{entPlaceAddress,jdbcType=VARCHAR}, #{entIsAnnualInspection,jdbcType=VARCHAR},
+      #{entLegalName,jdbcType=VARCHAR}, #{entLegalPhone,jdbcType=VARCHAR}, #{entLegalAddress,jdbcType=VARCHAR},
+      #{entLegalCertificateType,jdbcType=VARCHAR}, #{entLegalCertificateNum,jdbcType=VARCHAR},
+      #{entScopeOfBusiness,jdbcType=VARCHAR}, #{entModeOfOperation,jdbcType=VARCHAR},
+      #{entSetUpDate,jdbcType=TIMESTAMP}, #{entCheckDate,jdbcType=TIMESTAMP}, #{entInputUnitName,jdbcType=VARCHAR},
+      #{entInputUnitId,jdbcType=VARCHAR}, #{entInputDate,jdbcType=TIMESTAMP}, #{entInputUserName,jdbcType=VARCHAR},
+      #{entInputUserId,jdbcType=VARCHAR}, #{entRemark,jdbcType=VARCHAR}, #{entOrderNum,jdbcType=INTEGER}
+      )
+  </insert>
+    <insert id="insertSelective" parameterType="com.jb4dc.gridsystem.dbentities.enterprise.EnterpriseInfoEntity">
+        insert into TGRID_ENTERPRISE_INFO
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="entId != null">
+                ENT_ID,
+            </if>
+            <if test="entGridId != null">
+                ENT_GRID_ID,
+            </if>
+            <if test="entHouseId != null">
+                ENT_HOUSE_ID,
+            </if>
+            <if test="entHouseCode != null">
+                ENT_HOUSE_CODE,
+            </if>
+            <if test="entName != null">
+                ENT_NAME,
+            </if>
+            <if test="entBusinessNum != null">
+                ENT_BUSINESS_NUM,
+            </if>
+            <if test="entOrganCode != null">
+                ENT_ORGAN_CODE,
+            </if>
+            <if test="entPlacePhone != null">
+                ENT_PLACE_PHONE,
+            </if>
+            <if test="entPlaceArea != null">
+                ENT_PLACE_AREA,
+            </if>
+            <if test="entPlaceAddress != null">
+                ENT_PLACE_ADDRESS,
+            </if>
+            <if test="entIsAnnualInspection != null">
+                ENT_IS_ANNUAL_INSPECTION,
+            </if>
+            <if test="entLegalName != null">
+                ENT_LEGAL_NAME,
+            </if>
+            <if test="entLegalPhone != null">
+                ENT_LEGAL_PHONE,
+            </if>
+            <if test="entLegalAddress != null">
+                ENT_LEGAL_ADDRESS,
+            </if>
+            <if test="entLegalCertificateType != null">
+                ENT_LEGAL_CERTIFICATE_TYPE,
+            </if>
+            <if test="entLegalCertificateNum != null">
+                ENT_LEGAL_CERTIFICATE_NUM,
+            </if>
+            <if test="entScopeOfBusiness != null">
+                ENT_SCOPE_OF_BUSINESS,
+            </if>
+            <if test="entModeOfOperation != null">
+                ENT_MODE_OF_OPERATION,
+            </if>
+            <if test="entSetUpDate != null">
+                ENT_SET_UP_DATE,
+            </if>
+            <if test="entCheckDate != null">
+                ENT_CHECK_DATE,
+            </if>
+            <if test="entInputUnitName != null">
+                ENT_INPUT_UNIT_NAME,
+            </if>
+            <if test="entInputUnitId != null">
+                ENT_INPUT_UNIT_ID,
+            </if>
+            <if test="entInputDate != null">
+                ENT_INPUT_DATE,
+            </if>
+            <if test="entInputUserName != null">
+                ENT_INPUT_USER_NAME,
+            </if>
+            <if test="entInputUserId != null">
+                ENT_INPUT_USER_ID,
+            </if>
+            <if test="entRemark != null">
+                ENT_REMARK,
+            </if>
+            <if test="entOrderNum != null">
+                ENT_ORDER_NUM,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="entId != null">
+                #{entId,jdbcType=VARCHAR},
+            </if>
+            <if test="entGridId != null">
+                #{entGridId,jdbcType=VARCHAR},
+            </if>
+            <if test="entHouseId != null">
+                #{entHouseId,jdbcType=VARCHAR},
+            </if>
+            <if test="entHouseCode != null">
+                #{entHouseCode,jdbcType=VARCHAR},
+            </if>
+            <if test="entName != null">
+                #{entName,jdbcType=VARCHAR},
+            </if>
+            <if test="entBusinessNum != null">
+                #{entBusinessNum,jdbcType=VARCHAR},
+            </if>
+            <if test="entOrganCode != null">
+                #{entOrganCode,jdbcType=VARCHAR},
+            </if>
+            <if test="entPlacePhone != null">
+                #{entPlacePhone,jdbcType=VARCHAR},
+            </if>
+            <if test="entPlaceArea != null">
+                #{entPlaceArea,jdbcType=DECIMAL},
+            </if>
+            <if test="entPlaceAddress != null">
+                #{entPlaceAddress,jdbcType=VARCHAR},
+            </if>
+            <if test="entIsAnnualInspection != null">
+                #{entIsAnnualInspection,jdbcType=VARCHAR},
+            </if>
+            <if test="entLegalName != null">
+                #{entLegalName,jdbcType=VARCHAR},
+            </if>
+            <if test="entLegalPhone != null">
+                #{entLegalPhone,jdbcType=VARCHAR},
+            </if>
+            <if test="entLegalAddress != null">
+                #{entLegalAddress,jdbcType=VARCHAR},
+            </if>
+            <if test="entLegalCertificateType != null">
+                #{entLegalCertificateType,jdbcType=VARCHAR},
+            </if>
+            <if test="entLegalCertificateNum != null">
+                #{entLegalCertificateNum,jdbcType=VARCHAR},
+            </if>
+            <if test="entScopeOfBusiness != null">
+                #{entScopeOfBusiness,jdbcType=VARCHAR},
+            </if>
+            <if test="entModeOfOperation != null">
+                #{entModeOfOperation,jdbcType=VARCHAR},
+            </if>
+            <if test="entSetUpDate != null">
+                #{entSetUpDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="entCheckDate != null">
+                #{entCheckDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="entInputUnitName != null">
+                #{entInputUnitName,jdbcType=VARCHAR},
+            </if>
+            <if test="entInputUnitId != null">
+                #{entInputUnitId,jdbcType=VARCHAR},
+            </if>
+            <if test="entInputDate != null">
+                #{entInputDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="entInputUserName != null">
+                #{entInputUserName,jdbcType=VARCHAR},
+            </if>
+            <if test="entInputUserId != null">
+                #{entInputUserId,jdbcType=VARCHAR},
+            </if>
+            <if test="entRemark != null">
+                #{entRemark,jdbcType=VARCHAR},
+            </if>
+            <if test="entOrderNum != null">
+                #{entOrderNum,jdbcType=INTEGER},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.jb4dc.gridsystem.dbentities.enterprise.EnterpriseInfoEntity">
+        update TGRID_ENTERPRISE_INFO
+        <set>
+            <if test="entGridId != null">
+                ENT_GRID_ID = #{entGridId,jdbcType=VARCHAR},
+            </if>
+            <if test="entHouseId != null">
+                ENT_HOUSE_ID = #{entHouseId,jdbcType=VARCHAR},
+            </if>
+            <if test="entHouseCode != null">
+                ENT_HOUSE_CODE = #{entHouseCode,jdbcType=VARCHAR},
+            </if>
+            <if test="entName != null">
+                ENT_NAME = #{entName,jdbcType=VARCHAR},
+            </if>
+            <if test="entBusinessNum != null">
+                ENT_BUSINESS_NUM = #{entBusinessNum,jdbcType=VARCHAR},
+            </if>
+            <if test="entOrganCode != null">
+                ENT_ORGAN_CODE = #{entOrganCode,jdbcType=VARCHAR},
+            </if>
+            <if test="entPlacePhone != null">
+                ENT_PLACE_PHONE = #{entPlacePhone,jdbcType=VARCHAR},
+            </if>
+            <if test="entPlaceArea != null">
+                ENT_PLACE_AREA = #{entPlaceArea,jdbcType=DECIMAL},
+            </if>
+            <if test="entPlaceAddress != null">
+                ENT_PLACE_ADDRESS = #{entPlaceAddress,jdbcType=VARCHAR},
+            </if>
+            <if test="entIsAnnualInspection != null">
+                ENT_IS_ANNUAL_INSPECTION = #{entIsAnnualInspection,jdbcType=VARCHAR},
+            </if>
+            <if test="entLegalName != null">
+                ENT_LEGAL_NAME = #{entLegalName,jdbcType=VARCHAR},
+            </if>
+            <if test="entLegalPhone != null">
+                ENT_LEGAL_PHONE = #{entLegalPhone,jdbcType=VARCHAR},
+            </if>
+            <if test="entLegalAddress != null">
+                ENT_LEGAL_ADDRESS = #{entLegalAddress,jdbcType=VARCHAR},
+            </if>
+            <if test="entLegalCertificateType != null">
+                ENT_LEGAL_CERTIFICATE_TYPE = #{entLegalCertificateType,jdbcType=VARCHAR},
+            </if>
+            <if test="entLegalCertificateNum != null">
+                ENT_LEGAL_CERTIFICATE_NUM = #{entLegalCertificateNum,jdbcType=VARCHAR},
+            </if>
+            <if test="entScopeOfBusiness != null">
+                ENT_SCOPE_OF_BUSINESS = #{entScopeOfBusiness,jdbcType=VARCHAR},
+            </if>
+            <if test="entModeOfOperation != null">
+                ENT_MODE_OF_OPERATION = #{entModeOfOperation,jdbcType=VARCHAR},
+            </if>
+            <if test="entSetUpDate != null">
+                ENT_SET_UP_DATE = #{entSetUpDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="entCheckDate != null">
+                ENT_CHECK_DATE = #{entCheckDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="entInputUnitName != null">
+                ENT_INPUT_UNIT_NAME = #{entInputUnitName,jdbcType=VARCHAR},
+            </if>
+            <if test="entInputUnitId != null">
+                ENT_INPUT_UNIT_ID = #{entInputUnitId,jdbcType=VARCHAR},
+            </if>
+            <if test="entInputDate != null">
+                ENT_INPUT_DATE = #{entInputDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="entInputUserName != null">
+                ENT_INPUT_USER_NAME = #{entInputUserName,jdbcType=VARCHAR},
+            </if>
+            <if test="entInputUserId != null">
+                ENT_INPUT_USER_ID = #{entInputUserId,jdbcType=VARCHAR},
+            </if>
+            <if test="entRemark != null">
+                ENT_REMARK = #{entRemark,jdbcType=VARCHAR},
+            </if>
+            <if test="entOrderNum != null">
+                ENT_ORDER_NUM = #{entOrderNum,jdbcType=INTEGER},
+            </if>
+        </set>
+        where ENT_ID = #{entId,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.jb4dc.gridsystem.dbentities.enterprise.EnterpriseInfoEntity">
+    update TGRID_ENTERPRISE_INFO
+    set ENT_GRID_ID = #{entGridId,jdbcType=VARCHAR},
+      ENT_HOUSE_ID = #{entHouseId,jdbcType=VARCHAR},
+      ENT_HOUSE_CODE = #{entHouseCode,jdbcType=VARCHAR},
+      ENT_NAME = #{entName,jdbcType=VARCHAR},
+      ENT_BUSINESS_NUM = #{entBusinessNum,jdbcType=VARCHAR},
+      ENT_ORGAN_CODE = #{entOrganCode,jdbcType=VARCHAR},
+      ENT_PLACE_PHONE = #{entPlacePhone,jdbcType=VARCHAR},
+      ENT_PLACE_AREA = #{entPlaceArea,jdbcType=DECIMAL},
+      ENT_PLACE_ADDRESS = #{entPlaceAddress,jdbcType=VARCHAR},
+      ENT_IS_ANNUAL_INSPECTION = #{entIsAnnualInspection,jdbcType=VARCHAR},
+      ENT_LEGAL_NAME = #{entLegalName,jdbcType=VARCHAR},
+      ENT_LEGAL_PHONE = #{entLegalPhone,jdbcType=VARCHAR},
+      ENT_LEGAL_ADDRESS = #{entLegalAddress,jdbcType=VARCHAR},
+      ENT_LEGAL_CERTIFICATE_TYPE = #{entLegalCertificateType,jdbcType=VARCHAR},
+      ENT_LEGAL_CERTIFICATE_NUM = #{entLegalCertificateNum,jdbcType=VARCHAR},
+      ENT_SCOPE_OF_BUSINESS = #{entScopeOfBusiness,jdbcType=VARCHAR},
+      ENT_MODE_OF_OPERATION = #{entModeOfOperation,jdbcType=VARCHAR},
+      ENT_SET_UP_DATE = #{entSetUpDate,jdbcType=TIMESTAMP},
+      ENT_CHECK_DATE = #{entCheckDate,jdbcType=TIMESTAMP},
+      ENT_INPUT_UNIT_NAME = #{entInputUnitName,jdbcType=VARCHAR},
+      ENT_INPUT_UNIT_ID = #{entInputUnitId,jdbcType=VARCHAR},
+      ENT_INPUT_DATE = #{entInputDate,jdbcType=TIMESTAMP},
+      ENT_INPUT_USER_NAME = #{entInputUserName,jdbcType=VARCHAR},
+      ENT_INPUT_USER_ID = #{entInputUserId,jdbcType=VARCHAR},
+      ENT_REMARK = #{entRemark,jdbcType=VARCHAR},
+      ENT_ORDER_NUM = #{entOrderNum,jdbcType=INTEGER}
+    where ENT_ID = #{entId,jdbcType=VARCHAR}
+  </update>
+</mapper>

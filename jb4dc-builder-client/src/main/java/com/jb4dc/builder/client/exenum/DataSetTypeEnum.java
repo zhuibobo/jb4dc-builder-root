@@ -1,4 +1,4 @@
-package com.jb4dc.builder.exenum;
+package com.jb4dc.builder.client.exenum;
 
 /**
  * Created with IntelliJ IDEA.

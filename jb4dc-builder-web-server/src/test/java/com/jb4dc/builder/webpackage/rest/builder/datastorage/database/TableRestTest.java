@@ -6,7 +6,7 @@ import com.jb4dc.base.service.general.JB4DCSessionUtility;
 import com.jb4dc.base.tools.JsonUtility;
 import com.jb4dc.base.ymls.JBuild4DCYaml;
 import com.jb4dc.builder.dbentities.datastorage.TableEntity;
-import com.jb4dc.builder.exenum.TableFieldTypeEnum;
+import com.jb4dc.builder.client.exenum.TableFieldTypeEnum;
 import com.jb4dc.builder.po.TableFieldPO;
 import com.jb4dc.builder.client.service.datastorage.ITableFieldService;
 import com.jb4dc.builder.service.datastorage.ITableService;

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jb4dc.gridsystem.dao.enterprise.EnterpriseInfoMapper">
+    <select id="selectAll" resultMap="BaseResultMap">select<include refid="Base_Column_List"/> from TGRID_ENTERPRISE_INFO ORDER by ENT_ORDER_NUM DESC</select>
+    <select id="selectAllASC" resultMap="BaseResultMap">select<include refid="Base_Column_List"/> from TGRID_ENTERPRISE_INFO ORDER by ENT_ORDER_NUM ASC</select>
+    <delete id="deleteAll">delete from TGRID_ENTERPRISE_INFO</delete>
+    <select id="nextOrderNum" resultType="integer">select case when max(ENT_ORDER_NUM) is null then 1 else max(ENT_ORDER_NUM)+1 end ORDERNUM from TGRID_ENTERPRISE_INFO</select>
+    <select id="selectBySearch" parameterType="java.util.Map" resultMap="BaseResultMap">select<include refid="Base_Column_List"/>from TGRID_ENTERPRISE_INFO<where>
+        <if test="entGridId !=null and entGridId !=''"> and ENT_GRID_ID like #{entGridId} </if>
+        <if test="entHouseId !=null and entHouseId !=''"> and ENT_HOUSE_ID like #{entHouseId} </if>
+        <if test="entHouseCode !=null and entHouseCode !=''"> and ENT_HOUSE_CODE like #{entHouseCode} </if>
+        <if test="entName !=null and entName !=''"> and ENT_NAME like #{entName} </if>
+        <if test="entBusinessNum !=null and entBusinessNum !=''"> and ENT_BUSINESS_NUM like #{entBusinessNum} </if>
+        <if test="entOrganCode !=null and entOrganCode !=''"> and ENT_ORGAN_CODE like #{entOrganCode} </if>
+        <if test="entPlacePhone !=null and entPlacePhone !=''"> and ENT_PLACE_PHONE like #{entPlacePhone} </if>
+        <if test="entPlaceAddress !=null and entPlaceAddress !=''"> and ENT_PLACE_ADDRESS like #{entPlaceAddress} </if>
+        <if test="entIsAnnualInspection !=null and entIsAnnualInspection !=''"> and ENT_IS_ANNUAL_INSPECTION like #{entIsAnnualInspection} </if>
+        <if test="entLegalName !=null and entLegalName !=''"> and ENT_LEGAL_NAME like #{entLegalName} </if>
+        <if test="entLegalPhone !=null and entLegalPhone !=''"> and ENT_LEGAL_PHONE like #{entLegalPhone} </if>
+        <if test="entLegalAddress !=null and entLegalAddress !=''"> and ENT_LEGAL_ADDRESS like #{entLegalAddress} </if>
+        <if test="entLegalCertificateType !=null and entLegalCertificateType !=''"> and ENT_LEGAL_CERTIFICATE_TYPE like #{entLegalCertificateType} </if>
+        <if test="entLegalCertificateNum !=null and entLegalCertificateNum !=''"> and ENT_LEGAL_CERTIFICATE_NUM like #{entLegalCertificateNum} </if>
+        <if test="entScopeOfBusiness !=null and entScopeOfBusiness !=''"> and ENT_SCOPE_OF_BUSINESS like #{entScopeOfBusiness} </if>
+        <if test="entModeOfOperation !=null and entModeOfOperation !=''"> and ENT_MODE_OF_OPERATION like #{entModeOfOperation} </if>
+        <if test="entInputUnitName !=null and entInputUnitName !=''"> and ENT_INPUT_UNIT_NAME like #{entInputUnitName} </if>
+        <if test="entInputUnitId !=null and entInputUnitId !=''"> and ENT_INPUT_UNIT_ID like #{entInputUnitId} </if>
+        <if test="entInputUserName !=null and entInputUserName !=''"> and ENT_INPUT_USER_NAME like #{entInputUserName} </if>
+        <if test="entInputUserId !=null and entInputUserId !=''"> and ENT_INPUT_USER_ID like #{entInputUserId} </if>
+        <if test="entRemark !=null and entRemark !=''"> and ENT_REMARK like #{entRemark} </if>
+    </where>ORDER by ENT_ORDER_NUM DESC</select>
+    <select id="selectLessThanRecord" parameterType="java.lang.String" resultMap="BaseResultMap"><![CDATA[select * from TGRID_ENTERPRISE_INFO
+ where ENT_ORDER_NUM = (select max(ENT_ORDER_NUM) from TGRID_ENTERPRISE_INFO where ENT_ORDER_NUM<(select ENT_ORDER_NUM from TGRID_ENTERPRISE_INFO where ENT_ID=#{Id,jdbcType=NVARCHAR}))]]></select>
+    <select id="selectGreaterThanRecord" parameterType="java.lang.String" resultMap="BaseResultMap"><![CDATA[select * from TGRID_ENTERPRISE_INFO
+ where ENT_ORDER_NUM = (select min(ENT_ORDER_NUM) from TGRID_ENTERPRISE_INFO where ENT_ORDER_NUM>(select ENT_ORDER_NUM from TGRID_ENTERPRISE_INFO where ENT_ID=#{Id,jdbcType=NVARCHAR}))]]></select>
+</mapper>
