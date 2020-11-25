@@ -1,3 +1,4 @@
+
 var WLDCT_ListTableLabel= {
     _objectType:"Static",//Instance;
     _propMap:{},
@@ -21,6 +22,7 @@ var WLDCT_ListTableLabel= {
             val:val
         }*/
         var $singleControlElem=_rendererDataChainParas.$singleControlElem;
+        //console.log(_rendererDataChainParas.listRuntimeInstance);
         //this._ListRuntimeInstance=_rendererDataChainParas.listRuntimeInstance;
         var value=_rendererDataChainParas.val;
         var elemId=$singleControlElem.attr("id");
@@ -44,6 +46,15 @@ var WLDCT_ListTableLabel= {
                 var ctDate = DateUtility.ConvertFromString(value);
                 //console.log(fieldPO);
                 value = DateUtility.Format(ctDate, _prop.defFormat);
+            }
+        }
+        else if(_prop.defFormat=="convertOrganIdToOrganName"){
+            if(StringUtility.IsNotNullOrEmpty(value)){
+                var organData=_rendererDataChainParas.listRuntimeInstance._ListPO.exData.minOrganData[value];
+                if(organData!=null&&organData!=undefined){
+                    var organName=organData.organName;
+                    value=organName;
+                }
             }
         }
         if(_prop.targetButtonId) {

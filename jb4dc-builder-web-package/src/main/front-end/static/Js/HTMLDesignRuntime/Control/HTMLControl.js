@@ -60,7 +60,9 @@ let HTMLControl={
         sourceHTML:null,
         $rootElem:null,
         $parentControlElem:null,
-        $singleControlElem:null
+        $singleControlElem:null,
+        formRuntimeInstance:null,
+        listRuntimeInstance:null,
     },
     RendererDataChainParas:{
         listEntity:null,
@@ -68,7 +70,9 @@ let HTMLControl={
         $rootElem:null,
         $parentControlElem:null,
         $singleControlElem:null,
-        topDataSet:null
+        topDataSet:null,
+        formRuntimeInstance:null,
+        listRuntimeInstance:null
     },
     RendererChain:function (_rendererChainParas) {
         var $singleControlElem=_rendererChainParas.$singleControlElem;
@@ -174,6 +178,7 @@ let HTMLControl={
     },
     TryAppendValidateStyle:function($singleControlElem){
         var validateRules=ValidateRulesRuntime.getValidateRules($singleControlElem);
+        //debugger;
         if(validateRules&&validateRules.rules.length>0){
             for (let i = 0; i < validateRules.rules.length; i++) {
                 if(validateRules.rules[i].validateType==ValidateRulesRuntime.NoEmpty) {
@@ -206,6 +211,7 @@ let HTMLControl={
         $viewElem.removeClass();
 
         if($elem.prop("tagName")=="SELECT"){
+            //debugger;
             var text=$elem.find("option:selected").text();
             $viewElem.text(text);
         }

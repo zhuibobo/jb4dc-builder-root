@@ -112,7 +112,11 @@ var WFDCT_BaiduMapContainer= {
             //_this._prop.mapAction="appNewPoint";
         });
         $appendClearControl.click(function (){
-
+            for (var i = 0; i < _this._prop.mapEditObjs.length; i++) {
+                var editObj=_this._prop.mapEditObjs[i];
+                _this._prop.mapObj.removeOverlay(editObj.obj);
+            }
+            _this._prop.mapEditObjs=[];
         });
     }
     //endregion

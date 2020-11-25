@@ -74,11 +74,12 @@ var WLDCT_DeleteButton= {
         if (StringUtility.toUpperCase(isConfirm) == "TRUE") {
             DialogUtility.Confirm(window, "您确认要删除吗?", function () {
                 //WLDCT_ListTableContainer.TryReloadForListFormButton(listFormButtonElemId);
-                AjaxUtility.Post("/Rest/Builder/RunTime/DataSetRuntime/DeleteDataSetRecord",{dataSetId:bindDataSetId,pkValue:recordId},function (result) {
+                /*AjaxUtility.Post("/Rest/Builder/RunTime/DataSetRuntime/DeleteDataSetRecord",{dataSetId:bindDataSetId,pkValue:recordId},function (result) {
                     if(result.success) {
                         WLDCT_ListTableContainer.TryReloadForListFormButton(elemid);
                     }
-                },this);
+                },this);*/
+                RuntimeGeneralInstance.DeleteDataSetRecord(elemid,bindDataSetId,recordId,this);
                 //console.log(WLDCT_ListTableContainer.TryReloadForListFormButton);
             }, this);
         }

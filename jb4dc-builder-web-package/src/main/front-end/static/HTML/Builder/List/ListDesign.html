@@ -264,15 +264,18 @@
                             else{
                                 JsEditorUtility.SetJsEditorJs("<script>\n" +
                                     "var BuilderListPageRuntimeInstance={\n" +
-                                    "    PageReady:function(){\n" +
+                                    "    data:{\n" +
+                                    "      listPO:null\n"+
+                                    "    },\n" +
+                                    "    pageReady:function(){\n" +
                                     "        //页面加载html完成,未进行客户端控件的渲染\n" +
                                     "        console.log(\"页面加载html完成\");\n" +
                                     "    },\n" +
-                                    "    RendererChainCompleted:function(){\n" +
+                                    "    rendererChainCompleted:function(){\n" +
                                     "        //客户端控件渲染完成.\n" +
                                     "        console.log(\"客户端控件渲染完成\");\n" +
                                     "    },\n" +
-                                    "    RendererDataChainCompleted:function(){\n" +
+                                    "    rendererDataChainCompleted:function(){\n" +
                                     "        //客户端控件渲染并绑定完数据.\n" +
                                     "        console.log(\"客户端控件渲染并绑定完数据\");\n" +
                                     "    }\n" +

@@ -6,6 +6,7 @@ import com.jb4dc.builder.client.proxy.IListRuntimeProxy;
 import com.jb4dc.builder.po.ListResourcePO;
 import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
 import com.jb4dc.core.base.vo.JBuild4DCResponseVo;
+import com.jb4dc.sso.client.proxy.IOrganRuntimeProxy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -33,12 +34,16 @@ public class ListRuntimeRest {
     @Autowired
     IHTMLRuntimeResolve htmlRuntimeResolve;
 
+    @Autowired
+    IOrganRuntimeProxy organRuntimeProxy;
+
     @RequestMapping("/LoadHTML")
     public JBuild4DCResponseVo<ListResourcePO> loadHTML(String listId) throws JBuild4DCGenerallyException, ParserConfigurationException, SAXException, XPathExpressionException, IOException {
         ListResourcePO listResourcePO=listRuntimeProxy.loadHTML(JB4DCSessionUtility.getSession(),listId);
         String resolveHTML=htmlRuntimeResolve.resolveSourceHTMLAtRuntime(JB4DCSessionUtility.getSession(),listId,listResourcePO.getListHtmlResolve());
         String runtimeHTML=htmlRuntimeResolve.dynamicBind(JB4DCSessionUtility.getSession(),listId,resolveHTML,null);
         listResourcePO.setListHtmlRuntime(runtimeHTML);
+        listResourcePO.addNewExData("minOrganData",organRuntimeProxy.getEnableOrganMinMapJsonPropRT());
         return JBuild4DCResponseVo.opSuccess(listResourcePO);
     }
 

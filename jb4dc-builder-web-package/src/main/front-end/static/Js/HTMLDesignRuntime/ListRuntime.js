@@ -13,12 +13,13 @@ var ListRuntime={
     },
     _ListPO:null,
     _$RendererToElem:null,
+    _JSRuntimeInst:null,
     Initialization:function (_config) {
         this._Prop_Config= $.extend(true,{},this._Prop_Config,_config);
         this._$RendererToElem=$("#"+this._Prop_Config.RendererToId);
         this._LoadHTMLToEl();
     },
-    //用于控制BuilderListPageRuntimeInstance.RendererChainComplete的调用时间
+    //用于控制RendererChainComplete的调用时间
     _RendererChainIsCompleted:true,
     _RendererDataChainIsCompleted:true,
     _LoadHTMLToEl:function () {
@@ -40,12 +41,10 @@ var ListRuntime={
             var _self=this;
             _self._ListPO=result.data;
             this._$RendererToElem.append(result.data.listHtmlRuntime);
-            this._$RendererToElem.append(result.data.listJsRuntime);
+            //this._$RendererToElem.append(result.data.listJsRuntime);
+            this._JSRuntimeInst = Object.create(HTMLJSRuntime);
+            this._JSRuntimeInst.Initialization({},this._$RendererToElem,this._ListPO.listJsContent);
             //console.log(result.data.listJsRuntime);
-
-            if(typeof(BuilderListPageRuntimeInstance.PageReady)=="function"){
-                BuilderListPageRuntimeInstance.PageReady();
-            }
 
             //进行元素渲染
             VirtualBodyControl.RendererChain({
@@ -60,9 +59,6 @@ var ListRuntime={
             var RendererChainCompleteObj=window.setInterval(function () {
                 if(_self._RendererChainIsCompleted){
                     window.clearInterval(RendererChainCompleteObj);
-                    if(typeof(BuilderListPageRuntimeInstance.RendererChainCompleted)=="function"){
-                        BuilderListPageRuntimeInstance.RendererChainCompleted();
-                    }
                 }
             },500);
 
@@ -81,9 +77,7 @@ var ListRuntime={
             var RendererDataChainCompleteObj=window.setInterval(function () {
                 if(_self._RendererDataChainIsCompleted){
                     window.clearInterval(RendererDataChainCompleteObj);
-                    if(typeof(BuilderListPageRuntimeInstance.RendererDataChainCompleted)=="function"){
-                        BuilderListPageRuntimeInstance.RendererDataChainCompleted();
-                    }
+                    _self.CallRendererChainCompletedFunc();
                 }
             },700);
             /*var sendData = JSON.stringify({
@@ -110,6 +104,16 @@ var ListRuntime={
 
         },this);
     },
+    CallRendererChainCompletedFunc:function() {
+        if (typeof (this._Prop_Config.RendererChainCompletedFunc) == "function") {
+            this._Prop_Config.RendererChainCompletedFunc.call(this);
+        }
+        HTMLPageObjectInstanceProxy.Init(this._Prop_Config,this._ListPO);
+        window.setTimeout(function () {
+            console.log("延迟调用");
+            HTMLPageObjectInstanceProxy.CallPageReady()
+        },500);
+    },
     CheckPrimaryKeyInDataSet:function(dataSet,primaryKey){
         if(dataSet.list&&dataSet.list.length>0){
             var rowData=dataSet.list[0];
@@ -127,20 +131,5 @@ var ListRuntime={
     },
     IsPreview:function () {
         return this._Prop_Config.IsPreview;
-    }
-}
-
-var BuilderListPageRuntimeInstance={
-    PageReady:function(){
-        //页面加载html完成,未进行客户端控件的渲染
-        console.log("页面加载html完成1");
-    },
-    RendererChainCompleted:function(){
-        //客户端控件渲染完成.
-        console.log("客户端控件渲染完成");
-    },
-    RendererDataChainCompleted:function(){
-        //客户端控件渲染并绑定完数据.
-        console.log("客户端控件渲染并绑定完数据");
     }
 }

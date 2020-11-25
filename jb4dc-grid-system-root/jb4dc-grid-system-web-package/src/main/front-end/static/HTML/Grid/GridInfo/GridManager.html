@@ -238,13 +238,14 @@
                         parentId: selectOrgan.organParentId,
                         excludeId: selectOrgan.organId
                     }, function (result) {
-                        //console.log(result);
+                        console.log(result);
                         if (result.success) {
                             for (var i = 0; i < result.data.length; i++) {
                                 var singleGridInfo = result.data[i];
                                 var node=this.OrganTree.treeObj.getNodesByParam("organId",singleGridInfo.gridId)[0];
-                                console.log(node);
-                                this.drawSingleGridPath(singleGridInfo.gridMapPath,false,node.organName);
+                                if(StringUtility.IsNotNullOrEmpty(singleGridInfo.gridMapPath)) {
+                                    this.drawSingleGridPath(singleGridInfo.gridMapPath, false, node.organName);
+                                }
                             }
                         }
                     }, this);

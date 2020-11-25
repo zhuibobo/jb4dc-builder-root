@@ -29,6 +29,7 @@ let ValidateRulesRuntime={
                 }
                 var fieldTransferPO = HTMLControl.TryGetFieldTransferPO($controlElem, "ValidateSubmitEnable", "ValidateSubmitEnable", "ValidateSubmitEnable");
                 var controlValue = fieldTransferPO.value;
+                //debugger;
                 for (let j = 0; j < validateRules.rules.length; j++) {
                     var singleRule = validateRules.rules[j];
                     if (singleRule.validateType == ValidateRulesRuntime.NoEmpty) {
@@ -45,7 +46,7 @@ let ValidateRulesRuntime={
                 }
             }
         }
-        var validateResult = FormPageObjectInstanceProxy.CallValidateEveryFromControl(validateResult);
+        var validateResult = HTMLPageObjectInstanceProxy.CallValidateEveryFromControl(validateResult);
         return validateResult;
     },
     tryGetValidateErrorName:function($control) {
@@ -73,10 +74,16 @@ let ValidateRulesRuntime={
 
             for (let i = 0; i < validateResult.errors.length; i++) {
                 let singleControlError=validateResult.errors[i];
-                singleControlError.$elem.addClass("html-design-input-control-error-status");
+                if(singleControlError.$elem.attr("client_resolve")=="WFDCT_RadioGroup"){
+                    singleControlError.$elem.parent().addClass("html-design-input-control-error-status-radio-group");
+                }
+                else {
+                    singleControlError.$elem.addClass("html-design-input-control-error-status");
+                }
             }
             window.setTimeout(function () {
                 $(".html-design-input-control-error-status").removeClass("html-design-input-control-error-status");
+                $(".html-design-input-control-error-status-radio-group").removeClass("html-design-input-control-error-status-radio-group");
             },4000)
         }
         return validateResult.success;

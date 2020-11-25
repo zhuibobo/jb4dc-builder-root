@@ -73,7 +73,7 @@
                 <div class="list-button-outer-wrap">
                     <div class="list-button-inner-wrap">
                         <button-group>
-                            <i-button type="success" @click="addPerson()" icon="md-add"> 新增 </i-button>
+                            <i-button type="success" @click="addFamily()" icon="md-add"> 新增 </i-button>
                         </button-group>
                     </div>
                     <div style="clear: both"></div>
@@ -81,6 +81,18 @@
                 <i-table :height="listHeight" stripe border :columns="person.columnsConfig" :data="person.tableData"
                          class="iv-list-table" :highlight-row="true"
                          @on-selection-change="selectionPersonChange"></i-table>
+            </tab-pane>
+            <tab-pane label="企业法人">
+                <div class="list-button-outer-wrap">
+                    <div class="list-button-inner-wrap">
+                        <button-group>
+                            <i-button type="success" @click="addEnterprise()" icon="md-add"> 新增 </i-button>
+                        </button-group>
+                    </div>
+                    <div style="clear: both"></div>
+                </div>
+                <i-table :height="listHeight" stripe border :columns="enterprise.columnsConfig" :data="enterprise.tableData"
+                         class="iv-list-table" :highlight-row="true"></i-table>
             </tab-pane>
         </tabs>
     </div>
@@ -94,6 +106,9 @@
     }
     function reLoadPerson(data){
         gridManager.loadPersonData();
+    }
+    function reLoadEnterprise(data){
+        gridManager.loadEnterpriseData();
     }
     var gridManager = new Vue({
         el: "#gridManager",
@@ -120,7 +135,12 @@
                 editFamilyFormId:"1488ee50-efb6-409a-afc7-eb0f9710713f",
                 editPersonFormId:"5d6de388-ce1e-43c7-b592-c9e80b71435c",
                 getPersonByHouseId:"/Rest/Grid/Person/PersonMain/GetPersonByHouseId",
-                deletePerson:"/Rest/Grid/Person/PersonMain/DeletePersonWithFamily"
+                deletePerson:"/Rest/Grid/Person/PersonMain/DeletePersonWithFamily",
+                <!--Enterprise-->
+                editEnterpriseView:"/HTML/Builder/Runtime/WebFormIndependenceRuntime.html",
+                editEnterpriseFormId:"9e0e258a-639a-4209-83bf-607000de0f77",
+                getEnterpriseByHouseId:"/Rest/Grid/Enterprise/EnterpriseMain/GetEnterpriseByHouseId",
+                deleteEnterprise:"/Rest/Grid/Enterprise/EnterpriseMain/Delete"
             },
             <!--Map-->
             map:{
@@ -239,6 +259,7 @@
                 tableData: [],
                 searchHouseText:""
             },
+            <!--person-->
             person:{
                 columnsConfig: [
                     {
@@ -308,6 +329,69 @@
                                     }
                                 })]));
                             }
+
+                            var eh=h('div', {class: "list-row-button-wrap"},buttons);
+                            return eh;
+                        }
+                    }
+                ],
+                tableData: []
+            },
+            <!--Enterprise-->
+            enterprise:{
+                columnsConfig: [
+                    {
+                        title: '企业(门店名称)',
+                        key: 'entName',
+                        align: "left"
+                    }, {
+                        title: '操作',
+                        key: 'entId',
+                        width: 140,
+                        align: "center",
+                        render: function (h, params) {
+                            var buttons=[];
+
+                            buttons.push(h('Tooltip', {
+                                props: {
+                                    content: "查看"
+                                }
+                            }, [h('div', {
+                                class: "list-row-button view",
+                                on: {
+                                    click: function click() {
+                                        gridManager.viewEnterprise(params);
+                                    }
+                                }
+                            })]));
+
+                            buttons.push(
+                                h('Tooltip', {
+                                    props: {
+                                        content: "修改"
+                                    }
+                                }, [h('div', {
+                                    class: "list-row-button edit",
+                                    on: {
+                                        click: function click() {
+                                            gridManager.editEnterprise(params);
+                                        }
+                                    }
+                                })]),
+                            );
+
+                            buttons.push(h('Tooltip', {
+                                props: {
+                                    content: "删除"
+                                }
+                            }, [h('div', {
+                                class: "list-row-button del",
+                                on: {
+                                    click: function click() {
+                                        gridManager.delEnterprise(params);
+                                    }
+                                }
+                            })]));
 
                             var eh=h('div', {class: "list-row-button-wrap"},buttons);
                             return eh;
@@ -392,6 +476,9 @@
                             _self.buildTree.treeObj.expandAll(true);
                             fuzzySearch("zBuildTreeUL","#txtSearchBuildTree",null,true);
                         }
+                        else{
+                            _self.buildTree.treeObj=$.fn.zTree.init($("#zBuildTreeUL"), _self.buildTree.treeSetting,treeData);
+                        }
                     }
                 }, this);
             },
@@ -400,6 +487,8 @@
                 this.buildTree.treeSelectedNode = treeNode;
                 this.loadHouseData(treeNode.buildId);
                 this.house.searchHouseText="";
+                this.house.selectedHouse=null;
+                this.person.tableData=[];
             },
             addBuild:function (buildCategory) {
                 var formId=this.acInterface.editNormalBuildFormId;
@@ -456,7 +545,8 @@
             selectionHouseChange:function (row,index){
                 console.log(row);
                 this.house.selectedHouse=row;
-                this.loadPersonData()
+                this.loadPersonData();
+                this.loadEnterpriseData();
             },
             loadHouseData:function (buildId){
                 AjaxUtility.Get(this.acInterface.getHouseByBuildId, {buildId:buildId}, function (result) {
@@ -543,7 +633,7 @@
                     }
                 }, this);
             },
-            addPerson:function (){
+            addFamily:function (){
                 var selectedHouse = this.house.selectedHouse;
                 if (selectedHouse == null) {
                     DialogUtility.AlertText("请先选择房屋!");
@@ -584,6 +674,64 @@
                 var personFamilyId=para.row.personFamilyId;
                 var formPara = this.getFormPara(this.acInterface.editFamilyFormId, BaseUtility.GetUpdateOperationName(), personFamilyId,"", "reLoadPerson");
                 DialogUtility.Frame_OpenIframeWindow(window, DialogUtility.DialogId, BaseUtility.BuildView(this.acInterface.editBuildView, formPara), this.getFormDialogPara("户登记"), 1, true);
+            },
+            viewPerson:function (para){
+                var personId=para.row.personId;
+                var formPara = this.getFormPara(this.acInterface.editPersonFormId, BaseUtility.GetViewOperationName(), personId,"", "reLoadPerson");
+                DialogUtility.Frame_OpenIframeWindow(window, DialogUtility.DialogId, BaseUtility.BuildView(this.acInterface.editBuildView, formPara), this.getFormDialogPara("人员信息查看"), 1, true);
+            },
+            //endregion
+            //region 企业法人
+            addEnterprise:function (){
+                var selectedHouse = this.house.selectedHouse;
+                if (selectedHouse == null) {
+                    DialogUtility.AlertText("请先选择房屋!");
+                    return;
+                }
+                var menuRightUrlPara = [{
+                    "ActionType": "BindToField",
+                    "FieldName": "ENT_HOUSE_ID",
+                    "Value": selectedHouse.houseId
+                },{
+                    "ActionType": "BindToField",
+                    "FieldName": "ENT_HOUSE_CODE",
+                    "Value": selectedHouse.houseCodeFull
+                }];
+                var formPara = this.getFormPara(this.acInterface.editEnterpriseFormId, BaseUtility.GetAddOperationName(), "",JsonUtility.JsonToString(menuRightUrlPara), "reLoadEnterprise");
+                DialogUtility.Frame_OpenIframeWindow(window, DialogUtility.DialogId, BaseUtility.BuildView(this.acInterface.editBuildView, formPara), this.getFormDialogPara("企业法人登记"), 1, true);
+            },
+            loadEnterpriseData:function (){
+                var houseId=this.house.selectedHouse.houseId;
+                AjaxUtility.Get(this.acInterface.getEnterpriseByHouseId, {houseId:houseId}, function (result) {
+                    console.log(result);
+                    if(result.success){
+                        this.enterprise.tableData=result.data;
+                    }
+                }, this);
+            },
+            viewEnterprise:function (para){
+                var entId=para.row.entId;
+                var formPara = this.getFormPara(this.acInterface.editEnterpriseFormId, BaseUtility.GetViewOperationName(), entId,"", "reLoadEnterprise");
+                DialogUtility.Frame_OpenIframeWindow(window, DialogUtility.DialogId, BaseUtility.BuildView(this.acInterface.editBuildView, formPara), this.getFormDialogPara("企业法人查看"), 1, true);
+            },
+            editEnterprise:function (para){
+                var entId=para.row.entId;
+                var formPara = this.getFormPara(this.acInterface.editEnterpriseFormId, BaseUtility.GetUpdateOperationName(), entId,"", "reLoadEnterprise");
+                DialogUtility.Frame_OpenIframeWindow(window, DialogUtility.DialogId, BaseUtility.BuildView(this.acInterface.editBuildView, formPara), this.getFormDialogPara("企业法人登记"), 1, true);
+            },
+            delEnterprise:function (para){
+                var entId=para.row.entId;
+                DialogUtility.Confirm(window, "确认要删除当前企业吗？", function () {
+                    AjaxUtility.Delete(this.acInterface.deleteEnterprise, {
+                        recordId: entId
+                    }, function (result) {
+                        if (result.success) {
+                            //this.buildTree.treeSelectedNode = treeNode;
+                            DialogUtility.AlertText(result.message);
+                            this.loadEnterpriseData();
+                        }
+                    }, this);
+                }, this);
             }
             //endregion
         }

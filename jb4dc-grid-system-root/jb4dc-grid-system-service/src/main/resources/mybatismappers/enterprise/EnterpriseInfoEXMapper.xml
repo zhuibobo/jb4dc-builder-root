@@ -32,4 +32,8 @@
  where ENT_ORDER_NUM = (select max(ENT_ORDER_NUM) from TGRID_ENTERPRISE_INFO where ENT_ORDER_NUM<(select ENT_ORDER_NUM from TGRID_ENTERPRISE_INFO where ENT_ID=#{Id,jdbcType=NVARCHAR}))]]></select>
     <select id="selectGreaterThanRecord" parameterType="java.lang.String" resultMap="BaseResultMap"><![CDATA[select * from TGRID_ENTERPRISE_INFO
  where ENT_ORDER_NUM = (select min(ENT_ORDER_NUM) from TGRID_ENTERPRISE_INFO where ENT_ORDER_NUM>(select ENT_ORDER_NUM from TGRID_ENTERPRISE_INFO where ENT_ID=#{Id,jdbcType=NVARCHAR}))]]></select>
+
+    <select id="selectByHouseId" resultMap="BaseResultMap">
+        select<include refid="Base_Column_List"/> from TGRID_ENTERPRISE_INFO where ENT_HOUSE_ID=#{houseId}
+    </select>
 </mapper>

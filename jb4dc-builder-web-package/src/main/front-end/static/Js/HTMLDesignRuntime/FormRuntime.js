@@ -134,8 +134,8 @@ let FormRuntime={
             this._OriginalFormDataRelationList=JsonUtility.CloneStringify(this._FormDataRelationList);
             console.log(this._FormDataRelationList);
             this._$RendererToElem.append(result.data.formHtmlRuntime);
-            this._FormJSRuntimeInst = Object.create(FormJSRuntime);
-            this._FormJSRuntimeInst.Initialization({},this._$RendererToElem,this._FormPO);
+            this._FormJSRuntimeInst = Object.create(HTMLJSRuntime);
+            this._FormJSRuntimeInst.Initialization({},this._$RendererToElem,this._FormPO.formJsContent);
 
             VirtualBodyControl.RendererChain({
                 po:result.data,
@@ -178,8 +178,11 @@ let FormRuntime={
         if (typeof (this._Prop_Config.RendererChainCompletedFunc) == "function") {
             this._Prop_Config.RendererChainCompletedFunc.call(this);
         }
-        FormPageObjectInstanceProxy.Init(this._Prop_Config,this._FormPO);
-        FormPageObjectInstanceProxy.CallPageReady();
+        HTMLPageObjectInstanceProxy.Init(this._Prop_Config,this._FormPO);
+        window.setTimeout(function () {
+            console.log("延迟调用");
+            HTMLPageObjectInstanceProxy.CallPageReady()
+        },500);
     },
     IsPreview: function () {
         return this._Prop_Config.IsPreview

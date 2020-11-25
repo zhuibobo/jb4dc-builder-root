@@ -107,7 +107,7 @@ var WFDCT_FileUploadContainer={
     /*上传相关*/
     CreateDefaultTemplate(templateId){
         $(window.document.body).append(`<script type="text/template" id="`+templateId+`">
-        <div class="qq-uploader-selector qq-uploader qq-gallery" qq-drop-area-text="Drop files here" style="min-height: 78px;">
+        <div class="qq-uploader-selector qq-uploader qq-gallery" qq-drop-area-text="拖放文件到这里进行上传。" style="min-height: 78px;">
             <div class="qq-total-progress-bar-container-selector qq-total-progress-bar-container">
                 <div role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" class="qq-total-progress-bar-selector qq-progress-bar qq-total-progress-bar"></div>
             </div>
@@ -279,11 +279,11 @@ var WFDCT_FileUploadContainer={
             $trLastTd.append($deleteElem);
         }
         if(this._prop.moveOrderEnable||true){
-            var $moveUpElem=$("<div class='file-list-inner-button move-up-button-elem' title='点击下移'></div>");
+            var $moveUpElem=$("<div class='file-list-inner-button move-up-button-elem' title='点击上移'></div>");
             $moveUpElem.click(function () {
                 DialogUtility.AlertText("暂不支持!");
             })
-            var $moveDownElem=$("<div class='file-list-inner-button move-down-button-elem' title='点击上移'></div>");
+            var $moveDownElem=$("<div class='file-list-inner-button move-down-button-elem' title='点击下移'></div>");
             $moveDownElem.click(function () {
                 DialogUtility.AlertText("暂不支持!");
             })

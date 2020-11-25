@@ -5,6 +5,7 @@ import com.github.pagehelper.PageInfo;
 import com.jb4dc.base.dbaccess.dynamic.ISQLBuilderMapper;
 import com.jb4dc.base.service.ISQLBuilderService;
 import com.jb4dc.builder.client.proxy.IDataSetRuntimeProxy;
+import com.jb4dc.builder.client.proxy.ITableRuntimeProxy;
 import com.jb4dc.builder.client.service.ResolvePendingSQL;
 import com.jb4dc.builder.client.service.dataset.IDatasetRuntimeService;
 import com.jb4dc.builder.client.proxy.IEnvVariableRuntimeProxy;
@@ -43,6 +44,9 @@ public class DatasetRuntimeServiceImpl implements IDatasetRuntimeService {
 
     @Autowired
     ResolvePendingSQL resolvePendingSQL;
+
+    @Autowired
+    ITableRuntimeProxy tableRuntimeProxy;
 
     @Autowired
     public DatasetRuntimeServiceImpl(ISQLBuilderMapper _sqlBuilderMapper) {
@@ -182,6 +186,17 @@ public class DatasetRuntimeServiceImpl implements IDatasetRuntimeService {
         Map paraMap = new HashMap();
         paraMap.put("ID", pkValue);
         //System.out.println(sql);
+        Object count = sqlBuilderService.delete(sql,paraMap);
+    }
+
+    @Override
+    public void deleteTableRecord(JB4DCSession session, String tableId, String pkValue) throws JBuild4DCGenerallyException {
+        List<TableFieldPO> tableFieldPOS=tableRuntimeProxy.getTableFieldsByTableId(tableId);
+        TableFieldPO pkField=resolvePendingSQL.findPrimaryKey(tableFieldPOS.get(0).getTableName(),tableFieldPOS);
+        String sql="delete from "+pkField.getTableName()+" where "+pkField.getFieldName()+"=#{ID}";
+        Map paraMap = new HashMap();
+        paraMap.put("ID", pkValue);
+        System.out.println(sql);
         Object count = sqlBuilderService.delete(sql,paraMap);
     }
 }

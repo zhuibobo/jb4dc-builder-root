@@ -1,5 +1,6 @@
 var WFDCT_RadioGroup={
     radioGroupName:"",
+    InitStyle:HTMLControl.InitStyle,
     RendererChain:function (_rendererChainParas) {
         var $singleControlElem=_rendererChainParas.$singleControlElem;
         var dataSource=decodeURIComponent($singleControlElem.attr("datasource"));
@@ -47,6 +48,10 @@ var WFDCT_RadioGroup={
     GetValue:function ($elem,originalData, paras) {
         //console.log(this.radioGroupName);
         originalData.value=$("[name='"+this.radioGroupName+"']:checked").val();
+        //debugger;
+        if(originalData.value==undefined){
+            originalData.value="";
+        }
         //console.log(originalData.value);
         return originalData;
     },

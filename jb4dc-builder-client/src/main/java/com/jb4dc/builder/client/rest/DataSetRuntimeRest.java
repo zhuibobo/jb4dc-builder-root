@@ -55,4 +55,10 @@ public class DataSetRuntimeRest {
         datasetRuntimeService.deleteDataSetRecord(JB4DCSessionUtility.getSession(),dataSetId,pkValue);
         return JBuild4DCResponseVo.opSuccess();
     }
+
+    @RequestMapping(value = "/DeleteTableRecord",method = RequestMethod.POST)
+    public JBuild4DCResponseVo deleteTableRecord(String tableId,String pkValue) throws JBuild4DCGenerallyException {
+        datasetRuntimeService.deleteTableRecord(JB4DCSessionUtility.getSession(),tableId,pkValue);
+        return JBuild4DCResponseVo.opSuccess();
+    }
 }

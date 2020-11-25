@@ -51,7 +51,9 @@ public class NewFamilyPersonSupplementFieldDataApi implements IApiForButton {
             throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_GRID_CODE,"必须填写户主信息!");
         }
         if(personEntityList.size()>1){
-            throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_GRID_CODE,"只能有一个户主!");
+            if(personEntityList.stream().filter(item->item.getPersonRelationship()!=null&&item.getPersonRelationship().equals("0")).count()>1) {
+                throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_GRID_CODE, "只能有一个户主!");
+            }
         }
         //获取户主
         PersonEntity headHouseHoldPersonEntity=personEntityList.stream().filter(item->item.getPersonRelationship()!=null&&item.getPersonRelationship().equals("0")).findFirst().orElse(null);

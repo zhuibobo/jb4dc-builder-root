@@ -9,7 +9,9 @@ import com.jb4dc.builder.dbentities.weblist.ListResourceEntityWithBLOBs;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created with IntelliJ IDEA.
@@ -84,6 +86,15 @@ public class ListResourcePO extends ListResourceEntityWithBLOBs implements Seria
         this.listJsRuntime=listJsRuntime;
     }
 
+    private Map<String,Object> exData=new HashMap<>();
+
+    public Map<String, Object> getExData() {
+        return exData;
+    }
+
+    public void addNewExData(String key, Object value){
+        exData.put(key,value);
+    }
 
     /*public static ListResourcePO parseToPO(ListResourceEntity entity) throws IOException, JsonProcessingException {
         String jsonStr= JsonUtility.toObjectString(entity);

@@ -9,6 +9,8 @@ import com.jb4dc.gridsystem.dbentities.enterprise.EnterpriseInfoEntity;
 import com.jb4dc.gridsystem.service.enterprise.IEnterpriseInfoService;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class EnterpriseInfoServiceImpl extends BaseServiceImpl<EnterpriseInfoEntity> implements IEnterpriseInfoService
 {
@@ -27,5 +29,10 @@ public class EnterpriseInfoServiceImpl extends BaseServiceImpl<EnterpriseInfoEnt
                 return sourceEntity;
             }
         });
+    }
+
+    @Override
+    public List<EnterpriseInfoEntity> getEnterpriseByHouseId(JB4DCSession session, String houseId) {
+        return enterpriseInfoMapper.selectByHouseId(houseId);
     }
 }

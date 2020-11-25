@@ -1,27 +1,45 @@
-var FormPageObjectInstanceProxy={
+var HTMLPageObjectInstanceProxy={
     webFormRTParas:null,
-    formPO:null,
+    htmlPO:null,
     formRecordComplexPO:null,
     FormPageObjectInstance:null,
-    Init:function (webFormRTParas,formPO){
+    BuilderListPageRuntimeInstance:null,
+    Init:function (webFormRTParas,htmlPO){
         this.webFormRTParas=webFormRTParas;
-        this.formPO=formPO;
-        this.formRecordComplexPO=formPO.formRecordComplexPO;
+        this.htmlPO=htmlPO;
+        if(this.htmlPO.formRecordComplexPO) {
+            this.formRecordComplexPO = this.htmlPO.formRecordComplexPO;
+        }
     },
     CallPageReady:function () {
         //console.log(formPO);
-        if (FormPageObjectInstance) {
+        if (typeof(FormPageObjectInstance) !="undefined") {
             this.FormPageObjectInstance = FormPageObjectInstance;
         }
         if(this.FormPageObjectInstance){
             this.FormPageObjectInstance.data.webFormRTParas=this.webFormRTParas;
-            this.FormPageObjectInstance.data.formPO=this.formPO;
+            this.FormPageObjectInstance.data.formPO=this.htmlPO;
             this.FormPageObjectInstance.data.formRecordComplexPO=this.formRecordComplexPO;
             if(this.FormPageObjectInstance.pageReady){
                 this.FormPageObjectInstance.pageReady();
             }
             if(this.FormPageObjectInstance.bindRecordDataReady){
                 this.FormPageObjectInstance.bindRecordDataReady();
+            }
+        }
+        if (typeof (BuilderListPageRuntimeInstance)!="undefined") {
+            this.BuilderListPageRuntimeInstance = BuilderListPageRuntimeInstance;
+        }
+        if(this.BuilderListPageRuntimeInstance){
+            this.BuilderListPageRuntimeInstance.data.listPO=this.htmlPO;
+            if(this.BuilderListPageRuntimeInstance.pageReady){
+                this.BuilderListPageRuntimeInstance.pageReady();
+            }
+            if(this.BuilderListPageRuntimeInstance.rendererChainCompleted){
+                this.BuilderListPageRuntimeInstance.rendererChainCompleted();
+            }
+            if(this.BuilderListPageRuntimeInstance.rendererDataChainCompleted){
+                this.BuilderListPageRuntimeInstance.rendererDataChainCompleted();
             }
         }
     },

@@ -17,7 +17,7 @@ var Organ3DDL={
     GetOrganData:function (endFunc) {
         AjaxUtility.Get("/Rest/Grid/SSOProxy/OrganAndUser/GetALLOrganMinPropData", {}, function (result) {
             if (result.success) {
-
+                console.log(result);
                 this._prop.mySessionData = result.data.MySessionData;
                 var myOrganId = result.data.MySessionData.organId;
                 this._prop.allOrganMinProp = result.data.ALLOrganMinProp;
@@ -58,8 +58,26 @@ var Organ3DDL={
         this._prop.ddlGridControl=$("#" + ddlGridControlId);
         this._prop.oldDDLGridControlValue = this._prop.ddlGridControl.attr("control_value");
         this._prop.changeEnable=changeEnable;
+
         this.GetOrganData(function (result) {
-            this.Bind3DDL();
+            if(operationName==BaseUtility.GetViewOperationName()){
+                var _this=this;
+                var streetData=ArrayUtility.WhereSingle(this._prop.allOrganMinProp,function (item){
+                    return item.organId==_this._prop.oldDDLStreetControlValue;
+                })
+                var communityData=ArrayUtility.WhereSingle(this._prop.allOrganMinProp,function (item){
+                    return item.organId==_this._prop.oldDDLCommunityControlValue;
+                })
+                var gridData=ArrayUtility.WhereSingle(this._prop.allOrganMinProp,function (item){
+                    return item.organId==_this._prop.oldDDLGridControlValue;
+                })
+                this._prop.ddlStreetControl.text(streetData.organName);
+                this._prop.ddlCommunityControl.text(communityData.organName);
+                this._prop.ddlGridControl.text(gridData.organName);
+            }
+            else {
+                this.Bind3DDL();
+            }
         });
         if(!this._prop.changeEnable){
             this._prop.ddlStreetControl.attr("disabled","disabled");

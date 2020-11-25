@@ -206,7 +206,7 @@ let replaceBlock = {
         replaceArray.push(refJs(levelPath + "Js/UIEXComponent.js?refVersion=" + refVersion));
         replaceArray.push(refJs(levelPath + "Js/VueEXComponent.js?refVersion=" + refVersion));
 
-        replaceArray.push(refJs(levelPath + "Js/HTMLDesignRuntimeFull.js"));
+        replaceArray.push(refJs(levelPath + "Js/HTMLDesignRuntimeFull.js?refVersion=" + refVersion));
         replaceArray.push(refCss(levelPath + 'Themes/Default/Css/HTMLDesignRuntimeMain.css?refVersion=' + refVersion));
         replaceArray.push(refCss(levelPath + 'Js/External/Fine-Uploader-5.16.2/fine-uploader-gallery.min.css'));
 

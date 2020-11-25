@@ -60,6 +60,21 @@ var RuntimeGeneralInstance= {
         this._Ajax(url, params, callback, sender);
         console.log(formDataComplexPO);
     },
+    DeleteTableRecord:function (tableId,recordId,successFunc,caller){
+        AjaxUtility.Post("/Rest/Builder/RunTime/DataSetRuntime/DeleteTableRecord",{tableId:tableId,pkValue:recordId},function (result) {
+            if(result.success) {
+                successFunc(result);
+                //WLDCT_ListTableContainer.TryReloadForListFormButton(elemid);
+            }
+        },caller);
+    },
+    DeleteDataSetRecord:function (elemid,bindDataSetId,recordId,caller){
+        AjaxUtility.Post("/Rest/Builder/RunTime/DataSetRuntime/DeleteDataSetRecord",{dataSetId:bindDataSetId,pkValue:recordId},function (result) {
+            if(result.success) {
+                WLDCT_ListTableContainer.TryReloadForListFormButton(elemid);
+            }
+        },caller);
+    },
     GetDataSetData:function (config, func,sender) {
         var sendData = JSON.stringify(config);
         AjaxUtility.PostRequestBody("/Rest/Builder/RunTime/DataSetRuntime/GetDataSetData",sendData,function (getDataSetResult) {

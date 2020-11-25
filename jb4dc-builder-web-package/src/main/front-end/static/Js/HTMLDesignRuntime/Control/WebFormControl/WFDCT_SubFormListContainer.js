@@ -434,7 +434,22 @@ var WFDCT_SubFormListContainer={
     },
     InnerRow_Delete:function($tr){
         this.InnerRow_CompletedLastEdit();
-        $tr.remove();
+        console.log(this._FormRuntimeHost);
+        if(this._FormRuntimeHost._Prop_Config.OperationType==BaseUtility.GetAddOperationName()){
+            $tr.remove();
+            return;
+        }
+        else{
+            DialogUtility.Confirm(window,"确认删除当前记录?",function (){
+                var rowRelationPO=this.GetRowData($tr);
+                console.log(rowRelationPO);
+                var thisRecordId=rowRelationPO.oneDataRecord.recordId;
+                var thisTableId=rowRelationPO.tableId;
+                RuntimeGeneralInstance.DeleteTableRecord(thisTableId,thisRecordId,function (result){
+                    $tr.remove();
+                },this);
+            },this);
+        }
     },
     InnerRow_CompletedLastEdit:function(){
         if(this._$LastEditRow){
@@ -467,7 +482,7 @@ var WFDCT_SubFormListContainer={
     },
     //endregion
 
-    //region 对话框编辑相关方法
+    //region 对话框编辑相关方法1
     Dialog_Get_Button_Click_Para:function ($singleControlElem) {
         //console.log(BaseUtility.GetElemAllAttr($singleControlElem));
         /*

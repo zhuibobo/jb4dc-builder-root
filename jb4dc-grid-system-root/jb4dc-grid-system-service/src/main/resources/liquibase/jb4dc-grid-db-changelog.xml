@@ -312,4 +312,8 @@
             <column name="PERSON_ORDER_NUM" type="INT" remarks="排序号" />
         </createTable>
     </changeSet>
+    <changeSet author="zhuangrb" id="changeSet-GRID-0003" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
+        <modifyDataType tableName="TGRID_GATHER_TERMINAL_INFO" columnName="TERMINAL_MANAGE_UNIT_ID" newDataType="NVARCHAR(40)"></modifyDataType>
+        <modifyDataType tableName="TGRID_GATHER_TERMINAL_INFO" columnName="TERMINAL_MANAGE_USER_ID" newDataType="NVARCHAR(40)"></modifyDataType>
+    </changeSet>
 </databaseChangeLog>

@@ -20,7 +20,7 @@ class CKEditorUtility {
         return null;
     }
 
-    //用于与拖拽内容进行比较,从中恢复原始信息
+    //用于与拖拽内容进行比较,从中恢复原始信息1
     static _LastSelectedTempHTML=null;
     static SetLastSelectedTempHTML(html){
         this._LastSelectedTempHTML=html;
