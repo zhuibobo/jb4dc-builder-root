@@ -87,6 +87,7 @@ var Organ3DDL={
     },
     Bind3DDL:function (){
         //debugger;
+        var _this=this;
         //绑定街道
         var streetDataList=ArrayUtility.Where(this._prop.allOrganMinProp,function (item){
             return item.organTypeValue=="Street";
@@ -94,6 +95,13 @@ var Organ3DDL={
         this.BindSingleDDL(this._prop.ddlStreetControl,streetDataList)
         //设置街道数据
         var selectedStreetValue =this.TryAutoSetStreet();
+        //注册Change事件
+        this._prop.ddlStreetControl.change(function () {
+            //debugger;
+            var newSelectedStreetValue = $(this).val();
+            _this.StreetControlChange(newSelectedStreetValue);
+        });
+
         //绑定村社区
         var communityDataList=ArrayUtility.Where(this._prop.allOrganMinProp,function (item){
             return item.organParentId==selectedStreetValue;
@@ -101,6 +109,13 @@ var Organ3DDL={
         this.BindSingleDDL(this._prop.ddlCommunityControl,communityDataList)
         //设置村社区数据
         var selectedCommunityValue =this.TryAutoSetCommunity();
+        //注册Change事件
+        this._prop.ddlCommunityControl.change(function () {
+            //debugger;
+            var newSelectedCommunityValue = $(this).val();
+            _this.CommunityControlChange(newSelectedCommunityValue);
+        });
+
         //绑定网格
         var gridDataList=ArrayUtility.Where(this._prop.allOrganMinProp,function (item){
             return item.organParentId==selectedCommunityValue;
@@ -143,10 +158,26 @@ var Organ3DDL={
         return this._prop.ddlGridControl.val();
     },
     BindSingleDDL:function (ddlControl,organDataList){
+        ddlControl.html("");
+        ddlControl.append("<option value=' '>--请选择--</option>");
         for (var i = 0; i < organDataList.length; i++) {
             var organData = organDataList[i];
             var sel="<option value='"+organData.organId+"'>"+organData.organName+"</option>";
             ddlControl.append(sel);
         }
+    },
+    StreetControlChange:function (newSelectedStreetValue){
+        var communityDataList = ArrayUtility.Where(this._prop.allOrganMinProp, function (item) {
+            return item.organParentId == newSelectedStreetValue;
+        })
+        this.BindSingleDDL(this._prop.ddlCommunityControl, communityDataList)
+        this._prop.ddlGridControl.html("");
+        this._prop.ddlGridControl.append("<option value=' '>--请选择--</option>");
+    },
+    CommunityControlChange:function (newSelectedCommunityValue){
+        var gridDataList=ArrayUtility.Where(this._prop.allOrganMinProp,function (item){
+            return item.organParentId==newSelectedCommunityValue;
+        })
+        this.BindSingleDDL(this._prop.ddlGridControl,gridDataList)
     }
 }

@@ -7,7 +7,8 @@ var WFDCT_BaiduMapContainer= {
         mapSelectedLngLat:"",
         mapEditObjs:[],
         mapViewObjs:[],
-        oldEditData:null
+        oldEditData:null,
+        operationType:""
     },
     LoadBaiDuJsCompleted:function() {
         var _this=this;
@@ -17,7 +18,10 @@ var WFDCT_BaiduMapContainer= {
         this._prop.mapObj.addEventListener('click', function(e) {
             _this._prop.mapSelectedLngLat=e.latlng;
         });
-        this.InitDrawControl();
+
+        if(!BaseUtility.IsViewOperation(this._prop.operationType)){
+            this.InitDrawControl();
+        }
 
         if(this._prop.oldEditData){
             var mapData=this._prop.oldEditData;
@@ -48,6 +52,7 @@ var WFDCT_BaiduMapContainer= {
         this._prop.elemId=$singleControlElem.attr("id");
         this._prop.clientInstanceName=$singleControlElem.attr("client_instance_name");
         this._prop.$singleControlElem=$singleControlElem;
+        this._prop.operationType=_rendererChainParas.formRuntimeInstance._Prop_Config.OperationType;
         $("#"+this._prop.elemId).addClass("map-control-wrap");
         //console.log(clientInstanceName);
         var loadFunc=this._prop.clientInstanceName+".LoadBaiDuJsCompleted";
@@ -82,7 +87,9 @@ var WFDCT_BaiduMapContainer= {
             this._prop.oldEditData=JsonUtility.StringToJson(fieldPO.value);
         }
     },
-    ToViewStatus: HTMLControl.ToViewStatus,
+    ToViewStatus:function($elem,fieldPO,relationFormRecordComplexPo,_rendererDataChainParas){
+        //$(".map-operation-button-wrap").hide();
+    },
     addToMapEditObjs:function(type,editObj){
         this._prop.mapEditObjs.push({"type":type, "obj": editObj});
     },

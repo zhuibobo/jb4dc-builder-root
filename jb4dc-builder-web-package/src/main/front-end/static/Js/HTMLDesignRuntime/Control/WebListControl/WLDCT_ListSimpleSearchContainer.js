@@ -52,12 +52,15 @@ var WLDCT_ListSimpleSearchContainer={
             var valObj=instance.GetValue($elem,{});
             var value=valObj.value;
             if(value) {
-                result.push({
-                    operator: $elem.attr("columnoperator"),
-                    value: value,
-                    tableName: $elem.attr("columntablename"),
-                    fieldName: $elem.attr("columnname")
-                })
+                value=StringUtility.Trim(value);
+                if(value) {
+                    result.push({
+                        operator: $elem.attr("columnoperator"),
+                        value: value,
+                        tableName: $elem.attr("columntablename"),
+                        fieldName: $elem.attr("columnname")
+                    })
+                }
             }
             //console.log(valObj);
         }

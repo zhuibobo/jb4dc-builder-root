@@ -46,7 +46,7 @@ var ListRuntime={
             this._JSRuntimeInst.Initialization({},this._$RendererToElem,this._ListPO.listJsContent);
             //console.log(result.data.listJsRuntime);
 
-            //进行元素渲染
+            //进行元素渲染1
             VirtualBodyControl.RendererChain({
                 po:result.data,
                 sourceHTML:result.data.listHtmlRuntime,
