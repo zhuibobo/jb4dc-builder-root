@@ -3,7 +3,9 @@ package com.jb4dc.builder.webpackage.rest.builder.datastorage.database;
 import com.jb4dc.base.service.exenum.EnableTypeEnum;
 import com.jb4dc.base.service.exenum.TrueFalseEnum;
 import com.jb4dc.builder.dbentities.datastorage.TableGroupEntity;
+import com.jb4dc.builder.service.datastorage.IDbLinkService;
 import com.jb4dc.builder.service.datastorage.ITableGroupService;
+import com.jb4dc.builder.service.datastorage.ITableService;
 import com.jb4dc.builder.webpackage.rest.builder.datastorage.dblink.DBLinkRestTest;
 import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
 import org.junit.Assert;
@@ -23,11 +25,22 @@ public class TableGroupRestTest extends DBLinkRestTest {
     @Autowired
     public ITableGroupService tableGroupService;
 
+    @Autowired
+    public ITableService tableService;
+
     public String devMockTableGroupId1 ="SQL_SERVER_DB_TABLE_GROUP_TEST_1";
 
     public String builderDevTableGroupId="SQL_SERVER_DB_TABLE_BUILDER_GROUP_TEST_1";
 
 
+    @Test
+    public void regTable() throws JBuild4DCGenerallyException {
+        //网格事件相关信息
+        TableGroupEntity eventGroupEnt=tableGroupService.getByPrimaryKey(getSession(),"TABLE_GROUP_GRID_SYSTEM_EVENT_GROUP_ID");
+        tableService.registerSystemTableToBuilderToModule(getSession(),"TGRID_EVENT_INFO",eventGroupEnt);
+        //tableService.registerSystemTableToBuilderToModule(jb4DCSession,"TGRID_EVENT_RELEVANTER",eventGroupEnt);
+        //tableService.registerSystemTableToBuilderToModule(getSession(),"TGRID_EVENT_PROCESS",eventGroupEnt);
+    }
 
     @Test
     public void CreateTestTableGroup() throws JBuild4DCGenerallyException {

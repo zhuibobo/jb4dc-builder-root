@@ -137,14 +137,17 @@ let FormRuntime={
             this._FormJSRuntimeInst = Object.create(HTMLJSRuntime);
             this._FormJSRuntimeInst.Initialization({},this._$RendererToElem,this._FormPO.formJsContent);
 
-            VirtualBodyControl.RendererChain({
+            var _rendererChainParas={
                 po:result.data,
-                sourceHTML:result.data.formHtmlRuntime,
-                $rootElem: this._$RendererToElem,
-                $parentControlElem: this._$RendererToElem,
-                $singleControlElem: this._$RendererToElem,
-                formRuntimeInstance: this
-            });
+                    sourceHTML:result.data.formHtmlRuntime,
+                    $rootElem: this._$RendererToElem,
+                    $parentControlElem: this._$RendererToElem,
+                    $singleControlElem: this._$RendererToElem,
+                    formRuntimeInstance: this
+            };
+            VirtualBodyControl.RendererChain(_rendererChainParas);
+            VirtualBodyControl.InitStyle(_rendererChainParas);
+
             //debugger;
             if(this.IsPreview()){
                 this.CallRendererChainCompletedFunc();

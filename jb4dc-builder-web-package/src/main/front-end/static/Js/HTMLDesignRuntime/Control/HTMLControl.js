@@ -4,6 +4,7 @@ let HTMLControlAttrs= {
     CLIENT_RESOLVE:"client_resolve"
 }
 let HTMLControl={
+    //_formRuntimeInstance:null,
     _InstanceMap:{},
     _GetInstance:function(name){
         for(var key in this._InstanceMap){
@@ -172,6 +173,7 @@ let HTMLControl={
             }
         }
     },
+    //region 样式设置
     InitStyle:function(_rendererChainParas){
         var $singleControlElem=_rendererChainParas.$singleControlElem;
         HTMLControl.TryAppendValidateStyle($singleControlElem);
@@ -191,6 +193,7 @@ let HTMLControl={
             //console.log(validateRules);
         }
     },
+    //endregion
     GetValue:function ($elem,originalData, paras) {
         originalData.value=$elem.val();
         return originalData;

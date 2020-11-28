@@ -379,7 +379,7 @@
             methods:{
                 loadData:function(recordId,op){
                     var _self=this;
-                    //获取数据并赋值
+                    //获取数据并赋值1
                     AjaxUtility.Post(this.acInterface.getDataUrl,{recordId:recordId,op:op},function (result) {
                         if(result.success) {
                             console.log(result);
@@ -424,7 +424,7 @@
                 },
                 saveEditDataSet:function () {
                     if(this.datasetEntity.dsCaption.replace(/(^\s*)|(\s*$)/g, "")==""){
-                        DialogUtility.Alert(window,DialogUtility.DialogAlertId,{}, "数据集标题不能为空！",null);
+                        DialogUtility.Alert(window,DialogUtility.DialogAlertId,{}, "数据集标题不能为空!",null);
                         return false;
                     }
                     if(/^[a-zA-Z][a-zA-Z0-9_]{0,}$/.test(this.datasetEntity.dsName) == false){
@@ -502,6 +502,7 @@
                     this.datasetEntity.dsSqlSelectValue=result.data.sqlWithEnvValue;
                     this.datasetEntity.dsSqlDbLinkId=result.data.dataSetPO.dsSqlDbLinkId;
                     //this.relatedTable.data=result.data.dataSetPO.relatedTableVoList;
+                    this.relatedEditTableObj.RemoveAllRow();
                     this.relatedEditTableObj.LoadJsonData(result.data.dataSetPO.relatedTableVoList);
                     //获取现有的列定义
                     if (this.editTableObj.CompletedEditingRow()) {

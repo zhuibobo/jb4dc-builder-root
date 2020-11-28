@@ -46,7 +46,7 @@ let replaceBlock = {
         replaceArray.push(refJs(levelPath + "Js/External/IView-4.X/dist/iview.min.js"));
         replaceArray.push(refJs(levelPath + "Js/External/JQuery-UI-1.12.1/jquery-ui.js"));
         replaceArray.push(refJs(levelPath + "Js/External/ZTree-3.5.40/js/jquery.ztree.all.js"));
-        //replaceArray.push(refJs(levelPath + "Js/External/perfect-scrollbar-14/perfect-scrollbar.js"));
+        replaceArray.push(refJs(levelPath + "Js/External/Perfect-Scrollbar-V1.4.0/perfect-scrollbar.js"));
         replaceArray.push(refJs(levelPath + "Js/JBuild4DCLib.js?refVersion=" + refVersion));
         replaceArray.push(refJs(levelPath + "Js/UIEXComponent.js?refVersion=" + refVersion));
         replaceArray.push(refJs(levelPath + "Js/VueEXComponent.js?refVersion=" + refVersion));
@@ -134,7 +134,8 @@ let replaceBlock = {
         replaceArray.push(refCss(levelPath + 'Themes/Default/JQueryUI/jquery-ui.css'));
         replaceArray.push(refCss(levelPath + 'Themes/Default/JQueryUI/jquery-ui-important.css'));
         replaceArray.push(refCss(levelPath + 'Themes/Default/ZTree/zTreeStyle/zTreeStyle.css'));
-        replaceArray.push(refCss(levelPath + 'Themes/Default/Grid/Css/JBuild4DCGridSystem.css'));
+        replaceArray.push(refCss(levelPath + 'Themes/Default/Grid/Css/JBuild4DCGridSystem.css?refVersion=' + refVersion));
+        replaceArray.push(refCss(levelPath + 'Js/External/Perfect-Scrollbar-V1.4.0/perfect-scrollbar.css'));
         return replaceArray.join("\n\t");
 
         /*replaceArray.push("<script>");

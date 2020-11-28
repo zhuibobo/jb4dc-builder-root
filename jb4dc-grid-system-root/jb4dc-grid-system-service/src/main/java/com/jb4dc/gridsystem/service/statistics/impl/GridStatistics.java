@@ -34,4 +34,23 @@ public class GridStatistics implements IGridStatistics {
         List<Map<String, Object>> result=sqlBuilderService.selectList(sql,organId);
         return result;
     }
+
+    @Override
+    public List<Map<String, Object>> getAreaGatherDataStatistics() {
+        String sql="select count(*) DATA_COUNT,'一般建筑物' DATA_NAME from tgrid_build_info where BUILD_CATEGORY='一般建筑物'\n" +
+                "union all\n" +
+                "select count(*) DATA_COUNT,'特殊建筑物' DATA_NAME from tgrid_build_info where BUILD_CATEGORY='特殊建筑物'\n" +
+                "union all\n" +
+                "select count(*) DATA_COUNT,'房屋' DATA_NAME from tgrid_house_info\n" +
+                "union all\n" +
+                "select count(*) DATA_COUNT,'户' DATA_NAME from tgrid_family\n" +
+                "union all\n" +
+                "select count(*) DATA_COUNT,'人口' DATA_NAME from tgrid_person\n" +
+                "union all\n" +
+                "select count(*) DATA_COUNT,'企业法人' DATA_NAME from tgrid_enterprise_info\n" +
+                "union all\n" +
+                "select count(*) DATA_COUNT,'网格事件' DATA_NAME from tgrid_event_info";
+        List<Map<String, Object>> result=sqlBuilderService.selectList(sql);
+        return result;
+    }
 }

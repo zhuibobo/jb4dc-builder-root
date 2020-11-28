@@ -5,4 +5,6 @@ import java.util.Map;
 
 public interface IGridStatistics {
     List<Map<String,Object>> getMyGridGatherDataStatistics(String organId);
+
+    List<Map<String, Object>> getAreaGatherDataStatistics();
 }

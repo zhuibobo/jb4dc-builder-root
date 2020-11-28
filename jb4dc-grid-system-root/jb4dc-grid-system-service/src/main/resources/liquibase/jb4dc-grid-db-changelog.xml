@@ -316,4 +316,51 @@
         <modifyDataType tableName="TGRID_GATHER_TERMINAL_INFO" columnName="TERMINAL_MANAGE_UNIT_ID" newDataType="NVARCHAR(40)"></modifyDataType>
         <modifyDataType tableName="TGRID_GATHER_TERMINAL_INFO" columnName="TERMINAL_MANAGE_USER_ID" newDataType="NVARCHAR(40)"></modifyDataType>
     </changeSet>
+    <changeSet author="zhuangrb" id="changeSet-GRID-0004" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
+        <addColumn tableName="TGRID_EVENT_INFO">
+            <column name="EVENT_MAIN_APPEALER_NAME" type="NVARCHAR(100)" remarks="主要诉求人-姓名" />
+            <column name="EVENT_MAIN_APPEALER_SEX" type="NVARCHAR(10)" remarks="主要诉求人-性别" />
+            <column name="EVENT_MAIN_APPEALER_BIRTHDAY" type="NVARCHAR(40)" remarks="主要诉求人-出生日期" />
+            <column name="EVENT_MAIN_APPEALER_ID_CARD" type="NVARCHAR(40)" remarks="主要诉求人-身份证号" />
+            <column name="EVENT_MAIN_APPEALER_PHONE" type="NVARCHAR(40)" remarks="主要诉求人-联系电话" />
+            <column name="EVENT_MAIN_APPEALER_ADDRESS" type="NVARCHAR(400)" remarks="主要诉求人-单位或地址" />
+            <column name="EVENT_FELLOW_APPEALER_NAME" type="NVARCHAR(100)" remarks="共同诉求人-姓名" />
+            <column name="EVENT_FELLOW_APPEALER_SEX" type="NVARCHAR(10)" remarks="共同诉求人-性别" />
+            <column name="EVENT_FELLOW_APPEALER_BIRTHDAY" type="NVARCHAR(40)" remarks="共同诉求人-出生日期" />
+            <column name="EVENT_FELLOW_APPEALER_ID_CARD" type="NVARCHAR(40)" remarks="共同诉求人-身份证号" />
+            <column name="EVENT_FELLOW_APPEALER_PHONE" type="NVARCHAR(40)" remarks="共同诉求人-联系电话" />
+            <column name="EVENT_FELLOW_APPEALER_ADDRESS" type="NVARCHAR(400)" remarks="共同诉求人-单位或地址" />
+            <column name="EVENT_DEFE_PER_NAME" type="NVARCHAR(100)" remarks="被反映对象-个人-姓名" />
+            <column name="EVENT_DEFE_PER_SEX" type="NVARCHAR(10)" remarks="被反映对象-个人-性别" />
+            <column name="EVENT_DEFE_PER_BIRTHDAY" type="NVARCHAR(40)" remarks="被反映对象-个人-出生日期" />
+            <column name="EVENT_DEFE_PER_ID_CARD" type="NVARCHAR(40)" remarks="被反映对象-个人-身份证" />
+            <column name="EVENT_DEFE_PER_PHONE" type="NVARCHAR(40)" remarks="被反映对象-个人-联系电话" />
+            <column name="EVENT_DEFE_PER_ADDRESS" type="NVARCHAR(400)" remarks="被反映对象-个人-单位或者地址" />
+            <column name="EVENT_DEFE_UNIT_NAME" type="NVARCHAR(100)" remarks="被反映对象-单位-名称" />
+            <column name="EVENT_DEFE_UNIT_BUSINESS_TYPE" type="NVARCHAR(100)" remarks="被反映对象-单位-经营性质" />
+            <column name="EVENT_DEFE_UNIT_CREATE_DATE" type="NVARCHAR(40)" remarks="被反映对象-单位-成立时间" />
+            <column name="EVENT_DEFE_UNIT_ORGAN_CODE" type="NVARCHAR(100)" remarks="被反映对象-单位-组织机构代码" />
+            <column name="EVENT_DEFE_UNIT_BUSINESS_NUM" type="NVARCHAR(50)" remarks="被反映对象-单位-营业执照号" />
+            <column name="EVENT_DEFE_UNIT_ADDRESS" type="NVARCHAR(400)" remarks="被反映对象-单位-地址" />
+            <column name="EVENT_DEFE_UNIT_PHONE" type="NVARCHAR(40)" remarks="被反映对象-单位-联系电话" />
+        </addColumn>
+        <dropTable tableName="TGRID_EVENT_RELEVANTER"></dropTable>
+    </changeSet>
+    <changeSet author="zhuangrb" id="changeSet-GRID-0005" objectQuotingStrategy="QUOTE_ALL_OBJECTS" dbms="mysql">
+        <sql>
+            ALTER TABLE tgrid_event_info COMMENT = '事件信息表'
+        </sql>
+    </changeSet>
+    <changeSet author="zhuangrb" id="changeSet-GRID-0006" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
+        <addColumn tableName="TGRID_EVENT_INFO">
+            <column name="EVENT_CITY_ID" type="NVARCHAR(50)" remarks="城市Id" />
+            <column name="EVENT_AREA_ID" type="NVARCHAR(50)" remarks="区Id" />
+            <column name="EVENT_STREET_ID" type="NVARCHAR(50)" remarks="街道Id:街道,乡镇" />
+            <column name="EVENT_COMMUNITY_ID" type="NVARCHAR(50)" remarks="社区Id:社区,村" />
+            <column name="EVENT_GRID_ID" type="NVARCHAR(50)" remarks="所属网格Id" />
+        </addColumn>
+        <sql>
+            ALTER TABLE tgrid_event_info COMMENT = '事件信息表'
+        </sql>
+    </changeSet>
 </databaseChangeLog>

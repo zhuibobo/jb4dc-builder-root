@@ -24,4 +24,10 @@ public class GridDataStatistics {
         List<Map<String, Object>> myGridGatherDataStatistics=gridStatistics.getMyGridGatherDataStatistics(JB4DCSessionUtility.getSession().getOrganId());
         return JBuild4DCResponseVo.getDataSuccess(myGridGatherDataStatistics);
     }
+
+    @RequestMapping(value = "/GetAreaGatherDataStatistics", method = RequestMethod.GET)
+    public JBuild4DCResponseVo getAreaGatherDataStatistics() throws JBuild4DCGenerallyException {
+        List<Map<String, Object>> areaGatherDataStatistics=gridStatistics.getAreaGatherDataStatistics();
+        return JBuild4DCResponseVo.getDataSuccess(areaGatherDataStatistics);
+    }
 }

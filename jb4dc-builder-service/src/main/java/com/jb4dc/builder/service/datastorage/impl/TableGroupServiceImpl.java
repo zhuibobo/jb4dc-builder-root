@@ -352,7 +352,7 @@ public class TableGroupServiceImpl extends BaseServiceImpl<TableGroupEntity> imp
         //网格事件相关信息
         TableGroupEntity eventGroupEnt=this.deleteAndSaveGroup(jb4DCSession,"TABLE_GROUP_GRID_SYSTEM_EVENT_GROUP_ID","网格事件相关表",IDbLinkService.JBUILD4DC_GRID_DB_LINK_ID);
         tableService.registerSystemTableToBuilderToModule(jb4DCSession,"TGRID_EVENT_INFO",eventGroupEnt);
-        tableService.registerSystemTableToBuilderToModule(jb4DCSession,"TGRID_EVENT_RELEVANTER",eventGroupEnt);
+        //tableService.registerSystemTableToBuilderToModule(jb4DCSession,"TGRID_EVENT_RELEVANTER",eventGroupEnt);
         tableService.registerSystemTableToBuilderToModule(jb4DCSession,"TGRID_EVENT_PROCESS",eventGroupEnt);
 
         //文件存储表

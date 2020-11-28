@@ -201,7 +201,7 @@ let replaceBlock = {
         replaceArray.push(refJs(levelPath + "Js/External/My97DatePicker/WdatePicker.js"));
         replaceArray.push(refJs(levelPath + "Js/External/Fine-Uploader-5.16.2/fine-uploader.core.min.js"));
         replaceArray.push(refJs(levelPath + "Js/External/Fine-Uploader-5.16.2/fine-uploader.min.js"));
-        //replaceArray.push(refJs(levelPath + "Js/External/perfect-scrollbar-14/perfect-scrollbar.js"));
+        replaceArray.push(refJs(levelPath + "Js/External/Perfect-Scrollbar-V1.4.0/perfect-scrollbar.js"));
         replaceArray.push(refJs(levelPath + "Js/JBuild4DCLib.js?refVersion=" + refVersion));
         replaceArray.push(refJs(levelPath + "Js/UIEXComponent.js?refVersion=" + refVersion));
         replaceArray.push(refJs(levelPath + "Js/VueEXComponent.js?refVersion=" + refVersion));
