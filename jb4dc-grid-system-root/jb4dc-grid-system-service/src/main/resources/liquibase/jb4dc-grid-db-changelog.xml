@@ -363,4 +363,24 @@
             ALTER TABLE tgrid_event_info COMMENT = '事件信息表'
         </sql>
     </changeSet>
+    <changeSet author="zhuangrb" id="changeSet-GRID-0007" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
+        <addColumn tableName="TGRID_EVENT_INFO">
+            <column name="EVENT_TYPE_1_EX_TEXT" type="NVARCHAR(60)" remarks="事件类型第1级补充备注" />
+        </addColumn>
+        <sql>
+            ALTER TABLE tgrid_event_info COMMENT = '事件信息表'
+        </sql>
+        <createTable tableName="TGRID_APP_VERSION" remarks="APP版本表">
+            <column name="APP_VERSION_ID" type="NVARCHAR(50)" remarks="主键">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="APP_VERSION_CODE" type="NVARCHAR(50)" remarks="版本号:1.0.0.0" />
+            <column name="APP_VERSION_NAME" type="NVARCHAR(50)" remarks="版本名称" />
+            <column name="APP_VERSION_UPDATE_DESC" type="NVARCHAR(500)" remarks="更新说明" />
+            <column name="APP_VERSION_DESC" type="NVARCHAR(500)" remarks="备注" />
+            <column name="APP_VERSION_STATUS" type="NVARCHAR(50)" remarks="状态:未发布,预发布,已发布" />
+            <column name="APP_VERSION_UPLOAD_DATE" type="DATETIME(6)" remarks="上传时间" />
+            <column name="APP_VERSION_FILE_PATH" type="NVARCHAR(500)" remarks="APK文件路径" />
+        </createTable>
+    </changeSet>
 </databaseChangeLog>

@@ -53,4 +53,13 @@ public class DictionaryRuntimeProxyImpl extends RuntimeProxyBase implements IDic
         List<DictionaryEntity> dictionaryEntityList=allDD.stream().filter(item->item.getDictGroupId().equals(groupId)).collect(Collectors.toList());
         return dictionaryEntityList;
     }
+
+    @Override
+    public List<DictionaryEntity> getDictionaryByGroup3Level(String groupId) throws JBuild4DCGenerallyException, IOException {
+        List<DictionaryEntity> dictionaryByGroup3Level = autoGetFromCacheList(this.getClass(), "getDictionaryByGroup3Level", () -> {
+            List<DictionaryEntity> temp = dictionaryRuntimeRemote.getDictionaryByGroup3Level(groupId).getData();
+            return temp;
+        },DictionaryEntity.class);
+        return dictionaryByGroup3Level;
+    }
 }

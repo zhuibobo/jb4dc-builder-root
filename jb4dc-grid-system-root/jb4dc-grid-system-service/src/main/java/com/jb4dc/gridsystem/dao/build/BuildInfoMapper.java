@@ -19,6 +19,4 @@ public interface BuildInfoMapper extends BaseMapper<BuildInfoEntity> {
     List<BuildInfoEntity> selectByInputUserId(String userId);
 
     List<BuildInfoEntity> selectByBuildCode(String buildCode);
-
-    List<HouseInfoEntity> selectByHouseFullCode(String houseCodeFull);
 }

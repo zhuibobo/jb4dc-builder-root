@@ -24,4 +24,7 @@ public interface DictionaryRuntimeRemote {
 
     @RequestMapping(value = "/GetAllDictionary",method = RequestMethod.GET)
     JBuild4DCResponseVo<List<DictionaryEntity>> getAllDictionary();
+
+    @RequestMapping(value = "/GetDictionaryByGroup3Level",method = RequestMethod.GET)
+    JBuild4DCResponseVo<List<DictionaryEntity>> getDictionaryByGroup3Level(@RequestParam("groupId") String groupId);
 }

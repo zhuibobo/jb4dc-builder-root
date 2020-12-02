@@ -33,8 +33,14 @@ public class DictionaryRuntimeRest {
     }
 
     @RequestMapping(value = "/GetAllDictionary", method = RequestMethod.GET)
-    public JBuild4DCResponseVo<List<DictionaryEntity>> getAllDictionary(String groupId) {
+    public JBuild4DCResponseVo<List<DictionaryEntity>> getAllDictionary() {
         List<DictionaryEntity> dictionaryEntityList=dictionaryService.getALLASC(JB4DCSessionUtility.getSession());
+        return JBuild4DCResponseVo.success("",dictionaryEntityList);
+    }
+
+    @RequestMapping(value = "/GetDictionaryByGroup3Level", method = RequestMethod.GET)
+    public JBuild4DCResponseVo<List<DictionaryEntity>> getDictionaryByGroup3Level(String groupId) {
+        List<DictionaryEntity> dictionaryEntityList=dictionaryService.getDictionaryByGroup3Level(groupId);
         return JBuild4DCResponseVo.success("",dictionaryEntityList);
     }
 }

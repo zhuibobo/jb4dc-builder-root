@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="zh" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"><head><meta charset="UTF-8"><title>Title</title><title>JBuild4D</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"><script type="text/javascript" src="../../../Js/External/JQuery-3.4.1/jquery-3.4.1.min.js"></script><script type="text/javascript" src="../../../Js/External/VUE-2.6.10/vue.js"></script><script type="text/javascript" src="../../../Js/External/IView-4.X/dist/iview.min.js"></script><script type="text/javascript" src="../../../Js/External/JQuery-UI-1.12.1/jquery-ui.js"></script><script type="text/javascript" src="../../../Js/External/ZTree-3.5.40/js/jquery.ztree.all.js"></script><script type="text/javascript" src="../../../Js/External/Perfect-Scrollbar-V1.4.0/perfect-scrollbar.js"></script><script type="text/javascript" src="../../../Js/JBuild4DCLib.js?refVersion=1606458222581"></script><script type="text/javascript" src="../../../Js/UIEXComponent.js?refVersion=1606458222581"></script><script type="text/javascript" src="../../../Js/VueEXComponent.js?refVersion=1606458222581"></script><link rel="stylesheet" type="text/css" href="../../../Themes/Default/Css/JBuild4DC.css?refVersion=1606458222581"><link rel="stylesheet" type="text/css" href="../../../Themes/Default/IView-4.X/iview.css"><link rel="stylesheet" type="text/css" href="../../../Themes/Default/JQueryUI/jquery-ui.css"><link rel="stylesheet" type="text/css" href="../../../Themes/Default/JQueryUI/jquery-ui-important.css"><link rel="stylesheet" type="text/css" href="../../../Themes/Default/ZTree/zTreeStyle/zTreeStyle.css"><link rel="stylesheet" type="text/css" href="../../../Themes/Default/Grid/Css/JBuild4DCGridSystem.css?refVersion=1606458222581"><link rel="stylesheet" type="text/css" href="../../../Js/External/Perfect-Scrollbar-V1.4.0/perfect-scrollbar.css"><script type="text/javascript" src="../../../Js/External/ZTree-3.5.40/js/jquery.ztree.exhide.js"></script><script type="text/javascript" src="../../../Js/External/ZTree-3.5.40/js/fuzzysearch.js"></script><style></style></head><body><div id="gridManager" class="list-2column"><div class="left-outer-wrap" style="width:350px"><div class="inner-wrap"><div class="tool-bar-wrap"><div alt="新增建筑物" title="新增一般建筑物" class="add" @click="addBuild('一般建筑物')"></div><div alt="新增特殊建筑物" title="新增特殊建筑物" class="add2" @click="addBuild('特殊建筑物')"></div><div alt="修改楼栋" title="修改楼栋" class="edit" @click="editBuild"></div><div alt="删除楼栋" title="删除楼栋" class="del" @click="deleteBuild"></div><div alt="浏览楼栋" title="浏览楼栋" class="view last" @click="viewBuild"></div></div><div><table style="width:96%;margin-right:auto;margin-left:auto" class="light-gray-table"><tr><td style="width:180px"><radio-group type="button" @on-change="changeBuildRange" v-model="buildTree.isShowGridBuild"><radio label="false">我的建筑</radio><radio label="true">网格建筑</radio></radio-group></td><td><input type="text" id="txtSearchBuildTree" placeholder="请输入建筑物编号,或者地址" style="width:100%"><!--<i-input id="txtSearchBuildTree" search class="input_border_bottom" ref="txt_form_search_text" placeholder="请输入建筑物编号,或者地址" />--></td></tr></table></div><div id="zTreeULWrap" style="position:absolute;top:100px;bottom:0;left:0;right:0;overflow:auto"><ul id="zBuildTreeUL" class="ztree"></ul></div></div></div><div class="right-outer-wrap iv-list-page-wrap" style="padding:10px;left:360px;right:350px"><tabs><tab-pane label="房屋信息"><div class="list-button-outer-wrap"><div class="list-button-inner-wrap"><button-group><i-button type="success" @click="addHouse()" icon="md-add">新增</i-button></button-group></div><div style="float:right;width:230px;margin-right:10px"><i-input v-model="house.searchHouseText" @on-change="searchHouse" placeholder="选建筑物后,输入编码或房号进行检索."></i-input></div><div style="clear:both"></div></div><i-table :height="listHeight" stripe border :columns="house.columnsConfig" :data="house.tableData" class="iv-list-table" :highlight-row="true" @on-row-click="selectionHouseChange"></i-table></tab-pane><tab-pane label="地理位置"><div id="map-wrap-grid" class="map-wrap-grid" style=""><div id="baidu_map_grid" style="height:100%"></div></div></tab-pane></tabs></div><div class="right-outer-wrap iv-list-page-wrap" style="padding:10px;width:340px;right:0"><tabs><tab-pane label="人口信息"><div class="list-button-outer-wrap"><div class="list-button-inner-wrap"><button-group><i-button type="success" @click="addFamily()" icon="md-add">新增</i-button></button-group></div><div style="clear:both"></div></div><i-table :height="listHeight" stripe border :columns="person.columnsConfig" :data="person.tableData" class="iv-list-table" :highlight-row="true" @on-selection-change="selectionPersonChange"></i-table></tab-pane><tab-pane label="企业法人"><div class="list-button-outer-wrap"><div class="list-button-inner-wrap"><button-group><i-button type="success" @click="addEnterprise()" icon="md-add">新增</i-button></button-group></div><div style="clear:both"></div></div><i-table :height="listHeight" stripe border :columns="enterprise.columnsConfig" :data="enterprise.tableData" class="iv-list-table" :highlight-row="true"></i-table></tab-pane></tabs></div></div><script>function reInitBuildTree(data) {
+<!DOCTYPE html><html lang="zh" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"><head><meta charset="UTF-8"><title>Title</title><title>JBuild4D</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"><script type="text/javascript" src="../../../Js/External/JQuery-3.4.1/jquery-3.4.1.min.js"></script><script type="text/javascript" src="../../../Js/External/VUE-2.6.10/vue.js"></script><script type="text/javascript" src="../../../Js/External/IView-4.X/dist/iview.min.js"></script><script type="text/javascript" src="../../../Js/External/JQuery-UI-1.12.1/jquery-ui.js"></script><script type="text/javascript" src="../../../Js/External/ZTree-3.5.40/js/jquery.ztree.all.js"></script><script type="text/javascript" src="../../../Js/External/Perfect-Scrollbar-V1.4.0/perfect-scrollbar.js"></script><script type="text/javascript" src="../../../Js/JBuild4DCLib.js?refVersion=1606812252534"></script><script type="text/javascript" src="../../../Js/UIEXComponent.js?refVersion=1606812252534"></script><script type="text/javascript" src="../../../Js/VueEXComponent.js?refVersion=1606812252534"></script><link rel="stylesheet" type="text/css" href="../../../Themes/Default/Css/JBuild4DC.css?refVersion=1606812252534"><link rel="stylesheet" type="text/css" href="../../../Themes/Default/IView-4.X/iview.css"><link rel="stylesheet" type="text/css" href="../../../Themes/Default/JQueryUI/jquery-ui.css"><link rel="stylesheet" type="text/css" href="../../../Themes/Default/JQueryUI/jquery-ui-important.css"><link rel="stylesheet" type="text/css" href="../../../Themes/Default/ZTree/zTreeStyle/zTreeStyle.css"><link rel="stylesheet" type="text/css" href="../../../Themes/Default/Grid/Css/JBuild4DCGridSystem.css?refVersion=1606812252534"><link rel="stylesheet" type="text/css" href="../../../Js/External/Perfect-Scrollbar-V1.4.0/perfect-scrollbar.css"><script type="text/javascript" src="../../../Js/External/ZTree-3.5.40/js/jquery.ztree.exhide.js"></script><script type="text/javascript" src="../../../Js/External/ZTree-3.5.40/js/fuzzysearch.js"></script><style></style></head><body><div id="gridManager" class="list-2column"><div class="left-outer-wrap" style="width:350px"><div class="inner-wrap"><div class="tool-bar-wrap"><div alt="新增建筑物" title="新增一般建筑物" class="add" @click="addBuild('一般建筑物')"></div><div alt="新增特殊建筑物" title="新增特殊建筑物" class="add2" @click="addBuild('特殊建筑物')"></div><div alt="修改楼栋" title="修改楼栋" class="edit" @click="editBuild"></div><div alt="删除楼栋" title="删除楼栋" class="del" @click="deleteBuild"></div><div alt="编号+1" title="编号+1" class="add3" @click="codeAdd1"></div><div alt="编号-1" title="编号-1" class="remove3" @click="codeSub1"></div><div alt="浏览楼栋" title="浏览楼栋" class="view last" @click="viewBuild"></div></div><div><table style="width:96%;margin-right:auto;margin-left:auto" class="light-gray-table"><tr><td style="width:180px"><radio-group type="button" @on-change="changeBuildRange" v-model="buildTree.isShowGridBuild"><radio label="false">我的建筑</radio><radio label="true">网格建筑</radio></radio-group></td><td><input type="text" id="txtSearchBuildTree" placeholder="请输入建筑物编号,或者地址" style="width:100%"><!--<i-input id="txtSearchBuildTree" search class="input_border_bottom" ref="txt_form_search_text" placeholder="请输入建筑物编号,或者地址" />--></td></tr></table></div><div id="zTreeULWrap" style="position:absolute;top:100px;bottom:0;left:0;right:0;overflow:auto"><ul id="zBuildTreeUL" class="ztree"></ul></div></div></div><div class="right-outer-wrap iv-list-page-wrap" style="padding:10px;left:360px;right:350px"><tabs><tab-pane label="房屋信息"><div class="list-button-outer-wrap"><div class="list-button-inner-wrap"><button-group><i-button type="success" @click="addHouse()" icon="md-add">新增</i-button></button-group></div><div style="float:right;width:230px;margin-right:10px"><i-input v-model="house.searchHouseText" @on-change="searchHouse" placeholder="选建筑物后,输入编码或房号进行检索."></i-input></div><div style="clear:both"></div></div><i-table :height="listHeight" stripe border :columns="house.columnsConfig" :data="house.tableData" class="iv-list-table" :highlight-row="true" @on-row-click="selectionHouseChange"></i-table></tab-pane><tab-pane label="地理位置"><div id="map-wrap-grid" class="map-wrap-grid" style=""><div id="baidu_map_grid" style="height:100%"></div></div></tab-pane></tabs></div><div class="right-outer-wrap iv-list-page-wrap" style="padding:10px;width:340px;right:0"><tabs><tab-pane label="人口信息"><div class="list-button-outer-wrap"><div class="list-button-inner-wrap"><button-group><i-button type="success" @click="addFamily()" icon="md-add">新增</i-button></button-group></div><div style="clear:both"></div></div><i-table :height="listHeight" stripe border :columns="person.columnsConfig" :data="person.tableData" class="iv-list-table" :highlight-row="true" @on-selection-change="selectionPersonChange"></i-table></tab-pane><tab-pane label="企业法人"><div class="list-button-outer-wrap"><div class="list-button-inner-wrap"><button-group><i-button type="success" @click="addEnterprise()" icon="md-add">新增</i-button></button-group></div><div style="clear:both"></div></div><i-table :height="listHeight" stripe border :columns="enterprise.columnsConfig" :data="enterprise.tableData" class="iv-list-table" :highlight-row="true"></i-table></tab-pane></tabs></div></div><script>function reInitBuildTree(data) {
         gridManager.initTree(gridManager.buildTree.isShowGridBuild);
     }
     function reLoadHouse(data){
@@ -25,6 +25,8 @@
                 editNormalBuildFormId:"ea18a1c7-7c47-4a94-a057-660f83088205",
                 editSpecialBuildFormId:"fd770a12-5412-4a80-8ebf-de5f85d6359f",
                 deleteBuild:"/Rest/Grid/Build/BuildMain/Delete",
+                codeAdd1:"/Rest/Grid/Build/BuildMain/CodeAdd1",
+                codeSub1:"/Rest/Grid/Build/BuildMain/CodeSub1",
                 <!--House-->
                 getHouseByBuildId: "/Rest/Grid/Build/HouseInfo/GetHouseByBuildId",
                 editHouseView:"/HTML/Builder/Runtime/WebFormIndependenceRuntime.html",
@@ -105,51 +107,37 @@
                     }, {
                         title: '操作',
                         key: 'houseId',
-                        width: 110,
+                        width: 120,
                         align: "center",
                         render: function (h, params) {
                             var buttons=[];
 
-                            buttons.push(h('Tooltip', {
-                                props: {
-                                    content: "查看"
-                                }
-                            }, [h('div', {
+                            buttons.push(h('div', {
                                 class: "list-row-button view",
                                 on: {
                                     click: function click() {
                                         gridManager.viewHouse(params);
                                     }
                                 }
-                            })]));
+                            }));
 
-                            buttons.push(
-                                h('Tooltip', {
-                                    props: {
-                                        content: "修改"
-                                    }
-                                }, [h('div', {
+                            buttons.push(h('div', {
                                     class: "list-row-button edit",
                                     on: {
                                         click: function click() {
                                             gridManager.editHouse(params);
                                         }
                                     }
-                                })]),
-                            );
+                            }));
 
-                            buttons.push(h('Tooltip', {
-                                props: {
-                                    content: "删除"
-                                }
-                            }, [h('div', {
+                            buttons.push(h('div', {
                                 class: "list-row-button del",
                                 on: {
                                     click: function click() {
                                         gridManager.delHouse(params);
                                     }
                                 }
-                            })]));
+                            }));
 
                             var eh=h('div', {class: "list-row-button-wrap"},buttons);
                             return eh;
@@ -415,7 +403,8 @@
             deleteBuild:function(){
                 var selectedBuild=this.buildTree.treeSelectedNode;
                 if(selectedBuild==null){
-                    DialogUtility.AlertText("请先选择要编辑的建筑物!")
+                    DialogUtility.AlertText("请先选择要编辑的建筑物!");
+                    return;
                 }
                 DialogUtility.Confirm(window,"你确认要删除该建筑物信息吗?",function () {
                     AjaxUtility.Delete(this.acInterface.deleteBuild, {recordId: selectedBuild.buildId}, function (result) {
@@ -440,6 +429,44 @@
                 }
                 var formPara=this.getFormPara(formId,BaseUtility.GetViewOperationName(),selectedBuild.buildId,"","reInitBuildTree");
                 DialogUtility.Frame_OpenIframeWindow(window,DialogUtility.DialogId,BaseUtility.BuildView(this.acInterface.editBuildView,formPara),this.getFormDialogPara("查看建筑物信息"),1,true);
+            },
+            codeAdd1:function(){
+                var selectedBuild=this.buildTree.treeSelectedNode;
+                if(selectedBuild==null){
+                    DialogUtility.AlertText("请先选择要编辑的建筑物!")
+                    return;
+                }
+                DialogUtility.Confirm(window,"你确认要将该建筑物的编号+1吗?",function () {
+                    AjaxUtility.Post(this.acInterface.codeAdd1, {buildId: selectedBuild.buildId}, function (result) {
+                        if (result.success) {
+                            DialogUtility.Alert(window, DialogUtility.DialogAlertId, {}, result.message, function () {
+                                gridManager.initTree(gridManager.buildTree.isShowGridBuild);
+                                this.buildTree.treeSelectedNode=null;
+                                this.house.selectedHouse=null;
+                                this.house.tableData=[];
+                            },this);
+                        }
+                    },this);
+                },this);
+            },
+            codeSub1:function (){
+                var selectedBuild=this.buildTree.treeSelectedNode;
+                if(selectedBuild==null){
+                    DialogUtility.AlertText("请先选择要编辑的建筑物!")
+                    return;
+                }
+                DialogUtility.Confirm(window,"你确认要将该建筑物的编号-1吗?",function () {
+                    AjaxUtility.Post(this.acInterface.codeSub1, {buildId: selectedBuild.buildId}, function (result) {
+                        if (result.success) {
+                            DialogUtility.Alert(window, DialogUtility.DialogAlertId, {}, result.message, function () {
+                                gridManager.initTree(gridManager.buildTree.isShowGridBuild);
+                                this.buildTree.treeSelectedNode=null;
+                                this.house.selectedHouse=null;
+                                this.house.tableData=[];
+                            },this);
+                        }
+                    },this);
+                },this);
             },
             //endregion
             //region 房屋

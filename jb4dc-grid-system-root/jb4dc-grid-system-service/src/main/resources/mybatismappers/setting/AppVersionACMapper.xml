@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jb4dc.gridsystem.dao.setting.AppVersionMapper">
+    <resultMap id="BaseResultMap" type="com.jb4dc.gridsystem.dbentities.setting.AppVersionEntity">
+        <constructor>
+            <idArg column="APP_VERSION_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="APP_VERSION_CODE" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="APP_VERSION_NAME" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="APP_VERSION_UPDATE_DESC" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="APP_VERSION_DESC" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="APP_VERSION_STATUS" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="APP_VERSION_UPLOAD_DATE" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+            <arg column="APP_VERSION_FILE_PATH" javaType="java.lang.String" jdbcType="VARCHAR" />
+        </constructor>
+    </resultMap>
+    <sql id="Base_Column_List">
+    APP_VERSION_ID, APP_VERSION_CODE, APP_VERSION_NAME, APP_VERSION_UPDATE_DESC, APP_VERSION_DESC,
+    APP_VERSION_STATUS, APP_VERSION_UPLOAD_DATE, APP_VERSION_FILE_PATH
+  </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from TGRID_APP_VERSION
+        where APP_VERSION_ID = #{appVersionId,jdbcType=VARCHAR}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from TGRID_APP_VERSION
+    where APP_VERSION_ID = #{appVersionId,jdbcType=VARCHAR}
+  </delete>
+    <insert id="insert" parameterType="com.jb4dc.gridsystem.dbentities.setting.AppVersionEntity">
+    insert into TGRID_APP_VERSION (APP_VERSION_ID, APP_VERSION_CODE, APP_VERSION_NAME,
+      APP_VERSION_UPDATE_DESC, APP_VERSION_DESC, APP_VERSION_STATUS,
+      APP_VERSION_UPLOAD_DATE, APP_VERSION_FILE_PATH
+      )
+    values (#{appVersionId,jdbcType=VARCHAR}, #{appVersionCode,jdbcType=VARCHAR}, #{appVersionName,jdbcType=VARCHAR},
+      #{appVersionUpdateDesc,jdbcType=VARCHAR}, #{appVersionDesc,jdbcType=VARCHAR}, #{appVersionStatus,jdbcType=VARCHAR},
+      #{appVersionUploadDate,jdbcType=TIMESTAMP}, #{appVersionFilePath,jdbcType=VARCHAR}
+      )
+  </insert>
+    <insert id="insertSelective" parameterType="com.jb4dc.gridsystem.dbentities.setting.AppVersionEntity">
+        insert into TGRID_APP_VERSION
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="appVersionId != null">
+                APP_VERSION_ID,
+            </if>
+            <if test="appVersionCode != null">
+                APP_VERSION_CODE,
+            </if>
+            <if test="appVersionName != null">
+                APP_VERSION_NAME,
+            </if>
+            <if test="appVersionUpdateDesc != null">
+                APP_VERSION_UPDATE_DESC,
+            </if>
+            <if test="appVersionDesc != null">
+                APP_VERSION_DESC,
+            </if>
+            <if test="appVersionStatus != null">
+                APP_VERSION_STATUS,
+            </if>
+            <if test="appVersionUploadDate != null">
+                APP_VERSION_UPLOAD_DATE,
+            </if>
+            <if test="appVersionFilePath != null">
+                APP_VERSION_FILE_PATH,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="appVersionId != null">
+                #{appVersionId,jdbcType=VARCHAR},
+            </if>
+            <if test="appVersionCode != null">
+                #{appVersionCode,jdbcType=VARCHAR},
+            </if>
+            <if test="appVersionName != null">
+                #{appVersionName,jdbcType=VARCHAR},
+            </if>
+            <if test="appVersionUpdateDesc != null">
+                #{appVersionUpdateDesc,jdbcType=VARCHAR},
+            </if>
+            <if test="appVersionDesc != null">
+                #{appVersionDesc,jdbcType=VARCHAR},
+            </if>
+            <if test="appVersionStatus != null">
+                #{appVersionStatus,jdbcType=VARCHAR},
+            </if>
+            <if test="appVersionUploadDate != null">
+                #{appVersionUploadDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="appVersionFilePath != null">
+                #{appVersionFilePath,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.jb4dc.gridsystem.dbentities.setting.AppVersionEntity">
+        update TGRID_APP_VERSION
+        <set>
+            <if test="appVersionCode != null">
+                APP_VERSION_CODE = #{appVersionCode,jdbcType=VARCHAR},
+            </if>
+            <if test="appVersionName != null">
+                APP_VERSION_NAME = #{appVersionName,jdbcType=VARCHAR},
+            </if>
+            <if test="appVersionUpdateDesc != null">
+                APP_VERSION_UPDATE_DESC = #{appVersionUpdateDesc,jdbcType=VARCHAR},
+            </if>
+            <if test="appVersionDesc != null">
+                APP_VERSION_DESC = #{appVersionDesc,jdbcType=VARCHAR},
+            </if>
+            <if test="appVersionStatus != null">
+                APP_VERSION_STATUS = #{appVersionStatus,jdbcType=VARCHAR},
+            </if>
+            <if test="appVersionUploadDate != null">
+                APP_VERSION_UPLOAD_DATE = #{appVersionUploadDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="appVersionFilePath != null">
+                APP_VERSION_FILE_PATH = #{appVersionFilePath,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where APP_VERSION_ID = #{appVersionId,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.jb4dc.gridsystem.dbentities.setting.AppVersionEntity">
+    update TGRID_APP_VERSION
+    set APP_VERSION_CODE = #{appVersionCode,jdbcType=VARCHAR},
+      APP_VERSION_NAME = #{appVersionName,jdbcType=VARCHAR},
+      APP_VERSION_UPDATE_DESC = #{appVersionUpdateDesc,jdbcType=VARCHAR},
+      APP_VERSION_DESC = #{appVersionDesc,jdbcType=VARCHAR},
+      APP_VERSION_STATUS = #{appVersionStatus,jdbcType=VARCHAR},
+      APP_VERSION_UPLOAD_DATE = #{appVersionUploadDate,jdbcType=TIMESTAMP},
+      APP_VERSION_FILE_PATH = #{appVersionFilePath,jdbcType=VARCHAR}
+    where APP_VERSION_ID = #{appVersionId,jdbcType=VARCHAR}
+  </update>
+</mapper>

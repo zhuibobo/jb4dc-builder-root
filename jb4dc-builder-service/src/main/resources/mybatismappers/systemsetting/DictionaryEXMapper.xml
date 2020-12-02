@@ -46,4 +46,27 @@
         <include refid="Base_Column_List" />
         from TSYS_DICTIONARY where DICT_GROUP_ID=(select DICT_GROUP_ID from TSYS_DICTIONARY_GROUP where DICT_GROUP_VALUE=#{id}) and DICT_STATUS='启用' ORDER by DICT_ORDER_NUM ASC
     </select>
+
+    <select id="selectByGroup3Level" resultMap="BaseResultMap">
+        select * from tsys_dictionary where DICT_GROUP_ID in (
+            select DICT_GROUP_ID
+            from tsys_dictionary_group
+            where DICT_GROUP_PARENT_ID = #{groupId}
+            union
+            select DICT_GROUP_ID
+            from tsys_dictionary_group
+            where DICT_GROUP_PARENT_ID in (select DICT_GROUP_ID
+                                           from tsys_dictionary_group
+                                           where DICT_GROUP_PARENT_ID = #{groupId})
+            union
+            select DICT_GROUP_ID
+            from tsys_dictionary_group
+            where DICT_GROUP_PARENT_ID in (select DICT_GROUP_ID
+                                           from tsys_dictionary_group
+                                           where DICT_GROUP_PARENT_ID in (select DICT_GROUP_ID
+                                                                          from tsys_dictionary_group
+                                                                          where DICT_GROUP_PARENT_ID = #{groupId}))
+        ) order by DICT_ORDER_NUM asc
+
+    </select>
 </mapper>

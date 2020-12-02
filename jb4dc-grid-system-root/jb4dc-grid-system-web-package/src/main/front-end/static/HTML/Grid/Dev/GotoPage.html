@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <th:block th:replace="Fragment/GeneralLib::GeneralLib"></th:block>
+    <th:block th:replace="Fragment/GeneralLib::ThemesLib"></th:block>
+    <th:block th:replace="Fragment/GeneralLib::ZTreeExtendLib"></th:block>
+    <style>
+
+    </style>
+    <script>
+        function gotoBHREAppClientPage(){
+            AjaxUtility.Post("/Rest/Grid/User/Login/LoginByPassword",{
+                accountName:"chenyy",
+                password:"j4d123456",
+                terminalToken:"11111111111111111111"
+            },function (result){
+                if(result.success){
+                    var data=result.data;
+                    var url=window.location.origin+"/GridSystem/HTML/GridAppClient/GatherBuildHousePersonMainPage.html?UserId="+data.userId+"&UserName="+data.userName+"&OrganId="+data.organId+"&OrganName="+data.organName+"&AppClientToken="+data.appClientToken;
+                    window.open(url);
+                }
+                console.log(result);
+                //console.log(window);
+
+            },this)
+        }
+    </script>
+</head>
+<body>
+    <div>
+        <input type="button" value="进入app采集模拟页面" onclick="gotoBHREAppClientPage()" />
+    </div>
+</body>
+</html>

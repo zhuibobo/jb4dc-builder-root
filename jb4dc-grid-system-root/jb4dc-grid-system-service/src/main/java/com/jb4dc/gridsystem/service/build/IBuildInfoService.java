@@ -1,6 +1,7 @@
 package com.jb4dc.gridsystem.service.build;
 
 import com.jb4dc.base.service.IBaseService;
+import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
 import com.jb4dc.core.base.session.JB4DCSession;
 import com.jb4dc.gridsystem.dbentities.build.BuildInfoEntity;
 import com.jb4dc.gridsystem.dbentities.build.HouseInfoEntity;
@@ -18,4 +19,8 @@ public interface IBuildInfoService extends IBaseService<BuildInfoEntity> {
     List<BuildInfoEntity> getMyBuild(JB4DCSession session, String userId, String organId, String includeGrid);
 
     List<BuildInfoEntity> getByBuildCode(String buildCode);
+
+    void codeAdd1(String buildId) throws JBuild4DCGenerallyException;
+
+    void codeSub1(String buildId) throws JBuild4DCGenerallyException;
 }

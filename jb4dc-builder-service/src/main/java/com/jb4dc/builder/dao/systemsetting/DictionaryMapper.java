@@ -20,4 +20,6 @@ public interface DictionaryMapper extends BaseMapper<DictionaryEntity> {
     List<DictionaryEntity> selectByGroupValue(String groupValue);
 
     List<DictionaryEntity> selectEnableListByGroupValue(String groupValue);
+
+    List<DictionaryEntity> selectByGroup3Level(@Param("groupId") String groupId);
 }

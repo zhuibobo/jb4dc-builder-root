@@ -19,6 +19,8 @@
                 <div alt="新增特殊建筑物" title="新增特殊建筑物" class="add2" @click="addBuild('特殊建筑物')"></div>
                 <div alt="修改楼栋" title="修改楼栋" class="edit" @click="editBuild"></div>
                 <div alt="删除楼栋" title="删除楼栋" class="del" @click="deleteBuild"></div>
+                <div alt="编号+1" title="编号+1" class="add3" @click="codeAdd1"></div>
+                <div alt="编号-1" title="编号-1" class="remove3" @click="codeSub1"></div>
                 <div alt="浏览楼栋" title="浏览楼栋" class="view last" @click="viewBuild"></div>
             </div>
             <div>
@@ -125,6 +127,8 @@
                 editNormalBuildFormId:"ea18a1c7-7c47-4a94-a057-660f83088205",
                 editSpecialBuildFormId:"fd770a12-5412-4a80-8ebf-de5f85d6359f",
                 deleteBuild:"/Rest/Grid/Build/BuildMain/Delete",
+                codeAdd1:"/Rest/Grid/Build/BuildMain/CodeAdd1",
+                codeSub1:"/Rest/Grid/Build/BuildMain/CodeSub1",
                 <!--House-->
                 getHouseByBuildId: "/Rest/Grid/Build/HouseInfo/GetHouseByBuildId",
                 editHouseView:"/HTML/Builder/Runtime/WebFormIndependenceRuntime.html",
@@ -205,51 +209,37 @@
                     }, {
                         title: '操作',
                         key: 'houseId',
-                        width: 110,
+                        width: 120,
                         align: "center",
                         render: function (h, params) {
                             var buttons=[];
 
-                            buttons.push(h('Tooltip', {
-                                props: {
-                                    content: "查看"
-                                }
-                            }, [h('div', {
+                            buttons.push(h('div', {
                                 class: "list-row-button view",
                                 on: {
                                     click: function click() {
                                         gridManager.viewHouse(params);
                                     }
                                 }
-                            })]));
+                            }));
 
-                            buttons.push(
-                                h('Tooltip', {
-                                    props: {
-                                        content: "修改"
-                                    }
-                                }, [h('div', {
+                            buttons.push(h('div', {
                                     class: "list-row-button edit",
                                     on: {
                                         click: function click() {
                                             gridManager.editHouse(params);
                                         }
                                     }
-                                })]),
-                            );
+                            }));
 
-                            buttons.push(h('Tooltip', {
-                                props: {
-                                    content: "删除"
-                                }
-                            }, [h('div', {
+                            buttons.push(h('div', {
                                 class: "list-row-button del",
                                 on: {
                                     click: function click() {
                                         gridManager.delHouse(params);
                                     }
                                 }
-                            })]));
+                            }));
 
                             var eh=h('div', {class: "list-row-button-wrap"},buttons);
                             return eh;
@@ -515,7 +505,8 @@
             deleteBuild:function(){
                 var selectedBuild=this.buildTree.treeSelectedNode;
                 if(selectedBuild==null){
-                    DialogUtility.AlertText("请先选择要编辑的建筑物!")
+                    DialogUtility.AlertText("请先选择要编辑的建筑物!");
+                    return;
                 }
                 DialogUtility.Confirm(window,"你确认要删除该建筑物信息吗?",function () {
                     AjaxUtility.Delete(this.acInterface.deleteBuild, {recordId: selectedBuild.buildId}, function (result) {
@@ -540,6 +531,44 @@
                 }
                 var formPara=this.getFormPara(formId,BaseUtility.GetViewOperationName(),selectedBuild.buildId,"","reInitBuildTree");
                 DialogUtility.Frame_OpenIframeWindow(window,DialogUtility.DialogId,BaseUtility.BuildView(this.acInterface.editBuildView,formPara),this.getFormDialogPara("查看建筑物信息"),1,true);
+            },
+            codeAdd1:function(){
+                var selectedBuild=this.buildTree.treeSelectedNode;
+                if(selectedBuild==null){
+                    DialogUtility.AlertText("请先选择要编辑的建筑物!")
+                    return;
+                }
+                DialogUtility.Confirm(window,"你确认要将该建筑物的编号+1吗?",function () {
+                    AjaxUtility.Post(this.acInterface.codeAdd1, {buildId: selectedBuild.buildId}, function (result) {
+                        if (result.success) {
+                            DialogUtility.Alert(window, DialogUtility.DialogAlertId, {}, result.message, function () {
+                                gridManager.initTree(gridManager.buildTree.isShowGridBuild);
+                                this.buildTree.treeSelectedNode=null;
+                                this.house.selectedHouse=null;
+                                this.house.tableData=[];
+                            },this);
+                        }
+                    },this);
+                },this);
+            },
+            codeSub1:function (){
+                var selectedBuild=this.buildTree.treeSelectedNode;
+                if(selectedBuild==null){
+                    DialogUtility.AlertText("请先选择要编辑的建筑物!")
+                    return;
+                }
+                DialogUtility.Confirm(window,"你确认要将该建筑物的编号-1吗?",function () {
+                    AjaxUtility.Post(this.acInterface.codeSub1, {buildId: selectedBuild.buildId}, function (result) {
+                        if (result.success) {
+                            DialogUtility.Alert(window, DialogUtility.DialogAlertId, {}, result.message, function () {
+                                gridManager.initTree(gridManager.buildTree.isShowGridBuild);
+                                this.buildTree.treeSelectedNode=null;
+                                this.house.selectedHouse=null;
+                                this.house.tableData=[];
+                            },this);
+                        }
+                    },this);
+                },this);
             },
             //endregion
             //region 房屋

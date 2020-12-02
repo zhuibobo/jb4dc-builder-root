@@ -332,6 +332,7 @@ public class TableGroupServiceImpl extends BaseServiceImpl<TableGroupEntity> imp
         TableGroupEntity gridBaseGroupEnt=this.deleteAndSaveGroup(jb4DCSession,"TABLE_GROUP_GRID_SYSTEM_GRID_BASE_GROUP_ID","网格信息相关表",IDbLinkService.JBUILD4DC_GRID_DB_LINK_ID);
         tableService.registerSystemTableToBuilderToModule(jb4DCSession,"TGRID_GRID_INFO",gridBaseGroupEnt);
         tableService.registerSystemTableToBuilderToModule(jb4DCSession,"TGRID_GATHER_TERMINAL_INFO",gridBaseGroupEnt);
+        tableService.registerSystemTableToBuilderToModule(jb4DCSession,"TGRID_APP_VERSION",gridBaseGroupEnt);
 
         //建筑物相关信息
         TableGroupEntity buildGroupEnt=this.deleteAndSaveGroup(jb4DCSession,"TABLE_GROUP_GRID_SYSTEM_BUILD_GROUP_ID","房楼相关表",IDbLinkService.JBUILD4DC_GRID_DB_LINK_ID);

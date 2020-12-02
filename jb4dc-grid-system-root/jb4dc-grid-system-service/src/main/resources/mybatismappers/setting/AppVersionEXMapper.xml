@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jb4dc.gridsystem.dao.setting.AppVersionMapper">
+    <select id="selectAll" resultMap="BaseResultMap">select<include refid="Base_Column_List"/> from TGRID_APP_VERSION ORDER by APP_VERSION_UPDATE_DESC DESC</select>
+    <select id="selectAllASC" resultMap="BaseResultMap">select<include refid="Base_Column_List"/> from TGRID_APP_VERSION ORDER by APP_VERSION_UPDATE_DESC ASC</select>
+    <delete id="deleteAll">delete from TGRID_APP_VERSION</delete>
+    <select id="nextOrderNum" resultType="integer">select case when max() is null then 1 else max()+1 end ORDERNUM from TGRID_APP_VERSION</select>
+    <select id="selectBySearch" parameterType="java.util.Map" resultMap="BaseResultMap">select<include refid="Base_Column_List"/>from TGRID_APP_VERSION<where>
+        <if test="appVersionCode !=null and appVersionCode !=''"> and APP_VERSION_CODE like #{appVersionCode} </if>
+        <if test="appVersionName !=null and appVersionName !=''"> and APP_VERSION_NAME like #{appVersionName} </if>
+        <if test="appVersionUpdateDesc !=null and appVersionUpdateDesc !=''"> and APP_VERSION_UPDATE_DESC like #{appVersionUpdateDesc} </if>
+        <if test="appVersionDesc !=null and appVersionDesc !=''"> and APP_VERSION_DESC like #{appVersionDesc} </if>
+        <if test="appVersionStatus !=null and appVersionStatus !=''"> and APP_VERSION_STATUS like #{appVersionStatus} </if>
+        <if test="appVersionFilePath !=null and appVersionFilePath !=''"> and APP_VERSION_FILE_PATH like #{appVersionFilePath} </if>
+    </where>ORDER by  DESC</select>
+    <select id="selectLessThanRecord" parameterType="java.lang.String" resultMap="BaseResultMap"><![CDATA[select * from TGRID_APP_VERSION
+ where  = (select max() from TGRID_APP_VERSION where <(select  from TGRID_APP_VERSION where APP_VERSION_ID=#{Id,jdbcType=NVARCHAR}))]]></select>
+    <select id="selectGreaterThanRecord" parameterType="java.lang.String" resultMap="BaseResultMap"><![CDATA[select * from TGRID_APP_VERSION
+ where  = (select min() from TGRID_APP_VERSION where >(select  from TGRID_APP_VERSION where APP_VERSION_ID=#{Id,jdbcType=NVARCHAR}))]]></select>
+
+    <select id="selectByLastPublicVersion" resultMap="BaseResultMap">
+        select<include refid="Base_Column_List"/> from TGRID_APP_VERSION where APP_VERSION_NAME=#{appName} and APP_VERSION_STATUS='已发布' ORDER by APP_VERSION_CODE DESC limit 1
+    </select>
+
+    <select id="selectByLastPrePublicVersion" resultMap="BaseResultMap">
+        select<include refid="Base_Column_List"/> from TGRID_APP_VERSION where APP_VERSION_NAME=#{appName} and APP_VERSION_STATUS='预发布' ORDER by APP_VERSION_CODE DESC limit 1
+    </select>
+</mapper>

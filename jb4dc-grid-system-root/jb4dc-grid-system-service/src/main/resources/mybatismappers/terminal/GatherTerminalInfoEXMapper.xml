@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jb4dc.gridsystem.dao.terminal.GatherTerminalInfoMapper">
+    <select id="selectAll" resultMap="BaseResultMap">select<include refid="Base_Column_List"/> from TGRID_GATHER_TERMINAL_INFO ORDER by TERMINAL_ORDER_NUM DESC</select>
+    <select id="selectAllASC" resultMap="BaseResultMap">select<include refid="Base_Column_List"/> from TGRID_GATHER_TERMINAL_INFO ORDER by TERMINAL_ORDER_NUM ASC</select>
+    <delete id="deleteAll">delete from TGRID_GATHER_TERMINAL_INFO</delete>
+    <select id="nextOrderNum" resultType="integer">select case when max(TERMINAL_ORDER_NUM) is null then 1 else max(TERMINAL_ORDER_NUM)+1 end ORDERNUM from TGRID_GATHER_TERMINAL_INFO</select>
+    <select id="selectBySearch" parameterType="java.util.Map" resultMap="BaseResultMap">select<include refid="Base_Column_List"/>from TGRID_GATHER_TERMINAL_INFO<where>
+        <if test="terminalUserName !=null and terminalUserName !=''"> and TERMINAL_USER_NAME like #{terminalUserName} </if>
+        <if test="terminalUserId !=null and terminalUserId !=''"> and TERMINAL_USER_ID like #{terminalUserId} </if>
+        <if test="terminalStatus !=null and terminalStatus !=''"> and TERMINAL_STATUS like #{terminalStatus} </if>
+        <if test="terminalCode !=null and terminalCode !=''"> and TERMINAL_CODE like #{terminalCode} </if>
+        <if test="terminalDesc !=null and terminalDesc !=''"> and TERMINAL_DESC like #{terminalDesc} </if>
+        <if test="terminalRemark !=null and terminalRemark !=''"> and TERMINAL_REMARK like #{terminalRemark} </if>
+        <if test="terminalManageUnitName !=null and terminalManageUnitName !=''"> and TERMINAL_MANAGE_UNIT_NAME like #{terminalManageUnitName} </if>
+        <if test="terminalManageUnitId !=null and terminalManageUnitId !=''"> and TERMINAL_MANAGE_UNIT_ID like #{terminalManageUnitId} </if>
+        <if test="terminalManageUserName !=null and terminalManageUserName !=''"> and TERMINAL_MANAGE_USER_NAME like #{terminalManageUserName} </if>
+        <if test="terminalManageUserId !=null and terminalManageUserId !=''"> and TERMINAL_MANAGE_USER_ID like #{terminalManageUserId} </if>
+    </where>ORDER by TERMINAL_ORDER_NUM DESC</select>
+    <select id="selectLessThanRecord" parameterType="java.lang.String" resultMap="BaseResultMap"><![CDATA[select * from TGRID_GATHER_TERMINAL_INFO
+ where TERMINAL_ORDER_NUM = (select max(TERMINAL_ORDER_NUM) from TGRID_GATHER_TERMINAL_INFO where TERMINAL_ORDER_NUM<(select TERMINAL_ORDER_NUM from TGRID_GATHER_TERMINAL_INFO where TERMINAL_ID=#{Id,jdbcType=NVARCHAR}))]]></select>
+    <select id="selectGreaterThanRecord" parameterType="java.lang.String" resultMap="BaseResultMap"><![CDATA[select * from TGRID_GATHER_TERMINAL_INFO
+ where TERMINAL_ORDER_NUM = (select min(TERMINAL_ORDER_NUM) from TGRID_GATHER_TERMINAL_INFO where TERMINAL_ORDER_NUM>(select TERMINAL_ORDER_NUM from TGRID_GATHER_TERMINAL_INFO where TERMINAL_ID=#{Id,jdbcType=NVARCHAR}))]]></select>
+
+    <select id="selectByCode" resultMap="BaseResultMap">
+        select<include refid="Base_Column_List"/> from TGRID_GATHER_TERMINAL_INFO where TERMINAL_CODE=#{code}
+    </select>
+</mapper>

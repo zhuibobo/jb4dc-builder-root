@@ -49,6 +49,7 @@ public class SsoFilter {
         registration.setOrder(1);
         registration.addUrlPatterns("/*");
         SsoWebFilter filter = new SsoWebFilter();
+        filter.setSsoWebFilterLocationPreCheck(new AppClientWebFilterLocationPreCheck(null));
         filter.setCheckSessionSuccess(new ICheckSessionSuccess() {
             @Override
             public void run(ServletRequest request, ServletResponse response, FilterChain chain, JB4DCSession jb4DSession) {
