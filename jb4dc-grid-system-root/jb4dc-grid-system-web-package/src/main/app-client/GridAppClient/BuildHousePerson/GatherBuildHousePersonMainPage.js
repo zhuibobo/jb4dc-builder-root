@@ -5,7 +5,7 @@ import Toasted from 'vue-toasted';
 
 import gatherBHPEDataMainRoot from '../VueComponent/gather-bhpe-data-main-root.vue'
 import gatherHouseInnerAboutList from '../VueComponent/gather-house-inner-about-list.vue'
-import VueConfirmDialog from 'vue-confirm-dialog'
+import VueConfirmDialog from '../VueComponent/vue-confirm-dialog/index'
 
 Vue.use(Toasted)
 Vue.component('gatherBHPEDataMainRoot', gatherBHPEDataMainRoot);

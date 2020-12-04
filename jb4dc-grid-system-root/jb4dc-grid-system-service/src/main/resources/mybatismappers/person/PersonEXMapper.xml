@@ -7,7 +7,10 @@
     <select id="nextOrderNum" resultType="integer">select case when max(PERSON_ORDER_NUM) is null then 1 else max(PERSON_ORDER_NUM)+1 end ORDERNUM from TGRID_PERSON</select>
     <select id="selectBySearch" parameterType="java.util.Map" resultMap="BaseResultMap">select<include refid="Base_Column_List"/>from TGRID_PERSON<where>
         <if test="personFamilyId !=null and personFamilyId !=''"> and PERSON_FAMILY_ID like #{personFamilyId} </if>
+        <if test="personHeadHouseholdName !=null and personHeadHouseholdName !=''"> and PERSON_HEAD_HOUSEHOLD_NAME like #{personHeadHouseholdName} </if>
+        <if test="personHeadHouseholdId !=null and personHeadHouseholdId !=''"> and PERSON_HEAD_HOUSEHOLD_ID like #{personHeadHouseholdId} </if>
         <if test="personHouseId !=null and personHouseId !=''"> and PERSON_HOUSE_ID like #{personHouseId} </if>
+        <if test="personHouseCodeFull !=null and personHouseCodeFull !=''"> and PERSON_HOUSE_CODE_FULL like #{personHouseCodeFull} </if>
         <if test="personName !=null and personName !=''"> and PERSON_NAME like #{personName} </if>
         <if test="personRelationship !=null and personRelationship !=''"> and PERSON_RELATIONSHIP like #{personRelationship} </if>
         <if test="personIdCard !=null and personIdCard !=''"> and PERSON_ID_CARD like #{personIdCard} </if>
@@ -18,7 +21,6 @@
         <if test="personHrLeaveFor !=null and personHrLeaveFor !=''"> and PERSON_HR_LEAVE_FOR like #{personHrLeaveFor} </if>
         <if test="personEducation !=null and personEducation !=''"> and PERSON_EDUCATION like #{personEducation} </if>
         <if test="personSpType !=null and personSpType !=''"> and PERSON_SP_TYPE like #{personSpType} </if>
-        <if test="personPhoneId !=null and personPhoneId !=''"> and PERSON_PHONE_ID like #{personPhoneId} </if>
         <if test="personPhone !=null and personPhone !=''"> and PERSON_PHONE like #{personPhone} </if>
         <if test="personInputUnitName !=null and personInputUnitName !=''"> and PERSON_INPUT_UNIT_NAME like #{personInputUnitName} </if>
         <if test="personInputUnitId !=null and personInputUnitId !=''"> and PERSON_INPUT_UNIT_ID like #{personInputUnitId} </if>
@@ -35,6 +37,11 @@
         <if test="personForeCertificateType !=null and personForeCertificateType !=''"> and PERSON_FORE_CERTIFICATE_TYPE like #{personForeCertificateType} </if>
         <if test="personForeCertificateNum !=null and personForeCertificateNum !=''"> and PERSON_FORE_CERTIFICATE_NUM like #{personForeCertificateNum} </if>
         <if test="personRemark !=null and personRemark !=''"> and PERSON_REMARK like #{personRemark} </if>
+        <if test="personPhotoId !=null and personPhotoId !=''"> and PERSON_PHOTO_ID like #{personPhotoId} </if>
+        <if test="personIdCardUuid !=null and personIdCardUuid !=''"> and PERSON_ID_CARD_UUID like #{personIdCardUuid} </if>
+        <if test="personIdCardPublicForm !=null and personIdCardPublicForm !=''"> and PERSON_ID_CARD_PUBLIC_FORM like #{personIdCardPublicForm} </if>
+        <if test="personIdCardEffDate !=null and personIdCardEffDate !=''"> and PERSON_ID_CARD_EFF_DATE like #{personIdCardEffDate} </if>
+        <if test="personIdCardAddress !=null and personIdCardAddress !=''"> and PERSON_ID_CARD_ADDRESS like #{personIdCardAddress} </if>
     </where>ORDER by PERSON_ORDER_NUM DESC</select>
     <select id="selectLessThanRecord" parameterType="java.lang.String" resultMap="BaseResultMap"><![CDATA[select * from TGRID_PERSON
  where PERSON_ORDER_NUM = (select max(PERSON_ORDER_NUM) from TGRID_PERSON where PERSON_ORDER_NUM<(select PERSON_ORDER_NUM from TGRID_PERSON where PERSON_ID=#{Id,jdbcType=NVARCHAR}))]]></select>

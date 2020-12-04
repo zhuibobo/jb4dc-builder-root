@@ -42,13 +42,13 @@
             <div class="text">{{singleHouseData.houseNumName}}</div>
           </div>
           <div class="button-wrap">
-            <div class="edit" @click="editHouse(singleHouseData.houseId)"></div>
-            <div class="list" @click="aboutHouseList(singleHouseData.houseId)" data-toggle="modal" data-target="#loadHouseInnerAboutWrapDialog"></div>
+            <div class="edit" @click="editHouse(singleHouseData)"></div>
+            <div class="list" @click="beginEditHouseInner(singleHouseData)" data-toggle="modal" data-target="#loadHouseInnerAboutWrapDialog"></div>
           </div>
         </div>
       </div>
     </div>
-    <gatherHouseInnerAboutList></gatherHouseInnerAboutList>
+    <gatherHouseInnerAboutList :selected-house="house.selectedHouse"></gatherHouseInnerAboutList>
   </div>
 </template>
 
@@ -86,7 +86,8 @@ export default {
       house:{
         searchText:"",
         allHouse:[],
-        filterHouses:[]
+        filterHouses:[],
+        selectedHouse:null
       }
     }
   },
@@ -111,6 +112,7 @@ export default {
           this.build.filterBuilds=this.build.allBuilds.filter((item)=>{return true});
 
           appClientUtility.AutoBindInitDD(response.data.exKVData.dictionaryEntities);
+          appClientUtility.ConvertDDListToMap(response.data.exKVData.dictionaryEntities);
         }
       }).catch(function (error) {
         console.log(error);
@@ -177,11 +179,12 @@ export default {
         })
       }
     },
-    editHouse:function (houseId){
+    editHouse:function (singleHouseData){
       this.$toasted.show('开发中.',{duration:2000});
     },
-    aboutHouseList:function (houseId){
-      //alert("列表"+houseId);
+    beginEditHouseInner:function (singleHouseData){
+      this.house.selectedHouse=singleHouseData;
+      console.log(this.house.selectedHouse);
     }
     //endregion
     //人口1

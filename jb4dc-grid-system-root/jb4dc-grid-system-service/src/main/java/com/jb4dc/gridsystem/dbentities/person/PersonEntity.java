@@ -19,6 +19,12 @@ public class PersonEntity {
     //PERSON_FAMILY_ID:家庭ID
     private String personFamilyId;
 
+    //PERSON_HEAD_HOUSEHOLD_NAME:户主姓名
+    private String personHeadHouseholdName;
+
+    //PERSON_HEAD_HOUSEHOLD_ID:户主ID
+    private String personHeadHouseholdId;
+
     //PERSON_HOUSE_ID:房屋ID
     private String personHouseId;
 
@@ -54,9 +60,6 @@ public class PersonEntity {
 
     //PERSON_SP_TYPE:特殊群体
     private String personSpType;
-
-    //PERSON_PHONE_ID:照片ID
-    private String personPhoneId;
 
     //PERSON_PHONE:联系电话
     private String personPhone;
@@ -113,16 +116,31 @@ public class PersonEntity {
     //PERSON_ORDER_NUM:排序号
     private Integer personOrderNum;
 
-    //PERSON_HEAD_HOUSEHOLD_NAME:户主姓名
-    private String personHeadHouseholdName;
+    //PERSON_PHOTO_ID:照片ID
+    private String personPhotoId;
 
-    //PERSON_HEAD_HOUSEHOLD_ID:户主ID
-    private String personHeadHouseholdId;
+    //PERSON_ID_CARD_UUID:身份证UUID
+    private String personIdCardUuid;
+
+    //PERSON_ID_CARD_PUBLIC_FORM:身份证签发机关
+    private String personIdCardPublicForm;
+
+    //PERSON_ID_CARD_EFF_DATE:身份证有效日期
+    private String personIdCardEffDate;
+
+    //PERSON_ID_CARD_ADDRESS:居住地址
+    private String personIdCardAddress;
+
+    //PERSON_BIRTHDAY:出生日期
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
+    private Date personBirthday;
 
     /**
      * 构造函数
      * @param personId
      * @param personFamilyId 家庭ID
+     * @param personHeadHouseholdName 户主姓名
+     * @param personHeadHouseholdId 户主ID
      * @param personHouseId 房屋ID
      * @param personHouseCodeFull 房屋编号
      * @param personName 姓名
@@ -135,7 +153,6 @@ public class PersonEntity {
      * @param personHrLeaveFor 离开户口登记地原因
      * @param personEducation 受教育程度
      * @param personSpType 特殊群体
-     * @param personPhoneId 照片ID
      * @param personPhone 联系电话
      * @param personInputUnitName 填报单位
      * @param personInputUnitId 填报单位
@@ -154,12 +171,18 @@ public class PersonEntity {
      * @param personForeCertificateNum 证件号码
      * @param personRemark 备注
      * @param personOrderNum 排序号
-     * @param personHeadHouseholdName 户主姓名
-     * @param personHeadHouseholdId 户主ID
+     * @param personPhotoId 照片ID
+     * @param personIdCardUuid 身份证UUID
+     * @param personIdCardPublicForm 身份证签发机关
+     * @param personIdCardEffDate 身份证有效日期
+     * @param personIdCardAddress 居住地址
+     * @param personBirthday 出生日期
      **/
-    public PersonEntity(String personId, String personFamilyId, String personHouseId, String personHouseCodeFull, String personName, String personRelationship, String personIdCard, String personSex, String personNation, String personHrLocation, String personHrLeave, String personHrLeaveFor, String personEducation, String personSpType, String personPhoneId, String personPhone, String personInputUnitName, String personInputUnitId, Date personInputDate, String personInputUserName, String personInputUserId, String personCityId, String personAreaId, String personStreetId, String personCommunityId, String personGridId, String personCategory, String personForeEnName, String personForeNationality, String personForeCertificateType, String personForeCertificateNum, String personRemark, Integer personOrderNum, String personHeadHouseholdName, String personHeadHouseholdId) {
+    public PersonEntity(String personId, String personFamilyId, String personHeadHouseholdName, String personHeadHouseholdId, String personHouseId, String personHouseCodeFull, String personName, String personRelationship, String personIdCard, String personSex, String personNation, String personHrLocation, String personHrLeave, String personHrLeaveFor, String personEducation, String personSpType, String personPhone, String personInputUnitName, String personInputUnitId, Date personInputDate, String personInputUserName, String personInputUserId, String personCityId, String personAreaId, String personStreetId, String personCommunityId, String personGridId, String personCategory, String personForeEnName, String personForeNationality, String personForeCertificateType, String personForeCertificateNum, String personRemark, Integer personOrderNum, String personPhotoId, String personIdCardUuid, String personIdCardPublicForm, String personIdCardEffDate, String personIdCardAddress, Date personBirthday) {
         this.personId = personId;
         this.personFamilyId = personFamilyId;
+        this.personHeadHouseholdName = personHeadHouseholdName;
+        this.personHeadHouseholdId = personHeadHouseholdId;
         this.personHouseId = personHouseId;
         this.personHouseCodeFull = personHouseCodeFull;
         this.personName = personName;
@@ -172,7 +195,6 @@ public class PersonEntity {
         this.personHrLeaveFor = personHrLeaveFor;
         this.personEducation = personEducation;
         this.personSpType = personSpType;
-        this.personPhoneId = personPhoneId;
         this.personPhone = personPhone;
         this.personInputUnitName = personInputUnitName;
         this.personInputUnitId = personInputUnitId;
@@ -191,8 +213,12 @@ public class PersonEntity {
         this.personForeCertificateNum = personForeCertificateNum;
         this.personRemark = personRemark;
         this.personOrderNum = personOrderNum;
-        this.personHeadHouseholdName = personHeadHouseholdName;
-        this.personHeadHouseholdId = personHeadHouseholdId;
+        this.personPhotoId = personPhotoId;
+        this.personIdCardUuid = personIdCardUuid;
+        this.personIdCardPublicForm = personIdCardPublicForm;
+        this.personIdCardEffDate = personIdCardEffDate;
+        this.personIdCardAddress = personIdCardAddress;
+        this.personBirthday = personBirthday;
     }
 
     public PersonEntity() {
@@ -229,6 +255,38 @@ public class PersonEntity {
      **/
     public void setPersonFamilyId(String personFamilyId) {
         this.personFamilyId = personFamilyId == null ? null : personFamilyId.trim();
+    }
+
+    /**
+     * 户主姓名
+     * @return java.lang.String
+     **/
+    public String getPersonHeadHouseholdName() {
+        return personHeadHouseholdName;
+    }
+
+    /**
+     * 户主姓名
+     * @param personHeadHouseholdName 户主姓名
+     **/
+    public void setPersonHeadHouseholdName(String personHeadHouseholdName) {
+        this.personHeadHouseholdName = personHeadHouseholdName == null ? null : personHeadHouseholdName.trim();
+    }
+
+    /**
+     * 户主ID
+     * @return java.lang.String
+     **/
+    public String getPersonHeadHouseholdId() {
+        return personHeadHouseholdId;
+    }
+
+    /**
+     * 户主ID
+     * @param personHeadHouseholdId 户主ID
+     **/
+    public void setPersonHeadHouseholdId(String personHeadHouseholdId) {
+        this.personHeadHouseholdId = personHeadHouseholdId == null ? null : personHeadHouseholdId.trim();
     }
 
     /**
@@ -421,22 +479,6 @@ public class PersonEntity {
      **/
     public void setPersonSpType(String personSpType) {
         this.personSpType = personSpType == null ? null : personSpType.trim();
-    }
-
-    /**
-     * 照片ID
-     * @return java.lang.String
-     **/
-    public String getPersonPhoneId() {
-        return personPhoneId;
-    }
-
-    /**
-     * 照片ID
-     * @param personPhoneId 照片ID
-     **/
-    public void setPersonPhoneId(String personPhoneId) {
-        this.personPhoneId = personPhoneId == null ? null : personPhoneId.trim();
     }
 
     /**
@@ -728,34 +770,98 @@ public class PersonEntity {
     }
 
     /**
-     * 户主姓名
+     * 照片ID
      * @return java.lang.String
      **/
-    public String getPersonHeadHouseholdName() {
-        return personHeadHouseholdName;
+    public String getPersonPhotoId() {
+        return personPhotoId;
     }
 
     /**
-     * 户主姓名
-     * @param personHeadHouseholdName 户主姓名
+     * 照片ID
+     * @param personPhotoId 照片ID
      **/
-    public void setPersonHeadHouseholdName(String personHeadHouseholdName) {
-        this.personHeadHouseholdName = personHeadHouseholdName == null ? null : personHeadHouseholdName.trim();
+    public void setPersonPhotoId(String personPhotoId) {
+        this.personPhotoId = personPhotoId == null ? null : personPhotoId.trim();
     }
 
     /**
-     * 户主ID
+     * 身份证UUID
      * @return java.lang.String
      **/
-    public String getPersonHeadHouseholdId() {
-        return personHeadHouseholdId;
+    public String getPersonIdCardUuid() {
+        return personIdCardUuid;
     }
 
     /**
-     * 户主ID
-     * @param personHeadHouseholdId 户主ID
+     * 身份证UUID
+     * @param personIdCardUuid 身份证UUID
      **/
-    public void setPersonHeadHouseholdId(String personHeadHouseholdId) {
-        this.personHeadHouseholdId = personHeadHouseholdId == null ? null : personHeadHouseholdId.trim();
+    public void setPersonIdCardUuid(String personIdCardUuid) {
+        this.personIdCardUuid = personIdCardUuid == null ? null : personIdCardUuid.trim();
+    }
+
+    /**
+     * 身份证签发机关
+     * @return java.lang.String
+     **/
+    public String getPersonIdCardPublicForm() {
+        return personIdCardPublicForm;
+    }
+
+    /**
+     * 身份证签发机关
+     * @param personIdCardPublicForm 身份证签发机关
+     **/
+    public void setPersonIdCardPublicForm(String personIdCardPublicForm) {
+        this.personIdCardPublicForm = personIdCardPublicForm == null ? null : personIdCardPublicForm.trim();
+    }
+
+    /**
+     * 身份证有效日期
+     * @return java.lang.String
+     **/
+    public String getPersonIdCardEffDate() {
+        return personIdCardEffDate;
+    }
+
+    /**
+     * 身份证有效日期
+     * @param personIdCardEffDate 身份证有效日期
+     **/
+    public void setPersonIdCardEffDate(String personIdCardEffDate) {
+        this.personIdCardEffDate = personIdCardEffDate == null ? null : personIdCardEffDate.trim();
+    }
+
+    /**
+     * 居住地址
+     * @return java.lang.String
+     **/
+    public String getPersonIdCardAddress() {
+        return personIdCardAddress;
+    }
+
+    /**
+     * 居住地址
+     * @param personIdCardAddress 居住地址
+     **/
+    public void setPersonIdCardAddress(String personIdCardAddress) {
+        this.personIdCardAddress = personIdCardAddress == null ? null : personIdCardAddress.trim();
+    }
+
+    /**
+     * 出生日期
+     * @return java.util.Date
+     **/
+    public Date getPersonBirthday() {
+        return personBirthday;
+    }
+
+    /**
+     * 出生日期
+     * @param personBirthday 出生日期
+     **/
+    public void setPersonBirthday(Date personBirthday) {
+        this.personBirthday = personBirthday;
     }
 }

@@ -5,6 +5,8 @@
         <constructor>
             <idArg column="PERSON_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
             <arg column="PERSON_FAMILY_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="PERSON_HEAD_HOUSEHOLD_NAME" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="PERSON_HEAD_HOUSEHOLD_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
             <arg column="PERSON_HOUSE_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
             <arg column="PERSON_HOUSE_CODE_FULL" javaType="java.lang.String" jdbcType="VARCHAR" />
             <arg column="PERSON_NAME" javaType="java.lang.String" jdbcType="VARCHAR" />
@@ -17,7 +19,6 @@
             <arg column="PERSON_HR_LEAVE_FOR" javaType="java.lang.String" jdbcType="VARCHAR" />
             <arg column="PERSON_EDUCATION" javaType="java.lang.String" jdbcType="VARCHAR" />
             <arg column="PERSON_SP_TYPE" javaType="java.lang.String" jdbcType="VARCHAR" />
-            <arg column="PERSON_PHONE_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
             <arg column="PERSON_PHONE" javaType="java.lang.String" jdbcType="VARCHAR" />
             <arg column="PERSON_INPUT_UNIT_NAME" javaType="java.lang.String" jdbcType="VARCHAR" />
             <arg column="PERSON_INPUT_UNIT_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
@@ -36,19 +37,24 @@
             <arg column="PERSON_FORE_CERTIFICATE_NUM" javaType="java.lang.String" jdbcType="VARCHAR" />
             <arg column="PERSON_REMARK" javaType="java.lang.String" jdbcType="VARCHAR" />
             <arg column="PERSON_ORDER_NUM" javaType="java.lang.Integer" jdbcType="INTEGER" />
-            <arg column="PERSON_HEAD_HOUSEHOLD_NAME" javaType="java.lang.String" jdbcType="VARCHAR" />
-            <arg column="PERSON_HEAD_HOUSEHOLD_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="PERSON_PHOTO_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="PERSON_ID_CARD_UUID" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="PERSON_ID_CARD_PUBLIC_FORM" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="PERSON_ID_CARD_EFF_DATE" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="PERSON_ID_CARD_ADDRESS" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="PERSON_BIRTHDAY" javaType="java.util.Date" jdbcType="TIMESTAMP" />
         </constructor>
     </resultMap>
     <sql id="Base_Column_List">
-    PERSON_ID, PERSON_FAMILY_ID, PERSON_HOUSE_ID, PERSON_HOUSE_CODE_FULL, PERSON_NAME,
-    PERSON_RELATIONSHIP, PERSON_ID_CARD, PERSON_SEX, PERSON_NATION, PERSON_HR_LOCATION,
-    PERSON_HR_LEAVE, PERSON_HR_LEAVE_FOR, PERSON_EDUCATION, PERSON_SP_TYPE, PERSON_PHONE_ID,
-    PERSON_PHONE, PERSON_INPUT_UNIT_NAME, PERSON_INPUT_UNIT_ID, PERSON_INPUT_DATE, PERSON_INPUT_USER_NAME,
-    PERSON_INPUT_USER_ID, PERSON_CITY_ID, PERSON_AREA_ID, PERSON_STREET_ID, PERSON_COMMUNITY_ID,
-    PERSON_GRID_ID, PERSON_CATEGORY, PERSON_FORE_EN_NAME, PERSON_FORE_NATIONALITY, PERSON_FORE_CERTIFICATE_TYPE,
-    PERSON_FORE_CERTIFICATE_NUM, PERSON_REMARK, PERSON_ORDER_NUM, PERSON_HEAD_HOUSEHOLD_NAME,
-    PERSON_HEAD_HOUSEHOLD_ID
+    PERSON_ID, PERSON_FAMILY_ID, PERSON_HEAD_HOUSEHOLD_NAME, PERSON_HEAD_HOUSEHOLD_ID,
+    PERSON_HOUSE_ID, PERSON_HOUSE_CODE_FULL, PERSON_NAME, PERSON_RELATIONSHIP, PERSON_ID_CARD,
+    PERSON_SEX, PERSON_NATION, PERSON_HR_LOCATION, PERSON_HR_LEAVE, PERSON_HR_LEAVE_FOR,
+    PERSON_EDUCATION, PERSON_SP_TYPE, PERSON_PHONE, PERSON_INPUT_UNIT_NAME, PERSON_INPUT_UNIT_ID,
+    PERSON_INPUT_DATE, PERSON_INPUT_USER_NAME, PERSON_INPUT_USER_ID, PERSON_CITY_ID,
+    PERSON_AREA_ID, PERSON_STREET_ID, PERSON_COMMUNITY_ID, PERSON_GRID_ID, PERSON_CATEGORY,
+    PERSON_FORE_EN_NAME, PERSON_FORE_NATIONALITY, PERSON_FORE_CERTIFICATE_TYPE, PERSON_FORE_CERTIFICATE_NUM,
+    PERSON_REMARK, PERSON_ORDER_NUM, PERSON_PHOTO_ID, PERSON_ID_CARD_UUID, PERSON_ID_CARD_PUBLIC_FORM,
+    PERSON_ID_CARD_EFF_DATE, PERSON_ID_CARD_ADDRESS, PERSON_BIRTHDAY
   </sql>
     <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
         select
@@ -61,32 +67,36 @@
     where PERSON_ID = #{personId,jdbcType=VARCHAR}
   </delete>
     <insert id="insert" parameterType="com.jb4dc.gridsystem.dbentities.person.PersonEntity">
-    insert into TGRID_PERSON (PERSON_ID, PERSON_FAMILY_ID, PERSON_HOUSE_ID,
-      PERSON_HOUSE_CODE_FULL, PERSON_NAME, PERSON_RELATIONSHIP,
-      PERSON_ID_CARD, PERSON_SEX, PERSON_NATION,
-      PERSON_HR_LOCATION, PERSON_HR_LEAVE, PERSON_HR_LEAVE_FOR,
-      PERSON_EDUCATION, PERSON_SP_TYPE, PERSON_PHONE_ID,
-      PERSON_PHONE, PERSON_INPUT_UNIT_NAME, PERSON_INPUT_UNIT_ID,
-      PERSON_INPUT_DATE, PERSON_INPUT_USER_NAME,
+    insert into TGRID_PERSON (PERSON_ID, PERSON_FAMILY_ID, PERSON_HEAD_HOUSEHOLD_NAME,
+      PERSON_HEAD_HOUSEHOLD_ID, PERSON_HOUSE_ID, PERSON_HOUSE_CODE_FULL,
+      PERSON_NAME, PERSON_RELATIONSHIP, PERSON_ID_CARD,
+      PERSON_SEX, PERSON_NATION, PERSON_HR_LOCATION,
+      PERSON_HR_LEAVE, PERSON_HR_LEAVE_FOR, PERSON_EDUCATION,
+      PERSON_SP_TYPE, PERSON_PHONE, PERSON_INPUT_UNIT_NAME,
+      PERSON_INPUT_UNIT_ID, PERSON_INPUT_DATE, PERSON_INPUT_USER_NAME,
       PERSON_INPUT_USER_ID, PERSON_CITY_ID, PERSON_AREA_ID,
       PERSON_STREET_ID, PERSON_COMMUNITY_ID, PERSON_GRID_ID,
       PERSON_CATEGORY, PERSON_FORE_EN_NAME, PERSON_FORE_NATIONALITY,
       PERSON_FORE_CERTIFICATE_TYPE, PERSON_FORE_CERTIFICATE_NUM,
-      PERSON_REMARK, PERSON_ORDER_NUM, PERSON_HEAD_HOUSEHOLD_NAME,
-      PERSON_HEAD_HOUSEHOLD_ID)
-    values (#{personId,jdbcType=VARCHAR}, #{personFamilyId,jdbcType=VARCHAR}, #{personHouseId,jdbcType=VARCHAR},
-      #{personHouseCodeFull,jdbcType=VARCHAR}, #{personName,jdbcType=VARCHAR}, #{personRelationship,jdbcType=VARCHAR},
-      #{personIdCard,jdbcType=VARCHAR}, #{personSex,jdbcType=VARCHAR}, #{personNation,jdbcType=VARCHAR},
-      #{personHrLocation,jdbcType=VARCHAR}, #{personHrLeave,jdbcType=VARCHAR}, #{personHrLeaveFor,jdbcType=VARCHAR},
-      #{personEducation,jdbcType=VARCHAR}, #{personSpType,jdbcType=VARCHAR}, #{personPhoneId,jdbcType=VARCHAR},
-      #{personPhone,jdbcType=VARCHAR}, #{personInputUnitName,jdbcType=VARCHAR}, #{personInputUnitId,jdbcType=VARCHAR},
-      #{personInputDate,jdbcType=TIMESTAMP}, #{personInputUserName,jdbcType=VARCHAR},
+      PERSON_REMARK, PERSON_ORDER_NUM, PERSON_PHOTO_ID,
+      PERSON_ID_CARD_UUID, PERSON_ID_CARD_PUBLIC_FORM,
+      PERSON_ID_CARD_EFF_DATE, PERSON_ID_CARD_ADDRESS,
+      PERSON_BIRTHDAY)
+    values (#{personId,jdbcType=VARCHAR}, #{personFamilyId,jdbcType=VARCHAR}, #{personHeadHouseholdName,jdbcType=VARCHAR},
+      #{personHeadHouseholdId,jdbcType=VARCHAR}, #{personHouseId,jdbcType=VARCHAR}, #{personHouseCodeFull,jdbcType=VARCHAR},
+      #{personName,jdbcType=VARCHAR}, #{personRelationship,jdbcType=VARCHAR}, #{personIdCard,jdbcType=VARCHAR},
+      #{personSex,jdbcType=VARCHAR}, #{personNation,jdbcType=VARCHAR}, #{personHrLocation,jdbcType=VARCHAR},
+      #{personHrLeave,jdbcType=VARCHAR}, #{personHrLeaveFor,jdbcType=VARCHAR}, #{personEducation,jdbcType=VARCHAR},
+      #{personSpType,jdbcType=VARCHAR}, #{personPhone,jdbcType=VARCHAR}, #{personInputUnitName,jdbcType=VARCHAR},
+      #{personInputUnitId,jdbcType=VARCHAR}, #{personInputDate,jdbcType=TIMESTAMP}, #{personInputUserName,jdbcType=VARCHAR},
       #{personInputUserId,jdbcType=VARCHAR}, #{personCityId,jdbcType=VARCHAR}, #{personAreaId,jdbcType=VARCHAR},
       #{personStreetId,jdbcType=VARCHAR}, #{personCommunityId,jdbcType=VARCHAR}, #{personGridId,jdbcType=VARCHAR},
       #{personCategory,jdbcType=VARCHAR}, #{personForeEnName,jdbcType=VARCHAR}, #{personForeNationality,jdbcType=VARCHAR},
       #{personForeCertificateType,jdbcType=VARCHAR}, #{personForeCertificateNum,jdbcType=VARCHAR},
-      #{personRemark,jdbcType=VARCHAR}, #{personOrderNum,jdbcType=INTEGER}, #{personHeadHouseholdName,jdbcType=VARCHAR},
-      #{personHeadHouseholdId,jdbcType=VARCHAR})
+      #{personRemark,jdbcType=VARCHAR}, #{personOrderNum,jdbcType=INTEGER}, #{personPhotoId,jdbcType=VARCHAR},
+      #{personIdCardUuid,jdbcType=VARCHAR}, #{personIdCardPublicForm,jdbcType=VARCHAR},
+      #{personIdCardEffDate,jdbcType=VARCHAR}, #{personIdCardAddress,jdbcType=VARCHAR},
+      #{personBirthday,jdbcType=TIMESTAMP})
   </insert>
     <insert id="insertSelective" parameterType="com.jb4dc.gridsystem.dbentities.person.PersonEntity">
         insert into TGRID_PERSON
@@ -96,6 +106,12 @@
             </if>
             <if test="personFamilyId != null">
                 PERSON_FAMILY_ID,
+            </if>
+            <if test="personHeadHouseholdName != null">
+                PERSON_HEAD_HOUSEHOLD_NAME,
+            </if>
+            <if test="personHeadHouseholdId != null">
+                PERSON_HEAD_HOUSEHOLD_ID,
             </if>
             <if test="personHouseId != null">
                 PERSON_HOUSE_ID,
@@ -132,9 +148,6 @@
             </if>
             <if test="personSpType != null">
                 PERSON_SP_TYPE,
-            </if>
-            <if test="personPhoneId != null">
-                PERSON_PHONE_ID,
             </if>
             <if test="personPhone != null">
                 PERSON_PHONE,
@@ -190,11 +203,23 @@
             <if test="personOrderNum != null">
                 PERSON_ORDER_NUM,
             </if>
-            <if test="personHeadHouseholdName != null">
-                PERSON_HEAD_HOUSEHOLD_NAME,
+            <if test="personPhotoId != null">
+                PERSON_PHOTO_ID,
             </if>
-            <if test="personHeadHouseholdId != null">
-                PERSON_HEAD_HOUSEHOLD_ID,
+            <if test="personIdCardUuid != null">
+                PERSON_ID_CARD_UUID,
+            </if>
+            <if test="personIdCardPublicForm != null">
+                PERSON_ID_CARD_PUBLIC_FORM,
+            </if>
+            <if test="personIdCardEffDate != null">
+                PERSON_ID_CARD_EFF_DATE,
+            </if>
+            <if test="personIdCardAddress != null">
+                PERSON_ID_CARD_ADDRESS,
+            </if>
+            <if test="personBirthday != null">
+                PERSON_BIRTHDAY,
             </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -203,6 +228,12 @@
             </if>
             <if test="personFamilyId != null">
                 #{personFamilyId,jdbcType=VARCHAR},
+            </if>
+            <if test="personHeadHouseholdName != null">
+                #{personHeadHouseholdName,jdbcType=VARCHAR},
+            </if>
+            <if test="personHeadHouseholdId != null">
+                #{personHeadHouseholdId,jdbcType=VARCHAR},
             </if>
             <if test="personHouseId != null">
                 #{personHouseId,jdbcType=VARCHAR},
@@ -239,9 +270,6 @@
             </if>
             <if test="personSpType != null">
                 #{personSpType,jdbcType=VARCHAR},
-            </if>
-            <if test="personPhoneId != null">
-                #{personPhoneId,jdbcType=VARCHAR},
             </if>
             <if test="personPhone != null">
                 #{personPhone,jdbcType=VARCHAR},
@@ -297,11 +325,23 @@
             <if test="personOrderNum != null">
                 #{personOrderNum,jdbcType=INTEGER},
             </if>
-            <if test="personHeadHouseholdName != null">
-                #{personHeadHouseholdName,jdbcType=VARCHAR},
+            <if test="personPhotoId != null">
+                #{personPhotoId,jdbcType=VARCHAR},
             </if>
-            <if test="personHeadHouseholdId != null">
-                #{personHeadHouseholdId,jdbcType=VARCHAR},
+            <if test="personIdCardUuid != null">
+                #{personIdCardUuid,jdbcType=VARCHAR},
+            </if>
+            <if test="personIdCardPublicForm != null">
+                #{personIdCardPublicForm,jdbcType=VARCHAR},
+            </if>
+            <if test="personIdCardEffDate != null">
+                #{personIdCardEffDate,jdbcType=VARCHAR},
+            </if>
+            <if test="personIdCardAddress != null">
+                #{personIdCardAddress,jdbcType=VARCHAR},
+            </if>
+            <if test="personBirthday != null">
+                #{personBirthday,jdbcType=TIMESTAMP},
             </if>
         </trim>
     </insert>
@@ -310,6 +350,12 @@
         <set>
             <if test="personFamilyId != null">
                 PERSON_FAMILY_ID = #{personFamilyId,jdbcType=VARCHAR},
+            </if>
+            <if test="personHeadHouseholdName != null">
+                PERSON_HEAD_HOUSEHOLD_NAME = #{personHeadHouseholdName,jdbcType=VARCHAR},
+            </if>
+            <if test="personHeadHouseholdId != null">
+                PERSON_HEAD_HOUSEHOLD_ID = #{personHeadHouseholdId,jdbcType=VARCHAR},
             </if>
             <if test="personHouseId != null">
                 PERSON_HOUSE_ID = #{personHouseId,jdbcType=VARCHAR},
@@ -346,9 +392,6 @@
             </if>
             <if test="personSpType != null">
                 PERSON_SP_TYPE = #{personSpType,jdbcType=VARCHAR},
-            </if>
-            <if test="personPhoneId != null">
-                PERSON_PHONE_ID = #{personPhoneId,jdbcType=VARCHAR},
             </if>
             <if test="personPhone != null">
                 PERSON_PHONE = #{personPhone,jdbcType=VARCHAR},
@@ -404,11 +447,23 @@
             <if test="personOrderNum != null">
                 PERSON_ORDER_NUM = #{personOrderNum,jdbcType=INTEGER},
             </if>
-            <if test="personHeadHouseholdName != null">
-                PERSON_HEAD_HOUSEHOLD_NAME = #{personHeadHouseholdName,jdbcType=VARCHAR},
+            <if test="personPhotoId != null">
+                PERSON_PHOTO_ID = #{personPhotoId,jdbcType=VARCHAR},
             </if>
-            <if test="personHeadHouseholdId != null">
-                PERSON_HEAD_HOUSEHOLD_ID = #{personHeadHouseholdId,jdbcType=VARCHAR},
+            <if test="personIdCardUuid != null">
+                PERSON_ID_CARD_UUID = #{personIdCardUuid,jdbcType=VARCHAR},
+            </if>
+            <if test="personIdCardPublicForm != null">
+                PERSON_ID_CARD_PUBLIC_FORM = #{personIdCardPublicForm,jdbcType=VARCHAR},
+            </if>
+            <if test="personIdCardEffDate != null">
+                PERSON_ID_CARD_EFF_DATE = #{personIdCardEffDate,jdbcType=VARCHAR},
+            </if>
+            <if test="personIdCardAddress != null">
+                PERSON_ID_CARD_ADDRESS = #{personIdCardAddress,jdbcType=VARCHAR},
+            </if>
+            <if test="personBirthday != null">
+                PERSON_BIRTHDAY = #{personBirthday,jdbcType=TIMESTAMP},
             </if>
         </set>
         where PERSON_ID = #{personId,jdbcType=VARCHAR}
@@ -416,6 +471,8 @@
     <update id="updateByPrimaryKey" parameterType="com.jb4dc.gridsystem.dbentities.person.PersonEntity">
     update TGRID_PERSON
     set PERSON_FAMILY_ID = #{personFamilyId,jdbcType=VARCHAR},
+      PERSON_HEAD_HOUSEHOLD_NAME = #{personHeadHouseholdName,jdbcType=VARCHAR},
+      PERSON_HEAD_HOUSEHOLD_ID = #{personHeadHouseholdId,jdbcType=VARCHAR},
       PERSON_HOUSE_ID = #{personHouseId,jdbcType=VARCHAR},
       PERSON_HOUSE_CODE_FULL = #{personHouseCodeFull,jdbcType=VARCHAR},
       PERSON_NAME = #{personName,jdbcType=VARCHAR},
@@ -428,7 +485,6 @@
       PERSON_HR_LEAVE_FOR = #{personHrLeaveFor,jdbcType=VARCHAR},
       PERSON_EDUCATION = #{personEducation,jdbcType=VARCHAR},
       PERSON_SP_TYPE = #{personSpType,jdbcType=VARCHAR},
-      PERSON_PHONE_ID = #{personPhoneId,jdbcType=VARCHAR},
       PERSON_PHONE = #{personPhone,jdbcType=VARCHAR},
       PERSON_INPUT_UNIT_NAME = #{personInputUnitName,jdbcType=VARCHAR},
       PERSON_INPUT_UNIT_ID = #{personInputUnitId,jdbcType=VARCHAR},
@@ -447,8 +503,12 @@
       PERSON_FORE_CERTIFICATE_NUM = #{personForeCertificateNum,jdbcType=VARCHAR},
       PERSON_REMARK = #{personRemark,jdbcType=VARCHAR},
       PERSON_ORDER_NUM = #{personOrderNum,jdbcType=INTEGER},
-      PERSON_HEAD_HOUSEHOLD_NAME = #{personHeadHouseholdName,jdbcType=VARCHAR},
-      PERSON_HEAD_HOUSEHOLD_ID = #{personHeadHouseholdId,jdbcType=VARCHAR}
+      PERSON_PHOTO_ID = #{personPhotoId,jdbcType=VARCHAR},
+      PERSON_ID_CARD_UUID = #{personIdCardUuid,jdbcType=VARCHAR},
+      PERSON_ID_CARD_PUBLIC_FORM = #{personIdCardPublicForm,jdbcType=VARCHAR},
+      PERSON_ID_CARD_EFF_DATE = #{personIdCardEffDate,jdbcType=VARCHAR},
+      PERSON_ID_CARD_ADDRESS = #{personIdCardAddress,jdbcType=VARCHAR},
+      PERSON_BIRTHDAY = #{personBirthday,jdbcType=TIMESTAMP}
     where PERSON_ID = #{personId,jdbcType=VARCHAR}
   </update>
 </mapper>

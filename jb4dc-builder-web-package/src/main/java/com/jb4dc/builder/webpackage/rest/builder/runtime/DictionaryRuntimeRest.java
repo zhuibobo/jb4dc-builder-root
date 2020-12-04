@@ -28,13 +28,13 @@ public class DictionaryRuntimeRest {
 
     @RequestMapping(value = "/GetDDByGroupId", method = RequestMethod.GET)
     public JBuild4DCResponseVo<List<DictionaryEntity>> getDDByGroupId(String groupId) {
-        List<DictionaryEntity> dictionaryEntityList=dictionaryService.getListDataByGroupId(JB4DCSessionUtility.getSession(),groupId);
+        List<DictionaryEntity> dictionaryEntityList=dictionaryService.getListDataByGroupId(JB4DCSessionUtility.getSessionNotException(),groupId);
         return JBuild4DCResponseVo.success("",dictionaryEntityList);
     }
 
     @RequestMapping(value = "/GetAllDictionary", method = RequestMethod.GET)
     public JBuild4DCResponseVo<List<DictionaryEntity>> getAllDictionary() {
-        List<DictionaryEntity> dictionaryEntityList=dictionaryService.getALLASC(JB4DCSessionUtility.getSession());
+        List<DictionaryEntity> dictionaryEntityList=dictionaryService.getALLASC(JB4DCSessionUtility.getSessionNotException());
         return JBuild4DCResponseVo.success("",dictionaryEntityList);
     }
 

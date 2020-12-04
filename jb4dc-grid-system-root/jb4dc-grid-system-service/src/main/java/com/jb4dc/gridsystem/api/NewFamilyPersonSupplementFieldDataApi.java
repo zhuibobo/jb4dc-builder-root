@@ -104,6 +104,11 @@ public class NewFamilyPersonSupplementFieldDataApi implements IApiForButton {
             familyEntity.setFamilyInputUserId(jb4DCSession.getUserId());
             familyEntity.setFamilyHeadHouseholdId(headHouseHoldPersonEntity.getPersonId());
             familyEntity.setFamilyHeadHouseholdName(headHouseHoldPersonEntity.getPersonName());
+            familyEntity.setFamilyCityId(buildInfoEntity.getBuildCityId());
+            familyEntity.setFamilyAreaId(buildInfoEntity.getBuildAreaId());
+            familyEntity.setFamilyStreetId(buildInfoEntity.getBuildStreetId());
+            familyEntity.setFamilyCommunityId(buildInfoEntity.getBuildCommunityId());
+            familyEntity.setFamilyGridId(buildInfoEntity.getBuildGridId());
             familyService.updateByKeySelective(jb4DCSession,familyEntity);
         }
 

@@ -3,15 +3,38 @@ package com.jb4dc.gridsystem.service.person.impl;
 import com.jb4dc.base.service.IAddBefore;
 import com.jb4dc.base.service.impl.BaseServiceImpl;
 import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
+import com.jb4dc.core.base.exception.JBuild4DCSQLKeyWordException;
 import com.jb4dc.core.base.session.JB4DCSession;
+import com.jb4dc.core.base.tools.StringUtility;
 import com.jb4dc.gridsystem.dao.person.FamilyMapper;
+import com.jb4dc.gridsystem.dbentities.build.BuildInfoEntity;
+import com.jb4dc.gridsystem.dbentities.build.HouseInfoEntity;
 import com.jb4dc.gridsystem.dbentities.person.FamilyEntity;
+import com.jb4dc.gridsystem.dbentities.person.PersonEntity;
+import com.jb4dc.gridsystem.po.FamilyPO;
+import com.jb4dc.gridsystem.service.build.IBuildInfoService;
+import com.jb4dc.gridsystem.service.build.IHouseInfoService;
 import com.jb4dc.gridsystem.service.person.IFamilyService;
+import com.jb4dc.gridsystem.service.person.IPersonService;
+import liquibase.pro.packaged.A;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Date;
 
 @Service
 public class FamilyServiceImpl extends BaseServiceImpl<FamilyEntity> implements IFamilyService
 {
+    @Autowired
+    IHouseInfoService houseInfoService;
+
+    @Autowired
+    IBuildInfoService buildInfoService;
+
+    @Autowired
+    IPersonService personService;
+
     FamilyMapper familyMapper;
     public FamilyServiceImpl(FamilyMapper _defaultBaseMapper){
         super(_defaultBaseMapper);
@@ -24,8 +47,83 @@ public class FamilyServiceImpl extends BaseServiceImpl<FamilyEntity> implements 
             @Override
             public FamilyEntity run(JB4DCSession jb4DCSession,FamilyEntity sourceEntity) throws JBuild4DCGenerallyException {
                 //设置排序,以及其他参数--nextOrderNum()
+
+                sourceEntity.setFamilyInputDate(new Date());
+                sourceEntity.setFamilyInputUnitId(jb4DCSession.getOrganId());
+                sourceEntity.setFamilyInputUnitName(jb4DCSession.getOrganName());
+                sourceEntity.setFamilyInputUserId(jb4DCSession.getUserId());
+                sourceEntity.setFamilyInputUserName(jb4DCSession.getUserName());
                 return sourceEntity;
             }
         });
+    }
+
+    @Override
+    @Transactional(rollbackFor= {JBuild4DCGenerallyException.class, JBuild4DCSQLKeyWordException.class})
+    public FamilyPO saveFamilyData(JB4DCSession session, FamilyPO familyPO) throws JBuild4DCGenerallyException {
+        try {
+
+            if (StringUtility.isEmpty(familyPO.getEditFamilyInfo().getFamilyHouseId())) {
+                throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_GRID_CODE, "房屋ID不能为空!");
+            }
+
+            HouseInfoEntity houseInfoEntity = houseInfoService.getByPrimaryKey(session, familyPO.getEditFamilyInfo().getFamilyHouseId());
+            BuildInfoEntity buildInfoEntity=buildInfoService.getByPrimaryKey(session,houseInfoEntity.getHouseBuildId());
+
+            //获取户主相关信息
+            if(familyPO.getFamilyPersons().size()==0){
+                throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_GRID_CODE,"必须填写户主信息!");
+            }
+            if(familyPO.getFamilyPersons().size()>1){
+                if(familyPO.getFamilyPersons().stream().filter(item->item.getPersonRelationship()!=null&&item.getPersonRelationship().equals("0")).count()>1) {
+                    throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_GRID_CODE, "只能有一个户主!");
+                }
+            }
+            //获取户主
+            PersonEntity headHouseHoldPersonEntity=familyPO.getFamilyPersons().stream().filter(item->item.getPersonRelationship()!=null&&item.getPersonRelationship().equals("0")).findFirst().orElse(null);
+            if(headHouseHoldPersonEntity==null){
+                throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_GRID_CODE,"必须填写户主信息!");
+            }
+
+            //保存家庭信息
+            FamilyEntity familyEntity=familyPO.getEditFamilyInfo();
+
+            //if(familyMapper.selectByPrimaryKey(familyEntity.getFamilyId())==null) {
+                familyEntity.setFamilyHouseCodeFull(houseInfoEntity.getHouseCodeFull());
+                familyEntity.setFamilyCityId(buildInfoEntity.getBuildCityId());
+                familyEntity.setFamilyAreaId(buildInfoEntity.getBuildAreaId());
+                familyEntity.setFamilyStreetId(buildInfoEntity.getBuildStreetId());
+                familyEntity.setFamilyCommunityId(buildInfoEntity.getBuildCommunityId());
+                familyEntity.setFamilyGridId(buildInfoEntity.getBuildGridId());
+                familyEntity.setFamilyHeadHouseholdName(headHouseHoldPersonEntity.getPersonName());
+                familyEntity.setFamilyHeadHouseholdId(headHouseHoldPersonEntity.getPersonId());
+            //}
+
+            this.saveSimple(session, familyPO.getEditFamilyInfo().getFamilyId(), familyPO.getEditFamilyInfo());
+
+            //保存人员信息
+            if(familyPO.getFamilyPersons()!=null){
+                for (PersonEntity familyPerson : familyPO.getFamilyPersons()) {
+                    familyPerson.setPersonCityId(buildInfoEntity.getBuildCityId());
+                    familyPerson.setPersonAreaId(buildInfoEntity.getBuildAreaId());
+                    familyPerson.setPersonStreetId(buildInfoEntity.getBuildStreetId());
+                    familyPerson.setPersonCommunityId(buildInfoEntity.getBuildCommunityId());
+                    familyPerson.setPersonGridId(buildInfoEntity.getBuildGridId());
+                    familyPerson.setPersonCategory("中国居民");
+                    familyPerson.setPersonFamilyId(familyEntity.getFamilyId());
+                    familyPerson.setPersonHouseCodeFull(houseInfoEntity.getHouseCodeFull());
+                    familyPerson.setPersonHeadHouseholdName(headHouseHoldPersonEntity.getPersonName());
+                    familyPerson.setPersonHeadHouseholdId(headHouseHoldPersonEntity.getPersonId());
+                    personService.saveSimple(session,familyPerson.getPersonId(),familyPerson);
+                }
+            }
+
+            return familyPO;
+            //throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_GRID_CODE, "保存户信息失败!--中断测试--");
+            //return null;
+        }
+        catch (Exception ex){
+            throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_GRID_CODE, ex.getMessage());
+        }
     }
 }

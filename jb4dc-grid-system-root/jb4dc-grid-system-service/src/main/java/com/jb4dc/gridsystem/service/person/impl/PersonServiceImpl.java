@@ -13,6 +13,7 @@ import liquibase.pro.packaged.A;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -35,6 +36,12 @@ public class PersonServiceImpl extends BaseServiceImpl<PersonEntity> implements 
             @Override
             public PersonEntity run(JB4DCSession jb4DCSession,PersonEntity sourceEntity) throws JBuild4DCGenerallyException {
                 //设置排序,以及其他参数--nextOrderNum()
+                sourceEntity.setPersonInputDate(new Date());
+                sourceEntity.setPersonInputUnitId(jb4DCSession.getOrganId());
+                sourceEntity.setPersonInputUnitName(jb4DCSession.getOrganName());
+                sourceEntity.setPersonInputUserId(jb4DCSession.getUserId());
+                sourceEntity.setPersonInputUserName(jb4DCSession.getUserName());
+                sourceEntity.setPersonOrderNum(personMapper.nextOrderNum());
                 return sourceEntity;
             }
         });

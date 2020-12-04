@@ -383,4 +383,20 @@
             <column name="APP_VERSION_FILE_PATH" type="NVARCHAR(500)" remarks="APK文件路径" />
         </createTable>
     </changeSet>
+    <changeSet author="zhuangrb" id="changeSet-GRID-0008" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
+        <dropColumn tableName="TGRID_PERSON">
+            <column name="PERSON_PHONE_ID"></column>
+        </dropColumn>
+        <addColumn tableName="TGRID_PERSON">
+            <column name="PERSON_PHOTO_ID" type="NVARCHAR(50)" remarks="照片ID" />
+            <column name="PERSON_ID_CARD_UUID" type="NVARCHAR(50)" remarks="身份证UUID" />
+            <column name="PERSON_ID_CARD_PUBLIC_FORM" type="NVARCHAR(200)" remarks="身份证签发机关" />
+            <column name="PERSON_ID_CARD_EFF_DATE" type="NVARCHAR(50)" remarks="身份证有效日期" />
+            <column name="PERSON_ID_CARD_ADDRESS" type="NVARCHAR(200)" remarks="居住地址" />
+            <column name="PERSON_BIRTHDAY" type="DATETIME(6)" remarks="出生日期" />
+        </addColumn>
+        <sql>
+            ALTER TABLE TGRID_PERSON COMMENT = '人口信息表'
+        </sql>
+    </changeSet>
 </databaseChangeLog>
