@@ -31,7 +31,7 @@ public class AppVersionRest {
     @ApiImplicitParams({
             @ApiImplicitParam(name="appName",value="app名称",required=true,example = "网格APP")
     })
-    @RequestMapping(value = "/GetLastPrePublicVersion", method = RequestMethod.GET)
+    @RequestMapping(value = "/GetLastPublicVersion", method = RequestMethod.GET)
     public JBuild4DCResponseVo getLastPublicVersion(String appName) throws JBuild4DCGenerallyException, JsonProcessingException {
         AppVersionEntity appVersionEntity=appVersionService.getByLastPublicVersion(appName);
         if(appVersionEntity!=null) {
@@ -50,7 +50,7 @@ public class AppVersionRest {
     @ApiImplicitParams({
             @ApiImplicitParam(name="appName",value="app名称",required=true,example = "网格APP")
     })
-    @RequestMapping(value = "/GetLastPublicVersion", method = RequestMethod.GET)
+    @RequestMapping(value = "/GetLastPrePublicVersion", method = RequestMethod.GET)
     public JBuild4DCResponseVo getLastPrePublicVersion(String appName) throws JBuild4DCGenerallyException, JsonProcessingException {
         AppVersionEntity appVersionEntity=appVersionService.getByLastPrePublicVersion(appName);
         if(appVersionEntity!=null) {

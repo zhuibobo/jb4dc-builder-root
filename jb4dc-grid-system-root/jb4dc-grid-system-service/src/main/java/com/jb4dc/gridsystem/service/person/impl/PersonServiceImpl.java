@@ -4,6 +4,9 @@ import com.jb4dc.base.service.IAddBefore;
 import com.jb4dc.base.service.impl.BaseServiceImpl;
 import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
 import com.jb4dc.core.base.session.JB4DCSession;
+import com.jb4dc.core.base.tools.StringUtility;
+import com.jb4dc.files.dbentities.FileInfoEntity;
+import com.jb4dc.files.service.IFileInfoService;
 import com.jb4dc.gridsystem.dao.person.PersonMapper;
 import com.jb4dc.gridsystem.dbentities.person.FamilyEntity;
 import com.jb4dc.gridsystem.dbentities.person.PersonEntity;
@@ -12,7 +15,13 @@ import com.jb4dc.gridsystem.service.person.IPersonService;
 import liquibase.pro.packaged.A;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import sun.misc.BASE64Encoder;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.Date;
 import java.util.List;
 
@@ -23,6 +32,9 @@ public class PersonServiceImpl extends BaseServiceImpl<PersonEntity> implements 
 
     @Autowired
     IFamilyService familyService;
+
+    @Autowired
+    IFileInfoService fileInfoService;
 
     PersonMapper personMapper;
     public PersonServiceImpl(PersonMapper _defaultBaseMapper){
@@ -60,6 +72,9 @@ public class PersonServiceImpl extends BaseServiceImpl<PersonEntity> implements 
     @Override
     public void deletePersonWithFamily(JB4DCSession session, String personId) throws JBuild4DCGenerallyException {
         PersonEntity personEntity=getByPrimaryKey(session,personId);
+        if(personEntity==null){
+            return;
+        }
         if(personEntity.getPersonRelationship().equals(HEAD_HOUSEHOLD_TYPE_VALUE)){
             List<PersonEntity> familyPersons=getByFamilyId(personEntity.getPersonFamilyId());
             if(familyPersons.size()>1){
@@ -72,5 +87,22 @@ public class PersonServiceImpl extends BaseServiceImpl<PersonEntity> implements 
         else{
             deleteByKey(session,personId);
         }
+    }
+
+    @Override
+    public String getPersonHeaderBase64String(JB4DCSession session, String personId) throws JBuild4DCGenerallyException, IOException, URISyntaxException {
+        PersonEntity personEntity=getByPrimaryKey(session,personId);
+        if(StringUtility.isNotEmpty(personEntity.getPersonPhotoId())){
+            FileInfoEntity fileInfoEntity=fileInfoService.getByPrimaryKey(session,personEntity.getPersonPhotoId());
+            String filePath=fileInfoService.buildFilePath(fileInfoEntity);
+            File file = new File(filePath);
+            FileInputStream fileInputStream = new FileInputStream(file);
+            byte[] datas = new byte[fileInputStream.available()];
+            fileInputStream.read(datas);
+            fileInputStream.close();
+            BASE64Encoder encoder = new BASE64Encoder();
+            return encoder.encode(datas);//返回Base64编码过的字节数组字符串
+        }
+        return "";
     }
 }

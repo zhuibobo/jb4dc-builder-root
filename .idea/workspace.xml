@@ -23,39 +23,27 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4c1726ea-d2d7-4bd0-ba55-67bf5abd523a" name="Default Changelist" comment="2020-10-15">
-      <change afterPath="$PROJECT_DIR$/jb4dc-grid-system-root/jb4dc-grid-system-service/src/main/java/com/jb4dc/gridsystem/po/FamilyPO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jb4dc-grid-system-root/jb4dc-grid-system-web-package/src/main/app-client/GridAppClient/Images/person-empty-head.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jb4dc-grid-system-root/jb4dc-grid-system-web-package/src/main/app-client/GridAppClient/VueComponent/vue-confirm-dialog/events.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jb4dc-grid-system-root/jb4dc-grid-system-web-package/src/main/app-client/GridAppClient/VueComponent/vue-confirm-dialog/index.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jb4dc-grid-system-root/jb4dc-grid-system-web-package/src/main/app-client/GridAppClient/VueComponent/vue-confirm-dialog/vue-confirm-dialog.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jb4dc-grid-system-root/jb4dc-grid-system-web-package/src/main/java/com/jb4dc/gridsystem/webpackage/rest/grid/person/FamilyRest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/jb4dc-grid-system-root/jb4dc-grid-system-service/src/main/java/com/jb4dc/gridsystem/po/PersonPO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/jb4dc-grid-system-root/jb4dc-grid-system-web-package/src/main/app-client/GridAppClient/Images/icons8-family-30.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/jb4dc-grid-system-root/jb4dc-grid-system-web-package/src/main/app-client/GridAppClient/Images/icons8-family1-30.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/jb4dc-grid-system-root/jb4dc-grid-system-web-package/src/main/app-client/GridAppClient/Images/icons8-family2-30.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/jb4dc-grid-system-root/jb4dc-grid-system-web-package/src/main/app-client/GridAppClient/Images/icons8-person-30.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/front-end/static/Themes/Default/Less/Variable.less" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/front-end/static/Themes/Default/Less/Variable.less" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/java/com/jb4dc/builder/webpackage/rest/builder/runtime/DictionaryRuntimeRest.java" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/java/com/jb4dc/builder/webpackage/rest/builder/runtime/DictionaryRuntimeRest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jb4dc-builder-web-server/src/main/resources/application-dev.yml" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-web-server/src/main/resources/application-dev.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jb4dc-builder-web-server/src/main/resources/application-xgprod.yml" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-web-server/src/main/resources/application-xgprod.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jb4dc-grid-system-root/jb4dc-grid-system-service/src/main/java/com/jb4dc/gridsystem/api/NewFamilyPersonSupplementFieldDataApi.java" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-grid-system-root/jb4dc-grid-system-service/src/main/java/com/jb4dc/gridsystem/api/NewFamilyPersonSupplementFieldDataApi.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jb4dc-grid-system-root/jb4dc-grid-system-service/src/main/java/com/jb4dc/gridsystem/dbentities/person/PersonEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-grid-system-root/jb4dc-grid-system-service/src/main/java/com/jb4dc/gridsystem/dbentities/person/PersonEntity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jb4dc-grid-system-root/jb4dc-grid-system-service/src/main/java/com/jb4dc/gridsystem/po/FamilyPO.java" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-grid-system-root/jb4dc-grid-system-service/src/main/java/com/jb4dc/gridsystem/po/FamilyPO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/jb4dc-grid-system-root/jb4dc-grid-system-service/src/main/java/com/jb4dc/gridsystem/service/person/IFamilyService.java" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-grid-system-root/jb4dc-grid-system-service/src/main/java/com/jb4dc/gridsystem/service/person/IFamilyService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jb4dc-grid-system-root/jb4dc-grid-system-service/src/main/java/com/jb4dc/gridsystem/service/person/IPersonService.java" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-grid-system-root/jb4dc-grid-system-service/src/main/java/com/jb4dc/gridsystem/service/person/IPersonService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/jb4dc-grid-system-root/jb4dc-grid-system-service/src/main/java/com/jb4dc/gridsystem/service/person/impl/FamilyServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-grid-system-root/jb4dc-grid-system-service/src/main/java/com/jb4dc/gridsystem/service/person/impl/FamilyServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/jb4dc-grid-system-root/jb4dc-grid-system-service/src/main/java/com/jb4dc/gridsystem/service/person/impl/PersonServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-grid-system-root/jb4dc-grid-system-service/src/main/java/com/jb4dc/gridsystem/service/person/impl/PersonServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jb4dc-grid-system-root/jb4dc-grid-system-service/src/main/resources/liquibase/jb4dc-grid-db-changelog.xml" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-grid-system-root/jb4dc-grid-system-service/src/main/resources/liquibase/jb4dc-grid-db-changelog.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jb4dc-grid-system-root/jb4dc-grid-system-service/src/main/resources/mybatismappers/person/PersonACMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-grid-system-root/jb4dc-grid-system-service/src/main/resources/mybatismappers/person/PersonACMapper.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/jb4dc-grid-system-root/jb4dc-grid-system-service/src/main/resources/mybatismappers/person/PersonEXMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-grid-system-root/jb4dc-grid-system-service/src/main/resources/mybatismappers/person/PersonEXMapper.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jb4dc-grid-system-root/jb4dc-grid-system-web-package/src/main/app-client/GridAppClient/BuildHousePerson/GatherBuildHousePersonMainPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-grid-system-root/jb4dc-grid-system-web-package/src/main/app-client/GridAppClient/BuildHousePerson/GatherBuildHousePersonMainPage.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/jb4dc-grid-system-root/jb4dc-grid-system-web-package/src/main/app-client/GridAppClient/Js/AppClientUtility.js" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-grid-system-root/jb4dc-grid-system-web-package/src/main/app-client/GridAppClient/Js/AppClientUtility.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jb4dc-grid-system-root/jb4dc-grid-system-web-package/src/main/app-client/GridAppClient/Less/Variable.less" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-grid-system-root/jb4dc-grid-system-web-package/src/main/app-client/GridAppClient/Less/Variable.less" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jb4dc-grid-system-root/jb4dc-grid-system-web-package/src/main/app-client/GridAppClient/Template.html" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-grid-system-root/jb4dc-grid-system-web-package/src/main/app-client/GridAppClient/Template.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/jb4dc-grid-system-root/jb4dc-grid-system-web-package/src/main/app-client/GridAppClient/VueComponent/gather-bhpe-data-main-root.vue" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-grid-system-root/jb4dc-grid-system-web-package/src/main/app-client/GridAppClient/VueComponent/gather-bhpe-data-main-root.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/jb4dc-grid-system-root/jb4dc-grid-system-web-package/src/main/app-client/GridAppClient/VueComponent/gather-house-inner-about-list.vue" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-grid-system-root/jb4dc-grid-system-web-package/src/main/app-client/GridAppClient/VueComponent/gather-house-inner-about-list.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jb4dc-grid-system-root/jb4dc-grid-system-web-package/src/main/app-client/GridAppClient/webpack.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-grid-system-root/jb4dc-grid-system-web-package/src/main/app-client/GridAppClient/webpack.config.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jb4dc-grid-system-root/jb4dc-grid-system-web-package/src/main/app-client/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-grid-system-root/jb4dc-grid-system-web-package/src/main/app-client/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jb4dc-grid-system-root/jb4dc-grid-system-web-package/src/main/app-client/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-grid-system-root/jb4dc-grid-system-web-package/src/main/app-client/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jb4dc-grid-system-root/jb4dc-grid-system-web-package/src/main/java/com/jb4dc/gridsystem/webpackage/rest/grid/person/FamilyRest.java" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-grid-system-root/jb4dc-grid-system-web-package/src/main/java/com/jb4dc/gridsystem/webpackage/rest/grid/person/FamilyRest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jb4dc-grid-system-root/jb4dc-grid-system-web-package/src/main/java/com/jb4dc/gridsystem/webpackage/rest/grid/person/PersonInfoRest.java" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-grid-system-root/jb4dc-grid-system-web-package/src/main/java/com/jb4dc/gridsystem/webpackage/rest/grid/person/PersonInfoRest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jb4dc-grid-system-root/jb4dc-grid-system-web-package/src/main/java/com/jb4dc/gridsystem/webpackage/rest/grid/setting/AppVersionRest.java" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-grid-system-root/jb4dc-grid-system-web-package/src/main/java/com/jb4dc/gridsystem/webpackage/rest/grid/setting/AppVersionRest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/jb4dc-grid-system-root/jb4dc-grid-system-web-package/src/main/resources/static/HTML/GridAppClient/GatherBuildHousePersonMainPage.css" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-grid-system-root/jb4dc-grid-system-web-package/src/main/resources/static/HTML/GridAppClient/GatherBuildHousePersonMainPage.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/jb4dc-grid-system-root/jb4dc-grid-system-web-package/src/main/resources/static/HTML/GridAppClient/GatherBuildHousePersonMainPage.html" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-grid-system-root/jb4dc-grid-system-web-package/src/main/resources/static/HTML/GridAppClient/GatherBuildHousePersonMainPage.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/jb4dc-grid-system-root/jb4dc-grid-system-web-package/src/main/resources/static/HTML/GridAppClient/GatherSearchMainPage.html" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-grid-system-root/jb4dc-grid-system-web-package/src/main/resources/static/HTML/GridAppClient/GatherSearchMainPage.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jb4dc-grid-system-root/jb4dc-grid-system-web-server/src/main/resources/application-dev.yml" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-grid-system-root/jb4dc-grid-system-web-server/src/main/resources/application-dev.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jb4dc-grid-system-root/jb4dc-grid-system-web-server/src/main/resources/application-xgprod.yml" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-grid-system-root/jb4dc-grid-system-web-server/src/main/resources/application-xgprod.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -173,19 +161,19 @@
     <key name="CreateTestDialog.Recents.Supers">
       <recent name="" />
     </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="D:\JavaProject\jb4dc\jb4dc-builder-root\jb4dc-grid-system-root\jb4dc-grid-system-web-package\src\main\app-client\GridAppClient\Js" />
-      <recent name="D:\JavaProject\jb4dc\jb4dc-builder-root\jb4dc-grid-system-root\jb4dc-grid-system-web-package\src\main\front-end\static\Js\back" />
-      <recent name="D:\JavaProject\jb4dc\jb4dc-builder-root\jb4dc-grid-system-root\jb4dc-grid-system-web-package\src\main\front-end\static\HTML\Grid" />
-      <recent name="D:\JavaProject\jb4dc\jb4dc-builder-root\jb4dc-builder-web-server\src\main\resources\config" />
-      <recent name="D:\JavaProject\jb4dc\jb4dc-builder-root\jb4dc-qc-system-root\jb4dc-qc-system-web-server\src\main\resources\config" />
-    </key>
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
       <recent name="com.jb4dc.builder.client.exenum" />
       <recent name="com.jb4dc.builder.client.proxy" />
       <recent name="com.jb4dc.gridsystem.webpackage.beanconfig" />
       <recent name="com.jb4dc.builder.client.service" />
       <recent name="com.jb4dc.builder.client.service.weblist" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\JavaProject\jb4dc\jb4dc-builder-root\jb4dc-grid-system-root\jb4dc-grid-system-web-package\src\main\app-client\GridAppClient\Images" />
+      <recent name="D:\JavaProject\jb4dc\jb4dc-builder-root\jb4dc-grid-system-root\jb4dc-grid-system-web-package\src\main\app-client\GridAppClient\VueComponent\vue-confirm-dialog" />
+      <recent name="D:\JavaProject\jb4dc\jb4dc-builder-root\jb4dc-grid-system-root\jb4dc-grid-system-web-server\src\main\resources\config" />
+      <recent name="D:\JavaProject\jb4dc\jb4dc-builder-root\jb4dc-grid-system-root\jb4dc-grid-system-web-server\src\main\resources" />
+      <recent name="D:\JavaProject\jb4dc\jb4dc-builder-root\jb4dc-grid-system-root\jb4dc-grid-system-web-package\src\main\app-client\GridAppClient\Less" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="com.jb4dc.gridsystem.cache" />
@@ -194,12 +182,12 @@
       <recent name="com.jb4dc.gridsystem.provide" />
       <recent name="com.jb4dc.gridsystem.webpackage.beanconfig.liquibase" />
     </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="D:\JavaProject\jb4dc\jb4dc-builder-root\jb4dc-grid-system-root\jb4dc-grid-system-web-package\src\main\app-client\GridAppClient\Images" />
-      <recent name="D:\JavaProject\jb4dc\jb4dc-builder-root\jb4dc-grid-system-root\jb4dc-grid-system-web-package\src\main\app-client\GridAppClient\VueComponent\vue-confirm-dialog" />
-      <recent name="D:\JavaProject\jb4dc\jb4dc-builder-root\jb4dc-grid-system-root\jb4dc-grid-system-web-server\src\main\resources\config" />
-      <recent name="D:\JavaProject\jb4dc\jb4dc-builder-root\jb4dc-grid-system-root\jb4dc-grid-system-web-server\src\main\resources" />
-      <recent name="D:\JavaProject\jb4dc\jb4dc-builder-root\jb4dc-grid-system-root\jb4dc-grid-system-web-package\src\main\app-client\GridAppClient\Less" />
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\JavaProject\jb4dc\jb4dc-builder-root\jb4dc-grid-system-root\jb4dc-grid-system-web-package\src\main\app-client\GridAppClient\Js" />
+      <recent name="D:\JavaProject\jb4dc\jb4dc-builder-root\jb4dc-grid-system-root\jb4dc-grid-system-web-package\src\main\front-end\static\Js\back" />
+      <recent name="D:\JavaProject\jb4dc\jb4dc-builder-root\jb4dc-grid-system-root\jb4dc-grid-system-web-package\src\main\front-end\static\HTML\Grid" />
+      <recent name="D:\JavaProject\jb4dc\jb4dc-builder-root\jb4dc-builder-web-server\src\main\resources\config" />
+      <recent name="D:\JavaProject\jb4dc\jb4dc-builder-root\jb4dc-qc-system-root\jb4dc-qc-system-web-server\src\main\resources\config" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -210,15 +198,13 @@
     </option>
   </component>
   <component name="RunManager" selected="npm.gridappclient-dev-watch">
-    <configuration default="true" type="ArquillianTestNG" factoryName="" nameIsGenerated="true">
+    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
       <option name="arquillianRunConfiguration">
         <value>
           <option name="containerStateName" value="" />
         </value>
       </option>
-      <option name="TEST_OBJECT" value="CLASS" />
-      <properties />
-      <listeners />
+      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -811,14 +797,8 @@
       <workItem from="1606870115622" duration="26147000" />
       <workItem from="1606948549005" duration="5790000" />
       <workItem from="1606996494495" duration="8964000" />
-      <workItem from="1607039612382" duration="33274000" />
-    </task>
-    <task id="LOCAL-00348" summary="2020-10-15">
-      <created>1602941853340</created>
-      <option name="number" value="00348" />
-      <option name="presentableId" value="LOCAL-00348" />
-      <option name="project" value="LOCAL" />
-      <updated>1602941853341</updated>
+      <workItem from="1607039612382" duration="33621000" />
+      <workItem from="1607129465948" duration="28344000" />
     </task>
     <task id="LOCAL-00349" summary="2020-10-15">
       <created>1602943519067</created>
@@ -1156,7 +1136,14 @@
       <option name="project" value="LOCAL" />
       <updated>1606916463103</updated>
     </task>
-    <option name="localTasksCounter" value="397" />
+    <task id="LOCAL-00397" summary="2020-10-15">
+      <created>1607091897564</created>
+      <option name="number" value="00397" />
+      <option name="presentableId" value="LOCAL-00397" />
+      <option name="project" value="LOCAL" />
+      <updated>1607091897565</updated>
+    </task>
+    <option name="localTasksCounter" value="398" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -1215,10 +1202,10 @@
       <screen x="0" y="0" width="2560" height="1040" />
     </state>
     <state x="1159" y="299" width="921" height="470" key="#com.intellij.ide.scriptingContext.ui.PerFileMappingsDialogWrapper/0.0.2560.1040/2560.0.1920.1040@0.0.2560.1040" timestamp="1600656661134" />
-    <state x="1030" y="221" width="689" height="632" key="#com.intellij.ide.util.MemberChooser" timestamp="1607049617748">
+    <state x="1030" y="221" width="689" height="632" key="#com.intellij.ide.util.MemberChooser" timestamp="1607173706931">
       <screen x="0" y="0" width="2560" height="1040" />
     </state>
-    <state x="1030" y="221" width="689" height="632" key="#com.intellij.ide.util.MemberChooser/0.0.2560.1040/2560.0.1920.1040@0.0.2560.1040" timestamp="1607049617748" />
+    <state x="1030" y="221" width="689" height="632" key="#com.intellij.ide.util.MemberChooser/0.0.2560.1040/2560.0.1920.1040@0.0.2560.1040" timestamp="1607173706931" />
     <state x="3333" y="221" key="#com.intellij.ide.util.MemberChooser/0.0.2560.1040/2560.0.1920.1040@2560.0.1920.1040" timestamp="1605165368593" />
     <state x="1009" y="299" key="#com.intellij.ide.util.PackageChooserDialog" timestamp="1606123833455">
       <screen x="0" y="0" width="2560" height="1040" />
@@ -1248,10 +1235,10 @@
       <screen x="0" y="0" width="2560" height="1040" />
     </state>
     <state x="1010" y="266" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.2560.1040/2560.0.1920.1040@0.0.2560.1040" timestamp="1605856331976" />
-    <state x="2851" y="90" width="1479" height="874" key="#xdebugger.evaluate" timestamp="1607086978012">
+    <state x="2851" y="90" width="1479" height="874" key="#xdebugger.evaluate" timestamp="1607170472573">
       <screen x="2560" y="0" width="1920" height="1040" />
     </state>
-    <state x="2851" y="90" width="1479" height="874" key="#xdebugger.evaluate/0.0.2560.1040/2560.0.1920.1040@0.0.2560.1040" timestamp="1607086978012" />
+    <state x="2851" y="90" width="1479" height="874" key="#xdebugger.evaluate/0.0.2560.1040/2560.0.1920.1040@0.0.2560.1040" timestamp="1607170472573" />
     <state x="751" y="87" key="CommitChangelistDialog2" timestamp="1605518053827">
       <screen x="0" y="0" width="2560" height="1040" />
     </state>
@@ -1273,77 +1260,77 @@
       <screen x="0" y="0" width="2560" height="1040" />
     </state>
     <state x="822" y="178" key="GrepConsoleSettings/0.0.2560.1040/2560.0.1920.1040@0.0.2560.1040" timestamp="1600675011533" />
-    <state width="2517" height="274" key="GridCell.Tab.0.bottom" timestamp="1607091444841">
+    <state width="2133" height="389" key="GridCell.Tab.0.bottom" timestamp="1607170487355">
       <screen x="0" y="0" width="2560" height="1040" />
     </state>
     <state width="1999" height="254" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1598532348954" />
-    <state width="2517" height="274" key="GridCell.Tab.0.bottom/0.0.2560.1040/2560.0.1920.1040@0.0.2560.1040" timestamp="1607091444841" />
+    <state width="2133" height="389" key="GridCell.Tab.0.bottom/0.0.2560.1040/2560.0.1920.1040@0.0.2560.1040" timestamp="1607170487355" />
     <state width="1707" height="335" key="GridCell.Tab.0.bottom/0.0.2560.1040/2560.0.1920.1040@2560.0.1920.1040" timestamp="1605165088787" />
-    <state width="2517" height="274" key="GridCell.Tab.0.center" timestamp="1607091444841">
+    <state width="2133" height="389" key="GridCell.Tab.0.center" timestamp="1607170487355">
       <screen x="0" y="0" width="2560" height="1040" />
     </state>
     <state width="1999" height="254" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1598532348954" />
-    <state width="2517" height="274" key="GridCell.Tab.0.center/0.0.2560.1040/2560.0.1920.1040@0.0.2560.1040" timestamp="1607091444841" />
+    <state width="2133" height="389" key="GridCell.Tab.0.center/0.0.2560.1040/2560.0.1920.1040@0.0.2560.1040" timestamp="1607170487355" />
     <state width="1707" height="335" key="GridCell.Tab.0.center/0.0.2560.1040/2560.0.1920.1040@2560.0.1920.1040" timestamp="1605165088786" />
-    <state width="2517" height="274" key="GridCell.Tab.0.left" timestamp="1607091444841">
+    <state width="2133" height="389" key="GridCell.Tab.0.left" timestamp="1607170487355">
       <screen x="0" y="0" width="2560" height="1040" />
     </state>
     <state width="1999" height="254" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1598532348953" />
-    <state width="2517" height="274" key="GridCell.Tab.0.left/0.0.2560.1040/2560.0.1920.1040@0.0.2560.1040" timestamp="1607091444841" />
+    <state width="2133" height="389" key="GridCell.Tab.0.left/0.0.2560.1040/2560.0.1920.1040@0.0.2560.1040" timestamp="1607170487355" />
     <state width="1707" height="335" key="GridCell.Tab.0.left/0.0.2560.1040/2560.0.1920.1040@2560.0.1920.1040" timestamp="1605165088786" />
-    <state width="2517" height="274" key="GridCell.Tab.0.right" timestamp="1607091444841">
+    <state width="2133" height="389" key="GridCell.Tab.0.right" timestamp="1607170487355">
       <screen x="0" y="0" width="2560" height="1040" />
     </state>
     <state width="1999" height="254" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1598532348954" />
-    <state width="2517" height="274" key="GridCell.Tab.0.right/0.0.2560.1040/2560.0.1920.1040@0.0.2560.1040" timestamp="1607091444841" />
+    <state width="2133" height="389" key="GridCell.Tab.0.right/0.0.2560.1040/2560.0.1920.1040@0.0.2560.1040" timestamp="1607170487355" />
     <state width="1707" height="335" key="GridCell.Tab.0.right/0.0.2560.1040/2560.0.1920.1040@2560.0.1920.1040" timestamp="1605165088786" />
-    <state width="2133" height="389" key="GridCell.Tab.1.bottom" timestamp="1607088964891">
+    <state width="2133" height="389" key="GridCell.Tab.1.bottom" timestamp="1607170487356">
       <screen x="0" y="0" width="2560" height="1040" />
     </state>
     <state width="1999" height="254" key="GridCell.Tab.1.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1598532348954" />
-    <state width="2133" height="389" key="GridCell.Tab.1.bottom/0.0.2560.1040/2560.0.1920.1040@0.0.2560.1040" timestamp="1607088964891" />
+    <state width="2133" height="389" key="GridCell.Tab.1.bottom/0.0.2560.1040/2560.0.1920.1040@0.0.2560.1040" timestamp="1607170487356" />
     <state width="1707" height="335" key="GridCell.Tab.1.bottom/0.0.2560.1040/2560.0.1920.1040@2560.0.1920.1040" timestamp="1605165088787" />
-    <state width="2133" height="389" key="GridCell.Tab.1.center" timestamp="1607088964891">
+    <state width="2133" height="389" key="GridCell.Tab.1.center" timestamp="1607170487355">
       <screen x="0" y="0" width="2560" height="1040" />
     </state>
     <state width="1999" height="254" key="GridCell.Tab.1.center/0.0.1920.1040@0.0.1920.1040" timestamp="1598532348954" />
-    <state width="2133" height="389" key="GridCell.Tab.1.center/0.0.2560.1040/2560.0.1920.1040@0.0.2560.1040" timestamp="1607088964891" />
+    <state width="2133" height="389" key="GridCell.Tab.1.center/0.0.2560.1040/2560.0.1920.1040@0.0.2560.1040" timestamp="1607170487355" />
     <state width="1707" height="335" key="GridCell.Tab.1.center/0.0.2560.1040/2560.0.1920.1040@2560.0.1920.1040" timestamp="1605165088787" />
-    <state width="2133" height="389" key="GridCell.Tab.1.left" timestamp="1607088964891">
+    <state width="2133" height="389" key="GridCell.Tab.1.left" timestamp="1607170487355">
       <screen x="0" y="0" width="2560" height="1040" />
     </state>
     <state width="1999" height="254" key="GridCell.Tab.1.left/0.0.1920.1040@0.0.1920.1040" timestamp="1598532348954" />
-    <state width="2133" height="389" key="GridCell.Tab.1.left/0.0.2560.1040/2560.0.1920.1040@0.0.2560.1040" timestamp="1607088964891" />
+    <state width="2133" height="389" key="GridCell.Tab.1.left/0.0.2560.1040/2560.0.1920.1040@0.0.2560.1040" timestamp="1607170487355" />
     <state width="1707" height="335" key="GridCell.Tab.1.left/0.0.2560.1040/2560.0.1920.1040@2560.0.1920.1040" timestamp="1605165088787" />
-    <state width="2133" height="389" key="GridCell.Tab.1.right" timestamp="1607088964891">
+    <state width="2133" height="389" key="GridCell.Tab.1.right" timestamp="1607170487355">
       <screen x="0" y="0" width="2560" height="1040" />
     </state>
     <state width="1999" height="254" key="GridCell.Tab.1.right/0.0.1920.1040@0.0.1920.1040" timestamp="1598532348954" />
-    <state width="2133" height="389" key="GridCell.Tab.1.right/0.0.2560.1040/2560.0.1920.1040@0.0.2560.1040" timestamp="1607088964891" />
+    <state width="2133" height="389" key="GridCell.Tab.1.right/0.0.2560.1040/2560.0.1920.1040@0.0.2560.1040" timestamp="1607170487355" />
     <state width="1707" height="335" key="GridCell.Tab.1.right/0.0.2560.1040/2560.0.1920.1040@2560.0.1920.1040" timestamp="1605165088787" />
-    <state width="2133" height="389" key="GridCell.Tab.2.bottom" timestamp="1607088964891">
+    <state width="2133" height="389" key="GridCell.Tab.2.bottom" timestamp="1607170487356">
       <screen x="0" y="0" width="2560" height="1040" />
     </state>
     <state width="1999" height="254" key="GridCell.Tab.2.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1598532348954" />
-    <state width="2133" height="389" key="GridCell.Tab.2.bottom/0.0.2560.1040/2560.0.1920.1040@0.0.2560.1040" timestamp="1607088964891" />
+    <state width="2133" height="389" key="GridCell.Tab.2.bottom/0.0.2560.1040/2560.0.1920.1040@0.0.2560.1040" timestamp="1607170487356" />
     <state width="1707" height="335" key="GridCell.Tab.2.bottom/0.0.2560.1040/2560.0.1920.1040@2560.0.1920.1040" timestamp="1605165088787" />
-    <state width="2133" height="389" key="GridCell.Tab.2.center" timestamp="1607088964891">
+    <state width="2133" height="389" key="GridCell.Tab.2.center" timestamp="1607170487356">
       <screen x="0" y="0" width="2560" height="1040" />
     </state>
     <state width="1999" height="254" key="GridCell.Tab.2.center/0.0.1920.1040@0.0.1920.1040" timestamp="1598532348954" />
-    <state width="2133" height="389" key="GridCell.Tab.2.center/0.0.2560.1040/2560.0.1920.1040@0.0.2560.1040" timestamp="1607088964891" />
+    <state width="2133" height="389" key="GridCell.Tab.2.center/0.0.2560.1040/2560.0.1920.1040@0.0.2560.1040" timestamp="1607170487356" />
     <state width="1707" height="335" key="GridCell.Tab.2.center/0.0.2560.1040/2560.0.1920.1040@2560.0.1920.1040" timestamp="1605165088787" />
-    <state width="2133" height="389" key="GridCell.Tab.2.left" timestamp="1607088964891">
+    <state width="2133" height="389" key="GridCell.Tab.2.left" timestamp="1607170487356">
       <screen x="0" y="0" width="2560" height="1040" />
     </state>
     <state width="1999" height="254" key="GridCell.Tab.2.left/0.0.1920.1040@0.0.1920.1040" timestamp="1598532348954" />
-    <state width="2133" height="389" key="GridCell.Tab.2.left/0.0.2560.1040/2560.0.1920.1040@0.0.2560.1040" timestamp="1607088964891" />
+    <state width="2133" height="389" key="GridCell.Tab.2.left/0.0.2560.1040/2560.0.1920.1040@0.0.2560.1040" timestamp="1607170487356" />
     <state width="1707" height="335" key="GridCell.Tab.2.left/0.0.2560.1040/2560.0.1920.1040@2560.0.1920.1040" timestamp="1605165088787" />
-    <state width="2133" height="389" key="GridCell.Tab.2.right" timestamp="1607088964891">
+    <state width="2133" height="389" key="GridCell.Tab.2.right" timestamp="1607170487356">
       <screen x="0" y="0" width="2560" height="1040" />
     </state>
     <state width="1999" height="254" key="GridCell.Tab.2.right/0.0.1920.1040@0.0.1920.1040" timestamp="1598532348954" />
-    <state width="2133" height="389" key="GridCell.Tab.2.right/0.0.2560.1040/2560.0.1920.1040@0.0.2560.1040" timestamp="1607088964891" />
+    <state width="2133" height="389" key="GridCell.Tab.2.right/0.0.2560.1040/2560.0.1920.1040@0.0.2560.1040" timestamp="1607170487356" />
     <state width="1707" height="335" key="GridCell.Tab.2.right/0.0.2560.1040/2560.0.1920.1040@2560.0.1920.1040" timestamp="1605165088787" />
     <state width="2517" height="374" key="GridCell.Tab.3.bottom" timestamp="1604326132442">
       <screen x="0" y="0" width="2560" height="1040" />
@@ -1381,10 +1368,10 @@
       <screen x="0" y="0" width="2560" height="1040" />
     </state>
     <state width="254" height="198" key="ShowFilterAction_Filter_Popup/0.0.2560.1040/2560.0.1920.1040@0.0.2560.1040" timestamp="1600658507424" />
-    <state x="872" y="253" key="Vcs.Push.Dialog.v2" timestamp="1606916467275">
+    <state x="872" y="253" key="Vcs.Push.Dialog.v2" timestamp="1607091899646">
       <screen x="0" y="0" width="2560" height="1040" />
     </state>
-    <state x="872" y="253" key="Vcs.Push.Dialog.v2/0.0.2560.1040/2560.0.1920.1040@0.0.2560.1040" timestamp="1606916467275" />
+    <state x="872" y="253" key="Vcs.Push.Dialog.v2/0.0.2560.1040/2560.0.1920.1040@0.0.2560.1040" timestamp="1607091899646" />
     <state width="1288" height="528" key="XDebugger.FullValuePopup" timestamp="1603960676441">
       <screen x="0" y="0" width="2560" height="1040" />
     </state>
@@ -1405,10 +1392,10 @@
       <screen x="0" y="0" width="2560" height="1040" />
     </state>
     <state x="802" y="256" key="com.intellij.xdebugger.impl.breakpoints.ui.BreakpointsDialogFactory$2/0.0.2560.1040/2560.0.1920.1040@0.0.2560.1040" timestamp="1605278783093" />
-    <state x="2554" y="-15" width="1932" height="1005" maximized="true" key="dock-window-1" timestamp="1606907392261">
+    <state x="2560" y="0" width="1936" height="1005" key="dock-window-1" timestamp="1607132597044">
       <screen x="2560" y="0" width="1920" height="1040" />
     </state>
-    <state x="2554" y="-15" width="1932" height="1005" maximized="true" key="dock-window-1/0.0.2560.1040/2560.0.1920.1040@0.0.2560.1040" timestamp="1606907392261" />
+    <state x="2560" y="0" width="1936" height="1005" key="dock-window-1/0.0.2560.1040/2560.0.1920.1040@0.0.2560.1040" timestamp="1607132597044" />
     <state x="860" y="175" key="editAsTableFormatDialogDimension" timestamp="1603958054530">
       <screen x="0" y="0" width="2560" height="1040" />
     </state>

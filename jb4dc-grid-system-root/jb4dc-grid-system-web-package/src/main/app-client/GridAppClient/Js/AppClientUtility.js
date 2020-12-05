@@ -281,7 +281,7 @@ var StringUtility = {
     },
     IsNullOrEmptyTrim:function (obj){
         if(obj){
-            obj=this.Trim(obj);
+            obj=this.Trim(obj.toString());
         }
         return this.IsNullOrEmpty(obj);
     },
@@ -394,6 +394,45 @@ var StringUtility = {
     }
 }
 
+var DateUtility={
+    ConvertFromString:function(dateString){
+        var date = new Date(dateString);
+        return date;
+    },
+    Format:function (myDate,formatString) {
+        var o = {
+            "M+" : myDate.getMonth()+1, //month
+            "d+" : myDate.getDate(),    //day
+            "h+" : myDate.getHours(),   //hour
+            "m+" : myDate.getMinutes(), //minute
+            "s+" : myDate.getSeconds(), //second
+            "q+" : Math.floor((myDate.getMonth()+3)/3),  //quarter
+            "S" : myDate.getMilliseconds() //millisecond
+        };
+        if(/(y+)/.test(formatString)) formatString=formatString.replace(RegExp.$1,
+            (myDate.getFullYear()+"").substr(4 - RegExp.$1.length));
+        for(var k in o)if(new RegExp("("+ k +")").test(formatString))
+            formatString = formatString.replace(RegExp.$1,
+                RegExp.$1.length==1 ? o[k] :
+                    ("00"+ o[k]).substr((""+ o[k]).length));
+        return formatString;
+    },
+    FormatCurrentData:function (formatString) {
+        var myDate = new Date();
+        return this.Format(myDate,formatString);
+    },
+    GetCurrentData:function () {
+        return new Date();
+    },
+    GetCurrentTimeStamp:function(){
+        return new Date().getTime();
+    },
+    DataFormatByTimeStamp:function (timeStamp,formatString) {
+        var date = new Date(timeStamp);
+        return this.Format(date,formatString);
+    }
+}
+
 module.exports = {
     GetUrlParaValue,
     ConvertDDListToMap,
@@ -401,5 +440,6 @@ module.exports = {
     GetAllDDMap,
     ArrayUtility,
     JsonUtility,
-    StringUtility
+    StringUtility,
+    DateUtility
 }

@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -39,5 +40,12 @@ public class FamilyRest extends GeneralRest<FamilyEntity> {
         //JB4DCSession jb4DCSession= JB4DCSessionUtility.getSession();
         familyPO=familyService.saveFamilyData(JB4DCSessionUtility.getSession(),familyPO);
         return JBuild4DCResponseVo.opSuccess(familyPO);
+    }
+
+    @RequestMapping(value = "/GetFamilyData", method = RequestMethod.GET)
+    public JBuild4DCResponseVo<FamilyPO> getFamilyData(String familyId) throws JBuild4DCGenerallyException, IOException {
+        //JB4DCSession jb4DCSession= JB4DCSessionUtility.getSession();
+        FamilyPO familyPO=familyService.getFamilyData(JB4DCSessionUtility.getSession(),familyId);
+        return JBuild4DCResponseVo.getDataSuccess(familyPO);
     }
 }

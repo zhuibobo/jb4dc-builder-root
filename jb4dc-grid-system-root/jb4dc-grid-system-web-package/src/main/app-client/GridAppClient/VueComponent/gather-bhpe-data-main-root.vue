@@ -14,7 +14,7 @@
         <input type="text" class="form-control" placeholder="输入编号或门牌地址" v-model="build.searchText" aria-describedby="basic-addon1" @keyup="filterBuildArray">
       </div>
       <div class="all-build-wrap">
-        <div class="single-build" :class="{'single-build-selected':singleBuildData.buildId == selected}" v-for="singleBuildData in build.filterBuilds" @click="loadHouseList($event,singleBuildData.buildId)">
+        <div class="single-build" :class="{'single-build-selected':singleBuildData.buildId == selected}" v-for="singleBuildData in build.filterBuilds" @click="loadHouseListFromServer($event,singleBuildData)">
           <div class="text-wrap">
             <div class="code">{{singleBuildData.buildCode.substring(8)}}</div>
             <div class="text">{{singleBuildData.buildAddress}}</div>
@@ -48,7 +48,7 @@
         </div>
       </div>
     </div>
-    <gatherHouseInnerAboutList :selected-house="house.selectedHouse"></gatherHouseInnerAboutList>
+    <gatherHouseInnerAboutList :selected-house="house.selectedHouse" :selected-build="build.selectedBuild" :session="session" ref="gatherHouseInnerAboutListObj"></gatherHouseInnerAboutList>
   </div>
 </template>
 
@@ -70,18 +70,13 @@ export default {
         deleteBuild: "/GridSystem/Rest/Grid/Build/BuildMain/Delete",
         //House
         getHouseByBuildId: "/GridSystem/Rest/Grid/Build/HouseInfo/GetHouseByBuildId",
-        deleteHouse: "/GridSystem/Rest/Grid/Build/HouseInfo/Delete",
-        //Person
-        getPersonByHouseId: "/GridSystem/Rest/Grid/Person/PersonMain/GetPersonByHouseId",
-        deletePerson: "/GridSystem/Rest/Grid/Person/PersonMain/DeletePersonWithFamily",
-        //Enterprise
-        getEnterpriseByHouseId: "/GridSystem/Rest/Grid/Enterprise/EnterpriseMain/GetEnterpriseByHouseId",
-        deleteEnterprise: "/GridSystem/Rest/Grid/Enterprise/EnterpriseMain/Delete"
+        deleteHouse: "/GridSystem/Rest/Grid/Build/HouseInfo/Delete"
       },
       build:{
         searchText:"",
         allBuilds:[],
-        filterBuilds:[]
+        filterBuilds:[],
+        selectedBuild:null
       },
       house:{
         searchText:"",
@@ -95,15 +90,16 @@ export default {
     appClientSessionUtility.BuildSession();
     console.log(appClientSessionUtility.GetSession());
     this.session=appClientSessionUtility.GetSession();
-    this.loadBuildList();
+    this.loadBuildListFromServer();
   },
   methods:{
     //region 建筑物
-    loadBuildList:function () {
+    loadBuildListFromServer:function () {
       axios.get(this.acInterface.getMyBuild, {
         params: {
           includeGrid: "false",
-          AppClientToken: this.session.AppClientToken
+          AppClientToken: this.session.AppClientToken,
+          ts:Date.now()
         }
       }).then((response) => {
         console.log(response);
@@ -148,8 +144,10 @@ export default {
     },
     //endregion
     //region 房屋
-    loadHouseList:function (event,buildId) {
-      console.log(event);
+    loadHouseListFromServer:function (event,singleHouseData) {
+      //console.log(event);
+      var buildId=singleHouseData.buildId;
+      this.build.selectedBuild=singleHouseData;
       this.house.allHouse = [];
       this.house.searchText="";
       this.selected=buildId;
@@ -157,7 +155,8 @@ export default {
       axios.get(this.acInterface.getHouseByBuildId, {
         params: {
           buildId: buildId,
-          AppClientToken: this.session.AppClientToken
+          AppClientToken: this.session.AppClientToken,
+          ts:Date.now()
         }
       }).then((response) => {
         console.log(response);
@@ -184,6 +183,7 @@ export default {
     },
     beginEditHouseInner:function (singleHouseData){
       this.house.selectedHouse=singleHouseData;
+      this.$refs.gatherHouseInnerAboutListObj.loadHouseInnerDataFromServer(singleHouseData);
       console.log(this.house.selectedHouse);
     }
     //endregion

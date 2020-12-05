@@ -1,27 +1,38 @@
 package com.jb4dc.gridsystem.service.person.impl;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.jb4dc.base.service.IAddBefore;
 import com.jb4dc.base.service.impl.BaseServiceImpl;
+import com.jb4dc.base.tools.JsonUtility;
 import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
 import com.jb4dc.core.base.exception.JBuild4DCSQLKeyWordException;
 import com.jb4dc.core.base.session.JB4DCSession;
 import com.jb4dc.core.base.tools.StringUtility;
+import com.jb4dc.files.dbentities.FileInfoEntity;
+import com.jb4dc.files.po.SimpleFilePathPO;
+import com.jb4dc.files.service.IFileInfoService;
 import com.jb4dc.gridsystem.dao.person.FamilyMapper;
 import com.jb4dc.gridsystem.dbentities.build.BuildInfoEntity;
 import com.jb4dc.gridsystem.dbentities.build.HouseInfoEntity;
 import com.jb4dc.gridsystem.dbentities.person.FamilyEntity;
 import com.jb4dc.gridsystem.dbentities.person.PersonEntity;
 import com.jb4dc.gridsystem.po.FamilyPO;
+import com.jb4dc.gridsystem.po.PersonPO;
 import com.jb4dc.gridsystem.service.build.IBuildInfoService;
 import com.jb4dc.gridsystem.service.build.IHouseInfoService;
 import com.jb4dc.gridsystem.service.person.IFamilyService;
 import com.jb4dc.gridsystem.service.person.IPersonService;
 import liquibase.pro.packaged.A;
+import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import sun.misc.BASE64Decoder;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.Date;
+import java.util.List;
 
 @Service
 public class FamilyServiceImpl extends BaseServiceImpl<FamilyEntity> implements IFamilyService
@@ -34,6 +45,9 @@ public class FamilyServiceImpl extends BaseServiceImpl<FamilyEntity> implements 
 
     @Autowired
     IPersonService personService;
+
+    @Autowired
+    IFileInfoService fileInfoService;
 
     FamilyMapper familyMapper;
     public FamilyServiceImpl(FamilyMapper _defaultBaseMapper){
@@ -103,7 +117,7 @@ public class FamilyServiceImpl extends BaseServiceImpl<FamilyEntity> implements 
 
             //保存人员信息
             if(familyPO.getFamilyPersons()!=null){
-                for (PersonEntity familyPerson : familyPO.getFamilyPersons()) {
+                for (PersonPO familyPerson : familyPO.getFamilyPersons()) {
                     familyPerson.setPersonCityId(buildInfoEntity.getBuildCityId());
                     familyPerson.setPersonAreaId(buildInfoEntity.getBuildAreaId());
                     familyPerson.setPersonStreetId(buildInfoEntity.getBuildStreetId());
@@ -114,6 +128,25 @@ public class FamilyServiceImpl extends BaseServiceImpl<FamilyEntity> implements 
                     familyPerson.setPersonHouseCodeFull(houseInfoEntity.getHouseCodeFull());
                     familyPerson.setPersonHeadHouseholdName(headHouseHoldPersonEntity.getPersonName());
                     familyPerson.setPersonHeadHouseholdId(headHouseHoldPersonEntity.getPersonId());
+                    familyPerson.setPersonHouseId(houseInfoEntity.getHouseId());
+
+                    if(StringUtility.isNotEmpty(familyPerson.getPersonHeaderImageBase64())){
+                        BASE64Decoder decoder = new BASE64Decoder();
+                        byte[] byteData = decoder.decodeBuffer(familyPerson.getPersonHeaderImageBase64());
+                        FileInfoEntity fileInfoEntity=fileInfoService.addFileToFileSystem(session,"人口照片.png",byteData,familyPerson.getPersonId(),familyPerson.getPersonName(),"人口照片","人口照片");
+
+                        String sourcePath=fileInfoService.buildFilePath(fileInfoEntity);
+                        SimpleFilePathPO simpleFilePathPO=fileInfoService.buildSavePath("person",familyPerson.getPersonId(),familyPerson.getPersonIdCard()+"-HeadPhone.png");
+                        File sourceFile = new File(sourcePath);
+                        File newFile=new File(simpleFilePathPO.getFullFileStorePath());
+                        FileUtils.copyFile(sourceFile,newFile);
+
+                        familyPerson.setPersonPhotoId(fileInfoEntity.getFileId());
+                    }
+                    //保存照片
+                    //byte[] bytes=new byte[];
+                    //fileInfoService.addFileToFileSystem(session,"人口照片.png",)
+
                     personService.saveSimple(session,familyPerson.getPersonId(),familyPerson);
                 }
             }
@@ -125,5 +158,19 @@ public class FamilyServiceImpl extends BaseServiceImpl<FamilyEntity> implements 
         catch (Exception ex){
             throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_GRID_CODE, ex.getMessage());
         }
+    }
+
+    @Override
+    public FamilyPO getFamilyData(JB4DCSession session, String familyId) throws IOException {
+        FamilyEntity familyEntity=familyMapper.selectByPrimaryKey(familyId);
+        List<PersonEntity> familyPersonList=personService.getByFamilyId(familyId);
+        FamilyPO familyPO=new FamilyPO();
+        familyPO.setEditFamilyInfo(familyEntity);
+
+        String personJson= JsonUtility.toObjectString(familyPersonList);
+
+        List<PersonPO> familyPersonPOList=JsonUtility.toObjectList(personJson,PersonPO.class);
+        familyPO.setFamilyPersons(familyPersonPOList);
+        return familyPO;
     }
 }

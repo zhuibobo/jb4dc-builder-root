@@ -8,13 +8,17 @@ import com.jb4dc.feb.dist.webserver.rest.base.GeneralRest;
 import com.jb4dc.gridsystem.dbentities.build.BuildInfoEntity;
 import com.jb4dc.gridsystem.dbentities.build.HouseInfoEntity;
 import com.jb4dc.gridsystem.dbentities.person.PersonEntity;
+import com.jb4dc.gridsystem.po.FamilyPO;
 import com.jb4dc.gridsystem.service.build.IBuildInfoService;
 import com.jb4dc.gridsystem.service.person.IPersonService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.List;
 
 @RestController
@@ -41,10 +45,23 @@ public class PersonInfoRest extends GeneralRest<PersonEntity> {
         return JBuild4DCResponseVo.getDataSuccess(personEntityList);
     }
 
+    @RequestMapping(value = "/GetPersonHeaderBase64String", method = RequestMethod.GET)
+    public JBuild4DCResponseVo getPersonHeaderBase64String(String personId) throws JBuild4DCGenerallyException, IOException, URISyntaxException {
+        String personHeaderBase64String=personService.getPersonHeaderBase64String(JB4DCSessionUtility.getSession(),personId);
+        return JBuild4DCResponseVo.getDataSuccess(personHeaderBase64String);
+    }
+
     @RequestMapping(value = "/DeletePersonWithFamily", method = RequestMethod.DELETE)
     public JBuild4DCResponseVo deletePersonWithFamily(String personId) throws JBuild4DCGenerallyException {
         //JB4DCSession jb4DCSession= JB4DCSessionUtility.getSession();
         personService.deletePersonWithFamily(JB4DCSessionUtility.getSession(),personId);
         return JBuild4DCResponseVo.opSuccess();
+    }
+
+    @RequestMapping(value = "/SaveSinglePersonData", method = RequestMethod.POST)
+    public JBuild4DCResponseVo<PersonEntity> saveSinglePersonData(@RequestBody PersonEntity personEntity) throws JBuild4DCGenerallyException {
+        //JB4DCSession jb4DCSession= JB4DCSessionUtility.getSession();
+        personService.saveSimple(JB4DCSessionUtility.getSession(),personEntity.getPersonId(),personEntity);
+        return JBuild4DCResponseVo.opSuccess(personEntity);
     }
 }

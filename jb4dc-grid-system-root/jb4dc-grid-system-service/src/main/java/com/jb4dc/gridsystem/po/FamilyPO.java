@@ -7,7 +7,7 @@ import java.util.List;
 
 public class FamilyPO {
     private FamilyEntity editFamilyInfo;
-    private List<PersonEntity> familyPersons;
+    private List<PersonPO> familyPersons;
 
     public FamilyEntity getEditFamilyInfo() {
         return editFamilyInfo;
@@ -17,11 +17,11 @@ public class FamilyPO {
         this.editFamilyInfo = editFamilyInfo;
     }
 
-    public List<PersonEntity> getFamilyPersons() {
+    public List<PersonPO> getFamilyPersons() {
         return familyPersons;
     }
 
-    public void setFamilyPersons(List<PersonEntity> familyPersons) {
+    public void setFamilyPersons(List<PersonPO> familyPersons) {
         this.familyPersons = familyPersons;
     }
 }
