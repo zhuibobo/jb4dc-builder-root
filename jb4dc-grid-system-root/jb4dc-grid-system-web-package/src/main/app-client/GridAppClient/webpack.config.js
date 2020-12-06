@@ -11,7 +11,8 @@ module.exports = {
     entry: {
         /*"editTableSelectDefaultValue": './EditTable/Renderers/EditTable_SelectDefaultValue.js',*/
         "GatherBuildHousePersonMainPage": './BuildHousePerson/GatherBuildHousePersonMainPage.js',
-        "GatherSearchMainPage": './BuildHousePerson/GatherSearchMainPage.js'
+        "GatherSearchMainPage": './BuildHousePerson/GatherSearchMainPage.js',
+        "MockReadIdCardPage": './BuildHousePerson/MockReadIdCardPage.js'
     },
     context: path.resolve(__dirname, ""),
     output: {
@@ -111,6 +112,11 @@ module.exports = {
             filename: "GatherSearchMainPage.html",
             template: './Template.html',
             chunks: ['GatherSearchMainPage']
+        }),
+        new HtmlWebpackPlugin({
+            filename: "MockReadIdCardPage.html",
+            template: './Template.html',
+            chunks: ['MockReadIdCardPage']
         }),
         new MiniCssExtractPlugin({
             // Options similar to the same options in webpackOptions.output

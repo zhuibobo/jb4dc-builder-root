@@ -21,7 +21,8 @@ var WFDCT_FileUploadContainer={
         deleteEnable:false,
         previewEnable:false,
         moveOrderEnable:false,
-        clickFileNameAction:null
+        clickFileNameAction:null,
+        objType:""
     },
     acInterface:{
         getFileListData:"/Rest/Builder/RunTime/FileRuntime/GetFileListData",
@@ -89,7 +90,7 @@ var WFDCT_FileUploadContainer={
         return objId;
     },
     GetThisRecordType:function(){
-        return "构建表单记录";
+        return this._prop.objType;
     },
     GetUploadEndPointRequest:function () {
         var endPoint=BaseUtility.GetRootPath()+this.acInterface.uploadFile;

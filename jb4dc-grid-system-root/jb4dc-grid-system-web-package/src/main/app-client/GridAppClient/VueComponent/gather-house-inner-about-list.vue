@@ -221,6 +221,21 @@
                 </div>
                 <div id="familyEditFile" class="collapse" data-parent="#accordionFamilyEdit">
                   <div class="card-body" style="padding: 0.7rem">
+                    <div style="padding: 4px;height: 44px">
+                      <div style="float: right">
+                        <a href="javascript:;" class="file">
+                          <input type="file" accept="image/*;capture=camera" @change="changeFamilyFile">拍照
+                        </a>
+                      </div>
+                    </div>
+                    <div class="photo-list-wrap">
+                      <div>
+                        <img src="/GridSystem/Rest/Builder/RunTime/FileRuntime/DownLoadFileByFileId?fileId=69c8c05d-c000-49e6-874f-aa77c22e28d2" style="width: 100%" />
+                      </div>
+                      <div>
+                        <img src="/GridSystem/Rest/Builder/RunTime/FileRuntime/DownLoadFileByFileId?fileId=77265116-8b8c-4a50-8cd6-eb5b64131d18" style="width: 100%" />
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -247,7 +262,7 @@
           </div>
           <div class="modal-body" style="height: 570px;overflow-x:hidden;overflow-y: auto;position: relative">
               <div class="person-head-image">
-                <img id="imgPersonHeadPhoto" :src="'data:image/png;base64,'+getPersonHeaderImageBase64()" />
+                <img id="imgPersonHeadPhoto" :src="'data:image/jpeg;base64,'+getPersonHeaderImageBase64()" />
               </div>
               <form>
                 <div class="form-group row form-group-min">
@@ -678,6 +693,39 @@ export default {
       }
       return null;
     },
+    changeFamilyFile:function (event){
+      console.log(event);
+      var familyId=this.family.editFamilyData.editFamilyInfo.familyId;
+      if(appClientUtility.StringUtility.IsNullOrEmpty(familyId)){
+        this.$confirm({
+          message: `无法确认关联记录ID!`,
+          button: {
+            yes: '确认'
+          },
+          callback: confirm => {
+          }
+        });
+      }
+      else {
+        var reader = new FileReader();
+        reader.onload = (e)=> {
+          console.log(e.target.result);
+          //console.log(this.result);
+          appClientUtility.FileUtility.CompressImage(this.session,e.target.result,familyId,"家庭信息","img.jpg","*", (result)=>{
+            this.$confirm({
+              message: result.data.message,
+              button: {
+                yes: '确认'
+              },
+              callback: confirm => {
+              }
+            });
+          });
+          //compress(this.result);
+        };
+        reader.readAsDataURL(event.target.files[0]);
+      }
+    },
     //endregion
     //region Person
     getPersonHeaderImageBase64:function (){
@@ -708,6 +756,10 @@ export default {
     editPersonFromHouse:function (housePerson){
       this.person.editPersonData=appClientUtility.JsonUtility.CloneStringify(housePerson);
       this.person.editPersonFrom="House";
+      console.log(housePerson);
+      if(this.person.editPersonData.personBirthday){
+        this.person.editPersonData.personBirthday=this.person.editPersonData.personBirthday.split(" ")[0];
+      }
       this.tryLoadPersonHeaderBase64FromServer(this.person.editPersonData);
       $('#personEditModal').modal('show');
     },
@@ -966,6 +1018,33 @@ export default {
 <style scoped lang="less">
 @import "../Less/Variable.less";
 
+.file {
+  position: relative;
+  display: inline-block;
+  background: #D0EEFF;
+  border: 1px solid #99D3F5;
+  border-radius: 4px;
+  padding: 4px 12px;
+  overflow: hidden;
+  color: #1E88C7;
+  text-decoration: none;
+  text-indent: 0;
+  line-height: 20px;
+}
+.file input {
+  position: absolute;
+  font-size: 100px;
+  right: 0;
+  top: 0;
+  opacity: 0;
+}
+.file:hover {
+  background: #AADFFD;
+  border-color: #78C3F3;
+  color: #004974;
+  text-decoration: none;
+}
+
 .person-head-image{
   width: 100px;
   height: 120px;
@@ -1006,6 +1085,11 @@ export default {
   font-size: 13px;
   padding-right: 4px;
   padding-left: 8px;
+}
+
+.photo-list-wrap{
+  height: 370px;
+  overflow: auto;
 }
 
 .family-person-list-wrap {

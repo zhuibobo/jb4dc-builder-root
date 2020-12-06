@@ -5,6 +5,7 @@
 </template>
 
 <script>
+
 export default {
   name: "gather-search-data-main-root",
   data:function () {

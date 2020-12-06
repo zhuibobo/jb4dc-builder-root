@@ -1,3 +1,5 @@
+import axios from 'axios';
+
 function GetUrlParaValue(name) {
     return decodeURIComponent(
         (new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec(location.href) || [, ""])[1].replace(/\+/g, '%20')) || null;
@@ -30,7 +32,7 @@ function AutoBindInitDD(allDD){
         })
         if(control.prop("tagName")=="SELECT"){
             if(empty=="true"){
-                control.append("<option value=' '>--请选择--</option>")
+                control.append("<option value=''>--请选择--</option>")
             }
             if(ddArray.length>0){
                 for (var i = 0; i < ddArray.length; i++) {
@@ -433,7 +435,50 @@ var DateUtility={
     }
 }
 
-module.exports = {
+var FileUtility={
+    CompressImage:function (session,sourceBase64,objId,objType,fileName,categoryType,endFunc){
+        var img = new Image(),
+            maxH = 1080;
+
+        img.onload = function () {
+            var cvs = document.createElement('canvas'),
+                ctx = cvs.getContext('2d');
+            if(img.height > maxH) {
+                img.width *= maxH / img.height;
+                img.height = maxH;
+            }
+            cvs.width = img.width;
+            cvs.height = img.height;
+            ctx.clearRect(0, 0, cvs.width, cvs.height);
+            ctx.drawImage(img, 0, 0, img.width, img.height);
+            var dataUrl = cvs.toDataURL('image/jpeg', 0.8);
+            console.log(dataUrl);
+            var sendBase64=dataUrl.split("base64,")[1];
+            const params = new URLSearchParams();
+            params.append('base64Image', sendBase64);
+            params.append('objType', objType);
+            params.append('objId', objId);
+            params.append('categoryType', categoryType);
+            params.append('fileName', fileName);
+            params.append('AppClientToken', session.AppClientToken);
+            params.append('ts', Date.now());
+
+            axios.post("/GridSystem/Rest/Builder/RunTime/FileRuntime/UploadBase64Image", params).then((result)=>{
+                endFunc(result);
+            }).catch((err)=>{
+
+            }).then((endResult)=>{
+
+            });
+            console.log(dataUrl);
+            // 上传略
+        }
+
+        img.src = sourceBase64;
+    }
+}
+
+export {
     GetUrlParaValue,
     ConvertDDListToMap,
     AutoBindInitDD,
@@ -441,5 +486,6 @@ module.exports = {
     ArrayUtility,
     JsonUtility,
     StringUtility,
-    DateUtility
+    DateUtility,
+    FileUtility
 }

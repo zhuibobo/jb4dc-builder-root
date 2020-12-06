@@ -133,10 +133,10 @@ public class FamilyServiceImpl extends BaseServiceImpl<FamilyEntity> implements 
                     if(StringUtility.isNotEmpty(familyPerson.getPersonHeaderImageBase64())){
                         BASE64Decoder decoder = new BASE64Decoder();
                         byte[] byteData = decoder.decodeBuffer(familyPerson.getPersonHeaderImageBase64());
-                        FileInfoEntity fileInfoEntity=fileInfoService.addFileToFileSystem(session,"人口照片.png",byteData,familyPerson.getPersonId(),familyPerson.getPersonName(),"人口照片","人口照片");
+                        FileInfoEntity fileInfoEntity=fileInfoService.addFileToFileSystem(session,"人口照片.jpg",byteData,familyPerson.getPersonId(),familyPerson.getPersonName(),"人口照片","人口照片");
 
                         String sourcePath=fileInfoService.buildFilePath(fileInfoEntity);
-                        SimpleFilePathPO simpleFilePathPO=fileInfoService.buildSavePath("person",familyPerson.getPersonId(),familyPerson.getPersonIdCard()+"-HeadPhone.png");
+                        SimpleFilePathPO simpleFilePathPO=fileInfoService.buildSavePath("person",familyPerson.getPersonId(),familyPerson.getPersonIdCard()+"-HeadPhone.jpg");
                         File sourceFile = new File(sourcePath);
                         File newFile=new File(simpleFilePathPO.getFullFileStorePath());
                         FileUtils.copyFile(sourceFile,newFile);

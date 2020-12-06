@@ -16,7 +16,7 @@ jb4dc:
       view:
         login: /Controller/LoginSSOView
         logout: http://58.51.184.124:9103/SSOSystem/Controller/LogoutSSOView
-      excluded: /**/*.js,/**/*.css,/**/*.woff2,/**/*.ttf,/**/*.png,/**/*.jpg,/**/*.jpeg,/**/*.gif,/**/RunTime/**,/**/LoginByPassword
+      excluded: /**/*.js,/**/*.css,/**/*.woff2,/**/*.ttf,/**/*.png,/**/*.jpg,/**/*.jpeg,/**/*.gif,/**/*.apk,/**/RunTime/**,/**/LoginByPassword
   builder:
     server:
       name: JB4DC-BUILDER-WEB-SERVER

@@ -62,6 +62,12 @@
                         </td>
                     </tr>
                     <tr>
+                        <td>对象类型：</td>
+                        <td colspan="3">
+                            <i-input v-model="normalProps.objType" />
+                        </td>
+                    </tr>
+                    <tr>
                         <td>上传类型：</td>
                         <td>
                             <i-input v-model="normalProps.fileExType" />
@@ -167,7 +173,8 @@
                 getBindRecordIdJsMethod:"",
                 getBindRecordTypeJsMethod:"",
                 useTemplate:"defaultTemplate",
-                clickFileNameAction:"download"
+                clickFileNameAction:"download",
+                objType:""
             }
         },
         mounted:function () {
@@ -179,6 +186,11 @@
                 this.baseInfo.name=this.baseInfo.id;
             },
             getControlProps:function () {
+                if(StringUtility.IsNullOrEmpty(this.normalProps.objType)){
+                    DialogUtility.Alert(window, DialogUtility.DialogAlertId, {}, "对象类型不能为空!", null);
+                    return {success: false};
+                }
+
                 this.baseInfo.serialize="false";
                 var result = {
                     success: true,
@@ -205,6 +217,7 @@
                 this.normalProps.getBindRecordTypeJsMethod = $elem.attr("getBindRecordTypeJsMethod");
                 this.normalProps.useTemplate = $elem.attr("useTemplate");
                 this.normalProps.clickFileNameAction = $elem.attr("clickFileNameAction");
+                this.normalProps.objType = $elem.attr("objType");
             },
             setFileExType:function (type) {
                 if(type=="Image"){
