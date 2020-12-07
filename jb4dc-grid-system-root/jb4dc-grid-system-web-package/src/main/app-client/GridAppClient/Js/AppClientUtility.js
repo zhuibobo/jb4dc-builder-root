@@ -7,6 +7,16 @@ function GetUrlParaValue(name) {
 
 const AllDDMap={};
 
+let GridInfo={};
+
+function SetGridInfo(_gridInfo){
+    GridInfo=_gridInfo;
+}
+
+function GetGridInfo(){
+    return GridInfo;
+}
+
 function ConvertDDListToMap(allDD){
     for (let i = 0; i < allDD.length; i++) {
         var groupId=allDD[i].dictGroupId;
@@ -271,6 +281,9 @@ var StringUtility = {
     Guid: function () {
         return this.GuidSplit("-");
     },
+    NewH5AppRecordId:function (){
+        return "H5APP-"+this.Guid();
+    },
     Timestamp: function () {
         var timestamp = new Date().getTime();
         return timestamp.toString().substr(4, 10);
@@ -478,14 +491,47 @@ var FileUtility={
     }
 }
 
+var DialogUtility={
+    AlertText:function (vueObject,message,yesFunc){
+        vueObject.$confirm({
+            message: message,
+            button: {
+                yes: '确认'
+            },
+            callback: confirm => {
+                if(typeof (yesFunc)=="function"){
+                    yesFunc();
+                }
+            }
+        });
+    },
+    Confirm:function (vueObject,message,yesFunc){
+        vueObject.$confirm({
+            message: message,
+            button: {
+                no: '取消',
+                yes: '确认'
+            },
+            callback: confirm => {
+                if(typeof (yesFunc)=="function"){
+                    yesFunc();
+                }
+            }
+        });
+    }
+}
+
 export {
     GetUrlParaValue,
     ConvertDDListToMap,
     AutoBindInitDD,
     GetAllDDMap,
+    SetGridInfo,
+    GetGridInfo,
     ArrayUtility,
     JsonUtility,
     StringUtility,
     DateUtility,
-    FileUtility
+    FileUtility,
+    DialogUtility
 }

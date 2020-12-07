@@ -10,8 +10,10 @@ import com.jb4dc.core.base.session.JB4DCSession;
 import com.jb4dc.core.base.vo.JBuild4DCResponseVo;
 import com.jb4dc.feb.dist.webserver.rest.base.GeneralRest;
 import com.jb4dc.gridsystem.dbentities.build.BuildInfoEntity;
+import com.jb4dc.gridsystem.dbentities.gridinfo.GridInfoEntity;
 import com.jb4dc.gridsystem.dbentities.gridinfo.GridInfoEntityWithBLOBs;
 import com.jb4dc.gridsystem.service.build.IBuildInfoService;
+import com.jb4dc.gridsystem.service.gridinfo.IGridInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -37,6 +39,9 @@ public class BuildInfoRest extends GeneralRest<BuildInfoEntity> {
     @Autowired
     IDictionaryRuntimeProxy dictionaryRuntimeProxy;
 
+    @Autowired
+    IGridInfoService gridInfoService;
+
     @RequestMapping(value = "/GetMyBuild", method = RequestMethod.GET)
     public JBuild4DCResponseVo getMyBuild(String includeGrid) throws JBuild4DCGenerallyException {
         JB4DCSession jb4DCSession=JB4DCSessionUtility.getSession();
@@ -49,9 +54,13 @@ public class BuildInfoRest extends GeneralRest<BuildInfoEntity> {
         JB4DCSession jb4DCSession=JB4DCSessionUtility.getSession();
         List<BuildInfoEntity> buildInfoEntityList=buildInfoService.getMyBuild(JB4DCSessionUtility.getSession(),jb4DCSession.getUserId(),jb4DCSession.getOrganId(),includeGrid);
         List<DictionaryEntity> dictionaryEntities=dictionaryRuntimeProxy.getDictionaryByGroup3Level("f476d653-0606-4cb7-8189-4e5beee1bf11");
+
+        GridInfoEntity gridInfoEntity=gridInfoService.getByPrimaryKey(jb4DCSession,jb4DCSession.getOrganId());
+
         JBuild4DCResponseVo<List<BuildInfoEntity>> result=new JBuild4DCResponseVo<>();
         Map<String,Object> exData=new HashMap<>();
         exData.put("dictionaryEntities",dictionaryEntities);
+        exData.put("gridInfoEntity",gridInfoEntity);
         result.setExKVData(exData);
         result.setData(buildInfoEntityList);
         return result;

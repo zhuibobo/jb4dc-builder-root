@@ -10,6 +10,24 @@
 /*向日葵*/
 /*绿松石*/
 /*河蓝*/
+.form-group-min {
+  margin-bottom: 0.4rem;
+}
+.form-group-mid {
+  margin-bottom: 0.6rem;
+}
+.form-label-min {
+  font-size: 13px;
+  padding-right: 4px;
+  padding-left: 8px;
+}
+
+/*https://htmlcolorcodes.com/zh/yanse-biao/bianping-hua-sheji-yanse-biao/*/
+/*石榴*/
+/*混凝土*/
+/*向日葵*/
+/*绿松石*/
+/*河蓝*/
 .gather-bhpe-data-main-root[data-v-7ab4d666] {
   background-color: #F4F6F6;
   position: absolute;
@@ -205,20 +223,29 @@
   opacity: 0.8;
   z-index: 4000;
 }
-.form-group-min[data-v-716c83ec] {
-  margin-bottom: 0.4rem;
-}
-.form-group-mid[data-v-716c83ec] {
-  margin-bottom: 0.6rem;
-}
-.form-label-min[data-v-716c83ec] {
-  font-size: 13px;
-  padding-right: 4px;
-  padding-left: 8px;
-}
 .photo-list-wrap[data-v-716c83ec] {
   height: 370px;
   overflow: auto;
+}
+.photo-list-wrap .photo-single-outer-wrap[data-v-716c83ec] {
+  border: solid 1px #95A5A6;
+  margin-bottom: 10px;
+  border-radius: 6px;
+  position: relative;
+}
+.photo-list-wrap .photo-single-outer-wrap .delete-photo[data-v-716c83ec] {
+  position: absolute;
+  width: 32px;
+  height: 32px;
+  border-bottom: 0px dotted #717D7E;
+  border-radius: 0px;
+  background-image: url(Images/icons8-del-30.png);
+  background-repeat: no-repeat;
+  right: 0px;
+  top: 0px;
+}
+.photo-list-wrap .photo-single-outer-wrap .photo-single-inner-wrap[data-v-716c83ec] {
+  margin: 10px;
 }
 .family-person-list-wrap[data-v-716c83ec] {
   height: 370px;
@@ -347,6 +374,55 @@
   border-bottom: 0px dotted #717D7E;
   border-radius: 0px;
   background-image: url(Images/icons8-family2-30.png);
+  background-repeat: no-repeat;
+  margin-top: 14px;
+  margin-left: 8px;
+}
+.house-enterprise-list-wrap[data-v-716c83ec] {
+  height: 370px;
+  overflow: auto;
+}
+.house-enterprise-list-wrap .house-enterprise-single-wrap[data-v-716c83ec] {
+  border: #BFC9CA 1px solid;
+  border-radius: 6px;
+  background-color: #EAEDED;
+  margin-top: 4px;
+}
+.house-enterprise-list-wrap .house-enterprise-single-wrap .enterprise-info-wrap[data-v-716c83ec] {
+  display: inline-block;
+  width: calc(100% - 90px);
+  font-size: 13px;
+}
+.house-enterprise-list-wrap .house-enterprise-single-wrap .enterprise-info-wrap .name[data-v-716c83ec] {
+  border-bottom: #BFC9CA 1px dotted;
+  padding: 4px;
+}
+.house-enterprise-list-wrap .house-enterprise-single-wrap .enterprise-info-wrap .address[data-v-716c83ec] {
+  padding: 4px;
+}
+.house-enterprise-list-wrap .house-enterprise-single-wrap .op-button-wrap[data-v-716c83ec] {
+  display: inline-block;
+  height: 50px;
+  width: 80px;
+}
+.house-enterprise-list-wrap .house-enterprise-single-wrap .op-button-wrap .del[data-v-716c83ec] {
+  float: left;
+  width: 32px;
+  height: 32px;
+  border-bottom: 0px dotted #717D7E;
+  border-radius: 0px;
+  background-image: url(Images/icons8-del-30.png);
+  background-repeat: no-repeat;
+  margin-top: 14px;
+  margin-left: 8px;
+}
+.house-enterprise-list-wrap .house-enterprise-single-wrap .op-button-wrap .edit[data-v-716c83ec] {
+  float: left;
+  width: 32px;
+  height: 32px;
+  border-bottom: 0px dotted #717D7E;
+  border-radius: 0px;
+  background-image: url(Images/icons8-edit-30.png);
   background-repeat: no-repeat;
   margin-top: 14px;
   margin-left: 8px;

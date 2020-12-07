@@ -310,6 +310,8 @@ export default {
       this.person.editPersonData.personIdCardPublicForm=personData.personIdCardPublicForm;
       this.person.editPersonData.personIdCardEffDate=personData.personIdCardEffDate;
       this.person.editPersonData.personIdCardAddress=personData.personIdCardAddress;
+      this.person.editPersonData.personSex=personData.personSex;
+      this.person.editPersonData.personNation=personData.personNation;
       if(personData.personBirthday) {
         var birthdayStr = personData.personBirthday.replace("年", "-").replace("月", "-").replace("日", "");
         var year = birthdayStr.split("-")[0];

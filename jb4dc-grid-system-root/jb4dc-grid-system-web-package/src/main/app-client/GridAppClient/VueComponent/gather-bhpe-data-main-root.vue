@@ -6,8 +6,8 @@
       <div class="title">建筑物</div>
       <div style="padding: 4px;height: 44px">
         <div style="float: right">
-          <button type="button" class="btn btn-success" @click="addBuild()">+建筑物1</button>
-          <button type="button" class="btn btn-danger" @click="addBuild()">+特殊</button>
+          <button type="button" class="btn btn-success" @click="addNormalBuild()">+建筑物</button>
+          <button type="button" class="btn btn-danger" @click="addSpBuild()">+特殊</button>
         </div>
       </div>
       <div style="padding: 4px">
@@ -49,6 +49,7 @@
       </div>
     </div>
     <gatherHouseInnerAboutList :selected-house="house.selectedHouse" :selected-build="build.selectedBuild" :session="session" ref="gatherHouseInnerAboutListObj"></gatherHouseInnerAboutList>
+    <gatherNormalBuildDetailEdit :session="session" ref="gatherNormalBuildDetailEditObj"></gatherNormalBuildDetailEdit>
   </div>
 </template>
 
@@ -109,6 +110,8 @@ export default {
 
           appClientUtility.AutoBindInitDD(response.data.exKVData.dictionaryEntities);
           appClientUtility.ConvertDDListToMap(response.data.exKVData.dictionaryEntities);
+          appClientUtility.SetGridInfo(response.data.exKVData.gridInfoEntity);
+          this.$refs.gatherNormalBuildDetailEditObj.buildDDGroupData();
         }
       }).catch(function (error) {
         console.log(error);
@@ -136,7 +139,11 @@ export default {
     searchBuild:function (){
       //this.build.allBuilds = response.data.data;
     },
-    addBuild:function (){
+    addNormalBuild:function (){
+      $("#normalBuildEditModal").modal('show');
+      this.$refs.gatherNormalBuildDetailEditObj.newBuild();
+    },
+    addSpBuild:function (){
       this.$toasted.show('开发中.',{duration:2000});
     },
     editBuild:function (buildId){
