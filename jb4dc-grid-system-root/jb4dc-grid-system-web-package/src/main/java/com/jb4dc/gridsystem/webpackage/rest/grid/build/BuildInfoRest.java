@@ -10,11 +10,15 @@ import com.jb4dc.core.base.session.JB4DCSession;
 import com.jb4dc.core.base.vo.JBuild4DCResponseVo;
 import com.jb4dc.feb.dist.webserver.rest.base.GeneralRest;
 import com.jb4dc.gridsystem.dbentities.build.BuildInfoEntity;
+import com.jb4dc.gridsystem.dbentities.enterprise.EnterpriseInfoEntity;
 import com.jb4dc.gridsystem.dbentities.gridinfo.GridInfoEntity;
 import com.jb4dc.gridsystem.dbentities.gridinfo.GridInfoEntityWithBLOBs;
+import com.jb4dc.gridsystem.po.BuildInfoPO;
+import com.jb4dc.gridsystem.po.EnterpriseInfoPO;
 import com.jb4dc.gridsystem.service.build.IBuildInfoService;
 import com.jb4dc.gridsystem.service.gridinfo.IGridInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -43,7 +47,7 @@ public class BuildInfoRest extends GeneralRest<BuildInfoEntity> {
     IGridInfoService gridInfoService;
 
     @RequestMapping(value = "/GetMyBuild", method = RequestMethod.GET)
-    public JBuild4DCResponseVo getMyBuild(String includeGrid) throws JBuild4DCGenerallyException {
+    public JBuild4DCResponseVo<List<BuildInfoEntity>> getMyBuild(String includeGrid) throws JBuild4DCGenerallyException {
         JB4DCSession jb4DCSession=JB4DCSessionUtility.getSession();
         List<BuildInfoEntity> buildInfoEntityList=buildInfoService.getMyBuild(JB4DCSessionUtility.getSession(),jb4DCSession.getUserId(),jb4DCSession.getOrganId(),includeGrid);
         return JBuild4DCResponseVo.getDataSuccess(buildInfoEntityList);
@@ -64,6 +68,14 @@ public class BuildInfoRest extends GeneralRest<BuildInfoEntity> {
         result.setExKVData(exData);
         result.setData(buildInfoEntityList);
         return result;
+    }
+
+    @RequestMapping(value = "/SaveBuildData", method = RequestMethod.POST)
+    public JBuild4DCResponseVo<BuildInfoPO> saveEnterpriseData(@RequestBody BuildInfoPO buildInfoPO) throws JBuild4DCGenerallyException {
+        //JB4DCSession jb4DCSession= JB4DCSessionUtility.getSession();
+        //List<EnterpriseInfoEntity> enterpriseInfoEntities=enterpriseInfoService.getEnterpriseByHouseId(JB4DCSessionUtility.getSession(),houseId);
+        BuildInfoPO saveBuildData= buildInfoService.saveBuildData(JB4DCSessionUtility.getSession(),buildInfoPO);
+        return JBuild4DCResponseVo.opSuccess(saveBuildData);
     }
 
     @RequestMapping(value = "/CodeAdd1", method = RequestMethod.POST)

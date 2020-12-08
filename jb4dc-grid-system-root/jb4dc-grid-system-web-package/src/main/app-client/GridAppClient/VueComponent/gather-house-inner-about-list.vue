@@ -568,14 +568,6 @@
         </div>
       </div>
     </div>
-
-    <div class="loadDialogWrap" id="loadDialogWrap" v-if="showLoading">
-      <div class="text-center" style="margin-top: 200px">
-        <div class="spinner-border" style="width: 3rem; height: 3rem;" role="status">
-          <span class="sr-only">Loading...</span>
-        </div>
-      </div>
-    </div>
   </div>
 </template>
 
@@ -607,7 +599,7 @@ export default {
         getDisplayImageUrl: "/GridSystem/Rest/Builder/RunTime/FileRuntime/DownLoadFileByFileId",
         deleteFile: "/GridSystem/Rest/Builder/RunTime/FileRuntime/DeleteFileByFileId"
       },
-      showLoading: false,
+      //showLoading: false,
       house: {
         housePersons: [],
         houseEnterprises: []
@@ -837,7 +829,8 @@ export default {
 
       this.family.editFamilyData.editFamilyInfo.familyHouseId = this.selectedHouse.houseId;
 
-      this.showLoading = true;
+      //this.showLoading = true;
+      $("#loadDialogWrap").show();
       axios.post(this.acInterface.savaFamilyData, this.family.editFamilyData).then((result) => {
         console.log(result);
         if (result.data.success) {
@@ -866,7 +859,8 @@ export default {
       }).catch((err) => {
 
       }).then((endResult) => {
-        this.showLoading = false;
+        //this.showLoading = false;
+        $("#loadDialogWrap").hide();
       });
     },
     getPersonFromFamily: function (personId) {
@@ -1031,7 +1025,8 @@ export default {
         }
         $('#personEditModal').modal('hide');
       } else if (this.person.editPersonFrom == "House") {
-        this.showLoading = true;
+        //this.showLoading = true;
+        $("#loadDialogWrap").show();
         axios.post(this.acInterface.saveSinglePersonData, this.person.editPersonData).then((result) => {
           if (result.data.success) {
             this.$confirm({
@@ -1059,7 +1054,8 @@ export default {
         }).catch((err) => {
 
         }).then((endResult) => {
-          this.showLoading = false;
+          //this.showLoading = false;
+          $("#loadDialogWrap").hide();
         });
       }
     },
@@ -1112,14 +1108,16 @@ export default {
             }).catch((err) => {
 
             }).then((endResult) => {
-              this.showLoading = false;
+              //this.showLoading = false;
+              $("#loadDialogWrap").hide();
             });
           }
         }
       });
     },
     readPersonDataFromNFC: function () {
-      this.showLoading = true;
+      //this.showLoading = true;
+      $("#loadDialogWrap").show();
       window.setTimeout(() => {
         var personData = {
           personName: "江东小妮玛",
@@ -1200,7 +1198,8 @@ export default {
         this.person.editPersonData.personBirthday = appClientUtility.DateUtility.Format(myDate, "yyyy-MM-dd");
       }
       this.person.editPersonData.personHeaderImageBase64 = imageBase64;
-      this.showLoading = false;
+      //this.showLoading = false;
+      $("#loadDialogWrap").hide();
     },
     loadHousePersonFromServer: function (selectedHouseData) {
       //获取房屋内人员信息
@@ -1251,7 +1250,8 @@ export default {
 
       this.enterprise.editEnterpriseData.entHouseId = this.selectedHouse.houseId;
 
-      this.showLoading = true;
+      //this.showLoading = true;
+      $("#loadDialogWrap").show();
 
       axios.post(this.acInterface.saveEnterpriseData, this.enterprise.editEnterpriseData).then((result) => {
         console.log(result);
@@ -1264,7 +1264,8 @@ export default {
       }).catch((err) => {
 
       }).then((endResult) => {
-        this.showLoading = false;
+        //this.showLoading = false;
+        $("#loadDialogWrap").hide();
       });
     },
     loadHouseEnterpriseFromServer: function (selectedHouseData) {
@@ -1314,34 +1315,6 @@ export default {
 <style scoped lang="less">
 @import "../Less/Variable.less";
 
-
-.file {
-  position: relative;
-  display: inline-block;
-  background: #D0EEFF;
-  border: 1px solid #99D3F5;
-  border-radius: 4px;
-  padding: 4px 12px;
-  overflow: hidden;
-  color: #1E88C7;
-  text-decoration: none;
-  text-indent: 0;
-  line-height: 20px;
-}
-.file input {
-  position: absolute;
-  font-size: 100px;
-  right: 0;
-  top: 0;
-  opacity: 0;
-}
-.file:hover {
-  background: #AADFFD;
-  border-color: #78C3F3;
-  color: #004974;
-  text-decoration: none;
-}
-
 .person-head-image{
   width: 100px;
   height: 120px;
@@ -1356,45 +1329,6 @@ export default {
     margin-top: 10px;
     width: 90px;
     height: 97px;
-  }
-}
-
-.loadDialogWrap {
-  position: fixed;
-  top: 0px;
-  bottom: 0px;
-  left: 0px;
-  right: 0px;
-  background-color: @g-concrete-color-v06;
-  opacity: 0.8;
-  z-index: 4000;
-}
-
-.photo-list-wrap{
-  height: 370px;
-  overflow: auto;
-
-  .photo-single-outer-wrap{
-    border: solid 1px @g-concrete-color-v06 ;
-    margin-bottom: 10px;
-    border-radius: 6px;
-    position: relative;
-
-    .delete-photo{
-      position: absolute;
-      width: 32px;
-      height: 32px;
-      border-bottom: 0px dotted @g-concrete-color-v08;
-      border-radius: 0px;
-      background-image: url("../Images/icons8-del-30.png");
-      background-repeat: no-repeat;
-      right: 0px;
-      top: 0px;
-    }
-
-    .photo-single-inner-wrap{
-      margin: 10px;
-    }
   }
 }
 

@@ -14,13 +14,13 @@
         <input type="text" class="form-control" placeholder="输入编号或门牌地址" v-model="build.searchText" aria-describedby="basic-addon1" @keyup="filterBuildArray">
       </div>
       <div class="all-build-wrap">
-        <div class="single-build" :class="{'single-build-selected':singleBuildData.buildId == selected}" v-for="singleBuildData in build.filterBuilds" @click="loadHouseListFromServer($event,singleBuildData)">
+        <div class="single-build" :class="{'single-build-selected':singleBuildData.buildId == selected,'single-build-sp':singleBuildData.buildCategory=='特殊建筑物'}" v-for="singleBuildData in build.filterBuilds" @click="loadHouseListFromServer($event,singleBuildData)">
           <div class="text-wrap">
             <div class="code">{{singleBuildData.buildCode.substring(8)}}</div>
             <div class="text">{{singleBuildData.buildAddress}}</div>
           </div>
           <div class="button-wrap">
-            <div class="edit" @click="editBuild(singleBuildData.buildId)"></div>
+            <div class="edit" @click="editBuild(singleBuildData)"></div>
           </div>
         </div>
       </div>
@@ -49,7 +49,15 @@
       </div>
     </div>
     <gatherHouseInnerAboutList :selected-house="house.selectedHouse" :selected-build="build.selectedBuild" :session="session" ref="gatherHouseInnerAboutListObj"></gatherHouseInnerAboutList>
-    <gatherNormalBuildDetailEdit :session="session" ref="gatherNormalBuildDetailEditObj"></gatherNormalBuildDetailEdit>
+    <gatherNormalBuildDetailEdit :session="session" ref="gatherNormalBuildDetailEditObj" @saveNormalBuildCompleted="saveNormalBuildCompleted"></gatherNormalBuildDetailEdit>
+    <gatherSPBuildDetailEdit :session="session" ref="gatherSPBuildDetailEditObj" @saveNormalBuildCompleted="saveNormalBuildCompleted"></gatherSPBuildDetailEdit>
+    <div class="loadDialogWrap" id="loadDialogWrap">
+      <div class="text-center" style="margin-top: 200px">
+        <div class="spinner-border" style="width: 3rem; height: 3rem;" role="status">
+          <span class="sr-only">Loading...</span>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -95,6 +103,9 @@ export default {
   },
   methods:{
     //region 建筑物
+    saveNormalBuildCompleted:function (){
+      this.loadBuildListFromServer();
+    },
     loadBuildListFromServer:function () {
       axios.get(this.acInterface.getMyBuild, {
         params: {
@@ -112,6 +123,7 @@ export default {
           appClientUtility.ConvertDDListToMap(response.data.exKVData.dictionaryEntities);
           appClientUtility.SetGridInfo(response.data.exKVData.gridInfoEntity);
           this.$refs.gatherNormalBuildDetailEditObj.buildDDGroupData();
+          this.$refs.gatherSPBuildDetailEditObj.buildDDGroupData();
         }
       }).catch(function (error) {
         console.log(error);
@@ -140,14 +152,21 @@ export default {
       //this.build.allBuilds = response.data.data;
     },
     addNormalBuild:function (){
-      $("#normalBuildEditModal").modal('show');
       this.$refs.gatherNormalBuildDetailEditObj.newBuild();
     },
     addSpBuild:function (){
-      this.$toasted.show('开发中.',{duration:2000});
+      //this.$toasted.show('开发中.',{duration:2000});
+      this.$refs.gatherSPBuildDetailEditObj.newBuild();
     },
-    editBuild:function (buildId){
-      this.$toasted.show('开发中.',{duration:2000});
+    editBuild:function (buildData){
+      if(buildData.buildCategory=='特殊建筑物'){
+        this.$refs.gatherSPBuildDetailEditObj.editBuild(buildData);
+      }
+      else {
+        this.$refs.gatherNormalBuildDetailEditObj.editBuild(buildData);
+      }
+
+      //this.$toasted.show('开发中.',{duration:2000});
     },
     //endregion
     //region 房屋
@@ -279,9 +298,14 @@ export default {
           }
         }
 
-        .single-build-selected{
+        .single-build-sp{
           border: @g-pomegranate-color-v05 1px solid;
-          background-color:@g-pomegranate-color-v02 ;
+          background-color:@g-pomegranate-color-v01 ;
+        }
+
+        .single-build-selected{
+          border: @g-sunflower-color-v07 1px solid;
+          background-color:@g-sunflower-color-v01 ;
         }
       }
     }

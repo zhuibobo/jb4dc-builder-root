@@ -6,6 +6,7 @@ import com.jb4dc.core.base.session.JB4DCSession;
 import com.jb4dc.gridsystem.dbentities.build.BuildInfoEntity;
 import com.jb4dc.gridsystem.dbentities.build.HouseInfoEntity;
 import com.jb4dc.gridsystem.dbentities.gridinfo.GridInfoEntityWithBLOBs;
+import com.jb4dc.gridsystem.po.BuildInfoPO;
 
 import java.util.List;
 
@@ -23,4 +24,8 @@ public interface IBuildInfoService extends IBaseService<BuildInfoEntity> {
     void codeAdd1(String buildId) throws JBuild4DCGenerallyException;
 
     void codeSub1(String buildId) throws JBuild4DCGenerallyException;
+
+    boolean testCodeSingle(BuildInfoEntity buildInfoEntity) throws JBuild4DCGenerallyException;
+
+    BuildInfoPO saveBuildData(JB4DCSession session, BuildInfoPO buildInfoPO) throws JBuild4DCGenerallyException;
 }

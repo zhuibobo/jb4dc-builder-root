@@ -29,7 +29,7 @@
                       <div class="form-group row form-group-min">
                         <label for="buildCode" class="col-3 col-form-label text-right col-form-label-sm form-label-min"><span style="color: red">*</span>建筑物编码</label>
                         <div class="col-9">
-                          <input type="text" class="form-control form-control-sm" id="buildCode" placeholder="建筑物编码"
+                          <input type="text" class="form-control form-control-sm input-color" id="buildCode" placeholder="建筑物编码"
                                  v-model="build.editBuildData.buildCode">
                         </div>
                         <label for="buildCode" class="col-12 col-form-label text-center col-form-label-sm form-label-min"><span style="color: red">请补充建筑物的4位独立编码,例如0001</span></label>
@@ -55,21 +55,21 @@
                       <div class="form-group row form-group-min">
                         <label for="buildCoveredArea" class="col-3 col-form-label text-right col-form-label-sm form-label-min"><span style="color: red">*</span>总面积M²</label>
                         <div class="col-9">
-                          <input type="number" class="form-control form-control-sm" id="buildCoveredArea" placeholder="总面积M²"
+                          <input type="number" class="form-control form-control-sm input-color" id="buildCoveredArea" placeholder="总面积M²"
                                  v-model="build.editBuildData.buildCoveredArea">
                         </div>
                       </div>
                       <div class="form-group row form-group-min">
                         <label for="buildFloorGround" class="col-3 col-form-label text-right col-form-label-sm form-label-min"><span style="color: red">*</span>地面层数</label>
                         <div class="col-9">
-                          <input type="number" class="form-control form-control-sm" id="buildFloorGround" placeholder="地面层数"
+                          <input type="number" class="form-control form-control-sm input-color" id="buildFloorGround" placeholder="地面层数"
                                  v-model="build.editBuildData.buildFloorGround">
                         </div>
                       </div>
                       <div class="form-group row form-group-min">
                         <label for="buildFloorUnderground" class="col-3 col-form-label text-right col-form-label-sm form-label-min"><span style="color: red">*</span>地下层数</label>
                         <div class="col-9">
-                          <input type="number" class="form-control form-control-sm" id="buildFloorUnderground" placeholder="地下层数"
+                          <input type="number" class="form-control form-control-sm input-color" id="buildFloorUnderground" placeholder="地下层数"
                                  v-model="build.editBuildData.buildFloorUnderground">
                         </div>
                       </div>
@@ -77,7 +77,7 @@
                         <label class="col-3 col-form-label text-right col-form-label-sm form-label-min"><span style="color: red">*</span>门禁</label>
                         <div class="col-9">
                           <div class="form-check form-check-inline" v-for="(ddItem, index) in ddg_BuildIsEntranceGuard">
-                            <input class="form-check-input" type="radio" name="inlineRadioBuildStatus" :id="'ddg_BuildIsEntranceGuard'+index" :value="ddItem.dictValue" v-model="build.editBuildData.buildIsEntranceGuard">
+                            <input class="form-check-input" type="radio" name="ddg_BuildIsEntranceGuard" :id="'ddg_BuildIsEntranceGuard'+index" :value="ddItem.dictValue" v-model="build.editBuildData.buildIsEntranceGuard">
                             <label class="form-check-label" :for="'ddg_BuildIsEntranceGuard'+index">{{ddItem.dictText}}</label>
                           </div>
                         </div>
@@ -94,40 +94,40 @@
                       <div class="form-group row form-group-min">
                         <label for="buildAddress" class="col-3 col-form-label text-right col-form-label-sm form-label-min"><span style="color: red">*</span>门牌地址</label>
                         <div class="col-12">
-                          <input type="text" class="form-control form-control-sm" id="buildAddress" placeholder="门牌地址1"
+                          <input type="text" class="form-control form-control-sm input-color" id="buildAddress" placeholder="门牌地址1"
                                  v-model="build.editBuildData.buildAddress">
                         </div>
                       </div>
                       <div class="form-group row form-group-min">
                         <div class="col-12">
-                          <input type="text" class="form-control form-control-sm" id="buildAddress2" placeholder="门牌地址2"
+                          <input type="text" class="form-control form-control-sm input-color" id="buildAddress2" placeholder="门牌地址2"
                                  v-model="build.editBuildData.buildAddressEx2">
                         </div>
                       </div>
                       <div class="form-group row form-group-min">
                         <label for="buildOtherAddressEx1" class="col-3 col-form-label text-right col-form-label-sm form-label-min">其他地址</label>
                         <div class="col-12">
-                          <input type="text" class="form-control form-control-sm" id="buildOtherAddressEx1" placeholder="其他地址1"
+                          <input type="text" class="form-control form-control-sm input-color" id="buildOtherAddressEx1" placeholder="其他地址1"
                                  v-model="build.editBuildData.buildOtherAddressEx1">
                         </div>
                       </div>
                       <div class="form-group row form-group-min">
                         <div class="col-12">
-                          <input type="text" class="form-control form-control-sm" id="buildOtherAddressEx2" placeholder="其他地址2"
+                          <input type="text" class="form-control form-control-sm input-color" id="buildOtherAddressEx2" placeholder="其他地址2"
                                  v-model="build.editBuildData.buildOtherAddressEx2">
                         </div>
                       </div>
                       <div class="form-group row form-group-min">
                         <label for="buildName" class="col-3 col-form-label text-right col-form-label-sm form-label-min">建筑物名称</label>
                         <div class="col-9">
-                          <input type="text" class="form-control form-control-sm" id="buildName" placeholder="建筑物名称"
+                          <input type="text" class="form-control form-control-sm input-color" id="buildName" placeholder=""
                                  v-model="build.editBuildData.buildName">
                         </div>
                       </div>
                       <div class="form-group row form-group-min">
                         <label for="buildFunctionCategory" class="col-3 col-form-label text-right col-form-label-sm form-label-min">功能分类</label>
                         <div class="col-9">
-                          <input type="text" class="form-control form-control-sm" id="buildFunctionCategory" placeholder="建筑物名称"
+                          <input type="text" class="form-control form-control-sm input-color" id="buildFunctionCategory" placeholder=""
                                  v-model="build.editBuildData.buildFunctionCategory">
                         </div>
                       </div>
@@ -143,28 +143,28 @@
                       <div class="form-group row form-group-min">
                         <label for="buildAddressTitleCer" class="col-3 col-form-label text-right col-form-label-sm form-label-min">产权证地址</label>
                         <div class="col-12">
-                          <input type="text" class="form-control form-control-sm" id="buildAddressTitleCer" placeholder="产权证地址"
+                          <input type="text" class="form-control form-control-sm input-color" id="buildAddressTitleCer" placeholder=""
                                  v-model="build.editBuildData.buildAddressTitleCer">
                         </div>
                       </div>
                       <div class="form-group row form-group-min">
                         <label for="buildManagement" class="col-3 col-form-label text-right col-form-label-sm form-label-min">物业单位</label>
                         <div class="col-9">
-                          <input type="text" class="form-control form-control-sm" id="buildManagement" placeholder="物业管理单位"
+                          <input type="text" class="form-control form-control-sm input-color" id="buildManagement" placeholder="物业管理单位"
                                  v-model="build.editBuildData.buildManagement">
                         </div>
                       </div>
                       <div class="form-group row form-group-min">
                         <label for="buildContact" class="col-3 col-form-label text-right col-form-label-sm form-label-min">物业联系人</label>
                         <div class="col-9">
-                          <input type="text" class="form-control form-control-sm" id="buildContact" placeholder="物业联系人"
+                          <input type="text" class="form-control form-control-sm input-color" id="buildContact" placeholder="物业联系人"
                                  v-model="build.editBuildData.buildContact">
                         </div>
                       </div>
                       <div class="form-group row form-group-min">
                         <label for="buildContactPhone" class="col-3 col-form-label text-right col-form-label-sm form-label-min">物业电话</label>
                         <div class="col-9">
-                          <input type="text" class="form-control form-control-sm" id="buildContactPhone" placeholder="物业联系电话"
+                          <input type="text" class="form-control form-control-sm input-color" id="buildContactPhone" placeholder="物业联系电话"
                                  v-model="build.editBuildData.buildContactPhone">
                         </div>
                       </div>
@@ -198,7 +198,7 @@
                       <div class="form-group row form-group-min">
                         <label for="buildParkingNum" class="col-3 col-form-label text-right col-form-label-sm form-label-min">车位数</label>
                         <div class="col-9">
-                          <input type="number" class="form-control form-control-sm" id="buildParkingNum" placeholder="车位数"
+                          <input type="number" class="form-control form-control-sm input-color" id="buildParkingNum" placeholder="车位数"
                                  v-model="build.editBuildData.buildParkingNum">
                         </div>
                       </div>
@@ -265,6 +265,17 @@ export default {
   name: "gather-normal-build-detail-edit",
   data:function (){
     return {
+      acInterface: {
+        //person
+        //getPersonByHouseId: "/GridSystem/Rest/Grid/Person/PersonMain/GetPersonByHouseId",
+        saveBuildData: "/GridSystem/Rest/Grid/Build/BuildMain/SaveBuildData",
+        //file
+        getImageFileListData: "/GridSystem/Rest/Builder/RunTime/FileRuntime/GetImageFileListData",
+        getDisplayImageUrl: "/GridSystem/Rest/Builder/RunTime/FileRuntime/DownLoadFileByFileId",
+        deleteFile: "/GridSystem/Rest/Builder/RunTime/FileRuntime/DeleteFileByFileId"
+        //deletePersonWithFamily: "/GridSystem/Rest/Grid/Person/PersonMain/DeletePersonWithFamily",
+        //getPersonHeaderBase64String: "/GridSystem/Rest/Grid/Person/PersonMain/GetPersonHeaderBase64String",
+      },
       build:{
         editBuildData:{
           buildId:"",
@@ -342,6 +353,7 @@ export default {
       ddg_BuildIsElevator:[]
     }
   },
+  props: ["session"],
   mounted() {
     this.build.emptyBuildData = appClientUtility.JsonUtility.CloneStringify(this.build.editBuildData);
   },
@@ -359,25 +371,125 @@ export default {
     },
     newBuild:function () {
       //debugger;
+      $("#normalBuildEditModal").modal('show');
       this.build.editBuildData = appClientUtility.JsonUtility.CloneStringify(this.build.emptyBuildData);
       this.build.editBuildData.buildId = appClientUtility.StringUtility.NewH5AppRecordId();
       this.build.editBuildData.buildCode=appClientUtility.GetGridInfo().gridCode;
+      this.build.editBuildData.buildCategory="一般建筑物";
+      this.build.editBuildData.buildCityId="4413";
+      this.build.editBuildData.buildAreaId="441325";
     },
-    editBuild:function (){
-
+    editBuild:function (oldEditBuild){
+      this.build.editBuildData=oldEditBuild;
+      this.loadPhotoFromServer();
+      $("#normalBuildEditModal").modal('show');
     },
     saveNormalBuildTo:function (){
-      //console.log(this.build.editBuildData);
+      //debugger;
+      var errorMessage = "";
+      if (appClientUtility.StringUtility.IsNullOrEmptyTrim(this.build.editBuildData.buildCode)) {
+        errorMessage += "[建筑物编码不能为空!]<br />";
+      }
+      else if (this.build.editBuildData.buildCode.length==18) {
+        errorMessage += "[建筑物编码必须要为18位!]<br />";
+      }
+      if (isNaN(this.build.editBuildData.buildCoveredArea)) {
+        errorMessage += "[总建筑面积必须是数字!]<br />";
+      }
+      if (isNaN(this.build.editBuildData.buildFloorGround)) {
+        errorMessage += "[地面层数必须是数字!]<br />";
+      }
+      if (isNaN(this.build.editBuildData.buildFloorUnderground)) {
+        errorMessage += "[地下层数必须是数字!]<br />";
+      }
+      if (appClientUtility.StringUtility.IsNullOrEmptyTrim(this.build.editBuildData.buildIsEntranceGuard)) {
+        errorMessage += "[门禁不能为空!]<br />";
+      }
+      if (appClientUtility.StringUtility.IsNullOrEmptyTrim(this.build.editBuildData.buildIsVideoMonitoring)) {
+        errorMessage += "[视频监控不能为空!]<br />";
+      }
+      if (appClientUtility.StringUtility.IsNullOrEmptyTrim(this.build.editBuildData.buildAddress)) {
+        errorMessage += "[门牌地址1不能为空!]<br />";
+      }
 
+      $("#loadDialogWrap").show();
+
+      axios.post(this.acInterface.saveBuildData, this.build.editBuildData).then((result) => {
+        //console.log(result);
+        if(result.data.success){
+          this.$emit('saveNormalBuildCompleted')
+        }
+        appClientUtility.DialogUtility.AlertText(this, result.data.message,()=>{
+          if(result.data.success){
+            //this.loadHouseEnterpriseFromServer(this.selectedHouse);
+            $('#normalBuildEditModal').modal('hide');
+          }
+        });
+      }).catch((err) => {
+
+      }).then((endResult) => {
+        $("#loadDialogWrap").hide();
+      });
     },
-    changeFile:function (event){
-
+    changeFile: function (event) {
+      //console.log(event);
+      var buildId = this.build.editBuildData.buildId;
+      if (appClientUtility.StringUtility.IsNullOrEmpty(buildId)) {
+        appClientUtility.DialogUtility.AlertText(this, "无法确认关联记录ID!");
+      } else {
+        var reader = new FileReader();
+        reader.onload = (e) => {
+          //console.log(e);
+          //console.log(this.result);
+          appClientUtility.FileUtility.CompressImage(this.session, e.target.result, buildId, "建筑物信息", "img.jpg", "*", (result) => {
+            appClientUtility.DialogUtility.AlertText(this, result.data.message);
+            this.loadPhotoFromServer();
+          });
+          //compress(this.result);
+        };
+        if (event.target.files[0]) {
+          reader.readAsDataURL(event.target.files[0]);
+        }
+      }
+    },
+    loadPhotoFromServer: function () {
+      var buildId = this.build.editBuildData.buildId;
+      //获取建筑物相关照片
+      axios.get(this.acInterface.getImageFileListData, {
+        params: {
+          objId: buildId,
+          categoryType: "*",
+          AppClientToken: this.session.AppClientToken,
+          ts: Date.now()
+        }
+      }).then((response) => {
+        console.log(response);
+        if (response.data.success) {
+          this.build.photos = response.data.data;
+        }
+      })
     },
     deleteSinglePhoto:function (singlePhoto){
-
+      appClientUtility.DialogUtility.Confirm(this, "确实删除该文件?", () => {
+        var fileId = singlePhoto.fileId;
+        //获取建筑物相关照片
+        axios.delete(this.acInterface.deleteFile, {
+          params: {
+            fileId: fileId,
+            AppClientToken: this.session.AppClientToken,
+            ts: Date.now()
+          }
+        }).then((response) => {
+          //console.log(response);
+          appClientUtility.DialogUtility.AlertText(this, response.data.message);
+          if (response.data.success) {
+            this.loadPhotoFromServer();
+          }
+        })
+      });
     },
     buildSinglePhotoUrl:function (singlePhoto){
-
+      return this.acInterface.getDisplayImageUrl + "?fileId=" + singlePhoto.fileId;
     }
   }
 }
