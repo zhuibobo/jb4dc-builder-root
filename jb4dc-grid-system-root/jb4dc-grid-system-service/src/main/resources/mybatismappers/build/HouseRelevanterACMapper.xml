@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jb4dc.gridsystem.dao.build.HouseRelevanterMapper">
+    <resultMap id="BaseResultMap" type="com.jb4dc.gridsystem.dbentities.build.HouseRelevanterEntity">
+        <constructor>
+            <idArg column="RETER_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="RETER_HOUSE_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="RETER_TYPE" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="RETER_NAME" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="RETER_PHONE" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="RETER_CERT_CATEGORY" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="RETER_CERT_CODE" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="RETER_ADDRESS" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="RETER_PERCENT" javaType="java.math.BigDecimal" jdbcType="DECIMAL" />
+            <arg column="RETER_REMARK" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="RETER_ORDER_NUM" javaType="java.lang.Integer" jdbcType="INTEGER" />
+            <arg column="RETER_PHOTO_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="RETER_ID_CARD_UUID" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="RETER_ID_CARD_PUBLIC_FORM" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="RETER_ID_CARD_EFF_DATE" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="RETER_ID_CARD_ADDRESS" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="RETER_BIRTHDAY" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+            <arg column="RETER_NATION" javaType="java.lang.String" jdbcType="VARCHAR" />
+        </constructor>
+    </resultMap>
+    <sql id="Base_Column_List">
+    RETER_ID, RETER_HOUSE_ID, RETER_TYPE, RETER_NAME, RETER_PHONE, RETER_CERT_CATEGORY,
+    RETER_CERT_CODE, RETER_ADDRESS, RETER_PERCENT, RETER_REMARK, RETER_ORDER_NUM, RETER_PHOTO_ID,
+    RETER_ID_CARD_UUID, RETER_ID_CARD_PUBLIC_FORM, RETER_ID_CARD_EFF_DATE, RETER_ID_CARD_ADDRESS,
+    RETER_BIRTHDAY, RETER_NATION
+  </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from TGRID_HOUSE_RELEVANTER
+        where RETER_ID = #{reterId,jdbcType=VARCHAR}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from TGRID_HOUSE_RELEVANTER
+    where RETER_ID = #{reterId,jdbcType=VARCHAR}
+  </delete>
+    <insert id="insert" parameterType="com.jb4dc.gridsystem.dbentities.build.HouseRelevanterEntity">
+    insert into TGRID_HOUSE_RELEVANTER (RETER_ID, RETER_HOUSE_ID, RETER_TYPE,
+      RETER_NAME, RETER_PHONE, RETER_CERT_CATEGORY,
+      RETER_CERT_CODE, RETER_ADDRESS, RETER_PERCENT,
+      RETER_REMARK, RETER_ORDER_NUM, RETER_PHOTO_ID,
+      RETER_ID_CARD_UUID, RETER_ID_CARD_PUBLIC_FORM,
+      RETER_ID_CARD_EFF_DATE, RETER_ID_CARD_ADDRESS,
+      RETER_BIRTHDAY, RETER_NATION)
+    values (#{reterId,jdbcType=VARCHAR}, #{reterHouseId,jdbcType=VARCHAR}, #{reterType,jdbcType=VARCHAR},
+      #{reterName,jdbcType=VARCHAR}, #{reterPhone,jdbcType=VARCHAR}, #{reterCertCategory,jdbcType=VARCHAR},
+      #{reterCertCode,jdbcType=VARCHAR}, #{reterAddress,jdbcType=VARCHAR}, #{reterPercent,jdbcType=DECIMAL},
+      #{reterRemark,jdbcType=VARCHAR}, #{reterOrderNum,jdbcType=INTEGER}, #{reterPhotoId,jdbcType=VARCHAR},
+      #{reterIdCardUuid,jdbcType=VARCHAR}, #{reterIdCardPublicForm,jdbcType=VARCHAR},
+      #{reterIdCardEffDate,jdbcType=VARCHAR}, #{reterIdCardAddress,jdbcType=VARCHAR},
+      #{reterBirthday,jdbcType=TIMESTAMP}, #{reterNation,jdbcType=VARCHAR})
+  </insert>
+    <insert id="insertSelective" parameterType="com.jb4dc.gridsystem.dbentities.build.HouseRelevanterEntity">
+        insert into TGRID_HOUSE_RELEVANTER
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="reterId != null">
+                RETER_ID,
+            </if>
+            <if test="reterHouseId != null">
+                RETER_HOUSE_ID,
+            </if>
+            <if test="reterType != null">
+                RETER_TYPE,
+            </if>
+            <if test="reterName != null">
+                RETER_NAME,
+            </if>
+            <if test="reterPhone != null">
+                RETER_PHONE,
+            </if>
+            <if test="reterCertCategory != null">
+                RETER_CERT_CATEGORY,
+            </if>
+            <if test="reterCertCode != null">
+                RETER_CERT_CODE,
+            </if>
+            <if test="reterAddress != null">
+                RETER_ADDRESS,
+            </if>
+            <if test="reterPercent != null">
+                RETER_PERCENT,
+            </if>
+            <if test="reterRemark != null">
+                RETER_REMARK,
+            </if>
+            <if test="reterOrderNum != null">
+                RETER_ORDER_NUM,
+            </if>
+            <if test="reterPhotoId != null">
+                RETER_PHOTO_ID,
+            </if>
+            <if test="reterIdCardUuid != null">
+                RETER_ID_CARD_UUID,
+            </if>
+            <if test="reterIdCardPublicForm != null">
+                RETER_ID_CARD_PUBLIC_FORM,
+            </if>
+            <if test="reterIdCardEffDate != null">
+                RETER_ID_CARD_EFF_DATE,
+            </if>
+            <if test="reterIdCardAddress != null">
+                RETER_ID_CARD_ADDRESS,
+            </if>
+            <if test="reterBirthday != null">
+                RETER_BIRTHDAY,
+            </if>
+            <if test="reterNation != null">
+                RETER_NATION,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="reterId != null">
+                #{reterId,jdbcType=VARCHAR},
+            </if>
+            <if test="reterHouseId != null">
+                #{reterHouseId,jdbcType=VARCHAR},
+            </if>
+            <if test="reterType != null">
+                #{reterType,jdbcType=VARCHAR},
+            </if>
+            <if test="reterName != null">
+                #{reterName,jdbcType=VARCHAR},
+            </if>
+            <if test="reterPhone != null">
+                #{reterPhone,jdbcType=VARCHAR},
+            </if>
+            <if test="reterCertCategory != null">
+                #{reterCertCategory,jdbcType=VARCHAR},
+            </if>
+            <if test="reterCertCode != null">
+                #{reterCertCode,jdbcType=VARCHAR},
+            </if>
+            <if test="reterAddress != null">
+                #{reterAddress,jdbcType=VARCHAR},
+            </if>
+            <if test="reterPercent != null">
+                #{reterPercent,jdbcType=DECIMAL},
+            </if>
+            <if test="reterRemark != null">
+                #{reterRemark,jdbcType=VARCHAR},
+            </if>
+            <if test="reterOrderNum != null">
+                #{reterOrderNum,jdbcType=INTEGER},
+            </if>
+            <if test="reterPhotoId != null">
+                #{reterPhotoId,jdbcType=VARCHAR},
+            </if>
+            <if test="reterIdCardUuid != null">
+                #{reterIdCardUuid,jdbcType=VARCHAR},
+            </if>
+            <if test="reterIdCardPublicForm != null">
+                #{reterIdCardPublicForm,jdbcType=VARCHAR},
+            </if>
+            <if test="reterIdCardEffDate != null">
+                #{reterIdCardEffDate,jdbcType=VARCHAR},
+            </if>
+            <if test="reterIdCardAddress != null">
+                #{reterIdCardAddress,jdbcType=VARCHAR},
+            </if>
+            <if test="reterBirthday != null">
+                #{reterBirthday,jdbcType=TIMESTAMP},
+            </if>
+            <if test="reterNation != null">
+                #{reterNation,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.jb4dc.gridsystem.dbentities.build.HouseRelevanterEntity">
+        update TGRID_HOUSE_RELEVANTER
+        <set>
+            <if test="reterHouseId != null">
+                RETER_HOUSE_ID = #{reterHouseId,jdbcType=VARCHAR},
+            </if>
+            <if test="reterType != null">
+                RETER_TYPE = #{reterType,jdbcType=VARCHAR},
+            </if>
+            <if test="reterName != null">
+                RETER_NAME = #{reterName,jdbcType=VARCHAR},
+            </if>
+            <if test="reterPhone != null">
+                RETER_PHONE = #{reterPhone,jdbcType=VARCHAR},
+            </if>
+            <if test="reterCertCategory != null">
+                RETER_CERT_CATEGORY = #{reterCertCategory,jdbcType=VARCHAR},
+            </if>
+            <if test="reterCertCode != null">
+                RETER_CERT_CODE = #{reterCertCode,jdbcType=VARCHAR},
+            </if>
+            <if test="reterAddress != null">
+                RETER_ADDRESS = #{reterAddress,jdbcType=VARCHAR},
+            </if>
+            <if test="reterPercent != null">
+                RETER_PERCENT = #{reterPercent,jdbcType=DECIMAL},
+            </if>
+            <if test="reterRemark != null">
+                RETER_REMARK = #{reterRemark,jdbcType=VARCHAR},
+            </if>
+            <if test="reterOrderNum != null">
+                RETER_ORDER_NUM = #{reterOrderNum,jdbcType=INTEGER},
+            </if>
+            <if test="reterPhotoId != null">
+                RETER_PHOTO_ID = #{reterPhotoId,jdbcType=VARCHAR},
+            </if>
+            <if test="reterIdCardUuid != null">
+                RETER_ID_CARD_UUID = #{reterIdCardUuid,jdbcType=VARCHAR},
+            </if>
+            <if test="reterIdCardPublicForm != null">
+                RETER_ID_CARD_PUBLIC_FORM = #{reterIdCardPublicForm,jdbcType=VARCHAR},
+            </if>
+            <if test="reterIdCardEffDate != null">
+                RETER_ID_CARD_EFF_DATE = #{reterIdCardEffDate,jdbcType=VARCHAR},
+            </if>
+            <if test="reterIdCardAddress != null">
+                RETER_ID_CARD_ADDRESS = #{reterIdCardAddress,jdbcType=VARCHAR},
+            </if>
+            <if test="reterBirthday != null">
+                RETER_BIRTHDAY = #{reterBirthday,jdbcType=TIMESTAMP},
+            </if>
+            <if test="reterNation != null">
+                RETER_NATION = #{reterNation,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where RETER_ID = #{reterId,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.jb4dc.gridsystem.dbentities.build.HouseRelevanterEntity">
+    update TGRID_HOUSE_RELEVANTER
+    set RETER_HOUSE_ID = #{reterHouseId,jdbcType=VARCHAR},
+      RETER_TYPE = #{reterType,jdbcType=VARCHAR},
+      RETER_NAME = #{reterName,jdbcType=VARCHAR},
+      RETER_PHONE = #{reterPhone,jdbcType=VARCHAR},
+      RETER_CERT_CATEGORY = #{reterCertCategory,jdbcType=VARCHAR},
+      RETER_CERT_CODE = #{reterCertCode,jdbcType=VARCHAR},
+      RETER_ADDRESS = #{reterAddress,jdbcType=VARCHAR},
+      RETER_PERCENT = #{reterPercent,jdbcType=DECIMAL},
+      RETER_REMARK = #{reterRemark,jdbcType=VARCHAR},
+      RETER_ORDER_NUM = #{reterOrderNum,jdbcType=INTEGER},
+      RETER_PHOTO_ID = #{reterPhotoId,jdbcType=VARCHAR},
+      RETER_ID_CARD_UUID = #{reterIdCardUuid,jdbcType=VARCHAR},
+      RETER_ID_CARD_PUBLIC_FORM = #{reterIdCardPublicForm,jdbcType=VARCHAR},
+      RETER_ID_CARD_EFF_DATE = #{reterIdCardEffDate,jdbcType=VARCHAR},
+      RETER_ID_CARD_ADDRESS = #{reterIdCardAddress,jdbcType=VARCHAR},
+      RETER_BIRTHDAY = #{reterBirthday,jdbcType=TIMESTAMP},
+      RETER_NATION = #{reterNation,jdbcType=VARCHAR}
+    where RETER_ID = #{reterId,jdbcType=VARCHAR}
+  </update>
+</mapper>

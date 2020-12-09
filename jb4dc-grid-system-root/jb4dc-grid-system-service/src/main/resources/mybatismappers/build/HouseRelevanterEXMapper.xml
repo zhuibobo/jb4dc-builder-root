@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jb4dc.gridsystem.dao.build.HouseRelevanterMapper">
+    <select id="selectAll" resultMap="BaseResultMap">select<include refid="Base_Column_List"/> from TGRID_HOUSE_RELEVANTER ORDER by RETER_ORDER_NUM DESC</select>
+    <select id="selectAllASC" resultMap="BaseResultMap">select<include refid="Base_Column_List"/> from TGRID_HOUSE_RELEVANTER ORDER by RETER_ORDER_NUM ASC</select>
+    <delete id="deleteAll">delete from TGRID_HOUSE_RELEVANTER</delete>
+    <select id="nextOrderNum" resultType="integer">select case when max(RETER_ORDER_NUM) is null then 1 else max(RETER_ORDER_NUM)+1 end ORDERNUM from TGRID_HOUSE_RELEVANTER</select>
+    <select id="selectBySearch" parameterType="java.util.Map" resultMap="BaseResultMap">select<include refid="Base_Column_List"/>from TGRID_HOUSE_RELEVANTER<where>
+        <if test="reterHouseId !=null and reterHouseId !=''"> and RETER_HOUSE_ID like #{reterHouseId} </if>
+        <if test="reterType !=null and reterType !=''"> and RETER_TYPE like #{reterType} </if>
+        <if test="reterName !=null and reterName !=''"> and RETER_NAME like #{reterName} </if>
+        <if test="reterPhone !=null and reterPhone !=''"> and RETER_PHONE like #{reterPhone} </if>
+        <if test="reterCertCategory !=null and reterCertCategory !=''"> and RETER_CERT_CATEGORY like #{reterCertCategory} </if>
+        <if test="reterCertCode !=null and reterCertCode !=''"> and RETER_CERT_CODE like #{reterCertCode} </if>
+        <if test="reterAddress !=null and reterAddress !=''"> and RETER_ADDRESS like #{reterAddress} </if>
+        <if test="reterRemark !=null and reterRemark !=''"> and RETER_REMARK like #{reterRemark} </if>
+        <if test="reterPhotoId !=null and reterPhotoId !=''"> and RETER_PHOTO_ID like #{reterPhotoId} </if>
+        <if test="reterIdCardUuid !=null and reterIdCardUuid !=''"> and RETER_ID_CARD_UUID like #{reterIdCardUuid} </if>
+        <if test="reterIdCardPublicForm !=null and reterIdCardPublicForm !=''"> and RETER_ID_CARD_PUBLIC_FORM like #{reterIdCardPublicForm} </if>
+        <if test="reterIdCardEffDate !=null and reterIdCardEffDate !=''"> and RETER_ID_CARD_EFF_DATE like #{reterIdCardEffDate} </if>
+        <if test="reterIdCardAddress !=null and reterIdCardAddress !=''"> and RETER_ID_CARD_ADDRESS like #{reterIdCardAddress} </if>
+        <if test="reterNation !=null and reterNation !=''"> and RETER_NATION like #{reterNation} </if>
+    </where>ORDER by RETER_ORDER_NUM DESC</select>
+    <select id="selectLessThanRecord" parameterType="java.lang.String" resultMap="BaseResultMap"><![CDATA[select * from TGRID_HOUSE_RELEVANTER
+ where RETER_ORDER_NUM = (select max(RETER_ORDER_NUM) from TGRID_HOUSE_RELEVANTER where RETER_ORDER_NUM<(select RETER_ORDER_NUM from TGRID_HOUSE_RELEVANTER where RETER_ID=#{Id,jdbcType=NVARCHAR}))]]></select>
+    <select id="selectGreaterThanRecord" parameterType="java.lang.String" resultMap="BaseResultMap"><![CDATA[select * from TGRID_HOUSE_RELEVANTER
+ where RETER_ORDER_NUM = (select min(RETER_ORDER_NUM) from TGRID_HOUSE_RELEVANTER where RETER_ORDER_NUM>(select RETER_ORDER_NUM from TGRID_HOUSE_RELEVANTER where RETER_ID=#{Id,jdbcType=NVARCHAR}))]]></select>
+
+    <select id="selectByHouseId" resultMap="BaseResultMap">
+        select<include refid="Base_Column_List"/> from TGRID_HOUSE_RELEVANTER where RETER_HOUSE_ID=#{houseId} ORDER by RETER_ORDER_NUM ASC
+    </select>
+</mapper>

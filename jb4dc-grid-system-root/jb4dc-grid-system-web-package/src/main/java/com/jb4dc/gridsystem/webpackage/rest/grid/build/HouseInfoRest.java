@@ -8,12 +8,20 @@ import com.jb4dc.core.base.vo.JBuild4DCResponseVo;
 import com.jb4dc.feb.dist.webserver.rest.base.GeneralRest;
 import com.jb4dc.gridsystem.dbentities.build.BuildInfoEntity;
 import com.jb4dc.gridsystem.dbentities.build.HouseInfoEntity;
+import com.jb4dc.gridsystem.dbentities.build.HouseRelevanterEntity;
+import com.jb4dc.gridsystem.po.FamilyPO;
+import com.jb4dc.gridsystem.po.HouseInfoPO;
+import com.jb4dc.gridsystem.po.HouseRelevanterPO;
 import com.jb4dc.gridsystem.service.build.IHouseInfoService;
+import com.jb4dc.gridsystem.service.build.IHouseRelevanterService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.List;
 
 @RestController
@@ -22,6 +30,9 @@ public class HouseInfoRest extends GeneralRest<HouseInfoEntity> {
 
     @Autowired
     IHouseInfoService houseInfoService;
+
+    @Autowired
+    IHouseRelevanterService houseRelevanterService;
 
     @Override
     public String getModuleName() {
@@ -34,9 +45,25 @@ public class HouseInfoRest extends GeneralRest<HouseInfoEntity> {
     }
 
     @RequestMapping(value = "/GetHouseByBuildId", method = RequestMethod.GET)
-    public JBuild4DCResponseVo getHouseByBuildId(String buildId) throws JBuild4DCGenerallyException {
+    public JBuild4DCResponseVo<List<HouseInfoEntity>> getHouseByBuildId(String buildId) throws JBuild4DCGenerallyException {
         //JB4DCSession jb4DCSession= JB4DCSessionUtility.getSession();
         List<HouseInfoEntity> houseInfoEntities=houseInfoService.getHouseByBuildId(JB4DCSessionUtility.getSession(),buildId);
         return JBuild4DCResponseVo.getDataSuccess(houseInfoEntities);
     }
+
+    @RequestMapping(value = "/GetRelevanterByHouseId", method = RequestMethod.GET)
+    public JBuild4DCResponseVo<List<HouseRelevanterEntity>> getRelevanterByHouseId(String houseId) throws JBuild4DCGenerallyException {
+        //JB4DCSession jb4DCSession= JB4DCSessionUtility.getSession();
+        List<HouseRelevanterEntity> houseRelevanterPOS=houseRelevanterService.getRelevanterByHouseId(JB4DCSessionUtility.getSession(),houseId);
+        return JBuild4DCResponseVo.getDataSuccess(houseRelevanterPOS);
+    }
+
+    @RequestMapping(value = "/SaveHouseData", method = RequestMethod.POST)
+    public JBuild4DCResponseVo<HouseInfoPO> saveHouseData(@RequestBody HouseInfoPO houseInfoPO) throws JBuild4DCGenerallyException, IOException, URISyntaxException {
+        //JB4DCSession jb4DCSession= JB4DCSessionUtility.getSession();
+        houseInfoPO=houseInfoService.saveHouseData(JB4DCSessionUtility.getSession(),houseInfoPO);
+        return JBuild4DCResponseVo.opSuccess(houseInfoPO);
+    }
+
+
 }

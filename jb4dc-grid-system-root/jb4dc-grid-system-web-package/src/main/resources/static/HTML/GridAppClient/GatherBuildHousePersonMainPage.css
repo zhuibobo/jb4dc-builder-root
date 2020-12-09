@@ -442,6 +442,78 @@
   color: #48C9B0;
 }
 
+/*https://htmlcolorcodes.com/zh/yanse-biao/bianping-hua-sheji-yanse-biao/*/
+/*石榴*/
+/*混凝土*/
+/*向日葵*/
+/*绿松石*/
+/*河蓝*/
+.person-head-image[data-v-f374677e] {
+  width: 100px;
+  height: 120px;
+  border-radius: 8px;
+  border: solid 1px #5F6A6A;
+  position: absolute;
+  right: 20px;
+  top: 16px;
+}
+.person-head-image img[data-v-f374677e] {
+  margin-left: 5px;
+  margin-top: 10px;
+  width: 90px;
+  height: 97px;
+}
+.house-relevanter-list-wrap[data-v-f374677e] {
+  height: 370px;
+  overflow: auto;
+}
+.house-relevanter-list-wrap .house-relevanter-single-wrap[data-v-f374677e] {
+  border: #BFC9CA 1px solid;
+  border-radius: 6px;
+  background-color: #EAEDED;
+  margin-top: 4px;
+}
+.house-relevanter-list-wrap .house-relevanter-single-wrap .relevanter-info-wrap[data-v-f374677e] {
+  display: inline-block;
+  height: 60px;
+  width: 66%;
+  font-size: 13px;
+}
+.house-relevanter-list-wrap .house-relevanter-single-wrap .relevanter-info-wrap .info-text[data-v-f374677e] {
+  border-bottom: #BFC9CA 1px dotted;
+  padding: 4px;
+}
+.house-relevanter-list-wrap .house-relevanter-single-wrap .relevanter-info-wrap .info-text[data-v-f374677e]:last-child {
+  border-bottom: #BFC9CA 0px dotted;
+}
+.house-relevanter-list-wrap .house-relevanter-single-wrap .op-button-wrap[data-v-f374677e] {
+  display: inline-block;
+  height: 50px;
+  width: 30%;
+}
+.house-relevanter-list-wrap .house-relevanter-single-wrap .op-button-wrap .del[data-v-f374677e] {
+  float: left;
+  width: 32px;
+  height: 32px;
+  border-bottom: 0px dotted #717D7E;
+  border-radius: 0px;
+  background-image: url(Images/icons8-del-30.png);
+  background-repeat: no-repeat;
+  margin-top: 14px;
+  margin-left: 8px;
+}
+.house-relevanter-list-wrap .house-relevanter-single-wrap .op-button-wrap .edit-relevanter[data-v-f374677e] {
+  float: left;
+  width: 32px;
+  height: 32px;
+  border-bottom: 0px dotted #717D7E;
+  border-radius: 0px;
+  background-image: url(Images/icons8-person-30.png);
+  background-repeat: no-repeat;
+  margin-top: 14px;
+  margin-left: 8px;
+}
+
 
 :root {
   --title-color: black;

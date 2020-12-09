@@ -93,13 +93,14 @@ public class PersonServiceImpl extends BaseServiceImpl<PersonEntity> implements 
     public String getPersonHeaderBase64String(JB4DCSession session, String personId) throws JBuild4DCGenerallyException, IOException, URISyntaxException {
         PersonEntity personEntity=getByPrimaryKey(session,personId);
         if(StringUtility.isNotEmpty(personEntity.getPersonPhotoId())){
-            FileInfoEntity fileInfoEntity=fileInfoService.getByPrimaryKey(session,personEntity.getPersonPhotoId());
+            /*FileInfoEntity fileInfoEntity=fileInfoService.getByPrimaryKey(session,personEntity.getPersonPhotoId());
             String filePath=fileInfoService.buildFilePath(fileInfoEntity);
             File file = new File(filePath);
             FileInputStream fileInputStream = new FileInputStream(file);
             byte[] datas = new byte[fileInputStream.available()];
             fileInputStream.read(datas);
-            fileInputStream.close();
+            fileInputStream.close();*/
+            byte[] datas = fileInfoService.getContentInFileSystem(session,personEntity.getPersonPhotoId());
             BASE64Encoder encoder = new BASE64Encoder();
             return encoder.encode(datas);//返回Base64编码过的字节数组字符串
         }

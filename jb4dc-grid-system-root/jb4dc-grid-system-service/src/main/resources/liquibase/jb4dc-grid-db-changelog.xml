@@ -399,4 +399,18 @@
             ALTER TABLE TGRID_PERSON COMMENT = '人口信息表'
         </sql>
     </changeSet>
+    <changeSet author="zhuangrb" id="changeSet-GRID-0009" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
+        <addColumn tableName="TGRID_HOUSE_RELEVANTER">
+            <column name="RETER_PHOTO_ID" type="NVARCHAR(50)" remarks="照片ID" />
+            <column name="RETER_ID_CARD_UUID" type="NVARCHAR(50)" remarks="身份证UUID" />
+            <column name="RETER_ID_CARD_PUBLIC_FORM" type="NVARCHAR(200)" remarks="身份证签发机关" />
+            <column name="RETER_ID_CARD_EFF_DATE" type="NVARCHAR(50)" remarks="身份证有效日期" />
+            <column name="RETER_ID_CARD_ADDRESS" type="NVARCHAR(200)" remarks="居住地址" />
+            <column name="RETER_BIRTHDAY" type="DATETIME(6)" remarks="出生日期" />
+            <column name="RETER_NATION" type="NVARCHAR(20)" remarks="民族" />
+        </addColumn>
+        <sql>
+            ALTER TABLE TGRID_HOUSE_RELEVANTER COMMENT = '房屋表相关人员表'
+        </sql>
+    </changeSet>
 </databaseChangeLog>

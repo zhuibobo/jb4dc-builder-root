@@ -14,7 +14,7 @@
         <input type="text" class="form-control" placeholder="输入编号或门牌地址" v-model="build.searchText" aria-describedby="basic-addon1" @keyup="filterBuildArray">
       </div>
       <div class="all-build-wrap">
-        <div class="single-build" :class="{'single-build-selected':singleBuildData.buildId == selected,'single-build-sp':singleBuildData.buildCategory=='特殊建筑物'}" v-for="singleBuildData in build.filterBuilds" @click="loadHouseListFromServer($event,singleBuildData)">
+        <div class="single-build" :class="{'single-build-selected':singleBuildData.buildId == selected,'single-build-sp':singleBuildData.buildCategory=='特殊建筑物'}" v-for="singleBuildData in build.filterBuilds" @click="loadHouseListFromServer(singleBuildData)">
           <div class="text-wrap">
             <div class="code">{{singleBuildData.buildCode.substring(8)}}</div>
             <div class="text">{{singleBuildData.buildAddress}}</div>
@@ -29,7 +29,7 @@
       <div class="title">房屋</div>
       <div style="padding: 4px;height: 44px">
         <div style="float: right">
-          <button type="button" class="btn btn-success">+房屋</button>
+          <button type="button" class="btn btn-success" @click="addHouse()">+房屋</button>
         </div>
       </div>
       <div style="padding: 4px">
@@ -48,9 +48,10 @@
         </div>
       </div>
     </div>
-    <gatherHouseInnerAboutList :selected-house="house.selectedHouse" :selected-build="build.selectedBuild" :session="session" ref="gatherHouseInnerAboutListObj"></gatherHouseInnerAboutList>
     <gatherNormalBuildDetailEdit :session="session" ref="gatherNormalBuildDetailEditObj" @saveNormalBuildCompleted="saveNormalBuildCompleted"></gatherNormalBuildDetailEdit>
     <gatherSPBuildDetailEdit :session="session" ref="gatherSPBuildDetailEditObj" @saveNormalBuildCompleted="saveNormalBuildCompleted"></gatherSPBuildDetailEdit>
+    <gatherHouseDetailEdit :session="session":selected-build="build.selectedBuild" ref="gatherHouseDetailEditObj" @saveHouseCompleted="saveHouseCompleted"></gatherHouseDetailEdit>
+    <gatherHouseInnerAboutList :selected-house="house.selectedHouse" :selected-build="build.selectedBuild" :session="session" ref="gatherHouseInnerAboutListObj"></gatherHouseInnerAboutList>
     <div class="loadDialogWrap" id="loadDialogWrap">
       <div class="text-center" style="margin-top: 200px">
         <div class="spinner-border" style="width: 3rem; height: 3rem;" role="status">
@@ -106,6 +107,9 @@ export default {
     saveNormalBuildCompleted:function (){
       this.loadBuildListFromServer();
     },
+    saveHouseCompleted:function (){
+      this.loadHouseListFromServer(this.build.selectedBuild);
+    },
     loadBuildListFromServer:function () {
       axios.get(this.acInterface.getMyBuild, {
         params: {
@@ -124,6 +128,7 @@ export default {
           appClientUtility.SetGridInfo(response.data.exKVData.gridInfoEntity);
           this.$refs.gatherNormalBuildDetailEditObj.buildDDGroupData();
           this.$refs.gatherSPBuildDetailEditObj.buildDDGroupData();
+          this.$refs.gatherHouseDetailEditObj.buildDDGroupData();
         }
       }).catch(function (error) {
         console.log(error);
@@ -170,10 +175,18 @@ export default {
     },
     //endregion
     //region 房屋
-    loadHouseListFromServer:function (event,singleHouseData) {
+    addHouse:function (){
+      if(this.build.selectedBuild) {
+        this.$refs.gatherHouseDetailEditObj.newHouse();
+      }
+      else{
+        this.$toasted.show('请先选择建筑物!',{duration:2000});
+      }
+    },
+    loadHouseListFromServer:function (singleBuildData) {
       //console.log(event);
-      var buildId=singleHouseData.buildId;
-      this.build.selectedBuild=singleHouseData;
+      var buildId=singleBuildData.buildId;
+      this.build.selectedBuild=singleBuildData;
       this.house.allHouse = [];
       this.house.searchText="";
       this.selected=buildId;
@@ -205,7 +218,8 @@ export default {
       }
     },
     editHouse:function (singleHouseData){
-      this.$toasted.show('开发中.',{duration:2000});
+      //this.$toasted.show('开发中.',{duration:2000});
+      this.$refs.gatherHouseDetailEditObj.editHouse(singleHouseData);
     },
     beginEditHouseInner:function (singleHouseData){
       this.house.selectedHouse=singleHouseData;

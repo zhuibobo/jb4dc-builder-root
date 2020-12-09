@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no" />
     <th:block th:replace="Fragment/GeneralLib::GeneralLib"></th:block>
     <th:block th:replace="Fragment/GeneralLib::ThemesLib"></th:block>
     <th:block th:replace="Fragment/GeneralLib::ZTreeExtendLib"></th:block>
@@ -14,12 +15,13 @@
             AjaxUtility.Post("/Rest/Grid/User/Login/LoginByPassword",{
                 accountName:"chenyy",
                 password:"j4d123456",
-                terminalToken:"11111111111111111111"
+                terminalToken:"22222222222222222222"
             },function (result){
                 if(result.success){
                     var data=result.data;
                     var url=window.location.origin+"/GridSystem/HTML/GridAppClient/GatherBuildHousePersonMainPage.html?UserId="+data.userId+"&UserName="+data.userName+"&OrganId="+data.organId+"&OrganName="+data.organName+"&AppClientToken="+data.appClientToken;
-                    window.open(url);
+                    //window.open(url);
+                    window.location.href=url;
                 }
                 console.log(result);
                 //console.log(window);

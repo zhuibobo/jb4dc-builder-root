@@ -7,12 +7,22 @@ import com.jb4dc.core.base.session.JB4DCSession;
 import com.jb4dc.gridsystem.dao.terminal.GatherTerminalInfoMapper;
 import com.jb4dc.gridsystem.dbentities.terminal.GatherTerminalInfoEntity;
 import com.jb4dc.gridsystem.service.terminal.IGatherTerminalInfoService;
+import com.jb4dc.sso.client.proxy.IOrganRuntimeProxy;
+import com.jb4dc.sso.dbentities.organ.OrganEntity;
+import com.jb4dc.sso.dbentities.user.UserEntity;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Date;
 
 @Service
 public class GatherTerminalInfoServiceImpl extends BaseServiceImpl<GatherTerminalInfoEntity> implements IGatherTerminalInfoService
 {
     GatherTerminalInfoMapper gatherTerminalInfoMapper;
+
+    @Autowired
+    IOrganRuntimeProxy organRuntimeProxy;
+
     public GatherTerminalInfoServiceImpl(GatherTerminalInfoMapper _defaultBaseMapper){
         super(_defaultBaseMapper);
         gatherTerminalInfoMapper=_defaultBaseMapper;
@@ -32,5 +42,27 @@ public class GatherTerminalInfoServiceImpl extends BaseServiceImpl<GatherTermina
     @Override
     public GatherTerminalInfoEntity getByCode(String code) {
         return gatherTerminalInfoMapper.selectByCode(code);
+    }
+
+    @Override
+    public void newTerminalToken(UserEntity userEntity, String terminalToken) throws JBuild4DCGenerallyException {
+        OrganEntity organEntity=organRuntimeProxy.getOrganById(userEntity.getUserOrganId()).getData();
+
+        GatherTerminalInfoEntity gatherTerminalInfoEntity=new GatherTerminalInfoEntity();
+        gatherTerminalInfoEntity.setTerminalId(terminalToken);
+        gatherTerminalInfoEntity.setTerminalUserName(userEntity.getUserName());
+        gatherTerminalInfoEntity.setTerminalUserId(userEntity.getUserId());
+        gatherTerminalInfoEntity.setTerminalStatus("未授权");
+        gatherTerminalInfoEntity.setTerminalCode(terminalToken);
+        gatherTerminalInfoEntity.setTerminalDesc("新设备申请");
+        gatherTerminalInfoEntity.setTerminalRemark("");
+        gatherTerminalInfoEntity.setTerminalManageUnitName(organEntity.getOrganName());
+        gatherTerminalInfoEntity.setTerminalManageUnitId(userEntity.getUserOrganId());
+        gatherTerminalInfoEntity.setTerminalManageDate(new Date());
+        gatherTerminalInfoEntity.setTerminalManageUserName(userEntity.getUserName());
+        gatherTerminalInfoEntity.setTerminalManageUserId(userEntity.getUserId());
+        gatherTerminalInfoEntity.setTerminalOrderNum(gatherTerminalInfoMapper.nextOrderNum()+5);
+
+        this.saveSimple(null,gatherTerminalInfoEntity.getTerminalId(),gatherTerminalInfoEntity);
     }
 }

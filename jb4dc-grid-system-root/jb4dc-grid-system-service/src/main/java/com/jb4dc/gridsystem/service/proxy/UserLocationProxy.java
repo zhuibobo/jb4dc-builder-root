@@ -14,6 +14,8 @@ import com.jb4dc.sso.client.proxy.IOrganRuntimeProxy;
 import com.jb4dc.sso.client.proxy.IUserRuntimeProxy;
 import com.jb4dc.sso.dbentities.organ.OrganEntity;
 import com.jb4dc.sso.dbentities.user.UserEntity;
+import liquibase.pro.packaged.A;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.ServletException;
@@ -45,8 +47,13 @@ public class UserLocationProxy {
             if (userEntity.getUserPassword().equals(inputPassword)) {
                 GatherTerminalInfoEntity gatherTerminalInfoEntity = gatherTerminalInfoService.getByCode(terminalToken);
                 if (gatherTerminalInfoEntity == null) {
+                    gatherTerminalInfoService.newTerminalToken(userEntity,terminalToken);
+
                     throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_GRID_CODE, "该设备未获得登录授权!");
                 } else {
+                    if(!gatherTerminalInfoEntity.getTerminalStatus().equals("正常")){
+                        throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_GRID_CODE, "该设备状态异常!");
+                    }
                     OrganEntity organEntity=organRuntimeProxy.getOrganById(userEntity.getUserOrganId()).getData();
                     JB4DCSession jb4DCSession=new JB4DCSession();
                     jb4DCSession.setOrganId(userEntity.getUserOrganId());

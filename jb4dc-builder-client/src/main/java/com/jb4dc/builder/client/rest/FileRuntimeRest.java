@@ -19,6 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import sun.misc.BASE64Decoder;
+import sun.misc.BASE64Encoder;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -125,6 +126,13 @@ public class FileRuntimeRest {
         return JBuild4DCResponseVo.getDataSuccess(fileInfoEntityList);
     }
 
+    @RequestMapping(value = "/GetImageBase64String", method = RequestMethod.GET)
+    public JBuild4DCResponseVo getImageBase64String(String fileId) throws JBuild4DCGenerallyException, IOException, URISyntaxException {
+        byte[] bytes =fileInfoService.getContentInFileSystem(JB4DCSessionUtility.getSession(),fileId);
+        BASE64Encoder encoder = new BASE64Encoder();
+        String imageBase64String=encoder.encode(bytes);//返回Base64编码过的字节数组字符串
+        return JBuild4DCResponseVo.getDataSuccess(imageBase64String);
+    }
 
     @RequestMapping(value = "/DownLoadFileByFileId")
     void downLoadFile(HttpServletRequest request, HttpServletResponse response,String fileId) throws JBuild4DCGenerallyException {
