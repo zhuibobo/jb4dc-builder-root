@@ -5,7 +5,7 @@
          aria-hidden="true">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
-          <div class="modal-header" style="padding: 1.5rem 1rem">
+          <div class="modal-header" style="padding: 0.5rem 1rem">
             <h5 class="modal-title" id="spBuildEditModalLabel">特殊建筑物信息登记</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
@@ -115,21 +115,7 @@
                 </div>
                 <div id="spBuildEditFile" class="collapse" data-parent="#accordionspBuildEdit">
                   <div class="card-body" style="padding: 0.7rem">
-                    <div style="padding: 4px;height: 44px">
-                      <div style="float: right">
-                        <a href="javascript:;" class="file">
-                          <input type="file" accept="image/*;capture=camera" @change="changeFile">拍照
-                        </a>
-                      </div>
-                    </div>
-                    <div class="photo-list-wrap">
-                      <div class="photo-single-outer-wrap" v-for="singlePhoto in build.photos">
-                        <div class="delete-photo" @click="deleteSinglePhoto(singlePhoto)"></div>
-                        <div class="photo-single-inner-wrap">
-                          <img :src="buildSinglePhotoUrl(singlePhoto)" style="width: 100%" />
-                        </div>
-                      </div>
-                    </div>
+                    <photoList ref="photoListObj" :session="session" :obj-type="'建筑物'"></photoList>
                   </div>
                 </div>
               </div>
@@ -157,12 +143,6 @@ export default {
         //person
         //getPersonByHouseId: "/GridSystem/Rest/Grid/Person/PersonMain/GetPersonByHouseId",
         saveBuildData: "/GridSystem/Rest/Grid/Build/BuildMain/SaveBuildData",
-        //file
-        getImageFileListData: "/GridSystem/Rest/Builder/RunTime/FileRuntime/GetImageFileListData",
-        getDisplayImageUrl: "/GridSystem/Rest/Builder/RunTime/FileRuntime/DownLoadFileByFileId",
-        deleteFile: "/GridSystem/Rest/Builder/RunTime/FileRuntime/DeleteFileByFileId"
-        //deletePersonWithFamily: "/GridSystem/Rest/Grid/Person/PersonMain/DeletePersonWithFamily",
-        //getPersonHeaderBase64String: "/GridSystem/Rest/Grid/Person/PersonMain/GetPersonHeaderBase64String",
       },
       build:{
         editBuildData:{
@@ -227,8 +207,7 @@ export default {
           buildParentIdList:"",//父节点列表
           buildRecordStatus:"启用"//状态
         },
-        emptyBuildData: null,
-        photos:[]
+        emptyBuildData: null
       },
       ddg_BuildSpType:[],
       ddg_BuildSpUseFor:[]
@@ -252,10 +231,13 @@ export default {
       this.build.editBuildData.buildCategory="特殊建筑物";
       this.build.editBuildData.buildCityId="4413";
       this.build.editBuildData.buildAreaId="441325";
+      this.$refs.photoListObj.setRecordId(this.build.editBuildData.buildId);
+      this.$refs.photoListObj.clearPhotoList();
     },
     editBuild:function (oldEditBuild){
       this.build.editBuildData=oldEditBuild;
-      this.loadPhotoFromServer();
+      this.$refs.photoListObj.setRecordId(this.build.editBuildData.buildId);
+      this.$refs.photoListObj.loadPhotoFromServer(this.build.editBuildData.buildId);
       $("#spBuildEditModal").modal('show');
     },
     saveNormalBuildTo:function (){
@@ -304,66 +286,6 @@ export default {
       }).then((endResult) => {
         $("#loadDialogWrap").hide();
       });
-    },
-    changeFile: function (event) {
-      //console.log(event);
-      var buildId = this.build.editBuildData.buildId;
-      if (appClientUtility.StringUtility.IsNullOrEmpty(buildId)) {
-        appClientUtility.DialogUtility.AlertText(this, "无法确认关联记录ID!");
-      } else {
-        var reader = new FileReader();
-        reader.onload = (e) => {
-          //console.log(e);
-          //console.log(this.result);
-          appClientUtility.FileUtility.CompressImage(this.session, e.target.result, buildId, "建筑物信息", "img.jpg", "*", (result) => {
-            appClientUtility.DialogUtility.AlertText(this, result.data.message);
-            this.loadPhotoFromServer();
-          });
-          //compress(this.result);
-        };
-        if (event.target.files[0]) {
-          reader.readAsDataURL(event.target.files[0]);
-        }
-      }
-    },
-    loadPhotoFromServer: function () {
-      var buildId = this.build.editBuildData.buildId;
-      //获取建筑物相关照片
-      axios.get(this.acInterface.getImageFileListData, {
-        params: {
-          objId: buildId,
-          categoryType: "*",
-          AppClientToken: this.session.AppClientToken,
-          ts: Date.now()
-        }
-      }).then((response) => {
-        console.log(response);
-        if (response.data.success) {
-          this.build.photos = response.data.data;
-        }
-      })
-    },
-    deleteSinglePhoto:function (singlePhoto){
-      appClientUtility.DialogUtility.Confirm(this, "确实删除该文件?", () => {
-        var fileId = singlePhoto.fileId;
-        //获取建筑物相关照片
-        axios.delete(this.acInterface.deleteFile, {
-          params: {
-            fileId: fileId,
-            AppClientToken: this.session.AppClientToken,
-            ts: Date.now()
-          }
-        }).then((response) => {
-          //console.log(response);
-          appClientUtility.DialogUtility.AlertText(this, response.data.message);
-          if (response.data.success) {
-            this.loadPhotoFromServer();
-          }
-        })
-      });
-    },
-    buildSinglePhotoUrl:function (singlePhoto){
-      return this.acInterface.getDisplayImageUrl + "?fileId=" + singlePhoto.fileId;
     }
   }
 }

@@ -50,7 +50,7 @@
     </div>
     <gatherNormalBuildDetailEdit :session="session" ref="gatherNormalBuildDetailEditObj" @saveNormalBuildCompleted="saveNormalBuildCompleted"></gatherNormalBuildDetailEdit>
     <gatherSPBuildDetailEdit :session="session" ref="gatherSPBuildDetailEditObj" @saveNormalBuildCompleted="saveNormalBuildCompleted"></gatherSPBuildDetailEdit>
-    <gatherHouseDetailEdit :session="session":selected-build="build.selectedBuild" ref="gatherHouseDetailEditObj" @saveHouseCompleted="saveHouseCompleted"></gatherHouseDetailEdit>
+    <gatherHouseDetailEdit :session="session" :selected-build="build.selectedBuild" ref="gatherHouseDetailEditObj" @saveHouseCompleted="saveHouseCompleted"></gatherHouseDetailEdit>
     <gatherHouseInnerAboutList :selected-house="house.selectedHouse" :selected-build="build.selectedBuild" :session="session" ref="gatherHouseInnerAboutListObj"></gatherHouseInnerAboutList>
     <div class="loadDialogWrap" id="loadDialogWrap">
       <div class="text-center" style="margin-top: 200px">
@@ -172,6 +172,9 @@ export default {
       }
 
       //this.$toasted.show('开发中.',{duration:2000});
+    },
+    deleteBuild:function (buildData){
+      alert(1);
     },
     //endregion
     //region 房屋

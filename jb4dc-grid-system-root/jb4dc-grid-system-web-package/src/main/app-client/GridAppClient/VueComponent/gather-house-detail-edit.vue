@@ -282,7 +282,8 @@ export default {
         //getPersonByHouseId: "/GridSystem/Rest/Grid/Person/PersonMain/GetPersonByHouseId",
         saveHouseData: "/GridSystem/Rest/Grid/Build/HouseInfo/SaveHouseData",
         getRelevanterByHouseId: "/GridSystem/Rest/Grid/Build/HouseInfo/GetRelevanterByHouseId",
-        getImageBase64String:"/GridSystem/Rest/Builder/RunTime/FileRuntime/GetImageBase64String"
+        getImageBase64String:"/GridSystem/Rest/Builder/RunTime/FileRuntime/GetImageBase64String",
+        deleteRelevanter: "/GridSystem/Rest/Grid/Build/HouseInfo/DeleteRelevanter",
       },
       house:{
         editHouseData:{
@@ -480,26 +481,40 @@ export default {
 
       $("#relevanterEditModal").modal('hide');
     },
-    deleteRelevanter:function (relevanter){
-
+    deleteRelevanter:function (relevanterData){
+      appClientUtility.DialogUtility.Confirm(this,"你确认要删除记录吗?",()=> {
+        $("#loadDialogWrap").show();
+        axios.delete(this.acInterface.deleteRelevanter, {
+          params: {
+            "relevanterId": relevanterData.reterId
+          }
+        }).then((result) => {
+          appClientUtility.DialogUtility.AlertText(this,result.data.message);
+          if(result.data.success){
+            this.house.editRelevanterPersons=result.data.data;
+          }
+        }).then((endResult) => {
+          $("#loadDialogWrap").hide();
+        });
+      });
     },
-    editRelevanter:function (relevanter){
+    editRelevanter:function (relevanterData){
       $("#relevanterEditModal").modal('show');
-      this.relevanter.editRelevanterData = relevanter;
-      this.tryLoadRelevanterHeaderBase64FromServer(relevanter);
+      this.relevanter.editRelevanterData = relevanterData;
+      this.tryLoadRelevanterHeaderBase64FromServer(relevanterData);
     },
-    tryLoadRelevanterHeaderBase64FromServer: function (relevanter) {
-      if (relevanter.reterPhotoId) {
+    tryLoadRelevanterHeaderBase64FromServer: function (relevanterData) {
+      if (relevanterData.reterPhotoId) {
         axios.get(this.acInterface.getImageBase64String, {
           params: {
-            fileId: relevanter.reterPhotoId,
+            fileId: relevanterData.reterPhotoId,
             AppClientToken: this.session.AppClientToken,
             ts: Date.now()
           }
         }).then((result) => {
           if (result.data.success) {
-            relevanter.editRelevanterData.reterHeaderImageBase64 = result.data.data;
-            $("#imgRelevanterHeadPhoto").attr("src", 'data:image/png;base64,' +relevanter.editRelevanterData.reterHeaderImageBase64);
+            this.relevanter.editRelevanterData.reterHeaderImageBase64 = result.data.data;
+            $("#imgRelevanterHeadPhoto").attr("src", 'data:image/png;base64,' +this.relevanter.editRelevanterData.reterHeaderImageBase64);
             //console.log(person.personHeaderImageBase64);
           }
         })

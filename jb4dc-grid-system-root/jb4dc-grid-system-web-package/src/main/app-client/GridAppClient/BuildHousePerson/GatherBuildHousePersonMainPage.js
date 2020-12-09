@@ -9,6 +9,7 @@ import gatherHouseInnerAboutList from '../VueComponent/gather-house-inner-about-
 import gatherNormalBuildDetailEdit from '../VueComponent/gather-normal-build-detail-edit.vue'
 import gatherHouseDetailEdit from '../VueComponent/gather-house-detail-edit.vue'
 import gatherSPBuildDetailEdit from '../VueComponent/gather-sp-build-detail-edit.vue'
+import photoList from '../VueComponent/photo-list.vue'
 import VueConfirmDialog from '../VueComponent/vue-confirm-dialog/index'
 
 Vue.use(Toasted)
@@ -17,8 +18,10 @@ Vue.component('gatherHouseInnerAboutList', gatherHouseInnerAboutList);
 Vue.component('gatherNormalBuildDetailEdit',gatherNormalBuildDetailEdit);
 Vue.component('gatherSPBuildDetailEdit',gatherSPBuildDetailEdit);
 Vue.component('gatherHouseDetailEdit',gatherHouseDetailEdit);
+Vue.component('photoList',photoList);
 Vue.use(VueConfirmDialog)
 Vue.component('vue-confirm-dialog', VueConfirmDialog.default)
+
 
 const app=new Vue({
     el: '#mainApp',

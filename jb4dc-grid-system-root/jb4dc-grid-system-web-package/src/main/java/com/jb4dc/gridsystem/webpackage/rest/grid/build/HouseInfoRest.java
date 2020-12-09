@@ -58,6 +58,15 @@ public class HouseInfoRest extends GeneralRest<HouseInfoEntity> {
         return JBuild4DCResponseVo.getDataSuccess(houseRelevanterPOS);
     }
 
+    @RequestMapping(value = "/DeleteRelevanter", method = RequestMethod.DELETE)
+    public JBuild4DCResponseVo deleteRelevanter(String relevanterId) throws JBuild4DCGenerallyException {
+        //JB4DCSession jb4DCSession= JB4DCSessionUtility.getSession();
+        String houseId=houseRelevanterService.getByPrimaryKey(JB4DCSessionUtility.getSession(),relevanterId).getReterHouseId();
+        houseRelevanterService.deleteByKey(JB4DCSessionUtility.getSession(),relevanterId);
+        List<HouseRelevanterEntity> houseRelevanterPOS=houseRelevanterService.getRelevanterByHouseId(JB4DCSessionUtility.getSession(),houseId);
+        return JBuild4DCResponseVo.opSuccess(houseRelevanterPOS);
+    }
+
     @RequestMapping(value = "/SaveHouseData", method = RequestMethod.POST)
     public JBuild4DCResponseVo<HouseInfoPO> saveHouseData(@RequestBody HouseInfoPO houseInfoPO) throws JBuild4DCGenerallyException, IOException, URISyntaxException {
         //JB4DCSession jb4DCSession= JB4DCSessionUtility.getSession();
