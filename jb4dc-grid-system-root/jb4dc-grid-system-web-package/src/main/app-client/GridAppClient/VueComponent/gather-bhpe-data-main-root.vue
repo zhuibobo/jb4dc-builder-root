@@ -1,7 +1,9 @@
 <template>
   <div class="gather-bhpe-data-main-root">
-
-    <div class="page-title">数据采集</div>
+    <div class="tool-bar">
+      <div class="tool-bar-back" @click="gotoPage('GatherIndexMainPage.html')"></div>
+      楼房人企采集
+    </div>
     <div class="build-root-wrap">
       <div class="title">建筑物</div>
       <div style="padding: 4px;height: 44px">
@@ -48,9 +50,9 @@
         </div>
       </div>
     </div>
-    <gatherNormalBuildDetailEdit :session="session" ref="gatherNormalBuildDetailEditObj" @saveNormalBuildCompleted="saveNormalBuildCompleted"></gatherNormalBuildDetailEdit>
-    <gatherSPBuildDetailEdit :session="session" ref="gatherSPBuildDetailEditObj" @saveNormalBuildCompleted="saveNormalBuildCompleted"></gatherSPBuildDetailEdit>
-    <gatherHouseDetailEdit :session="session" :selected-build="build.selectedBuild" ref="gatherHouseDetailEditObj" @saveHouseCompleted="saveHouseCompleted"></gatherHouseDetailEdit>
+    <gatherNormalBuildDetailEdit :session="session" ref="gatherNormalBuildDetailEditObj" @saveNormalBuildCompleted="saveNormalBuildCompleted" @tryDeleteBuild="tryDeleteBuild"></gatherNormalBuildDetailEdit>
+    <gatherSPBuildDetailEdit :session="session" ref="gatherSPBuildDetailEditObj" @saveNormalBuildCompleted="saveNormalBuildCompleted" @tryDeleteBuild="tryDeleteBuild"></gatherSPBuildDetailEdit>
+    <gatherHouseDetailEdit :session="session" :selected-build="build.selectedBuild" ref="gatherHouseDetailEditObj" @saveHouseCompleted="saveHouseCompleted" @tryDeleteHouse="tryDeleteHouse"></gatherHouseDetailEdit>
     <gatherHouseInnerAboutList :selected-house="house.selectedHouse" :selected-build="build.selectedBuild" :session="session" ref="gatherHouseInnerAboutListObj"></gatherHouseInnerAboutList>
     <div class="loadDialogWrap" id="loadDialogWrap">
       <div class="text-center" style="margin-top: 200px">
@@ -103,6 +105,10 @@ export default {
     this.loadBuildListFromServer();
   },
   methods:{
+    gotoPage:function (url){
+      url=appClientUtility.StringUtility.FormatGoToUrl(url,this.session);
+      window.location.href=url;
+    },
     //region 建筑物
     saveNormalBuildCompleted:function (){
       this.loadBuildListFromServer();
@@ -170,11 +176,41 @@ export default {
       else {
         this.$refs.gatherNormalBuildDetailEditObj.editBuild(buildData);
       }
-
       //this.$toasted.show('开发中.',{duration:2000});
     },
-    deleteBuild:function (buildData){
-      alert(1);
+    tryDeleteBuild:function (buildData){
+      console.log(buildData.buildId);
+      $("#loadDialogWrap").show();
+      axios.delete(this.acInterface.deleteBuild, {
+        params: {
+          "recordId": buildData.buildId
+        }
+      }).then((result) => {
+        appClientUtility.DialogUtility.AlertText(this,result.data.message);
+        if (result.data.success) {
+          this.loadBuildListFromServer();
+          $("#normalBuildEditModal").modal('hide');
+          $("#spBuildEditModal").modal('hide');
+        }
+      }).then((endResult) => {
+        $("#loadDialogWrap").hide();
+      });
+    },
+    tryDeleteHouse:function (houseData){
+      $("#loadDialogWrap").show();
+      axios.delete(this.acInterface.deleteHouse, {
+        params: {
+          "recordId": houseData.houseId
+        }
+      }).then((result) => {
+        appClientUtility.DialogUtility.AlertText(this,result.data.message);
+        if (result.data.success) {
+          this.loadHouseListFromServer(this.build.selectedBuild);
+          $("#normalHouseEditModal").modal('hide');
+        }
+      }).then((endResult) => {
+        $("#loadDialogWrap").hide();
+      });
     },
     //endregion
     //region 房屋
@@ -260,7 +296,7 @@ export default {
       border: @g-concrete-color-v04 1px solid;
       width: 48%;
       left: 4px;
-      top: 38px;
+      top: 44px;
       bottom: 4px;
 
       .title{
@@ -312,6 +348,9 @@ export default {
               background-repeat: no-repeat;
               margin-top: 14px;
             }
+            /*.edit:active{
+              background-color: #7D6608;
+            }*/
           }
         }
 
@@ -332,7 +371,7 @@ export default {
       border: @g-concrete-color-v04 1px solid;
       width: 48%;
       right: 4px;
-      top: 38px;
+      top: 44px;
       bottom: 4px;
 
       .title{

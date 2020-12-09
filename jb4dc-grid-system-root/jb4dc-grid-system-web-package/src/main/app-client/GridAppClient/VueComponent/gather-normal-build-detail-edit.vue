@@ -234,7 +234,7 @@
             </div>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-danger" @click="deleteBuild()">删除</button>
+            <button type="button" class="btn btn-danger" @click="deleteBuild()" v-if="enableDelete">删除</button>
             <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
             <button type="button" class="btn btn-primary" @click="saveNormalBuildTo()">保存建筑物信息</button>
           </div>
@@ -329,7 +329,8 @@ export default {
       ddg_BuildStructure:[],
       ddg_BuildDesignFor:[],
       ddg_BuildFloorDes:[],
-      ddg_BuildIsElevator:[]
+      ddg_BuildIsElevator:[],
+      enableDelete:false
     }
   },
   props: ["session"],
@@ -359,17 +360,19 @@ export default {
       this.build.editBuildData.buildAreaId="441325";
       this.$refs.photoListObj.setRecordId(this.build.editBuildData.buildId);
       this.$refs.photoListObj.clearPhotoList();
+      this.enableDelete=false;
     },
     editBuild:function (oldEditBuild){
       this.build.editBuildData=oldEditBuild;
-      //this.loadPhotoFromServer();
-      //this.build.editBuildData.buildId=oldEditBuild.buildId;
       this.$refs.photoListObj.setRecordId(this.build.editBuildData.buildId);
       this.$refs.photoListObj.loadPhotoFromServer(this.build.editBuildData.buildId);
       $("#normalBuildEditModal").modal('show');
+      this.enableDelete=true;
     },
     deleteBuild:function (){
-
+      appClientUtility.DialogUtility.Confirm(this,"确实删除该记录吗?",()=>{
+        this.$emit('tryDeleteBuild',this.build.editBuildData);
+      });
     },
     saveNormalBuildTo:function (){
       //debugger;

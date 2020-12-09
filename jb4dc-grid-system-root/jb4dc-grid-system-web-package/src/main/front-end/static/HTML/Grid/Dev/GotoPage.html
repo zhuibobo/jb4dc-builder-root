@@ -13,13 +13,13 @@
     <script>
         function gotoBHREAppClientPage(){
             AjaxUtility.Post("/Rest/Grid/User/Login/LoginByPassword",{
-                accountName:"chenyy",
+                accountName:"nbzg5001",
                 password:"j4d123456",
                 terminalToken:"22222222222222222222"
             },function (result){
                 if(result.success){
                     var data=result.data;
-                    var url=window.location.origin+"/GridSystem/HTML/GridAppClient/GatherBuildHousePersonMainPage.html?UserId="+data.userId+"&UserName="+data.userName+"&OrganId="+data.organId+"&OrganName="+data.organName+"&AppClientToken="+data.appClientToken;
+                    var url=window.location.origin+"/GridSystem/HTML/GridAppClient/GatherIndexMainPage.html?UserId="+data.userId+"&UserName="+data.userName+"&OrganId="+data.organId+"&OrganName="+data.organName+"&AppClientToken="+data.appClientToken;
                     //window.open(url);
                     window.location.href=url;
                 }
@@ -32,7 +32,7 @@
 </head>
 <body>
     <div>
-        <input type="button" value="进入app采集模拟页面" onclick="gotoBHREAppClientPage()" />
+        <input type="button" value="进入app采集首页" onclick="gotoBHREAppClientPage()" />
     </div>
 </body>
 </html>

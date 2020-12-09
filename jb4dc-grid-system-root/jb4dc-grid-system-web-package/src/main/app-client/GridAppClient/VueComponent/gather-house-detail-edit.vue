@@ -145,6 +145,7 @@
             </div>
           </div>
           <div class="modal-footer">
+            <button type="button" class="btn btn-danger" @click="deleteHouse()" v-if="enableDelete">删除</button>
             <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
             <button type="button" class="btn btn-primary" @click="saveHouseTo()">保存房屋信息</button>
           </div>
@@ -341,7 +342,8 @@ export default {
       ddg_HouseDesignFor:[],
       ddg_HouseUseFor:[],
       ddg_ReterType:[],
-      ddg_ReterCertCategory:[]
+      ddg_ReterCertCategory:[],
+      enableDelete:false
     }
   },
   mounted() {
@@ -362,6 +364,7 @@ export default {
       $("#normalHouseEditModal").modal('show');
       this.house.editBuildData = appClientUtility.JsonUtility.CloneStringify(this.house.emptyHouseData);
       this.house.editHouseData.houseId = appClientUtility.StringUtility.NewH5AppRecordId();
+      this.enableDelete=false;
     },
     editHouse:function (houseData){
       console.log(houseData);
@@ -380,6 +383,7 @@ export default {
           //this.house.filterHouses=this.house.allHouse.filter((item)=>{return true});
         }
       });
+      this.enableDelete=true;
     },
     saveHouseTo:function (){
       var errorMessage = "";
@@ -446,6 +450,11 @@ export default {
 
       }).then((endResult) => {
         $("#loadDialogWrap").hide();
+      });
+    },
+    deleteHouse:function (){
+      appClientUtility.DialogUtility.Confirm(this,"确实删除该记录吗?",()=>{
+        this.$emit('tryDeleteHouse',this.house.editHouseData);
       });
     },
     //endregion

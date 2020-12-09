@@ -10,6 +10,103 @@
 /*向日葵*/
 /*绿松石*/
 /*河蓝*/
+.tool-bar {
+  text-align: center;
+  height: 40px;
+  line-height: 40px;
+  font-size: 18px;
+  background-color: #BFC9CA;
+}
+.tool-bar .tool-bar-back {
+  float: left;
+  padding: 4px;
+  height: 30px;
+  width: 30px;
+  background-image: url(Images/icons8-back-30.png);
+  margin: 4px 1px;
+}
+.form-group-min {
+  margin-bottom: 0.4rem;
+}
+.form-group-mid {
+  margin-bottom: 0.6rem;
+}
+.form-label-min {
+  font-size: 13px;
+  padding-right: 4px;
+  padding-left: 8px;
+}
+.file {
+  position: relative;
+  display: inline-block;
+  background: #D0EEFF;
+  border: 1px solid #99D3F5;
+  border-radius: 4px;
+  padding: 4px 12px;
+  overflow: hidden;
+  color: #1E88C7;
+  text-decoration: none;
+  text-indent: 0;
+  line-height: 20px;
+}
+.file input {
+  position: absolute;
+  font-size: 100px;
+  right: 0;
+  top: 0;
+  opacity: 0;
+}
+.file:hover {
+  background: #AADFFD;
+  border-color: #78C3F3;
+  color: #004974;
+  text-decoration: none;
+}
+.loadDialogWrap {
+  position: fixed;
+  top: 0px;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+  background-color: #95A5A6;
+  opacity: 0.8;
+  z-index: 4000;
+  display: none;
+}
+.photo-list-wrap {
+  height: 340px;
+  overflow: auto;
+}
+.photo-list-wrap .photo-single-outer-wrap {
+  border: solid 1px #95A5A6;
+  margin-bottom: 10px;
+  border-radius: 6px;
+  position: relative;
+}
+.photo-list-wrap .photo-single-outer-wrap .delete-photo {
+  position: absolute;
+  width: 32px;
+  height: 32px;
+  border-bottom: 0px dotted #717D7E;
+  border-radius: 0px;
+  background-image: url(Images/icons8-del-30.png);
+  background-repeat: no-repeat;
+  right: 0px;
+  top: 0px;
+}
+.photo-list-wrap .photo-single-outer-wrap .photo-single-inner-wrap {
+  margin: 10px;
+}
+.input-color {
+  color: #3498DB;
+}
+
+/*https://htmlcolorcodes.com/zh/yanse-biao/bianping-hua-sheji-yanse-biao/*/
+/*石榴*/
+/*混凝土*/
+/*向日葵*/
+/*绿松石*/
+/*河蓝*/
 .person-head-image[data-v-1ec2364a] {
   width: 100px;
   height: 120px;

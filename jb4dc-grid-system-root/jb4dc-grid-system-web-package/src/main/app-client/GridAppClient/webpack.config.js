@@ -12,7 +12,9 @@ module.exports = {
         /*"editTableSelectDefaultValue": './EditTable/Renderers/EditTable_SelectDefaultValue.js',*/
         "GatherBuildHousePersonMainPage": './BuildHousePerson/GatherBuildHousePersonMainPage.js',
         "GatherSearchMainPage": './BuildHousePerson/GatherSearchMainPage.js',
-        "MockReadIdCardPage": './BuildHousePerson/MockReadIdCardPage.js'
+        "MockReadIdCardPage": './BuildHousePerson/MockReadIdCardPage.js',
+        "GatherIndexMainPage": './BuildHousePerson/GatherIndexMainPage.js',
+        "MockPhotoUploadPage": './BuildHousePerson/MockPhotoUploadPage.js'
     },
     context: path.resolve(__dirname, ""),
     output: {
@@ -104,6 +106,11 @@ module.exports = {
             { from: '**!/diagram-js.css',context: 'Less', to: ''}
         ]),*/
         new HtmlWebpackPlugin({
+            filename: "GatherIndexMainPage.html",
+            template: './Template.html',
+            chunks: ['GatherIndexMainPage']
+        }),
+        new HtmlWebpackPlugin({
             filename: "GatherBuildHousePersonMainPage.html",
             template: './Template.html',
             chunks: ['GatherBuildHousePersonMainPage']
@@ -117,6 +124,11 @@ module.exports = {
             filename: "MockReadIdCardPage.html",
             template: './Template.html',
             chunks: ['MockReadIdCardPage']
+        }),
+        new HtmlWebpackPlugin({
+            filename: "MockPhotoUploadPage.html",
+            template: './Template.html',
+            chunks: ['MockPhotoUploadPage']
         }),
         new MiniCssExtractPlugin({
             // Options similar to the same options in webpackOptions.output

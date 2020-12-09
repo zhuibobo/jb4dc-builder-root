@@ -269,6 +269,13 @@ var JsonUtility = {
 }
 
 var StringUtility = {
+    FormatGoToUrl:function (url,session){
+        url+="?UserId="+session.UserId+"&UserName="+encodeURIComponent(session.UserName)+"&OrganId="+session.OrganId+"&OrganName="+encodeURIComponent(session.OrganName)+"&AppClientToken="+session.AppClientToken
+        return url;
+    },
+    NewH5AppRecordId:function (){
+        return "H5APP-"+this.Guid();
+    },
     GuidSplit: function (split) {
         var guid = "";
         for (var i = 1; i <= 32; i++) {
@@ -280,9 +287,6 @@ var StringUtility = {
     },
     Guid: function () {
         return this.GuidSplit("-");
-    },
-    NewH5AppRecordId:function (){
-        return "H5APP-"+this.Guid();
     },
     Timestamp: function () {
         var timestamp = new Date().getTime();

@@ -1,0 +1,119 @@
+<template>
+  <div>
+    <div class="tool-bar">网格数据采集</div>
+    <div class="page-content-wrap" style="padding-top: 10px">
+      <!--row1-->
+      <div class="module-item-wrap" style="width: 50%">
+        <div class="module-item module-bhpe" @click="gotoPage('GatherBuildHousePersonMainPage.html')">
+            楼房人企
+        </div>
+      </div><div class="module-item-wrap" style="width: 50%">
+        <div class="module-item module-event" @click="isDev">
+            网格事件
+        </div>
+      </div>
+      <!--row2-->
+      <div class="module-item-wrap" style="width: 50%">
+        <div class="module-item module-test" @click="gotoPage('MockReadIdCardPage.html')">
+          测试NFC(非诚勿扰)
+        </div>
+      </div><div class="module-item-wrap" style="width: 50%">
+        <div class="module-item module-test" @click="gotoPage('MockPhotoUploadPage.html')">
+          测试拍照(非诚勿扰)
+        </div>
+      </div>
+      <!--row3-->
+      <div class="module-item-wrap" style="width: 50%">
+        <div class="module-item module-test">
+          本地测试(非诚勿扰)
+        </div>
+      </div><div class="module-item-wrap" style="width: 50%">
+        <div class="module-item module-test">
+          (非诚勿扰)
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+import appClientSessionUtility from '../Js/AppClientSessionUtility.js';
+import axios from 'axios';
+const appClientUtility = require('../Js/AppClientUtility.js');
+
+export default {
+  name: "gather-index-root",
+  data:function (){
+    return {
+      session:null
+    }
+  },
+  mounted() {
+    appClientSessionUtility.BuildSession();
+    //console.log(appClientSessionUtility.GetSession());
+    this.session=appClientSessionUtility.GetSession();
+  },
+  methods:{
+    gotoPage:function (url){
+      url = appClientUtility.StringUtility.FormatGoToUrl(url,this.session);
+      window.location.href=url;
+    },
+    isDev:function (){
+      this.$toasted.show('别点我,开发中...',{duration:2000});
+    }
+  }
+}
+</script>
+
+<style scoped lang="less">
+  @import "../Less/Variable.less";
+
+  .page-content-wrap{
+    position: absolute;
+    top: 40px;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+    background-color: @g-concrete-color-v02;
+
+    .module-item-wrap{
+      display:inline-block;
+      /*background-color: rgb(249, 231, 159,0.8);*/
+      margin: 0px;
+      border: 0px;
+
+      .module-item{
+        /*height: 10px;*/
+        margin: 10px 5px 10px 10px;
+        background-color: rgba(249, 231, 159,0.4);
+        border: solid 1px @g-peter-river-color-v05;
+        text-align: center;
+        border-radius: 8px;
+        padding-top: 90px;
+        padding-bottom: 10px;
+        box-shadow: 5px 5px 2px #cdcdcd;
+        font-weight: bold;
+        background-repeat: no-repeat;
+        background-position-x: center;
+        background-position-y:10px;
+      }
+
+      .module-item:active{
+        /*height: 10px;*/
+        background-color: rgba(118, 215, 196,0.4);
+      }
+
+      .module-bhpe{
+        background-image: url("../Images/icons8-index-bhpe-80.png");
+      }
+
+      .module-event{
+        background-image: url("../Images/icons8-index-event-80.png");
+      }
+
+      .module-test{
+        background-image: url("../Images/icons8-index-sex-80.png");
+      }
+    }
+  }
+</style>

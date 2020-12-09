@@ -10,6 +10,21 @@
 /*向日葵*/
 /*绿松石*/
 /*河蓝*/
+.tool-bar {
+  text-align: center;
+  height: 40px;
+  line-height: 40px;
+  font-size: 18px;
+  background-color: #BFC9CA;
+}
+.tool-bar .tool-bar-back {
+  float: left;
+  padding: 4px;
+  height: 30px;
+  width: 30px;
+  background-image: url(Images/icons8-back-30.png);
+  margin: 4px 1px;
+}
 .form-group-min {
   margin-bottom: 0.4rem;
 }
@@ -112,7 +127,7 @@
   border: #BFC9CA 1px solid;
   width: 48%;
   left: 4px;
-  top: 38px;
+  top: 44px;
   bottom: 4px;
 }
 .gather-bhpe-data-main-root .build-root-wrap .title[data-v-7ab4d666] {
@@ -151,6 +166,9 @@
   width: 19%;
   overflow: hidden;
   height: 100%;
+  /*.edit:active{
+            background-color: #7D6608;
+          }*/
 }
 .gather-bhpe-data-main-root .build-root-wrap .all-build-wrap .single-build .button-wrap .edit[data-v-7ab4d666] {
   width: 32px;
@@ -175,7 +193,7 @@
   border: #BFC9CA 1px solid;
   width: 48%;
   right: 4px;
-  top: 38px;
+  top: 44px;
   bottom: 4px;
 }
 .gather-bhpe-data-main-root .house-root-wrap .title[data-v-7ab4d666] {
