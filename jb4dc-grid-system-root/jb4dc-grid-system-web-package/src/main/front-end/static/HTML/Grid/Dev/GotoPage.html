@@ -2,7 +2,7 @@
 <html lang="zh" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Title1</title>
     <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no" />
     <th:block th:replace="Fragment/GeneralLib::GeneralLib"></th:block>
     <th:block th:replace="Fragment/GeneralLib::ThemesLib"></th:block>
@@ -32,7 +32,8 @@
 </head>
 <body>
     <div>
-        <input type="button" value="进入app采集首页" onclick="gotoBHREAppClientPage()" />
+        <input type="button" value="进入app采集首页" onclick="gotoBHREAppClientPage()" style="height: 50px" />
+        <input type="button" value="进入206本地采集" onclick="gotoBHREAppClientPage()" style="height: 50px" />
     </div>
 </body>
 </html>

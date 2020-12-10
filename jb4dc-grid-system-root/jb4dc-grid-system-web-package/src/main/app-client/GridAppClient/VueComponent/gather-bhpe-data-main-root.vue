@@ -56,9 +56,10 @@
     <gatherHouseInnerAboutList :selected-house="house.selectedHouse" :selected-build="build.selectedBuild" :session="session" ref="gatherHouseInnerAboutListObj"></gatherHouseInnerAboutList>
     <div class="loadDialogWrap" id="loadDialogWrap">
       <div class="text-center" style="margin-top: 200px">
-        <div class="spinner-border" style="width: 3rem; height: 3rem;" role="status">
-          <span class="sr-only">Loading...</span>
+        <div class="spinner-border" style="width: 5rem; height: 5rem;" role="status">
+          <span class="sr-only">Loading....</span>
         </div>
+        <div class="loadDialogWrap-close" @click="loadDialogWrapHide"></div>
       </div>
     </div>
   </div>
@@ -102,21 +103,24 @@ export default {
     appClientSessionUtility.BuildSession();
     console.log(appClientSessionUtility.GetSession());
     this.session=appClientSessionUtility.GetSession();
-    this.loadBuildListFromServer();
+    this.loadBuildListFromServer(true);
   },
   methods:{
     gotoPage:function (url){
       url=appClientUtility.StringUtility.FormatGoToUrl(url,this.session);
       window.location.href=url;
     },
+    loadDialogWrapHide:function (){
+      $("#loadDialogWrap").hide();
+    },
     //region 建筑物
     saveNormalBuildCompleted:function (){
-      this.loadBuildListFromServer();
+      this.loadBuildListFromServer(false);
     },
     saveHouseCompleted:function (){
       this.loadHouseListFromServer(this.build.selectedBuild);
     },
-    loadBuildListFromServer:function () {
+    loadBuildListFromServer:function (rebindDD) {
       axios.get(this.acInterface.getMyBuild, {
         params: {
           includeGrid: "false",
@@ -129,12 +133,14 @@ export default {
           this.build.allBuilds = response.data.data;
           this.build.filterBuilds=this.build.allBuilds.filter((item)=>{return true});
 
-          appClientUtility.AutoBindInitDD(response.data.exKVData.dictionaryEntities);
-          appClientUtility.ConvertDDListToMap(response.data.exKVData.dictionaryEntities);
-          appClientUtility.SetGridInfo(response.data.exKVData.gridInfoEntity);
-          this.$refs.gatherNormalBuildDetailEditObj.buildDDGroupData();
-          this.$refs.gatherSPBuildDetailEditObj.buildDDGroupData();
-          this.$refs.gatherHouseDetailEditObj.buildDDGroupData();
+          if(rebindDD) {
+            appClientUtility.AutoBindInitDD(response.data.exKVData.dictionaryEntities);
+            appClientUtility.ConvertDDListToMap(response.data.exKVData.dictionaryEntities);
+            appClientUtility.SetGridInfo(response.data.exKVData.gridInfoEntity);
+            this.$refs.gatherNormalBuildDetailEditObj.buildDDGroupData();
+            this.$refs.gatherSPBuildDetailEditObj.buildDDGroupData();
+            this.$refs.gatherHouseDetailEditObj.buildDDGroupData();
+          }
         }
       }).catch(function (error) {
         console.log(error);
@@ -188,7 +194,7 @@ export default {
       }).then((result) => {
         appClientUtility.DialogUtility.AlertText(this,result.data.message);
         if (result.data.success) {
-          this.loadBuildListFromServer();
+          this.loadBuildListFromServer(false);
           $("#normalBuildEditModal").modal('hide');
           $("#spBuildEditModal").modal('hide');
         }
@@ -276,7 +282,7 @@ export default {
   @import "../Less/Variable.less";
 
   .gather-bhpe-data-main-root{
-    background-color: @g-concrete-color-v01;
+    background-color: @g-concrete-color-v00;
 
     position:absolute;
     left: 0px;
@@ -319,6 +325,7 @@ export default {
           background-color: @g-concrete-color-v02;
           margin: 4px;
           border-radius: 4px;
+          box-shadow: 2px 2px 1px #cdcdcd;
 
           .text-wrap{
             display: inline-block;
@@ -343,14 +350,15 @@ export default {
               width: 32px;
               height: 32px;
               border-bottom: 1px dotted @g-concrete-color-v08;
-              border-radius: 0px;
+              border-radius: 4px;
               background-image: url("../Images/icons8-edit-30.png");
               background-repeat: no-repeat;
               margin-top: 14px;
             }
-            /*.edit:active{
-              background-color: #7D6608;
-            }*/
+
+            .edit:active{
+              background-color: @g-active-v1;
+            }
           }
         }
 
@@ -394,6 +402,7 @@ export default {
           margin: 4px;
           border-radius: 4px;
           min-height: 100px;
+          box-shadow: 2px 2px 1px #cdcdcd;
 
           .text-wrap{
             display: inline-block;
@@ -418,22 +427,32 @@ export default {
               width: 32px;
               height: 32px;
               border-bottom: 1px dotted @g-concrete-color-v08;
-              border-radius: 0px;
+              border-radius: 4px;
               background-image: url("../Images/icons8-edit-30.png");
               background-repeat: no-repeat;
               margin-top: 14px;
+            }
+            .edit:active{
+              background-color: @g-active-v1;
             }
 
             .list{
               width: 32px;
               height: 32px;
               border-bottom: 1px dotted @g-concrete-color-v08;
-              border-radius: 0px;
+              border-radius: 4px;
               background-image: url("../Images/icons8-list-30.png");
               background-repeat: no-repeat;
               margin-top: 14px;
             }
+            .list:active{
+              background-color: @g-active-v1;
+            }
           }
+        }
+
+        .single-house:active{
+          background-color: @g-active-v1;
         }
       }
     }

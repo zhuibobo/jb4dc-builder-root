@@ -518,7 +518,7 @@ var DialogUtility={
             },
             callback: confirm => {
                 if(typeof (yesFunc)=="function"){
-                    yesFunc();
+                    yesFunc(confirm);
                 }
             }
         });

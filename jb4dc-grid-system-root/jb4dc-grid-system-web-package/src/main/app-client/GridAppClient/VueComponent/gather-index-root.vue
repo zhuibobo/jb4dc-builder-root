@@ -8,7 +8,7 @@
             楼房人企
         </div>
       </div><div class="module-item-wrap" style="width: 50%">
-        <div class="module-item module-event" @click="isDev">
+        <div class="module-item module-event" @click="gotoPage('GatherEventMainPage.html')">
             网格事件
         </div>
       </div>
@@ -23,13 +23,13 @@
         </div>
       </div>
       <!--row3-->
-      <div class="module-item-wrap" style="width: 50%">
+      <div class="module-item-wrap" style="width: 50%" @click="gotoPage206Dev()">
         <div class="module-item module-test">
-          本地测试(非诚勿扰)
+          206模拟登录
         </div>
       </div><div class="module-item-wrap" style="width: 50%">
         <div class="module-item module-test">
-          (非诚勿扰)
+          (非诚勿扰1)
         </div>
       </div>
     </div>
@@ -58,6 +58,9 @@ export default {
       url = appClientUtility.StringUtility.FormatGoToUrl(url,this.session);
       window.location.href=url;
     },
+    gotoPage206Dev:function (){
+      window.location.href="http://192.168.3.206:9106/GridSystem/HTML/Grid/Dev/GotoPage.html";
+    },
     isDev:function (){
       this.$toasted.show('别点我,开发中...',{duration:2000});
     }
@@ -70,7 +73,7 @@ export default {
 
   .page-content-wrap{
     position: absolute;
-    top: 40px;
+    top: 41px;
     bottom: 0px;
     left: 0px;
     right: 0px;
@@ -100,7 +103,7 @@ export default {
 
       .module-item:active{
         /*height: 10px;*/
-        background-color: rgba(118, 215, 196,0.4);
+        background-color: @g-active-v1;
       }
 
       .module-bhpe{

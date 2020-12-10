@@ -15,7 +15,8 @@
   height: 40px;
   line-height: 40px;
   font-size: 18px;
-  background-color: #BFC9CA;
+  background-color: #D5DBDB;
+  border-bottom: solid 1px #AAB7B8;
 }
 .tool-bar .tool-bar-back {
   float: left;
@@ -72,6 +73,20 @@
   opacity: 0.8;
   z-index: 4000;
   display: none;
+}
+.loadDialogWrap-close {
+  width: 70px;
+  height: 70px;
+  border: #717D7E solid 1px;
+  background-color: #FCF3CF;
+  border-radius: 8px;
+  margin: auto;
+  margin-top: 80px;
+  background-image: url(Images/icons8-close-64.png);
+  background-position: center center;
+}
+.loadDialogWrap-close:active {
+  background-color: #D1F2EB;
 }
 .photo-list-wrap {
   height: 340px;

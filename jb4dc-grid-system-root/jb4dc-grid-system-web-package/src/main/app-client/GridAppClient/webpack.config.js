@@ -11,6 +11,7 @@ module.exports = {
     entry: {
         /*"editTableSelectDefaultValue": './EditTable/Renderers/EditTable_SelectDefaultValue.js',*/
         "GatherBuildHousePersonMainPage": './BuildHousePerson/GatherBuildHousePersonMainPage.js',
+        "GatherEventMainPage": './BuildHousePerson/GatherEventMainPage.js',
         "GatherSearchMainPage": './BuildHousePerson/GatherSearchMainPage.js',
         "MockReadIdCardPage": './BuildHousePerson/MockReadIdCardPage.js',
         "GatherIndexMainPage": './BuildHousePerson/GatherIndexMainPage.js',
@@ -114,6 +115,11 @@ module.exports = {
             filename: "GatherBuildHousePersonMainPage.html",
             template: './Template.html',
             chunks: ['GatherBuildHousePersonMainPage']
+        }),
+        new HtmlWebpackPlugin({
+            filename: "GatherEventMainPage.html",
+            template: './Template.html',
+            chunks: ['GatherEventMainPage']
         }),
         new HtmlWebpackPlugin({
             filename: "GatherSearchMainPage.html",

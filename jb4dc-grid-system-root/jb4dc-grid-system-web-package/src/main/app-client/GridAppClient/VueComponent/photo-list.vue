@@ -66,6 +66,7 @@ export default {
       }
     },
     loadPhotoFromServer: function () {
+      console.log(this.session);
       var recordId = this.recordId;
       //this.recordId=oldRecordId;
       //console.log(this.recordId);

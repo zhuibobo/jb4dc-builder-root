@@ -30,7 +30,7 @@
                         <label for="spBuildCode" class="col-3 col-form-label text-right col-form-label-sm form-label-min"><span style="color: red">*</span>建筑物编码</label>
                         <div class="col-9">
                           <input type="text" class="form-control form-control-sm input-color" id="spBuildCode" placeholder="建筑物编码"
-                                 v-model="build.editBuildData.buildCode">
+                                 v-model="build.editBuildData.buildCode" :readonly="enableEditCode? false : 'readonly'">
                         </div>
                         <label for="spBuildCode" class="col-12 col-form-label text-center col-form-label-sm form-label-min"><span style="color: red">请补充建筑物的4位独立编码,例如0001</span></label>
                       </div>
@@ -212,7 +212,8 @@ export default {
       },
       ddg_BuildSpType:[],
       ddg_BuildSpUseFor:[],
-      enableDelete:false
+      enableDelete:false,
+      enableEditCode:true
     }
   },
   props: ["session"],
@@ -236,6 +237,7 @@ export default {
       this.$refs.photoListObj.setRecordId(this.build.editBuildData.buildId);
       this.$refs.photoListObj.clearPhotoList();
       this.enableDelete=false;
+      this.enableEditCode=true;
     },
     editBuild:function (oldEditBuild){
       this.build.editBuildData=oldEditBuild;
@@ -243,6 +245,7 @@ export default {
       this.$refs.photoListObj.loadPhotoFromServer(this.build.editBuildData.buildId);
       $("#spBuildEditModal").modal('show');
       this.enableDelete=true;
+      this.enableEditCode=false;
     },
     deleteBuild:function (){
       appClientUtility.DialogUtility.Confirm(this,"确实删除该记录吗?",()=>{
@@ -255,26 +258,25 @@ export default {
       if (appClientUtility.StringUtility.IsNullOrEmptyTrim(this.build.editBuildData.buildCode)) {
         errorMessage += "[建筑物编码不能为空!]<br />";
       }
-      else if (this.build.editBuildData.buildCode.length==18) {
+      if (this.build.editBuildData.buildCode.length!=18) {
         errorMessage += "[建筑物编码必须要为18位!]<br />";
       }
       if (isNaN(this.build.editBuildData.buildCoveredArea)) {
         errorMessage += "[总建筑面积必须是数字!]<br />";
       }
       if (isNaN(this.build.editBuildData.buildFloorGround)) {
-        errorMessage += "[地面层数必须是数字!]<br />";
+        errorMessage += "[总层数必须是数字!]<br />";
       }
       if (isNaN(this.build.editBuildData.buildFloorUnderground)) {
         errorMessage += "[地下层数必须是数字!]<br />";
       }
-      if (appClientUtility.StringUtility.IsNullOrEmptyTrim(this.build.editBuildData.buildIsEntranceGuard)) {
-        errorMessage += "[门禁不能为空!]<br />";
-      }
-      if (appClientUtility.StringUtility.IsNullOrEmptyTrim(this.build.editBuildData.buildIsVideoMonitoring)) {
-        errorMessage += "[视频监控不能为空!]<br />";
-      }
       if (appClientUtility.StringUtility.IsNullOrEmptyTrim(this.build.editBuildData.buildAddress)) {
-        errorMessage += "[门牌地址1不能为空!]<br />";
+        errorMessage += "[详细地址不能为空!]<br />";
+      }
+
+      if (errorMessage) {
+        appClientUtility.DialogUtility.AlertText(this, errorMessage);
+        return;
       }
 
       $("#loadDialogWrap").show();

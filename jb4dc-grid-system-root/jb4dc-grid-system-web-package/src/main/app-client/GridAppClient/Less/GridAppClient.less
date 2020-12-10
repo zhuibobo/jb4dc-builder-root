@@ -5,7 +5,8 @@
   height: 40px;
   line-height: 40px;
   font-size: 18px;
-  background-color: @g-concrete-color-v04;
+  background-color: @g-concrete-color-v03;
+  border-bottom: solid 1px @g-concrete-color-v05;
 
   .tool-bar-back{
     float: left;
@@ -68,6 +69,22 @@
   opacity: 0.8;
   z-index: 4000;
   display: none;
+}
+
+.loadDialogWrap-close{
+  width: 70px;
+  height: 70px;
+  border: @g-concrete-color-v08 solid 1px;
+  background-color: @g-sunflower-color-v02;
+  border-radius: 8px;
+  margin: auto;
+  margin-top: 80px;
+  background-image: url("../Images/icons8-close-64.png");
+  background-position: center center;
+}
+
+.loadDialogWrap-close:active{
+  background-color: @g-turquoise-color-v02;
 }
 
 .photo-list-wrap{
