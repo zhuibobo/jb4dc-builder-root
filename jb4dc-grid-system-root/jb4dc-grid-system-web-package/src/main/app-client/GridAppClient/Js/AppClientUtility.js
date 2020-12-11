@@ -57,6 +57,22 @@ function AutoBindInitDD(allDD){
     })
 }
 
+var DevStatus= {
+    IsDevUser: function (session) {
+        if(session.UserId=="604ff9bc-d9ab-4686-a6af-3e8f2574e4b6"){
+            return true;
+        }
+        return false;
+    },
+    GetServerName:function (){
+        //debugger;
+        if(window.location.href.indexOf("192.168.3.206")>=0){
+            return "206开发环境";
+        }
+        return "生产环境"
+    }
+}
+
 var ArrayUtility = {
     Delete:function (ary, index) {
         ary.splice(index, 1);
@@ -270,7 +286,7 @@ var JsonUtility = {
 
 var StringUtility = {
     FormatGoToUrl:function (url,session){
-        url+="?UserId="+session.UserId+"&UserName="+encodeURIComponent(session.UserName)+"&OrganId="+session.OrganId+"&OrganName="+encodeURIComponent(session.OrganName)+"&AppClientToken="+session.AppClientToken
+        url+="?UserId="+session.UserId+"&UserName="+encodeURIComponent(session.UserName)+"&OrganId="+session.OrganId+"&OrganName="+encodeURIComponent(session.OrganName)+"&AppClientToken="+session.AppClientToken+"&ts="+Date.now()
         return url;
     },
     NewH5AppRecordId:function (){
@@ -537,5 +553,6 @@ export {
     StringUtility,
     DateUtility,
     FileUtility,
-    DialogUtility
+    DialogUtility,
+    DevStatus
 }

@@ -13,23 +13,23 @@
         </div>
       </div>
       <!--row2-->
-      <div class="module-item-wrap" style="width: 50%">
+      <div class="module-item-wrap" style="width: 50%" v-if="isDevUser">
         <div class="module-item module-test" @click="gotoPage('MockReadIdCardPage.html')">
           测试NFC(非诚勿扰)
         </div>
-      </div><div class="module-item-wrap" style="width: 50%">
+      </div><div class="module-item-wrap" style="width: 50%" v-if="isDevUser">
         <div class="module-item module-test" @click="gotoPage('MockPhotoUploadPage.html')">
           测试拍照(非诚勿扰)
         </div>
       </div>
       <!--row3-->
-      <div class="module-item-wrap" style="width: 50%" @click="gotoPage206Dev()">
+      <div class="module-item-wrap" style="width: 50%" @click="gotoPage206Dev()" v-if="isDevUser">
         <div class="module-item module-test">
           206模拟登录
         </div>
-      </div><div class="module-item-wrap" style="width: 50%">
+      </div><div class="module-item-wrap" style="width: 50%" v-if="isDevUser">
         <div class="module-item module-test">
-          (非诚勿扰1)
+          {{serverName}}
         </div>
       </div>
     </div>
@@ -45,21 +45,26 @@ export default {
   name: "gather-index-root",
   data:function (){
     return {
-      session:null
+      session:null,
+      isDevUser:false,
+      serverName:"生产环境"
     }
   },
   mounted() {
     appClientSessionUtility.BuildSession();
     //console.log(appClientSessionUtility.GetSession());
     this.session=appClientSessionUtility.GetSession();
+    this.isDevUser=appClientUtility.DevStatus.IsDevUser(this.session);
+    this.serverName=appClientUtility.DevStatus.GetServerName();
   },
   methods:{
+
     gotoPage:function (url){
       url = appClientUtility.StringUtility.FormatGoToUrl(url,this.session);
       window.location.href=url;
     },
     gotoPage206Dev:function (){
-      window.location.href="http://192.168.3.206:9106/GridSystem/HTML/Grid/Dev/GotoPage.html";
+      window.location.href="http://192.168.3.206:9106/GridSystem/HTML/Grid/Dev/GotoPage.html?ts="+Date.now();
     },
     isDev:function (){
       this.$toasted.show('别点我,开发中...',{duration:2000});
@@ -77,7 +82,7 @@ export default {
     bottom: 0px;
     left: 0px;
     right: 0px;
-    background-color: @g-concrete-color-v02;
+    /*background-color: @g-concrete-color-v02;*/
 
     .module-item-wrap{
       display:inline-block;
@@ -88,7 +93,7 @@ export default {
       .module-item{
         /*height: 10px;*/
         margin: 10px 5px 10px 10px;
-        background-color: rgba(249, 231, 159,0.4);
+        background-color: rgba(252, 243, 207,0.2);
         border: solid 1px @g-peter-river-color-v05;
         text-align: center;
         border-radius: 8px;

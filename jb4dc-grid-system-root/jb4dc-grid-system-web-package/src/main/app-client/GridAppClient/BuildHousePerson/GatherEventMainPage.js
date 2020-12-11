@@ -6,10 +6,13 @@ import Toasted from 'vue-toasted';
 
 import photoList from '../VueComponent/photo-list.vue'
 import gatherEventMainRoot from '../VueComponent/gather-event-main-root.vue'
+import gatherEventDetailEdit from '../VueComponent/gather-event-detail-edit.vue'
 import VueConfirmDialog from '../VueComponent/vue-confirm-dialog/index'
+
 
 Vue.use(Toasted)
 Vue.component('gatherEventMainRoot',gatherEventMainRoot);
+Vue.component('gatherEventDetailEdit',gatherEventDetailEdit);
 Vue.component('photoList',photoList);
 Vue.use(VueConfirmDialog)
 Vue.component('vue-confirm-dialog', VueConfirmDialog.default)

@@ -413,4 +413,15 @@
             ALTER TABLE TGRID_HOUSE_RELEVANTER COMMENT = '房屋表相关人员表'
         </sql>
     </changeSet>
+    <changeSet author="zhuangrb" id="changeSet-GRID-0010" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
+        <addColumn tableName="TGRID_EVENT_INFO">
+            <column name="EVENT_MAIN_APPEALER_REMARK" type="NVARCHAR(500)" remarks="主要诉求人-备注" />
+            <column name="EVENT_FELLOW_APPEALER_REMARK" type="NVARCHAR(500)" remarks="共同诉求人-备注" />
+            <column name="EVENT_DEFE_PER_REMARK" type="NVARCHAR(500)" remarks="被反映对象-个人-备注" />
+            <column name="EVENT_DEFE_UNIT_REMARK" type="NVARCHAR(500)" remarks="被反映对象-单位-备注" />
+        </addColumn>
+        <sql>
+            ALTER TABLE tgrid_event_info COMMENT = '事件信息表'
+        </sql>
+    </changeSet>
 </databaseChangeLog>

@@ -36,6 +36,41 @@
             <arg column="EVENT_PROCESS_NODE_VALUE" javaType="java.lang.String" jdbcType="VARCHAR" />
             <arg column="EVENT_REMARK" javaType="java.lang.String" jdbcType="VARCHAR" />
             <arg column="EVENT_ORDER_NUM" javaType="java.lang.Integer" jdbcType="INTEGER" />
+            <arg column="EVENT_MAIN_APPEALER_NAME" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="EVENT_MAIN_APPEALER_SEX" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="EVENT_MAIN_APPEALER_BIRTHDAY" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="EVENT_MAIN_APPEALER_ID_CARD" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="EVENT_MAIN_APPEALER_PHONE" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="EVENT_MAIN_APPEALER_ADDRESS" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="EVENT_FELLOW_APPEALER_NAME" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="EVENT_FELLOW_APPEALER_SEX" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="EVENT_FELLOW_APPEALER_BIRTHDAY" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="EVENT_FELLOW_APPEALER_ID_CARD" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="EVENT_FELLOW_APPEALER_PHONE" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="EVENT_FELLOW_APPEALER_ADDRESS" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="EVENT_DEFE_PER_NAME" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="EVENT_DEFE_PER_SEX" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="EVENT_DEFE_PER_BIRTHDAY" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="EVENT_DEFE_PER_ID_CARD" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="EVENT_DEFE_PER_PHONE" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="EVENT_DEFE_PER_ADDRESS" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="EVENT_DEFE_UNIT_NAME" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="EVENT_DEFE_UNIT_BUSINESS_TYPE" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="EVENT_DEFE_UNIT_CREATE_DATE" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="EVENT_DEFE_UNIT_ORGAN_CODE" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="EVENT_DEFE_UNIT_BUSINESS_NUM" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="EVENT_DEFE_UNIT_ADDRESS" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="EVENT_DEFE_UNIT_PHONE" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="EVENT_CITY_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="EVENT_AREA_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="EVENT_STREET_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="EVENT_COMMUNITY_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="EVENT_GRID_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="EVENT_TYPE_1_EX_TEXT" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="EVENT_MAIN_APPEALER_REMARK" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="EVENT_FELLOW_APPEALER_REMARK" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="EVENT_DEFE_PER_REMARK" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="EVENT_DEFE_UNIT_REMARK" javaType="java.lang.String" jdbcType="VARCHAR" />
         </constructor>
     </resultMap>
     <sql id="Base_Column_List">
@@ -46,7 +81,16 @@
     EVENT_ABOUT_PERSON_NUM, EVENT_IS_PETITION, EVENT_IS_RENTAL_HOUSING, EVENT_IS_GROUP,
     EVENT_FROM_CODE, EVENT_FROM_DATE, EVENT_IS_EMERGENCY, EVENT_ABOUT_MONEY, EVENT_IS_SP_DIFFICULT,
     EVENT_WARRING_LEVEL, EVENT_PROCESS_NODE_NAME, EVENT_PROCESS_NODE_VALUE, EVENT_REMARK,
-    EVENT_ORDER_NUM
+    EVENT_ORDER_NUM, EVENT_MAIN_APPEALER_NAME, EVENT_MAIN_APPEALER_SEX, EVENT_MAIN_APPEALER_BIRTHDAY,
+    EVENT_MAIN_APPEALER_ID_CARD, EVENT_MAIN_APPEALER_PHONE, EVENT_MAIN_APPEALER_ADDRESS,
+    EVENT_FELLOW_APPEALER_NAME, EVENT_FELLOW_APPEALER_SEX, EVENT_FELLOW_APPEALER_BIRTHDAY,
+    EVENT_FELLOW_APPEALER_ID_CARD, EVENT_FELLOW_APPEALER_PHONE, EVENT_FELLOW_APPEALER_ADDRESS,
+    EVENT_DEFE_PER_NAME, EVENT_DEFE_PER_SEX, EVENT_DEFE_PER_BIRTHDAY, EVENT_DEFE_PER_ID_CARD,
+    EVENT_DEFE_PER_PHONE, EVENT_DEFE_PER_ADDRESS, EVENT_DEFE_UNIT_NAME, EVENT_DEFE_UNIT_BUSINESS_TYPE,
+    EVENT_DEFE_UNIT_CREATE_DATE, EVENT_DEFE_UNIT_ORGAN_CODE, EVENT_DEFE_UNIT_BUSINESS_NUM,
+    EVENT_DEFE_UNIT_ADDRESS, EVENT_DEFE_UNIT_PHONE, EVENT_CITY_ID, EVENT_AREA_ID, EVENT_STREET_ID,
+    EVENT_COMMUNITY_ID, EVENT_GRID_ID, EVENT_TYPE_1_EX_TEXT, EVENT_MAIN_APPEALER_REMARK,
+    EVENT_FELLOW_APPEALER_REMARK, EVENT_DEFE_PER_REMARK, EVENT_DEFE_UNIT_REMARK
   </sql>
     <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
         select
@@ -71,7 +115,23 @@
       EVENT_IS_GROUP, EVENT_FROM_CODE, EVENT_FROM_DATE,
       EVENT_IS_EMERGENCY, EVENT_ABOUT_MONEY, EVENT_IS_SP_DIFFICULT,
       EVENT_WARRING_LEVEL, EVENT_PROCESS_NODE_NAME,
-      EVENT_PROCESS_NODE_VALUE, EVENT_REMARK, EVENT_ORDER_NUM
+      EVENT_PROCESS_NODE_VALUE, EVENT_REMARK, EVENT_ORDER_NUM,
+      EVENT_MAIN_APPEALER_NAME, EVENT_MAIN_APPEALER_SEX,
+      EVENT_MAIN_APPEALER_BIRTHDAY, EVENT_MAIN_APPEALER_ID_CARD,
+      EVENT_MAIN_APPEALER_PHONE, EVENT_MAIN_APPEALER_ADDRESS,
+      EVENT_FELLOW_APPEALER_NAME, EVENT_FELLOW_APPEALER_SEX,
+      EVENT_FELLOW_APPEALER_BIRTHDAY, EVENT_FELLOW_APPEALER_ID_CARD,
+      EVENT_FELLOW_APPEALER_PHONE, EVENT_FELLOW_APPEALER_ADDRESS,
+      EVENT_DEFE_PER_NAME, EVENT_DEFE_PER_SEX, EVENT_DEFE_PER_BIRTHDAY,
+      EVENT_DEFE_PER_ID_CARD, EVENT_DEFE_PER_PHONE,
+      EVENT_DEFE_PER_ADDRESS, EVENT_DEFE_UNIT_NAME,
+      EVENT_DEFE_UNIT_BUSINESS_TYPE, EVENT_DEFE_UNIT_CREATE_DATE,
+      EVENT_DEFE_UNIT_ORGAN_CODE, EVENT_DEFE_UNIT_BUSINESS_NUM,
+      EVENT_DEFE_UNIT_ADDRESS, EVENT_DEFE_UNIT_PHONE,
+      EVENT_CITY_ID, EVENT_AREA_ID, EVENT_STREET_ID,
+      EVENT_COMMUNITY_ID, EVENT_GRID_ID, EVENT_TYPE_1_EX_TEXT,
+      EVENT_MAIN_APPEALER_REMARK, EVENT_FELLOW_APPEALER_REMARK,
+      EVENT_DEFE_PER_REMARK, EVENT_DEFE_UNIT_REMARK
       )
     values (#{eventId,jdbcType=VARCHAR}, #{eventCode,jdbcType=VARCHAR}, #{eventAcceptDate,jdbcType=TIMESTAMP},
       #{eventAcceptUnitName,jdbcType=VARCHAR}, #{eventAcceptUnitId,jdbcType=VARCHAR},
@@ -85,7 +145,23 @@
       #{eventIsGroup,jdbcType=VARCHAR}, #{eventFromCode,jdbcType=VARCHAR}, #{eventFromDate,jdbcType=TIMESTAMP},
       #{eventIsEmergency,jdbcType=VARCHAR}, #{eventAboutMoney,jdbcType=DECIMAL}, #{eventIsSpDifficult,jdbcType=VARCHAR},
       #{eventWarringLevel,jdbcType=VARCHAR}, #{eventProcessNodeName,jdbcType=VARCHAR},
-      #{eventProcessNodeValue,jdbcType=VARCHAR}, #{eventRemark,jdbcType=VARCHAR}, #{eventOrderNum,jdbcType=INTEGER}
+      #{eventProcessNodeValue,jdbcType=VARCHAR}, #{eventRemark,jdbcType=VARCHAR}, #{eventOrderNum,jdbcType=INTEGER},
+      #{eventMainAppealerName,jdbcType=VARCHAR}, #{eventMainAppealerSex,jdbcType=VARCHAR},
+      #{eventMainAppealerBirthday,jdbcType=VARCHAR}, #{eventMainAppealerIdCard,jdbcType=VARCHAR},
+      #{eventMainAppealerPhone,jdbcType=VARCHAR}, #{eventMainAppealerAddress,jdbcType=VARCHAR},
+      #{eventFellowAppealerName,jdbcType=VARCHAR}, #{eventFellowAppealerSex,jdbcType=VARCHAR},
+      #{eventFellowAppealerBirthday,jdbcType=VARCHAR}, #{eventFellowAppealerIdCard,jdbcType=VARCHAR},
+      #{eventFellowAppealerPhone,jdbcType=VARCHAR}, #{eventFellowAppealerAddress,jdbcType=VARCHAR},
+      #{eventDefePerName,jdbcType=VARCHAR}, #{eventDefePerSex,jdbcType=VARCHAR}, #{eventDefePerBirthday,jdbcType=VARCHAR},
+      #{eventDefePerIdCard,jdbcType=VARCHAR}, #{eventDefePerPhone,jdbcType=VARCHAR},
+      #{eventDefePerAddress,jdbcType=VARCHAR}, #{eventDefeUnitName,jdbcType=VARCHAR},
+      #{eventDefeUnitBusinessType,jdbcType=VARCHAR}, #{eventDefeUnitCreateDate,jdbcType=VARCHAR},
+      #{eventDefeUnitOrganCode,jdbcType=VARCHAR}, #{eventDefeUnitBusinessNum,jdbcType=VARCHAR},
+      #{eventDefeUnitAddress,jdbcType=VARCHAR}, #{eventDefeUnitPhone,jdbcType=VARCHAR},
+      #{eventCityId,jdbcType=VARCHAR}, #{eventAreaId,jdbcType=VARCHAR}, #{eventStreetId,jdbcType=VARCHAR},
+      #{eventCommunityId,jdbcType=VARCHAR}, #{eventGridId,jdbcType=VARCHAR}, #{eventType1ExText,jdbcType=VARCHAR},
+      #{eventMainAppealerRemark,jdbcType=VARCHAR}, #{eventFellowAppealerRemark,jdbcType=VARCHAR},
+      #{eventDefePerRemark,jdbcType=VARCHAR}, #{eventDefeUnitRemark,jdbcType=VARCHAR}
       )
   </insert>
     <insert id="insertSelective" parameterType="com.jb4dc.gridsystem.dbentities.event.EventInfoEntity">
@@ -190,6 +266,111 @@
             <if test="eventOrderNum != null">
                 EVENT_ORDER_NUM,
             </if>
+            <if test="eventMainAppealerName != null">
+                EVENT_MAIN_APPEALER_NAME,
+            </if>
+            <if test="eventMainAppealerSex != null">
+                EVENT_MAIN_APPEALER_SEX,
+            </if>
+            <if test="eventMainAppealerBirthday != null">
+                EVENT_MAIN_APPEALER_BIRTHDAY,
+            </if>
+            <if test="eventMainAppealerIdCard != null">
+                EVENT_MAIN_APPEALER_ID_CARD,
+            </if>
+            <if test="eventMainAppealerPhone != null">
+                EVENT_MAIN_APPEALER_PHONE,
+            </if>
+            <if test="eventMainAppealerAddress != null">
+                EVENT_MAIN_APPEALER_ADDRESS,
+            </if>
+            <if test="eventFellowAppealerName != null">
+                EVENT_FELLOW_APPEALER_NAME,
+            </if>
+            <if test="eventFellowAppealerSex != null">
+                EVENT_FELLOW_APPEALER_SEX,
+            </if>
+            <if test="eventFellowAppealerBirthday != null">
+                EVENT_FELLOW_APPEALER_BIRTHDAY,
+            </if>
+            <if test="eventFellowAppealerIdCard != null">
+                EVENT_FELLOW_APPEALER_ID_CARD,
+            </if>
+            <if test="eventFellowAppealerPhone != null">
+                EVENT_FELLOW_APPEALER_PHONE,
+            </if>
+            <if test="eventFellowAppealerAddress != null">
+                EVENT_FELLOW_APPEALER_ADDRESS,
+            </if>
+            <if test="eventDefePerName != null">
+                EVENT_DEFE_PER_NAME,
+            </if>
+            <if test="eventDefePerSex != null">
+                EVENT_DEFE_PER_SEX,
+            </if>
+            <if test="eventDefePerBirthday != null">
+                EVENT_DEFE_PER_BIRTHDAY,
+            </if>
+            <if test="eventDefePerIdCard != null">
+                EVENT_DEFE_PER_ID_CARD,
+            </if>
+            <if test="eventDefePerPhone != null">
+                EVENT_DEFE_PER_PHONE,
+            </if>
+            <if test="eventDefePerAddress != null">
+                EVENT_DEFE_PER_ADDRESS,
+            </if>
+            <if test="eventDefeUnitName != null">
+                EVENT_DEFE_UNIT_NAME,
+            </if>
+            <if test="eventDefeUnitBusinessType != null">
+                EVENT_DEFE_UNIT_BUSINESS_TYPE,
+            </if>
+            <if test="eventDefeUnitCreateDate != null">
+                EVENT_DEFE_UNIT_CREATE_DATE,
+            </if>
+            <if test="eventDefeUnitOrganCode != null">
+                EVENT_DEFE_UNIT_ORGAN_CODE,
+            </if>
+            <if test="eventDefeUnitBusinessNum != null">
+                EVENT_DEFE_UNIT_BUSINESS_NUM,
+            </if>
+            <if test="eventDefeUnitAddress != null">
+                EVENT_DEFE_UNIT_ADDRESS,
+            </if>
+            <if test="eventDefeUnitPhone != null">
+                EVENT_DEFE_UNIT_PHONE,
+            </if>
+            <if test="eventCityId != null">
+                EVENT_CITY_ID,
+            </if>
+            <if test="eventAreaId != null">
+                EVENT_AREA_ID,
+            </if>
+            <if test="eventStreetId != null">
+                EVENT_STREET_ID,
+            </if>
+            <if test="eventCommunityId != null">
+                EVENT_COMMUNITY_ID,
+            </if>
+            <if test="eventGridId != null">
+                EVENT_GRID_ID,
+            </if>
+            <if test="eventType1ExText != null">
+                EVENT_TYPE_1_EX_TEXT,
+            </if>
+            <if test="eventMainAppealerRemark != null">
+                EVENT_MAIN_APPEALER_REMARK,
+            </if>
+            <if test="eventFellowAppealerRemark != null">
+                EVENT_FELLOW_APPEALER_REMARK,
+            </if>
+            <if test="eventDefePerRemark != null">
+                EVENT_DEFE_PER_REMARK,
+            </if>
+            <if test="eventDefeUnitRemark != null">
+                EVENT_DEFE_UNIT_REMARK,
+            </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="eventId != null">
@@ -290,6 +471,111 @@
             </if>
             <if test="eventOrderNum != null">
                 #{eventOrderNum,jdbcType=INTEGER},
+            </if>
+            <if test="eventMainAppealerName != null">
+                #{eventMainAppealerName,jdbcType=VARCHAR},
+            </if>
+            <if test="eventMainAppealerSex != null">
+                #{eventMainAppealerSex,jdbcType=VARCHAR},
+            </if>
+            <if test="eventMainAppealerBirthday != null">
+                #{eventMainAppealerBirthday,jdbcType=VARCHAR},
+            </if>
+            <if test="eventMainAppealerIdCard != null">
+                #{eventMainAppealerIdCard,jdbcType=VARCHAR},
+            </if>
+            <if test="eventMainAppealerPhone != null">
+                #{eventMainAppealerPhone,jdbcType=VARCHAR},
+            </if>
+            <if test="eventMainAppealerAddress != null">
+                #{eventMainAppealerAddress,jdbcType=VARCHAR},
+            </if>
+            <if test="eventFellowAppealerName != null">
+                #{eventFellowAppealerName,jdbcType=VARCHAR},
+            </if>
+            <if test="eventFellowAppealerSex != null">
+                #{eventFellowAppealerSex,jdbcType=VARCHAR},
+            </if>
+            <if test="eventFellowAppealerBirthday != null">
+                #{eventFellowAppealerBirthday,jdbcType=VARCHAR},
+            </if>
+            <if test="eventFellowAppealerIdCard != null">
+                #{eventFellowAppealerIdCard,jdbcType=VARCHAR},
+            </if>
+            <if test="eventFellowAppealerPhone != null">
+                #{eventFellowAppealerPhone,jdbcType=VARCHAR},
+            </if>
+            <if test="eventFellowAppealerAddress != null">
+                #{eventFellowAppealerAddress,jdbcType=VARCHAR},
+            </if>
+            <if test="eventDefePerName != null">
+                #{eventDefePerName,jdbcType=VARCHAR},
+            </if>
+            <if test="eventDefePerSex != null">
+                #{eventDefePerSex,jdbcType=VARCHAR},
+            </if>
+            <if test="eventDefePerBirthday != null">
+                #{eventDefePerBirthday,jdbcType=VARCHAR},
+            </if>
+            <if test="eventDefePerIdCard != null">
+                #{eventDefePerIdCard,jdbcType=VARCHAR},
+            </if>
+            <if test="eventDefePerPhone != null">
+                #{eventDefePerPhone,jdbcType=VARCHAR},
+            </if>
+            <if test="eventDefePerAddress != null">
+                #{eventDefePerAddress,jdbcType=VARCHAR},
+            </if>
+            <if test="eventDefeUnitName != null">
+                #{eventDefeUnitName,jdbcType=VARCHAR},
+            </if>
+            <if test="eventDefeUnitBusinessType != null">
+                #{eventDefeUnitBusinessType,jdbcType=VARCHAR},
+            </if>
+            <if test="eventDefeUnitCreateDate != null">
+                #{eventDefeUnitCreateDate,jdbcType=VARCHAR},
+            </if>
+            <if test="eventDefeUnitOrganCode != null">
+                #{eventDefeUnitOrganCode,jdbcType=VARCHAR},
+            </if>
+            <if test="eventDefeUnitBusinessNum != null">
+                #{eventDefeUnitBusinessNum,jdbcType=VARCHAR},
+            </if>
+            <if test="eventDefeUnitAddress != null">
+                #{eventDefeUnitAddress,jdbcType=VARCHAR},
+            </if>
+            <if test="eventDefeUnitPhone != null">
+                #{eventDefeUnitPhone,jdbcType=VARCHAR},
+            </if>
+            <if test="eventCityId != null">
+                #{eventCityId,jdbcType=VARCHAR},
+            </if>
+            <if test="eventAreaId != null">
+                #{eventAreaId,jdbcType=VARCHAR},
+            </if>
+            <if test="eventStreetId != null">
+                #{eventStreetId,jdbcType=VARCHAR},
+            </if>
+            <if test="eventCommunityId != null">
+                #{eventCommunityId,jdbcType=VARCHAR},
+            </if>
+            <if test="eventGridId != null">
+                #{eventGridId,jdbcType=VARCHAR},
+            </if>
+            <if test="eventType1ExText != null">
+                #{eventType1ExText,jdbcType=VARCHAR},
+            </if>
+            <if test="eventMainAppealerRemark != null">
+                #{eventMainAppealerRemark,jdbcType=VARCHAR},
+            </if>
+            <if test="eventFellowAppealerRemark != null">
+                #{eventFellowAppealerRemark,jdbcType=VARCHAR},
+            </if>
+            <if test="eventDefePerRemark != null">
+                #{eventDefePerRemark,jdbcType=VARCHAR},
+            </if>
+            <if test="eventDefeUnitRemark != null">
+                #{eventDefeUnitRemark,jdbcType=VARCHAR},
             </if>
         </trim>
     </insert>
@@ -392,6 +678,111 @@
             <if test="eventOrderNum != null">
                 EVENT_ORDER_NUM = #{eventOrderNum,jdbcType=INTEGER},
             </if>
+            <if test="eventMainAppealerName != null">
+                EVENT_MAIN_APPEALER_NAME = #{eventMainAppealerName,jdbcType=VARCHAR},
+            </if>
+            <if test="eventMainAppealerSex != null">
+                EVENT_MAIN_APPEALER_SEX = #{eventMainAppealerSex,jdbcType=VARCHAR},
+            </if>
+            <if test="eventMainAppealerBirthday != null">
+                EVENT_MAIN_APPEALER_BIRTHDAY = #{eventMainAppealerBirthday,jdbcType=VARCHAR},
+            </if>
+            <if test="eventMainAppealerIdCard != null">
+                EVENT_MAIN_APPEALER_ID_CARD = #{eventMainAppealerIdCard,jdbcType=VARCHAR},
+            </if>
+            <if test="eventMainAppealerPhone != null">
+                EVENT_MAIN_APPEALER_PHONE = #{eventMainAppealerPhone,jdbcType=VARCHAR},
+            </if>
+            <if test="eventMainAppealerAddress != null">
+                EVENT_MAIN_APPEALER_ADDRESS = #{eventMainAppealerAddress,jdbcType=VARCHAR},
+            </if>
+            <if test="eventFellowAppealerName != null">
+                EVENT_FELLOW_APPEALER_NAME = #{eventFellowAppealerName,jdbcType=VARCHAR},
+            </if>
+            <if test="eventFellowAppealerSex != null">
+                EVENT_FELLOW_APPEALER_SEX = #{eventFellowAppealerSex,jdbcType=VARCHAR},
+            </if>
+            <if test="eventFellowAppealerBirthday != null">
+                EVENT_FELLOW_APPEALER_BIRTHDAY = #{eventFellowAppealerBirthday,jdbcType=VARCHAR},
+            </if>
+            <if test="eventFellowAppealerIdCard != null">
+                EVENT_FELLOW_APPEALER_ID_CARD = #{eventFellowAppealerIdCard,jdbcType=VARCHAR},
+            </if>
+            <if test="eventFellowAppealerPhone != null">
+                EVENT_FELLOW_APPEALER_PHONE = #{eventFellowAppealerPhone,jdbcType=VARCHAR},
+            </if>
+            <if test="eventFellowAppealerAddress != null">
+                EVENT_FELLOW_APPEALER_ADDRESS = #{eventFellowAppealerAddress,jdbcType=VARCHAR},
+            </if>
+            <if test="eventDefePerName != null">
+                EVENT_DEFE_PER_NAME = #{eventDefePerName,jdbcType=VARCHAR},
+            </if>
+            <if test="eventDefePerSex != null">
+                EVENT_DEFE_PER_SEX = #{eventDefePerSex,jdbcType=VARCHAR},
+            </if>
+            <if test="eventDefePerBirthday != null">
+                EVENT_DEFE_PER_BIRTHDAY = #{eventDefePerBirthday,jdbcType=VARCHAR},
+            </if>
+            <if test="eventDefePerIdCard != null">
+                EVENT_DEFE_PER_ID_CARD = #{eventDefePerIdCard,jdbcType=VARCHAR},
+            </if>
+            <if test="eventDefePerPhone != null">
+                EVENT_DEFE_PER_PHONE = #{eventDefePerPhone,jdbcType=VARCHAR},
+            </if>
+            <if test="eventDefePerAddress != null">
+                EVENT_DEFE_PER_ADDRESS = #{eventDefePerAddress,jdbcType=VARCHAR},
+            </if>
+            <if test="eventDefeUnitName != null">
+                EVENT_DEFE_UNIT_NAME = #{eventDefeUnitName,jdbcType=VARCHAR},
+            </if>
+            <if test="eventDefeUnitBusinessType != null">
+                EVENT_DEFE_UNIT_BUSINESS_TYPE = #{eventDefeUnitBusinessType,jdbcType=VARCHAR},
+            </if>
+            <if test="eventDefeUnitCreateDate != null">
+                EVENT_DEFE_UNIT_CREATE_DATE = #{eventDefeUnitCreateDate,jdbcType=VARCHAR},
+            </if>
+            <if test="eventDefeUnitOrganCode != null">
+                EVENT_DEFE_UNIT_ORGAN_CODE = #{eventDefeUnitOrganCode,jdbcType=VARCHAR},
+            </if>
+            <if test="eventDefeUnitBusinessNum != null">
+                EVENT_DEFE_UNIT_BUSINESS_NUM = #{eventDefeUnitBusinessNum,jdbcType=VARCHAR},
+            </if>
+            <if test="eventDefeUnitAddress != null">
+                EVENT_DEFE_UNIT_ADDRESS = #{eventDefeUnitAddress,jdbcType=VARCHAR},
+            </if>
+            <if test="eventDefeUnitPhone != null">
+                EVENT_DEFE_UNIT_PHONE = #{eventDefeUnitPhone,jdbcType=VARCHAR},
+            </if>
+            <if test="eventCityId != null">
+                EVENT_CITY_ID = #{eventCityId,jdbcType=VARCHAR},
+            </if>
+            <if test="eventAreaId != null">
+                EVENT_AREA_ID = #{eventAreaId,jdbcType=VARCHAR},
+            </if>
+            <if test="eventStreetId != null">
+                EVENT_STREET_ID = #{eventStreetId,jdbcType=VARCHAR},
+            </if>
+            <if test="eventCommunityId != null">
+                EVENT_COMMUNITY_ID = #{eventCommunityId,jdbcType=VARCHAR},
+            </if>
+            <if test="eventGridId != null">
+                EVENT_GRID_ID = #{eventGridId,jdbcType=VARCHAR},
+            </if>
+            <if test="eventType1ExText != null">
+                EVENT_TYPE_1_EX_TEXT = #{eventType1ExText,jdbcType=VARCHAR},
+            </if>
+            <if test="eventMainAppealerRemark != null">
+                EVENT_MAIN_APPEALER_REMARK = #{eventMainAppealerRemark,jdbcType=VARCHAR},
+            </if>
+            <if test="eventFellowAppealerRemark != null">
+                EVENT_FELLOW_APPEALER_REMARK = #{eventFellowAppealerRemark,jdbcType=VARCHAR},
+            </if>
+            <if test="eventDefePerRemark != null">
+                EVENT_DEFE_PER_REMARK = #{eventDefePerRemark,jdbcType=VARCHAR},
+            </if>
+            <if test="eventDefeUnitRemark != null">
+                EVENT_DEFE_UNIT_REMARK = #{eventDefeUnitRemark,jdbcType=VARCHAR},
+            </if>
         </set>
         where EVENT_ID = #{eventId,jdbcType=VARCHAR}
     </update>
@@ -428,7 +819,42 @@
       EVENT_PROCESS_NODE_NAME = #{eventProcessNodeName,jdbcType=VARCHAR},
       EVENT_PROCESS_NODE_VALUE = #{eventProcessNodeValue,jdbcType=VARCHAR},
       EVENT_REMARK = #{eventRemark,jdbcType=VARCHAR},
-      EVENT_ORDER_NUM = #{eventOrderNum,jdbcType=INTEGER}
+      EVENT_ORDER_NUM = #{eventOrderNum,jdbcType=INTEGER},
+      EVENT_MAIN_APPEALER_NAME = #{eventMainAppealerName,jdbcType=VARCHAR},
+      EVENT_MAIN_APPEALER_SEX = #{eventMainAppealerSex,jdbcType=VARCHAR},
+      EVENT_MAIN_APPEALER_BIRTHDAY = #{eventMainAppealerBirthday,jdbcType=VARCHAR},
+      EVENT_MAIN_APPEALER_ID_CARD = #{eventMainAppealerIdCard,jdbcType=VARCHAR},
+      EVENT_MAIN_APPEALER_PHONE = #{eventMainAppealerPhone,jdbcType=VARCHAR},
+      EVENT_MAIN_APPEALER_ADDRESS = #{eventMainAppealerAddress,jdbcType=VARCHAR},
+      EVENT_FELLOW_APPEALER_NAME = #{eventFellowAppealerName,jdbcType=VARCHAR},
+      EVENT_FELLOW_APPEALER_SEX = #{eventFellowAppealerSex,jdbcType=VARCHAR},
+      EVENT_FELLOW_APPEALER_BIRTHDAY = #{eventFellowAppealerBirthday,jdbcType=VARCHAR},
+      EVENT_FELLOW_APPEALER_ID_CARD = #{eventFellowAppealerIdCard,jdbcType=VARCHAR},
+      EVENT_FELLOW_APPEALER_PHONE = #{eventFellowAppealerPhone,jdbcType=VARCHAR},
+      EVENT_FELLOW_APPEALER_ADDRESS = #{eventFellowAppealerAddress,jdbcType=VARCHAR},
+      EVENT_DEFE_PER_NAME = #{eventDefePerName,jdbcType=VARCHAR},
+      EVENT_DEFE_PER_SEX = #{eventDefePerSex,jdbcType=VARCHAR},
+      EVENT_DEFE_PER_BIRTHDAY = #{eventDefePerBirthday,jdbcType=VARCHAR},
+      EVENT_DEFE_PER_ID_CARD = #{eventDefePerIdCard,jdbcType=VARCHAR},
+      EVENT_DEFE_PER_PHONE = #{eventDefePerPhone,jdbcType=VARCHAR},
+      EVENT_DEFE_PER_ADDRESS = #{eventDefePerAddress,jdbcType=VARCHAR},
+      EVENT_DEFE_UNIT_NAME = #{eventDefeUnitName,jdbcType=VARCHAR},
+      EVENT_DEFE_UNIT_BUSINESS_TYPE = #{eventDefeUnitBusinessType,jdbcType=VARCHAR},
+      EVENT_DEFE_UNIT_CREATE_DATE = #{eventDefeUnitCreateDate,jdbcType=VARCHAR},
+      EVENT_DEFE_UNIT_ORGAN_CODE = #{eventDefeUnitOrganCode,jdbcType=VARCHAR},
+      EVENT_DEFE_UNIT_BUSINESS_NUM = #{eventDefeUnitBusinessNum,jdbcType=VARCHAR},
+      EVENT_DEFE_UNIT_ADDRESS = #{eventDefeUnitAddress,jdbcType=VARCHAR},
+      EVENT_DEFE_UNIT_PHONE = #{eventDefeUnitPhone,jdbcType=VARCHAR},
+      EVENT_CITY_ID = #{eventCityId,jdbcType=VARCHAR},
+      EVENT_AREA_ID = #{eventAreaId,jdbcType=VARCHAR},
+      EVENT_STREET_ID = #{eventStreetId,jdbcType=VARCHAR},
+      EVENT_COMMUNITY_ID = #{eventCommunityId,jdbcType=VARCHAR},
+      EVENT_GRID_ID = #{eventGridId,jdbcType=VARCHAR},
+      EVENT_TYPE_1_EX_TEXT = #{eventType1ExText,jdbcType=VARCHAR},
+      EVENT_MAIN_APPEALER_REMARK = #{eventMainAppealerRemark,jdbcType=VARCHAR},
+      EVENT_FELLOW_APPEALER_REMARK = #{eventFellowAppealerRemark,jdbcType=VARCHAR},
+      EVENT_DEFE_PER_REMARK = #{eventDefePerRemark,jdbcType=VARCHAR},
+      EVENT_DEFE_UNIT_REMARK = #{eventDefeUnitRemark,jdbcType=VARCHAR}
     where EVENT_ID = #{eventId,jdbcType=VARCHAR}
   </update>
 </mapper>

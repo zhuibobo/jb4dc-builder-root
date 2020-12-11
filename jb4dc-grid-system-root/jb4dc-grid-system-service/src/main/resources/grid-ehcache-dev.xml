@@ -13,7 +13,7 @@
     </cache-template>
     <cache alias="GridAppClientLoginStoreCacheManager" uses-template="JB4DCCacheDefault">
         <expiry>
-            <ttl>14400</ttl>
+            <ttl>28800</ttl>
         </expiry>
     </cache>
 </config>

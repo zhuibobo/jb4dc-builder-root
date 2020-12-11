@@ -366,11 +366,11 @@ export default {
     //region house
     newHouse:function () {
       //debugger;
-      $("#normalHouseEditModal").modal('show');
-      this.house.editBuildData = appClientUtility.JsonUtility.CloneStringify(this.house.emptyHouseData);
+      this.house.editHouseData = appClientUtility.JsonUtility.CloneStringify(this.house.emptyHouseData);
       this.house.editHouseData.houseId = appClientUtility.StringUtility.NewH5AppRecordId();
       this.enableDelete=false;
       this.enableEditCode=true;
+      $("#normalHouseEditModal").modal('show');
     },
     editHouse:function (houseData){
       console.log(houseData);

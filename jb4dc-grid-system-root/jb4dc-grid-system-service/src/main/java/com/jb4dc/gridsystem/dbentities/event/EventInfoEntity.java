@@ -115,6 +115,111 @@ public class EventInfoEntity {
     //EVENT_ORDER_NUM:排序号
     private Integer eventOrderNum;
 
+    //EVENT_MAIN_APPEALER_NAME:主要诉求人-姓名
+    private String eventMainAppealerName;
+
+    //EVENT_MAIN_APPEALER_SEX:主要诉求人-性别
+    private String eventMainAppealerSex;
+
+    //EVENT_MAIN_APPEALER_BIRTHDAY:主要诉求人-出生日期
+    private String eventMainAppealerBirthday;
+
+    //EVENT_MAIN_APPEALER_ID_CARD:主要诉求人-身份证号
+    private String eventMainAppealerIdCard;
+
+    //EVENT_MAIN_APPEALER_PHONE:主要诉求人-联系电话
+    private String eventMainAppealerPhone;
+
+    //EVENT_MAIN_APPEALER_ADDRESS:主要诉求人-单位或地址
+    private String eventMainAppealerAddress;
+
+    //EVENT_FELLOW_APPEALER_NAME:共同诉求人-姓名
+    private String eventFellowAppealerName;
+
+    //EVENT_FELLOW_APPEALER_SEX:共同诉求人-性别
+    private String eventFellowAppealerSex;
+
+    //EVENT_FELLOW_APPEALER_BIRTHDAY:共同诉求人-出生日期
+    private String eventFellowAppealerBirthday;
+
+    //EVENT_FELLOW_APPEALER_ID_CARD:共同诉求人-身份证号
+    private String eventFellowAppealerIdCard;
+
+    //EVENT_FELLOW_APPEALER_PHONE:共同诉求人-联系电话
+    private String eventFellowAppealerPhone;
+
+    //EVENT_FELLOW_APPEALER_ADDRESS:共同诉求人-单位或地址
+    private String eventFellowAppealerAddress;
+
+    //EVENT_DEFE_PER_NAME:被反映对象-个人-姓名
+    private String eventDefePerName;
+
+    //EVENT_DEFE_PER_SEX:被反映对象-个人-性别
+    private String eventDefePerSex;
+
+    //EVENT_DEFE_PER_BIRTHDAY:被反映对象-个人-出生日期
+    private String eventDefePerBirthday;
+
+    //EVENT_DEFE_PER_ID_CARD:被反映对象-个人-身份证
+    private String eventDefePerIdCard;
+
+    //EVENT_DEFE_PER_PHONE:被反映对象-个人-联系电话
+    private String eventDefePerPhone;
+
+    //EVENT_DEFE_PER_ADDRESS:被反映对象-个人-单位或者地址
+    private String eventDefePerAddress;
+
+    //EVENT_DEFE_UNIT_NAME:被反映对象-单位-名称
+    private String eventDefeUnitName;
+
+    //EVENT_DEFE_UNIT_BUSINESS_TYPE:被反映对象-单位-经营性质
+    private String eventDefeUnitBusinessType;
+
+    //EVENT_DEFE_UNIT_CREATE_DATE:被反映对象-单位-成立时间
+    private String eventDefeUnitCreateDate;
+
+    //EVENT_DEFE_UNIT_ORGAN_CODE:被反映对象-单位-组织机构代码
+    private String eventDefeUnitOrganCode;
+
+    //EVENT_DEFE_UNIT_BUSINESS_NUM:被反映对象-单位-营业执照号
+    private String eventDefeUnitBusinessNum;
+
+    //EVENT_DEFE_UNIT_ADDRESS:被反映对象-单位-地址
+    private String eventDefeUnitAddress;
+
+    //EVENT_DEFE_UNIT_PHONE:被反映对象-单位-联系电话
+    private String eventDefeUnitPhone;
+
+    //EVENT_CITY_ID:城市Id
+    private String eventCityId;
+
+    //EVENT_AREA_ID:区Id
+    private String eventAreaId;
+
+    //EVENT_STREET_ID:街道Id:街道,乡镇
+    private String eventStreetId;
+
+    //EVENT_COMMUNITY_ID:社区Id:社区,村
+    private String eventCommunityId;
+
+    //EVENT_GRID_ID:所属网格Id
+    private String eventGridId;
+
+    //EVENT_TYPE_1_EX_TEXT:事件类型第1级补充备注
+    private String eventType1ExText;
+
+    //EVENT_MAIN_APPEALER_REMARK:主要诉求人-备注
+    private String eventMainAppealerRemark;
+
+    //EVENT_FELLOW_APPEALER_REMARK:共同诉求人-备注
+    private String eventFellowAppealerRemark;
+
+    //EVENT_DEFE_PER_REMARK:被反映对象-个人-备注
+    private String eventDefePerRemark;
+
+    //EVENT_DEFE_UNIT_REMARK:被反映对象-单位-备注
+    private String eventDefeUnitRemark;
+
     /**
      * 构造函数
      * @param eventId
@@ -150,8 +255,43 @@ public class EventInfoEntity {
      * @param eventProcessNodeValue 办理状况值
      * @param eventRemark 备注
      * @param eventOrderNum 排序号
+     * @param eventMainAppealerName 主要诉求人-姓名
+     * @param eventMainAppealerSex 主要诉求人-性别
+     * @param eventMainAppealerBirthday 主要诉求人-出生日期
+     * @param eventMainAppealerIdCard 主要诉求人-身份证号
+     * @param eventMainAppealerPhone 主要诉求人-联系电话
+     * @param eventMainAppealerAddress 主要诉求人-单位或地址
+     * @param eventFellowAppealerName 共同诉求人-姓名
+     * @param eventFellowAppealerSex 共同诉求人-性别
+     * @param eventFellowAppealerBirthday 共同诉求人-出生日期
+     * @param eventFellowAppealerIdCard 共同诉求人-身份证号
+     * @param eventFellowAppealerPhone 共同诉求人-联系电话
+     * @param eventFellowAppealerAddress 共同诉求人-单位或地址
+     * @param eventDefePerName 被反映对象-个人-姓名
+     * @param eventDefePerSex 被反映对象-个人-性别
+     * @param eventDefePerBirthday 被反映对象-个人-出生日期
+     * @param eventDefePerIdCard 被反映对象-个人-身份证
+     * @param eventDefePerPhone 被反映对象-个人-联系电话
+     * @param eventDefePerAddress 被反映对象-个人-单位或者地址
+     * @param eventDefeUnitName 被反映对象-单位-名称
+     * @param eventDefeUnitBusinessType 被反映对象-单位-经营性质
+     * @param eventDefeUnitCreateDate 被反映对象-单位-成立时间
+     * @param eventDefeUnitOrganCode 被反映对象-单位-组织机构代码
+     * @param eventDefeUnitBusinessNum 被反映对象-单位-营业执照号
+     * @param eventDefeUnitAddress 被反映对象-单位-地址
+     * @param eventDefeUnitPhone 被反映对象-单位-联系电话
+     * @param eventCityId 城市Id
+     * @param eventAreaId 区Id
+     * @param eventStreetId 街道Id
+     * @param eventCommunityId 社区Id
+     * @param eventGridId 所属网格Id
+     * @param eventType1ExText 事件类型第1级补充备注
+     * @param eventMainAppealerRemark 主要诉求人-备注
+     * @param eventFellowAppealerRemark 共同诉求人-备注
+     * @param eventDefePerRemark 被反映对象-个人-备注
+     * @param eventDefeUnitRemark 被反映对象-单位-备注
      **/
-    public EventInfoEntity(String eventId, String eventCode, Date eventAcceptDate, String eventAcceptUnitName, String eventAcceptUnitId, String eventAcceptUserName, String eventAcceptUserId, Long eventAcceptTimes, String eventAcceptGridId, String eventAcceptMapLocation, String eventSource, String eventType1, String eventType2, String eventLevel, String eventSeverity, String eventAddress, String eventAppealPurpose, Long eventAppealPersonNum, String eventAppealQuestion, Long eventAboutPersonNum, String eventIsPetition, String eventIsRentalHousing, String eventIsGroup, String eventFromCode, Date eventFromDate, String eventIsEmergency, BigDecimal eventAboutMoney, String eventIsSpDifficult, String eventWarringLevel, String eventProcessNodeName, String eventProcessNodeValue, String eventRemark, Integer eventOrderNum) {
+    public EventInfoEntity(String eventId, String eventCode, Date eventAcceptDate, String eventAcceptUnitName, String eventAcceptUnitId, String eventAcceptUserName, String eventAcceptUserId, Long eventAcceptTimes, String eventAcceptGridId, String eventAcceptMapLocation, String eventSource, String eventType1, String eventType2, String eventLevel, String eventSeverity, String eventAddress, String eventAppealPurpose, Long eventAppealPersonNum, String eventAppealQuestion, Long eventAboutPersonNum, String eventIsPetition, String eventIsRentalHousing, String eventIsGroup, String eventFromCode, Date eventFromDate, String eventIsEmergency, BigDecimal eventAboutMoney, String eventIsSpDifficult, String eventWarringLevel, String eventProcessNodeName, String eventProcessNodeValue, String eventRemark, Integer eventOrderNum, String eventMainAppealerName, String eventMainAppealerSex, String eventMainAppealerBirthday, String eventMainAppealerIdCard, String eventMainAppealerPhone, String eventMainAppealerAddress, String eventFellowAppealerName, String eventFellowAppealerSex, String eventFellowAppealerBirthday, String eventFellowAppealerIdCard, String eventFellowAppealerPhone, String eventFellowAppealerAddress, String eventDefePerName, String eventDefePerSex, String eventDefePerBirthday, String eventDefePerIdCard, String eventDefePerPhone, String eventDefePerAddress, String eventDefeUnitName, String eventDefeUnitBusinessType, String eventDefeUnitCreateDate, String eventDefeUnitOrganCode, String eventDefeUnitBusinessNum, String eventDefeUnitAddress, String eventDefeUnitPhone, String eventCityId, String eventAreaId, String eventStreetId, String eventCommunityId, String eventGridId, String eventType1ExText, String eventMainAppealerRemark, String eventFellowAppealerRemark, String eventDefePerRemark, String eventDefeUnitRemark) {
         this.eventId = eventId;
         this.eventCode = eventCode;
         this.eventAcceptDate = eventAcceptDate;
@@ -185,6 +325,41 @@ public class EventInfoEntity {
         this.eventProcessNodeValue = eventProcessNodeValue;
         this.eventRemark = eventRemark;
         this.eventOrderNum = eventOrderNum;
+        this.eventMainAppealerName = eventMainAppealerName;
+        this.eventMainAppealerSex = eventMainAppealerSex;
+        this.eventMainAppealerBirthday = eventMainAppealerBirthday;
+        this.eventMainAppealerIdCard = eventMainAppealerIdCard;
+        this.eventMainAppealerPhone = eventMainAppealerPhone;
+        this.eventMainAppealerAddress = eventMainAppealerAddress;
+        this.eventFellowAppealerName = eventFellowAppealerName;
+        this.eventFellowAppealerSex = eventFellowAppealerSex;
+        this.eventFellowAppealerBirthday = eventFellowAppealerBirthday;
+        this.eventFellowAppealerIdCard = eventFellowAppealerIdCard;
+        this.eventFellowAppealerPhone = eventFellowAppealerPhone;
+        this.eventFellowAppealerAddress = eventFellowAppealerAddress;
+        this.eventDefePerName = eventDefePerName;
+        this.eventDefePerSex = eventDefePerSex;
+        this.eventDefePerBirthday = eventDefePerBirthday;
+        this.eventDefePerIdCard = eventDefePerIdCard;
+        this.eventDefePerPhone = eventDefePerPhone;
+        this.eventDefePerAddress = eventDefePerAddress;
+        this.eventDefeUnitName = eventDefeUnitName;
+        this.eventDefeUnitBusinessType = eventDefeUnitBusinessType;
+        this.eventDefeUnitCreateDate = eventDefeUnitCreateDate;
+        this.eventDefeUnitOrganCode = eventDefeUnitOrganCode;
+        this.eventDefeUnitBusinessNum = eventDefeUnitBusinessNum;
+        this.eventDefeUnitAddress = eventDefeUnitAddress;
+        this.eventDefeUnitPhone = eventDefeUnitPhone;
+        this.eventCityId = eventCityId;
+        this.eventAreaId = eventAreaId;
+        this.eventStreetId = eventStreetId;
+        this.eventCommunityId = eventCommunityId;
+        this.eventGridId = eventGridId;
+        this.eventType1ExText = eventType1ExText;
+        this.eventMainAppealerRemark = eventMainAppealerRemark;
+        this.eventFellowAppealerRemark = eventFellowAppealerRemark;
+        this.eventDefePerRemark = eventDefePerRemark;
+        this.eventDefeUnitRemark = eventDefeUnitRemark;
     }
 
     public EventInfoEntity() {
@@ -717,5 +892,565 @@ public class EventInfoEntity {
      **/
     public void setEventOrderNum(Integer eventOrderNum) {
         this.eventOrderNum = eventOrderNum;
+    }
+
+    /**
+     * 主要诉求人-姓名
+     * @return java.lang.String
+     **/
+    public String getEventMainAppealerName() {
+        return eventMainAppealerName;
+    }
+
+    /**
+     * 主要诉求人-姓名
+     * @param eventMainAppealerName 主要诉求人-姓名
+     **/
+    public void setEventMainAppealerName(String eventMainAppealerName) {
+        this.eventMainAppealerName = eventMainAppealerName == null ? null : eventMainAppealerName.trim();
+    }
+
+    /**
+     * 主要诉求人-性别
+     * @return java.lang.String
+     **/
+    public String getEventMainAppealerSex() {
+        return eventMainAppealerSex;
+    }
+
+    /**
+     * 主要诉求人-性别
+     * @param eventMainAppealerSex 主要诉求人-性别
+     **/
+    public void setEventMainAppealerSex(String eventMainAppealerSex) {
+        this.eventMainAppealerSex = eventMainAppealerSex == null ? null : eventMainAppealerSex.trim();
+    }
+
+    /**
+     * 主要诉求人-出生日期
+     * @return java.lang.String
+     **/
+    public String getEventMainAppealerBirthday() {
+        return eventMainAppealerBirthday;
+    }
+
+    /**
+     * 主要诉求人-出生日期
+     * @param eventMainAppealerBirthday 主要诉求人-出生日期
+     **/
+    public void setEventMainAppealerBirthday(String eventMainAppealerBirthday) {
+        this.eventMainAppealerBirthday = eventMainAppealerBirthday == null ? null : eventMainAppealerBirthday.trim();
+    }
+
+    /**
+     * 主要诉求人-身份证号
+     * @return java.lang.String
+     **/
+    public String getEventMainAppealerIdCard() {
+        return eventMainAppealerIdCard;
+    }
+
+    /**
+     * 主要诉求人-身份证号
+     * @param eventMainAppealerIdCard 主要诉求人-身份证号
+     **/
+    public void setEventMainAppealerIdCard(String eventMainAppealerIdCard) {
+        this.eventMainAppealerIdCard = eventMainAppealerIdCard == null ? null : eventMainAppealerIdCard.trim();
+    }
+
+    /**
+     * 主要诉求人-联系电话
+     * @return java.lang.String
+     **/
+    public String getEventMainAppealerPhone() {
+        return eventMainAppealerPhone;
+    }
+
+    /**
+     * 主要诉求人-联系电话
+     * @param eventMainAppealerPhone 主要诉求人-联系电话
+     **/
+    public void setEventMainAppealerPhone(String eventMainAppealerPhone) {
+        this.eventMainAppealerPhone = eventMainAppealerPhone == null ? null : eventMainAppealerPhone.trim();
+    }
+
+    /**
+     * 主要诉求人-单位或地址
+     * @return java.lang.String
+     **/
+    public String getEventMainAppealerAddress() {
+        return eventMainAppealerAddress;
+    }
+
+    /**
+     * 主要诉求人-单位或地址
+     * @param eventMainAppealerAddress 主要诉求人-单位或地址
+     **/
+    public void setEventMainAppealerAddress(String eventMainAppealerAddress) {
+        this.eventMainAppealerAddress = eventMainAppealerAddress == null ? null : eventMainAppealerAddress.trim();
+    }
+
+    /**
+     * 共同诉求人-姓名
+     * @return java.lang.String
+     **/
+    public String getEventFellowAppealerName() {
+        return eventFellowAppealerName;
+    }
+
+    /**
+     * 共同诉求人-姓名
+     * @param eventFellowAppealerName 共同诉求人-姓名
+     **/
+    public void setEventFellowAppealerName(String eventFellowAppealerName) {
+        this.eventFellowAppealerName = eventFellowAppealerName == null ? null : eventFellowAppealerName.trim();
+    }
+
+    /**
+     * 共同诉求人-性别
+     * @return java.lang.String
+     **/
+    public String getEventFellowAppealerSex() {
+        return eventFellowAppealerSex;
+    }
+
+    /**
+     * 共同诉求人-性别
+     * @param eventFellowAppealerSex 共同诉求人-性别
+     **/
+    public void setEventFellowAppealerSex(String eventFellowAppealerSex) {
+        this.eventFellowAppealerSex = eventFellowAppealerSex == null ? null : eventFellowAppealerSex.trim();
+    }
+
+    /**
+     * 共同诉求人-出生日期
+     * @return java.lang.String
+     **/
+    public String getEventFellowAppealerBirthday() {
+        return eventFellowAppealerBirthday;
+    }
+
+    /**
+     * 共同诉求人-出生日期
+     * @param eventFellowAppealerBirthday 共同诉求人-出生日期
+     **/
+    public void setEventFellowAppealerBirthday(String eventFellowAppealerBirthday) {
+        this.eventFellowAppealerBirthday = eventFellowAppealerBirthday == null ? null : eventFellowAppealerBirthday.trim();
+    }
+
+    /**
+     * 共同诉求人-身份证号
+     * @return java.lang.String
+     **/
+    public String getEventFellowAppealerIdCard() {
+        return eventFellowAppealerIdCard;
+    }
+
+    /**
+     * 共同诉求人-身份证号
+     * @param eventFellowAppealerIdCard 共同诉求人-身份证号
+     **/
+    public void setEventFellowAppealerIdCard(String eventFellowAppealerIdCard) {
+        this.eventFellowAppealerIdCard = eventFellowAppealerIdCard == null ? null : eventFellowAppealerIdCard.trim();
+    }
+
+    /**
+     * 共同诉求人-联系电话
+     * @return java.lang.String
+     **/
+    public String getEventFellowAppealerPhone() {
+        return eventFellowAppealerPhone;
+    }
+
+    /**
+     * 共同诉求人-联系电话
+     * @param eventFellowAppealerPhone 共同诉求人-联系电话
+     **/
+    public void setEventFellowAppealerPhone(String eventFellowAppealerPhone) {
+        this.eventFellowAppealerPhone = eventFellowAppealerPhone == null ? null : eventFellowAppealerPhone.trim();
+    }
+
+    /**
+     * 共同诉求人-单位或地址
+     * @return java.lang.String
+     **/
+    public String getEventFellowAppealerAddress() {
+        return eventFellowAppealerAddress;
+    }
+
+    /**
+     * 共同诉求人-单位或地址
+     * @param eventFellowAppealerAddress 共同诉求人-单位或地址
+     **/
+    public void setEventFellowAppealerAddress(String eventFellowAppealerAddress) {
+        this.eventFellowAppealerAddress = eventFellowAppealerAddress == null ? null : eventFellowAppealerAddress.trim();
+    }
+
+    /**
+     * 被反映对象-个人-姓名
+     * @return java.lang.String
+     **/
+    public String getEventDefePerName() {
+        return eventDefePerName;
+    }
+
+    /**
+     * 被反映对象-个人-姓名
+     * @param eventDefePerName 被反映对象-个人-姓名
+     **/
+    public void setEventDefePerName(String eventDefePerName) {
+        this.eventDefePerName = eventDefePerName == null ? null : eventDefePerName.trim();
+    }
+
+    /**
+     * 被反映对象-个人-性别
+     * @return java.lang.String
+     **/
+    public String getEventDefePerSex() {
+        return eventDefePerSex;
+    }
+
+    /**
+     * 被反映对象-个人-性别
+     * @param eventDefePerSex 被反映对象-个人-性别
+     **/
+    public void setEventDefePerSex(String eventDefePerSex) {
+        this.eventDefePerSex = eventDefePerSex == null ? null : eventDefePerSex.trim();
+    }
+
+    /**
+     * 被反映对象-个人-出生日期
+     * @return java.lang.String
+     **/
+    public String getEventDefePerBirthday() {
+        return eventDefePerBirthday;
+    }
+
+    /**
+     * 被反映对象-个人-出生日期
+     * @param eventDefePerBirthday 被反映对象-个人-出生日期
+     **/
+    public void setEventDefePerBirthday(String eventDefePerBirthday) {
+        this.eventDefePerBirthday = eventDefePerBirthday == null ? null : eventDefePerBirthday.trim();
+    }
+
+    /**
+     * 被反映对象-个人-身份证
+     * @return java.lang.String
+     **/
+    public String getEventDefePerIdCard() {
+        return eventDefePerIdCard;
+    }
+
+    /**
+     * 被反映对象-个人-身份证
+     * @param eventDefePerIdCard 被反映对象-个人-身份证
+     **/
+    public void setEventDefePerIdCard(String eventDefePerIdCard) {
+        this.eventDefePerIdCard = eventDefePerIdCard == null ? null : eventDefePerIdCard.trim();
+    }
+
+    /**
+     * 被反映对象-个人-联系电话
+     * @return java.lang.String
+     **/
+    public String getEventDefePerPhone() {
+        return eventDefePerPhone;
+    }
+
+    /**
+     * 被反映对象-个人-联系电话
+     * @param eventDefePerPhone 被反映对象-个人-联系电话
+     **/
+    public void setEventDefePerPhone(String eventDefePerPhone) {
+        this.eventDefePerPhone = eventDefePerPhone == null ? null : eventDefePerPhone.trim();
+    }
+
+    /**
+     * 被反映对象-个人-单位或者地址
+     * @return java.lang.String
+     **/
+    public String getEventDefePerAddress() {
+        return eventDefePerAddress;
+    }
+
+    /**
+     * 被反映对象-个人-单位或者地址
+     * @param eventDefePerAddress 被反映对象-个人-单位或者地址
+     **/
+    public void setEventDefePerAddress(String eventDefePerAddress) {
+        this.eventDefePerAddress = eventDefePerAddress == null ? null : eventDefePerAddress.trim();
+    }
+
+    /**
+     * 被反映对象-单位-名称
+     * @return java.lang.String
+     **/
+    public String getEventDefeUnitName() {
+        return eventDefeUnitName;
+    }
+
+    /**
+     * 被反映对象-单位-名称
+     * @param eventDefeUnitName 被反映对象-单位-名称
+     **/
+    public void setEventDefeUnitName(String eventDefeUnitName) {
+        this.eventDefeUnitName = eventDefeUnitName == null ? null : eventDefeUnitName.trim();
+    }
+
+    /**
+     * 被反映对象-单位-经营性质
+     * @return java.lang.String
+     **/
+    public String getEventDefeUnitBusinessType() {
+        return eventDefeUnitBusinessType;
+    }
+
+    /**
+     * 被反映对象-单位-经营性质
+     * @param eventDefeUnitBusinessType 被反映对象-单位-经营性质
+     **/
+    public void setEventDefeUnitBusinessType(String eventDefeUnitBusinessType) {
+        this.eventDefeUnitBusinessType = eventDefeUnitBusinessType == null ? null : eventDefeUnitBusinessType.trim();
+    }
+
+    /**
+     * 被反映对象-单位-成立时间
+     * @return java.lang.String
+     **/
+    public String getEventDefeUnitCreateDate() {
+        return eventDefeUnitCreateDate;
+    }
+
+    /**
+     * 被反映对象-单位-成立时间
+     * @param eventDefeUnitCreateDate 被反映对象-单位-成立时间
+     **/
+    public void setEventDefeUnitCreateDate(String eventDefeUnitCreateDate) {
+        this.eventDefeUnitCreateDate = eventDefeUnitCreateDate == null ? null : eventDefeUnitCreateDate.trim();
+    }
+
+    /**
+     * 被反映对象-单位-组织机构代码
+     * @return java.lang.String
+     **/
+    public String getEventDefeUnitOrganCode() {
+        return eventDefeUnitOrganCode;
+    }
+
+    /**
+     * 被反映对象-单位-组织机构代码
+     * @param eventDefeUnitOrganCode 被反映对象-单位-组织机构代码
+     **/
+    public void setEventDefeUnitOrganCode(String eventDefeUnitOrganCode) {
+        this.eventDefeUnitOrganCode = eventDefeUnitOrganCode == null ? null : eventDefeUnitOrganCode.trim();
+    }
+
+    /**
+     * 被反映对象-单位-营业执照号
+     * @return java.lang.String
+     **/
+    public String getEventDefeUnitBusinessNum() {
+        return eventDefeUnitBusinessNum;
+    }
+
+    /**
+     * 被反映对象-单位-营业执照号
+     * @param eventDefeUnitBusinessNum 被反映对象-单位-营业执照号
+     **/
+    public void setEventDefeUnitBusinessNum(String eventDefeUnitBusinessNum) {
+        this.eventDefeUnitBusinessNum = eventDefeUnitBusinessNum == null ? null : eventDefeUnitBusinessNum.trim();
+    }
+
+    /**
+     * 被反映对象-单位-地址
+     * @return java.lang.String
+     **/
+    public String getEventDefeUnitAddress() {
+        return eventDefeUnitAddress;
+    }
+
+    /**
+     * 被反映对象-单位-地址
+     * @param eventDefeUnitAddress 被反映对象-单位-地址
+     **/
+    public void setEventDefeUnitAddress(String eventDefeUnitAddress) {
+        this.eventDefeUnitAddress = eventDefeUnitAddress == null ? null : eventDefeUnitAddress.trim();
+    }
+
+    /**
+     * 被反映对象-单位-联系电话
+     * @return java.lang.String
+     **/
+    public String getEventDefeUnitPhone() {
+        return eventDefeUnitPhone;
+    }
+
+    /**
+     * 被反映对象-单位-联系电话
+     * @param eventDefeUnitPhone 被反映对象-单位-联系电话
+     **/
+    public void setEventDefeUnitPhone(String eventDefeUnitPhone) {
+        this.eventDefeUnitPhone = eventDefeUnitPhone == null ? null : eventDefeUnitPhone.trim();
+    }
+
+    /**
+     * 城市Id
+     * @return java.lang.String
+     **/
+    public String getEventCityId() {
+        return eventCityId;
+    }
+
+    /**
+     * 城市Id
+     * @param eventCityId 城市Id
+     **/
+    public void setEventCityId(String eventCityId) {
+        this.eventCityId = eventCityId == null ? null : eventCityId.trim();
+    }
+
+    /**
+     * 区Id
+     * @return java.lang.String
+     **/
+    public String getEventAreaId() {
+        return eventAreaId;
+    }
+
+    /**
+     * 区Id
+     * @param eventAreaId 区Id
+     **/
+    public void setEventAreaId(String eventAreaId) {
+        this.eventAreaId = eventAreaId == null ? null : eventAreaId.trim();
+    }
+
+    /**
+     * 街道Id:街道,乡镇
+     * @return java.lang.String
+     **/
+    public String getEventStreetId() {
+        return eventStreetId;
+    }
+
+    /**
+     * 街道Id:街道,乡镇
+     * @param eventStreetId 街道Id
+     **/
+    public void setEventStreetId(String eventStreetId) {
+        this.eventStreetId = eventStreetId == null ? null : eventStreetId.trim();
+    }
+
+    /**
+     * 社区Id:社区,村
+     * @return java.lang.String
+     **/
+    public String getEventCommunityId() {
+        return eventCommunityId;
+    }
+
+    /**
+     * 社区Id:社区,村
+     * @param eventCommunityId 社区Id
+     **/
+    public void setEventCommunityId(String eventCommunityId) {
+        this.eventCommunityId = eventCommunityId == null ? null : eventCommunityId.trim();
+    }
+
+    /**
+     * 所属网格Id
+     * @return java.lang.String
+     **/
+    public String getEventGridId() {
+        return eventGridId;
+    }
+
+    /**
+     * 所属网格Id
+     * @param eventGridId 所属网格Id
+     **/
+    public void setEventGridId(String eventGridId) {
+        this.eventGridId = eventGridId == null ? null : eventGridId.trim();
+    }
+
+    /**
+     * 事件类型第1级补充备注
+     * @return java.lang.String
+     **/
+    public String getEventType1ExText() {
+        return eventType1ExText;
+    }
+
+    /**
+     * 事件类型第1级补充备注
+     * @param eventType1ExText 事件类型第1级补充备注
+     **/
+    public void setEventType1ExText(String eventType1ExText) {
+        this.eventType1ExText = eventType1ExText == null ? null : eventType1ExText.trim();
+    }
+
+    /**
+     * 主要诉求人-备注
+     * @return java.lang.String
+     **/
+    public String getEventMainAppealerRemark() {
+        return eventMainAppealerRemark;
+    }
+
+    /**
+     * 主要诉求人-备注
+     * @param eventMainAppealerRemark 主要诉求人-备注
+     **/
+    public void setEventMainAppealerRemark(String eventMainAppealerRemark) {
+        this.eventMainAppealerRemark = eventMainAppealerRemark == null ? null : eventMainAppealerRemark.trim();
+    }
+
+    /**
+     * 共同诉求人-备注
+     * @return java.lang.String
+     **/
+    public String getEventFellowAppealerRemark() {
+        return eventFellowAppealerRemark;
+    }
+
+    /**
+     * 共同诉求人-备注
+     * @param eventFellowAppealerRemark 共同诉求人-备注
+     **/
+    public void setEventFellowAppealerRemark(String eventFellowAppealerRemark) {
+        this.eventFellowAppealerRemark = eventFellowAppealerRemark == null ? null : eventFellowAppealerRemark.trim();
+    }
+
+    /**
+     * 被反映对象-个人-备注
+     * @return java.lang.String
+     **/
+    public String getEventDefePerRemark() {
+        return eventDefePerRemark;
+    }
+
+    /**
+     * 被反映对象-个人-备注
+     * @param eventDefePerRemark 被反映对象-个人-备注
+     **/
+    public void setEventDefePerRemark(String eventDefePerRemark) {
+        this.eventDefePerRemark = eventDefePerRemark == null ? null : eventDefePerRemark.trim();
+    }
+
+    /**
+     * 被反映对象-单位-备注
+     * @return java.lang.String
+     **/
+    public String getEventDefeUnitRemark() {
+        return eventDefeUnitRemark;
+    }
+
+    /**
+     * 被反映对象-单位-备注
+     * @param eventDefeUnitRemark 被反映对象-单位-备注
+     **/
+    public void setEventDefeUnitRemark(String eventDefeUnitRemark) {
+        this.eventDefeUnitRemark = eventDefeUnitRemark == null ? null : eventDefeUnitRemark.trim();
     }
 }

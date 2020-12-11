@@ -230,6 +230,7 @@ export default {
     },
     loadHouseListFromServer:function (singleBuildData) {
       //console.log(event);
+      $("#loadDialogWrap").show();
       var buildId=singleBuildData.buildId;
       this.build.selectedBuild=singleBuildData;
       this.house.allHouse = [];
@@ -244,6 +245,7 @@ export default {
         }
       }).then((response) => {
         console.log(response);
+        $("#loadDialogWrap").hide();
         if (response.data.success) {
           this.house.allHouse = response.data.data;
           this.house.filterHouses=this.house.allHouse.filter((item)=>{return true});

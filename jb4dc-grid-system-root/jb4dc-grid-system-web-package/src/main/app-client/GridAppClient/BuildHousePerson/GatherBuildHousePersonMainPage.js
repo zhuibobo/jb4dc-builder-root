@@ -11,6 +11,7 @@ import gatherHouseDetailEdit from '../VueComponent/gather-house-detail-edit.vue'
 import gatherSPBuildDetailEdit from '../VueComponent/gather-sp-build-detail-edit.vue'
 import photoList from '../VueComponent/photo-list.vue'
 import VueConfirmDialog from '../VueComponent/vue-confirm-dialog/index'
+const appClientUtility = require('../Js/AppClientUtility.js');
 
 Vue.use(Toasted)
 Vue.component('gatherBHPEDataMainRoot', gatherBHPEDataMainRoot);
@@ -28,6 +29,15 @@ const app=new Vue({
     template: '<div><gatherBHPEDataMainRoot></gatherBHPEDataMainRoot><vue-confirm-dialog></vue-confirm-dialog></div>',
     data: function() {
         return {}
+    },
+    mounted() {
+        window["writeIdCardReaderToEmptyToView"] = (personData,imageBase64) => {
+            appClientUtility.DialogUtility.AlertText(appClientUtility.JsonUtility.JsonToString(personData));
+            //this.writeHouseRelevanterDataToView(personData,imageBase64)
+        }
+        if(typeof(appBridge)!="undefined"){
+            appBridge.beginReadIdCardFromNFC("writeIdCardReaderToEmptyToView");
+        }
     },
     methods: {}
 })

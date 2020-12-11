@@ -128,7 +128,7 @@
   bottom: 0px;
   left: 0px;
   right: 0px;
-  background-color: #EAEDED;
+  /*background-color: @g-concrete-color-v02;*/
 }
 .page-content-wrap .module-item-wrap[data-v-169a2fc5] {
   display: inline-block;
@@ -139,7 +139,7 @@
 .page-content-wrap .module-item-wrap .module-item[data-v-169a2fc5] {
   /*height: 10px;*/
   margin: 10px 5px 10px 10px;
-  background-color: rgba(249, 231, 159, 0.4);
+  background-color: rgba(252, 243, 207, 0.2);
   border: solid 1px #5DADE2;
   text-align: center;
   border-radius: 8px;

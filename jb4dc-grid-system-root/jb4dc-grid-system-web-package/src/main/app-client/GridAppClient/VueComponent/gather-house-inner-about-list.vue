@@ -17,7 +17,7 @@
             </div>
             <ul class="nav nav-tabs" id="myTab" role="tablist">
               <li class="nav-item">
-                <a class="nav-link active" id="home-tab" data-toggle="tab" href="#personListWarp" role="tab"
+                <a class="nav-link active" id="house-person-tab" data-toggle="tab" href="#personListWarp" role="tab"
                    aria-controls="home" aria-selected="true">人口信息</a>
               </li>
               <li class="nav-item">
@@ -26,7 +26,7 @@
               </li>
             </ul>
             <div class="tab-content" id="myTabContent">
-              <div class="tab-pane fade show active" id="personListWarp" role="tabpanel" aria-labelledby="home-tab">
+              <div class="tab-pane fade show active" id="personListWarp" role="tabpanel" aria-labelledby="house-person-tab">
                 <div style="padding: 4px;height: 44px">
                   <div style="float: right">
                     <button type="button" class="btn btn-success" data-toggle="modal" data-target="#familyEditModal" @click="newFamily">
@@ -49,7 +49,7 @@
                   </div>
                 </div>
               </div>
-              <div class="tab-pane fade" id="entListWarp" role="tabpanel" aria-labelledby="profile-tab">
+              <div class="tab-pane fade" id="entListWarp" role="tabpanel" aria-labelledby="house-enterprise-tab">
                   <div style="padding: 4px;height: 44px">
                     <div style="float: right">
                       <button type="button" class="btn btn-success" data-toggle="modal" data-target="#enterpriseEditModal" @click="newEnterprise">+企业信息</button>

@@ -229,9 +229,13 @@ export default {
   mounted() {
     appClientSessionUtility.BuildSession();
     console.log(appClientSessionUtility.GetSession());
-    this.session=appClientSessionUtility.GetSession();
-    window["writePersonDataToViewEX1"] = (personData,imageBase64) => {
-      this.writePersonDataToViewEX1(personData,imageBase64)
+    this.session = appClientSessionUtility.GetSession();
+    window["writePersonDataToViewEX1"] = (personData, imageBase64) => {
+      this.writePersonDataToViewEX1(personData, imageBase64)
+    };
+    window["writePersonDataToViewError"] = () => {
+      appClientUtility.DialogUtility.AlertText("error");
+      //this.writePersonDataToViewEX1(personData, imageBase64)
     }
   },
   methods: {
@@ -335,13 +339,19 @@ export default {
       this.person.editPersonData.personHeaderImageBase64=imageBase64;
       this.showLoading=false;
     },
-    readPersonDataFromAPPNFC:function (){
-        if(typeof(appBridge)!="undefined"){
-          appBridge.beginReadIdCardFromNFC("writePersonDataToViewEX1");
+    readPersonDataFromAPPNFC:function () {
+
+      this.showLoading = true;
+      if (typeof (appBridge) != "undefined") {
+        try {
+          appBridge.beginReadIdCardFromNFC("writePersonDataToViewEX1","writePersonDataToViewError");
+        } catch (e) {
+          appClientUtility.DialogUtility.AlertText(e);
         }
-        else{
-          this.$toasted.show('不存在appBridge对象!',{duration:2000});
-        }
+      } else {
+        this.$toasted.show('不存在appBridge对象!', {duration: 2000});
+      }
+
     }
     //endregion
   }

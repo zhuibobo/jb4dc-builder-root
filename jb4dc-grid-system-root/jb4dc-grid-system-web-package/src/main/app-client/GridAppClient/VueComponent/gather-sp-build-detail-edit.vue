@@ -87,7 +87,7 @@
                       <div class="form-group row form-group-min">
                         <label for="spBuildSpUseFor" class="col-3 col-form-label text-right col-form-label-sm form-label-min">使用用途</label>
                         <div class="col-9">
-                          <select id="spBuildSpUseFor" class="form-control form-control-sm" v-model="build.editBuildData.buildSpType">
+                          <select id="spBuildSpUseFor" class="form-control form-control-sm" v-model="build.editBuildData.buildSpUseFor">
                             <option  v-for="(ddItem, index) in ddg_BuildSpUseFor" :value="ddItem.dictValue">{{ddItem.dictText}}</option>
                           </select>
                         </div>

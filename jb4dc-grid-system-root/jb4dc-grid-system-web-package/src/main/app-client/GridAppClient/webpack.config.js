@@ -12,10 +12,11 @@ module.exports = {
         /*"editTableSelectDefaultValue": './EditTable/Renderers/EditTable_SelectDefaultValue.js',*/
         "GatherBuildHousePersonMainPage": './BuildHousePerson/GatherBuildHousePersonMainPage.js',
         "GatherEventMainPage": './BuildHousePerson/GatherEventMainPage.js',
-        "GatherSearchMainPage": './BuildHousePerson/GatherSearchMainPage.js',
         "MockReadIdCardPage": './BuildHousePerson/MockReadIdCardPage.js',
         "GatherIndexMainPage": './BuildHousePerson/GatherIndexMainPage.js',
-        "MockPhotoUploadPage": './BuildHousePerson/MockPhotoUploadPage.js'
+        "MockPhotoUploadPage": './BuildHousePerson/MockPhotoUploadPage.js',
+        "DefaultIndexMainPage": './BuildHousePerson/DefaultIndexMainPage.js',
+        "SearchIndexMainPage": './BuildHousePerson/SearchIndexMainPage.js'
     },
     context: path.resolve(__dirname, ""),
     output: {
@@ -97,11 +98,11 @@ module.exports = {
         ]
     },
     plugins: [
-        new CleanWebpackPlugin (
+        /*new CleanWebpackPlugin (
             {
-                cleanAfterEveryBuildPatterns: ['**/*.js','**/*.css','!**/Images/**','!**/bpmn-font/**','!**/diagram-js.css'],
+                cleanAfterEveryBuildPatterns: ['**!/!*.js','**!/!*.css','!**!/Images/!**','!**!/bpmn-font/!**','!**!/diagram-js.css'],
             }
-        ),
+        ),*/
         /*new CopyWebpackPlugin([
             { from: '**!/bpmn-font/!*!/!*.*',context: 'Less', to: ''},
             { from: '**!/diagram-js.css',context: 'Less', to: ''}
@@ -112,6 +113,16 @@ module.exports = {
             chunks: ['GatherIndexMainPage']
         }),
         new HtmlWebpackPlugin({
+            filename: "DefaultIndexMainPage.html",
+            template: './Template.html',
+            chunks: ['DefaultIndexMainPage']
+        }),
+        new HtmlWebpackPlugin({
+            filename: "SearchIndexMainPage.html",
+            template: './Template.html',
+            chunks: ['SearchIndexMainPage']
+        }),
+        new HtmlWebpackPlugin({
             filename: "GatherBuildHousePersonMainPage.html",
             template: './Template.html',
             chunks: ['GatherBuildHousePersonMainPage']
@@ -120,11 +131,6 @@ module.exports = {
             filename: "GatherEventMainPage.html",
             template: './Template.html',
             chunks: ['GatherEventMainPage']
-        }),
-        new HtmlWebpackPlugin({
-            filename: "GatherSearchMainPage.html",
-            template: './Template.html',
-            chunks: ['GatherSearchMainPage']
         }),
         new HtmlWebpackPlugin({
             filename: "MockReadIdCardPage.html",

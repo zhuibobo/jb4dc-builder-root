@@ -11,7 +11,7 @@
 
     </style>
     <script>
-        function gotoBHREAppClientPage(){
+        function gotoBHREAppClientPage(pageName){
             AjaxUtility.Post("/Rest/Grid/User/Login/LoginByPassword",{
                 accountName:"nbzg5001",
                 password:"j4d123456",
@@ -19,7 +19,7 @@
             },function (result){
                 if(result.success){
                     var data=result.data;
-                    var url=window.location.origin+"/GridSystem/HTML/GridAppClient/GatherIndexMainPage.html?UserId="+data.userId+"&UserName="+data.userName+"&OrganId="+data.organId+"&OrganName="+data.organName+"&AppClientToken="+data.appClientToken;
+                    var url=window.location.origin+"/GridSystem/HTML/GridAppClient/"+pageName+"?UserId="+data.userId+"&UserName="+data.userName+"&OrganId="+data.organId+"&OrganName="+data.organName+"&AppClientToken="+data.appClientToken;
                     //window.open(url);
                     window.location.href=url;
                 }
@@ -32,8 +32,9 @@
 </head>
 <body>
     <div>
-        <input type="button" value="进入app采集首页" onclick="gotoBHREAppClientPage()" style="height: 50px" />
-        <input type="button" value="进入206本地采集" onclick="gotoBHREAppClientPage()" style="height: 50px" />
+        <input type="button" value="APP首页" onclick="gotoBHREAppClientPage('DefaultIndexMainPage.html')" style="height: 50px" />
+        <input type="button" value="采集首页" onclick="gotoBHREAppClientPage('GatherIndexMainPage.html')" style="height: 50px" />
+        <input type="button" value="搜索搜索" onclick="gotoBHREAppClientPage('SearchIndexMainPage.html')" style="height: 50px" />
     </div>
 </body>
 </html>
