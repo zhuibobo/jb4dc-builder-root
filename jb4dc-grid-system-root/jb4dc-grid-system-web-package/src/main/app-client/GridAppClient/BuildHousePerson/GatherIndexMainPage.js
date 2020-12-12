@@ -4,6 +4,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Toasted from 'vue-toasted';
 import "../Less/GridAppClient.less";
 import gatherIndexRoot from '../VueComponent/gather-index-root.vue'
+import appClientUtility from "../Js/AppClientUtility";
 
 Vue.use(Toasted)
 Vue.component('gatherIndexRoot', gatherIndexRoot);
@@ -15,5 +16,10 @@ const app=new Vue({
     data: function() {
         return {}
     },
-    methods: {}
+    mounted() {
+        appClientUtility.HidTopLoadBar();
+    },
+    methods: {
+
+    }
 })

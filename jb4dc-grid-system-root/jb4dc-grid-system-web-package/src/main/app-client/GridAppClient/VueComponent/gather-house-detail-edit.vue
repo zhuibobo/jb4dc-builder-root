@@ -18,7 +18,7 @@
                   <h2 class="mb-md-1" style="margin-bottom: 0px">
                     <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#houseEditBaseInfo"
                             aria-expanded="true" aria-controls="houseEditBaseInfo">
-                      房屋信息信息
+                      房屋信息
                     </button>
                   </h2>
                 </div>
@@ -271,7 +271,8 @@
 
 <script>
 import axios from 'axios';
-const appClientUtility = require('../Js/AppClientUtility.js');
+////const appClientUtility = require('../Js/AppClientUtility.js');
+import appClientUtility from '../Js/AppClientUtility.js';
 
 export default {
   name: "gather-house-detail-edit",
@@ -625,13 +626,15 @@ export default {
       this.relevanter.editRelevanterData.reterIdCardEffDate = personData.personIdCardEffDate;
       this.relevanter.editRelevanterData.reterIdCardAddress = personData.personIdCardAddress;
       this.relevanter.editRelevanterData.reterNation=personData.personNation;
+      //appClientUtility.DialogUtility.AlertText(this,personData.personBirthday);
       if (personData.personBirthday) {
         var birthdayStr = personData.personBirthday.replace("年", "-").replace("月", "-").replace("日", "");
-        var year = birthdayStr.split("-")[0];
+        /*var year = birthdayStr.split("-")[0];
         var month = birthdayStr.split("-")[1];
         var day = birthdayStr.split("-")[2];
         var myDate = new Date(year, month, day);
-        this.relevanter.editRelevanterData.reterBirthday = appClientUtility.DateUtility.Format(myDate, "yyyy-MM-dd");
+        this.relevanter.editRelevanterData.reterBirthday = appClientUtility.DateUtility.Format(myDate, "yyyy-MM-dd");*/
+        this.relevanter.editRelevanterData.reterBirthday =birthdayStr;
       }
       this.relevanter.editRelevanterData.reterHeaderImageBase64 = imageBase64;
       //this.showLoading = false;

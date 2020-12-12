@@ -38,7 +38,8 @@
 <script>
 import appClientSessionUtility from '../Js/AppClientSessionUtility.js';
 import axios from 'axios';
-const appClientUtility = require('../Js/AppClientUtility.js');
+////const appClientUtility = require('../Js/AppClientUtility.js');
+import appClientUtility from '../Js/AppClientUtility.js';
 
 import MescrollVue from 'mescroll.js/mescroll.vue'
 

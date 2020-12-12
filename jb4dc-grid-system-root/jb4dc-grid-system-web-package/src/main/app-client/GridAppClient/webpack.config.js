@@ -16,7 +16,8 @@ module.exports = {
         "GatherIndexMainPage": './BuildHousePerson/GatherIndexMainPage.js',
         "MockPhotoUploadPage": './BuildHousePerson/MockPhotoUploadPage.js',
         "DefaultIndexMainPage": './BuildHousePerson/DefaultIndexMainPage.js',
-        "SearchIndexMainPage": './BuildHousePerson/SearchIndexMainPage.js'
+        "SearchIndexMainPage": './BuildHousePerson/SearchIndexMainPage.js',
+        "ViewDemoPage": './BuildHousePerson/ViewDemoPage.js'
     },
     context: path.resolve(__dirname, ""),
     output: {
@@ -103,10 +104,14 @@ module.exports = {
                 cleanAfterEveryBuildPatterns: ['**!/!*.js','**!/!*.css','!**!/Images/!**','!**!/bpmn-font/!**','!**!/diagram-js.css'],
             }
         ),*/
-        /*new CopyWebpackPlugin([
-            { from: '**!/bpmn-font/!*!/!*.*',context: 'Less', to: ''},
-            { from: '**!/diagram-js.css',context: 'Less', to: ''}
-        ]),*/
+        new CopyWebpackPlugin({patterns:[
+            { from: '**/LibJS/*.*',context: '', to: ''}
+        ]}),
+        new HtmlWebpackPlugin({
+            filename: "ViewDemoPage.html",
+            template: './Template.html',
+            chunks: ['ViewDemoPage']
+        }),
         new HtmlWebpackPlugin({
             filename: "GatherIndexMainPage.html",
             template: './Template.html',
@@ -147,8 +152,8 @@ module.exports = {
             // both options are optional
             //filename: "[name].[hash].css",
             //chunkFilename: "[id].[hash].css"
-            filename: "[name].css",
-            chunkFilename: "[id].css"
+            filename: "[name][hash].css",
+            chunkFilename: "[id][hash].css"
         }),
         new VueLoaderPlugin()/*,
         new webpack.ProvidePlugin({

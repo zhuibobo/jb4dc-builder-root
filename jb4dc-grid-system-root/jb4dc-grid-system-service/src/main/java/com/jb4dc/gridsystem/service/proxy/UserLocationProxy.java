@@ -71,12 +71,27 @@ public class UserLocationProxy {
         throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_GRID_CODE,"用户名或者密码错误!");
     }
 
-    public JB4DCSession getAppClientSession(String appClientToken) throws ServletException {
+    public JB4DCSession getAppClientSessionAndSaveToLocationServlet(String appClientToken) throws ServletException {
         try {
             if(gridCacheManager.exist(GridCacheManager.GRID_APP_CLIENT_LOGIN_STORE_CACHE_MANAGER,appClientToken)){
                String sessionJson= gridCacheManager.getString(GridCacheManager.GRID_APP_CLIENT_LOGIN_STORE_CACHE_MANAGER,appClientToken);
                 JB4DCSession jb4DCSession=JsonUtility.toObject(sessionJson,JB4DCSession.class);
                 JB4DCSessionUtility.addLocationLoginedJB4DCSession(jb4DCSession);
+                return jb4DCSession;
+            }
+        } catch (JBuild4DCGenerallyException | IOException e) {
+            e.printStackTrace();
+            throw new ServletException(e.getMessage());
+        }
+        return null;
+    }
+
+    public JB4DCSession getAppClientSession(String appClientToken) throws ServletException {
+        try {
+            if(gridCacheManager.exist(GridCacheManager.GRID_APP_CLIENT_LOGIN_STORE_CACHE_MANAGER,appClientToken)){
+                String sessionJson= gridCacheManager.getString(GridCacheManager.GRID_APP_CLIENT_LOGIN_STORE_CACHE_MANAGER,appClientToken);
+                JB4DCSession jb4DCSession=JsonUtility.toObject(sessionJson,JB4DCSession.class);
+                return jb4DCSession;
             }
         } catch (JBuild4DCGenerallyException | IOException e) {
             e.printStackTrace();

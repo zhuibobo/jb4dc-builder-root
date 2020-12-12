@@ -6,7 +6,8 @@ import "../Less/GridAppClient.less";
 import photoList from '../VueComponent/photo-list.vue'
 import VueConfirmDialog from '../VueComponent/vue-confirm-dialog/index'
 import appClientSessionUtility from "../Js/AppClientSessionUtility";
-const appClientUtility = require('../Js/AppClientUtility.js');
+////const appClientUtility = require('../Js/AppClientUtility.js');
+import appClientUtility from '../Js/AppClientUtility.js';
 Vue.use(Toasted);
 Vue.component('photoList',photoList);
 Vue.use(VueConfirmDialog)
@@ -34,6 +35,8 @@ const app=new Vue({
         window.setTimeout(()=> {
             this.$refs.photoListObj.loadPhotoFromServer();
         },1000);
+
+        appClientUtility.HidTopLoadBar();
     },
     methods: {
         gotoPage:function (url){

@@ -2,7 +2,7 @@
   <div class="gather-bhpe-data-main-root">
     <div class="tool-bar">
       <div class="tool-bar-back" @click="gotoPage('GatherIndexMainPage.html')"></div>
-      楼房人企采集
+      楼房人企采集[{{serverSession.userName}}]
     </div>
     <div class="build-root-wrap">
       <div class="title">建筑物</div>
@@ -68,7 +68,8 @@
 <script>
 import appClientSessionUtility from '../Js/AppClientSessionUtility.js';
 import axios from 'axios';
-const appClientUtility = require('../Js/AppClientUtility.js');
+////const appClientUtility = require('../Js/AppClientUtility.js');
+import appClientUtility from '../Js/AppClientUtility.js';
 
 
 export default {
@@ -76,6 +77,7 @@ export default {
   data:function () {
     return {
       session: null,
+      serverSession: {},
       selected:undefined,
       acInterface: {
         //Build
@@ -104,6 +106,18 @@ export default {
     console.log(appClientSessionUtility.GetSession());
     this.session=appClientSessionUtility.GetSession();
     this.loadBuildListFromServer(true);
+
+    appClientSessionUtility.GetSessionFromServerByTokenId(this.session.AppClientToken, (response)=>{
+      if(response.data.success){
+
+        this.serverSession=response.data.data;
+        this.gridInfo=response.data.exKVData.gridInfoEntity;
+        /*console.log(this.gridInfo);*/
+      }
+      else {
+        appClientUtility.DialogUtility.AlertText(this,response.data.message);
+      }
+    });
   },
   methods:{
     gotoPage:function (url){
@@ -245,13 +259,14 @@ export default {
         }
       }).then((response) => {
         console.log(response);
-        $("#loadDialogWrap").hide();
         if (response.data.success) {
           this.house.allHouse = response.data.data;
           this.house.filterHouses=this.house.allHouse.filter((item)=>{return true});
         }
       }).catch(function (error) {
         console.log(error);
+      }).then(()=>{
+        $("#loadDialogWrap").hide();
       })
     },
     filterHouseArray:function (){

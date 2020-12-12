@@ -1,4 +1,5 @@
-const appClientUtility = require('./AppClientUtility.js');
+import appClientUtility from './AppClientUtility.js';
+import axios from 'axios';
 
 const Session = {
     UserId: "",
@@ -20,8 +21,21 @@ function GetSession(){
     return Session;
 }
 
-module.exports = {
+function GetSessionFromServerByTokenId(tokenId,func){
+    axios.get("/GridSystem/Rest/Grid/User/UserInfo/GetSessionInfoByTokenId", {
+        params: {
+            tokenId: tokenId,
+            AppClientToken: tokenId,
+            ts:Date.now()
+        }
+    }).then((response) => {
+        func(response);
+    });
+}
+
+export default {
     BuildSession,
-    GetSession
+    GetSession,
+    GetSessionFromServerByTokenId
 }
 

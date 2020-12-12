@@ -575,7 +575,8 @@
 import appClientSessionUtility from '../Js/AppClientSessionUtility.js';
 import axios from 'axios';
 
-const appClientUtility = require('../Js/AppClientUtility.js');
+////const appClientUtility = require('../Js/AppClientUtility.js');
+import appClientUtility from '../Js/AppClientUtility.js';
 
 export default {
   name: "gatheer-house-inner-about-list",

@@ -57,6 +57,12 @@ function AutoBindInitDD(allDD){
     })
 }
 
+function HidTopLoadBar(){
+    window.setTimeout(function (){
+        topbar.hide();
+    },500);
+}
+
 var DevStatus= {
     IsDevUser: function (session) {
         if(session.UserId=="604ff9bc-d9ab-4686-a6af-3e8f2574e4b6"){
@@ -285,8 +291,12 @@ var JsonUtility = {
 }
 
 var StringUtility = {
-    FormatGoToUrl:function (url,session){
-        url+="?UserId="+session.UserId+"&UserName="+encodeURIComponent(session.UserName)+"&OrganId="+session.OrganId+"&OrganName="+encodeURIComponent(session.OrganName)+"&AppClientToken="+session.AppClientToken+"&ts="+Date.now()
+    FormatGoToUrl:function (url,session) {
+        if (url.indexOf("?") > 0) {
+            url += "&UserId=" + session.UserId + "&UserName=" + encodeURIComponent(session.UserName) + "&OrganId=" + session.OrganId + "&OrganName=" + encodeURIComponent(session.OrganName) + "&AppClientToken=" + session.AppClientToken + "&ts=" + Date.now()
+        } else {
+            url += "?UserId=" + session.UserId + "&UserName=" + encodeURIComponent(session.UserName) + "&OrganId=" + session.OrganId + "&OrganName=" + encodeURIComponent(session.OrganName) + "&AppClientToken=" + session.AppClientToken + "&ts=" + Date.now()
+        }
         return url;
     },
     NewH5AppRecordId:function (){
@@ -541,13 +551,14 @@ var DialogUtility={
     }
 }
 
-export {
+export default {
     GetUrlParaValue,
     ConvertDDListToMap,
     AutoBindInitDD,
     GetAllDDMap,
     SetGridInfo,
     GetGridInfo,
+    HidTopLoadBar,
     ArrayUtility,
     JsonUtility,
     StringUtility,

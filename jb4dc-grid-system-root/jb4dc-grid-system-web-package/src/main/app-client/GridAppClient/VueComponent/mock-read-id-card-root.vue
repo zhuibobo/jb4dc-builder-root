@@ -149,7 +149,8 @@
 <script>
 import axios from "axios";
 import appClientSessionUtility from "../Js/AppClientSessionUtility";
-const appClientUtility = require('../Js/AppClientUtility.js');
+////const appClientUtility = require('../Js/AppClientUtility.js');
+import appClientUtility from '../Js/AppClientUtility.js';
 
 /*window["appBridge"]={
   beginReadIdCardFromNFC:function (){

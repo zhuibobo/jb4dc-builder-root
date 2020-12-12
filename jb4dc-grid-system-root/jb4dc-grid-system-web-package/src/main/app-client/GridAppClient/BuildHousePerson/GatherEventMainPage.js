@@ -8,6 +8,7 @@ import photoList from '../VueComponent/photo-list.vue'
 import gatherEventMainRoot from '../VueComponent/gather-event-main-root.vue'
 import gatherEventDetailEdit from '../VueComponent/gather-event-detail-edit.vue'
 import VueConfirmDialog from '../VueComponent/vue-confirm-dialog/index'
+import appClientUtility from "../Js/AppClientUtility";
 
 
 Vue.use(Toasted)
@@ -23,6 +24,9 @@ const app=new Vue({
     template: '<div><gatherEventMainRoot></gatherEventMainRoot><vue-confirm-dialog></vue-confirm-dialog></div>',
     data: function() {
         return {}
+    },
+    mounted() {
+        appClientUtility.HidTopLoadBar();
     },
     methods: {}
 })

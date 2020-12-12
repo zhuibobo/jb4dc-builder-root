@@ -11,7 +11,8 @@ import gatherHouseDetailEdit from '../VueComponent/gather-house-detail-edit.vue'
 import gatherSPBuildDetailEdit from '../VueComponent/gather-sp-build-detail-edit.vue'
 import photoList from '../VueComponent/photo-list.vue'
 import VueConfirmDialog from '../VueComponent/vue-confirm-dialog/index'
-const appClientUtility = require('../Js/AppClientUtility.js');
+////const appClientUtility = require('../Js/AppClientUtility.js');
+import appClientUtility from '../Js/AppClientUtility.js';
 
 Vue.use(Toasted)
 Vue.component('gatherBHPEDataMainRoot', gatherBHPEDataMainRoot);
@@ -38,6 +39,7 @@ const app=new Vue({
         if(typeof(appBridge)!="undefined"){
             appBridge.beginReadIdCardFromNFC("writeIdCardReaderToEmptyToView");
         }
+        appClientUtility.HidTopLoadBar();
     },
     methods: {}
 })

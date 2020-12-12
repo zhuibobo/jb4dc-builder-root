@@ -2,6 +2,7 @@ package com.jb4dc.gridsystem.webpackage.rest.grid.build;
 
 import com.jb4dc.base.service.IBaseService;
 import com.jb4dc.base.service.general.JB4DCSessionUtility;
+import com.jb4dc.base.tools.JsonUtility;
 import com.jb4dc.builder.client.proxy.IDictionaryRuntimeProxy;
 import com.jb4dc.builder.dbentities.site.SiteFolderEntity;
 import com.jb4dc.builder.dbentities.systemsetting.DictionaryEntity;
@@ -17,6 +18,8 @@ import com.jb4dc.gridsystem.po.BuildInfoPO;
 import com.jb4dc.gridsystem.po.EnterpriseInfoPO;
 import com.jb4dc.gridsystem.service.build.IBuildInfoService;
 import com.jb4dc.gridsystem.service.gridinfo.IGridInfoService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -37,6 +40,9 @@ import java.util.Map;
 @RestController
 @RequestMapping(value = "/Rest/Grid/Build/BuildMain")
 public class BuildInfoRest extends GeneralRest<BuildInfoEntity> {
+
+    Logger logger= LoggerFactory.getLogger(BuildInfoRest.class);
+
     @Autowired
     IBuildInfoService buildInfoService;
 
@@ -56,7 +62,10 @@ public class BuildInfoRest extends GeneralRest<BuildInfoEntity> {
     @RequestMapping(value = "/GetMyBuildIncludeDD", method = RequestMethod.GET)
     public JBuild4DCResponseVo getMyBuildIncludeDD(String includeGrid) throws JBuild4DCGenerallyException, IOException {
         JB4DCSession jb4DCSession=JB4DCSessionUtility.getSession();
-        List<BuildInfoEntity> buildInfoEntityList=buildInfoService.getMyBuild(JB4DCSessionUtility.getSession(),jb4DCSession.getUserId(),jb4DCSession.getOrganId(),includeGrid);
+
+        logger.info(JsonUtility.toObjectString(jb4DCSession));
+
+        List<BuildInfoEntity> buildInfoEntityList=buildInfoService.getMyBuild(jb4DCSession,jb4DCSession.getUserId(),jb4DCSession.getOrganId(),includeGrid);
         List<DictionaryEntity> dictionaryEntities=dictionaryRuntimeProxy.getDictionaryByGroup3Level("f476d653-0606-4cb7-8189-4e5beee1bf11");
 
         GridInfoEntity gridInfoEntity=gridInfoService.getByPrimaryKey(jb4DCSession,jb4DCSession.getOrganId());

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="tool-bar">网格数据采集</div>
+    <div class="tool-bar">网格数据采集[{{serverSession.userName}}]</div>
     <div class="page-content-wrap" style="padding-top: 10px">
       <!--row1-->
       <div class="module-item-wrap" style="width: 50%">
@@ -39,13 +39,15 @@
 <script>
 import appClientSessionUtility from '../Js/AppClientSessionUtility.js';
 import axios from 'axios';
-const appClientUtility = require('../Js/AppClientUtility.js');
+////const appClientUtility = require('../Js/AppClientUtility.js');
+import appClientUtility from '../Js/AppClientUtility.js';
 
 export default {
   name: "gather-index-root",
   data:function (){
     return {
       session:null,
+      serverSession: {},
       isDevUser:false,
       serverName:"生产环境"
     }
@@ -56,6 +58,17 @@ export default {
     this.session=appClientSessionUtility.GetSession();
     this.isDevUser=appClientUtility.DevStatus.IsDevUser(this.session);
     this.serverName=appClientUtility.DevStatus.GetServerName();
+
+    appClientSessionUtility.GetSessionFromServerByTokenId(this.session.AppClientToken, (response)=>{
+      if(response.data.success){
+        this.serverSession=response.data.data;
+        this.gridInfo=response.data.exKVData.gridInfoEntity;
+        /*console.log(this.gridInfo);*/
+      }
+      else {
+        appClientUtility.DialogUtility.AlertText(this,response.data.message);
+      }
+    });
   },
   methods:{
 

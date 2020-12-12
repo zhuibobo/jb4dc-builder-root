@@ -51,6 +51,7 @@
     "mescroll.js": "^1.4.2",
     "popper.js": "^1.16.1",
     "swiper": "^6.4.1",
+    "topbar": "^0.1.4",
     "vue": "^2.6.12",
     "vue-confirm-dialog": "^1.0.2",
     "vue-router": "^3.4.9",

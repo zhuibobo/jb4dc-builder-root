@@ -1,12 +1,17 @@
 package com.jb4dc.gridsystem.webpackage.beanconfig.sys;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.jb4dc.base.service.general.JB4DCSessionUtility;
+import com.jb4dc.base.tools.JsonUtility;
 import com.jb4dc.core.base.exception.JBuild4DCBaseException;
 import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
 import com.jb4dc.core.base.session.JB4DCSession;
 import com.jb4dc.core.base.tools.StringUtility;
 import com.jb4dc.gridsystem.service.proxy.UserLocationProxy;
+import com.jb4dc.gridsystem.webpackage.rest.grid.build.BuildInfoRest;
 import com.jb4dc.sso.client.filter.ISSoWebFilterLocationPreCheck;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.FilterChain;
@@ -18,6 +23,8 @@ import javax.servlet.http.HttpServletRequest;
 @Service
 public class AppClientWebFilterLocationPreCheck implements ISSoWebFilterLocationPreCheck {
 
+    Logger logger= LoggerFactory.getLogger(AppClientWebFilterLocationPreCheck.class);
+
     static UserLocationProxy userLocationProxy;
     public AppClientWebFilterLocationPreCheck(UserLocationProxy _userLocationProxy) {
         userLocationProxy=_userLocationProxy;
@@ -27,20 +34,25 @@ public class AppClientWebFilterLocationPreCheck implements ISSoWebFilterLocation
     public JB4DCSession preCheckSession(String absPath, ServletRequest request, ServletResponse response, FilterChain chain) throws ServletException {
         //return null;
         HttpServletRequest httpRequest = (HttpServletRequest) request;
-        JB4DCSession jb4DSession= JB4DCSessionUtility.getSessionNotException();
-        if(jb4DSession==null){
-            String appClientToken=httpRequest.getHeader("AppClientToken");
-            if(StringUtility.isEmpty(appClientToken)){
-                appClientToken=httpRequest.getParameter("AppClientToken");
-            }
-            if(StringUtility.isNotEmpty(appClientToken)){
-                JB4DCSession jb4DCSession=userLocationProxy.getAppClientSession(appClientToken);
-                if(jb4DCSession!=null){
-                    return jb4DCSession;
-                }
-            }
-            //String appClientToken=request.
+
+
+        String appClientToken=httpRequest.getHeader("AppClientToken");
+        if(StringUtility.isEmpty(appClientToken)){
+            appClientToken=httpRequest.getParameter("AppClientToken");
         }
+        if(StringUtility.isNotEmpty(appClientToken)){
+            JB4DCSession jb4DCSession=userLocationProxy.getAppClientSessionAndSaveToLocationServlet(appClientToken);
+
+            if(jb4DCSession!=null){
+                try {
+                    logger.info("--通过AppClientToken重新构建Session--"+JsonUtility.toObjectString(jb4DCSession));
+                } catch (JsonProcessingException e) {
+                    e.printStackTrace();
+                }
+                return jb4DCSession;
+            }
+        }
+
         return null;
     }
 
