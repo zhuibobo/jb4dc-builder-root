@@ -9,6 +9,7 @@ import com.jb4dc.gridsystem.dbentities.build.BuildInfoEntity;
 import com.jb4dc.gridsystem.dbentities.build.HouseInfoEntity;
 import com.jb4dc.gridsystem.dbentities.person.PersonEntity;
 import com.jb4dc.gridsystem.po.FamilyPO;
+import com.jb4dc.gridsystem.po.PersonPO;
 import com.jb4dc.gridsystem.service.build.IBuildInfoService;
 import com.jb4dc.gridsystem.service.person.IPersonService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,9 +60,9 @@ public class PersonInfoRest extends GeneralRest<PersonEntity> {
     }
 
     @RequestMapping(value = "/SaveSinglePersonData", method = RequestMethod.POST)
-    public JBuild4DCResponseVo<PersonEntity> saveSinglePersonData(@RequestBody PersonEntity personEntity) throws JBuild4DCGenerallyException {
+    public JBuild4DCResponseVo<PersonPO> saveSinglePersonData(@RequestBody PersonPO personPO) throws JBuild4DCGenerallyException {
         //JB4DCSession jb4DCSession= JB4DCSessionUtility.getSession();
-        personService.saveSimple(JB4DCSessionUtility.getSession(),personEntity.getPersonId(),personEntity);
-        return JBuild4DCResponseVo.opSuccess(personEntity);
+        personService.saveSimple(JB4DCSessionUtility.getSession(),personPO.getPersonId(),personPO);
+        return JBuild4DCResponseVo.opSuccess(personPO);
     }
 }

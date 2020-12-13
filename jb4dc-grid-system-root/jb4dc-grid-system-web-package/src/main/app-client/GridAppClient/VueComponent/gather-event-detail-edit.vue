@@ -14,164 +14,381 @@
           <div class="modal-body" style="height: 570px;overflow-x:hidden;overflow-y: auto;position: relative">
             <ul class="nav nav-tabs" id="myTab" role="tablist">
               <li class="nav-item">
-                <a class="nav-link active" id="event-info-tab" data-toggle="tab" href="#event-info-tab-wrap" role="tab"
+                <a class="nav-link nav-link-min active" id="event-info-tab" data-toggle="tab" href="#event-info-tab-wrap" role="tab"
                    aria-controls="profile" aria-selected="true">事件</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" id="event-def-tab" data-toggle="tab" href="#event-def-tab-wrap" role="tab"
-                   aria-controls="home" aria-selected="false">默认</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" id="event-person-tab" data-toggle="tab" href="#event-person-tab-wrap" role="tab"
+                <a class="nav-link nav-link-min" id="event-person-tab" data-toggle="tab" href="#event-person-tab-wrap" role="tab"
                    aria-controls="home" aria-selected="false">人员</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" id="event-photo-tab" data-toggle="tab" href="#event-photo-tab-wrap" role="tab"
+                <a class="nav-link nav-link-min" id="event-photo-tab" data-toggle="tab" href="#event-photo-tab-wrap" role="tab"
                    aria-controls="home" aria-selected="false">照片</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link nav-link-min" id="event-map-tab" data-toggle="tab" href="#event-map-tab-wrap" role="tab"
+                   aria-controls="home" aria-selected="false">位置</a>
               </li>
             </ul>
             <div class="tab-content">
               <div class="tab-pane fade show active" id="event-info-tab-wrap" role="tabpanel" aria-labelledby="event-info-tab">
-                <form style="margin-top: 10px">
-                  <div class="form-group row form-group-min">
-                    <label class="col-3 col-form-label text-right col-form-label-sm form-label-min"><span style="color: red">*</span>事件编号</label>
-                    <div class="col-9">
-                      <input type="text" class="form-control form-control-sm input-color"
-                             v-model="event.editEventData.eventCode">
-                    </div>
-                  </div>
-                  <div class="form-group row form-group-min">
-                    <label class="col-3 col-form-label text-right col-form-label-sm form-label-min"><span style="color: red">*</span>诉求问题</label>
-                    <div class="col-9">
-                      <textarea rows="6" class="form-control form-control-sm input-color"
-                                v-model="event.editEventData.eventAppealQuestion" placeholder="诉求问题(要求)"></textarea>
-                    </div>
-                  </div>
-                  <div class="form-group row form-group-min">
-                    <label class="col-3 col-form-label text-right col-form-label-sm form-label-min"><span style="color: red">*</span>事件来源</label>
-                    <div class="col-9">
-                      <select class="form-control form-control-sm" v-model="event.editEventData.eventSource">
-                        <option  value="">请选择</option>
-                        <option  v-for="(ddItem, index) in ddg_EventSource" :value="ddItem.dictValue">{{ddItem.dictText}}</option>
-                      </select>
-                    </div>
-                  </div>
-                  <div class="form-group row form-group-min">
-                    <label class="col-3 col-form-label text-right col-form-label-sm form-label-min"><span style="color: red">*</span>事件类型1</label>
-                    <div class="col-9">
-                      <select class="form-control form-control-sm" v-model="event.editEventData.eventType1">
-                        <option  value="">请选择</option>
-                        <option  v-for="(ddItem, index) in ddg_EventType1" :value="ddItem.dictValue">{{ddItem.dictText}}</option>
-                      </select>
-                    </div>
-                  </div>
-                  <div class="form-group row form-group-min">
-                    <label class="col-3 col-form-label text-right col-form-label-sm form-label-min">类型备注</label>
-                    <div class="col-9">
-                      <input type="text" class="form-control form-control-sm input-color"
-                             v-model="event.editEventData.eventType1ExText">
-                    </div>
-                  </div>
-                  <div class="form-group row form-group-min">
-                    <label class="col-3 col-form-label text-right col-form-label-sm form-label-min">事件类型2</label>
-                    <div class="col-9">
-                      <select class="form-control form-control-sm" v-model="event.editEventData.eventType2">
-                        <option  value="">请选择</option>
-                      </select>
-                    </div>
-                  </div>
-                  <div class="form-group row form-group-min">
-                    <label class="col-3 col-form-label text-right col-form-label-sm form-label-min"><span style="color: red">*</span>事件级别</label>
-                    <div class="col-9">
-                      <select class="form-control form-control-sm" v-model="event.editEventData.eventLevel">
-                        <option  v-for="(ddItem, index) in ddg_EventLevel" :value="ddItem.dictValue">{{ddItem.dictText}}</option>
-                      </select>
-                    </div>
-                  </div>
-                  <div class="form-group row form-group-min">
-                    <label class="col-3 col-form-label text-right col-form-label-sm form-label-min"><span style="color: red">*</span>严重程度</label>
-                    <div class="col-9">
-                      <div class="form-check form-check-inline" v-for="(ddItem, index) in ddg_EventSeverity">
-                        <input class="form-check-input" type="radio" name="ddg_EventSeverity" :id="'ddg_EventSeverity'+index" :value="ddItem.dictValue" v-model="event.editEventData.eventSeverity">
-                        <label class="form-check-label" :for="'ddg_EventSeverity'+index">{{ddItem.dictText}}</label>
+                <div class="event-form-height">
+                  <form style="margin-top: 10px">
+                    <div class="form-group row form-group-min">
+                      <label class="col-3 col-form-label text-right col-form-label-sm form-label-min"><span style="color: red">*</span>事件编号</label>
+                      <div class="col-9">
+                        <input type="text" class="form-control form-control-sm input-color"
+                               v-model="event.editEventData.eventCode">
                       </div>
                     </div>
-                  </div>
-                  <div class="form-group row form-group-min">
-                    <label class="col-3 col-form-label text-right col-form-label-sm form-label-min"><span style="color: red">*</span>诉求目的</label>
-                    <div class="col-9">
-                      <select class="form-control form-control-sm" v-model="event.editEventData.eventAppealPurpose">
-                        <option  v-for="(ddItem, index) in ddg_EventAppealPurpose" :value="ddItem.dictValue">{{ddItem.dictText}}</option>
-                      </select>
-                    </div>
-                  </div>
-                  <div class="form-group row form-group-min">
-                    <label class="col-3 col-form-label text-right col-form-label-sm form-label-min">诉求人数</label>
-                    <div class="col-9">
-                      <input type="number" class="form-control form-control-sm input-color"
-                             v-model="event.editEventData.eventAppealPersonNum">
-                    </div>
-                  </div>
-                  <div class="form-group row form-group-min">
-                    <label class="col-3 col-form-label text-right col-form-label-sm form-label-min">发生地点</label>
-                    <div class="col-9">
-                      <input type="number" class="form-control form-control-sm input-color"
-                             v-model="event.editEventData.eventAddress">
-                    </div>
-                  </div>
-                  <div class="form-group row form-group-min">
-                    <label class="col-3 col-form-label text-right col-form-label-sm form-label-min">涉及人数</label>
-                    <div class="col-9">
-                      <input type="number" class="form-control form-control-sm input-color"
-                             v-model="event.editEventData.eventAboutPersonNum">
-                    </div>
-                  </div>
-                  <div class="form-group row form-group-min">
-                    <label class="col-3 col-form-label text-right col-form-label-sm form-label-min"><span style="color: red">*</span>是否信访件</label>
-                    <div class="col-9">
-                      <div class="form-check form-check-inline" v-for="(ddItem, index) in ddg_GeneralNoYes">
-                        <input class="form-check-input" type="radio" name="ddg_EventIsPetition" :id="'ddg_EventIsPetition'+index" :value="ddItem.dictValue" v-model="event.editEventData.eventIsPetition">
-                        <label class="form-check-label" :for="'ddg_EventIsPetition'+index">{{ddItem.dictText}}</label>
+                    <div class="form-group row form-group-min">
+                      <label class="col-3 col-form-label text-right col-form-label-sm form-label-min"><span style="color: red">*</span>诉求问题</label>
+                      <div class="col-9">
+                        <textarea rows="6" class="form-control form-control-sm input-color"
+                                  v-model="event.editEventData.eventAppealQuestion" placeholder="诉求问题(要求)"></textarea>
                       </div>
                     </div>
-                  </div>
-                  <div class="form-group row form-group-min">
-                    <label class="col-3 col-form-label text-right col-form-label-sm form-label-min"><span style="color: red">*</span>出租屋事件</label>
-                    <div class="col-9">
-                      <div class="form-check form-check-inline" v-for="(ddItem, index) in ddg_GeneralNoYes">
-                        <input class="form-check-input" type="radio" name="ddg_EventIsRentalHousing" :id="'ddg_EventIsRentalHousing'+index" :value="ddItem.dictValue" v-model="event.editEventData.eventIsRentalHousing">
-                        <label class="form-check-label" :for="'ddg_EventIsRentalHousing'+index">{{ddItem.dictText}}</label>
+                    <div class="form-group row form-group-min">
+                      <label class="col-3 col-form-label text-right col-form-label-sm form-label-min">受理次数</label>
+                      <div class="col-9">
+                        <input type="text" class="form-control form-control-sm input-color"
+                               v-model="event.editEventData.eventAcceptTimes">
                       </div>
                     </div>
-                  </div>
-                  <div class="form-group row form-group-min">
-                    <label class="col-3 col-form-label text-right col-form-label-sm form-label-min"><span style="color: red">*</span>群体性事件</label>
-                    <div class="col-9">
-                      <div class="form-check form-check-inline" v-for="(ddItem, index) in ddg_GeneralNoYes">
-                        <input class="form-check-input" type="radio" name="ddg_EventIsGroup" :id="'ddg_EventIsGroup'+index" :value="ddItem.dictValue" v-model="event.editEventData.eventIsGroup">
-                        <label class="form-check-label" :for="'ddg_EventIsGroup'+index">{{ddItem.dictText}}</label>
+                    <div class="form-group row form-group-min">
+                      <label class="col-3 col-form-label text-right col-form-label-sm form-label-min"><span style="color: red">*</span>事件来源</label>
+                      <div class="col-9">
+                        <select class="form-control form-control-sm" v-model="event.editEventData.eventSource">
+                          <option  value="">请选择</option>
+                          <option  v-for="(ddItem, index) in ddg_EventSource" :value="ddItem.dictValue">{{ddItem.dictText}}</option>
+                        </select>
                       </div>
                     </div>
-                  </div>
-                  <div class="form-group row form-group-min">
-                    <label class="col-3 col-form-label text-right col-form-label-sm form-label-min"><span style="color: red">*</span>群体性事件</label>
-                    <div class="col-9">
-                      <div class="form-check form-check-inline" v-for="(ddItem, index) in ddg_GeneralNoYes">
-                        <input class="form-check-input" type="radio" name="ddg_EventIsEmergency" :id="'ddg_EventIsEmergency'+index" :value="ddItem.dictValue" v-model="event.editEventData.eventIsEmergency">
-                        <label class="form-check-label" :for="'ddg_EventIsEmergency'+index">{{ddItem.dictText}}</label>
+                    <div class="form-group row form-group-min">
+                      <label class="col-3 col-form-label text-right col-form-label-sm form-label-min"><span style="color: red">*</span>事件类型1</label>
+                      <div class="col-9">
+                        <select class="form-control form-control-sm" v-model="event.editEventData.eventType1" @change="eventType1Change">
+                          <option  value="">请选择</option>
+                          <option  v-for="(ddItem, index) in ddg_EventType1" :value="ddItem.dictValue">{{ddItem.dictText}}</option>
+                        </select>
                       </div>
                     </div>
-                  </div>
-                </form>
-              </div>
-              <div class="tab-pane fade" id="event-def-tab-wrap" role="tabpanel" aria-labelledby="event-def-tab">
-
+                    <div class="form-group row form-group-min">
+                      <label class="col-3 col-form-label text-right col-form-label-sm form-label-min">类型备注</label>
+                      <div class="col-9">
+                        <input type="text" class="form-control form-control-sm input-color"
+                               v-model="event.editEventData.eventType1ExText">
+                      </div>
+                    </div>
+                    <div class="form-group row form-group-min">
+                      <label class="col-3 col-form-label text-right col-form-label-sm form-label-min">事件类型2</label>
+                      <div class="col-9">
+                        <select class="form-control form-control-sm" v-model="event.editEventData.eventType2">
+                          <option  value="">请选择</option>
+                          <option  v-for="(ddItem, index) in ddg_EventType2" :value="ddItem.dictValue">{{ddItem.dictText}}</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="form-group row form-group-min">
+                      <label class="col-3 col-form-label text-right col-form-label-sm form-label-min"><span style="color: red">*</span>事件级别</label>
+                      <div class="col-9">
+                        <select class="form-control form-control-sm" v-model="event.editEventData.eventLevel">
+                          <option  v-for="(ddItem, index) in ddg_EventLevel" :value="ddItem.dictValue">{{ddItem.dictText}}</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="form-group row form-group-min">
+                      <label class="col-3 col-form-label text-right col-form-label-sm form-label-min"><span style="color: red">*</span>严重程度</label>
+                      <div class="col-9">
+                        <div class="form-check form-check-inline" v-for="(ddItem, index) in ddg_EventSeverity">
+                          <input class="form-check-input" type="radio" name="ddg_EventSeverity" :id="'ddg_EventSeverity'+index" :value="ddItem.dictValue" v-model="event.editEventData.eventSeverity">
+                          <label class="form-check-label" :for="'ddg_EventSeverity'+index">{{ddItem.dictText}}</label>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-group row form-group-min">
+                      <label class="col-3 col-form-label text-right col-form-label-sm form-label-min"><span style="color: red">*</span>诉求目的</label>
+                      <div class="col-9">
+                        <select class="form-control form-control-sm" v-model="event.editEventData.eventAppealPurpose">
+                          <option  v-for="(ddItem, index) in ddg_EventAppealPurpose" :value="ddItem.dictValue">{{ddItem.dictText}}</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="form-group row form-group-min">
+                      <label class="col-3 col-form-label text-right col-form-label-sm form-label-min">诉求人数</label>
+                      <div class="col-9">
+                        <input type="number" class="form-control form-control-sm input-color"
+                               v-model="event.editEventData.eventAppealPersonNum">
+                      </div>
+                    </div>
+                    <div class="form-group row form-group-min">
+                      <label class="col-3 col-form-label text-right col-form-label-sm form-label-min"><span style="color: red">*</span>发生地点</label>
+                      <div class="col-9">
+                        <input type="number" class="form-control form-control-sm input-color"
+                               v-model="event.editEventData.eventAddress">
+                      </div>
+                    </div>
+                    <div class="form-group row form-group-min">
+                      <label class="col-3 col-form-label text-right col-form-label-sm form-label-min">涉及人数</label>
+                      <div class="col-9">
+                        <input type="number" class="form-control form-control-sm input-color"
+                               v-model="event.editEventData.eventAboutPersonNum">
+                      </div>
+                    </div>
+                    <div class="form-group row form-group-min">
+                      <label class="col-3 col-form-label text-right col-form-label-sm form-label-min"><span style="color: red">*</span>是否信访件</label>
+                      <div class="col-9">
+                        <div class="form-check form-check-inline" v-for="(ddItem, index) in ddg_GeneralNoYes">
+                          <input class="form-check-input" type="radio" name="ddg_EventIsPetition" :id="'ddg_EventIsPetition'+index" :value="ddItem.dictValue" v-model="event.editEventData.eventIsPetition">
+                          <label class="form-check-label" :for="'ddg_EventIsPetition'+index">{{ddItem.dictText}}</label>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-group row form-group-min">
+                      <label class="col-3 col-form-label text-right col-form-label-sm form-label-min"><span style="color: red">*</span>出租屋事件</label>
+                      <div class="col-9">
+                        <div class="form-check form-check-inline" v-for="(ddItem, index) in ddg_GeneralNoYes">
+                          <input class="form-check-input" type="radio" name="ddg_EventIsRentalHousing" :id="'ddg_EventIsRentalHousing'+index" :value="ddItem.dictValue" v-model="event.editEventData.eventIsRentalHousing">
+                          <label class="form-check-label" :for="'ddg_EventIsRentalHousing'+index">{{ddItem.dictText}}</label>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-group row form-group-min">
+                      <label class="col-3 col-form-label text-right col-form-label-sm form-label-min"><span style="color: red">*</span>群体性事件</label>
+                      <div class="col-9">
+                        <div class="form-check form-check-inline" v-for="(ddItem, index) in ddg_GeneralNoYes">
+                          <input class="form-check-input" type="radio" name="ddg_EventIsGroup" :id="'ddg_EventIsGroup'+index" :value="ddItem.dictValue" v-model="event.editEventData.eventIsGroup">
+                          <label class="form-check-label" :for="'ddg_EventIsGroup'+index">{{ddItem.dictText}}</label>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-group row form-group-min">
+                      <label class="col-3 col-form-label text-right col-form-label-sm form-label-min"><span style="color: red">*</span>群体性事件</label>
+                      <div class="col-9">
+                        <div class="form-check form-check-inline" v-for="(ddItem, index) in ddg_GeneralNoYes">
+                          <input class="form-check-input" type="radio" name="ddg_EventIsEmergency" :id="'ddg_EventIsEmergency'+index" :value="ddItem.dictValue" v-model="event.editEventData.eventIsEmergency">
+                          <label class="form-check-label" :for="'ddg_EventIsEmergency'+index">{{ddItem.dictText}}</label>
+                        </div>
+                      </div>
+                    </div>
+                  </form>
+                </div>
               </div>
               <div class="tab-pane fade" id="event-person-tab-wrap" role="tabpanel" aria-labelledby="event-person-tab">
-
+                <div class="event-form-height">
+                  <form style="margin-top: 10px">
+                    <div class="form-group row form-group-min event-form-group-caption">
+                      <label class="col-12 col-form-label col-form-label-sm form-label-min">主要诉求人</label>
+                    </div>
+                    <div class="form-group row form-group-min">
+                      <label class="col-3 col-form-label text-right col-form-label-sm form-label-min">姓名</label>
+                      <div class="col-9">
+                        <input type="text" class="form-control form-control-sm input-color"
+                               v-model="event.editEventData.eventMainAppealerName">
+                      </div>
+                    </div>
+                    <div class="form-group row form-group-min">
+                      <label class="col-3 col-form-label text-right col-form-label-sm form-label-min">性别</label>
+                      <div class="col-9">
+                        <div class="form-check form-check-inline" v-for="(ddItem, index) in ddg_GeneralSex">
+                          <input class="form-check-input" type="radio" name="ddg_EventMainAppealerSex" :id="'ddg_EventMainAppealerSex'+index" :value="ddItem.dictValue" v-model="event.editEventData.eventMainAppealerSex">
+                          <label class="form-check-label" :for="'ddg_EventMainAppealerSex'+index">{{ddItem.dictText}}</label>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-group row form-group-min">
+                      <label class="col-3 col-form-label text-right col-form-label-sm form-label-min">出生日期</label>
+                      <div class="col-9">
+                        <input type="date" class="form-control form-control-sm input-color"
+                               v-model="event.editEventData.eventMainAppealerBirthday">
+                      </div>
+                    </div>
+                    <div class="form-group row form-group-min">
+                      <label class="col-3 col-form-label text-right col-form-label-sm form-label-min">身份证号</label>
+                      <div class="col-9">
+                        <input type="text" class="form-control form-control-sm input-color"
+                               v-model="event.editEventData.eventMainAppealerIdCard">
+                      </div>
+                    </div>
+                    <div class="form-group row form-group-min">
+                      <label class="col-3 col-form-label text-right col-form-label-sm form-label-min">联系电话</label>
+                      <div class="col-9">
+                        <input type="text" class="form-control form-control-sm input-color"
+                               v-model="event.editEventData.eventMainAppealerPhone">
+                      </div>
+                    </div>
+                    <div class="form-group row form-group-min">
+                      <label class="col-3 col-form-label text-right col-form-label-sm form-label-min">单位或地址</label>
+                      <div class="col-9">
+                        <input type="text" class="form-control form-control-sm input-color"
+                               v-model="event.editEventData.eventMainAppealerAddress">
+                      </div>
+                    </div>
+                    <div class="form-group row form-group-min" style="display: flex;justify-content:flex-end;padding-right: 10px;margin-bottom: 20px">
+                      <button type="button" class="btn btn-success btn-sm">读取主要诉求人身份证</button>
+                    </div>
+                    <div class="form-group row form-group-min event-form-group-caption">
+                      <label class="col-12 col-form-label col-form-label-sm form-label-min">共同诉求人</label>
+                    </div>
+                    <div class="form-group row form-group-min">
+                      <label class="col-3 col-form-label text-right col-form-label-sm form-label-min">姓名</label>
+                      <div class="col-9">
+                        <input type="text" class="form-control form-control-sm input-color"
+                               v-model="event.editEventData.eventFellowAppealerName">
+                      </div>
+                    </div>
+                    <div class="form-group row form-group-min">
+                      <label class="col-3 col-form-label text-right col-form-label-sm form-label-min">性别</label>
+                      <div class="col-9">
+                        <div class="form-check form-check-inline" v-for="(ddItem, index) in ddg_GeneralSex">
+                          <input class="form-check-input" type="radio" name="ddg_EventFellowAppealerSex" :id="'ddg_EventFellowAppealerSex'+index" :value="ddItem.dictValue" v-model="event.editEventData.eventFellowAppealerSex">
+                          <label class="form-check-label" :for="'ddg_EventFellowAppealerSex'+index">{{ddItem.dictText}}</label>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-group row form-group-min">
+                      <label class="col-3 col-form-label text-right col-form-label-sm form-label-min">出生日期</label>
+                      <div class="col-9">
+                        <input type="date" class="form-control form-control-sm input-color"
+                               v-model="event.editEventData.eventFellowAppealerBirthday">
+                      </div>
+                    </div>
+                    <div class="form-group row form-group-min">
+                      <label class="col-3 col-form-label text-right col-form-label-sm form-label-min">身份证号</label>
+                      <div class="col-9">
+                        <input type="text" class="form-control form-control-sm input-color"
+                               v-model="event.editEventData.eventFellowAppealerIdCard">
+                      </div>
+                    </div>
+                    <div class="form-group row form-group-min">
+                      <label class="col-3 col-form-label text-right col-form-label-sm form-label-min">联系电话</label>
+                      <div class="col-9">
+                        <input type="text" class="form-control form-control-sm input-color"
+                               v-model="event.editEventData.eventFellowAppealerPhone">
+                      </div>
+                    </div>
+                    <div class="form-group row form-group-min">
+                      <label class="col-3 col-form-label text-right col-form-label-sm form-label-min">单位或地址</label>
+                      <div class="col-9">
+                        <input type="text" class="form-control form-control-sm input-color"
+                               v-model="event.editEventData.eventFellowAppealerAddress">
+                      </div>
+                    </div>
+                    <div class="form-group row form-group-min" style="display: flex;justify-content:flex-end;padding-right: 10px;margin-bottom: 20px">
+                      <button type="button" class="btn btn-success btn-sm">读取共同诉求人身份证</button>
+                    </div>
+                    <div class="form-group row form-group-min event-form-group-caption">
+                      <label class="col-12 col-form-label col-form-label-sm form-label-min">被反映人</label>
+                    </div>
+                    <div class="form-group row form-group-min">
+                      <label class="col-3 col-form-label text-right col-form-label-sm form-label-min">姓名</label>
+                      <div class="col-9">
+                        <input type="text" class="form-control form-control-sm input-color"
+                               v-model="event.editEventData.eventDefePerName">
+                      </div>
+                    </div>
+                    <div class="form-group row form-group-min">
+                      <label class="col-3 col-form-label text-right col-form-label-sm form-label-min">性别</label>
+                      <div class="col-9">
+                        <div class="form-check form-check-inline" v-for="(ddItem, index) in ddg_GeneralSex">
+                          <input class="form-check-input" type="radio" name="ddg_EventDefePerSex" :id="'ddg_EventDefePerSex'+index" :value="ddItem.dictValue" v-model="event.editEventData.eventDefePerSex">
+                          <label class="form-check-label" :for="'ddg_EventDefePerSex'+index">{{ddItem.dictText}}</label>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-group row form-group-min">
+                      <label class="col-3 col-form-label text-right col-form-label-sm form-label-min">出生日期</label>
+                      <div class="col-9">
+                        <input type="date" class="form-control form-control-sm input-color"
+                               v-model="event.editEventData.eventDefePerBirthday">
+                      </div>
+                    </div>
+                    <div class="form-group row form-group-min">
+                      <label class="col-3 col-form-label text-right col-form-label-sm form-label-min">身份证号</label>
+                      <div class="col-9">
+                        <input type="text" class="form-control form-control-sm input-color"
+                               v-model="event.editEventData.eventDefePerIdCard">
+                      </div>
+                    </div>
+                    <div class="form-group row form-group-min">
+                      <label class="col-3 col-form-label text-right col-form-label-sm form-label-min">联系电话</label>
+                      <div class="col-9">
+                        <input type="text" class="form-control form-control-sm input-color"
+                               v-model="event.editEventData.eventDefePerPhone">
+                      </div>
+                    </div>
+                    <div class="form-group row form-group-min">
+                      <label class="col-3 col-form-label text-right col-form-label-sm form-label-min">单位或地址</label>
+                      <div class="col-9">
+                        <input type="text" class="form-control form-control-sm input-color"
+                               v-model="event.editEventData.eventDefePerAddress">
+                      </div>
+                    </div>
+                    <div class="form-group row form-group-min" style="display: flex;justify-content:flex-end;padding-right: 10px;margin-bottom: 20px">
+                      <button type="button" class="btn btn-success btn-sm">读取被反映人身份证</button>
+                    </div>
+                    <div class="form-group row form-group-min event-form-group-caption">
+                      <label class="col-12 col-form-label col-form-label-sm form-label-min">被反映单位</label>
+                    </div>
+                    <div class="form-group row form-group-min">
+                      <label class="col-4 col-form-label text-right col-form-label-sm form-label-min">单位名称</label>
+                      <div class="col-8">
+                        <input type="text" class="form-control form-control-sm input-color"
+                               v-model="event.editEventData.eventDefeUnitName">
+                      </div>
+                    </div>
+                    <div class="form-group row form-group-min">
+                      <label class="col-4 col-form-label text-right col-form-label-sm form-label-min">经营性质</label>
+                      <div class="col-8">
+                        <input type="text" class="form-control form-control-sm input-color"
+                               v-model="event.editEventData.eventDefeUnitBusinessType">
+                      </div>
+                    </div>
+                    <div class="form-group row form-group-min">
+                      <label class="col-4 col-form-label text-right col-form-label-sm form-label-min">成立时间</label>
+                      <div class="col-8">
+                        <input type="date" class="form-control form-control-sm input-color"
+                               v-model="event.editEventData.eventDefeUnitCreateDate">
+                      </div>
+                    </div>
+                    <div class="form-group row form-group-min">
+                      <label class="col-4 col-form-label text-right col-form-label-sm form-label-min">组织机构代码</label>
+                      <div class="col-8">
+                        <input type="text" class="form-control form-control-sm input-color"
+                               v-model="event.editEventData.eventDefeUnitOrganCode">
+                      </div>
+                    </div>
+                    <div class="form-group row form-group-min">
+                      <label class="col-4 col-form-label text-right col-form-label-sm form-label-min">营业执照号</label>
+                      <div class="col-8">
+                        <input type="text" class="form-control form-control-sm input-color"
+                               v-model="event.editEventData.eventDefeUnitBusinessNum">
+                      </div>
+                    </div>
+                    <div class="form-group row form-group-min">
+                      <label class="col-4 col-form-label text-right col-form-label-sm form-label-min">地址</label>
+                      <div class="col-8">
+                        <input type="text" class="form-control form-control-sm input-color"
+                               v-model="event.editEventData.eventDefeUnitAddress">
+                      </div>
+                    </div>
+                    <div class="form-group row form-group-min">
+                      <label class="col-4 col-form-label text-right col-form-label-sm form-label-min">联系电话</label>
+                      <div class="col-8">
+                        <input type="text" class="form-control form-control-sm input-color"
+                               v-model="event.editEventData.eventDefeUnitPhone">
+                      </div>
+                    </div>
+                  </form>
+                </div>
               </div>
               <div class="tab-pane fade" id="event-photo-tab-wrap" role="tabpanel" aria-labelledby="event-photo-tab">
 
+              </div>
+              <div class="tab-pane fade" id="event-map-tab-wrap" role="tabpanel" aria-labelledby="event-map-tab">
+                <div class="event-form-height" style="padding:0px">
+                  <baiduMapLocation></baiduMapLocation>
+                </div>
               </div>
             </div>
           </div>
@@ -274,7 +491,9 @@ export default {
       ddg_EventLevel:[],
       ddg_EventSeverity:[],
       ddg_EventAppealPurpose:[],
-      ddg_GeneralNoYes:[]
+      ddg_GeneralNoYes:[],
+      ddg_EventType2:[],
+      ddg_GeneralSex:[]
     }
   },
   props: ["session"],
@@ -291,6 +510,18 @@ export default {
       this.ddg_GeneralNoYes=appClientUtility.GetAllDDMap()["77e5497e-fade-4723-b75d-232943f488a1"];
 
     },
+    eventType1Change:function (){
+      if(this.event.editEventData.eventType1=="矛盾纠纷"){
+        this.ddg_EventType2=appClientUtility.GetAllDDMap()["409a1bbf-9c53-4ec9-8d77-8f5df6b2e8fa"];
+      }
+      else if(this.event.editEventData.eventType1=="问题隐患"){
+        this.ddg_EventType2=appClientUtility.GetAllDDMap()["7e36a208-2927-4ad0-892b-0403c6e1b3d8"];
+      }
+      else{
+        this.ddg_EventType2=[];
+      }
+      this.event.editEventData.eventType2="";
+    },
     newEvent:function () {
       //debugger;
       $("#eventEditModal").modal('show');
@@ -302,6 +533,21 @@ export default {
 }
 </script>
 
-<style scoped>
+<style scoped lang="less">
+  @import "../Less/Variable.less";
 
+  .event-form-group-caption{
+    border-bottom: #EAEDED 1px solid;
+    background-image: url("../Images/icons8-list-24.png");
+    background-repeat: no-repeat;
+    padding-left: 20px;
+    background-position:left center;
+  }
+
+  .event-form-height{
+    height: 487px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding:10px
+  }
 </style>

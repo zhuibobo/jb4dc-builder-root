@@ -206,7 +206,7 @@
                         <label class="col-3 col-form-label text-right col-form-label-sm form-label-min">电梯</label>
                         <div class="col-9">
                           <div class="form-check form-check-inline" v-for="(ddItem, index) in ddg_BuildIsElevator">
-                            <input class="form-check-input" type="radio" name="ddg_BuildIsVideoMonitoring" :id="'ddg_BuildIsElevator'+index" :value="ddItem.dictValue" v-model="build.editBuildData.buildIsElevator">
+                            <input class="form-check-input" type="radio" name="ddg_BuildIsElevator" :id="'ddg_BuildIsElevator'+index" :value="ddItem.dictValue" v-model="build.editBuildData.buildIsElevator">
                             <label class="form-check-label" :for="'ddg_BuildIsElevator'+index">{{ddItem.dictText}}</label>
                           </div>
                         </div>

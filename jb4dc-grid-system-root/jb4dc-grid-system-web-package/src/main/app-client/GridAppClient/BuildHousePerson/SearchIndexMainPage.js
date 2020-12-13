@@ -5,11 +5,13 @@ import Toasted from 'vue-toasted';
 import "../Less/GridAppClient.less";
 import appClientUtility from "../Js/AppClientUtility";
 
+import searchIndexMainRoot from '../VueComponent/search-index-main-root.vue'
 Vue.use(Toasted)
+Vue.component('searchIndexMainRoot',searchIndexMainRoot);
 
 const app=new Vue({
     el: '#mainApp',
-    template: '<div>查询.....</div>',
+    template: '<div><searchIndexMainRoot></searchIndexMainRoot></div>',
     data: function() {
         return {}
     },

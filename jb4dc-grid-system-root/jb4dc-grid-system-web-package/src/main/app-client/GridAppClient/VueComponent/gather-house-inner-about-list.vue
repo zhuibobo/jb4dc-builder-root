@@ -611,9 +611,9 @@ export default {
             familyId: "",
             familyHouseId: "",//房屋ID
             familyHouseCodeFull: "",//房屋编号
-            familyPerCount: 0,//户口-应登记总数
-            familyPerIn: 0,//户口-在家人数
-            familyPerOut: 0,//户口-不在家人数
+            familyPerCount: null,//户口-应登记总数
+            familyPerIn: null,//户口-在家人数
+            familyPerOut: null,//户口-不在家人数
             familyType: "家庭户",//户别:家庭户,集体户
             familyPhone: "",//联系电话
             familyHrProvince: "",//户籍地址-省（直辖市、自治区）
@@ -807,16 +807,17 @@ export default {
       }
     },
     saveFamily: function () {
+      //debugger;
       var errorMessage = "";
-      if (isNaN(this.family.editFamilyData.editFamilyInfo.familyPerCount)) {
+      if (appClientUtility.StringUtility.IsNullOrEmpty(this.family.editFamilyData.editFamilyInfo.familyPerCount)||isNaN(this.family.editFamilyData.editFamilyInfo.familyPerCount)) {
         errorMessage += "[应登记总数必须是数字!]<br />";
       } else if (this.family.editFamilyData.editFamilyInfo.familyPerCount == 0) {
         errorMessage += "[应登记总数必须>0!]<br />";
       }
-      if (isNaN(this.family.editFamilyData.editFamilyInfo.familyPerIn)) {
+      if (appClientUtility.StringUtility.IsNullOrEmpty(this.family.editFamilyData.editFamilyInfo.familyPerIn)||isNaN(this.family.editFamilyData.editFamilyInfo.familyPerIn)) {
         errorMessage += "[在家人数不能为空!]<br />";
       }
-      if (isNaN(this.family.editFamilyData.editFamilyInfo.familyPerOut)) {
+      if (appClientUtility.StringUtility.IsNullOrEmpty(this.family.editFamilyData.editFamilyInfo.familyPerOut)||isNaN(this.family.editFamilyData.editFamilyInfo.familyPerOut)) {
         errorMessage += "[不在家人数不能为空!]<br />";
       }
       if (errorMessage) {
@@ -861,7 +862,7 @@ export default {
           });
         }
       }).catch((err) => {
-
+        appClientUtility.DialogUtility.AlertText(err);
       }).then((endResult) => {
         //this.showLoading = false;
         $("#loadDialogWrap").hide();
@@ -1094,6 +1095,9 @@ export default {
                       }
                       this.loadHouseInnerDataFromServer(this.selectedHouse);
                     }
+                    else if (from == "house"){
+                      this.loadHouseInnerDataFromServer(this.selectedHouse);
+                    }
                     $('#personEditModal').modal('hide');
                   }
                 });
@@ -1202,7 +1206,7 @@ export default {
         this.person.editPersonData.personSex = "1";
       }
       else {
-        this.person.editPersonData.personSex = "1";
+        this.person.editPersonData.personSex = "2";
       }
 
       //this.$toasted.show(personData.personSex,{duration:4000});
@@ -1213,11 +1217,11 @@ export default {
       this.person.editPersonData.personIdCardAddress = personData.personIdCardAddress;
       if (personData.personBirthday) {
         var birthdayStr = personData.personBirthday.replace("年", "-").replace("月", "-").replace("日", "");
-        var year = birthdayStr.split("-")[0];
+        /*var year = birthdayStr.split("-")[0];
         var month = birthdayStr.split("-")[1];
         var day = birthdayStr.split("-")[2];
-        var myDate = new Date(year, month, day);
-        this.person.editPersonData.personBirthday = appClientUtility.DateUtility.Format(myDate, "yyyy-MM-dd");
+        var myDate = new Date(year, month, day);*/
+        this.person.editPersonData.personBirthday = birthdayStr;
       }
       this.person.editPersonData.personHeaderImageBase64 = imageBase64;
       //this.showLoading = false;
@@ -1284,7 +1288,7 @@ export default {
           }
         });
       }).catch((err) => {
-
+        appClientUtility.DialogUtility.AlertText(err);
       }).then((endResult) => {
         //this.showLoading = false;
         $("#loadDialogWrap").hide();
@@ -1328,6 +1332,9 @@ export default {
       });
     },
     editEnterpriseFromHouse:function (enterpriseData){
+      console.log(enterpriseData);
+      enterpriseData.entCheckDate=enterpriseData.entCheckDate.split(" ")[0];
+      enterpriseData.entSetUpDate=enterpriseData.entSetUpDate.split(" ")[0];
       this.enterprise.editEnterpriseData=enterpriseData;
       $('#enterpriseEditModal').modal('show');
     }

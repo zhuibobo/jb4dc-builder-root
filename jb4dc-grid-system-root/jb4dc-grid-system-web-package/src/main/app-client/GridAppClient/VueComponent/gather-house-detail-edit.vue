@@ -369,6 +369,7 @@ export default {
       //debugger;
       this.house.editHouseData = appClientUtility.JsonUtility.CloneStringify(this.house.emptyHouseData);
       this.house.editHouseData.houseId = appClientUtility.StringUtility.NewH5AppRecordId();
+      this.house.editRelevanterPersons=[];
       this.enableDelete=false;
       this.enableEditCode=true;
       $("#normalHouseEditModal").modal('show');
@@ -522,6 +523,8 @@ export default {
       });
     },
     editRelevanter:function (relevanterData){
+      console.log(relevanterData);
+      relevanterData.reterBirthday=relevanterData.reterBirthday.split(" ")[0];
       $("#relevanterEditModal").modal('show');
       this.relevanter.editRelevanterData = relevanterData;
       this.tryLoadRelevanterHeaderBase64FromServer(relevanterData);
