@@ -4,6 +4,7 @@ jb4dc:
   warning-operation-code: jb4d82
   is-debug: true
   baidu-map-js: https://api.map.baidu.com/api?v=1.0&type=webgl&ak=oob0EnccDlObAs8jo4jfaOPZgGCj43SU
+  http-type: http
   host:
     operation-system: Window
   file:
@@ -16,7 +17,7 @@ jb4dc:
       view:
         login: /Controller/LoginSSOView
         logout: http://127.0.0.1:9103/SSOSystem/Controller/LogoutSSOView
-      excluded: /**/*.js,/**/*.css,/**/*.woff2,/**/*.ttf,/**/*.png,/**/*.jpg,/**/*.jpeg,/**/*.gif,/**/*.apk,/**/RunTime/**,/**/LoginByPassword,/**/Dev/**
+      excluded: /**/*.js,/**/*.css,/**/*.woff2,/**/*.ttf,/**/*.png,/**/*.jpg,/**/*.jpeg,/**/*.gif,/**/*.apk,/**/RunTime/**,/**/LoginByPassword,/**/Dev/**,/**/Setting/Down**
   builder:
     server:
       name: JB4DC-BUILDER-WEB-SERVER

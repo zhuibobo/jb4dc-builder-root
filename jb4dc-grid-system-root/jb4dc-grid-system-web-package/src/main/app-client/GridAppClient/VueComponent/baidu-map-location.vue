@@ -41,15 +41,18 @@ export default {
       var mapObj=this.map.mapObj;
       var _this=this;
       var geolocation = new BMapGL.Geolocation();
+      geolocation.enableSDKLocation();
       geolocation.getCurrentPosition(function(r){
         if(this.getStatus() == BMAP_STATUS_SUCCESS){
+          appClientUtility.DialogUtility.AlertText(_this,'您的位置：'+r.point.lng+','+r.point.lat);
           var mk = new BMapGL.Marker(r.point);
           mapObj.addOverlay(mk);
           mapObj.panTo(r.point);
-          alert('您的位置：'+r.point.lng+','+r.point.lat);
+          //alert('您的位置：'+r.point.lng+','+r.point.lat);
         }
         else {
-          alert('failed'+this.getStatus());
+          appClientUtility.DialogUtility.AlertText(_this,'failed'+this.getStatus());
+          //alert('failed'+this.getStatus());
         }
       });
     }

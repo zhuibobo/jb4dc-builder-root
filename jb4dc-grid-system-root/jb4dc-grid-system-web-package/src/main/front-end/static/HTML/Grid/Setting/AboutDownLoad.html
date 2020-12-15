@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title1</title>
+    <th:block th:replace="Fragment/GeneralLib::GeneralLib"></th:block>
+    <th:block th:replace="Fragment/GeneralLib::ThemesLib"></th:block>
+    <th:block th:replace="Fragment/GeneralLib::ZTreeExtendLib"></th:block>
+    <style>
+
+    </style>
+</head>
+<body>
+    <div id="aboutDownLoadWrap">
+        <img :src="getDownAndroidGridAppPageQRCodeUrl">
+    </div>
+    <script>
+        var aboutDownLoad = new Vue({
+            el: "#aboutDownLoadWrap",
+            data: {
+                getDownAndroidGridAppPageQRCodeUrl:BaseUtility.BuildAction("/Rest/Grid/Setting/AppVersion/GetDownAndroidGridAppPageQRCode")
+            },
+            mounted: function () {
+
+            },
+            methods: {
+
+            }
+        });
+    </script>
+</body>
+</html>

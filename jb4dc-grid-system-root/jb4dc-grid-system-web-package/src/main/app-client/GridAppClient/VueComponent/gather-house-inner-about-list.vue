@@ -387,10 +387,9 @@
                   </div>
                 </div>
                 <div class="form-group row form-group-min">
-                  <label for="personBirthday" class="col-12 col-form-label col-form-label-sm form-label-min">出生日期</label>
+                  <label class="col-12 col-form-label col-form-label-sm form-label-min">出生日期</label>
                   <div class="col-12">
-                    <input type="date" class="form-control form-control-sm" id="personBirthday" placeholder="出生日期"
-                           v-model="person.editPersonData.personBirthday">
+                    <date-picker style="width:180px" v-model="person.editPersonData.personBirthday" valueType="format" :editable="false"></date-picker>
                   </div>
                 </div>
               </form>
@@ -534,17 +533,15 @@
                         </div>
                       </div>
                       <div class="form-group row form-group-min">
-                        <label for="entSetUpDate" class="col-4 col-form-label text-right col-form-label-sm form-label-min">成立日期</label>
+                        <label class="col-4 col-form-label text-right col-form-label-sm form-label-min">成立日期</label>
                         <div class="col-8">
-                          <input type="date" class="form-control form-control-sm" id="entSetUpDate" placeholder="成立日期"
-                                 v-model="enterprise.editEnterpriseData.entSetUpDate">
+                          <date-picker style="width:180px" v-model="enterprise.editEnterpriseData.entSetUpDate" valueType="format" :editable="false"></date-picker>
                         </div>
                       </div>
                       <div class="form-group row form-group-min">
-                        <label for="entCheckDate" class="col-4 col-form-label text-right col-form-label-sm form-label-min">核准日期</label>
+                        <label class="col-4 col-form-label text-right col-form-label-sm form-label-min">核准日期</label>
                         <div class="col-8">
-                          <input type="date" class="form-control form-control-sm" id="entCheckDate" placeholder="核准日期"
-                                 v-model="enterprise.editEnterpriseData.entCheckDate">
+                          <date-picker style="width:180px" v-model="enterprise.editEnterpriseData.entCheckDate" valueType="format" :editable="false"></date-picker>
                         </div>
                       </div>
                       <div class="form-group row form-group-min">
@@ -807,7 +804,7 @@ export default {
       }
     },
     saveFamily: function () {
-      //debugger;
+      debugger;
       var errorMessage = "";
       if (appClientUtility.StringUtility.IsNullOrEmpty(this.family.editFamilyData.editFamilyInfo.familyPerCount)||isNaN(this.family.editFamilyData.editFamilyInfo.familyPerCount)) {
         errorMessage += "[应登记总数必须是数字!]<br />";

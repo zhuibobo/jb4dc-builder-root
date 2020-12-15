@@ -55,6 +55,9 @@ public class UserLocationProxy {
                         throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_GRID_CODE, "该设备状态异常!");
                     }
                     OrganEntity organEntity=organRuntimeProxy.getOrganById(userEntity.getUserOrganId()).getData();
+                    if(!organEntity.getOrganTypeValue().equals("GridUnit")){
+                        throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_GRID_CODE, "该APP只支持网格员使用!");
+                    }
                     JB4DCSession jb4DCSession=new JB4DCSession();
                     jb4DCSession.setOrganId(userEntity.getUserOrganId());
                     jb4DCSession.setOrganName(organEntity.getOrganName());

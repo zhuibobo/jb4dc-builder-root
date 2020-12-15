@@ -40,6 +40,7 @@
                         <input type="text" class="form-control form-control-sm input-color"
                                v-model="event.editEventData.eventCode">
                       </div>
+                      <label class="col-12 col-form-label text-center col-form-label-sm form-label-min"><span style="color: red">请填写3位序号</span></label>
                     </div>
                     <div class="form-group row form-group-min">
                       <label class="col-3 col-form-label text-right col-form-label-sm form-label-min"><span style="color: red">*</span>诉求问题</label>
@@ -124,7 +125,7 @@
                     <div class="form-group row form-group-min">
                       <label class="col-3 col-form-label text-right col-form-label-sm form-label-min"><span style="color: red">*</span>发生地点</label>
                       <div class="col-9">
-                        <input type="number" class="form-control form-control-sm input-color"
+                        <input type="text" class="form-control form-control-sm input-color"
                                v-model="event.editEventData.eventAddress">
                       </div>
                     </div>
@@ -163,7 +164,7 @@
                       </div>
                     </div>
                     <div class="form-group row form-group-min">
-                      <label class="col-3 col-form-label text-right col-form-label-sm form-label-min"><span style="color: red">*</span>群体性事件</label>
+                      <label class="col-3 col-form-label text-right col-form-label-sm form-label-min"><span style="color: red">*</span>紧急事件</label>
                       <div class="col-9">
                         <div class="form-check form-check-inline" v-for="(ddItem, index) in ddg_GeneralNoYes">
                           <input class="form-check-input" type="radio" name="ddg_EventIsEmergency" :id="'ddg_EventIsEmergency'+index" :value="ddItem.dictValue" v-model="event.editEventData.eventIsEmergency">
@@ -199,8 +200,7 @@
                     <div class="form-group row form-group-min">
                       <label class="col-3 col-form-label text-right col-form-label-sm form-label-min">出生日期</label>
                       <div class="col-9">
-                        <input type="date" class="form-control form-control-sm input-color"
-                               v-model="event.editEventData.eventMainAppealerBirthday">
+                        <date-picker v-model="event.editEventData.eventMainAppealerBirthday" valueType="format" :editable="false"></date-picker>
                       </div>
                     </div>
                     <div class="form-group row form-group-min">
@@ -224,8 +224,15 @@
                                v-model="event.editEventData.eventMainAppealerAddress">
                       </div>
                     </div>
+                    <div class="form-group row form-group-min">
+                      <label class="col-3 col-form-label text-right col-form-label-sm form-label-min">备注</label>
+                      <div class="col-9">
+                        <textarea rows="4" class="form-control form-control-sm input-color"
+                                  v-model="event.editEventData.eventMainAppealerRemark"></textarea>
+                      </div>
+                    </div>
                     <div class="form-group row form-group-min" style="display: flex;justify-content:flex-end;padding-right: 10px;margin-bottom: 20px">
-                      <button type="button" class="btn btn-success btn-sm">读取主要诉求人身份证</button>
+                      <button type="button" class="btn btn-success btn-sm" @click="readEventMainAppealerInfoByIdCard">读取主要诉求人身份证</button>
                     </div>
                     <div class="form-group row form-group-min event-form-group-caption">
                       <label class="col-12 col-form-label col-form-label-sm form-label-min">共同诉求人</label>
@@ -249,8 +256,7 @@
                     <div class="form-group row form-group-min">
                       <label class="col-3 col-form-label text-right col-form-label-sm form-label-min">出生日期</label>
                       <div class="col-9">
-                        <input type="date" class="form-control form-control-sm input-color"
-                               v-model="event.editEventData.eventFellowAppealerBirthday">
+                        <date-picker v-model="event.editEventData.eventFellowAppealerBirthday" valueType="format" :editable="false"></date-picker>
                       </div>
                     </div>
                     <div class="form-group row form-group-min">
@@ -274,8 +280,15 @@
                                v-model="event.editEventData.eventFellowAppealerAddress">
                       </div>
                     </div>
+                    <div class="form-group row form-group-min">
+                      <label class="col-3 col-form-label text-right col-form-label-sm form-label-min">备注</label>
+                      <div class="col-9">
+                        <textarea rows="4" class="form-control form-control-sm input-color"
+                                  v-model="event.editEventData.eventFellowAppealerRemark"></textarea>
+                      </div>
+                    </div>
                     <div class="form-group row form-group-min" style="display: flex;justify-content:flex-end;padding-right: 10px;margin-bottom: 20px">
-                      <button type="button" class="btn btn-success btn-sm">读取共同诉求人身份证</button>
+                      <button type="button" class="btn btn-success btn-sm" @click="readEventFellowAppealerInfoByIdCard">读取共同诉求人身份证</button>
                     </div>
                     <div class="form-group row form-group-min event-form-group-caption">
                       <label class="col-12 col-form-label col-form-label-sm form-label-min">被反映人</label>
@@ -299,8 +312,7 @@
                     <div class="form-group row form-group-min">
                       <label class="col-3 col-form-label text-right col-form-label-sm form-label-min">出生日期</label>
                       <div class="col-9">
-                        <input type="date" class="form-control form-control-sm input-color"
-                               v-model="event.editEventData.eventDefePerBirthday">
+                        <date-picker v-model="event.editEventData.eventDefePerBirthday" valueType="format" :editable="false"></date-picker>
                       </div>
                     </div>
                     <div class="form-group row form-group-min">
@@ -324,8 +336,15 @@
                                v-model="event.editEventData.eventDefePerAddress">
                       </div>
                     </div>
+                    <div class="form-group row form-group-min">
+                      <label class="col-3 col-form-label text-right col-form-label-sm form-label-min">备注</label>
+                      <div class="col-9">
+                        <textarea rows="4" class="form-control form-control-sm input-color"
+                                  v-model="event.editEventData.eventDefePerRemark"></textarea>
+                      </div>
+                    </div>
                     <div class="form-group row form-group-min" style="display: flex;justify-content:flex-end;padding-right: 10px;margin-bottom: 20px">
-                      <button type="button" class="btn btn-success btn-sm">读取被反映人身份证</button>
+                      <button type="button" class="btn btn-success btn-sm" @click="readEventDefePersonInfoByIdCard">读取被反映人身份证</button>
                     </div>
                     <div class="form-group row form-group-min event-form-group-caption">
                       <label class="col-12 col-form-label col-form-label-sm form-label-min">被反映单位</label>
@@ -347,8 +366,7 @@
                     <div class="form-group row form-group-min">
                       <label class="col-4 col-form-label text-right col-form-label-sm form-label-min">成立时间</label>
                       <div class="col-8">
-                        <input type="date" class="form-control form-control-sm input-color"
-                               v-model="event.editEventData.eventDefeUnitCreateDate">
+                        <date-picker v-model="event.editEventData.eventDefeUnitCreateDate" valueType="format" :editable="false"></date-picker>
                       </div>
                     </div>
                     <div class="form-group row form-group-min">
@@ -379,11 +397,18 @@
                                v-model="event.editEventData.eventDefeUnitPhone">
                       </div>
                     </div>
+                    <div class="form-group row form-group-min">
+                      <label class="col-4 col-form-label text-right col-form-label-sm form-label-min">备注</label>
+                      <div class="col-8">
+                        <textarea rows="4" class="form-control form-control-sm input-color"
+                                  v-model="event.editEventData.eventDefeUnitRemark"></textarea>
+                      </div>
+                    </div>
                   </form>
                 </div>
               </div>
               <div class="tab-pane fade" id="event-photo-tab-wrap" role="tabpanel" aria-labelledby="event-photo-tab">
-
+                <photoList ref="photoListObj" :session="session" :obj-type="'事件'" :photo-list-wrap-height="'450px'"></photoList>
               </div>
               <div class="tab-pane fade" id="event-map-tab-wrap" role="tabpanel" aria-labelledby="event-map-tab">
                 <div class="event-form-height" style="padding:0px">
@@ -394,7 +419,7 @@
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
-            <button type="button" class="btn btn-primary">保存事件信息</button>
+            <button type="button" class="btn btn-primary" @click="saveEditEvent()">保存事件信息</button>
           </div>
         </div>
       </div>
@@ -412,6 +437,8 @@ export default {
   data:function (){
     return {
       acInterface: {
+        saveEvent:"/GridSystem/Rest/Grid/Event/EventMain/SaveEvent",
+        getEventData:"/GridSystem/Rest/Grid/Event/EventMain/GetEventData"
       },
       event:{
         editEventData:{
@@ -432,9 +459,9 @@ export default {
           eventSeverity:"",//严重程度:一般,中等,重大
           eventAddress:"",//发生地点
           eventAppealPurpose:"",//诉求目的:反映建议,申诉,求决,投诉,其他
-          eventAppealPersonNum:"0",//诉求人数
+          eventAppealPersonNum:null,//诉求人数
           eventAppealQuestion:"",//诉求问题及要求
-          eventAboutPersonNum:"0",//涉及人数
+          eventAboutPersonNum:null,//涉及人数
           eventIsPetition:"",//是否信访件
           eventIsRentalHousing:"",//是否出租屋事件
           eventIsGroup:"",//是否群体性事件
@@ -498,7 +525,17 @@ export default {
   },
   props: ["session"],
   mounted() {
+    this.event.emptyEventData = appClientUtility.JsonUtility.CloneStringify(this.event.editEventData);
 
+    window["writeEventMainAppealerDataToView"] = (personData,imageBase64) => {
+      this.writeEventMainAppealerDataToView(personData,imageBase64)
+    };
+    window["writeEventFellowAppealerDataToView"] = (personData,imageBase64) => {
+      this.writeEventFellowAppealerDataToView(personData,imageBase64)
+    };
+    window["writeEventDefePersonDataToView"] = (personData,imageBase64) => {
+      this.writeEventDefePersonDataToView(personData,imageBase64)
+    }
   },
   methods:{
     buildDDGroupData:function (){
@@ -508,7 +545,7 @@ export default {
       this.ddg_EventSeverity=appClientUtility.GetAllDDMap()["8e8ebfd5-e9ee-4475-b812-38f22223259b"];
       this.ddg_EventAppealPurpose=appClientUtility.GetAllDDMap()["74c7b050-a141-4a44-b87f-f8527d671acb"];
       this.ddg_GeneralNoYes=appClientUtility.GetAllDDMap()["77e5497e-fade-4723-b75d-232943f488a1"];
-
+      this.ddg_GeneralSex=appClientUtility.GetAllDDMap()["4419d996-1d4b-455e-bff7-63b0967bf360"];
     },
     eventType1Change:function (){
       if(this.event.editEventData.eventType1=="矛盾纠纷"){
@@ -524,10 +561,165 @@ export default {
     },
     newEvent:function () {
       //debugger;
+      this.event.editEventData = appClientUtility.JsonUtility.CloneStringify(this.event.emptyEventData);
+      this.event.editEventData.eventId = appClientUtility.StringUtility.NewH5AppRecordId();
+      this.event.editEventData.eventCityId = "4413";
+      this.event.editEventData.eventAreaId = "441325";
+      this.event.editEventData.eventAcceptGridId = this.session.OrganId;
+
+      var year=appClientUtility.DateUtility.GetCurrentData().getFullYear();
+      var month=appClientUtility.DateUtility.GetCurrentData().getMonth()+1;
+      this.event.editEventData.eventCode = appClientUtility.GetGridInfo().gridCode+year+month;
+      this.$refs.photoListObj.setRecordId(this.event.editEventData.eventId);
+      this.$refs.photoListObj.clearPhotoList();
       $("#eventEditModal").modal('show');
     },
-    editEvent:function (oldEditBuild){
-      $("#eventEditModal").modal('show');
+    editEvent:function (eventId){
+      appClientUtility.DialogUtility.ShowLoading();
+      axios.get(this.acInterface.getEventData, {
+        params: {
+          eventId: eventId,
+          AppClientToken: this.session.AppClientToken,
+          ts:Date.now()
+        }
+      }).then((response) => {
+
+        this.event.editEventData=response.data.data;
+        this.$refs.photoListObj.setRecordId(this.event.editEventData.eventId);
+        this.$refs.photoListObj.loadPhotoFromServer(this.event.editEventData.eventId);
+        $("#eventEditModal").modal('show');
+
+      }).catch((e) => {
+
+      }).then((endRes)=>{
+        appClientUtility.DialogUtility.HideLoading();
+      });
+    },
+    saveEditEvent:function (){
+      //region 校验
+      var errorMessage = "";
+      if (appClientUtility.StringUtility.IsNullOrEmptyTrim(this.event.editEventData.eventCode)) {
+        errorMessage += "[事件编号不能为空!]<br />";
+      }
+      else if(this.event.editEventData.eventCode.length!=23){
+        errorMessage += "[事件编号必须为23位!]<br />";
+      }
+      if (appClientUtility.StringUtility.IsNullOrEmptyTrim(this.event.editEventData.eventAppealQuestion)) {
+        errorMessage += "[诉求问题不能为空!]<br />";
+      }
+      if (appClientUtility.StringUtility.IsNullOrEmptyTrim(this.event.editEventData.eventSource)) {
+        errorMessage += "[事件来源不能为空!]<br />";
+      }
+      if (appClientUtility.StringUtility.IsNullOrEmptyTrim(this.event.editEventData.eventType1)) {
+        errorMessage += "[事件类型1不能为空!]<br />";
+      }
+      if (appClientUtility.StringUtility.IsNullOrEmptyTrim(this.event.editEventData.eventLevel)) {
+        errorMessage += "[事件级别不能为空!]<br />";
+      }
+      if (appClientUtility.StringUtility.IsNullOrEmptyTrim(this.event.editEventData.eventSeverity)) {
+        errorMessage += "[严重程度不能为空!]<br />";
+      }
+      if (appClientUtility.StringUtility.IsNullOrEmptyTrim(this.event.editEventData.eventAppealPurpose)) {
+        errorMessage += "[诉求目的不能为空!]<br />";
+      }
+      if (appClientUtility.StringUtility.IsNullOrEmptyTrim(this.event.editEventData.eventAddress)) {
+        errorMessage += "[发生地点不能为空!]<br />";
+      }
+      if (appClientUtility.StringUtility.IsNullOrEmptyTrim(this.event.editEventData.eventIsPetition)) {
+        errorMessage += "[是否信访件不能为空!]<br />";
+      }
+      if (appClientUtility.StringUtility.IsNullOrEmptyTrim(this.event.editEventData.eventIsRentalHousing)) {
+        errorMessage += "[是否出租屋事件不能为空!]<br />";
+      }
+      if (appClientUtility.StringUtility.IsNullOrEmptyTrim(this.event.editEventData.eventIsGroup)) {
+        errorMessage += "[是否群体性事件不能为空!]<br />";
+      }
+      if (appClientUtility.StringUtility.IsNullOrEmptyTrim(this.event.editEventData.eventIsEmergency)) {
+        errorMessage += "[是否紧急事件不能为空!]<br />";
+      }
+
+      if (errorMessage) {
+        appClientUtility.DialogUtility.AlertText(this, errorMessage);
+        return;
+      }
+      //endregion
+      appClientUtility.DialogUtility.ShowLoading();
+      axios.post(this.acInterface.saveEvent, this.event.editEventData).then((result) => {
+        appClientUtility.DialogUtility.AlertText(this,result.data.message,()=>{
+          if(result.data.success){
+            $('#eventEditModal').modal('hide');
+            this.$emit('saveEventCompleted',this.event.editEventData);
+          }
+        });
+      }).catch((err) => {
+
+      }).then((endResult) => {
+        appClientUtility.DialogUtility.HideLoading();
+      });
+    },
+    readEventMainAppealerInfoByIdCard:function (){
+      //this.showLoading = true;
+      if(typeof(appBridge)!="undefined"){
+        appClientUtility.DialogUtility.ShowLoading();
+        appBridge.beginReadIdCardFromNFC("writeEventMainAppealerDataToView");
+      }
+      else{
+        this.$toasted.show('不存在appBridge对象!',{duration:2000});
+      }
+    },
+    writeEventMainAppealerDataToView: function (personData, imageBase64) {
+      personData = appClientUtility.JsonUtility.StringToJson(personData);
+      this.event.editEventData.eventMainAppealerName = personData.personName;
+      this.event.editEventData.eventMainAppealerIdCard = personData.personIdCard;
+      this.event.editEventData.eventMainAppealerSex = personData.personSex;
+      this.event.editEventData.eventMainAppealerAddress = personData.personIdCardAddress;
+      if (personData.personBirthday) {
+        var birthdayStr = personData.personBirthday.replace("年", "-").replace("月", "-").replace("日", "");
+        this.event.editEventData.eventMainAppealerBirthday = birthdayStr;
+      }
+      appClientUtility.DialogUtility.HideLoading();
+    },
+    readEventFellowAppealerInfoByIdCard:function (){
+      if(typeof(appBridge)!="undefined"){
+        appClientUtility.DialogUtility.ShowLoading();
+        appBridge.beginReadIdCardFromNFC("writeEventFellowAppealerDataToView");
+      }
+      else{
+        this.$toasted.show('不存在appBridge对象!',{duration:2000});
+      }
+    },
+    writeEventFellowAppealerDataToView:function (personData, imageBase64){
+      personData = appClientUtility.JsonUtility.StringToJson(personData);
+      this.event.editEventData.eventFellowAppealerName = personData.personName;
+      this.event.editEventData.eventFellowAppealerIdCard = personData.personIdCard;
+      this.event.editEventData.eventFellowAppealerSex = personData.personSex;
+      this.event.editEventData.eventFellowAppealerAddress = personData.personIdCardAddress;
+      if (personData.personBirthday) {
+        var birthdayStr = personData.personBirthday.replace("年", "-").replace("月", "-").replace("日", "");
+        this.event.editEventData.eventFellowAppealerBirthday = birthdayStr;
+      }
+      appClientUtility.DialogUtility.HideLoading();
+    },
+    readEventDefePersonInfoByIdCard:function (){
+      if(typeof(appBridge)!="undefined"){
+        appClientUtility.DialogUtility.ShowLoading();
+        appBridge.beginReadIdCardFromNFC("writeEventDefePersonDataToView");
+      }
+      else{
+        this.$toasted.show('不存在appBridge对象!',{duration:2000});
+      }
+    },
+    writeEventDefePersonDataToView:function (personData, imageBase64){
+      personData = appClientUtility.JsonUtility.StringToJson(personData);
+      this.event.editEventData.eventDefePerName = personData.personName;
+      this.event.editEventData.eventDefePerIdCard = personData.personIdCard;
+      this.event.editEventData.eventDefePerSex = personData.personSex;
+      this.event.editEventData.eventDefePerAddress = personData.personIdCardAddress;
+      if (personData.personBirthday) {
+        var birthdayStr = personData.personBirthday.replace("年", "-").replace("月", "-").replace("日", "");
+        this.event.editEventData.eventDefePerBirthday = birthdayStr;
+      }
+      appClientUtility.DialogUtility.HideLoading();
     }
   }
 }

@@ -36,4 +36,8 @@
  where EVENT_ORDER_NUM = (select max(EVENT_ORDER_NUM) from TGRID_EVENT_INFO where EVENT_ORDER_NUM<(select EVENT_ORDER_NUM from TGRID_EVENT_INFO where EVENT_ID=#{Id,jdbcType=NVARCHAR}))]]></select>
     <select id="selectGreaterThanRecord" parameterType="java.lang.String" resultMap="BaseResultMap"><![CDATA[select * from TGRID_EVENT_INFO
  where EVENT_ORDER_NUM = (select min(EVENT_ORDER_NUM) from TGRID_EVENT_INFO where EVENT_ORDER_NUM>(select EVENT_ORDER_NUM from TGRID_EVENT_INFO where EVENT_ID=#{Id,jdbcType=NVARCHAR}))]]></select>
+
+    <select id="selectEventByUserInput" resultMap="BaseResultMap">
+        select<include refid="Base_Column_List"/> from TGRID_EVENT_INFO where EVENT_ACCEPT_USER_ID=#{userId} ORDER by EVENT_ORDER_NUM desc
+    </select>
 </mapper>

@@ -9,10 +9,14 @@ import gatherHouseInnerAboutList from '../VueComponent/gather-house-inner-about-
 import gatherNormalBuildDetailEdit from '../VueComponent/gather-normal-build-detail-edit.vue'
 import gatherHouseDetailEdit from '../VueComponent/gather-house-detail-edit.vue'
 import gatherSPBuildDetailEdit from '../VueComponent/gather-sp-build-detail-edit.vue'
+import loadingDialog from '../VueComponent/loading-dialog.vue'
 import photoList from '../VueComponent/photo-list.vue'
 import VueConfirmDialog from '../VueComponent/vue-confirm-dialog/index'
 ////const appClientUtility = require('../Js/AppClientUtility.js');
 import appClientUtility from '../Js/AppClientUtility.js';
+import DatePicker from 'vue2-datepicker';
+import 'vue2-datepicker/index.css';
+import 'vue2-datepicker/locale/zh-cn';
 
 Vue.use(Toasted)
 Vue.component('gatherBHPEDataMainRoot', gatherBHPEDataMainRoot);
@@ -21,6 +25,8 @@ Vue.component('gatherNormalBuildDetailEdit',gatherNormalBuildDetailEdit);
 Vue.component('gatherSPBuildDetailEdit',gatherSPBuildDetailEdit);
 Vue.component('gatherHouseDetailEdit',gatherHouseDetailEdit);
 Vue.component('photoList',photoList);
+Vue.component('loadingDialog',loadingDialog);
+Vue.component('DatePicker',DatePicker);
 Vue.use(VueConfirmDialog)
 Vue.component('vue-confirm-dialog', VueConfirmDialog.default)
 

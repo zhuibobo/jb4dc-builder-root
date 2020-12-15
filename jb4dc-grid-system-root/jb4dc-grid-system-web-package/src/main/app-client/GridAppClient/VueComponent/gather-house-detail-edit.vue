@@ -243,10 +243,9 @@
                 </div>
               </div>
               <div class="form-group row form-group-min">
-                <label for="reterBirthday" class="col-3 col-form-label col-form-label-sm form-label-min">出生日期</label>
+                <label class="col-3 col-form-label col-form-label-sm form-label-min">出生日期</label>
                 <div class="col-9">
-                  <input type="date" class="form-control form-control-sm" id="reterBirthday" placeholder="出生日期"
-                         v-model="relevanter.editRelevanterData.reterBirthday">
+                  <date-picker v-model="relevanter.editRelevanterData.reterBirthday" valueType="format" :editable="false"></date-picker>
                 </div>
               </div>
               <div class="form-group row form-group-min">

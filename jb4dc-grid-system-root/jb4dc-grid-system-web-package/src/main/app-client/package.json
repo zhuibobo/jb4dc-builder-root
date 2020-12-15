@@ -55,6 +55,7 @@
     "vue": "^2.6.12",
     "vue-confirm-dialog": "^1.0.2",
     "vue-router": "^3.4.9",
-    "vue-toasted": "^1.1.28"
+    "vue-toasted": "^1.1.28",
+    "vue2-datepicker": "^3.8.2"
   }
 }

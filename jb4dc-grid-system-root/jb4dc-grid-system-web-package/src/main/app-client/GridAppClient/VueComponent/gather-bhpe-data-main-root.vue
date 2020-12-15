@@ -54,14 +54,15 @@
     <gatherSPBuildDetailEdit :session="session" ref="gatherSPBuildDetailEditObj" @saveNormalBuildCompleted="saveNormalBuildCompleted" @tryDeleteBuild="tryDeleteBuild"></gatherSPBuildDetailEdit>
     <gatherHouseDetailEdit :session="session" :selected-build="build.selectedBuild" ref="gatherHouseDetailEditObj" @saveHouseCompleted="saveHouseCompleted" @tryDeleteHouse="tryDeleteHouse"></gatherHouseDetailEdit>
     <gatherHouseInnerAboutList :selected-house="house.selectedHouse" :selected-build="build.selectedBuild" :session="session" ref="gatherHouseInnerAboutListObj"></gatherHouseInnerAboutList>
-    <div class="loadDialogWrap" id="loadDialogWrap">
+    <!--<div class="loadDialogWrap" id="loadDialogWrap">
       <div class="text-center" style="margin-top: 200px">
         <div class="spinner-border" style="width: 5rem; height: 5rem;" role="status">
           <span class="sr-only">Loading....</span>
         </div>
         <div class="loadDialogWrap-close" @click="loadDialogWrapHide"></div>
       </div>
-    </div>
+    </div>-->
+    <loadingDialog></loadingDialog>
   </div>
 </template>
 
@@ -124,9 +125,9 @@ export default {
       url=appClientUtility.StringUtility.FormatGoToUrl(url,this.session);
       window.location.href=url;
     },
-    loadDialogWrapHide:function (){
+    /*loadDialogWrapHide:function (){
       $("#loadDialogWrap").hide();
-    },
+    },*/
     //region 建筑物
     saveNormalBuildCompleted:function (){
       this.loadBuildListFromServer(false);

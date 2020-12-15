@@ -7,7 +7,7 @@
         </a>
       </div>
     </div>
-    <div class="photo-list-wrap">
+    <div class="photo-list-wrap" :style="getPhotoListWrapStyle()">
       <div class="photo-single-outer-wrap" v-for="singlePhoto in photos">
         <div class="delete-photo" @click="deleteSinglePhoto(singlePhoto)"></div>
         <div class="photo-single-inner-wrap">
@@ -25,7 +25,7 @@ import appClientUtility from '../Js/AppClientUtility.js';
 
 export default {
   name: "photo-list",
-  props: ["objType", "session"],
+  props: ["objType", "session","photoListWrapHeight"],
   data:function (){
     return {
       acInterface: {
@@ -42,14 +42,21 @@ export default {
 
   },
   methods:{
+    getPhotoListWrapStyle:function (){
+        if(this.photoListWrapHeight){
+          return {"height":this.photoListWrapHeight}
+        }
+        return {};
+    },
     setRecordId:function (recordId){
       this.recordId=recordId;
     },
     changeFile: function (event) {
       //console.log(event);
+      debugger;
       var recordId = this.recordId;
       if (appClientUtility.StringUtility.IsNullOrEmpty(recordId)) {
-        appClientUtility.DialogUtility.AlertText(this, "无法确认关联记录ID!");
+        appClientUtility.DialogUtility.AlertText(this, "无法确认关联记录ID!!");
       } else {
         var reader = new FileReader();
         reader.onload = (e) => {

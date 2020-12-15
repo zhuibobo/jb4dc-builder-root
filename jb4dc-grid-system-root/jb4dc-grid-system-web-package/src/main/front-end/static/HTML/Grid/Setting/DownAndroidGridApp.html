@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <th:block th:replace="Fragment/GeneralLib::GeneralLib"></th:block>
+    <th:block th:replace="Fragment/GeneralLib::ThemesLib"></th:block>
+    <th:block th:replace="Fragment/GeneralLib::ZTreeExtendLib"></th:block>
+    <style>
+
+    </style>
+</head>
+<body>
+<div id="downAndroidGridAppWrap">
+    <body style="background-color:#3b9bff">
+    <div style="background-color:#333;color:#fff;height:100px;font-size:20px;padding:30px;padding-right:4px" id="notSafariMsg">
+        <div style="float:right">
+            <img src="1.fw.png" style="height:100px;" />
+        </div>
+        点击右上角按钮，然后在弹出的菜单中，点击在浏览器中打开，即可安装
+    </div>
+    <div id="header">
+        <img src="login_ic_logo.png">
+    </div>
+
+    <div id="content">
+        <br /><br/>
+        <a class="buttons" href="http://58.51.184.5:8066/app/NewVersion/TLAPP.apk" target="_blank" id="btnInstallApp">点击下载APP</a>
+</div>
+<script>
+    var downAndroidGridApp = new Vue({
+        el: "#downAndroidGridAppWrap",
+        mounted: function () {
+            var isWxBrowser = /MicroMessenger/.test(navigator.userAgent);
+            if (isWxBrowser) {
+                $(".buttons").hide();
+            }
+            else {
+                $("#notSafariMsg").hide();
+                window.location.href = "http://58.51.184.5:8066/app/NewVersion/GZAPP.apk";
+            }
+        },
+        data: {
+
+        },
+        methods: {
+
+        }
+    });
+</script>
+</body>
+</html>

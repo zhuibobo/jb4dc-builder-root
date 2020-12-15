@@ -13,25 +13,26 @@
       <div class="gather-event-list-wrap">
         <!--mescroll滚动区域的基本结构-->
         <mescroll-vue ref="mescroll" :down="mescrollDown" :up="mescrollUp" @init="mescrollInit">
-            <div class="gather-event-single-wrap" v-for="i in 10">
+            <div class="gather-event-single-wrap" v-for="item in dataList">
               <div class="text-wrap">
-                <div class="text">关于明天天气会更好的问题关于明天天气会更好的问题关于明天天气会更好的问题关于明天天气会更好的问题</div>
+                <div class="text" style="width: 100%;">{{item.eventAppealQuestion}}</div>
                 <div class="text" style="width: 30%">严重程度</div>
-                <div class="text" style="width: 20%">重大</div>
+                <div class="text" style="width: 20%">{{item.eventSeverity}}</div>
                 <div class="text" style="width: 24%">级别</div>
-                <div class="text" style="width: 20%">一级</div>
+                <div class="text" style="width: 20%">{{item.eventLevel}}</div>
                 <div class="text" style="width: 24%;border-bottom: 0px">发生地点</div>
-                <div class="text" style="width: 73%;border-bottom: 0px">探讨探讨搪突鼍獭瞋妥妥帖帖搪突鼍獭瞋</div>
+                <div class="text" style="width: 73%;border-bottom: 0px">{{item.eventAddress}}</div>
               </div>
               <div class="button-wrap">
-                <div class="edit"></div>
-                <div class="del"></div>
+                <div class="edit" @click="editEvent(item)"></div>
+                <div class="del" @click="deleteEvent(item)"></div>
               </div>
             </div>
         </mescroll-vue>
       </div>
     </div>
-    <gatherEventDetailEdit :session="session" ref="gatherEventDetailEditObj"></gatherEventDetailEdit>
+    <gatherEventDetailEdit :session="session" ref="gatherEventDetailEditObj" @saveEventCompleted="saveEventCompleted"></gatherEventDetailEdit>
+    <loadingDialog></loadingDialog>
   </div>
 </template>
 
@@ -50,6 +51,9 @@ export default {
   },
   data:function (){
     return {
+      acInterface: {
+        deleteEvent:"/GridSystem/Rest/Grid/Event/EventMain/DeleteEvent"
+      },
       session:null,
       mescroll: null, // mescroll实例对象
       mescrollDown:{}, //下拉刷新的配置. (如果下拉刷新和上拉加载处理的逻辑是一样的,则mescrollDown可不用写了)
@@ -62,11 +66,11 @@ export default {
         },
         htmlNodata: '<p class="upwarp-nodata">-- END --</p>',
         noMoreSize: 5, //如果列表已无数据,可设置列表的总数量要大于5才显示无更多数据;避免列表数据过少(比如只有一条数据),显示无更多数据会不好看这就是为什么无更多数据有时候不显示的原因
-        toTop: {
+        /*toTop: {
           //回到顶部按钮
           src: "./static/mescroll/mescroll-totop.png", //图片路径,默认null,支持网络图
           offset: 1000 //列表滚动1000px才显示回到顶部按钮
-        },
+        },*/
         empty: {
           //列表第一页无任何数据时,显示的空提示布局; 需配置warpId才显示
           warpId: "xxid", //父布局的id (1.3.5版本支持传入dom元素)
@@ -92,10 +96,11 @@ export default {
       axios.get('/GridSystem/Rest/Grid/Event/EventMain/GetMyEventIncludeDD', {
         params: {
           num: page.num, // 页码
-          size: page.size // 每页长度
+          size: page.size, // 每页长度
+          AppClientToken: this.session.AppClientToken,
+          ts:Date.now()
         }
       }).then((response) => {
-
         if(page.num==1) {
           appClientUtility.AutoBindInitDD(response.data.exKVData.dictionaryEntities);
           appClientUtility.ConvertDDListToMap(response.data.exKVData.dictionaryEntities);
@@ -104,7 +109,7 @@ export default {
         }
 
         // 请求的列表数据
-        let arr = response.data
+        let arr = response.data.data;
         // 如果是第一页需手动置空列表
         if (page.num === 1) this.dataList = []
         // 把请求到的数据添加到列表
@@ -124,6 +129,36 @@ export default {
     },
     addEvent:function (){
       this.$refs.gatherEventDetailEditObj.newEvent();
+    },
+    saveEventCompleted:function (eventData){
+      this.dataList.unshift(eventData);
+    },
+    editEvent:function (eventData){
+      this.$refs.gatherEventDetailEditObj.editEvent(eventData.eventId);
+    },
+    deleteEvent:function (eventData){
+      appClientUtility.DialogUtility.Confirm(this,"确认删除该事件吗?",(cof)=>{
+        if(cof){
+          appClientUtility.DialogUtility.ShowLoading();
+          axios.delete(this.acInterface.deleteEvent, {
+            params: {
+              "eventId": eventData.eventId
+            }
+          }).then((result) => {
+            appClientUtility.DialogUtility.AlertText(this,result.data.message);
+            if (result.data.success) {
+              appClientUtility.DialogUtility.HideLoading();
+              for (let i = 0; i < this.dataList.length; i++) {
+                if(this.dataList[i].eventId==eventData.eventId){
+                  appClientUtility.ArrayUtility.Delete(this.dataList,i);
+                }
+              }
+            }
+          }).then((endResult) => {
+            $("#loadDialogWrap").hide();
+          });
+        }
+      })
     }
   }
 }
@@ -133,7 +168,7 @@ export default {
 @import "../Less/Variable.less";
 
 .gather-event-main-root{
-  background-color: @g-concrete-color-v01;
+  background-color: @g-concrete-color-v02;
 
   position:absolute;
   left: 0px;
@@ -151,7 +186,7 @@ export default {
 
     .gather-event-single-wrap{
       border: @g-concrete-color-v08 1px solid;
-      background-color: @g-concrete-color-v02;
+      background-color: @g-concrete-color-v00;
       margin: 4px;
       border-radius: 4px;
       box-shadow: 2px 2px 1px #cdcdcd;
@@ -186,7 +221,7 @@ export default {
           border-radius: 4px;
           background-image: url("../Images/icons8-edit-30.png");
           background-repeat: no-repeat;
-          margin-top: 14px;
+          margin-top: 8px;
           margin-left: 14px;
         }
 
@@ -201,7 +236,7 @@ export default {
           border-radius: 0px;
           background-image: url("../Images/icons8-del-30.png");
           background-repeat: no-repeat;
-          margin-top: 14px;
+          margin-top: 8px;
           margin-left: 14px;
         }
       }
