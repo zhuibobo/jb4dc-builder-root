@@ -227,7 +227,7 @@
                  ServerResolve="com.jb4dc.builder.client.htmldesign.control.weblist.WebListListButtonContainer"
                  ClientResolve="WLDCT_ListButtonContainer"
                  ClientResolveJs=""
-                 EnableChildControls="WLDCT_FormButton;WLDCT_DeleteButton"
+                 EnableChildControls="WLDCT_FormButton;WLDCT_DeleteButton;WLDCT_PrintButton"
                  DialogWidth="780" DialogHeight="550" IsJBuild4DCData="false" ControlCategory="ContainerControl" ServerDynamicBind="false"
                  ShowRemoveButton="false" ShowInEditorToolbar="true">
             <Config></Config>
@@ -296,6 +296,16 @@
         <Control SingleName="WLDCT_DeleteButton" Text="按钮-删除按钮" ToolbarLocation="LC_Simple_G2,3"
                  ServerResolve="com.jb4dc.builder.client.htmldesign.control.weblist.WebListDeleteButton"
                  ClientResolve="WLDCT_DeleteButton"
+                 ClientResolveJs=""
+                 EnableChildControls="*"
+                 DialogWidth="780" DialogHeight="550" IsJBuild4DCData="true" ControlCategory="InputControl" ServerDynamicBind="false"
+                 ShowRemoveButton="true" ShowInEditorToolbar="true">
+            <Config></Config>
+            <Desc></Desc>
+        </Control>
+        <Control SingleName="WLDCT_PrintButton" Text="按钮-打印按钮" ToolbarLocation="LC_Simple_G2,4"
+                 ServerResolve="com.jb4dc.builder.client.htmldesign.control.weblist.WebListPrintButton"
+                 ClientResolve="WLDCT_PrintButton"
                  ClientResolveJs=""
                  EnableChildControls="*"
                  DialogWidth="780" DialogHeight="550" IsJBuild4DCData="true" ControlCategory="InputControl" ServerDynamicBind="false"

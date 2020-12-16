@@ -125,14 +125,14 @@ let FormRuntime={
             //alert( "Load was performed.");
             //console.log("加载预览窗体成功!!");
             //debugger;
-            console.log(result);
+            //console.log(result);
             //console.log(result.data.formHtmlRuntime);
             this._FormPO=result.data;
             //this._FormDataRelationList=JsonUtility.StringToJson(this._FormPO.formDataRelation);
             this._FormPO.formDataRelation="";//清空字符串类型的关联.功能调整
             this._FormDataRelationList=this._FormPO.formRecordDataRelationPOList;
             this._OriginalFormDataRelationList=JsonUtility.CloneStringify(this._FormDataRelationList);
-            console.log(this._FormDataRelationList);
+
             this._$RendererToElem.append(result.data.formHtmlRuntime);
             this._FormJSRuntimeInst = Object.create(HTMLJSRuntime);
             this._FormJSRuntimeInst.Initialization({},this._$RendererToElem,this._FormPO.formJsContent);
@@ -166,9 +166,11 @@ let FormRuntime={
 
             if(BaseUtility.IsUpdateOperation(this.GetOperationType())||BaseUtility.IsViewOperation(this.GetOperationType())){
                 var formRecordComplexPO=result.data.formRecordComplexPO;
+                console.log(result.data);
+                console.log(formRecordComplexPO);
                 this.DeSerializationFormData(formRecordComplexPO);
             }
-            if(BaseUtility.IsViewOperation(this.GetOperationType())){
+            if(BaseUtility.IsViewOperation(this.GetOperationType())&&this._Prop_Config.FormRuntimeCategory==FormRuntimeSinglePageObject.FORM_RUNTIME_CATEGORY_INDEPENDENCE){
                 $("#innerButtonWrapOuter").hide();
             }
 

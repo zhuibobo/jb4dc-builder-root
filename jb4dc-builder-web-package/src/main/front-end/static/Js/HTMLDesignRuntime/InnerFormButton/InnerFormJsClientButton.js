@@ -9,7 +9,9 @@ var InnerFormJsClientButton= {
             window.location.href=window.location.href;
         }
         else{
-            DialogUtility.AlertText("未实现!");
+            window.print();
+            //printJS('htmlDesignRuntimeWrap', 'html');
+            //DialogUtility.AlertText("未实现!");
         }
     }
 }

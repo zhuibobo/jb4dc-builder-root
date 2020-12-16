@@ -200,8 +200,9 @@ let HTMLControl={
     },
     SetValue:function ($elem,fieldPO,relationFormRecordComplexPo,_rendererDataChainParas) {
         //debugger;
+        //console.log(fieldPO);
         if(fieldPO){
-            //console.log(fieldPO);
+            //console.log(fieldPO.value);
             $elem.val(fieldPO.value);
             $elem.attr("control_value",fieldPO.value);
         }

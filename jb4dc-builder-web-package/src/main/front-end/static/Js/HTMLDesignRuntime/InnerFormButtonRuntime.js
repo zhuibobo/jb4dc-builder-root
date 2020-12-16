@@ -2,7 +2,7 @@ let InnerFormButtonRuntime= {
 
     RendererSingleInnerFormButton: function (innerButtonConfig,formRuntimeInstance,listButtonPO) {
         //console.log(formRuntimeInstance);
-        console.log(innerButtonConfig);
+        //console.log(innerButtonConfig);
         //console.log(listButtonPO);
         var InnerFormButton;
         var buttonElem;
