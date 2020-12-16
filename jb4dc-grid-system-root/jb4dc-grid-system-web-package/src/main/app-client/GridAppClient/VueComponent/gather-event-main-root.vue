@@ -33,6 +33,7 @@
     </div>
     <gatherEventDetailEdit :session="session" ref="gatherEventDetailEditObj" @saveEventCompleted="saveEventCompleted"></gatherEventDetailEdit>
     <loadingDialog></loadingDialog>
+    <div id="list-empty-wrap" class="list-empty-wrap"></div>
   </div>
 </template>
 
@@ -73,8 +74,8 @@ export default {
         },*/
         empty: {
           //列表第一页无任何数据时,显示的空提示布局; 需配置warpId才显示
-          warpId: "xxid", //父布局的id (1.3.5版本支持传入dom元素)
-          icon: "./static/mescroll/mescroll-empty.png", //图标,默认null,支持网络图
+          warpId: "list-empty-wrap", //父布局的id (1.3.5版本支持传入dom元素)
+          icon: "/GridSystem/HTML/GridAppClient/Images/icons8-empty-list-100.png", //图标,默认null,支持网络图
           tip: "暂无相关数据~" //提示
         }
       },
@@ -131,6 +132,7 @@ export default {
       this.$refs.gatherEventDetailEditObj.newEvent();
     },
     saveEventCompleted:function (eventData){
+      $("#list-empty-wrap").hide();
       this.dataList.unshift(eventData);
     },
     editEvent:function (eventData){

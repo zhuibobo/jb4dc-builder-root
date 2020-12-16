@@ -9,4 +9,6 @@ import java.util.List;
 
 public interface EventInfoMapper extends BaseMapper<EventInfoEntity> {
     List<EventInfoEntity> selectEventByUserInput(@Param("userId") String userId);
+
+    List<EventInfoEntity> selectEventByEventCode(@Param("eventCode") String eventCode);
 }

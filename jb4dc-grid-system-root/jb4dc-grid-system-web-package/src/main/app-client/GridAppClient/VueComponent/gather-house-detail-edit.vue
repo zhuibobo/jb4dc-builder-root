@@ -1,6 +1,6 @@
 <template>
   <div>
-    <!--房屋信息编辑-->
+    <!--房屋信息编辑1-->
     <div class="modal fade" id="normalHouseEditModal" tabindex="-1" role="dialog" aria-labelledby="normalHouseEditModalLabel"
          aria-hidden="true">
       <div class="modal-dialog" role="document">

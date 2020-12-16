@@ -40,4 +40,8 @@
     <select id="selectEventByUserInput" resultMap="BaseResultMap">
         select<include refid="Base_Column_List"/> from TGRID_EVENT_INFO where EVENT_ACCEPT_USER_ID=#{userId} ORDER by EVENT_ORDER_NUM desc
     </select>
+
+    <select id="selectEventByEventCode" resultMap="BaseResultMap">
+        select<include refid="Base_Column_List"/> from TGRID_EVENT_INFO where EVENT_CODE=#{eventCode} ORDER by EVENT_ORDER_NUM desc
+    </select>
 </mapper>

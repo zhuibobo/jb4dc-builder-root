@@ -10,6 +10,7 @@ import com.jb4dc.base.service.impl.BaseServiceImpl;
 import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
 import com.jb4dc.core.base.session.JB4DCSession;
 import com.jb4dc.gridsystem.dao.event.EventInfoMapper;
+import com.jb4dc.gridsystem.dbentities.build.BuildInfoEntity;
 import com.jb4dc.gridsystem.dbentities.event.EventInfoEntity;
 import com.jb4dc.gridsystem.service.event.IEventInfoService;
 import com.jb4dc.sso.client.proxy.IOrganRuntimeProxy;
@@ -47,6 +48,24 @@ public class EventInfoServiceImpl extends BaseServiceImpl<EventInfoEntity> imple
     }
 
     @Override
+    public boolean testCodeSingle(EventInfoEntity eventInfoEntity) throws JBuild4DCGenerallyException {
+        //判断编号是否唯一
+        List<EventInfoEntity> eventInfoEntityList=this.getByEventCode(eventInfoEntity.getEventCode());
+        if(eventInfoEntityList.size()>1){
+            throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_GRID_CODE,"事件编码不能重复!");
+        }
+        if(eventInfoEntityList.size()>0&&!eventInfoEntityList.get(0).getEventCode().equals(eventInfoEntity.getEventCode())){
+            throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_GRID_CODE,"事件编码不能重复!");
+        }
+        return true;
+    }
+
+    @Override
+    public List<EventInfoEntity> getByEventCode(String eventCode) {
+        return eventInfoMapper.selectEventByEventCode(eventCode);
+    }
+
+    @Override
     public void saveEvent(JB4DCSession jb4DCSession, EventInfoEntity record) throws JBuild4DCGenerallyException {
         OrganEntity organEntity=organRuntimeProxy.getOrganById(jb4DCSession.getOrganId()).getData();
         if (organEntity==null){
@@ -60,6 +79,8 @@ public class EventInfoServiceImpl extends BaseServiceImpl<EventInfoEntity> imple
         if (parentOrganEntity==null){
             throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_GRID_CODE,"找不到父组织机构信息!");
         }
+
+        this.testCodeSingle(record);
 
         record.setEventStreetId(parentOrganEntity.getOrganParentId());
         record.setEventCommunityId(organEntity.getOrganParentId());

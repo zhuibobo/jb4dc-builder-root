@@ -40,7 +40,7 @@
                         <input type="text" class="form-control form-control-sm input-color"
                                v-model="event.editEventData.eventCode">
                       </div>
-                      <label class="col-12 col-form-label text-center col-form-label-sm form-label-min"><span style="color: red">请填写3位序号</span></label>
+                      <label class="col-12 col-form-label text-center col-form-label-sm form-label-min"><span style="color: red">请填写3位序号,例如001,002</span></label>
                     </div>
                     <div class="form-group row form-group-min">
                       <label class="col-3 col-form-label text-right col-form-label-sm form-label-min"><span style="color: red">*</span>诉求问题</label>
@@ -412,7 +412,7 @@
               </div>
               <div class="tab-pane fade" id="event-map-tab-wrap" role="tabpanel" aria-labelledby="event-map-tab">
                 <div class="event-form-height" style="padding:0px">
-                  <baiduMapLocation></baiduMapLocation>
+                  <baiduMapLocation ref="baiduMapLocationObj" :search-current-position-auto-marker="true" :session="session"></baiduMapLocation>
                 </div>
               </div>
             </div>
@@ -431,6 +431,7 @@
 import axios from 'axios';
 ////const appClientUtility = require('../Js/AppClientUtility.js');
 import appClientUtility from '../Js/AppClientUtility.js';
+import appBridgeUtility from '../Js/AppBridgeUtility.js';
 
 export default {
   name: "gather-event-detail-edit",
@@ -587,6 +588,7 @@ export default {
         this.event.editEventData=response.data.data;
         this.$refs.photoListObj.setRecordId(this.event.editEventData.eventId);
         this.$refs.photoListObj.loadPhotoFromServer(this.event.editEventData.eventId);
+        this.$refs.baiduMapLocationObj.setValue(this.event.editEventData.eventAcceptMapLocation);
         $("#eventEditModal").modal('show');
 
       }).catch((e) => {
@@ -641,6 +643,15 @@ export default {
       if (errorMessage) {
         appClientUtility.DialogUtility.AlertText(this, errorMessage);
         return;
+      }
+
+      var mapData=this.$refs.baiduMapLocationObj.getValue();
+      console.log(mapData);
+      if(mapData){
+        this.event.editEventData.eventAcceptMapLocation=mapData;
+      }
+      else{
+        this.event.editEventData.eventAcceptMapLocation="[]";
       }
       //endregion
       appClientUtility.DialogUtility.ShowLoading();

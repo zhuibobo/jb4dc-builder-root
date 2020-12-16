@@ -9,6 +9,10 @@ import com.jb4dc.gridsystem.dbentities.event.EventInfoEntity;
 import java.util.List;
 
 public interface IEventInfoService extends IBaseService<EventInfoEntity> {
+    boolean testCodeSingle(EventInfoEntity eventInfoEntity) throws JBuild4DCGenerallyException;
+
+    List<EventInfoEntity> getByEventCode(String eventCode);
+
     void saveEvent(JB4DCSession jb4DCSession, EventInfoEntity record) throws JBuild4DCGenerallyException;
 
     PageInfo<EventInfoEntity> getMyEvent(JB4DCSession jb4DCSession, int num, int size);
