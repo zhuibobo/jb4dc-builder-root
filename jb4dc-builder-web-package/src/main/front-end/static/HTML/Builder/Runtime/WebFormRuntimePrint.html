@@ -1,10 +1,47 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>打印表单</title>
+    <th:block th:replace="Fragment/GeneralLib::HTMLDesignRuntimeLib"></th:block>
+    <th:block th:replace="Fragment/GeneralLib::ThemesLib"></th:block>
 </head>
 <body>
-    <iframe src="WebFormRuntime.html?formId=c9e49ca4-c8bf-4814-af30-1b6bdbba4243&buttonId=0e40b10a-765c-4b3b-9ab0-5ba641121b39-form_button_109226820&listFormButtonElemId=form_button_109226820&recordId=H5APP-500275ae-6b44-d009-f1d4-a619739c0635&operationType=view&windowWidth=1324&windowHeight=900&menuRightUrlPara=&timestamp=1608120955717" style="width: 500px;height: 500px"></iframe>
+    <div style="width: 100%;position: absolute;top: 0px;bottom: 40px;left: 0px;right: 0px">
+        <iframe
+                id="iframeInnerForm"
+                style="width: 100%;height: 100%"
+                src="">
+        </iframe>
+    </div>
+    <div class="html-design-operation-button-outer-wrap">
+        <div class="html-design-button-inner-wrap">
+            <div class="html-design-buttons-group" id="innerButtonWrapOuter">
+                <button type="button" class="operation-button operation-button-primary" onclick="printIframeInnerForm()"><span>打印1</span></button>
+                <button type="button" class="operation-button operation-button-primary"><span>关闭</span></button>
+            </div>
+        </div>
+    </div>
+    <script>
+        $(function(){
+            var formParas={
+                "formId":BaseUtility.GetUrlParaValue("formId"),
+                "buttonId":BaseUtility.GetUrlParaValue("buttonId"),
+                "listFormButtonElemId":BaseUtility.GetUrlParaValue("listFormButtonElemId"),
+                "recordId":BaseUtility.GetUrlParaValue("recordId"),
+                "operationType":BaseUtility.GetUrlParaValue("operationType"),
+                "windowWidth":"",
+                "windowHeight":"",
+                "menuRightUrlPara":BaseUtility.GetUrlParaValue("menuRightUrlPara"),
+                "IsPrint":"true"
+            };
+            var url=BaseUtility.BuildView("/HTML/Builder/Runtime/WebFormRuntime.html",formParas);
+            $("#iframeInnerForm").attr("src",url);
+        });
+        function printIframeInnerForm(){
+            //window.frames["iframeInnerForm"].print();
+            document.getElementById("iframeInnerForm").contentWindow.print();
+        }
+    </script>
 </body>
 </html>

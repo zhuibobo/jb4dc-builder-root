@@ -23,22 +23,20 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4c1726ea-d2d7-4bd0-ba55-67bf5abd523a" name="Default Changelist" comment="2020-10-15">
-      <change afterPath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/front-end/static/HTML/Builder/Runtime/WebFormRuntimePrint.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/front-end/static/Js/HTMLDesign/WebListDesign/Plugins/WLDCT_PrintButton/Dialog.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/front-end/static/Js/HTMLDesign/WebListDesign/Plugins/WLDCT_PrintButton/Icon.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/front-end/static/Js/HTMLDesign/WebListDesign/Plugins/WLDCT_PrintButton/WLDCT_PrintButtonPlugin.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/jb4dc-builder-client/src/main/java/com/jb4dc/builder/client/htmldesign/control/weblist/WebListPrintButton.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/front-end/static/Js/HTMLDesignRuntime/Control/WebListControl/WLDCT_PrintButton.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jb4dc-builder-client/src/main/resources/config/builder/htmldesign/ckeditor-plugins-config.xml" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-client/src/main/resources/config/builder/htmldesign/ckeditor-plugins-config.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/jb4dc-builder-client/src/main/resources/static/HTML/Builder/Runtime/WebFormIndependenceRuntime.html" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-client/src/main/resources/static/HTML/Builder/Runtime/WebFormIndependenceRuntime.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/jb4dc-builder-client/src/main/resources/static/HTML/Builder/Runtime/WebFormRuntime.html" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-client/src/main/resources/static/HTML/Builder/Runtime/WebFormRuntime.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/jb4dc-builder-client/src/main/resources/static/HTML/Builder/Runtime/WebFormSubRuntime.html" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-client/src/main/resources/static/HTML/Builder/Runtime/WebFormSubRuntime.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/jb4dc-builder-client/src/main/resources/static/HTML/Builder/Runtime/WebListRuntime.html" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-client/src/main/resources/static/HTML/Builder/Runtime/WebListRuntime.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/jb4dc-builder-client/src/main/resources/static/Js/HTMLDesignRuntimeFull.js" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-client/src/main/resources/static/Js/HTMLDesignRuntimeFull.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/front-end/gulpfile.js" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/front-end/gulpfile.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/front-end/replaceBlock.js" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/front-end/replaceBlock.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/front-end/static/Js/HTMLDesignRuntime/Control/HTMLControl.js" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/front-end/static/Js/HTMLDesignRuntime/Control/HTMLControl.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/front-end/static/HTML/Builder/Runtime/WebFormRuntime.html" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/front-end/static/HTML/Builder/Runtime/WebFormRuntime.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/front-end/static/HTML/Builder/Runtime/WebFormRuntimePrint.html" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/front-end/static/HTML/Builder/Runtime/WebFormRuntimePrint.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/front-end/static/Js/HTMLDesign/WebListDesign/Plugins/WLDCT_PrintButton/Dialog.html" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/front-end/static/Js/HTMLDesign/WebListDesign/Plugins/WLDCT_PrintButton/Dialog.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/front-end/static/Js/HTMLDesignRuntime/FormRuntime.js" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/front-end/static/Js/HTMLDesignRuntime/FormRuntime.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/front-end/static/Js/HTMLDesignRuntime/InnerFormButton/InnerFormJsClientButton.js" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/front-end/static/Js/HTMLDesignRuntime/InnerFormButton/InnerFormJsClientButton.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/front-end/static/Js/HTMLDesignRuntime/InnerFormButtonRuntime.js" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/front-end/static/Js/HTMLDesignRuntime/InnerFormButtonRuntime.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/resources/static/HTML/Builder/API/ApiItemEdit.html" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/resources/static/HTML/Builder/API/ApiItemEdit.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/resources/static/HTML/Builder/API/GroupEdit.html" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/resources/static/HTML/Builder/API/GroupEdit.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/resources/static/HTML/Builder/API/Manager.html" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/resources/static/HTML/Builder/API/Manager.html" afterDir="false" />
@@ -101,6 +99,17 @@
       <change beforePath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/resources/static/Js/HTMLDesign/WebListDesign/Plugins/WLDCT_Search_DropDownSelect/Dialog.html" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/resources/static/Js/HTMLDesign/WebListDesign/Plugins/WLDCT_Search_DropDownSelect/Dialog.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/resources/static/Js/HTMLDesign/WebListDesign/Plugins/WLDCT_Search_TextBox/Dialog.html" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/resources/static/Js/HTMLDesign/WebListDesign/Plugins/WLDCT_Search_TextBox/Dialog.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/resources/static/Js/HTMLDesign/WebListDesign/Plugins/WLDCT_Search_TextDateTime/Dialog.html" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/resources/static/Js/HTMLDesign/WebListDesign/Plugins/WLDCT_Search_TextDateTime/Dialog.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jb4dc-grid-system-root/jb4dc-grid-system-web-package/src/main/app-client/GridAppClient/Js/AppBridgeUtility.js" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-grid-system-root/jb4dc-grid-system-web-package/src/main/app-client/GridAppClient/Js/AppBridgeUtility.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jb4dc-grid-system-root/jb4dc-grid-system-web-package/src/main/app-client/GridAppClient/VueComponent/baidu-map-location.vue" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-grid-system-root/jb4dc-grid-system-web-package/src/main/app-client/GridAppClient/VueComponent/baidu-map-location.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jb4dc-grid-system-root/jb4dc-grid-system-web-package/src/main/front-end/gulpfile.js" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-grid-system-root/jb4dc-grid-system-web-package/src/main/front-end/gulpfile.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jb4dc-grid-system-root/jb4dc-grid-system-web-package/src/main/resources/static/HTML/GridAppClient/DefaultIndexMainPage.html" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-grid-system-root/jb4dc-grid-system-web-package/src/main/resources/static/HTML/GridAppClient/DefaultIndexMainPage.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jb4dc-grid-system-root/jb4dc-grid-system-web-package/src/main/resources/static/HTML/GridAppClient/GatherBuildHousePersonMainPage.html" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-grid-system-root/jb4dc-grid-system-web-package/src/main/resources/static/HTML/GridAppClient/GatherBuildHousePersonMainPage.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jb4dc-grid-system-root/jb4dc-grid-system-web-package/src/main/resources/static/HTML/GridAppClient/GatherEventMainPage.html" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-grid-system-root/jb4dc-grid-system-web-package/src/main/resources/static/HTML/GridAppClient/GatherEventMainPage.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jb4dc-grid-system-root/jb4dc-grid-system-web-package/src/main/resources/static/HTML/GridAppClient/GatherIndexMainPage.html" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-grid-system-root/jb4dc-grid-system-web-package/src/main/resources/static/HTML/GridAppClient/GatherIndexMainPage.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jb4dc-grid-system-root/jb4dc-grid-system-web-package/src/main/resources/static/HTML/GridAppClient/MockPhotoUploadPage.html" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-grid-system-root/jb4dc-grid-system-web-package/src/main/resources/static/HTML/GridAppClient/MockPhotoUploadPage.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jb4dc-grid-system-root/jb4dc-grid-system-web-package/src/main/resources/static/HTML/GridAppClient/MockReadIdCardPage.html" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-grid-system-root/jb4dc-grid-system-web-package/src/main/resources/static/HTML/GridAppClient/MockReadIdCardPage.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jb4dc-grid-system-root/jb4dc-grid-system-web-package/src/main/resources/static/HTML/GridAppClient/SearchIndexMainPage.html" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-grid-system-root/jb4dc-grid-system-web-package/src/main/resources/static/HTML/GridAppClient/SearchIndexMainPage.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jb4dc-grid-system-root/jb4dc-grid-system-web-package/src/main/resources/static/HTML/GridAppClient/ViewDemoPage.html" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-grid-system-root/jb4dc-grid-system-web-package/src/main/resources/static/HTML/GridAppClient/ViewDemoPage.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -125,8 +134,8 @@
         <option value="Interface" />
         <option value="Vue Single File Component" />
         <option value="Class" />
-        <option value="JavaScript File" />
         <option value="HTML File" />
+        <option value="JavaScript File" />
       </list>
     </option>
   </component>
@@ -219,13 +228,6 @@
     <key name="CreateTestDialog.Recents.Supers">
       <recent name="" />
     </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="D:\JavaProject\jb4dc\jb4dc-builder-root\jb4dc-grid-system-root\jb4dc-grid-system-web-package\src\main\app-client\GridAppClient\Js" />
-      <recent name="D:\JavaProject\jb4dc\jb4dc-builder-root\jb4dc-grid-system-root\jb4dc-grid-system-web-package\src\main\front-end\static\Js\back" />
-      <recent name="D:\JavaProject\jb4dc\jb4dc-builder-root\jb4dc-grid-system-root\jb4dc-grid-system-web-package\src\main\front-end\static\HTML\Grid" />
-      <recent name="D:\JavaProject\jb4dc\jb4dc-builder-root\jb4dc-builder-web-server\src\main\resources\config" />
-      <recent name="D:\JavaProject\jb4dc\jb4dc-builder-root\jb4dc-qc-system-root\jb4dc-qc-system-web-server\src\main\resources\config" />
-    </key>
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
       <recent name="com.jb4dc.builder.client.exenum" />
       <recent name="com.jb4dc.builder.client.proxy" />
@@ -233,19 +235,26 @@
       <recent name="com.jb4dc.builder.client.service" />
       <recent name="com.jb4dc.builder.client.service.weblist" />
     </key>
-    <key name="CopyClassDialog.RECENTS_KEY">
-      <recent name="com.jb4dc.gridsystem.cache" />
-      <recent name="com.jb4dc.gridsystem.beanconfig.cache" />
-      <recent name="com.jb4dc.gridsystem.api" />
-      <recent name="com.jb4dc.gridsystem.provide" />
-      <recent name="com.jb4dc.gridsystem.webpackage.beanconfig.liquibase" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="D:\JavaProject\jb4dc\jb4dc-builder-root\jb4dc-builder-web-package\src\main\front-end\static\Js\HTMLDesign\WebListDesign\Plugins\WLDCT_PrintButton" />
       <recent name="D:\JavaProject\jb4dc\jb4dc-builder-root\jb4dc-grid-system-root\jb4dc-grid-system-web-package\src\main\resources\static\HTML\GridAppClient\Images" />
       <recent name="D:\JavaProject\jb4dc\jb4dc-builder-root\jb4dc-grid-system-root\jb4dc-grid-system-web-package\src\main\app-client\GridAppClient\Images" />
       <recent name="D:\JavaProject\jb4dc\jb4dc-builder-root\jb4dc-grid-system-root\jb4dc-grid-system-web-package\src\main\app-client\GridAppClient\LibJS" />
       <recent name="D:\JavaProject\jb4dc\jb4dc-builder-root\jb4dc-grid-system-root\jb4dc-grid-system-web-package\src\main\app-client\GridAppClient\File" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.jb4dc.builder.client.htmldesign.control.weblist" />
+      <recent name="com.jb4dc.gridsystem.cache" />
+      <recent name="com.jb4dc.gridsystem.beanconfig.cache" />
+      <recent name="com.jb4dc.gridsystem.api" />
+      <recent name="com.jb4dc.gridsystem.provide" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\JavaProject\jb4dc\jb4dc-builder-root\jb4dc-grid-system-root\jb4dc-grid-system-web-package\src\main\app-client\GridAppClient\Js" />
+      <recent name="D:\JavaProject\jb4dc\jb4dc-builder-root\jb4dc-grid-system-root\jb4dc-grid-system-web-package\src\main\front-end\static\Js\back" />
+      <recent name="D:\JavaProject\jb4dc\jb4dc-builder-root\jb4dc-grid-system-root\jb4dc-grid-system-web-package\src\main\front-end\static\HTML\Grid" />
+      <recent name="D:\JavaProject\jb4dc\jb4dc-builder-root\jb4dc-builder-web-server\src\main\resources\config" />
+      <recent name="D:\JavaProject\jb4dc\jb4dc-builder-root\jb4dc-qc-system-root\jb4dc-qc-system-web-server\src\main\resources\config" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -255,18 +264,7 @@
       </set>
     </option>
   </component>
-  <component name="RunManager" selected="Spring Boot.ApplicationGridSystemWebServer">
-    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
-      <option name="arquillianRunConfiguration">
-        <value>
-          <option name="containerStateName" value="" />
-        </value>
-      </option>
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
+  <component name="RunManager" selected="Spring Boot.ApplicationBuilderWebServer">
     <configuration name="InitializationSystemRestTest" type="JUnit" factoryName="JUnit" nameIsGenerated="true">
       <module name="jb4dc-builder-web-server" />
       <extension name="coverage">
@@ -366,89 +364,23 @@
       <envs />
       <method v="2" />
     </configuration>
-    <configuration name="default (1)" type="js.build_tools.gulp" temporary="true">
-      <node-interpreter>project</node-interpreter>
-      <node-options />
-      <gulpfile>$PROJECT_DIR$/jb4dc-grid-system-root/jb4dc-grid-system-web-package/src/main/front-end/gulpfile.js</gulpfile>
-      <tasks>
-        <task>default</task>
-      </tasks>
-      <arguments />
-      <envs />
-      <method v="2" />
-    </configuration>
-    <configuration name="dist-watch-debug (1)" type="js.build_tools.gulp" temporary="true">
-      <node-interpreter>project</node-interpreter>
-      <node-options />
-      <gulpfile>$PROJECT_DIR$/jb4dc-grid-system-root/jb4dc-grid-system-web-package/src/main/front-end/gulpfile.js</gulpfile>
-      <tasks>
-        <task>dist-watch-debug</task>
-      </tasks>
-      <arguments />
-      <envs />
-      <method v="2" />
-    </configuration>
-    <configuration name="dist-watch-debug" type="js.build_tools.gulp" temporary="true">
+    <configuration name="builder-dist-watch-debug" type="js.build_tools.gulp" temporary="true">
       <node-interpreter>project</node-interpreter>
       <node-options />
       <gulpfile>$PROJECT_DIR$/jb4dc-builder-web-package/src/main/front-end/gulpfile.js</gulpfile>
       <tasks>
-        <task>dist-watch-debug</task>
+        <task>builder-dist-watch-debug</task>
       </tasks>
       <arguments />
       <envs />
       <method v="2" />
     </configuration>
-    <configuration name="dist-watch" type="js.build_tools.gulp" temporary="true">
-      <node-interpreter>project</node-interpreter>
-      <node-options />
-      <gulpfile>$PROJECT_DIR$/jb4dc-builder-web-package/src/main/front-end/gulpfile.js</gulpfile>
-      <tasks>
-        <task>dist-watch</task>
-      </tasks>
-      <arguments />
-      <envs />
-      <method v="2" />
-    </configuration>
-    <configuration name="grid-system-less" type="js.build_tools.gulp" temporary="true">
+    <configuration name="grid-dist-watch-debug" type="js.build_tools.gulp" temporary="true">
       <node-interpreter>project</node-interpreter>
       <node-options />
       <gulpfile>$PROJECT_DIR$/jb4dc-grid-system-root/jb4dc-grid-system-web-package/src/main/front-end/gulpfile.js</gulpfile>
       <tasks>
-        <task>grid-system-less</task>
-      </tasks>
-      <arguments />
-      <envs />
-      <method v="2" />
-    </configuration>
-    <configuration name="html-only" type="js.build_tools.gulp" temporary="true">
-      <node-interpreter>project</node-interpreter>
-      <node-options />
-      <gulpfile>$PROJECT_DIR$/jb4dc-grid-system-root/jb4dc-grid-system-web-package/src/main/front-end/gulpfile.js</gulpfile>
-      <tasks>
-        <task>html-only</task>
-      </tasks>
-      <arguments />
-      <envs />
-      <method v="2" />
-    </configuration>
-    <configuration name="js-utility-component" type="js.build_tools.gulp" temporary="true">
-      <node-interpreter>project</node-interpreter>
-      <node-options />
-      <gulpfile>$PROJECT_DIR$/jb4dc-grid-system-root/jb4dc-grid-system-web-package/src/main/front-end/gulpfile.js</gulpfile>
-      <tasks>
-        <task>js-utility-component</task>
-      </tasks>
-      <arguments />
-      <envs />
-      <method v="2" />
-    </configuration>
-    <configuration name="site-template-design-utility" type="js.build_tools.gulp" temporary="true">
-      <node-interpreter>project</node-interpreter>
-      <node-options />
-      <gulpfile>$PROJECT_DIR$/jb4dc-builder-web-package/src/main/front-end/gulpfile.js</gulpfile>
-      <tasks>
-        <task>site-template-design-utility</task>
+        <task>grid-dist-watch-debug</task>
       </tasks>
       <arguments />
       <envs />
@@ -485,14 +417,8 @@
       <method v="2" />
     </configuration>
     <list>
-      <item itemvalue="Gulp.js.dist-watch-debug (1)" />
-      <item itemvalue="Gulp.js.dist-watch-debug" />
-      <item itemvalue="Gulp.js.dist-watch" />
-      <item itemvalue="Gulp.js.grid-system-less" />
-      <item itemvalue="Gulp.js.html-only" />
-      <item itemvalue="Gulp.js.site-template-design-utility" />
-      <item itemvalue="Gulp.js.default (1)" />
-      <item itemvalue="Gulp.js.js-utility-component" />
+      <item itemvalue="Gulp.js.builder-dist-watch-debug" />
+      <item itemvalue="Gulp.js.grid-dist-watch-debug" />
       <item itemvalue="JUnit.InitializationSystemRestTest" />
       <item itemvalue="JUnit.TableGroupRestTest.regTable" />
       <item itemvalue="npm.modeler-dev-watch" />
@@ -505,18 +431,12 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Gulp.js.dist-watch-debug" />
-        <item itemvalue="Gulp.js.dist-watch-debug (1)" />
+        <item itemvalue="Gulp.js.grid-dist-watch-debug" />
+        <item itemvalue="Gulp.js.builder-dist-watch-debug" />
         <item itemvalue="npm.gridappclient-dev-watch" />
         <item itemvalue="npm.gridappclient-dev" />
         <item itemvalue="npm.modeler-dev-watch" />
-        <item itemvalue="Gulp.js.html-only" />
-        <item itemvalue="Gulp.js.js-utility-component" />
         <item itemvalue="JUnit.TableGroupRestTest.regTable" />
-        <item itemvalue="Gulp.js.default (1)" />
-        <item itemvalue="Gulp.js.site-template-design-utility" />
-        <item itemvalue="Gulp.js.grid-system-less" />
-        <item itemvalue="Gulp.js.dist-watch" />
       </list>
     </recent_temporary>
   </component>
@@ -872,14 +792,10 @@
       <workItem from="1607995821707" duration="21094000" />
       <workItem from="1608034334302" duration="5479000" />
       <workItem from="1608079559552" duration="9418000" />
-      <workItem from="1608100771990" duration="11627000" />
-    </task>
-    <task id="LOCAL-00362" summary="2020-10-15">
-      <created>1603981032489</created>
-      <option name="number" value="00362" />
-      <option name="presentableId" value="LOCAL-00362" />
-      <option name="project" value="LOCAL" />
-      <updated>1603981032489</updated>
+      <workItem from="1608100771990" duration="11816000" />
+      <workItem from="1608206028270" duration="5574000" />
+      <workItem from="1608252124653" duration="8526000" />
+      <workItem from="1608608373578" duration="354000" />
     </task>
     <task id="LOCAL-00363" summary="2020-10-15">
       <created>1604240227751</created>
@@ -1217,7 +1133,14 @@
       <option name="project" value="LOCAL" />
       <updated>1608102622719</updated>
     </task>
-    <option name="localTasksCounter" value="411" />
+    <task id="LOCAL-00411" summary="2020-10-15">
+      <created>1608123104168</created>
+      <option name="number" value="00411" />
+      <option name="presentableId" value="LOCAL-00411" />
+      <option name="project" value="LOCAL" />
+      <updated>1608123104168</updated>
+    </task>
+    <option name="localTasksCounter" value="412" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -1259,10 +1182,10 @@
       <screen x="0" y="0" width="2560" height="1040" />
     </state>
     <state x="760" y="94" key="#Project_Structure/0.0.2560.1040/2560.0.1920.1040@0.0.2560.1040" timestamp="1608109835796" />
-    <state x="840" y="131" width="1186" height="740" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1607065287146">
+    <state x="840" y="131" width="1186" height="740" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1608206222711">
       <screen x="0" y="0" width="2560" height="1040" />
     </state>
-    <state x="840" y="131" width="1186" height="740" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.2560.1040/2560.0.1920.1040@0.0.2560.1040" timestamp="1607065287146" />
+    <state x="840" y="131" width="1186" height="740" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.2560.1040/2560.0.1920.1040@0.0.2560.1040" timestamp="1608206222711" />
     <state x="2974" y="175" width="1174" height="690" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.2560.1040/2560.0.1920.1040@2560.0.1920.1040" timestamp="1605012677593" />
     <state x="994" y="320" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1606550555138">
       <screen x="0" y="0" width="2560" height="1040" />
@@ -1330,65 +1253,65 @@
       <screen x="0" y="0" width="2560" height="1040" />
     </state>
     <state x="822" y="178" key="GrepConsoleSettings/0.0.2560.1040/2560.0.1920.1040@0.0.2560.1040" timestamp="1600675011533" />
-    <state width="2517" height="274" key="GridCell.Tab.0.bottom" timestamp="1608118817361">
+    <state width="2133" height="389" key="GridCell.Tab.0.bottom" timestamp="1608294349092">
       <screen x="0" y="0" width="2560" height="1040" />
     </state>
-    <state width="2517" height="274" key="GridCell.Tab.0.bottom/0.0.2560.1040/2560.0.1920.1040@0.0.2560.1040" timestamp="1608118817361" />
+    <state width="2133" height="389" key="GridCell.Tab.0.bottom/0.0.2560.1040/2560.0.1920.1040@0.0.2560.1040" timestamp="1608294349092" />
     <state width="1707" height="335" key="GridCell.Tab.0.bottom/0.0.2560.1040/2560.0.1920.1040@2560.0.1920.1040" timestamp="1605165088787" />
-    <state width="2517" height="274" key="GridCell.Tab.0.center" timestamp="1608118817361">
+    <state width="2133" height="389" key="GridCell.Tab.0.center" timestamp="1608294349092">
       <screen x="0" y="0" width="2560" height="1040" />
     </state>
-    <state width="2517" height="274" key="GridCell.Tab.0.center/0.0.2560.1040/2560.0.1920.1040@0.0.2560.1040" timestamp="1608118817361" />
+    <state width="2133" height="389" key="GridCell.Tab.0.center/0.0.2560.1040/2560.0.1920.1040@0.0.2560.1040" timestamp="1608294349092" />
     <state width="1707" height="335" key="GridCell.Tab.0.center/0.0.2560.1040/2560.0.1920.1040@2560.0.1920.1040" timestamp="1605165088786" />
-    <state width="2517" height="274" key="GridCell.Tab.0.left" timestamp="1608118817360">
+    <state width="2133" height="389" key="GridCell.Tab.0.left" timestamp="1608294349092">
       <screen x="0" y="0" width="2560" height="1040" />
     </state>
-    <state width="2517" height="274" key="GridCell.Tab.0.left/0.0.2560.1040/2560.0.1920.1040@0.0.2560.1040" timestamp="1608118817360" />
+    <state width="2133" height="389" key="GridCell.Tab.0.left/0.0.2560.1040/2560.0.1920.1040@0.0.2560.1040" timestamp="1608294349092" />
     <state width="1707" height="335" key="GridCell.Tab.0.left/0.0.2560.1040/2560.0.1920.1040@2560.0.1920.1040" timestamp="1605165088786" />
-    <state width="2517" height="274" key="GridCell.Tab.0.right" timestamp="1608118817361">
+    <state width="2133" height="389" key="GridCell.Tab.0.right" timestamp="1608294349092">
       <screen x="0" y="0" width="2560" height="1040" />
     </state>
-    <state width="2517" height="274" key="GridCell.Tab.0.right/0.0.2560.1040/2560.0.1920.1040@0.0.2560.1040" timestamp="1608118817361" />
+    <state width="2133" height="389" key="GridCell.Tab.0.right/0.0.2560.1040/2560.0.1920.1040@0.0.2560.1040" timestamp="1608294349092" />
     <state width="1707" height="335" key="GridCell.Tab.0.right/0.0.2560.1040/2560.0.1920.1040@2560.0.1920.1040" timestamp="1605165088786" />
-    <state width="2133" height="389" key="GridCell.Tab.1.bottom" timestamp="1608118610507">
+    <state width="2133" height="389" key="GridCell.Tab.1.bottom" timestamp="1608294349093">
       <screen x="0" y="0" width="2560" height="1040" />
     </state>
-    <state width="2133" height="389" key="GridCell.Tab.1.bottom/0.0.2560.1040/2560.0.1920.1040@0.0.2560.1040" timestamp="1608118610507" />
+    <state width="2133" height="389" key="GridCell.Tab.1.bottom/0.0.2560.1040/2560.0.1920.1040@0.0.2560.1040" timestamp="1608294349093" />
     <state width="1707" height="335" key="GridCell.Tab.1.bottom/0.0.2560.1040/2560.0.1920.1040@2560.0.1920.1040" timestamp="1605165088787" />
-    <state width="2133" height="389" key="GridCell.Tab.1.center" timestamp="1608118610507">
+    <state width="2133" height="389" key="GridCell.Tab.1.center" timestamp="1608294349092">
       <screen x="0" y="0" width="2560" height="1040" />
     </state>
-    <state width="2133" height="389" key="GridCell.Tab.1.center/0.0.2560.1040/2560.0.1920.1040@0.0.2560.1040" timestamp="1608118610507" />
+    <state width="2133" height="389" key="GridCell.Tab.1.center/0.0.2560.1040/2560.0.1920.1040@0.0.2560.1040" timestamp="1608294349092" />
     <state width="1707" height="335" key="GridCell.Tab.1.center/0.0.2560.1040/2560.0.1920.1040@2560.0.1920.1040" timestamp="1605165088787" />
-    <state width="2133" height="389" key="GridCell.Tab.1.left" timestamp="1608118610507">
+    <state width="2133" height="389" key="GridCell.Tab.1.left" timestamp="1608294349092">
       <screen x="0" y="0" width="2560" height="1040" />
     </state>
-    <state width="2133" height="389" key="GridCell.Tab.1.left/0.0.2560.1040/2560.0.1920.1040@0.0.2560.1040" timestamp="1608118610507" />
+    <state width="2133" height="389" key="GridCell.Tab.1.left/0.0.2560.1040/2560.0.1920.1040@0.0.2560.1040" timestamp="1608294349092" />
     <state width="1707" height="335" key="GridCell.Tab.1.left/0.0.2560.1040/2560.0.1920.1040@2560.0.1920.1040" timestamp="1605165088787" />
-    <state width="2133" height="389" key="GridCell.Tab.1.right" timestamp="1608118610507">
+    <state width="2133" height="389" key="GridCell.Tab.1.right" timestamp="1608294349092">
       <screen x="0" y="0" width="2560" height="1040" />
     </state>
-    <state width="2133" height="389" key="GridCell.Tab.1.right/0.0.2560.1040/2560.0.1920.1040@0.0.2560.1040" timestamp="1608118610507" />
+    <state width="2133" height="389" key="GridCell.Tab.1.right/0.0.2560.1040/2560.0.1920.1040@0.0.2560.1040" timestamp="1608294349092" />
     <state width="1707" height="335" key="GridCell.Tab.1.right/0.0.2560.1040/2560.0.1920.1040@2560.0.1920.1040" timestamp="1605165088787" />
-    <state width="2133" height="389" key="GridCell.Tab.2.bottom" timestamp="1608118610507">
+    <state width="2133" height="389" key="GridCell.Tab.2.bottom" timestamp="1608294349093">
       <screen x="0" y="0" width="2560" height="1040" />
     </state>
-    <state width="2133" height="389" key="GridCell.Tab.2.bottom/0.0.2560.1040/2560.0.1920.1040@0.0.2560.1040" timestamp="1608118610507" />
+    <state width="2133" height="389" key="GridCell.Tab.2.bottom/0.0.2560.1040/2560.0.1920.1040@0.0.2560.1040" timestamp="1608294349093" />
     <state width="1707" height="335" key="GridCell.Tab.2.bottom/0.0.2560.1040/2560.0.1920.1040@2560.0.1920.1040" timestamp="1605165088787" />
-    <state width="2133" height="389" key="GridCell.Tab.2.center" timestamp="1608118610507">
+    <state width="2133" height="389" key="GridCell.Tab.2.center" timestamp="1608294349093">
       <screen x="0" y="0" width="2560" height="1040" />
     </state>
-    <state width="2133" height="389" key="GridCell.Tab.2.center/0.0.2560.1040/2560.0.1920.1040@0.0.2560.1040" timestamp="1608118610507" />
+    <state width="2133" height="389" key="GridCell.Tab.2.center/0.0.2560.1040/2560.0.1920.1040@0.0.2560.1040" timestamp="1608294349093" />
     <state width="1707" height="335" key="GridCell.Tab.2.center/0.0.2560.1040/2560.0.1920.1040@2560.0.1920.1040" timestamp="1605165088787" />
-    <state width="2133" height="389" key="GridCell.Tab.2.left" timestamp="1608118610507">
+    <state width="2133" height="389" key="GridCell.Tab.2.left" timestamp="1608294349093">
       <screen x="0" y="0" width="2560" height="1040" />
     </state>
-    <state width="2133" height="389" key="GridCell.Tab.2.left/0.0.2560.1040/2560.0.1920.1040@0.0.2560.1040" timestamp="1608118610507" />
+    <state width="2133" height="389" key="GridCell.Tab.2.left/0.0.2560.1040/2560.0.1920.1040@0.0.2560.1040" timestamp="1608294349093" />
     <state width="1707" height="335" key="GridCell.Tab.2.left/0.0.2560.1040/2560.0.1920.1040@2560.0.1920.1040" timestamp="1605165088787" />
-    <state width="2133" height="389" key="GridCell.Tab.2.right" timestamp="1608118610507">
+    <state width="2133" height="389" key="GridCell.Tab.2.right" timestamp="1608294349093">
       <screen x="0" y="0" width="2560" height="1040" />
     </state>
-    <state width="2133" height="389" key="GridCell.Tab.2.right/0.0.2560.1040/2560.0.1920.1040@0.0.2560.1040" timestamp="1608118610507" />
+    <state width="2133" height="389" key="GridCell.Tab.2.right/0.0.2560.1040/2560.0.1920.1040@0.0.2560.1040" timestamp="1608294349093" />
     <state width="1707" height="335" key="GridCell.Tab.2.right/0.0.2560.1040/2560.0.1920.1040@2560.0.1920.1040" timestamp="1605165088787" />
     <state width="2517" height="374" key="GridCell.Tab.3.bottom" timestamp="1604326132442">
       <screen x="0" y="0" width="2560" height="1040" />
@@ -1426,10 +1349,10 @@
       <screen x="0" y="0" width="2560" height="1040" />
     </state>
     <state width="254" height="198" key="ShowFilterAction_Filter_Popup/0.0.2560.1040/2560.0.1920.1040@0.0.2560.1040" timestamp="1600658507424" />
-    <state x="872" y="253" key="Vcs.Push.Dialog.v2" timestamp="1608102626576">
+    <state x="872" y="253" key="Vcs.Push.Dialog.v2" timestamp="1608123106470">
       <screen x="0" y="0" width="2560" height="1040" />
     </state>
-    <state x="872" y="253" key="Vcs.Push.Dialog.v2/0.0.2560.1040/2560.0.1920.1040@0.0.2560.1040" timestamp="1608102626576" />
+    <state x="872" y="253" key="Vcs.Push.Dialog.v2/0.0.2560.1040/2560.0.1920.1040@0.0.2560.1040" timestamp="1608123106470" />
     <state width="1288" height="528" key="XDebugger.FullValuePopup" timestamp="1603960676441">
       <screen x="0" y="0" width="2560" height="1040" />
     </state>

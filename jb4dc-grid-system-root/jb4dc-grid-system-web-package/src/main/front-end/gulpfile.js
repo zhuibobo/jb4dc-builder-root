@@ -72,13 +72,13 @@ gulp.task('grid-system-less',()=>{
         .pipe(gulp.dest(distPath+'/Themes/Default/Grid/Css'));
 });
 
-gulp.task('dist-watch', function() {
+gulp.task('grid-dist-watch', function() {
     isdebug=false;
     gulp.watch(sourcePath+"/HTML/**/*", gulp.series('html-only'));
     gulp.watch(sourcePath + "/Js/VueComponent/**/*.js", gulp.series('js-vue-ex-component'));
 });
 
-gulp.task('dist-watch-debug', function() {
+gulp.task('grid-dist-watch-debug', function() {
     isdebug=true;
     gulp.watch(sourcePath+"/HTML/**/*", gulp.series('html-only'));
     gulp.watch(sourcePath + "/Js/VueComponent/**/*.js", gulp.series('js-vue-ex-component'));

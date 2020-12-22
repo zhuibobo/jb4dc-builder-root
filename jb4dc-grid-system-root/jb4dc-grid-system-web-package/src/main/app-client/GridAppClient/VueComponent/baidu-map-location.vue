@@ -30,8 +30,8 @@ export default {
       this.initBaiduMapForEvent(personData,imageBase64)
     }
     //alert(1);
-    window["confirmBaiduMapCurrentPosition"] = (position) => {
-      this.confirmCurrentPosition(position)
+    window["confirmBaiduMapCurrentPosition"] = (lat,lng) => {
+      this.confirmCurrentPosition(lat,lng)
     }
     BaiduMapUtility.LoadJsCompleted("initBaiduMapForEvent");
   },
@@ -62,7 +62,7 @@ export default {
           var mk = new BMapGL.Marker(r.point);
           mapObj.addOverlay(mk);
           mapObj.panTo(r.point);
-          //alert('您的位置：'+r.point.lng+','+r.point.lat);
+          //alert('您的位置1：'+r.point.lng+','+r.point.lat);
         }
         else {
           appClientUtility.DialogUtility.AlertText(_this,'failed'+this.getStatus());
@@ -70,9 +70,24 @@ export default {
         }
       });*/
     },
-    confirmCurrentPosition:function (position){
+    confirmCurrentPosition:function (lat,lng){
       appClientUtility.DialogUtility.HideLoading();
-      appClientUtility.DialogUtility.AlertText(position);
+      this.map.selectedLngLat={lng:parseFloat(lng),lat:parseFloat(lat)};
+
+      var mapObj = this.map.mapObj;
+      var point = new BMapGL.Point(lng, lat);
+      mapObj.panTo(point);
+
+      if(this.searchCurrentPositionAutoMarker){
+        appClientUtility.DialogUtility.Confirm(this,"清空旧的标记,并在当前位置添加标记?",(confirm)=>{
+          if(confirm){
+            this.removeMarker();
+            this.addNewMarker();
+          }
+        })
+      }
+      //appClientUtility.DialogUtility.AlertText(this,lat+"],,["+lng);
+      appBridgeUtility.stopCurrentPosition();
     },
     addToMapEditObjs:function(type,editObj){
       this.map.mapEditObjs.push({"type":type, "obj": editObj});

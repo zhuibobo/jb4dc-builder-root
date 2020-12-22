@@ -173,6 +173,9 @@ let FormRuntime={
             if(BaseUtility.IsViewOperation(this.GetOperationType())&&this._Prop_Config.FormRuntimeCategory==FormRuntimeSinglePageObject.FORM_RUNTIME_CATEGORY_INDEPENDENCE){
                 $("#innerButtonWrapOuter").hide();
             }
+            else if(this.IsPrint()){
+                $("#innerButtonWrapOuter").hide();
+            }
 
             this.CallRendererChainCompletedFunc();
             //var relationFormRecordComplexPo=FormRuntimeMock.GetMockData();
@@ -188,6 +191,9 @@ let FormRuntime={
             console.log("延迟调用");
             HTMLPageObjectInstanceProxy.CallPageReady()
         },500);
+    },
+    IsPrint:function (){
+        return BaseUtility.GetUrlParaValue("IsPrint")=="true";
     },
     IsPreview: function () {
         return this._Prop_Config.IsPreview

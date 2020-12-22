@@ -46,7 +46,7 @@ let replaceBlock = {
         replaceArray.push(refJs(levelPath + "Js/External/IView-4.X/dist/iview.min.js"));
         replaceArray.push(refJs(levelPath + "Js/External/JQuery-UI-1.12.1/jquery-ui.js"));
         replaceArray.push(refJs(levelPath + "Js/External/ZTree-3.5.40/js/jquery.ztree.all.js"));
-        replaceArray.push(refJs(levelPath + "Js/External/PrintJS-1.5/print.min.js"));
+        //replaceArray.push(refJs(levelPath + "Js/External/PrintJS-1.5/print.min.js"));
         //replaceArray.push(refJs(levelPath + "Js/External/perfect-scrollbar-14/perfect-scrollbar.js"));
         replaceArray.push(refJs(levelPath + "Js/External/Perfect-Scrollbar-V1.4.0/perfect-scrollbar.js"));
         replaceArray.push(refJs(levelPath + "Js/JBuild4DCLib.js?refVersion=" + refVersion));
@@ -128,7 +128,7 @@ let replaceBlock = {
         replaceArray.push(refCss(levelPath + 'Themes/Default/ZTree/zTreeStyle/zTreeStyle.css'));
         replaceArray.push(refCss(levelPath + 'Themes/Default/Css/JBuild4DC.css?refVersion=' + refVersion));
         replaceArray.push(refCss(levelPath + 'Themes/Default/Css/JBuild4DCBuilder.css?refVersion=' + refVersion));
-        replaceArray.push(refCss(levelPath + 'Js/External/PrintJS-1.5/print.min.css'));
+        //replaceArray.push(refCss(levelPath + 'Js/External/PrintJS-1.5/print.min.css'));
         return replaceArray.join("\n\t");
 
         /*replaceArray.push("<script>");
@@ -204,7 +204,7 @@ let replaceBlock = {
         replaceArray.push(refJs(levelPath + "Js/External/Fine-Uploader-5.16.2/fine-uploader.core.min.js"));
         replaceArray.push(refJs(levelPath + "Js/External/Fine-Uploader-5.16.2/fine-uploader.min.js"));
         replaceArray.push(refJs(levelPath + "Js/External/Perfect-Scrollbar-V1.4.0/perfect-scrollbar.js"));
-        replaceArray.push(refJs(levelPath + "Js/External/PrintJS-1.5/print.min.js"));
+        //replaceArray.push(refJs(levelPath + "Js/External/PrintJS-1.5/print.min.js"));
         replaceArray.push(refJs(levelPath + "Js/JBuild4DCLib.js?refVersion=" + refVersion));
         replaceArray.push(refJs(levelPath + "Js/UIEXComponent.js?refVersion=" + refVersion));
         replaceArray.push(refJs(levelPath + "Js/VueEXComponent.js?refVersion=" + refVersion));

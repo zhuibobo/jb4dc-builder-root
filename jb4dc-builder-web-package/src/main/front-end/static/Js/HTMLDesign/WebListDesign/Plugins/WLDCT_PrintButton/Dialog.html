@@ -272,11 +272,11 @@
                 //其他信息
                 buttonCaption:"",
                 windowCaption:"JBUILD4D",
-                openType:"Dialog",
+                openType:"NewWindow",
                 windowHeight:640,
                 windowWidth:800,
                 isShow:"true",
-                operation:"add",
+                operation:"view",
                 bindAuthority:"notAuth",
                 //开发方法扩展
                 custServerResolveMethod:"",
@@ -357,7 +357,7 @@
                 //console.log($elem);
                 //debugger;
                 this.baseInfo = props.baseInfo ? props.baseInfo : this.baseInfo;
-                this.normalProps.buttonType = "ListFormButton";
+                this.normalProps.buttonType = "ListPrintButton";
                 //绑定窗体信息
                 this.normalProps.formModuleId = $elem.attr("formmoduleid");
                 this.normalProps.formModuleName = $elem.attr("formmodulename");

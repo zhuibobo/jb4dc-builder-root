@@ -9,6 +9,16 @@ function searchCurrentPosition (vueObj,callBackFuncName) {
     }
 }
 
+function stopCurrentPosition(vueObj){
+    if (typeof (appBridge) != "undefined") {
+        //appClientUtility.DialogUtility.ShowLoading();
+        appBridge.stopLocation();
+    } else {
+        vueObj.$toasted.show('不存在appBridge对象!', {duration: 2000});
+    }
+}
+
 export default {
-    searchCurrentPosition
+    searchCurrentPosition,
+    stopCurrentPosition
 }

@@ -243,14 +243,14 @@ gulp.task('all', gulp.series('html-design-all','html-template-web-builder-packag
      done();
 });*/
 
-gulp.task('dist-watch', function() {
+gulp.task('builder-dist-watch', function() {
     //gulp.watch(sourcePath+"/HTML/**/*", gulp.series('html-only'));
     //gulp.watch(sourcePath + "/Js/VueComponent/**/*.js", gulp.series('js-vue-ex-component'));
     //var isdebug=false;
     gulp.watch(sourcePath+"/**/*", gulp.series('all'));
 });
 
-gulp.task('dist-watch-debug', function() {
+gulp.task('builder-dist-watch-debug', function() {
     //gulp.watch(sourcePath+"/HTML/**/*", gulp.series('html-only'));
     //gulp.watch(sourcePath + "/Js/VueComponent/**/*.js", gulp.series('js-vue-ex-component'));
     isdebug=true;

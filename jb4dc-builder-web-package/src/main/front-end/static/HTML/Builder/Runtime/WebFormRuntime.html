@@ -40,7 +40,9 @@
             },FormRuntimeSinglePageObject.getWebFormRTParasWithListButtonId);
 
             var windowHeight=formRuntimeInst.GetWebFormRTParas().WindowHeight;
-            $("#htmlDesignRuntimeWrap").height(windowHeight-120);
+            if(windowHeight) {
+                $("#htmlDesignRuntimeWrap").height(windowHeight - 120);
+            }
             //console.log();
         });
     </script>
