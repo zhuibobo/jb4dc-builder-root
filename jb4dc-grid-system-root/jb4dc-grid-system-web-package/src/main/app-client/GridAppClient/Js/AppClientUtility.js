@@ -20,10 +20,13 @@ function GetGridInfo(){
 function ConvertDDListToMap(allDD){
     for (let i = 0; i < allDD.length; i++) {
         var groupId=allDD[i].dictGroupId;
-        if(!AllDDMap[groupId]){
-            AllDDMap[groupId]=[];
+        //console.log(allDD[i]);
+        if(groupId==allDD[i].dictParentId) {
+            if (!AllDDMap[groupId]) {
+                AllDDMap[groupId] = [];
+            }
+            AllDDMap[groupId].push(allDD[i]);
         }
-        AllDDMap[groupId].push(allDD[i]);
     }
 }
 
@@ -38,11 +41,12 @@ function AutoBindInitDD(allDD){
         //var defaultSelectValue=control.attr("defaultSelectValue");
         var empty=control.attr("empty");
         var ddArray=ArrayUtility.Where(allDD,function (item){
+            //console.log(item);
             return item.dictGroupId==bindDDGroupId;
         })
         if(control.prop("tagName")=="SELECT"){
             if(empty=="true"){
-                control.append("<option value=''>--请选择--</option>")
+                control.append("<option value=''>-请选择-</option>")
             }
             if(ddArray.length>0){
                 for (var i = 0; i < ddArray.length; i++) {

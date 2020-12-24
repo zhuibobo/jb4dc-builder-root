@@ -83,15 +83,15 @@ var WFDCT_SelectOrganUser={
     ToViewStatus:HTMLControl.ToViewStatus,
     BuildContentHTML:function (buttonId,selectedOrganId) {
         var containerId = "dialogContainer_" + buttonId;
-        var userContainerId=containerId+"_userWarp";
+        var userContainerId=containerId+"_userWrap";
         var treeULId="treeULId_"+buttonId;
         //debugger;
         if ($("#" + containerId).length == 0) {
             var htmlTemplate=
-                `<div id='${containerId}' class="select_organ_user_warp">
-                    <div class="left_tree_warp"><ul ref="zTreeUL" class="ztree" id="${treeULId}"></ul></div>
-                    <div class="right_selected_warp" id="${userContainerId}"></div>
-                    <div class="buttons_outer_warp"><div class="buttons_inner_warp"><button class="button button-primary" name="btnEnsure">确认</button><button class="button" name="btnClose">关闭</button><button class="button" name="btnClear">清空选择</button></div></div>
+                `<div id='${containerId}' class="select_organ_user_wrap">
+                    <div class="left_tree_wrap"><ul ref="zTreeUL" class="ztree" id="${treeULId}"></ul></div>
+                    <div class="right_selected_wrap" id="${userContainerId}"></div>
+                    <div class="buttons_outer_wrap"><div class="buttons_inner_wrap"><button class="button button-primary" name="btnEnsure">确认</button><button class="button" name="btnClose">关闭</button><button class="button" name="btnClear">清空选择</button></div></div>
                 </div>`;
             var $containerDiv = $(htmlTemplate);
 

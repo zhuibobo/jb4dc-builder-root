@@ -17,7 +17,10 @@ var VirtualBodyControl={
                     pageHeight = pageHeight - 70;
                 }
                 $(".auto-full-page-height-wrap").height(pageHeight);
-                var ps = new PerfectScrollbar(".auto-full-page-height-wrap");
+                $(".auto-full-page-height-wrap").each(function () {
+                    var elem = $(this);
+                    var ps = new PerfectScrollbar(elem[0]);
+                })
                 //$(".auto-full-page-height-wrap").css("over-flow","auto");1
             }
         }

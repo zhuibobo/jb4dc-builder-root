@@ -283,7 +283,12 @@ public class ResolvePendingSQL {
                         if (fieldDataPO.getFieldDataType().equals(TableFieldTypeEnum.DataTimeType.getText())&&StringUtility.isEmpty(fieldDataPO.getValue().toString())) {
                             sqlBuilder.append(String.format("%s=#{%s},", fieldDataPO.getFieldName(), fieldDataPO.getFieldName()));
                             sqlMapPara.put(fieldDataPO.getFieldName(),null);
-                        } else {
+                        }
+                        else if (fieldDataPO.getFieldDataType().equals(TableFieldTypeEnum.IntType.getText())||fieldDataPO.getFieldDataType().equals(TableFieldTypeEnum.NumberType.getText())&&StringUtility.isEmpty(fieldDataPO.getValue().toString())) {
+                            sqlBuilder.append(String.format("%s=#{%s},", fieldDataPO.getFieldName(), fieldDataPO.getFieldName()));
+                            sqlMapPara.put(fieldDataPO.getFieldName(),null);
+                        }
+                        else {
                             sqlBuilder.append(String.format("%s=#{%s},", fieldDataPO.getFieldName(), fieldDataPO.getFieldName()));
                             sqlMapPara.put(fieldDataPO.getFieldName(), fieldDataPO.getValue().toString());
                         }

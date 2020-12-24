@@ -175,6 +175,7 @@ let FormRuntime={
             }
             else if(this.IsPrint()){
                 $("#innerButtonWrapOuter").hide();
+                $(".html-design-operation-button-outer-wrap").hide();
             }
 
             this.CallRendererChainCompletedFunc();

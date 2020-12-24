@@ -24,14 +24,17 @@ var WFDCT_BaiduMapContainer= {
         }
 
         if(this._prop.oldEditData){
+            console.log(this._prop.oldEditData);
             var mapData=this._prop.oldEditData;
             for (var i = 0; i <mapData.length; i++) {
                 if(mapData[i].type=="point"){
                     var point = new BMapGL.Point(mapData[i].path.lng,mapData[i].path.lat);
                     var marker = new BMapGL.Marker(point, {
-                        enableDragging: true
+                        //enableDragging: true
                     });
                     this._prop.mapObj.addOverlay(marker);
+                    //var point = new BMapGL.Point(lng, lat);
+                    this._prop.mapObj.panTo(point);
                     this.addToMapEditObjs("point",marker);
                 }
             }
@@ -112,7 +115,7 @@ var WFDCT_BaiduMapContainer= {
 
             var point = new BMapGL.Point(_this._prop.mapSelectedLngLat.lng,_this._prop.mapSelectedLngLat.lat);
             var marker = new BMapGL.Marker(point, {
-                enableDragging: true
+                //enableDragging: true
             });
             _this._prop.mapObj.addOverlay(marker);
             _this.addToMapEditObjs("point",marker);

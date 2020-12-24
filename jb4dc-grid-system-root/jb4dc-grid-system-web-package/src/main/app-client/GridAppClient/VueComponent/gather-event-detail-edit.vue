@@ -178,7 +178,7 @@
               <div class="tab-pane fade" id="event-person-tab-wrap" role="tabpanel" aria-labelledby="event-person-tab">
                 <div class="event-form-height">
                   <form style="margin-top: 10px">
-                    <div class="form-group row form-group-min event-form-group-caption">
+                    <div class="form-group row form-group-min event-form-group-caption" style="background-color: #F4F6F6;">
                       <label class="col-12 col-form-label col-form-label-sm form-label-min">主要诉求人</label>
                     </div>
                     <div class="form-group row form-group-min">
@@ -234,7 +234,7 @@
                     <div class="form-group row form-group-min" style="display: flex;justify-content:flex-end;padding-right: 10px;margin-bottom: 20px">
                       <button type="button" class="btn btn-success btn-sm" @click="readEventMainAppealerInfoByIdCard">读取主要诉求人身份证</button>
                     </div>
-                    <div class="form-group row form-group-min event-form-group-caption">
+                    <div class="form-group row form-group-min event-form-group-caption" style="background-color: #F4F6F6;">
                       <label class="col-12 col-form-label col-form-label-sm form-label-min">共同诉求人</label>
                     </div>
                     <div class="form-group row form-group-min">
@@ -290,7 +290,7 @@
                     <div class="form-group row form-group-min" style="display: flex;justify-content:flex-end;padding-right: 10px;margin-bottom: 20px">
                       <button type="button" class="btn btn-success btn-sm" @click="readEventFellowAppealerInfoByIdCard">读取共同诉求人身份证</button>
                     </div>
-                    <div class="form-group row form-group-min event-form-group-caption">
+                    <div class="form-group row form-group-min event-form-group-caption" style="background-color: #F4F6F6;">
                       <label class="col-12 col-form-label col-form-label-sm form-label-min">被反映人</label>
                     </div>
                     <div class="form-group row form-group-min">
@@ -346,7 +346,7 @@
                     <div class="form-group row form-group-min" style="display: flex;justify-content:flex-end;padding-right: 10px;margin-bottom: 20px">
                       <button type="button" class="btn btn-success btn-sm" @click="readEventDefePersonInfoByIdCard">读取被反映人身份证</button>
                     </div>
-                    <div class="form-group row form-group-min event-form-group-caption">
+                    <div class="form-group row form-group-min event-form-group-caption" style="background-color: #F4F6F6;">
                       <label class="col-12 col-form-label col-form-label-sm form-label-min">被反映单位</label>
                     </div>
                     <div class="form-group row form-group-min">
@@ -366,7 +366,7 @@
                     <div class="form-group row form-group-min">
                       <label class="col-4 col-form-label text-right col-form-label-sm form-label-min">成立时间</label>
                       <div class="col-8">
-                        <date-picker v-model="event.editEventData.eventDefeUnitCreateDate" valueType="format" :editable="false"></date-picker>
+                        <date-picker v-model="event.editEventData.eventDefeUnitCreateDate" valueType="format" :editable="false" style="width:170px"></date-picker>
                       </div>
                     </div>
                     <div class="form-group row form-group-min">
@@ -570,9 +570,10 @@ export default {
 
       var year=appClientUtility.DateUtility.GetCurrentData().getFullYear();
       var month=appClientUtility.DateUtility.GetCurrentData().getMonth()+1;
-      this.event.editEventData.eventCode = appClientUtility.GetGridInfo().gridCode+year+month;
+      this.event.editEventData.eventCode = appClientUtility.GetGridInfo().gridCode+"-"+year+month+"-";
       this.$refs.photoListObj.setRecordId(this.event.editEventData.eventId);
       this.$refs.photoListObj.clearPhotoList();
+      this.$refs.baiduMapLocationObj.setValue("[]");
       $("#eventEditModal").modal('show');
     },
     editEvent:function (eventId){
@@ -590,7 +591,10 @@ export default {
         this.$refs.photoListObj.loadPhotoFromServer(this.event.editEventData.eventId);
         this.$refs.baiduMapLocationObj.setValue(this.event.editEventData.eventAcceptMapLocation);
         $("#eventEditModal").modal('show');
-
+        $('#eventEditModal li:nth-child(4) a').tab('show');
+        window.setTimeout(function (){
+          $('#eventEditModal li:nth-child(1) a').tab('show')
+        },1000);
       }).catch((e) => {
 
       }).then((endRes)=>{
@@ -603,7 +607,7 @@ export default {
       if (appClientUtility.StringUtility.IsNullOrEmptyTrim(this.event.editEventData.eventCode)) {
         errorMessage += "[事件编号不能为空!]<br />";
       }
-      else if(this.event.editEventData.eventCode.length!=23){
+      else if(this.event.editEventData.eventCode.replace("-","").replace("-","").length!=23){
         errorMessage += "[事件编号必须为23位!]<br />";
       }
       if (appClientUtility.StringUtility.IsNullOrEmptyTrim(this.event.editEventData.eventAppealQuestion)) {

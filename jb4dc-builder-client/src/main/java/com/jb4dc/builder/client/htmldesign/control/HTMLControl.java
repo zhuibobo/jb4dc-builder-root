@@ -180,16 +180,44 @@ public abstract class HTMLControl implements IHTMLControl {
         return "";
     }
 
-    private List<Map<String,Object>> dataSourceBindDD(JB4DCSession jb4DCSession, String sourceHTML, Document doc, Element singleControlElem, Element parentElem, Element lastParentJbuild4dCustomElem, DynamicBindHTMLControlContextPO dynamicBindHTMLControlContextPO) throws JBuild4DCGenerallyException, IOException {
+    private List<Map<String,Object>> dataSourceBindDDRoot(JB4DCSession jb4DCSession, String sourceHTML, Document doc, Element singleControlElem, Element parentElem, Element lastParentJbuild4dCustomElem, DynamicBindHTMLControlContextPO dynamicBindHTMLControlContextPO) throws JBuild4DCGenerallyException, IOException {
         List<Map<String,Object>> datasource=new ArrayList<>();
         String dictionaryGroupDataSourceId = singleControlElem.attr("dictionaryGroupDataSourceId");
         if(StringUtility.isNotEmpty(dictionaryGroupDataSourceId)){
             List<DictionaryEntity> dictionaryEntityList=dictionaryRuntimeProxy.getDDByGroupId(dictionaryGroupDataSourceId);
             if(dictionaryEntityList!=null){
                 for (DictionaryEntity dictionaryEntity : dictionaryEntityList) {
-                    Map<String,Object> item=new HashMap<>();
-                    item.put("IVALUE",dictionaryEntity.getDictValue());
-                    item.put("ITEXT",dictionaryEntity.getDictText());
+                    if(dictionaryEntity.getDictParentId().equals(dictionaryEntity.getDictGroupId())) {
+                        Map<String, Object> item = new HashMap<>();
+                        item.put("IVALUE", dictionaryEntity.getDictValue());
+                        item.put("ITEXT", dictionaryEntity.getDictText());
+                        datasource.add(item);
+                    }
+                }
+            }
+        }
+        return datasource;
+    }
+
+    private List<Map<String,Object>> dataSourceBindDDGroup(JB4DCSession jb4DCSession, String sourceHTML, Document doc, Element singleControlElem, Element parentElem, Element lastParentJbuild4dCustomElem, DynamicBindHTMLControlContextPO dynamicBindHTMLControlContextPO) throws JBuild4DCGenerallyException, IOException {
+        List<Map<String,Object>> datasource=new ArrayList<>();
+        String dictionaryGroupDataSourceId = singleControlElem.attr("dictionaryGroupDataSourceId");
+
+        Map<String,String> tempIdValue=new HashMap<>();
+
+        if(StringUtility.isNotEmpty(dictionaryGroupDataSourceId)){
+            List<DictionaryEntity> dictionaryEntityList=dictionaryRuntimeProxy.getDDByGroupId(dictionaryGroupDataSourceId);
+            if(dictionaryEntityList!=null){
+                for (DictionaryEntity dictionaryEntity : dictionaryEntityList) {
+                    tempIdValue.put(dictionaryEntity.getDictId(),dictionaryEntity.getDictValue());
+
+                    Map<String, Object> item = new HashMap<>();
+                    item.put("IVALUE", dictionaryEntity.getDictValue());
+                    item.put("ITEXT", dictionaryEntity.getDictText());
+                    item.put("GROUPID", dictionaryEntity.getDictGroupId());
+                    item.put("PARENTID", dictionaryEntity.getDictParentId());
+                    item.put("PARENTVALUE", tempIdValue.get(dictionaryEntity.getDictParentId()));
+                    item.put("ID", dictionaryEntity.getDictId());
                     datasource.add(item);
                 }
             }
@@ -219,7 +247,7 @@ public abstract class HTMLControl implements IHTMLControl {
 
         //处理数据字典
         if(datasource.size()==0) {
-            datasource = dataSourceBindDD(jb4DCSession, sourceHTML, doc, singleControlElem, parentElem, lastParentJbuild4dCustomElem, dynamicBindHTMLControlContextPO);
+            datasource = dataSourceBindDDRoot(jb4DCSession, sourceHTML, doc, singleControlElem, parentElem, lastParentJbuild4dCustomElem, dynamicBindHTMLControlContextPO);
         }
 
         //处理SQL
@@ -234,6 +262,21 @@ public abstract class HTMLControl implements IHTMLControl {
             item.put("IVALUE"," ");
             item.put("ITEXT","--请选择--");
             datasource.add(0,item);
+        }
+
+        return datasource;
+    }
+
+    public List<Map<String,Object>> getAllLevelDataSource(JB4DCSession jb4DCSession, String sourceHTML, Document doc, Element singleControlElem, Element parentElem, Element lastParentJbuild4dCustomElem, DynamicBindHTMLControlContextPO dynamicBindHTMLControlContextPO) throws JBuild4DCGenerallyException, IOException {
+        List<Map<String, Object>> datasource = new ArrayList<>();
+        //获取数据源优先级别->本地接口->Rest接口->数据字典->sql->静态值
+        //处理本地接口
+
+        //处理Rest接口
+
+        //处理数据字典
+        if(datasource.size()==0) {
+            datasource = dataSourceBindDDGroup(jb4DCSession, sourceHTML, doc, singleControlElem, parentElem, lastParentJbuild4dCustomElem, dynamicBindHTMLControlContextPO);
         }
 
         return datasource;

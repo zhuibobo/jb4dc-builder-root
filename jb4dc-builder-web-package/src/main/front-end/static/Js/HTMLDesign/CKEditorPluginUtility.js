@@ -222,6 +222,9 @@ class CKEditorPluginUtility {
             layoutDirection:"vertical",
             rowNum:"0",
             displayValueInText:"false"
+        },
+        multilevelProps:{
+            level2BindControlId:""
         }
     }
     static OnCKWysiwygElemDBClickEvent(event,controlSetting){
@@ -313,6 +316,12 @@ class CKEditorPluginUtility {
             }
         }
 
+        if(props["multilevelProps"]){
+            for (var key in props["multilevelProps"]) {
+                elem.setAttribute(key.toLocaleLowerCase(), props["multilevelProps"][key]);
+            }
+        }
+
         return elem;
     }
     static DeserializePropsFromElem(elem){
@@ -338,6 +347,7 @@ class CKEditorPluginUtility {
         props=attrToProp.call(this,props,"defaultValue");
         props=attrToProp.call(this,props,"bindToSearchField");
         props=attrToProp.call(this,props,"normalDataSource");
+        props=attrToProp.call(this,props,"multilevelProps");
 
         if($elem.attr("validateRules")){
             props.validateRules=JsonUtility.StringToJson(decodeURIComponent($elem.attr("validateRules")));

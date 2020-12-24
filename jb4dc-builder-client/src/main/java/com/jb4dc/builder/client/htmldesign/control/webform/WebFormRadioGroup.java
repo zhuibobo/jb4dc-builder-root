@@ -11,6 +11,7 @@ import com.jb4dc.builder.po.HtmlControlDefinitionPO;
 import com.jb4dc.builder.po.ResolveHTMLControlContextPO;
 import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
 import com.jb4dc.core.base.session.JB4DCSession;
+import com.jb4dc.core.base.tools.StringUtility;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 
@@ -48,5 +49,17 @@ public class WebFormRadioGroup extends HTMLControl implements IHTMLControl {
             throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_BUILDER_CODE,e.getMessage());
         }
         singleControlElem.attr("datasource",option);
+
+        if(StringUtility.isNotEmpty(singleControlElem.attr("level2bindcontrolid"))){
+            List<Map<String,Object>> datasourceAllLevel=getAllLevelDataSource(jb4DCSession, sourceHTML, doc, singleControlElem, parentElem, lastParentJbuild4dCustomElem, dynamicBindHTMLControlContextPO);
+
+            String optionAllLevel= null;
+            try {
+                optionAllLevel = URLUtility.encode(JsonUtility.toObjectString(datasourceAllLevel));
+            } catch (JsonProcessingException e) {
+                throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_BUILDER_CODE,e.getMessage());
+            }
+            singleControlElem.attr("datasourceAllLevel",optionAllLevel);
+        }
     }
 }

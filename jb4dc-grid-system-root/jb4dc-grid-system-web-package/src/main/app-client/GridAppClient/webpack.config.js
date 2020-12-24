@@ -99,11 +99,11 @@ module.exports = {
         ]
     },
     plugins: [
-        /*new CleanWebpackPlugin (
+        new CleanWebpackPlugin (
             {
-                cleanAfterEveryBuildPatterns: ['**!/!*.js','**!/!*.css','!**!/Images/!**','!**!/bpmn-font/!**','!**!/diagram-js.css'],
+                cleanOnceBeforeBuildPatterns: ['*.js','*.css'],
             }
-        ),*/
+        ),
         new CopyWebpackPlugin({patterns:[
             { from: '**/LibJS/*.*',context: '', to: ''}
         ]}),

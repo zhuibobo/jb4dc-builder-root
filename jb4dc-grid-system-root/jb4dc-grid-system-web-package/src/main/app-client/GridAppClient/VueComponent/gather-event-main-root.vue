@@ -133,7 +133,16 @@ export default {
     },
     saveEventCompleted:function (eventData){
       $("#list-empty-wrap").hide();
-      this.dataList.unshift(eventData);
+      if(appClientUtility.ArrayUtility.Exist(this.dataList,(item)=>{
+        return item.eventId==eventData.eventId;
+      })){
+        appClientUtility.ArrayUtility.ReplaceItem(this.dataList,eventData,(item)=>{
+          return item.eventId==eventData.eventId;
+        });
+      }
+      else{
+        this.dataList.unshift(eventData);
+      }
     },
     editEvent:function (eventData){
       this.$refs.gatherEventDetailEditObj.editEvent(eventData.eventId);

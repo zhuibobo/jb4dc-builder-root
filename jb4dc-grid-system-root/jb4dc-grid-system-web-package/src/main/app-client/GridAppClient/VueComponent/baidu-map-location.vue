@@ -22,7 +22,9 @@ export default {
           mapObj:null,
           selectedLngLat:null,
           mapEditObjs:[]
-        }
+        },
+        oldDataArray:null,
+        searchCurrentPositionTime:0
       };
   },
   mounted() {
@@ -33,7 +35,6 @@ export default {
     window["confirmBaiduMapCurrentPosition"] = (lat,lng) => {
       this.confirmCurrentPosition(lat,lng)
     }
-    BaiduMapUtility.LoadJsCompleted("initBaiduMapForEvent");
   },
   methods:{
     initBaiduMapForEvent:function (){
@@ -45,32 +46,42 @@ export default {
         console.log(e.latlng);
         /*alert('点击的经纬度：' + e.latlng.lng + ', ' + e.latlng.lat);*/
       });
+
+      if(this.oldDataArray&&this.oldDataArray.length>0){
+        //var oldDataArray = appClientUtility.JsonUtility.StringToJson(oldData);
+        for (let i = 0; i < this.oldDataArray.length; i++) {
+          var singleData = this.oldDataArray[i];
+          if (singleData.type == "point") {
+            var lng = singleData.path.lng;
+            var lat = singleData.path.lat;
+            var point = new BMapGL.Point(lng, lat);
+            var mk = new BMapGL.Marker(point, {
+              icon: this.getMarkIcon()
+            });
+            this.map.mapObj.addOverlay(mk);
+            this.addToMapEditObjs("point", mk);
+            window.setTimeout(()=>{
+              this.map.mapObj.panTo(point);
+            },400);
+          }
+        }
+      }
+      else {
+        this.removeMarker();
+      }
     },
     getCurrentPosition:function (){
       var mapObj=this.map.mapObj;
       var _this=this;
 
       appBridgeUtility.searchCurrentPosition(this,"confirmBaiduMapCurrentPosition");
-
-      //var point = new BMapGL.Point(113.91858740766725,22.524304486801178);
-      //mapObj.panTo(point);
-      /*var geolocation = new BMapGL.Geolocation();
-      geolocation.enableSDKLocation();
-      geolocation.getCurrentPosition(function(r){
-        if(this.getStatus() == BMAP_STATUS_SUCCESS){
-          appClientUtility.DialogUtility.AlertText(_this,'您的位置：'+r.point.lng+','+r.point.lat);
-          var mk = new BMapGL.Marker(r.point);
-          mapObj.addOverlay(mk);
-          mapObj.panTo(r.point);
-          //alert('您的位置1：'+r.point.lng+','+r.point.lat);
-        }
-        else {
-          appClientUtility.DialogUtility.AlertText(_this,'failed'+this.getStatus());
-          //alert('failed'+this.getStatus());
-        }
-      });*/
+      this.searchCurrentPositionTime=0;
     },
     confirmCurrentPosition:function (lat,lng){
+      if(this.searchCurrentPositionTime>0){
+        return;
+      }
+      this.searchCurrentPositionTime=1;
       appClientUtility.DialogUtility.HideLoading();
       this.map.selectedLngLat={lng:parseFloat(lng),lat:parseFloat(lat)};
 
@@ -133,29 +144,13 @@ export default {
       return mapData;
     },
     setValue:function (oldData){
-      if(oldData&&oldData!="[]") {
+      if(oldData) {
         var mapObj = this.map.mapObj;
         var oldDataArray = appClientUtility.JsonUtility.StringToJson(oldData);
-        for (let i = 0; i < oldDataArray.length; i++) {
-          var singleData = oldDataArray[i];
-          if (singleData.type == "point") {
-            var lng = singleData.path.lng;
-            var lat = singleData.path.lat;
-            var point = new BMapGL.Point(lng, lat);
-            var mk = new BMapGL.Marker(point, {
-              icon: this.getMarkIcon()
-            });
-            mapObj.addOverlay(mk);
-            this.addToMapEditObjs("point", mk);
-            window.setTimeout(()=>{
-              mapObj.panTo(point);
-            },2000);
-          }
-        }
+        this.oldDataArray=oldDataArray;
       }
-      else {
-        this.removeMarker();
-      }
+
+      BaiduMapUtility.LoadJsCompleted("initBaiduMapForEvent");
     }
   }
 }

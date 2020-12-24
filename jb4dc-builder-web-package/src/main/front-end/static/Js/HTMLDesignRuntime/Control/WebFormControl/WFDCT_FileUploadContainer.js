@@ -226,9 +226,9 @@ var WFDCT_FileUploadContainer={
     /*列表相关设置*/
     BuildFileList:function () {
         var $singleControlElem = this._prop.$singleControlElem;
-        var upload_file_list_warp_id="upload_file_list_warp_"+this._prop.elemId;
-        $("#"+upload_file_list_warp_id).remove();
-        var $divWarp=$("<div class='upload_file_list_warp' id='"+upload_file_list_warp_id+"'><table class='file_list_table'><thead><tr><th style='width: 80px'>编号</th><th>文件名称</th><th style='width: 140px'>上传时间</th><th style='width: 140px'>上传人</th><th style='width: 140px'>文件大小</th><th style='width: 140px'>操作</th></tr></thead><tbody></tbody></table></div>");
+        var upload_file_list_wrap_id="upload_file_list_warp_"+this._prop.elemId;
+        $("#"+upload_file_list_wrap_id).remove();
+        var $divWarp=$("<div class='upload_file_list_wrap' id='"+upload_file_list_wrap_id+"'><table class='file_list_table'><thead><tr><th style='width: 80px'>编号</th><th>文件名称</th><th style='width: 140px'>上传时间</th><th style='width: 140px'>上传人</th><th style='width: 140px'>文件大小</th><th style='width: 140px'>操作</th></tr></thead><tbody></tbody></table></div>");
         var $tbody=$divWarp.find("tbody");
         var objId=eval(this._prop.getBindRecordIdJsMethod);
         var category=this._prop.categoryType;
@@ -245,7 +245,7 @@ var WFDCT_FileUploadContainer={
             if(BaseUtility.IsViewOperation(formRuntimeInst.GetOperationType())) {
                 this.ToViewStatus();
             }
-            console.log(result);
+            //console.log(result);
         },this);
         $($singleControlElem.append($divWarp));
     },
