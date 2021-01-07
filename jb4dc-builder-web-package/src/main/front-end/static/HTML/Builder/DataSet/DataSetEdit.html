@@ -78,7 +78,7 @@
                     </div>
                 </div>
             </div>
-            <div class="right-outer-wrap" style="bottom: 50px;width: 340px;padding: 10px">
+            <div class="right-outer-wrap" style="bottom: 50px;width: 340px;padding: 10px;overflow-y: auto;overflow-x: hidden">
                 <divider orientation="left" :dashed="true" style="font-size: 12px;padding: 10px">数据集信息</divider>
                 <i-form :model="datasetEntity" :rules="ruleValidate" :label-width="90" style="margin-right: 10px">
                     <form-item label="标题：" prop="dsCaption">
@@ -119,7 +119,7 @@
                         <i-input v-model="datasetEntity.dsIsSystem" readonly></i-input>
                     </form-item>
                     <form-item label="备注：">
-                        <i-input v-model="datasetEntity.dsDesc" type="textarea" :autosize="{minRows: 5,maxRows: 5}"></i-input>
+                        <i-input v-model="datasetEntity.dsDesc" type="textarea" :autosize="{minRows: 17,maxRows: 17}"></i-input>
                     </form-item>
                     <form-item label="连接：">
                         <i-input v-model="datasetEntity.dsSqlDbLinkId" :disabled="true"></i-input>
@@ -150,9 +150,6 @@
                 ruleValidate: {
                     dsCaption: [
                         {required: true, message: '【标题】不能空！', trigger: 'blur'}
-                    ],
-                    dsName: [
-                        {required: true, message: '【名称】不能空！', trigger: 'blur'}
                     ]
                 },
                 datasetEntity:{
@@ -427,11 +424,10 @@
                         DialogUtility.Alert(window,DialogUtility.DialogAlertId,{}, "数据集标题不能为空!",null);
                         return false;
                     }
-                    if(/^[a-zA-Z][a-zA-Z0-9_]{0,}$/.test(this.datasetEntity.dsName) == false){
+                    /*if(/^[a-zA-Z][a-zA-Z0-9_]{0,}$/.test(this.datasetEntity.dsName) == false){
                         DialogUtility.Alert(window,DialogUtility.DialogAlertId,{}, "数据集名称不能为空且只能是字母、下划线、数字并以字母开头！",null);
                         return false;
-                    }
-                    //alert("做到这里");
+                    }*/
                     if (this.editTableObj.CompletedEditingRow()&&this.relatedEditTableObj.CompletedEditingRow()) {
                         //console.log(this.editTableObj.GetSerializeJson());
 

@@ -1,0 +1,77 @@
+package com.jb4dc.builder.client.tools;
+
+import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
+import com.jb4dc.core.base.session.JB4DCSession;
+import com.jb4dc.core.base.tools.StringUtility;
+import com.jb4dc.core.base.vo.JBuild4DCResponseVo;
+import com.jb4dc.sso.client.proxy.IOrganRuntimeProxy;
+import com.jb4dc.sso.client.proxy.IRoleRuntimeProxy;
+import com.jb4dc.sso.dbentities.role.RoleEntity;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+@Service
+public class SQLStringPlaceholderUtility {
+
+    @Autowired
+    IOrganRuntimeProxy organRuntimeProxy;
+
+    @Autowired
+    IRoleRuntimeProxy roleRuntimeProxy;
+
+    public SQLStringPlaceholderResultPO generalPlaceholderHandler(JB4DCSession jb4DCSession, String sourceSQL) throws JBuild4DCGenerallyException {
+        SQLStringPlaceholderResultPO resultPO=new SQLStringPlaceholderResultPO();
+        Map<String,Object> sqlParas=new HashMap<>();
+        String resultSql=ChildOrganIdPlaceholderHandler(jb4DCSession,sourceSQL,sqlParas);
+        resultSql=ChildOrganIdAndRolePlaceholderHandler(jb4DCSession,sourceSQL,sqlParas);
+        resultPO.sql=resultSql;
+        resultPO.sqlParas=sqlParas;
+        return resultPO;
+    }
+
+    private String ChildOrganIdPlaceholderHandler(JB4DCSession jb4DCSession,String sourceSQL,Map<String,Object> sqlParas) throws JBuild4DCGenerallyException {
+        //sourceSQL.replaceAll("",)
+        if(sourceSQL.indexOf("ENVVAR.ENV_SYSTEM_CURRENT_USER_CHILD_ORGAN_ID_INCLUDE_SELF}")>0) {
+            JBuild4DCResponseVo<List<String>> jBuild4DCResponseVo = organRuntimeProxy.getAllChildOrganIdIncludeSelfRT(jb4DCSession.getOrganId());
+            List<String> allChildOrganIdList = jBuild4DCResponseVo.getData();
+            String replaceSqlWord = "";
+            for (int i = 0; i < allChildOrganIdList.size(); i++) {
+                String key = "sspocid" + i + "";
+                replaceSqlWord += "#{" + key + "},";
+                sqlParas.put(key, allChildOrganIdList.get(i));
+            }
+            replaceSqlWord = StringUtility.removeLastChar(replaceSqlWord);
+            return sourceSQL.replaceAll("'#\\{ENVVAR.ENV_SYSTEM_CURRENT_USER_CHILD_ORGAN_ID_INCLUDE_SELF}'", replaceSqlWord);
+        }
+        return sourceSQL;
+    }
+
+    private String ChildOrganIdAndRolePlaceholderHandler(JB4DCSession jb4DCSession,String sourceSQL,Map<String,Object> sqlParas) throws JBuild4DCGenerallyException {
+        //sourceSQL.replaceAll("",)
+        if(sourceSQL.indexOf("ENVVAR.ENV_SYSTEM_CURRENT_USER_CHILD_ORGAN_ID_INCLUDE_SELF_AND_ROLE}")>0) {
+            JBuild4DCResponseVo<List<RoleEntity>> jBuild4DCResponseVoRoleEntity = roleRuntimeProxy.getUserRolesRT(jb4DCSession.getUserId());
+            if(jBuild4DCResponseVoRoleEntity.getData()!=null&&jBuild4DCResponseVoRoleEntity.getData().size()>0){
+                List<RoleEntity> roleList= jBuild4DCResponseVoRoleEntity.getData();
+                if(roleList.stream().anyMatch(roleEntity -> roleEntity.getRoleId().equals("DataFilter-With-DataSet-AllData"))){
+                    return sourceSQL.replaceAll("IN \\('#\\{ENVVAR.ENV_SYSTEM_CURRENT_USER_CHILD_ORGAN_ID_INCLUDE_SELF_AND_ROLE}'\\)", "like '%%'");
+                }
+            }
+
+            JBuild4DCResponseVo<List<String>> jBuild4DCResponseVoOrganIds = organRuntimeProxy.getAllChildOrganIdIncludeSelfRT(jb4DCSession.getOrganId());
+            List<String> allChildOrganIdList = jBuild4DCResponseVoOrganIds.getData();
+            String replaceSqlWord = "";
+            for (int i = 0; i < allChildOrganIdList.size(); i++) {
+                String key = "sspocid" + i + "";
+                replaceSqlWord += "#{" + key + "},";
+                sqlParas.put(key, allChildOrganIdList.get(i));
+            }
+            replaceSqlWord = StringUtility.removeLastChar(replaceSqlWord);
+            return sourceSQL.replaceAll("'#\\{ENVVAR.ENV_SYSTEM_CURRENT_USER_CHILD_ORGAN_ID_INCLUDE_SELF_AND_ROLE}'", replaceSqlWord);
+        }
+        return sourceSQL;
+    }
+}

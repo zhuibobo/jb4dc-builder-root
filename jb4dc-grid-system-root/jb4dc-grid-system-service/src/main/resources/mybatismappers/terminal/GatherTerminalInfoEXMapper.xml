@@ -25,4 +25,8 @@
     <select id="selectByCode" resultMap="BaseResultMap">
         select<include refid="Base_Column_List"/> from TGRID_GATHER_TERMINAL_INFO where TERMINAL_CODE=#{code}
     </select>
+
+    <update id="updateTerminalCode">
+        update TGRID_GATHER_TERMINAL_INFO set TERMINAL_CODE=#{newCode} where TERMINAL_CODE=#{sourceCode}
+    </update>
 </mapper>

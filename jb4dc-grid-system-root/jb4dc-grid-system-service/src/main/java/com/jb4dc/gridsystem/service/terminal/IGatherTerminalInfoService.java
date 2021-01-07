@@ -9,4 +9,6 @@ public interface IGatherTerminalInfoService extends IBaseService<GatherTerminalI
     GatherTerminalInfoEntity getByCode(String code);
 
     void newTerminalToken(UserEntity userEntity, String terminalToken) throws JBuild4DCGenerallyException;
+
+    void updateTerminalCode(String sourceCode, String newCode);
 }

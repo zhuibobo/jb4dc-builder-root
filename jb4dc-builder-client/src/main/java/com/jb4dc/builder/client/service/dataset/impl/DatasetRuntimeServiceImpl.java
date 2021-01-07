@@ -9,6 +9,8 @@ import com.jb4dc.builder.client.proxy.ITableRuntimeProxy;
 import com.jb4dc.builder.client.service.ResolvePendingSQL;
 import com.jb4dc.builder.client.service.dataset.IDatasetRuntimeService;
 import com.jb4dc.builder.client.proxy.IEnvVariableRuntimeProxy;
+import com.jb4dc.builder.client.tools.SQLStringPlaceholderResultPO;
+import com.jb4dc.builder.client.tools.SQLStringPlaceholderUtility;
 import com.jb4dc.builder.po.*;
 import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
 import com.jb4dc.core.base.list.IListWhereCondition;
@@ -47,6 +49,9 @@ public class DatasetRuntimeServiceImpl implements IDatasetRuntimeService {
 
     @Autowired
     ITableRuntimeProxy tableRuntimeProxy;
+
+    @Autowired
+    SQLStringPlaceholderUtility sqlStringPlaceholderUtility;
 
     @Autowired
     public DatasetRuntimeServiceImpl(ISQLBuilderMapper _sqlBuilderMapper) {
@@ -145,8 +150,14 @@ public class DatasetRuntimeServiceImpl implements IDatasetRuntimeService {
         //DatasetEntity datasetEntity = datasetMapper.selectByPrimaryKey(queryDataSetPO.getDataSetId());
 
         PageHelper.startPage(queryDataSetPO.getPageNum(), queryDataSetPO.getPageSize());
+        ResolvedQueryStringPO resolvedQueryStringPO = resolveQueryString(queryDataSetPO);
+
         String sql = dataSetPO.getDsSqlSelectValue();
         sql = sql.toUpperCase();
+
+        SQLStringPlaceholderResultPO sqlStringPlaceholderResultPO= sqlStringPlaceholderUtility.generalPlaceholderHandler(jb4DCSession,sql);
+        sql=sqlStringPlaceholderResultPO.getSql();
+
         sql = sqlReplaceEnvValueToRunningValue(jb4DCSession, sql);
         /*sql="select TDEV_TEST_3.*,TDEV_TEST_4.F_TABLE3_ID,'ADDRESS' ADDRESS,'SEX' SEX from TDEV_TEST_3 join TDEV_TEST_4 on TDEV_TEST_3.ID=TDEV_TEST_4.F_TABLE3_ID where TDEV_TEST_3.ID like #{q1} or TDEV_TEST_3.ID like #{q3} order by TDEV_TEST_3.F_ORDER_NUM;";
 
@@ -154,7 +165,7 @@ public class DatasetRuntimeServiceImpl implements IDatasetRuntimeService {
         queryMap.put("q1","%ID10%");
         queryMap.put("q2","%ID20%");
         queryMap.put("q3","%ID20%");*/
-        ResolvedQueryStringPO resolvedQueryStringPO = resolveQueryString(queryDataSetPO);
+
         if (StringUtility.isNotEmpty(resolvedQueryStringPO.getWhereString())) {
             if (sql.indexOf("WHERE") > 0) {
                 sql = sql.replaceAll("(?i)WHERE", "WHERE " + resolvedQueryStringPO.getWhereString() + " AND ");
@@ -168,9 +179,13 @@ public class DatasetRuntimeServiceImpl implements IDatasetRuntimeService {
 
         List<Map<String, Object>> list;
         if (StringUtility.isNotEmpty(resolvedQueryStringPO.getWhereString())) {
-            list = sqlBuilderMapper.selectList(sql, resolvedQueryStringPO.getQueryMap());
+            Map<String, Object> queryPara=resolvedQueryStringPO.getQueryMap();
+            if(!sqlStringPlaceholderResultPO.getSqlParas().isEmpty()){
+                queryPara.putAll(sqlStringPlaceholderResultPO.getSqlParas());
+            }
+            list = sqlBuilderMapper.selectList(sql, queryPara);
         } else {
-            list = sqlBuilderMapper.selectList(sql);
+            list = sqlBuilderMapper.selectList(sql,sqlStringPlaceholderResultPO.getSqlParas());
         }
 
         PageInfo<List<Map<String, Object>>> pageInfo = new PageInfo(list);

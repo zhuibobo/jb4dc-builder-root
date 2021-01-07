@@ -166,6 +166,17 @@
                 },
                 columnsConfig: [
                     {
+                        type: 'expand',
+                        width: 50,
+                        render: (h, params) => {
+                            return h('dataset-expand-row', {
+                                props: {
+                                    row: params.row
+                                }
+                            })
+                        }
+                    },
+                    {
                         type: 'selection',
                         width: 60,
                         align: 'center'
@@ -181,12 +192,20 @@
                         key: 'dsCaption',
                         align: "center"
                     }, {
-                        title: '名称',
-                        key: 'dsName',
+                        title: '类型',
+                        key: 'dsType',
+                        width: 120,
                         align: "center"
                     }, {
-                        title: '备注',
-                        key: 'dsDesc'
+                        title: '创建人',
+                        key: 'dsCreator',
+                        width: 100,
+                        align: "center"
+                    }, {
+                        title: '更新人',
+                        key: 'dsUpdater',
+                        width: 100,
+                        align: "center"
                     }, {
                         title: '更新时间',
                         key: 'dsUpdateTime',
@@ -371,6 +390,7 @@
                 reloadData: function () {
                     //var url = '/PlatForm/Builder/DataStorage/DataBase/Table/GetListData.do';
                     //ListPageUtility.IViewTableLoadDataSearch(this.acInterface.reloadListData,this.pageNum,this.pageSize,this.searchCondition,this,this.idFieldName,true,null);
+                    //debugger;
                     ListPageUtility.IViewTableBindDataBySearch({
                         url: this.acInterface.reloadListData,
                         pageNum: this.pageNum,
@@ -382,7 +402,8 @@
                         autoSelectedOldRows: true,
                         successFunc: null,
                         loadDict: false,
-                        custParas: {}
+                        custParas: {},
+                        _expandedALL:true
                     });
                     //this.selectionRows=null;
                 },

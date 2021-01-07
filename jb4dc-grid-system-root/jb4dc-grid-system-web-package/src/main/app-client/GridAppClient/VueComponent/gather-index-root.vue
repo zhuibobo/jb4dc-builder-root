@@ -19,7 +19,7 @@
         </div>
       </div><div class="module-item-wrap" style="width: 50%" v-if="isDevUser">
         <div class="module-item module-test" @click="gotoPage('MockPhotoUploadPage.html')">
-          测试拍照(非诚勿扰)
+          测试视频(非诚勿扰)
         </div>
       </div>
       <!--row3-->

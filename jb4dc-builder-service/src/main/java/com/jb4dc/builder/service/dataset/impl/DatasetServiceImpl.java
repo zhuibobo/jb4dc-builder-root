@@ -6,6 +6,7 @@ import com.jb4dc.base.dbaccess.dynamic.ISQLBuilderMapper;
 import com.jb4dc.base.service.IAddBefore;
 import com.jb4dc.base.service.IUpdateBefore;
 import com.jb4dc.base.service.impl.BaseServiceImpl;
+import com.jb4dc.base.tools.JsonUtility;
 import com.jb4dc.base.ymls.JBuild4DCYaml;
 import com.jb4dc.builder.client.service.dataset.IDatasetRuntimeService;
 import com.jb4dc.builder.client.service.dataset.IDatasetService;
@@ -405,6 +406,52 @@ public class DatasetServiceImpl extends BaseServiceImpl<DatasetEntity> implement
         }
 
         saveDataSetPO(jb4DCSession, copyId, sourcePO);
+    }
+
+    @Override
+    public PageInfo<DataSetPO> getPageIncludeDSUseFor(JB4DCSession jb4DCSession, Integer pageNum, Integer pageSize, Map<String, Object> searchItemMap) throws IOException {
+        //PageHelper.startPage(pageNum, pageSize);
+        PageInfo<DatasetEntity> datasetEntityList = this.getPage(jb4DCSession,pageNum,pageSize,searchItemMap);
+        PageInfo<DataSetPO> pageInfoResult= new PageInfo<>();
+        pageInfoResult.setPageNum(datasetEntityList.getPageNum());
+        pageInfoResult.setPageSize(datasetEntityList.getPageSize());
+        pageInfoResult.setSize(datasetEntityList.getSize());
+        pageInfoResult.setStartRow(datasetEntityList.getStartRow());
+        pageInfoResult.setEndRow(datasetEntityList.getEndRow());
+        pageInfoResult.setPages(datasetEntityList.getPages());
+        pageInfoResult.setPrePage(datasetEntityList.getPrePage());
+        pageInfoResult.setNextPage(datasetEntityList.getNextPage());
+        pageInfoResult.setIsFirstPage(datasetEntityList.isIsFirstPage());
+        pageInfoResult.setIsLastPage(datasetEntityList.isIsLastPage());
+        pageInfoResult.setHasPreviousPage(datasetEntityList.isHasPreviousPage());
+        pageInfoResult.setHasNextPage(datasetEntityList.isHasNextPage());
+        pageInfoResult.setNavigatePages(datasetEntityList.getNavigatePages());
+        pageInfoResult.setNavigatepageNums(datasetEntityList.getNavigatepageNums());
+        pageInfoResult.setNavigateFirstPage(datasetEntityList.getNavigateFirstPage());
+        pageInfoResult.setNavigateLastPage(datasetEntityList.getNavigateLastPage());
+        pageInfoResult.setTotal(datasetEntityList.getTotal());
+        pageInfoResult.setList(JsonUtility.parseEntityListToPOList(datasetEntityList.getList(),DataSetPO.class));
+
+        if(pageInfoResult.getList()!=null&&pageInfoResult.getList().size()>0){
+            for (int i = 0; i < pageInfoResult.getList().size(); i++) {
+                DataSetPO dataSetPO=pageInfoResult.getList().get(i);
+                List userForDescList=getDataSetUseForDescList(dataSetPO.getDsId());
+                dataSetPO.setUserForDescList(userForDescList);
+            }
+        }
+        return pageInfoResult;
+    }
+
+    @Override
+    public List<String> getDataSetUseForDescList(String dsId){
+        List<String> result=new ArrayList<>();
+
+        List<Map<String,Object>> listNames=sqlBuilderMapper.selectList("select LIST_NAME from tbuild_list_resource where LIST_DATASET_ID=#{dsId}",dsId);
+        for (Map<String, Object> listName : listNames) {
+            result.add("【模块列表】<主数据>    "+listName.get("LIST_NAME").toString());
+        }
+
+        return result;
     }
 
     private boolean validateResolveResult(DataSetPO resultVo) throws JBuild4DCGenerallyException {

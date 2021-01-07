@@ -97,22 +97,24 @@ export default {
       this.photos=[];
     },
     deleteSinglePhoto:function (singlePhoto){
-      appClientUtility.DialogUtility.Confirm(this, "确实删除该文件?", () => {
-        var fileId = singlePhoto.fileId;
-        //获取建筑物相关照片
-        axios.delete(this.acInterface.deleteFile, {
-          params: {
-            fileId: fileId,
-            AppClientToken: this.session.AppClientToken,
-            ts: Date.now()
-          }
-        }).then((response) => {
-          //console.log(response);
-          appClientUtility.DialogUtility.AlertText(this, response.data.message);
-          if (response.data.success) {
-            this.loadPhotoFromServer();
-          }
-        })
+      appClientUtility.DialogUtility.Confirm(this, "确实删除该文件?", (confirm) => {
+        if(confirm) {
+          var fileId = singlePhoto.fileId;
+          //获取建筑物相关照片
+          axios.delete(this.acInterface.deleteFile, {
+            params: {
+              fileId: fileId,
+              AppClientToken: this.session.AppClientToken,
+              ts: Date.now()
+            }
+          }).then((response) => {
+            //console.log(response);
+            appClientUtility.DialogUtility.AlertText(this, response.data.message);
+            if (response.data.success) {
+              this.loadPhotoFromServer();
+            }
+          })
+        }
       });
     },
     buildSinglePhotoUrl:function (singlePhoto){

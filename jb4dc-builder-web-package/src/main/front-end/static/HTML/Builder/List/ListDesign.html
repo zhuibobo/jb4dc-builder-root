@@ -360,22 +360,27 @@
                     var sendData = JSON.stringify(this.listResourceEntity);
                     //debugger;
                     AjaxUtility.PostRequestBody(this.acInterface.saveDataUrl, sendData, function (result) {
+                        //debugger;
+                        window.opener._modulelistweblistcomp.reloadData();
 
                         if(typeof(successFunc)=="function") {
                             successFunc.call(this,result);
                         }
-                        else{
-                            if(result.success){
-                                DialogUtility.AlertText(result.message);
+                        else {
+                            if (result.success) {
+                                DialogUtility.Alert(window, DialogUtility.DialogId04, {}, result.message, function () {
+                                    if (BaseUtility.IsAddOperation(listDesign.status)) {
+                                        var editUrl = "ListDesign.html?op=update&recordId=" + result.data.listId + "&timestamp=1609924988586";
+                                        window.location.href=editUrl;
+                                    }
+                                });
                             }
                         }
-                        window.opener._modulelistweblistcomp.reloadData();
-                        //debugger;
+                        //debugger;1
                         /*DialogUtility.Alert(window, DialogUtility.DialogAlertId, {}, result.message, function () {
                             if (result.success) {
                                 //window.OpenerWindowObj.appList.reloadData();
                                 //DialogUtility.Frame_CloseDialog(window);
-
                                 if(typeof(successFunc)=="function") {
                                     successFunc(result);
                                 }
@@ -400,9 +405,7 @@
             savePreview:function () {
                 this.save(function (result) {
                     console.log(result);
-
                     var listId=this.listResourceEntity.listId;
-
                     DialogUtility.Frame_OpenIframeWindow(window,DialogUtility.DialogId04,"ListPreview.html?ListId="+listId, {
                         width:0,
                         height:0,
@@ -415,7 +418,6 @@
                     result:true,
                     msg:[]
                 }
-
                 if(listResourceEntity.listName==""){
                     resultMsg.result=false;
                     resultMsg.msg.push("请填写列表名称!");

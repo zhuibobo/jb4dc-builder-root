@@ -70,7 +70,8 @@ public class DataSetMainRest  {
 
         JB4DCSession jb4DCSession= JB4DCSessionUtility.getSession();
         Map<String,Object> searchMap= GeneralSearchUtility.deserializationToMap(searchCondition);
-        PageInfo<DatasetEntity> proOrganPageInfo=datasetService.getPage(jb4DCSession,pageNum,pageSize,searchMap);
+        //PageInfo<DatasetEntity> proOrganPageInfo=datasetService.getPage(jb4DCSession,pageNum,pageSize,searchMap);
+        PageInfo<DataSetPO> proOrganPageInfo=datasetService.getPageIncludeDSUseFor(jb4DCSession,pageNum,pageSize,searchMap);
         JBuild4DCResponseVo responseVo=new JBuild4DCResponseVo();
         responseVo.setData(proOrganPageInfo);
         responseVo.setMessage("获取成功");

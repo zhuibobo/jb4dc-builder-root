@@ -15,9 +15,13 @@ function BuildSession() {
     Session.OrganName = appClientUtility.GetUrlParaValue("OrganName");
     Session.OrganId = appClientUtility.GetUrlParaValue("OrganId");
     Session.AppClientToken=appClientUtility.GetUrlParaValue("AppClientToken");
+    console.log("从url中构建Session");
 }
 
 function GetSession(){
+    if(appClientUtility.StringUtility.IsNullOrEmpty(Session.UserId)){
+        BuildSession();
+    }
     return Session;
 }
 

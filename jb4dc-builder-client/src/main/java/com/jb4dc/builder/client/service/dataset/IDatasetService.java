@@ -47,4 +47,8 @@ public interface IDatasetService extends IBaseService<DatasetEntity> {
     PageInfo<List<Map<String, Object>>> getDataSetData(JB4DCSession session, QueryDataSetPO queryDataSetPO) throws JBuild4DCGenerallyException, IOException;
 
     void copyDataSet(JB4DCSession jb4DCSession,String dataSetId) throws IOException, JBuild4DCGenerallyException;
+
+    PageInfo<DataSetPO> getPageIncludeDSUseFor(JB4DCSession jb4DCSession, Integer pageNum, Integer pageSize, Map<String, Object> searchMap) throws IOException;
+
+    List<String> getDataSetUseForDescList(String dsId);
 }

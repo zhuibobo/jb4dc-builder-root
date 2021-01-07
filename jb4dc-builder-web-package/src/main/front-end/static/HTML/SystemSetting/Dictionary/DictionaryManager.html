@@ -22,6 +22,7 @@
                     <div alt="修改组" title="修改组" class="edit" @click="editGroup"></div>
                     <div alt="删除组" title="删除组" class="del" @click="delGroup"></div>
                     <div alt="浏览组" title="浏览组" class="view" @click="viewGroup"></div>
+                    <div alt="复制ID" title="复制ID" class="copy-id" @click="copyId"></div>
                 </div>
                 <div id="zTreeULWrap" style="position: absolute;top: 40px;bottom: 0px;left: 0px;right: 0px;overflow: auto">
                     <ul id="zTreeUL" class="ztree"></ul>
@@ -97,7 +98,7 @@
                             appList.reloadTreeTableData();
                             //}
                         },
-                        //成功的回调函数
+                        //成功的回调函数1
                         onAsyncSuccess : function(event, treeId, treeNode, msg){
                             appList.treeObj.expandAll(true);
                         }
@@ -235,6 +236,16 @@
                             }
                         }, this);
                     });
+                },
+                copyId:function(){
+                    if(this.treeSelectedNode!=null) {
+                        var recordId=this.treeSelectedNode.dictGroupId;
+                        BaseUtility.CopyValueClipboard(recordId);
+                        DialogUtility.ToastMessage(this,"复制成功!");
+                    }
+                    else {
+                        DialogUtility.Alert(window,DialogUtility.DialogAlertId,{},"请选择需要编辑的节点!",null);
+                    }
                 },
                 newTreeNode : function (dictGroupId, dictGroupValue,dictGroupText,dictGroupParentId) {
                     var silent = false;

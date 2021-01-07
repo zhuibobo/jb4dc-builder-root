@@ -68,7 +68,12 @@ module.exports = {
             },
             {
                 test: /\.vue$/,
-                loader: 'vue-loader'
+                loader: 'vue-loader',
+                options: {
+                    compilerOptions: {
+                        preserveWhitespace: false // 默认值是true，如果设置为 false，模版中 HTML 标签之间的空格将会被忽略。
+                    }
+                }
             },
             {
                 test: /\.css$/,

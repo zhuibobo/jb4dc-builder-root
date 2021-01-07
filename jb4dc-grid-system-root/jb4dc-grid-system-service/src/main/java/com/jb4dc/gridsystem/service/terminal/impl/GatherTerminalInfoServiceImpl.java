@@ -65,4 +65,9 @@ public class GatherTerminalInfoServiceImpl extends BaseServiceImpl<GatherTermina
 
         this.saveSimple(null,gatherTerminalInfoEntity.getTerminalId(),gatherTerminalInfoEntity);
     }
+
+    @Override
+    public void updateTerminalCode(String sourceCode, String newCode) {
+        gatherTerminalInfoMapper.updateTerminalCode(sourceCode,newCode);
+    }
 }

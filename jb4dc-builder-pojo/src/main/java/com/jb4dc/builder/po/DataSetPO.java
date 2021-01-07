@@ -18,6 +18,8 @@ public class DataSetPO extends DatasetEntity {
 
     List<DataSetRelatedTablePO> relatedTableVoList;
 
+    List<String> userForDescList;
+
     public List<DataSetColumnPO> getColumnVoList() {
         return columnVoList;
     }
@@ -32,6 +34,14 @@ public class DataSetPO extends DatasetEntity {
 
     public void setRelatedTableVoList(List<DataSetRelatedTablePO> relatedTableVoList) {
         this.relatedTableVoList = relatedTableVoList;
+    }
+
+    public List<String> getUserForDescList() {
+        return userForDescList;
+    }
+
+    public void setUserForDescList(List<String> userForDescList) {
+        this.userForDescList = userForDescList;
     }
 
     public static DataSetPO parseToPO(DatasetEntity entity) throws IOException {

@@ -93,17 +93,14 @@ public class FileRuntimeRest {
 
     @RequestMapping(value = "UploadBase64Image")
     JBuild4DCResponseVo uploadBase64Image(HttpServletRequest request, HttpServletResponse response,String base64Image,String objType,String objId,String categoryType,String fileName) throws IOException, JBuild4DCGenerallyException, URISyntaxException {
-
         try {
             BASE64Decoder decoder = new BASE64Decoder();
             byte[] byteData = decoder.decodeBuffer(base64Image);
-
             FileInfoEntity fileInfoEntity = fileInfoService.addFileToFileSystem(
                     JB4DCSessionUtility.getSession(),
                     fileName, byteData,
                     objId, String.valueOf(System.currentTimeMillis()),
                     objType, categoryType);
-
             return JBuild4DCResponseVo.opSuccess(fileInfoEntity);
         }
         catch (Exception ex){
@@ -111,18 +108,38 @@ public class FileRuntimeRest {
         }
     }
 
+    @RequestMapping(value = "UploadVideo")
+    JBuild4DCResponseVo uploadVideo(HttpServletRequest request, HttpServletResponse response,String objType,String objId,String categoryType) throws IOException, JBuild4DCGenerallyException, URISyntaxException {
+        try {
+            SimpleFilePO simpleFilePO = getSingleFilePOFromRequest(request);
+            FileInfoEntity fileInfoEntity = fileInfoService.addFileToFileSystem(
+                    JB4DCSessionUtility.getSession(),
+                    simpleFilePO.getFileName(), simpleFilePO.getFileByte(),
+                    objId, String.valueOf(System.currentTimeMillis()),
+                    objType, categoryType);
+
+            return JBuild4DCResponseVo.opSuccess();
+        }
+        catch (Exception ex){
+            throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_GRID_CODE,ex.getMessage());
+        }
+    }
 
     @RequestMapping(value = "/GetFileListData")
     JBuild4DCResponseVo getFileListData(HttpServletRequest request, HttpServletResponse response,String objId,String categoryType) throws IOException, JBuild4DCGenerallyException {
-
         List<FileInfoEntity> fileInfoEntityList=fileInfoService.getFileInfoListByObjectId(JB4DCSessionUtility.getSession(),objId,categoryType);
-
         return JBuild4DCResponseVo.getDataSuccess(fileInfoEntityList);
     }
 
     @RequestMapping(value = "/GetImageFileListData")
     JBuild4DCResponseVo getImageFileListData(HttpServletRequest request, HttpServletResponse response,String objId,String categoryType) throws IOException, JBuild4DCGenerallyException {
         List<FileInfoEntity> fileInfoEntityList=fileInfoService.getImageFileInfoListByObjectId(JB4DCSessionUtility.getSession(),objId,categoryType);
+        return JBuild4DCResponseVo.getDataSuccess(fileInfoEntityList);
+    }
+
+    @RequestMapping(value = "/GetVideoFileListData")
+    JBuild4DCResponseVo getVideoFileListData(HttpServletRequest request, HttpServletResponse response,String objId,String categoryType) throws IOException, JBuild4DCGenerallyException {
+        List<FileInfoEntity> fileInfoEntityList=fileInfoService.getVideoFileInfoListByObjectId(JB4DCSessionUtility.getSession(),objId,categoryType);
         return JBuild4DCResponseVo.getDataSuccess(fileInfoEntityList);
     }
 
@@ -166,7 +183,6 @@ public class FileRuntimeRest {
 
     @RequestMapping(value = "/DeleteFileByFileId")
     JBuild4DCResponseVo deleteFileByFileId(HttpServletRequest request, HttpServletResponse response,String fileId) throws IOException, JBuild4DCGenerallyException {
-
         fileInfoService.deleteByKey(JB4DCSessionUtility.getSession(),fileId);
         return JBuild4DCResponseVo.opSuccess();
     }
