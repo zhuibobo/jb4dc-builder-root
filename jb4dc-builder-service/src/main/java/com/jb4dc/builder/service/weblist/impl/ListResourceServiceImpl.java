@@ -4,10 +4,14 @@ import com.jb4dc.base.service.exenum.EnableTypeEnum;
 import com.jb4dc.base.service.exenum.TrueFalseEnum;
 import com.jb4dc.base.service.IAddBefore;
 import com.jb4dc.base.service.impl.BaseServiceImpl;
+import com.jb4dc.base.tools.JsonUtility;
+import com.jb4dc.builder.client.service.dataset.IDatasetService;
 import com.jb4dc.builder.dao.weblist.ListResourceMapper;
+import com.jb4dc.builder.dbentities.dataset.DatasetEntity;
 import com.jb4dc.builder.dbentities.weblist.ListResourceEntity;
 import com.jb4dc.builder.client.htmldesign.IHTMLRuntimeResolve;
 import com.jb4dc.builder.dbentities.weblist.ListResourceEntityWithBLOBs;
+import com.jb4dc.builder.po.DataSetPO;
 import com.jb4dc.builder.po.ListResourcePO;
 import com.jb4dc.builder.service.module.IModuleService;
 import com.jb4dc.builder.client.service.weblist.IListResourceService;
@@ -21,6 +25,7 @@ import org.xml.sax.SAXException;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.xpath.XPathExpressionException;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -41,6 +46,9 @@ public class ListResourceServiceImpl extends BaseServiceImpl<ListResourceEntityW
 
     @Autowired
     IHTMLRuntimeResolve htmlRuntimeResolve;
+
+    @Autowired
+    IDatasetService datasetService;
 
     public ListResourceServiceImpl(ListResourceMapper _defaultBaseMapper){
         super(_defaultBaseMapper);
@@ -105,5 +113,23 @@ public class ListResourceServiceImpl extends BaseServiceImpl<ListResourceEntityW
     @Override
     public List<ListResourceEntity> getByModuleId(JB4DCSession jb4DCSession, String moduleId) {
         return listResourceMapper.selectByModuleId(moduleId);
+    }
+
+    @Override
+    public List<ListResourcePO> getListDataForModule(JB4DCSession jb4DSession, String listModuleId) throws JBuild4DCGenerallyException, IOException {
+        List<ListResourceEntity> moduleListEntities=getByModuleId(jb4DSession,listModuleId);
+        List<ListResourcePO> resourcePOList= JsonUtility.parseEntityListToPOList(moduleListEntities,ListResourcePO.class);
+        for (ListResourcePO listResourcePO : resourcePOList) {
+            String mainDataSetId=listResourcePO.getListDatasetId();
+            List<DataSetPO> dataSetPOList=new ArrayList<>();
+            if(StringUtility.isNotEmpty(mainDataSetId)) {
+                DataSetPO dataSetPO = DataSetPO.parseToPO(datasetService.getEntityByPrimaryKey(jb4DSession, mainDataSetId));
+                List<String> useForDescList=datasetService.getDataSetUseForDescList(dataSetPO.getDsId());
+                dataSetPO.setUserForDescList(useForDescList);
+                dataSetPOList.add(dataSetPO);
+            }
+            listResourcePO.setDataSetPOList(dataSetPOList);
+        }
+        return resourcePOList;
     }
 }

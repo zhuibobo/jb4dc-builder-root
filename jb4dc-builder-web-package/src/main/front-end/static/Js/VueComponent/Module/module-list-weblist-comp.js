@@ -7,7 +7,7 @@ Vue.component("module-list-weblist-comp", {
         return {
             acInterface:{
                 editView: "/HTML/Builder/List/ListDesign.html",
-                reloadData: "/Rest/Builder/List/GetListData",
+                reloadData: "/Rest/Builder/List/GetListDataForModule",
                 delete: "/Rest/Builder/List/Delete",
                 move: "/Rest/Builder/List/Move",
             },
@@ -19,6 +19,17 @@ Vue.component("module-list-weblist-comp", {
                 }
             },
             columnsConfig: [
+                {
+                    type: 'expand',
+                    width: 50,
+                    render: (h, params) => {
+                        return h('weblist-expand-row', {
+                            props: {
+                                row: params.row
+                            }
+                        })
+                    }
+                },
                 {
                     type: 'selection',
                     width: 60,
@@ -136,7 +147,8 @@ Vue.component("module-list-weblist-comp", {
                         pageAppObj.tableDataOriginal=result.data.list;
                     },
                     loadDict: false,
-                    custParas: {}
+                    custParas: {},
+                    _expandedALL:true
                 });
             }
         },

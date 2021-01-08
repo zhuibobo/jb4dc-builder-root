@@ -167,7 +167,7 @@
                     dsStatus:"启用",
                     dsSqlSelectText:"",
                     dsSqlSelectValue:"",
-                    dsClassName:"com.jbuild4d.platform.builder.extend.impl.DemoDataSetAPI",
+                    dsClassName:"",
                     dsRestStructureUrl:"",
                     dsRestDataUrl:"",
                     columnVoList:null,
@@ -469,7 +469,12 @@
                             //debugger;
                             DialogUtility.Alert(window, DialogUtility.DialogAlertId, {}, result.message, function () {
                                 if (result.success) {
-                                    window.OpenerWindowObj.appList.reloadData();
+                                    if(window.OpenerWindowObj.appList&&typeof(window.OpenerWindowObj.appList.reloadData)=="function") {
+                                        window.OpenerWindowObj.appList.reloadData();
+                                    }
+                                    if(window.OpenerWindowObj._modulelistweblistcomp&&typeof(window.OpenerWindowObj._modulelistweblistcomp.reloadData)=="function") {
+                                        window.OpenerWindowObj._modulelistweblistcomp.reloadData();
+                                    }
                                     DialogUtility.Frame_CloseDialog(window);
                                 }
                             });

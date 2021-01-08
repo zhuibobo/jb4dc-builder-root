@@ -119,6 +119,13 @@ public class DatasetServiceImpl extends BaseServiceImpl<DatasetEntity> implement
     }
 
     @Override
+    public DatasetEntity getEntityByPrimaryKey(JB4DCSession jb4DCSession, String id) throws JBuild4DCGenerallyException, IOException {
+
+        DatasetEntity datasetEntity=super.getByPrimaryKey(jb4DCSession, id);
+        return datasetEntity;
+    }
+
+    @Override
     public DataSetPO getVoByPrimaryKey(JB4DCSession jb4DCSession, String id) throws JBuild4DCGenerallyException, IOException {
 
         DatasetEntity datasetEntity=super.getByPrimaryKey(jb4DCSession, id);

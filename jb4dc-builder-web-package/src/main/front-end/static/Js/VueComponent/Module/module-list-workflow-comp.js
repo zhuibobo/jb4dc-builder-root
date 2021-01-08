@@ -118,7 +118,7 @@ Vue.component("module-list-workflow-comp", {
         },
         reloadData: function () {
             //debugger;
-            if(this.moduleData!=null&&this.activeTabName=="list-weblist") {
+            if(this.moduleData!=null&&this.activeTabName=="list-flow") {
                 this.searchCondition.integratedModuleId.value = this.moduleData.moduleId;
                 /*ListPageUtility.IViewTableLoadDataSearch(this.acInterface.reloadData, this.pageNum, this.pageSize, this.searchCondition, this, this.idFieldName, true, function (result,pageAppObj) {
                     pageAppObj.tableDataOriginal=result.data.list;

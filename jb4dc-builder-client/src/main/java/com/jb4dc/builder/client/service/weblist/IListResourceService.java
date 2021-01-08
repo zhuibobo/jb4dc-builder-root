@@ -8,6 +8,7 @@ import com.jb4dc.builder.po.ListResourcePO;
 import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
 import com.jb4dc.core.base.session.JB4DCSession;
 
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -22,4 +23,6 @@ public interface IListResourceService extends IBaseService<ListResourceEntityWit
     ListResourcePO getListRuntimeHTMLContent(JB4DCSession jb4DCSession, String id) throws JBuild4DCGenerallyException;
 
     List<ListResourceEntity> getByModuleId(JB4DCSession jb4DCSession, String moduleId);
+
+    List<ListResourcePO> getListDataForModule(JB4DCSession jb4DSession, String listModuleId) throws JBuild4DCGenerallyException, IOException;
 }

@@ -15,7 +15,7 @@ Vue.component("dataset-expand-row", {
                 <div>应用于：</div>
             </i-col>
             <i-col span="11">
-                <div v-for="item in row.userForDescList">{{ item }}</div>
+                <div v-for="item in row.userForDescList" class="font-color-peter-river-v04">{{ item }}</div>
             </i-col>
             <i-col span="1">
                 <div>备注：</div>

@@ -2,6 +2,7 @@ package com.jb4dc.builder.po;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.jb4dc.base.tools.JsonUtility;
+import com.jb4dc.builder.dbentities.dataset.DatasetEntity;
 import com.jb4dc.builder.dbentities.webform.FormResourceEntity;
 import com.jb4dc.builder.dbentities.weblist.ListResourceEntity;
 import com.jb4dc.builder.dbentities.weblist.ListResourceEntityWithBLOBs;
@@ -24,6 +25,8 @@ public class ListResourcePO extends ListResourceEntityWithBLOBs implements Seria
 
     private String listHtmlRuntime;
 
+    private List<DataSetPO> dataSetPOList;
+
     public String getListHtmlRuntime() {
         return listHtmlRuntime;
     }
@@ -40,6 +43,14 @@ public class ListResourcePO extends ListResourceEntityWithBLOBs implements Seria
 
     public void setListJsRuntime(String listJsRuntime) {
         this.listJsRuntime = listJsRuntime;
+    }
+
+    public List<DataSetPO> getDataSetPOList() {
+        return dataSetPOList;
+    }
+
+    public void setDataSetPOList(List<DataSetPO> dataSetPOList) {
+        this.dataSetPOList = dataSetPOList;
     }
 
     public ListResourcePO() {

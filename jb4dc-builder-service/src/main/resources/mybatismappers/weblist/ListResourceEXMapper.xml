@@ -30,7 +30,7 @@
             <result property="listCustRefJs" column="LIST_CUST_REF_JS" javaType="java.lang.String" jdbcType="NVARCHAR" />
             <result property="listCustClientRenderer" column="LIST_CUST_CLIENT_RENDERER" javaType="java.lang.String" jdbcType="NVARCHAR" />
             <result property="listCustDesc" column="LIST_CUST_DESC" javaType="java.lang.String" jdbcType="NVARCHAR" />
-            <result property="listCustDesc" column="LIST_DATASET_PRIMARY_KEY" javaType="java.lang.String" jdbcType="NVARCHAR" />
+            <result property="listDatasetPrimaryKey" column="LIST_DATASET_PRIMARY_KEY" javaType="java.lang.String" jdbcType="NVARCHAR" />
     </resultMap>
     <sql id="Base_Column_List_Simple">
     LIST_ID, LIST_CODE, LIST_NAME, LIST_SINGLE_NAME, LIST_CREATE_TIME, LIST_CREATOR,
