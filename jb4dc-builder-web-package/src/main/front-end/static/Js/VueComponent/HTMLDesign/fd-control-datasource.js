@@ -217,8 +217,10 @@ Vue.component("fd-control-datasource", {
                             </tbody>
                         </table>
                     </div>
-                    <div name="selectDictionary" v-show="showSelectDictionary">
-                        <ul id="zTreeUL" class="ztree"></ul>
+                    <div name="selectDictionary" v-show="showSelectDictionary" style="position:relative;height: 490px">
+                        <div style="position:absolute;top: 0px;bottom: 10px;right: 0px;left: 0px;overflow-y: auto;overflow-x: hidden">
+                            <ul id="zTreeUL" class="ztree"></ul>
+                        </div>
                     </div>
                     <div name="selectDictionary" v-show="showEditStatic">编辑静态值</div>
                 </div>`

@@ -2,6 +2,7 @@ package com.jb4dc.builder.client.service.weblist;
 
 
 import com.jb4dc.base.service.IBaseService;
+import com.jb4dc.builder.client.service.dataset.IDatasetService;
 import com.jb4dc.builder.dbentities.weblist.ListResourceEntity;
 import com.jb4dc.builder.dbentities.weblist.ListResourceEntityWithBLOBs;
 import com.jb4dc.builder.po.ListResourcePO;
@@ -24,5 +25,5 @@ public interface IListResourceService extends IBaseService<ListResourceEntityWit
 
     List<ListResourceEntity> getByModuleId(JB4DCSession jb4DCSession, String moduleId);
 
-    List<ListResourcePO> getListDataForModule(JB4DCSession jb4DSession, String listModuleId) throws JBuild4DCGenerallyException, IOException;
+    List<ListResourcePO> getListDataForModule(JB4DCSession jb4DSession, String listModuleId, IDatasetService datasetService) throws JBuild4DCGenerallyException, IOException;
 }

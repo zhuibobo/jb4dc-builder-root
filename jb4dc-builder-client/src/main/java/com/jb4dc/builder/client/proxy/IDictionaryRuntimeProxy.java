@@ -6,6 +6,7 @@ import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created with IntelliJ IDEA.
@@ -19,4 +20,6 @@ public interface IDictionaryRuntimeProxy {
     List<DictionaryEntity> getDDByGroupId(String groupId) throws JBuild4DCGenerallyException, IOException;
 
     List<DictionaryEntity> getDictionaryByGroup3Level(String groupId) throws JBuild4DCGenerallyException, IOException;
+
+    Map<String, Map<String,Object>> getAllDictionaryMinMapJsonPropRT() throws JBuild4DCGenerallyException, IOException;
 }

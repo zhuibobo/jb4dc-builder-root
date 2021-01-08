@@ -8,7 +8,8 @@ var WLDCT_ListTableLabel= {
         elemId:null,
         columnAlign:null,
         defFormat:null,
-        targetButtonId:null
+        targetButtonId:null,
+        dictionaryGroupDataSourceId:null
     },
     RendererChain: HTMLControl.RendererChain,
     RendererDataChain:function (_rendererDataChainParas) {
@@ -55,6 +56,13 @@ var WLDCT_ListTableLabel= {
                     var organName=organData.organName;
                     value=organName;
                 }
+            }
+        }
+        else if(_prop.defFormat=="convertDDValueToDDText"){
+            if(StringUtility.IsNotNullOrEmpty(value)&&_prop.dictionaryGroupDataSourceId){
+                var key=_prop.dictionaryGroupDataSourceId+"_"+value;
+                value=_rendererDataChainParas.listRuntimeInstance._ListPO.exData.minDictionaryData[key].TEXT;
+                //console.log("绑定字典ID"+_prop.dictionaryGroupDataSourceId);
             }
         }
         if(_prop.targetButtonId) {

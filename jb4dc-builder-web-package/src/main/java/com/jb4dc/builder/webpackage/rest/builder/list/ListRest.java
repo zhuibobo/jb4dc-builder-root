@@ -4,6 +4,7 @@ import com.github.pagehelper.PageInfo;
 import com.jb4dc.base.service.IBaseService;
 import com.jb4dc.base.service.general.JB4DCSessionUtility;
 import com.jb4dc.base.service.search.GeneralSearchUtility;
+import com.jb4dc.builder.client.service.dataset.IDatasetService;
 import com.jb4dc.builder.dbentities.weblist.ListResourceEntityWithBLOBs;
 import com.jb4dc.builder.client.service.weblist.IListResourceService;
 import com.jb4dc.builder.po.ListResourcePO;
@@ -28,6 +29,9 @@ public class ListRest extends GeneralRest<ListResourceEntityWithBLOBs> {
     @Autowired
     IListResourceService listResourceService;
 
+    @Autowired
+    IDatasetService datasetService;
+
     @Override
     protected IBaseService<ListResourceEntityWithBLOBs> getBaseService() {
         return listResourceService;
@@ -43,7 +47,7 @@ public class ListRest extends GeneralRest<ListResourceEntityWithBLOBs> {
         JB4DCSession jb4DSession = JB4DCSessionUtility.getSession();
         Map<String, Object> searchMap = GeneralSearchUtility.deserializationToMap(searchCondition);
         PageInfo<ListResourcePO> proPageInfo = new PageInfo<>();
-        List<ListResourcePO> listResourcePOList = listResourceService.getListDataForModule(jb4DSession, searchMap.get("listModuleId").toString());
+        List<ListResourcePO> listResourcePOList = listResourceService.getListDataForModule(jb4DSession, searchMap.get("listModuleId").toString(),datasetService);
         proPageInfo.setList(listResourcePOList);
         JBuild4DCResponseVo responseVo = new JBuild4DCResponseVo();
         responseVo.setData(proPageInfo);

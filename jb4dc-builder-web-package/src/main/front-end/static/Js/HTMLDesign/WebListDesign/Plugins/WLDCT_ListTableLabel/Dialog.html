@@ -15,59 +15,75 @@
                 </list-table-label-bind-to-comp>
             </tab-pane>
             <tab-pane label="标签设置">
-                <table cellpadding="0" cellspacing="0" border="0" class="html-design-plugin-dialog-table-wraper">
-                    <colgroup>
-                        <col style="width: 120px" />
-                        <col />
-                    </colgroup>
-                    <tbody>
-                        <tr>
-                            <td>
-                                格式化：
-                            </td>
-                            <td>
-                                <select  v-model="normalProps.defFormat">
-                                    <option value="notFormat">无</option>
-                                    <option value="yyyy-MM-dd">yyyy-MM-dd</option>
-                                    <option value="yyyy-MM-dd HH:mm:ss">yyyy-MM-dd HH:mm:ss</option>
-                                    <option value="convertOrganIdToOrganName">机构ID转机构名称</option>
-                                </select>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                服务端解析类：
-                            </td>
-                            <td>
-                                <i-input v-model="normalProps.custServerResolveMethod" placeholder="按钮进行服务端解析时,保存模版时候调用,类全称,需要实现接口IListTableLabelCustResolve" />
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                参数：
-                            </td>
-                            <td>
-                                <i-input v-model="normalProps.custServerResolveMethodPara" placeholder="服务端解析类的参数" />
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                客户端渲染方法：
-                            </td>
-                            <td>
-                                <i-input v-model="normalProps.custClientRendererMethod" placeholder="客户端渲染方法,生成前端页面时调动,最终形成页面元素,需要返回最终元素的HTML对象" />
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                参数：
-                            </td>
-                            <td>
-                                <i-input v-model="normalProps.custClientRendererMethodPara" placeholder="客户端渲染方法的参数" />
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+                <div v-show="showProp">
+                    <table cellpadding="0" cellspacing="0" border="0" class="html-design-plugin-dialog-table-wraper">
+                        <colgroup>
+                            <col style="width: 120px" />
+                            <col />
+                        </colgroup>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    格式化：
+                                </td>
+                                <td>
+                                    <select  v-model="normalProps.defFormat">
+                                        <option value="notFormat">无</option>
+                                        <option value="yyyy-MM-dd">yyyy-MM-dd</option>
+                                        <option value="yyyy-MM-dd HH:mm:ss">yyyy-MM-dd HH:mm:ss</option>
+                                        <option value="convertOrganIdToOrganName">机构ID转机构名称</option>
+                                        <option value="convertDDValueToDDText">字典值转Text</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    数据字典：
+                                </td>
+                                <td colspan="3">
+                                    <div class="fleft">绑定数据字典:【<span style="color: red">{{normalProps.dictionaryGroupDataSourceText}}</span>】</div><button class="btn-select fright" @click="beginSelectDictionaryGroup">...</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    服务端解析类：
+                                </td>
+                                <td>
+                                    <i-input v-model="normalProps.custServerResolveMethod" placeholder="按钮进行服务端解析时,保存模版时候调用,类全称,需要实现接口IListTableLabelCustResolve" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    参数：
+                                </td>
+                                <td>
+                                    <i-input v-model="normalProps.custServerResolveMethodPara" placeholder="服务端解析类的参数" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    客户端渲染方法：
+                                </td>
+                                <td>
+                                    <i-input v-model="normalProps.custClientRendererMethod" placeholder="客户端渲染方法,生成前端页面时调动,最终形成页面元素,需要返回最终元素的HTML对象" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    参数：
+                                </td>
+                                <td>
+                                    <i-input v-model="normalProps.custClientRendererMethodPara" placeholder="客户端渲染方法的参数" />
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div name="selectDictionary" v-show="showSelectDictionary" style="position:relative;height: 490px">
+                    <div style="position:absolute;top: 0px;bottom: 10px;right: 0px;left: 0px;overflow-y: auto;overflow-x: hidden">
+                        <ul id="dd-zTreeUL" class="ztree"></ul>
+                    </div>
+                </div>
             </tab-pane>
             <tab-pane label="基础信息">
                 <fd-control-base-info v-model="baseInfo">
@@ -79,6 +95,9 @@
         var DialogApp=new Vue({
             el:"#dialogApp",
             data: {
+                acInterface:{
+                    getDDGroupTreeData:"/Rest/SystemSetting/Dict/DictionaryGroup/GetTreeData"
+                },
                 baseInfo:CKEditorPluginUtility.DefaultProps.baseInfo,
                 defaultValue: CKEditorPluginUtility.DefaultProps.defaultValue,
                 normalProps:{
@@ -93,13 +112,51 @@
                     custServerResolveMethod:"",
                     custServerResolveMethodPara:"",
                     custClientRendererMethod:"",
-                    custClientRendererMethodPara:""
+                    custClientRendererMethodPara:"",
+                    dictionaryGroupDataSourceText:"",
+                    dictionaryGroupDataSourceId:""
                 },
                 dataSetId:null,
-                buttons:[]
+                buttons:[],
+                showSelectDictionary:false,
+                showEditStatic:false,
+                showProp:true,
+                ddGroupTreeObj:null,
+                ddGroupTreeSetting:{
+                    async : {
+                        enable : true,
+                        // Ajax 获取数据的 URL 地址
+                        url :""
+                    },
+                    // 必须使用data
+                    data:{
+                        key:{
+                            name:"dictGroupText"
+                        },
+                        simpleData : {
+                            enable : true,
+                            idKey : "dictGroupId", // id编号命名
+                            pIdKey : "dictGroupParentId",  // 父id编号命名
+                            rootId : 0
+                        }
+                    },
+                    // 回调函数
+                    callback : {
+                        onClick : function(event, treeId, treeNode) {
+                            var _self = this.getZTreeObj(treeId)._host;
+                            _self.selectedDictionaryGroup(treeNode.dictGroupId,treeNode.dictGroupText);
+                            //alert(treeNode.dictGroupId);
+                            //_self.envGroupTreeNodeSelected(event,treeId,treeNode);
+                        },
+                        //成功的回调函数
+                        onAsyncSuccess : function(event, treeId, treeNode, msg){
+                            appList.treeObj.expandAll(true);
+                        }
+                    }
+                }
             },
             mounted:function () {
-
+                this.initDDGroupTree();
             },
             methods: {
                 ready:function(actionName,sel,parents){
@@ -138,7 +195,9 @@
                             custServerResolveMethod:this.normalProps.custServerResolveMethod,
                             custServerResolveMethodPara:this.normalProps.custServerResolveMethodPara,
                             custClientRendererMethod:this.normalProps.custClientRendererMethod,
-                            custClientRendererMethodPara:this.normalProps.custClientRendererMethodPara
+                            custClientRendererMethodPara:this.normalProps.custClientRendererMethodPara,
+                            dictionaryGroupDataSourceText:this.normalProps.dictionaryGroupDataSourceText,
+                            dictionaryGroupDataSourceId:this.normalProps.dictionaryGroupDataSourceId
                         },
                         defaultValue: bindData.defaultValue
                     }
@@ -160,10 +219,35 @@
                     this.normalProps.custServerResolveMethodPara = $elem.attr("custserverresolvemethodpara");
                     this.normalProps.custClientRendererMethod =$elem.attr("custclientrenderermethod");
                     this.normalProps.custClientRendererMethodPara = $elem.attr("custclientrenderermethodpara");
+                    this.normalProps.dictionaryGroupDataSourceText =$elem.attr("dictionaryGroupDataSourceText");
+                    this.normalProps.dictionaryGroupDataSourceId = $elem.attr("dictionaryGroupDataSourceId");
                     if($elem.attr("defformat")) {
                         this.normalProps.defFormat = $elem.attr("defformat");
                     }
                     this.$refs.listTableLabelBindToComp.setData(this.normalProps,this.defaultValue);
+                },
+                beginSelectDictionaryGroup:function (){
+                    this.showSelectDictionary=true;
+                    this.showProp=false;
+                },
+                selectedDictionaryGroup:function(dictionaryGroupDataSourceId,dictionaryGroupDataSourceText){
+                    this.normalProps.dictionaryGroupDataSourceId=dictionaryGroupDataSourceId;
+                    this.normalProps.dictionaryGroupDataSourceText=dictionaryGroupDataSourceText;
+                    this.showSelectDictionary=false;
+                    this.showProp=true;
+                },
+                initDDGroupTree:function () {
+                    AjaxUtility.Post(this.acInterface.getDDGroupTreeData, {}, function (result) {
+                        if(result.success){
+                            if(result.data!=null&&result.data.length>0){
+                                for(var i=0;i<result.data.length;i++) {
+                                }
+                            }
+                            this.ddGroupTreeObj=$.fn.zTree.init($("#dd-zTreeUL"), this.ddGroupTreeSetting,result.data);
+                            this.ddGroupTreeObj.expandAll(true);
+                            this.ddGroupTreeObj._host=this;
+                        }
+                    }, this);
                 }
             }
         });

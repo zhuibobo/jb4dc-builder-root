@@ -21,7 +21,7 @@ public class RuntimeProxyBase {
     Logger logger= LoggerFactory.getLogger(this.getClass());
 
     @Autowired(required = false)
-    ClientBuilderCacheManager clientBuilderCacheManager;
+    protected ClientBuilderCacheManager clientBuilderCacheManager;
 
     public String builderCacheKey(Class aClass,String classInnerSingleValue) {
         return aClass.getCanonicalName() + classInnerSingleValue;

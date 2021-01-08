@@ -47,8 +47,8 @@ public class ListResourceServiceImpl extends BaseServiceImpl<ListResourceEntityW
     @Autowired
     IHTMLRuntimeResolve htmlRuntimeResolve;
 
-    @Autowired
-    IDatasetService datasetService;
+    /*@Autowired
+    ;*/
 
     public ListResourceServiceImpl(ListResourceMapper _defaultBaseMapper){
         super(_defaultBaseMapper);
@@ -116,7 +116,7 @@ public class ListResourceServiceImpl extends BaseServiceImpl<ListResourceEntityW
     }
 
     @Override
-    public List<ListResourcePO> getListDataForModule(JB4DCSession jb4DSession, String listModuleId) throws JBuild4DCGenerallyException, IOException {
+    public List<ListResourcePO> getListDataForModule(JB4DCSession jb4DSession, String listModuleId,IDatasetService datasetService) throws JBuild4DCGenerallyException, IOException {
         List<ListResourceEntity> moduleListEntities=getByModuleId(jb4DSession,listModuleId);
         List<ListResourcePO> resourcePOList= JsonUtility.parseEntityListToPOList(moduleListEntities,ListResourcePO.class);
         for (ListResourcePO listResourcePO : resourcePOList) {
