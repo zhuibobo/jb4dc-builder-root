@@ -56,4 +56,10 @@ public class ListRest extends GeneralRest<ListResourceEntityWithBLOBs> {
 
         return responseVo;
     }
+
+    @RequestMapping(value = "CopyList",method = RequestMethod.POST)
+    public JBuild4DCResponseVo copyList(String listId) throws JBuild4DCGenerallyException, IOException {
+        listResourceService.copyList(JB4DCSessionUtility.getSession(),listId);
+        return JBuild4DCResponseVo.opSuccess();
+    }
 }

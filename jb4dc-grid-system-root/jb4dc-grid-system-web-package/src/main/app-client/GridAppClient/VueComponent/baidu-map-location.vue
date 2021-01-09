@@ -139,8 +139,9 @@ export default {
             });
           }
         }
-        mapData = JsonUtility.JsonToString(mapData);
+
       }
+      mapData = JsonUtility.JsonToString(mapData);
       return mapData;
     },
     setValue:function (oldData){

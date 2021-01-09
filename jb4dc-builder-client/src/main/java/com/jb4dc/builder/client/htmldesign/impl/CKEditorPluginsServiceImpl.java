@@ -112,7 +112,7 @@ public class CKEditorPluginsServiceImpl implements ICKEditorPluginsService {
         clientBuilderCacheManager.put(ClientBuilderCacheManager.HTML_CONTROL_PLUGIN_BUILDER_CACHE_NAME,cacheKey,JsonUtility.toObjectString(htmlControlDefinitionPOList));
         return htmlControlDefinitionPOList;*/
 
-        return autoGetFromCache(CKEditorPluginsServiceImpl.class, "getWebFormControlVoList", new IBuildGeneralObj<List<HtmlControlDefinitionPO>>() {
+        return autoGetFromCache(CKEditorPluginsServiceImpl.class, "getListControlVoList", new IBuildGeneralObj<List<HtmlControlDefinitionPO>>() {
             @Override
             public List<HtmlControlDefinitionPO> BuildObj() throws JBuild4DCGenerallyException {
                 CKEditorPluginsConfigService configService=new CKEditorPluginsConfigService();
@@ -156,7 +156,7 @@ public class CKEditorPluginsServiceImpl implements ICKEditorPluginsService {
 
         clientBuilderCacheManager.put(ClientBuilderCacheManager.HTML_CONTROL_PLUGIN_BUILDER_CACHE_NAME,cacheKey,JsonUtility.toObjectString(htmlControlDefinitionPOList));
         return htmlControlDefinitionPOList;*/
-        return autoGetFromCache(CKEditorPluginsServiceImpl.class, "getWebFormControlVoList", new IBuildGeneralObj<List<HtmlControlDefinitionPO>>() {
+        return autoGetFromCache(CKEditorPluginsServiceImpl.class, "getAllControlVoList", new IBuildGeneralObj<List<HtmlControlDefinitionPO>>() {
             @Override
             public List<HtmlControlDefinitionPO> BuildObj() throws JBuild4DCGenerallyException {
                 CKEditorPluginsConfigService configService=new CKEditorPluginsConfigService();

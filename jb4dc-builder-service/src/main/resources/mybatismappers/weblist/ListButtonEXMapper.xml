@@ -24,4 +24,8 @@
     <select id="selectByCustSingleName" resultMap="BaseResultMap">
         select<include refid="Base_Column_List"/> from TBUILD_LIST_BUTTON where BUTTON_CUST_SINGLE_NAME=#{custSingleName}
     </select>
+
+    <select id="selectByListId" resultMap="BaseResultMap">
+        select<include refid="Base_Column_List"/> from TBUILD_LIST_BUTTON where BUTTON_LIST_ID=#{listId}
+    </select>
 </mapper>

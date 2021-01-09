@@ -24,6 +24,6 @@ public class EventCodeCreater implements IEnvVariableCreator {
         if(StringUtility.isEmpty(gridInfoEntity.getGridCode())){
             return "请在网格管理中设置网格编码!";
         }
-        return gridInfoEntity.getGridCode() +"-"+ DateUtility.getYear()+(DateUtility.getMonth()+1)+"-";
+        return gridInfoEntity.getGridCode() +"-"+ DateUtility.getDate_yyyyMM()+"-";
     }
 }

@@ -3,6 +3,8 @@ package com.jb4dc.builder.dao.weblist;
 import com.jb4dc.base.dbaccess.dao.BaseMapper;
 import com.jb4dc.builder.dbentities.weblist.ListButtonEntity;
 
+import java.util.List;
+
 /**
  * Created with IntelliJ IDEA.
  * User: zhuangrb
@@ -11,4 +13,6 @@ import com.jb4dc.builder.dbentities.weblist.ListButtonEntity;
  */
 public interface ListButtonMapper  extends BaseMapper<ListButtonEntity> {
     ListButtonEntity selectByCustSingleName(String custSingleName);
+
+    List<ListButtonEntity> selectByListId(String listId);
 }

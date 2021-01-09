@@ -26,4 +26,6 @@ public interface IListResourceService extends IBaseService<ListResourceEntityWit
     List<ListResourceEntity> getByModuleId(JB4DCSession jb4DCSession, String moduleId);
 
     List<ListResourcePO> getListDataForModule(JB4DCSession jb4DSession, String listModuleId, IDatasetService datasetService) throws JBuild4DCGenerallyException, IOException;
+
+    void copyList(JB4DCSession session, String listId) throws JBuild4DCGenerallyException;
 }

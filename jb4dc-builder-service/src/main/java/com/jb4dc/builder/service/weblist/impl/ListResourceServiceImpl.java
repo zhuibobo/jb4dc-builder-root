@@ -6,8 +6,11 @@ import com.jb4dc.base.service.IAddBefore;
 import com.jb4dc.base.service.impl.BaseServiceImpl;
 import com.jb4dc.base.tools.JsonUtility;
 import com.jb4dc.builder.client.service.dataset.IDatasetService;
+import com.jb4dc.builder.client.service.weblist.IWebListButtonService;
 import com.jb4dc.builder.dao.weblist.ListResourceMapper;
 import com.jb4dc.builder.dbentities.dataset.DatasetEntity;
+import com.jb4dc.builder.dbentities.webform.FormResourceEntityWithBLOBs;
+import com.jb4dc.builder.dbentities.weblist.ListButtonEntity;
 import com.jb4dc.builder.dbentities.weblist.ListResourceEntity;
 import com.jb4dc.builder.client.htmldesign.IHTMLRuntimeResolve;
 import com.jb4dc.builder.dbentities.weblist.ListResourceEntityWithBLOBs;
@@ -18,6 +21,7 @@ import com.jb4dc.builder.client.service.weblist.IListResourceService;
 import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
 import com.jb4dc.core.base.session.JB4DCSession;
 import com.jb4dc.core.base.tools.StringUtility;
+import com.jb4dc.core.base.tools.UUIDUtility;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.xml.sax.SAXException;
@@ -46,6 +50,9 @@ public class ListResourceServiceImpl extends BaseServiceImpl<ListResourceEntityW
 
     @Autowired
     IHTMLRuntimeResolve htmlRuntimeResolve;
+
+    @Autowired
+    IWebListButtonService webListButtonService;
 
     /*@Autowired
     ;*/
@@ -131,5 +138,22 @@ public class ListResourceServiceImpl extends BaseServiceImpl<ListResourceEntityW
             listResourcePO.setDataSetPOList(dataSetPOList);
         }
         return resourcePOList;
+    }
+
+    @Override
+    public void copyList(JB4DCSession session, String listId) throws JBuild4DCGenerallyException {
+        ListResourceEntityWithBLOBs source=getByPrimaryKey(session,listId);
+        List<ListButtonEntity> sourceListButtonList=webListButtonService.getByListId(session,source.getListId());
+
+        ListResourceEntityWithBLOBs newList=source;
+        newList.setListId(UUIDUtility.getUUID());
+        newList.setListName(source.getListName()+"[复制]");
+        saveSimple(session,newList.getListId(),newList);
+
+        for (ListButtonEntity listButtonEntity : sourceListButtonList) {
+            listButtonEntity.setButtonId(UUIDUtility.getUUID());
+            listButtonEntity.setButtonListId(newList.getListId());
+            webListButtonService.saveSimple(session,listButtonEntity.getButtonId(),listButtonEntity);
+        }
     }
 }

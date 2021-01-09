@@ -569,7 +569,7 @@ export default {
       this.event.editEventData.eventAcceptGridId = this.session.OrganId;
 
       var year=appClientUtility.DateUtility.GetCurrentData().getFullYear();
-      var month=appClientUtility.DateUtility.GetCurrentData().getMonth()+1;
+      var month=(appClientUtility.DateUtility.GetCurrentData().getMonth()+1)<10?"0"+(appClientUtility.DateUtility.GetCurrentData().getMonth()+1):appClientUtility.DateUtility.GetCurrentData().getMonth()+1;
       this.event.editEventData.eventCode = appClientUtility.GetGridInfo().gridCode+"-"+year+month+"-";
       this.$refs.photoListObj.setRecordId(this.event.editEventData.eventId);
       this.$refs.photoListObj.clearPhotoList();

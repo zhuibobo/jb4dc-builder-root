@@ -10,6 +10,7 @@ Vue.component("module-list-weblist-comp", {
                 reloadData: "/Rest/Builder/List/GetListDataForModule",
                 delete: "/Rest/Builder/List/Delete",
                 move: "/Rest/Builder/List/Move",
+                copyList:"/Rest/Builder/List/CopyList"
             },
             idFieldName: "listId",
             searchCondition: {
@@ -183,6 +184,18 @@ Vue.component("module-list-weblist-comp", {
         },
         move: function (type) {
             ListPageUtility.IViewMoveFace(this.acInterface.move, this.selectionRows, this.idFieldName, type, this);
+        },
+        copy:function () {
+            ListPageUtility.IViewTableMareSureSelectedOne(this.selectionRows,this).then(function (selectionRows) {
+                var recordId = selectionRows[0][this.idFieldName];
+                AjaxUtility.Post(this.acInterface.copyList, {listId: recordId}, function (result) {
+                    if (result.success) {
+                        DialogUtility.Alert(window, DialogUtility.DialogAlertId, {}, result.message, function () {
+                            this.reloadData();
+                        },this);
+                    }
+                }, this);
+            });
         }
     },
     template: '<div class="module-list-wrap">\
@@ -191,7 +204,7 @@ Vue.component("module-list-weblist-comp", {
                         <div class="list-button-inner-wrap">\
                             <ButtonGroup>\
                                 <i-button  type="success" @click="add()" icon="md-add">新增</i-button>\
-                                <i-button type="error" icon="md-albums">复制</i-button>\
+                                <i-button type="primary" @click="copy()" icon="md-albums">复制</i-button>\
                                 <i-button type="error" icon="md-pricetag">预览</i-button>\
                                 <i-button type="error" icon="md-bookmarks">历史版本</i-button>\
                                 <i-button type="error" icon="md-brush">复制ID</i-button>\

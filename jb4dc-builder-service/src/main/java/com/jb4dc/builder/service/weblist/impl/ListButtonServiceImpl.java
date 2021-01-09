@@ -10,6 +10,8 @@ import com.jb4dc.core.base.session.JB4DCSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * Created with IntelliJ IDEA.
  * User: zhuangrb
@@ -41,5 +43,10 @@ public class ListButtonServiceImpl extends BaseServiceImpl<ListButtonEntity> imp
     @Override
     public ListButtonEntity getByCustSingleName(JB4DCSession jb4DCSession, String custSingleName) {
         return listButtonMapper.selectByCustSingleName(custSingleName);
+    }
+
+    @Override
+    public List<ListButtonEntity> getByListId(JB4DCSession session, String listId) {
+        return listButtonMapper.selectByListId(listId);
     }
 }
