@@ -12,7 +12,8 @@ var Organ3DDL={
         oldDDLCommunityControlValue:"",
         ddlGridControl:null,
         oldDDLGridControlValue:"",
-        changeEnable:true
+        changeEnable:true,
+        initEndFunc:null
     },
     GetOrganData:function (endFunc) {
         AjaxUtility.Get("/Rest/Grid/SSOProxy/OrganAndUser/GetALLOrganMinPropData", {}, function (result) {
@@ -48,7 +49,7 @@ var Organ3DDL={
             }
         }, this);
     },
-    Init3DDL:function (ddlStreetControlId,ddlCommunityControlId,ddlGridControlId,operationName,changeEnable) {
+    Init3DDL:function (ddlStreetControlId,ddlCommunityControlId,ddlGridControlId,operationName,changeEnable,initEndFunc) {
         //console.log(operationName);
         this._prop.operationName = operationName;
         this._prop.ddlStreetControl=$("#" + ddlStreetControlId);
@@ -58,6 +59,7 @@ var Organ3DDL={
         this._prop.ddlGridControl=$("#" + ddlGridControlId);
         this._prop.oldDDLGridControlValue = this._prop.ddlGridControl.attr("control_value");
         this._prop.changeEnable=changeEnable;
+        this._prop.initEndFunc=initEndFunc;
 
         this.GetOrganData(function (result) {
             if(operationName==BaseUtility.GetViewOperationName()){
@@ -77,6 +79,9 @@ var Organ3DDL={
             }
             else {
                 this.Bind3DDL();
+            }
+            if(typeof(this._prop.initEndFunc)=="function"){
+                this._prop.initEndFunc();
             }
         });
         if(!this._prop.changeEnable){

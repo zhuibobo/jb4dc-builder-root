@@ -15,7 +15,8 @@ import java.util.Map;
 
 @RestController
 @RequestMapping(value = "/Rest/Grid/Statistics/GridDataStatistics")
-public class GridDataStatistics {
+public class GridDataStatisticsRest {
+
     @Autowired
     IGridStatistics gridStatistics;
 

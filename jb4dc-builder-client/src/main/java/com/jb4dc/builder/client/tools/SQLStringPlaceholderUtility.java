@@ -26,17 +26,27 @@ public class SQLStringPlaceholderUtility {
     public SQLStringPlaceholderResultPO generalPlaceholderHandler(JB4DCSession jb4DCSession, String sourceSQL) throws JBuild4DCGenerallyException {
         SQLStringPlaceholderResultPO resultPO=new SQLStringPlaceholderResultPO();
         Map<String,Object> sqlParas=new HashMap<>();
-        String resultSql=ChildOrganIdPlaceholderHandler(jb4DCSession,sourceSQL,sqlParas);
-        resultSql=ChildOrganIdAndRolePlaceholderHandler(jb4DCSession,sourceSQL,sqlParas);
+        String resultSql=ChildOrganIdPlaceholderHandler(jb4DCSession.getOrganId(),sourceSQL,sqlParas);
+        resultSql=ChildOrganIdAndRolePlaceholderHandler(jb4DCSession.getUserId(),jb4DCSession.getOrganId(),resultSql,sqlParas);
         resultPO.sql=resultSql;
         resultPO.sqlParas=sqlParas;
         return resultPO;
     }
 
-    private String ChildOrganIdPlaceholderHandler(JB4DCSession jb4DCSession,String sourceSQL,Map<String,Object> sqlParas) throws JBuild4DCGenerallyException {
+    public SQLStringPlaceholderResultPO generalPlaceholderHandler(String userId,String organId, String sourceSQL) throws JBuild4DCGenerallyException {
+        SQLStringPlaceholderResultPO resultPO=new SQLStringPlaceholderResultPO();
+        Map<String,Object> sqlParas=new HashMap<>();
+        String resultSql=ChildOrganIdPlaceholderHandler(organId,sourceSQL,sqlParas);
+        resultSql=ChildOrganIdAndRolePlaceholderHandler(userId,organId,resultSql,sqlParas);
+        resultPO.sql=resultSql;
+        resultPO.sqlParas=sqlParas;
+        return resultPO;
+    }
+
+    private String ChildOrganIdPlaceholderHandler(String organId,String sourceSQL,Map<String,Object> sqlParas) throws JBuild4DCGenerallyException {
         //sourceSQL.replaceAll("",)
         if(sourceSQL.indexOf("ENVVAR.ENV_SYSTEM_CURRENT_USER_CHILD_ORGAN_ID_INCLUDE_SELF}")>0) {
-            JBuild4DCResponseVo<List<String>> jBuild4DCResponseVo = organRuntimeProxy.getAllChildOrganIdIncludeSelfRT(jb4DCSession.getOrganId());
+            JBuild4DCResponseVo<List<String>> jBuild4DCResponseVo = organRuntimeProxy.getAllChildOrganIdIncludeSelfRT(organId);
             List<String> allChildOrganIdList = jBuild4DCResponseVo.getData();
             String replaceSqlWord = "";
             for (int i = 0; i < allChildOrganIdList.size(); i++) {
@@ -50,10 +60,10 @@ public class SQLStringPlaceholderUtility {
         return sourceSQL;
     }
 
-    private String ChildOrganIdAndRolePlaceholderHandler(JB4DCSession jb4DCSession,String sourceSQL,Map<String,Object> sqlParas) throws JBuild4DCGenerallyException {
+    private String ChildOrganIdAndRolePlaceholderHandler(String userId,String organId,String sourceSQL,Map<String,Object> sqlParas) throws JBuild4DCGenerallyException {
         //sourceSQL.replaceAll("",)
         if(sourceSQL.indexOf("ENVVAR.ENV_SYSTEM_CURRENT_USER_CHILD_ORGAN_ID_INCLUDE_SELF_AND_ROLE}")>0) {
-            JBuild4DCResponseVo<List<RoleEntity>> jBuild4DCResponseVoRoleEntity = roleRuntimeProxy.getUserRolesRT(jb4DCSession.getUserId());
+            JBuild4DCResponseVo<List<RoleEntity>> jBuild4DCResponseVoRoleEntity = roleRuntimeProxy.getUserRolesRT(userId);
             if(jBuild4DCResponseVoRoleEntity.getData()!=null&&jBuild4DCResponseVoRoleEntity.getData().size()>0){
                 List<RoleEntity> roleList= jBuild4DCResponseVoRoleEntity.getData();
                 if(roleList.stream().anyMatch(roleEntity -> roleEntity.getRoleId().equals("DataFilter-With-DataSet-AllData"))){
@@ -61,7 +71,7 @@ public class SQLStringPlaceholderUtility {
                 }
             }
 
-            JBuild4DCResponseVo<List<String>> jBuild4DCResponseVoOrganIds = organRuntimeProxy.getAllChildOrganIdIncludeSelfRT(jb4DCSession.getOrganId());
+            JBuild4DCResponseVo<List<String>> jBuild4DCResponseVoOrganIds = organRuntimeProxy.getAllChildOrganIdIncludeSelfRT(organId);
             List<String> allChildOrganIdList = jBuild4DCResponseVoOrganIds.getData();
             String replaceSqlWord = "";
             for (int i = 0; i < allChildOrganIdList.size(); i++) {

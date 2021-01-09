@@ -42,6 +42,11 @@ public class NewBuildSupplementFieldDataApi implements IApiForButton {
             buildInfoEntity.setBuildParentId("0");
             buildInfoEntity.setBuildParentIdList("0*"+buildInfoEntity.getBuildId());
             buildInfoEntity.setBuildRecordStatus(EnableTypeEnum.enable.getDisplayName());
+
+            if(buildInfoEntity.getBuildProperty()==null){
+                buildInfoEntity.setBuildProperty("");
+            }
+
             buildInfoService.updateByKeySelective(jb4DCSession,buildInfoEntity);
         }
         //判断编号是否唯一

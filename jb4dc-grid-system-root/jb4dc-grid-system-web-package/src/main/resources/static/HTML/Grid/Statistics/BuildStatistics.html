@@ -1,0 +1,53 @@
+<!DOCTYPE html><html lang="zh" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"><head><meta charset="UTF-8"><title>Title1</title><title>JBuild4D</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"><script type="text/javascript" src="../../../Js/External/JQuery-3.4.1/jquery-3.4.1.min.js"></script><script type="text/javascript" src="../../../Js/External/VUE-2.6.10/vue.js"></script><script type="text/javascript" src="../../../Js/External/IView-4.X/dist/iview.min.js"></script><script type="text/javascript" src="../../../Js/External/JQuery-UI-1.12.1/jquery-ui.js"></script><script type="text/javascript" src="../../../Js/External/ZTree-3.5.40/js/jquery.ztree.all.js"></script><script type="text/javascript" src="../../../Js/External/Perfect-Scrollbar-V1.4.0/perfect-scrollbar.js"></script><script type="text/javascript" src="../../../Js/JBuild4DCLib.js?refVersion=1610175075392"></script><script type="text/javascript" src="../../../Js/UIEXComponent.js?refVersion=1610175075392"></script><script type="text/javascript" src="../../../Js/VueEXComponent.js?refVersion=1610175075392"></script><script type="text/javascript" src="../../../Js/GridUtility.js?refVersion=1610175075392"></script><link rel="stylesheet" type="text/css" href="../../../Themes/Default/Css/JBuild4DC.css?refVersion=1610175075392"><link rel="stylesheet" type="text/css" href="../../../Themes/Default/IView-4.X/iview.css"><link rel="stylesheet" type="text/css" href="../../../Themes/Default/JQueryUI/jquery-ui.css"><link rel="stylesheet" type="text/css" href="../../../Themes/Default/JQueryUI/jquery-ui-important.css"><link rel="stylesheet" type="text/css" href="../../../Themes/Default/ZTree/zTreeStyle/zTreeStyle.css"><link rel="stylesheet" type="text/css" href="../../../Themes/Default/Grid/Css/JBuild4DCGridSystem.css?refVersion=1610175075392"><link rel="stylesheet" type="text/css" href="../../../Js/External/Perfect-Scrollbar-V1.4.0/perfect-scrollbar.css"><script type="text/javascript" src="../../../Js/External/ECharts-4.9.0/echarts.min.js"></script><script type="text/javascript" src="../../../Js/External/ECharts-4.9.0/echarts.common.min.js"></script><style></style></head><body><div id="buildStatistics" class="list-2column"><div class="left-outer-wrap" style="width:100%"><tabs><tab-pane label="分类统计"><div class="statistics-wrap"><div class="search-wrap"><table class="light-gray-table"><colgroup><col width="10%"><col width="20%"><col width="10%"><col width="20%"><col width="10%"><col width="20%"><col width="10%"></colgroup><tr><td class="label">街道：</td><td><select id="sel_3l_street"></select></td><td class="label">村/社区：</td><td><select id="sel_3l_community"></select></td><td class="label">网格：</td><td><select id="sel_3l_grid"></select></td><td><i-button type="primary" @click="reStatistics">统计</i-button></td></tr></table></div><div class="statistics-box-wrap"><div class="statistics-box-outer"><div class="statistics-box-inner" id="divBuildCategoryStatistics"></div></div><div class="statistics-box-outer"><div class="statistics-box-inner" id="divBuildTypeStatistics"></div></div><div class="statistics-box-outer"><div class="statistics-box-inner" id="divBuildPropertyStatistics"></div></div><div class="statistics-box-outer"><div class="statistics-box-inner"></div></div></div></div></tab-pane><tab-pane label="区域数量统计"><div id="main1" style="width:98%;height:400px;margin:auto"></div></tab-pane></tabs></div></div><script>var buildStatistics = new Vue({
+            el: "#buildStatistics",
+            mounted: function () {
+                $("#main").height(ListPageUtility.DefaultListHeight()+60);
+                $("#main1").height(ListPageUtility.DefaultListHeight()+60);
+
+                var Organ3DDLInstance=Object.create(Organ3DDL);
+                Organ3DDLInstance.Init3DDL("sel_3l_street",
+                    "sel_3l_community",
+                    "sel_3l_grid",
+                    "search",
+                    true,this.reStatistics);
+                //this.buildTypeStatistics();
+            },
+            data: {
+                acInterface: {
+                    getBuildTypeStatistics:"/Rest/Grid/Statistics/BuildStatistics/GetBuildTypeStatistics",
+                    getBuildCategoryStatistics:"/Rest/Grid/Statistics/BuildStatistics/GetBuildCategoryStatistics",
+                    getBuildPropertyStatistics:"/Rest/Grid/Statistics/BuildStatistics/GetBuildPropertyStatistics"
+                }
+            },
+            methods: {
+                reStatistics:function(){
+                    var streetValue=$("#sel_3l_street").val();
+                    var communityValue=$("#sel_3l_community").val();
+                    var gridValue=$("#sel_3l_grid").val();
+                    this.bindBuildTypeStatistics(streetValue,communityValue,gridValue);
+                    this.bindBuildCategoryStatistics(streetValue,communityValue,gridValue);
+                    this.bindBuildPropertyStatistics(streetValue,communityValue,gridValue);
+                },
+                bindBuildCategoryStatistics:function (streetValue,communityValue,gridValue){
+                    EChartsUtility.FetchDataOrganFilter(this.acInterface.getBuildCategoryStatistics,streetValue,communityValue,gridValue,function (result){
+                        var myChart = echarts.init(document.getElementById('divBuildCategoryStatistics'));
+                        var option = EChartsUtility.BuildNormalPieOption(result.data,"建筑物类别","一般建筑物与特殊建筑物统计");
+                        myChart.setOption(option);
+                    },this);
+                },
+                bindBuildTypeStatistics:function (streetValue,communityValue,gridValue){
+                    EChartsUtility.FetchDataOrganFilter(this.acInterface.getBuildTypeStatistics,streetValue,communityValue,gridValue,function (result){
+                        var myChart = echarts.init(document.getElementById('divBuildTypeStatistics'));
+                        var option = EChartsUtility.BuildNormalPieOption(result.data,"建筑物类型","一般建筑物类型统计");
+                        myChart.setOption(option);
+                    },this);
+                },
+                bindBuildPropertyStatistics:function (streetValue,communityValue,gridValue){
+                    EChartsUtility.FetchDataOrganFilter(this.acInterface.getBuildPropertyStatistics,streetValue,communityValue,gridValue,function (result){
+                        var myChart = echarts.init(document.getElementById('divBuildPropertyStatistics'));
+                        var option = EChartsUtility.BuildNormalPieOption(result.data,"建筑物性质","一般建筑物性质统计");
+                        myChart.setOption(option);
+                    },this);
+                }
+            }
+        });</script></body></html>

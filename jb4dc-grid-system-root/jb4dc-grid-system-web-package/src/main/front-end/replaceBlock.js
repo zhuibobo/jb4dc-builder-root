@@ -50,6 +50,7 @@ let replaceBlock = {
         replaceArray.push(refJs(levelPath + "Js/JBuild4DCLib.js?refVersion=" + refVersion));
         replaceArray.push(refJs(levelPath + "Js/UIEXComponent.js?refVersion=" + refVersion));
         replaceArray.push(refJs(levelPath + "Js/VueEXComponent.js?refVersion=" + refVersion));
+        replaceArray.push(refJs(levelPath + "Js/GridUtility.js?refVersion=" + refVersion));
         //replaceArray.push(refJs(levelPath + "Js/SSOVueEXComponent.js?refVersion=" + refVersion));
         return replaceArray.join("\n\t");
     },
