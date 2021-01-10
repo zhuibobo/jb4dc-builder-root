@@ -8,11 +8,11 @@ import java.util.List;
 import java.util.Map;
 
 @Service
-public class GridStatistics implements IGridStatistics {
+public class GridStatisticsImpl implements IGridStatistics {
 
     private ISQLBuilderService sqlBuilderService;
 
-    public GridStatistics(ISQLBuilderService sqlBuilderService) {
+    public GridStatisticsImpl(ISQLBuilderService sqlBuilderService) {
         this.sqlBuilderService = sqlBuilderService;
     }
 

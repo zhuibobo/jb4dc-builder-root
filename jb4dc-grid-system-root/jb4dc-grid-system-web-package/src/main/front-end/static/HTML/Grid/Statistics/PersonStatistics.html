@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title1</title>
+    <th:block th:replace="Fragment/GeneralLib::GeneralLib"></th:block>
+    <th:block th:replace="Fragment/GeneralLib::ThemesLib"></th:block>
+    <th:block th:replace="Fragment/GeneralLib::EChartsLib"></th:block>
+    <style>
+
+    </style>
+</head>
+<body>
+<div id="buildStatistics" class="list-2column">
+    <div class="left-outer-wrap" style="width: 100%">
+        <tabs>
+            <tab-pane label="分类统计">
+                <div class="statistics-wrap">
+                    <div class="search-wrap">
+                        <table class="light-gray-table">
+                            <colgroup>
+                                <col width="10%">
+                                <col width="20%">
+                                <col width="10%">
+                                <col width="20%">
+                                <col width="10%">
+                                <col width="20%">
+                                <col width="10%">
+                            </colgroup>
+                            <tr>
+                                <td class="label">
+                                    街道：
+                                </td>
+                                <td>
+                                    <select id="sel_3l_street"></select>
+                                </td>
+                                <td class="label">
+                                    村/社区：
+                                </td>
+                                <td>
+                                    <select id="sel_3l_community"></select>
+                                </td>
+                                <td class="label">
+                                    网格：
+                                </td>
+                                <td>
+                                    <select id="sel_3l_grid"></select>
+                                </td>
+                                <td>
+                                    <i-button type="primary" @click="reStatistics">统计</i-button>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="statistics-box-wrap">
+                        <div class="statistics-box-outer">
+                            <div class="statistics-box-inner" id="divPersonSexStatistics">
+
+                            </div>
+                        </div>
+                        <div class="statistics-box-outer">
+                            <div class="statistics-box-inner" id="divHouseDesignForStatistics">
+
+                            </div>
+                        </div>
+                        <div class="statistics-box-outer" style="width: 100%">
+                            <div class="statistics-box-inner" id="divHouseUseForStatistics">
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </tab-pane>
+            <tab-pane label="区域数量统计">
+                <div class="statistics-wrap">
+                    <div class="statistics-box-wrap">
+                        <div class="statistics-box-outer" style="width: 100%">
+                            <div class="statistics-box-inner" style="height: 226px;" id="divYTJDStreetHouseStatistics"><!--澳头街道办-->
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="statistics-box-wrap">
+                        <div class="statistics-box-outer" style="width: 100%">
+                            <div class="statistics-box-inner" style="height: 226px;" id="divXQJDStreetHouseStatistics"><!--西区街道办-->
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="statistics-box-wrap">
+                        <div class="statistics-box-outer" style="width: 100%">
+                            <div class="statistics-box-inner" style="height: 226px;" id="divXYJDStreetHouseStatistics"><!--霞涌街道办-->
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </tab-pane>
+        </tabs>
+    </div>
+</div>
+<script>
+    var buildStatistics = new Vue({
+        el: "#buildStatistics",
+        mounted: function () {
+            $("#main").height(ListPageUtility.DefaultListHeight()+60);
+            $("#main1").height(ListPageUtility.DefaultListHeight()+60);
+
+            var Organ3DDLInstance=Object.create(Organ3DDL);
+            Organ3DDLInstance.Init3DDL("sel_3l_street",
+                "sel_3l_community",
+                "sel_3l_grid",
+                "search",
+                true,this.reStatistics);
+            //this.buildTypeStatistics();
+        },
+        data: {
+            acInterface: {
+                getPersonSexStatistics:"/Rest/Grid/Statistics/PersonStatistics/GetPersonSexStatistics",
+                /*getHouseDesignForStatistics:"/Rest/Grid/Statistics/HouseStatistics/GetHouseDesignForStatistics",
+                getHouseUseForStatistics:"/Rest/Grid/Statistics/HouseStatistics/GetHouseUseForStatistics",
+                getHouseUseAreaForStatistics:"/Rest/Grid/Statistics/HouseStatistics/GetHouseUseAreaForStatistics",
+                getStreetHouseStatistics:"/Rest/Grid/Statistics/HouseStatistics/GetStreetHouseStatistics"*/
+            }
+        },
+        methods: {
+            reStatistics:function(){
+                var streetValue=$("#sel_3l_street").val();
+                var communityValue=$("#sel_3l_community").val();
+                var gridValue=$("#sel_3l_grid").val();
+                this.bindPersonSexStatistics(streetValue,communityValue,gridValue);
+                /*this.bindHouseDesignForStatistics(streetValue,communityValue,gridValue);
+                this.bindHouseUseForStatistics(streetValue,communityValue,gridValue);
+                this.bindStreetHouseStatistics();*/
+            },
+            bindPersonSexStatistics:function (streetValue,communityValue,gridValue){
+                EChartsUtility.FetchDataOrganFilter(this.acInterface.getPersonSexStatistics,streetValue,communityValue,gridValue,function (result){
+                    var statisticsChart = echarts.init(document.getElementById('divPersonSexStatistics'));
+                    var option = EChartsUtility.BuildNormalPieOption(result.data,"性别","人口性别统计",['40%', '60%']);
+                    statisticsChart.setOption(option);
+                },this);
+            },
+            /*bindHouseDesignForStatistics:function (streetValue,communityValue,gridValue){
+                EChartsUtility.FetchDataOrganFilter(this.acInterface.getHouseDesignForStatistics,streetValue,communityValue,gridValue,function (result){
+                    var statisticsChart = echarts.init(document.getElementById('divHouseDesignForStatistics'),'macarons');
+                    var option = EChartsUtility.BuildNormalPieOption(result.data,"设计用途","房屋设计用途统计");
+                    statisticsChart.setOption(option);
+                },this);
+            },
+            bindHouseUseForStatistics:function (streetValue,communityValue,gridValue){
+                EChartsUtility.FetchDataOrganFilter(this.acInterface.getHouseUseForStatistics,streetValue,communityValue,gridValue,function (result){
+                    var statisticsChart = echarts.init(document.getElementById('divHouseUseForStatistics'),'macarons');
+                    var option = EChartsUtility.BuildNormalPieOption(result.data,"使用用途","房屋使用用途统计",['40%', '60%']);
+                    statisticsChart.setOption(option);
+                },this);
+            },
+            bindHouseUseAreaForStatistics:function (streetValue,communityValue,gridValue){
+                EChartsUtility.FetchDataOrganFilter(this.acInterface.getHouseUseAreaForStatistics,streetValue,communityValue,gridValue,function (result){
+                    var statisticsChart = echarts.init(document.getElementById('divHouseUseAreaStatistics'));
+                    var option = EChartsUtility.BuildNormalBarOption(result.data,"使用面积","房屋使用面积");
+                    statisticsChart.setOption(option);
+                },this);
+            },
+            bindStreetHouseStatistics:function (){
+                <!--澳头街道办-->
+                EChartsUtility.FetchDataOrganFilter(this.acInterface.getStreetHouseStatistics,"c510ab60-82a3-4b76-8331-a6bec626e303","","",function (result){
+                    var statisticsChart = echarts.init(document.getElementById('divYTJDStreetHouseStatistics'));
+                    var option = EChartsUtility.BuildNormalBarOption(result.data,"澳头街道办","澳头街道办");
+                    statisticsChart.setOption(option);
+                },this);
+                <!--西区街道办-->
+                EChartsUtility.FetchDataOrganFilter(this.acInterface.getStreetHouseStatistics,"09678663-62fc-49dc-942a-bf77eadf1740","","",function (result){
+                    var statisticsChart = echarts.init(document.getElementById('divXQJDStreetHouseStatistics'),'macarons');
+                    var option = EChartsUtility.BuildNormalBarOption(result.data,"西区街道办","西区街道办");
+                    statisticsChart.setOption(option);
+                },this);
+                <!--霞涌街道办-->
+                EChartsUtility.FetchDataOrganFilter(this.acInterface.getStreetHouseStatistics,"b97ebc3e-a1b2-4bdc-8860-ad65dcd82d8f","","",function (result){
+                    var statisticsChart = echarts.init(document.getElementById('divXYJDStreetHouseStatistics'),"infographic");
+                    var option = EChartsUtility.BuildNormalBarOption(result.data,"霞涌街道办","霞涌街道办");
+                    statisticsChart.setOption(option);
+                },this);
+            }*/
+        }
+    });
+</script>
+</body>
+</html>

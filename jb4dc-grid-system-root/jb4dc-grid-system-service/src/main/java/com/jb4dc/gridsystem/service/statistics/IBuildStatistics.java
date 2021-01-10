@@ -13,4 +13,8 @@ public interface IBuildStatistics {
     List<Map<String, Object>> getBuildCategoryStatistics(JB4DCSession session, String streetValue, String communityValue, String gridValue) throws JBuild4DCGenerallyException;
 
     List<Map<String, Object>> getBuildPropertyStatistics(JB4DCSession session, String streetValue, String communityValue, String gridValue) throws JBuild4DCGenerallyException;
+
+    List<Map<String, Object>> getBuildDesignForStatistics(JB4DCSession session, String streetValue, String communityValue, String gridValue) throws JBuild4DCGenerallyException;
+
+    List<Map<String, Object>> getStreetBuildStatistics(JB4DCSession session, String streetValue,String category) throws JBuild4DCGenerallyException;
 }

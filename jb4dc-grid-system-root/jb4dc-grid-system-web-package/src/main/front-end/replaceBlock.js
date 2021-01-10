@@ -122,6 +122,7 @@ let replaceBlock = {
 
         replaceArray.push(refJs(levelPath + "Js/External/ECharts-4.9.0/echarts.min.js"));
         replaceArray.push(refJs(levelPath + "Js/External/ECharts-4.9.0/echarts.common.min.js"));
+        replaceArray.push(refJs(levelPath + "Js/External/ECharts-4.9.0/theme/echarts-themes.js"));
 
         return replaceArray.join("\n\t");
     },
@@ -150,7 +151,7 @@ let replaceBlock = {
     },
     replaceBootStrap4Lib: function (search, file) {
         let replaceArray = new Array();
-        //判断路径后进行引入js的路径
+        //判断路径后进行引入js的路径1
         let levelPath = calculateFilePath(file);
 
         replaceArray.push("<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\" />");

@@ -84,6 +84,10 @@ public class NewFamilyPersonSupplementFieldDataApi implements IApiForButton {
                 throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_GRID_CODE,"姓名不能为空!");
             }
 
+            if(StringUtility.isEmpty(personEntity.getPersonSex())){
+                throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_GRID_CODE,"性别不能为空!");
+            }
+
             if(StringUtility.isEmpty(personEntity.getPersonRelationship())){
                 throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_GRID_CODE,personEntity.getPersonName()+"与户主关系不能为空!");
             }

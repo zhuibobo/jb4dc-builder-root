@@ -38,4 +38,16 @@ public class BuildStatisticsRest {
         List<Map<String,Object>> statisticsList=buildStatistics.getBuildPropertyStatistics(JB4DCSessionUtility.getSession(),streetValue,communityValue,gridValue);
         return JBuild4DCResponseVo.getDataSuccess(statisticsList);
     }
+
+    @RequestMapping(value = "/GetBuildDesignForStatistics", method = RequestMethod.GET)
+    public JBuild4DCResponseVo<List<Map<String,Object>>> getBuildDesignForStatistics(String streetValue,String communityValue,String gridValue) throws JBuild4DCGenerallyException {
+        List<Map<String,Object>> statisticsList=buildStatistics.getBuildDesignForStatistics(JB4DCSessionUtility.getSession(),streetValue,communityValue,gridValue);
+        return JBuild4DCResponseVo.getDataSuccess(statisticsList);
+    }
+
+    @RequestMapping(value = "/GetStreetNormalBuildStatistics", method = RequestMethod.GET)
+    public JBuild4DCResponseVo<List<Map<String,Object>>> getStreetNormalBuildStatistics(String streetValue) throws JBuild4DCGenerallyException {
+        List<Map<String,Object>> statisticsList=buildStatistics.getStreetBuildStatistics(JB4DCSessionUtility.getSession(),streetValue,"一般建筑物");
+        return JBuild4DCResponseVo.getDataSuccess(statisticsList);
+    }
 }

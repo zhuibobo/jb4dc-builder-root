@@ -54,47 +54,47 @@
                         </div>
                         <div class="statistics-box-wrap">
                             <div class="statistics-box-outer">
-                                <div class="statistics-box-inner" id="divBuildCategoryStatistics">
+                                <div class="statistics-box-inner" id="divHouseRentalStatistics">
 
                                 </div>
                             </div>
                             <div class="statistics-box-outer">
-                                <div class="statistics-box-inner" id="divBuildTypeStatistics">
+                                <div class="statistics-box-inner" id="divHouseDesignForStatistics">
 
                                 </div>
                             </div>
                             <div class="statistics-box-outer">
-                                <div class="statistics-box-inner" id="divBuildPropertyStatistics">
+                                <div class="statistics-box-inner" id="divHouseUseForStatistics">
 
                                 </div>
                             </div>
                             <div class="statistics-box-outer">
-                                <div class="statistics-box-inner" id="divBuildDesignForStatistics">
+                                <div class="statistics-box-inner" id="divHouseUseAreaStatistics">
 
                                 </div>
                             </div>
                         </div>
                     </div>
                 </tab-pane>
-                <tab-pane label="一般建筑物区域数量统计">
+                <tab-pane label="区域数量统计">
                     <div class="statistics-wrap">
                         <div class="statistics-box-wrap">
                             <div class="statistics-box-outer" style="width: 100%">
-                                <div class="statistics-box-inner" style="height: 226px;" id="divYTJDStreetNormalBuildStatistics"><!--澳头街道办-->
+                                <div class="statistics-box-inner" style="height: 226px;" id="divYTJDStreetHouseStatistics"><!--澳头街道办-->
 
                                 </div>
                             </div>
                         </div>
                         <div class="statistics-box-wrap">
                             <div class="statistics-box-outer" style="width: 100%">
-                                <div class="statistics-box-inner" style="height: 226px;" id="divXQJDStreetNormalBuildStatistics"><!--西区街道办-->
+                                <div class="statistics-box-inner" style="height: 226px;" id="divXQJDStreetHouseStatistics"><!--西区街道办-->
 
                                 </div>
                             </div>
                         </div>
                         <div class="statistics-box-wrap">
                             <div class="statistics-box-outer" style="width: 100%">
-                                <div class="statistics-box-inner" style="height: 226px;" id="divXYJDStreetNormalBuildStatistics"><!--霞涌街道办-->
+                                <div class="statistics-box-inner" style="height: 226px;" id="divXYJDStreetHouseStatistics"><!--霞涌街道办-->
 
                                 </div>
                             </div>
@@ -121,11 +121,11 @@
             },
             data: {
                 acInterface: {
-                    getBuildTypeStatistics:"/Rest/Grid/Statistics/BuildStatistics/GetBuildTypeStatistics",
-                    getBuildCategoryStatistics:"/Rest/Grid/Statistics/BuildStatistics/GetBuildCategoryStatistics",
-                    getBuildPropertyStatistics:"/Rest/Grid/Statistics/BuildStatistics/GetBuildPropertyStatistics",
-                    getBuildDesignForStatistics:"/Rest/Grid/Statistics/BuildStatistics/GetBuildDesignForStatistics",
-                    getStreetNormalBuildStatistics:"/Rest/Grid/Statistics/BuildStatistics/GetStreetNormalBuildStatistics"
+                    getHouseRentalStatistics:"/Rest/Grid/Statistics/HouseStatistics/GetHouseRentalStatistics",
+                    getHouseDesignForStatistics:"/Rest/Grid/Statistics/HouseStatistics/GetHouseDesignForStatistics",
+                    getHouseUseForStatistics:"/Rest/Grid/Statistics/HouseStatistics/GetHouseUseForStatistics",
+                    getHouseUseAreaForStatistics:"/Rest/Grid/Statistics/HouseStatistics/GetHouseUseAreaForStatistics",
+                    getStreetHouseStatistics:"/Rest/Grid/Statistics/HouseStatistics/GetStreetHouseStatistics"
                 }
             },
             methods: {
@@ -133,56 +133,57 @@
                     var streetValue=$("#sel_3l_street").val();
                     var communityValue=$("#sel_3l_community").val();
                     var gridValue=$("#sel_3l_grid").val();
-                    this.bindBuildTypeStatistics(streetValue,communityValue,gridValue);
-                    this.bindBuildCategoryStatistics(streetValue,communityValue,gridValue);
-                    this.bindBuildPropertyStatistics(streetValue,communityValue,gridValue);
-                    this.bindBuildDesignForStatistics(streetValue,communityValue,gridValue);
-                    this.bindStreetBuildStatistics();
+                    this.bindHouseRentalStatistics(streetValue,communityValue,gridValue);
+                    this.bindHouseDesignForStatistics(streetValue,communityValue,gridValue);
+                    this.bindHouseUseForStatistics(streetValue,communityValue,gridValue);
+                    this.bindHouseUseAreaForStatistics(streetValue,communityValue,gridValue);
+                    //this.bindBuildDesignForStatistics(streetValue,communityValue,gridValue);
+                    this.bindStreetHouseStatistics();
                 },
-                bindBuildCategoryStatistics:function (streetValue,communityValue,gridValue){
-                    EChartsUtility.FetchDataOrganFilter(this.acInterface.getBuildCategoryStatistics,streetValue,communityValue,gridValue,function (result){
-                        var statisticsChart = echarts.init(document.getElementById('divBuildCategoryStatistics'));
-                        var option = EChartsUtility.BuildNormalPieOption(result.data,"建筑物类别","一般建筑物与特殊建筑物统计",['40%', '60%']);
+                bindHouseRentalStatistics:function (streetValue,communityValue,gridValue){
+                    EChartsUtility.FetchDataOrganFilter(this.acInterface.getHouseRentalStatistics,streetValue,communityValue,gridValue,function (result){
+                        var statisticsChart = echarts.init(document.getElementById('divHouseRentalStatistics'));
+                        var option = EChartsUtility.BuildNormalPieOption(result.data,"是否出租屋","是否出租屋统计");
                         statisticsChart.setOption(option);
                     },this);
                 },
-                bindBuildTypeStatistics:function (streetValue,communityValue,gridValue){
-                    EChartsUtility.FetchDataOrganFilter(this.acInterface.getBuildTypeStatistics,streetValue,communityValue,gridValue,function (result){
-                        var statisticsChart = echarts.init(document.getElementById('divBuildTypeStatistics'),'macarons');
-                        var option = EChartsUtility.BuildNormalPieOption(result.data,"建筑物类型","一般建筑物类型统计");
+                bindHouseDesignForStatistics:function (streetValue,communityValue,gridValue){
+                    EChartsUtility.FetchDataOrganFilter(this.acInterface.getHouseDesignForStatistics,streetValue,communityValue,gridValue,function (result){
+                        var statisticsChart = echarts.init(document.getElementById('divHouseDesignForStatistics'),'macarons');
+                        var option = EChartsUtility.BuildNormalPieOption(result.data,"设计用途","房屋设计用途统计",['40%', '60%']);
                         statisticsChart.setOption(option);
                     },this);
                 },
-                bindBuildPropertyStatistics:function (streetValue,communityValue,gridValue){
-                    EChartsUtility.FetchDataOrganFilter(this.acInterface.getBuildPropertyStatistics,streetValue,communityValue,gridValue,function (result){
-                        var statisticsChart = echarts.init(document.getElementById('divBuildPropertyStatistics'),'macarons');
-                        var option = EChartsUtility.BuildNormalPieOption(result.data,"建筑物性质","一般建筑物性质统计");
+                bindHouseUseForStatistics:function (streetValue,communityValue,gridValue){
+                    EChartsUtility.FetchDataOrganFilter(this.acInterface.getHouseUseForStatistics,streetValue,communityValue,gridValue,function (result){
+                        var statisticsChart = echarts.init(document.getElementById('divHouseUseForStatistics'),'macarons');
+                        var option = EChartsUtility.BuildNormalPieOption(result.data,"使用用途","房屋使用用途统计",['40%', '60%']);
                         statisticsChart.setOption(option);
                     },this);
                 },
-                bindBuildDesignForStatistics:function (streetValue,communityValue,gridValue){
-                    EChartsUtility.FetchDataOrganFilter(this.acInterface.getBuildDesignForStatistics,streetValue,communityValue,gridValue,function (result){
-                        var statisticsChart = echarts.init(document.getElementById('divBuildDesignForStatistics'));
-                        var option = EChartsUtility.BuildNormalBarOption(result.data,"设计用途","一般建筑物设计用途");
+                bindHouseUseAreaForStatistics:function (streetValue,communityValue,gridValue){
+                    EChartsUtility.FetchDataOrganFilter(this.acInterface.getHouseUseAreaForStatistics,streetValue,communityValue,gridValue,function (result){
+                        var statisticsChart = echarts.init(document.getElementById('divHouseUseAreaStatistics'));
+                        var option = EChartsUtility.BuildNormalBarOption(result.data,"使用面积","房屋使用面积");
                         statisticsChart.setOption(option);
                     },this);
                 },
-                bindStreetBuildStatistics:function (){
+                bindStreetHouseStatistics:function (){
                     <!--澳头街道办-->
-                    EChartsUtility.FetchDataOrganFilter(this.acInterface.getStreetNormalBuildStatistics,"c510ab60-82a3-4b76-8331-a6bec626e303","","",function (result){
-                        var statisticsChart = echarts.init(document.getElementById('divYTJDStreetNormalBuildStatistics'));
+                    EChartsUtility.FetchDataOrganFilter(this.acInterface.getStreetHouseStatistics,"c510ab60-82a3-4b76-8331-a6bec626e303","","",function (result){
+                        var statisticsChart = echarts.init(document.getElementById('divYTJDStreetHouseStatistics'));
                         var option = EChartsUtility.BuildNormalBarOption(result.data,"澳头街道办","澳头街道办");
                         statisticsChart.setOption(option);
                     },this);
                     <!--西区街道办-->
-                    EChartsUtility.FetchDataOrganFilter(this.acInterface.getStreetNormalBuildStatistics,"09678663-62fc-49dc-942a-bf77eadf1740","","",function (result){
-                        var statisticsChart = echarts.init(document.getElementById('divXQJDStreetNormalBuildStatistics'),'macarons');
+                    EChartsUtility.FetchDataOrganFilter(this.acInterface.getStreetHouseStatistics,"09678663-62fc-49dc-942a-bf77eadf1740","","",function (result){
+                        var statisticsChart = echarts.init(document.getElementById('divXQJDStreetHouseStatistics'),'macarons');
                         var option = EChartsUtility.BuildNormalBarOption(result.data,"西区街道办","西区街道办");
                         statisticsChart.setOption(option);
                     },this);
                     <!--霞涌街道办-->
-                    EChartsUtility.FetchDataOrganFilter(this.acInterface.getStreetNormalBuildStatistics,"b97ebc3e-a1b2-4bdc-8860-ad65dcd82d8f","","",function (result){
-                        var statisticsChart = echarts.init(document.getElementById('divXYJDStreetNormalBuildStatistics'),"infographic");
+                    EChartsUtility.FetchDataOrganFilter(this.acInterface.getStreetHouseStatistics,"b97ebc3e-a1b2-4bdc-8860-ad65dcd82d8f","","",function (result){
+                        var statisticsChart = echarts.init(document.getElementById('divXYJDStreetHouseStatistics'),"infographic");
                         var option = EChartsUtility.BuildNormalBarOption(result.data,"霞涌街道办","霞涌街道办");
                         statisticsChart.setOption(option);
                     },this);
