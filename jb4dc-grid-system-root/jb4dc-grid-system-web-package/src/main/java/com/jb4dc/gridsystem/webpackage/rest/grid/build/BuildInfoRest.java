@@ -87,6 +87,13 @@ public class BuildInfoRest extends GeneralRest<BuildInfoEntity> {
         return JBuild4DCResponseVo.opSuccess(saveBuildData);
     }
 
+    @RequestMapping(value = "/GetBuildMapLocation", method = RequestMethod.GET)
+    public JBuild4DCResponseVo getBuildMapLocation(String organId,String buildCategory) throws JBuild4DCGenerallyException {
+        JB4DCSession jb4DCSession = JB4DCSessionUtility.getSession();
+        List<BuildInfoEntity> mapLocationList = buildInfoService.getBuildMapLocationByOrganId(jb4DCSession, organId, buildCategory);
+        return JBuild4DCResponseVo.getDataSuccess(mapLocationList);
+    }
+
     @RequestMapping(value = "/CodeAdd1", method = RequestMethod.POST)
     public JBuild4DCResponseVo codeAdd1(String buildId) throws JBuild4DCGenerallyException {
         JB4DCSession jb4DCSession=JB4DCSessionUtility.getSession();

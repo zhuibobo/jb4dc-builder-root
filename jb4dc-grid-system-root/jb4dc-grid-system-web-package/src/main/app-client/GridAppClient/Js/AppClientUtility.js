@@ -27,6 +27,13 @@ function ConvertDDListToMap(allDD){
             }
             AllDDMap[groupId].push(allDD[i]);
         }
+        else{
+            var key=groupId+"_"+allDD[i].dictParentId;
+            if (!AllDDMap[key]) {
+                AllDDMap[key] = [];
+            }
+            AllDDMap[key].push(allDD[i]);
+        }
     }
 }
 

@@ -61,6 +61,10 @@ public class BuildInfoServiceImpl extends BaseServiceImpl<BuildInfoEntity> imple
                 sourceEntity.setBuildInputUserName(jb4DCSession.getUserName());
                 sourceEntity.setBuildInputUserId(jb4DCSession.getUserId());
                 sourceEntity.setBuildOrderNum(buildInfoMapper.nextOrderNum()+5);
+
+                if(sourceEntity.getBuildProperty()==null){
+                    sourceEntity.setBuildProperty("");
+                }
                 return sourceEntity;
             }
         });
@@ -198,5 +202,10 @@ public class BuildInfoServiceImpl extends BaseServiceImpl<BuildInfoEntity> imple
 
         this.saveSimple(session,buildInfoPO.getBuildId(),buildInfoPO);
         return buildInfoPO;
+    }
+
+    @Override
+    public List<BuildInfoEntity> getBuildMapLocationByOrganId(JB4DCSession jb4DCSession, String organId, String buildCategory) {
+        return buildInfoMapper.selectBuildMapLocationByOrganId(organId,buildCategory);
     }
 }

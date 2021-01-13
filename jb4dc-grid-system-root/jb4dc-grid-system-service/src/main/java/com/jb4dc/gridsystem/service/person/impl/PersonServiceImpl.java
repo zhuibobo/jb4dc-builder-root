@@ -54,6 +54,10 @@ public class PersonServiceImpl extends BaseServiceImpl<PersonEntity> implements 
                 sourceEntity.setPersonInputUserId(jb4DCSession.getUserId());
                 sourceEntity.setPersonInputUserName(jb4DCSession.getUserName());
                 sourceEntity.setPersonOrderNum(personMapper.nextOrderNum());
+
+                if(sourceEntity.getPersonEducation()==null){
+                    sourceEntity.setPersonEducation("");
+                }
                 return sourceEntity;
             }
         });

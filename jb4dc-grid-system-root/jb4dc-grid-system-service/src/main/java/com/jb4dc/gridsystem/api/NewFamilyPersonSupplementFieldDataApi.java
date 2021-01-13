@@ -80,6 +80,10 @@ public class NewFamilyPersonSupplementFieldDataApi implements IApiForButton {
             personEntity.setPersonHeadHouseholdId(headHouseHoldPersonEntity.getPersonId());
             personEntity.setPersonHeadHouseholdName(headHouseHoldPersonEntity.getPersonName());
 
+            if(personEntity.getPersonEducation()==null){
+                personEntity.setPersonEducation("");
+            }
+
             if(StringUtility.isEmpty(personEntity.getPersonName())){
                 throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_GRID_CODE,"姓名不能为空!");
             }

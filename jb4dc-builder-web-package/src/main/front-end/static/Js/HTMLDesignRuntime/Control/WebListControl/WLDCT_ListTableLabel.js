@@ -9,7 +9,8 @@ var WLDCT_ListTableLabel= {
         columnAlign:null,
         defFormat:null,
         targetButtonId:null,
-        dictionaryGroupDataSourceId:null
+        dictionaryGroupDataSourceId:null,
+        omitLength:null
     },
     RendererChain: HTMLControl.RendererChain,
     RendererDataChain:function (_rendererDataChainParas) {
@@ -69,6 +70,13 @@ var WLDCT_ListTableLabel= {
             $td.addClass("list-td-click-enable");
             $td.bind("click", {"prop": _prop,rowData:_rendererDataChainParas.rowData}, this.ClickEvent);
         }
+        if(_prop.omitLength&&value){
+            var intOmitLength=parseInt(_prop.omitLength);
+            if(value.length>intOmitLength){
+                value=value.substring(0,intOmitLength)+"...";
+            }
+        }
+        //console.log(_prop.omitLength);
         $td.html(value);
     },
     ClickEvent:function (sender) {

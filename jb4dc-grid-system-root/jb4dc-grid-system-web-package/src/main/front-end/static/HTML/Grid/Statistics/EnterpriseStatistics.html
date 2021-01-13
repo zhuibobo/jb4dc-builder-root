@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <th:block th:replace="Fragment/GeneralLib::GeneralLib"></th:block>
+    <th:block th:replace="Fragment/GeneralLib::ThemesLib"></th:block>
+    <th:block th:replace="Fragment/GeneralLib::EChartsLib"></th:block>
+    <style>
+
+    </style>
+</head>
+<body>
+<div id="enterpriseStatistics" class="list-2column">
+    <div class="left-outer-wrap" style="width: 100%">
+        <tabs>
+            <tab-pane label="区域数量统计">
+                <div class="statistics-wrap">
+                    <div class="statistics-box-wrap">
+                        <div class="statistics-box-outer" style="width: 100%">
+                            <div class="statistics-box-inner" style="height: 226px;" id="divYTJDStreetEnterpriseStatistics"><!--澳头街道办-->
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="statistics-box-wrap">
+                        <div class="statistics-box-outer" style="width: 100%">
+                            <div class="statistics-box-inner" style="height: 226px;" id="divXQJDStreetEnterpriseStatistics"><!--西区街道办-->
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="statistics-box-wrap">
+                        <div class="statistics-box-outer" style="width: 100%">
+                            <div class="statistics-box-inner" style="height: 226px;" id="divXYJDStreetEnterpriseStatistics"><!--霞涌街道办-->
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </tab-pane>
+        </tabs>
+    </div>
+</div>
+<script>
+    var enterpriseStatistics = new Vue({
+        el: "#enterpriseStatistics",
+        mounted: function () {
+            $("#main").height(ListPageUtility.DefaultListHeight()+60);
+            $("#main1").height(ListPageUtility.DefaultListHeight()+60);
+
+            this.reStatistics();
+        },
+        data: {
+            acInterface: {
+                getStreetEnterpriseStatistics:"/Rest/Grid/Statistics/EnterpriseStatistics/GetStreetEnterpriseStatistics"
+            }
+        },
+        methods: {
+            reStatistics:function(){
+                this.bindStreetEnterpriseStatistics();
+            },
+            bindStreetEnterpriseStatistics:function (){
+                <!--澳头街道办-->
+                EChartsUtility.FetchDataOrganFilter(this.acInterface.getStreetEnterpriseStatistics,"c510ab60-82a3-4b76-8331-a6bec626e303","","",function (result){
+                    var statisticsChart = echarts.init(document.getElementById('divYTJDStreetEnterpriseStatistics'));
+                    var option = EChartsUtility.BuildNormalBarOption(result.data,"澳头街道办","澳头街道办");
+                    statisticsChart.setOption(option);
+                },this);
+                <!--西区街道办-->
+                EChartsUtility.FetchDataOrganFilter(this.acInterface.getStreetEnterpriseStatistics,"09678663-62fc-49dc-942a-bf77eadf1740","","",function (result){
+                    var statisticsChart = echarts.init(document.getElementById('divXQJDStreetEnterpriseStatistics'),'macarons');
+                    var option = EChartsUtility.BuildNormalBarOption(result.data,"西区街道办","西区街道办");
+                    statisticsChart.setOption(option);
+                },this);
+                <!--霞涌街道办-->
+                EChartsUtility.FetchDataOrganFilter(this.acInterface.getStreetEnterpriseStatistics,"b97ebc3e-a1b2-4bdc-8860-ad65dcd82d8f","","",function (result){
+                    var statisticsChart = echarts.init(document.getElementById('divXYJDStreetEnterpriseStatistics'),"infographic");
+                    var option = EChartsUtility.BuildNormalBarOption(result.data,"霞涌街道办","霞涌街道办");
+                    statisticsChart.setOption(option);
+                },this);
+            }
+        }
+    });
+</script>
+</body>
+</html>

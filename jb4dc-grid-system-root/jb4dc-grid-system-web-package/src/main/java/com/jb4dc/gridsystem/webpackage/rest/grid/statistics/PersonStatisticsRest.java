@@ -26,4 +26,21 @@ public class PersonStatisticsRest {
         return JBuild4DCResponseVo.getDataSuccess(statisticsList);
     }
 
+    @RequestMapping(value = "/GetPersonHRLocationStatistics", method = RequestMethod.GET)
+    public JBuild4DCResponseVo<List<Map<String,Object>>> getPersonHRLocationStatistics(String streetValue,String communityValue,String gridValue) throws JBuild4DCGenerallyException {
+        List<Map<String,Object>> statisticsList=personStatistics.getPersonHRLocationStatistics(JB4DCSessionUtility.getSession(),streetValue,communityValue,gridValue);
+        return JBuild4DCResponseVo.getDataSuccess(statisticsList);
+    }
+
+    @RequestMapping(value = "/GetPersonEducationStatistics", method = RequestMethod.GET)
+    public JBuild4DCResponseVo<List<Map<String,Object>>> getPersonEducationStatistics(String streetValue,String communityValue,String gridValue) throws JBuild4DCGenerallyException {
+        List<Map<String,Object>> statisticsList=personStatistics.getPersonEducationStatistics(JB4DCSessionUtility.getSession(),streetValue,communityValue,gridValue);
+        return JBuild4DCResponseVo.getDataSuccess(statisticsList);
+    }
+
+    @RequestMapping(value = "/GetStreetPersonStatistics", method = RequestMethod.GET)
+    public JBuild4DCResponseVo<List<Map<String,Object>>> getStreetPersonStatistics(String streetValue) throws JBuild4DCGenerallyException {
+        List<Map<String,Object>> statisticsList=personStatistics.getStreetPersonStatistics(JB4DCSessionUtility.getSession(),streetValue);
+        return JBuild4DCResponseVo.getDataSuccess(statisticsList);
+    }
 }

@@ -102,6 +102,7 @@ export default {
           ts:Date.now()
         }
       }).then((response) => {
+        console.log(response);
         if(page.num==1) {
           appClientUtility.AutoBindInitDD(response.data.exKVData.dictionaryEntities);
           appClientUtility.ConvertDDListToMap(response.data.exKVData.dictionaryEntities);

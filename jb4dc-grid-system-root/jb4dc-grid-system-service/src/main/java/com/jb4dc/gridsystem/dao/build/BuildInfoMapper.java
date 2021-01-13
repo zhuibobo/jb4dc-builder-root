@@ -4,6 +4,7 @@ import com.jb4dc.base.dbaccess.dao.BaseMapper;
 import com.jb4dc.gridsystem.dbentities.build.BuildInfoEntity;
 import com.jb4dc.gridsystem.dbentities.build.HouseInfoEntity;
 import com.jb4dc.gridsystem.dbentities.gridinfo.GridInfoEntityWithBLOBs;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -19,4 +20,6 @@ public interface BuildInfoMapper extends BaseMapper<BuildInfoEntity> {
     List<BuildInfoEntity> selectByInputUserId(String userId);
 
     List<BuildInfoEntity> selectByBuildCode(String buildCode);
+
+    List<BuildInfoEntity> selectBuildMapLocationByOrganId(@Param("organId") String organId,@Param("buildCategory") String buildCategory);
 }

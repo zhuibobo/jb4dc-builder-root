@@ -1,0 +1,259 @@
+<!DOCTYPE html><html lang="zh" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"><head><meta charset="UTF-8"><title>Title12</title><title>JBuild4D</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"><script type="text/javascript" src="../../../Js/External/JQuery-3.4.1/jquery-3.4.1.min.js"></script><script type="text/javascript" src="../../../Js/External/VUE-2.6.10/vue.js"></script><script type="text/javascript" src="../../../Js/External/IView-4.X/dist/iview.min.js"></script><script type="text/javascript" src="../../../Js/External/JQuery-UI-1.12.1/jquery-ui.js"></script><script type="text/javascript" src="../../../Js/External/ZTree-3.5.40/js/jquery.ztree.all.js"></script><script type="text/javascript" src="../../../Js/External/Perfect-Scrollbar-V1.4.0/perfect-scrollbar.js"></script><script type="text/javascript" src="../../../Js/JBuild4DCLib.js?refVersion=1610505773491"></script><script type="text/javascript" src="../../../Js/UIEXComponent.js?refVersion=1610505773491"></script><script type="text/javascript" src="../../../Js/VueEXComponent.js?refVersion=1610505773491"></script><script type="text/javascript" src="../../../Js/GridUtility.js?refVersion=1610505773491"></script><script type="text/javascript" src="../../../Js/External/Turf/turf.min.js"></script><link rel="stylesheet" type="text/css" href="../../../Themes/Default/Css/JBuild4DC.css?refVersion=1610505773491"><link rel="stylesheet" type="text/css" href="../../../Themes/Default/IView-4.X/iview.css"><link rel="stylesheet" type="text/css" href="../../../Themes/Default/JQueryUI/jquery-ui.css"><link rel="stylesheet" type="text/css" href="../../../Themes/Default/JQueryUI/jquery-ui-important.css"><link rel="stylesheet" type="text/css" href="../../../Themes/Default/ZTree/zTreeStyle/zTreeStyle.css"><link rel="stylesheet" type="text/css" href="../../../Themes/Default/Grid/Css/JBuild4DCGridSystem.css?refVersion=1610505773491"><link rel="stylesheet" type="text/css" href="../../../Js/External/Perfect-Scrollbar-V1.4.0/perfect-scrollbar.css"><style></style></head><body><div id="gridWrap" class="list-2column"><div class="left-outer-wrap" style="width:250px"><div class="inner-wrap"><div class="tool-bar-wrap"></div><div style="position:absolute;top:40px;bottom:20px;overflow:auto;width:245px"><ul id="zTreeUL" class="ztree" style="width:100%"></ul></div></div></div><div class="right-outer-wrap iv-list-page-wrap" style="padding:10px;left:260px"><tabs><tab-pane label="网格地图"><div id="map-wrap-grid" class="map-wrap-grid" style=""><div id="baidu_map_grid" style="height:100%"></div><div class="map-operation-button-wrap" style="display:none;background-color:#d1f2eb;border:2px dashed #717d7e;width:62px;height:404px;text-align:center"><div class="map-operation-button"><input v-model="isShowSameLevelGridPath" type="checkbox" style="width:30px;height:30px;margin:9px 9px"></div>显示同级网格区域<div class="map-operation-button"><input v-model="isShowNormalBuild" type="checkbox" style="width:30px;height:30px;margin:9px 9px"></div>显示选中区域一般建筑<div class="map-operation-button"><input v-model="isShowSPBuild" type="checkbox" style="width:30px;height:30px;margin:9px 9px"></div>显示选中区域特殊建筑<div class="map-operation-button"><input v-model="isShowEvent" type="checkbox" style="width:30px;height:30px;margin:9px 9px"></div>显示选中区域事件</div></div></tab-pane></tabs></div></div><script>var gridMap = new Vue({
+        el: "#gridWrap",
+        mounted: function () {
+            this.initTree();
+            BaiduMapUtility.LoadJsCompleted("gridMap.initBaiduMap");
+            $("#map-wrap-grid").height(PageStyleUtility.GetPageHeight()-80);
+            $("#cb_show_same_level_grid_path").click(function () {
+                if($(this).prop("checked")){
+                    gridMap.loadGridPathFromServer();
+                }
+                else {
+                    gridMap.removeSameLevelGridPath();
+                }
+            })
+        },
+        data: {
+            acInterface: {
+                <!--Tree -->
+                getOrganAndUserData: "/Rest/Grid/SSOProxy/OrganAndUser/GetOrganAndUserData",
+                <!--Map-->
+                saveMapPath:"/Rest/Grid/GridInfo/GridInfoMain/SaveGridMapPath",
+                getSameLevelGrid:"/Rest/Grid/GridInfo/GridInfoMain/GetSameLevelGrid",
+                <!--Build-->
+                getBuildMapLocation:"/Rest/Grid/Build/BuildMain/GetBuildMapLocation"
+                <!--Event-->
+            },
+            <!--Map-->
+            map:{
+                mapObj:null,
+                selectedLngLat:null,
+                viewObjs:[],
+            },
+            <!--Tree-->
+            OrganTree:{
+                treeSetting: {
+                    async: {
+                        enable: true,
+                        // Ajax 获取数据的 URL 地址
+                        url: ""
+                    },
+                    // 必须使用data
+                    data: {
+                        key: {
+                            name: "organName"
+                        },
+                        simpleData: {
+                            enable: true,
+                            idKey: "organId", // id编号命名
+                            pIdKey: "organParentId",  // 父id编号命名
+                            rootId: "24655792-87a2-4057-887f-05db96e868be"
+                        }
+                    },
+                    // 回调函数
+                    callback: {
+                        onClick: function (event, treeId, treeNode) {
+                            gridMap.treeNodeSelected(event, treeId, treeNode);
+                        },
+                        //成功的回调函数
+                        onAsyncSuccess: function (event, treeId, treeNode, msg) {
+                            gridMap.OrganTree.treeObj.expandAll(true);
+                        }
+                    }
+                },
+                treeIdFieldName: "roleGroupId",
+                treeObj: null,
+                treeSelectedNode: null
+            },
+            isShowSameLevelGridPath:true,
+            isShowNormalBuild:true,
+            isShowSPBuild:true,
+            isShowEvent:true
+        },
+        methods: {
+            //region 地图
+            initBaiduMap:function(){
+                this.map.mapObj = new BMapGL.Map('baidu_map_grid');
+                this.map.mapObj.centerAndZoom(new BMapGL.Point(114.54200132645097, 22.754142795907825), 16);
+                this.map.mapObj.enableScrollWheelZoom(true);
+                this.map.mapObj.addEventListener('click', function(e) {
+                    gridMap.map.selectedLngLat=e.latlng;
+                    console.log(e.latlng);
+                    /*alert('点击的经纬度：' + e.latlng.lng + ', ' + e.latlng.lat);
+                    var mercator = gridMap.map.mapObj.lnglatToMercator(e.latlng.lng, e.latlng.lat);
+                    alert('点的墨卡托坐标：' + mercator[0] + ', ' + mercator[1]);*/
+                });
+                $(".map-operation-button-wrap").show();
+            },
+            addToViewObjs:function(viewObj){
+                if(!ArrayUtility.Exist(this.map.viewObjs,function(item){return item.Id==viewObj.Id})){
+                    this.map.mapObj.addOverlay(viewObj.obj);
+                    this.map.viewObjs.push(viewObj);
+                    //console.log(viewObj);
+                }
+            },
+            loadGridPathFromServer:function() {
+                if (this.OrganTree.treeSelectedNode == null) {
+                    DialogUtility.ToastMessage(this, "请先选择行政区划!");
+                    return;
+                }
+                var selectOrgan = this.OrganTree.treeSelectedNode;
+                AjaxUtility.Get(this.acInterface.getSameLevelGrid, {
+                    parentId: selectOrgan.organParentId,
+                    excludeId: ""
+                }, function (result) {
+                    //console.log(result);
+                    if (result.success) {
+                        for (var i = 0; i < result.data.length; i++) {
+                            var singleGridInfo = result.data[i];
+                            var node = this.OrganTree.treeObj.getNodesByParam("organId", singleGridInfo.gridId)[0];
+                            if (StringUtility.IsNotNullOrEmpty(singleGridInfo.gridMapPath)) {
+                                this.drawSingleGridPath(singleGridInfo,singleGridInfo.gridMapPath, node.organName);
+                            }
+                        }
+                    }
+                }, this);
+            },
+            drawSingleGridPath:function(singleGridInfo,gridMapPath,txt) {
+                var objs = JsonUtility.StringToJson(gridMapPath);
+                for (var i = 0; i < objs.length; i++) {
+                    var obj = objs[i];
+                    if (obj.type == "Polygon") {
+                        var polygonPath = obj.path;
+                        //console.log(polygonPath);
+                        var polygonPathArray = [];
+
+                        for (var j = 0; j < polygonPath.length; j++) {
+                            polygonPathArray.push(new BMapGL.Point(polygonPath[j].lng, polygonPath[j].lat))
+                        }
+                        var polygon = new BMapGL.Polygon(polygonPathArray, {
+                            strokeColor: 'blue',
+                            strokeWeight: 2,
+                            strokeOpacity: 0.8,
+                            fillColor: '#CD6155',
+                            fillOpacity: 0.5,
+                        });
+                        //this.map.mapObj.addOverlay(polygon);
+
+                        this.addToViewObjs({
+                            Id: "Grid_" + singleGridInfo.gridId + "_" + i,
+                            "GroupName": "GridPolygon",
+                            "type": "Polygon",
+                            "obj": polygon
+                        });
+
+                        var centerPoint = BaiduMapUtility.GetLatLngCenter(polygonPathArray);
+                        //console.log(centerPoint);
+                        var point = new BMapGL.Point(centerPoint.lng, centerPoint.lat);
+                        var content = "label";
+                        var label = new BMapGL.Label(txt, {       // 创建文本标注
+                            position: point,                          // 设置标注的地理位置
+                            offset: new BMapGL.Size(-10, -10)           // 设置标注的偏移量
+                        })
+                        //this.map.mapObj.addOverlay(label);
+                        this.addToViewObjs({
+                            Id: "GridLabel_" + singleGridInfo.gridId + "_" + i,
+                            "GroupName": "GridPolygonName",
+                            "type": "text",
+                            "obj": label
+                        });
+                    }
+                }
+            },
+            removeSameLevelGridPath:function (){
+                for (var i = 0; i < this.map.viewGridObjs.length; i++) {
+                    this.map.mapObj.removeOverlay(this.map.viewGridObjs[i].obj);
+                }
+                this.map.viewGridObjs=[];
+            },
+            clearCurrentGridEditArea:function(){
+                var selectOrgan = this.OrganTree.treeSelectedNode;
+                for (var i = 0; i < this.map.editObjs.length; i++) {
+                    this.map.mapObj.removeOverlay(this.map.editObjs[i].obj);
+                }
+                this.map.editObjs=[];
+            },
+            //endregion
+            //region 组织机构树
+            initTree: function () {
+                var _self=this;
+                AjaxUtility.Get(this.acInterface.getOrganAndUserData, {}, function (result) {
+                    //console.log(result);
+                    if(result.success){
+                        var treeData=result.data.ALLOrganMinProp;
+                        if(treeData!=null&&treeData.length>0){
+                            for(var i=0;i<treeData.length;i++) {
+                                if(treeData[i].organId!="0") {
+                                    treeData[i].icon = "../../../Themes/Png16X16/icons8-registry-editor-16.png";
+                                }
+                            }
+                        }
+                        var filterTreeData=ArrayUtility.Where(treeData,function (item){
+                           if(item.organTypeValue=="Street"||item.organTypeValue=="Community"||item.organTypeValue=="GridUnit"){
+                                return true;
+                           }
+                           else if(item.organName=="行政区划"){
+                               return true;
+                           }
+                           return false;
+                        });
+                        //_self.member.allMemberData=result.data.ALLUserMinProp;
+                        _self.OrganTree.treeObj=$.fn.zTree.init($("#zTreeUL"), _self.OrganTree.treeSetting,filterTreeData);
+                        _self.OrganTree.treeObj.expandAll(true);
+                    }
+                    else {
+                        DialogUtility.Alert(window, DialogUtility.DialogAlertId, {}, result.message, function () {});
+                    }
+                }, this);
+            },
+            treeNodeSelected: function (event, treeId, treeNode) {
+                // 根节点不触发任何事件
+                this.OrganTree.treeSelectedNode = treeNode;
+                this.map.selectedLngLat=null;
+                if(this.isShowSameLevelGridPath){
+                    this.loadGridPathFromServer();
+                }
+                if(this.isShowNormalBuild){
+                    this.loadBuildPointMarkerFromServer(treeNode.organId,"一般建筑物");
+                }
+            },
+            loadBuildPointMarkerFromServer:function (organId,buildCategory) {
+                this.loadPointMarkFromServer(this.acInterface.getBuildMapLocation, {
+                    organId: organId,
+                    buildCategory: buildCategory
+                }, function (result) {
+                    var buildData = result.data;
+                    for (var i = 0; i < buildData.length; i++) {
+                        var singleBuildData=buildData[i];
+                        var buildMapLocation=JsonUtility.StringToJson(singleBuildData.buildMapLocation);
+                        for (var j = 0; j < buildMapLocation.length; j++) {
+                            if(buildMapLocation[j].type=="point") {
+                                var point = new BMapGL.Point(buildMapLocation[j].path.lng, buildMapLocation[j].path.lat);
+                                var mk = new BMapGL.Marker(point, {
+                                    icon: this.getMarkIcon()
+                                });
+                                this.addToViewObjs({
+                                    Id: "Build_" + singleBuildData.buildId + "_" + j,
+                                    "GroupName": buildCategory,
+                                    "type": "point",
+                                    "obj": mk
+                                });
+                            }
+                        }
+                    }
+                });
+            },
+            loadPointMarkFromServer:function (url,paras,func){
+                AjaxUtility.Get(url, paras, function (result) {
+                    if(result.success){
+                        //console.log(result);
+                        func.call(this,result);
+                    }
+                }, this);
+            },
+            getMarkIcon:function (){
+                var myIcon = new BMapGL.Icon("/GridSystem/HTML/GridAppClient/Images/icons8-mark2-96.png", new BMapGL.Size(48, 48));
+                return myIcon;
+            }
+        }
+    });</script></body></html>

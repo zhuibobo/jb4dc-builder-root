@@ -1,6 +1,6 @@
 <template>
   <div>
-    <!--事件信息编辑-->
+    <!--事件信息编辑1-->
     <div class="modal fade" id="eventEditModal" tabindex="-1" role="dialog" aria-labelledby="eventEditModalLabel"
          aria-hidden="true">
       <div class="modal-dialog" role="document">
@@ -170,6 +170,13 @@
                           <input class="form-check-input" type="radio" name="ddg_EventIsEmergency" :id="'ddg_EventIsEmergency'+index" :value="ddItem.dictValue" v-model="event.editEventData.eventIsEmergency">
                           <label class="form-check-label" :for="'ddg_EventIsEmergency'+index">{{ddItem.dictText}}</label>
                         </div>
+                      </div>
+                    </div>
+                    <div class="form-group row form-group-min">
+                      <label class="col-4 col-form-label text-right col-form-label-sm form-label-min">涉及金额(万元)</label>
+                      <div class="col-8">
+                        <input type="number" class="form-control form-control-sm input-color"
+                               v-model="event.editEventData.eventAboutMoney">
                       </div>
                     </div>
                   </form>
@@ -469,7 +476,7 @@ export default {
           eventFromCode:"",//转来文号
           eventFromDate:"",//转来日期
           eventIsEmergency:"",//是否紧急事件
-          eventAboutMoney:"",//涉及金额
+          eventAboutMoney:null,//涉及金额
           eventIsSpDifficult:"",//是否特别疑难件
           eventWarringLevel:"",//预警级别
           eventProcessNodeName:"",//办理状况名称
@@ -550,10 +557,10 @@ export default {
     },
     eventType1Change:function (){
       if(this.event.editEventData.eventType1=="矛盾纠纷"){
-        this.ddg_EventType2=appClientUtility.GetAllDDMap()["409a1bbf-9c53-4ec9-8d77-8f5df6b2e8fa"];
+        this.ddg_EventType2=appClientUtility.GetAllDDMap()["5d8b5a48-1916-4002-9b85-c8b95c59d200_7ae3024b-83c9-4a72-b576-2a6f874aa876"];
       }
       else if(this.event.editEventData.eventType1=="问题隐患"){
-        this.ddg_EventType2=appClientUtility.GetAllDDMap()["7e36a208-2927-4ad0-892b-0403c6e1b3d8"];
+        this.ddg_EventType2=appClientUtility.GetAllDDMap()["5d8b5a48-1916-4002-9b85-c8b95c59d200_55559583-567e-4ec2-8569-b61ce5b75a89"];
       }
       else{
         this.ddg_EventType2=[];
@@ -587,6 +594,7 @@ export default {
       }).then((response) => {
 
         this.event.editEventData=response.data.data;
+        var tempEventType2=this.event.editEventData.eventType2;
         this.$refs.photoListObj.setRecordId(this.event.editEventData.eventId);
         this.$refs.photoListObj.loadPhotoFromServer(this.event.editEventData.eventId);
         this.$refs.baiduMapLocationObj.setValue(this.event.editEventData.eventAcceptMapLocation);
@@ -595,6 +603,9 @@ export default {
         window.setTimeout(function (){
           $('#eventEditModal li:nth-child(1) a').tab('show')
         },1000);
+
+        this.eventType1Change();
+        this.event.editEventData.eventType2=tempEventType2;
       }).catch((e) => {
 
       }).then((endRes)=>{

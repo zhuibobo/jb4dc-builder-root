@@ -76,6 +76,14 @@
                                     <i-input v-model="normalProps.custClientRendererMethodPara" placeholder="客户端渲染方法的参数" />
                                 </td>
                             </tr>
+                            <tr>
+                                <td>
+                                    省略长度：
+                                </td>
+                                <td>
+                                    <i-input v-model="normalProps.omitLength" placeholder="客户端渲染方法的参数" />
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>
@@ -114,7 +122,8 @@
                     custClientRendererMethod:"",
                     custClientRendererMethodPara:"",
                     dictionaryGroupDataSourceText:"",
-                    dictionaryGroupDataSourceId:""
+                    dictionaryGroupDataSourceId:"",
+                    omitLength:"0"
                 },
                 dataSetId:null,
                 buttons:[],
@@ -197,14 +206,16 @@
                             custClientRendererMethod:this.normalProps.custClientRendererMethod,
                             custClientRendererMethodPara:this.normalProps.custClientRendererMethodPara,
                             dictionaryGroupDataSourceText:this.normalProps.dictionaryGroupDataSourceText,
-                            dictionaryGroupDataSourceId:this.normalProps.dictionaryGroupDataSourceId
+                            dictionaryGroupDataSourceId:this.normalProps.dictionaryGroupDataSourceId,
+                            omitLength:this.normalProps.omitLength
                         },
                         defaultValue: bindData.defaultValue
                     }
                     return result;
                 },
                 setControlProps:function ($elem,props) {
-                    //console.log(props);
+                    //console.log(props);;
+                    debugger;
                     this.baseInfo = props.baseInfo ? props.baseInfo : this.baseInfo;
                     //this.bindToSearchField = props.bindToSearchField ? props.bindToSearchField : this.bindToSearchField;
                     this.defaultValue = props.defaultValue ? props.defaultValue : this.defaultValue;
@@ -220,7 +231,17 @@
                     this.normalProps.custClientRendererMethod =$elem.attr("custclientrenderermethod");
                     this.normalProps.custClientRendererMethodPara = $elem.attr("custclientrenderermethodpara");
                     this.normalProps.dictionaryGroupDataSourceText =$elem.attr("dictionaryGroupDataSourceText");
+                    if(!this.normalProps.dictionaryGroupDataSourceText){
+                        this.normalProps.dictionaryGroupDataSourceText="";
+                    }
                     this.normalProps.dictionaryGroupDataSourceId = $elem.attr("dictionaryGroupDataSourceId");
+                    if(!this.normalProps.dictionaryGroupDataSourceId){
+                        this.normalProps.dictionaryGroupDataSourceId="";
+                    }
+                    this.normalProps.omitLength = $elem.attr("omitLength");
+                    if(!this.normalProps.omitLength){
+                        this.normalProps.omitLength="";
+                    }
                     if($elem.attr("defformat")) {
                         this.normalProps.defFormat = $elem.attr("defformat");
                     }

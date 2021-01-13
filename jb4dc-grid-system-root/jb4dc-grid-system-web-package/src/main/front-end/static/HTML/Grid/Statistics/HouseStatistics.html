@@ -11,7 +11,7 @@
     </style>
 </head>
 <body>
-    <div id="buildStatistics" class="list-2column">
+    <div id="houseStatistics" class="list-2column">
         <div class="left-outer-wrap" style="width: 100%">
             <tabs>
                 <tab-pane label="分类统计">
@@ -105,8 +105,8 @@
         </div>
     </div>
     <script>
-        var buildStatistics = new Vue({
-            el: "#buildStatistics",
+        var houseStatistics = new Vue({
+            el: "#houseStatistics",
             mounted: function () {
                 $("#main").height(ListPageUtility.DefaultListHeight()+60);
                 $("#main1").height(ListPageUtility.DefaultListHeight()+60);

@@ -11,7 +11,7 @@
     </style>
 </head>
 <body>
-<div id="buildStatistics" class="list-2column">
+<div id="personStatistics" class="list-2column">
     <div class="left-outer-wrap" style="width: 100%">
         <tabs>
             <tab-pane label="分类统计">
@@ -59,12 +59,12 @@
                             </div>
                         </div>
                         <div class="statistics-box-outer">
-                            <div class="statistics-box-inner" id="divHouseDesignForStatistics">
+                            <div class="statistics-box-inner" id="divPersonHRLocationStatistics">
 
                             </div>
                         </div>
                         <div class="statistics-box-outer" style="width: 100%">
-                            <div class="statistics-box-inner" id="divHouseUseForStatistics">
+                            <div class="statistics-box-inner" id="divPersonEducationStatistics">
 
                             </div>
                         </div>
@@ -100,8 +100,8 @@
     </div>
 </div>
 <script>
-    var buildStatistics = new Vue({
-        el: "#buildStatistics",
+    var personStatistics = new Vue({
+        el: "#personStatistics",
         mounted: function () {
             $("#main").height(ListPageUtility.DefaultListHeight()+60);
             $("#main1").height(ListPageUtility.DefaultListHeight()+60);
@@ -117,10 +117,9 @@
         data: {
             acInterface: {
                 getPersonSexStatistics:"/Rest/Grid/Statistics/PersonStatistics/GetPersonSexStatistics",
-                /*getHouseDesignForStatistics:"/Rest/Grid/Statistics/HouseStatistics/GetHouseDesignForStatistics",
-                getHouseUseForStatistics:"/Rest/Grid/Statistics/HouseStatistics/GetHouseUseForStatistics",
-                getHouseUseAreaForStatistics:"/Rest/Grid/Statistics/HouseStatistics/GetHouseUseAreaForStatistics",
-                getStreetHouseStatistics:"/Rest/Grid/Statistics/HouseStatistics/GetStreetHouseStatistics"*/
+                getPersonHRLocationStatistics:"/Rest/Grid/Statistics/PersonStatistics/GetPersonHRLocationStatistics",
+                getPersonEducationStatistics:"/Rest/Grid/Statistics/PersonStatistics/GetPersonEducationStatistics",
+                getStreetPersonStatistics:"/Rest/Grid/Statistics/PersonStatistics/GetStreetPersonStatistics"
             }
         },
         methods: {
@@ -129,9 +128,9 @@
                 var communityValue=$("#sel_3l_community").val();
                 var gridValue=$("#sel_3l_grid").val();
                 this.bindPersonSexStatistics(streetValue,communityValue,gridValue);
-                /*this.bindHouseDesignForStatistics(streetValue,communityValue,gridValue);
-                this.bindHouseUseForStatistics(streetValue,communityValue,gridValue);
-                this.bindStreetHouseStatistics();*/
+                this.bindPersonHRLocationStatistics(streetValue,communityValue,gridValue);
+                this.bindPersonEducationStatistics(streetValue,communityValue,gridValue);
+                this.bindStreetPersonStatistics();
             },
             bindPersonSexStatistics:function (streetValue,communityValue,gridValue){
                 EChartsUtility.FetchDataOrganFilter(this.acInterface.getPersonSexStatistics,streetValue,communityValue,gridValue,function (result){
@@ -140,47 +139,40 @@
                     statisticsChart.setOption(option);
                 },this);
             },
-            /*bindHouseDesignForStatistics:function (streetValue,communityValue,gridValue){
-                EChartsUtility.FetchDataOrganFilter(this.acInterface.getHouseDesignForStatistics,streetValue,communityValue,gridValue,function (result){
-                    var statisticsChart = echarts.init(document.getElementById('divHouseDesignForStatistics'),'macarons');
-                    var option = EChartsUtility.BuildNormalPieOption(result.data,"设计用途","房屋设计用途统计");
+            bindPersonHRLocationStatistics:function (streetValue,communityValue,gridValue){
+                EChartsUtility.FetchDataOrganFilter(this.acInterface.getPersonHRLocationStatistics,streetValue,communityValue,gridValue,function (result){
+                    var statisticsChart = echarts.init(document.getElementById('divPersonHRLocationStatistics'),'macarons');
+                    var option = EChartsUtility.BuildNormalPieOption(result.data,"户口登记地","户口登记地统计");
                     statisticsChart.setOption(option);
                 },this);
             },
-            bindHouseUseForStatistics:function (streetValue,communityValue,gridValue){
-                EChartsUtility.FetchDataOrganFilter(this.acInterface.getHouseUseForStatistics,streetValue,communityValue,gridValue,function (result){
-                    var statisticsChart = echarts.init(document.getElementById('divHouseUseForStatistics'),'macarons');
-                    var option = EChartsUtility.BuildNormalPieOption(result.data,"使用用途","房屋使用用途统计",['40%', '60%']);
+            bindPersonEducationStatistics:function (streetValue,communityValue,gridValue){
+                EChartsUtility.FetchDataOrganFilter(this.acInterface.getPersonEducationStatistics,streetValue,communityValue,gridValue,function (result){
+                    var statisticsChart = echarts.init(document.getElementById('divPersonEducationStatistics'),'macarons');
+                    var option = EChartsUtility.BuildNormalBarOption(result.data,"收教育程度","收教育程度统计");
                     statisticsChart.setOption(option);
                 },this);
             },
-            bindHouseUseAreaForStatistics:function (streetValue,communityValue,gridValue){
-                EChartsUtility.FetchDataOrganFilter(this.acInterface.getHouseUseAreaForStatistics,streetValue,communityValue,gridValue,function (result){
-                    var statisticsChart = echarts.init(document.getElementById('divHouseUseAreaStatistics'));
-                    var option = EChartsUtility.BuildNormalBarOption(result.data,"使用面积","房屋使用面积");
-                    statisticsChart.setOption(option);
-                },this);
-            },
-            bindStreetHouseStatistics:function (){
+            bindStreetPersonStatistics:function (){
                 <!--澳头街道办-->
-                EChartsUtility.FetchDataOrganFilter(this.acInterface.getStreetHouseStatistics,"c510ab60-82a3-4b76-8331-a6bec626e303","","",function (result){
+                EChartsUtility.FetchDataOrganFilter(this.acInterface.getStreetPersonStatistics,"c510ab60-82a3-4b76-8331-a6bec626e303","","",function (result){
                     var statisticsChart = echarts.init(document.getElementById('divYTJDStreetHouseStatistics'));
                     var option = EChartsUtility.BuildNormalBarOption(result.data,"澳头街道办","澳头街道办");
                     statisticsChart.setOption(option);
                 },this);
                 <!--西区街道办-->
-                EChartsUtility.FetchDataOrganFilter(this.acInterface.getStreetHouseStatistics,"09678663-62fc-49dc-942a-bf77eadf1740","","",function (result){
+                EChartsUtility.FetchDataOrganFilter(this.acInterface.getStreetPersonStatistics,"09678663-62fc-49dc-942a-bf77eadf1740","","",function (result){
                     var statisticsChart = echarts.init(document.getElementById('divXQJDStreetHouseStatistics'),'macarons');
                     var option = EChartsUtility.BuildNormalBarOption(result.data,"西区街道办","西区街道办");
                     statisticsChart.setOption(option);
                 },this);
                 <!--霞涌街道办-->
-                EChartsUtility.FetchDataOrganFilter(this.acInterface.getStreetHouseStatistics,"b97ebc3e-a1b2-4bdc-8860-ad65dcd82d8f","","",function (result){
+                EChartsUtility.FetchDataOrganFilter(this.acInterface.getStreetPersonStatistics,"b97ebc3e-a1b2-4bdc-8860-ad65dcd82d8f","","",function (result){
                     var statisticsChart = echarts.init(document.getElementById('divXYJDStreetHouseStatistics'),"infographic");
                     var option = EChartsUtility.BuildNormalBarOption(result.data,"霞涌街道办","霞涌街道办");
                     statisticsChart.setOption(option);
                 },this);
-            }*/
+            }
         }
     });
 </script>

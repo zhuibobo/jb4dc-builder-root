@@ -9,6 +9,7 @@ import com.jb4dc.gridsystem.dbentities.gridinfo.GridInfoEntityWithBLOBs;
 import com.jb4dc.gridsystem.po.BuildInfoPO;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created with IntelliJ IDEA.
@@ -28,4 +29,6 @@ public interface IBuildInfoService extends IBaseService<BuildInfoEntity> {
     boolean testCodeSingle(BuildInfoEntity buildInfoEntity) throws JBuild4DCGenerallyException;
 
     BuildInfoPO saveBuildData(JB4DCSession session, BuildInfoPO buildInfoPO) throws JBuild4DCGenerallyException;
+
+    List<BuildInfoEntity> getBuildMapLocationByOrganId(JB4DCSession jb4DCSession, String organId, String buildCategory);
 }
