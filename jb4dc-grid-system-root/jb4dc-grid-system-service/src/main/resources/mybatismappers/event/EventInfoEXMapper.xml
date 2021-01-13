@@ -44,4 +44,8 @@
     <select id="selectEventByEventCode" resultMap="BaseResultMap">
         select<include refid="Base_Column_List"/> from TGRID_EVENT_INFO where EVENT_CODE=#{eventCode} ORDER by EVENT_ORDER_NUM desc
     </select>
+
+    <select id="getEventMapLocationByOrganId" resultMap="BaseResultMap">
+        select * from TGRID_EVENT_INFO where EVENT_ACCEPT_MAP_LOCATION!='[]' and EVENT_ACCEPT_UNIT_ID=#{organId}
+    </select>
 </mapper>

@@ -111,4 +111,9 @@ public class EventInfoServiceImpl extends BaseServiceImpl<EventInfoEntity> imple
         }
         //
     }
+
+    @Override
+    public List<EventInfoEntity> getEventMapLocationByOrganId(JB4DCSession jb4DCSession, String organId) throws JBuild4DCGenerallyException {
+        return eventInfoMapper.getEventMapLocationByOrganId(organId);
+    }
 }

@@ -18,4 +18,6 @@ public interface IEventInfoService extends IBaseService<EventInfoEntity> {
     PageInfo<EventInfoEntity> getMyEvent(JB4DCSession jb4DCSession, int num, int size);
 
     void deleteEvent(JB4DCSession jb4DCSession,String eventId) throws JBuild4DCGenerallyException;
+
+    List<EventInfoEntity> getEventMapLocationByOrganId(JB4DCSession jb4DCSession, String organId) throws JBuild4DCGenerallyException;
 }

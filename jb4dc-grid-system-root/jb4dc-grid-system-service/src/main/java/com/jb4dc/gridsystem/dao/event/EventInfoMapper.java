@@ -11,4 +11,6 @@ public interface EventInfoMapper extends BaseMapper<EventInfoEntity> {
     List<EventInfoEntity> selectEventByUserInput(@Param("userId") String userId);
 
     List<EventInfoEntity> selectEventByEventCode(@Param("eventCode") String eventCode);
+
+    List<EventInfoEntity> getEventMapLocationByOrganId(@Param("organId") String organId);
 }

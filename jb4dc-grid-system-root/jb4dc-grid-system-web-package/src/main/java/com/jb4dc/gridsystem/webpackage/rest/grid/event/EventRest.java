@@ -104,4 +104,11 @@ public class EventRest {
         eventInfoService.deleteEvent(jb4DCSession,eventId);
         return JBuild4DCResponseVo.opSuccess();
     }
+
+    @RequestMapping(value = "/GetEventMapLocation", method = RequestMethod.GET)
+    public JBuild4DCResponseVo getEventMapLocation(String organId) throws JBuild4DCGenerallyException {
+        JB4DCSession jb4DCSession = JB4DCSessionUtility.getSession();
+        List<EventInfoEntity> mapLocationList = eventInfoService.getEventMapLocationByOrganId(jb4DCSession, organId);
+        return JBuild4DCResponseVo.getDataSuccess(mapLocationList);
+    }
 }

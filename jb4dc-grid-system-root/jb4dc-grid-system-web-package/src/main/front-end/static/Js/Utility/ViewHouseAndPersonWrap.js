@@ -409,6 +409,19 @@ if($("#viewHouseAndPersonWrap").length>0) {
                 }, this);
             }
             //endregion
-        }
+        },
+        template:`<div class="list-2column viewHouseAndPersonWrap" style="height: 704px">
+                        <div class="left-outer-wrap iv-list-page-wrap" style="width: 650px">
+                            <div class="title">建筑物中房屋
+                            </div>
+                            <i-table :columns="house.columnsConfig" :data="house.tableData" :height="listHeight" :highlight-row="true" border="" class="iv-list-table" @on-row-click="selectionHouseChange"> 
+                            </i-table>
+                          </div><div class="right-outer-wrap iv-list-page-wrap" style="padding: 10px;left: 660px;right: 0px;">
+                            <div class="title">房屋中人口
+                            </div>
+                            <i-table :columns="person.columnsConfig" :data="person.tableData" :height="listHeight" :highlight-row="true" border="" class="iv-list-table" stripe=""> 
+                            </i-table>
+                          </div>
+                    </div>`
     });
 }

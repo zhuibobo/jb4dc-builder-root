@@ -71,6 +71,6 @@
     </select>
 
     <select id="selectBuildMapLocationByOrganId" resultMap="BaseResultMap">
-        select BUILD_MAP_LOCATION,tgrid_build_info.* from tgrid_build_info where BUILD_MAP_LOCATION!='[]' and BUILD_INPUT_UNIT_ID=#{organId} and BUILD_CATEGORY=#{buildCategory}
+        select * from tgrid_build_info where BUILD_MAP_LOCATION!='[]' and BUILD_INPUT_UNIT_ID=#{organId} and BUILD_CATEGORY=#{buildCategory}
     </select>
 </mapper>
