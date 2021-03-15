@@ -276,7 +276,7 @@ function copyAndResolveHtml(sourcePath,base,toPath) {
         .pipe(replacecust(replaceBlockObj.replaceBlock('HTMLDesignWysiwygLib'), replaceBlockObj.replaceHTMLDesignWysiwygLib))
         .pipe(replacecust(replaceBlockObj.replaceBlock('HTMLDesignPluginLib'), replaceBlockObj.replaceHTMLDesignPluginLib))
         .pipe(replacecust(replaceBlockObj.replaceBlock('SiteTemplateDesignLib'), replaceBlockObj.replaceSiteTemplateDesignLib))
-
+        .pipe(replacecust(replaceBlockObj.replaceBlock('LineAwesomeLib'), replaceBlockObj.replaceLineAwesomeLib))
     if(isdebug){
         obj=obj.pipe(htmlmin({
             collapseWhitespace: true,

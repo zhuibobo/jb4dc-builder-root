@@ -118,7 +118,8 @@
                 },
                 treeIdFieldName: "roleGroupId",
                 treeObj: null,
-                treeSelectedNode: null
+                treeSelectedNode: null,
+                allOrganMapData:null
             },
             isShowSameLevelGridPath:true,
             isShowNormalBuild:true,
@@ -166,13 +167,13 @@
                 this.map.mapObj = new BMapGL.Map('baidu_map_grid');
                 this.map.mapObj.centerAndZoom(new BMapGL.Point(114.54200132645097, 22.754142795907825), 16);
                 this.map.mapObj.enableScrollWheelZoom(true);
-                this.map.mapObj.addEventListener('click', function(e) {
-                    gridMap.map.selectedLngLat=e.latlng;
-                    console.log(e.latlng);
+                //this.map.mapObj.addEventListener('click', function(e) {
+                    //gridMap.map.selectedLngLat=e.latlng;
+                    //console.log(e.latlng);
                     /*alert('点击的经纬度：' + e.latlng.lng + ', ' + e.latlng.lat);
                     var mercator = gridMap.map.mapObj.lnglatToMercator(e.latlng.lng, e.latlng.lat);
                     alert('点的墨卡托坐标：' + mercator[0] + ', ' + mercator[1]);*/
-                });
+                //});
                 $(".map-operation-button-wrap").show();
             },
             addToViewObjs:function(viewObj){
@@ -256,6 +257,8 @@
                             "type": "text",
                             "obj": label
                         });
+
+                        this.createGridInfoWindow(singleGridInfo, label.getPosition(), polygon, "");
                     }
                 }
             },
@@ -276,9 +279,10 @@
             initTree: function () {
                 var _self=this;
                 AjaxUtility.Get(this.acInterface.getOrganAndUserData, {}, function (result) {
-                    //console.log(result);
+                    console.log(result);
                     if(result.success){
                         var treeData=result.data.ALLOrganMinProp;
+                        this.OrganTree.allOrganMapData=ArrayUtility.ToMap(treeData,"organId");
                         if(treeData!=null&&treeData.length>0){
                             for(var i=0;i<treeData.length;i++) {
                                 if(treeData[i].organId!="0") {
@@ -303,6 +307,9 @@
                         DialogUtility.Alert(window, DialogUtility.DialogAlertId, {}, result.message, function () {});
                     }
                 }, this);
+            },
+            getOrganData:function (organId){
+                return this.OrganTree.allOrganMapData[organId];
             },
             treeNodeSelected: function (event, treeId, treeNode) {
                 // 根节点不触发任何事件
@@ -394,7 +401,7 @@
                     <tr><td>层数:</td><td>${buildData.buildFloorDes}</td></tr>
                     <tr><td>功能:</td><td>${buildData.buildFunctionCategory}</td></tr>
                     <tr><td>类型:</td><td>${buildData.buildType}</td></tr>
-                    <tr><td>操作:</td><td><a onclick="gridMap.Frame_OpenIframeWindow('${formId}','${buildData.buildId}',1324,900,'查看建筑物','')">查看详情</a></td></tr>
+                    <tr><td>操作:</td><td><a onclick="gridMap.frameOpenFormWindow('${formId}','${buildData.buildId}',1324,900,'查看建筑物','')">查看详情</a></td></tr>
                 </table>`, opts);
 
                 marker.addEventListener('click', function () {
@@ -449,7 +456,7 @@
                     <tr><td>等级:</td><td>${eventData.eventLevel}</td></tr>
                     <tr><td>类型1:</td><td>${eventData.eventType1}</td></tr>
                     <tr><td>类型2:</td><td>${eventData.eventType2}</td></tr>
-                    <tr><td>操作:</td><td><a onclick="gridMap.Frame_OpenIframeWindow('${formId}','${eventData.eventId}',1324,900,'查看事件','')">查看详情</a></td></tr>
+                    <tr><td>操作:</td><td><a onclick="gridMap.frameOpenFormWindow('${formId}','${eventData.eventId}',1324,900,'查看事件','')">查看详情</a></td></tr>
                 </table>`, opts);
 
                 marker.addEventListener('click', function () {
@@ -457,7 +464,7 @@
                     gridMap.map.mapObj.openInfoWindow(infoWindow, point); // 开启信息窗口
                 });
             },
-            Frame_OpenIframeWindow:function (formid,recordId,windowwidth,windowheight,windowcaption,paraStr){
+            frameOpenFormWindow:function (formid,recordId,windowwidth,windowheight,windowcaption,paraStr){
                 //debugger;
                 DialogUtility.Frame_OpenIframeWindow(window,DialogUtility.DialogId,BaseUtility.BuildView("/HTML/Builder/Runtime/WebFormRuntime.html",{
                     "formId":formid,
@@ -473,6 +480,63 @@
                     "height": windowheight,
                     "title":windowcaption
                 },1,true);
+            },
+            frameOpenGridStatisticsWindow:function (toPage,organType,organId){
+
+                var streetValue="";
+                var communityValue="";
+                var gridValue="";
+                if(organType=="GridUnit"){
+                    gridValue=organId;
+                    communityValue=this.getOrganData(organId).organParentId;
+                    streetValue=this.getOrganData(communityValue).organParentId;
+                }
+                else if(organType=="Community"){
+                    communityValue=organId;
+                    streetValue=this.getOrganData(communityValue).organParentId;
+                }
+                else if(organType=="Street"){
+                    streetValue=organId;
+                }
+
+                DialogUtility.Frame_OpenIframeWindow(window,DialogUtility.DialogId,BaseUtility.BuildView("/HTML/Grid/Statistics/"+toPage,{
+                    "organType":organType,
+                    "streetValue":streetValue,
+                    "communityValue":communityValue,
+                    "gridValue":gridValue
+                }), {
+                    "width": 1324,
+                    "height": 900,
+                    "title":"数据统计"
+                },1,true);
+            },
+            createGridInfoWindow:function (gridData,point,polygon,formId){
+                polygon.addEventListener('click', function (event) {
+                    console.log(point);
+                    var organData=gridMap.getOrganData(gridData.gridOrganId);
+                    // 创建信息窗口1
+                    var opts = {
+                        width: 440,
+                        height: 270,
+                        title: organData.organName
+                    };
+                    var infoWindow = new BMapGL.InfoWindow(`<table class="light-gray-table" style="width: 99%">
+                            <tr><td style="width: 100px">编号:</td><td>${gridData.gridCode?gridData.gridCode:""}</td></tr>
+                            <tr><td>名称:</td><td>${organData.organName}</td></tr>
+                            <tr><td>建筑统计:</td><td><a onclick="gridMap.frameOpenGridStatisticsWindow('BuildStatistics.html','${organData.organTypeValue}','${organData.organId}')">查看统计信息</a></td></tr>
+                            <tr><td>房屋统计:</td><td><a onclick="gridMap.frameOpenGridStatisticsWindow('HouseStatistics.html','${organData.organTypeValue}','${organData.organId}')">查看统计信息</a></td></tr>
+                            <tr><td>人口统计:</td><td><a onclick="gridMap.frameOpenGridStatisticsWindow('PersonStatistics.html','${organData.organTypeValue}','${organData.organId}')">查看统计信息</a></td></tr>
+                            <tr><td>事件统计:</td><td><a onclick="gridMap.frameOpenGridStatisticsWindow('EventStatistics.html','${organData.organTypeValue}','${organData.organId}')">查看统计信息</a></td></tr>
+                        </table>`, opts);
+                    //debugger;
+                    window.setTimeout(function (){
+                        gridMap.map.mapObj.openInfoWindow(infoWindow, point); // 开启信息窗口
+                    },300);
+                    //event.cancelBubble=true;
+                    //event.returnValue=false;
+                    //event.target.stopPropagation();
+                    //return false;
+                });
             }
         }
     });

@@ -16,7 +16,7 @@ import java.util.List;
 public interface IGridInfoService extends IBaseService<GridInfoEntityWithBLOBs> {
     void saveGridMapPath(JB4DCSession jb4DCSession, String organId, String gridMapPath,String parentId) throws JBuild4DCGenerallyException;
 
-    List<GridInfoEntityWithBLOBs> getByParentId(JB4DCSession session, String parentId,String excludeId);
+    List<GridInfoEntityWithBLOBs> getSameLevelGrid(JB4DCSession session, String parentId,String excludeId);
 
     void saveGridInfo(JB4DCSession session, String organId, String gridCode, String gridContent, String gridRemark, String gridParentId) throws JBuild4DCGenerallyException;
 }

@@ -76,7 +76,7 @@
                         </div>
                     </div>
                 </tab-pane>
-                <tab-pane label="一般建筑物区域数量统计">
+                <tab-pane label="一般建筑物区域数量统计" v-if="showStreetNormalBuildStatistics">
                     <div class="statistics-wrap">
                         <div class="statistics-box-wrap">
                             <div class="statistics-box-outer" style="width: 100%">
@@ -111,6 +111,9 @@
                 $("#main").height(ListPageUtility.DefaultListHeight()+60);
                 $("#main1").height(ListPageUtility.DefaultListHeight()+60);
 
+                //debugger;
+                EChartsUtility.AutoSetStatus(this);
+
                 var Organ3DDLInstance=Object.create(Organ3DDL);
                 Organ3DDLInstance.Init3DDL("sel_3l_street",
                     "sel_3l_community",
@@ -126,7 +129,8 @@
                     getBuildPropertyStatistics:"/Rest/Grid/Statistics/BuildStatistics/GetBuildPropertyStatistics",
                     getBuildDesignForStatistics:"/Rest/Grid/Statistics/BuildStatistics/GetBuildDesignForStatistics",
                     getStreetNormalBuildStatistics:"/Rest/Grid/Statistics/BuildStatistics/GetStreetNormalBuildStatistics"
-                }
+                },
+                showStreetNormalBuildStatistics:true
             },
             methods: {
                 reStatistics:function(){
@@ -137,7 +141,10 @@
                     this.bindBuildCategoryStatistics(streetValue,communityValue,gridValue);
                     this.bindBuildPropertyStatistics(streetValue,communityValue,gridValue);
                     this.bindBuildDesignForStatistics(streetValue,communityValue,gridValue);
-                    this.bindStreetBuildStatistics();
+
+                    if(this.showStreetNormalBuildStatistics) {
+                        this.bindStreetBuildStatistics();
+                    }
                 },
                 bindBuildCategoryStatistics:function (streetValue,communityValue,gridValue){
                     EChartsUtility.FetchDataOrganFilter(this.acInterface.getBuildCategoryStatistics,streetValue,communityValue,gridValue,function (result){

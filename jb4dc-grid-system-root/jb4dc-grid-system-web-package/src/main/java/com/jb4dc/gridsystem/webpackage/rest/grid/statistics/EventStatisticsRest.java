@@ -26,4 +26,21 @@ public class EventStatisticsRest {
         return JBuild4DCResponseVo.getDataSuccess(statisticsList);
     }
 
+    @RequestMapping(value = "/GetEventSourceStatistics", method = RequestMethod.GET)
+    public JBuild4DCResponseVo<List<Map<String,Object>>> getEventSourceStatistics(String streetValue,String communityValue,String gridValue) throws JBuild4DCGenerallyException {
+        List<Map<String,Object>> statisticsList=eventStatistics.getEventSourceStatistics(JB4DCSessionUtility.getSession(),streetValue,communityValue,gridValue);
+        return JBuild4DCResponseVo.getDataSuccess(statisticsList);
+    }
+
+    @RequestMapping(value = "/GetEventLevelStatistics", method = RequestMethod.GET)
+    public JBuild4DCResponseVo<List<Map<String,Object>>> getEventLevelStatistics(String streetValue,String communityValue,String gridValue) throws JBuild4DCGenerallyException {
+        List<Map<String,Object>> statisticsList=eventStatistics.getEventLevelStatistics(JB4DCSessionUtility.getSession(),streetValue,communityValue,gridValue);
+        return JBuild4DCResponseVo.getDataSuccess(statisticsList);
+    }
+
+    @RequestMapping(value = "/GetEventAppealPersonNumStatistics", method = RequestMethod.GET)
+    public JBuild4DCResponseVo<List<Map<String,Object>>> getEventAppealPersonNumStatistics(String streetValue,String communityValue,String gridValue) throws JBuild4DCGenerallyException {
+        List<Map<String,Object>> statisticsList=eventStatistics.getEventAppealPersonNumStatistics(JB4DCSessionUtility.getSession(),streetValue,communityValue,gridValue);
+        return JBuild4DCResponseVo.getDataSuccess(statisticsList);
+    }
 }

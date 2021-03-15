@@ -22,6 +22,10 @@
             <div style="float: left;width: 100%;margin-top: 4px">
             <i-table border :columns="receiveObjectTableConfig" :data="receiveObjectTableData"
                      class="iv-list-table" size="small" no-data-text="add listeners" height="400">
+                <template slot-scope="{ row, index }" slot="receiveObjectText">
+                    <div v-html="receiveObjectTextFormat(row)">
+                    </div>
+                </template>
                 <template slot-scope="{ row, index }" slot="action">
                     <div class="wf-list-font-icon-button-class" @click="deleteReceiveObject(index,row)">
                         <Icon type="md-close" />
@@ -33,6 +37,7 @@
         <selectRoleDialog ref="selectRoleDialog"></selectRoleDialog>
         <selectUserDialog ref="selectUserDialog"></selectUserDialog>
         <selectOrganDialog ref="selectOrganDialog"></selectOrganDialog>
+        <selectFlowAboutUserDialog ref="selectFlowAboutUserDialog"></selectFlowAboutUserDialog>
     </div>
 </template>
 
@@ -41,6 +46,7 @@
     import selectRoleDialog from "../Dialog/select-role-dialog.vue";
     import selectUserDialog from "../Dialog/select-user-dialog.vue";
     import selectOrganDialog from "../Dialog/select-organ-dialog.vue";
+    import selectFlowAboutUserDialog from "../Dialog/select-flow-about-user-dialog.vue";
 
     export default {
         name: "jb4dc-receive-object-properties",
@@ -48,7 +54,8 @@
         components: {
             selectRoleDialog,
             selectUserDialog,
-            selectOrganDialog
+            selectOrganDialog,
+            selectFlowAboutUserDialog
         },
         data:function () {
             return {
@@ -61,6 +68,7 @@
                     },
                     {
                         title: '接收对象',
+                        slot: 'receiveObjectText',
                         key: 'receiveObjectText',
                         align: "left"
                     },
@@ -83,6 +91,9 @@
 
         },
         methods: {
+            receiveObjectTextFormat:function (row){
+                return row.receiveObjectText.split(",").join("<br />");
+            },
             newReceiverObjectRow(type,value,text,config) {
                 var receiveObject = JsonUtility.CloneStringify(PODefinition.GetJB4DCReceiveObjectPO());
                 receiveObject.receiveObjectType = type;
@@ -149,7 +160,11 @@
                 });
             },
             addFlowAboutUser(){
-                DialogUtility.ToastMessage(this,"未实现!");
+                this.$refs.selectFlowAboutUserDialog.beginSelectFlowAboutUser("选择流程相关人员","",(selectData)=>{
+                    //console.log(selectData);
+                    this.addToReceiveObjectTableData(this.newReceiverObjectRow(selectData.type,selectData.value,selectData.text,selectData.config));
+                });
+                //DialogUtility.ToastMessage(this,"未实现!");
             },
             addExcludeUser(){
                 this.$refs.selectUserDialog.beginSelectUser("选择排除用户","",(selectedUserArray)=>{

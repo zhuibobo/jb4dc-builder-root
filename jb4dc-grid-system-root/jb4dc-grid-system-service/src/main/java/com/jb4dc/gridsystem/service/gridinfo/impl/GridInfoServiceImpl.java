@@ -48,7 +48,7 @@ public class GridInfoServiceImpl extends BaseServiceImpl<GridInfoEntityWithBLOBs
     }
 
     @Override
-    public List<GridInfoEntityWithBLOBs> getByParentId(JB4DCSession session, String parentId,String excludeId) {
+    public List<GridInfoEntityWithBLOBs> getSameLevelGrid(JB4DCSession session, String parentId,String excludeId) {
         return gridInfoMapper.selectByParentId(parentId,excludeId);
     }
 

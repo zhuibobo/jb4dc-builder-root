@@ -76,7 +76,7 @@
                         </div>
                     </div>
                 </tab-pane>
-                <tab-pane label="区域数量统计">
+                <tab-pane label="区域数量统计" v-if="showStreetNormalBuildStatistics">
                     <div class="statistics-wrap">
                         <div class="statistics-box-wrap">
                             <div class="statistics-box-outer" style="width: 100%">
@@ -111,6 +111,8 @@
                 $("#main").height(ListPageUtility.DefaultListHeight()+60);
                 $("#main1").height(ListPageUtility.DefaultListHeight()+60);
 
+                EChartsUtility.AutoSetStatus(this);
+
                 var Organ3DDLInstance=Object.create(Organ3DDL);
                 Organ3DDLInstance.Init3DDL("sel_3l_street",
                     "sel_3l_community",
@@ -126,7 +128,8 @@
                     getHouseUseForStatistics:"/Rest/Grid/Statistics/HouseStatistics/GetHouseUseForStatistics",
                     getHouseUseAreaForStatistics:"/Rest/Grid/Statistics/HouseStatistics/GetHouseUseAreaForStatistics",
                     getStreetHouseStatistics:"/Rest/Grid/Statistics/HouseStatistics/GetStreetHouseStatistics"
-                }
+                },
+                showStreetNormalBuildStatistics:true
             },
             methods: {
                 reStatistics:function(){
@@ -138,7 +141,9 @@
                     this.bindHouseUseForStatistics(streetValue,communityValue,gridValue);
                     this.bindHouseUseAreaForStatistics(streetValue,communityValue,gridValue);
                     //this.bindBuildDesignForStatistics(streetValue,communityValue,gridValue);
-                    this.bindStreetHouseStatistics();
+                    if(this.showStreetNormalBuildStatistics) {
+                        this.bindStreetHouseStatistics();
+                    }
                 },
                 bindHouseRentalStatistics:function (streetValue,communityValue,gridValue){
                     EChartsUtility.FetchDataOrganFilter(this.acInterface.getHouseRentalStatistics,streetValue,communityValue,gridValue,function (result){

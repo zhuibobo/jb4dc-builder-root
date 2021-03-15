@@ -45,7 +45,7 @@ public class GridInfoRest {
 
     @RequestMapping(value = "/GetSameLevelGrid", method = RequestMethod.GET)
     public JBuild4DCResponseVo getSameLevelGrid(String parentId,String excludeId) throws JBuild4DCGenerallyException {
-        List<GridInfoEntityWithBLOBs> gridInfoEntityWithBLOBsList=gridInfoService.getByParentId(JB4DCSessionUtility.getSession(),parentId,excludeId);
+        List<GridInfoEntityWithBLOBs> gridInfoEntityWithBLOBsList=gridInfoService.getSameLevelGrid(JB4DCSessionUtility.getSession(),parentId,excludeId);
         return JBuild4DCResponseVo.getDataSuccess(gridInfoEntityWithBLOBsList);
     }
 }

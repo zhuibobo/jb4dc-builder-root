@@ -1,4 +1,18 @@
 var EChartsUtility={
+    AutoSetStatus:function (vueObject){
+        if(BaseUtility.GetUrlParaValue("streetValue")){
+            $("#sel_3l_street").attr("control_value",BaseUtility.GetUrlParaValue("streetValue"));
+            vueObject.showStreetNormalBuildStatistics=false;
+        }
+        if(BaseUtility.GetUrlParaValue("communityValue")){
+            $("#sel_3l_community").attr("control_value",BaseUtility.GetUrlParaValue("communityValue"));
+            vueObject.showStreetNormalBuildStatistics=false;
+        }
+        if(BaseUtility.GetUrlParaValue("gridValue")){
+            $("#sel_3l_grid").attr("control_value",BaseUtility.GetUrlParaValue("gridValue"));
+            vueObject.showStreetNormalBuildStatistics=false;
+        }
+    },
     FetchDataOrganFilter:function (url,streetValue,communityValue,gridValue,func,caller){
         AjaxUtility.Get(url,{
             streetValue:streetValue,

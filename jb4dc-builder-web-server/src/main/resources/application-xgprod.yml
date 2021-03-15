@@ -15,7 +15,7 @@ jb4dc:
       view:
         login: /Controller/LoginSSOView
         logout: http://58.51.184.124:9103/SSOSystem/Controller/LogoutSSOView
-      excluded: /**/*.js,/**/*.css,/**/*.woff2,/**/*.ttf,/**/*.png,/**/*.jpg,/**/*.jpeg,/**/*.gif,/**/DictionaryRuntime/**
+      excluded:
   builder:
     server:
       name: JB4DC-BUILDER-WEB-SERVER
@@ -48,6 +48,11 @@ spring:
     multipart:
       max-file-size: 50MB
       max-request-size: 100MB
+  redis:
+    host: 127.0.0.1
+    port: 6379
+    database: 0
+    password:
 
 server:
   port: 9104

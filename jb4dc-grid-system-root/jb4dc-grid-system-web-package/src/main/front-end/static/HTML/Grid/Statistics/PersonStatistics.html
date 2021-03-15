@@ -71,7 +71,7 @@
                     </div>
                 </div>
             </tab-pane>
-            <tab-pane label="区域数量统计">
+            <tab-pane label="区域数量统计" v-if="showStreetNormalBuildStatistics">
                 <div class="statistics-wrap">
                     <div class="statistics-box-wrap">
                         <div class="statistics-box-outer" style="width: 100%">
@@ -106,6 +106,8 @@
             $("#main").height(ListPageUtility.DefaultListHeight()+60);
             $("#main1").height(ListPageUtility.DefaultListHeight()+60);
 
+            EChartsUtility.AutoSetStatus(this);
+
             var Organ3DDLInstance=Object.create(Organ3DDL);
             Organ3DDLInstance.Init3DDL("sel_3l_street",
                 "sel_3l_community",
@@ -120,7 +122,8 @@
                 getPersonHRLocationStatistics:"/Rest/Grid/Statistics/PersonStatistics/GetPersonHRLocationStatistics",
                 getPersonEducationStatistics:"/Rest/Grid/Statistics/PersonStatistics/GetPersonEducationStatistics",
                 getStreetPersonStatistics:"/Rest/Grid/Statistics/PersonStatistics/GetStreetPersonStatistics"
-            }
+            },
+            showStreetNormalBuildStatistics:true
         },
         methods: {
             reStatistics:function(){
@@ -130,7 +133,9 @@
                 this.bindPersonSexStatistics(streetValue,communityValue,gridValue);
                 this.bindPersonHRLocationStatistics(streetValue,communityValue,gridValue);
                 this.bindPersonEducationStatistics(streetValue,communityValue,gridValue);
-                this.bindStreetPersonStatistics();
+                if(this.showStreetNormalBuildStatistics) {
+                    this.bindStreetPersonStatistics();
+                }
             },
             bindPersonSexStatistics:function (streetValue,communityValue,gridValue){
                 EChartsUtility.FetchDataOrganFilter(this.acInterface.getPersonSexStatistics,streetValue,communityValue,gridValue,function (result){

@@ -2,7 +2,7 @@
 <html lang="zh" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Title1</title>
     <th:block th:replace="Fragment/GeneralLib::GeneralLib"></th:block>
     <th:block th:replace="Fragment/GeneralLib::ThemesLib"></th:block>
     <th:block th:replace="Fragment/GeneralLib::EChartsLib"></th:block>
@@ -14,7 +14,64 @@
 <div id="eventStatistics" class="list-2column">
     <div class="left-outer-wrap" style="width: 100%">
         <tabs>
-            <tab-pane label="区域数量统计">
+            <tab-pane label="分类统计">
+                <div class="statistics-wrap">
+                    <div class="search-wrap">
+                        <table class="light-gray-table">
+                            <colgroup>
+                                <col width="10%">
+                                <col width="20%">
+                                <col width="10%">
+                                <col width="20%">
+                                <col width="10%">
+                                <col width="20%">
+                                <col width="10%">
+                            </colgroup>
+                            <tr>
+                                <td class="label">
+                                    街道：
+                                </td>
+                                <td>
+                                    <select id="sel_3l_street"></select>
+                                </td>
+                                <td class="label">
+                                    村/社区：
+                                </td>
+                                <td>
+                                    <select id="sel_3l_community"></select>
+                                </td>
+                                <td class="label">
+                                    网格：
+                                </td>
+                                <td>
+                                    <select id="sel_3l_grid"></select>
+                                </td>
+                                <td>
+                                    <i-button type="primary" @click="reStatistics">统计</i-button>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="statistics-box-wrap">
+                        <div class="statistics-box-outer">
+                            <div class="statistics-box-inner" id="divEventSourceStatistics">
+
+                            </div>
+                        </div>
+                        <div class="statistics-box-outer">
+                            <div class="statistics-box-inner" id="divEventLevelStatistics">
+
+                            </div>
+                        </div>
+                        <div class="statistics-box-outer" style="width: 100%">
+                            <div class="statistics-box-inner" id="divEventAppealPersonNumStatistics">
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </tab-pane>
+            <tab-pane label="区域数量统计" v-if="showStreetNormalBuildStatistics">
                 <div class="statistics-wrap">
                     <div class="statistics-box-wrap">
                         <div class="statistics-box-outer" style="width: 100%">
@@ -49,16 +106,53 @@
             $("#main").height(ListPageUtility.DefaultListHeight()+60);
             $("#main1").height(ListPageUtility.DefaultListHeight()+60);
 
+            EChartsUtility.AutoSetStatus(this);
+
             this.reStatistics();
         },
         data: {
             acInterface: {
-                getStreetEventStatistics:"/Rest/Grid/Statistics/EventStatistics/GetStreetEventStatistics"
-            }
+                getStreetEventStatistics:"/Rest/Grid/Statistics/EventStatistics/GetStreetEventStatistics",
+                getEventSourceStatistics:"/Rest/Grid/Statistics/EventStatistics/GetEventSourceStatistics",
+                getEventLevelStatistics:"/Rest/Grid/Statistics/EventStatistics/GetEventLevelStatistics",
+                getEventAppealPersonNumStatistics:"/Rest/Grid/Statistics/EventStatistics/GetEventAppealPersonNumStatistics",
+            },
+            showStreetNormalBuildStatistics:true
         },
         methods: {
             reStatistics:function(){
-                this.bindStreetEnterpriseStatistics();
+                var streetValue=$("#sel_3l_street").val();
+                var communityValue=$("#sel_3l_community").val();
+                var gridValue=$("#sel_3l_grid").val();
+                this.bindEventSourceStatistics(streetValue,communityValue,gridValue);
+                this.bindEventLevelStatistics(streetValue,communityValue,gridValue);
+                this.bindEventAppealPersonNumStatistics(streetValue,communityValue,gridValue);
+                //this.bindEventAppealPersonNumStatistics(streetValue,communityValue,gridValue);
+
+                if(this.showStreetNormalBuildStatistics) {
+                    this.bindStreetEnterpriseStatistics();
+                }
+            },
+            bindEventSourceStatistics:function (streetValue,communityValue,gridValue){
+                EChartsUtility.FetchDataOrganFilter(this.acInterface.getEventSourceStatistics,streetValue,communityValue,gridValue,function (result){
+                    var statisticsChart = echarts.init(document.getElementById('divEventSourceStatistics'));
+                    var option = EChartsUtility.BuildNormalPieOption(result.data,"事件等级","事件等级统计",['40%', '60%']);
+                    statisticsChart.setOption(option);
+                },this);
+            },
+            bindEventLevelStatistics:function (streetValue,communityValue,gridValue){
+                EChartsUtility.FetchDataOrganFilter(this.acInterface.getEventLevelStatistics,streetValue,communityValue,gridValue,function (result){
+                    var statisticsChart = echarts.init(document.getElementById('divEventLevelStatistics'));
+                    var option = EChartsUtility.BuildNormalPieOption(result.data,"事件来源","事件来源统计");
+                    statisticsChart.setOption(option);
+                },this);
+            },
+            bindEventAppealPersonNumStatistics:function (streetValue,communityValue,gridValue){
+                EChartsUtility.FetchDataOrganFilter(this.acInterface.getEventAppealPersonNumStatistics,streetValue,communityValue,gridValue,function (result){
+                    var statisticsChart = echarts.init(document.getElementById('divEventAppealPersonNumStatistics'),'macarons');
+                    var option = EChartsUtility.BuildNormalBarOption(result.data,"涉及人数","事件涉及人数统计");
+                    statisticsChart.setOption(option);
+                },this);
             },
             bindStreetEnterpriseStatistics:function (){
                 <!--澳头街道办-->

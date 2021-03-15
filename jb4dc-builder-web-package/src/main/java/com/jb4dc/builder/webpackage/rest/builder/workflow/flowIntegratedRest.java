@@ -6,7 +6,7 @@ import com.jb4dc.base.service.general.JB4DCSessionUtility;
 import com.jb4dc.base.tools.JsonUtility;
 import com.jb4dc.builder.dbentities.flow.FlowIntegratedEntity;
 import com.jb4dc.builder.po.FlowIntegratedPO;
-import com.jb4dc.builder.workflow.integrate.IWorkFlowIntegratedService;
+import com.jb4dc.builder.workflow.integrate.IWFModelIntegratedService;
 import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
 import com.jb4dc.core.base.session.JB4DCSession;
 import com.jb4dc.core.base.tools.StringUtility;
@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.UUID;
 
 /**
  * Created with IntelliJ IDEA.
@@ -33,7 +32,7 @@ import java.util.UUID;
 public class flowIntegratedRest extends GeneralRest<FlowIntegratedEntity> {
 
     @Autowired
-    IWorkFlowIntegratedService workFlowIntegratedService;
+    IWFModelIntegratedService workFlowIntegratedService;
 
     @Override
     protected IBaseService<FlowIntegratedEntity> getBaseService() {

@@ -8,4 +8,10 @@ import java.util.Map;
 
 public interface IEventStatistics {
     List<Map<String, Object>> getStreetEventStatistics(JB4DCSession session, String streetValue) throws JBuild4DCGenerallyException;
+
+    List<Map<String, Object>> getEventSourceStatistics(JB4DCSession session, String streetValue, String communityValue, String gridValue) throws JBuild4DCGenerallyException;
+
+    List<Map<String, Object>> getEventLevelStatistics(JB4DCSession session, String streetValue, String communityValue, String gridValue) throws JBuild4DCGenerallyException;
+
+    List<Map<String, Object>> getEventAppealPersonNumStatistics(JB4DCSession session, String streetValue, String communityValue, String gridValue) throws JBuild4DCGenerallyException;
 }

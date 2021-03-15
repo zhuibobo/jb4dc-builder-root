@@ -66,7 +66,7 @@
             <tr>
                 <td>说明：</td>
                 <td colspan="3">
-                    <textarea placeholder="bpmn.documentation" rows="10" v-model="bpmn.documentation"></textarea>
+                    <textarea placeholder="bpmn.documentation" rows="6" v-model="bpmn.documentation"></textarea>
                 </td>
             </tr>
         </tbody>

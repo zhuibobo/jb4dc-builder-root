@@ -1,6 +1,6 @@
 package com.jb4dc.builder.client.remote;
 
-import com.jb4dc.sso.client.remote.FeignRequestInterceptor;
+import com.jb4dc.sso.client.remote.FeignSSORequestInterceptor;
 import feign.Logger;
 import feign.codec.Encoder;
 import feign.form.spring.SpringFormEncoder;
@@ -20,7 +20,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class BuilderClientFeignClientConfig {
     @Bean(name = "BuilderFeignRequestInterceptor")
-    FeignRequestInterceptor feignRequestInterceptor() {
-        return new FeignRequestInterceptor();
+    FeignSSORequestInterceptor feignRequestInterceptor() {
+        return new FeignSSORequestInterceptor();
     }
 }
