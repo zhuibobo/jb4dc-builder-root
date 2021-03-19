@@ -19,6 +19,19 @@
                 </td>
             </tr>
             <tr>
+                <td>处理类型：</td>
+                <td>
+                    <radio-group type="button" style="margin: auto" v-model="innerMultiInstanceLoopCharacteristicsType" @on-change="changeMultiInstanceLoopCharacteristicsType">
+                        <radio label="single">单人</radio>
+                        <radio label="multiInstanceIsParallel">多人并行</radio>
+                        <radio label="multiInstanceIsSequential">多人串行</radio>
+                    </radio-group>
+                </td>
+                <td></td>
+                <td>
+                </td>
+            </tr>
+            <tr>
                 <td>接收用户：</td>
                 <td>
                     <input placeholder="camunda.assignee" type="text" v-model="camunda.assignee" />
@@ -26,6 +39,16 @@
                 <td>优先级：</td>
                 <td>
                     <input placeholder="camunda.priority" type="text" v-model="camunda.priority" />
+                </td>
+            </tr>
+            <tr>
+                <td>用户集合：</td>
+                <td>
+                    <input placeholder="bpmn.multiInstanceLoopCharacteristics.camunda.collection" type="text" v-model="bpmn.multiInstanceLoopCharacteristics.collection" />
+                </td>
+                <td>用户变量名：</td>
+                <td>
+                    <input placeholder="bpmn.multiInstanceLoopCharacteristics.camunda.elementVariable" type="text" v-model="bpmn.multiInstanceLoopCharacteristics.elementVariable" />
                 </td>
             </tr>
             <tr>
@@ -66,7 +89,7 @@
             <tr>
                 <td>说明：</td>
                 <td colspan="3">
-                    <textarea placeholder="bpmn.documentation" rows="6" v-model="bpmn.documentation"></textarea>
+                    <textarea placeholder="bpmn.documentation" rows="3" v-model="bpmn.documentation"></textarea>
                 </td>
             </tr>
         </tbody>
@@ -87,9 +110,19 @@
             selectRoleDialog,
             selectUserDialog
         },
+        watch:{
+            /*innerMultiInstanceLoopCharacteristicsType: function (newValue, oldValue) {
+                if(newValue==""){
+
+                }
+            }*/
+        },
         data(){
             return {
-                bpmn:{},
+                innerMultiInstanceLoopCharacteristicsType:"single",
+                bpmn:{
+                    multiInstanceLoopCharacteristics:{}
+                },
                 camunda:{},
                 jb4dc:{
                     jb4dcCandidateUsersDesc:"",
@@ -98,11 +131,58 @@
             }
         },
         mounted() {
-            this.bpmn=this.propBpmnGeneralData;
-            this.camunda=this.propCamundaGeneralData;
-            this.jb4dc=this.propJb4dcGeneralData
+            this.bpmn = this.propBpmnGeneralData;
+            this.camunda = this.propCamundaGeneralData;
+            this.jb4dc = this.propJb4dcGeneralData
+
+            //console.log(this.bpmn);
+            if (this.bpmn.multiInstanceLoopCharacteristics.loopCharacteristics=="true" && this.bpmn.multiInstanceLoopCharacteristics.isSequential=="true") {
+                this.innerMultiInstanceLoopCharacteristicsType = "multiInstanceIsSequential";
+            } else if (this.bpmn.multiInstanceLoopCharacteristics.loopCharacteristics=="true") {
+                this.innerMultiInstanceLoopCharacteristicsType = "multiInstanceIsParallel";
+            }
+
+            this.tryAutoSetAssignee();
         },
         methods:{
+            tryAutoSetAssignee:function (){
+                var assigneeVar=this.bpmn.id+"_Assignee_User";
+                if(this.camunda.assignee){
+                    assigneeVar=this.camunda.assignee;
+                }
+                var assigneeExp="${"+assigneeVar+"}";
+                var assigneeListExp="${"+assigneeVar+"_List}";
+
+                this.camunda.assignee=assigneeVar;
+                if (this.bpmn.multiInstanceLoopCharacteristics.loopCharacteristics=="true") {
+                    if (!this.bpmn.multiInstanceLoopCharacteristics.collection) {
+                        this.bpmn.multiInstanceLoopCharacteristics.collection = assigneeListExp;
+                    }
+                    if (!this.bpmn.multiInstanceLoopCharacteristics.elementVariable) {
+                        this.bpmn.multiInstanceLoopCharacteristics.elementVariable = assigneeVar
+                    }
+                }
+                else{
+                    this.bpmn.multiInstanceLoopCharacteristics.collection = "";
+                    this.bpmn.multiInstanceLoopCharacteristics.elementVariable = "";
+                }
+            },
+            changeMultiInstanceLoopCharacteristicsType:function (type){
+                //console.log(type);
+                if(type=="single"){
+                    this.bpmn.multiInstanceLoopCharacteristics.loopCharacteristics="false";
+                }
+                else if(type=="multiInstanceIsParallel"){
+                    this.bpmn.multiInstanceLoopCharacteristics.loopCharacteristics="true";
+                    this.bpmn.multiInstanceLoopCharacteristics.isSequential="false";
+                }
+                else if(type=="multiInstanceIsSequential"){
+                    this.bpmn.multiInstanceLoopCharacteristics.loopCharacteristics="true";
+                    this.bpmn.multiInstanceLoopCharacteristics.isSequential="true";
+                }
+
+                this.tryAutoSetAssignee();
+            },
             beginSelectUser(){
                 this.$refs.selectUserDialog.beginSelectUser("选择候选用户","",(selectedUserArray)=>{
                     var userIdS=[];

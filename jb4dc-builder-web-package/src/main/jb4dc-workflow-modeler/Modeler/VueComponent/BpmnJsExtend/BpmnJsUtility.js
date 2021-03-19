@@ -184,6 +184,43 @@ class BpmnJsUtility {
             bo.conditionExpression=formalExpression;
         }
     }
+    static BPMN_GetMultiInstanceLoopCharacteristics(element){
+        var bo = element.businessObject;
+        if (bo.loopCharacteristics) {
+            return {
+                loopCharacteristics:"true",
+                isSequential: bo.loopCharacteristics.isSequential ? "true" : "false",
+                collection:bo.loopCharacteristics.collection ? bo.loopCharacteristics.collection : "",
+                elementVariable:bo.loopCharacteristics.elementVariable ? bo.loopCharacteristics.elementVariable : ""
+            }
+            /*if(bo.conditionExpression.body){
+                return bo.conditionExpression.body;
+            }*/
+        }
+        return {
+            loopCharacteristics: "false",
+            isSequential: "",
+            collection: "",
+            elementVariable: ""
+        };
+        //debugger;
+    }
+    static BPMN_SetMultiInstanceLoopCharacteristics(element,multiInstanceLoopCharacteristics){
+        var bo = element.businessObject;
+        if(multiInstanceLoopCharacteristics.loopCharacteristics=="true") {
+            if (!bo.loopCharacteristics){
+                var loopCharacteristics = bo.$model.create('bpmn:MultiInstanceLoopCharacteristics',{});
+                bo.loopCharacteristics=loopCharacteristics;
+            }
+
+            bo.loopCharacteristics.isSequential = (multiInstanceLoopCharacteristics.isSequential == "true" ? true : false);
+            bo.loopCharacteristics.collection = multiInstanceLoopCharacteristics.collection;
+            bo.loopCharacteristics.elementVariable = multiInstanceLoopCharacteristics.elementVariable;
+        }
+        else {
+            bo.loopCharacteristics=null;
+        }
+    }
     //#endregion
 
     //#region
@@ -669,13 +706,13 @@ class BpmnJsUtility {
         }
     }
 
-    static JB4DC_GetReceiveObjectsArray(element){
+    static JB4DC_GetMainReceiveObjectsArray(element){
         var extensionElements=this.BPMN_GetExtensionElements(element);
         if(extensionElements){
             if(extensionElements.values){
                 var actions;
                 actions = ArrayUtility.WhereSingle(extensionElements.values, function (item) {
-                    return item.$type == "jb4dc:Jb4dcReceiveObjects";
+                    return item.$type == "jb4dc:Jb4dcMainReceiveObjects";
                 });
                 if(actions&&actions.values){
                     return actions.values
@@ -685,7 +722,7 @@ class BpmnJsUtility {
         }
         return null;
     }
-    static JB4DC_SetReceiveObjectsArray(element,ary,autoCreate){
+    static JB4DC_SetMainReceiveObjectsArray(element,ary,autoCreate){
         var extensionElements=this.BPMN_GetExtensionElements(element);
         if(autoCreate&&!extensionElements){
             this.BPMN_CreateExtensionElements(element);
@@ -696,30 +733,85 @@ class BpmnJsUtility {
                 //debugger;
                 var bo = element.businessObject;
 
-                var actions = null;
+                var receiveObjects = null;
                 if (extensionElements.values) {
-                    actions = ArrayUtility.WhereSingle(extensionElements.values, function (item) {
-                        return item.$type == "jb4dc:Jb4dcReceiveObjects";
+                    receiveObjects = ArrayUtility.WhereSingle(extensionElements.values, function (item) {
+                        return item.$type == "jb4dc:Jb4dcMainReceiveObjects";
                     });
                 }
                 else{
                     extensionElements.values=[];
                 }
 
-                if(!actions){
-                    actions=bo.$model.create('jb4dc:Jb4dcReceiveObjects');
-                    extensionElements.values.push(actions);
+                if(!receiveObjects){
+                    receiveObjects=bo.$model.create('jb4dc:Jb4dcMainReceiveObjects');
+                    extensionElements.values.push(receiveObjects);
                 }
-                actions.values=[];
+                receiveObjects.values=[];
 
                 ary.forEach(function (item) {
                     var jb4dcAction = bo.$model.create('jb4dc:Jb4dcReceiveObject', PODefinition.RemoveExcludeProp(PODefinition.GetJB4DCReceiveObjectPO(),item));
-                    actions.values.push(jb4dcAction);
+                    receiveObjects.values.push(jb4dcAction);
                 })
             }
         }
         else{
-            var message="元素"+this.BPMN_Attr_GetId(element)+"不存在bpmn:extensionElements子元素!";
+            var message="元素"+this.BPMN_Attr_GetId(element)+"不存在jb4dc:jb4dcMainReceiveObjects子元素!";
+            BaseUtility.ThrowMessage(message);
+        }
+    }
+
+    static JB4DC_GetCCReceiveObjectsArray(element){
+        var extensionElements=this.BPMN_GetExtensionElements(element);
+        if(extensionElements){
+            if(extensionElements.values){
+                var actions;
+                actions = ArrayUtility.WhereSingle(extensionElements.values, function (item) {
+                    return item.$type == "jb4dc:Jb4dcCCReceiveObjects";
+                });
+                if(actions&&actions.values){
+                    return actions.values
+                }
+                return null;
+            }
+        }
+        return null;
+    }
+    static JB4DC_SetCCReceiveObjectsArray(element,ary,autoCreate){
+        var extensionElements=this.BPMN_GetExtensionElements(element);
+        if(autoCreate&&!extensionElements){
+            this.BPMN_CreateExtensionElements(element);
+            extensionElements=this.BPMN_GetExtensionElements(element);
+        }
+        if(extensionElements){
+            if(ary) {
+                //debugger;
+                var bo = element.businessObject;
+
+                var receiveObjects = null;
+                if (extensionElements.values) {
+                    receiveObjects = ArrayUtility.WhereSingle(extensionElements.values, function (item) {
+                        return item.$type == "jb4dc:Jb4dcCCReceiveObjects";
+                    });
+                }
+                else{
+                    extensionElements.values=[];
+                }
+
+                if(!receiveObjects){
+                    receiveObjects=bo.$model.create('jb4dc:Jb4dcCCReceiveObjects');
+                    extensionElements.values.push(receiveObjects);
+                }
+                receiveObjects.values=[];
+
+                ary.forEach(function (item) {
+                    var jb4dcAction = bo.$model.create('jb4dc:Jb4dcReceiveObject', PODefinition.RemoveExcludeProp(PODefinition.GetJB4DCReceiveObjectPO(),item));
+                    receiveObjects.values.push(jb4dcAction);
+                })
+            }
+        }
+        else{
+            var message="元素"+this.BPMN_Attr_GetId(element)+"不存在jb4dc:jb4dcCCReceiveObjects子元素!";
             BaseUtility.ThrowMessage(message);
         }
     }

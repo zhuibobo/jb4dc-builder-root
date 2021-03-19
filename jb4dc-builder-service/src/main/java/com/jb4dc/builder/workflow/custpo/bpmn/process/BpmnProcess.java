@@ -128,7 +128,7 @@ public class BpmnProcess {
     List<BpmnSequenceFlow> sequenceFlow;
 
     @XmlElement(name = "subProcess",namespace = BpmnNs.BPMN_URI)
-    List<BomnSubProcess> subProcessList;
+    List<BpmnSubProcess> subProcessList;
 
     @XmlElement(name = "callActivity",namespace = BpmnNs.BPMN_URI)
     List<BpmnCallActivity> callActivityList;
@@ -343,11 +343,11 @@ public class BpmnProcess {
         this.manualTaskList = manualTaskList;
     }
 
-    public List<BomnSubProcess> getSubProcessList() {
+    public List<BpmnSubProcess> getSubProcessList() {
         return subProcessList;
     }
 
-    public void setSubProcessList(List<BomnSubProcess> subProcessList) {
+    public void setSubProcessList(List<BpmnSubProcess> subProcessList) {
         this.subProcessList = subProcessList;
     }
 

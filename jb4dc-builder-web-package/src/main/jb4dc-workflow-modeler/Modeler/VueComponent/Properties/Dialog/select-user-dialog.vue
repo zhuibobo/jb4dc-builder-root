@@ -84,11 +84,15 @@
                 modal: true,
                 buttons: {
                     "确认": function () {
-                        if (typeof (_self.callBackFunc == "function")) {
-                            var result = JsonUtility.CloneArraySimple(_self.selectedUserArray);
-                            _self.callBackFunc(result);
+                        if (_self.selectedUserArray.length == 0) {
+                            DialogUtility.ToastMessage(_self, "请选择人员!");
+                        } else {
+                            if (typeof (_self.callBackFunc == "function")) {
+                                var result = JsonUtility.CloneArraySimple(_self.selectedUserArray);
+                                _self.callBackFunc(result);
+                            }
+                            DialogUtility.CloseDialogElem(_self.$refs.selectUserDialogWrap);
                         }
-                        DialogUtility.CloseDialogElem(_self.$refs.selectUserDialogWrap);
                     },
                     "清空": function () {
                         if (typeof (_self.callBackFunc == "function")) {

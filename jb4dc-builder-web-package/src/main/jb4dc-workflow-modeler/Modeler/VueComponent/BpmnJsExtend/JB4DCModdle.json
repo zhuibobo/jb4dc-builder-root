@@ -142,7 +142,23 @@
       ]
     },
     {
-      "name": "Jb4dcReceiveObjects",
+      "name": "Jb4dcMainReceiveObjects",
+      "superClass": [ "Element" ],
+      "meta": {
+        "allowedIn": [
+          "bpmn:UserTask"
+        ]
+      },
+      "properties": [
+        {
+          "name": "values",
+          "type": "Jb4dcReceiveObject",
+          "isMany": true
+        }
+      ]
+    },
+    {
+      "name": "Jb4dcCCReceiveObjects",
       "superClass": [ "Element" ],
       "meta": {
         "allowedIn": [
@@ -286,6 +302,21 @@
         },
         {
           "name": "actionsOpinionBindToElemId",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "actionMainReceiveObjects",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "actionCCReceiveObjects",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "actionAutoSend",
           "isAttr": true,
           "type": "String"
         }

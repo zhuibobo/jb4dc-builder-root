@@ -117,6 +117,7 @@
                 //console.log(elemToDialogProps);
                 //console.log(elemToDialogProps);
                 //DialogUtility.AlertText("11");
+                //debugger;
                 var dialogElemId="properties-window";
                 this.elemPropertiesDialogView=componentName;
                 var _self=this;

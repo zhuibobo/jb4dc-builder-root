@@ -6,7 +6,13 @@ class PODefinition{
                 name:"",
                 isExecutable:"true",
                 documentation:"",
-                conditionExpression:""
+                conditionExpression:"",
+                multiInstanceLoopCharacteristics:{
+                    loopCharacteristics: "false",
+                    isSequential: "",
+                    collection: "",
+                    elementVariable: ""
+                }
             },
             camunda: {
                 jobPriority: "",
@@ -42,7 +48,8 @@ class PODefinition{
                 jb4dcActionsOpinionBindToField:"",
                 jb4dcActionsOpinionBindToElemId:"",
                 jb4dcActions:[],
-                jb4dcReceiveObjects:[],
+                jb4dcMainReceiveObjects:[],
+                jb4dcCCReceiveObjects:[],
                 jb4dcActionConfirm:"false"
             }
         }
@@ -117,7 +124,10 @@ class PODefinition{
             actionConfirm:"false",
             actionValidate:"无",
             actionsOpinionBindToField:"",
-            actionsOpinionBindToElemId:""
+            actionsOpinionBindToElemId:"",
+            actionMainReceiveObjects:[],
+            actionCCReceiveObjects:[],
+            actionAutoSend:"false"
         }
     }
     static GetJB4DCReceiveObjectPO(){

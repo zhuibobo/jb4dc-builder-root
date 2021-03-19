@@ -109,6 +109,17 @@
                                     </td>
                                 </tr>
                                 <tr>
+                                    <td>直送收件人：</td>
+                                    <td>
+                                        <radio-group type="button" style="margin: auto" v-model="actionInnerDetailInfo.actionAutoSend">
+                                            <radio label="true">是</radio>
+                                            <radio label="false">否</radio>
+                                        </radio-group>
+                                    </td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
                                     <td>执行变量：</td>
                                     <td colspan="3" style="background-color: #ffffff">
                                         <div class="wf-list-button-outer-wrap" style="margin-top: 0px">
@@ -122,7 +133,7 @@
                                             <div style="clear: both"></div>
                                         </div>
                                         <i-table border :columns="addedActionExecuteVariableTableConfig" :data="addedActionExecuteVariableTableData"
-                                                 class="iv-list-table" size="small" no-data-text="添加执行变量,可以通过执行变量控制流程走向!" height="200">
+                                                 class="iv-list-table" size="small" no-data-text="添加执行变量,可以通过执行变量控制流程走向!" height="160">
                                             <template slot-scope="{ row, index }" slot="action">
                                                 <div class="wf-list-font-icon-button-class" @click="deleteActionExecuteVariable(index,row)">
                                                     <Icon type="md-close" />
@@ -231,6 +242,12 @@
                             </tbody>
                         </table>
                     </tab-pane>
+                    <tab-pane tab="add-action-properties-inner-dialog-tabs" label="主送人员">
+                        <jb4dcMainReceiveObjectProperties ref="jb4dcMainReceiveObjectProperties" :prop-receive-objects-data="receiver.actionMainReceiveObjects"></jb4dcMainReceiveObjectProperties>
+                    </tab-pane>
+                    <tab-pane tab="add-action-properties-inner-dialog-tabs" label="抄送人员">
+                        <jb4dcCCReceiveObjectProperties ref="jb4dcCCReceiveObjectProperties" :prop-receive-objects-data="receiver.actionCCReceiveObjects"></jb4dcCCReceiveObjectProperties>
+                    </tab-pane>
                     <tab-pane tab="add-action-properties-inner-dialog-tabs" label="备注">
                         <table class="properties-dialog-table-wraper" cellpadding="0" cellspacing="0" border="0">
                             <colgroup>
@@ -309,6 +326,8 @@
     import { FlowBpmnJsIntegrated } from '../../BpmnJsExtend/FlowBpmnJsIntegrated.js';
     import {RemoteUtility} from '../../../Remote/RemoteUtility';
     import { PODefinition } from "../../BpmnJsExtend/PODefinition.js"
+    import jb4dcMainReceiveObjectProperties from "./jb4dc-receive-object-properties.vue";
+    import jb4dcCCReceiveObjectProperties from "./jb4dc-receive-object-properties.vue";
     //import EditTable_SelectDefaultValue from  '../../../EditTable/Renderers/EditTable_SelectDefaultValue.js';
 
     var flowBpmnJsIntegrated=null;
@@ -316,7 +335,9 @@
         name: "jb4dc-actions-properties",
         components: {
             contextVarJuelEditDialog,
-            selectDefaultValueDialog
+            selectDefaultValueDialog,
+            jb4dcMainReceiveObjectProperties,
+            jb4dcCCReceiveObjectProperties
         },
         props:["propActionData","propFromId","propJb4dcGeneralData"],
         watch: {
@@ -425,6 +446,7 @@
                     jb4dcActionsOpinionBindToElemId:""
                 },
                 formId:"",
+
                 //执行变量内部使用详情属性
                 executeVariableInnerDetailInfo:PODefinition.GetJB4DCActionExecuteVariablePO(),
                 addedActionExecuteVariableTableConfig:[
@@ -453,7 +475,12 @@
                     }
                 ],
                 addedActionExecuteVariableTableData:[],
-                actionBindToEnableFields:[]
+                actionBindToEnableFields:[],
+                //接收人内部使用属性
+                receiver: {
+                    actionMainReceiveObjects: [],
+                    actionCCReceiveObjects: []
+                }
             }
         },
         mounted(){
@@ -502,29 +529,7 @@
                     modal:true,
                     buttons: {
                         "确认": function () {
-
-                            if(_self.field.editTableObject) {
-                                _self.actionInnerDetailInfo.actionUpdateFields = _self.field.editTableObject.GetAllRowDataExUndefinedTextProp();
-                            }
-                            else{
-                                _self.actionInnerDetailInfo.actionUpdateFields =[];
-                            }
-                            _self.actionInnerDetailInfo.actionCallApis=_self.api.editTableObject.GetAllRowDataExUndefinedTextProp();
-                            _self.actionInnerDetailInfo.actionExecuteVariables=_self.addedActionExecuteVariableTableData;
-                            var cloneInnerDetailInfo=JsonUtility.CloneObjectProp(_self.actionInnerDetailInfo,function (key,sourcePropValue) {
-                                if(key=="actionUpdateFields"||key=="actionCallApis"||key=="actionExecuteVariables"){
-                                    return JsonUtility.JsonToString(sourcePropValue);
-                                }
-                            });
-                            console.log(cloneInnerDetailInfo);
-                            if(ArrayUtility.ExistReplaceItem(_self.addedActionData,cloneInnerDetailInfo,function (item) {
-                                return item.actionCode==cloneInnerDetailInfo.actionCode
-                            })){
-
-                            }
-                            else {
-                                _self.addedActionData.push(cloneInnerDetailInfo);
-                            }
+                            _self.completeEditAction();
                             DialogUtility.CloseDialogElem(_self.$refs.addActionDialog);
                         },
                         "取消": function () {
@@ -537,17 +542,26 @@
             showAddActionDialog(oldInnerDetailInfo){
                 if(!oldInnerDetailInfo){
                     this.actionInnerDetailInfo=PODefinition.GetJB4DCActionPO();
+                    //this.actionInnerDetailInfo.actionMainReceiveObjects=[1];
+                    //this.actionInnerDetailInfo.actionCCReceiveObjects=[2];
                 }
                 else{
                     this.actionInnerDetailInfo=oldInnerDetailInfo;
+                    //this.actionInnerDetailInfo.actionMainReceiveObjects=oldInnerDetailInfo.actionMainReceiveObjects;
+                    //this.actionInnerDetailInfo.actionCCReceiveObjects=oldInnerDetailInfo.actionCCReceiveObjects;
                 }
                 //var _self=this;
                 $(this.$refs.addActionDialog).dialog("open");
                 //$(this.$refs.addActionDialog).dialog("option", "title", dialogTitle );
-
+                console.log(this.actionInnerDetailInfo);
                 this.bindEditTable_TableFields(this.actionInnerDetailInfo.actionUpdateFields);
                 this.bindEditTable_APIs(this.actionInnerDetailInfo.actionCallApis);
                 this.addedActionExecuteVariableTableData=this.actionInnerDetailInfo.actionExecuteVariables;
+
+                this.$refs.jb4dcMainReceiveObjectProperties.setReceiveObjectTableData(this.actionInnerDetailInfo.actionMainReceiveObjects);
+                this.$refs.jb4dcCCReceiveObjectProperties.setReceiveObjectTableData(this.actionInnerDetailInfo.actionCCReceiveObjects);
+                //this.receiver.actionMainReceiveObjects=this.actionInnerDetailInfo.actionMainReceiveObjects;
+                //this.receiver.actionCCReceiveObjects=this.actionInnerDetailInfo.actionCCReceiveObjects;
             },
             deleteAction(index,row){
                 this.addedActionData.splice(index, 1);
@@ -555,12 +569,40 @@
             editAction(index,row){
                 console.log(row);
                 var cloneInnerDetailInfo=JsonUtility.CloneObjectProp(row,function (key,sourcePropValue) {
-                    if(key=="actionUpdateFields"||key=="actionCallApis"||key=="actionExecuteVariables"){
+                    if(key=="actionUpdateFields"||key=="actionCallApis"||key=="actionExecuteVariables"||key=="actionMainReceiveObjects"||key=="actionCCReceiveObjects"){
                         return JsonUtility.StringToJson(sourcePropValue);
                     }
                 });
                 console.log(cloneInnerDetailInfo);
                 this.showAddActionDialog(cloneInnerDetailInfo);
+            },
+            completeEditAction(){
+                if(this.field.editTableObject) {
+                    this.actionInnerDetailInfo.actionUpdateFields = this.field.editTableObject.GetAllRowDataExUndefinedTextProp();
+                }
+                else{
+                    this.actionInnerDetailInfo.actionUpdateFields =[];
+                }
+                //console.log(this.receiver);
+                this.actionInnerDetailInfo.actionCallApis=this.api.editTableObject.GetAllRowDataExUndefinedTextProp();
+                this.actionInnerDetailInfo.actionExecuteVariables=this.addedActionExecuteVariableTableData;
+                this.actionInnerDetailInfo.actionMainReceiveObjects=this.$refs.jb4dcMainReceiveObjectProperties.getReceiveObjectTableData();
+                this.actionInnerDetailInfo.actionCCReceiveObjects=this.$refs.jb4dcCCReceiveObjectProperties.getReceiveObjectTableData();
+                //console.log(this.actionInnerDetailInfo);
+                var cloneInnerDetailInfo=JsonUtility.CloneObjectProp(this.actionInnerDetailInfo,function (key,sourcePropValue) {
+                    if(key=="actionUpdateFields"||key=="actionCallApis"||key=="actionExecuteVariables"||key=="actionMainReceiveObjects"||key=="actionCCReceiveObjects"){
+                        return JsonUtility.JsonToString(sourcePropValue);
+                    }
+                });
+                console.log(cloneInnerDetailInfo);
+                if(ArrayUtility.ExistReplaceItem(this.addedActionData,cloneInnerDetailInfo,function (item) {
+                    return item.actionCode==cloneInnerDetailInfo.actionCode
+                })){
+
+                }
+                else {
+                    this.addedActionData.push(cloneInnerDetailInfo);
+                }
             },
             move(type){
 
@@ -595,18 +637,7 @@
                     modal:true,
                     buttons: {
                         "确认": function () {
-
-                            var cloneExecuteVariableInnerDetailInfo=JsonUtility.CloneStringify(_self.executeVariableInnerDetailInfo);
-                            //debugger;
-                            //console.log(cloneExecuteVariableInnerDetailInfo);
-                            if(ArrayUtility.ExistReplaceItem(_self.addedActionExecuteVariableTableData,cloneExecuteVariableInnerDetailInfo,function (item) {
-                                return item.actionExecuteVariableCode==cloneExecuteVariableInnerDetailInfo.actionExecuteVariableCode
-                            })){
-
-                            }
-                            else {
-                                _self.addedActionExecuteVariableTableData.push(cloneExecuteVariableInnerDetailInfo);
-                            }
+                            _self.completeEditActionExecuteVariable();
                             DialogUtility.CloseDialogElem(_self.$refs.addedActionExecuteVariableDialog);
                         },
                         "取消": function () {
@@ -632,6 +663,19 @@
             editActionExecuteVariable(index,row){
                 var cloneExecuteVariableInnerDetailInfo=JsonUtility.CloneStringify(row);
                 this.showAddActionExecuteVariableDialog(cloneExecuteVariableInnerDetailInfo);
+            },
+            completeEditActionExecuteVariable(){
+                var cloneExecuteVariableInnerDetailInfo=JsonUtility.CloneStringify(this.executeVariableInnerDetailInfo);
+                //debugger;
+                //console.log(cloneExecuteVariableInnerDetailInfo);
+                if(ArrayUtility.ExistReplaceItem(this.addedActionExecuteVariableTableData,cloneExecuteVariableInnerDetailInfo,function (item) {
+                    return item.actionExecuteVariableCode==cloneExecuteVariableInnerDetailInfo.actionExecuteVariableCode
+                })){
+
+                }
+                else {
+                    this.addedActionExecuteVariableTableData.push(cloneExecuteVariableInnerDetailInfo);
+                }
             },
             //endregion
             //region API设置

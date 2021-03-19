@@ -137,7 +137,6 @@
 </template>
 
 <script>
-    import taskGeneralProperties from "./PropertiesComponent/task-general-properties.vue";
     import listenersProperties from "./PropertiesComponent/listeners-properties.vue";
     import extensionsProperties from "./PropertiesComponent/extensions-properties.vue";
     import jb4dcGeneralProperties from "./PropertiesComponent/jb4dc-general-properties.vue";
@@ -151,7 +150,6 @@
     export default {
         name: "sequence-flow-properties",
         components: {
-            taskGeneralProperties,
             listenersProperties,
             extensionsProperties,
             jb4dcGeneralProperties,

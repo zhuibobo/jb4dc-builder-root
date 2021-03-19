@@ -14,7 +14,7 @@ import java.util.List;
 @XmlAccessorType(XmlAccessType.FIELD)
 // XML文件中的根标识
 @XmlRootElement(name = "subProcess",namespace = BpmnNs.BPMN_URI)
-public class BomnSubProcess extends BpmnProcess {
+public class BpmnSubProcess extends BpmnProcess {
     @XmlElement(name = "incoming",namespace = BpmnNs.BPMN_URI)
     List<BpmnIncoming> incomingList;
 

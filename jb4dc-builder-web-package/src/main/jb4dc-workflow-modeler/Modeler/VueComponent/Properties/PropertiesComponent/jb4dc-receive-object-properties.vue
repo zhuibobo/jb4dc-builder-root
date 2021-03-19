@@ -86,6 +86,10 @@
         },
         mounted() {
             this.receiveObjectTableData = this.propReceiveObjectsData;
+            /*console.log("555555555");
+            window.setInterval( ()=>{
+                console.log(this.receiveObjectTableData);
+            },2000);*/
         },
         beforeDestroy(){
 
@@ -182,6 +186,12 @@
             },
             deleteReceiveObject(index,row){
                 this.receiveObjectTableData.splice(index, 1);
+            },
+            setReceiveObjectTableData(receiveObjectTableData){
+                this.receiveObjectTableData=receiveObjectTableData;
+            },
+            getReceiveObjectTableData(){
+                return this.receiveObjectTableData;
             }
         }
     }

@@ -278,6 +278,7 @@ class FlowBpmnJsIntegrated {
         result.bpmn.isExecutable = BpmnJsUtility.BPMN_Attr_Process_GetIsExecutable(elem);
         result.bpmn.documentation = BpmnJsUtility.BPMN_GetElementDocumentationText(elem);
         result.bpmn.conditionExpression = BpmnJsUtility.BPMN_GetConditionExpression(elem);
+        result.bpmn.multiInstanceLoopCharacteristics=BpmnJsUtility.BPMN_GetMultiInstanceLoopCharacteristics(elem);
         //camunda
         result.camunda.versionTag = BpmnJsUtility.CAMUNDA_Attr_GetVersionTag(elem);
         result.camunda.taskPriority = BpmnJsUtility.CAMUNDA_Attr_GetTaskPriority(elem);
@@ -321,7 +322,8 @@ class FlowBpmnJsIntegrated {
         result.jb4dc.jb4dcProcessDescriptionEditText = BpmnJsUtility.JB4DC_Attr_GetJb4dcProcessDescriptionEditText(elem);
         result.jb4dc.jb4dcProcessDescriptionEditValue = BpmnJsUtility.JB4DC_Attr_GetJb4dcProcessDescriptionEditValue(elem);
         result.jb4dc.jb4dcActions = BpmnJsUtility.JB4DC_GetActionsArray(elem);
-        result.jb4dc.jb4dcReceiveObjects = BpmnJsUtility.JB4DC_GetReceiveObjectsArray(elem);
+        result.jb4dc.jb4dcMainReceiveObjects = BpmnJsUtility.JB4DC_GetMainReceiveObjectsArray(elem);
+        result.jb4dc.jb4dcCCReceiveObjects = BpmnJsUtility.JB4DC_GetCCReceiveObjectsArray(elem);
         result.jb4dc.jb4dcSequenceFlowConditionEditText = BpmnJsUtility.JB4DC_Attr_GetJb4dcSequenceFlowConditionEditText(elem);
 
         result.jb4dc.jb4dcProcessCandidateStarterGroupsDesc = BpmnJsUtility.JB4DC_Attr_GetJb4dcProcessCandidateStarterGroupsDesc(elem);
@@ -334,8 +336,11 @@ class FlowBpmnJsIntegrated {
         if (!result.jb4dc.jb4dcActions) {
             result.jb4dc.jb4dcActions = [];
         }
-        if (!result.jb4dc.jb4dcReceiveObjects) {
-            result.jb4dc.jb4dcReceiveObjects = [];
+        if (!result.jb4dc.jb4dcMainReceiveObjects) {
+            result.jb4dc.jb4dcMainReceiveObjects = [];
+        }
+        if (!result.jb4dc.jb4dcCCReceiveObjects) {
+            result.jb4dc.jb4dcCCReceiveObjects = [];
         }
         //console.log(PODefinition.GetDialogPropertiesPO().bpmn.id);
         //console.log(result.bpmn.id);
@@ -387,7 +392,8 @@ class FlowBpmnJsIntegrated {
         } else if (BpmnJsUtility.Is_UserTask(elem)) {
             //console.log(props.jb4dc.jb4dcActions);
             BpmnJsUtility.JB4DC_SetActionsArray(elem, props.jb4dc.jb4dcActions, true);
-            BpmnJsUtility.JB4DC_SetReceiveObjectsArray(elem, props.jb4dc.jb4dcReceiveObjects, true);
+            BpmnJsUtility.JB4DC_SetMainReceiveObjectsArray(elem, props.jb4dc.jb4dcMainReceiveObjects, true);
+            BpmnJsUtility.JB4DC_SetCCReceiveObjectsArray(elem, props.jb4dc.jb4dcCCReceiveObjects, true);
             BpmnJsUtility.JB4DC_Attr_SetJb4dcActionsOpinionBindToField(elem, props.jb4dc.jb4dcActionsOpinionBindToField);
             BpmnJsUtility.JB4DC_Attr_SetJb4dcActionsOpinionBindToElemId(elem, props.jb4dc.jb4dcActionsOpinionBindToElemId);
 
@@ -402,6 +408,9 @@ class FlowBpmnJsIntegrated {
 
             BpmnJsUtility.CAMUNDA_Attr_SetDueDate(elem, props.camunda.dueDate);
             BpmnJsUtility.CAMUNDA_Attr_SetFollowUpDate(elem, props.camunda.followUpDate);
+
+            console.log(props.bpmn.multiInstanceLoopCharacteristics);
+            BpmnJsUtility.BPMN_SetMultiInstanceLoopCharacteristics(elem, props.bpmn.multiInstanceLoopCharacteristics);
 
             if (props.camunda.taskListener && props.camunda.taskListener.length > 0) {
                 BpmnJsUtility.CAMUNDA_SetTaskListenerArray(elem, props.camunda.taskListener, true);
