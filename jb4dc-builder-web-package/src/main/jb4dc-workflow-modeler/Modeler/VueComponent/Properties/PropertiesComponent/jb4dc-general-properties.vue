@@ -42,6 +42,12 @@
                     </td>
                 </tr>
                 <tr>
+                    <td>外部表单：</td>
+                    <td colspan="4">
+                        <input type="text" v-model="jb4dc.jb4dcOuterFormUrl" />
+                    </td>
+                </tr>
+                <tr>
                     <td rowspan="2">流程标题：</td>
                     <td colspan="3">
                         <textarea v-model="jb4dc.jb4dcProcessTitleEditText" rows="2" disabled="disabled"></textarea>
@@ -58,7 +64,7 @@
                 <tr>
                     <td rowspan="2">流程备注：</td>
                     <td colspan="3">
-                        <textarea v-model="jb4dc.jb4dcProcessDescriptionEditText" rows="4" disabled="disabled"></textarea>
+                        <textarea v-model="jb4dc.jb4dcProcessDescriptionEditText" rows="3" disabled="disabled"></textarea>
                     </td>
                     <td rowspan="2">
                         <Button type="primary" @click="beginEditContextJuelForFlowProcessDescription">编辑</Button>
@@ -66,7 +72,7 @@
                 </tr>
                 <tr>
                     <td colspan="3" style="background-color: #fff">
-                        <textarea v-model="jb4dc.jb4dcProcessDescriptionEditValue" rows="4" disabled="disabled"></textarea>
+                        <textarea v-model="jb4dc.jb4dcProcessDescriptionEditValue" rows="3" disabled="disabled"></textarea>
                     </td>
                 </tr>
             </tbody>

@@ -567,6 +567,13 @@ class BpmnJsUtility {
         this.SetAttr(element,"jb4dcFormId",jb4dcFormId);
     }
 
+    static JB4DC_Attr_GetJb4dcOuterFormUrl(element){
+        return this.GetAttr(element,"jb4dcOuterFormUrl");
+    }
+    static JB4DC_Attr_SetJb4dcOuterFormUrl(element, jb4dcOuterFormUrl){
+        this.SetAttr(element,"jb4dcOuterFormUrl",jb4dcOuterFormUrl);
+    }
+
     static JB4DC_Attr_GetJb4dcTenantId(element){
         return this.GetAttr(element,"jb4dcTenantId");
     }
@@ -602,18 +609,27 @@ class BpmnJsUtility {
         this.SetAttr(element,"jb4dcProcessDescriptionEditValue",jb4dcProcessDescriptionEditValue);
     }
 
-    static JB4DC_Attr_GetJb4dcProcessCandidateStarterGroupsDesc(element){
-        return this.GetAttr(element,"jb4dcProcessCandidateStarterGroupsDesc");
+    static JB4DC_Attr_GetJb4dcProcessCandidateStarterGroups(element){
+        var arrStr=this.GetAttr(element,"jb4dcProcessCandidateStarterGroups");
+        if(arrStr){
+            return JsonUtility.StringToJson(arrStr);
+        }
+        return [];
     }
-    static JB4DC_Attr_SetJb4dcProcessCandidateStarterGroupsDesc(element, jb4dcProcessCandidateStarterGroupsDesc){
-        this.SetAttr(element,"jb4dcProcessCandidateStarterGroupsDesc",jb4dcProcessCandidateStarterGroupsDesc);
+    static JB4DC_Attr_SetJb4dcProcessCandidateStarterGroups(element, jb4dcProcessCandidateStarterGroups){
+        //var arrStr=
+        this.SetAttr(element,"jb4dcProcessCandidateStarterGroups",JsonUtility.JsonToString(jb4dcProcessCandidateStarterGroups));
     }
 
-    static JB4DC_Attr_GetJb4dcProcessCandidateStarterUsersDesc(element){
-        return this.GetAttr(element,"jb4dcProcessCandidateStarterUsersDesc");
+    static JB4DC_Attr_GetJb4dcProcessCandidateStarterUsers(element){
+        var arrStr=this.GetAttr(element,"jb4dcProcessCandidateStarterUsers");
+        if(arrStr){
+            return JsonUtility.StringToJson(arrStr);
+        }
+        return [];
     }
-    static JB4DC_Attr_SetJb4dcProcessCandidateStarterUsersDesc(element, jb4dcProcessCandidateStarterUsersDesc){
-        this.SetAttr(element,"jb4dcProcessCandidateStarterUsersDesc",jb4dcProcessCandidateStarterUsersDesc);
+    static JB4DC_Attr_SetJb4dcProcessCandidateStarterUsers(element, jb4dcProcessCandidateStarterUsers){
+        this.SetAttr(element,"jb4dcProcessCandidateStarterUsers",JsonUtility.JsonToString(jb4dcProcessCandidateStarterUsers));
     }
 
     static JB4DC_Attr_GetJb4dcCandidateUsersDesc(element){
@@ -644,11 +660,58 @@ class BpmnJsUtility {
         this.SetAttr(element,"jb4dcActionsOpinionBindToElemId",jb4dcActionsOpinionBindToElemId);
     }
 
-    static JB4DC_Attr_GetJb4dcActionConfirm(element){
-        return this.GetAttr(element,"jb4dcActionConfirm");
+    static JB4DC_Attr_GetJb4dcProcessActionConfirm(element){
+        return this.GetAttr(element,"jb4dcProcessActionConfirm");
     }
-    static JB4DC_Attr_SetJb4dcActionConfirm(element, jb4dcActionConfirm){
-        this.SetAttr(element,"jb4dcActionConfirm",jb4dcActionConfirm);
+    static JB4DC_Attr_SetJb4dcProcessActionConfirm(element, jb4dcActionConfirm){
+        this.SetAttr(element,"jb4dcProcessActionConfirm",jb4dcActionConfirm);
+    }
+
+    static JB4DC_Attr_GetJb4dcProcessModelGroups(element){
+        var arrStr=this.GetAttr(element,"jb4dcProcessModelGroups");
+        if(arrStr){
+            return JsonUtility.StringToJson(arrStr);
+        }
+        return [];
+    }
+    static JB4DC_Attr_SetJb4dcProcessModelGroups(element, jb4dcProcessModelGroups){
+        this.SetAttr(element,"jb4dcProcessModelGroups",JsonUtility.JsonToString(jb4dcProcessModelGroups));
+        //this.SetAttr(element,"jb4dcProcessModelGroups",jb4dcProcessModelGroups);
+    }
+
+    static JB4DC_Attr_GetJb4dcProcessModelImageClass(element){
+        return this.GetAttr(element,"jb4dcProcessModelImageClass");
+    }
+    static JB4DC_Attr_SetJb4dcProcessModelImageClass(element, jb4dcProcessModelImageClass){
+        this.SetAttr(element,"jb4dcProcessModelImageClass",jb4dcProcessModelImageClass);
+    }
+
+    static JB4DC_Attr_GetJb4dcProcessModelManagerGroups(element){
+        return this.GetAttr(element,"jb4dcProcessModelManagerGroups");
+    }
+    static JB4DC_Attr_SetJb4dcProcessModelManagerGroups(element, jb4dcProcessModelManagerGroups){
+        this.SetAttr(element,"jb4dcProcessModelManagerGroups",jb4dcProcessModelManagerGroups);
+    }
+
+    static JB4DC_Attr_GetJb4dcProcessModelManagerUsers(element){
+        return this.GetAttr(element,"jb4dcProcessModelManagerUsers");
+    }
+    static JB4DC_Attr_SetJb4dcProcessModelManagerUsers(element, jb4dcProcessModelManagerUsers){
+        this.SetAttr(element,"jb4dcProcessModelManagerUsers",jb4dcProcessModelManagerUsers);
+    }
+
+    static JB4DC_Attr_GetJb4dcProcessRestartEnable(element){
+        return this.GetAttr(element,"jb4dcProcessRestartEnable");
+    }
+    static JB4DC_Attr_SetJb4dcProcessRestartEnable(element, jb4dcProcessRestartEnable){
+        this.SetAttr(element,"jb4dcProcessRestartEnable",jb4dcProcessRestartEnable);
+    }
+
+    static JB4DC_Attr_GetJb4dcProcessAnyJumpEnable(element){
+        return this.GetAttr(element,"jb4dcProcessAnyJumpEnable");
+    }
+    static JB4DC_Attr_SetJb4dcProcessAnyJumpEnable(element, jb4dcProcessAnyJumpEnable){
+        this.SetAttr(element,"jb4dcProcessAnyJumpEnable",jb4dcProcessAnyJumpEnable);
     }
 
     static JB4DC_GetActionsArray(element){

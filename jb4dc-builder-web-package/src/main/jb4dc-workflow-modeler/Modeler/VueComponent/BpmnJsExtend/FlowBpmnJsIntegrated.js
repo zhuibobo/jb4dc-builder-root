@@ -316,6 +316,7 @@ class FlowBpmnJsIntegrated {
         result.jb4dc.jb4dcFlowCategory = BpmnJsUtility.JB4DC_Attr_GetJb4dcFlowCategory(elem);
         result.jb4dc.jb4dcCode = BpmnJsUtility.JB4DC_Attr_GetJb4dcCode(elem);
         result.jb4dc.jb4dcFormId = BpmnJsUtility.JB4DC_Attr_GetJb4dcFormId(elem);
+        result.jb4dc.jb4dcOuterFormUrl = BpmnJsUtility.JB4DC_Attr_GetJb4dcOuterFormUrl(elem);
         result.jb4dc.jb4dcTenantId = BpmnJsUtility.JB4DC_Attr_GetJb4dcTenantId(elem);
         result.jb4dc.jb4dcProcessTitleEditText = BpmnJsUtility.JB4DC_Attr_GetJb4dcProcessTitleEditText(elem);
         result.jb4dc.jb4dcProcessTitleEditValue = BpmnJsUtility.JB4DC_Attr_GetJb4dcProcessTitleEditValue(elem);
@@ -326,12 +327,14 @@ class FlowBpmnJsIntegrated {
         result.jb4dc.jb4dcCCReceiveObjects = BpmnJsUtility.JB4DC_GetCCReceiveObjectsArray(elem);
         result.jb4dc.jb4dcSequenceFlowConditionEditText = BpmnJsUtility.JB4DC_Attr_GetJb4dcSequenceFlowConditionEditText(elem);
 
-        result.jb4dc.jb4dcProcessCandidateStarterGroupsDesc = BpmnJsUtility.JB4DC_Attr_GetJb4dcProcessCandidateStarterGroupsDesc(elem);
-        result.jb4dc.jb4dcProcessCandidateStarterUsersDesc = BpmnJsUtility.JB4DC_Attr_GetJb4dcProcessCandidateStarterUsersDesc(elem);
+        result.jb4dc.jb4dcProcessCandidateStarterGroups = BpmnJsUtility.JB4DC_Attr_GetJb4dcProcessCandidateStarterGroups(elem);
+        result.jb4dc.jb4dcProcessCandidateStarterUsers = BpmnJsUtility.JB4DC_Attr_GetJb4dcProcessCandidateStarterUsers(elem);
 
         result.jb4dc.jb4dcActionsOpinionBindToField = BpmnJsUtility.JB4DC_Attr_GetJb4dcActionsOpinionBindToField(elem);
         result.jb4dc.jb4dcActionsOpinionBindToElemId = BpmnJsUtility.JB4DC_Attr_GetJb4dcActionsOpinionBindToElemId(elem);
-        result.jb4dc.jb4dcActionConfirm = BpmnJsUtility.JB4DC_Attr_GetJb4dcActionConfirm(elem);
+        result.jb4dc.jb4dcProcessActionConfirm = BpmnJsUtility.JB4DC_Attr_GetJb4dcProcessActionConfirm(elem);
+        result.jb4dc.jb4dcProcessModelGroups = BpmnJsUtility.JB4DC_Attr_GetJb4dcProcessModelGroups(elem);
+        result.jb4dc.jb4dcProcessModelImageClass = BpmnJsUtility.JB4DC_Attr_GetJb4dcProcessModelImageClass(elem);
 
         if (!result.jb4dc.jb4dcActions) {
             result.jb4dc.jb4dcActions = [];
@@ -355,6 +358,7 @@ class FlowBpmnJsIntegrated {
 
         BpmnJsUtility.JB4DC_Attr_SetJb4dcCode(elem, props.jb4dc.jb4dcCode);
         BpmnJsUtility.JB4DC_Attr_SetJb4dcFormId(elem, props.jb4dc.jb4dcFormId);
+        BpmnJsUtility.JB4DC_Attr_SetJb4dcOuterFormUrl(elem, props.jb4dc.jb4dcOuterFormUrl);
         BpmnJsUtility.JB4DC_Attr_SetJb4dcTenantId(elem, props.jb4dc.jb4dcTenantId);
         BpmnJsUtility.JB4DC_Attr_SetJb4dcProcessTitleEditText(elem, props.jb4dc.jb4dcProcessTitleEditText);
         BpmnJsUtility.JB4DC_Attr_SetJb4dcProcessTitleEditValue(elem, props.jb4dc.jb4dcProcessTitleEditValue);
@@ -385,9 +389,12 @@ class FlowBpmnJsIntegrated {
 
             BpmnJsUtility.JB4DC_Attr_SetJb4dcFlowCategory(elem, props.jb4dc.jb4dcFlowCategory);
 
-            BpmnJsUtility.JB4DC_Attr_SetJb4dcProcessCandidateStarterGroupsDesc(elem, props.jb4dc.jb4dcProcessCandidateStarterGroupsDesc);
-            BpmnJsUtility.JB4DC_Attr_SetJb4dcProcessCandidateStarterUsersDesc(elem, props.jb4dc.jb4dcProcessCandidateStarterUsersDesc);
-            BpmnJsUtility.JB4DC_Attr_SetJb4dcActionConfirm(elem, props.jb4dc.jb4dcActionConfirm);
+            BpmnJsUtility.JB4DC_Attr_SetJb4dcProcessCandidateStarterGroups(elem, props.jb4dc.jb4dcProcessCandidateStarterGroups);
+            BpmnJsUtility.JB4DC_Attr_SetJb4dcProcessCandidateStarterUsers(elem, props.jb4dc.jb4dcProcessCandidateStarterUsers);
+            BpmnJsUtility.JB4DC_Attr_SetJb4dcProcessActionConfirm(elem, props.jb4dc.jb4dcProcessActionConfirm);
+
+            BpmnJsUtility.JB4DC_Attr_SetJb4dcProcessModelGroups(elem, props.jb4dc.jb4dcProcessModelGroups);
+            BpmnJsUtility.JB4DC_Attr_SetJb4dcProcessModelImageClass(elem, props.jb4dc.jb4dcProcessModelImageClass);
             //console.log(props.jb4dc1);
         } else if (BpmnJsUtility.Is_UserTask(elem)) {
             //console.log(props.jb4dc.jb4dcActions);

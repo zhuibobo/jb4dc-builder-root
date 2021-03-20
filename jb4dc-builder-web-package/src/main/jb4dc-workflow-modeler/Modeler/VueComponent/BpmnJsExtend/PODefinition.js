@@ -35,14 +35,15 @@ class PODefinition{
                 jb4dcFlowCategory:"",
                 jb4dcCode:"",
                 jb4dcFormId:"",
+                jb4dcOuterFormUrl:"",
                 jb4dcTenantId:"",
                 jb4dcProcessTitleEditText:"",
                 jb4dcProcessTitleEditValue:"",
                 jb4dcProcessDescriptionEditText:"",
                 jb4dcProcessDescriptionEditValue:"",
                 jb4dcSequenceFlowConditionEditText:"",
-                jb4dcProcessCandidateStarterGroupsDesc:"",
-                jb4dcProcessCandidateStarterUsersDesc:"",
+                jb4dcProcessCandidateStarterGroups:[],
+                jb4dcProcessCandidateStarterUsers:[],
                 jb4dcCandidateUsersDesc:"",
                 jb4dcCandidateGroupsDesc:"",
                 jb4dcActionsOpinionBindToField:"",
@@ -50,7 +51,13 @@ class PODefinition{
                 jb4dcActions:[],
                 jb4dcMainReceiveObjects:[],
                 jb4dcCCReceiveObjects:[],
-                jb4dcActionConfirm:"false"
+                jb4dcProcessActionConfirm:"false",
+                jb4dcProcessModelGroups:[],
+                jb4dcProcessModelImageClass:"",
+                jb4dcProcessModelManagerGroups:[],
+                jb4dcProcessModelManagerUsers:[],
+                jb4dcProcessRestartEnable:"",
+                jb4dcProcessAnyJumpEnable:""
             }
         }
     }
