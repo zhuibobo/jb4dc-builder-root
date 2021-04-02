@@ -39,7 +39,7 @@ export default function PropertiesPadEntity(eventBus, contextPad, commandStack,p
 
     this.getContextPadEntries = function(element) {
         //console.log(element);
-        if (is(element, 'bpmn:SequenceFlow')||is(element, 'bpmn:UserTask')) {
+        if (is(element, 'bpmn:SequenceFlow')||is(element, 'bpmn:UserTask')||is(element, 'bpmn:ServiceTask')) {
             return {
                 'settingProperties': {
                     group: 'edit',

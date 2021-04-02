@@ -261,6 +261,9 @@ class FlowBpmnJsIntegrated {
         } else if (elementType == "bpmn:Process") {
             componentName = "processProperties";
             title = "流程设置";
+        } else if (elementType == "bpmn:ServiceTask") {
+            componentName = "serviceTaskProperties";
+            title = "服务环节设置";
         }
         //console.log(event);
         //console.log(element);
@@ -293,6 +296,10 @@ class FlowBpmnJsIntegrated {
         result.camunda.candidateUsers = BpmnJsUtility.CAMUNDA_Attr_GetCandidateUsers(elem);
         result.camunda.candidateGroups = BpmnJsUtility.CAMUNDA_Attr_GetCandidateGroups(elem);
 
+        result.camunda.class = BpmnJsUtility.CAMUNDA_Attr_GetClass(elem);
+        result.camunda.type = BpmnJsUtility.CAMUNDA_Attr_GetType(elem);
+        result.camunda.topic = BpmnJsUtility.CAMUNDA_Attr_GetTopic(elem);
+
         result.jb4dc.jb4dcCandidateUsersDesc = BpmnJsUtility.JB4DC_Attr_GetJb4dcCandidateUsersDesc(elem);
         result.jb4dc.jb4dcCandidateGroupsDesc = BpmnJsUtility.JB4DC_Attr_GetJb4dcCandidateGroupsDesc(elem);
 
@@ -316,7 +323,9 @@ class FlowBpmnJsIntegrated {
         result.jb4dc.jb4dcFlowCategory = BpmnJsUtility.JB4DC_Attr_GetJb4dcFlowCategory(elem);
         result.jb4dc.jb4dcCode = BpmnJsUtility.JB4DC_Attr_GetJb4dcCode(elem);
         result.jb4dc.jb4dcFormId = BpmnJsUtility.JB4DC_Attr_GetJb4dcFormId(elem);
+        result.jb4dc.jb4dcFormEx1Id = BpmnJsUtility.JB4DC_Attr_GetJb4dcFormEx1Id(elem);
         result.jb4dc.jb4dcOuterFormUrl = BpmnJsUtility.JB4DC_Attr_GetJb4dcOuterFormUrl(elem);
+        result.jb4dc.jb4dcOuterFormEx1Url = BpmnJsUtility.JB4DC_Attr_GetJb4dcOuterFormEx1Url(elem);
         result.jb4dc.jb4dcTenantId = BpmnJsUtility.JB4DC_Attr_GetJb4dcTenantId(elem);
         result.jb4dc.jb4dcProcessTitleEditText = BpmnJsUtility.JB4DC_Attr_GetJb4dcProcessTitleEditText(elem);
         result.jb4dc.jb4dcProcessTitleEditValue = BpmnJsUtility.JB4DC_Attr_GetJb4dcProcessTitleEditValue(elem);
@@ -329,12 +338,16 @@ class FlowBpmnJsIntegrated {
 
         result.jb4dc.jb4dcProcessCandidateStarterGroups = BpmnJsUtility.JB4DC_Attr_GetJb4dcProcessCandidateStarterGroups(elem);
         result.jb4dc.jb4dcProcessCandidateStarterUsers = BpmnJsUtility.JB4DC_Attr_GetJb4dcProcessCandidateStarterUsers(elem);
+        result.jb4dc.jb4dcProcessModelManagerGroups = BpmnJsUtility.JB4DC_Attr_GetJb4dcProcessModelManagerGroups(elem);
+        result.jb4dc.jb4dcProcessModelManagerUsers = BpmnJsUtility.JB4DC_Attr_GetJb4dcProcessModelManagerUsers(elem);
 
         result.jb4dc.jb4dcActionsOpinionBindToField = BpmnJsUtility.JB4DC_Attr_GetJb4dcActionsOpinionBindToField(elem);
         result.jb4dc.jb4dcActionsOpinionBindToElemId = BpmnJsUtility.JB4DC_Attr_GetJb4dcActionsOpinionBindToElemId(elem);
         result.jb4dc.jb4dcProcessActionConfirm = BpmnJsUtility.JB4DC_Attr_GetJb4dcProcessActionConfirm(elem);
         result.jb4dc.jb4dcProcessModelGroups = BpmnJsUtility.JB4DC_Attr_GetJb4dcProcessModelGroups(elem);
         result.jb4dc.jb4dcProcessModelImageClass = BpmnJsUtility.JB4DC_Attr_GetJb4dcProcessModelImageClass(elem);
+        result.jb4dc.jb4dcProcessRestartEnable = BpmnJsUtility.JB4DC_Attr_GetJb4dcProcessRestartEnable(elem);
+        result.jb4dc.jb4dcProcessAnyJumpEnable = BpmnJsUtility.JB4DC_Attr_GetJb4dcProcessAnyJumpEnable(elem);
 
         if (!result.jb4dc.jb4dcActions) {
             result.jb4dc.jb4dcActions = [];
@@ -358,7 +371,9 @@ class FlowBpmnJsIntegrated {
 
         BpmnJsUtility.JB4DC_Attr_SetJb4dcCode(elem, props.jb4dc.jb4dcCode);
         BpmnJsUtility.JB4DC_Attr_SetJb4dcFormId(elem, props.jb4dc.jb4dcFormId);
+        BpmnJsUtility.JB4DC_Attr_SetJb4dcFormEx1Id(elem, props.jb4dc.jb4dcFormEx1Id);
         BpmnJsUtility.JB4DC_Attr_SetJb4dcOuterFormUrl(elem, props.jb4dc.jb4dcOuterFormUrl);
+        BpmnJsUtility.JB4DC_Attr_SetJb4dcOuterFormEx1Url(elem, props.jb4dc.jb4dcOuterFormEx1Url);
         BpmnJsUtility.JB4DC_Attr_SetJb4dcTenantId(elem, props.jb4dc.jb4dcTenantId);
         BpmnJsUtility.JB4DC_Attr_SetJb4dcProcessTitleEditText(elem, props.jb4dc.jb4dcProcessTitleEditText);
         BpmnJsUtility.JB4DC_Attr_SetJb4dcProcessTitleEditValue(elem, props.jb4dc.jb4dcProcessTitleEditValue);
@@ -391,10 +406,14 @@ class FlowBpmnJsIntegrated {
 
             BpmnJsUtility.JB4DC_Attr_SetJb4dcProcessCandidateStarterGroups(elem, props.jb4dc.jb4dcProcessCandidateStarterGroups);
             BpmnJsUtility.JB4DC_Attr_SetJb4dcProcessCandidateStarterUsers(elem, props.jb4dc.jb4dcProcessCandidateStarterUsers);
-            BpmnJsUtility.JB4DC_Attr_SetJb4dcProcessActionConfirm(elem, props.jb4dc.jb4dcProcessActionConfirm);
+            BpmnJsUtility.JB4DC_Attr_SetJb4dcProcessModelManagerGroups(elem, props.jb4dc.jb4dcProcessModelManagerGroups);
+            BpmnJsUtility.JB4DC_Attr_SetJb4dcProcessModelManagerUsers(elem, props.jb4dc.jb4dcProcessModelManagerUsers);
 
+            BpmnJsUtility.JB4DC_Attr_SetJb4dcProcessActionConfirm(elem, props.jb4dc.jb4dcProcessActionConfirm);
             BpmnJsUtility.JB4DC_Attr_SetJb4dcProcessModelGroups(elem, props.jb4dc.jb4dcProcessModelGroups);
             BpmnJsUtility.JB4DC_Attr_SetJb4dcProcessModelImageClass(elem, props.jb4dc.jb4dcProcessModelImageClass);
+            BpmnJsUtility.JB4DC_Attr_SetJb4dcProcessRestartEnable(elem, props.jb4dc.jb4dcProcessRestartEnable);
+            BpmnJsUtility.JB4DC_Attr_SetJb4dcProcessAnyJumpEnable(elem, props.jb4dc.jb4dcProcessAnyJumpEnable);
             //console.log(props.jb4dc1);
         } else if (BpmnJsUtility.Is_UserTask(elem)) {
             //console.log(props.jb4dc.jb4dcActions);
@@ -416,7 +435,7 @@ class FlowBpmnJsIntegrated {
             BpmnJsUtility.CAMUNDA_Attr_SetDueDate(elem, props.camunda.dueDate);
             BpmnJsUtility.CAMUNDA_Attr_SetFollowUpDate(elem, props.camunda.followUpDate);
 
-            console.log(props.bpmn.multiInstanceLoopCharacteristics);
+            //console.log(props.bpmn.multiInstanceLoopCharacteristics);
             BpmnJsUtility.BPMN_SetMultiInstanceLoopCharacteristics(elem, props.bpmn.multiInstanceLoopCharacteristics);
 
             if (props.camunda.taskListener && props.camunda.taskListener.length > 0) {
@@ -427,6 +446,10 @@ class FlowBpmnJsIntegrated {
         } else if (BpmnJsUtility.Is_SequenceFlow(elem)) {
             BpmnJsUtility.JB4DC_Attr_SetJb4dcSequenceFlowConditionEditText(elem, props.jb4dc.jb4dcSequenceFlowConditionEditText, true);
             BpmnJsUtility.BPMN_SetConditionExpression(elem, props.bpmn.conditionExpression, true);
+        } else if (BpmnJsUtility.Is_ServiceTask(elem)) {
+            BpmnJsUtility.CAMUNDA_Attr_SetClass(elem,props.camunda.class);
+            BpmnJsUtility.CAMUNDA_Attr_SetType(elem,props.camunda.type);
+            BpmnJsUtility.CAMUNDA_Attr_SetTopic(elem,props.camunda.topic);
         } else {
 
 

@@ -1,0 +1,29 @@
+package com.jb4dc.workflow.custpo.bpmn.process;
+
+import com.jb4dc.workflow.custpo.bpmn.BpmnNs;
+
+import javax.xml.bind.annotation.*;
+import java.util.List;
+
+/**
+ * Created with IntelliJ IDEA.
+ * User: zhuangrb
+ * Date: 2019/11/25
+ * To change this template use File | Settings | File Templates.
+ */
+@XmlAccessorType(XmlAccessType.FIELD)
+// XML文件中的根标识
+@XmlRootElement(name = "properties",namespace = BpmnNs.CAMUNDA_URI)
+public class CamundaProperties {
+
+    @XmlElement(name = "property",namespace = BpmnNs.CAMUNDA_URI)
+    List<CamundaProperty> propertyList;
+
+    public List<CamundaProperty> getPropertyList() {
+        return propertyList;
+    }
+
+    public void setPropertyList(List<CamundaProperty> propertyList) {
+        this.propertyList = propertyList;
+    }
+}

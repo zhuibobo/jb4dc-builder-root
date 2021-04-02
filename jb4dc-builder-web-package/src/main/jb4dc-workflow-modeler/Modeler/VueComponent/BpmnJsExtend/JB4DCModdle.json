@@ -30,7 +30,17 @@
           "type": "String"
         },
         {
+          "name": "jb4dcFormEx1Id",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
           "name": "jb4dcOuterFormUrl",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "jb4dcOuterFormEx1Url",
           "isAttr": true,
           "type": "String"
         },
@@ -137,7 +147,17 @@
           "type": "String"
         },
         {
+          "name": "jb4dcFormEx1Id",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
           "name": "jb4dcOuterFormUrl",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "jb4dcOuterFormEx1Url",
           "isAttr": true,
           "type": "String"
         },

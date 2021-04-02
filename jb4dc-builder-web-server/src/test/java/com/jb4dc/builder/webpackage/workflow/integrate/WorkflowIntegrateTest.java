@@ -3,21 +3,22 @@ package com.jb4dc.builder.webpackage.workflow.integrate;
 
 import com.jb4dc.base.tools.XMLUtility;
 import com.jb4dc.builder.webpackage.RestTestBase;
-import com.jb4dc.builder.workflow.exenum.ModelDesignSourceTypeEnum;
-import com.jb4dc.builder.workflow.exenum.ModelTenantIdEnum;
-import com.jb4dc.builder.workflow.integrate.IWFModelIntegratedService;
-import com.jb4dc.builder.workflow.integrate.IWFTaskIntegratedService;
-import com.jb4dc.builder.workflow.integrate.IWFExecutionIntegratedService;
-import com.jb4dc.builder.workflow.integrate.IWFInstanceIntegratedService;
-import com.jb4dc.builder.workflow.integrate.impl.CamundaIntegrate;
-import com.jb4dc.builder.workflow.integrate.impl.WFModelIntegrateServiceImpl;
-import com.jb4dc.builder.workflow.custpo.bpmn.BpmnDefinitions;
-import com.jb4dc.builder.workflow.utility.CamundaBpmnUtility;
+import com.jb4dc.workflow.exenum.ModelDesignSourceTypeEnum;
+import com.jb4dc.workflow.exenum.ModelTenantIdEnum;
+import com.jb4dc.workflow.integrate.IWFModelIntegratedService;
+import com.jb4dc.workflow.integrate.IWFTaskIntegratedService;
+import com.jb4dc.workflow.integrate.IWFExecutionIntegratedService;
+import com.jb4dc.workflow.integrate.IWFInstanceIntegratedService;
+import com.jb4dc.workflow.integrate.impl.CamundaIntegrate;
+import com.jb4dc.workflow.integrate.impl.WFModelIntegrateServiceImpl;
+import com.jb4dc.workflow.custpo.bpmn.BpmnDefinitions;
+import com.jb4dc.workflow.utility.CamundaBpmnUtility;
 import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
 import org.camunda.bpm.engine.ProcessEngine;
 import org.camunda.bpm.engine.RepositoryService;
 import org.camunda.bpm.engine.RuntimeService;
 import org.camunda.bpm.engine.TaskService;
+import org.camunda.bpm.engine.externaltask.LockedExternalTask;
 import org.camunda.bpm.engine.impl.cfg.ProcessEngineConfigurationImpl;
 import org.camunda.bpm.engine.impl.persistence.entity.ExecutionEntity;
 import org.camunda.bpm.engine.runtime.Execution;
@@ -671,6 +672,487 @@ public class WorkflowIntegrateTest extends RestTestBase {
         taskQuery = taskService.createTaskQuery().taskAssignee("JBR001");
         task = taskQuery.singleResult();
         Assert.assertEquals("经办人1",task.getName());
+    }
+
+    @Test
+    public void callService1() throws FileNotFoundException, JBuild4DCGenerallyException, InterruptedException {
+        CamundaIntegrate.setProcessEngine(processEngine);
+        ProcessEngine processEngine = CamundaIntegrate.getProcessEngine();
+        ((ProcessEngineConfigurationImpl) processEngine.getProcessEngineConfiguration()).getBeans();
+        InputStream is = new FileInputStream("D:\\JavaProject\\JavaTestProject\\CamundaProject714_20\\src\\main\\resources\\bpmn\\P004_002_发文流程_2021_V2_Service1.bpmn");
+
+        RepositoryService repositoryService = processEngine.getRepositoryService();
+        repositoryService.createDeployment().name("P004Test-NAME").source("P004Test-Source").tenantId("P004Test-TenantId").addInputStream("P004_002_bpmn", is).deploy();
+
+        deleteAllProcessInstance(processEngine.getRuntimeService());
+
+        RuntimeService runtimeService = processEngine.getRuntimeService();
+
+        Map<String,Object> vars=new HashMap<>();
+        vars.put("Creater","User001");
+        runtimeService.startProcessInstanceByKey("P004_002", "P004_002_bpmn",vars);
+        //runtimeService.startProcessInstanceById("P004_002", "P004_002_bpmn",vars);
+        //runtimeService.star
+
+        TaskService taskService = processEngine.getTaskService();
+
+        TaskQuery taskQuery = taskService.createTaskQuery().taskAssignee("User001");
+        Task task = taskQuery.singleResult();
+        vars=new HashMap<>();
+        vars.put("act","送负责人");
+        vars.put("UserId","User002");
+        taskService.complete(task.getId(),vars);
+
+
+        taskQuery = taskService.createTaskQuery().taskAssignee("User002");
+        task = taskQuery.singleResult();
+        vars=new HashMap<>();
+        vars.put("JB1UserId","User003");
+        taskService.complete(task.getId(),vars);
+
+        //获取外部服务的主题,并锁定任务时限
+        List<LockedExternalTask> tasks1 = processEngine.getExternalTaskService().fetchAndLock(10, "externalWorkerId1")
+                .topic("AddressValidation", 2L * 1000L)
+                .execute();
+
+        List<LockedExternalTask> tasks2 = processEngine.getExternalTaskService().fetchAndLock(10, "externalWorkerId2")
+                .topic("AddressValidation", 2L * 1000L)
+                .execute();
+
+        Thread.sleep(3L * 1000L);
+
+        List<LockedExternalTask> tasks22 = processEngine.getExternalTaskService().fetchAndLock(10, "externalWorkerId2")
+                .topic("AddressValidation", 20L * 1000L)
+                .execute();
+
+        LockedExternalTask lockedExternalTask=tasks22.get(0);
+        processEngine.getExternalTaskService().complete(lockedExternalTask.getId(),"externalWorkerId2",vars);
+
+        taskQuery = taskService.createTaskQuery().taskAssignee("User003");
+        task = taskQuery.singleResult();
+        vars=new HashMap<>();
+        vars.put("TH1UserId","User004");
+        taskService.complete(task.getId(),vars);
+
+        taskQuery = taskService.createTaskQuery().taskAssignee("User004");
+        task = taskQuery.singleResult();
+        taskService.complete(task.getId(),vars);
+
+        Assert.assertEquals(true,iwfInstanceIntegratedService.instanceIsComplete(getSession(),task.getProcessInstanceId()));
+
+    }
+
+    @Test
+    public void callService2() throws FileNotFoundException, JBuild4DCGenerallyException, InterruptedException {
+        CamundaIntegrate.setProcessEngine(processEngine);
+        ProcessEngine processEngine = CamundaIntegrate.getProcessEngine();
+        ((ProcessEngineConfigurationImpl) processEngine.getProcessEngineConfiguration()).getBeans();
+        InputStream is = new FileInputStream("D:\\JavaProject\\JavaTestProject\\CamundaProject714_20\\src\\main\\resources\\bpmn\\P004_002_发文流程_2021_V2_Service2.bpmn");
+
+        RepositoryService repositoryService = processEngine.getRepositoryService();
+        repositoryService.createDeployment().name("P004Test-NAME").source("P004Test-Source").tenantId("P004Test-TenantId").addInputStream("P004_002_bpmn", is).deploy();
+
+        deleteAllProcessInstance(processEngine.getRuntimeService());
+
+        RuntimeService runtimeService = processEngine.getRuntimeService();
+
+        Map<String,Object> vars=new HashMap<>();
+        vars.put("Creater","User001");
+        runtimeService.startProcessInstanceByKey("P004_002", "P004_002_bpmn",vars);
+        //runtimeService.startProcessInstanceById("P004_002", "P004_002_bpmn",vars);
+        //runtimeService.star
+
+        TaskService taskService = processEngine.getTaskService();
+
+        TaskQuery taskQuery = taskService.createTaskQuery().taskAssignee("User001");
+        Task task = taskQuery.singleResult();
+        vars=new HashMap<>();
+        vars.put("act","送负责人");
+        vars.put("UserId","User002");
+        taskService.complete(task.getId(),vars);
+
+
+        taskQuery = taskService.createTaskQuery().taskAssignee("User002");
+        task = taskQuery.singleResult();
+        vars=new HashMap<>();
+        vars.put("JB1UserId","User003");
+        taskService.complete(task.getId(),vars);
+
+        taskQuery = taskService.createTaskQuery().taskAssignee("User003");
+        task = taskQuery.singleResult();
+        vars=new HashMap<>();
+        vars.put("TH1UserId","User004");
+        taskService.complete(task.getId(),vars);
+
+        taskQuery = taskService.createTaskQuery().taskAssignee("User004");
+        task = taskQuery.singleResult();
+        taskService.complete(task.getId(),vars);
+
+        Assert.assertEquals(true,iwfInstanceIntegratedService.instanceIsComplete(getSession(),task.getProcessInstanceId()));
+
+    }
+
+    @Test
+    public void startForMessage1() throws FileNotFoundException, JBuild4DCGenerallyException, InterruptedException {
+        CamundaIntegrate.setProcessEngine(processEngine);
+        ProcessEngine processEngine = CamundaIntegrate.getProcessEngine();
+        ((ProcessEngineConfigurationImpl) processEngine.getProcessEngineConfiguration()).getBeans();
+        InputStream is = new FileInputStream("D:\\JavaProject\\JavaTestProject\\CamundaProject714_20\\src\\main\\resources\\bpmn\\P004_002_发文流程_2021_V2_Message1_M1.bpmn");
+
+        RepositoryService repositoryService = processEngine.getRepositoryService();
+        repositoryService.createDeployment().name("P004Test-NAME").source("P004Test-Source").tenantId("P004Test-TenantId").addInputStream("P004_003_M1_Res.bpmn", is).deploy();
+
+        is = new FileInputStream("D:\\JavaProject\\JavaTestProject\\CamundaProject714_20\\src\\main\\resources\\bpmn\\P004_002_发文流程_2021_V2_Message1_M2.bpmn");
+        repositoryService.createDeployment().name("P004Test-NAME").source("P004Test-Source").tenantId("P004Test-TenantId").addInputStream("P004_003_M2_Res.bpmn", is).deploy();
+
+        deleteAllProcessInstance(processEngine.getRuntimeService());
+
+        RuntimeService runtimeService = processEngine.getRuntimeService();
+
+        Map<String,Object> vars=new HashMap<>();
+        vars.put("Creater","User001");
+        runtimeService.startProcessInstanceByMessage("Message_Start_Message1_M1", "P004_002_bpmn",vars);
+        //runtimeService.startProcessInstanceById("P004_002", "P004_002_bpmn",vars);
+        //runtimeService.star
+
+        TaskService taskService = processEngine.getTaskService();
+
+        TaskQuery taskQuery = taskService.createTaskQuery().taskAssignee("User001");
+        Task task = taskQuery.singleResult();
+        vars=new HashMap<>();
+        vars.put("act","送负责人");
+        vars.put("UserId","User002");
+        taskService.complete(task.getId(),vars);
+
+        taskQuery = taskService.createTaskQuery().taskAssignee("User002");
+        Assert.assertEquals("相关负责人1",taskQuery.singleResult().getName());
+    }
+
+    @Test
+    public void startForMessage1M3() throws FileNotFoundException, JBuild4DCGenerallyException, InterruptedException {
+        CamundaIntegrate.setProcessEngine(processEngine);
+        ProcessEngine processEngine = CamundaIntegrate.getProcessEngine();
+        ((ProcessEngineConfigurationImpl) processEngine.getProcessEngineConfiguration()).getBeans();
+        InputStream is = new FileInputStream("D:\\JavaProject\\JavaTestProject\\CamundaProject714_20\\src\\main\\resources\\bpmn\\P004_002_发文流程_2021_V2_Message1_M3.bpmn");
+
+        RepositoryService repositoryService = processEngine.getRepositoryService();
+        repositoryService.createDeployment().name("P004Test-NAME").source("P004Test-Source").tenantId("P004Test-TenantId").addInputStream(".bpmn", is).deploy();
+
+        deleteAllProcessInstance(processEngine.getRuntimeService());
+
+        RuntimeService runtimeService = processEngine.getRuntimeService();
+
+        Map<String,Object> vars=new HashMap<>();
+        vars.put("Creater","User001");
+        runtimeService.startProcessInstanceByMessage("Message_Start_Message1_M3", "P004_003_M1_Buss",vars);
+
+        TaskService taskService = processEngine.getTaskService();
+
+        TaskQuery taskQuery = taskService.createTaskQuery().taskAssignee("User001");
+        Task task = taskQuery.singleResult();
+        vars=new HashMap<>();
+        vars.put("act","送负责人");
+        vars.put("UserId","User002");
+        taskService.complete(task.getId(),vars);
+
+        taskQuery = taskService.createTaskQuery().taskAssignee("User002");
+        task = taskQuery.singleResult();
+        Assert.assertEquals("相关负责人1",taskQuery.singleResult().getName());
+        vars=new HashMap<>();
+        vars.put("JB2UserId","JB2UserId02");
+        //终止消息事件
+        runtimeService.messageEventReceived("Message_2omahq6",task.getExecutionId(),vars);
+        taskQuery = taskService.createTaskQuery().taskAssignee("User002");
+        task = taskQuery.singleResult();
+        Assert.assertEquals(null,task);
+
+        taskQuery = taskService.createTaskQuery().taskAssignee("JB2UserId02");
+        Assert.assertEquals("经办人2",taskQuery.singleResult().getName());
+    }
+
+    @Test
+    public void startForMessage1M4() throws FileNotFoundException, JBuild4DCGenerallyException, InterruptedException {
+        CamundaIntegrate.setProcessEngine(processEngine);
+        ProcessEngine processEngine = CamundaIntegrate.getProcessEngine();
+        ((ProcessEngineConfigurationImpl) processEngine.getProcessEngineConfiguration()).getBeans();
+        InputStream is = new FileInputStream("D:\\JavaProject\\JavaTestProject\\CamundaProject714_20\\src\\main\\resources\\bpmn\\P004_002_发文流程_2021_V2_Message1_M4.bpmn");
+
+        RepositoryService repositoryService = processEngine.getRepositoryService();
+        repositoryService.createDeployment().name("P004Test-NAME").source("P004Test-Source").tenantId("P004Test-TenantId").addInputStream(".bpmn", is).deploy();
+
+        deleteAllProcessInstance(processEngine.getRuntimeService());
+
+        RuntimeService runtimeService = processEngine.getRuntimeService();
+
+        Map<String,Object> vars=new HashMap<>();
+        vars.put("Creater","User001");
+        runtimeService.startProcessInstanceByMessage("Message_Start_Message1_M3", "P004_003_M1_Buss",vars);
+
+        TaskService taskService = processEngine.getTaskService();
+
+        TaskQuery taskQuery = taskService.createTaskQuery().taskAssignee("User001");
+        Task task = taskQuery.singleResult();
+        vars=new HashMap<>();
+        vars.put("act","送负责人");
+        vars.put("UserId","User002");
+        taskService.complete(task.getId(),vars);
+
+        taskQuery = taskService.createTaskQuery().taskAssignee("User002");
+        task = taskQuery.singleResult();
+        Assert.assertEquals("相关负责人1",taskQuery.singleResult().getName());
+        taskService.complete(task.getId());
+
+        taskQuery = taskService.createTaskQuery().taskAssignee("JB2UserId02");
+        Assert.assertEquals("经办人2",taskQuery.singleResult().getName());
+    }
+
+    @Test
+    public void startForMessage1M5() throws FileNotFoundException, JBuild4DCGenerallyException, InterruptedException {
+        CamundaIntegrate.setProcessEngine(processEngine);
+        ProcessEngine processEngine = CamundaIntegrate.getProcessEngine();
+        ((ProcessEngineConfigurationImpl) processEngine.getProcessEngineConfiguration()).getBeans();
+        InputStream is = new FileInputStream("D:\\JavaProject\\JavaTestProject\\CamundaProject714_20\\src\\main\\resources\\bpmn\\P004_002_发文流程_2021_V2_Message1_M5.bpmn");
+
+        RepositoryService repositoryService = processEngine.getRepositoryService();
+        repositoryService.createDeployment().name("P004Test-NAME").source("P004Test-Source").tenantId("P004Test-TenantId").addInputStream(".bpmn", is).deploy();
+
+        deleteAllProcessInstance(processEngine.getRuntimeService());
+
+        RuntimeService runtimeService = processEngine.getRuntimeService();
+
+        Map<String,Object> vars=new HashMap<>();
+        vars.put("Creater","User001");
+        runtimeService.startProcessInstanceByMessage("Message_Start_Message1_M3", "P004_003_M1_Buss",vars);
+
+        TaskService taskService = processEngine.getTaskService();
+
+        TaskQuery taskQuery = taskService.createTaskQuery().taskAssignee("User001");
+        Task task = taskQuery.singleResult();
+        vars=new HashMap<>();
+        vars.put("act","送负责人");
+        vars.put("UserId","User002");
+        vars.put("JB1UserId","JB2UserId01");
+        vars.put("JB3UserId","JB2UserId03");
+        taskService.complete(task.getId(),vars);
+
+        Thread.sleep(20000);
+
+        taskQuery = taskService.createTaskQuery().taskAssignee("User002");
+        task = taskQuery.singleResult();
+        Assert.assertEquals("相关负责人1",taskQuery.singleResult().getName());
+        taskService.complete(task.getId());
+
+        taskQuery = taskService.createTaskQuery().taskAssignee("JB2UserId02");
+        Assert.assertEquals("经办人2",taskQuery.singleResult().getName());
+
+        taskQuery = taskService.createTaskQuery().taskAssignee("JB2UserId01");
+        Assert.assertEquals("经办人1",taskQuery.singleResult().getName());
+    }
+
+    @Test
+    public void startForMessage1M6() throws FileNotFoundException, JBuild4DCGenerallyException, InterruptedException {
+        CamundaIntegrate.setProcessEngine(processEngine);
+        ProcessEngine processEngine = CamundaIntegrate.getProcessEngine();
+        ((ProcessEngineConfigurationImpl) processEngine.getProcessEngineConfiguration()).getBeans();
+        InputStream is = new FileInputStream("D:\\JavaProject\\JavaTestProject\\CamundaProject714_20\\src\\main\\resources\\bpmn\\P004_002_发文流程_2021_V2_Message1_M6.bpmn");
+
+        RepositoryService repositoryService = processEngine.getRepositoryService();
+        repositoryService.createDeployment().name("P004Test-NAME").source("P004Test-Source").tenantId("P004Test-TenantId").addInputStream(".bpmn", is).deploy();
+
+        deleteAllProcessInstance(processEngine.getRuntimeService());
+
+        RuntimeService runtimeService = processEngine.getRuntimeService();
+
+        Map<String,Object> vars=new HashMap<>();
+        vars.put("Creater","User001");
+        runtimeService.startProcessInstanceByMessage("Message_Start_Message1_M3", "P004_003_M1_Buss",vars);
+
+        TaskService taskService = processEngine.getTaskService();
+
+        TaskQuery taskQuery = taskService.createTaskQuery().taskAssignee("User001");
+        Task task = taskQuery.singleResult();
+        vars=new HashMap<>();
+        vars.put("act","送负责人");
+        vars.put("UserId","User002");
+        vars.put("JB1UserId","JB2UserId01");
+        vars.put("JB3UserId","JB2UserId03");
+        taskService.complete(task.getId(),vars);
+
+        Thread.sleep(20000);
+
+        taskQuery = taskService.createTaskQuery().taskAssignee("User002");
+        task = taskQuery.singleResult();
+        Assert.assertEquals("相关负责人1",taskQuery.singleResult().getName());
+        taskService.complete(task.getId());
+
+        taskQuery = taskService.createTaskQuery().taskAssignee("JB2UserId02");
+        Assert.assertEquals("消息经办人2",taskQuery.singleResult().getName());
+
+        taskQuery = taskService.createTaskQuery().taskAssignee("JB2UserId03");
+        Assert.assertEquals("定时经办人3",taskQuery.singleResult().getName());
+
+        taskQuery = taskService.createTaskQuery().taskAssignee("JB2UserId01");
+        Assert.assertEquals("经办人1",taskQuery.singleResult().getName());
+
+        processEngine.getRuntimeService().messageEventReceived("Message_2omahq6",taskQuery.singleResult().getExecutionId());
+
+        taskQuery = taskService.createTaskQuery().taskAssignee("JB2UserId02");
+        Assert.assertEquals(2,taskQuery.count());
+    }
+
+    @Test
+    public void startForMessage1M7() throws FileNotFoundException, JBuild4DCGenerallyException, InterruptedException {
+        CamundaIntegrate.setProcessEngine(processEngine);
+        ProcessEngine processEngine = CamundaIntegrate.getProcessEngine();
+        ((ProcessEngineConfigurationImpl) processEngine.getProcessEngineConfiguration()).getBeans();
+        InputStream is = new FileInputStream("D:\\JavaProject\\JavaTestProject\\CamundaProject714_20\\src\\main\\resources\\bpmn\\P004_002_发文流程_2021_V2_Message1_M7_1.bpmn");
+
+        RepositoryService repositoryService = processEngine.getRepositoryService();
+        repositoryService.createDeployment().name("P004Test-NAME").source("P004Test-Source").tenantId("P004Test-TenantId").addInputStream(".bpmn", is).deploy();
+
+        is = new FileInputStream("D:\\JavaProject\\JavaTestProject\\CamundaProject714_20\\src\\main\\resources\\bpmn\\P004_002_发文流程_2021_V2_Message1_M7_2.bpmn");
+        repositoryService.createDeployment().name("P004Test-NAME").source("P004Test-Source").tenantId("P004Test-TenantId").addInputStream(".bpmn", is).deploy();
+
+        deleteAllProcessInstance(processEngine.getRuntimeService());
+
+        RuntimeService runtimeService = processEngine.getRuntimeService();
+
+        Map<String,Object> vars=new HashMap<>();
+        vars.put("Creater","User001");
+        runtimeService.startProcessInstanceByMessage("Message_Start_Message1_M7_1", "P004_003_M1_Buss",vars);
+
+        TaskService taskService = processEngine.getTaskService();
+
+        TaskQuery taskQuery = taskService.createTaskQuery().taskAssignee("User001");
+        Task task = taskQuery.singleResult();
+        taskService.complete(task.getId());
+
+        /*Thread.sleep(20000);
+
+        taskQuery = taskService.createTaskQuery().taskAssignee("User002");
+        task = taskQuery.singleResult();
+        Assert.assertEquals("相关负责人1",taskQuery.singleResult().getName());
+        taskService.complete(task.getId());
+
+        taskQuery = taskService.createTaskQuery().taskAssignee("JB2UserId02");
+        Assert.assertEquals("消息经办人2",taskQuery.singleResult().getName());
+
+        taskQuery = taskService.createTaskQuery().taskAssignee("JB2UserId03");
+        Assert.assertEquals("定时经办人3",taskQuery.singleResult().getName());
+
+        taskQuery = taskService.createTaskQuery().taskAssignee("JB2UserId01");
+        Assert.assertEquals("经办人1",taskQuery.singleResult().getName());
+
+        processEngine.getRuntimeService().messageEventReceived("Message_2omahq6",taskQuery.singleResult().getExecutionId());
+
+        taskQuery = taskService.createTaskQuery().taskAssignee("JB2UserId02");
+        Assert.assertEquals(2,taskQuery.count());*/
+    }
+
+    @Test
+    public void startForSignalM1() throws FileNotFoundException, JBuild4DCGenerallyException, InterruptedException {
+        CamundaIntegrate.setProcessEngine(processEngine);
+        ProcessEngine processEngine = CamundaIntegrate.getProcessEngine();
+        ((ProcessEngineConfigurationImpl) processEngine.getProcessEngineConfiguration()).getBeans();
+        InputStream is = new FileInputStream("D:\\JavaProject\\JavaTestProject\\CamundaProject714_20\\src\\main\\resources\\bpmn\\P004_002_发文流程_2021_V2_Signal_M1_1.bpmn");
+
+        RepositoryService repositoryService = processEngine.getRepositoryService();
+        repositoryService.createDeployment().name("P004Test-NAME").source("P004Test-Source").tenantId("P004Test-TenantId").addInputStream(".bpmn", is).deploy();
+
+        is = new FileInputStream("D:\\JavaProject\\JavaTestProject\\CamundaProject714_20\\src\\main\\resources\\bpmn\\P004_002_发文流程_2021_V2_Signal_M1_2.bpmn");
+        repositoryService.createDeployment().name("P004Test-NAME").source("P004Test-Source").tenantId("P004Test-TenantId").addInputStream(".bpmn", is).deploy();
+
+        deleteAllProcessInstance(processEngine.getRuntimeService());
+
+        RuntimeService runtimeService = processEngine.getRuntimeService();
+
+        Map<String,Object> vars=new HashMap<>();
+        vars.put("Creater","User001");
+        runtimeService.startProcessInstanceByKey("P004_003_M8_1", "P004_003_M8_1_Buss",vars);
+
+        TaskService taskService = processEngine.getTaskService();
+
+        TaskQuery taskQuery = taskService.createTaskQuery().taskAssignee("User001");
+        Task task = taskQuery.singleResult();
+        taskService.complete(task.getId());
+
+        /*Thread.sleep(20000);
+
+        taskQuery = taskService.createTaskQuery().taskAssignee("User002");
+        task = taskQuery.singleResult();
+        Assert.assertEquals("相关负责人1",taskQuery.singleResult().getName());
+        taskService.complete(task.getId());
+
+        taskQuery = taskService.createTaskQuery().taskAssignee("JB2UserId02");
+        Assert.assertEquals("消息经办人2",taskQuery.singleResult().getName());
+
+        taskQuery = taskService.createTaskQuery().taskAssignee("JB2UserId03");
+        Assert.assertEquals("定时经办人3",taskQuery.singleResult().getName());
+
+        taskQuery = taskService.createTaskQuery().taskAssignee("JB2UserId01");
+        Assert.assertEquals("经办人1",taskQuery.singleResult().getName());
+
+        processEngine.getRuntimeService().messageEventReceived("Message_2omahq6",taskQuery.singleResult().getExecutionId());
+
+        taskQuery = taskService.createTaskQuery().taskAssignee("JB2UserId02");
+        Assert.assertEquals(2,taskQuery.count());*/
+    }
+
+    @Test
+    public void startForCallActivityM1() throws FileNotFoundException, JBuild4DCGenerallyException, InterruptedException {
+        CamundaIntegrate.setProcessEngine(processEngine);
+        ProcessEngine processEngine = CamundaIntegrate.getProcessEngine();
+        ((ProcessEngineConfigurationImpl) processEngine.getProcessEngineConfiguration()).getBeans();
+        InputStream is = new FileInputStream("D:\\JavaProject\\JavaTestProject\\CamundaProject714_20\\src\\main\\resources\\bpmn\\P004_002_发文流程_2021_V2_CallActivityMain.bpmn");
+
+        RepositoryService repositoryService = processEngine.getRepositoryService();
+        repositoryService.createDeployment().name("P004Test-NAME").source("P004Test-Source").tenantId("P004Test-TenantId").addInputStream(".bpmn", is).deploy();
+
+        is = new FileInputStream("D:\\JavaProject\\JavaTestProject\\CamundaProject714_20\\src\\main\\resources\\bpmn\\P004_002_发文流程_2021_V2_CallActivityMain_1.bpmn");
+        repositoryService.createDeployment().name("P004Test-NAME").source("P004Test-Source").tenantId("P004Test-TenantId").addInputStream(".bpmn", is).deploy();
+
+        is = new FileInputStream("D:\\JavaProject\\JavaTestProject\\CamundaProject714_20\\src\\main\\resources\\bpmn\\P004_002_发文流程_2021_V2_CallActivityMain_2.bpmn");
+        repositoryService.createDeployment().name("P004Test-NAME").source("P004Test-Source").tenantId("P004Test-TenantId").addInputStream(".bpmn", is).deploy();
+
+        deleteAllProcessInstance(processEngine.getRuntimeService());
+
+        RuntimeService runtimeService = processEngine.getRuntimeService();
+
+        runtimeService.startProcessInstanceByKey("Process_1kmyvf9", "P004_003_M8_1_Buss");
+
+        TaskService taskService = processEngine.getTaskService();
+
+        TaskQuery taskQuery = taskService.createTaskQuery().taskAssignee("user1-1");
+        Task task = taskQuery.singleResult();
+        taskService.complete(task.getId());
+
+        taskQuery = taskService.createTaskQuery().taskAssignee("user1-2");
+        task = taskQuery.singleResult();
+        taskService.complete(task.getId());
+
+        taskQuery = taskService.createTaskQuery().taskAssignee("user2-1");
+        task = taskQuery.singleResult();
+        taskService.complete(task.getId());
+        /*Thread.sleep(20000);
+
+        taskQuery = taskService.createTaskQuery().taskAssignee("User002");
+        task = taskQuery.singleResult();
+        Assert.assertEquals("相关负责人1",taskQuery.singleResult().getName());
+        taskService.complete(task.getId());
+
+        taskQuery = taskService.createTaskQuery().taskAssignee("JB2UserId02");
+        Assert.assertEquals("消息经办人2",taskQuery.singleResult().getName());
+
+        taskQuery = taskService.createTaskQuery().taskAssignee("JB2UserId03");
+        Assert.assertEquals("定时经办人3",taskQuery.singleResult().getName());
+
+        taskQuery = taskService.createTaskQuery().taskAssignee("JB2UserId01");
+        Assert.assertEquals("经办人1",taskQuery.singleResult().getName());
+
+        processEngine.getRuntimeService().messageEventReceived("Message_2omahq6",taskQuery.singleResult().getExecutionId());
+
+        taskQuery = taskService.createTaskQuery().taskAssignee("JB2UserId02");
+        Assert.assertEquals(2,taskQuery.count());*/
     }
 
     @Test

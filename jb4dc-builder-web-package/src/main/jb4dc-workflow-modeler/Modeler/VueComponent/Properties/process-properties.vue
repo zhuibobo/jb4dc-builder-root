@@ -13,7 +13,7 @@
                         <tr>
                             <td style="color: red">启动键：</td>
                             <td>
-                                <input type="text" placeholder="ID (Start Key) 必须唯一" v-model="bpmn.id" style="width:240px" />
+                                <input type="text" placeholder="ID (Start Key) 必须唯一" v-model="bpmn.id" style="width:230px" />
                                 <Button type="primary" @click="randomId">随机生成</Button>
                             </td>
                             <td>可执行/IsExecutable：</td>
@@ -32,6 +32,25 @@
                             <td>版本：</td>
                             <td>
                                 <input placeholder="Version Tag" type="text" v-model="camunda.versionTag" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>流程类别：</td>
+                            <td>
+                                <Select v-model="jb4dc.jb4dcFlowCategory">
+                                    <Option value="通用流程">通用流程</Option>
+                                    <Option value="公文收文流程">公文收文流程</Option>
+                                    <Option value="公文发文流程">公文发文流程</Option>
+                                    <Option value="行政审批流程">行政审批流程</Option>
+                                    <Option value="行政许可流程">行政许可流程</Option>
+                                    <Option value="社区服务流程">社区服务流程</Option>
+                                </Select>
+                            </td>
+                            <td>
+                                Tenant Id：
+                            </td>
+                            <td colspan="2">
+                                <input type="text" v-model="jb4dc.jb4dcTenantId" />
                             </td>
                         </tr>
                         <tr>
@@ -72,7 +91,7 @@
                                     <tag type="border" color="success" v-for="item in jb4dc.jb4dcProcessCandidateStarterGroups">{{item.rolePath}}</tag>
                                 </div>
                                 <div style="float: right;width: 7%">
-                                    <Button type="primary" @click="beginSelectRole">选择</Button>
+                                    <Button type="primary" @click="beginSelectRole('Starter')">选择</Button>
                                 </div>
 
                             </td>
@@ -84,7 +103,7 @@
                                     <tag type="border" color="success" v-for="item in jb4dc.jb4dcProcessCandidateStarterUsers">{{item.userPath}}</tag>
                                 </div>
                                 <div style="float: right;width: 7%">
-                                    <Button type="primary" @click="beginSelectUser">选择</Button>
+                                    <Button type="primary" @click="beginSelectUser('Starter')">选择</Button>
                                 </div>
                             </td>
                         </tr>
@@ -101,12 +120,6 @@
                                     <radio label="true">是</radio>
                                     <radio label="false">否</radio>
                                 </radio-group>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>备注：</td>
-                            <td colspan="3">
-                                <textarea rows="3" placeholder="Element Documentation" v-model="bpmn.documentation"></textarea>
                             </td>
                         </tr>
                     </tbody>
@@ -150,7 +163,7 @@
                                 <tag type="border" color="success" v-for="item in jb4dc.jb4dcProcessModelManagerGroups">{{item}}</tag>
                             </div>
                             <div style="float: right;width: 7%">
-                                <Button type="primary" @click="beginSelectRole">选择</Button>
+                                <Button type="primary" @click="beginSelectRole('Manager')">选择</Button>
                             </div>
                         </td>
                     </tr>
@@ -161,16 +174,28 @@
                                 <tag type="border" color="success" v-for="item in jb4dc.jb4dcProcessModelManagerUsers">{{item}}</tag>
                             </div>
                             <div style="float: right;width: 7%">
-                                <Button type="primary" @click="beginSelectUser">选择</Button>
+                                <Button type="primary" @click="beginSelectUser('Manager')">选择</Button>
                             </div>
                         </td>
                     </tr>
-                    <tr>
-                        <td>备注：</td>
-                        <td colspan="3">
-                            <textarea rows="3" placeholder="Element Documentation" v-model="bpmn.documentation"></textarea>
-                        </td>
-                    </tr>
+                    </tbody>
+                </table>
+            </tab-pane>
+            <tab-pane tab="process-properties-tabs" label="流程备注">
+                <table class="properties-dialog-table-wraper" cellpadding="0" cellspacing="0" border="0">
+                    <colgroup>
+                        <col style="width: 14%" />
+                        <col style="width: 36%" />
+                        <col style="width: 15%" />
+                        <col style="width: 35%" />
+                    </colgroup>
+                    <tbody>
+                        <tr>
+                            <td>备注：</td>
+                            <td colspan="3">
+                                <textarea rows="23" placeholder="Element Documentation" v-model="bpmn.documentation"></textarea>
+                            </td>
+                        </tr>
                     </tbody>
                 </table>
             </tab-pane>
@@ -232,20 +257,25 @@
             randomId(){
                 this.bpmn.id="Flow_Model_"+StringUtility.Timestamp();
             },
-            beginSelectRole(){
-                this.$refs.selectRoleDialog.beginSelectRole("选择启动角色-只支持全局","",(selectedRoleArray)=>{
+            beginSelectRole(toType){
+                this.$refs.selectRoleDialog.beginSelectRole("选择角色-只支持全局","",(selectedRoleArray)=>{
                     var roleIdS=[];
                     //var rolePaths=[];
                     for (let i = 0; i < selectedRoleArray.length; i++) {
                         roleIdS.push(selectedRoleArray[i].roleId);
                         //rolePaths.push(selectedRoleArray[i].rolePath);
                     }
-                    this.camunda.candidateStarterGroups=roleIdS.join(",");
-                    this.jb4dc.jb4dcProcessCandidateStarterGroups=JsonUtility.CloneStringify(selectedRoleArray);
+                    if(toType=="Starter"){
+                        this.camunda.candidateStarterGroups=roleIdS.join(",");
+                        this.jb4dc.jb4dcProcessCandidateStarterGroups=JsonUtility.CloneStringify(selectedRoleArray);
+                    }
+                    else if(toType=="Manager"){
+                        this.jb4dc.jb4dcProcessModelManagerGroups=JsonUtility.CloneStringify(selectedRoleArray);
+                    }
                 });
             },
-            beginSelectUser(){
-                this.$refs.selectUserDialog.beginSelectUser("选择启动用户","",(selectedUserArray)=>{
+            beginSelectUser(toType){
+                this.$refs.selectUserDialog.beginSelectUser("选择用户","",(selectedUserArray)=>{
                     var userIdS=[];
                     //var userPaths=[];
                     for (let i = 0; i < selectedUserArray.length; i++) {
@@ -253,8 +283,13 @@
                         //userPaths.push(selectedUserArray[i].userPath);
                     }
                     //this.startRoleArray=selectedRoleArray;
-                    this.camunda.candidateStarterUsers=userIdS.join(",");
-                    this.jb4dc.jb4dcProcessCandidateStarterUsers=JsonUtility.CloneStringify(selectedUserArray);
+                    if(toType=="Starter") {
+                        this.camunda.candidateStarterUsers = userIdS.join(",");
+                        this.jb4dc.jb4dcProcessCandidateStarterUsers = JsonUtility.CloneStringify(selectedUserArray);
+                    }
+                    else if(toType=="Manager"){
+                        this.jb4dc.jb4dcProcessModelManagerUsers=JsonUtility.CloneStringify(selectedUserArray);
+                    }
                 });
             },
             beginSelectGroup(){

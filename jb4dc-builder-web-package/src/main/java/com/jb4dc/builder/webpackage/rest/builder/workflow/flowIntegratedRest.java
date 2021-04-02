@@ -6,7 +6,7 @@ import com.jb4dc.base.service.general.JB4DCSessionUtility;
 import com.jb4dc.base.tools.JsonUtility;
 import com.jb4dc.builder.dbentities.flow.FlowIntegratedEntity;
 import com.jb4dc.builder.po.FlowIntegratedPO;
-import com.jb4dc.builder.workflow.integrate.IWFModelIntegratedService;
+import com.jb4dc.workflow.integrate.IWFModelIntegratedService;
 import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
 import com.jb4dc.core.base.session.JB4DCSession;
 import com.jb4dc.core.base.tools.StringUtility;

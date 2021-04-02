@@ -11,7 +11,8 @@ class PODefinition{
                     loopCharacteristics: "false",
                     isSequential: "",
                     collection: "",
-                    elementVariable: ""
+                    elementVariable: "",
+                    completionCondition:""
                 }
             },
             camunda: {
@@ -29,13 +30,18 @@ class PODefinition{
                 candidateUsers:"",
                 candidateGroups:"",
                 dueDate:"",
-                followUpDate:""
+                followUpDate:"",
+                class:"",
+                type:"",
+                topic:""
             },
             jb4dc:{
                 jb4dcFlowCategory:"",
                 jb4dcCode:"",
                 jb4dcFormId:"",
+                jb4dcFormEx1Id:"",
                 jb4dcOuterFormUrl:"",
+                jb4dcOuterFormEx1Url:"",
                 jb4dcTenantId:"",
                 jb4dcProcessTitleEditText:"",
                 jb4dcProcessTitleEditValue:"",
@@ -53,11 +59,11 @@ class PODefinition{
                 jb4dcCCReceiveObjects:[],
                 jb4dcProcessActionConfirm:"false",
                 jb4dcProcessModelGroups:[],
-                jb4dcProcessModelImageClass:"",
+                jb4dcProcessModelImageClass:"lab la-elementor",
                 jb4dcProcessModelManagerGroups:[],
                 jb4dcProcessModelManagerUsers:[],
-                jb4dcProcessRestartEnable:"",
-                jb4dcProcessAnyJumpEnable:""
+                jb4dcProcessRestartEnable:"true",
+                jb4dcProcessAnyJumpEnable:"true"
             }
         }
     }

@@ -9,42 +9,38 @@
                 <col style="width: 6%" />
             </colgroup>
             <tbody>
-                <tr v-if="trIsProcess">
-                    <td>流程类别：</td>
-                    <td>
-                        <Select v-model="jb4dc.jb4dcFlowCategory" style="width:200px">
-                            <Option value="通用流程">通用流程</Option>
-                            <Option value="公文收文流程">公文收文流程</Option>
-                            <Option value="公文发文流程">公文发文流程</Option>
-                            <Option value="行政审批流程">行政审批流程</Option>
-                            <Option value="行政许可流程">行政许可流程</Option>
-                            <Option value="社区服务流程">社区服务流程</Option>
-                        </Select>
-                    </td>
-                    <td>
-                        Tenant Id：
-                    </td>
-                    <td colspan="2">
-                        <input type="text" v-model="jb4dc.jb4dcTenantId" />
+                <tr>
+                    <td>编号：</td>
+                    <td colspan="4">
+                        <input type="text" v-model="jb4dc.jb4dcCode" />
                     </td>
                 </tr>
                 <tr>
-                    <td>绑定表单：</td>
+                    <td>绑定表单1：</td>
                     <td>
                         <Select v-model="jb4dc.jb4dcFormId" style="width:250px" @on-change="changeBindForm" :clearable="true">
                             <Option v-for="item in formResourcePOList" :value="item.formId" :key="item.formId">【{{ item.formCode }}】{{ item.formName }}</Option>
                         </Select>
                         <Button type="primary" disabled>编辑表单</Button>
                     </td>
-                    <td>流程编号：</td>
+                    <td>绑定表单2：</td>
                     <td colspan="2">
-                        <input type="text" v-model="jb4dc.jb4dcCode" />
+                        <Select v-model="jb4dc.jb4dcFormEx1Id" style="width:250px" @on-change="changeBindForm" :clearable="true">
+                            <Option v-for="item in formResourcePOList" :value="item.formId" :key="item.formId">【{{ item.formCode }}】{{ item.formName }}</Option>
+                        </Select>
+                        <Button type="primary" disabled>编辑表单</Button>
                     </td>
                 </tr>
                 <tr>
-                    <td>外部表单：</td>
+                    <td>外部表单1：</td>
                     <td colspan="4">
                         <input type="text" v-model="jb4dc.jb4dcOuterFormUrl" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>外部表单2：</td>
+                    <td colspan="4">
+                        <input type="text" v-model="jb4dc.jb4dcOuterFormEx1Url" />
                     </td>
                 </tr>
                 <tr>
@@ -64,7 +60,7 @@
                 <tr>
                     <td rowspan="2">流程备注：</td>
                     <td colspan="3">
-                        <textarea v-model="jb4dc.jb4dcProcessDescriptionEditText" rows="3" disabled="disabled"></textarea>
+                        <textarea v-model="jb4dc.jb4dcProcessDescriptionEditText" rows="2" disabled="disabled"></textarea>
                     </td>
                     <td rowspan="2">
                         <Button type="primary" @click="beginEditContextJuelForFlowProcessDescription">编辑</Button>
@@ -72,7 +68,7 @@
                 </tr>
                 <tr>
                     <td colspan="3" style="background-color: #fff">
-                        <textarea v-model="jb4dc.jb4dcProcessDescriptionEditValue" rows="3" disabled="disabled"></textarea>
+                        <textarea v-model="jb4dc.jb4dcProcessDescriptionEditValue" rows="2" disabled="disabled"></textarea>
                     </td>
                 </tr>
             </tbody>

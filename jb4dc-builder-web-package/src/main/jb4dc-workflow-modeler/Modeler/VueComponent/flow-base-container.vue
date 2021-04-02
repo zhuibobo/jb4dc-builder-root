@@ -1,6 +1,6 @@
 <template>
     <div>
-        基础信息
+        基础信息3
     </div>
 </template>
 

@@ -45,6 +45,7 @@
 
     import { FlowBpmnJsIntegrated } from './BpmnJsExtend/FlowBpmnJsIntegrated.js';
     import userTaskProperties from "./Properties/user-task-properties.vue";
+    import serviceTaskProperties from "./Properties/service-task-properties.vue";
     import sequenceFlowProperties from "./Properties/sequence-flow-properties.vue";
     import processProperties from "./Properties/process-properties.vue";
     import emptyProperties from "./Properties/empty-properties.vue";
@@ -57,6 +58,7 @@
             userTaskProperties,
             sequenceFlowProperties,
             processProperties,
+            serviceTaskProperties
         },
         data () {
             return {
@@ -125,7 +127,7 @@
                     dialogElemId,
                     {
                         height: 610,
-                        width: 980,
+                        width: 1020,
                         title:title,
                         buttons: {
                             "确认": function () {

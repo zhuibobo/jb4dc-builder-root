@@ -4,16 +4,19 @@
             <tab-pane tab="user-task-properties-tabs" label="基础设置">
                 <userTaskGeneralProperties :prop-bpmn-general-data="bpmn" :prop-camunda-general-data="camunda" :prop-jb4dc-general-data="jb4dc"></userTaskGeneralProperties>
             </tab-pane>
+            <tab-pane tab="user-task-properties-tabs" label="多实例完成条件">
+                <multiInstanceCompletionConditionProperties ref="multiInstanceCompletionConditionProperties" :prop-bpmn-general-data="bpmn"></multiInstanceCompletionConditionProperties>
+            </tab-pane>
             <tab-pane tab="user-task-properties-tabs" label="绑定设置">
                 <jb4dcGeneralProperties ref="jb4dcGeneralProperties" :prop-jb4dc-general-data="jb4dc" :prop-is-process="false"></jb4dcGeneralProperties>
             </tab-pane>
-            <tab-pane tab="user-task-properties-tabs" label="动作设置">
+            <tab-pane tab="user-task-properties-tabs" label="动作">
                 <jb4dcActionsProperties ref="jb4dcActionsProperties" :prop-jb4dc-general-data="jb4dc" :prop-from-id="jb4dc.jb4dcFormId" :prop-action-data="jb4dc.jb4dcActions"></jb4dcActionsProperties>
             </tab-pane>
-            <tab-pane tab="user-task-properties-tabs" label="主送人员">
+            <tab-pane tab="user-task-properties-tabs" label="主送">
                 <jb4dcMainReceiveObjectProperties ref="jb4dcMainReceiveObjectProperties" :prop-receive-objects-data="jb4dc.jb4dcMainReceiveObjects"></jb4dcMainReceiveObjectProperties>
             </tab-pane>
-            <tab-pane tab="user-task-properties-tabs" label="抄送人员">
+            <tab-pane tab="user-task-properties-tabs" label="抄送">
                 <jb4dcCCReceiveObjectProperties ref="jb4dcCCReceiveObjectProperties" :prop-receive-objects-data="jb4dc.jb4dcCCReceiveObjects"></jb4dcCCReceiveObjectProperties>
             </tab-pane>
             <tab-pane tab="user-task-properties-tabs" label="权限设置">
@@ -41,6 +44,7 @@
     import jb4dcMainReceiveObjectProperties from "./PropertiesComponent/jb4dc-receive-object-properties.vue";
     import jb4dcCCReceiveObjectProperties from "./PropertiesComponent/jb4dc-receive-object-properties.vue";
     import jb4dcAuthorityProperties from "./PropertiesComponent/jb4dc-authority-properties.vue";
+    import multiInstanceCompletionConditionProperties from "./PropertiesComponent/multi-instance-completion-condition-properties.vue";
     import { PODefinition } from "../BpmnJsExtend/PODefinition.js"
 
     export default {
@@ -53,7 +57,8 @@
             jb4dcActionsProperties,
             jb4dcMainReceiveObjectProperties,
             jb4dcCCReceiveObjectProperties,
-            jb4dcAuthorityProperties
+            jb4dcAuthorityProperties,
+            multiInstanceCompletionConditionProperties
         },
         props:["propElemProperties"],
         data:function () {
@@ -84,6 +89,10 @@
                     camunda: this.camunda,
                     jb4dc: this.jb4dc
                 };
+
+                //var completionCondition=this.$refs.multiInstanceCompletionConditionProperties.getValue();
+                //result.bpmn.multiInstanceLoopCharacteristics.completionCondition=completionCondition;
+
                 return result;
             }
         }
