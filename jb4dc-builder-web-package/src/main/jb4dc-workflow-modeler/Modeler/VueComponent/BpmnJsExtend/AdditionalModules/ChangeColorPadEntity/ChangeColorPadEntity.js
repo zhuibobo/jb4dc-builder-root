@@ -54,7 +54,7 @@ export default function ChangeColorPadEntity(eventBus, contextPad, commandStack,
 
     this.getContextPadEntries = function(element) {
         //console.log(element);
-        if (is(element, 'bpmn:UserTask')||is(element, 'bpmn:ServiceTask')) {
+        if (is(element, 'bpmn:UserTask')||is(element, 'bpmn:ServiceTask')||is(element, 'bpmn:BoundaryEvent')||is(element, 'bpmn:IntermediateThrowEvent')||is(element, 'bpmn:intermediateCatchEvent')) {
             return {
                 'changeColor': {
                     group: 'edit',

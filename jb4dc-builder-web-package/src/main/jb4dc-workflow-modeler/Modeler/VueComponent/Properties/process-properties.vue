@@ -199,11 +199,17 @@
                     </tbody>
                 </table>
             </tab-pane>
-            <tab-pane tab="process-properties-tabs" label="CMA-Execution-Listeners">
+            <tab-pane tab="process-properties-tabs" label="执行监听">
                 <listenersProperties ref="listenersProperties" :prop-listener-data="camunda.executionListener"></listenersProperties>
             </tab-pane>
-            <tab-pane tab="process-properties-tabs" label="CMA-Extensions">
+            <tab-pane tab="process-properties-tabs" label="扩展属性">
                 <extensionsProperties ref="extensionsProperties" :prop-extensions-properties-data="camunda.extensionProperties"></extensionsProperties>
+            </tab-pane>
+            <tab-pane tab="process-properties-tabs" label="消息设置">
+                <messageProperties ref="messageProperties" :prop-message-properties-data="bpmn.messages"></messageProperties>
+            </tab-pane>
+            <tab-pane tab="process-properties-tabs" label="信号设置">
+                <signalProperties ref="signalProperties" :prop-signal-properties-data="bpmn.signals"></signalProperties>
             </tab-pane>
         </tabs>
         <selectRoleDialog ref="selectRoleDialog"></selectRoleDialog>
@@ -215,6 +221,8 @@
 <script>
     import listenersProperties from "./PropertiesComponent/listeners-properties.vue";
     import extensionsProperties from "./PropertiesComponent/extensions-properties.vue";
+    import messageProperties from "./PropertiesComponent/message-properties.vue";
+    import signalProperties from "./PropertiesComponent/signal-properties.vue";
     import jb4dcGeneralProperties from "./PropertiesComponent/jb4dc-general-properties.vue";
     import { PODefinition } from "../BpmnJsExtend/PODefinition.js";
     import selectRoleDialog from "./Dialog/select-role-dialog.vue";
@@ -229,7 +237,9 @@
             jb4dcGeneralProperties,
             selectRoleDialog,
             selectUserDialog,
-            selectFlowGroupDialog
+            selectFlowGroupDialog,
+            messageProperties,
+            signalProperties
         },
         props:["propElemProperties"],
         data:function () {

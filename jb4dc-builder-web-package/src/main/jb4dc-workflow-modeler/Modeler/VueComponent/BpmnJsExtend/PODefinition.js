@@ -1,18 +1,35 @@
 class PODefinition{
     static GetDialogPropertiesPO(){
         return {
-            bpmn:{
-                id:"",
-                name:"",
-                isExecutable:"true",
-                documentation:"",
-                conditionExpression:"",
-                multiInstanceLoopCharacteristics:{
+            bpmn: {
+                id: "",
+                name: "",
+                isExecutable: "true",
+                documentation: "",
+                conditionExpression: "",
+                multiInstanceLoopCharacteristics: {
                     loopCharacteristics: "false",
                     isSequential: "",
                     collection: "",
                     elementVariable: "",
-                    completionCondition:""
+                    completionCondition: ""
+                },
+                messages: [],
+                signals:[],
+                messageEventDefinition: {
+                    id: "",
+                    messageRef: ""
+                },
+                signalEventDefinition:{
+                    id: "",
+                    signalRef: ""
+                },
+                attachedToRef: "",
+                cancelActivity: "",
+                timerEventDefinition:{
+                    type:"",
+                    id:"",
+                    value:""
                 }
             },
             camunda: {

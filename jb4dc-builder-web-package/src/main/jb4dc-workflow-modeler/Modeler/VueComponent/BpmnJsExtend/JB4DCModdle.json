@@ -117,6 +117,34 @@
       ]
     },
     {
+      "name": "Jb4dcMessage",
+      "isAbstract": true,
+      "extends": [
+        "bpmn:Message"
+      ],
+      "properties": [
+        {
+          "name": "jb4dcDesc",
+          "isAttr": true,
+          "type": "String"
+        }
+      ]
+    },
+    {
+      "name": "Jb4dcSignal",
+      "isAbstract": true,
+      "extends": [
+        "bpmn:Signal"
+      ],
+      "properties": [
+        {
+          "name": "jb4dcDesc",
+          "isAttr": true,
+          "type": "String"
+        }
+      ]
+    },
+    {
       "name": "Jb4dcSequenceFlow",
       "isAbstract": true,
       "extends": [

@@ -2,7 +2,7 @@ import BpmnModeler from 'bpmn-js/lib/Modeler';
 import camundaModdleDescriptor from 'camunda-bpmn-moddle/resources/camunda';
 import jb4dcModdleDescriptor from './JB4DCModdle.json';
 /*import emptyBPMNXML from '../../Resources/emptyFlowModel.bpmn';*/
-import emptyBPMNXML from '../../Resources/newDiagram3.bpmn';
+import emptyBPMNXML from '../../Resources/newDiagram4.bpmn';
 import CustomTranslate from './CustomTranslate';
 import propertiesPadEntity from './AdditionalModules/PropertiesPadEntity';
 import changeColorPadEntity from './AdditionalModules/ChangeColorPadEntity';
@@ -265,6 +265,14 @@ class FlowBpmnJsIntegrated {
             componentName = "serviceTaskProperties";
             title = "服务环节设置";
         }
+        else if (elementType == "bpmn:BoundaryEvent") {
+            componentName = "boundaryEventProperties";
+            title = "边界事件设置";
+        }
+        else if (elementType == "bpmn:IntermediateThrowEvent") {
+            componentName = "intermediateThrowEventProperties";
+            title = "中间抛出事件设置";
+        }
         //console.log(event);
         //console.log(element);
         var elemToDialogProps = this.SerializationElemToDialogProps(element);
@@ -274,7 +282,7 @@ class FlowBpmnJsIntegrated {
 
     SerializationElemToDialogProps(elem) {
         var result = PODefinition.GetDialogPropertiesPO();
-
+        //debugger;
         //bpmn
         result.bpmn.id = BpmnJsUtility.BPMN_Attr_GetId(elem);
         result.bpmn.name = BpmnJsUtility.BPMN_Attr_GetName(elem);
@@ -282,6 +290,12 @@ class FlowBpmnJsIntegrated {
         result.bpmn.documentation = BpmnJsUtility.BPMN_GetElementDocumentationText(elem);
         result.bpmn.conditionExpression = BpmnJsUtility.BPMN_GetConditionExpression(elem);
         result.bpmn.multiInstanceLoopCharacteristics=BpmnJsUtility.BPMN_GetMultiInstanceLoopCharacteristics(elem);
+        result.bpmn.messages=BpmnJsUtility.BPMN_GetMessages(elem);
+        result.bpmn.signals=BpmnJsUtility.BPMN_GetSignals(elem);
+        result.bpmn.messageEventDefinition=BpmnJsUtility.BPMN_GetMessageEventDefinition(elem);
+        result.bpmn.signalEventDefinition=BpmnJsUtility.BPMN_GetSignalEventDefinition(elem);
+        result.bpmn.timerEventDefinition=BpmnJsUtility.BPMN_GetTimerEventDefinition(elem);
+        result.bpmn.cancelActivity=BpmnJsUtility.BPMN_Attr_GetCancelActivity(elem);
         //camunda
         result.camunda.versionTag = BpmnJsUtility.CAMUNDA_Attr_GetVersionTag(elem);
         result.camunda.taskPriority = BpmnJsUtility.CAMUNDA_Attr_GetTaskPriority(elem);
@@ -365,7 +379,7 @@ class FlowBpmnJsIntegrated {
     }
 
     DeSerializationDialogPropsToElem(props, elem) {
-        //console.log(props);
+        console.log(props);
         BpmnJsUtility.BPMN_Attr_SetName(elem, props.bpmn.name);
         BpmnJsUtility.BPMN_SetElementDocumentationText(elem, props.bpmn.documentation);
 
@@ -394,6 +408,8 @@ class FlowBpmnJsIntegrated {
         //console.log(elem);
         if (BpmnJsUtility.Is_Process(elem)) {
             BpmnJsUtility.BPMN_Attr_Process_SetIsExecutable(elem, props.bpmn.isExecutable);
+            BpmnJsUtility.BPMN_SetMessages(elem,props.bpmn.messages);
+            BpmnJsUtility.BPMN_SetSignals(elem,props.bpmn.signals);
 
             BpmnJsUtility.CAMUNDA_Attr_SetVersionTag(elem, props.camunda.versionTag);
             BpmnJsUtility.CAMUNDA_Attr_SetTaskPriority(elem, props.camunda.taskPriority);
@@ -414,6 +430,8 @@ class FlowBpmnJsIntegrated {
             BpmnJsUtility.JB4DC_Attr_SetJb4dcProcessModelImageClass(elem, props.jb4dc.jb4dcProcessModelImageClass);
             BpmnJsUtility.JB4DC_Attr_SetJb4dcProcessRestartEnable(elem, props.jb4dc.jb4dcProcessRestartEnable);
             BpmnJsUtility.JB4DC_Attr_SetJb4dcProcessAnyJumpEnable(elem, props.jb4dc.jb4dcProcessAnyJumpEnable);
+
+
             //console.log(props.jb4dc1);
         } else if (BpmnJsUtility.Is_UserTask(elem)) {
             //console.log(props.jb4dc.jb4dcActions);
@@ -450,9 +468,13 @@ class FlowBpmnJsIntegrated {
             BpmnJsUtility.CAMUNDA_Attr_SetClass(elem,props.camunda.class);
             BpmnJsUtility.CAMUNDA_Attr_SetType(elem,props.camunda.type);
             BpmnJsUtility.CAMUNDA_Attr_SetTopic(elem,props.camunda.topic);
-        } else {
-
-
+        } else if (BpmnJsUtility.Is_BoundaryEvent(elem)) {
+            console.log(props.bpmn);
+            //切换到xml时cancelActivity属性未设置正确.
+            //BpmnJsUtility.BPMN_Attr_SetCancelActivity(elem,props.bpmn.cancelActivity);
+            BpmnJsUtility.BPMN_SetMessageEventDefinition(elem,props.bpmn.messageEventDefinition);
+            BpmnJsUtility.BPMN_SetSignalEventDefinition(elem,props.bpmn.signalEventDefinition);
+            BpmnJsUtility.BPMN_SetTimerEventDefinition(elem,props.bpmn.timerEventDefinition);
         }
 
         var modeling = this.modeler.get('modeling');

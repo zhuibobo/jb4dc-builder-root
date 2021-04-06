@@ -61,9 +61,12 @@ class BpmnJsUtility {
     static Is_SequenceFlow(element){
         return element.type=="bpmn:SequenceFlow";
     }
+    static Is_BoundaryEvent(element){
+        return element.type=="bpmn:BoundaryEvent";
+    }
     //#endregion
 
-    //#region
+    //#region BPMN
     static BPMN_GetElementDocumentation(element, create) {
         var bo = element.businessObject;
         var docs = bo.get('documentation');
@@ -137,8 +140,19 @@ class BpmnJsUtility {
         this.SetAttr(element,"value",value);
     }
 
+    static BPMN_Attr_GetCancelActivity(element) {
+        var value = this.GetAttr(element, "cancelActivity");
+        return value ? "true" : "false";
+    }
+    static BPMN_Attr_SetCancelActivity(element, value) {
+        //debugger;
+        this.SetAttr(element, "cancelActivity", value == "true" ? true : false);
+        //this.SetAttr(element, "cancelActivity", value);
+    }
+
     static BPMN_GetExtensionElements(element){
         var bo = element.businessObject;
+        //debugger;
         var extensionElements = bo.get('extensionElements');
         if(extensionElements){
             return extensionElements;
@@ -249,9 +263,237 @@ class BpmnJsUtility {
             bo.loopCharacteristics=null;
         }
     }
+
+    static BPMN_SetMessages(element,messageArray){
+        //console.log(messageArray);
+        if(this.Is_Process(element)){
+            var definitionsBo=element.businessObject.$parent;
+            //var definitionsBo=bo.$parent;
+            for (let i = definitionsBo.rootElements.length-1; i >=0; i--) {
+                if (definitionsBo.rootElements[i].$type == "bpmn:Message") {
+                    //console.log(definitionsBo.rootElements[i].name);
+                    ArrayUtility.Delete(definitionsBo.rootElements, i);
+                }
+            }
+            for (let i = 0; i < messageArray.length; i++) {
+                var messageElem = definitionsBo.$model.create('bpmn:Message', {
+                    id: messageArray[i].id,
+                    name: messageArray[i].name,
+                    jb4dcDesc:messageArray[i].jb4dcDesc
+                });
+                definitionsBo.rootElements.push(messageElem);
+            }
+        }
+    }
+    static BPMN_GetMessages(element) {
+        //debugger;
+        //if(this.Is_Process(element)){
+        var messageArray = [];
+        var definitionsBo;
+        if(this.Is_Process(element)){
+            definitionsBo = element.businessObject.$parent;
+        }
+        else{
+            definitionsBo = element.businessObject.$parent.$parent;
+        }
+
+        //var definitionsBo=bo.$parent;
+        for (let i = 0; i < definitionsBo.rootElements.length; i++) {
+            if (definitionsBo.rootElements[i].$type == "bpmn:Message") {
+                messageArray.push({
+                    id: definitionsBo.rootElements[i].id,
+                    name: definitionsBo.rootElements[i].name,
+                    jb4dcDesc: definitionsBo.rootElements[i].jb4dcDesc ? definitionsBo.rootElements[i].jb4dcDesc : ""
+                });
+            }
+        }
+        return messageArray;
+        //}
+        //return []
+    }
+    static BPMN_GetMessageElement(definitionsBo,messageId) {
+        for (let i = 0; i < definitionsBo.rootElements.length; i++) {
+            if (definitionsBo.rootElements[i].$type == "bpmn:Message" && definitionsBo.rootElements[i].id == messageId) {
+                return definitionsBo.rootElements[i];
+            }
+        }
+        return null;
+    }
+
+    static BPMN_SetSignals(element,signalsArray){
+        //console.log(messageArray);
+        if(this.Is_Process(element)){
+            var definitionsBo=element.businessObject.$parent;
+            //var definitionsBo=bo.$parent;
+            for (let i = definitionsBo.rootElements.length-1; i >=0; i--) {
+                if (definitionsBo.rootElements[i].$type == "bpmn:Signal") {
+                    //console.log(definitionsBo.rootElements[i].name);
+                    ArrayUtility.Delete(definitionsBo.rootElements, i);
+                }
+            }
+            for (let i = 0; i < signalsArray.length; i++) {
+                var signalElem = definitionsBo.$model.create('bpmn:Signal', {
+                    id: signalsArray[i].id,
+                    name: signalsArray[i].name,
+                    jb4dcDesc:signalsArray[i].jb4dcDesc
+                });
+                definitionsBo.rootElements.push(signalElem);
+            }
+        }
+    }
+    static BPMN_GetSignals(element) {
+        //if(this.Is_Process(element)){
+        var signalsArray = [];
+        //var definitionsBo=element.businessObject.$parent;
+        var definitionsBo;
+        if (this.Is_Process(element)) {
+            definitionsBo = element.businessObject.$parent;
+        } else {
+            definitionsBo = element.businessObject.$parent.$parent;
+        }
+        //var definitionsBo=bo.$parent;
+        for (let i = definitionsBo.rootElements.length - 1; i >= 0; i--) {
+            if (definitionsBo.rootElements[i].$type == "bpmn:Signal") {
+                signalsArray.push({
+                    id: definitionsBo.rootElements[i].id,
+                    name: definitionsBo.rootElements[i].name,
+                    jb4dcDesc: definitionsBo.rootElements[i].jb4dcDesc ? definitionsBo.rootElements[i].jb4dcDesc : ""
+                });
+            }
+        }
+        return signalsArray;
+        //}
+        //return []
+    }
+    static BPMN_GetSignalElement(definitionsBo,signalId) {
+        for (let i = 0; i < definitionsBo.rootElements.length; i++) {
+            if (definitionsBo.rootElements[i].$type == "bpmn:Signal" && definitionsBo.rootElements[i].id == signalId) {
+                return definitionsBo.rootElements[i];
+            }
+        }
+        return null;
+    }
+
+    static BPMN_SetMessageEventDefinition(element,messageEventDefinition){
+        //debugger;
+        if(messageEventDefinition&&messageEventDefinition.id){
+            var bo = element.businessObject;
+            var messageId=messageEventDefinition.messageRef;
+            var messageEventDefinitionId=messageEventDefinition.id;
+            var definitionsBo = element.businessObject.$parent.$parent;
+            var messageElement=this.BPMN_GetMessageElement(definitionsBo,messageId);
+            //console.log(bo);
+            //if (bo.messageEventDefinition) {
+            //    bo.messageEventDefinition.id = messageEventDefinitionId;
+            //    bo.messageEventDefinition.messageRef = messageElement;
+            //}
+            //else{
+                var eventDefinition = bo.$model.create('bpmn:MessageEventDefinition',{id:messageEventDefinitionId,messageRef:messageElement});
+                bo.eventDefinitions=[eventDefinition];
+            //}
+        }
+    }
+    static BPMN_GetMessageEventDefinition(element){
+        //debugger;
+        var bo = element.businessObject;
+        if(bo.eventDefinitions) {
+            for (let i = 0; i < bo.eventDefinitions.length; i++) {
+                if (bo.eventDefinitions[i].$type == "bpmn:MessageEventDefinition") {
+                    return {
+                        id: bo.eventDefinitions[i].id,
+                        messageRef: bo.eventDefinitions[i].messageRef ? bo.eventDefinitions[i].messageRef.id : ""
+                    }
+                }
+            }
+        }
+        return {
+            id:"",
+            messageRef:""
+        }
+    }
+
+    static BPMN_SetSignalEventDefinition(element,signalEventDefinition){
+        if(signalEventDefinition&&signalEventDefinition.id){
+            var bo = element.businessObject;
+            var signalId=signalEventDefinition.signalRef;
+            var signalEventDefinitionId=signalEventDefinition.id;
+            var definitionsBo = element.businessObject.$parent.$parent;
+            var signalElement=this.BPMN_GetSignalElement(definitionsBo,signalId);
+            var eventDefinition = bo.$model.create('bpmn:SignalEventDefinition',{id:signalEventDefinitionId,signalRef:signalElement});
+            bo.eventDefinitions=[eventDefinition];
+        }
+    }
+    static BPMN_GetSignalEventDefinition(element){
+        //debugger;
+        var bo = element.businessObject;
+        if(bo.eventDefinitions) {
+            for (let i = 0; i < bo.eventDefinitions.length; i++) {
+                if (bo.eventDefinitions[i].$type == "bpmn:SignalEventDefinition") {
+                    return {
+                        id: bo.eventDefinitions[i].id,
+                        signalRef: bo.eventDefinitions[i].signalRef ? bo.eventDefinitions[i].signalRef.id : ""
+                    }
+                }
+            }
+        }
+        return {
+            id:"",
+            signalRef:""
+        }
+    }
+
+    static BPMN_SetTimerEventDefinition(element,timerEventDefinition){
+        //debugger;
+        if(timerEventDefinition&&timerEventDefinition.id) {
+            var bo = element.businessObject;
+            var eventDefinition = bo.$model.create('bpmn:TimerEventDefinition', {id: timerEventDefinition.id});
+            var formalExpression = bo.$model.create('bpmn:FormalExpression', {body: timerEventDefinition.value});
+            if(timerEventDefinition.type=="timeDate") {
+                eventDefinition.timeDate=formalExpression;
+            }
+            else if(timerEventDefinition.type=="timeDuration") {
+                eventDefinition.timeDuration=formalExpression;
+            }
+            else if(timerEventDefinition.type=="timeCycle") {
+                eventDefinition.timeCycle=formalExpression;
+            }
+            bo.eventDefinitions=[eventDefinition];
+        }
+    }
+    static BPMN_GetTimerEventDefinition(element){
+        var bo = element.businessObject;
+        if(bo.eventDefinitions) {
+            for (let i = 0; i < bo.eventDefinitions.length; i++) {
+                if (bo.eventDefinitions[i].$type == "bpmn:TimerEventDefinition") {
+                    var innType = "";
+                    var innValue="";
+                    if (bo.eventDefinitions[i].timeDate) {
+                        innType="timeDate";
+                        innValue=bo.eventDefinitions[i].timeDate.body;
+                    } else if (bo.eventDefinitions[i].timeDuration) {
+                        innType="timeDuration";
+                        innValue=bo.eventDefinitions[i].timeDuration.body;
+                    } else if (bo.eventDefinitions[i].timeCycle) {
+                        innType="timeCycle";
+                        innValue=bo.eventDefinitions[i].timeCycle.body;
+                    }
+                    return {
+                        type: innType,
+                        id: bo.eventDefinitions[i].id,
+                        value: innValue
+                    }
+                }
+            }
+        }
+        return {
+            type:"",
+            id:"",
+            value:""
+        }
+    }
     //#endregion
 
-    //#region
+    //#region CAMUNDA
     static CAMUNDA_Attr_GetTaskPriority(element){
         return this.GetAttr(element,"taskPriority");
     }
@@ -587,7 +829,7 @@ class BpmnJsUtility {
 
     //#endregion
 
-    //#region
+    //#region JB4DC
     static JB4DC_Attr_GetJb4dcFlowCategory(element){
         return this.GetAttr(element,"jb4dcFlowCategory");
     }
