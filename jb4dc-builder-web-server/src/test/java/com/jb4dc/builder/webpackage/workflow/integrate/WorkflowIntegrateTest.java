@@ -1099,6 +1099,67 @@ public class WorkflowIntegrateTest extends RestTestBase {
     }
 
     @Test
+    public void startEndForSignalM1() throws FileNotFoundException, JBuild4DCGenerallyException, InterruptedException {
+        CamundaIntegrate.setProcessEngine(processEngine);
+        ProcessEngine processEngine = CamundaIntegrate.getProcessEngine();
+        ((ProcessEngineConfigurationImpl) processEngine.getProcessEngineConfiguration()).getBeans();
+        InputStream is = new FileInputStream("D:\\JavaProject\\JavaTestProject\\CamundaProject714_20\\src\\main\\resources\\bpmn\\P004_002_发文流程_2021_V2_StartEnd_G1_1.bpmn");
+
+        RepositoryService repositoryService = processEngine.getRepositoryService();
+        repositoryService.createDeployment().name("P004Test-NAME").source("P004Test-Source").tenantId("P004Test-TenantId").addInputStream(".bpmn", is).deploy();
+
+        is = new FileInputStream("D:\\JavaProject\\JavaTestProject\\CamundaProject714_20\\src\\main\\resources\\bpmn\\P004_002_发文流程_2021_V2_StartEnd_G1_2.bpmn");
+        repositoryService.createDeployment().name("P004Test-NAME").source("P004Test-Source").tenantId("P004Test-TenantId").addInputStream(".bpmn", is).deploy();
+
+        deleteAllProcessInstance(processEngine.getRuntimeService());
+
+        RuntimeService runtimeService = processEngine.getRuntimeService();
+
+        Map<String,Object> vars=new HashMap<>();
+        vars.put("Creater","User001");
+        runtimeService.startProcessInstanceByKey("StartEnd_G1_1", "P004_003_M8_1_Buss",vars);
+
+        TaskService taskService = processEngine.getTaskService();
+
+        TaskQuery taskQuery = taskService.createTaskQuery().taskAssignee("User001");
+        Task task = taskQuery.singleResult();
+        taskService.complete(task.getId());
+
+        taskQuery = taskService.createTaskQuery().taskAssignee("user1");
+        task = taskQuery.singleResult();
+        taskService.complete(task.getId());
+    }
+
+    @Test
+    public void startEndForSignalM2() throws FileNotFoundException, JBuild4DCGenerallyException, InterruptedException {
+        CamundaIntegrate.setProcessEngine(processEngine);
+        ProcessEngine processEngine = CamundaIntegrate.getProcessEngine();
+        ((ProcessEngineConfigurationImpl) processEngine.getProcessEngineConfiguration()).getBeans();
+        InputStream is = new FileInputStream("D:\\JavaProject\\JavaTestProject\\CamundaProject714_20\\src\\main\\resources\\bpmn\\P004_002_发文流程_2021_V2_StartEnd_G2_1.bpmn");
+
+        RepositoryService repositoryService = processEngine.getRepositoryService();
+        repositoryService.createDeployment().name("P004Test-NAME").source("P004Test-Source").tenantId("P004Test-TenantId").addInputStream(".bpmn", is).deploy();
+
+        deleteAllProcessInstance(processEngine.getRuntimeService());
+
+        RuntimeService runtimeService = processEngine.getRuntimeService();
+
+        Map<String,Object> vars=new HashMap<>();
+        vars.put("Creater","User001");
+        runtimeService.startProcessInstanceByKey("StartEnd_G2_1", "P004_003_M8_1_Buss",vars);
+
+        TaskService taskService = processEngine.getTaskService();
+
+        TaskQuery taskQuery = taskService.createTaskQuery().taskAssignee("User001");
+        Task task = taskQuery.singleResult();
+        taskService.complete(task.getId());
+
+        taskQuery = taskService.createTaskQuery().taskAssignee("user1");
+        task = taskQuery.singleResult();
+        taskService.complete(task.getId());
+    }
+
+    @Test
     public void startForCallActivityM1() throws FileNotFoundException, JBuild4DCGenerallyException, InterruptedException {
         CamundaIntegrate.setProcessEngine(processEngine);
         ProcessEngine processEngine = CamundaIntegrate.getProcessEngine();

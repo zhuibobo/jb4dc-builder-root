@@ -36,4 +36,8 @@
     <select id="selectByText" resultMap="BaseResultMap">
         select<include refid="Base_Column_List"/> from TBUILD_API_ITEM where API_ITEM_TEXT=#{apiItemText}
     </select>
+
+    <select id="selectByGroupTypeALL" resultMap="BaseResultMap">
+        select<include refid="Base_Column_List"/> from TBUILD_API_ITEM join TBUILD_API_GROUP on TBUILD_API_ITEM.API_ITEM_GROUP_ID=TBUILD_API_GROUP.API_GROUP_ID where TBUILD_API_GROUP.API_GROUP_TYPE=#{groupType}
+    </select>
 </mapper>

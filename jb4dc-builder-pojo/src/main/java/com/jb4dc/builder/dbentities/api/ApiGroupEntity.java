@@ -7,12 +7,12 @@ import java.util.Date;
 /**
  *
  * This class was generated JBuild4DC.
- * This class corresponds to the database table :TBUILD_API_GROUP
+ * This class corresponds to the database table :tbuild_api_group
  *
  * JBuild4DC do_not_delete_during_merge
  */
 public class ApiGroupEntity {
-    //API_GROUP_ID:主键:UUID
+    //API_GROUP_ID:
     @DBKeyField
     private String apiGroupId;
 
@@ -56,9 +56,12 @@ public class ApiGroupEntity {
     //API_GROUP_ORGAN_NAME:组织名称
     private String apiGroupOrganName;
 
+    //API_GROUP_TYPE:API分组类型:构建按钮API,工作流动作API,...
+    private String apiGroupType;
+
     /**
      * 构造函数
-     * @param apiGroupId 主键
+     * @param apiGroupId
      * @param apiGroupValue 分组值
      * @param apiGroupText 分组名称
      * @param apiGroupOrderNum 排序号
@@ -72,8 +75,9 @@ public class ApiGroupEntity {
      * @param apiGroupChildCount 子节点数量
      * @param apiGroupOrganId 组织ID
      * @param apiGroupOrganName 组织名称
+     * @param apiGroupType API分组类型
      **/
-    public ApiGroupEntity(String apiGroupId, String apiGroupValue, String apiGroupText, Integer apiGroupOrderNum, Date apiGroupCreateTime, String apiGroupDesc, String apiGroupStatus, String apiGroupParentId, String apiGroupIsSystem, String apiGroupDelEnable, String apiGroupPidList, Integer apiGroupChildCount, String apiGroupOrganId, String apiGroupOrganName) {
+    public ApiGroupEntity(String apiGroupId, String apiGroupValue, String apiGroupText, Integer apiGroupOrderNum, Date apiGroupCreateTime, String apiGroupDesc, String apiGroupStatus, String apiGroupParentId, String apiGroupIsSystem, String apiGroupDelEnable, String apiGroupPidList, Integer apiGroupChildCount, String apiGroupOrganId, String apiGroupOrganName, String apiGroupType) {
         this.apiGroupId = apiGroupId;
         this.apiGroupValue = apiGroupValue;
         this.apiGroupText = apiGroupText;
@@ -88,6 +92,7 @@ public class ApiGroupEntity {
         this.apiGroupChildCount = apiGroupChildCount;
         this.apiGroupOrganId = apiGroupOrganId;
         this.apiGroupOrganName = apiGroupOrganName;
+        this.apiGroupType = apiGroupType;
     }
 
     public ApiGroupEntity() {
@@ -95,7 +100,7 @@ public class ApiGroupEntity {
     }
 
     /**
-     * 主键:UUID
+     *
      * @return java.lang.String
      **/
     public String getApiGroupId() {
@@ -103,8 +108,8 @@ public class ApiGroupEntity {
     }
 
     /**
-     * 主键:UUID
-     * @param apiGroupId 主键
+     *
+     * @param apiGroupId
      **/
     public void setApiGroupId(String apiGroupId) {
         this.apiGroupId = apiGroupId == null ? null : apiGroupId.trim();
@@ -316,5 +321,21 @@ public class ApiGroupEntity {
      **/
     public void setApiGroupOrganName(String apiGroupOrganName) {
         this.apiGroupOrganName = apiGroupOrganName == null ? null : apiGroupOrganName.trim();
+    }
+
+    /**
+     * API分组类型:构建按钮API,工作流动作API,...
+     * @return java.lang.String
+     **/
+    public String getApiGroupType() {
+        return apiGroupType;
+    }
+
+    /**
+     * API分组类型:构建按钮API,工作流动作API,...
+     * @param apiGroupType API分组类型
+     **/
+    public void setApiGroupType(String apiGroupType) {
+        this.apiGroupType = apiGroupType == null ? null : apiGroupType.trim();
     }
 }

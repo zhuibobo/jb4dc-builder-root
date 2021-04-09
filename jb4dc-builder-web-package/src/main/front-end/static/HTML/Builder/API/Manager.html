@@ -164,16 +164,19 @@
                 pageTotal: 0,
                 pageSize: 12,
                 pageNum: 1,
-                listHeight: ListPageUtility.DefaultListHeight_50()
+                listHeight: ListPageUtility.DefaultListHeight_50(),
+                groupType:BaseUtility.GetUrlParaValue("GroupType")
             },
             methods:{
-                <!--Tree-->
+                <!--Tree1-->
                 initTree:function () {
                     //this.treeSetting.async.url = BaseUtility.BuildAction(this.acInterface.getGroupTreeData, {});
                     //this.treeObj=$.fn.zTree.init($("#zTreeUL"), this.treeSetting);
 
                     var _self=this;
-                    AjaxUtility.Post(this.acInterface.getGroupTreeData, {}, function (result) {
+                    AjaxUtility.Post(this.acInterface.getGroupTreeData, {
+                        groupType:this.groupType
+                    }, function (result) {
                         console.log(result);
                         if(result.success){
                             if(result.data!=null&&result.data.length>0){

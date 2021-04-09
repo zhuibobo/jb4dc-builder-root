@@ -742,6 +742,12 @@
         </createTable>
     </changeSet>
 
+    <changeSet author="zhuangrb" id="changeSet-Builder-Api-002" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
+        <addColumn tableName="TBUILD_API_GROUP">
+            <column name="API_GROUP_TYPE" type="NVARCHAR(100)" remarks="API分组类型:构建按钮API,工作流动作API,..."></column>
+        </addColumn>
+    </changeSet>
+
     <!--系统设置-->
     <changeSet author="zhuangrb" id="changeSet-System-0001" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
         <createTable tableName="TSYS_DICTIONARY_GROUP" remarks="数据字典的分组表:本身存在层级结构">

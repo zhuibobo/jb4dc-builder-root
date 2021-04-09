@@ -97,22 +97,22 @@ export default {
         //console.log(this.jb4dc.jb4dcActions);
         if (this.bpmn.messageEventDefinition && this.bpmn.messageEventDefinition.id && this.bpmn.cancelActivity == "true") {
             this.innerEventType = "boundary-event-message";
-            this.innerEventTypeName = "消息边界事件(中断)";
+            this.innerEventTypeName = "消息事件(中断)";
         } else if (this.bpmn.messageEventDefinition && this.bpmn.messageEventDefinition.id && this.bpmn.cancelActivity == "false") {
             this.innerEventType = "boundary-event-message-non-interrupting";
-            this.innerEventTypeName = "消息边界事件(非中断)";
+            this.innerEventTypeName = "消息事件(非中断)";
         } else if (this.bpmn.timerEventDefinition && this.bpmn.timerEventDefinition.id && this.bpmn.cancelActivity == "true") {
             this.innerEventType = "boundary-event-time";
-            this.innerEventTypeName = "时间边界事件(中断)";
+            this.innerEventTypeName = "时间事件(中断)";
         } else if (this.bpmn.timerEventDefinition && this.bpmn.timerEventDefinition.id && this.bpmn.cancelActivity == "false") {
             this.innerEventType = "boundary-event-time-non-interrupting";
-            this.innerEventTypeName = "时间边界事件(非中断)";
+            this.innerEventTypeName = "时间事件(非中断)";
         } else if (this.bpmn.signalEventDefinition && this.bpmn.signalEventDefinition.id && this.bpmn.cancelActivity == "true") {
             this.innerEventType = "boundary-event-signal";
-            this.innerEventTypeName = "信号边界事件(中断)";
+            this.innerEventTypeName = "信号事件(中断)";
         } else if (this.bpmn.signalEventDefinition && this.bpmn.signalEventDefinition.id && this.bpmn.cancelActivity == "false") {
             this.innerEventType = "boundary-event-signal-non-interrupting";
-            this.innerEventTypeName = "信号边界事件(非中断)";
+            this.innerEventTypeName = "信号事件(非中断)";
         }
     },
     methods:{

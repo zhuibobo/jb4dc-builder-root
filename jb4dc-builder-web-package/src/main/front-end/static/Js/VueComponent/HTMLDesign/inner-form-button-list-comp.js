@@ -396,11 +396,13 @@ Vue.component("inner-form-button-list-comp", {
         },
         //endregion
 
-        //region api列表
+        //region api列表1
         bindAPITreeAndInitEditTable: function (oldData) {
             //var _self = this;
             if(!this.api.apiData) {
-                AjaxUtility.Post(this.api.acInterface.getAPIData, {}, function (result) {
+                AjaxUtility.Post(this.api.acInterface.getAPIData, {
+                    groupType:"API_GROUP_BUILDER_BUTTON_ROOT"
+                }, function (result) {
                     if (result.success) {
                         this.api.apiData = result.data;
                         if (result.data != null && result.data.length > 0) {
@@ -432,7 +434,8 @@ Vue.component("inner-form-button-list-comp", {
         getApiConfigAndBindToTable:function(){
             return;
             var _self=this;
-            AjaxUtility.Post(this.api.acInterface.getButtonApiConfig,{},function (result) {
+            AjaxUtility.Post(this.api.acInterface.getButtonApiConfig,{
+            },function (result) {
                 //console.log(result);
                 //var apiSelectData
                 var apiSelectData=[];

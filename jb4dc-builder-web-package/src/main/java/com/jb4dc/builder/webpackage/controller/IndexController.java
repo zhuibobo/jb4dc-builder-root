@@ -1,5 +1,6 @@
 package com.jb4dc.builder.webpackage.controller;
 
+import com.jb4dc.core.base.tools.DateUtility;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -13,6 +14,6 @@ import java.io.IOException;
 public class IndexController {
     @RequestMapping(value = "/Index", method = RequestMethod.GET)
     public void index(HttpServletRequest req, HttpServletResponse res) throws IOException {
-        res.sendRedirect("../HTML/FrameV2/FrameView.html");
+        res.sendRedirect("../HTML/FrameV2/FrameView.html?ts="+DateUtility.getTimestampString());
     }
 }

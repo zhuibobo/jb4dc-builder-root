@@ -174,7 +174,15 @@
     <bpmn:sequenceFlow id="SequenceFlow_01ecvn6" sourceRef="Task_0l7j5un" targetRef="Task_0j813kr" />
     <bpmn:sequenceFlow id="SequenceFlow_09wp0cp" sourceRef="Task_1vgelep" targetRef="Task_0j813kr" />
     <bpmn:sequenceFlow id="SequenceFlow_0nz1xle" sourceRef="Task_0onj95s" targetRef="Task_0j813kr" />
-    <bpmn:userTask id="Task_021j3de" name="相关负责人">
+    <bpmn:userTask id="Task_021j3de" name="相关负责人" camunda:assignee="Task_021j3de_Assignee_User">
+      <bpmn:documentation />
+      <bpmn:extensionElements>
+        <jb4dc:jb4dcActions>
+          <jb4dc:jb4dcAction actionType="send" actionCode="action_973662442" actionCaption="确认" actionShowOpinionDialog="false" actionRunSqls="[{&#34;runSqlId&#34;:&#34;runSql_973668739&#34;,&#34;runSqlValue&#34;:&#34;4444444555555555555566666666666666&#34;,&#34;runSqlText&#34;:&#34;4444444555555555555566666666666666&#34;}]" actionUpdateFields="[]" actionCallApis="[]" actionExecuteVariables="[]" actionConfirm="false" actionValidate="无" actionMainReceiveObjects="[]" actionCCReceiveObjects="[]" actionAutoSend="false" actionCallComplete="true" />
+        </jb4dc:jb4dcActions>
+        <jb4dc:jb4dcMainReceiveObjects />
+        <jb4dc:jb4dcCCReceiveObjects />
+      </bpmn:extensionElements>
       <bpmn:incoming>SequenceFlow_10r3erf
       </bpmn:incoming>
       <bpmn:incoming>SequenceFlow_0iu63ha

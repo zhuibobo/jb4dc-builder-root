@@ -306,6 +306,9 @@ public class TableGroupServiceImpl extends BaseServiceImpl<TableGroupEntity> imp
         tableService.registerSystemTableToBuilderToModule(jb4DCSession,"TSYS_OPERATION_LOG",tableGroupEntity);
         tableService.registerSystemTableToBuilderToModule(jb4DCSession,"TSYS_SETTING",tableGroupEntity);
         tableService.registerSystemTableToBuilderToModule(jb4DCSession,"TSYS_HISTORY_DATA",tableGroupEntity);
+
+        tableService.registerSystemTableToBuilderToModule(jb4DCSession,"TBUILD_API_GROUP",tableGroupEntity);
+        tableService.registerSystemTableToBuilderToModule(jb4DCSession,"TBUILD_API_ITEM",tableGroupEntity);
     }
 
     private void initQCSystemTableToBuilderSystem(JB4DCSession jb4DCSession) throws JBuild4DCGenerallyException {

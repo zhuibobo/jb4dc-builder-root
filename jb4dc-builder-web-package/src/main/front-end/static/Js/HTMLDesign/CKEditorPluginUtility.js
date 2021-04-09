@@ -112,6 +112,7 @@ class CKEditorPluginUtility {
     }
 
     static RegGeneralPluginToEditor(ckEditor, path, pluginSetting, okFunc) {
+        console.log(pluginSetting);
         CKEDITOR.dialog.addIframe(
             pluginSetting.DialogName,
             pluginSetting.DialogSettingTitle,

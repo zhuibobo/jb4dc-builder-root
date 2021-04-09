@@ -252,26 +252,33 @@ class FlowBpmnJsIntegrated {
         var elementType = element.type;
         var componentName = "";
         var title = "";
-        if (elementType == "bpmn:SequenceFlow") {
+        if (BpmnJsUtility.Is_SequenceFlow(element)) {
             componentName = "sequenceFlowProperties";
             title = "连线设置";
-        } else if (elementType == "bpmn:UserTask") {
+        } else if (BpmnJsUtility.Is_UserTask(element)) {
             componentName = "userTaskProperties";
             title = "用户环节设置";
-        } else if (elementType == "bpmn:Process") {
+        } else if (BpmnJsUtility.Is_Process(element)) {
             componentName = "processProperties";
             title = "流程设置";
-        } else if (elementType == "bpmn:ServiceTask") {
+        } else if (BpmnJsUtility.Is_ServiceTask(element)) {
             componentName = "serviceTaskProperties";
             title = "服务环节设置";
-        }
-        else if (elementType == "bpmn:BoundaryEvent") {
+        } else if (BpmnJsUtility.Is_BoundaryEvent(element)) {
             componentName = "boundaryEventProperties";
             title = "边界事件设置";
-        }
-        else if (elementType == "bpmn:IntermediateThrowEvent") {
+        } else if (BpmnJsUtility.Is_IntermediateThrowEvent(element)) {
             componentName = "intermediateThrowEventProperties";
             title = "中间抛出事件设置";
+        } else if (BpmnJsUtility.Is_IntermediateCatchEvent(element)) {
+            componentName = "intermediateCatchEventProperties";
+            title = "中间捕获事件设置";
+        } else if(BpmnJsUtility.Is_StartEvent(element)){
+            componentName = "startEventProperties";
+            title = "开始事件设置";
+        } else if(BpmnJsUtility.Is_EndEvent(element)){
+            componentName = "endEventProperties";
+            title = "结束事件设置";
         }
         //console.log(event);
         //console.log(element);
@@ -469,9 +476,25 @@ class FlowBpmnJsIntegrated {
             BpmnJsUtility.CAMUNDA_Attr_SetType(elem,props.camunda.type);
             BpmnJsUtility.CAMUNDA_Attr_SetTopic(elem,props.camunda.topic);
         } else if (BpmnJsUtility.Is_BoundaryEvent(elem)) {
-            console.log(props.bpmn);
+            //console.log(props.bpmn);
             //切换到xml时cancelActivity属性未设置正确.
             //BpmnJsUtility.BPMN_Attr_SetCancelActivity(elem,props.bpmn.cancelActivity);
+            BpmnJsUtility.BPMN_SetMessageEventDefinition(elem,props.bpmn.messageEventDefinition);
+            BpmnJsUtility.BPMN_SetSignalEventDefinition(elem,props.bpmn.signalEventDefinition);
+            BpmnJsUtility.BPMN_SetTimerEventDefinition(elem,props.bpmn.timerEventDefinition);
+        } else if(BpmnJsUtility.Is_IntermediateThrowEvent(elem)) {
+            BpmnJsUtility.BPMN_SetMessageEventDefinition(elem,props.bpmn.messageEventDefinition);
+            BpmnJsUtility.BPMN_SetSignalEventDefinition(elem,props.bpmn.signalEventDefinition);
+            BpmnJsUtility.BPMN_SetTimerEventDefinition(elem,props.bpmn.timerEventDefinition);
+        } else if(BpmnJsUtility.Is_IntermediateCatchEvent(elem)) {
+            BpmnJsUtility.BPMN_SetMessageEventDefinition(elem,props.bpmn.messageEventDefinition);
+            BpmnJsUtility.BPMN_SetSignalEventDefinition(elem,props.bpmn.signalEventDefinition);
+            BpmnJsUtility.BPMN_SetTimerEventDefinition(elem,props.bpmn.timerEventDefinition);
+        } else if(BpmnJsUtility.Is_StartEvent(elem)) {
+            BpmnJsUtility.BPMN_SetMessageEventDefinition(elem,props.bpmn.messageEventDefinition);
+            BpmnJsUtility.BPMN_SetSignalEventDefinition(elem,props.bpmn.signalEventDefinition);
+            BpmnJsUtility.BPMN_SetTimerEventDefinition(elem,props.bpmn.timerEventDefinition);
+        } else if(BpmnJsUtility.Is_EndEvent(elem)) {
             BpmnJsUtility.BPMN_SetMessageEventDefinition(elem,props.bpmn.messageEventDefinition);
             BpmnJsUtility.BPMN_SetSignalEventDefinition(elem,props.bpmn.signalEventDefinition);
             BpmnJsUtility.BPMN_SetTimerEventDefinition(elem,props.bpmn.timerEventDefinition);

@@ -43,7 +43,7 @@ public class APIItemRest  extends GeneralRest<ApiItemEntity> {
     }
 
     @RequestMapping(value = "/GetAPISForZTreeNodeList", method = RequestMethod.POST)
-    public JBuild4DCResponseVo getAPISForZTreeNodeList(){
+    public JBuild4DCResponseVo getAPISForZTreeNodeList(String groupType){
         try {
             JBuild4DCResponseVo responseVo=new JBuild4DCResponseVo();
             responseVo.setSuccess(true);
@@ -51,8 +51,9 @@ public class APIItemRest  extends GeneralRest<ApiItemEntity> {
 
             JB4DCSession jb4DCSession= JB4DCSessionUtility.getSession();
 
-            List<ApiGroupEntity> apiGroupEntityList=apiGroupService.getALL(jb4DCSession);
-            List<ApiItemEntity> apiItemEntityList=apiItemService.getALL(jb4DCSession);
+            //List<ApiGroupEntity> apiGroupEntityList=apiGroupService.getALL(jb4DCSession);
+            List<ApiGroupEntity> apiGroupEntityList=apiGroupService.getByGroupTypeASC(groupType,jb4DCSession);
+            List<ApiItemEntity> apiItemEntityList=apiItemService.getByGroupTypeALL(groupType,jb4DCSession);
 
             responseVo.setData(ZTreeNodePOConvert.parseApiToZTreeNodeList(apiGroupEntityList,apiItemEntityList));
 

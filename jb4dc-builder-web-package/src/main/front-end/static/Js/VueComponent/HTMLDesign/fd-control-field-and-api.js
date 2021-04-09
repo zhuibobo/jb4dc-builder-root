@@ -225,7 +225,9 @@ Vue.component("fd-control-field-and-api", {
             //var _self = this;
             //debugger;
             if (!this.api.apiData) {
-                AjaxUtility.Post(this.api.acInterface.getAPIData, {}, function (result) {
+                AjaxUtility.Post(this.api.acInterface.getAPIData, {
+                    groupType:"API_GROUP_BUILDER_BUTTON_ROOT"
+                }, function (result) {
                     if (result.success) {
                         this.api.apiData = result.data;
                         if (result.data != null && result.data.length > 0) {

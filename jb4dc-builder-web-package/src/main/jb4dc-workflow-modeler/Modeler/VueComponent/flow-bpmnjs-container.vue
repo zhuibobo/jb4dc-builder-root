@@ -48,6 +48,9 @@
     import serviceTaskProperties from "./Properties/service-task-properties.vue";
     import boundaryEventProperties from "./Properties/boundary-event-properties.vue";
     import intermediateThrowEventProperties from "./Properties/intermediate-throw-event-properties.vue";
+    import intermediateCatchEventProperties from "./Properties/intermediate-catch-event-properties.vue";
+    import startEventProperties from "./Properties/start-event-properties.vue";
+    import endEventProperties from "./Properties/start-event-properties.vue";
     import sequenceFlowProperties from "./Properties/sequence-flow-properties.vue";
     import processProperties from "./Properties/process-properties.vue";
     import emptyProperties from "./Properties/empty-properties.vue";
@@ -62,7 +65,10 @@
             processProperties,
             serviceTaskProperties,
             boundaryEventProperties,
-            intermediateThrowEventProperties
+            intermediateThrowEventProperties,
+            intermediateCatchEventProperties,
+            startEventProperties,
+            endEventProperties
         },
         data () {
             return {

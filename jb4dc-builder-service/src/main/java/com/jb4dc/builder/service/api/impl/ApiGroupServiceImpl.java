@@ -11,6 +11,7 @@ import com.jb4dc.core.base.session.JB4DCSession;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.
@@ -55,6 +56,8 @@ public class ApiGroupServiceImpl extends BaseServiceImpl<ApiGroupEntity> impleme
                 parentIdList = parentEntity.getApiGroupPidList();
                 parentEntity.setApiGroupChildCount(parentEntity.getApiGroupChildCount() + 1);
                 apiGroupMapper.updateByPrimaryKeySelective(parentEntity);
+
+                sourceEntity.setApiGroupType(parentEntity.getApiGroupType());
             }
             sourceEntity.setApiGroupPidList(parentIdList + "*" + sourceEntity.getApiGroupId());
             return sourceEntity;
@@ -69,18 +72,30 @@ public class ApiGroupServiceImpl extends BaseServiceImpl<ApiGroupEntity> impleme
 
     public static String API_GROUP_GLOBAL="API_GROUP_GLOBAL";
 
+    public static String API_GROUP_BUILDER_BUTTON_ROOT="API_GROUP_BUILDER_BUTTON_ROOT";
+    public static String API_GROUP_WORKFLOW_ACTION_ROOT="API_GROUP_WORKFLOW_ACTION_ROOT";
+
     @Override
     public void initSystemData(JB4DCSession jb4DCSession) throws JBuild4DCGenerallyException {
-        ApiGroupEntity rootGroupEntity=create(jb4DCSession,rootId,rootParentId,"API分组","API分组");
+        ApiGroupEntity rootGroupEntity=create(jb4DCSession,rootId,rootParentId,"API根分组","API根分组","0");
 
-        ApiGroupEntity generalGroupEntity=create(jb4DCSession,API_GROUP_GLOBAL,rootGroupEntity.getApiGroupId(),"通用API分组","通用API分组");
+        ApiGroupEntity builderButtonApiRootGroupEntity=create(jb4DCSession,API_GROUP_BUILDER_BUTTON_ROOT,rootGroupEntity.getApiGroupId(),"构建按钮API分组","构建按钮API分组","API_GROUP_BUILDER_BUTTON_ROOT");
 
-        ApiGroupEntity businessGroupEntity=create(jb4DCSession,"API_GROUP_BUSINESS",rootGroupEntity.getApiGroupId(),"业务系统分组","业务系统分组");
+        ApiGroupEntity generalGroupEntity=create(jb4DCSession,API_GROUP_GLOBAL,builderButtonApiRootGroupEntity.getApiGroupId(),"通用API分组","通用API分组","API_GROUP_BUILDER_BUTTON_ROOT");
 
-        ApiGroupEntity mockDevGroupEntity=create(jb4DCSession,"ENV_GROUP_BUSINESS_MOCK_DEV",businessGroupEntity.getApiGroupId(),"开发模拟系统","开发模拟系统");
+        ApiGroupEntity businessGroupEntity=create(jb4DCSession,"API_GROUP_BUSINESS",builderButtonApiRootGroupEntity.getApiGroupId(),"业务系统分组","业务系统分组","API_GROUP_BUILDER_BUTTON_ROOT");
+
+        ApiGroupEntity mockDevGroupEntity=create(jb4DCSession,"ENV_GROUP_BUSINESS_MOCK_DEV",builderButtonApiRootGroupEntity.getApiGroupId(),"开发模拟系统","开发模拟系统","API_GROUP_BUILDER_BUTTON_ROOT");
+
+        ApiGroupEntity workFlowApiRootGroupEntity=create(jb4DCSession,API_GROUP_WORKFLOW_ACTION_ROOT,rootGroupEntity.getApiGroupId(),"工作流动作API分组","工作流动作API分组","API_GROUP_WORKFLOW_ACTION_ROOT");
     }
 
-    private ApiGroupEntity create(JB4DCSession jb4DCSession,String groupId,String parentId,String text,String value) throws JBuild4DCGenerallyException {
+    @Override
+    public List<ApiGroupEntity> getByGroupTypeASC(String groupType, JB4DCSession session) {
+        return apiGroupMapper.selectByGroupTypeASC(groupType);
+    }
+
+    private ApiGroupEntity create(JB4DCSession jb4DCSession,String groupId,String parentId,String text,String value,String type) throws JBuild4DCGenerallyException {
         ApiGroupEntity rootEntity=new ApiGroupEntity();
         rootEntity.setApiGroupId(groupId);
         rootEntity.setApiGroupParentId(parentId);
@@ -89,6 +104,7 @@ public class ApiGroupServiceImpl extends BaseServiceImpl<ApiGroupEntity> impleme
         rootEntity.setApiGroupText(text);
         rootEntity.setApiGroupValue(value);
         rootEntity.setApiGroupStatus(EnableTypeEnum.enable.getDisplayName());
+        rootEntity.setApiGroupType(type);
         this.saveSimple(jb4DCSession,rootEntity.getApiGroupId(),rootEntity);
         return rootEntity;
     }

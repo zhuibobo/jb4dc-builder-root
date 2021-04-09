@@ -4,6 +4,8 @@ import com.jb4dc.base.dbaccess.dao.BaseMapper;
 import com.jb4dc.builder.dbentities.api.ApiGroupEntity;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.List;
+
 /**
  * Created with IntelliJ IDEA.
  * User: zhuangrb
@@ -12,4 +14,6 @@ import org.apache.ibatis.annotations.Param;
  */
 public interface ApiGroupMapper extends BaseMapper<ApiGroupEntity> {
     ApiGroupEntity selectByValue(@Param("apiGroupValue") String apiGroupValue);
+
+    List<ApiGroupEntity> selectByGroupTypeASC(@Param("groupType") String groupType);
 }

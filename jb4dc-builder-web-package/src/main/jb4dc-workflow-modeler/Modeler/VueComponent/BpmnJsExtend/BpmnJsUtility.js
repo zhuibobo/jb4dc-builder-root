@@ -64,6 +64,42 @@ class BpmnJsUtility {
     static Is_BoundaryEvent(element){
         return element.type=="bpmn:BoundaryEvent";
     }
+    static Is_IntermediateThrowEvent(element){
+        return element.type=="bpmn:IntermediateThrowEvent";
+    }
+    static Is_IntermediateCatchEvent(element){
+        return element.type=="bpmn:IntermediateCatchEvent";
+    }
+    static Is_StartEvent(element){
+        return element.type=="bpmn:StartEvent";
+    }
+    static Is_StartEvent_For_Message(element){
+        if(element.type=="bpmn:StartEvent"&&element.businessObject.eventDefinitions&&element.businessObject.eventDefinitions[0].$type=="bpmn:MessageEventDefinition"){
+            return true;
+        }
+        return false;
+    }
+    static Is_StartEvent_For_Signal(element){
+        if(element.type=="bpmn:StartEvent"&&element.businessObject.eventDefinitions&&element.businessObject.eventDefinitions[0].$type=="bpmn:SignalEventDefinition"){
+            return true;
+        }
+        return false;
+    }
+    static Is_StartEvent_For_Timer(element){
+        if(element.type=="bpmn:StartEvent"&&element.businessObject.eventDefinitions&&element.businessObject.eventDefinitions[0].$type=="bpmn:TimerEventDefinition"){
+            return true;
+        }
+        return false;
+    }
+    static Is_EndEvent(element){
+        return element.type=="bpmn:EndEvent";
+    }
+    static Is_EndEvent_For_Signal(element){
+        if(element.type=="bpmn:EndEvent"&&element.businessObject.eventDefinitions&&element.businessObject.eventDefinitions[0].$type=="bpmn:SignalEventDefinition"){
+            return true;
+        }
+        return false;
+    }
     //#endregion
 
     //#region BPMN
@@ -376,20 +412,24 @@ class BpmnJsUtility {
 
     static BPMN_SetMessageEventDefinition(element,messageEventDefinition){
         //debugger;
-        if(messageEventDefinition&&messageEventDefinition.id){
+        if(messageEventDefinition&&messageEventDefinition.id) {
             var bo = element.businessObject;
-            var messageId=messageEventDefinition.messageRef;
-            var messageEventDefinitionId=messageEventDefinition.id;
+            var messageId = messageEventDefinition.messageRef;
+            var messageEventDefinitionId = messageEventDefinition.id;
             var definitionsBo = element.businessObject.$parent.$parent;
-            var messageElement=this.BPMN_GetMessageElement(definitionsBo,messageId);
+            var messageElement = this.BPMN_GetMessageElement(definitionsBo, messageId);
             //console.log(bo);
             //if (bo.messageEventDefinition) {
             //    bo.messageEventDefinition.id = messageEventDefinitionId;
             //    bo.messageEventDefinition.messageRef = messageElement;
             //}
             //else{
-                var eventDefinition = bo.$model.create('bpmn:MessageEventDefinition',{id:messageEventDefinitionId,messageRef:messageElement});
-                bo.eventDefinitions=[eventDefinition];
+            var eventDefinition = bo.$model.create('bpmn:MessageEventDefinition', {
+                id: messageEventDefinitionId,
+                messageRef: messageElement,
+                class: StringUtility.IsNotNullOrEmpty(messageEventDefinition.class)?messageEventDefinition.class:null
+            });
+            bo.eventDefinitions = [eventDefinition];
             //}
         }
     }
@@ -401,14 +441,16 @@ class BpmnJsUtility {
                 if (bo.eventDefinitions[i].$type == "bpmn:MessageEventDefinition") {
                     return {
                         id: bo.eventDefinitions[i].id,
-                        messageRef: bo.eventDefinitions[i].messageRef ? bo.eventDefinitions[i].messageRef.id : ""
+                        messageRef: bo.eventDefinitions[i].messageRef ? bo.eventDefinitions[i].messageRef.id : "",
+                        class: bo.eventDefinitions[i].class ? bo.eventDefinitions[i].class : "",
                     }
                 }
             }
         }
         return {
             id:"",
-            messageRef:""
+            messageRef:"",
+            class:""
         }
     }
 

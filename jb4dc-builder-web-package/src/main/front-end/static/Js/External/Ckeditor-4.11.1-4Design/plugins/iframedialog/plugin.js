@@ -25,11 +25,17 @@ CKEDITOR.plugins.add( 'iframedialog', {
 		 * @param {Object} [userDefinition] Additional properties for the dialog definition.
 		 */
 		CKEDITOR.dialog.addIframe = function( name, title, src, minWidth, minHeight, onContentLoad, userDefinition ) {
-			var element = {
+			/*var element = {
 				type: 'iframe',
 				src: src,
 				width: '100%',
 				height: '100%'
+			};*/
+			var element = {
+				type: 'iframe',
+				src: src,
+				width: '100%',
+				height: (minHeight-8)+"px"
 			};
 
 			if ( typeof onContentLoad == 'function' )

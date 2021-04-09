@@ -3,50 +3,52 @@
 <mapper namespace="com.jb4dc.builder.dao.api.ApiGroupMapper">
     <resultMap id="BaseResultMap" type="com.jb4dc.builder.dbentities.api.ApiGroupEntity">
         <constructor>
-            <idArg column="API_GROUP_ID" javaType="java.lang.String" jdbcType="NVARCHAR" />
-            <arg column="API_GROUP_VALUE" javaType="java.lang.String" jdbcType="NVARCHAR" />
-            <arg column="API__GROUP_TEXT" javaType="java.lang.String" jdbcType="NVARCHAR" />
+            <idArg column="API_GROUP_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="API_GROUP_VALUE" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="API__GROUP_TEXT" javaType="java.lang.String" jdbcType="VARCHAR" />
             <arg column="API_GROUP_ORDER_NUM" javaType="java.lang.Integer" jdbcType="INTEGER" />
             <arg column="API_GROUP_CREATE_TIME" javaType="java.util.Date" jdbcType="TIMESTAMP" />
-            <arg column="API_GROUP_DESC" javaType="java.lang.String" jdbcType="NVARCHAR" />
-            <arg column="API_GROUP_STATUS" javaType="java.lang.String" jdbcType="NVARCHAR" />
-            <arg column="API_GROUP_PARENT_ID" javaType="java.lang.String" jdbcType="NVARCHAR" />
-            <arg column="API_GROUP_IS_SYSTEM" javaType="java.lang.String" jdbcType="NVARCHAR" />
-            <arg column="API_GROUP_DEL_ENABLE" javaType="java.lang.String" jdbcType="NVARCHAR" />
-            <arg column="API_GROUP_PID_LIST" javaType="java.lang.String" jdbcType="NVARCHAR" />
+            <arg column="API_GROUP_DESC" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="API_GROUP_STATUS" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="API_GROUP_PARENT_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="API_GROUP_IS_SYSTEM" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="API_GROUP_DEL_ENABLE" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="API_GROUP_PID_LIST" javaType="java.lang.String" jdbcType="VARCHAR" />
             <arg column="API_GROUP_CHILD_COUNT" javaType="java.lang.Integer" jdbcType="INTEGER" />
-            <arg column="API_GROUP_ORGAN_ID" javaType="java.lang.String" jdbcType="NVARCHAR" />
-            <arg column="API_GROUP_ORGAN_NAME" javaType="java.lang.String" jdbcType="NVARCHAR" />
+            <arg column="API_GROUP_ORGAN_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="API_GROUP_ORGAN_NAME" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="API_GROUP_TYPE" javaType="java.lang.String" jdbcType="VARCHAR" />
         </constructor>
     </resultMap>
     <sql id="Base_Column_List">
     API_GROUP_ID, API_GROUP_VALUE, API__GROUP_TEXT, API_GROUP_ORDER_NUM, API_GROUP_CREATE_TIME,
     API_GROUP_DESC, API_GROUP_STATUS, API_GROUP_PARENT_ID, API_GROUP_IS_SYSTEM, API_GROUP_DEL_ENABLE,
-    API_GROUP_PID_LIST, API_GROUP_CHILD_COUNT, API_GROUP_ORGAN_ID, API_GROUP_ORGAN_NAME
+    API_GROUP_PID_LIST, API_GROUP_CHILD_COUNT, API_GROUP_ORGAN_ID, API_GROUP_ORGAN_NAME,
+    API_GROUP_TYPE
   </sql>
     <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List" />
         from TBUILD_API_GROUP
-        where API_GROUP_ID = #{apiGroupId,jdbcType=NVARCHAR}
+        where API_GROUP_ID = #{apiGroupId,jdbcType=VARCHAR}
     </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
     delete from TBUILD_API_GROUP
-    where API_GROUP_ID = #{apiGroupId,jdbcType=NVARCHAR}
+    where API_GROUP_ID = #{apiGroupId,jdbcType=VARCHAR}
   </delete>
     <insert id="insert" parameterType="com.jb4dc.builder.dbentities.api.ApiGroupEntity">
     insert into TBUILD_API_GROUP (API_GROUP_ID, API_GROUP_VALUE, API__GROUP_TEXT,
       API_GROUP_ORDER_NUM, API_GROUP_CREATE_TIME,
       API_GROUP_DESC, API_GROUP_STATUS, API_GROUP_PARENT_ID,
-      API_GROUP_IS_SYSTEM, API_GROUP_DEL_ENABLE,
-      API_GROUP_PID_LIST, API_GROUP_CHILD_COUNT, API_GROUP_ORGAN_ID,
-      API_GROUP_ORGAN_NAME)
-    values (#{apiGroupId,jdbcType=NVARCHAR}, #{apiGroupValue,jdbcType=NVARCHAR}, #{apiGroupText,jdbcType=NVARCHAR},
+      API_GROUP_IS_SYSTEM, API_GROUP_DEL_ENABLE, API_GROUP_PID_LIST,
+      API_GROUP_CHILD_COUNT, API_GROUP_ORGAN_ID, API_GROUP_ORGAN_NAME,
+      API_GROUP_TYPE)
+    values (#{apiGroupId,jdbcType=VARCHAR}, #{apiGroupValue,jdbcType=VARCHAR}, #{apiGroupText,jdbcType=VARCHAR},
       #{apiGroupOrderNum,jdbcType=INTEGER}, #{apiGroupCreateTime,jdbcType=TIMESTAMP},
-      #{apiGroupDesc,jdbcType=NVARCHAR}, #{apiGroupStatus,jdbcType=NVARCHAR}, #{apiGroupParentId,jdbcType=NVARCHAR},
-      #{apiGroupIsSystem,jdbcType=NVARCHAR}, #{apiGroupDelEnable,jdbcType=NVARCHAR},
-      #{apiGroupPidList,jdbcType=NVARCHAR}, #{apiGroupChildCount,jdbcType=INTEGER}, #{apiGroupOrganId,jdbcType=NVARCHAR},
-      #{apiGroupOrganName,jdbcType=NVARCHAR})
+      #{apiGroupDesc,jdbcType=VARCHAR}, #{apiGroupStatus,jdbcType=VARCHAR}, #{apiGroupParentId,jdbcType=VARCHAR},
+      #{apiGroupIsSystem,jdbcType=VARCHAR}, #{apiGroupDelEnable,jdbcType=VARCHAR}, #{apiGroupPidList,jdbcType=VARCHAR},
+      #{apiGroupChildCount,jdbcType=INTEGER}, #{apiGroupOrganId,jdbcType=VARCHAR}, #{apiGroupOrganName,jdbcType=VARCHAR},
+      #{apiGroupType,jdbcType=VARCHAR})
   </insert>
     <insert id="insertSelective" parameterType="com.jb4dc.builder.dbentities.api.ApiGroupEntity">
         insert into TBUILD_API_GROUP
@@ -93,16 +95,19 @@
             <if test="apiGroupOrganName != null">
                 API_GROUP_ORGAN_NAME,
             </if>
+            <if test="apiGroupType != null">
+                API_GROUP_TYPE,
+            </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="apiGroupId != null">
-                #{apiGroupId,jdbcType=NVARCHAR},
+                #{apiGroupId,jdbcType=VARCHAR},
             </if>
             <if test="apiGroupValue != null">
-                #{apiGroupValue,jdbcType=NVARCHAR},
+                #{apiGroupValue,jdbcType=VARCHAR},
             </if>
             <if test="apiGroupText != null">
-                #{apiGroupText,jdbcType=NVARCHAR},
+                #{apiGroupText,jdbcType=VARCHAR},
             </if>
             <if test="apiGroupOrderNum != null">
                 #{apiGroupOrderNum,jdbcType=INTEGER},
@@ -111,31 +116,34 @@
                 #{apiGroupCreateTime,jdbcType=TIMESTAMP},
             </if>
             <if test="apiGroupDesc != null">
-                #{apiGroupDesc,jdbcType=NVARCHAR},
+                #{apiGroupDesc,jdbcType=VARCHAR},
             </if>
             <if test="apiGroupStatus != null">
-                #{apiGroupStatus,jdbcType=NVARCHAR},
+                #{apiGroupStatus,jdbcType=VARCHAR},
             </if>
             <if test="apiGroupParentId != null">
-                #{apiGroupParentId,jdbcType=NVARCHAR},
+                #{apiGroupParentId,jdbcType=VARCHAR},
             </if>
             <if test="apiGroupIsSystem != null">
-                #{apiGroupIsSystem,jdbcType=NVARCHAR},
+                #{apiGroupIsSystem,jdbcType=VARCHAR},
             </if>
             <if test="apiGroupDelEnable != null">
-                #{apiGroupDelEnable,jdbcType=NVARCHAR},
+                #{apiGroupDelEnable,jdbcType=VARCHAR},
             </if>
             <if test="apiGroupPidList != null">
-                #{apiGroupPidList,jdbcType=NVARCHAR},
+                #{apiGroupPidList,jdbcType=VARCHAR},
             </if>
             <if test="apiGroupChildCount != null">
                 #{apiGroupChildCount,jdbcType=INTEGER},
             </if>
             <if test="apiGroupOrganId != null">
-                #{apiGroupOrganId,jdbcType=NVARCHAR},
+                #{apiGroupOrganId,jdbcType=VARCHAR},
             </if>
             <if test="apiGroupOrganName != null">
-                #{apiGroupOrganName,jdbcType=NVARCHAR},
+                #{apiGroupOrganName,jdbcType=VARCHAR},
+            </if>
+            <if test="apiGroupType != null">
+                #{apiGroupType,jdbcType=VARCHAR},
             </if>
         </trim>
     </insert>
@@ -143,10 +151,10 @@
         update TBUILD_API_GROUP
         <set>
             <if test="apiGroupValue != null">
-                API_GROUP_VALUE = #{apiGroupValue,jdbcType=NVARCHAR},
+                API_GROUP_VALUE = #{apiGroupValue,jdbcType=VARCHAR},
             </if>
             <if test="apiGroupText != null">
-                API__GROUP_TEXT = #{apiGroupText,jdbcType=NVARCHAR},
+                API__GROUP_TEXT = #{apiGroupText,jdbcType=VARCHAR},
             </if>
             <if test="apiGroupOrderNum != null">
                 API_GROUP_ORDER_NUM = #{apiGroupOrderNum,jdbcType=INTEGER},
@@ -155,50 +163,54 @@
                 API_GROUP_CREATE_TIME = #{apiGroupCreateTime,jdbcType=TIMESTAMP},
             </if>
             <if test="apiGroupDesc != null">
-                API_GROUP_DESC = #{apiGroupDesc,jdbcType=NVARCHAR},
+                API_GROUP_DESC = #{apiGroupDesc,jdbcType=VARCHAR},
             </if>
             <if test="apiGroupStatus != null">
-                API_GROUP_STATUS = #{apiGroupStatus,jdbcType=NVARCHAR},
+                API_GROUP_STATUS = #{apiGroupStatus,jdbcType=VARCHAR},
             </if>
             <if test="apiGroupParentId != null">
-                API_GROUP_PARENT_ID = #{apiGroupParentId,jdbcType=NVARCHAR},
+                API_GROUP_PARENT_ID = #{apiGroupParentId,jdbcType=VARCHAR},
             </if>
             <if test="apiGroupIsSystem != null">
-                API_GROUP_IS_SYSTEM = #{apiGroupIsSystem,jdbcType=NVARCHAR},
+                API_GROUP_IS_SYSTEM = #{apiGroupIsSystem,jdbcType=VARCHAR},
             </if>
             <if test="apiGroupDelEnable != null">
-                API_GROUP_DEL_ENABLE = #{apiGroupDelEnable,jdbcType=NVARCHAR},
+                API_GROUP_DEL_ENABLE = #{apiGroupDelEnable,jdbcType=VARCHAR},
             </if>
             <if test="apiGroupPidList != null">
-                API_GROUP_PID_LIST = #{apiGroupPidList,jdbcType=NVARCHAR},
+                API_GROUP_PID_LIST = #{apiGroupPidList,jdbcType=VARCHAR},
             </if>
             <if test="apiGroupChildCount != null">
                 API_GROUP_CHILD_COUNT = #{apiGroupChildCount,jdbcType=INTEGER},
             </if>
             <if test="apiGroupOrganId != null">
-                API_GROUP_ORGAN_ID = #{apiGroupOrganId,jdbcType=NVARCHAR},
+                API_GROUP_ORGAN_ID = #{apiGroupOrganId,jdbcType=VARCHAR},
             </if>
             <if test="apiGroupOrganName != null">
-                API_GROUP_ORGAN_NAME = #{apiGroupOrganName,jdbcType=NVARCHAR},
+                API_GROUP_ORGAN_NAME = #{apiGroupOrganName,jdbcType=VARCHAR},
+            </if>
+            <if test="apiGroupType != null">
+                API_GROUP_TYPE = #{apiGroupType,jdbcType=VARCHAR},
             </if>
         </set>
-        where API_GROUP_ID = #{apiGroupId,jdbcType=NVARCHAR}
+        where API_GROUP_ID = #{apiGroupId,jdbcType=VARCHAR}
     </update>
     <update id="updateByPrimaryKey" parameterType="com.jb4dc.builder.dbentities.api.ApiGroupEntity">
     update TBUILD_API_GROUP
-    set API_GROUP_VALUE = #{apiGroupValue,jdbcType=NVARCHAR},
-      API__GROUP_TEXT = #{apiGroupText,jdbcType=NVARCHAR},
+    set API_GROUP_VALUE = #{apiGroupValue,jdbcType=VARCHAR},
+      API__GROUP_TEXT = #{apiGroupText,jdbcType=VARCHAR},
       API_GROUP_ORDER_NUM = #{apiGroupOrderNum,jdbcType=INTEGER},
       API_GROUP_CREATE_TIME = #{apiGroupCreateTime,jdbcType=TIMESTAMP},
-      API_GROUP_DESC = #{apiGroupDesc,jdbcType=NVARCHAR},
-      API_GROUP_STATUS = #{apiGroupStatus,jdbcType=NVARCHAR},
-      API_GROUP_PARENT_ID = #{apiGroupParentId,jdbcType=NVARCHAR},
-      API_GROUP_IS_SYSTEM = #{apiGroupIsSystem,jdbcType=NVARCHAR},
-      API_GROUP_DEL_ENABLE = #{apiGroupDelEnable,jdbcType=NVARCHAR},
-      API_GROUP_PID_LIST = #{apiGroupPidList,jdbcType=NVARCHAR},
+      API_GROUP_DESC = #{apiGroupDesc,jdbcType=VARCHAR},
+      API_GROUP_STATUS = #{apiGroupStatus,jdbcType=VARCHAR},
+      API_GROUP_PARENT_ID = #{apiGroupParentId,jdbcType=VARCHAR},
+      API_GROUP_IS_SYSTEM = #{apiGroupIsSystem,jdbcType=VARCHAR},
+      API_GROUP_DEL_ENABLE = #{apiGroupDelEnable,jdbcType=VARCHAR},
+      API_GROUP_PID_LIST = #{apiGroupPidList,jdbcType=VARCHAR},
       API_GROUP_CHILD_COUNT = #{apiGroupChildCount,jdbcType=INTEGER},
-      API_GROUP_ORGAN_ID = #{apiGroupOrganId,jdbcType=NVARCHAR},
-      API_GROUP_ORGAN_NAME = #{apiGroupOrganName,jdbcType=NVARCHAR}
-    where API_GROUP_ID = #{apiGroupId,jdbcType=NVARCHAR}
+      API_GROUP_ORGAN_ID = #{apiGroupOrganId,jdbcType=VARCHAR},
+      API_GROUP_ORGAN_NAME = #{apiGroupOrganName,jdbcType=VARCHAR},
+      API_GROUP_TYPE = #{apiGroupType,jdbcType=VARCHAR}
+    where API_GROUP_ID = #{apiGroupId,jdbcType=VARCHAR}
   </update>
 </mapper>

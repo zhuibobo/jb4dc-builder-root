@@ -1,4 +1,4 @@
-package com.jb4dc.builder.webpackage.rest.builder.workflow;
+package com.jb4dc.builder.webpackage.rest.workflow;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.jb4dc.base.service.IBaseService;

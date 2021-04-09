@@ -95,7 +95,23 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td>输入意见<br />绑定到字段：</td>
+                                    <td>直送收件人：</td>
+                                    <td>
+                                        <radio-group type="button" style="margin: auto" v-model="actionInnerDetailInfo.actionAutoSend">
+                                            <radio label="true">是</radio>
+                                            <radio label="false">否</radio>
+                                        </radio-group>
+                                    </td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="4">
+                                        输入意见绑定到
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>绑定到字段：</td>
                                     <td>
                                         <i-select v-model="actionInnerDetailInfo.actionsOpinionBindToField">
                                             <Option v-for="item in actionBindToEnableFields" :value="item.fieldName" :key="item.fieldName">【{{ item.fieldCaption }}】{{ item.fieldName }}</Option>
@@ -109,40 +125,36 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td>直送收件人：</td>
                                     <td>
-                                        <radio-group type="button" style="margin: auto" v-model="actionInnerDetailInfo.actionAutoSend">
+                                        发送消息：
+                                    </td>
+                                    <td>
+                                        <Select v-model="actionInnerDetailInfo.actionSendMessageId">
+                                            <Option v-for="item in bpmn.messages" :value="item.id" :key="item.id">[{{item.id}}]{{item.name}}</Option>
+                                        </Select>
+                                    </td>
+                                    <td>
+                                        发送信号：
+                                    </td>
+                                    <td>
+                                        <Select v-model="actionInnerDetailInfo.actionSendSignalId">
+                                            <Option v-for="item in bpmn.signals" :value="item.id" :key="item.id">[{{item.id}}]{{item.name}}</Option>
+                                        </Select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        完成本环节：
+                                    </td>
+                                    <td>
+                                        <radio-group type="button" style="margin: auto" v-model="actionInnerDetailInfo.actionCallComplete">
                                             <radio label="true">是</radio>
                                             <radio label="false">否</radio>
                                         </radio-group>
                                     </td>
-                                    <td></td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td>执行变量：</td>
-                                    <td colspan="3" style="background-color: #ffffff">
-                                        <div class="wf-list-button-outer-wrap" style="margin-top: 0px">
-                                            <div class="list-button-inner-wrap">
-                                                <button-group>
-                                                    <i-button type="success" @click="showAddActionExecuteVariableDialog(null)" icon="md-add"> </i-button>
-                                                    <i-button type="primary" icon="md-arrow-up" disabled>  </i-button>
-                                                    <i-button type="primary" icon="md-arrow-down" disabled>  </i-button>
-                                                </button-group>
-                                            </div>
-                                            <div style="clear: both"></div>
-                                        </div>
-                                        <i-table border :columns="addedActionExecuteVariableTableConfig" :data="addedActionExecuteVariableTableData"
-                                                 class="iv-list-table" size="small" no-data-text="添加执行变量,可以通过执行变量控制流程走向!" height="160">
-                                            <template slot-scope="{ row, index }" slot="action">
-                                                <div class="wf-list-font-icon-button-class" @click="deleteActionExecuteVariable(index,row)">
-                                                    <Icon type="md-close" />
-                                                </div>
-                                                <div class="wf-list-font-icon-button-class" @click="editActionExecuteVariable(index,row)">
-                                                    <Icon type="md-settings" />
-                                                </div>
-                                            </template>
-                                        </i-table>
+                                    <td>
+                                    </td>
+                                    <td>
                                     </td>
                                 </tr>
                             </tbody>
@@ -175,7 +187,45 @@
                             </tbody>
                         </table>
                     </tab-pane>
-                    <tab-pane tab="add-action-properties-inner-dialog-tabs" label="数据更新设置">
+                    <tab-pane tab="add-action-properties-inner-dialog-tabs" label="执行sql">
+                        <table class="properties-dialog-table-wraper" cellpadding="0" cellspacing="0" border="0">
+                            <colgroup>
+                                <col style="width: 12%" />
+                                <col style="width: 38%" />
+                                <col style="width: 12%" />
+                                <col style="width: 32%" />
+                                <col style="width: 6%" />
+                            </colgroup>
+                            <tbody>
+                            <tr>
+                                <td colspan="5" style="line-height: 23px">
+                                    添加执行sql：
+                                    <div style="float: right;">
+                                        <button-group>
+                                            <i-button size="small" type="success" icon="md-add" @click="addRunSql"></i-button>
+                                        </button-group>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="5" style="background-color: #ffffff">
+                                    <i-table border :columns="runSql.addedSqlConfig" :data="actionInnerDetailInfo.actionRunSqls"
+                                             class="iv-list-table" size="small" no-data-text="add listeners" height="450">
+                                        <template slot-scope="{ row, index }" slot="action">
+                                            <div class="wf-list-font-icon-button-class" @click="removeRunSql(index,row)">
+                                                <Icon type="md-close" />
+                                            </div>
+                                            <div class="wf-list-font-icon-button-class" @click="editRunSql(index,row)">
+                                                <Icon type="md-settings" />
+                                            </div>
+                                        </template>
+                                    </i-table>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </tab-pane>
+                    <tab-pane tab="add-action-properties-inner-dialog-tabs" label="数据更新">
                         <table class="properties-dialog-table-wraper" cellpadding="0" cellspacing="0" border="0">
                             <colgroup>
                                 <col style="width: 12%" />
@@ -204,7 +254,7 @@
                             </tbody>
                         </table>
                     </tab-pane>
-                    <tab-pane tab="add-action-properties-inner-dialog-tabs" label="JS/API设置">
+                    <tab-pane tab="add-action-properties-inner-dialog-tabs" label="JS/API">
                         <table class="properties-dialog-table-wraper" cellpadding="0" cellspacing="0" border="0">
                             <colgroup>
                                 <col style="width: 12%" />
@@ -223,20 +273,41 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td colspan="5" style="line-height: 23px">
+                                <td colspan="5" style="line-height: 23px;background: #ffffff">
                                     调用API：
-                                    <div style="float: right;">
-                                        <button-group>
-                                            <i-button size="small" type="success" icon="md-add" @click="addAPI"></i-button>
-                                            <i-button size="small" type="primary" icon="md-close" @click="removeAPI"></i-button>
-                                        </button-group>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td colspan="5" style="background-color: #ffffff">
-
-                                    <div id="actionDialogAPISContainer" class="edit-table-wrap" style="height: 174px;overflow: auto;width: 98%;margin: auto"></div>
+                                    <table cellpadding="0" cellspacing="0" border="0" style="width: 100%">
+                                        <colgroup>
+                                            <col style="width: 360px" />
+                                            <col style="width: 60px" />
+                                            <col />
+                                        </colgroup>
+                                        <tbody>
+                                        <tr>
+                                            <td style="background: #ffffff">
+                                                <div style="margin-right: 4px">
+                                                    <i-input search class="input_border_bottom" ref="txt_search_api_text" placeholder="请输入API名称"></i-input>
+                                                    <ul id="apiZTreeUL" class="ztree" style="height: 254px;overflow: auto"></ul>
+                                                </div>
+                                            </td>
+                                            <td style="text-align: center;background-color: #f8f8f8">
+                                                <button-group vertical>
+                                                    <i-button size="small" type="success" icon="md-add" @click="addAPI"></i-button>
+                                                    <i-button size="small" type="primary" icon="ios-trash" @click="clearAPI"></i-button>
+                                                </button-group>
+                                            </td>
+                                            <td style="background: #ffffff;" valign="top">
+                                                <i-table border :columns="api.selectedApiConfig" :data="actionInnerDetailInfo.actionCallApis"
+                                                         class="iv-list-table" size="small" no-data-text="add listeners" height="294">
+                                                    <template slot-scope="{ row, index }" slot="action">
+                                                        <div class="wf-list-font-icon-button-class" @click="removeAPI(index,row)">
+                                                            <Icon type="md-close" />
+                                                        </div>
+                                                    </template>
+                                                </i-table>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
                                 </td>
                             </tr>
                             </tbody>
@@ -247,6 +318,43 @@
                     </tab-pane>
                     <tab-pane tab="add-action-properties-inner-dialog-tabs" label="抄送人员">
                         <jb4dcCCReceiveObjectProperties ref="jb4dcCCReceiveObjectProperties" :prop-receive-objects-data="receiver.actionCCReceiveObjects"></jb4dcCCReceiveObjectProperties>
+                    </tab-pane>
+                    <tab-pane tab="add-action-properties-inner-dialog-tabs" label="执行变量">
+                        <table class="properties-dialog-table-wraper" cellpadding="0" cellspacing="0" border="0">
+                            <colgroup>
+                                <col style="width: 14%" />
+                                <col style="width: 40%" />
+                                <col style="width: 12%" />
+                                <col style="width: 34%" />
+                            </colgroup>
+                            <tbody>
+                                <tr>
+                                    <td colspan="4" style="background-color: #ffffff">
+                                        <div class="wf-list-button-outer-wrap" style="margin-top: 0px">
+                                            <div class="list-button-inner-wrap">
+                                                <button-group>
+                                                    <i-button type="success" @click="showAddActionExecuteVariableDialog(null)" icon="md-add"> </i-button>
+                                                    <i-button type="primary" icon="md-arrow-up" disabled>  </i-button>
+                                                    <i-button type="primary" icon="md-arrow-down" disabled>  </i-button>
+                                                </button-group>
+                                            </div>
+                                            <div style="clear: both"></div>
+                                        </div>
+                                        <i-table border :columns="addedActionExecuteVariableTableConfig" :data="addedActionExecuteVariableTableData"
+                                                 class="iv-list-table" size="small" no-data-text="添加执行变量,可以通过执行变量控制流程走向!" height="450">
+                                            <template slot-scope="{ row, index }" slot="action">
+                                                <div class="wf-list-font-icon-button-class" @click="deleteActionExecuteVariable(index,row)">
+                                                    <Icon type="md-close" />
+                                                </div>
+                                                <div class="wf-list-font-icon-button-class" @click="editActionExecuteVariable(index,row)">
+                                                    <Icon type="md-settings" />
+                                                </div>
+                                            </template>
+                                        </i-table>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </tab-pane>
                     <tab-pane tab="add-action-properties-inner-dialog-tabs" label="备注">
                         <table class="properties-dialog-table-wraper" cellpadding="0" cellspacing="0" border="0">
@@ -316,15 +424,17 @@
             </div>
         </div>
         <contextVarJuelEditDialog ref="contextVarJuelEditDialog"></contextVarJuelEditDialog>
+        <sqlEditDialog ref="sqlEditDialog"></sqlEditDialog>
         <selectDefaultValueDialog ref="selectDefaultValueDialog"></selectDefaultValueDialog>
     </div>
 </template>
 
 <script>
     import contextVarJuelEditDialog from "../Dialog/context-var-juel-edit-dialog.vue";
+    import sqlEditDialog from "../Dialog/sql-edit-dialog.vue";
     import selectDefaultValueDialog from "../Dialog/select-default-value-dialog.vue";
     import { FlowBpmnJsIntegrated } from '../../BpmnJsExtend/FlowBpmnJsIntegrated.js';
-    import {RemoteUtility} from '../../../Remote/RemoteUtility';
+    import { RemoteUtility } from '../../../Remote/RemoteUtility';
     import { PODefinition } from "../../BpmnJsExtend/PODefinition.js"
     import jb4dcMainReceiveObjectProperties from "./jb4dc-receive-object-properties.vue";
     import jb4dcCCReceiveObjectProperties from "./jb4dc-receive-object-properties.vue";
@@ -335,11 +445,12 @@
         name: "jb4dc-actions-properties",
         components: {
             contextVarJuelEditDialog,
+            sqlEditDialog,
             selectDefaultValueDialog,
             jb4dcMainReceiveObjectProperties,
             jb4dcCCReceiveObjectProperties
         },
-        props:["propActionData","propFromId","propJb4dcGeneralData"],
+        props:["propActionData","propFromId","propJb4dcGeneralData","propBpmnGeneralData"],
         watch: {
             /*actionOpinionBindToField: function (newVal) {
                 // 必须是input
@@ -378,26 +489,70 @@
                     }
                 },
                 api:{
-                    editTableObject:null,
-                    editTableConfig:{
-                        Status: "Edit",
-                        AddAfterRowEvent: null,
-                        DataField: "fieldName",
-                        Templates: [
-                            {
-                                Title: "调用API",
-                                BindName: "apiValue",
-                                Renderer: "EditTable_Select",
-                                ClientDataSource: [{"Text": "测试1", "Value": "test1"}, {"Text": "测试2", "Value": "test2"}],
-                            }
-                        ],
-                        RowIdCreater: function () {
+                    apiTreeObj: null,
+                    apiTreeSetting: {
+                        view: {
+                            dblClickExpand: false,//双击节点时，是否自动展开父节点的标识
+                            showLine: true,//是否显示节点之间的连线
+                            fontCss: {'color': 'black', 'font-weight': 'normal'}
                         },
-                        TableClass: "edit-table",
-                        RendererTo: "actionDialogAPISContainer",
-                        TableId: "apiContainerTable",
-                        TableAttrs: {cellpadding: "1", cellspacing: "1", border: "1"}
-                    }
+                        check: {
+                            enable: false,
+                            nocheckInherit: false,
+                            chkStyle: "radio",
+                            radioType: "all"
+                        },
+                        data: {
+                            key: {
+                                name: "text"
+                            },
+                            simpleData: {//简单数据模式
+                                enable: true,
+                                idKey: "id",
+                                pIdKey: "parentId",
+                                rootPId: "-1"// 1
+                            }
+                        },
+                        callback: {
+                            //点击树节点事件
+                            onClick: function (event, treeId, treeNode) {
+                                var _self=this.getZTreeObj(treeId)._host;
+                                //if (treeNode.nodeTypeName == "DataSet") {
+                                _self.api.apiTreeSelectData = treeNode;
+                                //}
+                            }
+                        }
+                    },
+                    apiTreeSelectData:null,
+                    apiData: null,
+                    selectedApiConfig:[
+                        {
+                            title: '名称',
+                            key: 'apiName',
+                            align: "left"
+                        },
+                        {
+                            title: '操作',
+                            slot: 'action',
+                            width: 120,
+                            align: "center"
+                        }
+                    ]
+                },
+                runSql:{
+                    addedSqlConfig:[
+                        {
+                            title: 'sql语句',
+                            key: 'runSqlValue',
+                            align: "left"
+                        },
+                        {
+                            title: '操作',
+                            slot: 'action',
+                            width: 120,
+                            align: "center"
+                        }
+                    ]
                 },
                 //动作内部使用详情属性
                 actionInnerDetailInfo:PODefinition.GetJB4DCActionPO(),
@@ -445,8 +600,10 @@
                     jb4dcActionsOpinionBindToField:"",
                     jb4dcActionsOpinionBindToElemId:""
                 },
-                formId:"",
+                bpmn:{
 
+                },
+                formId:"",
                 //执行变量内部使用详情属性
                 executeVariableInnerDetailInfo:PODefinition.GetJB4DCActionExecuteVariablePO(),
                 addedActionExecuteVariableTableConfig:[
@@ -485,6 +642,7 @@
         },
         mounted(){
             this.jb4dc=this.propJb4dcGeneralData;
+            this.bpmn=this.propBpmnGeneralData;
             this.addedActionData = this.propActionData;
             //this.actionOpinionBindToField=this.propActionsOpinionBindToField;
             //this.actionOpinionBindToElemId=this.propActionsOpinionBindToElemId;
@@ -496,37 +654,38 @@
             this.initAddActionDialog();
             this.initAddActionExecuteVariableDialog();
             this.initActionBindToEnableFields();
+            this.bindAPITreeAndInitEditTable();
         },
         beforeDestroy(){
             //console.log("beforeDestroy");
             $("#actionDialogFieldContainer").remove();
             $("#actionDialogAPISContainer").remove();
         },
-        methods:{
-            beginSelectDefaultValue(){
+        methods: {
+            beginSelectDefaultValue() {
                 //console.log(this.propFromId);
                 //var _self=this;
-                this.$refs.selectDefaultValueDialog.beginSelectDefaultValue("设置默认值","",function(result){
+                this.$refs.selectDefaultValueDialog.beginSelectDefaultValue("设置默认值", "", function (result) {
                     //console.log(result);
                     EditTable_SelectDefaultValue.SetSelectEnvVariableResultValue(result);
                 });
             },
-            beginEditContextJuelForActionDisplayCondition(){
+            beginEditContextJuelForActionDisplayCondition() {
                 //console.log(this.propFromId);
-                var _self=this;
-                var formId=flowBpmnJsIntegrated.TryGetFormId(this.propFromId);
-                this.$refs.contextVarJuelEditDialog.beginEditContextJuel("编辑显示条件",this.actionInnerDetailInfo.actionDisplayConditionEditText,formId,function(result){
-                    _self.actionInnerDetailInfo.actionDisplayConditionEditText=result.editText;
-                    _self.actionInnerDetailInfo.actionDisplayConditionEditValue=result.editValue;
+                var _self = this;
+                var formId = flowBpmnJsIntegrated.TryGetFormId(this.propFromId);
+                this.$refs.contextVarJuelEditDialog.beginEditContextJuel("编辑显示条件", this.actionInnerDetailInfo.actionDisplayConditionEditText, formId, function (result) {
+                    _self.actionInnerDetailInfo.actionDisplayConditionEditText = result.editText;
+                    _self.actionInnerDetailInfo.actionDisplayConditionEditValue = result.editValue;
                 });
             },
-            initAddActionDialog(){
-                var _self=this;
-                DialogUtility.DialogElemObj(_self.$refs.addActionDialog,{
-                    title:"新增动作",
-                    width:850,
-                    height:660,
-                    modal:true,
+            initAddActionDialog() {
+                var _self = this;
+                DialogUtility.DialogElemObj(_self.$refs.addActionDialog, {
+                    title: "新增动作",
+                    width: 850,
+                    height: 660,
+                    modal: true,
                     buttons: {
                         "确认": function () {
                             _self.completeEditAction();
@@ -536,17 +695,16 @@
                             DialogUtility.CloseDialogElem(_self.$refs.addActionDialog);
                         }
                     }
-                },null,{},this);
+                }, null, {}, this);
                 $(this.$refs.addActionDialog).dialog("close");
             },
-            showAddActionDialog(oldInnerDetailInfo){
-                if(!oldInnerDetailInfo){
-                    this.actionInnerDetailInfo=PODefinition.GetJB4DCActionPO();
+            showAddActionDialog(oldInnerDetailInfo) {
+                if (!oldInnerDetailInfo) {
+                    this.actionInnerDetailInfo = PODefinition.GetJB4DCActionPO();
                     //this.actionInnerDetailInfo.actionMainReceiveObjects=[1];
                     //this.actionInnerDetailInfo.actionCCReceiveObjects=[2];
-                }
-                else{
-                    this.actionInnerDetailInfo=oldInnerDetailInfo;
+                } else {
+                    this.actionInnerDetailInfo = oldInnerDetailInfo;
                     //this.actionInnerDetailInfo.actionMainReceiveObjects=oldInnerDetailInfo.actionMainReceiveObjects;
                     //this.actionInnerDetailInfo.actionCCReceiveObjects=oldInnerDetailInfo.actionCCReceiveObjects;
                 }
@@ -555,86 +713,83 @@
                 //$(this.$refs.addActionDialog).dialog("option", "title", dialogTitle );
                 console.log(this.actionInnerDetailInfo);
                 this.bindEditTable_TableFields(this.actionInnerDetailInfo.actionUpdateFields);
-                this.bindEditTable_APIs(this.actionInnerDetailInfo.actionCallApis);
-                this.addedActionExecuteVariableTableData=this.actionInnerDetailInfo.actionExecuteVariables;
+                //this.bindEditTable_APIs(this.actionInnerDetailInfo.actionCallApis);
+                this.addedActionExecuteVariableTableData = this.actionInnerDetailInfo.actionExecuteVariables;
 
                 this.$refs.jb4dcMainReceiveObjectProperties.setReceiveObjectTableData(this.actionInnerDetailInfo.actionMainReceiveObjects);
                 this.$refs.jb4dcCCReceiveObjectProperties.setReceiveObjectTableData(this.actionInnerDetailInfo.actionCCReceiveObjects);
                 //this.receiver.actionMainReceiveObjects=this.actionInnerDetailInfo.actionMainReceiveObjects;
                 //this.receiver.actionCCReceiveObjects=this.actionInnerDetailInfo.actionCCReceiveObjects;
             },
-            deleteAction(index,row){
+            deleteAction(index, row) {
                 this.addedActionData.splice(index, 1);
             },
-            editAction(index,row){
+            editAction(index, row) {
                 console.log(row);
-                var cloneInnerDetailInfo=JsonUtility.CloneObjectProp(row,function (key,sourcePropValue) {
-                    if(key=="actionUpdateFields"||key=="actionCallApis"||key=="actionExecuteVariables"||key=="actionMainReceiveObjects"||key=="actionCCReceiveObjects"){
+                var cloneInnerDetailInfo = JsonUtility.CloneObjectProp(row, function (key, sourcePropValue) {
+                    if (key == "actionUpdateFields" || key == "actionCallApis" || key == "actionExecuteVariables" || key == "actionMainReceiveObjects" || key == "actionCCReceiveObjects"|| key == "actionRunSqls") {
                         return JsonUtility.StringToJson(sourcePropValue);
                     }
                 });
                 console.log(cloneInnerDetailInfo);
                 this.showAddActionDialog(cloneInnerDetailInfo);
             },
-            completeEditAction(){
-                if(this.field.editTableObject) {
+            completeEditAction() {
+                if (this.field.editTableObject) {
                     this.actionInnerDetailInfo.actionUpdateFields = this.field.editTableObject.GetAllRowDataExUndefinedTextProp();
-                }
-                else{
-                    this.actionInnerDetailInfo.actionUpdateFields =[];
+                } else {
+                    this.actionInnerDetailInfo.actionUpdateFields = [];
                 }
                 //console.log(this.receiver);
-                this.actionInnerDetailInfo.actionCallApis=this.api.editTableObject.GetAllRowDataExUndefinedTextProp();
-                this.actionInnerDetailInfo.actionExecuteVariables=this.addedActionExecuteVariableTableData;
-                this.actionInnerDetailInfo.actionMainReceiveObjects=this.$refs.jb4dcMainReceiveObjectProperties.getReceiveObjectTableData();
-                this.actionInnerDetailInfo.actionCCReceiveObjects=this.$refs.jb4dcCCReceiveObjectProperties.getReceiveObjectTableData();
+                //this.actionInnerDetailInfo.actionCallApis=this.api.editTableObject.GetAllRowDataExUndefinedTextProp();
+                this.actionInnerDetailInfo.actionExecuteVariables = this.addedActionExecuteVariableTableData;
+                this.actionInnerDetailInfo.actionMainReceiveObjects = this.$refs.jb4dcMainReceiveObjectProperties.getReceiveObjectTableData();
+                this.actionInnerDetailInfo.actionCCReceiveObjects = this.$refs.jb4dcCCReceiveObjectProperties.getReceiveObjectTableData();
                 //console.log(this.actionInnerDetailInfo);
-                var cloneInnerDetailInfo=JsonUtility.CloneObjectProp(this.actionInnerDetailInfo,function (key,sourcePropValue) {
-                    if(key=="actionUpdateFields"||key=="actionCallApis"||key=="actionExecuteVariables"||key=="actionMainReceiveObjects"||key=="actionCCReceiveObjects"){
+                var cloneInnerDetailInfo = JsonUtility.CloneObjectProp(this.actionInnerDetailInfo, function (key, sourcePropValue) {
+                    if (key == "actionUpdateFields" || key == "actionCallApis" || key == "actionExecuteVariables" || key == "actionMainReceiveObjects" || key == "actionCCReceiveObjects" || key == "actionRunSqls") {
                         return JsonUtility.JsonToString(sourcePropValue);
                     }
                 });
                 console.log(cloneInnerDetailInfo);
-                if(ArrayUtility.ExistReplaceItem(this.addedActionData,cloneInnerDetailInfo,function (item) {
-                    return item.actionCode==cloneInnerDetailInfo.actionCode
-                })){
+                if (ArrayUtility.ExistReplaceItem(this.addedActionData, cloneInnerDetailInfo, function (item) {
+                    return item.actionCode == cloneInnerDetailInfo.actionCode
+                })) {
 
-                }
-                else {
+                } else {
                     this.addedActionData.push(cloneInnerDetailInfo);
                 }
             },
-            move(type){
+            move(type) {
 
             },
-            getHostResultProperties(){
+            getHostResultProperties() {
                 return this.addedActionData;
             },
-            initActionBindToEnableFields(){
+            initActionBindToEnableFields() {
                 //debugger;
-                var formId=flowBpmnJsIntegrated.TryGetFormId(this.propFromId);
-                if(formId) {
+                var formId = flowBpmnJsIntegrated.TryGetFormId(this.propFromId);
+                if (formId) {
                     //var result
-                    RemoteUtility.GetFormResourceBindMainTable(formId).then((tablePO)=>{
-                        if(tablePO&&tablePO.tableFieldPOList){
+                    RemoteUtility.GetFormResourceBindMainTable(formId).then((tablePO) => {
+                        if (tablePO && tablePO.tableFieldPOList) {
                             //console.log(tablePO&&tablePO.tableFieldPOList);
-                            this.actionBindToEnableFields=tablePO&&tablePO.tableFieldPOList;
+                            this.actionBindToEnableFields = tablePO && tablePO.tableFieldPOList;
                         }
                     });
-                }
-                else{
-                    this.actionBindToEnableFields=[];
+                } else {
+                    this.actionBindToEnableFields = [];
                 }
             },
             //region 动作执行变量设置
-            initAddActionExecuteVariableDialog(){
-                var _self=this;
+            initAddActionExecuteVariableDialog() {
+                var _self = this;
                 //console.log("新增动作执行变量");
-                DialogUtility.DialogElemObj(_self.$refs.addedActionExecuteVariableDialog,{
-                    title:"新增动作执行变量",
-                    width:650,
-                    height:460,
-                    modal:true,
+                DialogUtility.DialogElemObj(_self.$refs.addedActionExecuteVariableDialog, {
+                    title: "新增动作执行变量",
+                    width: 650,
+                    height: 460,
+                    modal: true,
                     buttons: {
                         "确认": function () {
                             _self.completeEditActionExecuteVariable();
@@ -644,42 +799,95 @@
                             DialogUtility.CloseDialogElem(_self.$refs.addedActionExecuteVariableDialog);
                         }
                     }
-                },null,{},this);
+                }, null, {}, this);
                 $(this.$refs.addedActionExecuteVariableDialog).dialog("close");
             },
-            showAddActionExecuteVariableDialog(oldExecuteVariableInnerDetailInfo){
+            showAddActionExecuteVariableDialog(oldExecuteVariableInnerDetailInfo) {
                 //debugger;
-                if(!oldExecuteVariableInnerDetailInfo){
-                    this.executeVariableInnerDetailInfo=PODefinition.GetJB4DCActionExecuteVariablePO();
-                }
-                else{
-                    this.executeVariableInnerDetailInfo=oldExecuteVariableInnerDetailInfo;
+                if (!oldExecuteVariableInnerDetailInfo) {
+                    this.executeVariableInnerDetailInfo = PODefinition.GetJB4DCActionExecuteVariablePO();
+                } else {
+                    this.executeVariableInnerDetailInfo = oldExecuteVariableInnerDetailInfo;
                 }
                 $(this.$refs.addedActionExecuteVariableDialog).dialog("open");
             },
-            deleteActionExecuteVariable(index,row){
+            deleteActionExecuteVariable(index, row) {
                 this.addedActionExecuteVariableTableData.splice(index, 1);
             },
-            editActionExecuteVariable(index,row){
-                var cloneExecuteVariableInnerDetailInfo=JsonUtility.CloneStringify(row);
+            editActionExecuteVariable(index, row) {
+                var cloneExecuteVariableInnerDetailInfo = JsonUtility.CloneStringify(row);
                 this.showAddActionExecuteVariableDialog(cloneExecuteVariableInnerDetailInfo);
             },
-            completeEditActionExecuteVariable(){
-                var cloneExecuteVariableInnerDetailInfo=JsonUtility.CloneStringify(this.executeVariableInnerDetailInfo);
+            completeEditActionExecuteVariable() {
+                var cloneExecuteVariableInnerDetailInfo = JsonUtility.CloneStringify(this.executeVariableInnerDetailInfo);
                 //debugger;
                 //console.log(cloneExecuteVariableInnerDetailInfo);
-                if(ArrayUtility.ExistReplaceItem(this.addedActionExecuteVariableTableData,cloneExecuteVariableInnerDetailInfo,function (item) {
-                    return item.actionExecuteVariableCode==cloneExecuteVariableInnerDetailInfo.actionExecuteVariableCode
-                })){
+                if (ArrayUtility.ExistReplaceItem(this.addedActionExecuteVariableTableData, cloneExecuteVariableInnerDetailInfo, function (item) {
+                    return item.actionExecuteVariableCode == cloneExecuteVariableInnerDetailInfo.actionExecuteVariableCode
+                })) {
 
-                }
-                else {
+                } else {
                     this.addedActionExecuteVariableTableData.push(cloneExecuteVariableInnerDetailInfo);
                 }
             },
             //endregion
             //region API设置
-            bindEditTable_APIs(oldData){
+            bindAPITreeAndInitEditTable: function (oldData) {
+                //var _self = this;
+                //debugger;
+                /*if (!this.api.apiData) {
+                    AjaxUtility.Post(this.api.acInterface.getAPIData, {
+                        groupType:"API_GROUP_BUILDER_BUTTON_ROOT"
+                    }, function (result) {
+                        if (result.success) {
+                            this.api.apiData = result.data;
+                            if (result.data != null && result.data.length > 0) {
+                                for (var i = 0; i < result.data.length; i++) {
+                                    if (result.data[i].nodeTypeName == "Group") {
+                                        result.data[i].icon = BaseUtility.GetRootPath() + "/Themes/Png16X16/package.png";
+                                    } else {
+                                        result.data[i].icon = BaseUtility.GetRootPath() + "/Themes/Png16X16/application_view_columns.png";
+                                    }
+                                }
+                            }
+
+                            // _self.api.treeData = result.data;
+                            this.api.apiTreeObj = $.fn.zTree.init($("#apiZTreeUL"), this.api.apiTreeSetting, result.data);
+                            this.api.apiTreeObj.expandAll(true);
+                            fuzzySearchTreeObj(this.api.apiTreeObj, this.$refs.txt_search_api_text.$refs.input, null, true);
+                        } else {
+                            DialogUtility.Alert(window, DialogUtility.DialogAlertId, {}, result.message, null);
+                        }
+
+                        this.api.editTableObject = Object.create(EditTable);
+                        this.api.editTableObject.Initialization(this.api.editTableConfig);
+                        this.api.editTableObject.RemoveAllRow();
+                        if (oldData) {
+                            this.api.editTableObject.LoadJsonData(oldData);
+                        }
+                    }, this);
+                }*/
+                RemoteUtility.GetApisForZTreeNodeList().then((date) => {
+                    console.log(date);
+                    this.api.apiData = date;
+                    if (this.api.apiData != null && this.api.apiData.length > 0) {
+                        for (var i = 0; i < this.api.apiData.length; i++) {
+                            if (this.api.apiData[i].nodeTypeName == "Group") {
+                                this.api.apiData[i].icon = BaseUtility.GetRootPath() + "/Themes/Png16X16/package.png";
+                            } else {
+                                this.api.apiData[i].icon = BaseUtility.GetRootPath() + "/Themes/Png16X16/application_view_columns.png";
+                            }
+                        }
+                    }
+
+                    // _self.api.treeData = result.data;
+                    this.api.apiTreeObj = $.fn.zTree.init($("#apiZTreeUL"), this.api.apiTreeSetting, this.api.apiData);
+                    this.api.apiTreeObj.expandAll(true);
+                    this.api.apiTreeObj._host = this;
+                    fuzzySearchTreeObj(this.api.apiTreeObj, this.$refs.txt_search_api_text.$refs.input, null, true);
+                });
+            },
+            /*bindEditTable_APIs(oldData){
                 if (!this.api.editTableObject) {
                     this.api.editTableObject = Object.create(EditTable);
                     this.api.editTableObject.Initialization(this.api.editTableConfig);
@@ -691,14 +899,61 @@
                 if(oldData&&this.api.editTableObject){
                     this.api.editTableObject.LoadJsonData(oldData);
                 }
+            },*/
+            addAPI() {
+                //this.api.editTableObject.AddEditingRowByTemplate();
+                if (this.api.apiTreeSelectData.nodeTypeName == "API") {
+                    this.actionInnerDetailInfo.actionCallApis.push({
+                        apiId: this.api.apiTreeSelectData.id,
+                        apiName: this.api.apiTreeSelectData.text
+                    });
+                }
             },
-            addAPI(){
-                this.api.editTableObject.AddEditingRowByTemplate();
+            removeAPI(index, row) {
+                //this.api.editTableObject.RemoveRow();
+                this.actionInnerDetailInfo.actionCallApis.splice(index, 1);
             },
-            removeAPI(){
-                this.api.editTableObject.RemoveRow();
+            clearAPI() {
+                this.actionInnerDetailInfo.actionCallApis = [];
             },
             //endregion API设置
+
+            //region Sql设置
+            addRunSql() {
+                var _self = this;
+                var formId = flowBpmnJsIntegrated.TryGetFormId(this.propFromId);
+                this.$refs.sqlEditDialog.showAddRunSqlDialog("新增执行SQL", "", formId, (result) => {
+                    console.log(result);
+                    this.actionInnerDetailInfo.actionRunSqls.push({
+                        runSqlId: "runSql_" + StringUtility.Timestamp(),
+                        runSqlValue: result.editValue,
+                        runSqlText: result.editText
+                    });
+                });
+            },
+            removeRunSql(index, row) {
+                this.runSql.addedSqlData.splice(index, 1);
+            },
+            editRunSql(index, row) {
+                var _self = this;
+                var formId = flowBpmnJsIntegrated.TryGetFormId(this.propFromId);
+                this.$refs.sqlEditDialog.showAddRunSqlDialog("编辑执行SQL", row.runSqlValue, formId, (result) => {
+                    console.log(result);
+                    //ArrayUtility.ReplaceItem(this.runSql.addedSqlData,)
+                    //row.runSqlValue = result.editValue;
+                    //row.runSqlText = result.editText;
+                    ArrayUtility.ExistReplaceItem(this.actionInnerDetailInfo.actionRunSqls,{
+                        runSqlId: row.runSqlId,
+                        runSqlValue: result.editValue,
+                        runSqlText: result.editText
+                    },function (item){
+                        return item.runSqlId == row.runSqlId
+                    })
+                    console.log(this.actionInnerDetailInfo.actionRunSqls);
+                });
+            },
+            //endregion
+
             //region 表字段设置
             bindEditTable_TableFields(oldData) {
                 //debugger;
@@ -740,22 +995,20 @@
                     this.field.editTableObject.LoadJsonData(oldData);
                 }
             },
-            addUpdateField(){
-                if(this.formId) {
+            addUpdateField() {
+                if (this.formId) {
                     this.field.editTableObject.AddEditingRowByTemplate();
-                }
-                else {
+                } else {
                     //this.$Message.info('请先设置绑定的窗体,需要根据绑定的窗体确定数据源表!');
-                    DialogUtility.ToastMessage(this,'请先设置绑定的窗体,需要根据绑定的窗体确定数据源表!');
+                    DialogUtility.ToastMessage(this, '请先设置绑定的窗体,需要根据绑定的窗体确定数据源表!');
                 }
             },
-            removeUpdateField(){
-                if(this.formId) {
+            removeUpdateField() {
+                if (this.formId) {
                     this.field.editTableObject.RemoveRow();
-                }
-                else {
+                } else {
                     //this.$Message.info('请先设置绑定的窗体,需要根据绑定的窗体确定数据源表!');
-                    DialogUtility.ToastMessage(this,'请先设置绑定的窗体,需要根据绑定的窗体确定数据源表!');
+                    DialogUtility.ToastMessage(this, '请先设置绑定的窗体,需要根据绑定的窗体确定数据源表!');
                 }
             }
             //endregion 表字段设置

@@ -1,6 +1,5 @@
-import {
-    is
-} from 'bpmn-js/lib/util/ModelUtil';
+import {is} from 'bpmn-js/lib/util/ModelUtil';
+import {BpmnJsUtility} from '../../BpmnJsUtility';
 
 //import { FlowBpmnJsExtendContainer } from '../../FlowBpmnJsExtendContainer.js';
 
@@ -38,8 +37,19 @@ export default function PropertiesPadEntity(eventBus, contextPad, commandStack,p
     }
 
     this.getContextPadEntries = function(element) {
-        //console.log(element);
-        if (is(element, 'bpmn:SequenceFlow')||is(element, 'bpmn:UserTask')||is(element, 'bpmn:ServiceTask')||is(element, 'bpmn:BoundaryEvent')||is(element, 'bpmn:IntermediateThrowEvent')) {
+        console.log(element);
+        //debugger;
+        if (BpmnJsUtility.Is_SequenceFlow(element)||
+            is(element, 'bpmn:UserTask')||
+            is(element, 'bpmn:ServiceTask')||
+            is(element, 'bpmn:BoundaryEvent')||
+            is(element, 'bpmn:IntermediateThrowEvent')||
+            is(element, 'bpmn:IntermediateCatchEvent')||
+            BpmnJsUtility.Is_StartEvent_For_Message(element)||
+            BpmnJsUtility.Is_StartEvent_For_Signal(element)||
+            BpmnJsUtility.Is_StartEvent_For_Timer(element)||
+            BpmnJsUtility.Is_EndEvent_For_Signal(element)
+        ) {
             return {
                 'settingProperties': {
                     group: 'edit',

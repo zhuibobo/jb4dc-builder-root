@@ -5,16 +5,22 @@ import com.jb4dc.base.service.exenum.EnableTypeEnum;
 import com.jb4dc.base.service.exenum.TrueFalseEnum;
 import com.jb4dc.base.service.IAddBefore;
 import com.jb4dc.base.service.impl.BaseServiceImpl;
+import com.jb4dc.base.service.po.ZTreeNodePO;
 import com.jb4dc.base.tools.JsonUtility;
+import com.jb4dc.builder.client.service.api.IApiItemService;
 import com.jb4dc.builder.client.service.envvar.IEnvVariableService;
 import com.jb4dc.builder.client.service.webform.IFormResourceService;
 import com.jb4dc.builder.dao.module.ModuleMapper;
+import com.jb4dc.builder.dbentities.api.ApiGroupEntity;
+import com.jb4dc.builder.dbentities.api.ApiItemEntity;
 import com.jb4dc.builder.dbentities.module.ModuleEntity;
 import com.jb4dc.builder.dbentities.webform.FormResourceEntity;
 import com.jb4dc.builder.dbentities.weblist.ListResourceEntity;
 import com.jb4dc.builder.po.FormResourcePO;
 import com.jb4dc.builder.po.ListResourcePO;
 import com.jb4dc.builder.po.ModuleContextPO;
+import com.jb4dc.builder.po.ZTreeNodePOConvert;
+import com.jb4dc.builder.service.api.IApiGroupService;
 import com.jb4dc.builder.service.envvar.IEnvGroupService;
 import com.jb4dc.builder.service.module.IModuleService;
 import com.jb4dc.builder.client.service.weblist.IListResourceService;
@@ -71,6 +77,12 @@ public class ModuleServiceImpl extends BaseServiceImpl<ModuleEntity> implements 
 
     @Autowired
     IUserRuntimeProxy userRuntimeProxy;
+
+    @Autowired
+    IApiGroupService apiGroupService;
+
+    @Autowired
+    IApiItemService apiItemService;
 
     ModuleMapper moduleMapper;
     public ModuleServiceImpl(ModuleMapper _defaultBaseMapper){
@@ -181,10 +193,16 @@ public class ModuleServiceImpl extends BaseServiceImpl<ModuleEntity> implements 
         JBuild4DCResponseVo<List<OrganEntity>> jBuild4DCResponseVoOrganEntity=organRuntimeProxy.getEnableOrganMinPropRT();
         JBuild4DCResponseVo<List<UserEntity>> jBuild4DCResponseVoUserEntity=userRuntimeProxy.getEnableUserMinPropRT();
 
+        List<ApiGroupEntity> apiGroupEntityList=apiGroupService.getByGroupTypeASC("API_GROUP_WORKFLOW_ACTION_ROOT",jb4DCSession);
+        List<ApiItemEntity> apiItemEntityList=apiItemService.getByGroupTypeALL("API_GROUP_WORKFLOW_ACTION_ROOT",jb4DCSession);
+        List<ZTreeNodePO> apisForZTreeNodeList=ZTreeNodePOConvert.parseApiToZTreeNodeList(apiGroupEntityList,apiItemEntityList);
+
+
         moduleContextPO.setRoleGroupEntityList(jBuild4DCResponseVoRoleGroupEntity.getData());
         moduleContextPO.setRoleEntityList(jBuild4DCResponseVoRoleEntity.getData());
         moduleContextPO.setOrganEntityList(jBuild4DCResponseVoOrganEntity.getData());
         moduleContextPO.setUserEntityList(jBuild4DCResponseVoUserEntity.getData());
+        moduleContextPO.setApisForZTreeNodeList(apisForZTreeNodeList);
         return moduleContextPO;
     }
 

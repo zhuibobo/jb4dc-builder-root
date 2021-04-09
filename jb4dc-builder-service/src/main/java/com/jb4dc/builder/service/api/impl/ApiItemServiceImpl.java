@@ -13,6 +13,7 @@ import com.jb4dc.core.base.session.JB4DCSession;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.
@@ -96,6 +97,11 @@ public class ApiItemServiceImpl extends BaseServiceImpl<ApiItemEntity> implement
     @Override
     public ApiItemEntity getByValue(JB4DCSession session, String apiValue) {
         return apiItemMapper.selectByValue(apiValue);
+    }
+
+    @Override
+    public List<ApiItemEntity> getByGroupTypeALL(String groupType, JB4DCSession jb4DCSession) {
+        return apiItemMapper.selectByGroupTypeALL(groupType);
     }
 
     private ApiItemEntity create(JB4DCSession jb4DCSession,String envVarId,String groupId,String text,String value,String className,String classPara,String rest,String restPara) throws JBuild4DCGenerallyException {

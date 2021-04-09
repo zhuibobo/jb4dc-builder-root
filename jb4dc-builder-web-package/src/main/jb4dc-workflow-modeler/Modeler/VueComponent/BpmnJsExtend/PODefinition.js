@@ -18,7 +18,8 @@ class PODefinition{
                 signals:[],
                 messageEventDefinition: {
                     id: "",
-                    messageRef: ""
+                    messageRef: "",
+                    class:""
                 },
                 signalEventDefinition:{
                     id: "",
@@ -148,6 +149,7 @@ class PODefinition{
             actionCallJsMethod:"",
             actionHTMLId:"",
             actionHTMLClass:"",
+            actionRunSqls:[],
             actionUpdateFields:[],
             actionCallApis:[],
             actionExecuteVariables:[],
@@ -157,7 +159,10 @@ class PODefinition{
             actionsOpinionBindToElemId:"",
             actionMainReceiveObjects:[],
             actionCCReceiveObjects:[],
-            actionAutoSend:"false"
+            actionAutoSend:"false",
+            actionSendMessageId:"",
+            actionSendSignalId:"",
+            actionCallComplete:"true"
         }
     }
     static GetJB4DCReceiveObjectPO(){

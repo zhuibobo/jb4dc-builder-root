@@ -1,4 +1,4 @@
-package com.jb4dc.builder.webpackage.rest.builder.workflow.modeler;
+package com.jb4dc.builder.webpackage.rest.workflow.modeler;
 
 import com.jb4dc.base.service.general.JB4DCSessionUtility;
 import com.jb4dc.builder.po.ModuleContextPO;

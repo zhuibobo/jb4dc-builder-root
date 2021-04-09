@@ -38,9 +38,10 @@ public class APIGroupRest extends GeneralRest<ApiGroupEntity> {
     }
 
     @RequestMapping(value = "/GetTreeData", method = RequestMethod.POST)
-    public JBuild4DCResponseVo<List<ApiGroupEntity>> getTreeData() {
+    public JBuild4DCResponseVo<List<ApiGroupEntity>> getTreeData(String groupType) {
         //dictionaryGroupService.moveUp(recordId);
-        List<ApiGroupEntity> groupEntityList=apiGroupService.getALLASC(JB4DCSessionUtility.getSession());
+        //List<ApiGroupEntity> groupEntityList=apiGroupService.getALLASC(JB4DCSessionUtility.getSession());
+        List<ApiGroupEntity> groupEntityList=apiGroupService.getByGroupTypeASC(groupType,JB4DCSessionUtility.getSession());
         return JBuild4DCResponseVo.getDataSuccess(groupEntityList);
     }
 }

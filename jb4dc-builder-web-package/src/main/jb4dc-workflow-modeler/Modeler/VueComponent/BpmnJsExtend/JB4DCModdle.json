@@ -371,6 +371,11 @@
           "type": "String"
         },
         {
+          "name": "actionRunSqls",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
           "name": "actionUpdateFields",
           "isAttr": true,
           "type": "String"
@@ -417,6 +422,21 @@
         },
         {
           "name": "actionAutoSend",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "actionSendMessageId",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "actionSendSignalId",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "actionCallComplete",
           "isAttr": true,
           "type": "String"
         }

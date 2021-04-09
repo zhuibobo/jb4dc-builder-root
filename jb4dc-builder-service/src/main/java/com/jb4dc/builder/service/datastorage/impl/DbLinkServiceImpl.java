@@ -121,7 +121,7 @@ public class DbLinkServiceImpl extends BaseServiceImpl<DbLinkEntity> implements 
         dbLinkEntity.setDbType("mysql");
         dbLinkEntity.setDbDriverName("com.mysql.cj.jdbc.Driver");
         dbLinkEntity.setDbDatabaseName("JB4DC_SSO_V02");
-        dbLinkEntity.setDbUrl("jdbc:mysql://58.51.184.124:6316/JB4DC_SSO_V02?characterEncoding=UTF-8&serverTimezone=Asia/Shanghai&nullCatalogMeansCurrent=true&autoReconnect=true&failOverReadOnly=false");
+        dbLinkEntity.setDbUrl("jdbc:mysql://58.51.184.121:6316/JB4DC_SSO_V02?characterEncoding=UTF-8&serverTimezone=Asia/Shanghai&nullCatalogMeansCurrent=true&autoReconnect=true&failOverReadOnly=false");
         dbLinkEntity.setDbUser("root");
         dbLinkEntity.setDbPassword("jb4dc#sz#1234");
         dbLinkEntity.setDbDesc("单点登录数据库连接");
@@ -138,7 +138,7 @@ public class DbLinkServiceImpl extends BaseServiceImpl<DbLinkEntity> implements 
         dbLinkEntity.setDbType("mysql");
         dbLinkEntity.setDbDriverName("com.mysql.cj.jdbc.Driver");
         dbLinkEntity.setDbDatabaseName("JB4DC_QC_V02");
-        dbLinkEntity.setDbUrl("jdbc:mysql://58.51.184.124:6316/JB4DC_QC_V02?characterEncoding=UTF-8&serverTimezone=Asia/Shanghai&nullCatalogMeansCurrent=true&autoReconnect=true&failOverReadOnly=false");
+        dbLinkEntity.setDbUrl("jdbc:mysql://58.51.184.121:6316/JB4DC_QC_V02?characterEncoding=UTF-8&serverTimezone=Asia/Shanghai&nullCatalogMeansCurrent=true&autoReconnect=true&failOverReadOnly=false");
         dbLinkEntity.setDbUser("root");
         dbLinkEntity.setDbPassword("jb4dc#sz#1234");
         dbLinkEntity.setDbDesc("运维服务系统库连接");
@@ -155,7 +155,7 @@ public class DbLinkServiceImpl extends BaseServiceImpl<DbLinkEntity> implements 
         dbLinkEntity.setDbType("mysql");
         dbLinkEntity.setDbDriverName("com.mysql.cj.jdbc.Driver");
         dbLinkEntity.setDbDatabaseName("JB4DC_GRID_V02");
-        dbLinkEntity.setDbUrl("jdbc:mysql://58.51.184.124:6316/JB4DC_GRID_V02?characterEncoding=UTF-8&serverTimezone=Asia/Shanghai&nullCatalogMeansCurrent=true&autoReconnect=true&failOverReadOnly=false");
+        dbLinkEntity.setDbUrl("jdbc:mysql://58.51.184.121:6316/JB4DC_GRID_V02?characterEncoding=UTF-8&serverTimezone=Asia/Shanghai&nullCatalogMeansCurrent=true&autoReconnect=true&failOverReadOnly=false");
         dbLinkEntity.setDbUser("root");
         dbLinkEntity.setDbPassword("jb4dc#sz#1234");
         dbLinkEntity.setDbDesc("网格化社会管理系统库连接");

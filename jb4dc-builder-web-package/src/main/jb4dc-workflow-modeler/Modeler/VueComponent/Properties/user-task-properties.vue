@@ -10,8 +10,8 @@
             <tab-pane tab="user-task-properties-tabs" label="绑定设置">
                 <jb4dcGeneralProperties ref="jb4dcGeneralProperties" :prop-jb4dc-general-data="jb4dc" :prop-is-process="false"></jb4dcGeneralProperties>
             </tab-pane>
-            <tab-pane tab="user-task-properties-tabs" label="动作">
-                <jb4dcActionsProperties ref="jb4dcActionsProperties" :prop-jb4dc-general-data="jb4dc" :prop-from-id="jb4dc.jb4dcFormId" :prop-action-data="jb4dc.jb4dcActions"></jb4dcActionsProperties>
+            <tab-pane tab="user-task-properties-tabs" label="动作设置">
+                <jb4dcActionsProperties ref="jb4dcActionsProperties" :prop-bpmn-general-data="bpmn" :prop-jb4dc-general-data="jb4dc" :prop-from-id="jb4dc.jb4dcFormId" :prop-action-data="jb4dc.jb4dcActions"></jb4dcActionsProperties>
             </tab-pane>
             <tab-pane tab="user-task-properties-tabs" label="主送">
                 <jb4dcMainReceiveObjectProperties ref="jb4dcMainReceiveObjectProperties" :prop-receive-objects-data="jb4dc.jb4dcMainReceiveObjects"></jb4dcMainReceiveObjectProperties>

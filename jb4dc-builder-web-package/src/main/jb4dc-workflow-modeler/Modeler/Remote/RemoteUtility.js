@@ -135,6 +135,14 @@ class RemoteUtility{
         });
         return promise;
     }
+    static GetApisForZTreeNodeList() {
+        const promise = new Promise((resolve, reject) => {
+            var apiGroupEntityList = this._moduleContext.data.apisForZTreeNodeList;
+            resolve(apiGroupEntityList);
+        });
+        return promise;
+    }
+
     static GetEnvGroupPOList() {
         const promise = new Promise((resolve, reject) => {
             var envGroupPOList = this._moduleContext.data.envGroupPOList;

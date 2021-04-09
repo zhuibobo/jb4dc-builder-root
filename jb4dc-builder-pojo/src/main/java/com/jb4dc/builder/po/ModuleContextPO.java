@@ -1,6 +1,9 @@
 package com.jb4dc.builder.po;
 
+import com.jb4dc.base.service.po.ZTreeNodePO;
 import com.jb4dc.base.tools.JsonUtility;
+import com.jb4dc.builder.dbentities.api.ApiGroupEntity;
+import com.jb4dc.builder.dbentities.api.ApiItemEntity;
 import com.jb4dc.builder.dbentities.envvar.EnvGroupEntity;
 import com.jb4dc.builder.dbentities.envvar.EnvVariableEntity;
 import com.jb4dc.builder.dbentities.module.ModuleEntity;
@@ -29,6 +32,8 @@ public class ModuleContextPO extends ModuleEntity {
     List<UserEntity> userEntityList;
     List<RoleGroupEntity> roleGroupEntityList;
     List<RoleEntity> roleEntityList;
+
+    List<ZTreeNodePO> apisForZTreeNodeList;
 
     public List<FormResourcePO> getFormResourcePOList() {
         return formResourcePOList;
@@ -100,5 +105,13 @@ public class ModuleContextPO extends ModuleEntity {
 
     public void setRoleEntityList(List<RoleEntity> roleEntityList) {
         this.roleEntityList = roleEntityList;
+    }
+
+    public List<ZTreeNodePO> getApisForZTreeNodeList() {
+        return apisForZTreeNodeList;
+    }
+
+    public void setApisForZTreeNodeList(List<ZTreeNodePO> apisForZTreeNodeList) {
+        this.apisForZTreeNodeList = apisForZTreeNodeList;
     }
 }

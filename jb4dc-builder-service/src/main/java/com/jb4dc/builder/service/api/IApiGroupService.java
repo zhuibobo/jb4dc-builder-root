@@ -5,6 +5,8 @@ import com.jb4dc.builder.dbentities.api.ApiGroupEntity;
 import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
 import com.jb4dc.core.base.session.JB4DCSession;
 
+import java.util.List;
+
 /**
  * Created with IntelliJ IDEA.
  * User: zhuangrb
@@ -13,4 +15,6 @@ import com.jb4dc.core.base.session.JB4DCSession;
  */
 public interface IApiGroupService  extends IBaseService<ApiGroupEntity> {
     void initSystemData(JB4DCSession jb4DCSession) throws JBuild4DCGenerallyException;
+
+    List<ApiGroupEntity> getByGroupTypeASC(String groupType, JB4DCSession session);
 }

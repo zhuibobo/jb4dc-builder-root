@@ -5,6 +5,8 @@ import com.jb4dc.builder.dbentities.api.ApiItemEntity;
 import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
 import com.jb4dc.core.base.session.JB4DCSession;
 
+import java.util.List;
+
 /**
  * Created with IntelliJ IDEA.
  * User: zhuangrb
@@ -15,4 +17,6 @@ public interface IApiItemService extends IBaseService<ApiItemEntity> {
     void initSystemData(JB4DCSession jb4DCSession) throws JBuild4DCGenerallyException;
 
     ApiItemEntity getByValue(JB4DCSession session, String apiValue);
+
+    List<ApiItemEntity> getByGroupTypeALL(String groupType, JB4DCSession jb4DCSession);
 }

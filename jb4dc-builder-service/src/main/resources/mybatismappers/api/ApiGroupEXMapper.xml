@@ -24,4 +24,6 @@
     <select id="selectByValue" resultMap="BaseResultMap">
         select<include refid="Base_Column_List"/> from TBUILD_API_GROUP where API_GROUP_VALUE=#{apiGroupValue}
     </select>
+
+    <select id="selectByGroupTypeASC" resultMap="BaseResultMap">select<include refid="Base_Column_List"/> from TBUILD_API_GROUP where API_GROUP_TYPE=#{groupType} ORDER by API_GROUP_ORDER_NUM ASC</select>
 </mapper>

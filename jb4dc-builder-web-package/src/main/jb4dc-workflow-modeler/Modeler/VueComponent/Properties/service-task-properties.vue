@@ -1,7 +1,7 @@
 <template>
     <div>
         <tabs name="service-task-properties-tabs">
-            <tab-pane tab="service-task-properties-tabs" label="基础设置">
+            <tab-pane tab="service-task-properties-tabs" label="委托设置">
                 <implementationProperties :prop-bpmn-general-data="bpmn" :prop-camunda-general-data="camunda" :prop-jb4dc-general-data="jb4dc"></implementationProperties>
             </tab-pane>
             <tab-pane tab="service-task-properties-tabs" label="执行监听">
