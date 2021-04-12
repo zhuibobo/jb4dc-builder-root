@@ -539,20 +539,17 @@
                         }
                     ]
                 },
-                runSql:{
-                    addedSqlConfig:[
-                        {
-                            title: 'sql语句',
-                            key: 'runSqlValue',
-                            align: "left"
-                        },
-                        {
-                            title: '操作',
-                            slot: 'action',
-                            width: 120,
-                            align: "center"
-                        }
-                    ]
+                runSql: {
+                    addedSqlConfig: [{
+                        title: 'sql语句',
+                        key: 'runSqlValue',
+                        align: "left"
+                    }, {
+                        title: '操作',
+                        slot: 'action',
+                        width: 120,
+                        align: "center"
+                    }]
                 },
                 //动作内部使用详情属性
                 actionInnerDetailInfo:PODefinition.GetJB4DCActionPO(),
@@ -601,7 +598,6 @@
                     jb4dcActionsOpinionBindToElemId:""
                 },
                 bpmn:{
-
                 },
                 formId:"",
                 //执行变量内部使用详情属性
@@ -650,7 +646,7 @@
             var _self=this;
             EditTable_SelectDefaultValue.ClickSelectedButtonCB=function () {
                 _self.beginSelectDefaultValue();
-            }
+            };
             this.initAddActionDialog();
             this.initAddActionExecuteVariableDialog();
             this.initActionBindToEnableFields();
@@ -932,7 +928,7 @@
                 });
             },
             removeRunSql(index, row) {
-                this.runSql.addedSqlData.splice(index, 1);
+                this.actionInnerDetailInfo.actionRunSqls.splice(index, 1);
             },
             editRunSql(index, row) {
                 var _self = this;
@@ -947,7 +943,7 @@
                         runSqlValue: result.editValue,
                         runSqlText: result.editText
                     },function (item){
-                        return item.runSqlId == row.runSqlId
+                        return item.runSqlId == row.runSqlId;
                     })
                     console.log(this.actionInnerDetailInfo.actionRunSqls);
                 });

@@ -6,13 +6,14 @@ import com.jb4dc.base.service.general.JB4DCSessionUtility;
 import com.jb4dc.base.tools.JsonUtility;
 import com.jb4dc.builder.dbentities.flow.FlowIntegratedEntity;
 import com.jb4dc.builder.po.FlowIntegratedPO;
-import com.jb4dc.workflow.integrate.IWFModelIntegratedService;
+import com.jb4dc.workflow.integrate.engine.IFlowEngineModelIntegratedService;
 import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
 import com.jb4dc.core.base.session.JB4DCSession;
 import com.jb4dc.core.base.tools.StringUtility;
 import com.jb4dc.core.base.tools.UUIDUtility;
 import com.jb4dc.core.base.vo.JBuild4DCResponseVo;
 import com.jb4dc.feb.dist.webserver.rest.base.GeneralRest;
+import com.jb4dc.workflow.integrate.extend.IFlowExtendModelService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -32,11 +33,11 @@ import javax.servlet.http.HttpServletRequest;
 public class flowIntegratedRest extends GeneralRest<FlowIntegratedEntity> {
 
     @Autowired
-    IWFModelIntegratedService workFlowIntegratedService;
+    IFlowExtendModelService flowExtendModelService;
 
     @Override
     protected IBaseService<FlowIntegratedEntity> getBaseService() {
-        return workFlowIntegratedService;
+        return flowExtendModelService;
     }
 
     @Override
@@ -58,7 +59,7 @@ public class flowIntegratedRest extends GeneralRest<FlowIntegratedEntity> {
             responseVo.setData(flowIntegratedPO);
         } else {
             JB4DCSession jb4DSession = JB4DCSessionUtility.getSession();
-            FlowIntegratedPO flowIntegratedPO = workFlowIntegratedService.getPOByIntegratedId(jb4DSession, recordId);
+            FlowIntegratedPO flowIntegratedPO = flowExtendModelService.getPOByIntegratedId(jb4DSession, recordId);
             responseVo.addExKVData("recordId", recordId);
             responseVo.setData(flowIntegratedPO);
         }
@@ -82,7 +83,7 @@ public class flowIntegratedRest extends GeneralRest<FlowIntegratedEntity> {
             } else {
                 this.writeOperationLog("修改数据", "用户[" + jb4DSession.getUserName() + "]修改了ID为" + recordID + "的数据[" + getMyClass().getSimpleName() + "]", JsonUtility.toObjectString(flowIntegratedPO), request);
             }
-            flowIntegratedPO=workFlowIntegratedService.saveFlowModel(jb4DSession, recordID, flowIntegratedPO);
+            flowIntegratedPO=flowExtendModelService.saveFlowModel(jb4DSession, recordID, flowIntegratedPO);
             return JBuild4DCResponseVo.saveSuccess(flowIntegratedPO);
 
         } catch (JBuild4DCGenerallyException e) {

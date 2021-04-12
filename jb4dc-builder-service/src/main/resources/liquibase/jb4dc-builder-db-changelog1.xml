@@ -973,4 +973,169 @@
             <column name="MODEL_GROUP_ENP_ITEM" type="NVARCHAR(10)" remarks="是否显示空选项:为是时,将默认显示[请选择]为空选项" />
         </createTable>
     </changeSet>
+
+    <changeSet id="changeSet-camunda-integrated-0001" author="zhuangrb">
+        <dropTable tableName="TBUILD_FLOW_INTEGRATED"></dropTable>
+        <createTable tableName="TFLOW_MODEL_INTEGRATED" remarks="流程模型集成表">
+            <column name="MODEL_ID" type="NVARCHAR(100)" remarks="主键:UUID">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="MODEL_ROOT_ID" type="NVARCHAR(100)" remarks="模型根ID:多版本时相同,同一模型判定用" />
+            <column name="MODEL_DE_ED" type="NVARCHAR(100)" remarks="是否已经部署"/>
+            <column name="MODEL_DE_ID" type="NVARCHAR(100)" remarks="act_de_model表的ID"/>
+            <column name="MODEL_DE_SUCCESS" type="NVARCHAR(50)" remarks="部署是否成功"/>
+            <column name="MODEL_MODULE_ID" type="NVARCHAR(100)" remarks="所属的模块ID">
+                <constraints nullable="false"/>
+            </column>
+            <column name="MODEL_CODE" type="NVARCHAR(50)" remarks="模型编码">
+                <constraints nullable="false"/>
+            </column>
+            <column name="MODEL_FLOW_CATEGORY" type="NVARCHAR(50)" remarks="模型分类:GeneralProcess[通用流程];ReceiveDocumentProcess[公文收文流程];SendDocumentProcess[公文发文流程];AdministrativeApprovalProcess[行政审批流程];AdministrativeLicensingProcess[行政许可流程];CommunityServiceProcess[社区服务流程]"/>
+            <column name="MODEL_IMAGE_CLASS" type="NVARCHAR(40)" remarks="模型图标"/>
+            <column name="MODEL_PES_TITLE_TEXT" type="NVARCHAR(300)" remarks="实例标题表达式"/>
+            <column name="MODEL_PES_TITLE_VALUE" type="NVARCHAR(300)" remarks="实例标题表达式值"/>
+            <column name="MODEL_PES_DESC_TEXT" type="NVARCHAR(300)" remarks="实例备注表达式"/>
+            <column name="MODEL_PES_DESC_VALUE" type="NVARCHAR(300)" remarks="实例备注表达式值"/>
+            <column name="MODEL_PES_RESTART_ENB" type="NVARCHAR(40)" remarks="已经结束的实例能否重启"/>
+            <column name="MODEL_PES_ANY_JUMP_ENB" type="NVARCHAR(40)" remarks="能否跳转到任意节点"/>
+            <column name="MODEL_NAME" type="NVARCHAR(100)" remarks="模型名称">
+                <constraints nullable="false"/>
+            </column>
+            <column name="MODEL_CREATE_TIME" type="datetime(6)" remarks="创建时间"/>
+            <column name="MODEL_CREATOR" type="NVARCHAR(100)" remarks="创建者"/>
+            <column name="MODEL_UPDATE_TIME" type="datetime(6)" remarks="更新时间"/>
+            <column name="MODEL_UPDATER" type="NVARCHAR(100)" remarks="更新人"/>
+            <column name="MODEL_DESC" type="NVARCHAR(1000)" remarks="备注"/>
+            <column name="MODEL_STATUS" type="NVARCHAR(10)" remarks="状态"/>
+            <column name="MODEL_ORDER_NUM" type="INT" remarks="排序号"/>
+            <column name="MODEL_DEPLOYMENT_ID" type="NVARCHAR(1000)" remarks="部署ID"/>
+            <column name="MODEL_START_KEY" type="NVARCHAR(1000)" remarks="启动键"/>
+            <column name="MODEL_RESOURCE_NAME" type="NVARCHAR(1000)" remarks="资源名称"/>
+            <column name="MODEL_FROM_TYPE" type="NVARCHAR(50)" remarks="流程模型来自上传或者页面设计"/>
+            <column name="MODEL_SAVE_VERSION" type="INT" remarks="保存版本号:每次保存都+1"/>
+            <column name="MODEL_LAST_VERSION" type="NVARCHAR(10)" remarks="是否最后版本"/>
+            <column name="MODEL_CONTENT" type="CLOB" remarks="模型定义XML内容"/>
+        </createTable>
+        <createTable tableName="TFLOW_MODEL_PROPERTIES" remarks="模型属性表:与模型版本无关,用于模型的属性扩展">
+            <column name="MODEL_PROP_ID" type="NVARCHAR(100)" remarks="主键:UUID">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="MODEL_PROP_BELONG_MODEL_ID" type="NVARCHAR(100)" remarks="所属模型ID"/>
+            <column name="MODEL_PROP_NAME" type="NVARCHAR(100)" remarks="属性名称"/>
+            <column name="MODEL_PROP_VALUE" type="NVARCHAR(300)" remarks="属性值"/>
+            <column name="MODEL_PROP_DESC" type="NVARCHAR(300)" remarks="属性备注"/>
+            <column name="MODEL_PROP_ORDER_NUM" type="INT" remarks="排序号"/>
+        </createTable>
+        <createTable tableName="TFLOW_INSTANCE" remarks="流程实例表">
+            <column name="INST_ID" type="NVARCHAR(100)" remarks="主键:UUID">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="INST_TITLE" type="NVARCHAR(400)" remarks="流程实例标题:根据模型的MODEL_PES_TITLE_VALUE生成"/>
+            <column name="INST_DESC" type="NVARCHAR(600)" remarks="流程实例备注:根据模型的MODEL_PES_DESC_VALUE生成"/>
+            <column name="INST_CUST_DESC" type="NVARCHAR(500)" remarks="流程实例备注:创建实例是手工输入备注"/>
+            <column name="INST_CREATE_TIME" type="datetime(6)" remarks="创建时间"/>
+            <column name="INST_CREATOR" type="NVARCHAR(100)" remarks="创建者"/>
+            <column name="INST_CREATOR_ID" type="NVARCHAR(100)" remarks="创建者"/>
+            <column name="INST_ORGAN_NAME" type="NVARCHAR(100)" remarks="创建者所在组织"/>
+            <column name="INST_ORGAN_ID" type="NVARCHAR(100)" remarks="创建者所在组织ID"/>
+            <column name="INST_STATUS" type="NVARCHAR(100)" remarks="状态:Running;End;Draft;Suspended...."/>
+            <column name="INST_END_TIME" type="datetime(6)" remarks="办结事件"/>
+            <column name="INST_RU_EXECUTION_ID" type="NVARCHAR(100)" remarks="关联act_ru_execution的ID_"/>
+            <column name="INST_RU_PROC_INST_ID" type="NVARCHAR(100)" remarks="关联act_ru_execution的PROC_INST_ID_"/>
+            <column name="INST_RU_BUSINESS_KEY" type="NVARCHAR(100)" remarks="关联act_ru_execution的BUSINESS_KEY_"/>
+            <column name="INST_RU_PROC_DEF_ID" type="NVARCHAR(100)" remarks="关联act_ru_execution的PROC_DEF_ID_"/>
+            <column name="INST_ORDER_NUM" type="INT" remarks="排序号"/>
+            <column name="INST_MOD_ID" type="NVARCHAR(100)" remarks="所属模型ID"/>
+            <column name="INST_MOD_CATEGORY" type="NVARCHAR(100)" remarks="模型分类:GeneralProcess[通用流程];ReceiveDocumentProcess[公文收文流程];SendDocumentProcess[公文发文流程];AdministrativeApprovalProcess[行政审批流程];AdministrativeLicensingProcess[行政许可流程];CommunityServiceProcess[社区服务流程]"/>
+            <column name="INST_MOD_MODULE_ID" type="NVARCHAR(100)" remarks="所属的模块ID" />
+            <column name="INST_MOD_TENANT_ID" type="NVARCHAR(100)" remarks="租户ID" />
+        </createTable>
+        <createTable tableName="TFLOW_INSTANCE_PROPERTIES" remarks="流程实例扩展属性表:主要用于与实例关联的扩展属性">
+            <column name="INST_PROP_ID" type="NVARCHAR(100)" remarks="主键:UUID">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="INST_PROP_BELONG_INST_ID" type="NVARCHAR(100)" remarks="所属实例ID"/>
+            <column name="INST_PROP_BELONG_NODE_ID" type="NVARCHAR(100)" remarks="所属实例节点ID"/>
+            <column name="INST_PROP_NAME" type="NVARCHAR(100)" remarks="属性名称"/>
+            <column name="INST_PROP_VALUE1" type="NVARCHAR(300)" remarks="属性值1"/>
+            <column name="INST_PROP_VALUE2" type="NVARCHAR(300)" remarks="属性值2"/>
+            <column name="INST_PROP_VALUE3" type="NVARCHAR(300)" remarks="属性值2"/>
+            <column name="INST_PROP_TYPE" type="NVARCHAR(300)" remarks="属性类型"/>
+            <column name="INST_PROP_DESC" type="NVARCHAR(300)" remarks="属性备注"/>
+            <column name="INST_PROP_ORDER_NUM" type="INT" remarks="排序号"/>
+        </createTable>
+        <createTable tableName="TFLOW_INSTANCE_FILE" remarks="流程实例关联文件附件表">
+            <column name="FILE_ID" type="NVARCHAR(100)" remarks="主键:UUID">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="FILE_INST_ID" type="NVARCHAR(100)" remarks="所属实例ID"/>
+            <column name="FILE_NAME" type="NVARCHAR(100)" remarks="文件名称" />
+            <column name="FILE_STORE_PATH" type="NVARCHAR(500)" remarks="存储路径" />
+            <column name="FILE_STORE_NAME" type="NVARCHAR(500)" remarks="存储名称" />
+            <column name="FILE_EXTENSION" type="NVARCHAR(20)" remarks="扩展名" />
+            <column name="FILE_DESCRIPTION" type="NVARCHAR(500)" remarks="备注" />
+            <column name="FILE_CREATE_TIME" type="datetime(6)" remarks="创建时间"/>
+            <column name="FILE_CREATOR" type="NVARCHAR(100)" remarks="创建者"/>
+            <column name="FILE_CREATOR_ID" type="NVARCHAR(100)" remarks="创建者"/>
+            <column name="FILE_ORGAN_NAME" type="NVARCHAR(100)" remarks="创建者所在组织"/>
+            <column name="FILE_ORGAN_ID" type="NVARCHAR(100)" remarks="创建者所在组织ID"/>
+            <column name="FILE_ORDER_NUM" type="INT" remarks="排序号"/>
+            <column name="FILE_STATUS" type="NVARCHAR(100)" remarks="状态"/>
+            <column name="FILE_TYPE" type="NVARCHAR(100)" remarks="文件类型"/>
+            <column name="FILE_SIZE" type="INT" remarks="文件大小"/>
+            <column name="FILE_PRE_ID" type="INT" remarks="前一文件ID"/>
+        </createTable>
+        <createTable tableName="TFLOW_BUSINESS_DATA_SNAPSHOT" remarks="业务数据快照表:主要用于留存备份">
+            <column name="SNAPSHOT_ID" type="NVARCHAR(100)" remarks="主键:UUID">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="SNAPSHOT_BUSINESS_KEY" type="NVARCHAR(100)" remarks="业务数据ID"/>
+            <column name="SNAPSHOT_INST_ID" type="NVARCHAR(100)" remarks="流程实例ID"/>
+            <column name="SNAPSHOT_NODE_ID" type="NVARCHAR(100)" remarks="流程实例节点ID"/>
+            <column name="SNAPSHOT_CREATOR" type="NVARCHAR(100)" remarks="创建者"/>
+            <column name="SNAPSHOT_CREATOR_ID" type="NVARCHAR(100)" remarks="创建者"/>
+            <column name="SNAPSHOT_CREATE_TIME" type="datetime(6)" remarks="创建时间"/>
+            <column name="SNAPSHOT_CONTENT" type="CLOB" remarks="业务数据内容"/>
+            <column name="SNAPSHOT_TITLE" type="NVARCHAR(400)" remarks="流程实例标题"/>
+        </createTable>
+        <createTable tableName="TFLOW_EXECUTION_TASK" remarks="流程实例环节执行任务表:用于扩展act_ru_task记录,主送抄送任务">
+            <column name="EXEC_TASK_ID" type="NVARCHAR(100)" remarks="主键:UUID">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="EXEC_TASK_INST_ID" type="NVARCHAR(100)" remarks="流程实例ID"/>
+            <column name="EXEC_TASK_RU_EXECUTION_ID" type="NVARCHAR(100)" remarks="关联act_ru_execution的ID_"/>
+            <column name="EXEC_TASK_RU_TASK_ID" type="NVARCHAR(100)" remarks="关联act_ru_task的ID_"/>
+            <column name="EXEC_TASK_RU_PROC_INST_ID" type="NVARCHAR(100)" remarks="关联act_ru_task的PROC_INST_ID_"/>
+            <column name="EXEC_TASK_RU_PROC_DEF_ID" type="NVARCHAR(100)" remarks="关联act_ru_task的PROC_DEF_ID_"/>
+
+        </createTable>
+        <createTable tableName="TFLOW_EXECUTION_LOG" remarks="流程实例环节执行日志表">
+
+        </createTable>
+        <createTable tableName="TFLOW_MODEL_OBJECT" remarks="流程模型关联对象表:启动者,管理者">
+
+        </createTable>
+        <createTable tableName="TFLOW_MODEL_IN_GROUPS" remarks="流程模型与所属分组关联表">
+
+        </createTable>
+        <createTable tableName="TFLOW_MODEL_GROUP" remarks="流程模型分组表">
+            <column name="MODEL_GROUP_ID" type="NVARCHAR(100)" remarks="分组ID:随机的UUID,主键">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="MODEL_GROUP_VALUE" type="NVARCHAR(200)" remarks="分组的键值:必须唯一">
+                <constraints nullable="false"/>
+            </column>
+            <column name="MODEL_GROUP_TEXT" type="NVARCHAR(200)" remarks="分组的名称">
+                <constraints nullable="false"/>
+            </column>
+            <column name="MODEL_GROUP_ORDER_NUM" type="INT" remarks="排序号" />
+            <column name="MODEL_GROUP_CREATE_TIME" type="datetime(6)" remarks="创建时间" />
+            <column name="MODEL_GROUP_DESC" type="NVARCHAR(500)" remarks="备注" />
+            <column name="MODEL_GROUP_STATUS" type="NVARCHAR(10)" remarks="状态:启用,禁用" />
+            <column name="MODEL_GROUP_PARENT_ID" type="NVARCHAR(100)" remarks="父节点的ID" />
+            <column name="MODEL_GROUP_IS_SYSTEM" type="NVARCHAR(10)" remarks="是否是系统分组" />
+            <column name="MODEL_GROUP_DEL_ENABLE" type="NVARCHAR(10)" remarks="能否删除" />
+            <column name="MODEL_GROUP_CLASS_NAME" type="NVARCHAR(100)" remarks="样式类名"/>
+        </createTable>
+    </changeSet>
 </databaseChangeLog>

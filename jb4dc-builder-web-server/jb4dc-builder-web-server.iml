@@ -248,25 +248,26 @@
     <orderEntry type="library" name="Maven: org.springframework:spring-jcl:5.2.10.RELEASE" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.springframework:spring-test:5.2.10.RELEASE" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.xmlunit:xmlunit-core:2.6.4" level="project" />
-    <orderEntry type="library" name="Maven: org.camunda.bpm:camunda-engine:7.14.0" level="project" />
-    <orderEntry type="library" name="Maven: org.camunda.bpm.model:camunda-bpmn-model:7.14.0" level="project" />
-    <orderEntry type="library" name="Maven: org.camunda.bpm.model:camunda-xml-model:7.14.0" level="project" />
-    <orderEntry type="library" name="Maven: org.camunda.bpm.model:camunda-cmmn-model:7.14.0" level="project" />
-    <orderEntry type="library" name="Maven: org.camunda.bpm.dmn:camunda-engine-dmn:7.14.0" level="project" />
-    <orderEntry type="library" name="Maven: org.camunda.commons:camunda-commons-utils:1.9.0" level="project" />
-    <orderEntry type="library" name="Maven: org.camunda.bpm.model:camunda-dmn-model:7.14.0" level="project" />
-    <orderEntry type="library" name="Maven: org.camunda.bpm.dmn:camunda-engine-feel-api:7.14.0" level="project" />
-    <orderEntry type="library" name="Maven: org.camunda.bpm.dmn:camunda-engine-feel-juel:7.14.0" level="project" />
-    <orderEntry type="library" name="Maven: org.camunda.bpm.dmn:camunda-engine-feel-scala:7.14.0" level="project" />
-    <orderEntry type="library" name="Maven: org.camunda.commons:camunda-commons-logging:1.9.0" level="project" />
-    <orderEntry type="library" name="Maven: org.camunda.commons:camunda-commons-typed-values:7.14.0" level="project" />
+    <orderEntry type="library" name="Maven: org.camunda.bpm:camunda-engine:7.15.0" level="project" />
+    <orderEntry type="library" name="Maven: org.camunda.bpm.model:camunda-bpmn-model:7.15.0" level="project" />
+    <orderEntry type="library" name="Maven: org.camunda.bpm.model:camunda-xml-model:7.15.0" level="project" />
+    <orderEntry type="library" name="Maven: org.camunda.bpm.model:camunda-cmmn-model:7.15.0" level="project" />
+    <orderEntry type="library" name="Maven: org.camunda.bpm.dmn:camunda-engine-dmn:7.15.0" level="project" />
+    <orderEntry type="library" name="Maven: org.camunda.commons:camunda-commons-utils:1.10.0" level="project" />
+    <orderEntry type="library" name="Maven: org.camunda.bpm.model:camunda-dmn-model:7.15.0" level="project" />
+    <orderEntry type="library" name="Maven: org.camunda.bpm.dmn:camunda-engine-feel-api:7.15.0" level="project" />
+    <orderEntry type="library" name="Maven: org.camunda.bpm.dmn:camunda-engine-feel-juel:7.15.0" level="project" />
+    <orderEntry type="library" name="Maven: org.camunda.bpm.dmn:camunda-engine-feel-scala:7.15.0" level="project" />
+    <orderEntry type="library" name="Maven: org.camunda.feel:feel-engine:scala-shaded:1.13.1" level="project" />
+    <orderEntry type="library" name="Maven: org.camunda.commons:camunda-commons-logging:1.10.0" level="project" />
+    <orderEntry type="library" name="Maven: org.camunda.commons:camunda-commons-typed-values:7.15.0" level="project" />
     <orderEntry type="library" name="Maven: org.mybatis:mybatis:3.5.1" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-beans:5.2.10.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: joda-time:joda-time:2.10.8" level="project" />
-    <orderEntry type="library" name="Maven: org.camunda.connect:camunda-connect-core:1.5.0" level="project" />
-    <orderEntry type="library" scope="RUNTIME" name="Maven: org.camunda.connect:camunda-connect-connectors-all:1.5.0" level="project" />
-    <orderEntry type="library" name="Maven: org.camunda.bpm.springboot:camunda-bpm-spring-boot-starter:7.14.0" level="project" />
-    <orderEntry type="library" name="Maven: org.camunda.bpm:camunda-engine-spring:7.14.0" level="project" />
+    <orderEntry type="library" name="Maven: org.camunda.connect:camunda-connect-core:1.5.2" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Maven: org.camunda.connect:camunda-connect-connectors-all:1.5.2" level="project" />
+    <orderEntry type="library" name="Maven: org.camunda.bpm.springboot:camunda-bpm-spring-boot-starter:7.15.0" level="project" />
+    <orderEntry type="library" name="Maven: org.camunda.bpm:camunda-engine-spring:7.15.0" level="project" />
     <orderEntry type="library" name="Maven: commons-dbcp:commons-dbcp:1.4" level="project" />
     <orderEntry type="library" name="Maven: commons-pool:commons-pool:1.6" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-context:5.2.10.RELEASE" level="project" />
