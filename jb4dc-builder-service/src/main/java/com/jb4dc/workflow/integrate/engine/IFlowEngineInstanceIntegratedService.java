@@ -22,4 +22,6 @@ public interface IFlowEngineInstanceIntegratedService {
     void restartProcessAndJumpToActivityNode(JB4DCSession jb4DCSession, String processInstanceId, String jumpToActivityNodeId, String assigneeUserId, Map<String, Object> variables) throws JBuild4DCGenerallyException;
 
     void deleteAllInstance(JB4DCSession jb4DCSession, String deleteReason);
+
+    void updateToVersion(String sourceProcessDefinitionId, String targetProcessDefinitionId, String processInstanceId);
 }

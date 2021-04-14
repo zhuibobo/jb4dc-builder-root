@@ -13,6 +13,7 @@ import org.camunda.bpm.engine.ProcessEngine;
 import org.camunda.bpm.engine.RuntimeService;
 import org.camunda.bpm.engine.history.HistoricProcessInstance;
 import org.camunda.bpm.engine.history.HistoricTaskInstance;
+import org.camunda.bpm.engine.migration.MigrationPlan;
 import org.camunda.bpm.engine.runtime.*;
 import org.camunda.bpm.model.bpmn.instance.StartEvent;
 import org.camunda.bpm.model.bpmn.instance.UserTask;
@@ -230,5 +231,12 @@ public class FlowEngineInstanceIntegratedServiceImpl extends FlowEngineCamundaIn
             runtimeService.deleteProcessInstance(processInstance.getId(),deleteReason);
         }
         //return processInstanceQuery;
+    }
+
+    @Override
+    public void updateToVersion(String sourceProcessDefinitionId, String targetProcessDefinitionId,String processInstanceId) {
+        RuntimeService runtimeService = getRuntimeService();
+        MigrationPlan migrationPlan = runtimeService.createMigrationPlan(sourceProcessDefinitionId, targetProcessDefinitionId).mapEqualActivities().build();
+        runtimeService.newMigration(migrationPlan).processInstanceIds(processInstanceId).execute();
     }
 }

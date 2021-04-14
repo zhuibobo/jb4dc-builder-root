@@ -23,66 +23,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4c1726ea-d2d7-4bd0-ba55-67bf5abd523a" name="Default Changelist" comment="查询统计">
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_camunda_feel_feel_engine_scala_shaded_1_13_1.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jb4dc-builder-service/src/main/java/com/jb4dc/workflow/integrate/engine/IFlowEngineInstanceIntegratedService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jb4dc-builder-service/src/main/java/com/jb4dc/workflow/integrate/extend/IFlowExtendModelService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jb4dc-builder-service/src/main/java/com/jb4dc/workflow/integrate/extend/IFlowExtendTaskService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jb4dc-builder-service/src/main/java/com/jb4dc/workflow/integrate/extend/impl/FlowExtendModelServiceImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jb4dc-builder-service/src/main/java/com/jb4dc/workflow/integrate/extend/impl/FlowExtendTaskServiceImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jb4dc-builder-service/src/main/resources/liquibase/camunda-7.15.0/activiti.mysql.create.case.engine.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jb4dc-builder-service/src/main/resources/liquibase/camunda-7.15.0/activiti.mysql.create.case.history.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jb4dc-builder-service/src/main/resources/liquibase/camunda-7.15.0/activiti.mysql.create.decision.engine.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jb4dc-builder-service/src/main/resources/liquibase/camunda-7.15.0/activiti.mysql.create.decision.history.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jb4dc-builder-service/src/main/resources/liquibase/camunda-7.15.0/activiti.mysql.create.engine.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jb4dc-builder-service/src/main/resources/liquibase/camunda-7.15.0/activiti.mysql.create.history.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jb4dc-builder-service/src/main/resources/liquibase/camunda-7.15.0/activiti.mysql.create.identity.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jb4dc-builder-service/src/main/resources/liquibase/数据库表名和字段名长度限制.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/dictionaries/zhuib.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dictionaries/zhuib.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_camunda_bpm_camunda_engine_7_14_0.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_camunda_bpm_camunda_engine_7_15_0.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_camunda_bpm_camunda_engine_spring_7_14_0.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_camunda_bpm_camunda_engine_spring_7_15_0.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_camunda_bpm_dmn_camunda_engine_dmn_7_14_0.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_camunda_bpm_dmn_camunda_engine_dmn_7_15_0.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_camunda_bpm_dmn_camunda_engine_feel_api_7_14_0.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_camunda_bpm_dmn_camunda_engine_feel_api_7_15_0.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_camunda_bpm_dmn_camunda_engine_feel_juel_7_14_0.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_camunda_bpm_dmn_camunda_engine_feel_juel_7_15_0.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_camunda_bpm_dmn_camunda_engine_feel_scala_7_14_0.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_camunda_bpm_dmn_camunda_engine_feel_scala_7_15_0.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_camunda_bpm_model_camunda_bpmn_model_7_14_0.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_camunda_bpm_model_camunda_bpmn_model_7_15_0.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_camunda_bpm_model_camunda_cmmn_model_7_14_0.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_camunda_bpm_model_camunda_cmmn_model_7_15_0.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_camunda_bpm_model_camunda_dmn_model_7_14_0.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_camunda_bpm_model_camunda_dmn_model_7_15_0.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_camunda_bpm_model_camunda_xml_model_7_14_0.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_camunda_bpm_model_camunda_xml_model_7_15_0.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_camunda_bpm_springboot_camunda_bpm_spring_boot_starter_7_14_0.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_camunda_bpm_springboot_camunda_bpm_spring_boot_starter_7_15_0.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_camunda_commons_camunda_commons_logging_1_9_0.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_camunda_commons_camunda_commons_logging_1_10_0.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_camunda_commons_camunda_commons_typed_values_7_14_0.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_camunda_commons_camunda_commons_typed_values_7_15_0.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_camunda_commons_camunda_commons_utils_1_9_0.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_camunda_commons_camunda_commons_utils_1_10_0.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_camunda_connect_camunda_connect_connectors_all_1_5_0.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_camunda_connect_camunda_connect_connectors_all_1_5_2.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_camunda_connect_camunda_connect_core_1_5_0.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_camunda_connect_camunda_connect_core_1_5_2.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jb4dc-builder-service/jb4dc-builder-service.iml" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-service/jb4dc-builder-service.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jb4dc-builder-service/src/main/java/com/jb4dc/workflow/integrate/IWFInstanceIntegratedService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/jb4dc-builder-service/src/main/java/com/jb4dc/workflow/integrate/IWFModelIntegratedService.java" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-service/src/main/java/com/jb4dc/workflow/integrate/engine/IFlowEngineModelIntegratedService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jb4dc-builder-service/src/main/java/com/jb4dc/workflow/integrate/IWFTaskIntegratedService.java" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-service/src/main/java/com/jb4dc/workflow/integrate/engine/IFlowEngineTaskIntegratedService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jb4dc-builder-service/src/main/java/com/jb4dc/workflow/integrate/impl/CamundaIntegrate.java" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-service/src/main/java/com/jb4dc/workflow/integrate/engine/impl/CamundaIntegrate.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jb4dc-builder-service/src/main/java/com/jb4dc/workflow/integrate/impl/WFCamundaIntegrateAbstractService.java" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-service/src/main/java/com/jb4dc/workflow/integrate/engine/impl/FlowEngineCamundaIntegrateAbstractService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jb4dc-builder-service/src/main/java/com/jb4dc/workflow/integrate/impl/WFExecutionIntegratedServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-service/src/main/java/com/jb4dc/workflow/integrate/engine/impl/FlowEngineExecutionIntegratedServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jb4dc-builder-service/src/main/java/com/jb4dc/workflow/integrate/impl/WFInstanceIntegratedServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-service/src/main/java/com/jb4dc/workflow/integrate/engine/impl/FlowEngineInstanceIntegratedServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jb4dc-builder-service/src/main/java/com/jb4dc/workflow/integrate/impl/WFModelIntegrateServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-service/src/main/java/com/jb4dc/workflow/integrate/engine/impl/FlowEngineModelIntegrateServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jb4dc-builder-service/src/main/java/com/jb4dc/workflow/integrate/impl/WFTaskIntegratedServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-service/src/main/java/com/jb4dc/workflow/integrate/engine/impl/FlowEngineTaskIntegratedServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jb4dc-builder-service/src/main/java/com/jb4dc/workflow/utility/CamundaBpmnUtility.java" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-service/src/main/java/com/jb4dc/workflow/utility/CamundaBpmnUtility.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jb4dc-builder-service/src/main/resources/liquibase/activiti.mysql.create.case.engine.sql" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-service/src/main/resources/liquibase/camunda-7.14.0/activiti.mysql.create.case.engine.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jb4dc-builder-service/src/main/resources/liquibase/activiti.mysql.create.case.history.sql" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-service/src/main/resources/liquibase/camunda-7.14.0/activiti.mysql.create.case.history.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jb4dc-builder-service/src/main/resources/liquibase/activiti.mysql.create.decision.engine.sql" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-service/src/main/resources/liquibase/camunda-7.14.0/activiti.mysql.create.decision.engine.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jb4dc-builder-service/src/main/resources/liquibase/activiti.mysql.create.decision.history.sql" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-service/src/main/resources/liquibase/camunda-7.14.0/activiti.mysql.create.decision.history.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jb4dc-builder-service/src/main/resources/liquibase/activiti.mysql.create.engine.sql" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-service/src/main/resources/liquibase/camunda-7.14.0/activiti.mysql.create.engine.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jb4dc-builder-service/src/main/resources/liquibase/activiti.mysql.create.history.sql" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-service/src/main/resources/liquibase/camunda-7.14.0/activiti.mysql.create.history.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jb4dc-builder-service/src/main/resources/liquibase/activiti.mysql.create.identity.sql" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-service/src/main/resources/liquibase/camunda-7.14.0/activiti.mysql.create.identity.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jb4dc-builder-service/src/main/java/com/jb4dc/workflow/integrate/engine/IFlowEngineInstanceIntegratedService.java" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-service/src/main/java/com/jb4dc/workflow/integrate/engine/IFlowEngineInstanceIntegratedService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jb4dc-builder-service/src/main/java/com/jb4dc/workflow/integrate/engine/impl/FlowEngineInstanceIntegratedServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-service/src/main/java/com/jb4dc/workflow/integrate/engine/impl/FlowEngineInstanceIntegratedServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/jb4dc-builder-service/src/main/resources/liquibase/jb4dc-builder-db-changelog.xml" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-service/src/main/resources/liquibase/jb4dc-builder-db-changelog.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/jb4dc-builder-service/src/main/resources/liquibase/jb4dc-builder-db-changelog1.xml" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-service/src/main/resources/liquibase/jb4dc-builder-db-changelog1.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jb4dc-builder-web-package/jb4dc-builder-web-package.iml" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-web-package/jb4dc-builder-web-package.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/java/com/jb4dc/builder/webpackage/rest/workflow/flowIntegratedRest.java" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/java/com/jb4dc/builder/webpackage/rest/workflow/flowIntegratedRest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/jb4dc-workflow-modeler/Modeler/VueComponent/Properties/PropertiesComponent/jb4dc-actions-properties.vue" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/jb4dc-workflow-modeler/Modeler/VueComponent/Properties/PropertiesComponent/jb4dc-actions-properties.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/jb4dc-workflow-modeler/Modeler/VueComponent/Properties/process-properties.vue" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/jb4dc-workflow-modeler/Modeler/VueComponent/Properties/process-properties.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/resources/static/HTML/WorkFlow/Modeler/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/resources/static/HTML/WorkFlow/Modeler/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jb4dc-builder-web-server/jb4dc-builder-web-server.iml" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-web-server/jb4dc-builder-web-server.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jb4dc-builder-web-server/src/test/java/com/jb4dc/builder/webpackage/workflow/integrate/WorkflowIntegrateTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-web-server/src/test/java/com/jb4dc/builder/webpackage/workflow/integrate/WorkflowIntegrateTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/jb4dc-workflow-modeler/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/jb4dc-workflow-modeler/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/jb4dc-workflow-modeler/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/jb4dc-workflow-modeler/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jb4dc-builder-web-server/src/main/resources/application-dev.yml" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-web-server/src/main/resources/application-dev.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -186,7 +135,7 @@
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.43728423" />
     <property name="recentsLimit" value="12" />
-    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+    <property name="settings.editor.selected.configurable" value="reference.settingsdialog.IDE.editor.colors.Java" />
     <property name="ts.external.directory.path" value="C:\DevInstallation\IntelliJ IDEA 2020.2.3\plugins\JavaScriptLanguage\jsLanguageServicesImpl\external" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
@@ -239,20 +188,7 @@
       </set>
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.WorkflowIntegrateTest.parseToPO">
-    <configuration default="true" type="ArquillianTestNG" factoryName="" nameIsGenerated="true">
-      <option name="arquillianRunConfiguration">
-        <value>
-          <option name="containerStateName" value="" />
-        </value>
-      </option>
-      <option name="TEST_OBJECT" value="CLASS" />
-      <properties />
-      <listeners />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
+  <component name="RunManager" selected="Spring Boot.ApplicationBuilderWebServer">
     <configuration name="InitializationSystemRestTest" type="JUnit" factoryName="JUnit" nameIsGenerated="true">
       <module name="jb4dc-builder-web-server" />
       <extension name="coverage">
@@ -530,10 +466,6 @@
     </configuration>
     <list>
       <item itemvalue="JUnit.InitializationSystemRestTest" />
-      <item itemvalue="Spring Boot.ApplicationBuilderWebServer" />
-      <item itemvalue="Spring Boot.ApplicationDevMockWebServer" />
-      <item itemvalue="Spring Boot.ApplicationGridSystemWebServer" />
-      <item itemvalue="Spring Boot.ApplicationQCSystemWebServer" />
       <item itemvalue="JUnit.WorkflowIntegrateTest.startForMessage1M6" />
       <item itemvalue="JUnit.WorkflowIntegrateTest.startForMessage1M7" />
       <item itemvalue="JUnit.WorkflowIntegrateTest.startForSignalM1" />
@@ -546,6 +478,10 @@
       <item itemvalue="JUnit.WorkflowIntegrateTest.SequentialUserTaskTest1" />
       <item itemvalue="JUnit.WorkflowIntegrateTest.UserTaskTransactionalTest1" />
       <item itemvalue="JUnit.WorkflowIntegrateTest.parseToPO" />
+      <item itemvalue="Spring Boot.ApplicationBuilderWebServer" />
+      <item itemvalue="Spring Boot.ApplicationDevMockWebServer" />
+      <item itemvalue="Spring Boot.ApplicationGridSystemWebServer" />
+      <item itemvalue="Spring Boot.ApplicationQCSystemWebServer" />
     </list>
     <recent_temporary>
       <list>
@@ -1002,14 +938,11 @@
       <workItem from="1618033018930" duration="38000" />
       <workItem from="1618033075307" duration="10388000" />
       <workItem from="1618107074118" duration="15348000" />
-      <workItem from="1618189716643" duration="17721000" />
-    </task>
-    <task id="LOCAL-00379" summary="2020-10-15">
-      <created>1605443255837</created>
-      <option name="number" value="00379" />
-      <option name="presentableId" value="LOCAL-00379" />
-      <option name="project" value="LOCAL" />
-      <updated>1605443255838</updated>
+      <workItem from="1618189716643" duration="23968000" />
+      <workItem from="1618273950299" duration="1420000" />
+      <workItem from="1618276208951" duration="99000" />
+      <workItem from="1618276328300" duration="11925000" />
+      <workItem from="1618367566233" duration="15600000" />
     </task>
     <task id="LOCAL-00380" summary="2020-10-15">
       <created>1605448274644</created>
@@ -1347,7 +1280,14 @@
       <option name="project" value="LOCAL" />
       <updated>1617974840193</updated>
     </task>
-    <option name="localTasksCounter" value="428" />
+    <task id="LOCAL-00428" summary="查询统计">
+      <created>1618219887460</created>
+      <option name="number" value="00428" />
+      <option name="presentableId" value="LOCAL-00428" />
+      <option name="project" value="LOCAL" />
+      <updated>1618219887461</updated>
+    </task>
+    <option name="localTasksCounter" value="429" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

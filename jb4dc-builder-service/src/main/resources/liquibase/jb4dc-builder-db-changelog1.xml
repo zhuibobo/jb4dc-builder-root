@@ -977,13 +977,13 @@
     <changeSet id="changeSet-camunda-integrated-0001" author="zhuangrb">
         <dropTable tableName="TBUILD_FLOW_INTEGRATED"></dropTable>
         <createTable tableName="TFLOW_MODEL_INTEGRATED" remarks="流程模型集成表">
-            <column name="MODEL_ID" type="NVARCHAR(100)" remarks="主键:UUID">
+            <column name="MODEL_ID" type="NVARCHAR(100)" remarks="主键:UUID,MODEL_RE_KEY:MODEL_SAVE_VERSION:UUID">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
-            <column name="MODEL_ROOT_ID" type="NVARCHAR(100)" remarks="模型根ID:多版本时相同,同一模型判定用" />
-            <column name="MODEL_DE_ED" type="NVARCHAR(100)" remarks="是否已经部署"/>
-            <column name="MODEL_DE_ID" type="NVARCHAR(100)" remarks="act_de_model表的ID"/>
-            <column name="MODEL_DE_SUCCESS" type="NVARCHAR(50)" remarks="部署是否成功"/>
+            <column name="MODEL_RE_ED" type="NVARCHAR(100)" remarks="是否已经部署"/>
+            <column name="MODEL_RE_ID" type="NVARCHAR(100)" remarks="act_de_model表的ID"/>
+            <column name="MODEL_RE_SUCCESS" type="NVARCHAR(50)" remarks="部署是否成功"/>
+            <column name="MODEL_RE_KEY" type="NVARCHAR(1000)" remarks="启动键:act_de_model表的KEY_,充当ROOT_ID使用"/>
             <column name="MODEL_MODULE_ID" type="NVARCHAR(100)" remarks="所属的模块ID">
                 <constraints nullable="false"/>
             </column>
@@ -1009,7 +1009,6 @@
             <column name="MODEL_STATUS" type="NVARCHAR(10)" remarks="状态"/>
             <column name="MODEL_ORDER_NUM" type="INT" remarks="排序号"/>
             <column name="MODEL_DEPLOYMENT_ID" type="NVARCHAR(1000)" remarks="部署ID"/>
-            <column name="MODEL_START_KEY" type="NVARCHAR(1000)" remarks="启动键"/>
             <column name="MODEL_RESOURCE_NAME" type="NVARCHAR(1000)" remarks="资源名称"/>
             <column name="MODEL_FROM_TYPE" type="NVARCHAR(50)" remarks="流程模型来自上传或者页面设计"/>
             <column name="MODEL_SAVE_VERSION" type="INT" remarks="保存版本号:每次保存都+1"/>
@@ -1025,6 +1024,16 @@
             <column name="MODEL_PROP_VALUE" type="NVARCHAR(300)" remarks="属性值"/>
             <column name="MODEL_PROP_DESC" type="NVARCHAR(300)" remarks="属性备注"/>
             <column name="MODEL_PROP_ORDER_NUM" type="INT" remarks="排序号"/>
+        </createTable>
+        <createTable tableName="TFLOW_MODEL_ASS_OBJECT" remarks="流程模型关联对象表:启动者,管理者">
+            <column name="OBJECT_ID" type="NVARCHAR(100)" remarks="主键:UUID">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="OBJECT_MODEL_ID" type="NVARCHAR(100)" remarks="关联模型ID"/>
+            <column name="OBJECT_TYPE" type="NVARCHAR(100)" remarks="关联对象类型:Starter[发起者];Manager[管理者]"/>
+            <column name="OBJECT_RE_KEY" type="NVARCHAR(100)" remarks="启动键:act_de_model表的KEY_,充当ROOT_ID使用"/>
+            <column name="OBJECT_TEXT" type="NVARCHAR(1000)" remarks="关联对象的文本"/>
+            <column name="OBJECT_VALUE" type="NVARCHAR(1000)" remarks="关联对象的值"/>
         </createTable>
         <createTable tableName="TFLOW_INSTANCE" remarks="流程实例表">
             <column name="INST_ID" type="NVARCHAR(100)" remarks="主键:UUID">
@@ -1081,42 +1090,103 @@
             <column name="FILE_ORGAN_ID" type="NVARCHAR(100)" remarks="创建者所在组织ID"/>
             <column name="FILE_ORDER_NUM" type="INT" remarks="排序号"/>
             <column name="FILE_STATUS" type="NVARCHAR(100)" remarks="状态"/>
-            <column name="FILE_TYPE" type="NVARCHAR(100)" remarks="文件类型"/>
+            <column name="FILE_TYPE" type="NVARCHAR(100)" remarks="文件类型:Draft[稿纸];Document[正文];Attachment[附件]"/>
             <column name="FILE_SIZE" type="INT" remarks="文件大小"/>
             <column name="FILE_PRE_ID" type="INT" remarks="前一文件ID"/>
         </createTable>
-        <createTable tableName="TFLOW_BUSINESS_DATA_SNAPSHOT" remarks="业务数据快照表:主要用于留存备份">
-            <column name="SNAPSHOT_ID" type="NVARCHAR(100)" remarks="主键:UUID">
-                <constraints primaryKey="true" nullable="false"/>
-            </column>
-            <column name="SNAPSHOT_BUSINESS_KEY" type="NVARCHAR(100)" remarks="业务数据ID"/>
-            <column name="SNAPSHOT_INST_ID" type="NVARCHAR(100)" remarks="流程实例ID"/>
-            <column name="SNAPSHOT_NODE_ID" type="NVARCHAR(100)" remarks="流程实例节点ID"/>
-            <column name="SNAPSHOT_CREATOR" type="NVARCHAR(100)" remarks="创建者"/>
-            <column name="SNAPSHOT_CREATOR_ID" type="NVARCHAR(100)" remarks="创建者"/>
-            <column name="SNAPSHOT_CREATE_TIME" type="datetime(6)" remarks="创建时间"/>
-            <column name="SNAPSHOT_CONTENT" type="CLOB" remarks="业务数据内容"/>
-            <column name="SNAPSHOT_TITLE" type="NVARCHAR(400)" remarks="流程实例标题"/>
-        </createTable>
         <createTable tableName="TFLOW_EXECUTION_TASK" remarks="流程实例环节执行任务表:用于扩展act_ru_task记录,主送抄送任务">
-            <column name="EXEC_TASK_ID" type="NVARCHAR(100)" remarks="主键:UUID">
+            <column name="EXTASK_ID" type="NVARCHAR(100)" remarks="主键:UUID">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
-            <column name="EXEC_TASK_INST_ID" type="NVARCHAR(100)" remarks="流程实例ID"/>
-            <column name="EXEC_TASK_RU_EXECUTION_ID" type="NVARCHAR(100)" remarks="关联act_ru_execution的ID_"/>
-            <column name="EXEC_TASK_RU_TASK_ID" type="NVARCHAR(100)" remarks="关联act_ru_task的ID_"/>
-            <column name="EXEC_TASK_RU_PROC_INST_ID" type="NVARCHAR(100)" remarks="关联act_ru_task的PROC_INST_ID_"/>
-            <column name="EXEC_TASK_RU_PROC_DEF_ID" type="NVARCHAR(100)" remarks="关联act_ru_task的PROC_DEF_ID_"/>
-
+            <column name="EXTASK_INST_ID" type="NVARCHAR(100)" remarks="流程实例ID"/>
+            <column name="EXTASK_MODEL_ID" type="NVARCHAR(100)" remarks="模型ID:关联TFLOW_MODEL_INTEGRATED的MODEL_ID"/>
+            <column name="EXTASK_RU_TASK_ID" type="NVARCHAR(100)" remarks="关联act_ru_task的ID_"/>
+            <column name="EXTASK_RU_EXECUTION_ID" type="NVARCHAR(100)" remarks="关联act_ru_task的EXECUTION_ID_"/>
+            <column name="EXTASK_RU_PROC_INST_ID" type="NVARCHAR(100)" remarks="关联act_ru_task的PROC_INST_ID_"/>
+            <column name="EXTASK_RU_PROC_DEF_ID" type="NVARCHAR(100)" remarks="关联act_ru_task的PROC_DEF_ID_"/>
+            <column name="EXTASK_PRE_NODE_KEY" type="NVARCHAR(100)" remarks="前一个流程节点ID"/>
+            <column name="EXTASK_PRE_NODE_NAME" type="NVARCHAR(255)" remarks="前一个流程节点名称"/>
+            <column name="EXTASK_CUR_NODE_KEY" type="NVARCHAR(100)" remarks="当前流程节点ID:关联act_ru_task的TASK_DEF_KEY_"/>
+            <column name="EXTASK_CUR_NODE_NAME" type="NVARCHAR(255)" remarks="当前流程节点名称:关联act_ru_task的NAME_"/>
+            <column name="EXTASK_TYPE" type="NVARCHAR(50)" remarks="任务类型:主送任务,抄送任务"/>
+            <column name="EXTASK_STATUS" type="NVARCHAR(50)" remarks="状态:End;Processing;Cancel"/>
+            <column name="EXTASK_SENDER_ID" type="NVARCHAR(50)" remarks="发送者ID"/>
+            <column name="EXTASK_SENDER_NAME" type="NVARCHAR(50)" remarks="发送者名称"/>
+            <column name="EXTASK_SEND_TIME" type="datetime(6)" remarks="发送时间"/>
+            <column name="EXTASK_RECEIVER_ID" type="NVARCHAR(50)" remarks="接收者ID"/>
+            <column name="EXTASK_RECEIVER_NAME" type="NVARCHAR(50)" remarks="接收者名称"/>
+            <column name="EXTASK_VIEW_ED" type="NVARCHAR(10)" remarks="是否已查看"/>
+            <column name="EXTASK_VIEW_TIME" type="datetime(6)" remarks="查看时间"/>
+            <column name="EXTASK_START_TIME" type="datetime(6)" remarks="处理开始时间"/>
+            <column name="EXTASK_END_TIME" type="datetime(6)" remarks="处理结束时间"/>
+            <column name="EXTASK_HANDLE_ED" type="NVARCHAR(10)" remarks="是否已处理"/>
+            <column name="EXTASK_HANDLE_ACTION_KEY" type="NVARCHAR(100)" remarks="处理动作Key"/>
+            <column name="EXTASK_HANDLE_ACTION_NAME" type="NVARCHAR(100)" remarks="处理动作名称"/>
+            <column name="EXTASK_ORDER_NUM" type="INT" remarks="排序号"/>
         </createTable>
-        <createTable tableName="TFLOW_EXECUTION_LOG" remarks="流程实例环节执行日志表">
-
+        <createTable tableName="TFLOW_EXECUTION_TASK_OPINION" remarks="任务处理意见表">
+            <column name="OPINION_ID" type="NVARCHAR(100)" remarks="主键:UUID">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="OPINION_EXTASK_ID" type="NVARCHAR(100)" remarks="关联TFLOW_EXECUTION_TASK的EXTASK_ID" />
+            <column name="OPINION_TEXT" type="NVARCHAR(500)" remarks="意见内容" />
+            <column name="OPINION_TIME" type="datetime(6)" remarks="提交时间" />
+            <column name="OPINION_ORDER_NUM" type="INT" remarks="排序号"/>
         </createTable>
-        <createTable tableName="TFLOW_MODEL_OBJECT" remarks="流程模型关联对象表:启动者,管理者">
-
+        <createTable tableName="TFLOW_EXECUTION_TASK_LOG" remarks="流程实例环节执行日志表:办结时将产生办结日志,以及给下一个用户的初始日志">
+            <column name="LOG_ID" type="NVARCHAR(100)" remarks="主键:UUID">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="LOG_EXTASK_ID" type="NVARCHAR(100)" remarks="关联TFLOW_EXECUTION_TASK的EXTASK_ID" />
+            <column name="LOG_TYPE" type="NVARCHAR(50)" remarks="日志类型:START[初始日志],VIEW[查看日志],TEMPORARY[暂存日志],END[办结日志]"/>
+            <column name="LOG_CREATE_TIME" type="datetime(6)" remarks="日志创建时间"/>
+            <column name="LOG_ORDER_NUM" type="INT" remarks="排序号"/>
+            <column name="LOG_FOR_USER_ID" type="NVARCHAR(50)" remarks="关联用户ID"/>
+            <column name="LOG_FOR_USER_NAME" type="NVARCHAR(50)" remarks="关联用户名称"/>
+            <column name="LOG_FOR_ORGAN_ID" type="NVARCHAR(50)" remarks="关联用户组织ID"/>
+            <column name="LOG_FOR_ORGAN_NAME" type="NVARCHAR(50)" remarks="关联用户组织名称"/>
+            <column name="LOG_PRE_NODE_KEY" type="NVARCHAR(100)" remarks="前一个流程节点ID"/>
+            <column name="LOG_PRE_NODE_NAME" type="NVARCHAR(255)" remarks="前一个流程节点名称"/>
+            <column name="LOG_CUR_NODE_KEY" type="NVARCHAR(100)" remarks="当前流程节点ID:关联act_ru_task的TASK_DEF_KEY_"/>
+            <column name="LOG_CUR_NODE_NAME" type="NVARCHAR(255)" remarks="当前流程节点名称:关联act_ru_task的NAME_"/>
+            <column name="LOG_HANDLE_ACTION_KEY" type="NVARCHAR(100)" remarks="处理动作Key"/>
+            <column name="LOG_HANDLE_ACTION_NAME" type="NVARCHAR(100)" remarks="处理动作名称"/>
+            <column name="LOG_CLIENT_TYPE" type="NVARCHAR(50)" remarks="客户端类型:Android;IOS;Web"/>
+            <column name="LOG_CLIENT_VERSION" type="NVARCHAR(50)" remarks="客户端版本号"/>
+            <column name="LOG_CLIENT_SUBMIT_DATA" type="CLOB" remarks="客户端提交数据"/>
+            <column name="LOG_SOURCE_TASK_JSON" type="CLOB" remarks="起始状态的Task记录Json"/>
+            <column name="LOG_TO_TASK_JSON" type="CLOB" remarks="结束状态的Task记录Json"/>
+            <column name="LOG_BUSINESS_KEY" type="NVARCHAR(100)" remarks="业务数据ID"/>
+            <column name="LOG_BUSINESS_SOURCE_DATA" type="CLOB" remarks="开始状态的业务数据"/>
+            <column name="LOG_BUSINESS_TO_DATA" type="CLOB" remarks="结束状态的业务数据"/>
+            <column name="LOG_TO_TASK_JSON" type="CLOB" remarks="结束状态的Task记录Json"/>
+            <column name="LOG_FILE_DRAFT_SID" type="NVARCHAR(100)" remarks="文件稿纸原始ID"/>
+            <column name="LOG_FILE_DRAFT_NID" type="NVARCHAR(100)" remarks="文件稿纸新ID"/>
+            <column name="LOG_FILE_DRAFT_CDBID" type="NVARCHAR(100)" remarks="文件稿纸提交时数据存储记录ID"/>
+            <column name="LOG_FILE_DRAFT_TEXT" type="CLOB" remarks="文件稿纸内容的文本抽取"/>
+            <column name="LOG_FILE_DOC_SID" type="NVARCHAR(100)" remarks="文件正文原始ID"/>
+            <column name="LOG_FILE_DOC_NID" type="NVARCHAR(100)" remarks="文件正文新ID"/>
+            <column name="LOG_FILE_DOC_CDBID" type="NVARCHAR(100)" remarks="文件正文提交时数据存储记录ID"/>
+            <column name="LOG_FILE_DOC_TEXT" type="CLOB" remarks="文件正文内容的文本抽取"/>
+            <column name="LOG_FILE_ATT_JSON" type="CLOB" remarks="本次操作修改的附件ID"/>
+            <column name="LOG_TASK_IS_MULTI" type="NVARCHAR(10)" remarks="是否多实例任务"/>
+            <column name="LOG_TASK_IS_PARALLEL" type="NVARCHAR(10)" remarks="是否并行多实例任务"/>
+            <column name="LOG_COMPLETE_ERROR" type="CLOB" remarks="提交办结时的错误日志"/>
+            <column name="LOG_STATUS" type="NVARCHAR(20)" remarks="状态"/>
         </createTable>
-        <createTable tableName="TFLOW_MODEL_IN_GROUPS" remarks="流程模型与所属分组关联表">
-
+        <createTable tableName="TFLOW_AGENT_CONFIG" remarks="流程代理设置表">
+            <column name="AGENT_ID" type="NVARCHAR(100)" remarks="主键:UUID">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="AGENT_TYPE" type="NVARCHAR(100)" remarks="代理类型:全部模型;指定模型" />
+            <column name="AGENT_MODEL_RE_KEY" type="NVARCHAR(100)" remarks="启动键:act_de_model表的KEY_,充当ROOT_ID使用" />
+            <column name="AGENT_START_TIME" type="datetime(6)" remarks="代理开始时间" />
+            <column name="AGENT_END_TIME" type="datetime(6)" remarks="代理结束时间" />
+            <column name="AGENT_FROM_USER_ID" type="NVARCHAR(100)" remarks="来自用户ID" />
+            <column name="AGENT_FROM_USER_NAME" type="NVARCHAR(100)" remarks="来自用户名称" />
+            <column name="AGENT_TO_USER_ID" type="NVARCHAR(100)" remarks="目标用户ID" />
+            <column name="AGENT_TO_USER_NAME" type="NVARCHAR(100)" remarks="目标用户名称" />
+            <column name="AGENT_DESC" type="NVARCHAR(500)" remarks="备注"/>
         </createTable>
         <createTable tableName="TFLOW_MODEL_GROUP" remarks="流程模型分组表">
             <column name="MODEL_GROUP_ID" type="NVARCHAR(100)" remarks="分组ID:随机的UUID,主键">
@@ -1136,6 +1206,27 @@
             <column name="MODEL_GROUP_IS_SYSTEM" type="NVARCHAR(10)" remarks="是否是系统分组" />
             <column name="MODEL_GROUP_DEL_ENABLE" type="NVARCHAR(10)" remarks="能否删除" />
             <column name="MODEL_GROUP_CLASS_NAME" type="NVARCHAR(100)" remarks="样式类名"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet author="zhuangrb" id="changeSet-System-0002" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
+        <createTable tableName="TSYS_NOTICE_MESSAGE" remarks="消息通知表">
+            <column name="MESSAGE_ID" type="NVARCHAR(100)" remarks="字典分组ID:随机的UUID,主键">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="MESSAGE_ORDER_NUM" type="INT" remarks="排序号" />
+            <column name="MESSAGE_CREATE_TIME" type="datetime(6)" remarks="创建时间" />
+            <column name="MESSAGE_EXPIRED_TIME" type="datetime(6)" remarks="过期时间" />
+            <column name="MESSAGE_DELETE_TIME" type="datetime(6)" remarks="删除时间" />
+            <column name="MESSAGE_TYPE" type="NVARCHAR(50)" remarks="通知类型:SMS[短信];Push[推送];IM[即时通讯]" />
+            <column name="MESSAGE_TITLE" type="NVARCHAR(200)" remarks="标题" />
+            <column name="MESSAGE_CONTENT" type="NVARCHAR(500)" remarks="内容" />
+            <column name="MESSAGE_STATUS" type="NVARCHAR(10)" remarks="状态:NotSend[未发送];Send[已发送];Received[已送达]" />
+            <column name="MESSAGE_SENDER_ID" type="NVARCHAR(100)" remarks="发送人Id" />
+            <column name="MESSAGE_SENDER_NAME" type="NVARCHAR(100)" remarks="发送人名称" />
+            <column name="MESSAGE_RECEIVER_ID" type="NVARCHAR(100)" remarks="接收人Id" />
+            <column name="MESSAGE_RECEIVER_NAME" type="NVARCHAR(100)" remarks="接收人名称" />
+            <column name="MESSAGE_RECEIVER_KEY" type="NVARCHAR(100)" remarks="接收键:作为接收端的唯一凭证,手机号码,手机编号,im编号等" />
         </createTable>
     </changeSet>
 </databaseChangeLog>
