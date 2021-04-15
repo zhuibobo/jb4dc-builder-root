@@ -10,7 +10,7 @@ import org.springframework.context.annotation.Configuration;
  * To change this template use File | Settings | File Templates.
  */
 @Configuration
-@MapperScan(basePackages = "com.jb4dc.**.dao.**")
+@MapperScan(basePackages = {"com.jb4dc.**.dao.**","com.jb4dc.workflow.dao"})
 public class MapperBeansConfig {
 
 }

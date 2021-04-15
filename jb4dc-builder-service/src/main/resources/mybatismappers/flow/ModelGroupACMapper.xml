@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jb4dc.workflow.dao.ModelGroupMapper">
+    <resultMap id="BaseResultMap" type="com.jb4dc.workflow.dbentities.ModelGroupEntity">
+        <constructor>
+            <idArg column="MODEL_GROUP_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="MODEL_GROUP_VALUE" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="MODEL_GROUP_TEXT" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="MODEL_GROUP_ORDER_NUM" javaType="java.lang.Integer" jdbcType="INTEGER" />
+            <arg column="MODEL_GROUP_CREATE_TIME" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+            <arg column="MODEL_GROUP_DESC" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="MODEL_GROUP_STATUS" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="MODEL_GROUP_PARENT_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="MODEL_GROUP_IS_SYSTEM" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="MODEL_GROUP_DEL_ENABLE" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="MODEL_GROUP_CLASS_NAME" javaType="java.lang.String" jdbcType="VARCHAR" />
+        </constructor>
+    </resultMap>
+    <sql id="Base_Column_List">
+        MODEL_GROUP_ID, MODEL_GROUP_VALUE, MODEL_GROUP_TEXT, MODEL_GROUP_ORDER_NUM, MODEL_GROUP_CREATE_TIME,
+    MODEL_GROUP_DESC, MODEL_GROUP_STATUS, MODEL_GROUP_PARENT_ID, MODEL_GROUP_IS_SYSTEM,
+    MODEL_GROUP_DEL_ENABLE, MODEL_GROUP_CLASS_NAME
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from TFLOW_MODEL_GROUP
+        where MODEL_GROUP_ID = #{modelGroupId,jdbcType=VARCHAR}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+        delete from TFLOW_MODEL_GROUP
+        where MODEL_GROUP_ID = #{modelGroupId,jdbcType=VARCHAR}
+    </delete>
+    <insert id="insert" parameterType="com.jb4dc.workflow.dbentities.ModelGroupEntity">
+        insert into TFLOW_MODEL_GROUP (MODEL_GROUP_ID, MODEL_GROUP_VALUE, MODEL_GROUP_TEXT,
+                                       MODEL_GROUP_ORDER_NUM, MODEL_GROUP_CREATE_TIME,
+                                       MODEL_GROUP_DESC, MODEL_GROUP_STATUS, MODEL_GROUP_PARENT_ID,
+                                       MODEL_GROUP_IS_SYSTEM, MODEL_GROUP_DEL_ENABLE,
+                                       MODEL_GROUP_CLASS_NAME)
+        values (#{modelGroupId,jdbcType=VARCHAR}, #{modelGroupValue,jdbcType=VARCHAR}, #{modelGroupText,jdbcType=VARCHAR},
+                #{modelGroupOrderNum,jdbcType=INTEGER}, #{modelGroupCreateTime,jdbcType=TIMESTAMP},
+                #{modelGroupDesc,jdbcType=VARCHAR}, #{modelGroupStatus,jdbcType=VARCHAR}, #{modelGroupParentId,jdbcType=VARCHAR},
+                #{modelGroupIsSystem,jdbcType=VARCHAR}, #{modelGroupDelEnable,jdbcType=VARCHAR},
+                #{modelGroupClassName,jdbcType=VARCHAR})
+    </insert>
+    <insert id="insertSelective" parameterType="com.jb4dc.workflow.dbentities.ModelGroupEntity">
+        insert into TFLOW_MODEL_GROUP
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="modelGroupId != null">
+                MODEL_GROUP_ID,
+            </if>
+            <if test="modelGroupValue != null">
+                MODEL_GROUP_VALUE,
+            </if>
+            <if test="modelGroupText != null">
+                MODEL_GROUP_TEXT,
+            </if>
+            <if test="modelGroupOrderNum != null">
+                MODEL_GROUP_ORDER_NUM,
+            </if>
+            <if test="modelGroupCreateTime != null">
+                MODEL_GROUP_CREATE_TIME,
+            </if>
+            <if test="modelGroupDesc != null">
+                MODEL_GROUP_DESC,
+            </if>
+            <if test="modelGroupStatus != null">
+                MODEL_GROUP_STATUS,
+            </if>
+            <if test="modelGroupParentId != null">
+                MODEL_GROUP_PARENT_ID,
+            </if>
+            <if test="modelGroupIsSystem != null">
+                MODEL_GROUP_IS_SYSTEM,
+            </if>
+            <if test="modelGroupDelEnable != null">
+                MODEL_GROUP_DEL_ENABLE,
+            </if>
+            <if test="modelGroupClassName != null">
+                MODEL_GROUP_CLASS_NAME,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="modelGroupId != null">
+                #{modelGroupId,jdbcType=VARCHAR},
+            </if>
+            <if test="modelGroupValue != null">
+                #{modelGroupValue,jdbcType=VARCHAR},
+            </if>
+            <if test="modelGroupText != null">
+                #{modelGroupText,jdbcType=VARCHAR},
+            </if>
+            <if test="modelGroupOrderNum != null">
+                #{modelGroupOrderNum,jdbcType=INTEGER},
+            </if>
+            <if test="modelGroupCreateTime != null">
+                #{modelGroupCreateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="modelGroupDesc != null">
+                #{modelGroupDesc,jdbcType=VARCHAR},
+            </if>
+            <if test="modelGroupStatus != null">
+                #{modelGroupStatus,jdbcType=VARCHAR},
+            </if>
+            <if test="modelGroupParentId != null">
+                #{modelGroupParentId,jdbcType=VARCHAR},
+            </if>
+            <if test="modelGroupIsSystem != null">
+                #{modelGroupIsSystem,jdbcType=VARCHAR},
+            </if>
+            <if test="modelGroupDelEnable != null">
+                #{modelGroupDelEnable,jdbcType=VARCHAR},
+            </if>
+            <if test="modelGroupClassName != null">
+                #{modelGroupClassName,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.jb4dc.workflow.dbentities.ModelGroupEntity">
+        update TFLOW_MODEL_GROUP
+        <set>
+            <if test="modelGroupValue != null">
+                MODEL_GROUP_VALUE = #{modelGroupValue,jdbcType=VARCHAR},
+            </if>
+            <if test="modelGroupText != null">
+                MODEL_GROUP_TEXT = #{modelGroupText,jdbcType=VARCHAR},
+            </if>
+            <if test="modelGroupOrderNum != null">
+                MODEL_GROUP_ORDER_NUM = #{modelGroupOrderNum,jdbcType=INTEGER},
+            </if>
+            <if test="modelGroupCreateTime != null">
+                MODEL_GROUP_CREATE_TIME = #{modelGroupCreateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="modelGroupDesc != null">
+                MODEL_GROUP_DESC = #{modelGroupDesc,jdbcType=VARCHAR},
+            </if>
+            <if test="modelGroupStatus != null">
+                MODEL_GROUP_STATUS = #{modelGroupStatus,jdbcType=VARCHAR},
+            </if>
+            <if test="modelGroupParentId != null">
+                MODEL_GROUP_PARENT_ID = #{modelGroupParentId,jdbcType=VARCHAR},
+            </if>
+            <if test="modelGroupIsSystem != null">
+                MODEL_GROUP_IS_SYSTEM = #{modelGroupIsSystem,jdbcType=VARCHAR},
+            </if>
+            <if test="modelGroupDelEnable != null">
+                MODEL_GROUP_DEL_ENABLE = #{modelGroupDelEnable,jdbcType=VARCHAR},
+            </if>
+            <if test="modelGroupClassName != null">
+                MODEL_GROUP_CLASS_NAME = #{modelGroupClassName,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where MODEL_GROUP_ID = #{modelGroupId,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.jb4dc.workflow.dbentities.ModelGroupEntity">
+        update TFLOW_MODEL_GROUP
+        set MODEL_GROUP_VALUE = #{modelGroupValue,jdbcType=VARCHAR},
+            MODEL_GROUP_TEXT = #{modelGroupText,jdbcType=VARCHAR},
+            MODEL_GROUP_ORDER_NUM = #{modelGroupOrderNum,jdbcType=INTEGER},
+            MODEL_GROUP_CREATE_TIME = #{modelGroupCreateTime,jdbcType=TIMESTAMP},
+            MODEL_GROUP_DESC = #{modelGroupDesc,jdbcType=VARCHAR},
+            MODEL_GROUP_STATUS = #{modelGroupStatus,jdbcType=VARCHAR},
+            MODEL_GROUP_PARENT_ID = #{modelGroupParentId,jdbcType=VARCHAR},
+            MODEL_GROUP_IS_SYSTEM = #{modelGroupIsSystem,jdbcType=VARCHAR},
+            MODEL_GROUP_DEL_ENABLE = #{modelGroupDelEnable,jdbcType=VARCHAR},
+            MODEL_GROUP_CLASS_NAME = #{modelGroupClassName,jdbcType=VARCHAR}
+        where MODEL_GROUP_ID = #{modelGroupId,jdbcType=VARCHAR}
+    </update>
+</mapper>

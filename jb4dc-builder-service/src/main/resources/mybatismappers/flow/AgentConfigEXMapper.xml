@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jb4dc.workflow.dao.AgentConfigMapper">
+    <select id="selectAll" resultMap="BaseResultMap">select<include refid="Base_Column_List"/> from TFLOW_AGENT_CONFIG ORDER by AGENT_ORDER_NUM DESC</select>
+    <select id="selectAllASC" resultMap="BaseResultMap">select<include refid="Base_Column_List"/> from TFLOW_AGENT_CONFIG ORDER by AGENT_ORDER_NUM ASC</select>
+    <delete id="deleteAll">delete from TFLOW_AGENT_CONFIG</delete>
+    <select id="nextOrderNum" resultType="integer">select case when max(AGENT_ORDER_NUM) is null then 1 else max(AGENT_ORDER_NUM)+1 end ORDERNUM from TFLOW_AGENT_CONFIG</select>
+    <select id="selectBySearch" parameterType="java.util.Map" resultMap="BaseResultMap">select<include refid="Base_Column_List"/>from TFLOW_AGENT_CONFIG<where>
+        <if test="agentType !=null and agentType !=''"> and AGENT_TYPE like #{agentType} </if>
+        <if test="agentModelReKey !=null and agentModelReKey !=''"> and AGENT_MODEL_RE_KEY like #{agentModelReKey} </if>
+        <if test="agentFromUserId !=null and agentFromUserId !=''"> and AGENT_FROM_USER_ID like #{agentFromUserId} </if>
+        <if test="agentFromUserName !=null and agentFromUserName !=''"> and AGENT_FROM_USER_NAME like #{agentFromUserName} </if>
+        <if test="agentToUserId !=null and agentToUserId !=''"> and AGENT_TO_USER_ID like #{agentToUserId} </if>
+        <if test="agentToUserName !=null and agentToUserName !=''"> and AGENT_TO_USER_NAME like #{agentToUserName} </if>
+        <if test="agentDesc !=null and agentDesc !=''"> and AGENT_DESC like #{agentDesc} </if>
+    </where>ORDER by AGENT_ORDER_NUM DESC</select>
+    <select id="selectLessThanRecord" parameterType="java.lang.String" resultMap="BaseResultMap"><![CDATA[select * from TFLOW_AGENT_CONFIG
+                                                                                                          where AGENT_ORDER_NUM = (select max(AGENT_ORDER_NUM) from TFLOW_AGENT_CONFIG where AGENT_ORDER_NUM<(select AGENT_ORDER_NUM from TFLOW_AGENT_CONFIG where AGENT_ID=#{Id,jdbcType=NVARCHAR}))]]></select>
+    <select id="selectGreaterThanRecord" parameterType="java.lang.String" resultMap="BaseResultMap"><![CDATA[select * from TFLOW_AGENT_CONFIG
+                                                                                                             where AGENT_ORDER_NUM = (select min(AGENT_ORDER_NUM) from TFLOW_AGENT_CONFIG where AGENT_ORDER_NUM>(select AGENT_ORDER_NUM from TFLOW_AGENT_CONFIG where AGENT_ID=#{Id,jdbcType=NVARCHAR}))]]></select>
+</mapper>

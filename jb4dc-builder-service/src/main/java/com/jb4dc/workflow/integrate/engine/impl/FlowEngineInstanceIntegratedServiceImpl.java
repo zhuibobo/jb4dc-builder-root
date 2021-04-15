@@ -1,14 +1,12 @@
 package com.jb4dc.workflow.integrate.engine.impl;
 
-import com.jb4dc.builder.dao.flow.FlowIntegratedMapper;
-import com.jb4dc.builder.dbentities.flow.FlowIntegratedEntity;
+import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
+import com.jb4dc.core.base.session.JB4DCSession;
+import com.jb4dc.core.base.tools.StringUtility;
 import com.jb4dc.workflow.integrate.engine.IFlowEngineExecutionIntegratedService;
 import com.jb4dc.workflow.integrate.engine.IFlowEngineInstanceIntegratedService;
 import com.jb4dc.workflow.utility.CamundaBpmnUtility;
 import com.jb4dc.workflow.utility.VariableUtility;
-import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
-import com.jb4dc.core.base.session.JB4DCSession;
-import com.jb4dc.core.base.tools.StringUtility;
 import org.camunda.bpm.engine.ProcessEngine;
 import org.camunda.bpm.engine.RuntimeService;
 import org.camunda.bpm.engine.history.HistoricProcessInstance;

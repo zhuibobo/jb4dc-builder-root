@@ -10,10 +10,9 @@ import com.jb4dc.workflow.integrate.engine.IFlowEngineTaskIntegratedService;
 import com.jb4dc.workflow.integrate.engine.IFlowEngineExecutionIntegratedService;
 import com.jb4dc.workflow.integrate.engine.IFlowEngineInstanceIntegratedService;
 import com.jb4dc.workflow.integrate.engine.impl.CamundaIntegrate;
-import com.jb4dc.workflow.integrate.engine.impl.FlowEngineModelIntegrateServiceImpl;
 import com.jb4dc.workflow.custpo.bpmn.BpmnDefinitions;
-import com.jb4dc.workflow.integrate.extend.IFlowExtendModelService;
-import com.jb4dc.workflow.integrate.extend.IFlowExtendTaskService;
+import com.jb4dc.workflow.integrate.extend.IModelIntegratedExtendService;
+import com.jb4dc.workflow.integrate.extend.IExecutionTaskExtendService;
 import com.jb4dc.workflow.utility.CamundaBpmnUtility;
 import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
 import org.camunda.bpm.engine.ProcessEngine;
@@ -67,10 +66,10 @@ public class WorkflowIntegrateTest extends RestTestBase {
     IFlowEngineModelIntegratedService iFlowEngineModelIntegratedService;
 
     @Autowired
-    IFlowExtendTaskService iFlowExtendTaskService;
+    IExecutionTaskExtendService iExecutionTaskExtendService;
 
     @Autowired
-    IFlowExtendModelService flowExtendModelService;
+    IModelIntegratedExtendService flowExtendModelService;
 
     @Autowired
     ProcessEngine processEngine;
@@ -374,7 +373,7 @@ public class WorkflowIntegrateTest extends RestTestBase {
         vars.put("assigneeList",assigneeList);
         vars.put("UserId","User008");
 
-        iFlowExtendTaskService.complete(getSession(), task.getId(), vars);
+        iExecutionTaskExtendService.complete(getSession(), task.getId(), vars);
 
 
         /*List<Task> instTasks=iFlowEngineTaskIntegratedService.getTasks(task.getProcessInstanceId());

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jb4dc.workflow.dao.ExecutionTaskMapper">
+    <select id="selectAll" resultMap="BaseResultMap">select<include refid="Base_Column_List"/> from TFLOW_EXECUTION_TASK ORDER by EXTASK_ORDER_NUM DESC</select>
+    <select id="selectAllASC" resultMap="BaseResultMap">select<include refid="Base_Column_List"/> from TFLOW_EXECUTION_TASK ORDER by EXTASK_ORDER_NUM ASC</select>
+    <delete id="deleteAll">delete from TFLOW_EXECUTION_TASK</delete>
+    <select id="nextOrderNum" resultType="integer">select case when max(EXTASK_ORDER_NUM) is null then 1 else max(EXTASK_ORDER_NUM)+1 end ORDERNUM from TFLOW_EXECUTION_TASK</select>
+    <select id="selectBySearch" parameterType="java.util.Map" resultMap="BaseResultMap">select<include refid="Base_Column_List"/>from TFLOW_EXECUTION_TASK<where>
+        <if test="extaskInstId !=null and extaskInstId !=''"> and EXTASK_INST_ID like #{extaskInstId} </if>
+        <if test="extaskModelId !=null and extaskModelId !=''"> and EXTASK_MODEL_ID like #{extaskModelId} </if>
+        <if test="extaskRuTaskId !=null and extaskRuTaskId !=''"> and EXTASK_RU_TASK_ID like #{extaskRuTaskId} </if>
+        <if test="extaskRuExecutionId !=null and extaskRuExecutionId !=''"> and EXTASK_RU_EXECUTION_ID like #{extaskRuExecutionId} </if>
+        <if test="extaskRuProcInstId !=null and extaskRuProcInstId !=''"> and EXTASK_RU_PROC_INST_ID like #{extaskRuProcInstId} </if>
+        <if test="extaskRuProcDefId !=null and extaskRuProcDefId !=''"> and EXTASK_RU_PROC_DEF_ID like #{extaskRuProcDefId} </if>
+        <if test="extaskPreNodeKey !=null and extaskPreNodeKey !=''"> and EXTASK_PRE_NODE_KEY like #{extaskPreNodeKey} </if>
+        <if test="extaskPreNodeName !=null and extaskPreNodeName !=''"> and EXTASK_PRE_NODE_NAME like #{extaskPreNodeName} </if>
+        <if test="extaskCurNodeKey !=null and extaskCurNodeKey !=''"> and EXTASK_CUR_NODE_KEY like #{extaskCurNodeKey} </if>
+        <if test="extaskCurNodeName !=null and extaskCurNodeName !=''"> and EXTASK_CUR_NODE_NAME like #{extaskCurNodeName} </if>
+        <if test="extaskType !=null and extaskType !=''"> and EXTASK_TYPE like #{extaskType} </if>
+        <if test="extaskStatus !=null and extaskStatus !=''"> and EXTASK_STATUS like #{extaskStatus} </if>
+        <if test="extaskSenderId !=null and extaskSenderId !=''"> and EXTASK_SENDER_ID like #{extaskSenderId} </if>
+        <if test="extaskSenderName !=null and extaskSenderName !=''"> and EXTASK_SENDER_NAME like #{extaskSenderName} </if>
+        <if test="extaskReceiverId !=null and extaskReceiverId !=''"> and EXTASK_RECEIVER_ID like #{extaskReceiverId} </if>
+        <if test="extaskReceiverName !=null and extaskReceiverName !=''"> and EXTASK_RECEIVER_NAME like #{extaskReceiverName} </if>
+        <if test="extaskViewEd !=null and extaskViewEd !=''"> and EXTASK_VIEW_ED like #{extaskViewEd} </if>
+        <if test="extaskHandleEd !=null and extaskHandleEd !=''"> and EXTASK_HANDLE_ED like #{extaskHandleEd} </if>
+        <if test="extaskHandleActionKey !=null and extaskHandleActionKey !=''"> and EXTASK_HANDLE_ACTION_KEY like #{extaskHandleActionKey} </if>
+        <if test="extaskHandleActionName !=null and extaskHandleActionName !=''"> and EXTASK_HANDLE_ACTION_NAME like #{extaskHandleActionName} </if>
+    </where>ORDER by EXTASK_ORDER_NUM DESC</select>
+    <select id="selectLessThanRecord" parameterType="java.lang.String" resultMap="BaseResultMap"><![CDATA[select * from TFLOW_EXECUTION_TASK
+                                                                                                          where EXTASK_ORDER_NUM = (select max(EXTASK_ORDER_NUM) from TFLOW_EXECUTION_TASK where EXTASK_ORDER_NUM<(select EXTASK_ORDER_NUM from TFLOW_EXECUTION_TASK where EXTASK_ID=#{Id,jdbcType=NVARCHAR}))]]></select>
+    <select id="selectGreaterThanRecord" parameterType="java.lang.String" resultMap="BaseResultMap"><![CDATA[select * from TFLOW_EXECUTION_TASK
+                                                                                                             where EXTASK_ORDER_NUM = (select min(EXTASK_ORDER_NUM) from TFLOW_EXECUTION_TASK where EXTASK_ORDER_NUM>(select EXTASK_ORDER_NUM from TFLOW_EXECUTION_TASK where EXTASK_ID=#{Id,jdbcType=NVARCHAR}))]]></select>
+</mapper>

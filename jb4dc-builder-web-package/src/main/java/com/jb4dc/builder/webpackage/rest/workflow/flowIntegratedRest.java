@@ -4,16 +4,15 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.jb4dc.base.service.IBaseService;
 import com.jb4dc.base.service.general.JB4DCSessionUtility;
 import com.jb4dc.base.tools.JsonUtility;
-import com.jb4dc.builder.dbentities.flow.FlowIntegratedEntity;
-import com.jb4dc.builder.po.FlowIntegratedPO;
-import com.jb4dc.workflow.integrate.engine.IFlowEngineModelIntegratedService;
 import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
 import com.jb4dc.core.base.session.JB4DCSession;
 import com.jb4dc.core.base.tools.StringUtility;
 import com.jb4dc.core.base.tools.UUIDUtility;
 import com.jb4dc.core.base.vo.JBuild4DCResponseVo;
 import com.jb4dc.feb.dist.webserver.rest.base.GeneralRest;
-import com.jb4dc.workflow.integrate.extend.IFlowExtendModelService;
+import com.jb4dc.workflow.dbentities.ModelIntegratedEntity;
+import com.jb4dc.workflow.integrate.extend.IModelIntegratedExtendService;
+import com.jb4dc.workflow.po.FlowIntegratedPO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,13 +29,13 @@ import javax.servlet.http.HttpServletRequest;
  */
 @RestController
 @RequestMapping(value = "/Rest/Builder/FlowIntegrated")
-public class flowIntegratedRest extends GeneralRest<FlowIntegratedEntity> {
+public class flowIntegratedRest extends GeneralRest<ModelIntegratedEntity> {
 
     @Autowired
-    IFlowExtendModelService flowExtendModelService;
+    IModelIntegratedExtendService flowExtendModelService;
 
     @Override
-    protected IBaseService<FlowIntegratedEntity> getBaseService() {
+    protected IBaseService<ModelIntegratedEntity> getBaseService() {
         return flowExtendModelService;
     }
 
@@ -55,7 +54,7 @@ public class flowIntegratedRest extends GeneralRest<FlowIntegratedEntity> {
             recordId = UUIDUtility.getUUID();
             FlowIntegratedPO flowIntegratedPO=new FlowIntegratedPO();
             responseVo.addExKVData("recordId", recordId);
-            flowIntegratedPO.setIntegratedId(recordId);
+            flowIntegratedPO.setModelId(recordId);
             responseVo.setData(flowIntegratedPO);
         } else {
             JB4DCSession jb4DSession = JB4DCSessionUtility.getSession();
@@ -73,7 +72,7 @@ public class flowIntegratedRest extends GeneralRest<FlowIntegratedEntity> {
         try {
             JB4DCSession jb4DSession = JB4DCSessionUtility.getSession();
 
-            String recordID = flowIntegratedPO.getIntegratedId();
+            String recordID = flowIntegratedPO.getModelId();
             if (recordID.equals("") || recordID == null) {
                 throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_PLATFORM_CODE, "recordID不能为空或字符串!");
             }

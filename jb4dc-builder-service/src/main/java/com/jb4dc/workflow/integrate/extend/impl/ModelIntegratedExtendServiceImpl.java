@@ -1,47 +1,34 @@
 package com.jb4dc.workflow.integrate.extend.impl;
 
-import com.jb4dc.base.service.exenum.EnableTypeEnum;
 import com.jb4dc.base.service.impl.BaseServiceImpl;
 import com.jb4dc.base.tools.XMLUtility;
-import com.jb4dc.builder.dao.flow.FlowIntegratedMapper;
-import com.jb4dc.builder.dbentities.flow.FlowIntegratedEntity;
-import com.jb4dc.builder.po.FlowIntegratedPO;
 import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
 import com.jb4dc.core.base.session.JB4DCSession;
-import com.jb4dc.core.base.tools.BaseUtility;
-import com.jb4dc.core.base.tools.IMustBeUnique;
-import com.jb4dc.core.base.tools.ValidateUtility;
-import com.jb4dc.files.dbentities.FileInfoEntity;
-import com.jb4dc.files.service.IFileInfoService;
 import com.jb4dc.workflow.custpo.bpmn.BpmnDefinitions;
-import com.jb4dc.workflow.integrate.engine.impl.CamundaIntegrate;
+import com.jb4dc.workflow.dao.ModelIntegratedMapper;
+import com.jb4dc.workflow.dbentities.ModelIntegratedEntity;
 import com.jb4dc.workflow.integrate.engine.impl.FlowEngineModelIntegrateServiceImpl;
-import com.jb4dc.workflow.integrate.extend.IFlowExtendModelService;
-import org.camunda.bpm.engine.ProcessEngine;
-import org.camunda.bpm.engine.RepositoryService;
-import org.camunda.bpm.engine.repository.Deployment;
+import com.jb4dc.workflow.integrate.extend.IModelIntegratedExtendService;
+import com.jb4dc.workflow.po.FlowIntegratedPO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.xml.bind.JAXBException;
 import javax.xml.stream.XMLStreamException;
 import java.io.IOException;
 import java.io.InputStream;
-import java.nio.charset.StandardCharsets;
-import java.util.Date;
 
 @Service
-public class FlowExtendModelServiceImpl extends BaseServiceImpl<FlowIntegratedEntity> implements IFlowExtendModelService {
+public class ModelIntegratedExtendServiceImpl extends BaseServiceImpl<ModelIntegratedEntity> implements IModelIntegratedExtendService {
     private Logger logger= LoggerFactory.getLogger(FlowEngineModelIntegrateServiceImpl.class);
 
-    FlowIntegratedMapper flowIntegratedMapper;
+    ModelIntegratedMapper flowIntegratedMapper;
 
-    @Autowired
-    private IFileInfoService fileInfoService;
+    //@Autowired
+    //private IFileInfoService fileInfoService;
 
-    public FlowExtendModelServiceImpl(FlowIntegratedMapper _defaultBaseMapper){
+    public ModelIntegratedExtendServiceImpl(ModelIntegratedMapper _defaultBaseMapper){
         super(_defaultBaseMapper);
         flowIntegratedMapper=_defaultBaseMapper;
     }
@@ -63,7 +50,8 @@ public class FlowExtendModelServiceImpl extends BaseServiceImpl<FlowIntegratedEn
 
     @Override
     public FlowIntegratedPO saveFlowModel(JB4DCSession jb4DSession, String recordID, FlowIntegratedPO flowIntegratedPO) throws JBuild4DCGenerallyException, IOException, JAXBException, XMLStreamException {
-        FlowIntegratedEntity flowIntegratedEntity=flowIntegratedMapper.selectByPrimaryKey(recordID);
+        return null;
+        /*FlowIntegratedEntity flowIntegratedEntity=flowIntegratedMapper.selectByPrimaryKey(recordID);
         ValidateUtility.isNotEmptyException(flowIntegratedPO.getIntegratedStartKey(),JBuild4DCGenerallyException.EXCEPTION_BUILDER_CODE,"启动KEY");
         ValidateUtility.isNotEmptyException(flowIntegratedPO.getIntegratedCode(),JBuild4DCGenerallyException.EXCEPTION_BUILDER_CODE,"Code");
         ValidateUtility.isNotEmptyException(flowIntegratedPO.getIntegratedModuleId(),JBuild4DCGenerallyException.EXCEPTION_BUILDER_CODE,"所属模块");
@@ -83,11 +71,6 @@ public class FlowExtendModelServiceImpl extends BaseServiceImpl<FlowIntegratedEn
                     return entity!=null?entity.getIntegratedId():null;
                 }
             }, BaseUtility.getAddOperationName(), "模型的Code必须唯一,且不能更改!");
-            //add
-            //flowIntegratedPO.setIntegratedDeId("");
-            //flowIntegratedPO.setIntegratedDeMessage("");
-            //flowIntegratedPO.setIntegratedDeSuccess("");
-            //flowIntegratedPO.setIntegratedDeploymentId("");
             flowIntegratedPO.setIntegratedCreateTime(new Date());
             flowIntegratedPO.setIntegratedCreator(jb4DSession.getUserName());
             flowIntegratedPO.setIntegratedUpdateTime(new Date());
@@ -99,7 +82,6 @@ public class FlowExtendModelServiceImpl extends BaseServiceImpl<FlowIntegratedEn
             flowIntegratedMapper.insert(flowIntegratedPO);
         }
         else {
-            //update
             ValidateUtility.isBeUnique(recordID, new IMustBeUnique() {
                 @Override
                 public String beUniquePOId() {
@@ -131,11 +113,11 @@ public class FlowExtendModelServiceImpl extends BaseServiceImpl<FlowIntegratedEn
                 .addString(flowIntegratedPO.getIntegratedName(),flowIntegratedPO.getBpmnXMLModeler())
                 .deploy();
         System.out.println(deployment);
-        return flowIntegratedPO;
+        return flowIntegratedPO;*/
     }
 
     @Override
-    public int saveSimple(JB4DCSession jb4DCSession, String id, FlowIntegratedEntity record) throws JBuild4DCGenerallyException {
+    public int saveSimple(JB4DCSession jb4DCSession, String id, ModelIntegratedEntity record) throws JBuild4DCGenerallyException {
         return 0;
         /*return super.save(jb4DCSession,id, record, new IAddBefore<FlowIntegratedEntity>() {
             @Override

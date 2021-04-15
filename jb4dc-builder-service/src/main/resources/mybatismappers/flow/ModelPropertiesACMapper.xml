@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jb4dc.workflow.dao.ModelPropertiesMapper">
+    <resultMap id="BaseResultMap" type="com.jb4dc.workflow.dbentities.ModelPropertiesEntity">
+        <constructor>
+            <idArg column="MODEL_PROP_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="MODEL_PROP_BELONG_MODEL_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="MODEL_PROP_NAME" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="MODEL_PROP_VALUE" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="MODEL_PROP_DESC" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="MODEL_PROP_ORDER_NUM" javaType="java.lang.Integer" jdbcType="INTEGER" />
+        </constructor>
+    </resultMap>
+    <sql id="Base_Column_List">
+        MODEL_PROP_ID, MODEL_PROP_BELONG_MODEL_ID, MODEL_PROP_NAME, MODEL_PROP_VALUE, MODEL_PROP_DESC,
+    MODEL_PROP_ORDER_NUM
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from TFLOW_MODEL_PROPERTIES
+        where MODEL_PROP_ID = #{modelPropId,jdbcType=VARCHAR}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+        delete from TFLOW_MODEL_PROPERTIES
+        where MODEL_PROP_ID = #{modelPropId,jdbcType=VARCHAR}
+    </delete>
+    <insert id="insert" parameterType="com.jb4dc.workflow.dbentities.ModelPropertiesEntity">
+        insert into TFLOW_MODEL_PROPERTIES (MODEL_PROP_ID, MODEL_PROP_BELONG_MODEL_ID,
+                                            MODEL_PROP_NAME, MODEL_PROP_VALUE, MODEL_PROP_DESC,
+                                            MODEL_PROP_ORDER_NUM)
+        values (#{modelPropId,jdbcType=VARCHAR}, #{modelPropBelongModelId,jdbcType=VARCHAR},
+                #{modelPropName,jdbcType=VARCHAR}, #{modelPropValue,jdbcType=VARCHAR}, #{modelPropDesc,jdbcType=VARCHAR},
+                #{modelPropOrderNum,jdbcType=INTEGER})
+    </insert>
+    <insert id="insertSelective" parameterType="com.jb4dc.workflow.dbentities.ModelPropertiesEntity">
+        insert into TFLOW_MODEL_PROPERTIES
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="modelPropId != null">
+                MODEL_PROP_ID,
+            </if>
+            <if test="modelPropBelongModelId != null">
+                MODEL_PROP_BELONG_MODEL_ID,
+            </if>
+            <if test="modelPropName != null">
+                MODEL_PROP_NAME,
+            </if>
+            <if test="modelPropValue != null">
+                MODEL_PROP_VALUE,
+            </if>
+            <if test="modelPropDesc != null">
+                MODEL_PROP_DESC,
+            </if>
+            <if test="modelPropOrderNum != null">
+                MODEL_PROP_ORDER_NUM,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="modelPropId != null">
+                #{modelPropId,jdbcType=VARCHAR},
+            </if>
+            <if test="modelPropBelongModelId != null">
+                #{modelPropBelongModelId,jdbcType=VARCHAR},
+            </if>
+            <if test="modelPropName != null">
+                #{modelPropName,jdbcType=VARCHAR},
+            </if>
+            <if test="modelPropValue != null">
+                #{modelPropValue,jdbcType=VARCHAR},
+            </if>
+            <if test="modelPropDesc != null">
+                #{modelPropDesc,jdbcType=VARCHAR},
+            </if>
+            <if test="modelPropOrderNum != null">
+                #{modelPropOrderNum,jdbcType=INTEGER},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.jb4dc.workflow.dbentities.ModelPropertiesEntity">
+        update TFLOW_MODEL_PROPERTIES
+        <set>
+            <if test="modelPropBelongModelId != null">
+                MODEL_PROP_BELONG_MODEL_ID = #{modelPropBelongModelId,jdbcType=VARCHAR},
+            </if>
+            <if test="modelPropName != null">
+                MODEL_PROP_NAME = #{modelPropName,jdbcType=VARCHAR},
+            </if>
+            <if test="modelPropValue != null">
+                MODEL_PROP_VALUE = #{modelPropValue,jdbcType=VARCHAR},
+            </if>
+            <if test="modelPropDesc != null">
+                MODEL_PROP_DESC = #{modelPropDesc,jdbcType=VARCHAR},
+            </if>
+            <if test="modelPropOrderNum != null">
+                MODEL_PROP_ORDER_NUM = #{modelPropOrderNum,jdbcType=INTEGER},
+            </if>
+        </set>
+        where MODEL_PROP_ID = #{modelPropId,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.jb4dc.workflow.dbentities.ModelPropertiesEntity">
+        update TFLOW_MODEL_PROPERTIES
+        set MODEL_PROP_BELONG_MODEL_ID = #{modelPropBelongModelId,jdbcType=VARCHAR},
+            MODEL_PROP_NAME = #{modelPropName,jdbcType=VARCHAR},
+            MODEL_PROP_VALUE = #{modelPropValue,jdbcType=VARCHAR},
+            MODEL_PROP_DESC = #{modelPropDesc,jdbcType=VARCHAR},
+            MODEL_PROP_ORDER_NUM = #{modelPropOrderNum,jdbcType=INTEGER}
+        where MODEL_PROP_ID = #{modelPropId,jdbcType=VARCHAR}
+    </update>
+</mapper>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jb4dc.workflow.dao.ExecutionTaskOpinionMapper">
+    <select id="selectAll" resultMap="BaseResultMap">select<include refid="Base_Column_List"/> from TFLOW_EXECUTION_TASK_OPINION ORDER by OPINION_ORDER_NUM DESC</select>
+    <select id="selectAllASC" resultMap="BaseResultMap">select<include refid="Base_Column_List"/> from TFLOW_EXECUTION_TASK_OPINION ORDER by OPINION_ORDER_NUM ASC</select>
+    <delete id="deleteAll">delete from TFLOW_EXECUTION_TASK_OPINION</delete>
+    <select id="nextOrderNum" resultType="integer">select case when max(OPINION_ORDER_NUM) is null then 1 else max(OPINION_ORDER_NUM)+1 end ORDERNUM from TFLOW_EXECUTION_TASK_OPINION</select>
+    <select id="selectBySearch" parameterType="java.util.Map" resultMap="BaseResultMap">select<include refid="Base_Column_List"/>from TFLOW_EXECUTION_TASK_OPINION<where>
+        <if test="opinionExtaskId !=null and opinionExtaskId !=''"> and OPINION_EXTASK_ID like #{opinionExtaskId} </if>
+        <if test="opinionText !=null and opinionText !=''"> and OPINION_TEXT like #{opinionText} </if>
+    </where>ORDER by OPINION_ORDER_NUM DESC</select>
+    <select id="selectLessThanRecord" parameterType="java.lang.String" resultMap="BaseResultMap"><![CDATA[select * from TFLOW_EXECUTION_TASK_OPINION
+                                                                                                          where OPINION_ORDER_NUM = (select max(OPINION_ORDER_NUM) from TFLOW_EXECUTION_TASK_OPINION where OPINION_ORDER_NUM<(select OPINION_ORDER_NUM from TFLOW_EXECUTION_TASK_OPINION where OPINION_ID=#{Id,jdbcType=NVARCHAR}))]]></select>
+    <select id="selectGreaterThanRecord" parameterType="java.lang.String" resultMap="BaseResultMap"><![CDATA[select * from TFLOW_EXECUTION_TASK_OPINION
+                                                                                                             where OPINION_ORDER_NUM = (select min(OPINION_ORDER_NUM) from TFLOW_EXECUTION_TASK_OPINION where OPINION_ORDER_NUM>(select OPINION_ORDER_NUM from TFLOW_EXECUTION_TASK_OPINION where OPINION_ID=#{Id,jdbcType=NVARCHAR}))]]></select>
+</mapper>

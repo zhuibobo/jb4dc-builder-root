@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jb4dc.workflow.dao.InstanceMapper">
+    <resultMap id="BaseResultMap" type="com.jb4dc.workflow.dbentities.InstanceEntity">
+        <constructor>
+            <idArg column="INST_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="INST_TITLE" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="INST_DESC" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="INST_CUST_DESC" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="INST_CREATE_TIME" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+            <arg column="INST_CREATOR" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="INST_CREATOR_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="INST_ORGAN_NAME" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="INST_ORGAN_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="INST_STATUS" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="INST_END_TIME" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+            <arg column="INST_RU_EXECUTION_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="INST_RU_PROC_INST_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="INST_RU_BUSINESS_KEY" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="INST_RU_PROC_DEF_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="INST_ORDER_NUM" javaType="java.lang.Integer" jdbcType="INTEGER" />
+            <arg column="INST_MOD_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="INST_MOD_CATEGORY" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="INST_MOD_MODULE_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="INST_MOD_TENANT_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
+        </constructor>
+    </resultMap>
+    <sql id="Base_Column_List">
+        INST_ID, INST_TITLE, INST_DESC, INST_CUST_DESC, INST_CREATE_TIME, INST_CREATOR, INST_CREATOR_ID,
+    INST_ORGAN_NAME, INST_ORGAN_ID, INST_STATUS, INST_END_TIME, INST_RU_EXECUTION_ID,
+    INST_RU_PROC_INST_ID, INST_RU_BUSINESS_KEY, INST_RU_PROC_DEF_ID, INST_ORDER_NUM,
+    INST_MOD_ID, INST_MOD_CATEGORY, INST_MOD_MODULE_ID, INST_MOD_TENANT_ID
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from TFLOW_INSTANCE
+        where INST_ID = #{instId,jdbcType=VARCHAR}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+        delete from TFLOW_INSTANCE
+        where INST_ID = #{instId,jdbcType=VARCHAR}
+    </delete>
+    <insert id="insert" parameterType="com.jb4dc.workflow.dbentities.InstanceEntity">
+        insert into TFLOW_INSTANCE (INST_ID, INST_TITLE, INST_DESC,
+                                    INST_CUST_DESC, INST_CREATE_TIME, INST_CREATOR,
+                                    INST_CREATOR_ID, INST_ORGAN_NAME, INST_ORGAN_ID,
+                                    INST_STATUS, INST_END_TIME, INST_RU_EXECUTION_ID,
+                                    INST_RU_PROC_INST_ID, INST_RU_BUSINESS_KEY, INST_RU_PROC_DEF_ID,
+                                    INST_ORDER_NUM, INST_MOD_ID, INST_MOD_CATEGORY,
+                                    INST_MOD_MODULE_ID, INST_MOD_TENANT_ID)
+        values (#{instId,jdbcType=VARCHAR}, #{instTitle,jdbcType=VARCHAR}, #{instDesc,jdbcType=VARCHAR},
+                #{instCustDesc,jdbcType=VARCHAR}, #{instCreateTime,jdbcType=TIMESTAMP}, #{instCreator,jdbcType=VARCHAR},
+                #{instCreatorId,jdbcType=VARCHAR}, #{instOrganName,jdbcType=VARCHAR}, #{instOrganId,jdbcType=VARCHAR},
+                #{instStatus,jdbcType=VARCHAR}, #{instEndTime,jdbcType=TIMESTAMP}, #{instRuExecutionId,jdbcType=VARCHAR},
+                #{instRuProcInstId,jdbcType=VARCHAR}, #{instRuBusinessKey,jdbcType=VARCHAR}, #{instRuProcDefId,jdbcType=VARCHAR},
+                #{instOrderNum,jdbcType=INTEGER}, #{instModId,jdbcType=VARCHAR}, #{instModCategory,jdbcType=VARCHAR},
+                #{instModModuleId,jdbcType=VARCHAR}, #{instModTenantId,jdbcType=VARCHAR})
+    </insert>
+    <insert id="insertSelective" parameterType="com.jb4dc.workflow.dbentities.InstanceEntity">
+        insert into TFLOW_INSTANCE
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="instId != null">
+                INST_ID,
+            </if>
+            <if test="instTitle != null">
+                INST_TITLE,
+            </if>
+            <if test="instDesc != null">
+                INST_DESC,
+            </if>
+            <if test="instCustDesc != null">
+                INST_CUST_DESC,
+            </if>
+            <if test="instCreateTime != null">
+                INST_CREATE_TIME,
+            </if>
+            <if test="instCreator != null">
+                INST_CREATOR,
+            </if>
+            <if test="instCreatorId != null">
+                INST_CREATOR_ID,
+            </if>
+            <if test="instOrganName != null">
+                INST_ORGAN_NAME,
+            </if>
+            <if test="instOrganId != null">
+                INST_ORGAN_ID,
+            </if>
+            <if test="instStatus != null">
+                INST_STATUS,
+            </if>
+            <if test="instEndTime != null">
+                INST_END_TIME,
+            </if>
+            <if test="instRuExecutionId != null">
+                INST_RU_EXECUTION_ID,
+            </if>
+            <if test="instRuProcInstId != null">
+                INST_RU_PROC_INST_ID,
+            </if>
+            <if test="instRuBusinessKey != null">
+                INST_RU_BUSINESS_KEY,
+            </if>
+            <if test="instRuProcDefId != null">
+                INST_RU_PROC_DEF_ID,
+            </if>
+            <if test="instOrderNum != null">
+                INST_ORDER_NUM,
+            </if>
+            <if test="instModId != null">
+                INST_MOD_ID,
+            </if>
+            <if test="instModCategory != null">
+                INST_MOD_CATEGORY,
+            </if>
+            <if test="instModModuleId != null">
+                INST_MOD_MODULE_ID,
+            </if>
+            <if test="instModTenantId != null">
+                INST_MOD_TENANT_ID,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="instId != null">
+                #{instId,jdbcType=VARCHAR},
+            </if>
+            <if test="instTitle != null">
+                #{instTitle,jdbcType=VARCHAR},
+            </if>
+            <if test="instDesc != null">
+                #{instDesc,jdbcType=VARCHAR},
+            </if>
+            <if test="instCustDesc != null">
+                #{instCustDesc,jdbcType=VARCHAR},
+            </if>
+            <if test="instCreateTime != null">
+                #{instCreateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="instCreator != null">
+                #{instCreator,jdbcType=VARCHAR},
+            </if>
+            <if test="instCreatorId != null">
+                #{instCreatorId,jdbcType=VARCHAR},
+            </if>
+            <if test="instOrganName != null">
+                #{instOrganName,jdbcType=VARCHAR},
+            </if>
+            <if test="instOrganId != null">
+                #{instOrganId,jdbcType=VARCHAR},
+            </if>
+            <if test="instStatus != null">
+                #{instStatus,jdbcType=VARCHAR},
+            </if>
+            <if test="instEndTime != null">
+                #{instEndTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="instRuExecutionId != null">
+                #{instRuExecutionId,jdbcType=VARCHAR},
+            </if>
+            <if test="instRuProcInstId != null">
+                #{instRuProcInstId,jdbcType=VARCHAR},
+            </if>
+            <if test="instRuBusinessKey != null">
+                #{instRuBusinessKey,jdbcType=VARCHAR},
+            </if>
+            <if test="instRuProcDefId != null">
+                #{instRuProcDefId,jdbcType=VARCHAR},
+            </if>
+            <if test="instOrderNum != null">
+                #{instOrderNum,jdbcType=INTEGER},
+            </if>
+            <if test="instModId != null">
+                #{instModId,jdbcType=VARCHAR},
+            </if>
+            <if test="instModCategory != null">
+                #{instModCategory,jdbcType=VARCHAR},
+            </if>
+            <if test="instModModuleId != null">
+                #{instModModuleId,jdbcType=VARCHAR},
+            </if>
+            <if test="instModTenantId != null">
+                #{instModTenantId,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.jb4dc.workflow.dbentities.InstanceEntity">
+        update TFLOW_INSTANCE
+        <set>
+            <if test="instTitle != null">
+                INST_TITLE = #{instTitle,jdbcType=VARCHAR},
+            </if>
+            <if test="instDesc != null">
+                INST_DESC = #{instDesc,jdbcType=VARCHAR},
+            </if>
+            <if test="instCustDesc != null">
+                INST_CUST_DESC = #{instCustDesc,jdbcType=VARCHAR},
+            </if>
+            <if test="instCreateTime != null">
+                INST_CREATE_TIME = #{instCreateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="instCreator != null">
+                INST_CREATOR = #{instCreator,jdbcType=VARCHAR},
+            </if>
+            <if test="instCreatorId != null">
+                INST_CREATOR_ID = #{instCreatorId,jdbcType=VARCHAR},
+            </if>
+            <if test="instOrganName != null">
+                INST_ORGAN_NAME = #{instOrganName,jdbcType=VARCHAR},
+            </if>
+            <if test="instOrganId != null">
+                INST_ORGAN_ID = #{instOrganId,jdbcType=VARCHAR},
+            </if>
+            <if test="instStatus != null">
+                INST_STATUS = #{instStatus,jdbcType=VARCHAR},
+            </if>
+            <if test="instEndTime != null">
+                INST_END_TIME = #{instEndTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="instRuExecutionId != null">
+                INST_RU_EXECUTION_ID = #{instRuExecutionId,jdbcType=VARCHAR},
+            </if>
+            <if test="instRuProcInstId != null">
+                INST_RU_PROC_INST_ID = #{instRuProcInstId,jdbcType=VARCHAR},
+            </if>
+            <if test="instRuBusinessKey != null">
+                INST_RU_BUSINESS_KEY = #{instRuBusinessKey,jdbcType=VARCHAR},
+            </if>
+            <if test="instRuProcDefId != null">
+                INST_RU_PROC_DEF_ID = #{instRuProcDefId,jdbcType=VARCHAR},
+            </if>
+            <if test="instOrderNum != null">
+                INST_ORDER_NUM = #{instOrderNum,jdbcType=INTEGER},
+            </if>
+            <if test="instModId != null">
+                INST_MOD_ID = #{instModId,jdbcType=VARCHAR},
+            </if>
+            <if test="instModCategory != null">
+                INST_MOD_CATEGORY = #{instModCategory,jdbcType=VARCHAR},
+            </if>
+            <if test="instModModuleId != null">
+                INST_MOD_MODULE_ID = #{instModModuleId,jdbcType=VARCHAR},
+            </if>
+            <if test="instModTenantId != null">
+                INST_MOD_TENANT_ID = #{instModTenantId,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where INST_ID = #{instId,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.jb4dc.workflow.dbentities.InstanceEntity">
+        update TFLOW_INSTANCE
+        set INST_TITLE = #{instTitle,jdbcType=VARCHAR},
+            INST_DESC = #{instDesc,jdbcType=VARCHAR},
+            INST_CUST_DESC = #{instCustDesc,jdbcType=VARCHAR},
+            INST_CREATE_TIME = #{instCreateTime,jdbcType=TIMESTAMP},
+            INST_CREATOR = #{instCreator,jdbcType=VARCHAR},
+            INST_CREATOR_ID = #{instCreatorId,jdbcType=VARCHAR},
+            INST_ORGAN_NAME = #{instOrganName,jdbcType=VARCHAR},
+            INST_ORGAN_ID = #{instOrganId,jdbcType=VARCHAR},
+            INST_STATUS = #{instStatus,jdbcType=VARCHAR},
+            INST_END_TIME = #{instEndTime,jdbcType=TIMESTAMP},
+            INST_RU_EXECUTION_ID = #{instRuExecutionId,jdbcType=VARCHAR},
+            INST_RU_PROC_INST_ID = #{instRuProcInstId,jdbcType=VARCHAR},
+            INST_RU_BUSINESS_KEY = #{instRuBusinessKey,jdbcType=VARCHAR},
+            INST_RU_PROC_DEF_ID = #{instRuProcDefId,jdbcType=VARCHAR},
+            INST_ORDER_NUM = #{instOrderNum,jdbcType=INTEGER},
+            INST_MOD_ID = #{instModId,jdbcType=VARCHAR},
+            INST_MOD_CATEGORY = #{instModCategory,jdbcType=VARCHAR},
+            INST_MOD_MODULE_ID = #{instModModuleId,jdbcType=VARCHAR},
+            INST_MOD_TENANT_ID = #{instModTenantId,jdbcType=VARCHAR}
+        where INST_ID = #{instId,jdbcType=VARCHAR}
+    </update>
+</mapper>

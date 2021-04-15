@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jb4dc.workflow.dao.InstanceFileMapper">
+    <select id="selectAll" resultMap="BaseResultMap">select<include refid="Base_Column_List"/> from TFLOW_INSTANCE_FILE ORDER by FILE_ORDER_NUM DESC</select>
+    <select id="selectAllASC" resultMap="BaseResultMap">select<include refid="Base_Column_List"/> from TFLOW_INSTANCE_FILE ORDER by FILE_ORDER_NUM ASC</select>
+    <delete id="deleteAll">delete from TFLOW_INSTANCE_FILE</delete>
+    <select id="nextOrderNum" resultType="integer">select case when max(FILE_ORDER_NUM) is null then 1 else max(FILE_ORDER_NUM)+1 end ORDERNUM from TFLOW_INSTANCE_FILE</select>
+    <select id="selectBySearch" parameterType="java.util.Map" resultMap="BaseResultMap">select<include refid="Base_Column_List"/>from TFLOW_INSTANCE_FILE<where>
+        <if test="fileInstId !=null and fileInstId !=''"> and FILE_INST_ID like #{fileInstId} </if>
+        <if test="fileName !=null and fileName !=''"> and FILE_NAME like #{fileName} </if>
+        <if test="fileStorePath !=null and fileStorePath !=''"> and FILE_STORE_PATH like #{fileStorePath} </if>
+        <if test="fileStoreName !=null and fileStoreName !=''"> and FILE_STORE_NAME like #{fileStoreName} </if>
+        <if test="fileExtension !=null and fileExtension !=''"> and FILE_EXTENSION like #{fileExtension} </if>
+        <if test="fileDescription !=null and fileDescription !=''"> and FILE_DESCRIPTION like #{fileDescription} </if>
+        <if test="fileCreator !=null and fileCreator !=''"> and FILE_CREATOR like #{fileCreator} </if>
+        <if test="fileCreatorId !=null and fileCreatorId !=''"> and FILE_CREATOR_ID like #{fileCreatorId} </if>
+        <if test="fileOrganName !=null and fileOrganName !=''"> and FILE_ORGAN_NAME like #{fileOrganName} </if>
+        <if test="fileOrganId !=null and fileOrganId !=''"> and FILE_ORGAN_ID like #{fileOrganId} </if>
+        <if test="fileStatus !=null and fileStatus !=''"> and FILE_STATUS like #{fileStatus} </if>
+        <if test="fileType !=null and fileType !=''"> and FILE_TYPE like #{fileType} </if>
+    </where>ORDER by FILE_ORDER_NUM DESC</select>
+    <select id="selectLessThanRecord" parameterType="java.lang.String" resultMap="BaseResultMap"><![CDATA[select * from TFLOW_INSTANCE_FILE
+                                                                                                          where FILE_ORDER_NUM = (select max(FILE_ORDER_NUM) from TFLOW_INSTANCE_FILE where FILE_ORDER_NUM<(select FILE_ORDER_NUM from TFLOW_INSTANCE_FILE where FILE_ID=#{Id,jdbcType=NVARCHAR}))]]></select>
+    <select id="selectGreaterThanRecord" parameterType="java.lang.String" resultMap="BaseResultMap"><![CDATA[select * from TFLOW_INSTANCE_FILE
+                                                                                                             where FILE_ORDER_NUM = (select min(FILE_ORDER_NUM) from TFLOW_INSTANCE_FILE where FILE_ORDER_NUM>(select FILE_ORDER_NUM from TFLOW_INSTANCE_FILE where FILE_ID=#{Id,jdbcType=NVARCHAR}))]]></select>
+</mapper>

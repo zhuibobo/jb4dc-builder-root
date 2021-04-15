@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jb4dc.workflow.dao.ModelIntegratedMapper">
+    <select id="selectAll" resultMap="BaseResultMap">select<include refid="Base_Column_List"/> from TFLOW_MODEL_INTEGRATED ORDER by MODEL_ORDER_NUM DESC</select>
+    <select id="selectAllASC" resultMap="BaseResultMap">select<include refid="Base_Column_List"/> from TFLOW_MODEL_INTEGRATED ORDER by MODEL_ORDER_NUM ASC</select>
+    <delete id="deleteAll">delete from TFLOW_MODEL_INTEGRATED</delete>
+    <select id="nextOrderNum" resultType="integer">select case when max(MODEL_ORDER_NUM) is null then 1 else max(MODEL_ORDER_NUM)+1 end ORDERNUM from TFLOW_MODEL_INTEGRATED</select>
+    <select id="selectBySearch" parameterType="java.util.Map" resultMap="BaseResultMap">select<include refid="Base_Column_List"/>from TFLOW_MODEL_INTEGRATED<where>
+        <if test="modelReEd !=null and modelReEd !=''"> and MODEL_RE_ED like #{modelReEd} </if>
+        <if test="modelReId !=null and modelReId !=''"> and MODEL_RE_ID like #{modelReId} </if>
+        <if test="modelReSuccess !=null and modelReSuccess !=''"> and MODEL_RE_SUCCESS like #{modelReSuccess} </if>
+        <if test="modelReKey !=null and modelReKey !=''"> and MODEL_RE_KEY like #{modelReKey} </if>
+        <if test="modelModuleId !=null and modelModuleId !=''"> and MODEL_MODULE_ID like #{modelModuleId} </if>
+        <if test="modelCode !=null and modelCode !=''"> and MODEL_CODE like #{modelCode} </if>
+        <if test="modelFlowCategory !=null and modelFlowCategory !=''"> and MODEL_FLOW_CATEGORY like #{modelFlowCategory} </if>
+        <if test="modelImageClass !=null and modelImageClass !=''"> and MODEL_IMAGE_CLASS like #{modelImageClass} </if>
+        <if test="modelPesTitleText !=null and modelPesTitleText !=''"> and MODEL_PES_TITLE_TEXT like #{modelPesTitleText} </if>
+        <if test="modelPesTitleValue !=null and modelPesTitleValue !=''"> and MODEL_PES_TITLE_VALUE like #{modelPesTitleValue} </if>
+        <if test="modelPesDescText !=null and modelPesDescText !=''"> and MODEL_PES_DESC_TEXT like #{modelPesDescText} </if>
+        <if test="modelPesDescValue !=null and modelPesDescValue !=''"> and MODEL_PES_DESC_VALUE like #{modelPesDescValue} </if>
+        <if test="modelPesRestartEnb !=null and modelPesRestartEnb !=''"> and MODEL_PES_RESTART_ENB like #{modelPesRestartEnb} </if>
+        <if test="modelPesAnyJumpEnb !=null and modelPesAnyJumpEnb !=''"> and MODEL_PES_ANY_JUMP_ENB like #{modelPesAnyJumpEnb} </if>
+        <if test="modelName !=null and modelName !=''"> and MODEL_NAME like #{modelName} </if>
+        <if test="modelCreator !=null and modelCreator !=''"> and MODEL_CREATOR like #{modelCreator} </if>
+        <if test="modelUpdater !=null and modelUpdater !=''"> and MODEL_UPDATER like #{modelUpdater} </if>
+        <if test="modelDesc !=null and modelDesc !=''"> and MODEL_DESC like #{modelDesc} </if>
+        <if test="modelStatus !=null and modelStatus !=''"> and MODEL_STATUS like #{modelStatus} </if>
+        <if test="modelDeploymentId !=null and modelDeploymentId !=''"> and MODEL_DEPLOYMENT_ID like #{modelDeploymentId} </if>
+        <if test="modelResourceName !=null and modelResourceName !=''"> and MODEL_RESOURCE_NAME like #{modelResourceName} </if>
+        <if test="modelFromType !=null and modelFromType !=''"> and MODEL_FROM_TYPE like #{modelFromType} </if>
+        <if test="modelLastVersion !=null and modelLastVersion !=''"> and MODEL_LAST_VERSION like #{modelLastVersion} </if>
+        <if test="modelContent !=null and modelContent !=''"> and MODEL_CONTENT like #{modelContent} </if>
+    </where>ORDER by MODEL_ORDER_NUM DESC</select>
+    <select id="selectLessThanRecord" parameterType="java.lang.String" resultMap="BaseResultMap"><![CDATA[select * from TFLOW_MODEL_INTEGRATED
+                                                                                                          where MODEL_ORDER_NUM = (select max(MODEL_ORDER_NUM) from TFLOW_MODEL_INTEGRATED where MODEL_ORDER_NUM<(select MODEL_ORDER_NUM from TFLOW_MODEL_INTEGRATED where MODEL_ID=#{Id,jdbcType=NVARCHAR}))]]></select>
+    <select id="selectGreaterThanRecord" parameterType="java.lang.String" resultMap="BaseResultMap"><![CDATA[select * from TFLOW_MODEL_INTEGRATED
+                                                                                                             where MODEL_ORDER_NUM = (select min(MODEL_ORDER_NUM) from TFLOW_MODEL_INTEGRATED where MODEL_ORDER_NUM>(select MODEL_ORDER_NUM from TFLOW_MODEL_INTEGRATED where MODEL_ID=#{Id,jdbcType=NVARCHAR}))]]></select>
+</mapper>

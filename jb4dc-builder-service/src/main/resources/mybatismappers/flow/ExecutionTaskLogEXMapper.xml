@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jb4dc.workflow.dao.ExecutionTaskLogMapper">
+    <select id="selectAll" resultMap="BaseResultMap">select<include refid="Base_Column_List"/> from TFLOW_EXECUTION_TASK_LOG ORDER by LOG_ORDER_NUM DESC</select>
+    <select id="selectAllASC" resultMap="BaseResultMap">select<include refid="Base_Column_List"/> from TFLOW_EXECUTION_TASK_LOG ORDER by LOG_ORDER_NUM ASC</select>
+    <delete id="deleteAll">delete from TFLOW_EXECUTION_TASK_LOG</delete>
+    <select id="nextOrderNum" resultType="integer">select case when max(LOG_ORDER_NUM) is null then 1 else max(LOG_ORDER_NUM)+1 end ORDERNUM from TFLOW_EXECUTION_TASK_LOG</select>
+    <select id="selectBySearch" parameterType="java.util.Map" resultMap="BaseResultMap">select<include refid="Base_Column_List"/>from TFLOW_EXECUTION_TASK_LOG<where>
+        <if test="logExtaskId !=null and logExtaskId !=''"> and LOG_EXTASK_ID like #{logExtaskId} </if>
+        <if test="logType !=null and logType !=''"> and LOG_TYPE like #{logType} </if>
+        <if test="logForUserId !=null and logForUserId !=''"> and LOG_FOR_USER_ID like #{logForUserId} </if>
+        <if test="logForUserName !=null and logForUserName !=''"> and LOG_FOR_USER_NAME like #{logForUserName} </if>
+        <if test="logForOrganId !=null and logForOrganId !=''"> and LOG_FOR_ORGAN_ID like #{logForOrganId} </if>
+        <if test="logForOrganName !=null and logForOrganName !=''"> and LOG_FOR_ORGAN_NAME like #{logForOrganName} </if>
+        <if test="logPreNodeKey !=null and logPreNodeKey !=''"> and LOG_PRE_NODE_KEY like #{logPreNodeKey} </if>
+        <if test="logPreNodeName !=null and logPreNodeName !=''"> and LOG_PRE_NODE_NAME like #{logPreNodeName} </if>
+        <if test="logCurNodeKey !=null and logCurNodeKey !=''"> and LOG_CUR_NODE_KEY like #{logCurNodeKey} </if>
+        <if test="logCurNodeName !=null and logCurNodeName !=''"> and LOG_CUR_NODE_NAME like #{logCurNodeName} </if>
+        <if test="logHandleActionKey !=null and logHandleActionKey !=''"> and LOG_HANDLE_ACTION_KEY like #{logHandleActionKey} </if>
+        <if test="logHandleActionName !=null and logHandleActionName !=''"> and LOG_HANDLE_ACTION_NAME like #{logHandleActionName} </if>
+        <if test="logClientType !=null and logClientType !=''"> and LOG_CLIENT_TYPE like #{logClientType} </if>
+        <if test="logClientVersion !=null and logClientVersion !=''"> and LOG_CLIENT_VERSION like #{logClientVersion} </if>
+        <if test="logBusinessKey !=null and logBusinessKey !=''"> and LOG_BUSINESS_KEY like #{logBusinessKey} </if>
+        <if test="logFileDraftSid !=null and logFileDraftSid !=''"> and LOG_FILE_DRAFT_SID like #{logFileDraftSid} </if>
+        <if test="logFileDraftNid !=null and logFileDraftNid !=''"> and LOG_FILE_DRAFT_NID like #{logFileDraftNid} </if>
+        <if test="logFileDraftCdbid !=null and logFileDraftCdbid !=''"> and LOG_FILE_DRAFT_CDBID like #{logFileDraftCdbid} </if>
+        <if test="logFileDocSid !=null and logFileDocSid !=''"> and LOG_FILE_DOC_SID like #{logFileDocSid} </if>
+        <if test="logFileDocNid !=null and logFileDocNid !=''"> and LOG_FILE_DOC_NID like #{logFileDocNid} </if>
+        <if test="logFileDocCdbid !=null and logFileDocCdbid !=''"> and LOG_FILE_DOC_CDBID like #{logFileDocCdbid} </if>
+        <if test="logTaskIsMulti !=null and logTaskIsMulti !=''"> and LOG_TASK_IS_MULTI like #{logTaskIsMulti} </if>
+        <if test="logTaskIsParallel !=null and logTaskIsParallel !=''"> and LOG_TASK_IS_PARALLEL like #{logTaskIsParallel} </if>
+        <if test="logStatus !=null and logStatus !=''"> and LOG_STATUS like #{logStatus} </if>
+        <if test="logClientSubmitData !=null and logClientSubmitData !=''"> and LOG_CLIENT_SUBMIT_DATA like #{logClientSubmitData} </if>
+        <if test="logSourceTaskJson !=null and logSourceTaskJson !=''"> and LOG_SOURCE_TASK_JSON like #{logSourceTaskJson} </if>
+        <if test="logToTaskJson !=null and logToTaskJson !=''"> and LOG_TO_TASK_JSON like #{logToTaskJson} </if>
+        <if test="logBusinessSourceData !=null and logBusinessSourceData !=''"> and LOG_BUSINESS_SOURCE_DATA like #{logBusinessSourceData} </if>
+        <if test="logBusinessToData !=null and logBusinessToData !=''"> and LOG_BUSINESS_TO_DATA like #{logBusinessToData} </if>
+        <if test="logFileDraftText !=null and logFileDraftText !=''"> and LOG_FILE_DRAFT_TEXT like #{logFileDraftText} </if>
+        <if test="logFileDocText !=null and logFileDocText !=''"> and LOG_FILE_DOC_TEXT like #{logFileDocText} </if>
+        <if test="logFileAttJson !=null and logFileAttJson !=''"> and LOG_FILE_ATT_JSON like #{logFileAttJson} </if>
+        <if test="logCompleteError !=null and logCompleteError !=''"> and LOG_COMPLETE_ERROR like #{logCompleteError} </if>
+    </where>ORDER by LOG_ORDER_NUM DESC</select>
+    <select id="selectLessThanRecord" parameterType="java.lang.String" resultMap="BaseResultMap"><![CDATA[select * from TFLOW_EXECUTION_TASK_LOG
+                                                                                                          where LOG_ORDER_NUM = (select max(LOG_ORDER_NUM) from TFLOW_EXECUTION_TASK_LOG where LOG_ORDER_NUM<(select LOG_ORDER_NUM from TFLOW_EXECUTION_TASK_LOG where LOG_ID=#{Id,jdbcType=NVARCHAR}))]]></select>
+    <select id="selectGreaterThanRecord" parameterType="java.lang.String" resultMap="BaseResultMap"><![CDATA[select * from TFLOW_EXECUTION_TASK_LOG
+                                                                                                             where LOG_ORDER_NUM = (select min(LOG_ORDER_NUM) from TFLOW_EXECUTION_TASK_LOG where LOG_ORDER_NUM>(select LOG_ORDER_NUM from TFLOW_EXECUTION_TASK_LOG where LOG_ID=#{Id,jdbcType=NVARCHAR}))]]></select>
+</mapper>

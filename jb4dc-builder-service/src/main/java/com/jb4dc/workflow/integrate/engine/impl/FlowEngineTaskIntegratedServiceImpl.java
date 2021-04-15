@@ -1,9 +1,6 @@
 package com.jb4dc.workflow.integrate.engine.impl;
 
-import com.jb4dc.builder.dao.flow.FlowIntegratedMapper;
 import com.jb4dc.workflow.integrate.engine.IFlowEngineTaskIntegratedService;
-import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
-import com.jb4dc.core.base.session.JB4DCSession;
 import org.camunda.bpm.engine.ProcessEngine;
 import org.camunda.bpm.engine.TaskService;
 import org.camunda.bpm.engine.task.Task;

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jb4dc.workflow.dao.InstanceMapper">
+    <select id="selectAll" resultMap="BaseResultMap">select<include refid="Base_Column_List"/> from TFLOW_INSTANCE ORDER by INST_ORDER_NUM DESC</select>
+    <select id="selectAllASC" resultMap="BaseResultMap">select<include refid="Base_Column_List"/> from TFLOW_INSTANCE ORDER by INST_ORDER_NUM ASC</select>
+    <delete id="deleteAll">delete from TFLOW_INSTANCE</delete>
+    <select id="nextOrderNum" resultType="integer">select case when max(INST_ORDER_NUM) is null then 1 else max(INST_ORDER_NUM)+1 end ORDERNUM from TFLOW_INSTANCE</select>
+    <select id="selectBySearch" parameterType="java.util.Map" resultMap="BaseResultMap">select<include refid="Base_Column_List"/>from TFLOW_INSTANCE<where>
+        <if test="instTitle !=null and instTitle !=''"> and INST_TITLE like #{instTitle} </if>
+        <if test="instDesc !=null and instDesc !=''"> and INST_DESC like #{instDesc} </if>
+        <if test="instCustDesc !=null and instCustDesc !=''"> and INST_CUST_DESC like #{instCustDesc} </if>
+        <if test="instCreator !=null and instCreator !=''"> and INST_CREATOR like #{instCreator} </if>
+        <if test="instCreatorId !=null and instCreatorId !=''"> and INST_CREATOR_ID like #{instCreatorId} </if>
+        <if test="instOrganName !=null and instOrganName !=''"> and INST_ORGAN_NAME like #{instOrganName} </if>
+        <if test="instOrganId !=null and instOrganId !=''"> and INST_ORGAN_ID like #{instOrganId} </if>
+        <if test="instStatus !=null and instStatus !=''"> and INST_STATUS like #{instStatus} </if>
+        <if test="instRuExecutionId !=null and instRuExecutionId !=''"> and INST_RU_EXECUTION_ID like #{instRuExecutionId} </if>
+        <if test="instRuProcInstId !=null and instRuProcInstId !=''"> and INST_RU_PROC_INST_ID like #{instRuProcInstId} </if>
+        <if test="instRuBusinessKey !=null and instRuBusinessKey !=''"> and INST_RU_BUSINESS_KEY like #{instRuBusinessKey} </if>
+        <if test="instRuProcDefId !=null and instRuProcDefId !=''"> and INST_RU_PROC_DEF_ID like #{instRuProcDefId} </if>
+        <if test="instModId !=null and instModId !=''"> and INST_MOD_ID like #{instModId} </if>
+        <if test="instModCategory !=null and instModCategory !=''"> and INST_MOD_CATEGORY like #{instModCategory} </if>
+        <if test="instModModuleId !=null and instModModuleId !=''"> and INST_MOD_MODULE_ID like #{instModModuleId} </if>
+        <if test="instModTenantId !=null and instModTenantId !=''"> and INST_MOD_TENANT_ID like #{instModTenantId} </if>
+    </where>ORDER by INST_ORDER_NUM DESC</select>
+    <select id="selectLessThanRecord" parameterType="java.lang.String" resultMap="BaseResultMap"><![CDATA[select * from TFLOW_INSTANCE
+                                                                                                          where INST_ORDER_NUM = (select max(INST_ORDER_NUM) from TFLOW_INSTANCE where INST_ORDER_NUM<(select INST_ORDER_NUM from TFLOW_INSTANCE where INST_ID=#{Id,jdbcType=NVARCHAR}))]]></select>
+    <select id="selectGreaterThanRecord" parameterType="java.lang.String" resultMap="BaseResultMap"><![CDATA[select * from TFLOW_INSTANCE
+                                                                                                             where INST_ORDER_NUM = (select min(INST_ORDER_NUM) from TFLOW_INSTANCE where INST_ORDER_NUM>(select INST_ORDER_NUM from TFLOW_INSTANCE where INST_ID=#{Id,jdbcType=NVARCHAR}))]]></select>
+</mapper>

@@ -1,8 +1,8 @@
 package com.jb4dc.workflow.integrate.extend;
 
 import com.jb4dc.base.service.IBaseService;
-import com.jb4dc.builder.dbentities.flow.FlowIntegratedEntity;
-import com.jb4dc.builder.po.FlowIntegratedPO;
+import com.jb4dc.workflow.dbentities.ModelIntegratedEntity;
+import com.jb4dc.workflow.po.FlowIntegratedPO;
 import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
 import com.jb4dc.core.base.session.JB4DCSession;
 import com.jb4dc.workflow.custpo.bpmn.BpmnDefinitions;
@@ -12,7 +12,7 @@ import javax.xml.stream.XMLStreamException;
 import java.io.IOException;
 import java.io.InputStream;
 
-public interface IFlowExtendModelService  extends IBaseService<FlowIntegratedEntity> {
+public interface IModelIntegratedExtendService extends IBaseService<ModelIntegratedEntity> {
 
     BpmnDefinitions parseToPO(String xml) throws JAXBException, XMLStreamException;
 

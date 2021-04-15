@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jb4dc.workflow.dao.InstancePropertiesMapper">
+    <resultMap id="BaseResultMap" type="com.jb4dc.workflow.dbentities.InstancePropertiesEntity">
+        <constructor>
+            <idArg column="INST_PROP_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="INST_PROP_BELONG_INST_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="INST_PROP_BELONG_NODE_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="INST_PROP_NAME" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="INST_PROP_VALUE1" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="INST_PROP_VALUE2" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="INST_PROP_VALUE3" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="INST_PROP_TYPE" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="INST_PROP_DESC" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="INST_PROP_ORDER_NUM" javaType="java.lang.Integer" jdbcType="INTEGER" />
+        </constructor>
+    </resultMap>
+    <sql id="Base_Column_List">
+        INST_PROP_ID, INST_PROP_BELONG_INST_ID, INST_PROP_BELONG_NODE_ID, INST_PROP_NAME,
+    INST_PROP_VALUE1, INST_PROP_VALUE2, INST_PROP_VALUE3, INST_PROP_TYPE, INST_PROP_DESC,
+    INST_PROP_ORDER_NUM
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from TFLOW_INSTANCE_PROPERTIES
+        where INST_PROP_ID = #{instPropId,jdbcType=VARCHAR}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+        delete from TFLOW_INSTANCE_PROPERTIES
+        where INST_PROP_ID = #{instPropId,jdbcType=VARCHAR}
+    </delete>
+    <insert id="insert" parameterType="com.jb4dc.workflow.dbentities.InstancePropertiesEntity">
+        insert into TFLOW_INSTANCE_PROPERTIES (INST_PROP_ID, INST_PROP_BELONG_INST_ID,
+                                               INST_PROP_BELONG_NODE_ID, INST_PROP_NAME, INST_PROP_VALUE1,
+                                               INST_PROP_VALUE2, INST_PROP_VALUE3, INST_PROP_TYPE,
+                                               INST_PROP_DESC, INST_PROP_ORDER_NUM)
+        values (#{instPropId,jdbcType=VARCHAR}, #{instPropBelongInstId,jdbcType=VARCHAR},
+                #{instPropBelongNodeId,jdbcType=VARCHAR}, #{instPropName,jdbcType=VARCHAR}, #{instPropValue1,jdbcType=VARCHAR},
+                #{instPropValue2,jdbcType=VARCHAR}, #{instPropValue3,jdbcType=VARCHAR}, #{instPropType,jdbcType=VARCHAR},
+                #{instPropDesc,jdbcType=VARCHAR}, #{instPropOrderNum,jdbcType=INTEGER})
+    </insert>
+    <insert id="insertSelective" parameterType="com.jb4dc.workflow.dbentities.InstancePropertiesEntity">
+        insert into TFLOW_INSTANCE_PROPERTIES
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="instPropId != null">
+                INST_PROP_ID,
+            </if>
+            <if test="instPropBelongInstId != null">
+                INST_PROP_BELONG_INST_ID,
+            </if>
+            <if test="instPropBelongNodeId != null">
+                INST_PROP_BELONG_NODE_ID,
+            </if>
+            <if test="instPropName != null">
+                INST_PROP_NAME,
+            </if>
+            <if test="instPropValue1 != null">
+                INST_PROP_VALUE1,
+            </if>
+            <if test="instPropValue2 != null">
+                INST_PROP_VALUE2,
+            </if>
+            <if test="instPropValue3 != null">
+                INST_PROP_VALUE3,
+            </if>
+            <if test="instPropType != null">
+                INST_PROP_TYPE,
+            </if>
+            <if test="instPropDesc != null">
+                INST_PROP_DESC,
+            </if>
+            <if test="instPropOrderNum != null">
+                INST_PROP_ORDER_NUM,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="instPropId != null">
+                #{instPropId,jdbcType=VARCHAR},
+            </if>
+            <if test="instPropBelongInstId != null">
+                #{instPropBelongInstId,jdbcType=VARCHAR},
+            </if>
+            <if test="instPropBelongNodeId != null">
+                #{instPropBelongNodeId,jdbcType=VARCHAR},
+            </if>
+            <if test="instPropName != null">
+                #{instPropName,jdbcType=VARCHAR},
+            </if>
+            <if test="instPropValue1 != null">
+                #{instPropValue1,jdbcType=VARCHAR},
+            </if>
+            <if test="instPropValue2 != null">
+                #{instPropValue2,jdbcType=VARCHAR},
+            </if>
+            <if test="instPropValue3 != null">
+                #{instPropValue3,jdbcType=VARCHAR},
+            </if>
+            <if test="instPropType != null">
+                #{instPropType,jdbcType=VARCHAR},
+            </if>
+            <if test="instPropDesc != null">
+                #{instPropDesc,jdbcType=VARCHAR},
+            </if>
+            <if test="instPropOrderNum != null">
+                #{instPropOrderNum,jdbcType=INTEGER},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.jb4dc.workflow.dbentities.InstancePropertiesEntity">
+        update TFLOW_INSTANCE_PROPERTIES
+        <set>
+            <if test="instPropBelongInstId != null">
+                INST_PROP_BELONG_INST_ID = #{instPropBelongInstId,jdbcType=VARCHAR},
+            </if>
+            <if test="instPropBelongNodeId != null">
+                INST_PROP_BELONG_NODE_ID = #{instPropBelongNodeId,jdbcType=VARCHAR},
+            </if>
+            <if test="instPropName != null">
+                INST_PROP_NAME = #{instPropName,jdbcType=VARCHAR},
+            </if>
+            <if test="instPropValue1 != null">
+                INST_PROP_VALUE1 = #{instPropValue1,jdbcType=VARCHAR},
+            </if>
+            <if test="instPropValue2 != null">
+                INST_PROP_VALUE2 = #{instPropValue2,jdbcType=VARCHAR},
+            </if>
+            <if test="instPropValue3 != null">
+                INST_PROP_VALUE3 = #{instPropValue3,jdbcType=VARCHAR},
+            </if>
+            <if test="instPropType != null">
+                INST_PROP_TYPE = #{instPropType,jdbcType=VARCHAR},
+            </if>
+            <if test="instPropDesc != null">
+                INST_PROP_DESC = #{instPropDesc,jdbcType=VARCHAR},
+            </if>
+            <if test="instPropOrderNum != null">
+                INST_PROP_ORDER_NUM = #{instPropOrderNum,jdbcType=INTEGER},
+            </if>
+        </set>
+        where INST_PROP_ID = #{instPropId,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.jb4dc.workflow.dbentities.InstancePropertiesEntity">
+        update TFLOW_INSTANCE_PROPERTIES
+        set INST_PROP_BELONG_INST_ID = #{instPropBelongInstId,jdbcType=VARCHAR},
+            INST_PROP_BELONG_NODE_ID = #{instPropBelongNodeId,jdbcType=VARCHAR},
+            INST_PROP_NAME = #{instPropName,jdbcType=VARCHAR},
+            INST_PROP_VALUE1 = #{instPropValue1,jdbcType=VARCHAR},
+            INST_PROP_VALUE2 = #{instPropValue2,jdbcType=VARCHAR},
+            INST_PROP_VALUE3 = #{instPropValue3,jdbcType=VARCHAR},
+            INST_PROP_TYPE = #{instPropType,jdbcType=VARCHAR},
+            INST_PROP_DESC = #{instPropDesc,jdbcType=VARCHAR},
+            INST_PROP_ORDER_NUM = #{instPropOrderNum,jdbcType=INTEGER}
+        where INST_PROP_ID = #{instPropId,jdbcType=VARCHAR}
+    </update>
+</mapper>

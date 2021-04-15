@@ -1159,6 +1159,23 @@
         </createTable>
     </changeSet>
 
+    <changeSet id="changeSet-camunda-integrated-0002" author="zhuangrb">
+        <addColumn tableName="TFLOW_MODEL_ASS_OBJECT">
+            <column name="OBJECT_ORDER_NUM" type="INT" remarks="排序号"></column>
+            <column name="OBJECT_CREATE_TIME" type="datetime(6)" remarks="创建时间"></column>
+            <column name="OBJECT_CREATOR" type="NVARCHAR(100)" remarks="创建者"/>
+            <column name="OBJECT_CREATOR_ID" type="NVARCHAR(100)" remarks="创建者ID"/>
+            <column name="OBJECT_DESC" type="NVARCHAR(600)" remarks="备注"/>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="changeSet-camunda-integrated-0003" author="zhuangrb">
+        <addColumn tableName="TFLOW_AGENT_CONFIG">
+            <column name="AGENT_ORDER_NUM" type="INT" remarks="排序号"></column>
+            <column name="AGENT_CREATE_TIME" type="datetime(6)" remarks="创建时间"></column>
+        </addColumn>
+    </changeSet>
+
     <changeSet author="zhuangrb" id="changeSet-System-0002" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
         <createTable tableName="TSYS_NOTICE_MESSAGE" remarks="消息通知表">
             <column name="MESSAGE_ID" type="NVARCHAR(100)" remarks="字典分组ID:随机的UUID,主键">

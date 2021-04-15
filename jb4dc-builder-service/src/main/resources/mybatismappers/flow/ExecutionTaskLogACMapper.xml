@@ -1,0 +1,533 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jb4dc.workflow.dao.ExecutionTaskLogMapper">
+    <resultMap id="BaseResultMap" type="com.jb4dc.workflow.dbentities.ExecutionTaskLogEntity">
+        <constructor>
+            <idArg column="LOG_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="LOG_EXTASK_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="LOG_TYPE" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="LOG_CREATE_TIME" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+            <arg column="LOG_ORDER_NUM" javaType="java.lang.Integer" jdbcType="INTEGER" />
+            <arg column="LOG_FOR_USER_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="LOG_FOR_USER_NAME" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="LOG_FOR_ORGAN_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="LOG_FOR_ORGAN_NAME" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="LOG_PRE_NODE_KEY" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="LOG_PRE_NODE_NAME" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="LOG_CUR_NODE_KEY" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="LOG_CUR_NODE_NAME" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="LOG_HANDLE_ACTION_KEY" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="LOG_HANDLE_ACTION_NAME" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="LOG_CLIENT_TYPE" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="LOG_CLIENT_VERSION" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="LOG_BUSINESS_KEY" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="LOG_FILE_DRAFT_SID" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="LOG_FILE_DRAFT_NID" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="LOG_FILE_DRAFT_CDBID" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="LOG_FILE_DOC_SID" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="LOG_FILE_DOC_NID" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="LOG_FILE_DOC_CDBID" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="LOG_TASK_IS_MULTI" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="LOG_TASK_IS_PARALLEL" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="LOG_STATUS" javaType="java.lang.String" jdbcType="VARCHAR" />
+        </constructor>
+    </resultMap>
+    <resultMap id="ResultMapWithBLOBs" type="com.jb4dc.workflow.dbentities.ExecutionTaskLogEntityWithBLOBs">
+        <constructor>
+            <idArg column="LOG_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="LOG_EXTASK_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="LOG_TYPE" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="LOG_CREATE_TIME" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+            <arg column="LOG_ORDER_NUM" javaType="java.lang.Integer" jdbcType="INTEGER" />
+            <arg column="LOG_FOR_USER_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="LOG_FOR_USER_NAME" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="LOG_FOR_ORGAN_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="LOG_FOR_ORGAN_NAME" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="LOG_PRE_NODE_KEY" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="LOG_PRE_NODE_NAME" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="LOG_CUR_NODE_KEY" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="LOG_CUR_NODE_NAME" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="LOG_HANDLE_ACTION_KEY" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="LOG_HANDLE_ACTION_NAME" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="LOG_CLIENT_TYPE" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="LOG_CLIENT_VERSION" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="LOG_BUSINESS_KEY" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="LOG_FILE_DRAFT_SID" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="LOG_FILE_DRAFT_NID" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="LOG_FILE_DRAFT_CDBID" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="LOG_FILE_DOC_SID" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="LOG_FILE_DOC_NID" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="LOG_FILE_DOC_CDBID" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="LOG_TASK_IS_MULTI" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="LOG_TASK_IS_PARALLEL" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="LOG_STATUS" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="LOG_CLIENT_SUBMIT_DATA" javaType="java.lang.String" jdbcType="LONGVARCHAR" />
+            <arg column="LOG_SOURCE_TASK_JSON" javaType="java.lang.String" jdbcType="LONGVARCHAR" />
+            <arg column="LOG_TO_TASK_JSON" javaType="java.lang.String" jdbcType="LONGVARCHAR" />
+            <arg column="LOG_BUSINESS_SOURCE_DATA" javaType="java.lang.String" jdbcType="LONGVARCHAR" />
+            <arg column="LOG_BUSINESS_TO_DATA" javaType="java.lang.String" jdbcType="LONGVARCHAR" />
+            <arg column="LOG_FILE_DRAFT_TEXT" javaType="java.lang.String" jdbcType="LONGVARCHAR" />
+            <arg column="LOG_FILE_DOC_TEXT" javaType="java.lang.String" jdbcType="LONGVARCHAR" />
+            <arg column="LOG_FILE_ATT_JSON" javaType="java.lang.String" jdbcType="LONGVARCHAR" />
+            <arg column="LOG_COMPLETE_ERROR" javaType="java.lang.String" jdbcType="LONGVARCHAR" />
+        </constructor>
+    </resultMap>
+    <sql id="Base_Column_List">
+        LOG_ID, LOG_EXTASK_ID, LOG_TYPE, LOG_CREATE_TIME, LOG_ORDER_NUM, LOG_FOR_USER_ID,
+    LOG_FOR_USER_NAME, LOG_FOR_ORGAN_ID, LOG_FOR_ORGAN_NAME, LOG_PRE_NODE_KEY, LOG_PRE_NODE_NAME,
+    LOG_CUR_NODE_KEY, LOG_CUR_NODE_NAME, LOG_HANDLE_ACTION_KEY, LOG_HANDLE_ACTION_NAME,
+    LOG_CLIENT_TYPE, LOG_CLIENT_VERSION, LOG_BUSINESS_KEY, LOG_FILE_DRAFT_SID, LOG_FILE_DRAFT_NID,
+    LOG_FILE_DRAFT_CDBID, LOG_FILE_DOC_SID, LOG_FILE_DOC_NID, LOG_FILE_DOC_CDBID, LOG_TASK_IS_MULTI,
+    LOG_TASK_IS_PARALLEL, LOG_STATUS
+    </sql>
+    <sql id="Blob_Column_List">
+        LOG_CLIENT_SUBMIT_DATA, LOG_SOURCE_TASK_JSON, LOG_TO_TASK_JSON, LOG_BUSINESS_SOURCE_DATA,
+    LOG_BUSINESS_TO_DATA, LOG_FILE_DRAFT_TEXT, LOG_FILE_DOC_TEXT, LOG_FILE_ATT_JSON,
+    LOG_COMPLETE_ERROR
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="ResultMapWithBLOBs">
+        select
+        <include refid="Base_Column_List" />
+        ,
+        <include refid="Blob_Column_List" />
+        from TFLOW_EXECUTION_TASK_LOG
+        where LOG_ID = #{logId,jdbcType=VARCHAR}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+        delete from TFLOW_EXECUTION_TASK_LOG
+        where LOG_ID = #{logId,jdbcType=VARCHAR}
+    </delete>
+    <insert id="insert" parameterType="com.jb4dc.workflow.dbentities.ExecutionTaskLogEntityWithBLOBs">
+        insert into TFLOW_EXECUTION_TASK_LOG (LOG_ID, LOG_EXTASK_ID, LOG_TYPE,
+                                              LOG_CREATE_TIME, LOG_ORDER_NUM, LOG_FOR_USER_ID,
+                                              LOG_FOR_USER_NAME, LOG_FOR_ORGAN_ID, LOG_FOR_ORGAN_NAME,
+                                              LOG_PRE_NODE_KEY, LOG_PRE_NODE_NAME, LOG_CUR_NODE_KEY,
+                                              LOG_CUR_NODE_NAME, LOG_HANDLE_ACTION_KEY, LOG_HANDLE_ACTION_NAME,
+                                              LOG_CLIENT_TYPE, LOG_CLIENT_VERSION, LOG_BUSINESS_KEY,
+                                              LOG_FILE_DRAFT_SID, LOG_FILE_DRAFT_NID, LOG_FILE_DRAFT_CDBID,
+                                              LOG_FILE_DOC_SID, LOG_FILE_DOC_NID, LOG_FILE_DOC_CDBID,
+                                              LOG_TASK_IS_MULTI, LOG_TASK_IS_PARALLEL, LOG_STATUS,
+                                              LOG_CLIENT_SUBMIT_DATA, LOG_SOURCE_TASK_JSON,
+                                              LOG_TO_TASK_JSON, LOG_BUSINESS_SOURCE_DATA,
+                                              LOG_BUSINESS_TO_DATA, LOG_FILE_DRAFT_TEXT,
+                                              LOG_FILE_DOC_TEXT, LOG_FILE_ATT_JSON,
+                                              LOG_COMPLETE_ERROR)
+        values (#{logId,jdbcType=VARCHAR}, #{logExtaskId,jdbcType=VARCHAR}, #{logType,jdbcType=VARCHAR},
+                #{logCreateTime,jdbcType=TIMESTAMP}, #{logOrderNum,jdbcType=INTEGER}, #{logForUserId,jdbcType=VARCHAR},
+                #{logForUserName,jdbcType=VARCHAR}, #{logForOrganId,jdbcType=VARCHAR}, #{logForOrganName,jdbcType=VARCHAR},
+                #{logPreNodeKey,jdbcType=VARCHAR}, #{logPreNodeName,jdbcType=VARCHAR}, #{logCurNodeKey,jdbcType=VARCHAR},
+                #{logCurNodeName,jdbcType=VARCHAR}, #{logHandleActionKey,jdbcType=VARCHAR}, #{logHandleActionName,jdbcType=VARCHAR},
+                #{logClientType,jdbcType=VARCHAR}, #{logClientVersion,jdbcType=VARCHAR}, #{logBusinessKey,jdbcType=VARCHAR},
+                #{logFileDraftSid,jdbcType=VARCHAR}, #{logFileDraftNid,jdbcType=VARCHAR}, #{logFileDraftCdbid,jdbcType=VARCHAR},
+                #{logFileDocSid,jdbcType=VARCHAR}, #{logFileDocNid,jdbcType=VARCHAR}, #{logFileDocCdbid,jdbcType=VARCHAR},
+                #{logTaskIsMulti,jdbcType=VARCHAR}, #{logTaskIsParallel,jdbcType=VARCHAR}, #{logStatus,jdbcType=VARCHAR},
+                #{logClientSubmitData,jdbcType=LONGVARCHAR}, #{logSourceTaskJson,jdbcType=LONGVARCHAR},
+                #{logToTaskJson,jdbcType=LONGVARCHAR}, #{logBusinessSourceData,jdbcType=LONGVARCHAR},
+                #{logBusinessToData,jdbcType=LONGVARCHAR}, #{logFileDraftText,jdbcType=LONGVARCHAR},
+                #{logFileDocText,jdbcType=LONGVARCHAR}, #{logFileAttJson,jdbcType=LONGVARCHAR},
+                #{logCompleteError,jdbcType=LONGVARCHAR})
+    </insert>
+    <insert id="insertSelective" parameterType="com.jb4dc.workflow.dbentities.ExecutionTaskLogEntityWithBLOBs">
+        insert into TFLOW_EXECUTION_TASK_LOG
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="logId != null">
+                LOG_ID,
+            </if>
+            <if test="logExtaskId != null">
+                LOG_EXTASK_ID,
+            </if>
+            <if test="logType != null">
+                LOG_TYPE,
+            </if>
+            <if test="logCreateTime != null">
+                LOG_CREATE_TIME,
+            </if>
+            <if test="logOrderNum != null">
+                LOG_ORDER_NUM,
+            </if>
+            <if test="logForUserId != null">
+                LOG_FOR_USER_ID,
+            </if>
+            <if test="logForUserName != null">
+                LOG_FOR_USER_NAME,
+            </if>
+            <if test="logForOrganId != null">
+                LOG_FOR_ORGAN_ID,
+            </if>
+            <if test="logForOrganName != null">
+                LOG_FOR_ORGAN_NAME,
+            </if>
+            <if test="logPreNodeKey != null">
+                LOG_PRE_NODE_KEY,
+            </if>
+            <if test="logPreNodeName != null">
+                LOG_PRE_NODE_NAME,
+            </if>
+            <if test="logCurNodeKey != null">
+                LOG_CUR_NODE_KEY,
+            </if>
+            <if test="logCurNodeName != null">
+                LOG_CUR_NODE_NAME,
+            </if>
+            <if test="logHandleActionKey != null">
+                LOG_HANDLE_ACTION_KEY,
+            </if>
+            <if test="logHandleActionName != null">
+                LOG_HANDLE_ACTION_NAME,
+            </if>
+            <if test="logClientType != null">
+                LOG_CLIENT_TYPE,
+            </if>
+            <if test="logClientVersion != null">
+                LOG_CLIENT_VERSION,
+            </if>
+            <if test="logBusinessKey != null">
+                LOG_BUSINESS_KEY,
+            </if>
+            <if test="logFileDraftSid != null">
+                LOG_FILE_DRAFT_SID,
+            </if>
+            <if test="logFileDraftNid != null">
+                LOG_FILE_DRAFT_NID,
+            </if>
+            <if test="logFileDraftCdbid != null">
+                LOG_FILE_DRAFT_CDBID,
+            </if>
+            <if test="logFileDocSid != null">
+                LOG_FILE_DOC_SID,
+            </if>
+            <if test="logFileDocNid != null">
+                LOG_FILE_DOC_NID,
+            </if>
+            <if test="logFileDocCdbid != null">
+                LOG_FILE_DOC_CDBID,
+            </if>
+            <if test="logTaskIsMulti != null">
+                LOG_TASK_IS_MULTI,
+            </if>
+            <if test="logTaskIsParallel != null">
+                LOG_TASK_IS_PARALLEL,
+            </if>
+            <if test="logStatus != null">
+                LOG_STATUS,
+            </if>
+            <if test="logClientSubmitData != null">
+                LOG_CLIENT_SUBMIT_DATA,
+            </if>
+            <if test="logSourceTaskJson != null">
+                LOG_SOURCE_TASK_JSON,
+            </if>
+            <if test="logToTaskJson != null">
+                LOG_TO_TASK_JSON,
+            </if>
+            <if test="logBusinessSourceData != null">
+                LOG_BUSINESS_SOURCE_DATA,
+            </if>
+            <if test="logBusinessToData != null">
+                LOG_BUSINESS_TO_DATA,
+            </if>
+            <if test="logFileDraftText != null">
+                LOG_FILE_DRAFT_TEXT,
+            </if>
+            <if test="logFileDocText != null">
+                LOG_FILE_DOC_TEXT,
+            </if>
+            <if test="logFileAttJson != null">
+                LOG_FILE_ATT_JSON,
+            </if>
+            <if test="logCompleteError != null">
+                LOG_COMPLETE_ERROR,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="logId != null">
+                #{logId,jdbcType=VARCHAR},
+            </if>
+            <if test="logExtaskId != null">
+                #{logExtaskId,jdbcType=VARCHAR},
+            </if>
+            <if test="logType != null">
+                #{logType,jdbcType=VARCHAR},
+            </if>
+            <if test="logCreateTime != null">
+                #{logCreateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="logOrderNum != null">
+                #{logOrderNum,jdbcType=INTEGER},
+            </if>
+            <if test="logForUserId != null">
+                #{logForUserId,jdbcType=VARCHAR},
+            </if>
+            <if test="logForUserName != null">
+                #{logForUserName,jdbcType=VARCHAR},
+            </if>
+            <if test="logForOrganId != null">
+                #{logForOrganId,jdbcType=VARCHAR},
+            </if>
+            <if test="logForOrganName != null">
+                #{logForOrganName,jdbcType=VARCHAR},
+            </if>
+            <if test="logPreNodeKey != null">
+                #{logPreNodeKey,jdbcType=VARCHAR},
+            </if>
+            <if test="logPreNodeName != null">
+                #{logPreNodeName,jdbcType=VARCHAR},
+            </if>
+            <if test="logCurNodeKey != null">
+                #{logCurNodeKey,jdbcType=VARCHAR},
+            </if>
+            <if test="logCurNodeName != null">
+                #{logCurNodeName,jdbcType=VARCHAR},
+            </if>
+            <if test="logHandleActionKey != null">
+                #{logHandleActionKey,jdbcType=VARCHAR},
+            </if>
+            <if test="logHandleActionName != null">
+                #{logHandleActionName,jdbcType=VARCHAR},
+            </if>
+            <if test="logClientType != null">
+                #{logClientType,jdbcType=VARCHAR},
+            </if>
+            <if test="logClientVersion != null">
+                #{logClientVersion,jdbcType=VARCHAR},
+            </if>
+            <if test="logBusinessKey != null">
+                #{logBusinessKey,jdbcType=VARCHAR},
+            </if>
+            <if test="logFileDraftSid != null">
+                #{logFileDraftSid,jdbcType=VARCHAR},
+            </if>
+            <if test="logFileDraftNid != null">
+                #{logFileDraftNid,jdbcType=VARCHAR},
+            </if>
+            <if test="logFileDraftCdbid != null">
+                #{logFileDraftCdbid,jdbcType=VARCHAR},
+            </if>
+            <if test="logFileDocSid != null">
+                #{logFileDocSid,jdbcType=VARCHAR},
+            </if>
+            <if test="logFileDocNid != null">
+                #{logFileDocNid,jdbcType=VARCHAR},
+            </if>
+            <if test="logFileDocCdbid != null">
+                #{logFileDocCdbid,jdbcType=VARCHAR},
+            </if>
+            <if test="logTaskIsMulti != null">
+                #{logTaskIsMulti,jdbcType=VARCHAR},
+            </if>
+            <if test="logTaskIsParallel != null">
+                #{logTaskIsParallel,jdbcType=VARCHAR},
+            </if>
+            <if test="logStatus != null">
+                #{logStatus,jdbcType=VARCHAR},
+            </if>
+            <if test="logClientSubmitData != null">
+                #{logClientSubmitData,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="logSourceTaskJson != null">
+                #{logSourceTaskJson,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="logToTaskJson != null">
+                #{logToTaskJson,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="logBusinessSourceData != null">
+                #{logBusinessSourceData,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="logBusinessToData != null">
+                #{logBusinessToData,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="logFileDraftText != null">
+                #{logFileDraftText,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="logFileDocText != null">
+                #{logFileDocText,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="logFileAttJson != null">
+                #{logFileAttJson,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="logCompleteError != null">
+                #{logCompleteError,jdbcType=LONGVARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.jb4dc.workflow.dbentities.ExecutionTaskLogEntityWithBLOBs">
+        update TFLOW_EXECUTION_TASK_LOG
+        <set>
+            <if test="logExtaskId != null">
+                LOG_EXTASK_ID = #{logExtaskId,jdbcType=VARCHAR},
+            </if>
+            <if test="logType != null">
+                LOG_TYPE = #{logType,jdbcType=VARCHAR},
+            </if>
+            <if test="logCreateTime != null">
+                LOG_CREATE_TIME = #{logCreateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="logOrderNum != null">
+                LOG_ORDER_NUM = #{logOrderNum,jdbcType=INTEGER},
+            </if>
+            <if test="logForUserId != null">
+                LOG_FOR_USER_ID = #{logForUserId,jdbcType=VARCHAR},
+            </if>
+            <if test="logForUserName != null">
+                LOG_FOR_USER_NAME = #{logForUserName,jdbcType=VARCHAR},
+            </if>
+            <if test="logForOrganId != null">
+                LOG_FOR_ORGAN_ID = #{logForOrganId,jdbcType=VARCHAR},
+            </if>
+            <if test="logForOrganName != null">
+                LOG_FOR_ORGAN_NAME = #{logForOrganName,jdbcType=VARCHAR},
+            </if>
+            <if test="logPreNodeKey != null">
+                LOG_PRE_NODE_KEY = #{logPreNodeKey,jdbcType=VARCHAR},
+            </if>
+            <if test="logPreNodeName != null">
+                LOG_PRE_NODE_NAME = #{logPreNodeName,jdbcType=VARCHAR},
+            </if>
+            <if test="logCurNodeKey != null">
+                LOG_CUR_NODE_KEY = #{logCurNodeKey,jdbcType=VARCHAR},
+            </if>
+            <if test="logCurNodeName != null">
+                LOG_CUR_NODE_NAME = #{logCurNodeName,jdbcType=VARCHAR},
+            </if>
+            <if test="logHandleActionKey != null">
+                LOG_HANDLE_ACTION_KEY = #{logHandleActionKey,jdbcType=VARCHAR},
+            </if>
+            <if test="logHandleActionName != null">
+                LOG_HANDLE_ACTION_NAME = #{logHandleActionName,jdbcType=VARCHAR},
+            </if>
+            <if test="logClientType != null">
+                LOG_CLIENT_TYPE = #{logClientType,jdbcType=VARCHAR},
+            </if>
+            <if test="logClientVersion != null">
+                LOG_CLIENT_VERSION = #{logClientVersion,jdbcType=VARCHAR},
+            </if>
+            <if test="logBusinessKey != null">
+                LOG_BUSINESS_KEY = #{logBusinessKey,jdbcType=VARCHAR},
+            </if>
+            <if test="logFileDraftSid != null">
+                LOG_FILE_DRAFT_SID = #{logFileDraftSid,jdbcType=VARCHAR},
+            </if>
+            <if test="logFileDraftNid != null">
+                LOG_FILE_DRAFT_NID = #{logFileDraftNid,jdbcType=VARCHAR},
+            </if>
+            <if test="logFileDraftCdbid != null">
+                LOG_FILE_DRAFT_CDBID = #{logFileDraftCdbid,jdbcType=VARCHAR},
+            </if>
+            <if test="logFileDocSid != null">
+                LOG_FILE_DOC_SID = #{logFileDocSid,jdbcType=VARCHAR},
+            </if>
+            <if test="logFileDocNid != null">
+                LOG_FILE_DOC_NID = #{logFileDocNid,jdbcType=VARCHAR},
+            </if>
+            <if test="logFileDocCdbid != null">
+                LOG_FILE_DOC_CDBID = #{logFileDocCdbid,jdbcType=VARCHAR},
+            </if>
+            <if test="logTaskIsMulti != null">
+                LOG_TASK_IS_MULTI = #{logTaskIsMulti,jdbcType=VARCHAR},
+            </if>
+            <if test="logTaskIsParallel != null">
+                LOG_TASK_IS_PARALLEL = #{logTaskIsParallel,jdbcType=VARCHAR},
+            </if>
+            <if test="logStatus != null">
+                LOG_STATUS = #{logStatus,jdbcType=VARCHAR},
+            </if>
+            <if test="logClientSubmitData != null">
+                LOG_CLIENT_SUBMIT_DATA = #{logClientSubmitData,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="logSourceTaskJson != null">
+                LOG_SOURCE_TASK_JSON = #{logSourceTaskJson,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="logToTaskJson != null">
+                LOG_TO_TASK_JSON = #{logToTaskJson,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="logBusinessSourceData != null">
+                LOG_BUSINESS_SOURCE_DATA = #{logBusinessSourceData,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="logBusinessToData != null">
+                LOG_BUSINESS_TO_DATA = #{logBusinessToData,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="logFileDraftText != null">
+                LOG_FILE_DRAFT_TEXT = #{logFileDraftText,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="logFileDocText != null">
+                LOG_FILE_DOC_TEXT = #{logFileDocText,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="logFileAttJson != null">
+                LOG_FILE_ATT_JSON = #{logFileAttJson,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="logCompleteError != null">
+                LOG_COMPLETE_ERROR = #{logCompleteError,jdbcType=LONGVARCHAR},
+            </if>
+        </set>
+        where LOG_ID = #{logId,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.jb4dc.workflow.dbentities.ExecutionTaskLogEntityWithBLOBs">
+        update TFLOW_EXECUTION_TASK_LOG
+        set LOG_EXTASK_ID = #{logExtaskId,jdbcType=VARCHAR},
+            LOG_TYPE = #{logType,jdbcType=VARCHAR},
+            LOG_CREATE_TIME = #{logCreateTime,jdbcType=TIMESTAMP},
+            LOG_ORDER_NUM = #{logOrderNum,jdbcType=INTEGER},
+            LOG_FOR_USER_ID = #{logForUserId,jdbcType=VARCHAR},
+            LOG_FOR_USER_NAME = #{logForUserName,jdbcType=VARCHAR},
+            LOG_FOR_ORGAN_ID = #{logForOrganId,jdbcType=VARCHAR},
+            LOG_FOR_ORGAN_NAME = #{logForOrganName,jdbcType=VARCHAR},
+            LOG_PRE_NODE_KEY = #{logPreNodeKey,jdbcType=VARCHAR},
+            LOG_PRE_NODE_NAME = #{logPreNodeName,jdbcType=VARCHAR},
+            LOG_CUR_NODE_KEY = #{logCurNodeKey,jdbcType=VARCHAR},
+            LOG_CUR_NODE_NAME = #{logCurNodeName,jdbcType=VARCHAR},
+            LOG_HANDLE_ACTION_KEY = #{logHandleActionKey,jdbcType=VARCHAR},
+            LOG_HANDLE_ACTION_NAME = #{logHandleActionName,jdbcType=VARCHAR},
+            LOG_CLIENT_TYPE = #{logClientType,jdbcType=VARCHAR},
+            LOG_CLIENT_VERSION = #{logClientVersion,jdbcType=VARCHAR},
+            LOG_BUSINESS_KEY = #{logBusinessKey,jdbcType=VARCHAR},
+            LOG_FILE_DRAFT_SID = #{logFileDraftSid,jdbcType=VARCHAR},
+            LOG_FILE_DRAFT_NID = #{logFileDraftNid,jdbcType=VARCHAR},
+            LOG_FILE_DRAFT_CDBID = #{logFileDraftCdbid,jdbcType=VARCHAR},
+            LOG_FILE_DOC_SID = #{logFileDocSid,jdbcType=VARCHAR},
+            LOG_FILE_DOC_NID = #{logFileDocNid,jdbcType=VARCHAR},
+            LOG_FILE_DOC_CDBID = #{logFileDocCdbid,jdbcType=VARCHAR},
+            LOG_TASK_IS_MULTI = #{logTaskIsMulti,jdbcType=VARCHAR},
+            LOG_TASK_IS_PARALLEL = #{logTaskIsParallel,jdbcType=VARCHAR},
+            LOG_STATUS = #{logStatus,jdbcType=VARCHAR},
+            LOG_CLIENT_SUBMIT_DATA = #{logClientSubmitData,jdbcType=LONGVARCHAR},
+            LOG_SOURCE_TASK_JSON = #{logSourceTaskJson,jdbcType=LONGVARCHAR},
+            LOG_TO_TASK_JSON = #{logToTaskJson,jdbcType=LONGVARCHAR},
+            LOG_BUSINESS_SOURCE_DATA = #{logBusinessSourceData,jdbcType=LONGVARCHAR},
+            LOG_BUSINESS_TO_DATA = #{logBusinessToData,jdbcType=LONGVARCHAR},
+            LOG_FILE_DRAFT_TEXT = #{logFileDraftText,jdbcType=LONGVARCHAR},
+            LOG_FILE_DOC_TEXT = #{logFileDocText,jdbcType=LONGVARCHAR},
+            LOG_FILE_ATT_JSON = #{logFileAttJson,jdbcType=LONGVARCHAR},
+            LOG_COMPLETE_ERROR = #{logCompleteError,jdbcType=LONGVARCHAR}
+        where LOG_ID = #{logId,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.jb4dc.workflow.dbentities.ExecutionTaskLogEntity">
+        update TFLOW_EXECUTION_TASK_LOG
+        set LOG_EXTASK_ID = #{logExtaskId,jdbcType=VARCHAR},
+            LOG_TYPE = #{logType,jdbcType=VARCHAR},
+            LOG_CREATE_TIME = #{logCreateTime,jdbcType=TIMESTAMP},
+            LOG_ORDER_NUM = #{logOrderNum,jdbcType=INTEGER},
+            LOG_FOR_USER_ID = #{logForUserId,jdbcType=VARCHAR},
+            LOG_FOR_USER_NAME = #{logForUserName,jdbcType=VARCHAR},
+            LOG_FOR_ORGAN_ID = #{logForOrganId,jdbcType=VARCHAR},
+            LOG_FOR_ORGAN_NAME = #{logForOrganName,jdbcType=VARCHAR},
+            LOG_PRE_NODE_KEY = #{logPreNodeKey,jdbcType=VARCHAR},
+            LOG_PRE_NODE_NAME = #{logPreNodeName,jdbcType=VARCHAR},
+            LOG_CUR_NODE_KEY = #{logCurNodeKey,jdbcType=VARCHAR},
+            LOG_CUR_NODE_NAME = #{logCurNodeName,jdbcType=VARCHAR},
+            LOG_HANDLE_ACTION_KEY = #{logHandleActionKey,jdbcType=VARCHAR},
+            LOG_HANDLE_ACTION_NAME = #{logHandleActionName,jdbcType=VARCHAR},
+            LOG_CLIENT_TYPE = #{logClientType,jdbcType=VARCHAR},
+            LOG_CLIENT_VERSION = #{logClientVersion,jdbcType=VARCHAR},
+            LOG_BUSINESS_KEY = #{logBusinessKey,jdbcType=VARCHAR},
+            LOG_FILE_DRAFT_SID = #{logFileDraftSid,jdbcType=VARCHAR},
+            LOG_FILE_DRAFT_NID = #{logFileDraftNid,jdbcType=VARCHAR},
+            LOG_FILE_DRAFT_CDBID = #{logFileDraftCdbid,jdbcType=VARCHAR},
+            LOG_FILE_DOC_SID = #{logFileDocSid,jdbcType=VARCHAR},
+            LOG_FILE_DOC_NID = #{logFileDocNid,jdbcType=VARCHAR},
+            LOG_FILE_DOC_CDBID = #{logFileDocCdbid,jdbcType=VARCHAR},
+            LOG_TASK_IS_MULTI = #{logTaskIsMulti,jdbcType=VARCHAR},
+            LOG_TASK_IS_PARALLEL = #{logTaskIsParallel,jdbcType=VARCHAR},
+            LOG_STATUS = #{logStatus,jdbcType=VARCHAR}
+        where LOG_ID = #{logId,jdbcType=VARCHAR}
+    </update>
+</mapper>

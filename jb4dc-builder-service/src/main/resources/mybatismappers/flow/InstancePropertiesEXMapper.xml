@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jb4dc.workflow.dao.InstancePropertiesMapper">
+    <select id="selectAll" resultMap="BaseResultMap">select<include refid="Base_Column_List"/> from TFLOW_INSTANCE_PROPERTIES ORDER by INST_PROP_ORDER_NUM DESC</select>
+    <select id="selectAllASC" resultMap="BaseResultMap">select<include refid="Base_Column_List"/> from TFLOW_INSTANCE_PROPERTIES ORDER by INST_PROP_ORDER_NUM ASC</select>
+    <delete id="deleteAll">delete from TFLOW_INSTANCE_PROPERTIES</delete>
+    <select id="nextOrderNum" resultType="integer">select case when max(INST_PROP_ORDER_NUM) is null then 1 else max(INST_PROP_ORDER_NUM)+1 end ORDERNUM from TFLOW_INSTANCE_PROPERTIES</select>
+    <select id="selectBySearch" parameterType="java.util.Map" resultMap="BaseResultMap">select<include refid="Base_Column_List"/>from TFLOW_INSTANCE_PROPERTIES<where>
+        <if test="instPropBelongInstId !=null and instPropBelongInstId !=''"> and INST_PROP_BELONG_INST_ID like #{instPropBelongInstId} </if>
+        <if test="instPropBelongNodeId !=null and instPropBelongNodeId !=''"> and INST_PROP_BELONG_NODE_ID like #{instPropBelongNodeId} </if>
+        <if test="instPropName !=null and instPropName !=''"> and INST_PROP_NAME like #{instPropName} </if>
+        <if test="instPropValue1 !=null and instPropValue1 !=''"> and INST_PROP_VALUE1 like #{instPropValue1} </if>
+        <if test="instPropValue2 !=null and instPropValue2 !=''"> and INST_PROP_VALUE2 like #{instPropValue2} </if>
+        <if test="instPropValue3 !=null and instPropValue3 !=''"> and INST_PROP_VALUE3 like #{instPropValue3} </if>
+        <if test="instPropType !=null and instPropType !=''"> and INST_PROP_TYPE like #{instPropType} </if>
+        <if test="instPropDesc !=null and instPropDesc !=''"> and INST_PROP_DESC like #{instPropDesc} </if>
+    </where>ORDER by INST_PROP_ORDER_NUM DESC</select>
+    <select id="selectLessThanRecord" parameterType="java.lang.String" resultMap="BaseResultMap"><![CDATA[select * from TFLOW_INSTANCE_PROPERTIES
+                                                                                                          where INST_PROP_ORDER_NUM = (select max(INST_PROP_ORDER_NUM) from TFLOW_INSTANCE_PROPERTIES where INST_PROP_ORDER_NUM<(select INST_PROP_ORDER_NUM from TFLOW_INSTANCE_PROPERTIES where INST_PROP_ID=#{Id,jdbcType=NVARCHAR}))]]></select>
+    <select id="selectGreaterThanRecord" parameterType="java.lang.String" resultMap="BaseResultMap"><![CDATA[select * from TFLOW_INSTANCE_PROPERTIES
+                                                                                                             where INST_PROP_ORDER_NUM = (select min(INST_PROP_ORDER_NUM) from TFLOW_INSTANCE_PROPERTIES where INST_PROP_ORDER_NUM>(select INST_PROP_ORDER_NUM from TFLOW_INSTANCE_PROPERTIES where INST_PROP_ID=#{Id,jdbcType=NVARCHAR}))]]></select>
+</mapper>

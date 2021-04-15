@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jb4dc.workflow.dao.AgentConfigMapper">
+    <resultMap id="BaseResultMap" type="com.jb4dc.workflow.dbentities.AgentConfigEntity">
+        <constructor>
+            <idArg column="AGENT_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="AGENT_TYPE" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="AGENT_MODEL_RE_KEY" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="AGENT_START_TIME" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+            <arg column="AGENT_END_TIME" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+            <arg column="AGENT_FROM_USER_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="AGENT_FROM_USER_NAME" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="AGENT_TO_USER_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="AGENT_TO_USER_NAME" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="AGENT_DESC" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="AGENT_ORDER_NUM" javaType="java.lang.Integer" jdbcType="INTEGER" />
+            <arg column="AGENT_CREATE_TIME" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+        </constructor>
+    </resultMap>
+    <sql id="Base_Column_List">
+        AGENT_ID, AGENT_TYPE, AGENT_MODEL_RE_KEY, AGENT_START_TIME, AGENT_END_TIME, AGENT_FROM_USER_ID,
+    AGENT_FROM_USER_NAME, AGENT_TO_USER_ID, AGENT_TO_USER_NAME, AGENT_DESC, AGENT_ORDER_NUM,
+    AGENT_CREATE_TIME
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from TFLOW_AGENT_CONFIG
+        where AGENT_ID = #{agentId,jdbcType=VARCHAR}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+        delete from TFLOW_AGENT_CONFIG
+        where AGENT_ID = #{agentId,jdbcType=VARCHAR}
+    </delete>
+    <insert id="insert" parameterType="com.jb4dc.workflow.dbentities.AgentConfigEntity">
+        insert into TFLOW_AGENT_CONFIG (AGENT_ID, AGENT_TYPE, AGENT_MODEL_RE_KEY,
+                                        AGENT_START_TIME, AGENT_END_TIME, AGENT_FROM_USER_ID,
+                                        AGENT_FROM_USER_NAME, AGENT_TO_USER_ID, AGENT_TO_USER_NAME,
+                                        AGENT_DESC, AGENT_ORDER_NUM, AGENT_CREATE_TIME
+                )
+        values (#{agentId,jdbcType=VARCHAR}, #{agentType,jdbcType=VARCHAR}, #{agentModelReKey,jdbcType=VARCHAR},
+                #{agentStartTime,jdbcType=TIMESTAMP}, #{agentEndTime,jdbcType=TIMESTAMP}, #{agentFromUserId,jdbcType=VARCHAR},
+                #{agentFromUserName,jdbcType=VARCHAR}, #{agentToUserId,jdbcType=VARCHAR}, #{agentToUserName,jdbcType=VARCHAR},
+                #{agentDesc,jdbcType=VARCHAR}, #{agentOrderNum,jdbcType=INTEGER}, #{agentCreateTime,jdbcType=TIMESTAMP}
+                       )
+    </insert>
+    <insert id="insertSelective" parameterType="com.jb4dc.workflow.dbentities.AgentConfigEntity">
+        insert into TFLOW_AGENT_CONFIG
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="agentId != null">
+                AGENT_ID,
+            </if>
+            <if test="agentType != null">
+                AGENT_TYPE,
+            </if>
+            <if test="agentModelReKey != null">
+                AGENT_MODEL_RE_KEY,
+            </if>
+            <if test="agentStartTime != null">
+                AGENT_START_TIME,
+            </if>
+            <if test="agentEndTime != null">
+                AGENT_END_TIME,
+            </if>
+            <if test="agentFromUserId != null">
+                AGENT_FROM_USER_ID,
+            </if>
+            <if test="agentFromUserName != null">
+                AGENT_FROM_USER_NAME,
+            </if>
+            <if test="agentToUserId != null">
+                AGENT_TO_USER_ID,
+            </if>
+            <if test="agentToUserName != null">
+                AGENT_TO_USER_NAME,
+            </if>
+            <if test="agentDesc != null">
+                AGENT_DESC,
+            </if>
+            <if test="agentOrderNum != null">
+                AGENT_ORDER_NUM,
+            </if>
+            <if test="agentCreateTime != null">
+                AGENT_CREATE_TIME,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="agentId != null">
+                #{agentId,jdbcType=VARCHAR},
+            </if>
+            <if test="agentType != null">
+                #{agentType,jdbcType=VARCHAR},
+            </if>
+            <if test="agentModelReKey != null">
+                #{agentModelReKey,jdbcType=VARCHAR},
+            </if>
+            <if test="agentStartTime != null">
+                #{agentStartTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="agentEndTime != null">
+                #{agentEndTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="agentFromUserId != null">
+                #{agentFromUserId,jdbcType=VARCHAR},
+            </if>
+            <if test="agentFromUserName != null">
+                #{agentFromUserName,jdbcType=VARCHAR},
+            </if>
+            <if test="agentToUserId != null">
+                #{agentToUserId,jdbcType=VARCHAR},
+            </if>
+            <if test="agentToUserName != null">
+                #{agentToUserName,jdbcType=VARCHAR},
+            </if>
+            <if test="agentDesc != null">
+                #{agentDesc,jdbcType=VARCHAR},
+            </if>
+            <if test="agentOrderNum != null">
+                #{agentOrderNum,jdbcType=INTEGER},
+            </if>
+            <if test="agentCreateTime != null">
+                #{agentCreateTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.jb4dc.workflow.dbentities.AgentConfigEntity">
+        update TFLOW_AGENT_CONFIG
+        <set>
+            <if test="agentType != null">
+                AGENT_TYPE = #{agentType,jdbcType=VARCHAR},
+            </if>
+            <if test="agentModelReKey != null">
+                AGENT_MODEL_RE_KEY = #{agentModelReKey,jdbcType=VARCHAR},
+            </if>
+            <if test="agentStartTime != null">
+                AGENT_START_TIME = #{agentStartTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="agentEndTime != null">
+                AGENT_END_TIME = #{agentEndTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="agentFromUserId != null">
+                AGENT_FROM_USER_ID = #{agentFromUserId,jdbcType=VARCHAR},
+            </if>
+            <if test="agentFromUserName != null">
+                AGENT_FROM_USER_NAME = #{agentFromUserName,jdbcType=VARCHAR},
+            </if>
+            <if test="agentToUserId != null">
+                AGENT_TO_USER_ID = #{agentToUserId,jdbcType=VARCHAR},
+            </if>
+            <if test="agentToUserName != null">
+                AGENT_TO_USER_NAME = #{agentToUserName,jdbcType=VARCHAR},
+            </if>
+            <if test="agentDesc != null">
+                AGENT_DESC = #{agentDesc,jdbcType=VARCHAR},
+            </if>
+            <if test="agentOrderNum != null">
+                AGENT_ORDER_NUM = #{agentOrderNum,jdbcType=INTEGER},
+            </if>
+            <if test="agentCreateTime != null">
+                AGENT_CREATE_TIME = #{agentCreateTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where AGENT_ID = #{agentId,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.jb4dc.workflow.dbentities.AgentConfigEntity">
+        update TFLOW_AGENT_CONFIG
+        set AGENT_TYPE = #{agentType,jdbcType=VARCHAR},
+            AGENT_MODEL_RE_KEY = #{agentModelReKey,jdbcType=VARCHAR},
+            AGENT_START_TIME = #{agentStartTime,jdbcType=TIMESTAMP},
+            AGENT_END_TIME = #{agentEndTime,jdbcType=TIMESTAMP},
+            AGENT_FROM_USER_ID = #{agentFromUserId,jdbcType=VARCHAR},
+            AGENT_FROM_USER_NAME = #{agentFromUserName,jdbcType=VARCHAR},
+            AGENT_TO_USER_ID = #{agentToUserId,jdbcType=VARCHAR},
+            AGENT_TO_USER_NAME = #{agentToUserName,jdbcType=VARCHAR},
+            AGENT_DESC = #{agentDesc,jdbcType=VARCHAR},
+            AGENT_ORDER_NUM = #{agentOrderNum,jdbcType=INTEGER},
+            AGENT_CREATE_TIME = #{agentCreateTime,jdbcType=TIMESTAMP}
+        where AGENT_ID = #{agentId,jdbcType=VARCHAR}
+    </update>
+</mapper>

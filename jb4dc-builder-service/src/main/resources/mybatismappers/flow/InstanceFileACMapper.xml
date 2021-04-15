@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jb4dc.workflow.dao.InstanceFileMapper">
+    <resultMap id="BaseResultMap" type="com.jb4dc.workflow.dbentities.InstanceFileEntity">
+        <constructor>
+            <idArg column="FILE_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="FILE_INST_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="FILE_NAME" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="FILE_STORE_PATH" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="FILE_STORE_NAME" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="FILE_EXTENSION" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="FILE_DESCRIPTION" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="FILE_CREATE_TIME" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+            <arg column="FILE_CREATOR" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="FILE_CREATOR_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="FILE_ORGAN_NAME" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="FILE_ORGAN_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="FILE_ORDER_NUM" javaType="java.lang.Integer" jdbcType="INTEGER" />
+            <arg column="FILE_STATUS" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="FILE_TYPE" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="FILE_SIZE" javaType="java.lang.Integer" jdbcType="INTEGER" />
+            <arg column="FILE_PRE_ID" javaType="java.lang.Integer" jdbcType="INTEGER" />
+        </constructor>
+    </resultMap>
+    <sql id="Base_Column_List">
+        FILE_ID, FILE_INST_ID, FILE_NAME, FILE_STORE_PATH, FILE_STORE_NAME, FILE_EXTENSION,
+    FILE_DESCRIPTION, FILE_CREATE_TIME, FILE_CREATOR, FILE_CREATOR_ID, FILE_ORGAN_NAME,
+    FILE_ORGAN_ID, FILE_ORDER_NUM, FILE_STATUS, FILE_TYPE, FILE_SIZE, FILE_PRE_ID
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from TFLOW_INSTANCE_FILE
+        where FILE_ID = #{fileId,jdbcType=VARCHAR}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+        delete from TFLOW_INSTANCE_FILE
+        where FILE_ID = #{fileId,jdbcType=VARCHAR}
+    </delete>
+    <insert id="insert" parameterType="com.jb4dc.workflow.dbentities.InstanceFileEntity">
+        insert into TFLOW_INSTANCE_FILE (FILE_ID, FILE_INST_ID, FILE_NAME,
+                                         FILE_STORE_PATH, FILE_STORE_NAME, FILE_EXTENSION,
+                                         FILE_DESCRIPTION, FILE_CREATE_TIME, FILE_CREATOR,
+                                         FILE_CREATOR_ID, FILE_ORGAN_NAME, FILE_ORGAN_ID,
+                                         FILE_ORDER_NUM, FILE_STATUS, FILE_TYPE,
+                                         FILE_SIZE, FILE_PRE_ID)
+        values (#{fileId,jdbcType=VARCHAR}, #{fileInstId,jdbcType=VARCHAR}, #{fileName,jdbcType=VARCHAR},
+                #{fileStorePath,jdbcType=VARCHAR}, #{fileStoreName,jdbcType=VARCHAR}, #{fileExtension,jdbcType=VARCHAR},
+                #{fileDescription,jdbcType=VARCHAR}, #{fileCreateTime,jdbcType=TIMESTAMP}, #{fileCreator,jdbcType=VARCHAR},
+                #{fileCreatorId,jdbcType=VARCHAR}, #{fileOrganName,jdbcType=VARCHAR}, #{fileOrganId,jdbcType=VARCHAR},
+                #{fileOrderNum,jdbcType=INTEGER}, #{fileStatus,jdbcType=VARCHAR}, #{fileType,jdbcType=VARCHAR},
+                #{fileSize,jdbcType=INTEGER}, #{filePreId,jdbcType=INTEGER})
+    </insert>
+    <insert id="insertSelective" parameterType="com.jb4dc.workflow.dbentities.InstanceFileEntity">
+        insert into TFLOW_INSTANCE_FILE
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="fileId != null">
+                FILE_ID,
+            </if>
+            <if test="fileInstId != null">
+                FILE_INST_ID,
+            </if>
+            <if test="fileName != null">
+                FILE_NAME,
+            </if>
+            <if test="fileStorePath != null">
+                FILE_STORE_PATH,
+            </if>
+            <if test="fileStoreName != null">
+                FILE_STORE_NAME,
+            </if>
+            <if test="fileExtension != null">
+                FILE_EXTENSION,
+            </if>
+            <if test="fileDescription != null">
+                FILE_DESCRIPTION,
+            </if>
+            <if test="fileCreateTime != null">
+                FILE_CREATE_TIME,
+            </if>
+            <if test="fileCreator != null">
+                FILE_CREATOR,
+            </if>
+            <if test="fileCreatorId != null">
+                FILE_CREATOR_ID,
+            </if>
+            <if test="fileOrganName != null">
+                FILE_ORGAN_NAME,
+            </if>
+            <if test="fileOrganId != null">
+                FILE_ORGAN_ID,
+            </if>
+            <if test="fileOrderNum != null">
+                FILE_ORDER_NUM,
+            </if>
+            <if test="fileStatus != null">
+                FILE_STATUS,
+            </if>
+            <if test="fileType != null">
+                FILE_TYPE,
+            </if>
+            <if test="fileSize != null">
+                FILE_SIZE,
+            </if>
+            <if test="filePreId != null">
+                FILE_PRE_ID,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="fileId != null">
+                #{fileId,jdbcType=VARCHAR},
+            </if>
+            <if test="fileInstId != null">
+                #{fileInstId,jdbcType=VARCHAR},
+            </if>
+            <if test="fileName != null">
+                #{fileName,jdbcType=VARCHAR},
+            </if>
+            <if test="fileStorePath != null">
+                #{fileStorePath,jdbcType=VARCHAR},
+            </if>
+            <if test="fileStoreName != null">
+                #{fileStoreName,jdbcType=VARCHAR},
+            </if>
+            <if test="fileExtension != null">
+                #{fileExtension,jdbcType=VARCHAR},
+            </if>
+            <if test="fileDescription != null">
+                #{fileDescription,jdbcType=VARCHAR},
+            </if>
+            <if test="fileCreateTime != null">
+                #{fileCreateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="fileCreator != null">
+                #{fileCreator,jdbcType=VARCHAR},
+            </if>
+            <if test="fileCreatorId != null">
+                #{fileCreatorId,jdbcType=VARCHAR},
+            </if>
+            <if test="fileOrganName != null">
+                #{fileOrganName,jdbcType=VARCHAR},
+            </if>
+            <if test="fileOrganId != null">
+                #{fileOrganId,jdbcType=VARCHAR},
+            </if>
+            <if test="fileOrderNum != null">
+                #{fileOrderNum,jdbcType=INTEGER},
+            </if>
+            <if test="fileStatus != null">
+                #{fileStatus,jdbcType=VARCHAR},
+            </if>
+            <if test="fileType != null">
+                #{fileType,jdbcType=VARCHAR},
+            </if>
+            <if test="fileSize != null">
+                #{fileSize,jdbcType=INTEGER},
+            </if>
+            <if test="filePreId != null">
+                #{filePreId,jdbcType=INTEGER},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.jb4dc.workflow.dbentities.InstanceFileEntity">
+        update TFLOW_INSTANCE_FILE
+        <set>
+            <if test="fileInstId != null">
+                FILE_INST_ID = #{fileInstId,jdbcType=VARCHAR},
+            </if>
+            <if test="fileName != null">
+                FILE_NAME = #{fileName,jdbcType=VARCHAR},
+            </if>
+            <if test="fileStorePath != null">
+                FILE_STORE_PATH = #{fileStorePath,jdbcType=VARCHAR},
+            </if>
+            <if test="fileStoreName != null">
+                FILE_STORE_NAME = #{fileStoreName,jdbcType=VARCHAR},
+            </if>
+            <if test="fileExtension != null">
+                FILE_EXTENSION = #{fileExtension,jdbcType=VARCHAR},
+            </if>
+            <if test="fileDescription != null">
+                FILE_DESCRIPTION = #{fileDescription,jdbcType=VARCHAR},
+            </if>
+            <if test="fileCreateTime != null">
+                FILE_CREATE_TIME = #{fileCreateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="fileCreator != null">
+                FILE_CREATOR = #{fileCreator,jdbcType=VARCHAR},
+            </if>
+            <if test="fileCreatorId != null">
+                FILE_CREATOR_ID = #{fileCreatorId,jdbcType=VARCHAR},
+            </if>
+            <if test="fileOrganName != null">
+                FILE_ORGAN_NAME = #{fileOrganName,jdbcType=VARCHAR},
+            </if>
+            <if test="fileOrganId != null">
+                FILE_ORGAN_ID = #{fileOrganId,jdbcType=VARCHAR},
+            </if>
+            <if test="fileOrderNum != null">
+                FILE_ORDER_NUM = #{fileOrderNum,jdbcType=INTEGER},
+            </if>
+            <if test="fileStatus != null">
+                FILE_STATUS = #{fileStatus,jdbcType=VARCHAR},
+            </if>
+            <if test="fileType != null">
+                FILE_TYPE = #{fileType,jdbcType=VARCHAR},
+            </if>
+            <if test="fileSize != null">
+                FILE_SIZE = #{fileSize,jdbcType=INTEGER},
+            </if>
+            <if test="filePreId != null">
+                FILE_PRE_ID = #{filePreId,jdbcType=INTEGER},
+            </if>
+        </set>
+        where FILE_ID = #{fileId,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.jb4dc.workflow.dbentities.InstanceFileEntity">
+        update TFLOW_INSTANCE_FILE
+        set FILE_INST_ID = #{fileInstId,jdbcType=VARCHAR},
+            FILE_NAME = #{fileName,jdbcType=VARCHAR},
+            FILE_STORE_PATH = #{fileStorePath,jdbcType=VARCHAR},
+            FILE_STORE_NAME = #{fileStoreName,jdbcType=VARCHAR},
+            FILE_EXTENSION = #{fileExtension,jdbcType=VARCHAR},
+            FILE_DESCRIPTION = #{fileDescription,jdbcType=VARCHAR},
+            FILE_CREATE_TIME = #{fileCreateTime,jdbcType=TIMESTAMP},
+            FILE_CREATOR = #{fileCreator,jdbcType=VARCHAR},
+            FILE_CREATOR_ID = #{fileCreatorId,jdbcType=VARCHAR},
+            FILE_ORGAN_NAME = #{fileOrganName,jdbcType=VARCHAR},
+            FILE_ORGAN_ID = #{fileOrganId,jdbcType=VARCHAR},
+            FILE_ORDER_NUM = #{fileOrderNum,jdbcType=INTEGER},
+            FILE_STATUS = #{fileStatus,jdbcType=VARCHAR},
+            FILE_TYPE = #{fileType,jdbcType=VARCHAR},
+            FILE_SIZE = #{fileSize,jdbcType=INTEGER},
+            FILE_PRE_ID = #{filePreId,jdbcType=INTEGER}
+        where FILE_ID = #{fileId,jdbcType=VARCHAR}
+    </update>
+</mapper>

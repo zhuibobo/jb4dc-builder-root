@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jb4dc.workflow.dao.ModelAssObjectMapper">
+    <select id="selectAll" resultMap="BaseResultMap">select<include refid="Base_Column_List"/> from TFLOW_MODEL_ASS_OBJECT ORDER by OBJECT_ORDER_NUM DESC</select>
+    <select id="selectAllASC" resultMap="BaseResultMap">select<include refid="Base_Column_List"/> from TFLOW_MODEL_ASS_OBJECT ORDER by OBJECT_ORDER_NUM ASC</select>
+    <delete id="deleteAll">delete from TFLOW_MODEL_ASS_OBJECT</delete>
+    <select id="nextOrderNum" resultType="integer">select case when max(OBJECT_ORDER_NUM) is null then 1 else max(OBJECT_ORDER_NUM)+1 end ORDERNUM from TFLOW_MODEL_ASS_OBJECT</select>
+    <select id="selectBySearch" parameterType="java.util.Map" resultMap="BaseResultMap">select<include refid="Base_Column_List"/>from TFLOW_MODEL_ASS_OBJECT<where>
+        <if test="objectModelId !=null and objectModelId !=''"> and OBJECT_MODEL_ID like #{objectModelId} </if>
+        <if test="objectType !=null and objectType !=''"> and OBJECT_TYPE like #{objectType} </if>
+        <if test="objectReKey !=null and objectReKey !=''"> and OBJECT_RE_KEY like #{objectReKey} </if>
+        <if test="objectText !=null and objectText !=''"> and OBJECT_TEXT like #{objectText} </if>
+        <if test="objectValue !=null and objectValue !=''"> and OBJECT_VALUE like #{objectValue} </if>
+        <if test="objectCreator !=null and objectCreator !=''"> and OBJECT_CREATOR like #{objectCreator} </if>
+        <if test="objectCreatorId !=null and objectCreatorId !=''"> and OBJECT_CREATOR_ID like #{objectCreatorId} </if>
+        <if test="objectDesc !=null and objectDesc !=''"> and OBJECT_DESC like #{objectDesc} </if>
+    </where>ORDER by OBJECT_ORDER_NUM DESC</select>
+    <select id="selectLessThanRecord" parameterType="java.lang.String" resultMap="BaseResultMap"><![CDATA[select * from TFLOW_MODEL_ASS_OBJECT
+                                                                                                          where OBJECT_ORDER_NUM = (select max(OBJECT_ORDER_NUM) from TFLOW_MODEL_ASS_OBJECT where OBJECT_ORDER_NUM<(select OBJECT_ORDER_NUM from TFLOW_MODEL_ASS_OBJECT where OBJECT_ID=#{Id,jdbcType=NVARCHAR}))]]></select>
+    <select id="selectGreaterThanRecord" parameterType="java.lang.String" resultMap="BaseResultMap"><![CDATA[select * from TFLOW_MODEL_ASS_OBJECT
+                                                                                                             where OBJECT_ORDER_NUM = (select min(OBJECT_ORDER_NUM) from TFLOW_MODEL_ASS_OBJECT where OBJECT_ORDER_NUM>(select OBJECT_ORDER_NUM from TFLOW_MODEL_ASS_OBJECT where OBJECT_ID=#{Id,jdbcType=NVARCHAR}))]]></select>
+</mapper>

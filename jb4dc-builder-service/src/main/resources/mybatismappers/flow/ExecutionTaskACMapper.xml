@@ -1,0 +1,345 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jb4dc.workflow.dao.ExecutionTaskMapper">
+    <resultMap id="BaseResultMap" type="com.jb4dc.workflow.dbentities.ExecutionTaskEntity">
+        <constructor>
+            <idArg column="EXTASK_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="EXTASK_INST_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="EXTASK_MODEL_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="EXTASK_RU_TASK_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="EXTASK_RU_EXECUTION_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="EXTASK_RU_PROC_INST_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="EXTASK_RU_PROC_DEF_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="EXTASK_PRE_NODE_KEY" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="EXTASK_PRE_NODE_NAME" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="EXTASK_CUR_NODE_KEY" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="EXTASK_CUR_NODE_NAME" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="EXTASK_TYPE" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="EXTASK_STATUS" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="EXTASK_SENDER_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="EXTASK_SENDER_NAME" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="EXTASK_SEND_TIME" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+            <arg column="EXTASK_RECEIVER_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="EXTASK_RECEIVER_NAME" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="EXTASK_VIEW_ED" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="EXTASK_VIEW_TIME" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+            <arg column="EXTASK_START_TIME" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+            <arg column="EXTASK_END_TIME" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+            <arg column="EXTASK_HANDLE_ED" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="EXTASK_HANDLE_ACTION_KEY" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="EXTASK_HANDLE_ACTION_NAME" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="EXTASK_ORDER_NUM" javaType="java.lang.Integer" jdbcType="INTEGER" />
+        </constructor>
+    </resultMap>
+    <sql id="Base_Column_List">
+        EXTASK_ID, EXTASK_INST_ID, EXTASK_MODEL_ID, EXTASK_RU_TASK_ID, EXTASK_RU_EXECUTION_ID,
+    EXTASK_RU_PROC_INST_ID, EXTASK_RU_PROC_DEF_ID, EXTASK_PRE_NODE_KEY, EXTASK_PRE_NODE_NAME,
+    EXTASK_CUR_NODE_KEY, EXTASK_CUR_NODE_NAME, EXTASK_TYPE, EXTASK_STATUS, EXTASK_SENDER_ID,
+    EXTASK_SENDER_NAME, EXTASK_SEND_TIME, EXTASK_RECEIVER_ID, EXTASK_RECEIVER_NAME, EXTASK_VIEW_ED,
+    EXTASK_VIEW_TIME, EXTASK_START_TIME, EXTASK_END_TIME, EXTASK_HANDLE_ED, EXTASK_HANDLE_ACTION_KEY,
+    EXTASK_HANDLE_ACTION_NAME, EXTASK_ORDER_NUM
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from TFLOW_EXECUTION_TASK
+        where EXTASK_ID = #{extaskId,jdbcType=VARCHAR}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+        delete from TFLOW_EXECUTION_TASK
+        where EXTASK_ID = #{extaskId,jdbcType=VARCHAR}
+    </delete>
+    <insert id="insert" parameterType="com.jb4dc.workflow.dbentities.ExecutionTaskEntity">
+        insert into TFLOW_EXECUTION_TASK (EXTASK_ID, EXTASK_INST_ID, EXTASK_MODEL_ID,
+                                          EXTASK_RU_TASK_ID, EXTASK_RU_EXECUTION_ID, EXTASK_RU_PROC_INST_ID,
+                                          EXTASK_RU_PROC_DEF_ID, EXTASK_PRE_NODE_KEY, EXTASK_PRE_NODE_NAME,
+                                          EXTASK_CUR_NODE_KEY, EXTASK_CUR_NODE_NAME, EXTASK_TYPE,
+                                          EXTASK_STATUS, EXTASK_SENDER_ID, EXTASK_SENDER_NAME,
+                                          EXTASK_SEND_TIME, EXTASK_RECEIVER_ID, EXTASK_RECEIVER_NAME,
+                                          EXTASK_VIEW_ED, EXTASK_VIEW_TIME, EXTASK_START_TIME,
+                                          EXTASK_END_TIME, EXTASK_HANDLE_ED, EXTASK_HANDLE_ACTION_KEY,
+                                          EXTASK_HANDLE_ACTION_NAME, EXTASK_ORDER_NUM)
+        values (#{extaskId,jdbcType=VARCHAR}, #{extaskInstId,jdbcType=VARCHAR}, #{extaskModelId,jdbcType=VARCHAR},
+                #{extaskRuTaskId,jdbcType=VARCHAR}, #{extaskRuExecutionId,jdbcType=VARCHAR}, #{extaskRuProcInstId,jdbcType=VARCHAR},
+                #{extaskRuProcDefId,jdbcType=VARCHAR}, #{extaskPreNodeKey,jdbcType=VARCHAR}, #{extaskPreNodeName,jdbcType=VARCHAR},
+                #{extaskCurNodeKey,jdbcType=VARCHAR}, #{extaskCurNodeName,jdbcType=VARCHAR}, #{extaskType,jdbcType=VARCHAR},
+                #{extaskStatus,jdbcType=VARCHAR}, #{extaskSenderId,jdbcType=VARCHAR}, #{extaskSenderName,jdbcType=VARCHAR},
+                #{extaskSendTime,jdbcType=TIMESTAMP}, #{extaskReceiverId,jdbcType=VARCHAR}, #{extaskReceiverName,jdbcType=VARCHAR},
+                #{extaskViewEd,jdbcType=VARCHAR}, #{extaskViewTime,jdbcType=TIMESTAMP}, #{extaskStartTime,jdbcType=TIMESTAMP},
+                #{extaskEndTime,jdbcType=TIMESTAMP}, #{extaskHandleEd,jdbcType=VARCHAR}, #{extaskHandleActionKey,jdbcType=VARCHAR},
+                #{extaskHandleActionName,jdbcType=VARCHAR}, #{extaskOrderNum,jdbcType=INTEGER})
+    </insert>
+    <insert id="insertSelective" parameterType="com.jb4dc.workflow.dbentities.ExecutionTaskEntity">
+        insert into TFLOW_EXECUTION_TASK
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="extaskId != null">
+                EXTASK_ID,
+            </if>
+            <if test="extaskInstId != null">
+                EXTASK_INST_ID,
+            </if>
+            <if test="extaskModelId != null">
+                EXTASK_MODEL_ID,
+            </if>
+            <if test="extaskRuTaskId != null">
+                EXTASK_RU_TASK_ID,
+            </if>
+            <if test="extaskRuExecutionId != null">
+                EXTASK_RU_EXECUTION_ID,
+            </if>
+            <if test="extaskRuProcInstId != null">
+                EXTASK_RU_PROC_INST_ID,
+            </if>
+            <if test="extaskRuProcDefId != null">
+                EXTASK_RU_PROC_DEF_ID,
+            </if>
+            <if test="extaskPreNodeKey != null">
+                EXTASK_PRE_NODE_KEY,
+            </if>
+            <if test="extaskPreNodeName != null">
+                EXTASK_PRE_NODE_NAME,
+            </if>
+            <if test="extaskCurNodeKey != null">
+                EXTASK_CUR_NODE_KEY,
+            </if>
+            <if test="extaskCurNodeName != null">
+                EXTASK_CUR_NODE_NAME,
+            </if>
+            <if test="extaskType != null">
+                EXTASK_TYPE,
+            </if>
+            <if test="extaskStatus != null">
+                EXTASK_STATUS,
+            </if>
+            <if test="extaskSenderId != null">
+                EXTASK_SENDER_ID,
+            </if>
+            <if test="extaskSenderName != null">
+                EXTASK_SENDER_NAME,
+            </if>
+            <if test="extaskSendTime != null">
+                EXTASK_SEND_TIME,
+            </if>
+            <if test="extaskReceiverId != null">
+                EXTASK_RECEIVER_ID,
+            </if>
+            <if test="extaskReceiverName != null">
+                EXTASK_RECEIVER_NAME,
+            </if>
+            <if test="extaskViewEd != null">
+                EXTASK_VIEW_ED,
+            </if>
+            <if test="extaskViewTime != null">
+                EXTASK_VIEW_TIME,
+            </if>
+            <if test="extaskStartTime != null">
+                EXTASK_START_TIME,
+            </if>
+            <if test="extaskEndTime != null">
+                EXTASK_END_TIME,
+            </if>
+            <if test="extaskHandleEd != null">
+                EXTASK_HANDLE_ED,
+            </if>
+            <if test="extaskHandleActionKey != null">
+                EXTASK_HANDLE_ACTION_KEY,
+            </if>
+            <if test="extaskHandleActionName != null">
+                EXTASK_HANDLE_ACTION_NAME,
+            </if>
+            <if test="extaskOrderNum != null">
+                EXTASK_ORDER_NUM,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="extaskId != null">
+                #{extaskId,jdbcType=VARCHAR},
+            </if>
+            <if test="extaskInstId != null">
+                #{extaskInstId,jdbcType=VARCHAR},
+            </if>
+            <if test="extaskModelId != null">
+                #{extaskModelId,jdbcType=VARCHAR},
+            </if>
+            <if test="extaskRuTaskId != null">
+                #{extaskRuTaskId,jdbcType=VARCHAR},
+            </if>
+            <if test="extaskRuExecutionId != null">
+                #{extaskRuExecutionId,jdbcType=VARCHAR},
+            </if>
+            <if test="extaskRuProcInstId != null">
+                #{extaskRuProcInstId,jdbcType=VARCHAR},
+            </if>
+            <if test="extaskRuProcDefId != null">
+                #{extaskRuProcDefId,jdbcType=VARCHAR},
+            </if>
+            <if test="extaskPreNodeKey != null">
+                #{extaskPreNodeKey,jdbcType=VARCHAR},
+            </if>
+            <if test="extaskPreNodeName != null">
+                #{extaskPreNodeName,jdbcType=VARCHAR},
+            </if>
+            <if test="extaskCurNodeKey != null">
+                #{extaskCurNodeKey,jdbcType=VARCHAR},
+            </if>
+            <if test="extaskCurNodeName != null">
+                #{extaskCurNodeName,jdbcType=VARCHAR},
+            </if>
+            <if test="extaskType != null">
+                #{extaskType,jdbcType=VARCHAR},
+            </if>
+            <if test="extaskStatus != null">
+                #{extaskStatus,jdbcType=VARCHAR},
+            </if>
+            <if test="extaskSenderId != null">
+                #{extaskSenderId,jdbcType=VARCHAR},
+            </if>
+            <if test="extaskSenderName != null">
+                #{extaskSenderName,jdbcType=VARCHAR},
+            </if>
+            <if test="extaskSendTime != null">
+                #{extaskSendTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="extaskReceiverId != null">
+                #{extaskReceiverId,jdbcType=VARCHAR},
+            </if>
+            <if test="extaskReceiverName != null">
+                #{extaskReceiverName,jdbcType=VARCHAR},
+            </if>
+            <if test="extaskViewEd != null">
+                #{extaskViewEd,jdbcType=VARCHAR},
+            </if>
+            <if test="extaskViewTime != null">
+                #{extaskViewTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="extaskStartTime != null">
+                #{extaskStartTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="extaskEndTime != null">
+                #{extaskEndTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="extaskHandleEd != null">
+                #{extaskHandleEd,jdbcType=VARCHAR},
+            </if>
+            <if test="extaskHandleActionKey != null">
+                #{extaskHandleActionKey,jdbcType=VARCHAR},
+            </if>
+            <if test="extaskHandleActionName != null">
+                #{extaskHandleActionName,jdbcType=VARCHAR},
+            </if>
+            <if test="extaskOrderNum != null">
+                #{extaskOrderNum,jdbcType=INTEGER},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.jb4dc.workflow.dbentities.ExecutionTaskEntity">
+        update TFLOW_EXECUTION_TASK
+        <set>
+            <if test="extaskInstId != null">
+                EXTASK_INST_ID = #{extaskInstId,jdbcType=VARCHAR},
+            </if>
+            <if test="extaskModelId != null">
+                EXTASK_MODEL_ID = #{extaskModelId,jdbcType=VARCHAR},
+            </if>
+            <if test="extaskRuTaskId != null">
+                EXTASK_RU_TASK_ID = #{extaskRuTaskId,jdbcType=VARCHAR},
+            </if>
+            <if test="extaskRuExecutionId != null">
+                EXTASK_RU_EXECUTION_ID = #{extaskRuExecutionId,jdbcType=VARCHAR},
+            </if>
+            <if test="extaskRuProcInstId != null">
+                EXTASK_RU_PROC_INST_ID = #{extaskRuProcInstId,jdbcType=VARCHAR},
+            </if>
+            <if test="extaskRuProcDefId != null">
+                EXTASK_RU_PROC_DEF_ID = #{extaskRuProcDefId,jdbcType=VARCHAR},
+            </if>
+            <if test="extaskPreNodeKey != null">
+                EXTASK_PRE_NODE_KEY = #{extaskPreNodeKey,jdbcType=VARCHAR},
+            </if>
+            <if test="extaskPreNodeName != null">
+                EXTASK_PRE_NODE_NAME = #{extaskPreNodeName,jdbcType=VARCHAR},
+            </if>
+            <if test="extaskCurNodeKey != null">
+                EXTASK_CUR_NODE_KEY = #{extaskCurNodeKey,jdbcType=VARCHAR},
+            </if>
+            <if test="extaskCurNodeName != null">
+                EXTASK_CUR_NODE_NAME = #{extaskCurNodeName,jdbcType=VARCHAR},
+            </if>
+            <if test="extaskType != null">
+                EXTASK_TYPE = #{extaskType,jdbcType=VARCHAR},
+            </if>
+            <if test="extaskStatus != null">
+                EXTASK_STATUS = #{extaskStatus,jdbcType=VARCHAR},
+            </if>
+            <if test="extaskSenderId != null">
+                EXTASK_SENDER_ID = #{extaskSenderId,jdbcType=VARCHAR},
+            </if>
+            <if test="extaskSenderName != null">
+                EXTASK_SENDER_NAME = #{extaskSenderName,jdbcType=VARCHAR},
+            </if>
+            <if test="extaskSendTime != null">
+                EXTASK_SEND_TIME = #{extaskSendTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="extaskReceiverId != null">
+                EXTASK_RECEIVER_ID = #{extaskReceiverId,jdbcType=VARCHAR},
+            </if>
+            <if test="extaskReceiverName != null">
+                EXTASK_RECEIVER_NAME = #{extaskReceiverName,jdbcType=VARCHAR},
+            </if>
+            <if test="extaskViewEd != null">
+                EXTASK_VIEW_ED = #{extaskViewEd,jdbcType=VARCHAR},
+            </if>
+            <if test="extaskViewTime != null">
+                EXTASK_VIEW_TIME = #{extaskViewTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="extaskStartTime != null">
+                EXTASK_START_TIME = #{extaskStartTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="extaskEndTime != null">
+                EXTASK_END_TIME = #{extaskEndTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="extaskHandleEd != null">
+                EXTASK_HANDLE_ED = #{extaskHandleEd,jdbcType=VARCHAR},
+            </if>
+            <if test="extaskHandleActionKey != null">
+                EXTASK_HANDLE_ACTION_KEY = #{extaskHandleActionKey,jdbcType=VARCHAR},
+            </if>
+            <if test="extaskHandleActionName != null">
+                EXTASK_HANDLE_ACTION_NAME = #{extaskHandleActionName,jdbcType=VARCHAR},
+            </if>
+            <if test="extaskOrderNum != null">
+                EXTASK_ORDER_NUM = #{extaskOrderNum,jdbcType=INTEGER},
+            </if>
+        </set>
+        where EXTASK_ID = #{extaskId,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.jb4dc.workflow.dbentities.ExecutionTaskEntity">
+        update TFLOW_EXECUTION_TASK
+        set EXTASK_INST_ID = #{extaskInstId,jdbcType=VARCHAR},
+            EXTASK_MODEL_ID = #{extaskModelId,jdbcType=VARCHAR},
+            EXTASK_RU_TASK_ID = #{extaskRuTaskId,jdbcType=VARCHAR},
+            EXTASK_RU_EXECUTION_ID = #{extaskRuExecutionId,jdbcType=VARCHAR},
+            EXTASK_RU_PROC_INST_ID = #{extaskRuProcInstId,jdbcType=VARCHAR},
+            EXTASK_RU_PROC_DEF_ID = #{extaskRuProcDefId,jdbcType=VARCHAR},
+            EXTASK_PRE_NODE_KEY = #{extaskPreNodeKey,jdbcType=VARCHAR},
+            EXTASK_PRE_NODE_NAME = #{extaskPreNodeName,jdbcType=VARCHAR},
+            EXTASK_CUR_NODE_KEY = #{extaskCurNodeKey,jdbcType=VARCHAR},
+            EXTASK_CUR_NODE_NAME = #{extaskCurNodeName,jdbcType=VARCHAR},
+            EXTASK_TYPE = #{extaskType,jdbcType=VARCHAR},
+            EXTASK_STATUS = #{extaskStatus,jdbcType=VARCHAR},
+            EXTASK_SENDER_ID = #{extaskSenderId,jdbcType=VARCHAR},
+            EXTASK_SENDER_NAME = #{extaskSenderName,jdbcType=VARCHAR},
+            EXTASK_SEND_TIME = #{extaskSendTime,jdbcType=TIMESTAMP},
+            EXTASK_RECEIVER_ID = #{extaskReceiverId,jdbcType=VARCHAR},
+            EXTASK_RECEIVER_NAME = #{extaskReceiverName,jdbcType=VARCHAR},
+            EXTASK_VIEW_ED = #{extaskViewEd,jdbcType=VARCHAR},
+            EXTASK_VIEW_TIME = #{extaskViewTime,jdbcType=TIMESTAMP},
+            EXTASK_START_TIME = #{extaskStartTime,jdbcType=TIMESTAMP},
+            EXTASK_END_TIME = #{extaskEndTime,jdbcType=TIMESTAMP},
+            EXTASK_HANDLE_ED = #{extaskHandleEd,jdbcType=VARCHAR},
+            EXTASK_HANDLE_ACTION_KEY = #{extaskHandleActionKey,jdbcType=VARCHAR},
+            EXTASK_HANDLE_ACTION_NAME = #{extaskHandleActionName,jdbcType=VARCHAR},
+            EXTASK_ORDER_NUM = #{extaskOrderNum,jdbcType=INTEGER}
+        where EXTASK_ID = #{extaskId,jdbcType=VARCHAR}
+    </update>
+</mapper>

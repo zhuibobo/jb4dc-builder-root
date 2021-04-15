@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jb4dc.workflow.dao.ModelAssObjectMapper">
+    <resultMap id="BaseResultMap" type="com.jb4dc.workflow.dbentities.ModelAssObjectEntity">
+        <constructor>
+            <idArg column="OBJECT_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="OBJECT_MODEL_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="OBJECT_TYPE" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="OBJECT_RE_KEY" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="OBJECT_TEXT" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="OBJECT_VALUE" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="OBJECT_ORDER_NUM" javaType="java.lang.Integer" jdbcType="INTEGER" />
+            <arg column="OBJECT_CREATE_TIME" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+            <arg column="OBJECT_CREATOR" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="OBJECT_CREATOR_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="OBJECT_DESC" javaType="java.lang.String" jdbcType="VARCHAR" />
+        </constructor>
+    </resultMap>
+    <sql id="Base_Column_List">
+        OBJECT_ID, OBJECT_MODEL_ID, OBJECT_TYPE, OBJECT_RE_KEY, OBJECT_TEXT, OBJECT_VALUE,
+    OBJECT_ORDER_NUM, OBJECT_CREATE_TIME, OBJECT_CREATOR, OBJECT_CREATOR_ID, OBJECT_DESC
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from TFLOW_MODEL_ASS_OBJECT
+        where OBJECT_ID = #{objectId,jdbcType=VARCHAR}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+        delete from TFLOW_MODEL_ASS_OBJECT
+        where OBJECT_ID = #{objectId,jdbcType=VARCHAR}
+    </delete>
+    <insert id="insert" parameterType="com.jb4dc.workflow.dbentities.ModelAssObjectEntity">
+        insert into TFLOW_MODEL_ASS_OBJECT (OBJECT_ID, OBJECT_MODEL_ID, OBJECT_TYPE,
+                                            OBJECT_RE_KEY, OBJECT_TEXT, OBJECT_VALUE,
+                                            OBJECT_ORDER_NUM, OBJECT_CREATE_TIME, OBJECT_CREATOR,
+                                            OBJECT_CREATOR_ID, OBJECT_DESC)
+        values (#{objectId,jdbcType=VARCHAR}, #{objectModelId,jdbcType=VARCHAR}, #{objectType,jdbcType=VARCHAR},
+                #{objectReKey,jdbcType=VARCHAR}, #{objectText,jdbcType=VARCHAR}, #{objectValue,jdbcType=VARCHAR},
+                #{objectOrderNum,jdbcType=INTEGER}, #{objectCreateTime,jdbcType=TIMESTAMP}, #{objectCreator,jdbcType=VARCHAR},
+                #{objectCreatorId,jdbcType=VARCHAR}, #{objectDesc,jdbcType=VARCHAR})
+    </insert>
+    <insert id="insertSelective" parameterType="com.jb4dc.workflow.dbentities.ModelAssObjectEntity">
+        insert into TFLOW_MODEL_ASS_OBJECT
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="objectId != null">
+                OBJECT_ID,
+            </if>
+            <if test="objectModelId != null">
+                OBJECT_MODEL_ID,
+            </if>
+            <if test="objectType != null">
+                OBJECT_TYPE,
+            </if>
+            <if test="objectReKey != null">
+                OBJECT_RE_KEY,
+            </if>
+            <if test="objectText != null">
+                OBJECT_TEXT,
+            </if>
+            <if test="objectValue != null">
+                OBJECT_VALUE,
+            </if>
+            <if test="objectOrderNum != null">
+                OBJECT_ORDER_NUM,
+            </if>
+            <if test="objectCreateTime != null">
+                OBJECT_CREATE_TIME,
+            </if>
+            <if test="objectCreator != null">
+                OBJECT_CREATOR,
+            </if>
+            <if test="objectCreatorId != null">
+                OBJECT_CREATOR_ID,
+            </if>
+            <if test="objectDesc != null">
+                OBJECT_DESC,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="objectId != null">
+                #{objectId,jdbcType=VARCHAR},
+            </if>
+            <if test="objectModelId != null">
+                #{objectModelId,jdbcType=VARCHAR},
+            </if>
+            <if test="objectType != null">
+                #{objectType,jdbcType=VARCHAR},
+            </if>
+            <if test="objectReKey != null">
+                #{objectReKey,jdbcType=VARCHAR},
+            </if>
+            <if test="objectText != null">
+                #{objectText,jdbcType=VARCHAR},
+            </if>
+            <if test="objectValue != null">
+                #{objectValue,jdbcType=VARCHAR},
+            </if>
+            <if test="objectOrderNum != null">
+                #{objectOrderNum,jdbcType=INTEGER},
+            </if>
+            <if test="objectCreateTime != null">
+                #{objectCreateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="objectCreator != null">
+                #{objectCreator,jdbcType=VARCHAR},
+            </if>
+            <if test="objectCreatorId != null">
+                #{objectCreatorId,jdbcType=VARCHAR},
+            </if>
+            <if test="objectDesc != null">
+                #{objectDesc,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.jb4dc.workflow.dbentities.ModelAssObjectEntity">
+        update TFLOW_MODEL_ASS_OBJECT
+        <set>
+            <if test="objectModelId != null">
+                OBJECT_MODEL_ID = #{objectModelId,jdbcType=VARCHAR},
+            </if>
+            <if test="objectType != null">
+                OBJECT_TYPE = #{objectType,jdbcType=VARCHAR},
+            </if>
+            <if test="objectReKey != null">
+                OBJECT_RE_KEY = #{objectReKey,jdbcType=VARCHAR},
+            </if>
+            <if test="objectText != null">
+                OBJECT_TEXT = #{objectText,jdbcType=VARCHAR},
+            </if>
+            <if test="objectValue != null">
+                OBJECT_VALUE = #{objectValue,jdbcType=VARCHAR},
+            </if>
+            <if test="objectOrderNum != null">
+                OBJECT_ORDER_NUM = #{objectOrderNum,jdbcType=INTEGER},
+            </if>
+            <if test="objectCreateTime != null">
+                OBJECT_CREATE_TIME = #{objectCreateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="objectCreator != null">
+                OBJECT_CREATOR = #{objectCreator,jdbcType=VARCHAR},
+            </if>
+            <if test="objectCreatorId != null">
+                OBJECT_CREATOR_ID = #{objectCreatorId,jdbcType=VARCHAR},
+            </if>
+            <if test="objectDesc != null">
+                OBJECT_DESC = #{objectDesc,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where OBJECT_ID = #{objectId,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.jb4dc.workflow.dbentities.ModelAssObjectEntity">
+        update TFLOW_MODEL_ASS_OBJECT
+        set OBJECT_MODEL_ID = #{objectModelId,jdbcType=VARCHAR},
+            OBJECT_TYPE = #{objectType,jdbcType=VARCHAR},
+            OBJECT_RE_KEY = #{objectReKey,jdbcType=VARCHAR},
+            OBJECT_TEXT = #{objectText,jdbcType=VARCHAR},
+            OBJECT_VALUE = #{objectValue,jdbcType=VARCHAR},
+            OBJECT_ORDER_NUM = #{objectOrderNum,jdbcType=INTEGER},
+            OBJECT_CREATE_TIME = #{objectCreateTime,jdbcType=TIMESTAMP},
+            OBJECT_CREATOR = #{objectCreator,jdbcType=VARCHAR},
+            OBJECT_CREATOR_ID = #{objectCreatorId,jdbcType=VARCHAR},
+            OBJECT_DESC = #{objectDesc,jdbcType=VARCHAR}
+        where OBJECT_ID = #{objectId,jdbcType=VARCHAR}
+    </update>
+</mapper>

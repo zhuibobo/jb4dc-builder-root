@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jb4dc.workflow.dao.ModelPropertiesMapper">
+    <select id="selectAll" resultMap="BaseResultMap">select<include refid="Base_Column_List"/> from TFLOW_MODEL_PROPERTIES ORDER by MODEL_PROP_ORDER_NUM DESC</select>
+    <select id="selectAllASC" resultMap="BaseResultMap">select<include refid="Base_Column_List"/> from TFLOW_MODEL_PROPERTIES ORDER by MODEL_PROP_ORDER_NUM ASC</select>
+    <delete id="deleteAll">delete from TFLOW_MODEL_PROPERTIES</delete>
+    <select id="nextOrderNum" resultType="integer">select case when max(MODEL_PROP_ORDER_NUM) is null then 1 else max(MODEL_PROP_ORDER_NUM)+1 end ORDERNUM from TFLOW_MODEL_PROPERTIES</select>
+    <select id="selectBySearch" parameterType="java.util.Map" resultMap="BaseResultMap">select<include refid="Base_Column_List"/>from TFLOW_MODEL_PROPERTIES<where>
+        <if test="modelPropBelongModelId !=null and modelPropBelongModelId !=''"> and MODEL_PROP_BELONG_MODEL_ID like #{modelPropBelongModelId} </if>
+        <if test="modelPropName !=null and modelPropName !=''"> and MODEL_PROP_NAME like #{modelPropName} </if>
+        <if test="modelPropValue !=null and modelPropValue !=''"> and MODEL_PROP_VALUE like #{modelPropValue} </if>
+        <if test="modelPropDesc !=null and modelPropDesc !=''"> and MODEL_PROP_DESC like #{modelPropDesc} </if>
+    </where>ORDER by MODEL_PROP_ORDER_NUM DESC</select>
+    <select id="selectLessThanRecord" parameterType="java.lang.String" resultMap="BaseResultMap"><![CDATA[select * from TFLOW_MODEL_PROPERTIES
+                                                                                                          where MODEL_PROP_ORDER_NUM = (select max(MODEL_PROP_ORDER_NUM) from TFLOW_MODEL_PROPERTIES where MODEL_PROP_ORDER_NUM<(select MODEL_PROP_ORDER_NUM from TFLOW_MODEL_PROPERTIES where MODEL_PROP_ID=#{Id,jdbcType=NVARCHAR}))]]></select>
+    <select id="selectGreaterThanRecord" parameterType="java.lang.String" resultMap="BaseResultMap"><![CDATA[select * from TFLOW_MODEL_PROPERTIES
+                                                                                                             where MODEL_PROP_ORDER_NUM = (select min(MODEL_PROP_ORDER_NUM) from TFLOW_MODEL_PROPERTIES where MODEL_PROP_ORDER_NUM>(select MODEL_PROP_ORDER_NUM from TFLOW_MODEL_PROPERTIES where MODEL_PROP_ID=#{Id,jdbcType=NVARCHAR}))]]></select>
+</mapper>

@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jb4dc.builder.dao.systemsetting.NoticeMessageMapper">
+    <resultMap id="BaseResultMap" type="com.jb4dc.builder.dbentities.systemsetting.NoticeMessageEntity">
+        <constructor>
+            <idArg column="MESSAGE_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="MESSAGE_ORDER_NUM" javaType="java.lang.Integer" jdbcType="INTEGER" />
+            <arg column="MESSAGE_CREATE_TIME" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+            <arg column="MESSAGE_EXPIRED_TIME" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+            <arg column="MESSAGE_DELETE_TIME" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+            <arg column="MESSAGE_TYPE" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="MESSAGE_TITLE" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="MESSAGE_CONTENT" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="MESSAGE_STATUS" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="MESSAGE_SENDER_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="MESSAGE_SENDER_NAME" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="MESSAGE_RECEIVER_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="MESSAGE_RECEIVER_NAME" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="MESSAGE_RECEIVER_KEY" javaType="java.lang.String" jdbcType="VARCHAR" />
+        </constructor>
+    </resultMap>
+    <sql id="Base_Column_List">
+        MESSAGE_ID, MESSAGE_ORDER_NUM, MESSAGE_CREATE_TIME, MESSAGE_EXPIRED_TIME, MESSAGE_DELETE_TIME,
+    MESSAGE_TYPE, MESSAGE_TITLE, MESSAGE_CONTENT, MESSAGE_STATUS, MESSAGE_SENDER_ID,
+    MESSAGE_SENDER_NAME, MESSAGE_RECEIVER_ID, MESSAGE_RECEIVER_NAME, MESSAGE_RECEIVER_KEY
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from TSYS_NOTICE_MESSAGE
+        where MESSAGE_ID = #{messageId,jdbcType=VARCHAR}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+        delete from TSYS_NOTICE_MESSAGE
+        where MESSAGE_ID = #{messageId,jdbcType=VARCHAR}
+    </delete>
+    <insert id="insert" parameterType="com.jb4dc.builder.dbentities.systemsetting.NoticeMessageEntity">
+        insert into TSYS_NOTICE_MESSAGE (MESSAGE_ID, MESSAGE_ORDER_NUM, MESSAGE_CREATE_TIME,
+                                         MESSAGE_EXPIRED_TIME, MESSAGE_DELETE_TIME,
+                                         MESSAGE_TYPE, MESSAGE_TITLE, MESSAGE_CONTENT,
+                                         MESSAGE_STATUS, MESSAGE_SENDER_ID, MESSAGE_SENDER_NAME,
+                                         MESSAGE_RECEIVER_ID, MESSAGE_RECEIVER_NAME,
+                                         MESSAGE_RECEIVER_KEY)
+        values (#{messageId,jdbcType=VARCHAR}, #{messageOrderNum,jdbcType=INTEGER}, #{messageCreateTime,jdbcType=TIMESTAMP},
+                #{messageExpiredTime,jdbcType=TIMESTAMP}, #{messageDeleteTime,jdbcType=TIMESTAMP},
+                #{messageType,jdbcType=VARCHAR}, #{messageTitle,jdbcType=VARCHAR}, #{messageContent,jdbcType=VARCHAR},
+                #{messageStatus,jdbcType=VARCHAR}, #{messageSenderId,jdbcType=VARCHAR}, #{messageSenderName,jdbcType=VARCHAR},
+                #{messageReceiverId,jdbcType=VARCHAR}, #{messageReceiverName,jdbcType=VARCHAR},
+                #{messageReceiverKey,jdbcType=VARCHAR})
+    </insert>
+    <insert id="insertSelective" parameterType="com.jb4dc.builder.dbentities.systemsetting.NoticeMessageEntity">
+        insert into TSYS_NOTICE_MESSAGE
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="messageId != null">
+                MESSAGE_ID,
+            </if>
+            <if test="messageOrderNum != null">
+                MESSAGE_ORDER_NUM,
+            </if>
+            <if test="messageCreateTime != null">
+                MESSAGE_CREATE_TIME,
+            </if>
+            <if test="messageExpiredTime != null">
+                MESSAGE_EXPIRED_TIME,
+            </if>
+            <if test="messageDeleteTime != null">
+                MESSAGE_DELETE_TIME,
+            </if>
+            <if test="messageType != null">
+                MESSAGE_TYPE,
+            </if>
+            <if test="messageTitle != null">
+                MESSAGE_TITLE,
+            </if>
+            <if test="messageContent != null">
+                MESSAGE_CONTENT,
+            </if>
+            <if test="messageStatus != null">
+                MESSAGE_STATUS,
+            </if>
+            <if test="messageSenderId != null">
+                MESSAGE_SENDER_ID,
+            </if>
+            <if test="messageSenderName != null">
+                MESSAGE_SENDER_NAME,
+            </if>
+            <if test="messageReceiverId != null">
+                MESSAGE_RECEIVER_ID,
+            </if>
+            <if test="messageReceiverName != null">
+                MESSAGE_RECEIVER_NAME,
+            </if>
+            <if test="messageReceiverKey != null">
+                MESSAGE_RECEIVER_KEY,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="messageId != null">
+                #{messageId,jdbcType=VARCHAR},
+            </if>
+            <if test="messageOrderNum != null">
+                #{messageOrderNum,jdbcType=INTEGER},
+            </if>
+            <if test="messageCreateTime != null">
+                #{messageCreateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="messageExpiredTime != null">
+                #{messageExpiredTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="messageDeleteTime != null">
+                #{messageDeleteTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="messageType != null">
+                #{messageType,jdbcType=VARCHAR},
+            </if>
+            <if test="messageTitle != null">
+                #{messageTitle,jdbcType=VARCHAR},
+            </if>
+            <if test="messageContent != null">
+                #{messageContent,jdbcType=VARCHAR},
+            </if>
+            <if test="messageStatus != null">
+                #{messageStatus,jdbcType=VARCHAR},
+            </if>
+            <if test="messageSenderId != null">
+                #{messageSenderId,jdbcType=VARCHAR},
+            </if>
+            <if test="messageSenderName != null">
+                #{messageSenderName,jdbcType=VARCHAR},
+            </if>
+            <if test="messageReceiverId != null">
+                #{messageReceiverId,jdbcType=VARCHAR},
+            </if>
+            <if test="messageReceiverName != null">
+                #{messageReceiverName,jdbcType=VARCHAR},
+            </if>
+            <if test="messageReceiverKey != null">
+                #{messageReceiverKey,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.jb4dc.builder.dbentities.systemsetting.NoticeMessageEntity">
+        update TSYS_NOTICE_MESSAGE
+        <set>
+            <if test="messageOrderNum != null">
+                MESSAGE_ORDER_NUM = #{messageOrderNum,jdbcType=INTEGER},
+            </if>
+            <if test="messageCreateTime != null">
+                MESSAGE_CREATE_TIME = #{messageCreateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="messageExpiredTime != null">
+                MESSAGE_EXPIRED_TIME = #{messageExpiredTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="messageDeleteTime != null">
+                MESSAGE_DELETE_TIME = #{messageDeleteTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="messageType != null">
+                MESSAGE_TYPE = #{messageType,jdbcType=VARCHAR},
+            </if>
+            <if test="messageTitle != null">
+                MESSAGE_TITLE = #{messageTitle,jdbcType=VARCHAR},
+            </if>
+            <if test="messageContent != null">
+                MESSAGE_CONTENT = #{messageContent,jdbcType=VARCHAR},
+            </if>
+            <if test="messageStatus != null">
+                MESSAGE_STATUS = #{messageStatus,jdbcType=VARCHAR},
+            </if>
+            <if test="messageSenderId != null">
+                MESSAGE_SENDER_ID = #{messageSenderId,jdbcType=VARCHAR},
+            </if>
+            <if test="messageSenderName != null">
+                MESSAGE_SENDER_NAME = #{messageSenderName,jdbcType=VARCHAR},
+            </if>
+            <if test="messageReceiverId != null">
+                MESSAGE_RECEIVER_ID = #{messageReceiverId,jdbcType=VARCHAR},
+            </if>
+            <if test="messageReceiverName != null">
+                MESSAGE_RECEIVER_NAME = #{messageReceiverName,jdbcType=VARCHAR},
+            </if>
+            <if test="messageReceiverKey != null">
+                MESSAGE_RECEIVER_KEY = #{messageReceiverKey,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where MESSAGE_ID = #{messageId,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.jb4dc.builder.dbentities.systemsetting.NoticeMessageEntity">
+        update TSYS_NOTICE_MESSAGE
+        set MESSAGE_ORDER_NUM = #{messageOrderNum,jdbcType=INTEGER},
+            MESSAGE_CREATE_TIME = #{messageCreateTime,jdbcType=TIMESTAMP},
+            MESSAGE_EXPIRED_TIME = #{messageExpiredTime,jdbcType=TIMESTAMP},
+            MESSAGE_DELETE_TIME = #{messageDeleteTime,jdbcType=TIMESTAMP},
+            MESSAGE_TYPE = #{messageType,jdbcType=VARCHAR},
+            MESSAGE_TITLE = #{messageTitle,jdbcType=VARCHAR},
+            MESSAGE_CONTENT = #{messageContent,jdbcType=VARCHAR},
+            MESSAGE_STATUS = #{messageStatus,jdbcType=VARCHAR},
+            MESSAGE_SENDER_ID = #{messageSenderId,jdbcType=VARCHAR},
+            MESSAGE_SENDER_NAME = #{messageSenderName,jdbcType=VARCHAR},
+            MESSAGE_RECEIVER_ID = #{messageReceiverId,jdbcType=VARCHAR},
+            MESSAGE_RECEIVER_NAME = #{messageReceiverName,jdbcType=VARCHAR},
+            MESSAGE_RECEIVER_KEY = #{messageReceiverKey,jdbcType=VARCHAR}
+        where MESSAGE_ID = #{messageId,jdbcType=VARCHAR}
+    </update>
+</mapper>

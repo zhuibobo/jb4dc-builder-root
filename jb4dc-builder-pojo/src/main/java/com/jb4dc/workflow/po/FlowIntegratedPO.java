@@ -1,7 +1,7 @@
-package com.jb4dc.builder.po;
+package com.jb4dc.workflow.po;
 
 import com.jb4dc.base.tools.JsonUtility;
-import com.jb4dc.builder.dbentities.flow.FlowIntegratedEntity;
+import com.jb4dc.workflow.dbentities.ModelIntegratedEntity;
 
 import java.io.IOException;
 
@@ -11,7 +11,7 @@ import java.io.IOException;
  * Date: 2020/1/6
  * To change this template use File | Settings | File Templates.
  */
-public class FlowIntegratedPO extends FlowIntegratedEntity {
+public class FlowIntegratedPO extends ModelIntegratedEntity {
 
     private String bpmnXMLModeler;
 
@@ -33,12 +33,12 @@ public class FlowIntegratedPO extends FlowIntegratedEntity {
         this.tryDeployment = tryDeployment;
     }
 
-    public static FlowIntegratedEntity parseToEntity(FlowIntegratedPO po) throws IOException {
+    public static ModelIntegratedEntity parseToEntity(FlowIntegratedPO po) throws IOException {
         String jsonStr= JsonUtility.toObjectString(po);
         return JsonUtility.toObject(jsonStr, FlowIntegratedPO.class);
     }
 
-    public static FlowIntegratedPO parseToPO(FlowIntegratedEntity entity) throws IOException {
+    public static FlowIntegratedPO parseToPO(ModelIntegratedEntity entity) throws IOException {
         String jsonStr= JsonUtility.toObjectString(entity);
         return JsonUtility.toObject(jsonStr, FlowIntegratedPO.class);
     }

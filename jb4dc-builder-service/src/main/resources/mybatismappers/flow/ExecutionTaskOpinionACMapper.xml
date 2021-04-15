@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jb4dc.workflow.dao.ExecutionTaskOpinionMapper">
+    <resultMap id="BaseResultMap" type="com.jb4dc.workflow.dbentities.ExecutionTaskOpinionEntity">
+        <constructor>
+            <idArg column="OPINION_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="OPINION_EXTASK_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="OPINION_TEXT" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="OPINION_TIME" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+            <arg column="OPINION_ORDER_NUM" javaType="java.lang.Integer" jdbcType="INTEGER" />
+        </constructor>
+    </resultMap>
+    <sql id="Base_Column_List">
+        OPINION_ID, OPINION_EXTASK_ID, OPINION_TEXT, OPINION_TIME, OPINION_ORDER_NUM
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from TFLOW_EXECUTION_TASK_OPINION
+        where OPINION_ID = #{opinionId,jdbcType=VARCHAR}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+        delete from TFLOW_EXECUTION_TASK_OPINION
+        where OPINION_ID = #{opinionId,jdbcType=VARCHAR}
+    </delete>
+    <insert id="insert" parameterType="com.jb4dc.workflow.dbentities.ExecutionTaskOpinionEntity">
+        insert into TFLOW_EXECUTION_TASK_OPINION (OPINION_ID, OPINION_EXTASK_ID, OPINION_TEXT,
+                                                  OPINION_TIME, OPINION_ORDER_NUM)
+        values (#{opinionId,jdbcType=VARCHAR}, #{opinionExtaskId,jdbcType=VARCHAR}, #{opinionText,jdbcType=VARCHAR},
+                #{opinionTime,jdbcType=TIMESTAMP}, #{opinionOrderNum,jdbcType=INTEGER})
+    </insert>
+    <insert id="insertSelective" parameterType="com.jb4dc.workflow.dbentities.ExecutionTaskOpinionEntity">
+        insert into TFLOW_EXECUTION_TASK_OPINION
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="opinionId != null">
+                OPINION_ID,
+            </if>
+            <if test="opinionExtaskId != null">
+                OPINION_EXTASK_ID,
+            </if>
+            <if test="opinionText != null">
+                OPINION_TEXT,
+            </if>
+            <if test="opinionTime != null">
+                OPINION_TIME,
+            </if>
+            <if test="opinionOrderNum != null">
+                OPINION_ORDER_NUM,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="opinionId != null">
+                #{opinionId,jdbcType=VARCHAR},
+            </if>
+            <if test="opinionExtaskId != null">
+                #{opinionExtaskId,jdbcType=VARCHAR},
+            </if>
+            <if test="opinionText != null">
+                #{opinionText,jdbcType=VARCHAR},
+            </if>
+            <if test="opinionTime != null">
+                #{opinionTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="opinionOrderNum != null">
+                #{opinionOrderNum,jdbcType=INTEGER},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.jb4dc.workflow.dbentities.ExecutionTaskOpinionEntity">
+        update TFLOW_EXECUTION_TASK_OPINION
+        <set>
+            <if test="opinionExtaskId != null">
+                OPINION_EXTASK_ID = #{opinionExtaskId,jdbcType=VARCHAR},
+            </if>
+            <if test="opinionText != null">
+                OPINION_TEXT = #{opinionText,jdbcType=VARCHAR},
+            </if>
+            <if test="opinionTime != null">
+                OPINION_TIME = #{opinionTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="opinionOrderNum != null">
+                OPINION_ORDER_NUM = #{opinionOrderNum,jdbcType=INTEGER},
+            </if>
+        </set>
+        where OPINION_ID = #{opinionId,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.jb4dc.workflow.dbentities.ExecutionTaskOpinionEntity">
+        update TFLOW_EXECUTION_TASK_OPINION
+        set OPINION_EXTASK_ID = #{opinionExtaskId,jdbcType=VARCHAR},
+            OPINION_TEXT = #{opinionText,jdbcType=VARCHAR},
+            OPINION_TIME = #{opinionTime,jdbcType=TIMESTAMP},
+            OPINION_ORDER_NUM = #{opinionOrderNum,jdbcType=INTEGER}
+        where OPINION_ID = #{opinionId,jdbcType=VARCHAR}
+    </update>
+</mapper>

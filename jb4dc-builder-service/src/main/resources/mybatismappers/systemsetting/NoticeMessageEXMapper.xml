@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jb4dc.builder.dao.systemsetting.NoticeMessageMapper">
+    <select id="selectAll" resultMap="BaseResultMap">select<include refid="Base_Column_List"/> from TSYS_NOTICE_MESSAGE ORDER by MESSAGE_ORDER_NUM DESC</select>
+    <select id="selectAllASC" resultMap="BaseResultMap">select<include refid="Base_Column_List"/> from TSYS_NOTICE_MESSAGE ORDER by MESSAGE_ORDER_NUM ASC</select>
+    <delete id="deleteAll">delete from TSYS_NOTICE_MESSAGE</delete>
+    <select id="nextOrderNum" resultType="integer">select case when max(MESSAGE_ORDER_NUM) is null then 1 else max(MESSAGE_ORDER_NUM)+1 end ORDERNUM from TSYS_NOTICE_MESSAGE</select>
+    <select id="selectBySearch" parameterType="java.util.Map" resultMap="BaseResultMap">select<include refid="Base_Column_List"/>from TSYS_NOTICE_MESSAGE<where>
+        <if test="messageType !=null and messageType !=''"> and MESSAGE_TYPE like #{messageType} </if>
+        <if test="messageTitle !=null and messageTitle !=''"> and MESSAGE_TITLE like #{messageTitle} </if>
+        <if test="messageContent !=null and messageContent !=''"> and MESSAGE_CONTENT like #{messageContent} </if>
+        <if test="messageStatus !=null and messageStatus !=''"> and MESSAGE_STATUS like #{messageStatus} </if>
+        <if test="messageSenderId !=null and messageSenderId !=''"> and MESSAGE_SENDER_ID like #{messageSenderId} </if>
+        <if test="messageSenderName !=null and messageSenderName !=''"> and MESSAGE_SENDER_NAME like #{messageSenderName} </if>
+        <if test="messageReceiverId !=null and messageReceiverId !=''"> and MESSAGE_RECEIVER_ID like #{messageReceiverId} </if>
+        <if test="messageReceiverName !=null and messageReceiverName !=''"> and MESSAGE_RECEIVER_NAME like #{messageReceiverName} </if>
+        <if test="messageReceiverKey !=null and messageReceiverKey !=''"> and MESSAGE_RECEIVER_KEY like #{messageReceiverKey} </if>
+    </where>ORDER by MESSAGE_ORDER_NUM DESC</select>
+    <select id="selectLessThanRecord" parameterType="java.lang.String" resultMap="BaseResultMap"><![CDATA[select * from TSYS_NOTICE_MESSAGE
+                                                                                                          where MESSAGE_ORDER_NUM = (select max(MESSAGE_ORDER_NUM) from TSYS_NOTICE_MESSAGE where MESSAGE_ORDER_NUM<(select MESSAGE_ORDER_NUM from TSYS_NOTICE_MESSAGE where MESSAGE_ID=#{Id,jdbcType=NVARCHAR}))]]></select>
+    <select id="selectGreaterThanRecord" parameterType="java.lang.String" resultMap="BaseResultMap"><![CDATA[select * from TSYS_NOTICE_MESSAGE
+                                                                                                             where MESSAGE_ORDER_NUM = (select min(MESSAGE_ORDER_NUM) from TSYS_NOTICE_MESSAGE where MESSAGE_ORDER_NUM>(select MESSAGE_ORDER_NUM from TSYS_NOTICE_MESSAGE where MESSAGE_ID=#{Id,jdbcType=NVARCHAR}))]]></select>
+</mapper>
