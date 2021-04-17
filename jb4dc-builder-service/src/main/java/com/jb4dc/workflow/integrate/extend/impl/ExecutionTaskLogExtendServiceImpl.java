@@ -7,7 +7,9 @@ import com.jb4dc.core.base.session.JB4DCSession;
 import com.jb4dc.workflow.dao.ExecutionTaskLogMapper;
 import com.jb4dc.workflow.dbentities.ExecutionTaskLogEntityWithBLOBs;
 import com.jb4dc.workflow.integrate.extend.IExecutionTaskLogExtendService;
+import org.springframework.stereotype.Service;
 
+@Service
 public class ExecutionTaskLogExtendServiceImpl  extends BaseServiceImpl<ExecutionTaskLogEntityWithBLOBs> implements IExecutionTaskLogExtendService
 {
     ExecutionTaskLogMapper executionTaskLogMapper;

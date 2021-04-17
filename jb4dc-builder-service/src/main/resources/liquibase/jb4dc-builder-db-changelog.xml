@@ -518,6 +518,21 @@
             <column name="INTEGRATED_DESIGN_REMARK" type="CLOB" remarks="设计详细说明"/>
         </addColumn>
     </changeSet>
+
+    <changeSet author="zhuangrb" id="changeSet-Builder-Base-ex7" objectQuotingStrategy="QUOTE_ALL_OBJECTS" dbms="mysql">
+        <sql>
+            ALTER TABLE TBUILD_FORM_RESOURCE COMMENT = '窗体资源存储表:用于存储窗体设计的文件'
+        </sql>
+        <sql>
+            ALTER TABLE TBUILD_LIST_RESOURCE COMMENT = '列表资源存储表:用于存储列表设计的文件'
+        </sql>
+        <sql>
+            ALTER TABLE TBUILD_MODULE COMMENT = '模块表'
+        </sql>
+        <sql>
+            ALTER TABLE TBUILD_MODULE COMMENT = '模块表'
+        </sql>
+    </changeSet>
     <!--网站模块-->
     <changeSet author="zhuangrb" id="changeSet-Builder-Site-Base" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
         <createTable tableName="TBUILD_SITE_INFO" remarks="站点基础信息表">
@@ -1174,6 +1189,41 @@
             <column name="AGENT_ORDER_NUM" type="INT" remarks="排序号"></column>
             <column name="AGENT_CREATE_TIME" type="datetime(6)" remarks="创建时间"></column>
         </addColumn>
+    </changeSet>
+
+    <changeSet id="changeSet-camunda-integrated-0004" author="zhuangrb">
+        <addColumn tableName="TFLOW_MODEL_GROUP">
+            <column name="MODEL_GROUP_PARENT_ID_LIST" type="NVARCHAR(500)" remarks="父节点列表" />
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="changeSet-camunda-integrated-0005" author="zhuangrb">
+        <addColumn tableName="TFLOW_MODEL_GROUP">
+            <column name="MODEL_GROUP_CHILD_COUNT" type="INT" remarks="子节点数量"/>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="changeSet-camunda-integrated-0006" author="zhuangrb">
+        <addColumn tableName="TFLOW_EXECUTION_TASK">
+            <column name="EXTASK_FROM_TASK_ID" type="NVARCHAR(100)" remarks="源自任务ID:TFLOW_EXECUTION_TASK的EXTASK_ID"/>
+            <column name="EXTASK_FROM_EXECUTION_ID" type="NVARCHAR(100)" remarks="源自执行ID:ACT_RU_EXECUTION的ID,例如由服务节点驱动而生成的本表信息"/>
+            <column name="EXTASK_INDEX" type="NVARCHAR(30)" remarks="任务索引号:从小到大增加,多实例任务相同,主要用于生成顺序流程图"/>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="changeSet-camunda-integrated-0007" author="zhuangrb">
+        <sql>
+            ALTER TABLE TFLOW_EXECUTION_TASK COMMENT = '流程实例环节执行任务表:用于扩展act_ru_task记录,主送抄送任务'
+        </sql>
+        <sql>
+            ALTER TABLE TFLOW_MODEL_GROUP COMMENT = '流程模型分组表'
+        </sql>
+        <sql>
+            ALTER TABLE TFLOW_AGENT_CONFIG COMMENT = '流程代理设置表'
+        </sql>
+        <sql>
+            ALTER TABLE TFLOW_MODEL_ASS_OBJECT COMMENT = '流程模型关联对象表:启动者,管理者'
+        </sql>
     </changeSet>
 
     <changeSet author="zhuangrb" id="changeSet-System-0002" objectQuotingStrategy="QUOTE_ALL_OBJECTS">

@@ -233,9 +233,13 @@ gulp.task('html-template-web-system-setting-package',()=>{
     return copyAndResolveHtml(sourcePath + "/HTML/SystemSetting/!(Runtime)/**/*.html",sourcePath + "/HTML",distPath + "/HTML");
 });
 
+gulp.task('html-template-web-workflow-package',()=>{
+    return copyAndResolveHtml(sourcePath + "/HTML/WorkFlow/!(Runtime)/**/*.html",sourcePath + "/HTML",distPath + "/HTML");
+});
+
 gulp.task('site-template-design-all', gulp.series('site-template-design-utility'));
 
-gulp.task('all', gulp.series('html-design-all','html-template-web-builder-package','html-template-web-system-setting-package','js-vue-ex-component','js-ui-component','site-template-design-all'));
+gulp.task('all', gulp.series('html-design-all','html-template-web-builder-package','html-template-web-system-setting-package','html-template-web-workflow-package','js-vue-ex-component','js-ui-component','site-template-design-all'));
 
 /*gulp.task('all-debug',done =>{
      var isdebug=true;

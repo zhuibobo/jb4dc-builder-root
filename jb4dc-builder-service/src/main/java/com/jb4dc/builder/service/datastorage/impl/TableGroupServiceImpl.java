@@ -295,7 +295,7 @@ public class TableGroupServiceImpl extends BaseServiceImpl<TableGroupEntity> imp
         tableService.registerSystemTableToBuilderToModule(jb4DCSession,"TBUILD_DATASET_COLUMN",tableGroupEntity);
         tableService.registerSystemTableToBuilderToModule(jb4DCSession,"TBUILD_DATASET_RELATED_TABLE",tableGroupEntity);
         tableService.registerSystemTableToBuilderToModule(jb4DCSession,"TBUILD_MODULE",tableGroupEntity);
-        tableService.registerSystemTableToBuilderToModule(jb4DCSession,"TBUILD_FLOW_INTEGRATED",tableGroupEntity);
+        //tableService.registerSystemTableToBuilderToModule(jb4DCSession,"TBUILD_FLOW_INTEGRATED",tableGroupEntity);
         tableService.registerSystemTableToBuilderToModule(jb4DCSession,"TBUILD_FORM_CONFIG",tableGroupEntity);
         tableService.registerSystemTableToBuilderToModule(jb4DCSession,"TBUILD_FORM_RESOURCE",tableGroupEntity);
         tableService.registerSystemTableToBuilderToModule(jb4DCSession,"TBUILD_LIST_RESOURCE",tableGroupEntity);

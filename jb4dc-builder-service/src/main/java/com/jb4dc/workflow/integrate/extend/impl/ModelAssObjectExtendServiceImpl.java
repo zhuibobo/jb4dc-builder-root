@@ -7,7 +7,9 @@ import com.jb4dc.core.base.session.JB4DCSession;
 import com.jb4dc.workflow.dao.ModelAssObjectMapper;
 import com.jb4dc.workflow.dbentities.ModelAssObjectEntity;
 import com.jb4dc.workflow.integrate.extend.IModelAssObjectExtendService;
+import org.springframework.stereotype.Service;
 
+@Service
 public class ModelAssObjectExtendServiceImpl extends BaseServiceImpl<ModelAssObjectEntity> implements IModelAssObjectExtendService
 {
     ModelAssObjectMapper modelAssObjectMapper;

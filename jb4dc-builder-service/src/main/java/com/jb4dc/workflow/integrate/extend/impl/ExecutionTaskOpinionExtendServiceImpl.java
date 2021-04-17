@@ -7,7 +7,9 @@ import com.jb4dc.core.base.session.JB4DCSession;
 import com.jb4dc.workflow.dao.ExecutionTaskOpinionMapper;
 import com.jb4dc.workflow.dbentities.ExecutionTaskOpinionEntity;
 import com.jb4dc.workflow.integrate.extend.IExecutionTaskOpinionExtendService;
+import org.springframework.stereotype.Service;
 
+@Service
 public class ExecutionTaskOpinionExtendServiceImpl extends BaseServiceImpl<ExecutionTaskOpinionEntity> implements IExecutionTaskOpinionExtendService
 {
     ExecutionTaskOpinionMapper executionTaskOpinionMapper;

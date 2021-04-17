@@ -95,6 +95,15 @@ public class ExecutionTaskEntity {
     //EXTASK_ORDER_NUM:排序号
     private Integer extaskOrderNum;
 
+    //EXTASK_FROM_TASK_ID:源自任务ID:TFLOW_EXECUTION_TASK的EXTASK_ID
+    private String extaskFromTaskId;
+
+    //EXTASK_FROM_EXECUTION_ID:源自执行ID:ACT_RU_EXECUTION的ID,例如由服务节点驱动而生成的本表信息
+    private String extaskFromExecutionId;
+
+    //EXTASK_INDEX:任务索引号:从小到大增加,多实例任务相同,主要用于生成顺序流程图
+    private String extaskIndex;
+
     /**
      * 构造函数
      * @param extaskId
@@ -123,8 +132,11 @@ public class ExecutionTaskEntity {
      * @param extaskHandleActionKey 处理动作Key
      * @param extaskHandleActionName 处理动作名称
      * @param extaskOrderNum 排序号
+     * @param extaskFromTaskId 源自任务ID
+     * @param extaskFromExecutionId 源自执行ID
+     * @param extaskIndex 任务索引号
      **/
-    public ExecutionTaskEntity(String extaskId, String extaskInstId, String extaskModelId, String extaskRuTaskId, String extaskRuExecutionId, String extaskRuProcInstId, String extaskRuProcDefId, String extaskPreNodeKey, String extaskPreNodeName, String extaskCurNodeKey, String extaskCurNodeName, String extaskType, String extaskStatus, String extaskSenderId, String extaskSenderName, Date extaskSendTime, String extaskReceiverId, String extaskReceiverName, String extaskViewEd, Date extaskViewTime, Date extaskStartTime, Date extaskEndTime, String extaskHandleEd, String extaskHandleActionKey, String extaskHandleActionName, Integer extaskOrderNum) {
+    public ExecutionTaskEntity(String extaskId, String extaskInstId, String extaskModelId, String extaskRuTaskId, String extaskRuExecutionId, String extaskRuProcInstId, String extaskRuProcDefId, String extaskPreNodeKey, String extaskPreNodeName, String extaskCurNodeKey, String extaskCurNodeName, String extaskType, String extaskStatus, String extaskSenderId, String extaskSenderName, Date extaskSendTime, String extaskReceiverId, String extaskReceiverName, String extaskViewEd, Date extaskViewTime, Date extaskStartTime, Date extaskEndTime, String extaskHandleEd, String extaskHandleActionKey, String extaskHandleActionName, Integer extaskOrderNum, String extaskFromTaskId, String extaskFromExecutionId, String extaskIndex) {
         this.extaskId = extaskId;
         this.extaskInstId = extaskInstId;
         this.extaskModelId = extaskModelId;
@@ -151,6 +163,9 @@ public class ExecutionTaskEntity {
         this.extaskHandleActionKey = extaskHandleActionKey;
         this.extaskHandleActionName = extaskHandleActionName;
         this.extaskOrderNum = extaskOrderNum;
+        this.extaskFromTaskId = extaskFromTaskId;
+        this.extaskFromExecutionId = extaskFromExecutionId;
+        this.extaskIndex = extaskIndex;
     }
 
     public ExecutionTaskEntity() {
@@ -571,5 +586,53 @@ public class ExecutionTaskEntity {
      **/
     public void setExtaskOrderNum(Integer extaskOrderNum) {
         this.extaskOrderNum = extaskOrderNum;
+    }
+
+    /**
+     * 源自任务ID:TFLOW_EXECUTION_TASK的EXTASK_ID
+     * @return java.lang.String
+     **/
+    public String getExtaskFromTaskId() {
+        return extaskFromTaskId;
+    }
+
+    /**
+     * 源自任务ID:TFLOW_EXECUTION_TASK的EXTASK_ID
+     * @param extaskFromTaskId 源自任务ID
+     **/
+    public void setExtaskFromTaskId(String extaskFromTaskId) {
+        this.extaskFromTaskId = extaskFromTaskId == null ? null : extaskFromTaskId.trim();
+    }
+
+    /**
+     * 源自执行ID:ACT_RU_EXECUTION的ID,例如由服务节点驱动而生成的本表信息
+     * @return java.lang.String
+     **/
+    public String getExtaskFromExecutionId() {
+        return extaskFromExecutionId;
+    }
+
+    /**
+     * 源自执行ID:ACT_RU_EXECUTION的ID,例如由服务节点驱动而生成的本表信息
+     * @param extaskFromExecutionId 源自执行ID
+     **/
+    public void setExtaskFromExecutionId(String extaskFromExecutionId) {
+        this.extaskFromExecutionId = extaskFromExecutionId == null ? null : extaskFromExecutionId.trim();
+    }
+
+    /**
+     * 任务索引号:从小到大增加,多实例任务相同,主要用于生成顺序流程图
+     * @return java.lang.String
+     **/
+    public String getExtaskIndex() {
+        return extaskIndex;
+    }
+
+    /**
+     * 任务索引号:从小到大增加,多实例任务相同,主要用于生成顺序流程图
+     * @param extaskIndex 任务索引号
+     **/
+    public void setExtaskIndex(String extaskIndex) {
+        this.extaskIndex = extaskIndex == null ? null : extaskIndex.trim();
     }
 }

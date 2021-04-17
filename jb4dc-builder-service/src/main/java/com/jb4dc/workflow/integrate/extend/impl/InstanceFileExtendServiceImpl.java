@@ -7,7 +7,9 @@ import com.jb4dc.core.base.session.JB4DCSession;
 import com.jb4dc.workflow.dao.InstanceFileMapper;
 import com.jb4dc.workflow.dbentities.InstanceFileEntity;
 import com.jb4dc.workflow.integrate.extend.IInstanceFileExtendService;
+import org.springframework.stereotype.Service;
 
+@Service
 public class InstanceFileExtendServiceImpl extends BaseServiceImpl<InstanceFileEntity> implements IInstanceFileExtendService
 {
     InstanceFileMapper instanceFileMapper;

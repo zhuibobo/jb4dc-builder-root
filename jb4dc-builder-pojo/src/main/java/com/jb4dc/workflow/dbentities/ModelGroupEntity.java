@@ -47,6 +47,12 @@ public class ModelGroupEntity {
     //MODEL_GROUP_CLASS_NAME:样式类名
     private String modelGroupClassName;
 
+    //MODEL_GROUP_PARENT_ID_LIST:父节点列表
+    private String modelGroupParentIdList;
+
+    //MODEL_GROUP_CHILD_COUNT:子节点数量
+    private Integer modelGroupChildCount;
+
     /**
      * 构造函数
      * @param modelGroupId
@@ -60,8 +66,10 @@ public class ModelGroupEntity {
      * @param modelGroupIsSystem 是否是系统分组
      * @param modelGroupDelEnable 能否删除
      * @param modelGroupClassName 样式类名
+     * @param modelGroupParentIdList 父节点列表
+     * @param modelGroupChildCount 子节点数量
      **/
-    public ModelGroupEntity(String modelGroupId, String modelGroupValue, String modelGroupText, Integer modelGroupOrderNum, Date modelGroupCreateTime, String modelGroupDesc, String modelGroupStatus, String modelGroupParentId, String modelGroupIsSystem, String modelGroupDelEnable, String modelGroupClassName) {
+    public ModelGroupEntity(String modelGroupId, String modelGroupValue, String modelGroupText, Integer modelGroupOrderNum, Date modelGroupCreateTime, String modelGroupDesc, String modelGroupStatus, String modelGroupParentId, String modelGroupIsSystem, String modelGroupDelEnable, String modelGroupClassName, String modelGroupParentIdList, Integer modelGroupChildCount) {
         this.modelGroupId = modelGroupId;
         this.modelGroupValue = modelGroupValue;
         this.modelGroupText = modelGroupText;
@@ -73,6 +81,8 @@ public class ModelGroupEntity {
         this.modelGroupIsSystem = modelGroupIsSystem;
         this.modelGroupDelEnable = modelGroupDelEnable;
         this.modelGroupClassName = modelGroupClassName;
+        this.modelGroupParentIdList = modelGroupParentIdList;
+        this.modelGroupChildCount = modelGroupChildCount;
     }
 
     public ModelGroupEntity() {
@@ -253,5 +263,37 @@ public class ModelGroupEntity {
      **/
     public void setModelGroupClassName(String modelGroupClassName) {
         this.modelGroupClassName = modelGroupClassName == null ? null : modelGroupClassName.trim();
+    }
+
+    /**
+     * 父节点列表
+     * @return java.lang.String
+     **/
+    public String getModelGroupParentIdList() {
+        return modelGroupParentIdList;
+    }
+
+    /**
+     * 父节点列表
+     * @param modelGroupParentIdList 父节点列表
+     **/
+    public void setModelGroupParentIdList(String modelGroupParentIdList) {
+        this.modelGroupParentIdList = modelGroupParentIdList == null ? null : modelGroupParentIdList.trim();
+    }
+
+    /**
+     * 子节点数量
+     * @return java.lang.Integer
+     **/
+    public Integer getModelGroupChildCount() {
+        return modelGroupChildCount;
+    }
+
+    /**
+     * 子节点数量
+     * @param modelGroupChildCount 子节点数量
+     **/
+    public void setModelGroupChildCount(Integer modelGroupChildCount) {
+        this.modelGroupChildCount = modelGroupChildCount;
     }
 }

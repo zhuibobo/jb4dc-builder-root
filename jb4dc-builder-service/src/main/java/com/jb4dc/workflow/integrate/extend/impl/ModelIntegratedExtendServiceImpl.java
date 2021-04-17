@@ -4,7 +4,7 @@ import com.jb4dc.base.service.impl.BaseServiceImpl;
 import com.jb4dc.base.tools.XMLUtility;
 import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
 import com.jb4dc.core.base.session.JB4DCSession;
-import com.jb4dc.workflow.custpo.bpmn.BpmnDefinitions;
+import com.jb4dc.workflow.po.bpmn.BpmnDefinitions;
 import com.jb4dc.workflow.dao.ModelIntegratedMapper;
 import com.jb4dc.workflow.dbentities.ModelIntegratedEntity;
 import com.jb4dc.workflow.integrate.engine.impl.FlowEngineModelIntegrateServiceImpl;

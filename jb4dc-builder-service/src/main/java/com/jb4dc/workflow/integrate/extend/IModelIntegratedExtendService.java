@@ -5,7 +5,7 @@ import com.jb4dc.workflow.dbentities.ModelIntegratedEntity;
 import com.jb4dc.workflow.po.FlowIntegratedPO;
 import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
 import com.jb4dc.core.base.session.JB4DCSession;
-import com.jb4dc.workflow.custpo.bpmn.BpmnDefinitions;
+import com.jb4dc.workflow.po.bpmn.BpmnDefinitions;
 
 import javax.xml.bind.JAXBException;
 import javax.xml.stream.XMLStreamException;

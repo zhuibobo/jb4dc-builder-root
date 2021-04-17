@@ -7,7 +7,9 @@ import com.jb4dc.core.base.session.JB4DCSession;
 import com.jb4dc.workflow.dao.ModelPropertiesMapper;
 import com.jb4dc.workflow.dbentities.ModelPropertiesEntity;
 import com.jb4dc.workflow.integrate.extend.IModelPropertiesExtendService;
+import org.springframework.stereotype.Service;
 
+@Service
 public class ModelPropertiesServiceExtendImpl extends BaseServiceImpl<ModelPropertiesEntity> implements IModelPropertiesExtendService
 {
     ModelPropertiesMapper modelPropertiesMapper;

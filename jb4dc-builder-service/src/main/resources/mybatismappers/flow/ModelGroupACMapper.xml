@@ -14,12 +14,14 @@
             <arg column="MODEL_GROUP_IS_SYSTEM" javaType="java.lang.String" jdbcType="VARCHAR" />
             <arg column="MODEL_GROUP_DEL_ENABLE" javaType="java.lang.String" jdbcType="VARCHAR" />
             <arg column="MODEL_GROUP_CLASS_NAME" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="MODEL_GROUP_PARENT_ID_LIST" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="MODEL_GROUP_CHILD_COUNT" javaType="java.lang.Integer" jdbcType="INTEGER" />
         </constructor>
     </resultMap>
     <sql id="Base_Column_List">
         MODEL_GROUP_ID, MODEL_GROUP_VALUE, MODEL_GROUP_TEXT, MODEL_GROUP_ORDER_NUM, MODEL_GROUP_CREATE_TIME,
     MODEL_GROUP_DESC, MODEL_GROUP_STATUS, MODEL_GROUP_PARENT_ID, MODEL_GROUP_IS_SYSTEM,
-    MODEL_GROUP_DEL_ENABLE, MODEL_GROUP_CLASS_NAME
+    MODEL_GROUP_DEL_ENABLE, MODEL_GROUP_CLASS_NAME, MODEL_GROUP_PARENT_ID_LIST, MODEL_GROUP_CHILD_COUNT
     </sql>
     <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
         select
@@ -36,12 +38,14 @@
                                        MODEL_GROUP_ORDER_NUM, MODEL_GROUP_CREATE_TIME,
                                        MODEL_GROUP_DESC, MODEL_GROUP_STATUS, MODEL_GROUP_PARENT_ID,
                                        MODEL_GROUP_IS_SYSTEM, MODEL_GROUP_DEL_ENABLE,
-                                       MODEL_GROUP_CLASS_NAME)
+                                       MODEL_GROUP_CLASS_NAME, MODEL_GROUP_PARENT_ID_LIST,
+                                       MODEL_GROUP_CHILD_COUNT)
         values (#{modelGroupId,jdbcType=VARCHAR}, #{modelGroupValue,jdbcType=VARCHAR}, #{modelGroupText,jdbcType=VARCHAR},
                 #{modelGroupOrderNum,jdbcType=INTEGER}, #{modelGroupCreateTime,jdbcType=TIMESTAMP},
                 #{modelGroupDesc,jdbcType=VARCHAR}, #{modelGroupStatus,jdbcType=VARCHAR}, #{modelGroupParentId,jdbcType=VARCHAR},
                 #{modelGroupIsSystem,jdbcType=VARCHAR}, #{modelGroupDelEnable,jdbcType=VARCHAR},
-                #{modelGroupClassName,jdbcType=VARCHAR})
+                #{modelGroupClassName,jdbcType=VARCHAR}, #{modelGroupParentIdList,jdbcType=VARCHAR},
+                #{modelGroupChildCount,jdbcType=INTEGER})
     </insert>
     <insert id="insertSelective" parameterType="com.jb4dc.workflow.dbentities.ModelGroupEntity">
         insert into TFLOW_MODEL_GROUP
@@ -79,6 +83,12 @@
             <if test="modelGroupClassName != null">
                 MODEL_GROUP_CLASS_NAME,
             </if>
+            <if test="modelGroupParentIdList != null">
+                MODEL_GROUP_PARENT_ID_LIST,
+            </if>
+            <if test="modelGroupChildCount != null">
+                MODEL_GROUP_CHILD_COUNT,
+            </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="modelGroupId != null">
@@ -113,6 +123,12 @@
             </if>
             <if test="modelGroupClassName != null">
                 #{modelGroupClassName,jdbcType=VARCHAR},
+            </if>
+            <if test="modelGroupParentIdList != null">
+                #{modelGroupParentIdList,jdbcType=VARCHAR},
+            </if>
+            <if test="modelGroupChildCount != null">
+                #{modelGroupChildCount,jdbcType=INTEGER},
             </if>
         </trim>
     </insert>
@@ -149,6 +165,12 @@
             <if test="modelGroupClassName != null">
                 MODEL_GROUP_CLASS_NAME = #{modelGroupClassName,jdbcType=VARCHAR},
             </if>
+            <if test="modelGroupParentIdList != null">
+                MODEL_GROUP_PARENT_ID_LIST = #{modelGroupParentIdList,jdbcType=VARCHAR},
+            </if>
+            <if test="modelGroupChildCount != null">
+                MODEL_GROUP_CHILD_COUNT = #{modelGroupChildCount,jdbcType=INTEGER},
+            </if>
         </set>
         where MODEL_GROUP_ID = #{modelGroupId,jdbcType=VARCHAR}
     </update>
@@ -163,7 +185,9 @@
             MODEL_GROUP_PARENT_ID = #{modelGroupParentId,jdbcType=VARCHAR},
             MODEL_GROUP_IS_SYSTEM = #{modelGroupIsSystem,jdbcType=VARCHAR},
             MODEL_GROUP_DEL_ENABLE = #{modelGroupDelEnable,jdbcType=VARCHAR},
-            MODEL_GROUP_CLASS_NAME = #{modelGroupClassName,jdbcType=VARCHAR}
+            MODEL_GROUP_CLASS_NAME = #{modelGroupClassName,jdbcType=VARCHAR},
+            MODEL_GROUP_PARENT_ID_LIST = #{modelGroupParentIdList,jdbcType=VARCHAR},
+            MODEL_GROUP_CHILD_COUNT = #{modelGroupChildCount,jdbcType=INTEGER}
         where MODEL_GROUP_ID = #{modelGroupId,jdbcType=VARCHAR}
     </update>
 </mapper>

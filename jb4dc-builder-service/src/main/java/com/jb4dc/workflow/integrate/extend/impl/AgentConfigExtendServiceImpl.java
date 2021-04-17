@@ -7,7 +7,9 @@ import com.jb4dc.core.base.session.JB4DCSession;
 import com.jb4dc.workflow.dao.AgentConfigMapper;
 import com.jb4dc.workflow.dbentities.AgentConfigEntity;
 import com.jb4dc.workflow.integrate.extend.IAgentConfigExtendService;
+import org.springframework.stereotype.Service;
 
+@Service
 public class AgentConfigExtendServiceImpl extends BaseServiceImpl<AgentConfigEntity> implements IAgentConfigExtendService
 {
     AgentConfigMapper agentConfigMapper;
