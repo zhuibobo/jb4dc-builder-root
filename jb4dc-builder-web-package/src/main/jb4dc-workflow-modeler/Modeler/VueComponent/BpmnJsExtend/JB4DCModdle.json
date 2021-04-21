@@ -218,16 +218,6 @@
           "name": "jb4dcCandidateGroupsDesc",
           "isAttr": true,
           "type": "String"
-        },
-        {
-          "name": "jb4dcActionsOpinionBindToField",
-          "isAttr": true,
-          "type": "String"
-        },
-        {
-          "name": "jb4dcActionsOpinionBindToElemId",
-          "isAttr": true,
-          "type": "String"
         }
       ]
     },
@@ -316,6 +306,16 @@
           "name": "values",
           "type": "Jb4dcAction",
           "isMany": true
+        },
+        {
+          "name": "opinionBindToField",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "opinionBindToElemId",
+          "isAttr": true,
+          "type": "String"
         }
       ]
     },
@@ -437,6 +437,108 @@
         },
         {
           "name": "actionCallComplete",
+          "isAttr": true,
+          "type": "String"
+        }
+      ]
+    },
+    {
+      "name": "Jb4dcAuthorities",
+      "superClass": [
+        "Element"
+      ],
+      "meta": {
+        "allowedIn": [
+          "bpmn:UserTask",
+          "bpmn:StartEvent"
+        ]
+      },
+      "properties": [
+        {
+          "name": "values",
+          "type": "Jb4dcAuthority",
+          "isMany": true
+        },
+        {
+          "name": "authoritiesUsed",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "authoritiesOnlySendBackCanEdit",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "authoritiesAllFieldAuthority",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "authoritiesFileAuthority",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "authoritiesDocumentAuthority",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "authoritiesJsApi",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "authoritiesJavaApi",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "authoritiesDesc",
+          "isAttr": true,
+          "type": "String"
+        }
+      ]
+    },
+    {
+      "name": "Jb4dcAuthority",
+      "superClass": [
+        "Element"
+      ],
+      "properties": [
+        {
+          "name": "authorityType",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "authorityTableName",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "authorityFieldName",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "authorityEditEnable",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "authorityViewEnable",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "authorityEmptyEditEnable",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "authorityDesc",
           "isAttr": true,
           "type": "String"
         }

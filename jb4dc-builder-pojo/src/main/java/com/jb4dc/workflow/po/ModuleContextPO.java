@@ -1,4 +1,4 @@
-package com.jb4dc.builder.po;
+package com.jb4dc.workflow.po;
 
 import com.jb4dc.base.service.po.ZTreeNodePO;
 import com.jb4dc.base.tools.JsonUtility;
@@ -7,10 +7,14 @@ import com.jb4dc.builder.dbentities.api.ApiItemEntity;
 import com.jb4dc.builder.dbentities.envvar.EnvGroupEntity;
 import com.jb4dc.builder.dbentities.envvar.EnvVariableEntity;
 import com.jb4dc.builder.dbentities.module.ModuleEntity;
+import com.jb4dc.builder.po.FormResourcePO;
+import com.jb4dc.builder.po.ListResourcePO;
+import com.jb4dc.builder.po.TableFieldPO;
 import com.jb4dc.sso.dbentities.organ.OrganEntity;
 import com.jb4dc.sso.dbentities.role.RoleEntity;
 import com.jb4dc.sso.dbentities.role.RoleGroupEntity;
 import com.jb4dc.sso.dbentities.user.UserEntity;
+import com.jb4dc.workflow.dbentities.ModelGroupEntity;
 
 import java.io.IOException;
 import java.util.List;
@@ -24,6 +28,7 @@ import java.util.List;
 public class ModuleContextPO extends ModuleEntity {
     List<FormResourcePO> formResourcePOList;
     List<ListResourcePO> listResourcePOList;
+    List<TableFieldPO> tableFieldPOList;
     /*List<TablePO> tablePOList;表信息存放在表实体中*/
     List<EnvGroupEntity> envGroupPOList;
     List<EnvVariableEntity> envVariablePOList;
@@ -34,6 +39,8 @@ public class ModuleContextPO extends ModuleEntity {
     List<RoleEntity> roleEntityList;
 
     List<ZTreeNodePO> apisForZTreeNodeList;
+
+    List<ModelGroupEntity> modelGroupEntityList;
 
     public List<FormResourcePO> getFormResourcePOList() {
         return formResourcePOList;
@@ -113,5 +120,21 @@ public class ModuleContextPO extends ModuleEntity {
 
     public void setApisForZTreeNodeList(List<ZTreeNodePO> apisForZTreeNodeList) {
         this.apisForZTreeNodeList = apisForZTreeNodeList;
+    }
+
+    public List<ModelGroupEntity> getModelGroupEntityList() {
+        return modelGroupEntityList;
+    }
+
+    public void setModelGroupEntityList(List<ModelGroupEntity> modelGroupEntityList) {
+        this.modelGroupEntityList = modelGroupEntityList;
+    }
+
+    public List<TableFieldPO> getTableFieldPOList() {
+        return tableFieldPOList;
+    }
+
+    public void setTableFieldPOList(List<TableFieldPO> tableFieldPOList) {
+        this.tableFieldPOList = tableFieldPOList;
     }
 }

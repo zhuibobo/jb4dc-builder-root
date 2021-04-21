@@ -4,6 +4,7 @@ import com.jb4dc.base.service.impl.BaseServiceImpl;
 import com.jb4dc.base.tools.XMLUtility;
 import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
 import com.jb4dc.core.base.session.JB4DCSession;
+import com.jb4dc.core.base.tools.ValidateUtility;
 import com.jb4dc.workflow.po.bpmn.BpmnDefinitions;
 import com.jb4dc.workflow.dao.ModelIntegratedMapper;
 import com.jb4dc.workflow.dbentities.ModelIntegratedEntity;
@@ -48,8 +49,31 @@ public class ModelIntegratedExtendServiceImpl extends BaseServiceImpl<ModelInteg
         return null;
     }
 
+    private FlowIntegratedPO appendFieldValueFromModelContentPO(FlowIntegratedPO flowIntegratedPO,BpmnDefinitions bpmnDefinitions){
+
+        return flowIntegratedPO;
+    }
+
     @Override
     public FlowIntegratedPO saveFlowModel(JB4DCSession jb4DSession, String recordID, FlowIntegratedPO flowIntegratedPO) throws JBuild4DCGenerallyException, IOException, JAXBException, XMLStreamException {
+        //模型分为三个:当前保存模型,上一版本保存模型,已经部署模型.
+        BpmnDefinitions bpmnDefinitions = parseToPO(flowIntegratedPO.getModelContent());
+        flowIntegratedPO = appendFieldValueFromModelContentPO(flowIntegratedPO, bpmnDefinitions);
+
+        ValidateUtility.isNotEmptyException(flowIntegratedPO.getModelReKey(), JBuild4DCGenerallyException.EXCEPTION_BUILDER_CODE, "启动KEY");
+        ValidateUtility.isNotEmptyException(flowIntegratedPO.getModelCode(), JBuild4DCGenerallyException.EXCEPTION_BUILDER_CODE, "Code");
+        ValidateUtility.isNotEmptyException(flowIntegratedPO.getModelModuleId(), JBuild4DCGenerallyException.EXCEPTION_BUILDER_CODE, "所属模块");
+
+        //获取最后一个保存版本的模型
+        ModelIntegratedEntity lastPreSaveModelIntegratedEntity = this.getLastPreSaveModelIntegratedEntity(jb4DSession, flowIntegratedPO.getModelReKey());
+
+
+        if (flowIntegratedPO.isTryDeployment()) {
+
+        } else {
+
+        }
+
         return null;
         /*FlowIntegratedEntity flowIntegratedEntity=flowIntegratedMapper.selectByPrimaryKey(recordID);
         ValidateUtility.isNotEmptyException(flowIntegratedPO.getIntegratedStartKey(),JBuild4DCGenerallyException.EXCEPTION_BUILDER_CODE,"启动KEY");
@@ -116,6 +140,10 @@ public class ModelIntegratedExtendServiceImpl extends BaseServiceImpl<ModelInteg
         return flowIntegratedPO;*/
     }
 
+    private ModelIntegratedEntity getLastPreSaveModelIntegratedEntity(JB4DCSession jb4DCSession,String modelReKey) {
+        return flowIntegratedMapper.selectLastPreSaveModelIntegratedEntity(modelReKey);
+    }
+
     @Override
     public int saveSimple(JB4DCSession jb4DCSession, String id, ModelIntegratedEntity record) throws JBuild4DCGenerallyException {
         return 0;
@@ -126,6 +154,11 @@ public class ModelIntegratedExtendServiceImpl extends BaseServiceImpl<ModelInteg
                 return sourceEntity;
             }
         });*/
+    }
+
+    @Override
+    public boolean modelMustReDeployment(JB4DCSession jb4DCSession,String sourceModelXML,String newModelXML){
+        return true;
     }
    /* @Override
     public BpmnDefinitions parseToPO(String xml) throws JAXBException, XMLStreamException {

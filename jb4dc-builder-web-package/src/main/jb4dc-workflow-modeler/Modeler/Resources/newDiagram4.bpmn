@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:jb4dc="http://jb4dc.org/schema/1.0/bpmn" id="Definitions_15b9usu" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="3.4.1">
-  <bpmn:process id="P004_001" name="发文流程" isExecutable="true" camunda:jobPriority="12123" camunda:candidateStarterGroups="csg" camunda:candidateStarterUsers="csu" camunda:versionTag="发文流程V1" camunda:historyTimeToLive="123" camunda:taskPriority="123" jb4dc:jb4dcFlowCategory="通用流程" jb4dc:jb4dcFormId="806f4618-0ddd-480c-af32-71be5bf4727d" jb4dc:jb4dcTenantId="JBuild4DC-Tenant" jb4dc:jb4dcProcessCandidateStarterGroups="[]" jb4dc:jb4dcProcessCandidateStarterUsers="[]" jb4dc:jb4dcProcessActionConfirm="false" jb4dc:jb4dcProcessModelGroups="[]" jb4dc:jb4dcProcessModelImageClass="lab la-elementor" jb4dc:jb4dcProcessModelManagerGroups="[]" jb4dc:jb4dcProcessModelManagerUsers="[]" jb4dc:jb4dcProcessRestartEnable="true" jb4dc:jb4dcProcessAnyJumpEnable="true">
+  <bpmn:process id="P004_001" name="发文流程" isExecutable="true" camunda:jobPriority="12123" camunda:candidateStarterGroups="csg" camunda:candidateStarterUsers="csu" camunda:versionTag="发文流程V1" camunda:historyTimeToLive="123" camunda:taskPriority="123" jb4dc:jb4dcFlowCategory="通用流程" jb4dc:jb4dcFormId="ccfdac63-d9d7-4a67-ad9f-747e88a48f5d" jb4dc:jb4dcTenantId="JBuild4DC-Tenant" jb4dc:jb4dcProcessCandidateStarterGroups="[]" jb4dc:jb4dcProcessCandidateStarterUsers="[]" jb4dc:jb4dcProcessActionConfirm="false" jb4dc:jb4dcProcessModelGroups="[]" jb4dc:jb4dcProcessModelImageClass="lab la-elementor" jb4dc:jb4dcProcessModelManagerGroups="[]" jb4dc:jb4dcProcessModelManagerUsers="[]" jb4dc:jb4dcProcessRestartEnable="true" jb4dc:jb4dcProcessAnyJumpEnable="true">
     <bpmn:documentation>de1
     </bpmn:documentation>
     <bpmn:extensionElements>
@@ -26,7 +26,7 @@
       </bpmn:extensionElements>
     </bpmn:sequenceFlow>
     <bpmn:userTask id="Task_1uhc294" name="起草" camunda:formKey="33" camunda:assignee="123" camunda:candidateUsers="123" camunda:candidateGroups="123" camunda:dueDate="123" camunda:followUpDate="123" camunda:priority="123">
-      <bpmn:documentation>123
+      <bpmn:documentation>起草11
       </bpmn:documentation>
       <bpmn:extensionElements>
         <camunda:properties>
@@ -34,7 +34,7 @@
           <camunda:property name="c" value="c" />
         </camunda:properties>
         <camunda:inputOutput>
-          <camunda:inputParameter name="Input_0m7dnfp">123
+          <camunda:inputParameter name="Input_0m7dnfp">444444
           </camunda:inputParameter>
           <camunda:inputParameter name="Input_031o55o">4123
           </camunda:inputParameter>
@@ -56,6 +56,9 @@
           <jb4dc:jb4dcAction actionType="send" actionCode="action_461554486" actionCaption="确认5" actionShowOpinionDialog="false" actionUpdateFields="[]" actionCallApis="[]" actionExecuteVariables="[]" />
           <jb4dc:jb4dcAction actionType="send" actionCode="action_461557091" actionCaption="确认6" actionShowOpinionDialog="false" actionUpdateFields="[]" actionCallApis="[]" actionExecuteVariables="[]" />
         </jb4dc:jb4dcActions>
+        <jb4dc:jb4dcAuthorities authoritiesUsed="" authoritiesOnlySendBackCanEdit="" authoritiesAllFieldAuthority="" authoritiesFileAuthority="" authoritiesDocumentAuthority="" authoritiesJsApi="" authoritiesJavaApi="" authoritiesDesc="">
+          <jb4dc:jb4dcAuthority authorityType="tableField" authorityTableName="send" authorityFieldName="action_461543570" authorityEditEnable="" authorityViewEnable="" authorityEmptyEditEnable="" authorityDesc="" />
+        </jb4dc:jb4dcAuthorities>
         <camunda:taskListener class="b" event="create" />
         <camunda:taskListener class="b" event="create" />
       </bpmn:extensionElements>
@@ -175,7 +178,8 @@
     <bpmn:sequenceFlow id="SequenceFlow_09wp0cp" sourceRef="Task_1vgelep" targetRef="Task_0j813kr" />
     <bpmn:sequenceFlow id="SequenceFlow_0nz1xle" sourceRef="Task_0onj95s" targetRef="Task_0j813kr" />
     <bpmn:userTask id="Task_021j3de" name="相关负责人" camunda:assignee="Task_021j3de_Assignee_User">
-      <bpmn:documentation />
+      <bpmn:documentation>
+      </bpmn:documentation>
       <bpmn:extensionElements>
         <jb4dc:jb4dcActions>
           <jb4dc:jb4dcAction actionType="send" actionCode="action_973662442" actionCaption="确认" actionShowOpinionDialog="false" actionRunSqls="[{&#34;runSqlId&#34;:&#34;runSql_973668739&#34;,&#34;runSqlValue&#34;:&#34;4444444555555555555566666666666666&#34;,&#34;runSqlText&#34;:&#34;4444444555555555555566666666666666&#34;}]" actionUpdateFields="[]" actionCallApis="[]" actionExecuteVariables="[]" actionConfirm="false" actionValidate="无" actionMainReceiveObjects="[]" actionCCReceiveObjects="[]" actionAutoSend="false" actionCallComplete="true" />

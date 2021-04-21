@@ -139,7 +139,7 @@ public class FormResourceServiceImpl extends BaseServiceImpl<FormResourceEntityW
     }
 
     @Override
-    public void tryLoadAboutTable(JB4DCSession jb4DCSession, List<FormResourcePO> formResourcePOList) throws IOException, JBuild4DCGenerallyException {
+    public void tryLoadAboutTable(JB4DCSession jb4DCSession, List<FormResourcePO> formResourcePOList,boolean includeField) throws IOException, JBuild4DCGenerallyException {
         if(formResourcePOList!=null){
             Map<String,TablePO> tablePOCacheMap=new HashMap<>();
             for (FormResourcePO formResourcePO : formResourcePOList) {
@@ -158,8 +158,10 @@ public class FormResourceServiceImpl extends BaseServiceImpl<FormResourceEntityW
                         else{
                             tablePO.setMain(false);
                         }
-                        List<TableFieldPO> tableFieldPOList=tableFieldService.getTableFieldsByTableId(tableId);
-                        tablePO.setTableFieldPOList(tableFieldPOList);
+                        if(includeField) {
+                            List<TableFieldPO> tableFieldPOList = tableFieldService.getTableFieldsByTableId(tableId);
+                            tablePO.setTableFieldPOList(tableFieldPOList);
+                        }
                         tablePOCacheMap.put(tableId,tablePO);
                     }
                     thisFormAboutTables.add(tablePOCacheMap.get(tableId));

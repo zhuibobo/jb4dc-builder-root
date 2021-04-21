@@ -53,35 +53,48 @@ class PODefinition{
                 type:"",
                 topic:""
             },
-            jb4dc:{
-                jb4dcFlowCategory:"",
-                jb4dcCode:"",
-                jb4dcFormId:"",
-                jb4dcFormEx1Id:"",
-                jb4dcOuterFormUrl:"",
-                jb4dcOuterFormEx1Url:"",
-                jb4dcTenantId:"",
-                jb4dcProcessTitleEditText:"",
-                jb4dcProcessTitleEditValue:"",
-                jb4dcProcessDescriptionEditText:"",
-                jb4dcProcessDescriptionEditValue:"",
-                jb4dcSequenceFlowConditionEditText:"",
-                jb4dcProcessCandidateStarterGroups:[],
-                jb4dcProcessCandidateStarterUsers:[],
-                jb4dcCandidateUsersDesc:"",
-                jb4dcCandidateGroupsDesc:"",
-                jb4dcActionsOpinionBindToField:"",
-                jb4dcActionsOpinionBindToElemId:"",
-                jb4dcActions:[],
-                jb4dcMainReceiveObjects:[],
-                jb4dcCCReceiveObjects:[],
-                jb4dcProcessActionConfirm:"false",
-                jb4dcProcessModelGroups:[],
-                jb4dcProcessModelImageClass:"lab la-elementor",
-                jb4dcProcessModelManagerGroups:[],
-                jb4dcProcessModelManagerUsers:[],
-                jb4dcProcessRestartEnable:"true",
-                jb4dcProcessAnyJumpEnable:"true"
+            jb4dc: {
+                jb4dcFlowCategory: "",
+                jb4dcCode: "",
+                jb4dcFormId: "",
+                jb4dcFormEx1Id: "",
+                jb4dcOuterFormUrl: "",
+                jb4dcOuterFormEx1Url: "",
+                jb4dcTenantId: "",
+                jb4dcProcessTitleEditText: "",
+                jb4dcProcessTitleEditValue: "",
+                jb4dcProcessDescriptionEditText: "",
+                jb4dcProcessDescriptionEditValue: "",
+                jb4dcSequenceFlowConditionEditText: "",
+                jb4dcProcessCandidateStarterGroups: [],
+                jb4dcProcessCandidateStarterUsers: [],
+                jb4dcCandidateUsersDesc: "",
+                jb4dcCandidateGroupsDesc: "",
+                jb4dcActions: {
+                    opinionBindToField: "",
+                    opinionBindToElemId: "",
+                    actions: []
+                },
+                jb4dcMainReceiveObjects: [],
+                jb4dcCCReceiveObjects: [],
+                jb4dcProcessActionConfirm: "true",
+                jb4dcProcessModelGroups: [],
+                jb4dcProcessModelImageClass: "lab la-elementor",
+                jb4dcProcessModelManagerGroups: [],
+                jb4dcProcessModelManagerUsers: [],
+                jb4dcProcessRestartEnable: "true",
+                jb4dcProcessAnyJumpEnable: "true",
+                jb4dcAuthorities: {
+                    authoritiesUsed: "true",
+                    authoritiesOnlySendBackCanEdit: "false",
+                    authoritiesAllFieldAuthority: "",
+                    authoritiesFileAuthority: "",
+                    authoritiesDocumentAuthority: "",
+                    authoritiesJsApi: "",
+                    authoritiesJavaApi: "",
+                    authoritiesDesc: "",
+                    authorities: []
+                }
             }
         }
     }
@@ -163,6 +176,17 @@ class PODefinition{
             actionSendMessageId:"",
             actionSendSignalId:"",
             actionCallComplete:"true"
+        }
+    }
+    static GetJB4DCAuthorityPO(){
+        return {
+            authorityType:"",
+            authorityTableName:"",
+            authorityFieldName:"",
+            authorityEditEnable:"",
+            authorityViewEnable:"",
+            authorityEmptyEditEnable:"",
+            authorityDesc:""
         }
     }
     static GetJB4DCReceiveObjectPO(){

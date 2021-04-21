@@ -3,7 +3,7 @@ package com.jb4dc.builder.service.module;
 
 import com.jb4dc.base.service.IBaseService;
 import com.jb4dc.builder.dbentities.module.ModuleEntity;
-import com.jb4dc.builder.po.ModuleContextPO;
+import com.jb4dc.workflow.po.ModuleContextPO;
 import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
 import com.jb4dc.core.base.session.JB4DCSession;
 

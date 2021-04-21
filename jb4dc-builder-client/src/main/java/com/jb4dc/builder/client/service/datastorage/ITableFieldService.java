@@ -3,6 +3,7 @@ package com.jb4dc.builder.client.service.datastorage;
 
 import com.jb4dc.base.service.IBaseService;
 import com.jb4dc.builder.dbentities.datastorage.TableFieldEntity;
+import com.jb4dc.builder.po.FormResourcePO;
 import com.jb4dc.builder.po.TableFieldPO;
 import com.jb4dc.core.base.session.JB4DCSession;
 
@@ -31,4 +32,6 @@ public interface ITableFieldService extends IBaseService<TableFieldEntity> {
     List<TableFieldEntity> getTablesFieldsByTableIds(JB4DCSession session, List<String> tableIds);
 
     TableFieldEntity getSimplePKFieldName(String tableName);
+
+    List<TableFieldPO> getFormUsedTableFieldList(JB4DCSession jb4DCSession, List<FormResourcePO> formResourcePOList) throws IOException;
 }

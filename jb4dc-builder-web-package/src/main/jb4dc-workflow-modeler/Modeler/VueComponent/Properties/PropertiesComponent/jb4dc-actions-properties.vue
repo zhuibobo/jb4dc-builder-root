@@ -3,12 +3,12 @@
         <div id="list-button-wrap" class="wf-list-button-outer-wrap">
             <div style="float: left;height: 32px;line-height: 32px">
                 输入意见绑定到字段：
-                <Select style="width:400px" v-model="jb4dc.jb4dcActionsOpinionBindToField">
+                <Select style="width:400px" v-model="jb4dc.jb4dcActions.opinionBindToField" clearable>
                     <Option v-for="item in actionBindToEnableFields" :value="item.fieldName" :key="item.fieldName">【{{ item.fieldCaption }}】{{ item.fieldName }}</Option>
                 </Select>
             </div>
             <div style="float: left;height: 32px;line-height: 32px;margin-left: 10px">
-                <i-input placeholder="输入意见绑定到控件ID" v-model="jb4dc.jb4dcActionsOpinionBindToElemId" type="text" />
+                <i-input placeholder="输入意见绑定到控件ID" v-model="jb4dc.jb4dcActions.opinionBindToElemId" type="text" />
             </div>
             <div class="list-button-inner-wrap">
                 <button-group>
@@ -594,8 +594,9 @@
 
                 ],
                 jb4dc:{
-                    jb4dcActionsOpinionBindToField:"",
-                    jb4dcActionsOpinionBindToElemId:""
+                    jb4dcActions:{
+
+                    }
                 },
                 bpmn:{
                 },

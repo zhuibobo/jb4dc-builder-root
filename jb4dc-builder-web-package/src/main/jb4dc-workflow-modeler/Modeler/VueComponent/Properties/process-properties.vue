@@ -25,11 +25,11 @@
                             </td>
                         </tr>
                         <tr>
-                            <td>名称：</td>
+                            <td style="color: red">名称：</td>
                             <td>
-                                <input placeholder="Name" type="text" v-model="bpmn.name" />
+                                <input placeholder="" type="text" v-model="bpmn.name" />
                             </td>
-                            <td>版本：</td>
+                            <td>版本标签：</td>
                             <td>
                                 <input placeholder="Version Tag" type="text" v-model="camunda.versionTag" />
                             </td>
@@ -57,7 +57,7 @@
                             <td>分组设置：</td>
                             <td>
                                 <div style="float: left;width: 82%">
-                                    <tag type="border" color="success" v-for="item in jb4dc.jb4dcProcessModelGroups">{{item.groupName}}</tag>
+                                    <tag type="border" color="success" v-for="(item,index) in jb4dc.jb4dcProcessModelGroups" :key="index">{{item.groupName}}</tag>
                                 </div>
                                 <div style="float: right;width: 17%">
                                     <Button type="primary" @click="beginSelectGroup">选择</Button>
@@ -88,7 +88,7 @@
 
                             <td colspan="3">
                                 <div style="float: left;width: 92%">
-                                    <tag type="border" color="success" v-for="item in jb4dc.jb4dcProcessCandidateStarterGroups">{{item.rolePath}}</tag>
+                                    <tag type="border" color="success" v-for="(item,index) in jb4dc.jb4dcProcessCandidateStarterGroups" :key="index">{{item.rolePath}}</tag>
                                 </div>
                                 <div style="float: right;width: 7%">
                                     <Button type="primary" @click="beginSelectRole('Starter')">选择</Button>
@@ -100,7 +100,7 @@
                             <td>启动用户：</td>
                             <td colspan="3">
                                 <div style="float: left;width: 92%">
-                                    <tag type="border" color="success" v-for="item in jb4dc.jb4dcProcessCandidateStarterUsers">{{item.userPath}}</tag>
+                                    <tag type="border" color="success" v-for="(item,index) in jb4dc.jb4dcProcessCandidateStarterUsers" :key="index">{{item.userPath}}</tag>
                                 </div>
                                 <div style="float: right;width: 7%">
                                     <Button type="primary" @click="beginSelectUser('Starter')">选择</Button>
@@ -160,7 +160,7 @@
                         <td>管理角色：</td>
                         <td colspan="3">
                             <div style="float: left;width: 92%">
-                                <tag type="border" color="success" v-for="item in jb4dc.jb4dcProcessModelManagerGroups">{{item}}</tag>
+                                <tag type="border" color="success" v-for="(item,index) in jb4dc.jb4dcProcessModelManagerGroups" :key="index">{{item}}</tag>
                             </div>
                             <div style="float: right;width: 7%">
                                 <Button type="primary" @click="beginSelectRole('Manager')">选择</Button>
@@ -171,7 +171,7 @@
                         <td>管理用户：</td>
                         <td colspan="3">
                             <div style="float: left;width: 92%">
-                                <tag type="border" color="success" v-for="item in jb4dc.jb4dcProcessModelManagerUsers">{{item}}</tag>
+                                <tag type="border" color="success" v-for="(item,index) in jb4dc.jb4dcProcessModelManagerUsers" :key="index">{{item}}</tag>
                             </div>
                             <div style="float: right;width: 7%">
                                 <Button type="primary" @click="beginSelectUser('Manager')">选择</Button>

@@ -35,4 +35,8 @@
                                                                                                           where MODEL_ORDER_NUM = (select max(MODEL_ORDER_NUM) from TFLOW_MODEL_INTEGRATED where MODEL_ORDER_NUM<(select MODEL_ORDER_NUM from TFLOW_MODEL_INTEGRATED where MODEL_ID=#{Id,jdbcType=NVARCHAR}))]]></select>
     <select id="selectGreaterThanRecord" parameterType="java.lang.String" resultMap="BaseResultMap"><![CDATA[select * from TFLOW_MODEL_INTEGRATED
                                                                                                              where MODEL_ORDER_NUM = (select min(MODEL_ORDER_NUM) from TFLOW_MODEL_INTEGRATED where MODEL_ORDER_NUM>(select MODEL_ORDER_NUM from TFLOW_MODEL_INTEGRATED where MODEL_ID=#{Id,jdbcType=NVARCHAR}))]]></select>
+
+    <select id="selectLastPreSaveModelIntegratedEntity" resultMap="BaseResultMap">
+        select<include refid="Base_Column_List"/> from TFLOW_MODEL_INTEGRATED where MODEL_RE_KEY=#{ruKey} ORDER by MODEL_LAST_VERSION DESC
+    </select>
 </mapper>

@@ -13,15 +13,15 @@ import java.io.IOException;
  */
 public class FlowIntegratedPO extends ModelIntegratedEntity {
 
-    private String bpmnXMLModeler;
+    //private String bpmnXMLModeler;
 
-    public String getBpmnXMLModeler() {
-        return bpmnXMLModeler;
-    }
+    //public String getBpmnXMLModeler() {
+    //    return bpmnXMLModeler;
+    //}
 
-    public void setBpmnXMLModeler(String bpmnXMLModeler) {
-        this.bpmnXMLModeler = bpmnXMLModeler;
-    }
+    //public void setBpmnXMLModeler(String bpmnXMLModeler) {
+    //    this.bpmnXMLModeler = bpmnXMLModeler;
+    //}
 
     private boolean tryDeployment;
 

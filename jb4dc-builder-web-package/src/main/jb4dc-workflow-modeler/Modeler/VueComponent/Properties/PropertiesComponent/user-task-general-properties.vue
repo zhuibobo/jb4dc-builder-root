@@ -55,7 +55,7 @@
                     <td>候选用户：</td>
                     <td colspan="3">
                         <div style="float: left;width: 92%">
-                            <tag type="border" color="success" v-for="item in jb4dc.jb4dcCandidateUsersDesc.split(',')">{{item}}</tag>
+                            <tag type="border" color="success" v-for="(item,index) in jb4dc.jb4dcCandidateUsersDesc.split(',')" :key="index">{{item}}</tag>
                         </div>
                         <div style="float: right;width: 7%">
                             <Button type="primary" @click="beginSelectUser">选择</Button>
@@ -67,7 +67,7 @@
                     <td>候选分组：</td>
                     <td colspan="3">
                         <div style="float: left;width: 92%">
-                            <tag type="border" color="success" v-for="item in jb4dc.jb4dcCandidateGroupsDesc.split(',')">{{item}}</tag>
+                            <tag type="border" color="success" v-for="(item,index) in jb4dc.jb4dcCandidateGroupsDesc.split(',')" :key="index">{{item}}</tag>
                         </div>
                         <div style="float: right;width: 7%">
                             <Button type="primary" @click="beginSelectRole">选择</Button>
@@ -102,6 +102,8 @@
 <script>
     import selectRoleDialog from "../Dialog/select-role-dialog.vue";
     import selectUserDialog from "../Dialog/select-user-dialog.vue";
+
+
 
     export default {
         name: "task-general-properties",

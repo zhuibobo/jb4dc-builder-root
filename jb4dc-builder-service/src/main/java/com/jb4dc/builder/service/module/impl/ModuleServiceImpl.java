@@ -8,6 +8,7 @@ import com.jb4dc.base.service.impl.BaseServiceImpl;
 import com.jb4dc.base.service.po.ZTreeNodePO;
 import com.jb4dc.base.tools.JsonUtility;
 import com.jb4dc.builder.client.service.api.IApiItemService;
+import com.jb4dc.builder.client.service.datastorage.ITableFieldService;
 import com.jb4dc.builder.client.service.envvar.IEnvVariableService;
 import com.jb4dc.builder.client.service.webform.IFormResourceService;
 import com.jb4dc.builder.dao.module.ModuleMapper;
@@ -18,7 +19,10 @@ import com.jb4dc.builder.dbentities.webform.FormResourceEntity;
 import com.jb4dc.builder.dbentities.weblist.ListResourceEntity;
 import com.jb4dc.builder.po.FormResourcePO;
 import com.jb4dc.builder.po.ListResourcePO;
-import com.jb4dc.builder.po.ModuleContextPO;
+import com.jb4dc.builder.po.TableFieldPO;
+import com.jb4dc.workflow.dbentities.ModelGroupEntity;
+import com.jb4dc.workflow.integrate.extend.IModelGroupExtendService;
+import com.jb4dc.workflow.po.ModuleContextPO;
 import com.jb4dc.builder.po.ZTreeNodePOConvert;
 import com.jb4dc.builder.service.api.IApiGroupService;
 import com.jb4dc.builder.service.envvar.IEnvGroupService;
@@ -83,6 +87,12 @@ public class ModuleServiceImpl extends BaseServiceImpl<ModuleEntity> implements 
 
     @Autowired
     IApiItemService apiItemService;
+
+    @Autowired
+    IModelGroupExtendService modelGroupExtendService;
+
+    @Autowired
+    ITableFieldService tableFieldService;
 
     ModuleMapper moduleMapper;
     public ModuleServiceImpl(ModuleMapper _defaultBaseMapper){
@@ -179,7 +189,7 @@ public class ModuleServiceImpl extends BaseServiceImpl<ModuleEntity> implements 
         List<FormResourceEntity> formResourceEntityList=formResourceService.getByModuleId(jb4DCSession,moduleId);
 
         List<FormResourcePO> formResourcePOList = JsonUtility.parseEntityListToPOList(formResourceEntityList,FormResourcePO.class);
-        formResourceService.tryLoadAboutTable(jb4DCSession,formResourcePOList);
+        formResourceService.tryLoadAboutTable(jb4DCSession,formResourcePOList,false);
         moduleContextPO.setFormResourcePOList(formResourcePOList);
 
         List<ListResourceEntity> listResourceEntityList=listResourceService.getByModuleId(jb4DCSession,moduleId);
@@ -196,13 +206,17 @@ public class ModuleServiceImpl extends BaseServiceImpl<ModuleEntity> implements 
         List<ApiGroupEntity> apiGroupEntityList=apiGroupService.getByGroupTypeASC("API_GROUP_WORKFLOW_ACTION_ROOT",jb4DCSession);
         List<ApiItemEntity> apiItemEntityList=apiItemService.getByGroupTypeALL("API_GROUP_WORKFLOW_ACTION_ROOT",jb4DCSession);
         List<ZTreeNodePO> apisForZTreeNodeList=ZTreeNodePOConvert.parseApiToZTreeNodeList(apiGroupEntityList,apiItemEntityList);
+        List<ModelGroupEntity> modelGroupEntityList=modelGroupExtendService.getALL(jb4DCSession);
 
+        List<TableFieldPO> allTableFieldPOList=tableFieldService.getFormUsedTableFieldList(jb4DCSession,formResourcePOList);
 
+        moduleContextPO.setTableFieldPOList(allTableFieldPOList);
         moduleContextPO.setRoleGroupEntityList(jBuild4DCResponseVoRoleGroupEntity.getData());
         moduleContextPO.setRoleEntityList(jBuild4DCResponseVoRoleEntity.getData());
         moduleContextPO.setOrganEntityList(jBuild4DCResponseVoOrganEntity.getData());
         moduleContextPO.setUserEntityList(jBuild4DCResponseVoUserEntity.getData());
         moduleContextPO.setApisForZTreeNodeList(apisForZTreeNodeList);
+        moduleContextPO.setModelGroupEntityList(modelGroupEntityList);
         return moduleContextPO;
     }
 

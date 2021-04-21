@@ -32,6 +32,10 @@ class BpmnJsUtility {
         return elementRegistry.get(elemId);
     }
 
+    static GetElementName(element) {
+        return this.GetAttr(element,"name","");
+    }
+
     static GetProcessElement(bpmnModeler){
         var elementRegistry = bpmnModeler.get('elementRegistry');
         var allElements=elementRegistry.getAll();
@@ -993,25 +997,25 @@ class BpmnJsUtility {
         this.SetAttr(element,"jb4dcCandidateGroupsDesc",CandidateGroupsDesc);
     }
 
-    static JB4DC_Attr_GetJb4dcActionsOpinionBindToField(element){
+    /*static JB4DC_Attr_GetJb4dcActionsOpinionBindToField(element){
         return this.GetAttr(element,"jb4dcActionsOpinionBindToField");
     }
     static JB4DC_Attr_SetJb4dcActionsOpinionBindToField(element, jb4dcActionsOpinionBindToField){
         this.SetAttr(element,"jb4dcActionsOpinionBindToField",jb4dcActionsOpinionBindToField);
-    }
+    }*/
 
-    static JB4DC_Attr_GetJb4dcActionsOpinionBindToElemId(element){
+    /*static JB4DC_Attr_GetJb4dcActionsOpinionBindToElemId(element){
         return this.GetAttr(element,"jb4dcActionsOpinionBindToElemId");
     }
     static JB4DC_Attr_SetJb4dcActionsOpinionBindToElemId(element, jb4dcActionsOpinionBindToElemId){
         this.SetAttr(element,"jb4dcActionsOpinionBindToElemId",jb4dcActionsOpinionBindToElemId);
-    }
+    }*/
 
     static JB4DC_Attr_GetJb4dcProcessActionConfirm(element){
-        return this.GetAttr(element,"jb4dcProcessActionConfirm","false");
+        return this.GetAttr(element,"jb4dcProcessActionConfirm","true");
     }
     static JB4DC_Attr_SetJb4dcProcessActionConfirm(element, jb4dcActionConfirm){
-        this.SetAttr(element,"jb4dcProcessActionConfirm",jb4dcActionConfirm,"false");
+        this.SetAttr(element,"jb4dcProcessActionConfirm",jb4dcActionConfirm,"true");
     }
 
     static JB4DC_Attr_GetJb4dcProcessModelGroups(element){
@@ -1069,7 +1073,7 @@ class BpmnJsUtility {
         this.SetAttr(element,"jb4dcProcessAnyJumpEnable",jb4dcProcessAnyJumpEnable,"true");
     }
 
-    static JB4DC_GetActionsArray(element){
+    static JB4DC_GetActions(element){
         var extensionElements=this.BPMN_GetExtensionElements(element);
         if(extensionElements){
             if(extensionElements.values){
@@ -1077,46 +1081,61 @@ class BpmnJsUtility {
                 actions = ArrayUtility.WhereSingle(extensionElements.values, function (item) {
                     return item.$type == "jb4dc:Jb4dcActions";
                 });
-                if(actions&&actions.values){
+
+                if(actions) {
+                    return {
+                        opinionBindToField:this.GetAttr({businessObject: actions}, "opinionBindToField", ""),
+                        opinionBindToElemId:this.GetAttr({businessObject: actions}, "opinionBindToElemId", ""),
+                        actions: actions.values? actions.values : []
+                    }
+                    //return authorities.values
+                }
+                /*if(actions&&actions.values){
                     return actions.values
                 }
-                return null;
+                return null;*/
             }
         }
-        return null;
+        return PODefinition.GetDialogPropertiesPO().jb4dc.jb4dcActions;
     }
-    static JB4DC_SetActionsArray(element,ary,autoCreate){
+    static JB4DC_SetActions(element,jb4dcActions,autoCreate){
+        console.log(jb4dcActions);
         var extensionElements=this.BPMN_GetExtensionElements(element);
         if(autoCreate&&!extensionElements){
             this.BPMN_CreateExtensionElements(element);
             extensionElements=this.BPMN_GetExtensionElements(element);
         }
-        if(extensionElements){
-            if(ary) {
-                //debugger;
-                var bo = element.businessObject;
+        if(extensionElements) {
+            //if(ary) {
+            //debugger;
+            var bo = element.businessObject;
 
-                var actions = null;
-                if (extensionElements.values) {
-                    actions = ArrayUtility.WhereSingle(extensionElements.values, function (item) {
-                        return item.$type == "jb4dc:Jb4dcActions";
-                    });
-                }
-                else{
-                    extensionElements.values=[];
-                }
+            var actions = null;
+            if (extensionElements.values) {
+                actions = ArrayUtility.WhereSingle(extensionElements.values, function (item) {
+                    return item.$type == "jb4dc:Jb4dcActions";
+                });
+            } else {
+                extensionElements.values = [];
+            }
 
-                if(!actions){
-                    actions=bo.$model.create('jb4dc:Jb4dcActions');
-                    extensionElements.values.push(actions);
-                }
-                actions.values=[];
+            if (!actions) {
+                actions = bo.$model.create('jb4dc:Jb4dcActions');
+                extensionElements.values.push(actions);
+            }
 
-                ary.forEach(function (item) {
-                    var jb4dcAction = bo.$model.create('jb4dc:Jb4dcAction', PODefinition.RemoveExcludeProp(PODefinition.GetJB4DCActionPO(),item));
+            this.SetAttr({businessObject: actions}, "opinionBindToField", jb4dcActions.opinionBindToField, "");
+            this.SetAttr({businessObject: actions}, "opinionBindToElemId", jb4dcActions.opinionBindToElemId, "");
+
+            actions.values = [];
+
+            if (jb4dcActions.actions) {
+                jb4dcActions.actions.forEach(function (item) {
+                    var jb4dcAction = bo.$model.create('jb4dc:Jb4dcAction', PODefinition.RemoveExcludeProp(PODefinition.GetJB4DCActionPO(), item));
                     actions.values.push(jb4dcAction);
                 })
             }
+            //}
         }
         else{
             var message="元素"+this.BPMN_Attr_GetId(element)+"不存在bpmn:extensionElements子元素!";
@@ -1124,6 +1143,82 @@ class BpmnJsUtility {
         }
     }
 
+    static JB4DC_GetAuthorities(element){
+        var extensionElements=this.BPMN_GetExtensionElements(element);
+        if(extensionElements){
+            if(extensionElements.values){
+                var authorities;
+                authorities = ArrayUtility.WhereSingle(extensionElements.values, function (item) {
+                    return item.$type == "jb4dc:Jb4dcAuthorities";
+                });
+                if(authorities) {
+                    return {
+                        authorities: authorities.values ? authorities.values : [],
+                        authoritiesUsed: this.GetAttr({businessObject: authorities}, "authoritiesUsed", ""),
+                        authoritiesOnlySendBackCanEdit: this.GetAttr({businessObject: authorities}, "authoritiesOnlySendBackCanEdit", ""),
+                        authoritiesAllFieldAuthority: this.GetAttr({businessObject: authorities}, "authoritiesAllFieldAuthority", ""),
+                        authoritiesFileAuthority: this.GetAttr({businessObject: authorities}, "authoritiesFileAuthority", ""),
+                        authoritiesDocumentAuthority: this.GetAttr({businessObject: authorities}, "authoritiesDocumentAuthority", ""),
+                        authoritiesJsApi: this.GetAttr({businessObject: authorities}, "authoritiesJsApi", ""),
+                        authoritiesJavaApi: this.GetAttr({businessObject: authorities}, "authoritiesJavaApi", ""),
+                        authoritiesDesc: this.GetAttr({businessObject: authorities}, "authoritiesDesc", ""),
+                    }
+                    //return authorities.values
+                }
+
+                /*if(authorities&&authorities.values){
+                    return authorities.values
+                }*/
+                //return null;
+            }
+        }
+        return PODefinition.GetDialogPropertiesPO().jb4dc.jb4dcAuthorities;
+        //return null;
+    }
+    static JB4DC_SetAuthorities(element,jb4dcAuthorities,autoCreate) {
+        var extensionElements = this.BPMN_GetExtensionElements(element);
+        if (autoCreate && !extensionElements) {
+            this.BPMN_CreateExtensionElements(element);
+            extensionElements = this.BPMN_GetExtensionElements(element);
+        }
+        if (extensionElements) {
+
+            //debugger;
+            var bo = element.businessObject;
+
+            var actions = null;
+            if (extensionElements.values) {
+                actions = ArrayUtility.WhereSingle(extensionElements.values, function (item) {
+                    return item.$type == "jb4dc:Jb4dcAuthorities";
+                });
+            } else {
+                extensionElements.values = [];
+            }
+
+            if (!actions) {
+                actions = bo.$model.create('jb4dc:Jb4dcAuthorities');
+                extensionElements.values.push(actions);
+            }
+            this.SetAttr({businessObject: actions}, "authoritiesUsed", jb4dcAuthorities.authoritiesUsed, "");
+            this.SetAttr({businessObject: actions}, "authoritiesOnlySendBackCanEdit", jb4dcAuthorities.authoritiesOnlySendBackCanEdit, "");
+            this.SetAttr({businessObject: actions}, "authoritiesAllFieldAuthority", jb4dcAuthorities.authoritiesAllFieldAuthority, "");
+            this.SetAttr({businessObject: actions}, "authoritiesFileAuthority", jb4dcAuthorities.authoritiesFileAuthority, "");
+            this.SetAttr({businessObject: actions}, "authoritiesDocumentAuthority", jb4dcAuthorities.authoritiesDocumentAuthority, "");
+            this.SetAttr({businessObject: actions}, "authoritiesJsApi", jb4dcAuthorities.authoritiesJsApi, "");
+            this.SetAttr({businessObject: actions}, "authoritiesJavaApi", jb4dcAuthorities.authoritiesJavaApi, "");
+            this.SetAttr({businessObject: actions}, "authoritiesDesc", jb4dcAuthorities.authoritiesDesc, "");
+            actions.values = [];
+            if (jb4dcAuthorities.authorities) {
+                jb4dcAuthorities.authorities.forEach(function (item) {
+                    var jb4dcAction = bo.$model.create('jb4dc:Jb4dcAuthority', PODefinition.RemoveExcludeProp(PODefinition.GetJB4DCAuthorityPO(), item));
+                    actions.values.push(jb4dcAction);
+                })
+            }
+        } else {
+            var message = "元素" + this.BPMN_Attr_GetId(element) + "不存在bpmn:extensionElements子元素!";
+            BaseUtility.ThrowMessage(message);
+        }
+    }
     static JB4DC_GetMainReceiveObjectsArray(element){
         var extensionElements=this.BPMN_GetExtensionElements(element);
         if(extensionElements){

@@ -21,4 +21,6 @@ public interface IModelIntegratedExtendService extends IBaseService<ModelIntegra
     FlowIntegratedPO getPOByIntegratedId(JB4DCSession jb4DSession, String recordId);
 
     FlowIntegratedPO saveFlowModel(JB4DCSession jb4DSession, String recordID, FlowIntegratedPO flowIntegratedPO) throws JBuild4DCGenerallyException, IOException, JAXBException, XMLStreamException;
+
+    boolean modelMustReDeployment(JB4DCSession jb4DCSession, String sourceModelXML, String newModelXML);
 }

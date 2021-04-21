@@ -4,8 +4,8 @@ import qs from'qs';
 class RemoteUtility{
     static _moduleContext=null
     static acInterface={
-        saveDataUrl:"/Rest/Builder/FlowIntegrated/SaveFlowModel",
-        getDataUrl:"/Rest/Builder/FlowIntegrated/GetFlowModel",
+        saveDataUrl:"/Rest/Workflow/FlowModelIntegrated/SaveFlowModel",
+        getDataUrl:"/Rest/Workflow/FlowModelIntegrated/GetFlowModel",
         getModuleContext:"/Rest/Workflow/Modeler/Properties/GetModuleContext"
     }
     static TryLoadModuleContext(moduleId){
@@ -45,6 +45,8 @@ class RemoteUtility{
                 mainTablePO=ArrayUtility.WhereSingle(formPO.tablePOList,function (item) {
                     return item.main;
                 })
+
+                mainTablePO.tableFieldPOList=this.GetTableFieldPOListByTableId(mainTablePO.tableId);
             }
         }
 
@@ -53,8 +55,17 @@ class RemoteUtility{
         });
         return promise;
     }
-    static GetTableFieldPO(tableName,fieldName){
-        if(this._moduleContext.data.formResourcePOList) {
+    static GetTableFieldPOListByTableId(tableId) {
+        if (this._moduleContext.data.tableFieldPOList) {
+            var fieldPOList = ArrayUtility.Where(this._moduleContext.data.tableFieldPOList, function (fieldPOItem) {
+                return fieldPOItem.tableId == tableId;
+            })
+            return fieldPOList;
+        }
+        return "找不到对应的字段!";
+    }
+    static GetTableFieldPO(tableName,fieldName) {
+        /*if(this._moduleContext.data.formResourcePOList) {
             for (var i = 0; i < this._moduleContext.data.formResourcePOList.length; i++) {
                 var tablePOList=this._moduleContext.data.formResourcePOList[i].tablePOList;
                 for (var j = 0; j < tablePOList.length; j++) {
@@ -65,11 +76,17 @@ class RemoteUtility{
                     return fieldPO;
                 }
             }
+        }*/
+        if (this._moduleContext.data.tableFieldPOList) {
+            var fieldPO = ArrayUtility.WhereSingle(this._moduleContext.data.tableFieldPOList, function (fieldPOItem) {
+                return fieldPOItem.tableName == tableName && fieldPOItem.fieldName == fieldName;
+            })
+            return fieldPO;
         }
         return "找不到对应的字段!";
     }
-    static GetTableFieldPOByTableId(tableId,fieldName){
-        if(this._moduleContext.data.formResourcePOList) {
+    static GetTableFieldPOByTableId(tableId,fieldName) {
+        /*if(this._moduleContext.data.formResourcePOList) {
             for (var i = 0; i < this._moduleContext.data.formResourcePOList.length; i++) {
                 var tablePOList=this._moduleContext.data.formResourcePOList[i].tablePOList;
                 for (var j = 0; j < tablePOList.length; j++) {
@@ -80,11 +97,17 @@ class RemoteUtility{
                     return fieldPO;
                 }
             }
+        }*/
+        if (this._moduleContext.data.tableFieldPOList) {
+            var fieldPO = ArrayUtility.WhereSingle(this._moduleContext.data.tableFieldPOList, function (fieldPOItem) {
+                return fieldPOItem.tableId == tableId && fieldPOItem.fieldName == fieldName;
+            })
+            return fieldPO;
         }
         return "找不到对应的字段!";
     }
-    static GetTableFieldNameByFieldCaption(tableName,fieldCaption){
-        if(this._moduleContext.data.formResourcePOList) {
+    static GetTableFieldNameByFieldCaption(tableName,fieldCaption) {
+        /*if(this._moduleContext.data.formResourcePOList) {
             for (var i = 0; i < this._moduleContext.data.formResourcePOList.length; i++) {
                 var tablePOList=this._moduleContext.data.formResourcePOList[i].tablePOList;
                 for (var j = 0; j < tablePOList.length; j++) {
@@ -97,6 +120,12 @@ class RemoteUtility{
                     }
                 }
             }
+        }*/
+        if (this._moduleContext.data.tableFieldPOList) {
+            var fieldPO = ArrayUtility.WhereSingle(this._moduleContext.data.tableFieldPOList, function (fieldPOItem) {
+                return fieldPOItem.tableName == tableName && fieldPOItem.fieldCaption == fieldCaption;
+            })
+            return fieldPO;
         }
         return "找不到对应的字段!";
     }
@@ -180,6 +209,13 @@ class RemoteUtility{
     static GetEnvVariableValueByEnvText(text){
         return this.GetEnvVariablePOByEnvText(text).envVarValue;
     }
+    static GetModelGroupPOList() {
+        const promise = new Promise((resolve, reject) => {
+            var modelGroupEntityList = this._moduleContext.data.modelGroupEntityList;
+            resolve(modelGroupEntityList);
+        });
+        return promise;
+    }
 
     static GetFlowModel(recordId,op,callbackFunc){
         var url=this.BuildUrl(this.acInterface.getDataUrl);
@@ -208,7 +244,7 @@ class RemoteUtility{
     }
 
     static SaveEnable(formResourceEntity){
-        var result={
+        /*var result={
             success:true,
             message:""
         }
@@ -224,7 +260,11 @@ class RemoteUtility{
         {
 
         }
-        return result;
+        return result;*/
+        return {
+            success:true,
+            message:""
+        };
     }
     static Save(formResourceEntity,callbackFunc) {
         var url = this.BuildUrl(this.acInterface.saveDataUrl);

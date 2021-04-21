@@ -2,7 +2,7 @@ import BpmnModeler from 'bpmn-js/lib/Modeler';
 import camundaModdleDescriptor from 'camunda-bpmn-moddle/resources/camunda';
 import jb4dcModdleDescriptor from './JB4DCModdle.json';
 /*import emptyBPMNXML from '../../Resources/emptyFlowModel.bpmn';*/
-import emptyBPMNXML from '../../Resources/newDiagram4.bpmn';
+import emptyBPMNXML from '../../Resources/emptyFlowModelV1.bpmn';
 import CustomTranslate from './CustomTranslate';
 import propertiesPadEntity from './AdditionalModules/PropertiesPadEntity';
 import changeColorPadEntity from './AdditionalModules/ChangeColorPadEntity';
@@ -71,7 +71,7 @@ class FlowBpmnJsIntegrated {
         var bpmnModelXML;
         if (BaseUtility.IsAddOperation(exConfig.Op)) {
             bpmnModelXML = emptyBPMNXML;
-            bpmnModelXML = bpmnModelXML.replace("id=\"Model_Empty_Flow\"", "id=\"Flow_Model_" + StringUtility.Timestamp() + "\"");
+            bpmnModelXML = bpmnModelXML.replace("id=\"Flow_Model_Empty\"", "id=\"Flow_Model_" + StringUtility.Timestamp() + "\"");
             //console.log(bpmnModelXML);
         } else {
             bpmnModelXML = savedBpmnModelXML;
@@ -250,6 +250,7 @@ class FlowBpmnJsIntegrated {
 
     ShowPropertiesWindow(event, element) {
         var elementType = element.type;
+        console.log(element);
         var componentName = "";
         var title = "";
         if (BpmnJsUtility.Is_SequenceFlow(element)) {
@@ -282,6 +283,7 @@ class FlowBpmnJsIntegrated {
         }
         //console.log(event);
         //console.log(element);
+        title=title+"--["+(element.businessObject.name?element.businessObject.name:"未设置名称")+"]";
         var elemToDialogProps = this.SerializationElemToDialogProps(element);
         this.setting.FlowBpmnJsContainer.showProperties(componentName, title, element, elemToDialogProps);
         //alert("1");
@@ -296,13 +298,13 @@ class FlowBpmnJsIntegrated {
         result.bpmn.isExecutable = BpmnJsUtility.BPMN_Attr_Process_GetIsExecutable(elem);
         result.bpmn.documentation = BpmnJsUtility.BPMN_GetElementDocumentationText(elem);
         result.bpmn.conditionExpression = BpmnJsUtility.BPMN_GetConditionExpression(elem);
-        result.bpmn.multiInstanceLoopCharacteristics=BpmnJsUtility.BPMN_GetMultiInstanceLoopCharacteristics(elem);
-        result.bpmn.messages=BpmnJsUtility.BPMN_GetMessages(elem);
-        result.bpmn.signals=BpmnJsUtility.BPMN_GetSignals(elem);
-        result.bpmn.messageEventDefinition=BpmnJsUtility.BPMN_GetMessageEventDefinition(elem);
-        result.bpmn.signalEventDefinition=BpmnJsUtility.BPMN_GetSignalEventDefinition(elem);
-        result.bpmn.timerEventDefinition=BpmnJsUtility.BPMN_GetTimerEventDefinition(elem);
-        result.bpmn.cancelActivity=BpmnJsUtility.BPMN_Attr_GetCancelActivity(elem);
+        result.bpmn.multiInstanceLoopCharacteristics = BpmnJsUtility.BPMN_GetMultiInstanceLoopCharacteristics(elem);
+        result.bpmn.messages = BpmnJsUtility.BPMN_GetMessages(elem);
+        result.bpmn.signals = BpmnJsUtility.BPMN_GetSignals(elem);
+        result.bpmn.messageEventDefinition = BpmnJsUtility.BPMN_GetMessageEventDefinition(elem);
+        result.bpmn.signalEventDefinition = BpmnJsUtility.BPMN_GetSignalEventDefinition(elem);
+        result.bpmn.timerEventDefinition = BpmnJsUtility.BPMN_GetTimerEventDefinition(elem);
+        result.bpmn.cancelActivity = BpmnJsUtility.BPMN_Attr_GetCancelActivity(elem);
         //camunda
         result.camunda.versionTag = BpmnJsUtility.CAMUNDA_Attr_GetVersionTag(elem);
         result.camunda.taskPriority = BpmnJsUtility.CAMUNDA_Attr_GetTaskPriority(elem);
@@ -352,7 +354,7 @@ class FlowBpmnJsIntegrated {
         result.jb4dc.jb4dcProcessTitleEditValue = BpmnJsUtility.JB4DC_Attr_GetJb4dcProcessTitleEditValue(elem);
         result.jb4dc.jb4dcProcessDescriptionEditText = BpmnJsUtility.JB4DC_Attr_GetJb4dcProcessDescriptionEditText(elem);
         result.jb4dc.jb4dcProcessDescriptionEditValue = BpmnJsUtility.JB4DC_Attr_GetJb4dcProcessDescriptionEditValue(elem);
-        result.jb4dc.jb4dcActions = BpmnJsUtility.JB4DC_GetActionsArray(elem);
+        result.jb4dc.jb4dcActions = BpmnJsUtility.JB4DC_GetActions(elem);
         result.jb4dc.jb4dcMainReceiveObjects = BpmnJsUtility.JB4DC_GetMainReceiveObjectsArray(elem);
         result.jb4dc.jb4dcCCReceiveObjects = BpmnJsUtility.JB4DC_GetCCReceiveObjectsArray(elem);
         result.jb4dc.jb4dcSequenceFlowConditionEditText = BpmnJsUtility.JB4DC_Attr_GetJb4dcSequenceFlowConditionEditText(elem);
@@ -362,13 +364,14 @@ class FlowBpmnJsIntegrated {
         result.jb4dc.jb4dcProcessModelManagerGroups = BpmnJsUtility.JB4DC_Attr_GetJb4dcProcessModelManagerGroups(elem);
         result.jb4dc.jb4dcProcessModelManagerUsers = BpmnJsUtility.JB4DC_Attr_GetJb4dcProcessModelManagerUsers(elem);
 
-        result.jb4dc.jb4dcActionsOpinionBindToField = BpmnJsUtility.JB4DC_Attr_GetJb4dcActionsOpinionBindToField(elem);
-        result.jb4dc.jb4dcActionsOpinionBindToElemId = BpmnJsUtility.JB4DC_Attr_GetJb4dcActionsOpinionBindToElemId(elem);
+        //result.jb4dc.jb4dcActionsOpinionBindToField = BpmnJsUtility.JB4DC_Attr_GetJb4dcActionsOpinionBindToField(elem);
+        //result.jb4dc.jb4dcActionsOpinionBindToElemId = BpmnJsUtility.JB4DC_Attr_GetJb4dcActionsOpinionBindToElemId(elem);
         result.jb4dc.jb4dcProcessActionConfirm = BpmnJsUtility.JB4DC_Attr_GetJb4dcProcessActionConfirm(elem);
         result.jb4dc.jb4dcProcessModelGroups = BpmnJsUtility.JB4DC_Attr_GetJb4dcProcessModelGroups(elem);
         result.jb4dc.jb4dcProcessModelImageClass = BpmnJsUtility.JB4DC_Attr_GetJb4dcProcessModelImageClass(elem);
         result.jb4dc.jb4dcProcessRestartEnable = BpmnJsUtility.JB4DC_Attr_GetJb4dcProcessRestartEnable(elem);
         result.jb4dc.jb4dcProcessAnyJumpEnable = BpmnJsUtility.JB4DC_Attr_GetJb4dcProcessAnyJumpEnable(elem);
+        result.jb4dc.jb4dcAuthorities = BpmnJsUtility.JB4DC_GetAuthorities(elem);
 
         if (!result.jb4dc.jb4dcActions) {
             result.jb4dc.jb4dcActions = [];
@@ -442,11 +445,11 @@ class FlowBpmnJsIntegrated {
             //console.log(props.jb4dc1);
         } else if (BpmnJsUtility.Is_UserTask(elem)) {
             //console.log(props.jb4dc.jb4dcActions);
-            BpmnJsUtility.JB4DC_SetActionsArray(elem, props.jb4dc.jb4dcActions, true);
+            BpmnJsUtility.JB4DC_SetActions(elem, props.jb4dc.jb4dcActions, true);
             BpmnJsUtility.JB4DC_SetMainReceiveObjectsArray(elem, props.jb4dc.jb4dcMainReceiveObjects, true);
             BpmnJsUtility.JB4DC_SetCCReceiveObjectsArray(elem, props.jb4dc.jb4dcCCReceiveObjects, true);
-            BpmnJsUtility.JB4DC_Attr_SetJb4dcActionsOpinionBindToField(elem, props.jb4dc.jb4dcActionsOpinionBindToField);
-            BpmnJsUtility.JB4DC_Attr_SetJb4dcActionsOpinionBindToElemId(elem, props.jb4dc.jb4dcActionsOpinionBindToElemId);
+            //BpmnJsUtility.JB4DC_Attr_SetJb4dcActionsOpinionBindToField(elem, props.jb4dc.jb4dcActionsOpinionBindToField);
+            //BpmnJsUtility.JB4DC_Attr_SetJb4dcActionsOpinionBindToElemId(elem, props.jb4dc.jb4dcActionsOpinionBindToElemId);
 
             BpmnJsUtility.CAMUNDA_Attr_SetAssignee(elem, props.camunda.assignee);
             BpmnJsUtility.CAMUNDA_Attr_SetPriority(elem, props.camunda.priority);
@@ -462,6 +465,8 @@ class FlowBpmnJsIntegrated {
 
             //console.log(props.bpmn.multiInstanceLoopCharacteristics);
             BpmnJsUtility.BPMN_SetMultiInstanceLoopCharacteristics(elem, props.bpmn.multiInstanceLoopCharacteristics);
+
+            BpmnJsUtility.JB4DC_SetAuthorities(elem,props.jb4dc.jb4dcAuthorities,true);
 
             if (props.camunda.taskListener && props.camunda.taskListener.length > 0) {
                 BpmnJsUtility.CAMUNDA_SetTaskListenerArray(elem, props.camunda.taskListener, true);
@@ -570,6 +575,11 @@ class FlowBpmnJsIntegrated {
         return BpmnJsUtility.GetProcessElement(this.modeler);
     }
 
+    GetProcessName(){
+        var processElement=this.GetProcessElement();
+        return BpmnJsUtility.GetElementName(processElement);
+    }
+
     GetProcessBindFormId() {
         return BpmnJsUtility.GetProcessFormId(this.GetProcessElement());
     }
@@ -599,15 +609,19 @@ class FlowBpmnJsIntegrated {
                         if (value.length > 0) {
                             value = "<pre style='min-width: 300px'>" + JsonUtility.JsonToStringFormat(value) + "</pre>";
                         }
-                    } else {
+                    }
+                    else if(typeof(value)=="string"){
                         value = "<pre>" + he.encode(value) + "</pre>";
+                    }
+                    else if(typeof(value)=="object"){
+                        value = "<pre style='min-width: 300px'>" + JsonUtility.JsonToStringFormat(value) + "</pre>";
                     }
                     result.push(`<div class="fbse-inner-single-attr">${keyCN}：</div>
                                  <div class="fbse-inner-single-value">${value}</div>`);
                 }
             }
         };
-
+        //debugger;
         build("jb4dc", elemToDialogProps.jb4dc);
         build("bpmn", elemToDialogProps.bpmn);
         build("camunda", elemToDialogProps.camunda);

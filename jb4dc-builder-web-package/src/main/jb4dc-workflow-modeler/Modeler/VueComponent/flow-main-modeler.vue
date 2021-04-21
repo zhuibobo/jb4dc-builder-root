@@ -4,9 +4,8 @@
         <div style="position: absolute;right: 10px;top: 6px;z-index: 100">
             <button-group size="small">
                 <i-button icon="md-cloud-done" type="primary" @click="save()">保存</i-button>
-                <i-button icon="md-cloud-done" type="primary" @click="saveAndClose()">保存并关闭</i-button>
                 <i-button icon="md-cloud-done" type="primary" @click="saveAndDeployment()">保存并部署</i-button>
-                <i-button icon="md-search" type="primary">关闭</i-button>
+                <i-button icon="md-search" @click="close()" type="primary">关闭</i-button>
             </button-group>
         </div>
         <tabs name="flow-design-modeler-tabs"  @on-click="tabChange" v-model="selectedTabName">
@@ -32,6 +31,7 @@
     import jb4dcGeneralProperties from "./Properties/PropertiesComponent/jb4dc-general-properties.vue";
     import flowXmlContainer from "./flow-xml-container.vue";
     import {RemoteUtility} from '../Remote/RemoteUtility';
+    import { FlowBpmnJsIntegrated } from './BpmnJsExtend/FlowBpmnJsIntegrated.js';
     import he from 'he';
 
     export default {
@@ -49,43 +49,67 @@
                 selectedTabName:"Bpmn",
                 /*Js Bean*/
                 flowIntegratedPO:{
-                    //主键:UUID
-                    integratedId:"",
+                    //主键
+                    modelId:"",
+                    //是否已经部署
+                    modelReEd:"",
                     //act_de_model表的ID
-                    integratedDeId:"",
-                    //部署结果消息
-                    integratedDeMessage:"",
+                    modelReId:"",
                     //部署是否成功
-                    integratedDeSuccess:"",
+                    modelReSuccess:"",
+                    //启动键:act_de_model表的KEY_,充当ROOT_ID使用
+                    modelReKey:"",
                     //所属的模块ID
-                    integratedModuleId:"",
+                    modelModuleId:"",
                     //模型编码
-                    integratedCode:"",
+                    modelCode:"",
+                    //模型分类:GeneralProcess[通用流程];ReceiveDocumentProcess[公文收文流程];SendDocumentProcess[公文发文流程];AdministrativeApprovalProcess[行政审批流程];AdministrativeLicensingProcess[行政许可流程];CommunityServiceProcess[社区服务流程]
+                    modelFlowCategory:"",
+                    //模型图标
+                    modelImageClass:"",
+                    //实例标题表达式
+                    modelPesTitleText:"",
+                    //实例标题表达式值
+                    modelPesTitleValue:"",
+                    //实例备注表达式
+                    modelPesDescText:"",
+                    //实例备注表达式值
+                    modelPesDescValue:"",
+                    //已经结束的实例能否重启
+                    modelPesRestartEnb:"",
+                    //能否跳转到任意节点
+                    modelPesAnyJumpEnb:"",
                     //模型名称
-                    integratedName:"",
+                    modelName:"",
                     //创建时间
-                    integratedCreateTime:DateUtility.GetCurrentData(),
+                    modelCreateTime:DateUtility.GetCurrentData(),
                     //创建者
-                    integratedCreator:"",
+                    modelCreator:"",
                     //更新时间
-                    integratedUpdateTime:DateUtility.GetCurrentData(),
+                    modelUpdateTime:DateUtility.GetCurrentData(),
                     //更新人
-                    integratedUpdater:"",
+                    modelUpdater:"",
                     //备注
-                    integratedDesc:"",
+                    modelDesc:"",
                     //状态
-                    integratedStatus:"启用",
+                    modelStatus:"启用",
                     //排序号
-                    integratedOrderNum:"",
+                    modelOrderNum:"",
                     //部署ID
-                    integratedDeploymentId:"",
-                    //启动键
-                    integratedStartKey:"",
+                    modelDeploymentId:"",
                     //资源名称
-                    integratedResourceName:"",
+                    modelResourceName:"",
                     //流程模型来自上传或者页面设计
-                    integratedFromType:"",
-                    bpmnXMLModeler:"",
+                    modelFromType:"",
+                    //保存版本号:每次保存都+1
+                    modelSaveVersion:"",
+                    //是否最后版本
+                    modelLastVersion:"",
+                    //模型定义XML内容
+                    modelContent:"",
+                    //流程模型来自上传或者页面设计
+                    //integratedFromType:"",
+                    //bpmnXMLModeler:"",
                     tryDeployment:false
                 }
             }
@@ -167,22 +191,50 @@
                 }
                 this.oldSelectedTabName=name;
             },
+            saveValidate:function(submitFlowIntegratedPO){
+                var flowBpmnJsIntegratedObj=FlowBpmnJsIntegrated.GetInstance();
+                console.log(flowBpmnJsIntegratedObj.GetModeler());
+                if(!flowBpmnJsIntegratedObj.GetProcessName()) {
+                    DialogUtility.ToastErrorMessage(this,"流程名称不能为空!");
+                    return false;
+                }
+                return true;
+            },
+            buildSubmitFlowIntegratedPO(tryDeployment,func){
+                var flowIntegratedPO=JsonUtility.CloneStringify(this.flowIntegratedPO);
+                flowIntegratedPO.tryDeployment = tryDeployment;
+                //flowIntegratedPO.integratedStartKey = this.$refs["flowBpmnjsContainer"].getStartKey();
+                //flowIntegratedPO.modelName=
+                this.$refs["flowBpmnjsContainer"].getXML((xml) => {
+                    flowIntegratedPO.modelContent = xml;
+                    func(flowIntegratedPO);
+                });
+                //return flowIntegratedPO;
+            },
             save:function () {
-                this.flowIntegratedPO.tryDeployment = false;
-                this.flowIntegratedPO.integratedStartKey=this.$refs["flowBpmnjsContainer"].getStartKey();
-                this.flowIntegratedPO.bpmnXMLModeler=this.$refs["flowBpmnjsContainer"].getXML();
-                RemoteUtility.Save(this.flowIntegratedPO);
+                this.buildSubmitFlowIntegratedPO(false,(submitFlowIntegratedPO)=>{
+                    if (this.saveValidate(submitFlowIntegratedPO)) {
+                        RemoteUtility.Save(submitFlowIntegratedPO,function (){
+
+                        });
+                    }
+                });
+
+            },
+            saveAndDeployment:function () {
+                this.buildSubmitFlowIntegratedPO(true,(submitFlowIntegratedPO)=>{
+                    if (this.saveValidate(submitFlowIntegratedPO)) {
+                        RemoteUtility.Save(submitFlowIntegratedPO,function (){
+
+                        });
+                    }
+                });
             },
             saveAndClose:function () {
 
             },
-            saveAndDeployment:function () {
-                this.flowIntegratedPO.tryDeployment = true;
-                this.flowIntegratedPO.integratedStartKey=this.$refs["flowBpmnjsContainer"].getStartKey();
-                this.flowIntegratedPO.bpmnXMLModeler=this.$refs["flowBpmnjsContainer"].getXML();
-                RemoteUtility.Save(this.flowIntegratedPO,function () {
-
-                });
+            close:function (){
+                window.close();
             }
         }
     }

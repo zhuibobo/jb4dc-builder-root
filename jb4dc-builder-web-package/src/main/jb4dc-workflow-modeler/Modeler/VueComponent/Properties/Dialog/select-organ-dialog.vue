@@ -52,7 +52,7 @@
                             },
                             //成功的回调函数
                             onAsyncSuccess : function(event, treeId, treeNode, msg){
-                                appList.treeObj.expandAll(true);
+                                //appList.treeObj.expandAll(true);
                             }
                         }
                     },

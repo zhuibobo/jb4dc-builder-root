@@ -11,8 +11,10 @@ import com.jb4dc.builder.dao.datastorage.TableMapper;
 import com.jb4dc.builder.dbentities.datastorage.TableEntity;
 import com.jb4dc.builder.dbentities.datastorage.TableFieldEntity;
 import com.jb4dc.builder.client.exenum.TableFieldTypeEnum;
+import com.jb4dc.builder.po.FormResourcePO;
 import com.jb4dc.builder.po.TableFieldPO;
 import com.jb4dc.builder.client.service.datastorage.ITableFieldService;
+import com.jb4dc.builder.po.TablePO;
 import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
 import com.jb4dc.core.base.session.JB4DCSession;
 import com.jb4dc.core.base.tools.UUIDUtility;
@@ -20,6 +22,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -311,5 +314,28 @@ public class TableFieldServiceImpl extends BaseServiceImpl<TableFieldEntity> imp
     @Override
     public TableFieldEntity getSimplePKFieldName(String tableName){
         return tableFieldMapper.selectSinglePKFieldByTableName(tableName);
+    }
+
+    @Override
+    public List<TableFieldPO> getFormUsedTableFieldList(JB4DCSession jb4DCSession, List<FormResourcePO> formResourcePOList) throws IOException {
+        List<TableFieldPO> tableFieldPOList=new ArrayList<>();
+        if(formResourcePOList!=null){
+            List<String> tableIdList=new ArrayList<>();
+            for (FormResourcePO formResourcePO : formResourcePOList) {
+                if(formResourcePO.getTablePOList()!=null){
+                    for (TablePO tablePO : formResourcePO.getTablePOList()) {
+                        if(tableIdList.stream().noneMatch(id->tablePO.getTableId().equals(id))){
+                            tableIdList.add(tablePO.getTableId());
+                        }
+                    }
+                }
+            }
+            for (String tableId : tableIdList) {
+                List<TableFieldPO> oneTableFieldPOList = this.getTableFieldsByTableId(tableId);
+                tableFieldPOList.addAll(oneTableFieldPOList);
+            }
+
+        }
+        return tableFieldPOList;
     }
 }

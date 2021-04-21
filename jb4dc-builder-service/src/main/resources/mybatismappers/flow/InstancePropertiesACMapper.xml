@@ -13,12 +13,18 @@
             <arg column="INST_PROP_TYPE" javaType="java.lang.String" jdbcType="VARCHAR" />
             <arg column="INST_PROP_DESC" javaType="java.lang.String" jdbcType="VARCHAR" />
             <arg column="INST_PROP_ORDER_NUM" javaType="java.lang.Integer" jdbcType="INTEGER" />
+            <arg column="INST_PROP_TASK_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="INST_PROP_USE_TIME" javaType="java.lang.Integer" jdbcType="INTEGER" />
+            <arg column="INST_PROP_CREATE_TIME" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+            <arg column="INST_PROP_CREATOR" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="INST_PROP_CREATOR_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
         </constructor>
     </resultMap>
     <sql id="Base_Column_List">
         INST_PROP_ID, INST_PROP_BELONG_INST_ID, INST_PROP_BELONG_NODE_ID, INST_PROP_NAME,
     INST_PROP_VALUE1, INST_PROP_VALUE2, INST_PROP_VALUE3, INST_PROP_TYPE, INST_PROP_DESC,
-    INST_PROP_ORDER_NUM
+    INST_PROP_ORDER_NUM, INST_PROP_TASK_ID, INST_PROP_USE_TIME, INST_PROP_CREATE_TIME,
+    INST_PROP_CREATOR, INST_PROP_CREATOR_ID
     </sql>
     <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
         select
@@ -34,11 +40,15 @@
         insert into TFLOW_INSTANCE_PROPERTIES (INST_PROP_ID, INST_PROP_BELONG_INST_ID,
                                                INST_PROP_BELONG_NODE_ID, INST_PROP_NAME, INST_PROP_VALUE1,
                                                INST_PROP_VALUE2, INST_PROP_VALUE3, INST_PROP_TYPE,
-                                               INST_PROP_DESC, INST_PROP_ORDER_NUM)
+                                               INST_PROP_DESC, INST_PROP_ORDER_NUM, INST_PROP_TASK_ID,
+                                               INST_PROP_USE_TIME, INST_PROP_CREATE_TIME,
+                                               INST_PROP_CREATOR, INST_PROP_CREATOR_ID)
         values (#{instPropId,jdbcType=VARCHAR}, #{instPropBelongInstId,jdbcType=VARCHAR},
                 #{instPropBelongNodeId,jdbcType=VARCHAR}, #{instPropName,jdbcType=VARCHAR}, #{instPropValue1,jdbcType=VARCHAR},
                 #{instPropValue2,jdbcType=VARCHAR}, #{instPropValue3,jdbcType=VARCHAR}, #{instPropType,jdbcType=VARCHAR},
-                #{instPropDesc,jdbcType=VARCHAR}, #{instPropOrderNum,jdbcType=INTEGER})
+                #{instPropDesc,jdbcType=VARCHAR}, #{instPropOrderNum,jdbcType=INTEGER}, #{instPropTaskId,jdbcType=VARCHAR},
+                #{instPropUseTime,jdbcType=INTEGER}, #{instPropCreateTime,jdbcType=TIMESTAMP},
+                #{instPropCreator,jdbcType=VARCHAR}, #{instPropCreatorId,jdbcType=VARCHAR})
     </insert>
     <insert id="insertSelective" parameterType="com.jb4dc.workflow.dbentities.InstancePropertiesEntity">
         insert into TFLOW_INSTANCE_PROPERTIES
@@ -73,6 +83,21 @@
             <if test="instPropOrderNum != null">
                 INST_PROP_ORDER_NUM,
             </if>
+            <if test="instPropTaskId != null">
+                INST_PROP_TASK_ID,
+            </if>
+            <if test="instPropUseTime != null">
+                INST_PROP_USE_TIME,
+            </if>
+            <if test="instPropCreateTime != null">
+                INST_PROP_CREATE_TIME,
+            </if>
+            <if test="instPropCreator != null">
+                INST_PROP_CREATOR,
+            </if>
+            <if test="instPropCreatorId != null">
+                INST_PROP_CREATOR_ID,
+            </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="instPropId != null">
@@ -104,6 +129,21 @@
             </if>
             <if test="instPropOrderNum != null">
                 #{instPropOrderNum,jdbcType=INTEGER},
+            </if>
+            <if test="instPropTaskId != null">
+                #{instPropTaskId,jdbcType=VARCHAR},
+            </if>
+            <if test="instPropUseTime != null">
+                #{instPropUseTime,jdbcType=INTEGER},
+            </if>
+            <if test="instPropCreateTime != null">
+                #{instPropCreateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="instPropCreator != null">
+                #{instPropCreator,jdbcType=VARCHAR},
+            </if>
+            <if test="instPropCreatorId != null">
+                #{instPropCreatorId,jdbcType=VARCHAR},
             </if>
         </trim>
     </insert>
@@ -137,6 +177,21 @@
             <if test="instPropOrderNum != null">
                 INST_PROP_ORDER_NUM = #{instPropOrderNum,jdbcType=INTEGER},
             </if>
+            <if test="instPropTaskId != null">
+                INST_PROP_TASK_ID = #{instPropTaskId,jdbcType=VARCHAR},
+            </if>
+            <if test="instPropUseTime != null">
+                INST_PROP_USE_TIME = #{instPropUseTime,jdbcType=INTEGER},
+            </if>
+            <if test="instPropCreateTime != null">
+                INST_PROP_CREATE_TIME = #{instPropCreateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="instPropCreator != null">
+                INST_PROP_CREATOR = #{instPropCreator,jdbcType=VARCHAR},
+            </if>
+            <if test="instPropCreatorId != null">
+                INST_PROP_CREATOR_ID = #{instPropCreatorId,jdbcType=VARCHAR},
+            </if>
         </set>
         where INST_PROP_ID = #{instPropId,jdbcType=VARCHAR}
     </update>
@@ -150,7 +205,12 @@
             INST_PROP_VALUE3 = #{instPropValue3,jdbcType=VARCHAR},
             INST_PROP_TYPE = #{instPropType,jdbcType=VARCHAR},
             INST_PROP_DESC = #{instPropDesc,jdbcType=VARCHAR},
-            INST_PROP_ORDER_NUM = #{instPropOrderNum,jdbcType=INTEGER}
+            INST_PROP_ORDER_NUM = #{instPropOrderNum,jdbcType=INTEGER},
+            INST_PROP_TASK_ID = #{instPropTaskId,jdbcType=VARCHAR},
+            INST_PROP_USE_TIME = #{instPropUseTime,jdbcType=INTEGER},
+            INST_PROP_CREATE_TIME = #{instPropCreateTime,jdbcType=TIMESTAMP},
+            INST_PROP_CREATOR = #{instPropCreator,jdbcType=VARCHAR},
+            INST_PROP_CREATOR_ID = #{instPropCreatorId,jdbcType=VARCHAR}
         where INST_PROP_ID = #{instPropId,jdbcType=VARCHAR}
     </update>
 </mapper>
