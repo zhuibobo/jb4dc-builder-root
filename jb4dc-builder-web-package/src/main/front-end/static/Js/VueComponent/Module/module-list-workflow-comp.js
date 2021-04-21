@@ -7,7 +7,7 @@ Vue.component("module-list-workflow-comp", {
         return {
             acInterface:{
                 editView: "/HTML/WorkFlow/Modeler/Index.html",
-                reloadData: "/Rest/Builder/FlowIntegrated/GetListData",
+                reloadData: "/Rest/Workflow/FlowModelIntegrated/GetListData",
                 delete: "/Rest/Builder/FlowIntegrated/Delete",
                 move: "/Rest/Builder/FlowIntegrated/Move",
             },

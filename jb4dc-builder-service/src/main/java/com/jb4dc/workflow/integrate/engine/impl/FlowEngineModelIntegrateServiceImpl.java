@@ -37,8 +37,18 @@ public class FlowEngineModelIntegrateServiceImpl extends FlowEngineCamundaIntegr
                 .tenantId(modelTenantIdEnum.getDisplayName())
                 .addInputStream(DateUtility.getDate_yyyyMMddHHmmssSSS()+".bpmn", is)
                 .deploy();
+    }
 
-        //getProcessEngine().getRepositoryService().crea
+    @Override
+    public void deploymentCamundaModel(JB4DCSession jb4DSession, String name, ModelDesignSourceTypeEnum sourceTypeEnum, ModelTenantIdEnum modelTenantIdEnum, String modelContent) {
+        //通过模型的设计id,与租户确认唯一性
+        RepositoryService repositoryService = getRepositoryService();
+        repositoryService.createDeployment()
+                .name(name)
+                .source(sourceTypeEnum.getDisplayName())
+                .tenantId(modelTenantIdEnum.getDisplayName())
+                .addString(DateUtility.getDate_yyyyMMddHHmmssSSS()+".bpmn", modelContent)
+                .deploy();
     }
 
     @Override

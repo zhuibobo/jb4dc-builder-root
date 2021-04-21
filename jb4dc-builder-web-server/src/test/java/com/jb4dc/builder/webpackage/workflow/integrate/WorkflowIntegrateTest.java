@@ -88,7 +88,7 @@ public class WorkflowIntegrateTest extends RestTestBase {
         Assert.assertEquals("发文流程",bpmnDefinitions.getBpmnProcess().getName());
         Assert.assertEquals("发文流程V1",bpmnDefinitions.getBpmnProcess().getVersionTag());
         Assert.assertEquals("P004_001",bpmnDefinitions.getBpmnProcess().getId());
-
+        Assert.assertEquals("Flow_Model_JB4DC_Code_010767129",bpmnDefinitions.getBpmnProcess().getJb4dcCode());
         System.out.println(XMLUtility.toXMLString(bpmnDefinitions));
     }
 

@@ -70,29 +70,44 @@ public class BpmnProcess {
     @XmlAttribute(name = "versionTag",namespace = BpmnNs.CAMUNDA_URI)
     String versionTag;
 
-    @XmlAttribute(name = "jb4dcCode")
+    @XmlAttribute(name = "jb4dcCode",namespace = BpmnNs.JB4DC_URI)
     String jb4dcCode;
 
-    @XmlAttribute(name = "jb4dcFlowCategory")
+    @XmlAttribute(name = "jb4dcFlowCategory",namespace = BpmnNs.JB4DC_URI)
     String jb4dcFlowCategory;
 
-    @XmlAttribute(name = "jb4dcFormId")
+    @XmlAttribute(name = "jb4dcFormId",namespace = BpmnNs.JB4DC_URI)
     String jb4dcFormId;
 
-    @XmlAttribute(name = "jb4dcTenantId")
+    @XmlAttribute(name = "jb4dcTenantId",namespace = BpmnNs.JB4DC_URI)
     String jb4dcTenantId;
 
-    @XmlAttribute(name = "jb4dcProcessTitleEditText")
+    @XmlAttribute(name = "jb4dcProcessTitleEditText",namespace = BpmnNs.JB4DC_URI)
     String jb4dcProcessTitleEditText;
 
-    @XmlAttribute(name = "jb4dcProcessTitleEditValue")
+    @XmlAttribute(name = "jb4dcProcessTitleEditValue",namespace = BpmnNs.JB4DC_URI)
     String jb4dcProcessTitleEditValue;
 
-    @XmlAttribute(name = "jb4dcProcessDescriptionEditText")
+    @XmlAttribute(name = "jb4dcProcessDescriptionEditText",namespace = BpmnNs.JB4DC_URI)
     String jb4dcProcessDescriptionEditText;
 
-    @XmlAttribute(name = "jb4dcProcessDescriptionEditValue")
+    @XmlAttribute(name = "jb4dcProcessDescriptionEditValue",namespace = BpmnNs.JB4DC_URI)
     String jb4dcProcessDescriptionEditValue;
+
+    @XmlAttribute(name = "jb4dcProcessModelImageClass",namespace = BpmnNs.JB4DC_URI)
+    String jb4dcProcessModelImageClass;
+
+    @XmlAttribute(name = "jb4dcProcessModelManagerGroups",namespace = BpmnNs.JB4DC_URI)
+    String jb4dcProcessModelManagerGroups;
+
+    @XmlAttribute(name = "jb4dcProcessModelManagerUsers",namespace = BpmnNs.JB4DC_URI)
+    String jb4dcProcessModelManagerUsers;
+
+    @XmlAttribute(name = "jb4dcProcessRestartEnable",namespace = BpmnNs.JB4DC_URI)
+    String jb4dcProcessRestartEnable;
+
+    @XmlAttribute(name = "jb4dcProcessAnyJumpEnable",namespace = BpmnNs.JB4DC_URI)
+    String jb4dcProcessAnyJumpEnable;
 
     @XmlElement(name = "documentation",namespace = BpmnNs.BPMN_URI)
     BpmnDocumentation documentation;
@@ -413,5 +428,45 @@ public class BpmnProcess {
 
     public void setAssociationList(List<BpmnAssociation> associationList) {
         this.associationList = associationList;
+    }
+
+    public String getJb4dcProcessModelImageClass() {
+        return jb4dcProcessModelImageClass;
+    }
+
+    public void setJb4dcProcessModelImageClass(String jb4dcProcessModelImageClass) {
+        this.jb4dcProcessModelImageClass = jb4dcProcessModelImageClass;
+    }
+
+    public String getJb4dcProcessModelManagerGroups() {
+        return jb4dcProcessModelManagerGroups;
+    }
+
+    public void setJb4dcProcessModelManagerGroups(String jb4dcProcessModelManagerGroups) {
+        this.jb4dcProcessModelManagerGroups = jb4dcProcessModelManagerGroups;
+    }
+
+    public String getJb4dcProcessModelManagerUsers() {
+        return jb4dcProcessModelManagerUsers;
+    }
+
+    public void setJb4dcProcessModelManagerUsers(String jb4dcProcessModelManagerUsers) {
+        this.jb4dcProcessModelManagerUsers = jb4dcProcessModelManagerUsers;
+    }
+
+    public String getJb4dcProcessRestartEnable() {
+        return jb4dcProcessRestartEnable;
+    }
+
+    public void setJb4dcProcessRestartEnable(String jb4dcProcessRestartEnable) {
+        this.jb4dcProcessRestartEnable = jb4dcProcessRestartEnable;
+    }
+
+    public String getJb4dcProcessAnyJumpEnable() {
+        return jb4dcProcessAnyJumpEnable;
+    }
+
+    public void setJb4dcProcessAnyJumpEnable(String jb4dcProcessAnyJumpEnable) {
+        this.jb4dcProcessAnyJumpEnable = jb4dcProcessAnyJumpEnable;
     }
 }

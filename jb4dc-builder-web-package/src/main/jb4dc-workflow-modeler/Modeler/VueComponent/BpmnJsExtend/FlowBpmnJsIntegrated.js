@@ -72,6 +72,7 @@ class FlowBpmnJsIntegrated {
         if (BaseUtility.IsAddOperation(exConfig.Op)) {
             bpmnModelXML = emptyBPMNXML;
             bpmnModelXML = bpmnModelXML.replace("id=\"Flow_Model_Empty\"", "id=\"Flow_Model_" + StringUtility.Timestamp() + "\"");
+            bpmnModelXML = bpmnModelXML.replace("jb4dcCode=\"Flow_Model_JB4DC_Code_Empty\"", "jb4dcCode=\"Flow_Model_JB4DC_Code_" + StringUtility.Timestamp() + "\"");
             //console.log(bpmnModelXML);
         } else {
             bpmnModelXML = savedBpmnModelXML;

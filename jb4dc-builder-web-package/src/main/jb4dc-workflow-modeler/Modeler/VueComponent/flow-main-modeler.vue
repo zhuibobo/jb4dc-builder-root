@@ -44,73 +44,73 @@
         },
         data:function () {
             return {
-                isLoading:false,
-                oldSelectedTabName:"",
-                selectedTabName:"Bpmn",
+                isLoading: false,
+                oldSelectedTabName: "",
+                selectedTabName: "Bpmn",
                 /*Js Bean*/
-                flowIntegratedPO:{
+                flowIntegratedPO: {
                     //主键
-                    modelId:"",
+                    modelId: "",
                     //是否已经部署
-                    modelReEd:"",
+                    modelReEd: "",
                     //act_de_model表的ID
-                    modelReId:"",
+                    modelReId: "",
                     //部署是否成功
-                    modelReSuccess:"",
+                    modelReSuccess: "",
                     //启动键:act_de_model表的KEY_,充当ROOT_ID使用
-                    modelReKey:"",
+                    modelReKey: "",
                     //所属的模块ID
-                    modelModuleId:"",
+                    modelModuleId: "",
                     //模型编码
-                    modelCode:"",
+                    modelCode: "",
                     //模型分类:GeneralProcess[通用流程];ReceiveDocumentProcess[公文收文流程];SendDocumentProcess[公文发文流程];AdministrativeApprovalProcess[行政审批流程];AdministrativeLicensingProcess[行政许可流程];CommunityServiceProcess[社区服务流程]
-                    modelFlowCategory:"",
+                    modelFlowCategory: "",
                     //模型图标
-                    modelImageClass:"",
+                    modelImageClass: "",
                     //实例标题表达式
-                    modelPesTitleText:"",
+                    modelPesTitleText: "",
                     //实例标题表达式值
-                    modelPesTitleValue:"",
+                    modelPesTitleValue: "",
                     //实例备注表达式
-                    modelPesDescText:"",
+                    modelPesDescText: "",
                     //实例备注表达式值
-                    modelPesDescValue:"",
+                    modelPesDescValue: "",
                     //已经结束的实例能否重启
-                    modelPesRestartEnb:"",
+                    modelPesRestartEnb: "",
                     //能否跳转到任意节点
-                    modelPesAnyJumpEnb:"",
+                    modelPesAnyJumpEnb: "",
                     //模型名称
-                    modelName:"",
+                    modelName: "",
                     //创建时间
-                    modelCreateTime:DateUtility.GetCurrentData(),
+                    modelCreateTime: DateUtility.GetCurrentData(),
                     //创建者
-                    modelCreator:"",
+                    modelCreator: "",
                     //更新时间
-                    modelUpdateTime:DateUtility.GetCurrentData(),
+                    modelUpdateTime: DateUtility.GetCurrentData(),
                     //更新人
-                    modelUpdater:"",
+                    modelUpdater: "",
                     //备注
-                    modelDesc:"",
+                    modelDesc: "",
                     //状态
-                    modelStatus:"启用",
+                    modelStatus: "启用",
                     //排序号
-                    modelOrderNum:"",
+                    modelOrderNum: "",
                     //部署ID
-                    modelDeploymentId:"",
+                    modelDeploymentId: "",
                     //资源名称
-                    modelResourceName:"",
+                    modelResourceName: "",
                     //流程模型来自上传或者页面设计
-                    modelFromType:"",
+                    modelFromType: "",
                     //保存版本号:每次保存都+1
-                    modelSaveVersion:"",
+                    modelSaveVersion: "",
                     //是否最后版本
-                    modelLastVersion:"",
+                    modelLastVersion: "",
                     //模型定义XML内容
-                    modelContent:"",
+                    modelContent: "",
                     //流程模型来自上传或者页面设计
                     //integratedFromType:"",
                     //bpmnXMLModeler:"",
-                    tryDeployment:false
+                    tryDeployment: false
                 }
             }
         },
@@ -142,22 +142,23 @@
             consoleLogBpmnJsXml:function () {
                 this.$refs["flowBpmnjsContainer"].logXML();
             },
-            initPageUI:function(){
-                this.isLoading=true;
-                this.oldSelectedTabName=this.selectedTabName;
-                var moduleId=BaseUtility.GetUrlParaValue("moduleId");
-                var recordId=BaseUtility.GetUrlParaValue("recordId");
-                var op=BaseUtility.GetUrlParaValue("op");
+            initPageUI:function() {
+                this.isLoading = true;
+                this.oldSelectedTabName = this.selectedTabName;
+                var moduleId = BaseUtility.GetUrlParaValue("moduleId");
+                var recordId = BaseUtility.GetUrlParaValue("recordId");
+                var op = BaseUtility.GetUrlParaValue("op");
                 RemoteUtility.TryLoadModuleContext(moduleId);
-                RemoteUtility.GetFlowModel(recordId,op,(flowModelPO)=>{
-                    this.flowIntegratedPO=flowModelPO;
+                RemoteUtility.GetFlowModel(recordId, op, (flowModelPO) => {
+                    this.flowIntegratedPO = flowModelPO;
+                    this.flowIntegratedPO.modelModuleId = BaseUtility.GetUrlParaValue("moduleId");
                     console.log(this.flowIntegratedPO);
                     this.$refs.flowBpmnjsContainer.initCanvas(flowModelPO);
+
                 });
                 window.setTimeout(() => {
-                    this.isLoading=false;
-                },200);
-
+                    this.isLoading = false;
+                }, 200);
             },
             isXMLToOther:function(name){
                 if(this.oldSelectedTabName=="XML"){
@@ -211,10 +212,14 @@
                 });
                 //return flowIntegratedPO;
             },
+            showSaveResultDialog:function(result){
+
+            },
             save:function () {
                 this.buildSubmitFlowIntegratedPO(false,(submitFlowIntegratedPO)=>{
                     if (this.saveValidate(submitFlowIntegratedPO)) {
-                        RemoteUtility.Save(submitFlowIntegratedPO,function (){
+                        console.log(submitFlowIntegratedPO);
+                        RemoteUtility.Save(submitFlowIntegratedPO,()=>{
 
                         });
                     }
@@ -224,6 +229,7 @@
             saveAndDeployment:function () {
                 this.buildSubmitFlowIntegratedPO(true,(submitFlowIntegratedPO)=>{
                     if (this.saveValidate(submitFlowIntegratedPO)) {
+                        console.log(submitFlowIntegratedPO);
                         RemoteUtility.Save(submitFlowIntegratedPO,function (){
 
                         });

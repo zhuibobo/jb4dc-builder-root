@@ -273,8 +273,14 @@ class RemoteUtility{
             axios.post(url, formResourceEntity).then((result) => {
                 //console.log(JsonUtility.JsonToString(result.data));
                 console.log(result.data);
-                if (typeof (callbackFunc) == "function") {
-                    callbackFunc(result.data);
+                if(result.data.success) {
+                    if (typeof (callbackFunc) == "function") {
+                        callbackFunc(result.data);
+                    }
+                }
+                else {
+                    DialogUtility.AlertText(result.data.message);
+                    //DialogUtility.AlertText()
                 }
                 //resolve(result.data);
                 //this._moduleContext = result.data;

@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
  * To change this template use File | Settings | File Templates.
  */
 @Service
-@Lazy
+/*@Lazy*/
 public class CamundaIntegrate {
     public static ProcessEngine processEngine;
 
