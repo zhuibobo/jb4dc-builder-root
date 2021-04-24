@@ -86,14 +86,23 @@
                         <tr>
                             <td>启用正文：</td>
                             <td>
+                                <radio-group type="button" style="margin: auto" v-model="jb4dc.jb4dcUseContentDocument">
+                                    <radio label="true">是</radio>
+                                    <radio label="false">否</radio>
+                                </radio-group>
                             </td>
                             <td>正文插件：</td>
                             <td>
+                                <Select v-model="jb4dc.jb4dcContentDocumentPlugin" style="width:200px">
+                                    <Option value="uploadConvertToPDFPlugin">上传Doc转PDF</Option>
+                                    <Option value="wpsOnlineDocument">wps线上文档</Option>
+                                </Select>
                             </td>
                         </tr>
                         <tr>
                             <td>套红模板：</td>
                             <td>
+                                <input type="text" v-model="jb4dc.jb4dcContentDocumentRedHeadTemplate" />
                             </td>
                             <td></td>
                             <td>

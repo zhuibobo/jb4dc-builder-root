@@ -103,8 +103,17 @@ public class BpmnProcess {
     @XmlAttribute(name = "jb4dcProcessModelManagerUsers",namespace = BpmnNs.JB4DC_URI)
     String jb4dcProcessModelManagerUsers;
 
+    @XmlAttribute(name = "jb4dcProcessCandidateStarterGroups",namespace = BpmnNs.JB4DC_URI)
+    String jb4dcProcessCandidateStarterGroups;
+
+    @XmlAttribute(name = "jb4dcProcessCandidateStarterUsers",namespace = BpmnNs.JB4DC_URI)
+    String jb4dcProcessCandidateStarterUsers;
+
     @XmlAttribute(name = "jb4dcProcessRestartEnable",namespace = BpmnNs.JB4DC_URI)
     String jb4dcProcessRestartEnable;
+
+    @XmlAttribute(name = "jb4dcProcessModelGroups",namespace = BpmnNs.JB4DC_URI)
+    String jb4dcProcessModelGroups;
 
     @XmlAttribute(name = "jb4dcProcessAnyJumpEnable",namespace = BpmnNs.JB4DC_URI)
     String jb4dcProcessAnyJumpEnable;
@@ -468,5 +477,29 @@ public class BpmnProcess {
 
     public void setJb4dcProcessAnyJumpEnable(String jb4dcProcessAnyJumpEnable) {
         this.jb4dcProcessAnyJumpEnable = jb4dcProcessAnyJumpEnable;
+    }
+
+    public String getJb4dcProcessModelGroups() {
+        return jb4dcProcessModelGroups;
+    }
+
+    public void setJb4dcProcessModelGroups(String jb4dcProcessModelGroups) {
+        this.jb4dcProcessModelGroups = jb4dcProcessModelGroups;
+    }
+
+    public String getJb4dcProcessCandidateStarterGroups() {
+        return jb4dcProcessCandidateStarterGroups;
+    }
+
+    public void setJb4dcProcessCandidateStarterGroups(String jb4dcProcessCandidateStarterGroups) {
+        this.jb4dcProcessCandidateStarterGroups = jb4dcProcessCandidateStarterGroups;
+    }
+
+    public String getJb4dcProcessCandidateStarterUsers() {
+        return jb4dcProcessCandidateStarterUsers;
+    }
+
+    public void setJb4dcProcessCandidateStarterUsers(String jb4dcProcessCandidateStarterUsers) {
+        this.jb4dcProcessCandidateStarterUsers = jb4dcProcessCandidateStarterUsers;
     }
 }

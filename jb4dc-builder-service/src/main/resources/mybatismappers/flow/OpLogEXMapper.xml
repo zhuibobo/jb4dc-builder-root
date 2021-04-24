@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jb4dc.workflow.dao.OpLogMapper">
+    <select id="selectAll" resultMap="BaseResultMap">select<include refid="Base_Column_List"/> from TFLOW_OP_LOG ORDER by OP_LOG_CREATE_TIME DESC</select>
+    <select id="selectAllASC" resultMap="BaseResultMap">select<include refid="Base_Column_List"/> from TFLOW_OP_LOG ORDER by OP_LOG_CREATE_TIME ASC</select>
+    <delete id="deleteAll">delete from TFLOW_OP_LOG</delete>
+    <select id="nextOrderNum" resultType="integer">select case when max() is null then 1 else max()+1 end ORDERNUM from TFLOW_OP_LOG</select>
+    <select id="selectBySearch" parameterType="java.util.Map" resultMap="BaseResultMap">select<include refid="Base_Column_List"/>from TFLOW_OP_LOG<where>
+        <if test="opLogUserName !=null and opLogUserName !=''"> and OP_LOG_USER_NAME like #{opLogUserName} </if>
+        <if test="opLogUserId !=null and opLogUserId !=''"> and OP_LOG_USER_ID like #{opLogUserId} </if>
+        <if test="opLogType !=null and opLogType !=''"> and OP_LOG_TYPE like #{opLogType} </if>
+        <if test="opLogRefId !=null and opLogRefId !=''"> and OP_LOG_REF_ID like #{opLogRefId} </if>
+        <if test="opLogRefType !=null and opLogRefType !=''"> and OP_LOG_REF_TYPE like #{opLogRefType} </if>
+        <if test="opLogText !=null and opLogText !=''"> and OP_LOG_TEXT like #{opLogText} </if>
+        <if test="opLogData1 !=null and opLogData1 !=''"> and OP_LOG_DATA1 like #{opLogData1} </if>
+        <if test="opLogData2 !=null and opLogData2 !=''"> and OP_LOG_DATA2 like #{opLogData2} </if>
+        <if test="opLogData3 !=null and opLogData3 !=''"> and OP_LOG_DATA3 like #{opLogData3} </if>
+    </where>ORDER by OP_LOG_CREATE_TIME DESC</select>
+    <select id="selectLessThanRecord" parameterType="java.lang.String" resultMap="BaseResultMap"><![CDATA[select * from TFLOW_OP_LOG
+                                                                                                          where  = (select max() from TFLOW_OP_LOG where <(select  from TFLOW_OP_LOG where OP_LOG_ID=#{Id,jdbcType=NVARCHAR}))]]></select>
+    <select id="selectGreaterThanRecord" parameterType="java.lang.String" resultMap="BaseResultMap"><![CDATA[select * from TFLOW_OP_LOG
+                                                                                                             where  = (select min() from TFLOW_OP_LOG where >(select  from TFLOW_OP_LOG where OP_LOG_ID=#{Id,jdbcType=NVARCHAR}))]]></select>
+</mapper>

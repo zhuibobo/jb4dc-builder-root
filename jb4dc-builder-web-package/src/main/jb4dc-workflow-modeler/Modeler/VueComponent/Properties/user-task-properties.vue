@@ -88,16 +88,11 @@
         methods: {
             getValue() {
                 this.$refs.jb4dcAuthorityProperties.rebuildJB4DData();
-
                 var result = {
                     bpmn: this.bpmn,
                     camunda: this.camunda,
                     jb4dc: this.jb4dc
                 };
-
-                //var completionCondition=this.$refs.multiInstanceCompletionConditionProperties.getValue();
-                //result.bpmn.multiInstanceLoopCharacteristics.completionCondition=completionCondition;
-
                 return result;
             },
             changeTab:function (name){

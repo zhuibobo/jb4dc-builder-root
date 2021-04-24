@@ -31,6 +31,7 @@
             <arg column="MODEL_FROM_TYPE" javaType="java.lang.String" jdbcType="VARCHAR" />
             <arg column="MODEL_SAVE_VERSION" javaType="java.lang.Integer" jdbcType="INTEGER" />
             <arg column="MODEL_LAST_VERSION" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="MODEL_TENANT_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
         </constructor>
     </resultMap>
     <resultMap id="ResultMapWithBLOBs" type="com.jb4dc.workflow.dbentities.ModelIntegratedEntity">
@@ -63,6 +64,7 @@
             <arg column="MODEL_FROM_TYPE" javaType="java.lang.String" jdbcType="VARCHAR" />
             <arg column="MODEL_SAVE_VERSION" javaType="java.lang.Integer" jdbcType="INTEGER" />
             <arg column="MODEL_LAST_VERSION" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="MODEL_TENANT_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
             <arg column="MODEL_CONTENT" javaType="java.lang.String" jdbcType="LONGVARCHAR" />
         </constructor>
     </resultMap>
@@ -72,7 +74,7 @@
     MODEL_PES_DESC_TEXT, MODEL_PES_DESC_VALUE, MODEL_PES_RESTART_ENB, MODEL_PES_ANY_JUMP_ENB,
     MODEL_NAME, MODEL_CREATE_TIME, MODEL_CREATOR, MODEL_UPDATE_TIME, MODEL_UPDATER, MODEL_DESC,
     MODEL_STATUS, MODEL_ORDER_NUM, MODEL_DEPLOYMENT_ID, MODEL_RESOURCE_NAME, MODEL_FROM_TYPE,
-    MODEL_SAVE_VERSION, MODEL_LAST_VERSION
+    MODEL_SAVE_VERSION, MODEL_LAST_VERSION, MODEL_TENANT_ID
     </sql>
     <sql id="Blob_Column_List">
         MODEL_CONTENT
@@ -99,8 +101,8 @@
                                             MODEL_CREATOR, MODEL_UPDATE_TIME, MODEL_UPDATER,
                                             MODEL_DESC, MODEL_STATUS, MODEL_ORDER_NUM,
                                             MODEL_DEPLOYMENT_ID, MODEL_RESOURCE_NAME, MODEL_FROM_TYPE,
-                                            MODEL_SAVE_VERSION, MODEL_LAST_VERSION, MODEL_CONTENT
-                )
+                                            MODEL_SAVE_VERSION, MODEL_LAST_VERSION, MODEL_TENANT_ID,
+                                            MODEL_CONTENT)
         values (#{modelId,jdbcType=VARCHAR}, #{modelReEd,jdbcType=VARCHAR}, #{modelReId,jdbcType=VARCHAR},
                 #{modelReSuccess,jdbcType=VARCHAR}, #{modelReKey,jdbcType=VARCHAR}, #{modelModuleId,jdbcType=VARCHAR},
                 #{modelCode,jdbcType=VARCHAR}, #{modelFlowCategory,jdbcType=VARCHAR}, #{modelImageClass,jdbcType=VARCHAR},
@@ -110,8 +112,8 @@
                 #{modelCreator,jdbcType=VARCHAR}, #{modelUpdateTime,jdbcType=TIMESTAMP}, #{modelUpdater,jdbcType=VARCHAR},
                 #{modelDesc,jdbcType=VARCHAR}, #{modelStatus,jdbcType=VARCHAR}, #{modelOrderNum,jdbcType=INTEGER},
                 #{modelDeploymentId,jdbcType=VARCHAR}, #{modelResourceName,jdbcType=VARCHAR}, #{modelFromType,jdbcType=VARCHAR},
-                #{modelSaveVersion,jdbcType=INTEGER}, #{modelLastVersion,jdbcType=VARCHAR}, #{modelContent,jdbcType=LONGVARCHAR}
-                       )
+                #{modelSaveVersion,jdbcType=INTEGER}, #{modelLastVersion,jdbcType=VARCHAR}, #{modelTenantId,jdbcType=VARCHAR},
+                #{modelContent,jdbcType=LONGVARCHAR})
     </insert>
     <insert id="insertSelective" parameterType="com.jb4dc.workflow.dbentities.ModelIntegratedEntity">
         insert into TFLOW_MODEL_INTEGRATED
@@ -199,6 +201,9 @@
             </if>
             <if test="modelLastVersion != null">
                 MODEL_LAST_VERSION,
+            </if>
+            <if test="modelTenantId != null">
+                MODEL_TENANT_ID,
             </if>
             <if test="modelContent != null">
                 MODEL_CONTENT,
@@ -289,6 +294,9 @@
             <if test="modelLastVersion != null">
                 #{modelLastVersion,jdbcType=VARCHAR},
             </if>
+            <if test="modelTenantId != null">
+                #{modelTenantId,jdbcType=VARCHAR},
+            </if>
             <if test="modelContent != null">
                 #{modelContent,jdbcType=LONGVARCHAR},
             </if>
@@ -378,6 +386,9 @@
             <if test="modelLastVersion != null">
                 MODEL_LAST_VERSION = #{modelLastVersion,jdbcType=VARCHAR},
             </if>
+            <if test="modelTenantId != null">
+                MODEL_TENANT_ID = #{modelTenantId,jdbcType=VARCHAR},
+            </if>
             <if test="modelContent != null">
                 MODEL_CONTENT = #{modelContent,jdbcType=LONGVARCHAR},
             </if>
@@ -413,6 +424,7 @@
             MODEL_FROM_TYPE = #{modelFromType,jdbcType=VARCHAR},
             MODEL_SAVE_VERSION = #{modelSaveVersion,jdbcType=INTEGER},
             MODEL_LAST_VERSION = #{modelLastVersion,jdbcType=VARCHAR},
+            MODEL_TENANT_ID = #{modelTenantId,jdbcType=VARCHAR},
             MODEL_CONTENT = #{modelContent,jdbcType=LONGVARCHAR}
         where MODEL_ID = #{modelId,jdbcType=VARCHAR}
     </update>
@@ -444,7 +456,8 @@
             MODEL_RESOURCE_NAME = #{modelResourceName,jdbcType=VARCHAR},
             MODEL_FROM_TYPE = #{modelFromType,jdbcType=VARCHAR},
             MODEL_SAVE_VERSION = #{modelSaveVersion,jdbcType=INTEGER},
-            MODEL_LAST_VERSION = #{modelLastVersion,jdbcType=VARCHAR}
+            MODEL_LAST_VERSION = #{modelLastVersion,jdbcType=VARCHAR},
+            MODEL_TENANT_ID = #{modelTenantId,jdbcType=VARCHAR}
         where MODEL_ID = #{modelId,jdbcType=VARCHAR}
     </update>
 </mapper>

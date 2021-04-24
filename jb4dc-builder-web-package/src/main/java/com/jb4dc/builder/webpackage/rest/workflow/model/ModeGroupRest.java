@@ -1,7 +1,6 @@
 package com.jb4dc.builder.webpackage.rest.workflow.model;
 
 import com.jb4dc.base.service.IBaseService;
-import com.jb4dc.builder.dbentities.systemsetting.DictionaryGroupEntity;
 import com.jb4dc.feb.dist.webserver.rest.base.GeneralRest;
 import com.jb4dc.workflow.dbentities.ModelGroupEntity;
 import com.jb4dc.workflow.integrate.extend.IModelGroupExtendService;

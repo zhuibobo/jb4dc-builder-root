@@ -1,9 +1,9 @@
 <template>
-    <tabs name="service-task-properties-tabs">
-        <tab-pane tab="service-task-properties-tabs" label="基础设置">
+    <tabs name="intermediate-throw-event-tabs">
+        <tab-pane tab="intermediate-throw-event-tabs" label="基础设置">
             <generalEventProperties ref="generalEventProperties" :prop-bpmn-general-data="bpmn"></generalEventProperties>
         </tab-pane>
-        <tab-pane tab="service-task-properties-tabs" label="委托设置">
+        <tab-pane tab="intermediate-throw-event-tabs" label="委托设置">
             <div v-if="showImplementationProperties">
                 <table class="properties-dialog-table-wraper" cellpadding="0" cellspacing="0" border="0">
                     <colgroup>
@@ -32,10 +32,10 @@
                 </table>
             </div>
         </tab-pane>
-        <tab-pane tab="service-task-properties-tabs" label="执行监听">
+        <tab-pane tab="intermediate-throw-event-tabs" label="执行监听">
             <listenersProperties ref="listenersProperties" :prop-listener-data="camunda.executionListener"></listenersProperties>
         </tab-pane>
-        <tab-pane tab="service-task-properties-tabs" label="扩展属性">
+        <tab-pane tab="intermediate-throw-event-tabs" label="扩展属性">
             <extensionsProperties ref="extensionsProperties" :prop-extensions-properties-data="camunda.extensionProperties"></extensionsProperties>
         </tab-pane>
     </tabs>

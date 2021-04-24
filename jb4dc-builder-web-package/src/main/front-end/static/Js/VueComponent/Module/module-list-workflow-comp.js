@@ -7,13 +7,13 @@ Vue.component("module-list-workflow-comp", {
         return {
             acInterface:{
                 editView: "/HTML/WorkFlow/Modeler/Index.html",
-                reloadData: "/Rest/Workflow/FlowModelIntegrated/GetListData",
-                delete: "/Rest/Builder/FlowIntegrated/Delete",
+                reloadData: "/Rest/Workflow/FlowModelIntegrated/GetModuleFlowListData",
+                delete: "/Rest/Workflow/FlowModelIntegrated/Delete",
                 move: "/Rest/Builder/FlowIntegrated/Move",
             },
-            idFieldName: "integratedId",
+            idFieldName: "modelId",
             searchCondition: {
-                integratedModuleId: {
+                modelModuleId: {
                     value: "",
                     type: SearchUtility.SearchFieldType.StringType
                 }
@@ -26,29 +26,26 @@ Vue.component("module-list-workflow-comp", {
                 },
                 {
                     title: '编号',
-                    key: 'integratedCode',
+                    key: 'modelCode',
                     align: "center",
                     width: 80
                 },
                 {
                     title: '模型名称',
-                    key: 'integratedName',
-                    align: "left"
-                }, {
-                    title: '启动Key',
-                    key: 'integratedStartKey',
-                    align: "center"
+                    key: 'modelName',
+                    align: "left",
+                    width: 280
                 }, {
                     title: '备注',
-                    key: 'integratedDesc',
+                    key: 'modelDesc',
                     align: "center"
                 }, {
                     title: '编辑时间',
-                    key: 'integratedUpdateTime',
+                    key: 'modelCreateTime',
                     width: 100,
                     align: "center",
                     render: function (h, params) {
-                        return ListPageUtility.IViewTableRenderer.ToDateYYYY_MM_DD(h, params.row.integratedUpdateTime);
+                        return ListPageUtility.IViewTableRenderer.ToDateYYYY_MM_DD(h, params.row.modelCreateTime);
                     }
                 }, {
                     title: '操作',
@@ -80,6 +77,26 @@ Vue.component("module-list-workflow-comp", {
         window._modulelistworkflowlistcomp=this;
         //alert(this.activeTabName);
         //alert(this.listHeight);
+        if(PageStyleUtility.GetPageWidth()>1200){
+            /*this.columnsConfig.splice(2,0,{
+                title: '启动Key',
+                key: 'modelReKey',
+                align: "center",
+                width: 180
+            });*/
+            ArrayUtility.Insert(this.columnsConfig,3,{
+                title: '启动Key',
+                key: 'modelReKey',
+                align: "center",
+                width: 180
+            });
+            ArrayUtility.Insert(this.columnsConfig,5, {
+                title: '编辑人',
+                key: 'modelCreator',
+                align: "center",
+                width: 100
+            });
+        }
     },
     watch: {
         moduleData:function (newVal) {
@@ -119,7 +136,7 @@ Vue.component("module-list-workflow-comp", {
         reloadData: function () {
             //debugger;
             if(this.moduleData!=null&&this.activeTabName=="list-flow") {
-                this.searchCondition.integratedModuleId.value = this.moduleData.moduleId;
+                this.searchCondition.modelModuleId.value = this.moduleData.moduleId;
                 /*ListPageUtility.IViewTableLoadDataSearch(this.acInterface.reloadData, this.pageNum, this.pageSize, this.searchCondition, this, this.idFieldName, true, function (result,pageAppObj) {
                     pageAppObj.tableDataOriginal=result.data.list;
                 },false);*/
@@ -141,16 +158,19 @@ Vue.component("module-list-workflow-comp", {
             }
         },
         add: function () {
-            if(this.moduleData!=null) {
+            this.addNewFromTemplate("addNewFromEmptyTemplate");
+        },
+        addNewFromTemplate:function (name) {
+            if (this.moduleData != null) {
                 var url = BaseUtility.BuildView(this.acInterface.editView, {
                     "op": "add",
-                    "moduleId": this.moduleData.moduleId
+                    "moduleId": this.moduleData.moduleId,
+                    "templateName": name
                 });
                 //alert(url);
                 //DialogUtility.OpenNewWindow(window, DialogUtility.DialogId, url, {width: 0, height: 0}, 2);
                 DialogUtility.OpenNewTabWindow(url);
-            }
-            else {
+            } else {
                 DialogUtility.Alert(window, DialogUtility.DialogAlertId, {}, "请选择模块!", null);
             }
         },
@@ -158,7 +178,8 @@ Vue.component("module-list-workflow-comp", {
             //debugger;
             var url = BaseUtility.BuildView(this.acInterface.editView, {
                 "op": "update",
-                "recordId": recordId
+                "recordId": recordId,
+                "moduleId": this.moduleData.moduleId
             });
             //DialogUtility.OpenNewWindow(window, DialogUtility.DialogId, url, {width: 0, height: 0}, 2);
             DialogUtility.OpenNewTabWindow(url);
@@ -171,24 +192,47 @@ Vue.component("module-list-workflow-comp", {
         },
         move: function (type) {
             ListPageUtility.IViewMoveFace(this.acInterface.move, this.selectionRows, this.idFieldName, type, this);
+        },
+        copyText:function (name) {
+            DialogUtility.ToastInfoMessage(this, "未实现");
         }
     },
     template: `<div class="module-list-wrap">
                     <div id="list-button-wrap" class="list-button-outer-wrap">
                         <div class="module-list-name"><Icon type="ios-arrow-dropright-circle" />&nbsp;模块【{{getModuleName()}}】</div>
                         <div class="list-button-inner-wrap">
-                            <ButtonGroup>\
-                                <i-button  type="success" @click="add()" icon="md-add">新增</i-button>
+                            <ButtonGroup>
+                                <i-button  type="success" @click="add()" icon="md-add">新增空白流程</i-button>
                                 <i-button type="error" icon="md-albums" disabled>复制</i-button>
                                 <i-button type="error" icon="md-bookmarks" disabled>历史版本</i-button>
-                                <i-button type="error" icon="md-brush" disabled>复制ID</i-button>
-                                <i-button type="error" icon="md-arrow-up" disabled>上移</i-button>
-                                <i-button type="error" icon="md-arrow-down" disabled>下移</i-button>
+                                <i-button type="error" icon="md-arrow-up" disabled></i-button>
+                                <i-button type="error" icon="md-arrow-down" disabled></i-button>
                             </ButtonGroup>
                         </div>
-                         <div style="float: right;width: 200px;margin-right: 10px;">
-                            <i-input search class="input_border_bottom" v-model="searchText">
-                            </i-input>
+                        <div class="list-button-inner-wrap">
+                            <i-menu mode="horizontal" active-name="1-1" class="list-button-inner-menu" @on-select="addNewFromTemplate">
+                                <submenu name="1-1">
+                                    <template slot="title">从模板新建</template>
+                                    <menu-group title="基于模板新建流程">
+                                        <menu-item name="addNewFromEmptyTemplate">空白模板</menu-item>
+                                        <menu-item name="addNewFromAgentUserTemplate">经办人模式模板</menu-item>
+                                        <menu-item name="addNewFromSequenceTemplate">顺序流转模板</menu-item>
+                                        <menu-item name="addNewFromTestV1Template">测试流程模板V1</menu-item>
+                                    </menu-group>
+                                </submenu>
+                            </i-menu>
+                        </div>
+                        <div class="list-button-inner-wrap">
+                            <i-menu mode="horizontal" active-name="1-1" class="list-button-inner-menu" @on-select="copyText">
+                                <submenu name="1-1">
+                                    <template slot="title">复制内容</template>
+                                    <menu-group title="复制到黏贴版">
+                                        <menu-item name="copyId">复制ID</menu-item>
+                                        <menu-item name="copyPath">复制路径</menu-item>
+                                        <menu-item name="copyInfo">复制信息</menu-item>
+                                    </menu-group>
+                                </submenu>
+                            </i-menu>
                         </div>
                         <div style="clear: both"></div>
                     </div>

@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jb4dc.workflow.dao.OpLogMapper">
+    <resultMap id="BaseResultMap" type="com.jb4dc.workflow.dbentities.OpLogEntity">
+        <constructor>
+            <idArg column="OP_LOG_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="OP_LOG_CREATE_TIME" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+            <arg column="OP_LOG_USER_NAME" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="OP_LOG_USER_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="OP_LOG_TYPE" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="OP_LOG_REF_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="OP_LOG_REF_TYPE" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="OP_LOG_TEXT" javaType="java.lang.String" jdbcType="VARCHAR" />
+        </constructor>
+    </resultMap>
+    <resultMap id="ResultMapWithBLOBs" type="com.jb4dc.workflow.dbentities.OpLogEntityWithBLOBs">
+        <constructor>
+            <idArg column="OP_LOG_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="OP_LOG_CREATE_TIME" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+            <arg column="OP_LOG_USER_NAME" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="OP_LOG_USER_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="OP_LOG_TYPE" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="OP_LOG_REF_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="OP_LOG_REF_TYPE" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="OP_LOG_TEXT" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="OP_LOG_DATA1" javaType="java.lang.String" jdbcType="LONGVARCHAR" />
+            <arg column="OP_LOG_DATA2" javaType="java.lang.String" jdbcType="LONGVARCHAR" />
+            <arg column="OP_LOG_DATA3" javaType="java.lang.String" jdbcType="LONGVARCHAR" />
+        </constructor>
+    </resultMap>
+    <sql id="Base_Column_List">
+        OP_LOG_ID, OP_LOG_CREATE_TIME, OP_LOG_USER_NAME, OP_LOG_USER_ID, OP_LOG_TYPE, OP_LOG_REF_ID,
+    OP_LOG_REF_TYPE, OP_LOG_TEXT
+    </sql>
+    <sql id="Blob_Column_List">
+        OP_LOG_DATA1, OP_LOG_DATA2, OP_LOG_DATA3
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="ResultMapWithBLOBs">
+        select
+        <include refid="Base_Column_List" />
+        ,
+        <include refid="Blob_Column_List" />
+        from TFLOW_OP_LOG
+        where OP_LOG_ID = #{opLogId,jdbcType=VARCHAR}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+        delete from TFLOW_OP_LOG
+        where OP_LOG_ID = #{opLogId,jdbcType=VARCHAR}
+    </delete>
+    <insert id="insert" parameterType="com.jb4dc.workflow.dbentities.OpLogEntityWithBLOBs">
+        insert into TFLOW_OP_LOG (OP_LOG_ID, OP_LOG_CREATE_TIME, OP_LOG_USER_NAME,
+                                  OP_LOG_USER_ID, OP_LOG_TYPE, OP_LOG_REF_ID,
+                                  OP_LOG_REF_TYPE, OP_LOG_TEXT, OP_LOG_DATA1,
+                                  OP_LOG_DATA2, OP_LOG_DATA3)
+        values (#{opLogId,jdbcType=VARCHAR}, #{opLogCreateTime,jdbcType=TIMESTAMP}, #{opLogUserName,jdbcType=VARCHAR},
+                #{opLogUserId,jdbcType=VARCHAR}, #{opLogType,jdbcType=VARCHAR}, #{opLogRefId,jdbcType=VARCHAR},
+                #{opLogRefType,jdbcType=VARCHAR}, #{opLogText,jdbcType=VARCHAR}, #{opLogData1,jdbcType=LONGVARCHAR},
+                #{opLogData2,jdbcType=LONGVARCHAR}, #{opLogData3,jdbcType=LONGVARCHAR})
+    </insert>
+    <insert id="insertSelective" parameterType="com.jb4dc.workflow.dbentities.OpLogEntityWithBLOBs">
+        insert into TFLOW_OP_LOG
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="opLogId != null">
+                OP_LOG_ID,
+            </if>
+            <if test="opLogCreateTime != null">
+                OP_LOG_CREATE_TIME,
+            </if>
+            <if test="opLogUserName != null">
+                OP_LOG_USER_NAME,
+            </if>
+            <if test="opLogUserId != null">
+                OP_LOG_USER_ID,
+            </if>
+            <if test="opLogType != null">
+                OP_LOG_TYPE,
+            </if>
+            <if test="opLogRefId != null">
+                OP_LOG_REF_ID,
+            </if>
+            <if test="opLogRefType != null">
+                OP_LOG_REF_TYPE,
+            </if>
+            <if test="opLogText != null">
+                OP_LOG_TEXT,
+            </if>
+            <if test="opLogData1 != null">
+                OP_LOG_DATA1,
+            </if>
+            <if test="opLogData2 != null">
+                OP_LOG_DATA2,
+            </if>
+            <if test="opLogData3 != null">
+                OP_LOG_DATA3,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="opLogId != null">
+                #{opLogId,jdbcType=VARCHAR},
+            </if>
+            <if test="opLogCreateTime != null">
+                #{opLogCreateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="opLogUserName != null">
+                #{opLogUserName,jdbcType=VARCHAR},
+            </if>
+            <if test="opLogUserId != null">
+                #{opLogUserId,jdbcType=VARCHAR},
+            </if>
+            <if test="opLogType != null">
+                #{opLogType,jdbcType=VARCHAR},
+            </if>
+            <if test="opLogRefId != null">
+                #{opLogRefId,jdbcType=VARCHAR},
+            </if>
+            <if test="opLogRefType != null">
+                #{opLogRefType,jdbcType=VARCHAR},
+            </if>
+            <if test="opLogText != null">
+                #{opLogText,jdbcType=VARCHAR},
+            </if>
+            <if test="opLogData1 != null">
+                #{opLogData1,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="opLogData2 != null">
+                #{opLogData2,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="opLogData3 != null">
+                #{opLogData3,jdbcType=LONGVARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.jb4dc.workflow.dbentities.OpLogEntityWithBLOBs">
+        update TFLOW_OP_LOG
+        <set>
+            <if test="opLogCreateTime != null">
+                OP_LOG_CREATE_TIME = #{opLogCreateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="opLogUserName != null">
+                OP_LOG_USER_NAME = #{opLogUserName,jdbcType=VARCHAR},
+            </if>
+            <if test="opLogUserId != null">
+                OP_LOG_USER_ID = #{opLogUserId,jdbcType=VARCHAR},
+            </if>
+            <if test="opLogType != null">
+                OP_LOG_TYPE = #{opLogType,jdbcType=VARCHAR},
+            </if>
+            <if test="opLogRefId != null">
+                OP_LOG_REF_ID = #{opLogRefId,jdbcType=VARCHAR},
+            </if>
+            <if test="opLogRefType != null">
+                OP_LOG_REF_TYPE = #{opLogRefType,jdbcType=VARCHAR},
+            </if>
+            <if test="opLogText != null">
+                OP_LOG_TEXT = #{opLogText,jdbcType=VARCHAR},
+            </if>
+            <if test="opLogData1 != null">
+                OP_LOG_DATA1 = #{opLogData1,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="opLogData2 != null">
+                OP_LOG_DATA2 = #{opLogData2,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="opLogData3 != null">
+                OP_LOG_DATA3 = #{opLogData3,jdbcType=LONGVARCHAR},
+            </if>
+        </set>
+        where OP_LOG_ID = #{opLogId,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.jb4dc.workflow.dbentities.OpLogEntityWithBLOBs">
+        update TFLOW_OP_LOG
+        set OP_LOG_CREATE_TIME = #{opLogCreateTime,jdbcType=TIMESTAMP},
+            OP_LOG_USER_NAME = #{opLogUserName,jdbcType=VARCHAR},
+            OP_LOG_USER_ID = #{opLogUserId,jdbcType=VARCHAR},
+            OP_LOG_TYPE = #{opLogType,jdbcType=VARCHAR},
+            OP_LOG_REF_ID = #{opLogRefId,jdbcType=VARCHAR},
+            OP_LOG_REF_TYPE = #{opLogRefType,jdbcType=VARCHAR},
+            OP_LOG_TEXT = #{opLogText,jdbcType=VARCHAR},
+            OP_LOG_DATA1 = #{opLogData1,jdbcType=LONGVARCHAR},
+            OP_LOG_DATA2 = #{opLogData2,jdbcType=LONGVARCHAR},
+            OP_LOG_DATA3 = #{opLogData3,jdbcType=LONGVARCHAR}
+        where OP_LOG_ID = #{opLogId,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.jb4dc.workflow.dbentities.OpLogEntity">
+        update TFLOW_OP_LOG
+        set OP_LOG_CREATE_TIME = #{opLogCreateTime,jdbcType=TIMESTAMP},
+            OP_LOG_USER_NAME = #{opLogUserName,jdbcType=VARCHAR},
+            OP_LOG_USER_ID = #{opLogUserId,jdbcType=VARCHAR},
+            OP_LOG_TYPE = #{opLogType,jdbcType=VARCHAR},
+            OP_LOG_REF_ID = #{opLogRefId,jdbcType=VARCHAR},
+            OP_LOG_REF_TYPE = #{opLogRefType,jdbcType=VARCHAR},
+            OP_LOG_TEXT = #{opLogText,jdbcType=VARCHAR}
+        where OP_LOG_ID = #{opLogId,jdbcType=VARCHAR}
+    </update>
+</mapper>

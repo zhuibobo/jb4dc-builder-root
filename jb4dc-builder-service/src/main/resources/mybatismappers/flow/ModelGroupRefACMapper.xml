@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jb4dc.workflow.dao.ModelGroupRefMapper">
+    <resultMap id="BaseResultMap" type="com.jb4dc.workflow.dbentities.ModelGroupRefEntity">
+        <constructor>
+            <idArg column="GREF_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="GREF_MODEL_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="GREF_MODEL_KEY" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="GREF_GROUP_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
+        </constructor>
+    </resultMap>
+    <sql id="Base_Column_List">
+        GREF_ID, GREF_MODEL_ID, GREF_MODEL_KEY, GREF_GROUP_ID
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from TFLOW_MODEL_GROUP_REF
+        where GREF_ID = #{grefId,jdbcType=VARCHAR}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+        delete from TFLOW_MODEL_GROUP_REF
+        where GREF_ID = #{grefId,jdbcType=VARCHAR}
+    </delete>
+    <insert id="insert" parameterType="com.jb4dc.workflow.dbentities.ModelGroupRefEntity">
+        insert into TFLOW_MODEL_GROUP_REF (GREF_ID, GREF_MODEL_ID, GREF_MODEL_KEY,
+                                           GREF_GROUP_ID)
+        values (#{grefId,jdbcType=VARCHAR}, #{grefModelId,jdbcType=VARCHAR}, #{grefModelKey,jdbcType=VARCHAR},
+                #{grefGroupId,jdbcType=VARCHAR})
+    </insert>
+    <insert id="insertSelective" parameterType="com.jb4dc.workflow.dbentities.ModelGroupRefEntity">
+        insert into TFLOW_MODEL_GROUP_REF
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="grefId != null">
+                GREF_ID,
+            </if>
+            <if test="grefModelId != null">
+                GREF_MODEL_ID,
+            </if>
+            <if test="grefModelKey != null">
+                GREF_MODEL_KEY,
+            </if>
+            <if test="grefGroupId != null">
+                GREF_GROUP_ID,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="grefId != null">
+                #{grefId,jdbcType=VARCHAR},
+            </if>
+            <if test="grefModelId != null">
+                #{grefModelId,jdbcType=VARCHAR},
+            </if>
+            <if test="grefModelKey != null">
+                #{grefModelKey,jdbcType=VARCHAR},
+            </if>
+            <if test="grefGroupId != null">
+                #{grefGroupId,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.jb4dc.workflow.dbentities.ModelGroupRefEntity">
+        update TFLOW_MODEL_GROUP_REF
+        <set>
+            <if test="grefModelId != null">
+                GREF_MODEL_ID = #{grefModelId,jdbcType=VARCHAR},
+            </if>
+            <if test="grefModelKey != null">
+                GREF_MODEL_KEY = #{grefModelKey,jdbcType=VARCHAR},
+            </if>
+            <if test="grefGroupId != null">
+                GREF_GROUP_ID = #{grefGroupId,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where GREF_ID = #{grefId,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.jb4dc.workflow.dbentities.ModelGroupRefEntity">
+        update TFLOW_MODEL_GROUP_REF
+        set GREF_MODEL_ID = #{grefModelId,jdbcType=VARCHAR},
+            GREF_MODEL_KEY = #{grefModelKey,jdbcType=VARCHAR},
+            GREF_GROUP_ID = #{grefGroupId,jdbcType=VARCHAR}
+        where GREF_ID = #{grefId,jdbcType=VARCHAR}
+    </update>
+</mapper>

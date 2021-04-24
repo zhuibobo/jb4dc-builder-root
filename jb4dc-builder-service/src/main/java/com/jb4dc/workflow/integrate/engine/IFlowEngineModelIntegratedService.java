@@ -3,6 +3,7 @@ package com.jb4dc.workflow.integrate.engine;
 import com.jb4dc.workflow.exenum.ModelDesignSourceTypeEnum;
 import com.jb4dc.workflow.exenum.ModelTenantIdEnum;
 import com.jb4dc.core.base.session.JB4DCSession;
+import org.camunda.bpm.engine.repository.Deployment;
 import org.camunda.bpm.engine.repository.ProcessDefinition;
 import org.camunda.bpm.model.bpmn.BpmnModelInstance;
 
@@ -18,13 +19,15 @@ import java.util.List;
  */
 public interface IFlowEngineModelIntegratedService {
 
-    void deploymentCamundaModel(JB4DCSession jb4DSession, String name, ModelDesignSourceTypeEnum sourceTypeEnum, ModelTenantIdEnum modelTenantIdEnum, InputStream is) throws FileNotFoundException;
+    Deployment deploymentCamundaModel(JB4DCSession jb4DSession, String name, ModelDesignSourceTypeEnum sourceTypeEnum, ModelTenantIdEnum modelTenantIdEnum, InputStream is) throws FileNotFoundException;
 
-    void deploymentCamundaModel(JB4DCSession jb4DSession, String name, ModelDesignSourceTypeEnum sourceTypeEnum, ModelTenantIdEnum modelTenantIdEnum, String modelContent);
+    Deployment deploymentCamundaModel(JB4DCSession jb4DSession, String name, ModelDesignSourceTypeEnum sourceTypeEnum, ModelTenantIdEnum modelTenantIdEnum, String modelContent);
 
     BpmnModelInstance getDeployedCamundaBpmnModelByKey(JB4DCSession jb4DSession, String processDefinitionKey, ModelTenantIdEnum modelTenantIdEnum);
 
     BpmnModelInstance getDeployedCamundaBpmnModel(JB4DCSession jb4DSession, String processDefinitionId, ModelTenantIdEnum modelTenantIdEnum);
+
+    ProcessDefinition getProcessDefinitionByDeploymentId(JB4DCSession jb4DSession, String deploymentId);
 
     List<ProcessDefinition> getDeployedCamundaModelLatestVersionList(JB4DCSession jb4DSession, ModelTenantIdEnum modelTenantIdEnum);
 

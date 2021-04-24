@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jb4dc.workflow.dao.ModelGroupRefMapper">
+    <select id="selectAll" resultMap="BaseResultMap">select<include refid="Base_Column_List"/> from TFLOW_MODEL_GROUP_REF</select>
+    <select id="selectAllASC" resultMap="BaseResultMap">select<include refid="Base_Column_List"/> from TFLOW_MODEL_GROUP_REF</select>
+    <delete id="deleteAll">delete from TFLOW_MODEL_GROUP_REF</delete>
+    <select id="nextOrderNum" resultType="integer">select case when max() is null then 1 else max()+1 end ORDERNUM from TFLOW_MODEL_GROUP_REF</select>
+    <select id="selectBySearch" parameterType="java.util.Map" resultMap="BaseResultMap">select<include refid="Base_Column_List"/>from TFLOW_MODEL_GROUP_REF<where>
+        <if test="grefModelId !=null and grefModelId !=''"> and GREF_MODEL_ID like #{grefModelId} </if>
+        <if test="grefModelKey !=null and grefModelKey !=''"> and GREF_MODEL_KEY like #{grefModelKey} </if>
+        <if test="grefGroupId !=null and grefGroupId !=''"> and GREF_GROUP_ID like #{grefGroupId} </if>
+    </where></select>
+
+    <delete id="deleteRefByModelKey">
+        delete from TFLOW_MODEL_GROUP_REF where GREF_MODEL_KEY=#{key}
+    </delete>
+</mapper>

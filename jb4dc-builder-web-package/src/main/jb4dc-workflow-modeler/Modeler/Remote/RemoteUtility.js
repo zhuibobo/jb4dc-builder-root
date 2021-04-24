@@ -217,11 +217,12 @@ class RemoteUtility{
         return promise;
     }
 
-    static GetFlowModel(recordId,op,callbackFunc){
+    static GetFlowModel(recordId,op,templateName,callbackFunc){
         var url=this.BuildUrl(this.acInterface.getDataUrl);
         axios.post(url, qs.stringify({
             "recordId":recordId,
-            "op":op
+            "op":op,
+            "templateName":templateName
         })).then( (result) => {
             //console.log(JsonUtility.JsonToString(result.data));
             //console.log(result.data);
@@ -273,14 +274,11 @@ class RemoteUtility{
             axios.post(url, formResourceEntity).then((result) => {
                 //console.log(JsonUtility.JsonToString(result.data));
                 console.log(result.data);
+                DialogUtility.AlertText(result.data.message);
                 if(result.data.success) {
                     if (typeof (callbackFunc) == "function") {
                         callbackFunc(result.data);
                     }
-                }
-                else {
-                    DialogUtility.AlertText(result.data.message);
-                    //DialogUtility.AlertText()
                 }
                 //resolve(result.data);
                 //this._moduleContext = result.data;

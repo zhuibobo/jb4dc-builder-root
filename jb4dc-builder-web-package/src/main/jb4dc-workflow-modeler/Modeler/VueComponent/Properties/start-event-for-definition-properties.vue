@@ -1,12 +1,12 @@
 <template>
-    <tabs name="service-task-properties-tabs">
-        <tab-pane tab="service-task-properties-tabs" label="基础设置">
+    <tabs name="start-event-for-definition-tabs">
+        <tab-pane tab="start-event-for-definition-tabs" label="基础设置">
             <generalEventProperties ref="generalEventProperties" :prop-bpmn-general-data="bpmn"></generalEventProperties>
         </tab-pane>
-        <tab-pane tab="service-task-properties-tabs" label="执行监听">
+        <tab-pane tab="start-event-for-definition-tabs" label="执行监听">
             <listenersProperties ref="listenersProperties" :prop-listener-data="camunda.executionListener"></listenersProperties>
         </tab-pane>
-        <tab-pane tab="service-task-properties-tabs" label="扩展属性">
+        <tab-pane tab="start-event-for-definition-tabs" label="扩展属性">
             <extensionsProperties ref="extensionsProperties" :prop-extensions-properties-data="camunda.extensionProperties"></extensionsProperties>
         </tab-pane>
     </tabs>
@@ -19,7 +19,7 @@ import generalEventProperties from "./PropertiesComponent/general-event-properti
 import { PODefinition } from "../BpmnJsExtend/PODefinition.js"
 
 export default {
-    name: "end-event-properties",
+    name: "start-event-for-definition-properties",
     components: {
         listenersProperties,
         extensionsProperties,

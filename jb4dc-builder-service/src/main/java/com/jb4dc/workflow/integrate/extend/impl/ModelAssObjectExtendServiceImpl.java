@@ -28,4 +28,9 @@ public class ModelAssObjectExtendServiceImpl extends BaseServiceImpl<ModelAssObj
             }
         });
     }
+
+    @Override
+    public void deleteRefByModelKey(JB4DCSession jb4DSession, String key) {
+        modelAssObjectMapper.deleteRefByModelKey(key);
+    }
 }

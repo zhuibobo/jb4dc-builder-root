@@ -19,4 +19,7 @@
                                                                                                           where OBJECT_ORDER_NUM = (select max(OBJECT_ORDER_NUM) from TFLOW_MODEL_ASS_OBJECT where OBJECT_ORDER_NUM<(select OBJECT_ORDER_NUM from TFLOW_MODEL_ASS_OBJECT where OBJECT_ID=#{Id,jdbcType=NVARCHAR}))]]></select>
     <select id="selectGreaterThanRecord" parameterType="java.lang.String" resultMap="BaseResultMap"><![CDATA[select * from TFLOW_MODEL_ASS_OBJECT
                                                                                                              where OBJECT_ORDER_NUM = (select min(OBJECT_ORDER_NUM) from TFLOW_MODEL_ASS_OBJECT where OBJECT_ORDER_NUM>(select OBJECT_ORDER_NUM from TFLOW_MODEL_ASS_OBJECT where OBJECT_ID=#{Id,jdbcType=NVARCHAR}))]]></select>
+    <delete id="deleteRefByModelKey">
+        delete from TFLOW_MODEL_ASS_OBJECT where OBJECT_RE_KEY=#{key}
+    </delete>
 </mapper>

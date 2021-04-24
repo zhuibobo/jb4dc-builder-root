@@ -45,6 +45,7 @@ export default function PropertiesPadEntity(eventBus, contextPad, commandStack,p
             is(element, 'bpmn:BoundaryEvent')||
             is(element, 'bpmn:IntermediateThrowEvent')||
             is(element, 'bpmn:IntermediateCatchEvent')||
+            BpmnJsUtility.Is_StartEvent(element)||
             BpmnJsUtility.Is_StartEvent_For_Message(element)||
             BpmnJsUtility.Is_StartEvent_For_Signal(element)||
             BpmnJsUtility.Is_StartEvent_For_Timer(element)||

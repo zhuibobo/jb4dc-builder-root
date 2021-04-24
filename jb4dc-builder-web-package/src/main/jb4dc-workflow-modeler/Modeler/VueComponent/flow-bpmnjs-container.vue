@@ -49,8 +49,9 @@
     import boundaryEventProperties from "./Properties/boundary-event-properties.vue";
     import intermediateThrowEventProperties from "./Properties/intermediate-throw-event-properties.vue";
     import intermediateCatchEventProperties from "./Properties/intermediate-catch-event-properties.vue";
-    import startEventProperties from "./Properties/start-event-properties.vue";
-    import endEventProperties from "./Properties/start-event-properties.vue";
+    import startEventForDefinitionProperties from "./Properties/start-event-for-definition-properties.vue";
+    import startEventForEmptyProperties from "./Properties/start-event-for-empty-properties.vue";
+    import endEventForDefinitionProperties from "./Properties/end-event-for-definition-properties.vue";
     import sequenceFlowProperties from "./Properties/sequence-flow-properties.vue";
     import processProperties from "./Properties/process-properties.vue";
     import emptyProperties from "./Properties/empty-properties.vue";
@@ -67,8 +68,9 @@
             boundaryEventProperties,
             intermediateThrowEventProperties,
             intermediateCatchEventProperties,
-            startEventProperties,
-            endEventProperties
+            startEventForDefinitionProperties,
+            startEventForEmptyProperties,
+            endEventForDefinitionProperties
         },
         data () {
             return {
@@ -91,13 +93,14 @@
             //window.flowBpmnJsIntegrated=flowBpmnJsIntegrated;
         },
         methods:{
-            initCanvas(flowIntegratedPO){
-                flowBpmnJsIntegrated=FlowBpmnJsIntegrated.CreateInstance({
-                    RendererToElemId:"flow-canvas",
-                    FlowBpmnJsContainer:this,
-                    ChangeSelectedElemCB:this.changeSelectedElem,
-                    Op:BaseUtility.GetUrlOPParaValue()
-                },flowIntegratedPO.bpmnXMLModeler);
+            initCanvas(flowIntegratedPO) {
+                flowBpmnJsIntegrated = FlowBpmnJsIntegrated.CreateInstance({
+                    RendererToElemId: "flow-canvas",
+                    FlowBpmnJsContainer: this,
+                    ChangeSelectedElemCB: this.changeSelectedElem,
+                    Op: BaseUtility.GetUrlOPParaValue(),
+                    TemplateName: BaseUtility.GetUrlParaValue("templateName")
+                }, flowIntegratedPO.modelContent,flowIntegratedPO.modelerTemplateContent);
             },
             logXML () {
                 flowBpmnJsIntegrated.LogXML();

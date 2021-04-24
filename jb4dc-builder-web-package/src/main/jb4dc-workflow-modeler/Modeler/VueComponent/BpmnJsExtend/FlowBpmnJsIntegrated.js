@@ -45,7 +45,7 @@ class FlowBpmnJsIntegrated {
 
     }
 
-    Initialize(exConfig, savedBpmnModelXML) {
+    Initialize(exConfig, savedBpmnModelXML,modelerTemplateContent) {
         //debugger;
         exConfig = $.extend(true, {}, this.defaultSetting, exConfig);
         this.setting = exConfig;
@@ -70,9 +70,11 @@ class FlowBpmnJsIntegrated {
         //console.log(propertiesPadEntity.propertiesPadEntity);
         var bpmnModelXML;
         if (BaseUtility.IsAddOperation(exConfig.Op)) {
-            bpmnModelXML = emptyBPMNXML;
-            bpmnModelXML = bpmnModelXML.replace("id=\"Flow_Model_Empty\"", "id=\"Flow_Model_" + StringUtility.Timestamp() + "\"");
-            bpmnModelXML = bpmnModelXML.replace("jb4dcCode=\"Flow_Model_JB4DC_Code_Empty\"", "jb4dcCode=\"Flow_Model_JB4DC_Code_" + StringUtility.Timestamp() + "\"");
+            //var templateName=exConfig.TemplateName;
+
+            bpmnModelXML = modelerTemplateContent;
+            //bpmnModelXML = bpmnModelXML.replace("id=\"Flow_Model_Empty\"", "id=\"Flow_Model_" + StringUtility.Timestamp() + "\"");
+            //bpmnModelXML = bpmnModelXML.replace("jb4dcCode=\"Flow_Model_JB4DC_Code_Empty\"", "jb4dcCode=\"Flow_Model_JB4DC_Code_" + StringUtility.Timestamp() + "\"");
             //console.log(bpmnModelXML);
         } else {
             bpmnModelXML = savedBpmnModelXML;
@@ -175,9 +177,9 @@ class FlowBpmnJsIntegrated {
         });
     }
 
-    static CreateInstance(exConfig, savedBpmnModelXML) {
+    static CreateInstance(exConfig, savedBpmnModelXML,modelerTemplateContent) {
         var instance = new FlowBpmnJsIntegrated();
-        instance.Initialize(exConfig, savedBpmnModelXML);
+        instance.Initialize(exConfig, savedBpmnModelXML,modelerTemplateContent);
         this.singleFlowBpmnJsIntegrated = instance;
         return instance;
     }
@@ -275,11 +277,14 @@ class FlowBpmnJsIntegrated {
         } else if (BpmnJsUtility.Is_IntermediateCatchEvent(element)) {
             componentName = "intermediateCatchEventProperties";
             title = "中间捕获事件设置";
-        } else if(BpmnJsUtility.Is_StartEvent(element)){
-            componentName = "startEventProperties";
-            title = "开始事件设置";
-        } else if(BpmnJsUtility.Is_EndEvent(element)){
-            componentName = "endEventProperties";
+        } else if(BpmnJsUtility.Is_StartEvent_For_Message(element)||BpmnJsUtility.Is_StartEvent_For_Signal(element)||BpmnJsUtility.Is_StartEvent_For_Timer(element)) {
+            componentName = "startEventForDefinitionProperties";
+            title = "事件开始事件设置";
+        } else if(BpmnJsUtility.Is_StartEvent(element)) {
+            componentName = "startEventForEmptyProperties";
+            title = "空白开始事件设置";
+        } else if(BpmnJsUtility.Is_EndEvent_For_Signal(element)){
+            componentName = "endEventForDefinitionProperties";
             title = "结束事件设置";
         }
         //console.log(event);
@@ -360,6 +365,10 @@ class FlowBpmnJsIntegrated {
         result.jb4dc.jb4dcCCReceiveObjects = BpmnJsUtility.JB4DC_GetCCReceiveObjectsArray(elem);
         result.jb4dc.jb4dcSequenceFlowConditionEditText = BpmnJsUtility.JB4DC_Attr_GetJb4dcSequenceFlowConditionEditText(elem);
 
+        result.jb4dc.jb4dcUseContentDocument = BpmnJsUtility.JB4DC_Attr_GetJb4dcUseContentDocument(elem);
+        result.jb4dc.jb4dcContentDocumentPlugin = BpmnJsUtility.JB4DC_Attr_GetJb4dcContentDocumentPlugin(elem);
+        result.jb4dc.jb4dcContentDocumentRedHeadTemplate = BpmnJsUtility.JB4DC_Attr_GetJb4dcContentDocumentRedHeadTemplate(elem);
+
         result.jb4dc.jb4dcProcessCandidateStarterGroups = BpmnJsUtility.JB4DC_Attr_GetJb4dcProcessCandidateStarterGroups(elem);
         result.jb4dc.jb4dcProcessCandidateStarterUsers = BpmnJsUtility.JB4DC_Attr_GetJb4dcProcessCandidateStarterUsers(elem);
         result.jb4dc.jb4dcProcessModelManagerGroups = BpmnJsUtility.JB4DC_Attr_GetJb4dcProcessModelManagerGroups(elem);
@@ -405,6 +414,10 @@ class FlowBpmnJsIntegrated {
         BpmnJsUtility.JB4DC_Attr_SetJb4dcProcessDescriptionEditText(elem, props.jb4dc.jb4dcProcessDescriptionEditText);
         BpmnJsUtility.JB4DC_Attr_SetJb4dcProcessDescriptionEditValue(elem, props.jb4dc.jb4dcProcessDescriptionEditValue);
 
+        BpmnJsUtility.JB4DC_Attr_SetJb4dcUseContentDocument(elem, props.jb4dc.jb4dcUseContentDocument);
+        BpmnJsUtility.JB4DC_Attr_SetJb4dcContentDocumentPlugin(elem, props.jb4dc.jb4dcContentDocumentPlugin);
+        BpmnJsUtility.JB4DC_Attr_SetJb4dcContentDocumentRedHeadTemplate(elem, props.jb4dc.jb4dcContentDocumentRedHeadTemplate);
+
         if (props.camunda.executionListener && props.camunda.executionListener.length > 0) {
             BpmnJsUtility.CAMUNDA_SetExecutionListenerArray(elem, props.camunda.executionListener, true);
         } else {
@@ -419,8 +432,8 @@ class FlowBpmnJsIntegrated {
         //console.log(elem);
         if (BpmnJsUtility.Is_Process(elem)) {
             BpmnJsUtility.BPMN_Attr_Process_SetIsExecutable(elem, props.bpmn.isExecutable);
-            BpmnJsUtility.BPMN_SetMessages(elem,props.bpmn.messages);
-            BpmnJsUtility.BPMN_SetSignals(elem,props.bpmn.signals);
+            BpmnJsUtility.BPMN_SetMessages(elem, props.bpmn.messages);
+            BpmnJsUtility.BPMN_SetSignals(elem, props.bpmn.signals);
 
             BpmnJsUtility.CAMUNDA_Attr_SetVersionTag(elem, props.camunda.versionTag);
             BpmnJsUtility.CAMUNDA_Attr_SetTaskPriority(elem, props.camunda.taskPriority);
@@ -467,7 +480,7 @@ class FlowBpmnJsIntegrated {
             //console.log(props.bpmn.multiInstanceLoopCharacteristics);
             BpmnJsUtility.BPMN_SetMultiInstanceLoopCharacteristics(elem, props.bpmn.multiInstanceLoopCharacteristics);
 
-            BpmnJsUtility.JB4DC_SetAuthorities(elem,props.jb4dc.jb4dcAuthorities,true);
+            BpmnJsUtility.JB4DC_SetAuthorities(elem, props.jb4dc.jb4dcAuthorities, true);
 
             if (props.camunda.taskListener && props.camunda.taskListener.length > 0) {
                 BpmnJsUtility.CAMUNDA_SetTaskListenerArray(elem, props.camunda.taskListener, true);
@@ -478,32 +491,35 @@ class FlowBpmnJsIntegrated {
             BpmnJsUtility.JB4DC_Attr_SetJb4dcSequenceFlowConditionEditText(elem, props.jb4dc.jb4dcSequenceFlowConditionEditText, true);
             BpmnJsUtility.BPMN_SetConditionExpression(elem, props.bpmn.conditionExpression, true);
         } else if (BpmnJsUtility.Is_ServiceTask(elem)) {
-            BpmnJsUtility.CAMUNDA_Attr_SetClass(elem,props.camunda.class);
-            BpmnJsUtility.CAMUNDA_Attr_SetType(elem,props.camunda.type);
-            BpmnJsUtility.CAMUNDA_Attr_SetTopic(elem,props.camunda.topic);
+            BpmnJsUtility.CAMUNDA_Attr_SetClass(elem, props.camunda.class);
+            BpmnJsUtility.CAMUNDA_Attr_SetType(elem, props.camunda.type);
+            BpmnJsUtility.CAMUNDA_Attr_SetTopic(elem, props.camunda.topic);
         } else if (BpmnJsUtility.Is_BoundaryEvent(elem)) {
             //console.log(props.bpmn);
             //切换到xml时cancelActivity属性未设置正确.
             //BpmnJsUtility.BPMN_Attr_SetCancelActivity(elem,props.bpmn.cancelActivity);
-            BpmnJsUtility.BPMN_SetMessageEventDefinition(elem,props.bpmn.messageEventDefinition);
-            BpmnJsUtility.BPMN_SetSignalEventDefinition(elem,props.bpmn.signalEventDefinition);
-            BpmnJsUtility.BPMN_SetTimerEventDefinition(elem,props.bpmn.timerEventDefinition);
-        } else if(BpmnJsUtility.Is_IntermediateThrowEvent(elem)) {
-            BpmnJsUtility.BPMN_SetMessageEventDefinition(elem,props.bpmn.messageEventDefinition);
-            BpmnJsUtility.BPMN_SetSignalEventDefinition(elem,props.bpmn.signalEventDefinition);
-            BpmnJsUtility.BPMN_SetTimerEventDefinition(elem,props.bpmn.timerEventDefinition);
-        } else if(BpmnJsUtility.Is_IntermediateCatchEvent(elem)) {
-            BpmnJsUtility.BPMN_SetMessageEventDefinition(elem,props.bpmn.messageEventDefinition);
-            BpmnJsUtility.BPMN_SetSignalEventDefinition(elem,props.bpmn.signalEventDefinition);
-            BpmnJsUtility.BPMN_SetTimerEventDefinition(elem,props.bpmn.timerEventDefinition);
+            BpmnJsUtility.BPMN_SetMessageEventDefinition(elem, props.bpmn.messageEventDefinition);
+            BpmnJsUtility.BPMN_SetSignalEventDefinition(elem, props.bpmn.signalEventDefinition);
+            BpmnJsUtility.BPMN_SetTimerEventDefinition(elem, props.bpmn.timerEventDefinition);
+        } else if (BpmnJsUtility.Is_IntermediateThrowEvent(elem)) {
+            BpmnJsUtility.BPMN_SetMessageEventDefinition(elem, props.bpmn.messageEventDefinition);
+            BpmnJsUtility.BPMN_SetSignalEventDefinition(elem, props.bpmn.signalEventDefinition);
+            BpmnJsUtility.BPMN_SetTimerEventDefinition(elem, props.bpmn.timerEventDefinition);
+        } else if (BpmnJsUtility.Is_IntermediateCatchEvent(elem)) {
+            BpmnJsUtility.BPMN_SetMessageEventDefinition(elem, props.bpmn.messageEventDefinition);
+            BpmnJsUtility.BPMN_SetSignalEventDefinition(elem, props.bpmn.signalEventDefinition);
+            BpmnJsUtility.BPMN_SetTimerEventDefinition(elem, props.bpmn.timerEventDefinition);
+        } else if (BpmnJsUtility.Is_StartEvent_For_Message(elem) || BpmnJsUtility.Is_StartEvent_For_Signal(elem) || BpmnJsUtility.Is_StartEvent_For_Timer(elem)) {
+            BpmnJsUtility.BPMN_SetMessageEventDefinition(elem, props.bpmn.messageEventDefinition);
+            BpmnJsUtility.BPMN_SetSignalEventDefinition(elem, props.bpmn.signalEventDefinition);
+            BpmnJsUtility.BPMN_SetTimerEventDefinition(elem, props.bpmn.timerEventDefinition);
         } else if(BpmnJsUtility.Is_StartEvent(elem)) {
-            BpmnJsUtility.BPMN_SetMessageEventDefinition(elem,props.bpmn.messageEventDefinition);
-            BpmnJsUtility.BPMN_SetSignalEventDefinition(elem,props.bpmn.signalEventDefinition);
-            BpmnJsUtility.BPMN_SetTimerEventDefinition(elem,props.bpmn.timerEventDefinition);
-        } else if(BpmnJsUtility.Is_EndEvent(elem)) {
-            BpmnJsUtility.BPMN_SetMessageEventDefinition(elem,props.bpmn.messageEventDefinition);
-            BpmnJsUtility.BPMN_SetSignalEventDefinition(elem,props.bpmn.signalEventDefinition);
-            BpmnJsUtility.BPMN_SetTimerEventDefinition(elem,props.bpmn.timerEventDefinition);
+            BpmnJsUtility.JB4DC_SetActions(elem, props.jb4dc.jb4dcActions, true);
+        }
+        else if (BpmnJsUtility.Is_EndEvent(elem)) {
+            BpmnJsUtility.BPMN_SetMessageEventDefinition(elem, props.bpmn.messageEventDefinition);
+            BpmnJsUtility.BPMN_SetSignalEventDefinition(elem, props.bpmn.signalEventDefinition);
+            BpmnJsUtility.BPMN_SetTimerEventDefinition(elem, props.bpmn.timerEventDefinition);
         }
 
         var modeling = this.modeler.get('modeling');

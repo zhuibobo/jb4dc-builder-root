@@ -149,12 +149,11 @@
                 var recordId = BaseUtility.GetUrlParaValue("recordId");
                 var op = BaseUtility.GetUrlParaValue("op");
                 RemoteUtility.TryLoadModuleContext(moduleId);
-                RemoteUtility.GetFlowModel(recordId, op, (flowModelPO) => {
+                RemoteUtility.GetFlowModel(recordId, op, BaseUtility.GetUrlParaValue("templateName"), (flowModelPO) => {
                     this.flowIntegratedPO = flowModelPO;
                     this.flowIntegratedPO.modelModuleId = BaseUtility.GetUrlParaValue("moduleId");
                     console.log(this.flowIntegratedPO);
                     this.$refs.flowBpmnjsContainer.initCanvas(flowModelPO);
-
                 });
                 window.setTimeout(() => {
                     this.isLoading = false;
@@ -216,22 +215,21 @@
 
             },
             save:function () {
-                this.buildSubmitFlowIntegratedPO(false,(submitFlowIntegratedPO)=>{
+                this.buildSubmitFlowIntegratedPO(false, (submitFlowIntegratedPO) => {
                     if (this.saveValidate(submitFlowIntegratedPO)) {
                         console.log(submitFlowIntegratedPO);
-                        RemoteUtility.Save(submitFlowIntegratedPO,()=>{
-
+                        RemoteUtility.Save(submitFlowIntegratedPO, (result) => {
+                            window.opener._modulelistworkflowlistcomp.reloadData();
                         });
                     }
                 });
-
             },
             saveAndDeployment:function () {
-                this.buildSubmitFlowIntegratedPO(true,(submitFlowIntegratedPO)=>{
+                this.buildSubmitFlowIntegratedPO(true, (submitFlowIntegratedPO) => {
                     if (this.saveValidate(submitFlowIntegratedPO)) {
-                        console.log(submitFlowIntegratedPO);
-                        RemoteUtility.Save(submitFlowIntegratedPO,function (){
-
+                        RemoteUtility.Save(submitFlowIntegratedPO, (result) => {
+                            console.log(result);
+                            window.opener._modulelistworkflowlistcomp.reloadData();
                         });
                     }
                 });

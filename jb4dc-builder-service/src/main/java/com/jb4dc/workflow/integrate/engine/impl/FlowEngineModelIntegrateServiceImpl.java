@@ -28,10 +28,10 @@ import java.util.stream.Collectors;
 public class FlowEngineModelIntegrateServiceImpl extends FlowEngineCamundaIntegrateAbstractService implements IFlowEngineModelIntegratedService
 {
     @Override
-    public void deploymentCamundaModel(JB4DCSession jb4DSession, String name, ModelDesignSourceTypeEnum sourceTypeEnum, ModelTenantIdEnum modelTenantIdEnum, InputStream is) throws FileNotFoundException {
+    public Deployment deploymentCamundaModel(JB4DCSession jb4DSession, String name, ModelDesignSourceTypeEnum sourceTypeEnum, ModelTenantIdEnum modelTenantIdEnum, InputStream is) throws FileNotFoundException {
         //通过模型的设计id,与租户确认唯一性
         RepositoryService repositoryService = getRepositoryService();
-        repositoryService.createDeployment()
+        return repositoryService.createDeployment()
                 .name(name)
                 .source(sourceTypeEnum.getDisplayName())
                 .tenantId(modelTenantIdEnum.getDisplayName())
@@ -40,10 +40,10 @@ public class FlowEngineModelIntegrateServiceImpl extends FlowEngineCamundaIntegr
     }
 
     @Override
-    public void deploymentCamundaModel(JB4DCSession jb4DSession, String name, ModelDesignSourceTypeEnum sourceTypeEnum, ModelTenantIdEnum modelTenantIdEnum, String modelContent) {
+    public Deployment deploymentCamundaModel(JB4DCSession jb4DSession, String name, ModelDesignSourceTypeEnum sourceTypeEnum, ModelTenantIdEnum modelTenantIdEnum, String modelContent) {
         //通过模型的设计id,与租户确认唯一性
         RepositoryService repositoryService = getRepositoryService();
-        repositoryService.createDeployment()
+        return repositoryService.createDeployment()
                 .name(name)
                 .source(sourceTypeEnum.getDisplayName())
                 .tenantId(modelTenantIdEnum.getDisplayName())
@@ -61,6 +61,12 @@ public class FlowEngineModelIntegrateServiceImpl extends FlowEngineCamundaIntegr
     public BpmnModelInstance getDeployedCamundaBpmnModel(JB4DCSession jb4DSession, String processDefinitionId, ModelTenantIdEnum modelTenantIdEnum){
         RepositoryService repositoryService=getRepositoryService();
         return repositoryService.getBpmnModelInstance(processDefinitionId);
+    }
+
+    @Override
+    public ProcessDefinition getProcessDefinitionByDeploymentId(JB4DCSession jb4DSession, String deploymentId){
+        RepositoryService repositoryService = getRepositoryService();
+        return repositoryService.createProcessDefinitionQuery().deploymentId(deploymentId).singleResult();
     }
 
     @Override

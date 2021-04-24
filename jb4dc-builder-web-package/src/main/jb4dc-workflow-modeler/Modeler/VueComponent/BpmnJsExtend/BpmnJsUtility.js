@@ -1073,6 +1073,27 @@ class BpmnJsUtility {
         this.SetAttr(element,"jb4dcProcessAnyJumpEnable",jb4dcProcessAnyJumpEnable,"true");
     }
 
+    static JB4DC_Attr_GetJb4dcUseContentDocument(element){
+        return this.GetAttr(element,"jb4dcUseContentDocument","false");
+    }
+    static JB4DC_Attr_SetJb4dcUseContentDocument(element, jb4dcUseContentDocument){
+        this.SetAttr(element,"jb4dcUseContentDocument",jb4dcUseContentDocument,"false");
+    }
+
+    static JB4DC_Attr_GetJb4dcContentDocumentPlugin(element){
+        return this.GetAttr(element,"jb4dcContentDocumentPlugin","");
+    }
+    static JB4DC_Attr_SetJb4dcContentDocumentPlugin(element, jb4dcContentDocumentPlugin){
+        this.SetAttr(element,"jb4dcContentDocumentPlugin",jb4dcContentDocumentPlugin,"");
+    }
+
+    static JB4DC_Attr_GetJb4dcContentDocumentRedHeadTemplate(element){
+        return this.GetAttr(element,"jb4dcContentDocumentRedHeadTemplate","");
+    }
+    static JB4DC_Attr_SetJb4dcContentDocumentRedHeadTemplate(element, jb4dcContentDocumentRedHeadTemplate){
+        this.SetAttr(element,"jb4dcContentDocumentRedHeadTemplate",jb4dcContentDocumentRedHeadTemplate,"");
+    }
+
     static JB4DC_GetActions(element){
         var extensionElements=this.BPMN_GetExtensionElements(element);
         if(extensionElements){

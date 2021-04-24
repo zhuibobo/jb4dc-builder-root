@@ -1,12 +1,12 @@
 <template>
-    <tabs name="service-task-properties-tabs">
-        <tab-pane tab="service-task-properties-tabs" label="基础设置">
+    <tabs name="intermediate-catch-event-tabs">
+        <tab-pane tab="intermediate-catch-event-tabs" label="基础设置">
             <generalEventProperties ref="generalEventProperties" :prop-bpmn-general-data="bpmn"></generalEventProperties>
         </tab-pane>
-        <tab-pane tab="service-task-properties-tabs" label="执行监听">
+        <tab-pane tab="intermediate-catch-event-tabs" label="执行监听">
             <listenersProperties ref="listenersProperties" :prop-listener-data="camunda.executionListener"></listenersProperties>
         </tab-pane>
-        <tab-pane tab="service-task-properties-tabs" label="扩展属性">
+        <tab-pane tab="intermediate-catch-event-tabs" label="扩展属性">
             <extensionsProperties ref="extensionsProperties" :prop-extensions-properties-data="camunda.extensionProperties"></extensionsProperties>
         </tab-pane>
     </tabs>

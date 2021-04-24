@@ -25,12 +25,22 @@ public class FlowIntegratedPO extends ModelIntegratedEntity {
 
     private boolean tryDeployment;
 
+    public String modelerTemplateContent;
+
     public boolean isTryDeployment() {
         return tryDeployment;
     }
 
     public void setTryDeployment(boolean tryDeployment) {
         this.tryDeployment = tryDeployment;
+    }
+
+    public String getModelerTemplateContent() {
+        return modelerTemplateContent;
+    }
+
+    public void setModelerTemplateContent(String modelerTemplateContent) {
+        this.modelerTemplateContent = modelerTemplateContent;
     }
 
     public static ModelIntegratedEntity parseToEntity(FlowIntegratedPO po) throws IOException {

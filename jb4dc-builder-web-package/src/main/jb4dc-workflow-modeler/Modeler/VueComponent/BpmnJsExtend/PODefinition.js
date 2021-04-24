@@ -94,7 +94,10 @@ class PODefinition{
                     authoritiesJavaApi: "",
                     authoritiesDesc: "",
                     authorities: []
-                }
+                },
+                jb4dcUseContentDocument:"false",
+                jb4dcContentDocumentPlugin:"uploadConvertToPDFPlugin",
+                jb4dcContentDocumentRedHeadTemplate:""
             }
         }
     }
