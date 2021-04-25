@@ -79,6 +79,24 @@ public class BpmnProcess {
     @XmlAttribute(name = "jb4dcFormId",namespace = BpmnNs.JB4DC_URI)
     String jb4dcFormId;
 
+    @XmlAttribute(name = "jb4dcFormEx1Id",namespace = BpmnNs.JB4DC_URI)
+    String jb4dcFormEx1Id;
+
+    @XmlAttribute(name = "jb4dcOuterFormUrl",namespace = BpmnNs.JB4DC_URI)
+    String jb4dcOuterFormUrl;
+
+    @XmlAttribute(name = "jb4dcOuterFormEx1Url",namespace = BpmnNs.JB4DC_URI)
+    String jb4dcOuterFormEx1Url;
+
+    @XmlAttribute(name = "jb4dcUseContentDocument",namespace = BpmnNs.JB4DC_URI)
+    String jb4dcUseContentDocument;
+
+    @XmlAttribute(name = "jb4dcContentDocumentPlugin",namespace = BpmnNs.JB4DC_URI)
+    String jb4dcContentDocumentPlugin;
+
+    @XmlAttribute(name = "jb4dcContentDocumentRedHeadTemplate",namespace = BpmnNs.JB4DC_URI)
+    String jb4dcContentDocumentRedHeadTemplate;
+
     @XmlAttribute(name = "jb4dcTenantId",namespace = BpmnNs.JB4DC_URI)
     String jb4dcTenantId;
 
@@ -108,6 +126,9 @@ public class BpmnProcess {
 
     @XmlAttribute(name = "jb4dcProcessCandidateStarterUsers",namespace = BpmnNs.JB4DC_URI)
     String jb4dcProcessCandidateStarterUsers;
+
+    @XmlAttribute(name = "jb4dcProcessActionConfirm",namespace = BpmnNs.JB4DC_URI)
+    String jb4dcProcessActionConfirm;
 
     @XmlAttribute(name = "jb4dcProcessRestartEnable",namespace = BpmnNs.JB4DC_URI)
     String jb4dcProcessRestartEnable;
@@ -501,5 +522,61 @@ public class BpmnProcess {
 
     public void setJb4dcProcessCandidateStarterUsers(String jb4dcProcessCandidateStarterUsers) {
         this.jb4dcProcessCandidateStarterUsers = jb4dcProcessCandidateStarterUsers;
+    }
+
+    public String getJb4dcFormEx1Id() {
+        return jb4dcFormEx1Id;
+    }
+
+    public void setJb4dcFormEx1Id(String jb4dcFormEx1Id) {
+        this.jb4dcFormEx1Id = jb4dcFormEx1Id;
+    }
+
+    public String getJb4dcOuterFormUrl() {
+        return jb4dcOuterFormUrl;
+    }
+
+    public void setJb4dcOuterFormUrl(String jb4dcOuterFormUrl) {
+        this.jb4dcOuterFormUrl = jb4dcOuterFormUrl;
+    }
+
+    public String getJb4dcOuterFormEx1Url() {
+        return jb4dcOuterFormEx1Url;
+    }
+
+    public void setJb4dcOuterFormEx1Url(String jb4dcOuterFormEx1Url) {
+        this.jb4dcOuterFormEx1Url = jb4dcOuterFormEx1Url;
+    }
+
+    public String getJb4dcUseContentDocument() {
+        return jb4dcUseContentDocument;
+    }
+
+    public void setJb4dcUseContentDocument(String jb4dcUseContentDocument) {
+        this.jb4dcUseContentDocument = jb4dcUseContentDocument;
+    }
+
+    public String getJb4dcContentDocumentPlugin() {
+        return jb4dcContentDocumentPlugin;
+    }
+
+    public void setJb4dcContentDocumentPlugin(String jb4dcContentDocumentPlugin) {
+        this.jb4dcContentDocumentPlugin = jb4dcContentDocumentPlugin;
+    }
+
+    public String getJb4dcContentDocumentRedHeadTemplate() {
+        return jb4dcContentDocumentRedHeadTemplate;
+    }
+
+    public void setJb4dcContentDocumentRedHeadTemplate(String jb4dcContentDocumentRedHeadTemplate) {
+        this.jb4dcContentDocumentRedHeadTemplate = jb4dcContentDocumentRedHeadTemplate;
+    }
+
+    public String getJb4dcProcessActionConfirm() {
+        return jb4dcProcessActionConfirm;
+    }
+
+    public void setJb4dcProcessActionConfirm(String jb4dcProcessActionConfirm) {
+        this.jb4dcProcessActionConfirm = jb4dcProcessActionConfirm;
     }
 }

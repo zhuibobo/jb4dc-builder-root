@@ -48,6 +48,14 @@
         </camunda:formData>
         <camunda:executionListener class="1" event="start" />
         <camunda:executionListener class="1" event="start" />
+        <jb4dc:jb4dcMainReceiveObjects>
+          <jb4dc:jb4dcReceiveObject receiveObjectCode="receiveObject_319072137" receiveObjectType="Users" receiveObjectValue="834b97a7-7fd0-46ba-b87b-4113b1303c59,2d6945a3-46d8-42d2-babf-6f9e402d46e3" receiveObjectText="行政区划▷▷澳头街道办▷▷南边灶村▷▷南边灶一号网格▷▷陈咏瑜,行政区划▷▷澳头街道办▷▷南边灶村▷▷南边灶三号网格▷▷黄耀龙" />
+          <jb4dc:jb4dcReceiveObject receiveObjectCode="receiveObject_319076731" receiveObjectType="Organs" receiveObjectValue="bf653078-8830-43c7-a625-f5385bfc8b8f" receiveObjectText="行政区划▷▷澳头街道办▷▷南边灶村▷▷南边灶二号网格" />
+        </jb4dc:jb4dcMainReceiveObjects>
+        <jb4dc:jb4dcCCReceiveObjects>
+          <jb4dc:jb4dcReceiveObject receiveObjectCode="receiveObject_319086402" receiveObjectType="Users" receiveObjectValue="2d6945a3-46d8-42d2-babf-6f9e402d46e3,8ac17550-bbb5-4016-b1b6-557de8dc74cd,52cee6fd-6809-41d9-825e-aaf8b9582112" receiveObjectText="行政区划▷▷澳头街道办▷▷南边灶村▷▷南边灶三号网格▷▷黄耀龙,行政区划▷▷澳头街道办▷▷南边灶村▷▷南边灶四号网格▷▷陈垲邦,行政区划▷▷澳头街道办▷▷南边灶村▷▷南边灶系统测试网格▷▷南边灶测网5002" />
+          <jb4dc:jb4dcReceiveObject receiveObjectCode="receiveObject_319091220" receiveObjectType="Organs" receiveObjectValue="bf653078-8830-43c7-a625-f5385bfc8b8f" receiveObjectText="行政区划▷▷澳头街道办▷▷南边灶村▷▷南边灶二号网格" />
+        </jb4dc:jb4dcCCReceiveObjects>
         <jb4dc:jb4dcActions>
           <jb4dc:jb4dcAction actionType="send" actionCode="action_461543570" actionCaption="确认1" actionShowOpinionDialog="false" actionUpdateFields="[]" actionCallApis="[]" actionExecuteVariables="[]" />
           <jb4dc:jb4dcAction actionType="send" actionCode="action_461547882" actionCaption="确认2" actionShowOpinionDialog="false" actionUpdateFields="[]" actionCallApis="[]" actionExecuteVariables="[]" />
@@ -201,7 +209,10 @@
       </bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_1wmvd5j
       </bpmn:outgoing>
-      <bpmn:multiInstanceLoopCharacteristics isSequential="true" />
+      <bpmn:multiInstanceLoopCharacteristics isSequential="true" camunda:collection="${Activity_1bjjd6y_Assignee_User_List}" camunda:elementVariable="Activity_1bjjd6y_Assignee_User">
+        <bpmn:completionCondition xsi:type="bpmn:tFormalExpression">${nrOfCompletedInstances/nrOfInstances &gt;= 0.99 }
+        </bpmn:completionCondition>
+      </bpmn:multiInstanceLoopCharacteristics>
     </bpmn:userTask>
     <bpmn:userTask id="Task_0wn7bzs" name="核稿">
       <bpmn:incoming>SequenceFlow_0a4xio6
