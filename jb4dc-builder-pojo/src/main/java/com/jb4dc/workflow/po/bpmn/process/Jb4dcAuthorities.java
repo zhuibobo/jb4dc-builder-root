@@ -34,7 +34,7 @@ public class Jb4dcAuthorities {
     String authoritiesDesc;
 
     @XmlElement(name = "jb4dcAuthority",namespace = BpmnNs.JB4DC_URI)
-    List<Jb4dcAuthority> jb4dcAuthority;
+    List<Jb4dcAuthority> jb4dcAuthorityList;
 
     public String getAuthoritiesUsed() {
         return authoritiesUsed;
@@ -100,12 +100,12 @@ public class Jb4dcAuthorities {
         this.authoritiesDesc = authoritiesDesc;
     }
 
-    public List<Jb4dcAuthority> getJb4dcAuthority() {
-        return jb4dcAuthority;
+    public List<Jb4dcAuthority> getJb4dcAuthorityList() {
+        return jb4dcAuthorityList;
     }
 
-    public void setJb4dcAuthority(List<Jb4dcAuthority> jb4dcAuthority) {
-        this.jb4dcAuthority = jb4dcAuthority;
+    public void setJb4dcAuthorityList(List<Jb4dcAuthority> jb4dcAuthorityList) {
+        this.jb4dcAuthorityList = jb4dcAuthorityList;
     }
 }
 

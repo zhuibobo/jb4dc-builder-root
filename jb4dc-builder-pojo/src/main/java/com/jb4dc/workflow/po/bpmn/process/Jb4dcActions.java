@@ -13,14 +13,14 @@ import java.util.List;
 @XmlRootElement(name = "jb4dcActions",namespace = BpmnNs.JB4DC_URI)
 public class Jb4dcActions {
 
-    @XmlElement(name = "jb4dcActions",namespace = BpmnNs.JB4DC_URI)
-    List<Jb4dcReceiveObject> jb4dcActions;
+    @XmlElement(name = "jb4dcAction",namespace = BpmnNs.JB4DC_URI)
+    List<Jb4dcAction> jb4dcActionList;
 
-    public List<Jb4dcReceiveObject> getJb4dcActions() {
-        return jb4dcActions;
+    public List<Jb4dcAction> getJb4dcActionList() {
+        return jb4dcActionList;
     }
 
-    public void setJb4dcActions(List<Jb4dcReceiveObject> jb4dcActions) {
-        this.jb4dcActions = jb4dcActions;
+    public void setJb4dcActionList(List<Jb4dcAction> jb4dcActionList) {
+        this.jb4dcActionList = jb4dcActionList;
     }
 }

@@ -11,16 +11,15 @@ import java.util.List;
 @XmlAccessorType(XmlAccessType.FIELD)
 // XML文件中的根标识
 @XmlRootElement(name = "jb4dcMainReceiveObjects",namespace = BpmnNs.JB4DC_URI)
-public class Jb4dcMainReceiveObjects
-{
+public class Jb4dcMainReceiveObjects {
     @XmlElement(name = "jb4dcReceiveObject",namespace = BpmnNs.JB4DC_URI)
-    List<Jb4dcReceiveObject> jb4dcReceiveObject;
+    List<Jb4dcReceiveObject> jb4dcReceiveObjectList;
 
-    public List<Jb4dcReceiveObject> getJb4dcReceiveObject() {
-        return jb4dcReceiveObject;
+    public List<Jb4dcReceiveObject> getJb4dcReceiveObjectList() {
+        return jb4dcReceiveObjectList;
     }
 
-    public void setJb4dcReceiveObject(List<Jb4dcReceiveObject> jb4dcReceiveObject) {
-        this.jb4dcReceiveObject = jb4dcReceiveObject;
+    public void setJb4dcReceiveObjectList(List<Jb4dcReceiveObject> jb4dcReceiveObjectList) {
+        this.jb4dcReceiveObjectList = jb4dcReceiveObjectList;
     }
 }
