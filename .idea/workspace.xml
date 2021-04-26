@@ -23,25 +23,42 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4c1726ea-d2d7-4bd0-ba55-67bf5abd523a" name="Default Changelist" comment="查询统计">
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_json_json_20210307.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jb4dc-builder-pojo/src/main/java/com/jb4dc/workflow/po/bpmn/process/Jb4dcAction.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jb4dc-builder-pojo/src/main/java/com/jb4dc/workflow/po/bpmn/process/Jb4dcActions.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jb4dc-builder-pojo/src/main/java/com/jb4dc/workflow/po/bpmn/process/Jb4dcAuthorities.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jb4dc-builder-pojo/src/main/java/com/jb4dc/workflow/po/bpmn/process/Jb4dcAuthority.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jb4dc-builder-pojo/src/main/java/com/jb4dc/workflow/po/bpmn/process/Jb4dcCCReceiveObjects.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jb4dc-builder-pojo/src/main/java/com/jb4dc/workflow/po/bpmn/process/Jb4dcMainReceiveObjects.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jb4dc-builder-pojo/src/main/java/com/jb4dc/workflow/po/bpmn/process/Jb4dcReceiveObject.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/jb4dc-builder-pojo/src/main/java/com/jb4dc/workflow/po/FlowModelListIntegratedPO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/jb4dc-builder-pojo/src/main/java/com/jb4dc/workflow/po/FlowModelRuntimePO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/jb4dc-builder-web-server/src/test/java/com/jb4dc/builder/webpackage/workflow/integrate/WorkflowRuntimeTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jb4dc-builder-pojo/src/main/java/com/jb4dc/workflow/dbentities/ModelIntegratedEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-pojo/src/main/java/com/jb4dc/workflow/dbentities/ModelIntegratedEntity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jb4dc-builder-pojo/src/main/java/com/jb4dc/workflow/po/FlowIntegratedPO.java" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-pojo/src/main/java/com/jb4dc/workflow/po/FlowModelIntegratedPO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/jb4dc-builder-pojo/src/main/java/com/jb4dc/workflow/po/bpmn/process/BpmnExtensionElements.java" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-pojo/src/main/java/com/jb4dc/workflow/po/bpmn/process/BpmnExtensionElements.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jb4dc-builder-pojo/src/main/java/com/jb4dc/workflow/po/bpmn/process/BpmnProcess.java" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-pojo/src/main/java/com/jb4dc/workflow/po/bpmn/process/BpmnProcess.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jb4dc-builder-pojo/src/main/java/com/jb4dc/workflow/po/bpmn/process/BpmnStartEvent.java" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-pojo/src/main/java/com/jb4dc/workflow/po/bpmn/process/BpmnStartEvent.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/jb4dc-builder-pojo/src/main/java/com/jb4dc/workflow/po/bpmn/process/BpmnUserTask.java" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-pojo/src/main/java/com/jb4dc/workflow/po/bpmn/process/BpmnUserTask.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jb4dc-builder-service/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-service/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jb4dc-builder-web-package/jb4dc-builder-web-package.iml" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-web-package/jb4dc-builder-web-package.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jb4dc-builder-web-package/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-web-package/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jb4dc-builder-service/src/main/java/com/jb4dc/workflow/dao/ModelGroupMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-service/src/main/java/com/jb4dc/workflow/dao/ModelGroupMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jb4dc-builder-service/src/main/java/com/jb4dc/workflow/dao/ModelGroupRefMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-service/src/main/java/com/jb4dc/workflow/dao/ModelGroupRefMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jb4dc-builder-service/src/main/java/com/jb4dc/workflow/dao/ModelIntegratedMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-service/src/main/java/com/jb4dc/workflow/dao/ModelIntegratedMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jb4dc-builder-service/src/main/java/com/jb4dc/workflow/integrate/engine/IFlowEngineModelIntegratedService.java" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-service/src/main/java/com/jb4dc/workflow/integrate/engine/IFlowEngineModelIntegratedService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jb4dc-builder-service/src/main/java/com/jb4dc/workflow/integrate/engine/impl/FlowEngineModelIntegrateServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-service/src/main/java/com/jb4dc/workflow/integrate/engine/impl/FlowEngineModelIntegrateServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jb4dc-builder-service/src/main/java/com/jb4dc/workflow/integrate/extend/IModelGroupExtendService.java" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-service/src/main/java/com/jb4dc/workflow/integrate/extend/IModelGroupExtendService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jb4dc-builder-service/src/main/java/com/jb4dc/workflow/integrate/extend/IModelGroupRefExtendService.java" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-service/src/main/java/com/jb4dc/workflow/integrate/extend/IModelGroupRefExtendService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jb4dc-builder-service/src/main/java/com/jb4dc/workflow/integrate/extend/IModelIntegratedExtendService.java" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-service/src/main/java/com/jb4dc/workflow/integrate/extend/IModelIntegratedExtendService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jb4dc-builder-service/src/main/java/com/jb4dc/workflow/integrate/extend/impl/ModelGroupExtendServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-service/src/main/java/com/jb4dc/workflow/integrate/extend/impl/ModelGroupExtendServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jb4dc-builder-service/src/main/java/com/jb4dc/workflow/integrate/extend/impl/ModelGroupRefExtendServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-service/src/main/java/com/jb4dc/workflow/integrate/extend/impl/ModelGroupRefExtendServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jb4dc-builder-service/src/main/java/com/jb4dc/workflow/integrate/extend/impl/ModelIntegratedExtendServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-service/src/main/java/com/jb4dc/workflow/integrate/extend/impl/ModelIntegratedExtendServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jb4dc-builder-service/src/main/resources/liquibase/jb4dc-builder-db-changelog.xml" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-service/src/main/resources/liquibase/jb4dc-builder-db-changelog.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jb4dc-builder-service/src/main/resources/mybatismappers/flow/ModelGroupEXMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-service/src/main/resources/mybatismappers/flow/ModelGroupEXMapper.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jb4dc-builder-service/src/main/resources/mybatismappers/flow/ModelGroupRefEXMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-service/src/main/resources/mybatismappers/flow/ModelGroupRefEXMapper.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jb4dc-builder-service/src/main/resources/mybatismappers/flow/ModelIntegratedACMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-service/src/main/resources/mybatismappers/flow/ModelIntegratedACMapper.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jb4dc-builder-service/src/main/resources/mybatismappers/flow/ModelIntegratedEXMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-service/src/main/resources/mybatismappers/flow/ModelIntegratedEXMapper.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/java/com/jb4dc/builder/webpackage/rest/workflow/runtime/FlowModelIntegratedRuntimeRest.java" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/java/com/jb4dc/builder/webpackage/rest/workflow/runtime/FlowModelIntegratedRuntimeRest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/jb4dc-workflow-modeler/Modeler/Resources/newDiagram4.bpmn" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/jb4dc-workflow-modeler/Modeler/Resources/newDiagram4.bpmn" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jb4dc-builder-web-server/jb4dc-builder-web-server.iml" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-web-server/jb4dc-builder-web-server.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/jb4dc-workflow-modeler/Modeler/VueComponent/BpmnJsExtend/BpmnJsUtility.js" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/jb4dc-workflow-modeler/Modeler/VueComponent/BpmnJsExtend/BpmnJsUtility.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/jb4dc-workflow-modeler/Modeler/VueComponent/BpmnJsExtend/FlowBpmnJsIntegrated.js" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/jb4dc-workflow-modeler/Modeler/VueComponent/BpmnJsExtend/FlowBpmnJsIntegrated.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/jb4dc-workflow-modeler/Modeler/VueComponent/BpmnJsExtend/PODefinition.js" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/jb4dc-workflow-modeler/Modeler/VueComponent/BpmnJsExtend/PODefinition.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/jb4dc-workflow-modeler/Modeler/VueComponent/Properties/PropertiesComponent/jb4dc-general-properties.vue" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/jb4dc-workflow-modeler/Modeler/VueComponent/Properties/PropertiesComponent/jb4dc-general-properties.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/jb4dc-workflow-modeler/Modeler/VueComponent/Properties/process-properties.vue" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/jb4dc-workflow-modeler/Modeler/VueComponent/Properties/process-properties.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/jb4dc-workflow-modeler/Modeler/VueComponent/Properties/start-event-for-empty-properties.vue" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/jb4dc-workflow-modeler/Modeler/VueComponent/Properties/start-event-for-empty-properties.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/jb4dc-workflow-modeler/Modeler/VueComponent/Properties/user-task-properties.vue" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/jb4dc-workflow-modeler/Modeler/VueComponent/Properties/user-task-properties.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/jb4dc-workflow-modeler/Modeler/VueComponent/flow-bpmnjs-container.vue" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/jb4dc-workflow-modeler/Modeler/VueComponent/flow-bpmnjs-container.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/jb4dc-workflow-modeler/Modeler/VueComponent/flow-main-modeler.vue" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/jb4dc-workflow-modeler/Modeler/VueComponent/flow-main-modeler.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/resources/static/HTML/WorkFlow/Modeler/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/resources/static/HTML/WorkFlow/Modeler/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jb4dc-builder-web-server/src/test/java/com/jb4dc/builder/webpackage/RestTestBase.java" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-web-server/src/test/java/com/jb4dc/builder/webpackage/RestTestBase.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -121,6 +138,7 @@
   </component>
   <component name="PropertiesComponent">
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
+    <property name="ExpandSpringBootJavaOptionsPanel" value="true" />
     <property name="RequestMappingsPanelOrder0" value="0" />
     <property name="RequestMappingsPanelOrder1" value="1" />
     <property name="RequestMappingsPanelWidth0" value="75" />
@@ -153,7 +171,7 @@
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.43728423" />
     <property name="recentsLimit" value="12" />
-    <property name="settings.editor.selected.configurable" value="http.proxy" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
     <property name="ts.external.directory.path" value="C:\DevInstallation\IntelliJ IDEA 2020.2.3\plugins\JavaScriptLanguage\jsLanguageServicesImpl\external" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
@@ -206,7 +224,7 @@
       </set>
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.WorkflowIntegrateTest.parseToPO">
+  <component name="RunManager" selected="JUnit.WorkflowRuntimeTest.flowModelIntegratedRuntimeRestGetRuntimeModelWithStart">
     <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
       <option name="arquillianRunConfiguration">
         <value>
@@ -231,6 +249,22 @@
       <option name="METHOD_NAME" value="" />
       <option name="TEST_OBJECT" value="class" />
       <option name="PARAMETERS" value="" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="OrganRuntimeRestTest.getFullEnableOrgan" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="jb4dc-builder-web-server" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.jb4dc.builder.webpackage.rest.client.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.jb4dc.builder.webpackage.rest.client" />
+      <option name="MAIN_CLASS_NAME" value="com.jb4dc.builder.webpackage.rest.client.OrganRuntimeRestTest" />
+      <option name="METHOD_NAME" value="getFullEnableOrgan" />
+      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -283,38 +317,6 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="WorkflowIntegrateTest.clearAllDeploymentModelTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="jb4dc-builder-web-server" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.jb4dc.builder.webpackage.workflow.integrate.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.jb4dc.builder.webpackage.workflow.integrate" />
-      <option name="MAIN_CLASS_NAME" value="com.jb4dc.builder.webpackage.workflow.integrate.WorkflowIntegrateTest" />
-      <option name="METHOD_NAME" value="clearAllDeploymentModelTest" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="WorkflowIntegrateTest.deploymentTest01" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="jb4dc-builder-web-server" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.jb4dc.builder.webpackage.workflow.integrate.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.jb4dc.builder.webpackage.workflow.integrate" />
-      <option name="MAIN_CLASS_NAME" value="com.jb4dc.builder.webpackage.workflow.integrate.WorkflowIntegrateTest" />
-      <option name="METHOD_NAME" value="deploymentTest01" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="WorkflowIntegrateTest.parseToPO" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="jb4dc-builder-web-server" />
       <extension name="coverage">
@@ -331,7 +333,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="WorkflowIntegrateTest.startForCallActivityM1" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="WorkflowRuntimeTest.flowModelIntegratedRuntimeRestGetMyStartEnableModel" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="jb4dc-builder-web-server" />
       <extension name="coverage">
         <pattern>
@@ -340,8 +342,24 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="com.jb4dc.builder.webpackage.workflow.integrate" />
-      <option name="MAIN_CLASS_NAME" value="com.jb4dc.builder.webpackage.workflow.integrate.WorkflowIntegrateTest" />
-      <option name="METHOD_NAME" value="startForCallActivityM1" />
+      <option name="MAIN_CLASS_NAME" value="com.jb4dc.builder.webpackage.workflow.integrate.WorkflowRuntimeTest" />
+      <option name="METHOD_NAME" value="flowModelIntegratedRuntimeRestGetMyStartEnableModel" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="WorkflowRuntimeTest.flowModelIntegratedRuntimeRestGetRuntimeModelWithStart" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="jb4dc-builder-web-server" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.jb4dc.builder.webpackage.workflow.integrate.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.jb4dc.builder.webpackage.workflow.integrate" />
+      <option name="MAIN_CLASS_NAME" value="com.jb4dc.builder.webpackage.workflow.integrate.WorkflowRuntimeTest" />
+      <option name="METHOD_NAME" value="flowModelIntegratedRuntimeRestGetRuntimeModelWithStart" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -473,23 +491,26 @@
       <item itemvalue="Gulp.js.html-template-web-workflow-bpmn-package" />
       <item itemvalue="Gulp.js.html-template-web-workflow-modeler-resource-package" />
       <item itemvalue="JUnit.InitializationSystemRestTest" />
-      <item itemvalue="JUnit.WorkflowIntegrateTest.startForCallActivityM1" />
-      <item itemvalue="JUnit.WorkflowIntegrateTest.deploymentTest01" />
-      <item itemvalue="JUnit.WorkflowIntegrateTest.clearAllDeploymentModelTest" />
       <item itemvalue="JUnit.WorkflowIntegrateTest.ParallelUserTaskTest2" />
       <item itemvalue="JUnit.WorkflowIntegrateTest.SequentialUserTaskTest1" />
       <item itemvalue="JUnit.WorkflowIntegrateTest.UserTaskTransactionalTest1" />
       <item itemvalue="JUnit.WorkflowIntegrateTest.parseToPO" />
+      <item itemvalue="JUnit.WorkflowRuntimeTest.flowModelIntegratedRuntimeRestGetMyStartEnableModel" />
+      <item itemvalue="JUnit.OrganRuntimeRestTest.getFullEnableOrgan" />
       <item itemvalue="npm.modeler-dev-watch" />
       <item itemvalue="Spring Boot.ApplicationBuilderWebServer" />
       <item itemvalue="Spring Boot.ApplicationDevMockWebServer" />
       <item itemvalue="Spring Boot.ApplicationGridSystemWebServer" />
       <item itemvalue="Spring Boot.ApplicationQCSystemWebServer" />
+      <item itemvalue="JUnit.WorkflowRuntimeTest.flowModelIntegratedRuntimeRestGetRuntimeModelWithStart" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.WorkflowIntegrateTest.parseToPO" />
+        <item itemvalue="JUnit.WorkflowRuntimeTest.flowModelIntegratedRuntimeRestGetRuntimeModelWithStart" />
         <item itemvalue="npm.modeler-dev-watch" />
+        <item itemvalue="JUnit.WorkflowRuntimeTest.flowModelIntegratedRuntimeRestGetMyStartEnableModel" />
+        <item itemvalue="JUnit.OrganRuntimeRestTest.getFullEnableOrgan" />
+        <item itemvalue="JUnit.WorkflowIntegrateTest.parseToPO" />
         <item itemvalue="Gulp.js.html-template-web-workflow-modeler-resource-package" />
         <item itemvalue="Gulp.js.html-template-web-workflow-bpmn-package" />
         <item itemvalue="Gulp.js.all" />
@@ -497,9 +518,6 @@
         <item itemvalue="JUnit.WorkflowIntegrateTest.UserTaskTransactionalTest1" />
         <item itemvalue="JUnit.WorkflowIntegrateTest.SequentialUserTaskTest1" />
         <item itemvalue="JUnit.WorkflowIntegrateTest.ParallelUserTaskTest2" />
-        <item itemvalue="JUnit.WorkflowIntegrateTest.deploymentTest01" />
-        <item itemvalue="JUnit.WorkflowIntegrateTest.clearAllDeploymentModelTest" />
-        <item itemvalue="JUnit.WorkflowIntegrateTest.startForCallActivityM1" />
       </list>
     </recent_temporary>
   </component>
@@ -962,14 +980,11 @@
       <workItem from="1619138212481" duration="21874000" />
       <workItem from="1619230368095" duration="19095000" />
       <workItem from="1619272915949" duration="1119000" />
-      <workItem from="1619315617628" duration="6209000" />
-    </task>
-    <task id="LOCAL-00386" summary="2020-10-15">
-      <created>1605866055733</created>
-      <option name="number" value="00386" />
-      <option name="presentableId" value="LOCAL-00386" />
-      <option name="project" value="LOCAL" />
-      <updated>1605866055733</updated>
+      <workItem from="1619315617628" duration="9556000" />
+      <workItem from="1619341106324" duration="12647000" />
+      <workItem from="1619399409548" duration="2509000" />
+      <workItem from="1619401959947" duration="724000" />
+      <workItem from="1619422680917" duration="13443000" />
     </task>
     <task id="LOCAL-00387" summary="2020-10-15">
       <created>1605950334480</created>
@@ -1307,7 +1322,14 @@
       <option name="project" value="LOCAL" />
       <updated>1619270422839</updated>
     </task>
-    <option name="localTasksCounter" value="435" />
+    <task id="LOCAL-00435" summary="查询统计">
+      <created>1619335939175</created>
+      <option name="number" value="00435" />
+      <option name="presentableId" value="LOCAL-00435" />
+      <option name="project" value="LOCAL" />
+      <updated>1619335939175</updated>
+    </task>
+    <option name="localTasksCounter" value="436" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -1352,8 +1374,18 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/jb4dc-builder-service/src/main/java/com/jb4dc/workflow/integrate/extend/impl/ModelGroupExtendServiceImpl.java</url>
-          <line>36</line>
+          <line>37</line>
           <option name="timeStamp" value="47" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/jb4dc-builder-service/src/main/java/com/jb4dc/workflow/integrate/extend/impl/ModelIntegratedExtendServiceImpl.java</url>
+          <line>160</line>
+          <option name="timeStamp" value="53" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/jb4dc-builder-service/src/main/java/com/jb4dc/workflow/integrate/extend/impl/ModelIntegratedExtendServiceImpl.java</url>
+          <line>456</line>
+          <option name="timeStamp" value="60" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

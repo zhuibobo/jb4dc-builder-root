@@ -36,7 +36,7 @@
     <select id="selectGreaterThanRecord" parameterType="java.lang.String" resultMap="BaseResultMap"><![CDATA[select * from TFLOW_MODEL_INTEGRATED
                                                                                                              where MODEL_ORDER_NUM = (select min(MODEL_ORDER_NUM) from TFLOW_MODEL_INTEGRATED where MODEL_ORDER_NUM>(select MODEL_ORDER_NUM from TFLOW_MODEL_INTEGRATED where MODEL_ID=#{Id,jdbcType=NVARCHAR}))]]></select>
 
-    <select id="selectLastPreSaveModelIntegratedEntity" resultMap="BaseResultMap">
+    <select id="selectLastSaveModelIntegratedEntity" resultMap="BaseResultMap">
         select<include refid="Base_Column_List"/> from TFLOW_MODEL_INTEGRATED where MODEL_RE_KEY=#{ruKey} ORDER by MODEL_LAST_VERSION DESC
     </select>
 
@@ -67,4 +67,24 @@
         <if test="modelLastVersion !=null and modelLastVersion !=''"> and MODEL_LAST_VERSION like #{modelLastVersion} </if>
         <if test="modelContent !=null and modelContent !=''"> and MODEL_CONTENT like #{modelContent} </if>
     </where> and MODEL_LAST_VERSION='是' ORDER by MODEL_ORDER_NUM DESC</select>
+
+    <select id="selectAllStartEnableModel" resultMap="BaseResultMap">
+        select<include refid="Base_Column_List"/> from TFLOW_MODEL_INTEGRATED where MODEL_LAST_RE_ED='是' and MODEL_STATUS='启用' order by MODEL_ORDER_NUM DESC
+    </select>
+
+    <select id="selectStartEnableModelByRole" resultMap="BaseResultMap">
+        select<include refid="Base_Column_List"/> from TFLOW_MODEL_INTEGRATED where
+        MODEL_RE_KEY in (
+        select MODEL_RE_KEY from TFLOW_MODEL_ASS_OBJECT where OBJECT_VALUE=#{userId} and OBJECT_TYPE='StarterUser'
+        <if test="roleKeys !=null">
+        union
+        select MODEL_RE_KEY from TFLOW_MODEL_ASS_OBJECT where OBJECT_VALUE in
+            <foreach collection="list" item="id" index="index" open="(" close=")" separator=",">
+                #{id}
+            </foreach>
+            and OBJECT_TYPE='StarterRole'
+        </if>
+        ) and
+        MODEL_LAST_RE_ED='是' and MODEL_STATUS='启用' order by MODEL_ORDER_NUM DESC
+    </select>
 </mapper>

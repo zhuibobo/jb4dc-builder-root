@@ -77,7 +77,7 @@
                 elemPropertiesDialogView:"emptyProperties",
                 currentEditProperties:null,
                 elemHTMLDisplay:"",
-                flowIntegratedPO:null
+                flowModelIntegratedPO:null
             }
         },
         mounted(){
@@ -93,14 +93,14 @@
             //window.flowBpmnJsIntegrated=flowBpmnJsIntegrated;
         },
         methods:{
-            initCanvas(flowIntegratedPO) {
+            initCanvas(flowModelIntegratedPO) {
                 flowBpmnJsIntegrated = FlowBpmnJsIntegrated.CreateInstance({
                     RendererToElemId: "flow-canvas",
                     FlowBpmnJsContainer: this,
                     ChangeSelectedElemCB: this.changeSelectedElem,
                     Op: BaseUtility.GetUrlOPParaValue(),
                     TemplateName: BaseUtility.GetUrlParaValue("templateName")
-                }, flowIntegratedPO.modelContent,flowIntegratedPO.modelerTemplateContent);
+                }, flowModelIntegratedPO.modelContent,flowModelIntegratedPO.modelerTemplateContent);
             },
             logXML () {
                 flowBpmnJsIntegrated.LogXML();

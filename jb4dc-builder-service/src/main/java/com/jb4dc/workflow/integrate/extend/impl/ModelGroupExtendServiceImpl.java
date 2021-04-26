@@ -16,6 +16,7 @@ import com.jb4dc.workflow.integrate.extend.IModelGroupExtendService;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.List;
 
 @Service
 public class ModelGroupExtendServiceImpl extends BaseServiceImpl<ModelGroupEntity> implements IModelGroupExtendService
@@ -109,6 +110,11 @@ public class ModelGroupExtendServiceImpl extends BaseServiceImpl<ModelGroupEntit
         modelGroupEntity = getModelGroupEntity(groupId,"其他","其他",rootId,"-1*0*"+groupId);
         deleteByKeyNotValidate(JB4DCSession,modelGroupEntity.getModelGroupId(), JBuild4DCYaml.getWarningOperationCode());
         saveSimple(JB4DCSession,modelGroupEntity.getModelGroupId(),modelGroupEntity);
+    }
+
+    @Override
+    public List<ModelGroupEntity> getByIdList(List<String> idList) {
+        return modelGroupMapper.selectByIdList(idList);
     }
 
     private ModelGroupEntity getModelGroupEntity(String id,String value,String text,String parentId,String parentIdList) {

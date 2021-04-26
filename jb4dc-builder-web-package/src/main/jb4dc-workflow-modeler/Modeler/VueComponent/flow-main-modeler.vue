@@ -48,7 +48,7 @@
                 oldSelectedTabName: "",
                 selectedTabName: "Bpmn",
                 /*Js Bean*/
-                flowIntegratedPO: {
+                flowModelIntegratedPO: {
                     //主键
                     modelId: "",
                     //是否已经部署
@@ -150,9 +150,9 @@
                 var op = BaseUtility.GetUrlParaValue("op");
                 RemoteUtility.TryLoadModuleContext(moduleId);
                 RemoteUtility.GetFlowModel(recordId, op, BaseUtility.GetUrlParaValue("templateName"), (flowModelPO) => {
-                    this.flowIntegratedPO = flowModelPO;
-                    this.flowIntegratedPO.modelModuleId = BaseUtility.GetUrlParaValue("moduleId");
-                    console.log(this.flowIntegratedPO);
+                    this.flowModelIntegratedPO = flowModelPO;
+                    this.flowModelIntegratedPO.modelModuleId = BaseUtility.GetUrlParaValue("moduleId");
+                    console.log(this.flowModelIntegratedPO);
                     this.$refs.flowBpmnjsContainer.initCanvas(flowModelPO);
                 });
                 window.setTimeout(() => {
@@ -201,15 +201,15 @@
                 return true;
             },
             buildSubmitFlowIntegratedPO(tryDeployment,func){
-                var flowIntegratedPO=JsonUtility.CloneStringify(this.flowIntegratedPO);
-                flowIntegratedPO.tryDeployment = tryDeployment;
-                //flowIntegratedPO.integratedStartKey = this.$refs["flowBpmnjsContainer"].getStartKey();
-                //flowIntegratedPO.modelName=
+                var flowModelIntegratedPO=JsonUtility.CloneStringify(this.flowModelIntegratedPO);
+                flowModelIntegratedPO.tryDeployment = tryDeployment;
+                //flowModelIntegratedPO.integratedStartKey = this.$refs["flowBpmnjsContainer"].getStartKey();
+                //flowModelIntegratedPO.modelName=
                 this.$refs["flowBpmnjsContainer"].getXML((xml) => {
-                    flowIntegratedPO.modelContent = xml;
-                    func(flowIntegratedPO);
+                    flowModelIntegratedPO.modelContent = xml;
+                    func(flowModelIntegratedPO);
                 });
-                //return flowIntegratedPO;
+                //return flowModelIntegratedPO;
             },
             showSaveResultDialog:function(result){
 

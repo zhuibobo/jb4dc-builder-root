@@ -102,6 +102,9 @@ public class ModelIntegratedEntity {
     //MODEL_TENANT_ID:租户ID
     private String modelTenantId;
 
+    //MODEL_LAST_RE_ED:是否最后部署版本
+    private String modelLastReEd;
+
     //MODEL_CONTENT:模型定义XML内容
     private String modelContent;
 
@@ -136,8 +139,9 @@ public class ModelIntegratedEntity {
      * @param modelSaveVersion 保存版本号
      * @param modelLastVersion 是否最后版本
      * @param modelTenantId 租户ID
+     * @param modelLastReEd 是否最后部署版本
      **/
-    public ModelIntegratedEntity(String modelId, String modelReEd, String modelReId, String modelReSuccess, String modelReKey, String modelModuleId, String modelCode, String modelFlowCategory, String modelImageClass, String modelPesTitleText, String modelPesTitleValue, String modelPesDescText, String modelPesDescValue, String modelPesRestartEnb, String modelPesAnyJumpEnb, String modelName, Date modelCreateTime, String modelCreator, Date modelUpdateTime, String modelUpdater, String modelDesc, String modelStatus, Integer modelOrderNum, String modelDeploymentId, String modelResourceName, String modelFromType, Integer modelSaveVersion, String modelLastVersion, String modelTenantId) {
+    public ModelIntegratedEntity(String modelId, String modelReEd, String modelReId, String modelReSuccess, String modelReKey, String modelModuleId, String modelCode, String modelFlowCategory, String modelImageClass, String modelPesTitleText, String modelPesTitleValue, String modelPesDescText, String modelPesDescValue, String modelPesRestartEnb, String modelPesAnyJumpEnb, String modelName, Date modelCreateTime, String modelCreator, Date modelUpdateTime, String modelUpdater, String modelDesc, String modelStatus, Integer modelOrderNum, String modelDeploymentId, String modelResourceName, String modelFromType, Integer modelSaveVersion, String modelLastVersion, String modelTenantId, String modelLastReEd) {
         this.modelId = modelId;
         this.modelReEd = modelReEd;
         this.modelReId = modelReId;
@@ -167,6 +171,7 @@ public class ModelIntegratedEntity {
         this.modelSaveVersion = modelSaveVersion;
         this.modelLastVersion = modelLastVersion;
         this.modelTenantId = modelTenantId;
+        this.modelLastReEd = modelLastReEd;
     }
 
     /**
@@ -200,9 +205,10 @@ public class ModelIntegratedEntity {
      * @param modelSaveVersion 保存版本号
      * @param modelLastVersion 是否最后版本
      * @param modelTenantId 租户ID
+     * @param modelLastReEd 是否最后部署版本
      * @param modelContent 模型定义XML内容
      **/
-    public ModelIntegratedEntity(String modelId, String modelReEd, String modelReId, String modelReSuccess, String modelReKey, String modelModuleId, String modelCode, String modelFlowCategory, String modelImageClass, String modelPesTitleText, String modelPesTitleValue, String modelPesDescText, String modelPesDescValue, String modelPesRestartEnb, String modelPesAnyJumpEnb, String modelName, Date modelCreateTime, String modelCreator, Date modelUpdateTime, String modelUpdater, String modelDesc, String modelStatus, Integer modelOrderNum, String modelDeploymentId, String modelResourceName, String modelFromType, Integer modelSaveVersion, String modelLastVersion, String modelTenantId, String modelContent) {
+    public ModelIntegratedEntity(String modelId, String modelReEd, String modelReId, String modelReSuccess, String modelReKey, String modelModuleId, String modelCode, String modelFlowCategory, String modelImageClass, String modelPesTitleText, String modelPesTitleValue, String modelPesDescText, String modelPesDescValue, String modelPesRestartEnb, String modelPesAnyJumpEnb, String modelName, Date modelCreateTime, String modelCreator, Date modelUpdateTime, String modelUpdater, String modelDesc, String modelStatus, Integer modelOrderNum, String modelDeploymentId, String modelResourceName, String modelFromType, Integer modelSaveVersion, String modelLastVersion, String modelTenantId, String modelLastReEd, String modelContent) {
         this.modelId = modelId;
         this.modelReEd = modelReEd;
         this.modelReId = modelReId;
@@ -232,6 +238,7 @@ public class ModelIntegratedEntity {
         this.modelSaveVersion = modelSaveVersion;
         this.modelLastVersion = modelLastVersion;
         this.modelTenantId = modelTenantId;
+        this.modelLastReEd = modelLastReEd;
         this.modelContent = modelContent;
     }
 
@@ -701,6 +708,22 @@ public class ModelIntegratedEntity {
      **/
     public void setModelTenantId(String modelTenantId) {
         this.modelTenantId = modelTenantId == null ? null : modelTenantId.trim();
+    }
+
+    /**
+     * 是否最后部署版本
+     * @return java.lang.String
+     **/
+    public String getModelLastReEd() {
+        return modelLastReEd;
+    }
+
+    /**
+     * 是否最后部署版本
+     * @param modelLastReEd 是否最后部署版本
+     **/
+    public void setModelLastReEd(String modelLastReEd) {
+        this.modelLastReEd = modelLastReEd == null ? null : modelLastReEd.trim();
     }
 
     /**

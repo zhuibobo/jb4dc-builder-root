@@ -87,8 +87,9 @@
                             <td>启用正文：</td>
                             <td>
                                 <radio-group type="button" style="margin: auto" v-model="jb4dc.jb4dcUseContentDocument">
-                                    <radio label="true">是</radio>
-                                    <radio label="false">否</radio>
+                                    <radio label="notUse">不启动</radio>
+                                    <radio label="byNodeConfig" v-if="bpmn.elem.type!='bpmn:Process'">使用环节设置</radio>
+                                    <radio label="byProcessConfig">使用模型设置</radio>
                                 </radio-group>
                             </td>
                             <td>正文插件：</td>
@@ -130,10 +131,13 @@
         components: {
             contextVarJuelEditDialog
         },
-        props:["propJb4dcGeneralData","propIsProcess"],
+        props:["propBpmnGeneralData","propJb4dcGeneralData","propIsProcess"],
         data(){
             return {
                 jb4dc:{},
+                bpmn:{
+                    elem:{}
+                },
                 trIsProcess:true,
                 formResourcePOList:null
             }
@@ -147,6 +151,7 @@
             }
             //console.log(this.propIsProcess);
             this.jb4dc=this.propJb4dcGeneralData;
+            this.bpmn=this.propBpmnGeneralData;
 
             RemoteUtility.GetFormResourcePOList().then((formResourcePOList) => {
                 //console.log(formResourcePOList);

@@ -19,7 +19,11 @@ import java.util.List;
         "camundaExecutionListenerList",
         "camundaProperties",
         "camundaInputOutput",
-        "camundaTaskListenerList"
+        "camundaTaskListenerList",
+        "jb4dcMainReceiveObjects",
+        "jb4dcCCReceiveObjects",
+        "jb4dcActions",
+        "jb4dcAuthorities"
 })
 public class BpmnExtensionElements {
 

@@ -8,7 +8,9 @@ import com.jb4dc.core.base.vo.JBuild4DCResponseVo;
 import org.junit.Before;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.MockMvcBuilderCustomizer;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.annotation.Bean;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
@@ -44,7 +46,18 @@ public class RestTestBase {
 
     @Before
     public void setupMock() throws Exception {
-        mockMvc = webAppContextSetup(context).build();
+        //context.
+        mockMvc = webAppContextSetup(context).alwaysDo(result -> {
+            result.getResponse().setCharacterEncoding("UTF-8");
+        }).build();
+    }
+
+    @Bean
+    MockMvcBuilderCustomizer responseCharacterEncodingCustomizer() {
+        MockMvcBuilderCustomizer mockMvcBuilderCustomizer = builder -> builder.alwaysDo(result -> {
+            result.getResponse().setCharacterEncoding("UTF-8");
+        });
+        return mockMvcBuilderCustomizer;
     }
 
     public JB4DCSession getSession(){

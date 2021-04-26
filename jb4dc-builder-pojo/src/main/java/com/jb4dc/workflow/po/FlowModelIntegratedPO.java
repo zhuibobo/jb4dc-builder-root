@@ -11,7 +11,7 @@ import java.io.IOException;
  * Date: 2020/1/6
  * To change this template use File | Settings | File Templates.
  */
-public class FlowIntegratedPO extends ModelIntegratedEntity {
+public class FlowModelIntegratedPO extends ModelIntegratedEntity {
 
     //private String bpmnXMLModeler;
 
@@ -22,6 +22,9 @@ public class FlowIntegratedPO extends ModelIntegratedEntity {
     //public void setBpmnXMLModeler(String bpmnXMLModeler) {
     //    this.bpmnXMLModeler = bpmnXMLModeler;
     //}
+    public FlowModelIntegratedPO(){
+
+    }
 
     private boolean tryDeployment;
 
@@ -43,13 +46,13 @@ public class FlowIntegratedPO extends ModelIntegratedEntity {
         this.modelerTemplateContent = modelerTemplateContent;
     }
 
-    public static ModelIntegratedEntity parseToEntity(FlowIntegratedPO po) throws IOException {
+    public static ModelIntegratedEntity parseToEntity(FlowModelIntegratedPO po) throws IOException {
         String jsonStr= JsonUtility.toObjectString(po);
-        return JsonUtility.toObject(jsonStr, FlowIntegratedPO.class);
+        return JsonUtility.toObject(jsonStr, FlowModelIntegratedPO.class);
     }
 
-    public static FlowIntegratedPO parseToPO(ModelIntegratedEntity entity) throws IOException {
+    public static FlowModelIntegratedPO parseToPO(ModelIntegratedEntity entity) throws IOException {
         String jsonStr= JsonUtility.toObjectString(entity);
-        return JsonUtility.toObject(jsonStr, FlowIntegratedPO.class);
+        return JsonUtility.toObject(jsonStr, FlowModelIntegratedPO.class);
     }
 }

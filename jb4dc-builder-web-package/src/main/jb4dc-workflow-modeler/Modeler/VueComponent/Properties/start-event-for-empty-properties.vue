@@ -1,7 +1,7 @@
 <template>
     <tabs name="start-event-for-empty-tabs" @on-click="changeTab">
         <tab-pane tab="start-event-for-empty-tabs" label="绑定设置">
-            <jb4dcGeneralProperties ref="jb4dcGeneralProperties" :prop-jb4dc-general-data="jb4dc" :prop-is-process="false"></jb4dcGeneralProperties>
+            <jb4dcGeneralProperties ref="jb4dcGeneralProperties" :prop-bpmn-general-data="bpmn" :prop-jb4dc-general-data="jb4dc" :prop-is-process="false"></jb4dcGeneralProperties>
         </tab-pane>
         <tab-pane tab="start-event-for-empty-tabs" label="动作设置">
             <jb4dcActionsProperties ref="jb4dcActionsProperties" :prop-bpmn-general-data="bpmn" :prop-jb4dc-general-data="jb4dc" :prop-from-id="jb4dc.jb4dcFormId" :prop-action-data="jb4dc.jb4dcActions.actions"></jb4dcActionsProperties>

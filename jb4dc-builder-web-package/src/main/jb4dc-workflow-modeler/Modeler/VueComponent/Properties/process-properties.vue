@@ -126,7 +126,7 @@
                 </table>
             </tab-pane>
             <tab-pane tab="process-properties-tabs" label="绑定设置">
-                <jb4dcGeneralProperties ref="jb4dcGeneralProperties" :prop-jb4dc-general-data="jb4dc"></jb4dcGeneralProperties>
+                <jb4dcGeneralProperties ref="jb4dcGeneralProperties" :prop-bpmn-general-data="bpmn" :prop-jb4dc-general-data="jb4dc"></jb4dcGeneralProperties>
             </tab-pane>
             <tab-pane tab="process-properties-tabs" label="通知设置">
 

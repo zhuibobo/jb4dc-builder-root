@@ -1,5 +1,4 @@
 package com.jb4dc.workflow.integrate.extend.impl;
-import java.io.FileNotFoundException;
 import java.io.StringWriter;
 import java.net.URISyntaxException;
 import java.util.Date;
@@ -10,29 +9,31 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.jb4dc.base.service.impl.BaseServiceImpl;
 import com.jb4dc.base.tools.JsonUtility;
+import com.jb4dc.base.tools.URLUtility;
 import com.jb4dc.base.tools.XMLUtility;
 import com.jb4dc.builder.service.module.IModuleService;
 import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
 import com.jb4dc.core.base.session.JB4DCSession;
 import com.jb4dc.core.base.tools.*;
+import com.jb4dc.sso.client.utils.HttpClientUtil;
 import com.jb4dc.workflow.dbentities.ModelAssObjectEntity;
 import com.jb4dc.workflow.dbentities.ModelGroupRefEntity;
 import com.jb4dc.workflow.exenum.ModelDesignSourceTypeEnum;
 import com.jb4dc.workflow.exenum.ModelTenantIdEnum;
 import com.jb4dc.workflow.integrate.engine.IFlowEngineModelIntegratedService;
-import com.jb4dc.workflow.integrate.engine.impl.CamundaIntegrate;
 import com.jb4dc.workflow.integrate.extend.IModelAssObjectExtendService;
 import com.jb4dc.workflow.integrate.extend.IModelGroupRefExtendService;
+import com.jb4dc.workflow.po.FlowModelIntegratedPO;
+import com.jb4dc.workflow.po.FlowModelRuntimePO;
 import com.jb4dc.workflow.po.bpmn.BpmnDefinitions;
 import com.jb4dc.workflow.dao.ModelIntegratedMapper;
 import com.jb4dc.workflow.dbentities.ModelIntegratedEntity;
 import com.jb4dc.workflow.integrate.engine.impl.FlowEngineModelIntegrateServiceImpl;
 import com.jb4dc.workflow.integrate.extend.IModelIntegratedExtendService;
-import com.jb4dc.workflow.po.FlowIntegratedPO;
 import com.jb4dc.workflow.po.bpmn.process.BpmnProcess;
+import com.jb4dc.workflow.po.bpmn.process.BpmnStartEvent;
+import com.jb4dc.workflow.po.bpmn.process.BpmnUserTask;
 import org.apache.commons.io.IOUtils;
-import org.camunda.bpm.engine.ProcessEngine;
-import org.camunda.bpm.engine.RepositoryService;
 import org.camunda.bpm.engine.repository.Deployment;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -81,9 +82,9 @@ public class ModelIntegratedExtendServiceImpl extends BaseServiceImpl<ModelInteg
     }
 
     @Override
-    public FlowIntegratedPO getPOByIntegratedId(JB4DCSession jb4DSession, String recordId) throws JBuild4DCGenerallyException, IOException {
+    public FlowModelIntegratedPO getPOByIntegratedId(JB4DCSession jb4DSession, String recordId) throws JBuild4DCGenerallyException, IOException {
         ModelIntegratedEntity modelIntegratedEntity=getByPrimaryKey(jb4DSession,recordId);
-        return FlowIntegratedPO.parseToPO(modelIntegratedEntity);
+        return FlowModelIntegratedPO.parseToPO(modelIntegratedEntity);
     }
 
     @Override
@@ -94,73 +95,74 @@ public class ModelIntegratedExtendServiceImpl extends BaseServiceImpl<ModelInteg
         return pageInfo.getSize() == 0 && pageInfo.getPageNum() > 1 ? this.getPage(jb4DCSession, pageNum - 1, pageSize, searchItemMap) : pageInfo;
     }
 
-    private FlowIntegratedPO appendFieldValueFromModelContentPO(JB4DCSession jb4DSession,FlowIntegratedPO flowIntegratedPO,BpmnDefinitions bpmnDefinitions,ModelIntegratedEntity lastPreSaveModelIntegratedEntity) {
+    private FlowModelIntegratedPO appendFieldValueFromModelContentPO(JB4DCSession jb4DSession, FlowModelIntegratedPO flowModelIntegratedPO, BpmnDefinitions bpmnDefinitions, ModelIntegratedEntity lastPreSaveModelIntegratedEntity) {
         //flowIntegratedPO.setModelReKey(bpmnDefinitions.getBpmnProcess().getId());
         //flowIntegratedPO.setModelName(bpmnDefinitions.getBpmnProcess().getName());
         //flowIntegratedPO.setModelCode(bpmnDefinitions.getBpmnProcess().getJb4dcCode());
         BpmnProcess bpmnProcess = bpmnDefinitions.getBpmnProcess();
         //flowIntegratedPO.setModelId("");
-        flowIntegratedPO.setModelReEd("否");
-        flowIntegratedPO.setModelReId("");
-        flowIntegratedPO.setModelReSuccess("否");
-        flowIntegratedPO.setModelReKey(bpmnProcess.getId());
+        flowModelIntegratedPO.setModelReEd("否");
+        flowModelIntegratedPO.setModelReId("");
+        flowModelIntegratedPO.setModelReSuccess("否");
+        flowModelIntegratedPO.setModelLastReEd("否");
+        flowModelIntegratedPO.setModelReKey(bpmnProcess.getId());
         //flowIntegratedPO.setModelModuleId("");
 
-        flowIntegratedPO.setModelFlowCategory(bpmnProcess.getJb4dcFlowCategory());
-        flowIntegratedPO.setModelImageClass(bpmnProcess.getJb4dcProcessModelImageClass());
-        flowIntegratedPO.setModelPesTitleText(bpmnProcess.getJb4dcProcessTitleEditText());
-        flowIntegratedPO.setModelPesTitleValue(bpmnProcess.getJb4dcProcessTitleEditValue());
-        flowIntegratedPO.setModelPesDescText(bpmnProcess.getJb4dcProcessDescriptionEditText());
-        flowIntegratedPO.setModelPesDescValue(bpmnProcess.getJb4dcProcessDescriptionEditValue());
-        flowIntegratedPO.setModelPesRestartEnb(bpmnProcess.getJb4dcProcessRestartEnable());
-        flowIntegratedPO.setModelPesAnyJumpEnb(bpmnProcess.getJb4dcProcessAnyJumpEnable());
-        flowIntegratedPO.setModelName(bpmnProcess.getName());
-        flowIntegratedPO.setModelCreateTime(new Date());
-        flowIntegratedPO.setModelCreator(jb4DSession.getUserId());
-        flowIntegratedPO.setModelUpdateTime(new Date());
-        flowIntegratedPO.setModelUpdater(jb4DSession.getUserId());
-        flowIntegratedPO.setModelDesc(bpmnProcess.getDocumentation().getText());
-        flowIntegratedPO.setModelStatus("启用");
-        flowIntegratedPO.setModelOrderNum(flowIntegratedMapper.nextOrderNum());
-        flowIntegratedPO.setModelDeploymentId("");
-        flowIntegratedPO.setModelResourceName(ModelDesignSourceTypeEnum.builderWebDesign.getDisplayName());
-        flowIntegratedPO.setModelFromType(ModelDesignSourceTypeEnum.builderWebDesign.getDisplayName());
-        flowIntegratedPO.setModelTenantId(ModelTenantIdEnum.builderGeneralTenant.getDisplayName());
+        flowModelIntegratedPO.setModelFlowCategory(bpmnProcess.getJb4dcFlowCategory());
+        flowModelIntegratedPO.setModelImageClass(bpmnProcess.getJb4dcProcessModelImageClass());
+        flowModelIntegratedPO.setModelPesTitleText(bpmnProcess.getJb4dcProcessTitleEditText());
+        flowModelIntegratedPO.setModelPesTitleValue(bpmnProcess.getJb4dcProcessTitleEditValue());
+        flowModelIntegratedPO.setModelPesDescText(bpmnProcess.getJb4dcProcessDescriptionEditText());
+        flowModelIntegratedPO.setModelPesDescValue(bpmnProcess.getJb4dcProcessDescriptionEditValue());
+        flowModelIntegratedPO.setModelPesRestartEnb(bpmnProcess.getJb4dcProcessRestartEnable());
+        flowModelIntegratedPO.setModelPesAnyJumpEnb(bpmnProcess.getJb4dcProcessAnyJumpEnable());
+        flowModelIntegratedPO.setModelName(bpmnProcess.getName());
+        flowModelIntegratedPO.setModelCreateTime(new Date());
+        flowModelIntegratedPO.setModelCreator(jb4DSession.getUserId());
+        flowModelIntegratedPO.setModelUpdateTime(new Date());
+        flowModelIntegratedPO.setModelUpdater(jb4DSession.getUserId());
+        flowModelIntegratedPO.setModelDesc(bpmnProcess.getDocumentation().getText());
+        flowModelIntegratedPO.setModelStatus("启用");
+        flowModelIntegratedPO.setModelOrderNum(flowIntegratedMapper.nextOrderNum());
+        flowModelIntegratedPO.setModelDeploymentId("");
+        flowModelIntegratedPO.setModelResourceName(ModelDesignSourceTypeEnum.builderWebDesign.getDisplayName());
+        flowModelIntegratedPO.setModelFromType(ModelDesignSourceTypeEnum.builderWebDesign.getDisplayName());
+        flowModelIntegratedPO.setModelTenantId(ModelTenantIdEnum.builderGeneralTenant.getDisplayName());
 
         if (lastPreSaveModelIntegratedEntity == null) {
-            flowIntegratedPO.setModelSaveVersion(1);
-            flowIntegratedPO.setModelCode(moduleService.buildModuleItemCode(flowIntegratedPO.getModelOrderNum()));
+            flowModelIntegratedPO.setModelSaveVersion(1);
+            flowModelIntegratedPO.setModelCode(moduleService.buildModuleItemCode(flowModelIntegratedPO.getModelOrderNum()));
         } else {
-            flowIntegratedPO.setModelSaveVersion(lastPreSaveModelIntegratedEntity.getModelSaveVersion() + 1);
-            flowIntegratedPO.setModelCode(lastPreSaveModelIntegratedEntity.getModelCode());
+            flowModelIntegratedPO.setModelSaveVersion(lastPreSaveModelIntegratedEntity.getModelSaveVersion() + 1);
+            flowModelIntegratedPO.setModelCode(lastPreSaveModelIntegratedEntity.getModelCode());
         }
-        flowIntegratedPO.setModelLastVersion("是");
-        flowIntegratedPO.setModelId(flowIntegratedPO.getModelReKey()+":"+flowIntegratedPO.getModelSaveVersion());
-        return flowIntegratedPO;
+        flowModelIntegratedPO.setModelLastVersion("是");
+        flowModelIntegratedPO.setModelId(flowModelIntegratedPO.getModelReKey()+":"+ flowModelIntegratedPO.getModelSaveVersion());
+        return flowModelIntegratedPO;
     }
 
 
-    public FlowIntegratedPO saveFlowModel1(JB4DCSession jb4DSession, FlowIntegratedPO flowIntegratedPO) throws JBuild4DCGenerallyException {
+    public FlowModelIntegratedPO saveFlowModel1(JB4DCSession jb4DSession, FlowModelIntegratedPO flowModelIntegratedPO) throws JBuild4DCGenerallyException {
 
-        ModelIntegratedEntity lastPreSaveModelIntegratedEntity = this.getLastPreSaveModelIntegratedEntity(jb4DSession, flowIntegratedPO.getModelReKey());
+        ModelIntegratedEntity lastPreSaveModelIntegratedEntity = this.getLastSaveModelIntegratedEntity(jb4DSession, flowModelIntegratedPO.getModelReKey());
         lastPreSaveModelIntegratedEntity.setModelLastVersion("否");
         //flowIntegratedMapper.updateByPrimaryKeySelective(lastPreSaveModelIntegratedEntity);
         //flowIntegratedMapper.insert(flowIntegratedPO);
         //deployment.
 
-        return flowIntegratedPO;
+        return flowModelIntegratedPO;
     }
 
     @Override
     @Transactional(rollbackFor= JBuild4DCGenerallyException.class)
-    public FlowIntegratedPO saveFlowModel(JB4DCSession jb4DSession, FlowIntegratedPO flowIntegratedPO) throws JBuild4DCGenerallyException {
+    public FlowModelIntegratedPO saveFlowModel(JB4DCSession jb4DSession, FlowModelIntegratedPO flowModelIntegratedPO) throws JBuild4DCGenerallyException {
 
         //模型分为三个:当前保存模型,上一版本保存模型,已经部署模型.
         BpmnDefinitions bpmnDefinitions = null;
         BpmnProcess bpmnProcess = null;
         String bpmnDefinitionKey;
         try {
-            bpmnDefinitions = parseToPO(flowIntegratedPO.getModelContent());
+            bpmnDefinitions = parseToPO(flowModelIntegratedPO.getModelContent());
             bpmnProcess = bpmnDefinitions.getBpmnProcess();
             bpmnDefinitionKey = bpmnProcess.getId();
         } catch (JAXBException e) {
@@ -170,22 +172,23 @@ public class ModelIntegratedExtendServiceImpl extends BaseServiceImpl<ModelInteg
         }
 
         //获取最后一个保存版本的模型
-        ModelIntegratedEntity lastPreSaveModelIntegratedEntity = this.getLastPreSaveModelIntegratedEntity(jb4DSession, bpmnDefinitions.getBpmnProcess().getId());
-        flowIntegratedPO = appendFieldValueFromModelContentPO(jb4DSession, flowIntegratedPO, bpmnDefinitions, lastPreSaveModelIntegratedEntity);
+        ModelIntegratedEntity lastPreSaveModelIntegratedEntity = this.getLastSaveModelIntegratedEntity(jb4DSession, bpmnDefinitions.getBpmnProcess().getId());
+        flowModelIntegratedPO = appendFieldValueFromModelContentPO(jb4DSession, flowModelIntegratedPO, bpmnDefinitions, lastPreSaveModelIntegratedEntity);
 
-        ValidateUtility.isNotEmptyException(flowIntegratedPO.getModelReKey(), JBuild4DCGenerallyException.EXCEPTION_BUILDER_CODE, "启动KEY");
-        ValidateUtility.isNotEmptyException(flowIntegratedPO.getModelCode(), JBuild4DCGenerallyException.EXCEPTION_BUILDER_CODE, "Code");
-        ValidateUtility.isNotEmptyException(flowIntegratedPO.getModelModuleId(), JBuild4DCGenerallyException.EXCEPTION_BUILDER_CODE, "所属模块");
+        ValidateUtility.isNotEmptyException(flowModelIntegratedPO.getModelReKey(), JBuild4DCGenerallyException.EXCEPTION_BUILDER_CODE, "启动KEY");
+        ValidateUtility.isNotEmptyException(flowModelIntegratedPO.getModelCode(), JBuild4DCGenerallyException.EXCEPTION_BUILDER_CODE, "Code");
+        ValidateUtility.isNotEmptyException(flowModelIntegratedPO.getModelModuleId(), JBuild4DCGenerallyException.EXCEPTION_BUILDER_CODE, "所属模块");
 
-        if (flowIntegratedPO.isTryDeployment()) {
+        if (flowModelIntegratedPO.isTryDeployment()) {
             //尝试部署模型到工作流引擎
             try {
-                Deployment deployment = flowEngineModelIntegrateService.deploymentCamundaModel(jb4DSession, flowIntegratedPO.getModelName(), ModelDesignSourceTypeEnum.builderWebDesign,
-                        ModelTenantIdEnum.builderGeneralTenant, flowIntegratedPO.getModelContent());
-                flowIntegratedPO.setModelDeploymentId(deployment.getId());
-                flowIntegratedPO.setModelReEd("是");
-                flowIntegratedPO.setModelReSuccess("是");
-                flowIntegratedPO.setModelReId(flowEngineModelIntegrateService.getProcessDefinitionByDeploymentId(jb4DSession, deployment.getId()).getId());
+                Deployment deployment = flowEngineModelIntegrateService.deploymentCamundaModel(jb4DSession, flowModelIntegratedPO.getModelName(), ModelDesignSourceTypeEnum.builderWebDesign,
+                        ModelTenantIdEnum.builderGeneralTenant, flowModelIntegratedPO.getModelContent());
+                flowModelIntegratedPO.setModelDeploymentId(deployment.getId());
+                flowModelIntegratedPO.setModelReEd("是");
+                flowModelIntegratedPO.setModelReSuccess("是");
+                flowModelIntegratedPO.setModelLastReEd("是");
+                flowModelIntegratedPO.setModelReId(flowEngineModelIntegrateService.getProcessDefinitionByDeploymentId(jb4DSession, deployment.getId()).getId());
                 //deployment.
             } catch (Exception ex) {
                 throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_WORKFLOW_CODE, ex.getMessage(), ex.getCause(), ex.getStackTrace());
@@ -194,9 +197,10 @@ public class ModelIntegratedExtendServiceImpl extends BaseServiceImpl<ModelInteg
 
         if (lastPreSaveModelIntegratedEntity != null) {
             lastPreSaveModelIntegratedEntity.setModelLastVersion("否");
+            lastPreSaveModelIntegratedEntity.setModelLastReEd("否");
             flowIntegratedMapper.updateByPrimaryKeySelective(lastPreSaveModelIntegratedEntity);
         }
-        flowIntegratedMapper.insert(flowIntegratedPO);
+        flowIntegratedMapper.insert(flowModelIntegratedPO);
         //deployment.
         //设置关联分组
         modelGroupRefExtendService.deleteRefByModelKey(jb4DSession, bpmnDefinitionKey);
@@ -210,7 +214,7 @@ public class ModelIntegratedExtendServiceImpl extends BaseServiceImpl<ModelInteg
                     modelGroupRefEntity.setGrefId(UUID.randomUUID().toString());
                     modelGroupRefEntity.setGrefGroupId(map.get("groupId").toString());
                     modelGroupRefEntity.setGrefModelKey(bpmnProcess.getId());
-                    modelGroupRefEntity.setGrefModelId(flowIntegratedPO.getModelModuleId());
+                    modelGroupRefEntity.setGrefModelId(flowModelIntegratedPO.getModelModuleId());
                     modelGroupRefExtendService.saveSimple(jb4DSession, modelGroupRefEntity.getGrefId(), modelGroupRefEntity);
                 }
             } catch (IOException ex) {
@@ -224,27 +228,27 @@ public class ModelIntegratedExtendServiceImpl extends BaseServiceImpl<ModelInteg
         int modelAssObjectMaxOrderNum=modelAssObjectExtendService.getNextOrderNum(jb4DSession);
         //启动角色
         modelAssObjectEntityList.addAll(buildModelAssObjectEntities(
-                jb4DSession, bpmnProcess.getJb4dcProcessCandidateStarterGroups(), flowIntegratedPO.getModelId(), "StarterRole",
-                flowIntegratedPO.getModelReKey(), "rolePath", "roleId", modelAssObjectEntityList.size() + modelAssObjectMaxOrderNum));
+                jb4DSession, bpmnProcess.getJb4dcProcessCandidateStarterGroups(), flowModelIntegratedPO.getModelId(), "StarterRole",
+                flowModelIntegratedPO.getModelReKey(), "rolePath", "roleId", modelAssObjectEntityList.size() + modelAssObjectMaxOrderNum));
         //启动用户
         modelAssObjectEntityList.addAll(buildModelAssObjectEntities(
-                jb4DSession, bpmnProcess.getJb4dcProcessCandidateStarterUsers(), flowIntegratedPO.getModelId(), "StarterUser",
-                flowIntegratedPO.getModelReKey(), "userPath", "userId", modelAssObjectEntityList.size() + modelAssObjectMaxOrderNum));
+                jb4DSession, bpmnProcess.getJb4dcProcessCandidateStarterUsers(), flowModelIntegratedPO.getModelId(), "StarterUser",
+                flowModelIntegratedPO.getModelReKey(), "userPath", "userId", modelAssObjectEntityList.size() + modelAssObjectMaxOrderNum));
         //管理角色
         modelAssObjectEntityList.addAll(buildModelAssObjectEntities(
-                jb4DSession, bpmnProcess.getJb4dcProcessModelManagerGroups(), flowIntegratedPO.getModelId(), "ManagerRole",
-                flowIntegratedPO.getModelReKey(), "rolePath", "roleId", modelAssObjectEntityList.size() + modelAssObjectMaxOrderNum));
+                jb4DSession, bpmnProcess.getJb4dcProcessModelManagerGroups(), flowModelIntegratedPO.getModelId(), "ManagerRole",
+                flowModelIntegratedPO.getModelReKey(), "rolePath", "roleId", modelAssObjectEntityList.size() + modelAssObjectMaxOrderNum));
         //管理用户
         modelAssObjectEntityList.addAll(buildModelAssObjectEntities(
-                jb4DSession, bpmnProcess.getJb4dcProcessModelManagerUsers(), flowIntegratedPO.getModelId(), "ManagerUser",
-                flowIntegratedPO.getModelReKey(), "userPath", "userId", modelAssObjectEntityList.size() + modelAssObjectMaxOrderNum));
+                jb4DSession, bpmnProcess.getJb4dcProcessModelManagerUsers(), flowModelIntegratedPO.getModelId(), "ManagerUser",
+                flowModelIntegratedPO.getModelReKey(), "userPath", "userId", modelAssObjectEntityList.size() + modelAssObjectMaxOrderNum));
 
         for (ModelAssObjectEntity modelAssObjectEntity : modelAssObjectEntityList) {
             modelAssObjectExtendService.saveSimple(jb4DSession, modelAssObjectEntity.getObjectId(), modelAssObjectEntity);
         }
 
 
-        return flowIntegratedPO;
+        return flowModelIntegratedPO;
         /*FlowIntegratedEntity flowIntegratedEntity=flowIntegratedMapper.selectByPrimaryKey(recordID);
         ValidateUtility.isNotEmptyException(flowIntegratedPO.getIntegratedStartKey(),JBuild4DCGenerallyException.EXCEPTION_BUILDER_CODE,"启动KEY");
         ValidateUtility.isNotEmptyException(flowIntegratedPO.getIntegratedCode(),JBuild4DCGenerallyException.EXCEPTION_BUILDER_CODE,"Code");
@@ -339,8 +343,8 @@ public class ModelIntegratedExtendServiceImpl extends BaseServiceImpl<ModelInteg
         return modelAssObjectEntityList;
     }
 
-    private ModelIntegratedEntity getLastPreSaveModelIntegratedEntity(JB4DCSession jb4DCSession,String modelReKey) {
-        List<ModelIntegratedEntity> modelIntegratedEntityList = flowIntegratedMapper.selectLastPreSaveModelIntegratedEntity(modelReKey);
+    private ModelIntegratedEntity getLastSaveModelIntegratedEntity(JB4DCSession jb4DCSession, String modelReKey) {
+        List<ModelIntegratedEntity> modelIntegratedEntityList = flowIntegratedMapper.selectLastSaveModelIntegratedEntity(modelReKey);
         if(modelIntegratedEntityList!=null&&modelIntegratedEntityList.size()>0){
             return modelIntegratedEntityList.get(0);
         }
@@ -376,6 +380,86 @@ public class ModelIntegratedExtendServiceImpl extends BaseServiceImpl<ModelInteg
         result=result.replace("Flow_Model_JB4DC_Code_Empty","Flow_Model_JB4DC_Code_"+ DateUtility.getTimestampString());
 
         return result;
+    }
+
+    @Override
+    public List<ModelIntegratedEntity> getMyStartEnableModel(JB4DCSession session) {
+        if(session.isFullAuthority()){
+            return flowIntegratedMapper.selectAllStartEnableModel();
+        }
+        else{
+            return flowIntegratedMapper.selectStartEnableModelByRole(session.getUserId(),session.getRoleKeys());
+        }
+        //return null;
+    }
+
+    private FlowModelRuntimePO buildFlowModelRuntimePO(JB4DCSession session, String modelKey,boolean isStart,String currentNodeKey) throws JAXBException, XMLStreamException, IOException, JBuild4DCGenerallyException {
+        FlowModelRuntimePO result = new FlowModelRuntimePO();
+
+        String modelXml = flowEngineModelIntegrateService.getDeployedCamundaModelContentLastVersion(session, modelKey, ModelTenantIdEnum.builderGeneralTenant);
+        BpmnDefinitions bpmnDefinitions = parseToPO(modelXml);
+        BpmnProcess bpmnProcess = bpmnDefinitions.getBpmnProcess();
+
+        if (isStart) {
+            BpmnStartEvent bpmnStartEvent = bpmnDefinitions.getBpmnProcess().getStartEvent();
+            result.setCurrentNodeKey(bpmnStartEvent.getId());
+            result.setCurrentNodeName(bpmnStartEvent.getName());
+            result.setJb4dcFormId(StringUtility.isNotEmpty(bpmnStartEvent.getJb4dcFormId()) ? bpmnStartEvent.getJb4dcFormId() : bpmnProcess.getJb4dcFormId());
+            result.setJb4dcFormEx1Id(StringUtility.isNotEmpty(bpmnStartEvent.getJb4dcFormEx1Id()) ? bpmnStartEvent.getJb4dcFormEx1Id() : bpmnProcess.getJb4dcFormEx1Id());
+            result.setJb4dcOuterFormUrl(StringUtility.isNotEmpty(bpmnStartEvent.getJb4dcOuterFormUrl()) ? bpmnStartEvent.getJb4dcOuterFormUrl() : bpmnProcess.getJb4dcOuterFormUrl());
+            result.setJb4dcOuterFormEx1Url(StringUtility.isNotEmpty(bpmnStartEvent.getJb4dcOuterFormEx1Url()) ? bpmnStartEvent.getJb4dcOuterFormEx1Url() : bpmnProcess.getJb4dcOuterFormEx1Url());
+            result.setJb4dcProcessTitleEditText(StringUtility.isNotEmpty(bpmnStartEvent.getJb4dcProcessTitleEditText()) ? bpmnStartEvent.getJb4dcProcessTitleEditText() : bpmnProcess.getJb4dcProcessTitleEditText());
+            result.setJb4dcProcessTitleEditValue(StringUtility.isNotEmpty(bpmnStartEvent.getJb4dcProcessTitleEditValue()) ? bpmnStartEvent.getJb4dcProcessTitleEditValue() : bpmnProcess.getJb4dcProcessTitleEditValue());
+            result.setJb4dcProcessDescriptionEditText(StringUtility.isNotEmpty(bpmnStartEvent.getJb4dcProcessDescriptionEditText()) ? bpmnStartEvent.getJb4dcProcessDescriptionEditText() : bpmnProcess.getJb4dcProcessDescriptionEditText());
+            result.setJb4dcProcessDescriptionEditValue(StringUtility.isNotEmpty(bpmnStartEvent.getJb4dcProcessDescriptionEditValue()) ? bpmnStartEvent.getJb4dcProcessDescriptionEditValue() : bpmnProcess.getJb4dcProcessDescriptionEditValue());
+            result.setJb4dcProcessActionConfirm(bpmnProcess.getJb4dcProcessActionConfirm());
+            if (bpmnStartEvent.getJb4dcUseContentDocument()!=null&&(bpmnStartEvent.getJb4dcUseContentDocument().equals("byNodeConfig") || bpmnStartEvent.getJb4dcUseContentDocument().equals("notUse"))) {
+                result.setJb4dcUseContentDocument(bpmnStartEvent.getJb4dcUseContentDocument());
+                result.setJb4dcContentDocumentPlugin(bpmnStartEvent.getJb4dcContentDocumentPlugin());
+                result.setJb4dcContentDocumentRedHeadTemplate(bpmnStartEvent.getJb4dcContentDocumentRedHeadTemplate());
+            } else {
+                result.setJb4dcUseContentDocument(bpmnProcess.getJb4dcUseContentDocument());
+                result.setJb4dcContentDocumentPlugin(bpmnProcess.getJb4dcContentDocumentPlugin());
+                result.setJb4dcContentDocumentRedHeadTemplate(bpmnProcess.getJb4dcContentDocumentRedHeadTemplate());
+            }
+        } else {
+            BpmnUserTask userTask = bpmnProcess.getUserTaskList().stream().filter(item -> item.getId().equals(currentNodeKey)).findFirst().orElse(null);
+            if (userTask != null) {
+                result.setCurrentNodeKey(userTask.getId());
+                result.setCurrentNodeName(userTask.getName());
+                result.setJb4dcFormId(StringUtility.isNotEmpty(userTask.getJb4dcFormId()) ? userTask.getJb4dcFormId() : bpmnProcess.getJb4dcFormId());
+                result.setJb4dcFormEx1Id(StringUtility.isNotEmpty(userTask.getJb4dcFormEx1Id()) ? userTask.getJb4dcFormEx1Id() : bpmnProcess.getJb4dcFormEx1Id());
+                result.setJb4dcOuterFormUrl(StringUtility.isNotEmpty(userTask.getJb4dcOuterFormUrl()) ? userTask.getJb4dcOuterFormUrl() : bpmnProcess.getJb4dcOuterFormUrl());
+                result.setJb4dcOuterFormEx1Url(StringUtility.isNotEmpty(userTask.getJb4dcOuterFormEx1Url()) ? userTask.getJb4dcOuterFormEx1Url() : bpmnProcess.getJb4dcOuterFormEx1Url());
+                result.setJb4dcProcessTitleEditText(StringUtility.isNotEmpty(userTask.getJb4dcProcessTitleEditText()) ? userTask.getJb4dcProcessTitleEditText() : bpmnProcess.getJb4dcProcessTitleEditText());
+                result.setJb4dcProcessTitleEditValue(StringUtility.isNotEmpty(userTask.getJb4dcProcessTitleEditValue()) ? userTask.getJb4dcProcessTitleEditValue() : bpmnProcess.getJb4dcProcessTitleEditValue());
+                result.setJb4dcProcessDescriptionEditText(StringUtility.isNotEmpty(userTask.getJb4dcProcessDescriptionEditText()) ? userTask.getJb4dcProcessDescriptionEditText() : bpmnProcess.getJb4dcProcessDescriptionEditText());
+                result.setJb4dcProcessDescriptionEditValue(StringUtility.isNotEmpty(userTask.getJb4dcProcessDescriptionEditValue()) ? userTask.getJb4dcProcessDescriptionEditValue() : bpmnProcess.getJb4dcProcessDescriptionEditValue());
+                result.setJb4dcProcessActionConfirm(bpmnProcess.getJb4dcProcessActionConfirm());
+                if (userTask.getJb4dcUseContentDocument().equals("byNodeConfig") || userTask.getJb4dcUseContentDocument().equals("notUse")) {
+                    result.setJb4dcUseContentDocument(userTask.getJb4dcUseContentDocument());
+                    result.setJb4dcContentDocumentPlugin(userTask.getJb4dcContentDocumentPlugin());
+                    result.setJb4dcContentDocumentRedHeadTemplate(userTask.getJb4dcContentDocumentRedHeadTemplate());
+                } else {
+                    result.setJb4dcUseContentDocument(bpmnProcess.getJb4dcUseContentDocument());
+                    result.setJb4dcContentDocumentPlugin(bpmnProcess.getJb4dcContentDocumentPlugin());
+                    result.setJb4dcContentDocumentRedHeadTemplate(bpmnProcess.getJb4dcContentDocumentRedHeadTemplate());
+                }
+            } else {
+                throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_WORKFLOW_CODE, "从模型中找不到Key为" + currentNodeKey + "的节点!");
+            }
+        }
+
+        result.setModelIntegratedEntity(getLastSaveModelIntegratedEntity(session, modelKey));
+        result.setBpmnDefinitions(bpmnDefinitions);
+        result.setBpmnXmlContent(URLUtility.encode(modelXml));
+
+        return result;
+    }
+
+    @Override
+    public FlowModelRuntimePO getRuntimeModelWithStart(JB4DCSession session, String modelKey) throws IOException, JAXBException, XMLStreamException, JBuild4DCGenerallyException {
+        return buildFlowModelRuntimePO(session,modelKey,true,"");
     }
 
     //private List<ModelAssObjectEntity> buildModelAssObjectEntity

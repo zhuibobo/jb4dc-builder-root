@@ -8,7 +8,7 @@
                 <multiInstanceCompletionConditionProperties ref="multiInstanceCompletionConditionProperties" :prop-bpmn-general-data="bpmn"></multiInstanceCompletionConditionProperties>
             </tab-pane>
             <tab-pane tab="user-task-properties-tabs" label="绑定设置">
-                <jb4dcGeneralProperties ref="jb4dcGeneralProperties" :prop-jb4dc-general-data="jb4dc" :prop-is-process="false"></jb4dcGeneralProperties>
+                <jb4dcGeneralProperties ref="jb4dcGeneralProperties" :prop-bpmn-general-data="bpmn" :prop-jb4dc-general-data="jb4dc" :prop-is-process="false"></jb4dcGeneralProperties>
             </tab-pane>
             <tab-pane tab="user-task-properties-tabs" label="动作设置">
                 <jb4dcActionsProperties ref="jb4dcActionsProperties" :prop-bpmn-general-data="bpmn" :prop-jb4dc-general-data="jb4dc" :prop-from-id="jb4dc.jb4dcFormId" :prop-action-data="jb4dc.jb4dcActions.actions"></jb4dcActionsProperties>
@@ -79,7 +79,7 @@
         },
         mounted() {
             //alert("hello alex");
-            console.log(this.jb4dc.jb4dcActions);
+            console.log(this.bpmn);
             flowBpmnJsIntegrated=FlowBpmnJsIntegrated.GetInstance();
         },
         beforeDestroy(){

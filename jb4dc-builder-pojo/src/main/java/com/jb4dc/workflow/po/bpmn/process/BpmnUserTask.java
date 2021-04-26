@@ -36,10 +36,10 @@ public class BpmnUserTask extends BpmnTask {
     @XmlAttribute(name = "priority",namespace = BpmnNs.CAMUNDA_URI)
     String priority;
 
-    @XmlAttribute(name = "jb4dcCode",namespace = BpmnNs.JB4DC_URI)
+    //@XmlAttribute(name = "jb4dcCode",namespace = BpmnNs.JB4DC_URI)
     String jb4dcCode;
 
-    @XmlAttribute(name = "jb4dcFormId",namespace = BpmnNs.JB4DC_URI)
+    //@XmlAttribute(name = "jb4dcFormId",namespace = BpmnNs.JB4DC_URI)
     String jb4dcFormId;
 
     @XmlAttribute(name = "jb4dcFormEx1Id",namespace = BpmnNs.JB4DC_URI)

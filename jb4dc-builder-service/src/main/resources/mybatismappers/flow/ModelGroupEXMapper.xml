@@ -19,4 +19,12 @@
                                                                                                           where MODEL_GROUP_ORDER_NUM = (select max(MODEL_GROUP_ORDER_NUM) from TFLOW_MODEL_GROUP where MODEL_GROUP_ORDER_NUM<(select MODEL_GROUP_ORDER_NUM from TFLOW_MODEL_GROUP where MODEL_GROUP_ID=#{Id,jdbcType=NVARCHAR}))]]></select>
     <select id="selectGreaterThanRecord" parameterType="java.lang.String" resultMap="BaseResultMap"><![CDATA[select * from TFLOW_MODEL_GROUP
                                                                                                              where MODEL_GROUP_ORDER_NUM = (select min(MODEL_GROUP_ORDER_NUM) from TFLOW_MODEL_GROUP where MODEL_GROUP_ORDER_NUM>(select MODEL_GROUP_ORDER_NUM from TFLOW_MODEL_GROUP where MODEL_GROUP_ID=#{Id,jdbcType=NVARCHAR}))]]></select>
+
+    <select id="selectByIdList" resultMap="BaseResultMap">
+        select<include refid="Base_Column_List"/> from TFLOW_MODEL_GROUP where
+        MODEL_GROUP_ID in
+        <foreach collection="list" item="id" index="index" open="(" close=")" separator=",">
+            #{id}
+        </foreach> order by MODEL_GROUP_ORDER_NUM desc
+    </select>
 </mapper>

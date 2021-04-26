@@ -6,6 +6,7 @@ import com.jb4dc.workflow.exenum.ModelTenantIdEnum;
 import com.jb4dc.workflow.integrate.engine.IFlowEngineModelIntegratedService;
 import com.jb4dc.core.base.session.JB4DCSession;
 import com.jb4dc.core.base.tools.DateUtility;
+import org.apache.commons.io.IOUtils;
 import org.camunda.bpm.engine.RepositoryService;
 import org.camunda.bpm.engine.repository.Deployment;
 import org.camunda.bpm.engine.repository.ProcessDefinition;
@@ -13,7 +14,10 @@ import org.camunda.bpm.model.bpmn.BpmnModelInstance;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.io.InputStream;
+import java.io.StringWriter;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -85,6 +89,21 @@ public class FlowEngineModelIntegrateServiceImpl extends FlowEngineCamundaIntegr
     public ProcessDefinition getDeployedCamundaModelLastVersion(JB4DCSession jb4DSession, String processDefinitionKey, ModelTenantIdEnum modelTenantIdEnum){
         RepositoryService repositoryService = getRepositoryService();
         return repositoryService.createProcessDefinitionQuery().tenantIdIn(modelTenantIdEnum.getDisplayName()).processDefinitionKey(processDefinitionKey).latestVersion().singleResult();
+    }
+
+    @Override
+    public String getDeployedCamundaModelContentLastVersion(JB4DCSession jb4DSession, String processDefinitionKey, ModelTenantIdEnum modelTenantIdEnum) throws IOException {
+        ProcessDefinition processDefinition=getDeployedCamundaModelLastVersion(jb4DSession,processDefinitionKey,modelTenantIdEnum);
+        RepositoryService repositoryService=getRepositoryService();
+        InputStream is=repositoryService.getResourceAsStream(processDefinition.getDeploymentId(),processDefinition.getResourceName());
+        StringWriter writer = new StringWriter();
+        IOUtils.copy(is, writer, StandardCharsets.UTF_8);
+        String result = writer.toString();
+        return result;
+        //BpmnModelInstance bpmnModelInstance=getDeployedCamundaBpmnModelByKey(jb4DSession,processDefinitionKey,modelTenantIdEnum);
+        //return bpmnModelInstance.toString();
+        //processDefinition.
+        //return "";
     }
 
     @Override

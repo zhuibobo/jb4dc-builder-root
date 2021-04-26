@@ -1253,7 +1253,13 @@
         </createTable>
     </changeSet>
 
-    <changeSet id="changeSet-camunda-integrated-0012" author="zhuangrb">
+    <changeSet id="changeSet-camunda-integrated-0013" author="zhuangrb">
+        <addColumn tableName="TFLOW_MODEL_INTEGRATED">
+            <column name="MODEL_LAST_RE_ED" type="NVARCHAR(100)" remarks="是否最后部署版本"/>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="changeSet-camunda-integrated-0999" author="zhuangrb">
         <sql>
             ALTER TABLE TFLOW_EXECUTION_TASK COMMENT = '流程实例环节执行任务表:用于扩展act_ru_task记录,主送抄送任务'
         </sql>

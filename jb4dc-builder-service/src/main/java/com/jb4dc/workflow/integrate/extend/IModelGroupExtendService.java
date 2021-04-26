@@ -6,7 +6,11 @@ import com.jb4dc.core.base.session.JB4DCSession;
 import com.jb4dc.workflow.dbentities.ModelGroupEntity;
 import com.jb4dc.workflow.dbentities.ModelIntegratedEntity;
 
+import java.util.List;
+
 public interface IModelGroupExtendService extends IBaseService<ModelGroupEntity> {
 
     void initSystemData(JB4DCSession JB4DCSession) throws JBuild4DCGenerallyException;
+
+    List<ModelGroupEntity> getByIdList(List<String> idList);
 }

@@ -14,4 +14,12 @@
     <delete id="deleteRefByModelKey">
         delete from TFLOW_MODEL_GROUP_REF where GREF_MODEL_KEY=#{key}
     </delete>
+
+    <select id="selectByModelKeyList" resultMap="BaseResultMap">
+        select<include refid="Base_Column_List"/> from TFLOW_MODEL_GROUP_REF where
+        GREF_MODEL_KEY in
+            <foreach collection="list" item="id" index="index" open="(" close=")" separator=",">
+                #{id}
+            </foreach>
+    </select>
 </mapper>

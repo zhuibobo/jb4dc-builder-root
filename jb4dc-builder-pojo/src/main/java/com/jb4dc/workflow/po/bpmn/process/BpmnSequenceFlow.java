@@ -42,4 +42,51 @@ public class BpmnSequenceFlow {
     @XmlElement(name = "extensionElements",namespace = BpmnNs.BPMN_URI)
     BpmnExtensionElements extensionElements;
 
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getSourceRef() {
+        return sourceRef;
+    }
+
+    public void setSourceRef(String sourceRef) {
+        this.sourceRef = sourceRef;
+    }
+
+    public String getTargetRef() {
+        return targetRef;
+    }
+
+    public void setTargetRef(String targetRef) {
+        this.targetRef = targetRef;
+    }
+
+    public BpmnDocumentation getDocumentation() {
+        return documentation;
+    }
+
+    public void setDocumentation(BpmnDocumentation documentation) {
+        this.documentation = documentation;
+    }
+
+    public BpmnExtensionElements getExtensionElements() {
+        return extensionElements;
+    }
+
+    public void setExtensionElements(BpmnExtensionElements extensionElements) {
+        this.extensionElements = extensionElements;
+    }
 }

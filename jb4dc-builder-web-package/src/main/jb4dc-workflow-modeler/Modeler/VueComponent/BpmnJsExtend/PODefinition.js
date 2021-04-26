@@ -2,6 +2,7 @@ class PODefinition{
     static GetDialogPropertiesPO(){
         return {
             bpmn: {
+                elem:null,
                 id: "",
                 name: "",
                 isExecutable: "true",
@@ -95,7 +96,7 @@ class PODefinition{
                     authoritiesDesc: "",
                     authorities: []
                 },
-                jb4dcUseContentDocument:"false",
+                jb4dcUseContentDocument:"byProcessConfig",
                 jb4dcContentDocumentPlugin:"uploadConvertToPDFPlugin",
                 jb4dcContentDocumentRedHeadTemplate:""
             }

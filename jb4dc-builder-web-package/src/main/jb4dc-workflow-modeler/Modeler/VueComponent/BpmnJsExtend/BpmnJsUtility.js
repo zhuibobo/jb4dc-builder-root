@@ -1074,10 +1074,15 @@ class BpmnJsUtility {
     }
 
     static JB4DC_Attr_GetJb4dcUseContentDocument(element){
-        return this.GetAttr(element,"jb4dcUseContentDocument","false");
+        if(this.Is_Process(element)){
+            return this.GetAttr(element, "jb4dcUseContentDocument", "notUse");
+        }
+        else {
+            return this.GetAttr(element, "jb4dcUseContentDocument", "byProcessConfig");
+        }
     }
     static JB4DC_Attr_SetJb4dcUseContentDocument(element, jb4dcUseContentDocument){
-        this.SetAttr(element,"jb4dcUseContentDocument",jb4dcUseContentDocument,"false");
+        this.SetAttr(element,"jb4dcUseContentDocument",jb4dcUseContentDocument,"byProcessConfig");
     }
 
     static JB4DC_Attr_GetJb4dcContentDocumentPlugin(element){

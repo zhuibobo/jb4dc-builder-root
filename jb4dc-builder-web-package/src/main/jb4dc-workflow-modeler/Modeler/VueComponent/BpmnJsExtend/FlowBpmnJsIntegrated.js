@@ -299,6 +299,9 @@ class FlowBpmnJsIntegrated {
         var result = PODefinition.GetDialogPropertiesPO();
         //debugger;
         //bpmn
+        result.bpmn.elem= {
+            type: elem.type
+        };
         result.bpmn.id = BpmnJsUtility.BPMN_Attr_GetId(elem);
         result.bpmn.name = BpmnJsUtility.BPMN_Attr_GetName(elem);
         result.bpmn.isExecutable = BpmnJsUtility.BPMN_Attr_Process_GetIsExecutable(elem);
