@@ -3,9 +3,8 @@ package com.jb4dc.gridsystem.service.statistics.impl;
 import com.jb4dc.builder.client.tools.SQLStringPlaceholderUtility;
 import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
 import com.jb4dc.core.base.session.JB4DCSession;
-import com.jb4dc.gridsystem.service.statistics.IBuildStatistics;
 import com.jb4dc.gridsystem.service.statistics.IEnterpriseStatistics;
-import com.jb4dc.sso.client.proxy.IOrganRuntimeProxy;
+import com.jb4dc.sso.client.remote.OrganRuntimeRemote;
 import com.jb4dc.sso.dbentities.organ.OrganEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,14 +18,14 @@ import java.util.Map;
 public class EnterpriseStatisticsImpl  extends BaseStatistics implements IEnterpriseStatistics {
 
     @Autowired
-    IOrganRuntimeProxy organRuntimeProxy;
+    OrganRuntimeRemote organRuntimeRemote;
 
     @Autowired
     SQLStringPlaceholderUtility sqlStringPlaceholderUtility;
 
     @Override
     public List<Map<String, Object>> getStreetEnterpriseStatistics(JB4DCSession session, String streetValue) throws JBuild4DCGenerallyException {
-        List<OrganEntity> organEntityList=organRuntimeProxy.getEnableChildOrganRT(streetValue).getData();
+        List<OrganEntity> organEntityList=organRuntimeRemote.getEnableChildOrganRT(streetValue).getData();
 
         String sql="select BUILD_COMMUNITY_ID ORGAN_ID,count(1) VALUE from TGRID_ENTERPRISE_INFO" +
                 "    join TGRID_HOUSE_INFO on TGRID_ENTERPRISE_INFO.ENT_HOUSE_ID=TGRID_HOUSE_INFO.HOUSE_ID" +

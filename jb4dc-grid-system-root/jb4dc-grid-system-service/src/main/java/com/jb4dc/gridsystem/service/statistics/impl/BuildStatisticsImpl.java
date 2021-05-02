@@ -6,7 +6,7 @@ import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
 import com.jb4dc.core.base.session.JB4DCSession;
 import com.jb4dc.core.base.tools.StringUtility;
 import com.jb4dc.gridsystem.service.statistics.IBuildStatistics;
-import com.jb4dc.sso.client.proxy.IOrganRuntimeProxy;
+import com.jb4dc.sso.client.remote.OrganRuntimeRemote;
 import com.jb4dc.sso.dbentities.organ.OrganEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,7 +20,7 @@ import java.util.Map;
 public class BuildStatisticsImpl extends BaseStatistics implements IBuildStatistics {
 
     @Autowired
-    IOrganRuntimeProxy organRuntimeProxy;
+    OrganRuntimeRemote organRuntimeRemote;
 
     @Autowired
     SQLStringPlaceholderUtility sqlStringPlaceholderUtility;
@@ -79,7 +79,7 @@ public class BuildStatisticsImpl extends BaseStatistics implements IBuildStatist
 
     @Override
     public List<Map<String, Object>> getStreetBuildStatistics(JB4DCSession session, String streetValue,String category) throws JBuild4DCGenerallyException {
-        List<OrganEntity> organEntityList=organRuntimeProxy.getEnableChildOrganRT(streetValue).getData();
+        List<OrganEntity> organEntityList=organRuntimeRemote.getEnableChildOrganRT(streetValue).getData();
 
         String sql="select BUILD_COMMUNITY_ID ORGAN_ID,count(1) VALUE from tgrid_build_info where BUILD_CATEGORY='"+category+"' group by BUILD_COMMUNITY_ID";
         List<Map<String, Object>> buildData=sqlBuilderService.selectList(sql);

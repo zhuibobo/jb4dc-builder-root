@@ -11,15 +11,18 @@ var WFDCT_CKEditor4={
         //$singleControlElem.val("22222");
         //加载默认配置文件
 
-        if(BaseUtility.IsViewOperation(formRuntimeInst.GetOperationType())) {
+        if(BaseUtility.IsViewOperation(_rendererChainParas.formRuntimeInstance.GetOperationType())) {
 
         }
         else {
             var filename = _ref_filePath.substr(_ref_filePath.lastIndexOf('/') + 1);
 
-            var editorConfigUrl = BaseUtility.AppendTimeStampUrl(_ref_filePath.replace(filename, $singleControlElem.attr("customconfig")));
+            var editorConfigUrl = BaseUtility.AppendTimeStampUrl(_ref_filePath.replace(filename, "Control/WebFormControl/"+$singleControlElem.attr("customconfig")));
+            console.log(editorConfigUrl);
+            //editorConfigUrl=1;
             this.ckeditorInstance = CKEDITOR.replace($singleControlElem.attr("id"), {
-                customConfig: editorConfigUrl
+                customConfig: editorConfigUrl,
+                formRuntimeInstance:_rendererChainParas.formRuntimeInstance
             });
             this.ckeditorInstance.config.height = areaHeight;
             //console.log(this.ckeditorInstance.config.plugins);

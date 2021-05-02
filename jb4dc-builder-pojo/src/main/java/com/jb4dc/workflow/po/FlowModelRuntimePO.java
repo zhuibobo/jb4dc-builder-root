@@ -1,5 +1,6 @@
 package com.jb4dc.workflow.po;
 
+import com.jb4dc.builder.po.FormResourcePO;
 import com.jb4dc.workflow.dbentities.ModelIntegratedEntity;
 import com.jb4dc.workflow.po.bpmn.BpmnDefinitions;
 
@@ -12,8 +13,8 @@ public class FlowModelRuntimePO {
     String currentNodeKey;
     String currentNodeName;
 
-    String jb4dcFormId;
-    String jb4dcFormEx1Id;
+
+
     String jb4dcOuterFormUrl;
     String jb4dcOuterFormEx1Url;
     String jb4dcUseContentDocument;
@@ -24,6 +25,16 @@ public class FlowModelRuntimePO {
     String jb4dcProcessDescriptionEditText;
     String jb4dcProcessDescriptionEditValue;
     String jb4dcProcessActionConfirm;
+
+    String jb4dcFormPlugin;
+    String jb4dcFormId;
+    //FormResourcePO jb4dcFormResourcePO;
+    String jb4dcFormParas;
+
+    String jb4dcFormEx1Plugin;
+    String jb4dcFormEx1Id;
+    //FormResourcePO jb4dcFormEx1ResourcePO;
+    String jb4dcFormEx1Paras;
 
     public String getBpmnXmlContent() {
         return bpmnXmlContent;
@@ -168,4 +179,52 @@ public class FlowModelRuntimePO {
     public void setJb4dcProcessActionConfirm(String jb4dcProcessActionConfirm) {
         this.jb4dcProcessActionConfirm = jb4dcProcessActionConfirm;
     }
+
+    public String getJb4dcFormPlugin() {
+        return jb4dcFormPlugin;
+    }
+
+    public void setJb4dcFormPlugin(String jb4dcFormPlugin) {
+        this.jb4dcFormPlugin = jb4dcFormPlugin;
+    }
+
+    public String getJb4dcFormParas() {
+        return jb4dcFormParas;
+    }
+
+    public void setJb4dcFormParas(String jb4dcFormParas) {
+        this.jb4dcFormParas = jb4dcFormParas;
+    }
+
+    public String getJb4dcFormEx1Plugin() {
+        return jb4dcFormEx1Plugin;
+    }
+
+    public void setJb4dcFormEx1Plugin(String jb4dcFormEx1Plugin) {
+        this.jb4dcFormEx1Plugin = jb4dcFormEx1Plugin;
+    }
+
+    public String getJb4dcFormEx1Paras() {
+        return jb4dcFormEx1Paras;
+    }
+
+    public void setJb4dcFormEx1Paras(String jb4dcFormEx1Paras) {
+        this.jb4dcFormEx1Paras = jb4dcFormEx1Paras;
+    }
+
+    /*public FormResourcePO getJb4dcFormResourcePO() {
+        return jb4dcFormResourcePO;
+    }
+
+    public void setJb4dcFormResourcePO(FormResourcePO jb4dcFormResourcePO) {
+        this.jb4dcFormResourcePO = jb4dcFormResourcePO;
+    }
+
+    public FormResourcePO getJb4dcFormEx1ResourcePO() {
+        return jb4dcFormEx1ResourcePO;
+    }
+
+    public void setJb4dcFormEx1ResourcePO(FormResourcePO jb4dcFormEx1ResourcePO) {
+        this.jb4dcFormEx1ResourcePO = jb4dcFormEx1ResourcePO;
+    }*/
 }

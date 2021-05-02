@@ -4,9 +4,8 @@ import com.jb4dc.builder.client.tools.SQLStringPlaceholderResultPO;
 import com.jb4dc.builder.client.tools.SQLStringPlaceholderUtility;
 import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
 import com.jb4dc.core.base.session.JB4DCSession;
-import com.jb4dc.gridsystem.service.statistics.IHouseStatistics;
 import com.jb4dc.gridsystem.service.statistics.IPersonStatistics;
-import com.jb4dc.sso.client.proxy.IOrganRuntimeProxy;
+import com.jb4dc.sso.client.remote.OrganRuntimeRemote;
 import com.jb4dc.sso.dbentities.organ.OrganEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,7 +16,7 @@ import java.util.*;
 public class PersonStatisticsImpl  extends BaseStatistics implements IPersonStatistics {
 
     @Autowired
-    IOrganRuntimeProxy organRuntimeProxy;
+    OrganRuntimeRemote organRuntimeRemote;
 
     @Autowired
     SQLStringPlaceholderUtility sqlStringPlaceholderUtility;
@@ -88,7 +87,7 @@ public class PersonStatisticsImpl  extends BaseStatistics implements IPersonStat
 
     @Override
     public List<Map<String, Object>> getStreetPersonStatistics(JB4DCSession session, String streetValue) throws JBuild4DCGenerallyException {
-        List<OrganEntity> organEntityList=organRuntimeProxy.getEnableChildOrganRT(streetValue).getData();
+        List<OrganEntity> organEntityList=organRuntimeRemote.getEnableChildOrganRT(streetValue).getData();
 
         String sql="select PERSON_COMMUNITY_ID ORGAN_ID,count(1) VALUE from TGRID_PERSON group by TGRID_PERSON.PERSON_COMMUNITY_ID";
         List<Map<String, Object>> buildData=sqlBuilderService.selectList(sql);

@@ -1,5 +1,6 @@
 package com.jb4dc.builder.client.remote;
 
+import com.jb4dc.base.service.aspect.ClientCallRemoteCache;
 import com.jb4dc.builder.po.FormResourcePO;
 import com.jb4dc.builder.po.ListResourcePO;
 import com.jb4dc.core.base.vo.JBuild4DCResponseVo;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 public interface WebFormRuntimeRemote {
 
     @RequestMapping(value = "/LoadHTML", method = RequestMethod.POST)
+    @ClientCallRemoteCache
     JBuild4DCResponseVo<FormResourcePO> loadHTML(@RequestParam("formId") String formId);
 
 }

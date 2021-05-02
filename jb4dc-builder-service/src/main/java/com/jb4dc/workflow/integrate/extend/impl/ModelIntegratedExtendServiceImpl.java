@@ -7,10 +7,13 @@ import java.util.*;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.jb4dc.base.service.general.JB4DCSessionUtility;
 import com.jb4dc.base.service.impl.BaseServiceImpl;
 import com.jb4dc.base.tools.JsonUtility;
 import com.jb4dc.base.tools.URLUtility;
 import com.jb4dc.base.tools.XMLUtility;
+import com.jb4dc.builder.client.service.webform.IFormResourceService;
+import com.jb4dc.builder.po.FormResourcePO;
 import com.jb4dc.builder.service.module.IModuleService;
 import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
 import com.jb4dc.core.base.session.JB4DCSession;
@@ -25,6 +28,7 @@ import com.jb4dc.workflow.integrate.extend.IModelAssObjectExtendService;
 import com.jb4dc.workflow.integrate.extend.IModelGroupRefExtendService;
 import com.jb4dc.workflow.po.FlowModelIntegratedPO;
 import com.jb4dc.workflow.po.FlowModelRuntimePO;
+import com.jb4dc.workflow.po.TypeNamesPO;
 import com.jb4dc.workflow.po.bpmn.BpmnDefinitions;
 import com.jb4dc.workflow.dao.ModelIntegratedMapper;
 import com.jb4dc.workflow.dbentities.ModelIntegratedEntity;
@@ -60,6 +64,9 @@ public class ModelIntegratedExtendServiceImpl extends BaseServiceImpl<ModelInteg
 
     @Autowired
     IModelAssObjectExtendService modelAssObjectExtendService;
+
+    @Autowired
+    IFormResourceService formResourceService;
 
     @Autowired
     IModuleService moduleService;
@@ -393,73 +400,113 @@ public class ModelIntegratedExtendServiceImpl extends BaseServiceImpl<ModelInteg
         //return null;
     }
 
-    private FlowModelRuntimePO buildFlowModelRuntimePO(JB4DCSession session, String modelKey,boolean isStart,String currentNodeKey) throws JAXBException, XMLStreamException, IOException, JBuild4DCGenerallyException {
-        FlowModelRuntimePO result = new FlowModelRuntimePO();
+    private void buildFlowModelRuntimePOBaseInfo(JB4DCSession session,FlowModelRuntimePO flowModelRuntimePO, String modelKey,boolean isStart,String currentNodeKey) throws JAXBException, XMLStreamException, IOException, JBuild4DCGenerallyException {
+        //FlowModelRuntimePO flowModelRuntimePO = new FlowModelRuntimePO();
 
         String modelXml = flowEngineModelIntegrateService.getDeployedCamundaModelContentLastVersion(session, modelKey, ModelTenantIdEnum.builderGeneralTenant);
         BpmnDefinitions bpmnDefinitions = parseToPO(modelXml);
         BpmnProcess bpmnProcess = bpmnDefinitions.getBpmnProcess();
 
+        flowModelRuntimePO.setStartEvent(isStart);
+        flowModelRuntimePO.setJb4dcFormId(bpmnProcess.getJb4dcFormId());
+        flowModelRuntimePO.setJb4dcFormPlugin(bpmnProcess.getJb4dcFormPlugin());
+        flowModelRuntimePO.setJb4dcFormParas(bpmnProcess.getJb4dcFormParas());
+
+        flowModelRuntimePO.setJb4dcFormEx1Id(bpmnProcess.getJb4dcFormEx1Id());
+        flowModelRuntimePO.setJb4dcFormEx1Plugin(bpmnProcess.getJb4dcFormEx1Plugin());
+        flowModelRuntimePO.setJb4dcFormEx1Paras(bpmnProcess.getJb4dcFormEx1Paras());
         if (isStart) {
             BpmnStartEvent bpmnStartEvent = bpmnDefinitions.getBpmnProcess().getStartEvent();
-            result.setCurrentNodeKey(bpmnStartEvent.getId());
-            result.setCurrentNodeName(bpmnStartEvent.getName());
-            result.setJb4dcFormId(StringUtility.isNotEmpty(bpmnStartEvent.getJb4dcFormId()) ? bpmnStartEvent.getJb4dcFormId() : bpmnProcess.getJb4dcFormId());
-            result.setJb4dcFormEx1Id(StringUtility.isNotEmpty(bpmnStartEvent.getJb4dcFormEx1Id()) ? bpmnStartEvent.getJb4dcFormEx1Id() : bpmnProcess.getJb4dcFormEx1Id());
-            result.setJb4dcOuterFormUrl(StringUtility.isNotEmpty(bpmnStartEvent.getJb4dcOuterFormUrl()) ? bpmnStartEvent.getJb4dcOuterFormUrl() : bpmnProcess.getJb4dcOuterFormUrl());
-            result.setJb4dcOuterFormEx1Url(StringUtility.isNotEmpty(bpmnStartEvent.getJb4dcOuterFormEx1Url()) ? bpmnStartEvent.getJb4dcOuterFormEx1Url() : bpmnProcess.getJb4dcOuterFormEx1Url());
-            result.setJb4dcProcessTitleEditText(StringUtility.isNotEmpty(bpmnStartEvent.getJb4dcProcessTitleEditText()) ? bpmnStartEvent.getJb4dcProcessTitleEditText() : bpmnProcess.getJb4dcProcessTitleEditText());
-            result.setJb4dcProcessTitleEditValue(StringUtility.isNotEmpty(bpmnStartEvent.getJb4dcProcessTitleEditValue()) ? bpmnStartEvent.getJb4dcProcessTitleEditValue() : bpmnProcess.getJb4dcProcessTitleEditValue());
-            result.setJb4dcProcessDescriptionEditText(StringUtility.isNotEmpty(bpmnStartEvent.getJb4dcProcessDescriptionEditText()) ? bpmnStartEvent.getJb4dcProcessDescriptionEditText() : bpmnProcess.getJb4dcProcessDescriptionEditText());
-            result.setJb4dcProcessDescriptionEditValue(StringUtility.isNotEmpty(bpmnStartEvent.getJb4dcProcessDescriptionEditValue()) ? bpmnStartEvent.getJb4dcProcessDescriptionEditValue() : bpmnProcess.getJb4dcProcessDescriptionEditValue());
-            result.setJb4dcProcessActionConfirm(bpmnProcess.getJb4dcProcessActionConfirm());
+            flowModelRuntimePO.setCurrentNodeKey(bpmnStartEvent.getId());
+            flowModelRuntimePO.setCurrentNodeName(bpmnStartEvent.getName());
+
+            if(StringUtility.isNotEmpty(bpmnStartEvent.getJb4dcFormId())){
+                flowModelRuntimePO.setJb4dcFormId(bpmnStartEvent.getJb4dcFormId());
+                flowModelRuntimePO.setJb4dcFormPlugin(bpmnStartEvent.getJb4dcFormPlugin());
+                flowModelRuntimePO.setJb4dcFormParas(bpmnStartEvent.getJb4dcFormParas());
+            }
+            if(StringUtility.isNotEmpty(bpmnStartEvent.getJb4dcFormEx1Id())){
+                flowModelRuntimePO.setJb4dcFormEx1Id(bpmnStartEvent.getJb4dcFormEx1Id());
+                flowModelRuntimePO.setJb4dcFormEx1Plugin(bpmnStartEvent.getJb4dcFormEx1Plugin());
+                flowModelRuntimePO.setJb4dcFormEx1Paras(bpmnStartEvent.getJb4dcFormEx1Paras());
+            }
+
+            flowModelRuntimePO.setJb4dcOuterFormUrl(StringUtility.isNotEmpty(bpmnStartEvent.getJb4dcOuterFormUrl()) ? bpmnStartEvent.getJb4dcOuterFormUrl() : bpmnProcess.getJb4dcOuterFormUrl());
+            flowModelRuntimePO.setJb4dcOuterFormEx1Url(StringUtility.isNotEmpty(bpmnStartEvent.getJb4dcOuterFormEx1Url()) ? bpmnStartEvent.getJb4dcOuterFormEx1Url() : bpmnProcess.getJb4dcOuterFormEx1Url());
+            flowModelRuntimePO.setJb4dcProcessTitleEditText(StringUtility.isNotEmpty(bpmnStartEvent.getJb4dcProcessTitleEditText()) ? bpmnStartEvent.getJb4dcProcessTitleEditText() : bpmnProcess.getJb4dcProcessTitleEditText());
+            flowModelRuntimePO.setJb4dcProcessTitleEditValue(StringUtility.isNotEmpty(bpmnStartEvent.getJb4dcProcessTitleEditValue()) ? bpmnStartEvent.getJb4dcProcessTitleEditValue() : bpmnProcess.getJb4dcProcessTitleEditValue());
+            flowModelRuntimePO.setJb4dcProcessDescriptionEditText(StringUtility.isNotEmpty(bpmnStartEvent.getJb4dcProcessDescriptionEditText()) ? bpmnStartEvent.getJb4dcProcessDescriptionEditText() : bpmnProcess.getJb4dcProcessDescriptionEditText());
+            flowModelRuntimePO.setJb4dcProcessDescriptionEditValue(StringUtility.isNotEmpty(bpmnStartEvent.getJb4dcProcessDescriptionEditValue()) ? bpmnStartEvent.getJb4dcProcessDescriptionEditValue() : bpmnProcess.getJb4dcProcessDescriptionEditValue());
+            flowModelRuntimePO.setJb4dcProcessActionConfirm(bpmnProcess.getJb4dcProcessActionConfirm());
             if (bpmnStartEvent.getJb4dcUseContentDocument()!=null&&(bpmnStartEvent.getJb4dcUseContentDocument().equals("byNodeConfig") || bpmnStartEvent.getJb4dcUseContentDocument().equals("notUse"))) {
-                result.setJb4dcUseContentDocument(bpmnStartEvent.getJb4dcUseContentDocument());
-                result.setJb4dcContentDocumentPlugin(bpmnStartEvent.getJb4dcContentDocumentPlugin());
-                result.setJb4dcContentDocumentRedHeadTemplate(bpmnStartEvent.getJb4dcContentDocumentRedHeadTemplate());
+                flowModelRuntimePO.setJb4dcUseContentDocument(bpmnStartEvent.getJb4dcUseContentDocument());
+                flowModelRuntimePO.setJb4dcContentDocumentPlugin(bpmnStartEvent.getJb4dcContentDocumentPlugin());
+                flowModelRuntimePO.setJb4dcContentDocumentRedHeadTemplate(bpmnStartEvent.getJb4dcContentDocumentRedHeadTemplate());
             } else {
-                result.setJb4dcUseContentDocument(bpmnProcess.getJb4dcUseContentDocument());
-                result.setJb4dcContentDocumentPlugin(bpmnProcess.getJb4dcContentDocumentPlugin());
-                result.setJb4dcContentDocumentRedHeadTemplate(bpmnProcess.getJb4dcContentDocumentRedHeadTemplate());
+                flowModelRuntimePO.setJb4dcUseContentDocument(bpmnProcess.getJb4dcUseContentDocument());
+                flowModelRuntimePO.setJb4dcContentDocumentPlugin(bpmnProcess.getJb4dcContentDocumentPlugin());
+                flowModelRuntimePO.setJb4dcContentDocumentRedHeadTemplate(bpmnProcess.getJb4dcContentDocumentRedHeadTemplate());
             }
         } else {
             BpmnUserTask userTask = bpmnProcess.getUserTaskList().stream().filter(item -> item.getId().equals(currentNodeKey)).findFirst().orElse(null);
             if (userTask != null) {
-                result.setCurrentNodeKey(userTask.getId());
-                result.setCurrentNodeName(userTask.getName());
-                result.setJb4dcFormId(StringUtility.isNotEmpty(userTask.getJb4dcFormId()) ? userTask.getJb4dcFormId() : bpmnProcess.getJb4dcFormId());
-                result.setJb4dcFormEx1Id(StringUtility.isNotEmpty(userTask.getJb4dcFormEx1Id()) ? userTask.getJb4dcFormEx1Id() : bpmnProcess.getJb4dcFormEx1Id());
-                result.setJb4dcOuterFormUrl(StringUtility.isNotEmpty(userTask.getJb4dcOuterFormUrl()) ? userTask.getJb4dcOuterFormUrl() : bpmnProcess.getJb4dcOuterFormUrl());
-                result.setJb4dcOuterFormEx1Url(StringUtility.isNotEmpty(userTask.getJb4dcOuterFormEx1Url()) ? userTask.getJb4dcOuterFormEx1Url() : bpmnProcess.getJb4dcOuterFormEx1Url());
-                result.setJb4dcProcessTitleEditText(StringUtility.isNotEmpty(userTask.getJb4dcProcessTitleEditText()) ? userTask.getJb4dcProcessTitleEditText() : bpmnProcess.getJb4dcProcessTitleEditText());
-                result.setJb4dcProcessTitleEditValue(StringUtility.isNotEmpty(userTask.getJb4dcProcessTitleEditValue()) ? userTask.getJb4dcProcessTitleEditValue() : bpmnProcess.getJb4dcProcessTitleEditValue());
-                result.setJb4dcProcessDescriptionEditText(StringUtility.isNotEmpty(userTask.getJb4dcProcessDescriptionEditText()) ? userTask.getJb4dcProcessDescriptionEditText() : bpmnProcess.getJb4dcProcessDescriptionEditText());
-                result.setJb4dcProcessDescriptionEditValue(StringUtility.isNotEmpty(userTask.getJb4dcProcessDescriptionEditValue()) ? userTask.getJb4dcProcessDescriptionEditValue() : bpmnProcess.getJb4dcProcessDescriptionEditValue());
-                result.setJb4dcProcessActionConfirm(bpmnProcess.getJb4dcProcessActionConfirm());
+                flowModelRuntimePO.setCurrentNodeKey(userTask.getId());
+                flowModelRuntimePO.setCurrentNodeName(userTask.getName());
+
+                if(StringUtility.isNotEmpty(userTask.getJb4dcFormId())){
+                    flowModelRuntimePO.setJb4dcFormId(userTask.getJb4dcFormId());
+                    flowModelRuntimePO.setJb4dcFormPlugin(userTask.getJb4dcFormPlugin());
+                    flowModelRuntimePO.setJb4dcFormParas(userTask.getJb4dcFormParas());
+                }
+                if(StringUtility.isNotEmpty(userTask.getJb4dcFormEx1Id())){
+                    flowModelRuntimePO.setJb4dcFormEx1Id(userTask.getJb4dcFormEx1Id());
+                    flowModelRuntimePO.setJb4dcFormEx1Plugin(userTask.getJb4dcFormEx1Plugin());
+                    flowModelRuntimePO.setJb4dcFormEx1Paras(userTask.getJb4dcFormEx1Paras());
+                }
+
+                flowModelRuntimePO.setJb4dcOuterFormUrl(StringUtility.isNotEmpty(userTask.getJb4dcOuterFormUrl()) ? userTask.getJb4dcOuterFormUrl() : bpmnProcess.getJb4dcOuterFormUrl());
+                flowModelRuntimePO.setJb4dcOuterFormEx1Url(StringUtility.isNotEmpty(userTask.getJb4dcOuterFormEx1Url()) ? userTask.getJb4dcOuterFormEx1Url() : bpmnProcess.getJb4dcOuterFormEx1Url());
+                flowModelRuntimePO.setJb4dcProcessTitleEditText(StringUtility.isNotEmpty(userTask.getJb4dcProcessTitleEditText()) ? userTask.getJb4dcProcessTitleEditText() : bpmnProcess.getJb4dcProcessTitleEditText());
+                flowModelRuntimePO.setJb4dcProcessTitleEditValue(StringUtility.isNotEmpty(userTask.getJb4dcProcessTitleEditValue()) ? userTask.getJb4dcProcessTitleEditValue() : bpmnProcess.getJb4dcProcessTitleEditValue());
+                flowModelRuntimePO.setJb4dcProcessDescriptionEditText(StringUtility.isNotEmpty(userTask.getJb4dcProcessDescriptionEditText()) ? userTask.getJb4dcProcessDescriptionEditText() : bpmnProcess.getJb4dcProcessDescriptionEditText());
+                flowModelRuntimePO.setJb4dcProcessDescriptionEditValue(StringUtility.isNotEmpty(userTask.getJb4dcProcessDescriptionEditValue()) ? userTask.getJb4dcProcessDescriptionEditValue() : bpmnProcess.getJb4dcProcessDescriptionEditValue());
+                flowModelRuntimePO.setJb4dcProcessActionConfirm(bpmnProcess.getJb4dcProcessActionConfirm());
                 if (userTask.getJb4dcUseContentDocument().equals("byNodeConfig") || userTask.getJb4dcUseContentDocument().equals("notUse")) {
-                    result.setJb4dcUseContentDocument(userTask.getJb4dcUseContentDocument());
-                    result.setJb4dcContentDocumentPlugin(userTask.getJb4dcContentDocumentPlugin());
-                    result.setJb4dcContentDocumentRedHeadTemplate(userTask.getJb4dcContentDocumentRedHeadTemplate());
+                    flowModelRuntimePO.setJb4dcUseContentDocument(userTask.getJb4dcUseContentDocument());
+                    flowModelRuntimePO.setJb4dcContentDocumentPlugin(userTask.getJb4dcContentDocumentPlugin());
+                    flowModelRuntimePO.setJb4dcContentDocumentRedHeadTemplate(userTask.getJb4dcContentDocumentRedHeadTemplate());
                 } else {
-                    result.setJb4dcUseContentDocument(bpmnProcess.getJb4dcUseContentDocument());
-                    result.setJb4dcContentDocumentPlugin(bpmnProcess.getJb4dcContentDocumentPlugin());
-                    result.setJb4dcContentDocumentRedHeadTemplate(bpmnProcess.getJb4dcContentDocumentRedHeadTemplate());
+                    flowModelRuntimePO.setJb4dcUseContentDocument(bpmnProcess.getJb4dcUseContentDocument());
+                    flowModelRuntimePO.setJb4dcContentDocumentPlugin(bpmnProcess.getJb4dcContentDocumentPlugin());
+                    flowModelRuntimePO.setJb4dcContentDocumentRedHeadTemplate(bpmnProcess.getJb4dcContentDocumentRedHeadTemplate());
                 }
             } else {
                 throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_WORKFLOW_CODE, "从模型中找不到Key为" + currentNodeKey + "的节点!");
             }
         }
 
-        result.setModelIntegratedEntity(getLastSaveModelIntegratedEntity(session, modelKey));
-        result.setBpmnDefinitions(bpmnDefinitions);
-        result.setBpmnXmlContent(URLUtility.encode(modelXml));
+        flowModelRuntimePO.setModelIntegratedEntity(getLastSaveModelIntegratedEntity(session, modelKey));
+        flowModelRuntimePO.setBpmnDefinitions(bpmnDefinitions);
+        flowModelRuntimePO.setBpmnXmlContent(URLUtility.encode(modelXml));
+    }
 
-        return result;
+    private void buildFlowModelRuntimePOBindFormInfo(JB4DCSession session,FlowModelRuntimePO flowModelRuntimePO, String modelKey,boolean isStart,String currentNodeKey) throws JBuild4DCGenerallyException {
+        if(StringUtility.isNotEmpty(flowModelRuntimePO.getJb4dcFormId())&&flowModelRuntimePO.getJb4dcFormPlugin().equals(TypeNamesPO.WebFormPlugin)) {
+            //FormResourcePO formResourcePO = formResourceService.getFormRuntimePageContent(JB4DCSessionUtility.getSession(), flowModelRuntimePO.getJb4dcFormId());
+            //flowModelRuntimePO.setJb4dcFormResourcePO(formResourcePO);
+        }
+        if(StringUtility.isNotEmpty(flowModelRuntimePO.getJb4dcFormEx1Id())&&flowModelRuntimePO.getJb4dcFormEx1Plugin().equals(TypeNamesPO.WebFormPlugin)) {
+            //FormResourcePO formResourcePO = formResourceService.getFormRuntimePageContent(JB4DCSessionUtility.getSession(), flowModelRuntimePO.getJb4dcFormId());
+            //flowModelRuntimePO.setJb4dcFormEx1ResourcePO(formResourcePO);
+        }
     }
 
     @Override
     public FlowModelRuntimePO getRuntimeModelWithStart(JB4DCSession session, String modelKey) throws IOException, JAXBException, XMLStreamException, JBuild4DCGenerallyException {
-        return buildFlowModelRuntimePO(session,modelKey,true,"");
+        FlowModelRuntimePO result = new FlowModelRuntimePO();
+        buildFlowModelRuntimePOBaseInfo(session, result, modelKey, true, "");
+        buildFlowModelRuntimePOBindFormInfo(session, result, modelKey, true, modelKey);
+        return result;
     }
 
     //private List<ModelAssObjectEntity> buildModelAssObjectEntity

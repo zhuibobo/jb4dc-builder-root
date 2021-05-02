@@ -1,16 +1,6 @@
 package com.jb4dc.builder.client.beanconfig.cache;
 
-import com.jb4dc.base.service.spring.SpringContextHolder;
-import com.jb4dc.builder.client.cache.BuilderCacheManager;
-import com.jb4dc.builder.client.cache.ClientBuilderCacheManager;
-import org.ehcache.CacheManager;
-import org.ehcache.config.builders.CacheManagerBuilder;
-import org.ehcache.xml.XmlConfiguration;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Lazy;
-
-import java.net.URL;
 
 /**
  * Created with IntelliJ IDEA.
@@ -21,7 +11,7 @@ import java.net.URL;
 
 @Configuration
 public class BuilderClientCacheBeansConfig {
-    @Bean
+    /*@Bean
     public ClientBuilderCacheManager buildClientCacheManager(SpringContextHolder springContextHolder) {
         URL myUrl = getClass().getResource("/builder-client-ehcache.xml");
         if(springContextHolder.getActiveProfile().equals("dev")){
@@ -48,5 +38,5 @@ public class BuilderClientCacheBeansConfig {
         myCacheManager.init();
         BuilderCacheManager builderCacheManager=new BuilderCacheManager(myCacheManager);
         return builderCacheManager;
-    }
+    }*/
 }

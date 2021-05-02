@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:jb4dc="http://jb4dc.org/schema/1.0/bpmn" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_1ihhr4m" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="4.7.0" modeler:executionPlatform="Camunda Platform" modeler:executionPlatformVersion="7.14.0">
+    <bpmn:process id="Flow_Model_Empty" isExecutable="true" jb4dc:jb4dcCode="Flow_Model_JB4DC_Code_Empty" jb4dc:jb4dcFlowCategory="GeneralProcess" jb4dc:jb4dcTenantId="JBuild4DC-Tenant" jb4dc:jb4dcProcessCandidateStarterGroups="[]" jb4dc:jb4dcProcessCandidateStarterUsers="[]" jb4dc:jb4dcProcessActionConfirm="true" jb4dc:jb4dcProcessModelGroups="[]" jb4dc:jb4dcProcessModelImageClass="lab la-elementor" jb4dc:jb4dcProcessModelManagerGroups="[]" jb4dc:jb4dcProcessModelManagerUsers="[]" jb4dc:jb4dcProcessRestartEnable="true" jb4dc:jb4dcProcessAnyJumpEnable="true">
+        <bpmn:startEvent id="StartEvent_N1" name="开始" jb4dc:jb4dcFormPlugin="webFormPlugin" jb4dc:jb4dcFormEx1Plugin="webFormPlugin" jb4dc:jb4dcUseContentDocument="byProcessConfig">
+            <bpmn:documentation />
+            <bpmn:extensionElements>
+                <jb4dc:jb4dcActions>
+                    <jb4dc:jb4dcAction actionType="send" actionCode="action_515976189" actionCaption="送部门经理" actionShowOpinionDialog="false" actionRunSqls="[]" actionUpdateFields="[]" actionCallApis="[]" actionExecuteVariables="[]" actionConfirm="false" actionValidate="无" actionMainReceiveObjects="[]" actionCCReceiveObjects="[]" actionAutoSend="false" actionCallComplete="true" />
+                    <jb4dc:jb4dcAction actionType="send" actionCode="action_516009775" actionCaption="草稿" actionShowOpinionDialog="false" actionRunSqls="[]" actionUpdateFields="[]" actionCallApis="[]" actionExecuteVariables="[]" actionConfirm="false" actionValidate="无" actionMainReceiveObjects="[]" actionCCReceiveObjects="[]" actionAutoSend="false" actionCallComplete="true" />
+                </jb4dc:jb4dcActions>
+            </bpmn:extensionElements>
+            <bpmn:outgoing>Flow_StartEvent_To_FirstUTNode
+            </bpmn:outgoing>
+            <bpmn:outgoing>Flow_1lh2z20
+            </bpmn:outgoing>
+        </bpmn:startEvent>
+        <bpmn:endEvent id="EndEvent_N1" name="结束">
+            <bpmn:incoming>Flow_0hw0ibj
+            </bpmn:incoming>
+        </bpmn:endEvent>
+        <bpmn:userTask id="UserTask_Activity_N1" name="发起人" camunda:assignee="UserTask_Activity_N1_Assignee_User" jb4dc:jb4dcFormPlugin="webFormPlugin" jb4dc:jb4dcFormEx1Plugin="webFormPlugin" jb4dc:jb4dcUseContentDocument="byProcessConfig">
+            <bpmn:documentation />
+            <bpmn:extensionElements>
+                <jb4dc:jb4dcActions>
+                    <jb4dc:jb4dcAction actionType="send" actionCode="action_516058607" actionCaption="送部门经理" actionShowOpinionDialog="false" actionRunSqls="[]" actionUpdateFields="[]" actionCallApis="[]" actionExecuteVariables="[]" actionConfirm="false" actionValidate="无" actionMainReceiveObjects="[]" actionCCReceiveObjects="[]" actionAutoSend="false" actionCallComplete="true" />
+                </jb4dc:jb4dcActions>
+                <jb4dc:jb4dcMainReceiveObjects />
+                <jb4dc:jb4dcCCReceiveObjects />
+                <jb4dc:jb4dcAuthorities authoritiesUsed="true" authoritiesOnlySendBackCanEdit="false" authoritiesAllFieldAuthority="{&#34;editALL&#34;:&#34;true&#34;,&#34;viewAll&#34;:&#34;true&#34;,&#34;emptyEditAll&#34;:&#34;true&#34;}" authoritiesFileAuthority="{&#34;addFile&#34;:&#34;true&#34;,&#34;deleteFile&#34;:&#34;true&#34;,&#34;viewFile&#34;:&#34;true&#34;,&#34;packageDown&#34;:&#34;true&#34;}" authoritiesDocumentAuthority="{&#34;edit&#34;:&#34;true&#34;,&#34;addComment&#34;:&#34;true&#34;,&#34;view&#34;:&#34;true&#34;,&#34;viewHistory&#34;:&#34;true&#34;}" />
+            </bpmn:extensionElements>
+            <bpmn:incoming>Flow_StartEvent_To_FirstUTNode
+            </bpmn:incoming>
+            <bpmn:incoming>Flow_0qmmvbd
+            </bpmn:incoming>
+            <bpmn:incoming>Flow_1bq6tb2
+            </bpmn:incoming>
+            <bpmn:incoming>Flow_02a24uk
+            </bpmn:incoming>
+            <bpmn:outgoing>Flow_0968hmz
+            </bpmn:outgoing>
+        </bpmn:userTask>
+        <bpmn:sequenceFlow id="Flow_StartEvent_To_FirstUTNode" sourceRef="StartEvent_N1" targetRef="UserTask_Activity_N1" jb4dc:jb4dcSequenceFlowConditionEditText="LastAction=${流程动作.开始.草稿}">
+            <bpmn:documentation />
+            <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">LastAction=${FlowAction.StartEvent_N1.action_516009775}
+            </bpmn:conditionExpression>
+        </bpmn:sequenceFlow>
+        <bpmn:userTask id="Activity_04kw6xw" name="部门审批" camunda:assignee="Activity_04kw6xw_Assignee_User" jb4dc:jb4dcFormPlugin="webFormPlugin" jb4dc:jb4dcFormEx1Plugin="webFormPlugin" jb4dc:jb4dcUseContentDocument="byProcessConfig">
+            <bpmn:documentation />
+            <bpmn:extensionElements>
+                <jb4dc:jb4dcActions>
+                    <jb4dc:jb4dcAction actionType="send" actionCode="action_516191836" actionCaption="送分管领导" actionShowOpinionDialog="false" actionRunSqls="[]" actionUpdateFields="[]" actionCallApis="[]" actionExecuteVariables="[]" actionConfirm="false" actionValidate="无" actionMainReceiveObjects="[]" actionCCReceiveObjects="[]" actionAutoSend="false" actionCallComplete="true" />
+                    <jb4dc:jb4dcAction actionType="send" actionCode="action_516202644" actionCaption="退回" actionShowOpinionDialog="false" actionRunSqls="[]" actionUpdateFields="[]" actionCallApis="[]" actionExecuteVariables="[]" actionConfirm="false" actionValidate="无" actionMainReceiveObjects="[]" actionCCReceiveObjects="[]" actionAutoSend="false" actionCallComplete="true" />
+                </jb4dc:jb4dcActions>
+                <jb4dc:jb4dcMainReceiveObjects />
+                <jb4dc:jb4dcCCReceiveObjects />
+                <jb4dc:jb4dcAuthorities authoritiesUsed="true" authoritiesOnlySendBackCanEdit="false" authoritiesAllFieldAuthority="{&#34;editALL&#34;:&#34;true&#34;,&#34;viewAll&#34;:&#34;true&#34;,&#34;emptyEditAll&#34;:&#34;true&#34;}" authoritiesFileAuthority="{&#34;addFile&#34;:&#34;true&#34;,&#34;deleteFile&#34;:&#34;true&#34;,&#34;viewFile&#34;:&#34;true&#34;,&#34;packageDown&#34;:&#34;true&#34;}" authoritiesDocumentAuthority="{&#34;edit&#34;:&#34;true&#34;,&#34;addComment&#34;:&#34;true&#34;,&#34;view&#34;:&#34;true&#34;,&#34;viewHistory&#34;:&#34;true&#34;}" />
+            </bpmn:extensionElements>
+            <bpmn:incoming>Flow_0968hmz
+            </bpmn:incoming>
+            <bpmn:incoming>Flow_1lh2z20
+            </bpmn:incoming>
+            <bpmn:outgoing>Flow_0o78625
+            </bpmn:outgoing>
+            <bpmn:outgoing>Flow_0qmmvbd
+            </bpmn:outgoing>
+        </bpmn:userTask>
+        <bpmn:userTask id="Activity_1oze7it" name="分管领导" camunda:assignee="Activity_1oze7it_Assignee_User" jb4dc:jb4dcFormPlugin="webFormPlugin" jb4dc:jb4dcFormEx1Plugin="webFormPlugin" jb4dc:jb4dcUseContentDocument="byProcessConfig">
+            <bpmn:documentation />
+            <bpmn:extensionElements>
+                <jb4dc:jb4dcActions>
+                    <jb4dc:jb4dcAction actionType="send" actionCode="action_516248167" actionCaption="送领导会签" actionShowOpinionDialog="false" actionRunSqls="[]" actionUpdateFields="[]" actionCallApis="[]" actionExecuteVariables="[]" actionConfirm="false" actionValidate="无" actionMainReceiveObjects="[]" actionCCReceiveObjects="[]" actionAutoSend="false" actionCallComplete="true" />
+                    <jb4dc:jb4dcAction actionType="send" actionCode="action_516265085" actionCaption="退回" actionShowOpinionDialog="false" actionRunSqls="[]" actionUpdateFields="[]" actionCallApis="[]" actionExecuteVariables="[]" actionConfirm="false" actionValidate="无" actionMainReceiveObjects="[]" actionCCReceiveObjects="[]" actionAutoSend="false" actionCallComplete="true" />
+                </jb4dc:jb4dcActions>
+                <jb4dc:jb4dcMainReceiveObjects />
+                <jb4dc:jb4dcCCReceiveObjects />
+                <jb4dc:jb4dcAuthorities authoritiesUsed="true" authoritiesOnlySendBackCanEdit="false" authoritiesAllFieldAuthority="{&#34;editALL&#34;:&#34;true&#34;,&#34;viewAll&#34;:&#34;true&#34;,&#34;emptyEditAll&#34;:&#34;true&#34;}" authoritiesFileAuthority="{&#34;addFile&#34;:&#34;true&#34;,&#34;deleteFile&#34;:&#34;true&#34;,&#34;viewFile&#34;:&#34;true&#34;,&#34;packageDown&#34;:&#34;true&#34;}" authoritiesDocumentAuthority="{&#34;edit&#34;:&#34;true&#34;,&#34;addComment&#34;:&#34;true&#34;,&#34;view&#34;:&#34;true&#34;,&#34;viewHistory&#34;:&#34;true&#34;}" />
+            </bpmn:extensionElements>
+            <bpmn:incoming>Flow_0o78625
+            </bpmn:incoming>
+            <bpmn:outgoing>Flow_1bq6tb2
+            </bpmn:outgoing>
+            <bpmn:outgoing>Flow_0nio3cs
+            </bpmn:outgoing>
+        </bpmn:userTask>
+        <bpmn:sequenceFlow id="Flow_0968hmz" sourceRef="UserTask_Activity_N1" targetRef="Activity_04kw6xw" jb4dc:jb4dcSequenceFlowConditionEditText="LastAction=${流程动作.草拟.送部门经理}">
+            <bpmn:documentation />
+            <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">LastAction=${FlowAction.UserTask_Activity_N1.action_516058607}
+            </bpmn:conditionExpression>
+        </bpmn:sequenceFlow>
+        <bpmn:sequenceFlow id="Flow_0o78625" sourceRef="Activity_04kw6xw" targetRef="Activity_1oze7it" jb4dc:jb4dcSequenceFlowConditionEditText="LastAction=${流程动作.部门审批.送分管领导}">
+            <bpmn:documentation />
+            <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">LastAction=${FlowAction.Activity_04kw6xw.action_516191836}
+            </bpmn:conditionExpression>
+        </bpmn:sequenceFlow>
+        <bpmn:sequenceFlow id="Flow_1lh2z20" sourceRef="StartEvent_N1" targetRef="Activity_04kw6xw" jb4dc:jb4dcSequenceFlowConditionEditText="LastAction=${流程动作.开始.送部门经理}">
+            <bpmn:documentation />
+            <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">LastAction=${FlowAction.StartEvent_N1.action_515976189}
+            </bpmn:conditionExpression>
+        </bpmn:sequenceFlow>
+        <bpmn:sequenceFlow id="Flow_0qmmvbd" sourceRef="Activity_04kw6xw" targetRef="UserTask_Activity_N1" jb4dc:jb4dcSequenceFlowConditionEditText="LastAction=${流程动作.部门审批.退回}">
+            <bpmn:documentation />
+            <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">LastAction=${FlowAction.Activity_04kw6xw.action_516202644}
+            </bpmn:conditionExpression>
+        </bpmn:sequenceFlow>
+        <bpmn:sequenceFlow id="Flow_1bq6tb2" sourceRef="Activity_1oze7it" targetRef="UserTask_Activity_N1" jb4dc:jb4dcSequenceFlowConditionEditText="LastAction=${流程动作.分管领导.退回}">
+            <bpmn:documentation />
+            <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">LastAction=${FlowAction.Activity_1oze7it.action_516265085}
+            </bpmn:conditionExpression>
+        </bpmn:sequenceFlow>
+        <bpmn:userTask id="Activity_1e1ql8o" name="领导会签" camunda:assignee="Activity_1oze7it_Assignee_User" jb4dc:jb4dcFormPlugin="webFormPlugin" jb4dc:jb4dcFormEx1Plugin="webFormPlugin" jb4dc:jb4dcUseContentDocument="byProcessConfig">
+            <bpmn:documentation />
+            <bpmn:extensionElements>
+                <jb4dc:jb4dcActions>
+                    <jb4dc:jb4dcAction actionType="send" actionCode="action_516465752" actionCaption="确认" actionShowOpinionDialog="false" actionRunSqls="[]" actionUpdateFields="[]" actionCallApis="[]" actionExecuteVariables="[]" actionConfirm="false" actionValidate="无" actionMainReceiveObjects="[]" actionCCReceiveObjects="[]" actionAutoSend="false" actionCallComplete="true" />
+                    <jb4dc:jb4dcAction actionType="send" actionCode="action_516474765" actionCaption="退回" actionShowOpinionDialog="false" actionRunSqls="[]" actionUpdateFields="[]" actionCallApis="[]" actionExecuteVariables="[]" actionConfirm="false" actionValidate="无" actionMainReceiveObjects="[]" actionCCReceiveObjects="[]" actionAutoSend="false" actionCallComplete="true" />
+                </jb4dc:jb4dcActions>
+                <jb4dc:jb4dcMainReceiveObjects />
+                <jb4dc:jb4dcCCReceiveObjects />
+                <jb4dc:jb4dcAuthorities authoritiesUsed="true" authoritiesOnlySendBackCanEdit="false" authoritiesAllFieldAuthority="{&#34;editALL&#34;:&#34;true&#34;,&#34;viewAll&#34;:&#34;true&#34;,&#34;emptyEditAll&#34;:&#34;true&#34;}" authoritiesFileAuthority="{&#34;addFile&#34;:&#34;true&#34;,&#34;deleteFile&#34;:&#34;true&#34;,&#34;viewFile&#34;:&#34;true&#34;,&#34;packageDown&#34;:&#34;true&#34;}" authoritiesDocumentAuthority="{&#34;edit&#34;:&#34;true&#34;,&#34;addComment&#34;:&#34;true&#34;,&#34;view&#34;:&#34;true&#34;,&#34;viewHistory&#34;:&#34;true&#34;}" />
+            </bpmn:extensionElements>
+            <bpmn:incoming>Flow_0nio3cs
+            </bpmn:incoming>
+            <bpmn:outgoing>Flow_0g0ixvy
+            </bpmn:outgoing>
+            <bpmn:outgoing>Flow_02a24uk
+            </bpmn:outgoing>
+            <bpmn:multiInstanceLoopCharacteristics camunda:collection="${Activity_1oze7it_Assignee_User_List}" camunda:elementVariable="Activity_1oze7it_Assignee_User" />
+        </bpmn:userTask>
+        <bpmn:sequenceFlow id="Flow_0nio3cs" sourceRef="Activity_1oze7it" targetRef="Activity_1e1ql8o" />
+        <bpmn:userTask id="Activity_1kvrfxb" name="发起人确认" camunda:assignee="Activity_1oze7it_Assignee_User" jb4dc:jb4dcFormPlugin="webFormPlugin" jb4dc:jb4dcFormEx1Plugin="webFormPlugin" jb4dc:jb4dcUseContentDocument="byProcessConfig">
+            <bpmn:documentation />
+            <bpmn:extensionElements>
+                <jb4dc:jb4dcActions>
+                    <jb4dc:jb4dcAction actionType="send" actionCode="action_516525815" actionCaption="办结" actionShowOpinionDialog="false" actionRunSqls="[]" actionUpdateFields="[]" actionCallApis="[]" actionExecuteVariables="[]" actionConfirm="false" actionValidate="无" actionMainReceiveObjects="[]" actionCCReceiveObjects="[]" actionAutoSend="false" actionCallComplete="true" />
+                </jb4dc:jb4dcActions>
+                <jb4dc:jb4dcMainReceiveObjects />
+                <jb4dc:jb4dcCCReceiveObjects />
+                <jb4dc:jb4dcAuthorities authoritiesUsed="true" authoritiesOnlySendBackCanEdit="false" authoritiesAllFieldAuthority="{&#34;editALL&#34;:&#34;true&#34;,&#34;viewAll&#34;:&#34;true&#34;,&#34;emptyEditAll&#34;:&#34;true&#34;}" authoritiesFileAuthority="{&#34;addFile&#34;:&#34;true&#34;,&#34;deleteFile&#34;:&#34;true&#34;,&#34;viewFile&#34;:&#34;true&#34;,&#34;packageDown&#34;:&#34;true&#34;}" authoritiesDocumentAuthority="{&#34;edit&#34;:&#34;true&#34;,&#34;addComment&#34;:&#34;true&#34;,&#34;view&#34;:&#34;true&#34;,&#34;viewHistory&#34;:&#34;true&#34;}" />
+            </bpmn:extensionElements>
+            <bpmn:incoming>Flow_0g0ixvy
+            </bpmn:incoming>
+            <bpmn:outgoing>Flow_0hw0ibj
+            </bpmn:outgoing>
+        </bpmn:userTask>
+        <bpmn:sequenceFlow id="Flow_0g0ixvy" sourceRef="Activity_1e1ql8o" targetRef="Activity_1kvrfxb" jb4dc:jb4dcSequenceFlowConditionEditText="LastAction=${流程动作.领导会签.确认}">
+            <bpmn:documentation />
+            <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">LastAction=${FlowAction.Activity_1e1ql8o.action_516465752}
+            </bpmn:conditionExpression>
+        </bpmn:sequenceFlow>
+        <bpmn:sequenceFlow id="Flow_02a24uk" sourceRef="Activity_1e1ql8o" targetRef="UserTask_Activity_N1" jb4dc:jb4dcSequenceFlowConditionEditText="LastAction=${流程动作.领导会签.退回}">
+            <bpmn:documentation />
+            <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">LastAction=${FlowAction.Activity_1e1ql8o.action_516474765}
+            </bpmn:conditionExpression>
+        </bpmn:sequenceFlow>
+        <bpmn:sequenceFlow id="Flow_0hw0ibj" sourceRef="Activity_1kvrfxb" targetRef="EndEvent_N1" />
+    </bpmn:process>
+    <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+        <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Flow_Model_1619515861138">
+            <bpmndi:BPMNEdge id="Flow_0hw0ibj_di" bpmnElement="Flow_0hw0ibj">
+                <di:waypoint x="1480" y="120" />
+                <di:waypoint x="1602" y="120" />
+            </bpmndi:BPMNEdge>
+            <bpmndi:BPMNEdge id="Flow_02a24uk_di" bpmnElement="Flow_02a24uk">
+                <di:waypoint x="1200" y="160" />
+                <di:waypoint x="1200" y="350" />
+                <di:waypoint x="380" y="350" />
+                <di:waypoint x="380" y="310" />
+            </bpmndi:BPMNEdge>
+            <bpmndi:BPMNEdge id="Flow_0g0ixvy_di" bpmnElement="Flow_0g0ixvy">
+                <di:waypoint x="1250" y="120" />
+                <di:waypoint x="1380" y="120" />
+            </bpmndi:BPMNEdge>
+            <bpmndi:BPMNEdge id="Flow_0nio3cs_di" bpmnElement="Flow_0nio3cs">
+                <di:waypoint x="1010" y="120" />
+                <di:waypoint x="1150" y="120" />
+            </bpmndi:BPMNEdge>
+            <bpmndi:BPMNEdge id="Flow_1bq6tb2_di" bpmnElement="Flow_1bq6tb2">
+                <di:waypoint x="960" y="160" />
+                <di:waypoint x="960" y="350" />
+                <di:waypoint x="380" y="350" />
+                <di:waypoint x="380" y="310" />
+            </bpmndi:BPMNEdge>
+            <bpmndi:BPMNEdge id="Flow_0qmmvbd_di" bpmnElement="Flow_0qmmvbd">
+                <di:waypoint x="680" y="160" />
+                <di:waypoint x="680" y="350" />
+                <di:waypoint x="380" y="350" />
+                <di:waypoint x="380" y="310" />
+            </bpmndi:BPMNEdge>
+            <bpmndi:BPMNEdge id="Flow_1lh2z20_di" bpmnElement="Flow_1lh2z20">
+                <di:waypoint x="158" y="120" />
+                <di:waypoint x="630" y="120" />
+            </bpmndi:BPMNEdge>
+            <bpmndi:BPMNEdge id="Flow_0o78625_di" bpmnElement="Flow_0o78625">
+                <di:waypoint x="730" y="120" />
+                <di:waypoint x="910" y="120" />
+            </bpmndi:BPMNEdge>
+            <bpmndi:BPMNEdge id="Flow_0968hmz_di" bpmnElement="Flow_0968hmz">
+                <di:waypoint x="430" y="270" />
+                <di:waypoint x="505" y="270" />
+                <di:waypoint x="505" y="120" />
+                <di:waypoint x="630" y="120" />
+            </bpmndi:BPMNEdge>
+            <bpmndi:BPMNEdge id="Flow_StartEvent_To_FirstUTNode_di" bpmnElement="Flow_StartEvent_To_FirstUTNode">
+                <di:waypoint x="158" y="120" />
+                <di:waypoint x="244" y="120" />
+                <di:waypoint x="244" y="270" />
+                <di:waypoint x="330" y="270" />
+            </bpmndi:BPMNEdge>
+            <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_N1">
+                <dc:Bounds x="122" y="102" width="36" height="36" />
+                <bpmndi:BPMNLabel>
+                    <dc:Bounds x="129" y="145" width="22" height="14" />
+                </bpmndi:BPMNLabel>
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNShape id="Event_0jlelhn_di" bpmnElement="EndEvent_N1">
+                <dc:Bounds x="1602" y="102" width="36" height="36" />
+                <bpmndi:BPMNLabel>
+                    <dc:Bounds x="1609" y="145" width="22" height="14" />
+                </bpmndi:BPMNLabel>
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNShape id="Activity_1efb9yk_di" bpmnElement="UserTask_Activity_N1">
+                <dc:Bounds x="330" y="230" width="100" height="80" />
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNShape id="Activity_04kw6xw_di" bpmnElement="Activity_04kw6xw">
+                <dc:Bounds x="630" y="80" width="100" height="80" />
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNShape id="Activity_1oze7it_di" bpmnElement="Activity_1oze7it">
+                <dc:Bounds x="910" y="80" width="100" height="80" />
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNShape id="Activity_1e1ql8o_di" bpmnElement="Activity_1e1ql8o">
+                <dc:Bounds x="1150" y="80" width="100" height="80" />
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNShape id="Activity_1kvrfxb_di" bpmnElement="Activity_1kvrfxb">
+                <dc:Bounds x="1380" y="80" width="100" height="80" />
+            </bpmndi:BPMNShape>
+        </bpmndi:BPMNPlane>
+    </bpmndi:BPMNDiagram>
+</bpmn:definitions>

@@ -64,6 +64,27 @@ public class RestTestBase {
         return JB4DCSessionUtility.getInitSystemSession();
     }
 
+    public JB4DCSession getAlex4DSession(){
+        JB4DCSession jb4DCSession=new JB4DCSession();
+        jb4DCSession.setAppClientToken("");
+        jb4DCSession.setCookieSessionId("");
+        jb4DCSession.setJaSessionId("");
+        jb4DCSession.setOrganId("10001");
+        jb4DCSession.setOrganCode("");
+        jb4DCSession.setOrganName("10001Name");
+        jb4DCSession.setUserId("Alex4D");
+        jb4DCSession.setUserName("Alex");
+        jb4DCSession.setAccountId("Alex4D");
+        jb4DCSession.setAccountName("Alex");
+        jb4DCSession.setMainDepartmentId("");
+        jb4DCSession.setMainDepartmentName("");
+        jb4DCSession.setRoleKeys(null);
+        jb4DCSession.setExMap(null);
+        jb4DCSession.setFullAuthority(true);
+        jb4DCSession.setSsoSessionToken("");
+        return jb4DCSession;
+    }
+
     public JBuild4DCResponseVo simpleDelete(String url, String recordId, Map<String,String> paras) throws Exception {
         MockHttpServletRequestBuilder requestDeleteBuilder = delete(url);
         requestDeleteBuilder.contentType(MediaType.APPLICATION_JSON_UTF8);

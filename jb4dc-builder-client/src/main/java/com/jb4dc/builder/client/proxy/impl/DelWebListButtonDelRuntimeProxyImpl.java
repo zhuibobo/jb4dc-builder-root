@@ -1,9 +1,9 @@
 package com.jb4dc.builder.client.proxy.impl;
 
 import com.jb4dc.base.service.cache.IBuildGeneralObj;
-import com.jb4dc.builder.client.proxy.IWebListButtonRuntimeProxy;
+import com.jb4dc.base.service.cache.JB4DCCacheManagerV2;
 import com.jb4dc.builder.client.remote.WebListButtonRuntimeRemote;
-import com.jb4dc.builder.client.proxy.RuntimeProxyBase;
+import com.jb4dc.builder.client.proxy.DelRuntimeProxyBase;
 import com.jb4dc.builder.client.service.weblist.IWebListButtonService;
 import com.jb4dc.builder.dbentities.weblist.ListButtonEntity;
 import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
@@ -19,7 +19,7 @@ import java.io.IOException;
  * To change this template use File | Settings | File Templates.
  */
 @Service
-public class WebListButtonRuntimeProxyImpl extends RuntimeProxyBase implements IWebListButtonRuntimeProxy {
+public class DelWebListButtonDelRuntimeProxyImpl extends DelRuntimeProxyBase {
 
     @Autowired(required = false)
     IWebListButtonService webListButtonService;
@@ -27,7 +27,6 @@ public class WebListButtonRuntimeProxyImpl extends RuntimeProxyBase implements I
     @Autowired
     WebListButtonRuntimeRemote listButtonRuntimeRemote;
 
-    @Override
     public ListButtonEntity getButtonPO(String buttonId) throws JBuild4DCGenerallyException, IOException {
         //通过本地bean获取环境变量实体,如果不存在业务bean,则通过rest接口远程获取.
         ListButtonEntity listButtonEntity;
@@ -38,13 +37,15 @@ public class WebListButtonRuntimeProxyImpl extends RuntimeProxyBase implements I
             //envVariableEntity=new EnvVariableEntity();
             //则通过rest接口远程获取.
             //return listButtonRuntimeRemote.getButtonPO(buttonId).getData();
-            listButtonEntity=this.autoGetFromCache(this.getClass(), buttonId, new IBuildGeneralObj<ListButtonEntity>() {
+            listButtonEntity=jb4DCCacheManagerV2.autoGetFromCache(JB4DCCacheManagerV2.Jb4dPlatformBuilderClientCacheName,
+                    "Proxy",
+                    this.getClass(),"GetButtonPO"+ buttonId, new IBuildGeneralObj<ListButtonEntity>() {
                 @Override
                 public ListButtonEntity BuildObj() throws JBuild4DCGenerallyException {
                     ListButtonEntity temp=listButtonRuntimeRemote.getButtonPO(buttonId).getData();
                     return temp;
                 }
-            },ListButtonEntity.class);
+            },ListButtonEntity.class,JB4DCCacheManagerV2.DefExpirationTimeSeconds);
         }
         return listButtonEntity;
     }

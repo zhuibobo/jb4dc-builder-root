@@ -1,9 +1,9 @@
 package com.jb4dc.builder.client.rest;
 
 import com.jb4dc.base.service.general.JB4DCSessionUtility;
+import com.jb4dc.builder.client.remote.WebFormRuntimeRemote;
+import com.jb4dc.builder.client.remote.WebListButtonRuntimeRemote;
 import com.jb4dc.builder.client.service.webform.IWebFormRuntimeService;
-import com.jb4dc.builder.client.proxy.IWebFormRuntimeProxy;
-import com.jb4dc.builder.client.proxy.IWebListButtonRuntimeProxy;
 import com.jb4dc.builder.dbentities.weblist.ListButtonEntity;
 import com.jb4dc.builder.po.FormResourceComplexPO;
 import com.jb4dc.builder.po.FormResourcePO;
@@ -36,10 +36,10 @@ public class FormRuntimeRest {
     //FormRuntimeRemote formRuntimeRemote;
 
     @Autowired
-    IWebFormRuntimeProxy webFormRuntimeProxy;
+    WebFormRuntimeRemote webFormRuntimeRemote;
 
     @Autowired
-    IWebListButtonRuntimeProxy webListButtonRuntimeProxy;
+    WebListButtonRuntimeRemote webListButtonRuntimeRemote;
     //@Autowired
     //ListButtonRuntimeRemote listButtonRuntimeRemote;
 
@@ -55,7 +55,7 @@ public class FormRuntimeRest {
         }
         String loadTimeDesc="";
         long startTime=System.currentTimeMillis();
-        FormResourcePO formResourcePO = webFormRuntimeProxy.getFormRuntimePageContentById(JB4DCSessionUtility.getSession(), formId);
+        FormResourcePO formResourcePO = webFormRuntimeRemote.loadHTML(formId).getData();
         long endTime=System.currentTimeMillis(); //获取结束时间
         loadTimeDesc="从构建系统加载原始记录信息时间:"+(endTime-startTime)+"ms;";
 
@@ -96,7 +96,7 @@ public class FormRuntimeRest {
 
         } else {
             if (StringUtility.isNotEmpty(buttonId)) {
-                listButtonEntity = webListButtonRuntimeProxy.getButtonPO(buttonId);
+                listButtonEntity = webListButtonRuntimeRemote.getButtonPO(buttonId).getData();
             }
         }
         //JBuild4DCResponseVo<FormResourcePO> formResourcePOJBuild4DCResponseVo = formRuntimeRemote.loadHTML(formId);

@@ -10,11 +10,11 @@ jb4dc:
   sso:
     server:
       name: JB4DC-SSO-WEB-SERVER
-      address: http://localhost:9103
+      address: http://127.0.0.1:9103
       context-path: /SSOSystem
       view:
         login: /Controller/LoginSSOView
-        logout: http://localhost:9103/SSOSystem/Controller/LogoutSSOView
+        logout: http://127.0.0.1:9103/SSOSystem/Controller/LogoutSSOView
       excluded:
   builder:
     server:
@@ -60,7 +60,7 @@ eureka:
     serviceUrl:
       #服务端的地址
       #defaultZone: http://192.168.3.166:9092/eureka/
-      defaultZone: http://localhost:9101/eureka/
+      defaultZone: http://127.0.0.1:9101/eureka/
   instance:
     prefer-ip-address: true
     instanceId: ${spring.cloud.inetutils.preferred-networks}:${server.port}

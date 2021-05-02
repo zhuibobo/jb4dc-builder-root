@@ -182,6 +182,30 @@ gulp.task('html-design-runtime-template',()=>{
     return copyAndResolveHtml(sourcePath + "/HTML/Builder/Runtime/**/*.html",sourcePath + "/HTML",html_design_runtime_distPath + "/HTML");
 });
 
+gulp.task('workflow-runtime-full-js',()=>{
+    var obj= gulp.src([sourcePath + '/Js/WorkFlowRuntime/**/*.js'])
+        .pipe(babel({
+            presets: ['@babel/env'],
+        }))
+        .pipe(sourcemaps.init())
+        .pipe(concat('WorkFlowRuntimeFull.js'));
+
+    if(!isdebug){
+        obj=obj.pipe(uglify());
+    }
+    /*.pipe(uglify(
+        {
+            compress: {drop_debugger: false}
+        }
+    ))*/
+    return  obj.pipe(sourcemaps.write())
+        .pipe(gulp.dest(html_design_runtime_distPath + "/Js"));
+});
+
+gulp.task('workflow-runtime-template',()=>{
+    return copyAndResolveHtml(sourcePath + "/HTML/WorkFlow/Runtime/**.html",sourcePath + "/HTML",html_design_runtime_distPath + "/HTML");
+});
+
 /*SiteTemplate设计的基础工具类*/
 gulp.task('site-template-design-utility',()=> {
     var obj= gulp.src([
@@ -216,7 +240,20 @@ gulp.task('html-design-runtime-images-builder-runtime',()=>{
     return gulp.src(sourcePath+"/Themes/Default/Less/Images/BuilderRuntime/*", {base:sourcePath+"/Themes/Default/Less/Images/BuilderRuntime"}).pipe(gulp.dest(html_design_runtime_distPath+"/Themes/Default/Css/Images/BuilderRuntime"));
 });
 
-gulp.task('html-design-all', gulp.series('html-design-utility','html-design-ckeditor-config','html-design-plugins-js','html-design-plugins-css-img','html-design-plugins-html','html-design-runtime-full-js','html-design-runtime-less','html-design-runtime-template','html-design-runtime-wfdct-ckeditor4-config-js','html-design-runtime-images-builder-runtime'));
+gulp.task('html-design-all', gulp.series(
+    'html-design-utility',
+    'html-design-ckeditor-config',
+    'html-design-plugins-js',
+    'html-design-plugins-css-img',
+    'html-design-plugins-html',
+    'html-design-runtime-full-js',
+    'html-design-runtime-less',
+    'html-design-runtime-template',
+    'html-design-runtime-wfdct-ckeditor4-config-js',
+    'html-design-runtime-images-builder-runtime',
+    'workflow-runtime-template',
+    'workflow-runtime-full-js'
+    ));
 
 gulp.task('html-template-web-builder-package',()=>{
     //gulp.src(jarFromResourcePath+"/HTML/**/*", {base:jarFromResourcePath+"/HTML"}).pipe(gulp.dest(jarToResourcePath+"/HTML"))
@@ -291,6 +328,7 @@ function copyAndResolveHtml(sourcePath,base,toPath) {
         .pipe(replacecust(replaceBlockObj.replaceBlock('GoJsLib'), replaceBlockObj.replaceGoJsLib))
         .pipe(replacecust(replaceBlockObj.replaceBlock('Webix'), replaceBlockObj.replaceWebixLib))
         .pipe(replacecust(replaceBlockObj.replaceBlock('HTMLDesignRuntimeLib'), replaceBlockObj.replaceHTMLDesignRuntimeLib))
+        .pipe(replacecust(replaceBlockObj.replaceBlock('WorkFlowRuntimeLib'), replaceBlockObj.replaceWorkFlowRuntimeLib))
         .pipe(replacecust(replaceBlockObj.replaceBlock('HTMLDesignWysiwygLib'), replaceBlockObj.replaceHTMLDesignWysiwygLib))
         .pipe(replacecust(replaceBlockObj.replaceBlock('HTMLDesignPluginLib'), replaceBlockObj.replaceHTMLDesignPluginLib))
         .pipe(replacecust(replaceBlockObj.replaceBlock('SiteTemplateDesignLib'), replaceBlockObj.replaceSiteTemplateDesignLib))

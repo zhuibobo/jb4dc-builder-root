@@ -1,11 +1,10 @@
 package com.jb4dc.builder.client.htmldesign.impl;
 
 import com.jb4dc.base.service.cache.IBuildGeneralObj;
+import com.jb4dc.base.service.cache.JB4DCCacheManagerV2;
 import com.jb4dc.base.tools.JsonUtility;
 import com.jb4dc.base.ymls.JBuild4DCYaml;
 
-import com.jb4dc.builder.client.cache.BuilderCacheManager;
-import com.jb4dc.builder.client.cache.ClientBuilderCacheManager;
 import com.jb4dc.builder.client.htmldesign.ICKEditorPluginsService;
 import com.jb4dc.builder.po.HtmlControlDefinitionPO;
 import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
@@ -35,8 +34,10 @@ public class CKEditorPluginsServiceImpl implements ICKEditorPluginsService {
     Logger logger= LoggerFactory.getLogger(this.getClass());
     //IJb4dCacheService jb4dCacheService;
 
+    //@Autowired
+    //ClientBuilderCacheManager clientBuilderCacheManager;
     @Autowired
-    ClientBuilderCacheManager clientBuilderCacheManager;
+    JB4DCCacheManagerV2 jb4DCCacheManagerV2;
 
     public CKEditorPluginsServiceImpl() {
         //this.jb4dCacheService = jb4dCacheService;
@@ -44,9 +45,9 @@ public class CKEditorPluginsServiceImpl implements ICKEditorPluginsService {
 
     public <T> List<T> autoGetFromCache(Class aClass,String classInnerSingleValue, IBuildGeneralObj<List<T>> builder,Class<T> valueType) throws JBuild4DCGenerallyException, IOException {
         String cacheKey = aClass.getCanonicalName() + classInnerSingleValue;
-        if (clientBuilderCacheManager.exist(ClientBuilderCacheManager.HTML_CONTROL_PLUGIN_BUILDER_CACHE_NAME, cacheKey)) {
+        if (jb4DCCacheManagerV2.exist(JB4DCCacheManagerV2.Jb4dPlatformBuilderServerCacheName,"CKEditorPlugins",this.getClass(),classInnerSingleValue)) {
             logger.info("从缓存中获取数据" + cacheKey);
-            String cacheValue = clientBuilderCacheManager.getString(ClientBuilderCacheManager.HTML_CONTROL_PLUGIN_BUILDER_CACHE_NAME, cacheKey);
+            String cacheValue = jb4DCCacheManagerV2.getString(JB4DCCacheManagerV2.Jb4dPlatformBuilderServerCacheName,"CKEditorPlugins",this.getClass(),classInnerSingleValue);
             return JsonUtility.toObjectList(cacheValue, valueType);
         }
 
@@ -56,7 +57,7 @@ public class CKEditorPluginsServiceImpl implements ICKEditorPluginsService {
             throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_BUILDER_CODE, "不能将Null存入缓存,Key:" + cacheKey);
         }
         String json = JsonUtility.toObjectString(objList);
-        clientBuilderCacheManager.put(ClientBuilderCacheManager.HTML_CONTROL_PLUGIN_BUILDER_CACHE_NAME, cacheKey, json);
+        jb4DCCacheManagerV2.put(JB4DCCacheManagerV2.Jb4dPlatformBuilderServerCacheName,"CKEditorPlugins",this.getClass(),classInnerSingleValue, json,JB4DCCacheManagerV2.DefExpirationTimeSeconds);
         return objList;
     }
 

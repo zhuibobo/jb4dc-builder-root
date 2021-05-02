@@ -1,5 +1,6 @@
 package com.jb4dc.builder.client.remote;
 
+import com.jb4dc.base.service.aspect.ClientCallRemoteCache;
 import com.jb4dc.builder.dbentities.envvar.EnvVariableEntity;
 import com.jb4dc.core.base.vo.JBuild4DCResponseVo;
 import org.springframework.cloud.openfeign.FeignClient;
@@ -16,5 +17,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 @FeignClient(name= "${jb4dc.builder.server.name}",contextId = "EnvVariableRuntimeRemote",configuration = { BuilderClientFeignClientConfig.class },path = "${jb4dc.builder.server.context-path}/Rest/Builder/RunTime/EnvVariableRuntime")
 public interface EnvVariableRuntimeRemote {
     @RequestMapping(value = "/GetEnvVariableByEnvValue",method = RequestMethod.POST)
+    @ClientCallRemoteCache
     JBuild4DCResponseVo<EnvVariableEntity> getEnvVariableByEnvValue(@RequestParam("envValue") String envValue);
 }

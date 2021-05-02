@@ -3,19 +3,15 @@ package com.jb4dc.gridsystem.webpackage.rest.grid.build;
 import com.jb4dc.base.service.IBaseService;
 import com.jb4dc.base.service.general.JB4DCSessionUtility;
 import com.jb4dc.base.tools.JsonUtility;
-import com.jb4dc.builder.client.proxy.IDictionaryRuntimeProxy;
-import com.jb4dc.builder.dbentities.site.SiteFolderEntity;
+import com.jb4dc.builder.client.remote.DictionaryRuntimeRemote;
 import com.jb4dc.builder.dbentities.systemsetting.DictionaryEntity;
 import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
 import com.jb4dc.core.base.session.JB4DCSession;
 import com.jb4dc.core.base.vo.JBuild4DCResponseVo;
 import com.jb4dc.feb.dist.webserver.rest.base.GeneralRest;
 import com.jb4dc.gridsystem.dbentities.build.BuildInfoEntity;
-import com.jb4dc.gridsystem.dbentities.enterprise.EnterpriseInfoEntity;
 import com.jb4dc.gridsystem.dbentities.gridinfo.GridInfoEntity;
-import com.jb4dc.gridsystem.dbentities.gridinfo.GridInfoEntityWithBLOBs;
 import com.jb4dc.gridsystem.po.BuildInfoPO;
-import com.jb4dc.gridsystem.po.EnterpriseInfoPO;
 import com.jb4dc.gridsystem.service.build.IBuildInfoService;
 import com.jb4dc.gridsystem.service.gridinfo.IGridInfoService;
 import org.slf4j.Logger;
@@ -47,7 +43,7 @@ public class BuildInfoRest extends GeneralRest<BuildInfoEntity> {
     IBuildInfoService buildInfoService;
 
     @Autowired
-    IDictionaryRuntimeProxy dictionaryRuntimeProxy;
+    DictionaryRuntimeRemote dictionaryRuntimeRemote;
 
     @Autowired
     IGridInfoService gridInfoService;
@@ -66,7 +62,7 @@ public class BuildInfoRest extends GeneralRest<BuildInfoEntity> {
         logger.info(JsonUtility.toObjectString(jb4DCSession));
 
         List<BuildInfoEntity> buildInfoEntityList=buildInfoService.getMyBuild(jb4DCSession,jb4DCSession.getUserId(),jb4DCSession.getOrganId(),includeGrid);
-        List<DictionaryEntity> dictionaryEntities=dictionaryRuntimeProxy.getDictionaryByGroup3Level("f476d653-0606-4cb7-8189-4e5beee1bf11");
+        List<DictionaryEntity> dictionaryEntities=dictionaryRuntimeRemote.getDictionaryByGroup3Level("f476d653-0606-4cb7-8189-4e5beee1bf11").getData();
 
         GridInfoEntity gridInfoEntity=gridInfoService.getByPrimaryKey(jb4DCSession,jb4DCSession.getOrganId());
 

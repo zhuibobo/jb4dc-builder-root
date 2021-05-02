@@ -19,6 +19,7 @@
                 <flow-base-container ref="flowBaseContainer"></flow-base-container>
             </tab-pane>
             <tab-pane tab="flow-design-modeler-tabs" name="History" label="History">
+
             </tab-pane>
         </tabs>
 

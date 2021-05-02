@@ -1,7 +1,4 @@
 package com.jb4dc.gridsystem.service.event.impl;
-import java.math.BigDecimal;
-import java.util.Date;
-import java.util.List;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -10,19 +7,21 @@ import com.jb4dc.base.service.impl.BaseServiceImpl;
 import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
 import com.jb4dc.core.base.session.JB4DCSession;
 import com.jb4dc.gridsystem.dao.event.EventInfoMapper;
-import com.jb4dc.gridsystem.dbentities.build.BuildInfoEntity;
 import com.jb4dc.gridsystem.dbentities.event.EventInfoEntity;
 import com.jb4dc.gridsystem.service.event.IEventInfoService;
-import com.jb4dc.sso.client.proxy.IOrganRuntimeProxy;
+import com.jb4dc.sso.client.remote.OrganRuntimeRemote;
 import com.jb4dc.sso.dbentities.organ.OrganEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Date;
+import java.util.List;
 
 @Service
 public class EventInfoServiceImpl extends BaseServiceImpl<EventInfoEntity> implements IEventInfoService
 {
     @Autowired
-    IOrganRuntimeProxy organRuntimeProxy;
+    OrganRuntimeRemote organRuntimeRemote;
 
     EventInfoMapper eventInfoMapper;
     public EventInfoServiceImpl(EventInfoMapper _defaultBaseMapper){
@@ -67,7 +66,7 @@ public class EventInfoServiceImpl extends BaseServiceImpl<EventInfoEntity> imple
 
     @Override
     public void saveEvent(JB4DCSession jb4DCSession, EventInfoEntity record) throws JBuild4DCGenerallyException {
-        OrganEntity organEntity=organRuntimeProxy.getOrganById(jb4DCSession.getOrganId()).getData();
+        OrganEntity organEntity=organRuntimeRemote.getOrganById(jb4DCSession.getOrganId()).getData();
         if (organEntity==null){
             throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_GRID_CODE,"找不到组织机构信息!");
         }
@@ -75,7 +74,7 @@ public class EventInfoServiceImpl extends BaseServiceImpl<EventInfoEntity> imple
             throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_GRID_CODE,"当前功能仅限于网格员使用!");
         }
 
-        OrganEntity parentOrganEntity=organRuntimeProxy.getOrganById(organEntity.getOrganParentId()).getData();
+        OrganEntity parentOrganEntity=organRuntimeRemote.getOrganById(organEntity.getOrganParentId()).getData();
         if (parentOrganEntity==null){
             throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_GRID_CODE,"找不到父组织机构信息!");
         }

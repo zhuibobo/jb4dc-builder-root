@@ -1,10 +1,10 @@
 package com.jb4dc.builder.client.proxy.impl;
 
 import com.jb4dc.base.service.cache.IBuildGeneralObj;
+import com.jb4dc.base.service.cache.JB4DCCacheManagerV2;
 import com.jb4dc.builder.client.remote.ApiItemRuntimeRemote;
-import com.jb4dc.builder.client.proxy.RuntimeProxyBase;
+import com.jb4dc.builder.client.proxy.DelRuntimeProxyBase;
 import com.jb4dc.builder.client.service.api.IApiItemService;
-import com.jb4dc.builder.client.proxy.IApiItemRuntimeProxy;
 import com.jb4dc.builder.dbentities.api.ApiItemEntity;
 import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +19,7 @@ import java.io.IOException;
  * To change this template use File | Settings | File Templates.
  */
 @Service
-public class ApiItemRuntimeProxyImpl extends RuntimeProxyBase implements IApiItemRuntimeProxy {
+public class DelApiItemDelRuntimeProxyImpl extends DelRuntimeProxyBase {
 
     @Autowired(required = false)
     IApiItemService apiItemService;
@@ -27,7 +27,6 @@ public class ApiItemRuntimeProxyImpl extends RuntimeProxyBase implements IApiIte
     @Autowired
     ApiItemRuntimeRemote apiItemRuntimeRemote;
 
-    @Override
     public ApiItemEntity getApiPOByValue(String apiValue) throws JBuild4DCGenerallyException, IOException {
         //通过本地bean获取环境变量实体,如果不存在业务bean,则通过rest接口远程获取.
         ApiItemEntity apiItemEntity;
@@ -37,13 +36,15 @@ public class ApiItemRuntimeProxyImpl extends RuntimeProxyBase implements IApiIte
         else{
             //envVariableEntity=new EnvVariableEntity();
             //则通过rest接口远程获取.
-            apiItemEntity=this.autoGetFromCache(this.getClass(), apiValue, new IBuildGeneralObj<ApiItemEntity>() {
+            apiItemEntity=jb4DCCacheManagerV2.autoGetFromCache(JB4DCCacheManagerV2.Jb4dPlatformBuilderClientCacheName,
+                    "Proxy",
+                    this.getClass(), apiValue, new IBuildGeneralObj<ApiItemEntity>() {
                 @Override
                 public ApiItemEntity BuildObj() throws JBuild4DCGenerallyException {
-                    ApiItemEntity temp=apiItemRuntimeRemote.GetApiPOByValue(apiValue).getData();
+                    ApiItemEntity temp=apiItemRuntimeRemote.getApiPOByValue(apiValue).getData();
                     return temp;
                 }
-            },ApiItemEntity.class);
+            },ApiItemEntity.class,JB4DCCacheManagerV2.DefExpirationTimeSeconds);
         }
         return  apiItemEntity;
     }

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created with IntelliJ IDEA.
@@ -42,5 +43,11 @@ public class DictionaryRuntimeRest {
     public JBuild4DCResponseVo<List<DictionaryEntity>> getDictionaryByGroup3Level(String groupId) {
         List<DictionaryEntity> dictionaryEntityList=dictionaryService.getDictionaryByGroup3Level(groupId);
         return JBuild4DCResponseVo.success("",dictionaryEntityList);
+    }
+
+    @RequestMapping(value = "/GetAllDictionaryMinMapJsonProp", method = RequestMethod.GET)
+    public JBuild4DCResponseVo<Map<String, Map<String,Object>>> getAllDictionaryMinMapJsonProp() {
+        Map<String, Map<String,Object>> allDictionaryMinMapJsonProp=dictionaryService.getAllDictionaryMinMapJsonProp();
+        return JBuild4DCResponseVo.success("",allDictionaryMinMapJsonProp);
     }
 }

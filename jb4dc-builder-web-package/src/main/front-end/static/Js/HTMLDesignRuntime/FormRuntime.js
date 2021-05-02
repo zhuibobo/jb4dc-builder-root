@@ -3,7 +3,7 @@ let FormRuntimeSinglePageObject={
     _formRuntimeInst:null,
     FORM_RUNTIME_CATEGORY_INDEPENDENCE:"IsIndependence",
     FORM_RUNTIME_CATEGORY_LIST:"IsDependenceList",
-    FORM_RUNTIME_CATEGORY_FLOW:"IsDependenceFlow",
+
     getWebFormRTParasWithListButtonId:function () {
         if(!this._webFormRTParas) {
             this._webFormRTParas = {
@@ -88,7 +88,8 @@ let FormRuntime={
         IsPreview:false,
         OperationType:"",
         ListFormButtonElemId:"",
-        FormRuntimeCategory:"IsDependenceList"
+        FormRuntimeCategory:"IsDependenceList",
+        PreHandleFormHtmlRuntimeFunc:null
     },
     _$RendererToElem:null,
     _FormPO:null,
@@ -128,18 +129,25 @@ let FormRuntime={
             //console.log(result);
             //console.log(result.data.formHtmlRuntime);
             this._FormPO=result.data;
+
+            //if
             //this._FormDataRelationList=JsonUtility.StringToJson(this._FormPO.formDataRelation);
             this._FormPO.formDataRelation="";//清空字符串类型的关联.功能调整
             this._FormDataRelationList=this._FormPO.formRecordDataRelationPOList;
             this._OriginalFormDataRelationList=JsonUtility.CloneStringify(this._FormDataRelationList);
 
-            this._$RendererToElem.append(result.data.formHtmlRuntime);
+            var formHtmlRuntime=result.data.formHtmlRuntime;
+            if(typeof(this._Prop_Config.PreHandleFormHtmlRuntimeFunc)=="function") {
+                formHtmlRuntime = this._Prop_Config.PreHandleFormHtmlRuntimeFunc(formHtmlRuntime, this, this._Prop_Config);
+            }
+
+            this._$RendererToElem.append(formHtmlRuntime);
             this._FormJSRuntimeInst = Object.create(HTMLJSRuntime);
             this._FormJSRuntimeInst.Initialization({},this._$RendererToElem,this._FormPO.formJsContent);
 
             var _rendererChainParas={
                 po:result.data,
-                    sourceHTML:result.data.formHtmlRuntime,
+                    sourceHTML:formHtmlRuntime,
                     $rootElem: this._$RendererToElem,
                     $parentControlElem: this._$RendererToElem,
                     $singleControlElem: this._$RendererToElem,

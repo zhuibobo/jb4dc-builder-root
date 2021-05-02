@@ -7,7 +7,7 @@ import com.jb4dc.core.base.session.JB4DCSession;
 import com.jb4dc.gridsystem.dao.terminal.GatherTerminalInfoMapper;
 import com.jb4dc.gridsystem.dbentities.terminal.GatherTerminalInfoEntity;
 import com.jb4dc.gridsystem.service.terminal.IGatherTerminalInfoService;
-import com.jb4dc.sso.client.proxy.IOrganRuntimeProxy;
+import com.jb4dc.sso.client.remote.OrganRuntimeRemote;
 import com.jb4dc.sso.dbentities.organ.OrganEntity;
 import com.jb4dc.sso.dbentities.user.UserEntity;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +21,7 @@ public class GatherTerminalInfoServiceImpl extends BaseServiceImpl<GatherTermina
     GatherTerminalInfoMapper gatherTerminalInfoMapper;
 
     @Autowired
-    IOrganRuntimeProxy organRuntimeProxy;
+    OrganRuntimeRemote organRuntimeRemote;
 
     public GatherTerminalInfoServiceImpl(GatherTerminalInfoMapper _defaultBaseMapper){
         super(_defaultBaseMapper);
@@ -46,7 +46,7 @@ public class GatherTerminalInfoServiceImpl extends BaseServiceImpl<GatherTermina
 
     @Override
     public void newTerminalToken(UserEntity userEntity, String terminalToken) throws JBuild4DCGenerallyException {
-        OrganEntity organEntity=organRuntimeProxy.getOrganById(userEntity.getUserOrganId()).getData();
+        OrganEntity organEntity=organRuntimeRemote.getOrganById(userEntity.getUserOrganId()).getData();
 
         GatherTerminalInfoEntity gatherTerminalInfoEntity=new GatherTerminalInfoEntity();
         gatherTerminalInfoEntity.setTerminalId(terminalToken);

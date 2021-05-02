@@ -6,8 +6,9 @@ import com.jb4dc.base.service.provide.IFramePageProvide;
 import com.jb4dc.base.ymls.JBuild4DCYaml;
 import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
 import com.jb4dc.core.base.session.JB4DCSession;
-import com.jb4dc.sso.client.proxy.IAppRuntimeProxy;
-import com.jb4dc.sso.client.proxy.IMenuRuntimeProxy;
+//import com.jb4dc.sso.client.proxy.IAppRuntimeProxy;
+import com.jb4dc.sso.client.remote.MenuRuntimeRemote;
+import com.jb4dc.sso.client.remote.AppRuntimeRemote;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -21,27 +22,27 @@ import java.util.List;
 @Service
 public class FrameMenuProvide implements IFramePageProvide {
 
-    IMenuRuntimeProxy menuRuntimeProxy;
+    MenuRuntimeRemote menuRuntimeRemote;
 
-    IAppRuntimeProxy appRuntimeProxy;
+    AppRuntimeRemote appRuntimeRemote;
 
     JBuild4DCYaml jBuild4DCYaml;
 
-    public FrameMenuProvide(IMenuRuntimeProxy _menuRemoteProxy,IAppRuntimeProxy appRuntimeProxy,JBuild4DCYaml _jBuild4DCYaml){
-        this.menuRuntimeProxy=_menuRemoteProxy;
-        this.appRuntimeProxy=appRuntimeProxy;
+    public FrameMenuProvide(MenuRuntimeRemote _menuRuntimeRemote,AppRuntimeRemote appRuntimeRemote,JBuild4DCYaml _jBuild4DCYaml){
+        this.menuRuntimeRemote=_menuRuntimeRemote;
+        this.appRuntimeRemote=appRuntimeRemote;
         this.jBuild4DCYaml=_jBuild4DCYaml;
     }
 
     @Override
     public List<MenuPO> getMyFrameMenu(JB4DCSession jb4DCSession) throws JBuild4DCGenerallyException {
-        List<MenuPO> menuPOList =  menuRuntimeProxy.getMyAuthMenusBySystemIdRT(jb4DCSession.getUserId(),"GRIDSystem").getData();
+        List<MenuPO> menuPOList =  menuRuntimeRemote.getMyAuthMenusBySystemIdRT(jb4DCSession.getUserId(),"GRIDSystem").getData();
         return menuPOList;
     }
 
     @Override
     public List<SsoAppPO> getMyFrameAuthorityApp(String userId) throws JBuild4DCGenerallyException {
-        return appRuntimeProxy.getHasAuthorityAppSSO(userId).getData();
+        return appRuntimeRemote.getHasAuthorityAppSSO(userId).getData();
     }
 
     @Override

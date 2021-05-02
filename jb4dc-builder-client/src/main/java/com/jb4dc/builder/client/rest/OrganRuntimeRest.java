@@ -1,9 +1,8 @@
 package com.jb4dc.builder.client.rest;
 
-import com.jb4dc.builder.client.proxy.IListRuntimeProxy;
 import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
 import com.jb4dc.core.base.vo.JBuild4DCResponseVo;
-import com.jb4dc.sso.client.proxy.IOrganRuntimeProxy;
+import com.jb4dc.sso.client.remote.OrganRuntimeRemote;
 import com.jb4dc.sso.dbentities.organ.OrganEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,10 +22,10 @@ import java.util.List;
 public class OrganRuntimeRest {
 
     @Autowired
-    IOrganRuntimeProxy organRuntimeProxy;
+    OrganRuntimeRemote runtimeRemote;
 
     @RequestMapping(value = "/GetFullEnableOrgan", method = RequestMethod.POST)
     JBuild4DCResponseVo<List<OrganEntity>> getFullEnableOrgan() throws JBuild4DCGenerallyException {
-        return organRuntimeProxy.getFullEnableOrganRT();
+        return runtimeRemote.getFullEnableOrganRT();
     }
 }

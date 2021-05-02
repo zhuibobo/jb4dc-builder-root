@@ -1,5 +1,6 @@
 package com.jb4dc.builder.client.remote;
 
+import com.jb4dc.base.service.aspect.ClientCallRemoteCache;
 import com.jb4dc.builder.dbentities.datastorage.TableEntity;
 import com.jb4dc.builder.po.TableFieldPO;
 import com.jb4dc.core.base.vo.JBuild4DCResponseVo;
@@ -21,8 +22,10 @@ import java.util.List;
 public interface TableRuntimeRemote {
 
     @RequestMapping(value = "/GetTableFieldsByTableId", method = RequestMethod.POST)
+    @ClientCallRemoteCache
     public JBuild4DCResponseVo<List<TableFieldPO>> getTableFieldsByTableId(@RequestParam("tableId") String tableId);
 
     @RequestMapping(value = "/GetTableById", method = RequestMethod.POST)
+    @ClientCallRemoteCache
     public JBuild4DCResponseVo<TableEntity> getTableById(@RequestParam("tableId") String tableId);
 }

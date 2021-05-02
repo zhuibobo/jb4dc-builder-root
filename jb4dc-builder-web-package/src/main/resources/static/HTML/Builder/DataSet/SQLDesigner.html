@@ -1,1 +1,343 @@
-<!DOCTYPE html><html lang="zh" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"><head><meta charset="UTF-8"><title>Title</title><title>JBuild4D</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"><script type="text/javascript" src="../../../Js/External/JQuery-3.4.1/jquery-3.4.1.min.js"></script><script type="text/javascript" src="../../../Js/External/VUE-2.6.10/vue.js"></script><script type="text/javascript" src="../../../Js/External/IView-4.X/dist/iview.min.js"></script><script type="text/javascript" src="../../../Js/External/JQuery-UI-1.12.1/jquery-ui.js"></script><script type="text/javascript" src="../../../Js/External/ZTree-3.5.40/js/jquery.ztree.all.js"></script><script type="text/javascript" src="../../../Js/External/Perfect-Scrollbar-V1.4.0/perfect-scrollbar.js"></script><script type="text/javascript" src="../../../Js/JBuild4DCLib.js?refVersion=1619267426042"></script><script type="text/javascript" src="../../../Js/UIEXComponent.js?refVersion=1619267426042"></script><script type="text/javascript" src="../../../Js/UIEXComponentForBuilder.js?refVersion=1619267426042"></script><script type="text/javascript" src="../../../Js/VueEXComponent.js?refVersion=1619267426042"></script><script type="text/javascript" src="../../../Js/BuilderVueEXComponent.js?refVersion=1619267426042"></script><link rel="stylesheet" type="text/css" href="../../../Themes/Default/IView-4.X/iview.css"><link rel="stylesheet" type="text/css" href="../../../Themes/Default/JQueryUI/jquery-ui.css"><link rel="stylesheet" type="text/css" href="../../../Themes/Default/JQueryUI/jquery-ui-important.css"><link rel="stylesheet" type="text/css" href="../../../Js/External/Perfect-Scrollbar-V1.4.0/perfect-scrollbar.css"><link rel="stylesheet" type="text/css" href="../../../Themes/Default/ZTree/zTreeStyle/zTreeStyle.css"><link rel="stylesheet" type="text/css" href="../../../Themes/Default/Css/JBuild4DC.css?refVersion=1619267426042"><link rel="stylesheet" type="text/css" href="../../../Themes/Default/Css/JBuild4DCBuilder.css?refVersion=1619267426042"><script type="text/javascript" src="../../../Js/External/Codemirror-5.48.0/lib/codemirror.js"></script><link rel="stylesheet" type="text/css" href="../../../Js/External/Codemirror-5.48.0/lib/codemirror.css"><link rel="stylesheet" type="text/css" href="../../../Js/External/Codemirror-5.48.0/theme/monokai.css"><script type="text/javascript" src="../../../Js/External/Codemirror-5.48.0/mode/xml/xml.js"></script><script type="text/javascript" src="../../../Js/External/Codemirror-5.48.0/mode/javascript/javascript.js"></script><script type="text/javascript" src="../../../Js/External/Codemirror-5.48.0/mode/css/css.js"></script><script type="text/javascript" src="../../../Js/External/Codemirror-5.48.0/mode/sql/sql.js"></script><script type="text/javascript" src="../../../Js/External/Codemirror-5.48.0/mode/htmlmixed/htmlmixed.js"></script><script type="text/javascript" src="../../../Js/External/Codemirror-5.48.0/addon/fold/foldcode.js"></script><script type="text/javascript" src="../../../Js/External/Codemirror-5.48.0/addon/fold/foldgutter.js"></script><script type="text/javascript" src="../../../Js/External/Codemirror-5.48.0/addon/fold/brace-fold.js"></script><script type="text/javascript" src="../../../Js/External/Codemirror-5.48.0/addon/fold/xml-fold.js"></script><script type="text/javascript" src="../../../Js/External/Codemirror-5.48.0/addon/fold/markdown-fold.js"></script><script type="text/javascript" src="../../../Js/External/Codemirror-5.48.0/addon/fold/comment-fold.js"></script><script type="text/javascript" src="../../../Js/External/Codemirror-5.48.0/addon/fold/brace-fold.js"></script><script type="text/javascript" src="../../../Js/External/Codemirror-5.48.0/addon/util/formatting.js"></script><link rel="stylesheet" type="text/css" href="../../../Js/External/Codemirror-5.48.0/addon/fold/foldgutter.css"><script type="text/javascript" src="../../../Js/External/Codemirror-5.48.0/addon/search/search.js"></script><script type="text/javascript" src="../../../Js/External/Codemirror-5.48.0/addon/search/searchcursor.js"></script><script type="text/javascript" src="../../../Js/External/ZTree-3.5.40/js/jquery.ztree.exhide.js"></script><script type="text/javascript" src="../../../Js/External/ZTree-3.5.40/js/fuzzysearch.js"></script><style>.CodeMirror{height:100px;width:100%}#TextAreaJsEditor{width:100%;height:100px}.tableTreeWrap{float:left;height:360px;width:40%;border:#01a0e4 1px solid;border-radius:4px;padding:6px;overflow:auto}.tableFieldWrap{float:left;height:360px;width:57%;border:#01a0e4 1px solid;border-radius:4px;margin-left:10px;padding:10px}.tableName{color:#3b97ed;cursor:pointer}.tableName:hover{color:red}.validate-sql-enable-warp .result-item{border:#c8dcfe 1px solid;border-radius:4px;padding:4px;margin-bottom:4px}</style></head><body><div id="sqlDesignerForm" v-cloak class="general-edit-page-wrap"><div><div style="width:100%">请编辑SQL语句[字段请统一使用大写]<div style="float:right;margin-bottom:8px"><tooltip content="校验SQL" placement="left"><i-button size="small" type="success" icon="md-checkmark" @click="validateSQLEnable(null)"></i-button></tooltip><tooltip content="历史版本" placement="left"><i-button size="small" type="primary" icon="md-timer"></i-button></tooltip><tooltip content="预览数据" placement="left"><i-button size="small" type="primary" icon="md-search"></i-button></tooltip><tooltip content="格式化" placement="left"><i-button size="small" type="primary" icon="md-code"></i-button></tooltip></div><div style="clear:bottom"></div></div><div style="height:120px;width:100%"><textarea id="TextAreaJsEditor"></textarea></div><div style="position:absolute;bottom:15px;top:150px;left:0;right:0"><tabs value="Tables"><tab-pane label="表" name="Tables"><div id="tableWraper" style="height:365px;overflow:auto"><div class="tableTreeWrap"><input type="text" id="txtSearchTableTree" style="width:100%"><ul id="tableZTreeUL" class="ztree"></ul></div><div class="tableFieldWrap iv-list-page-wrap">表：【<span class="tableName" @click="insertTableNameToCodeMirror">{{tree.selectedTableName}}</span>】<i-table size="small" height="315" stripe border :columns="tableField.columnsConfig" :data="tableField.fieldData" class="iv-list-table" :highlight-row="true"></i-table></div></div></tab-pane><tab-pane label="环境变量" name="EnvVar"><div><div style="width:30%;float:left;height:360px"><div class="inner-wrap"><div><ul id="envGroupZTreeUL" class="ztree"></ul></div></div></div><div style="width:68%;float:left;height:360px" class="iv-list-page-wrap"><i-table :height="350" stripe border :columns="envVarColumnsConfig" :data="envVarTableData" class="iv-list-table" :highlight-row="true"></i-table></div></div></tab-pane><tab-pane label="参考SQL" name="EgSQL"></tab-pane></tabs></div></div><div class="button-outer-wrap"><div class="button-inner-wrap"><button-group><i-button type="success" @click="coverSQLDesign">覆 盖</i-button><i-button @click="appendSQLDesign">追 加</i-button><i-button @click="handleClose()">关 闭</i-button></button-group></div></div><div id="validateSQLEnableWarp" style="display:none" class="validate-sql-enable-warp"><div>解析为SQL</div><div class="result-item" id="sqlWithEnvValue"></div><div>变量替换SQL</div><div class="result-item" id="sqlWithEnvRunningValue"></div><div>获取结构SQL</div><div class="result-item" id="sqlWithEmptyData"></div><div>包含表</div><div class="result-item" id="relatedTables"></div><div>包含字段</div><div class="result-item" id="aboutColumns"></div></div></div><script>var sqlDesignerForm=new Vue({el:"#sqlDesignerForm",data:{acInterface:{getDataUrl:"/Rest/Builder/DataSet/DataSetSQLDesigner/GetSqlDesignerViewData",getEnvGroupTreeData:"/Rest/Builder/EnvVariableGroup/GetTreeData",reloadEnvListData:"/Rest/Builder/EnvVariable/GetListData"},formResourceEntity:{formId:""},tree:{envGroupTreeIdFieldName:"envGroupId",envGroupTreeObj:null,envGroupTreeSelectedNode:null,envGroupTreeSetting:{async:{enable:!0,url:""},data:{key:{name:"envGroupText"},simpleData:{enable:!0,idKey:"envGroupId",pIdKey:"envGroupParentId",rootId:0}},callback:{onClick:function(e,t,a){this.getZTreeObj(t)._host.envGroupTreeNodeSelected(e,t,a)},onAsyncSuccess:function(e,t,a,i){appList.treeObj.expandAll(!0)}}},tableTreeObj:null,tableTreeSetting:{view:{dblClickExpand:!1,showLine:!0,fontCss:{color:"black","font-weight":"normal"}},data:{key:{name:"text"},simpleData:{enable:!0,idKey:"id",pIdKey:"parentId",rootPId:"-1"}},callback:{onClick:function(e,t,a){sqlDesignerForm.getTableFields(a),sqlDesignerForm.tree.selectedTableName=a.value},onDblClick:function(e,t,a){},onAsyncSuccess:function(e,t,a,i){}}},tableTreeData:null,selectedTableName:"无"},tableField:{fieldData:[],columnsConfig:[{title:"字段名称",key:"fieldName",align:"center"},{title:"标题",key:"fieldCaption",align:"center"},{title:"操作",key:"fieldId",width:80,align:"center",render:function(e,t){return e("div",{class:"list-row-button-wrap"},[e("div",{class:"list-row-button listmanager",on:{click:function(){sqlDesignerForm.insertTableFieldToCodeMirror(t.row)}}})])}}]},sqlCodeMirror:null,envVarTableData:[],envVarColumnsConfig:[{title:"变量名称",key:"envVarText",align:"center"},{title:"变量值",key:"envVarValue",align:"center"},{title:"操作",key:"envVarId",width:120,align:"center",render:function(e,t){return e("div",{class:"list-row-button-wrap"},[ListPageUtility.IViewTableInnerButton.SelectedButton(e,t,"envVarId",sqlDesignerForm,sqlDesignerForm.insertEnvVarToEditor)])}}],envVarSearchCondition:{envVarGroupId:{value:"",type:SearchUtility.SearchFieldType.StringType}}},mounted:function(){this.sqlCodeMirror=CodeMirror.fromTextArea($("#TextAreaJsEditor")[0],{mode:"text/x-sql",lineNumbers:!0,lineWrapping:!0,foldGutter:!0,theme:"monokai"}),this.sqlCodeMirror.doc.setValue(window.parent.dataSetEditForm.datasetEntity.dsSqlSelectText),AjaxUtility.Post(this.acInterface.getDataUrl,{},function(e){e.success&&sqlDesignerForm.bindData(e)},this),PageStyleUtility.GetPageHeight()<550&&$("#tableWraper").height(190),this.loadEnvGroupData()},methods:{loadEnvGroupData:function(){AjaxUtility.Post(this.acInterface.getEnvGroupTreeData,{},function(e){if(e.success){if(null!=e.data&&0<e.data.length)for(var t=0;t<e.data.length;t++);this.tree.envGroupTreeObj=$.fn.zTree.init($("#envGroupZTreeUL"),this.tree.envGroupTreeSetting,e.data),this.tree.envGroupTreeObj.expandAll(!0),this.tree.envGroupTreeObj._host=this}else DialogUtility.Alert(window,DialogUtility.DialogAlertId,{},e.message,function(){})},this)},envGroupTreeNodeSelected:function(e,t,a){this.envVarClearSearchCondition(),this.envVarSearchCondition.envVarGroupId.value=a[this.tree.envGroupTreeIdFieldName],this.envVarReloadData()},envVarClearSearchCondition:function(){for(var e in this.envVarSearchCondition)this.envVarSearchCondition[e].value=""},envVarReloadData:function(){var t=this,e=this.acInterface.reloadEnvListData,a={pageNum:1,pageSize:100,searchCondition:SearchUtility.SerializationSearchCondition(this.envVarSearchCondition),loadDict:!1};AjaxUtility.Post(e,a,function(e){console.log(e),e.success&&(t.envVarTableData=e.data.list)},this)},insertEnvVarToEditor:function(e,t){console.log(t),sqlDesignerForm.insertCodeAtCursor("#{EnvVar."+t.row.envVarText+"}")},bindData:function(e){this.tree.tableTreeData=e.exKVData.tableTreeData,this.tree.tableTreeObj=$.fn.zTree.init($("#tableZTreeUL"),this.tree.tableTreeSetting,this.tree.tableTreeData),this.tree.tableTreeObj.expandAll(!0),fuzzySearch("tableZTreeUL","#txtSearchTableTree",null,!0)},insertCodeAtCursor:function(e){var t=this.sqlCodeMirror.getDoc(),a=t.getCursor();t.replaceRange(e,a)},insertTableNameToCodeMirror:function(){this.insertCodeAtCursor(this.tree.selectedTableName)},insertTableFieldToCodeMirror:function(e){this.insertCodeAtCursor(this.tree.selectedTableName+"."+e.fieldName)},getEditSQL:function(){return this.sqlCodeMirror.getValue()},getTableFields:function(e){var t=e.id,a=this;AjaxUtility.Post("/Rest/Builder/DataSet/DataSetSQLDesigner/GetTableField",{tableId:t},function(e){e.success&&(a.tableField.fieldData=e.data)},this)},handleClose:function(){DialogUtility.CloseOpenIframeWindow(window,DialogUtility.DialogId)},coverSQLDesign:function(){this.validateSQLEnable(function(e){window.parent.dataSetEditForm.clearColumn(),window.parent.dataSetEditForm.completedSQLDesign(e),sqlDesignerForm.handleClose()})},appendSQLDesign:function(){this.validateSQLEnable(function(e){window.parent.dataSetEditForm.completedSQLDesign(e),sqlDesignerForm.handleClose()})},validateSQLEnable:function(n){var r=this.getEditSQL();AjaxUtility.Post("/Rest/Builder/DataSet/DataSetSQLDesigner/ValidateSQLEnable",{sqlText:encodeURIComponent(r)},function(e){if(e.success)if(e.data.sqlWithEnvText=r,"function"==typeof n)n(e);else{$("#sqlWithEnvValue").html(e.data.sqlWithEnvValue),$("#sqlWithEnvRunningValue").html(e.data.sqlWithEnvRunningValue),$("#sqlWithEmptyData").html(e.data.sqlWithEmptyData);for(var t=new Array,a=0;a<e.data.dataSetPO.relatedTableVoList.length;a++)t.push(e.data.dataSetPO.relatedTableVoList[a].rtTableName+":"+e.data.dataSetPO.relatedTableVoList[a].rtTableCaption);var i=new Array;for(a=0;a<e.data.dataSetPO.columnVoList.length;a++)i.push(e.data.dataSetPO.columnVoList[a].columnName+":"+e.data.dataSetPO.columnVoList[a].columnCaption);$("#relatedTables").html(t.join("<br />")),$("#aboutColumns").html(i.join("<br />")),DialogUtility.DialogElemObj($("#validateSQLEnableWarp"),{modal:!0,title:"校验结果",width:900,height:550})}},this)}}})</script></body></html>
+<!--
+  Created by IntelliJ IDEA.
+  User: zhuangrb
+  Date: 2019/1/26
+  To change this template use File | Settings | File Templates.
+--><!DOCTYPE html><html lang="zh" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"><head><meta charset="UTF-8"><title>Title</title><title>JBuild4D</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"><script type="text/javascript" src="../../../Js/External/JQuery-3.4.1/jquery-3.4.1.min.js"></script><script type="text/javascript" src="../../../Js/External/VUE-2.6.10/vue.js"></script><script type="text/javascript" src="../../../Js/External/IView-4.X/dist/iview.min.js"></script><script type="text/javascript" src="../../../Js/External/JQuery-UI-1.12.1/jquery-ui.js"></script><script type="text/javascript" src="../../../Js/External/ZTree-3.5.40/js/jquery.ztree.all.js"></script><script type="text/javascript" src="../../../Js/External/Perfect-Scrollbar-V1.4.0/perfect-scrollbar.js"></script><script type="text/javascript" src="../../../Js/JBuild4DCLib.js?refVersion=1619921800093"></script><script type="text/javascript" src="../../../Js/UIEXComponent.js?refVersion=1619921800093"></script><script type="text/javascript" src="../../../Js/UIEXComponentForBuilder.js?refVersion=1619921800093"></script><script type="text/javascript" src="../../../Js/VueEXComponent.js?refVersion=1619921800093"></script><script type="text/javascript" src="../../../Js/BuilderVueEXComponent.js?refVersion=1619921800093"></script><link rel="stylesheet" type="text/css" href="../../../Themes/Default/IView-4.X/iview.css"><link rel="stylesheet" type="text/css" href="../../../Themes/Default/JQueryUI/jquery-ui.css"><link rel="stylesheet" type="text/css" href="../../../Themes/Default/JQueryUI/jquery-ui-important.css"><link rel="stylesheet" type="text/css" href="../../../Js/External/Perfect-Scrollbar-V1.4.0/perfect-scrollbar.css"><link rel="stylesheet" type="text/css" href="../../../Themes/Default/ZTree/zTreeStyle/zTreeStyle.css"><link rel="stylesheet" type="text/css" href="../../../Themes/Default/Css/JBuild4DC.css?refVersion=1619921800093"><link rel="stylesheet" type="text/css" href="../../../Themes/Default/Css/JBuild4DCBuilder.css?refVersion=1619921800093"><script type="text/javascript" src="../../../Js/External/Codemirror-5.48.0/lib/codemirror.js"></script><link rel="stylesheet" type="text/css" href="../../../Js/External/Codemirror-5.48.0/lib/codemirror.css"><link rel="stylesheet" type="text/css" href="../../../Js/External/Codemirror-5.48.0/theme/monokai.css"><script type="text/javascript" src="../../../Js/External/Codemirror-5.48.0/mode/xml/xml.js"></script><script type="text/javascript" src="../../../Js/External/Codemirror-5.48.0/mode/javascript/javascript.js"></script><script type="text/javascript" src="../../../Js/External/Codemirror-5.48.0/mode/css/css.js"></script><script type="text/javascript" src="../../../Js/External/Codemirror-5.48.0/mode/sql/sql.js"></script><script type="text/javascript" src="../../../Js/External/Codemirror-5.48.0/mode/htmlmixed/htmlmixed.js"></script><script type="text/javascript" src="../../../Js/External/Codemirror-5.48.0/addon/fold/foldcode.js"></script><script type="text/javascript" src="../../../Js/External/Codemirror-5.48.0/addon/fold/foldgutter.js"></script><script type="text/javascript" src="../../../Js/External/Codemirror-5.48.0/addon/fold/brace-fold.js"></script><script type="text/javascript" src="../../../Js/External/Codemirror-5.48.0/addon/fold/xml-fold.js"></script><script type="text/javascript" src="../../../Js/External/Codemirror-5.48.0/addon/fold/markdown-fold.js"></script><script type="text/javascript" src="../../../Js/External/Codemirror-5.48.0/addon/fold/comment-fold.js"></script><script type="text/javascript" src="../../../Js/External/Codemirror-5.48.0/addon/fold/brace-fold.js"></script><script type="text/javascript" src="../../../Js/External/Codemirror-5.48.0/addon/util/formatting.js"></script><link rel="stylesheet" type="text/css" href="../../../Js/External/Codemirror-5.48.0/addon/fold/foldgutter.css"><script type="text/javascript" src="../../../Js/External/Codemirror-5.48.0/addon/search/search.js"></script><script type="text/javascript" src="../../../Js/External/Codemirror-5.48.0/addon/search/searchcursor.js"></script><script type="text/javascript" src="../../../Js/External/ZTree-3.5.40/js/jquery.ztree.exhide.js"></script><script type="text/javascript" src="../../../Js/External/ZTree-3.5.40/js/fuzzysearch.js"></script><style>.CodeMirror{height:100px;width:100%}#TextAreaJsEditor{width:100%;height:100px}.tableTreeWrap{float:left;height:360px;width:40%;border:#01a0e4 1px solid;border-radius:4px;padding:6px;overflow:auto}.tableFieldWrap{float:left;height:360px;width:57%;border:#01a0e4 1px solid;border-radius:4px;margin-left:10px;padding:10px}.tableName{color:#3b97ed;cursor:pointer}.tableName:hover{color:red}.validate-sql-enable-warp .result-item{border:#c8dcfe 1px solid;border-radius:4px;padding:4px;margin-bottom:4px}</style></head><body><div id="sqlDesignerForm" v-cloak class="general-edit-page-wrap"><div><div style="width:100%">请编辑SQL语句[字段请统一使用大写]<div style="float:right;margin-bottom:8px"><!--<button-group>--><tooltip content="校验SQL" placement="left"><i-button size="small" type="success" icon="md-checkmark" @click="validateSQLEnable(null)"></i-button></tooltip><tooltip content="历史版本" placement="left"><i-button size="small" type="primary" icon="md-timer"></i-button></tooltip><tooltip content="预览数据" placement="left"><i-button size="small" type="primary" icon="md-search"></i-button></tooltip><tooltip content="格式化" placement="left"><i-button size="small" type="primary" icon="md-code"></i-button></tooltip><!--</button-group>--></div><div style="clear:bottom"></div></div><div style="height:120px;width:100%"><textarea id="TextAreaJsEditor"></textarea></div><div style="position:absolute;bottom:15px;top:150px;left:0;right:0"><tabs value="Tables"><tab-pane label="表" name="Tables"><div id="tableWraper" style="height:365px;overflow:auto"><div class="tableTreeWrap"><input type="text" id="txtSearchTableTree" style="width:100%"><ul id="tableZTreeUL" class="ztree"></ul></div><div class="tableFieldWrap iv-list-page-wrap">表：【<span class="tableName" @click="insertTableNameToCodeMirror">{{tree.selectedTableName}}</span>】<i-table size="small" height="315" stripe border :columns="tableField.columnsConfig" :data="tableField.fieldData" class="iv-list-table" :highlight-row="true"></i-table></div></div></tab-pane><tab-pane label="环境变量" name="EnvVar"><div><div style="width:30%;float:left;height:360px"><div class="inner-wrap"><div><ul id="envGroupZTreeUL" class="ztree"></ul></div></div></div><div style="width:68%;float:left;height:360px" class="iv-list-page-wrap"><i-table :height="350" stripe border :columns="envVarColumnsConfig" :data="envVarTableData" class="iv-list-table" :highlight-row="true"></i-table></div></div></tab-pane><tab-pane label="参考SQL" name="EgSQL"></tab-pane></tabs></div></div><div class="button-outer-wrap"><div class="button-inner-wrap"><button-group><i-button type="success" @click="coverSQLDesign">覆 盖</i-button><i-button @click="appendSQLDesign">追 加</i-button><i-button @click="handleClose()">关 闭</i-button></button-group></div></div><div id="validateSQLEnableWarp" style="display:none" class="validate-sql-enable-warp"><div>解析为SQL</div><div class="result-item" id="sqlWithEnvValue"></div><div>变量替换SQL</div><div class="result-item" id="sqlWithEnvRunningValue"></div><div>获取结构SQL</div><div class="result-item" id="sqlWithEmptyData"></div><div>包含表</div><div class="result-item" id="relatedTables"></div><div>包含字段</div><div class="result-item" id="aboutColumns"></div></div></div><script>var sqlDesignerForm = new Vue({
+            el:"#sqlDesignerForm",
+            data:{
+                acInterface:{
+                    getDataUrl:"/Rest/Builder/DataSet/DataSetSQLDesigner/GetSqlDesignerViewData",
+                    getEnvGroupTreeData:"/Rest/Builder/EnvVariableGroup/GetTreeData",
+                    reloadEnvListData:"/Rest/Builder/EnvVariable/GetListData"
+                },
+                formResourceEntity:{
+                    formId:"",
+
+                },
+                tree:{
+                    envGroupTreeIdFieldName:"envGroupId",
+                    envGroupTreeObj:null,
+                    envGroupTreeSelectedNode:null,
+                    envGroupTreeSetting:{
+                        async : {
+                            enable : true,
+                            // Ajax 获取数据的 URL 地址
+                            url :""
+                        },
+                        // 必须使用data
+                        data:{
+                            key:{
+                                name:"envGroupText"
+                            },
+                            simpleData : {
+                                enable : true,
+                                idKey : "envGroupId", // id编号命名
+                                pIdKey : "envGroupParentId",  // 父id编号命名
+                                rootId : 0
+                            }
+                        },
+                        // 回调函数
+                        callback : {
+                            onClick : function(event, treeId, treeNode) {
+                                var _self=this.getZTreeObj(treeId)._host;
+                                _self.envGroupTreeNodeSelected(event,treeId,treeNode);
+                            },
+                            //成功的回调函数
+                            onAsyncSuccess : function(event, treeId, treeNode, msg){
+                                appList.treeObj.expandAll(true);
+                            }
+                        }
+                    },
+                    tableTreeObj:null,
+                    tableTreeSetting:{
+                        view: {
+                            dblClickExpand: false,//双击节点时，是否自动展开父节点的标识
+                            showLine: true,//是否显示节点之间的连线
+                            fontCss: {'color': 'black', 'font-weight': 'normal'}
+                        },
+                        data: {
+                            key: {
+                                name: "text",
+                            },
+                            simpleData: {//简单数据模式
+                                enable: true,
+                                idKey: "id",
+                                pIdKey: "parentId",
+                                rootPId: "-1"// 1
+                            }
+                        },
+                        callback: {
+                            //点击树节点事件
+                            onClick: function (event, treeId, treeNode) {
+                                sqlDesignerForm.getTableFields(treeNode);
+                                sqlDesignerForm.tree.selectedTableName=treeNode.value;
+                            },
+                            onDblClick: function (event, treeId, treeNode) {
+
+                            },
+                            //成功的回调函数
+                            onAsyncSuccess: function (event, treeId, treeNode, msg) {
+
+                            }
+                        }
+                    },
+                    tableTreeData:null,//${tableTreeData},
+                    selectedTableName:"无"
+                },
+                tableField:{
+                    fieldData:[],
+                    columnsConfig: [
+                        {
+                            title: '字段名称',
+                            key: 'fieldName',
+                            align: "center"
+                        }, {
+                            title: '标题',
+                            key: 'fieldCaption',
+                            align: "center"
+                        }, {
+                            title: '操作',
+                            key: 'fieldId',
+                            width: 80,
+                            align: "center",
+                            render: function (h, params) {
+                                return h('div',{class: "list-row-button-wrap"},[
+                                    h('div', {
+                                        class: "list-row-button listmanager",
+                                        on: {
+                                            click: function () {
+                                                sqlDesignerForm.insertTableFieldToCodeMirror(params.row);
+                                            }
+                                        }
+                                    })
+                                ]);
+                            }
+                        }
+                    ]
+                },
+                sqlCodeMirror:null,
+                envVarTableData:[],
+                envVarColumnsConfig: [
+                    {
+                        title: '变量名称',
+                        key: 'envVarText',
+                        align: "center"
+                    }, {
+                        title: '变量值',
+                        key: 'envVarValue',
+                        align: "center"
+                    }, {
+                        title: '操作',
+                        key: 'envVarId',
+                        width: 120,
+                        align: "center",
+                        render: function (h, params) {
+                            return h('div',{class: "list-row-button-wrap"},[
+                                ListPageUtility.IViewTableInnerButton.SelectedButton(h, params, "envVarId", sqlDesignerForm,sqlDesignerForm.insertEnvVarToEditor)
+                            ]);
+                        }
+                    }
+                ],
+                envVarSearchCondition:{
+                    envVarGroupId:{
+                        value:"",
+                        type:SearchUtility.SearchFieldType.StringType
+                    }
+                }
+            },
+            mounted:function () {
+                this.sqlCodeMirror = CodeMirror.fromTextArea($("#TextAreaJsEditor")[0], {
+                    mode: "text/x-sql",
+                    lineNumbers: true,
+                    lineWrapping: true,
+                    foldGutter: true,
+                    theme: "monokai"
+                });
+                this.sqlCodeMirror.doc.setValue(window.parent.dataSetEditForm.datasetEntity.dsSqlSelectText);
+                AjaxUtility.Post(this.acInterface.getDataUrl,{},function (result) {
+                    if(result.success) {
+                        sqlDesignerForm.bindData(result);
+                    }
+                    /*else {
+                        DialogUtility.Alert(window, DialogUtility.DialogAlertId, {}, result.message, null);
+                    }*/
+                },this);
+
+                //var _height=PageStyleUtility.GetPageHeight()-300;
+                if(PageStyleUtility.GetPageHeight()<550){
+                    $("#tableWraper").height(190);
+                }
+
+                this.loadEnvGroupData();
+            },
+            methods:{
+                loadEnvGroupData:function(){
+                    //var _self=this;
+                    AjaxUtility.Post(this.acInterface.getEnvGroupTreeData, {}, function (result) {
+                        //console.log(result);
+                        if(result.success){
+                            if(result.data!=null&&result.data.length>0){
+                                for(var i=0;i<result.data.length;i++) {
+                                    /*if(result.data[i].envGroupChildCount==0) {
+                                        result.data[i].icon = "../../../Themes/Png16X16/app-view-columns.png";
+                                    }*/
+                                }
+                            }
+                            this.tree.envGroupTreeObj=$.fn.zTree.init($("#envGroupZTreeUL"), this.tree.envGroupTreeSetting,result.data);
+                            this.tree.envGroupTreeObj.expandAll(true);
+                            this.tree.envGroupTreeObj._host=this;
+                        }
+                        else {
+                            DialogUtility.Alert(window, DialogUtility.DialogAlertId, {}, result.message, function () {});
+                        }
+                    }, this);
+                },
+                envGroupTreeNodeSelected:function (event, treeId, treeNode) {
+                    // 根节点不触发任何事件1
+                    //if(treeNode.level != 0) {
+                    //this.pageNum=1;
+                    this.envVarClearSearchCondition();
+                    this.envVarSearchCondition.envVarGroupId.value=treeNode[this.tree.envGroupTreeIdFieldName];
+                    this.envVarReloadData();
+                    //appList.reloadTreeTableData();
+                    //}
+                },
+                envVarClearSearchCondition:function () {
+                    for(var key in this.envVarSearchCondition){
+                        this.envVarSearchCondition[key].value="";
+                    }
+                },
+                envVarReloadData: function () {
+                    //ListPageUtility.IViewTableLoadDataSearch(this.acInterface.reloadListData,this.pageNum,this.pageSize,this.searchCondition,this,this.idFieldName,true,null,false);
+                    //this.selectionRows=null;
+                    /*ListPageUtility.IViewTableBindDataBySearch({
+                        url: this.acInterface.reloadEnvListData,
+                        pageNum: 1,
+                        pageSize: 100,
+                        searchCondition: this.envVarSearchCondition,
+                        pageAppObj: this,
+                        tableList: this,
+                        idField: "envVarId",
+                        autoSelectedOldRows: true,
+                        successFunc: null,
+                        loadDict: false,
+                        custParas: {}
+                    });*/
+                    var _self=this;
+                    var url = this.acInterface.reloadEnvListData;
+                    var sendData = {
+                        "pageNum": 1,
+                        "pageSize": 100,
+                        "searchCondition": SearchUtility.SerializationSearchCondition(this.envVarSearchCondition),
+                        "loadDict": false
+                    };
+                    AjaxUtility.Post(url, sendData, function (result) {
+                        console.log(result);
+                        if(result.success){
+                            _self.envVarTableData=result.data.list;
+                        }
+                    }, this);
+                },
+                insertEnvVarToEditor:function(id,para) {
+                    console.log(para);
+                    sqlDesignerForm.insertCodeAtCursor("#\{EnvVar." + para.row.envVarText + "}");
+                },
+                bindData:function(result){
+                    //this.tree.datetimeTreeData=result.exKVData.datetimeTreeData;
+                    //this.tree.datetimeTreeObj=$.fn.zTree.init($("#datetimeZTreeUL"), this.tree.datetimeTreeSetting,this.tree.datetimeTreeData);
+                    //this.tree.datetimeTreeObj.expandAll(true);
+                    //this.tree.apiVarTreeData=result.exKVData.apiVarTreeData;
+                    //this.tree.apiVarTreeObj=$.fn.zTree.init($("#apiVarZTreeUL"), this.tree.apiVarTreeSetting,this.tree.apiVarTreeData);
+                    //this.tree.apiVarTreeObj.expandAll(true);
+                    this.tree.tableTreeData=result.exKVData.tableTreeData;
+                    this.tree.tableTreeObj=$.fn.zTree.init($("#tableZTreeUL"), this.tree.tableTreeSetting,this.tree.tableTreeData);
+                    this.tree.tableTreeObj.expandAll(true);
+
+                    fuzzySearch("tableZTreeUL","#txtSearchTableTree",null,true);
+                },
+                insertCodeAtCursor:function(code){
+                    var doc = this.sqlCodeMirror.getDoc();
+                    var cursor = doc.getCursor();
+                    doc.replaceRange(code, cursor);
+                },
+                insertTableNameToCodeMirror:function () {
+                    this.insertCodeAtCursor(this.tree.selectedTableName);
+                },
+                insertTableFieldToCodeMirror:function (fieldJson) {
+                    this.insertCodeAtCursor(this.tree.selectedTableName+"."+fieldJson.fieldName);
+                },
+                getEditSQL:function () {
+                    return this.sqlCodeMirror.getValue();
+                },
+                getTableFields:function (treeNode) {
+                    //debugger;
+                    var tableId=treeNode.id;
+                    var _self=this;
+                    var url = '/Rest/Builder/DataSet/DataSetSQLDesigner/GetTableField';
+                    AjaxUtility.Post(url, {tableId:tableId}, function (result) {
+                        if(result.success){
+                            _self.tableField.fieldData=result.data;
+                        }
+                        /*else {
+                            DialogUtility.Alert(window, DialogUtility.DialogAlertId, {}, result.message, function () {});
+                        }*/
+                    }, this);
+                },
+                handleClose: function () {
+                    //debugger;
+                    DialogUtility.CloseOpenIframeWindow(window,DialogUtility.DialogId);
+                },
+                coverSQLDesign:function(){
+                    this.validateSQLEnable(function (result) {
+                        window.parent.dataSetEditForm.clearColumn();
+                        window.parent.dataSetEditForm.completedSQLDesign(result);
+                        sqlDesignerForm.handleClose();
+                    });
+                },
+                appendSQLDesign:function () {
+                    this.validateSQLEnable(function (result) {
+                        window.parent.dataSetEditForm.completedSQLDesign(result);
+                        sqlDesignerForm.handleClose();
+                    });
+                },
+                validateSQLEnable:function (func) {
+                    var sql=this.getEditSQL();
+                    var url = '/Rest/Builder/DataSet/DataSetSQLDesigner/ValidateSQLEnable';
+                    AjaxUtility.Post(url, {sqlText:encodeURIComponent(sql)}, function (result) {
+                        //debugger;
+                        if(result.success){
+                            //debugger;
+                            result.data.sqlWithEnvText=sql;
+                            if(typeof(func)=="function"){
+                                func(result);
+                            }
+                            else {
+                                $("#sqlWithEnvValue").html(result.data.sqlWithEnvValue);
+                                $("#sqlWithEnvRunningValue").html(result.data.sqlWithEnvRunningValue);
+                                $("#sqlWithEmptyData").html(result.data.sqlWithEmptyData);
+                                var relatedTables = new Array();
+                                for (var i = 0; i < result.data.dataSetPO.relatedTableVoList.length; i++) {
+                                    relatedTables.push(result.data.dataSetPO.relatedTableVoList[i].rtTableName + ":" + result.data.dataSetPO.relatedTableVoList[i].rtTableCaption);
+                                }
+                                var aboutColumns = new Array();
+                                for (var i = 0; i < result.data.dataSetPO.columnVoList.length; i++) {
+                                    aboutColumns.push(result.data.dataSetPO.columnVoList[i].columnName + ":" + result.data.dataSetPO.columnVoList[i].columnCaption);
+                                }
+                                $("#relatedTables").html(relatedTables.join("<br />"));
+                                $("#aboutColumns").html(aboutColumns.join("<br />"));
+                                DialogUtility.DialogElemObj($("#validateSQLEnableWarp"), {
+                                    modal: true,
+                                    title: "校验结果",
+                                    width: 900,
+                                    height: 550
+                                });
+                            }
+                        }
+                        /*else {
+                            DialogUtility.Alert(window, DialogUtility.DialogAlertId, {}, result.message, function () {});
+                        }*/
+                    }, this);
+                }
+            }
+        });</script></body></html>

@@ -1,6 +1,5 @@
 package com.jb4dc.devmock.webserver.beanconfig.cache;
 
-import com.jb4dc.builder.client.cache.BuilderCacheManager;
 import org.ehcache.CacheManager;
 import org.ehcache.config.builders.CacheManagerBuilder;
 import org.ehcache.xml.XmlConfiguration;
@@ -18,7 +17,7 @@ import java.net.URL;
 
 @Configuration
 public class CacheBeansConfig {
-    @Bean
+    /*@Bean
     public BuilderCacheManager cacheManager() {
         URL myUrl = getClass().getResource("/builder-ehcache.xml");
         //2、实例化一个XmlConfiguration，将XML文件URL传递给它
@@ -29,5 +28,5 @@ public class CacheBeansConfig {
         myCacheManager.init();
         BuilderCacheManager builderCacheManager=new BuilderCacheManager(myCacheManager);
         return builderCacheManager;
-    }
+    }*/
 }

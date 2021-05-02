@@ -1,5 +1,6 @@
 package com.jb4dc.builder.client.remote;
 
+import com.jb4dc.base.service.aspect.ClientCallRemoteCache;
 import com.jb4dc.builder.po.DataSetPO;
 import com.jb4dc.builder.po.DataSetRelatedTablePO;
 import com.jb4dc.builder.po.TableFieldPO;
@@ -21,11 +22,14 @@ import java.util.List;
 public interface DataSetRuntimeRemote {
 
     @RequestMapping(value = "/GetByDataSetId",method = RequestMethod.POST)
+    @ClientCallRemoteCache
     JBuild4DCResponseVo<DataSetPO> getByDataSetId(@RequestParam("dataSetId") String dataSetId);
 
     @RequestMapping(value = "/GetMainRTTable",method = RequestMethod.POST)
+    @ClientCallRemoteCache
     JBuild4DCResponseVo<DataSetRelatedTablePO> getMainRTTable(@RequestParam("dataSetId") String dataSetId);
 
     @RequestMapping(value = "/GetDataSetMainTableFields",method = RequestMethod.POST)
+    @ClientCallRemoteCache
     JBuild4DCResponseVo<List<TableFieldPO>> getDataSetMainTableFields(@RequestParam("dataSetId") String dataSetId);
 }

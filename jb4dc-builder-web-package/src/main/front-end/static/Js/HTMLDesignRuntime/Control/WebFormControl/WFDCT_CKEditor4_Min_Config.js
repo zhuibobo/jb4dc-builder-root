@@ -37,8 +37,11 @@ CKEDITOR.editorConfig = function( config ) {
     config.removeDialogTabs = 'image:advanced;link:advanced';
     //alert(+"editorConfig");
     var objId="";
-    if(formRuntimeInst&&formRuntimeInst.GetWebFormRTParas()&&formRuntimeInst.GetWebFormRTParas().RecordId) {
-        objId=formRuntimeInst.GetWebFormRTParas().RecordId;
+    if(typeof(formRuntimeInst)!="undefined"&&formRuntimeInst&&formRuntimeInst.GetWebFormRTParas()&&formRuntimeInst.GetWebFormRTParas().RecordId) {
+        objId = formRuntimeInst.GetWebFormRTParas().RecordId;
+    }
+    if(typeof(flowRuntimePageObject)!="undefined"&&flowRuntimePageObject&&flowRuntimePageObject.GetWebFormRTParas()&&flowRuntimePageObject.GetWebFormRTParas().RecordId) {
+        objId = flowRuntimePageObject.GetWebFormRTParas().RecordId;
     }
     config.filebrowserImageUploadUrl = BaseUtility.GetRootPath()+"/Rest/Builder/RunTime/FileRuntime/UploadCKE4Image?uploadType=CkE4Image&objId="+objId;
 };

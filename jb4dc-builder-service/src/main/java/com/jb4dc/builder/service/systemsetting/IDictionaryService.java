@@ -6,6 +6,7 @@ import com.jb4dc.core.base.session.JB4DCSession;
 import com.jb4dc.builder.dbentities.systemsetting.DictionaryEntity;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created with IntelliJ IDEA.
@@ -23,4 +24,6 @@ public interface IDictionaryService  extends IBaseService<DictionaryEntity> {
     List<DictionaryEntity> getEnableListDataByGroupValue(JB4DCSession session, String groupValue);
 
     List<DictionaryEntity> getDictionaryByGroup3Level(String groupId);
+
+    Map<String, Map<String, Object>> getAllDictionaryMinMapJsonProp();
 }

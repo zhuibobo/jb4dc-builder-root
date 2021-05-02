@@ -3,8 +3,8 @@ package com.jb4dc.builder.client.htmldesign.control;
 import com.jb4dc.base.dbaccess.dynamic.impl.SQLBuilderMapper;
 import com.jb4dc.builder.client.htmldesign.HTMLControlAttrs;
 import com.jb4dc.builder.client.htmldesign.ICKEditorPluginsService;
-import com.jb4dc.builder.client.proxy.IDictionaryRuntimeProxy;
-import com.jb4dc.builder.client.proxy.IEnvVariableRuntimeProxy;
+import com.jb4dc.builder.client.service.envvar.IEnvVariableRuntimeClient;
+import com.jb4dc.builder.client.remote.DictionaryRuntimeRemote;
 import com.jb4dc.builder.dbentities.systemsetting.DictionaryEntity;
 import com.jb4dc.builder.po.DynamicBindHTMLControlContextPO;
 import com.jb4dc.builder.po.HtmlControlDefinitionPO;
@@ -49,10 +49,10 @@ public abstract class HTMLControl implements IHTMLControl {
     protected AutowireCapableBeanFactory autowireCapableBeanFactory;
 
     @Autowired
-    protected IEnvVariableRuntimeProxy envVariableClientResolveService;
+    protected IEnvVariableRuntimeClient envVariableClientResolveService;
 
     @Autowired
-    protected IDictionaryRuntimeProxy dictionaryRuntimeProxy;
+    protected DictionaryRuntimeRemote dictionaryRuntimeRemote;
 
     public IHTMLControl getHTMLControlInstance(String fullClassName) throws IllegalAccessException, InstantiationException,ClassNotFoundException {
 
@@ -184,7 +184,7 @@ public abstract class HTMLControl implements IHTMLControl {
         List<Map<String,Object>> datasource=new ArrayList<>();
         String dictionaryGroupDataSourceId = singleControlElem.attr("dictionaryGroupDataSourceId");
         if(StringUtility.isNotEmpty(dictionaryGroupDataSourceId)){
-            List<DictionaryEntity> dictionaryEntityList=dictionaryRuntimeProxy.getDDByGroupId(dictionaryGroupDataSourceId);
+            List<DictionaryEntity> dictionaryEntityList=dictionaryRuntimeRemote.getDDByGroupId(dictionaryGroupDataSourceId).getData();
             if(dictionaryEntityList!=null){
                 for (DictionaryEntity dictionaryEntity : dictionaryEntityList) {
                     if(dictionaryEntity.getDictParentId().equals(dictionaryEntity.getDictGroupId())) {
@@ -206,7 +206,7 @@ public abstract class HTMLControl implements IHTMLControl {
         Map<String,String> tempIdValue=new HashMap<>();
 
         if(StringUtility.isNotEmpty(dictionaryGroupDataSourceId)){
-            List<DictionaryEntity> dictionaryEntityList=dictionaryRuntimeProxy.getDDByGroupId(dictionaryGroupDataSourceId);
+            List<DictionaryEntity> dictionaryEntityList=dictionaryRuntimeRemote.getDDByGroupId(dictionaryGroupDataSourceId).getData();
             if(dictionaryEntityList!=null){
                 for (DictionaryEntity dictionaryEntity : dictionaryEntityList) {
                     tempIdValue.put(dictionaryEntity.getDictId(),dictionaryEntity.getDictValue());

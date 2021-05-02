@@ -1,5 +1,6 @@
 package com.jb4dc.builder.client.remote;
 
+import com.jb4dc.base.service.aspect.ClientCallRemoteCache;
 import com.jb4dc.base.service.general.JB4DCSessionUtility;
 import com.jb4dc.builder.dbentities.weblist.ListButtonEntity;
 import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
@@ -20,5 +21,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 public interface WebListButtonRuntimeRemote {
 
     @RequestMapping(value = "/GetButtonPO",method = RequestMethod.POST)
+    @ClientCallRemoteCache
     JBuild4DCResponseVo<ListButtonEntity> getButtonPO(@RequestParam("buttonId") String buttonId) throws JBuild4DCGenerallyException;
 }

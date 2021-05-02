@@ -4,11 +4,11 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.jb4dc.base.dbaccess.dynamic.ISQLBuilderMapper;
 import com.jb4dc.base.service.ISQLBuilderService;
-import com.jb4dc.builder.client.proxy.IDataSetRuntimeProxy;
-import com.jb4dc.builder.client.proxy.ITableRuntimeProxy;
+import com.jb4dc.builder.client.remote.DataSetRuntimeRemote;
+import com.jb4dc.builder.client.remote.TableRuntimeRemote;
 import com.jb4dc.builder.client.service.ResolvePendingSQL;
 import com.jb4dc.builder.client.service.dataset.IDatasetRuntimeService;
-import com.jb4dc.builder.client.proxy.IEnvVariableRuntimeProxy;
+import com.jb4dc.builder.client.service.envvar.IEnvVariableRuntimeClient;
 import com.jb4dc.builder.client.tools.SQLStringPlaceholderResultPO;
 import com.jb4dc.builder.client.tools.SQLStringPlaceholderUtility;
 import com.jb4dc.builder.po.*;
@@ -34,7 +34,7 @@ import java.util.regex.Pattern;
 public class DatasetRuntimeServiceImpl implements IDatasetRuntimeService {
 
     @Autowired
-    IEnvVariableRuntimeProxy envVariableClientResolveService;
+    IEnvVariableRuntimeClient envVariableClientResolveService;
 
     @Autowired
     private ISQLBuilderService sqlBuilderService;
@@ -42,13 +42,13 @@ public class DatasetRuntimeServiceImpl implements IDatasetRuntimeService {
     ISQLBuilderMapper sqlBuilderMapper;
 
     @Autowired
-    IDataSetRuntimeProxy dataSetRuntimeProxy;
+    DataSetRuntimeRemote dataSetRuntimeRemote;
 
     @Autowired
     ResolvePendingSQL resolvePendingSQL;
 
     @Autowired
-    ITableRuntimeProxy tableRuntimeProxy;
+    TableRuntimeRemote tableRuntimeRemote;
 
     @Autowired
     SQLStringPlaceholderUtility sqlStringPlaceholderUtility;
@@ -194,8 +194,8 @@ public class DatasetRuntimeServiceImpl implements IDatasetRuntimeService {
 
     @Override
     public void deleteDataSetRecord(JB4DCSession jb4DCSession, String dataSetId, String pkValue) throws JBuild4DCGenerallyException {
-        DataSetRelatedTablePO dataSetRelatedTablePO = dataSetRuntimeProxy.getMainRTTable(jb4DCSession, dataSetId);
-        List<TableFieldPO> tableFieldPOList = dataSetRuntimeProxy.getDataSetMainTableFields(jb4DCSession, dataSetId);
+        DataSetRelatedTablePO dataSetRelatedTablePO = dataSetRuntimeRemote.getMainRTTable(dataSetId).getData();
+        List<TableFieldPO> tableFieldPOList = dataSetRuntimeRemote.getDataSetMainTableFields(dataSetId).getData();
         TableFieldPO pkFieldPO = resolvePendingSQL.findPrimaryKey(dataSetRelatedTablePO.getRtTableName(), tableFieldPOList);
         String sql="delete from "+dataSetRelatedTablePO.getRtTableName()+" where "+pkFieldPO.getFieldName()+"=#{ID}";
         Map paraMap = new HashMap();
@@ -206,7 +206,7 @@ public class DatasetRuntimeServiceImpl implements IDatasetRuntimeService {
 
     @Override
     public void deleteTableRecord(JB4DCSession session, String tableId, String pkValue) throws JBuild4DCGenerallyException {
-        List<TableFieldPO> tableFieldPOS=tableRuntimeProxy.getTableFieldsByTableId(tableId);
+        List<TableFieldPO> tableFieldPOS=tableRuntimeRemote.getTableFieldsByTableId(tableId).getData();
         TableFieldPO pkField=resolvePendingSQL.findPrimaryKey(tableFieldPOS.get(0).getTableName(),tableFieldPOS);
         String sql="delete from "+pkField.getTableName()+" where "+pkField.getFieldName()+"=#{ID}";
         Map paraMap = new HashMap();

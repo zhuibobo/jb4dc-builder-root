@@ -4,15 +4,15 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.jb4dc.base.service.ISQLBuilderService;
 import com.jb4dc.base.service.aspect.CalculationRunTime;
 import com.jb4dc.base.tools.JsonUtility;
+import com.jb4dc.builder.client.remote.ApiItemRuntimeRemote;
+import com.jb4dc.builder.client.remote.TableRuntimeRemote;
+import com.jb4dc.builder.client.remote.WebListButtonRuntimeRemote;
 import com.jb4dc.builder.client.service.ResolvePendingSQL;
 import com.jb4dc.builder.client.service.api.ApiRunPara;
 import com.jb4dc.builder.client.service.api.ApiRunResult;
 import com.jb4dc.builder.client.service.api.IApiForButton;
-import com.jb4dc.builder.client.proxy.IApiItemRuntimeProxy;
-import com.jb4dc.builder.client.proxy.ITableRuntimeProxy;
-import com.jb4dc.builder.client.proxy.IEnvVariableRuntimeProxy;
+import com.jb4dc.builder.client.service.envvar.IEnvVariableRuntimeClient;
 import com.jb4dc.builder.client.service.webform.IWebFormDataSaveRuntimeService;
-import com.jb4dc.builder.client.proxy.IWebListButtonRuntimeProxy;
 import com.jb4dc.builder.dbentities.api.ApiItemEntity;
 import com.jb4dc.builder.dbentities.datastorage.TableEntity;
 import com.jb4dc.builder.dbentities.webform.FormResourceEntityWithBLOBs;
@@ -54,16 +54,17 @@ import java.util.stream.Collectors;
 public class WebFormDataSaveRuntimeServiceImpl implements IWebFormDataSaveRuntimeService {
 
     @Autowired
-    private IWebListButtonRuntimeProxy webListButtonRuntimeResolveService;
+    private WebListButtonRuntimeRemote webListButtonRuntimeRemote;
 
-    @Autowired
-    private IApiItemRuntimeProxy apiRuntimeService;
+    //@Autowired
+    //private IApiItemRuntimeProxy apiRuntimeService;
+    ApiItemRuntimeRemote apiItemRuntimeRemote;
 
     @Autowired
     private AutowireCapableBeanFactory autowireCapableBeanFactory;
 
     @Autowired
-    private IEnvVariableRuntimeProxy envVariableRuntimeResolveProxy;
+    private IEnvVariableRuntimeClient envVariableRuntimeResolveProxy;
 
     @Autowired
     private ResolvePendingSQL resolvePendingSQL;
@@ -72,7 +73,7 @@ public class WebFormDataSaveRuntimeServiceImpl implements IWebFormDataSaveRuntim
     private ISQLBuilderService sqlBuilderService;
 
     @Autowired
-    private ITableRuntimeProxy tableRuntimeProxy;
+    private TableRuntimeRemote tableRuntimeRemote;
 
     private Logger logger= LoggerFactory.getLogger(this.getClass());
 
@@ -89,7 +90,7 @@ public class WebFormDataSaveRuntimeServiceImpl implements IWebFormDataSaveRuntim
         InnerFormButtonConfig innerFormButtonConfig=null;
         if(StringUtility.isNotEmpty(listButtonId)) {
             if(formRecordComplexPO.getFormRuntimeCategory().toLowerCase().equals(FormResourceComplexPO.FORM_RUNTIME_CATEGORY_LIST.toLowerCase())) {
-                listButtonEntity = webListButtonRuntimeResolveService.getButtonPO(listButtonId);
+                listButtonEntity = webListButtonRuntimeRemote.getButtonPO(listButtonId).getData();
                 innerFormButtonConfigList = JsonUtility.toObjectListIgnoreProp(listButtonEntity.getButtonInnerConfig(), InnerFormButtonConfig.class);
                 innerFormButtonConfig = innerFormButtonConfigList.parallelStream().filter(item -> item.id.equals(innerFormButtonId)).findFirst().get();
             }
@@ -162,14 +163,14 @@ public class WebFormDataSaveRuntimeServiceImpl implements IWebFormDataSaveRuntim
             Map<String, List<TableFieldPO>> allDataRelationTableFieldsMap = new HashMap<>();
             Map<String, TableEntity> allDataRelationTablesMap = new HashMap<>();
 
-            TableEntity mainTableEntity = tableRuntimeProxy.getTableById(mainDataPO.getTableId());
-            List<TableFieldPO> mainTableFieldPOList = tableRuntimeProxy.getTableFieldsByTableId(mainDataPO.getTableId());
+            TableEntity mainTableEntity = tableRuntimeRemote.getTableById(mainDataPO.getTableId()).getData();
+            List<TableFieldPO> mainTableFieldPOList = tableRuntimeRemote.getTableFieldsByTableId(mainDataPO.getTableId()).getData();
 
             //完善数据关系设置
             for (FormRecordDataRelationPO dataRelationPO : formRecordDataRelationPOList) {
                 String tableId = dataRelationPO.getTableId();
-                TableEntity relTableEntity = tableRuntimeProxy.getTableById(tableId);
-                List<TableFieldPO> relTableFieldPOList = tableRuntimeProxy.getTableFieldsByTableId(tableId);
+                TableEntity relTableEntity = tableRuntimeRemote.getTableById(tableId).getData();
+                List<TableFieldPO> relTableFieldPOList = tableRuntimeRemote.getTableFieldsByTableId(tableId).getData();
                 TableFieldPO pkFieldPO=resolvePendingSQL.findPrimaryKey(dataRelationPO.getTableName(),relTableFieldPOList);
                 if(dataRelationPO.getParentId().equals("-1")){
                     dataRelationPO.setisMain(true);
@@ -225,14 +226,14 @@ public class WebFormDataSaveRuntimeServiceImpl implements IWebFormDataSaveRuntim
 
                         if (formRecordDataRelationPO.getRelationType().equals(FormRecordDataRelationPO.RELATION_TYPE_1_T_1)) {
                             if (recordList.size() > 0) {
-                                List<TableFieldPO> tempTableFieldPOList = tableRuntimeProxy.getTableFieldsByTableId(formRecordDataRelationPO.getTableId());
+                                List<TableFieldPO> tempTableFieldPOList = tableRuntimeRemote.getTableFieldsByTableId(formRecordDataRelationPO.getTableId()).getData();
                                 FormRecordDataPO tempFormRecordDataPO = FormRecordDataUtility.buildFormRecordDataPO(formRecordDataRelationPO, recordList.get(0), tempTableFieldPOList,"");
                                 formRecordDataRelationPO.setOneDataRecord(tempFormRecordDataPO);
                             }
                         } else {
                             if (recordList.size() > 0) {
 
-                                List<TableFieldPO> tempTableFieldPOList = tableRuntimeProxy.getTableFieldsByTableId(formRecordDataRelationPO.getTableId());
+                                List<TableFieldPO> tempTableFieldPOList = tableRuntimeRemote.getTableFieldsByTableId(formRecordDataRelationPO.getTableId()).getData();
                                 TableFieldPO pkFieldPO=resolvePendingSQL.findPrimaryKey(formRecordDataRelationPO.getTableName(),tempTableFieldPOList);
                                 List<FormRecordDataPO> tempFormRecordDataPOList = FormRecordDataUtility.buildFormRecordDataPOList(formRecordDataRelationPO, recordList, tempTableFieldPOList,pkFieldPO.getFieldName(),"");
                                 formRecordDataRelationPO.setListDataRecord(tempFormRecordDataPOList);
@@ -292,7 +293,7 @@ public class WebFormDataSaveRuntimeServiceImpl implements IWebFormDataSaveRuntim
             String fieldDefaultValue = field.getFieldDefaultValue();
             String value = envVariableRuntimeResolveProxy.execDefaultValueResult(jb4DCSession, fieldDefaultType, fieldDefaultValue);
 
-            List<TableFieldPO> tempTableFieldPOList = tableRuntimeProxy.getTableFieldsByTableId(field.getTableId());
+            List<TableFieldPO> tempTableFieldPOList = tableRuntimeRemote.getTableFieldsByTableId(field.getTableId()).getData();
             TableFieldPO pkFieldPO = resolvePendingSQL.findPrimaryKey(field.getTableName(), tempTableFieldPOList);
             String pkFieldName = pkFieldPO.getFieldName();
             //value = "123";
@@ -311,7 +312,7 @@ public class WebFormDataSaveRuntimeServiceImpl implements IWebFormDataSaveRuntim
 
     protected ApiRunResult rubApi(JB4DCSession jb4DCSession,String recordId,InnerFormButtonConfigAPI innerFormButtonConfigAPI, FormRecordComplexPO formRecordComplexPO, ListButtonEntity listButtonEntity,List<InnerFormButtonConfig> innerFormButtonConfigList,InnerFormButtonConfig innerFormButtonConfig,String operationTypeName) throws JBuild4DCGenerallyException {
         try {
-            ApiItemEntity apiItemEntity = apiRuntimeService.getApiPOByValue(innerFormButtonConfigAPI.getValue());
+            ApiItemEntity apiItemEntity = apiItemRuntimeRemote.getApiPOByValue(innerFormButtonConfigAPI.getValue()).getData();
             if(apiItemEntity==null){
                 throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_BUILDER_CODE, "查找API失败,不存在Value为" + innerFormButtonConfigAPI.getValue() + "的API!");
             }
@@ -332,7 +333,7 @@ public class WebFormDataSaveRuntimeServiceImpl implements IWebFormDataSaveRuntim
             return apiForButton.runApi(apiRunPara);
         } catch (IllegalAccessException e) {
             throw new JBuild4DCGenerallyException(e.hashCode(),e.getMessage(),e,e.getStackTrace());
-        } catch (InstantiationException | IOException e) {
+        } catch (InstantiationException e) {
             throw new JBuild4DCGenerallyException(e.hashCode(),e.getMessage(),e,e.getStackTrace());
         }
     }

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <th:block th:replace="Fragment/GeneralLib::WorkFlowRuntimeLib"></th:block>
+    <th:block th:replace="Fragment/GeneralLib::ThemesLib"></th:block>
+    <th:block th:replace="Fragment/GeneralLib::LineAwesomeLib"></th:block>
+</head>
+<body>
+    <div id="flowInstanceViewContainer" class="general-edit-page-wrap" v-cloak>
+        <div id="htmlDesignRuntimeWrap" style="overflow: auto"></div>
+        <div class="html-design-operation-button-outer-wrap">
+            <div class="html-design-button-inner-wrap">
+                <div class="html-design-buttons-group" id="innerButtonWrapOuter">
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        var flowRuntimePageObject;
+
+        var flowInstanceViewContainer = new Vue({
+            el:"#flowInstanceViewContainer",
+            data: {
+                acInterface:{
+                    getRuntimeModelWithStart:"/Rest/Workflow/RunTime/ModelRuntime/GetRuntimeModelWithStart",
+                },
+                viewPara:{
+                    modelId:BaseUtility.GetUrlParaValue("modelId"),
+                    modelKey:BaseUtility.GetUrlParaValue("modelKey")
+                }
+            },
+            mounted:function () {
+                AjaxUtility.Get(this.acInterface.getRuntimeModelWithStart, { modelKey: this.viewPara.modelKey }, function (result) {
+                    console.log(result);
+
+                    BaseUtility.SetSystemFavicon();
+                    flowRuntimePageObject=FlowRuntimePageObject.pageReadyForStartStatus(false,function () {
+
+                    },result.data);
+
+                    //var windowHeight=flowRuntimePageObject.GetWebFormRTParas().WindowHeight;
+                    //if(windowHeight) {
+                    //    $("#htmlDesignRuntimeWrap").height(windowHeight - 120);
+                    //}
+                }, this);
+            },
+            methods: {
+            }
+        });
+    </script>
+</body>
+</html>

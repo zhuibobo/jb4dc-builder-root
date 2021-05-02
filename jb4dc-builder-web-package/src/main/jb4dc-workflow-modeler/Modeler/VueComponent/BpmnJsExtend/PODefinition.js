@@ -98,7 +98,11 @@ class PODefinition{
                 },
                 jb4dcUseContentDocument:"byProcessConfig",
                 jb4dcContentDocumentPlugin:"uploadConvertToPDFPlugin",
-                jb4dcContentDocumentRedHeadTemplate:""
+                jb4dcContentDocumentRedHeadTemplate:"",
+                jb4dcFormPlugin:"webFormPlugin",
+                jb4dcFormParas:"",
+                jb4dcFormEx1Plugin:"webFormPlugin",
+                jb4dcFormEx1Paras:""
             }
         }
     }

@@ -4,8 +4,8 @@ import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
 import com.jb4dc.core.base.session.JB4DCSession;
 import com.jb4dc.core.base.tools.StringUtility;
 import com.jb4dc.core.base.vo.JBuild4DCResponseVo;
-import com.jb4dc.sso.client.proxy.IOrganRuntimeProxy;
-import com.jb4dc.sso.client.proxy.IRoleRuntimeProxy;
+import com.jb4dc.sso.client.remote.OrganRuntimeRemote;
+import com.jb4dc.sso.client.remote.RoleRuntimeRemote;
 import com.jb4dc.sso.dbentities.role.RoleEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,10 +18,10 @@ import java.util.Map;
 public class SQLStringPlaceholderUtility {
 
     @Autowired
-    IOrganRuntimeProxy organRuntimeProxy;
+    OrganRuntimeRemote organRuntimeRemote;
 
     @Autowired
-    IRoleRuntimeProxy roleRuntimeProxy;
+    RoleRuntimeRemote roleRuntimeRemote;
 
     public SQLStringPlaceholderResultPO generalPlaceholderHandler(JB4DCSession jb4DCSession, String sourceSQL) throws JBuild4DCGenerallyException {
         SQLStringPlaceholderResultPO resultPO=new SQLStringPlaceholderResultPO();
@@ -46,7 +46,7 @@ public class SQLStringPlaceholderUtility {
     private String ChildOrganIdPlaceholderHandler(String organId,String sourceSQL,Map<String,Object> sqlParas) throws JBuild4DCGenerallyException {
         //sourceSQL.replaceAll("",)
         if(sourceSQL.indexOf("ENVVAR.ENV_SYSTEM_CURRENT_USER_CHILD_ORGAN_ID_INCLUDE_SELF}")>0) {
-            JBuild4DCResponseVo<List<String>> jBuild4DCResponseVo = organRuntimeProxy.getAllChildOrganIdIncludeSelfRT(organId);
+            JBuild4DCResponseVo<List<String>> jBuild4DCResponseVo = organRuntimeRemote.getAllChildOrganIdIncludeSelfRT(organId);
             List<String> allChildOrganIdList = jBuild4DCResponseVo.getData();
             String replaceSqlWord = "";
             for (int i = 0; i < allChildOrganIdList.size(); i++) {
@@ -63,7 +63,7 @@ public class SQLStringPlaceholderUtility {
     private String ChildOrganIdAndRolePlaceholderHandler(String userId,String organId,String sourceSQL,Map<String,Object> sqlParas) throws JBuild4DCGenerallyException {
         //sourceSQL.replaceAll("",)
         if(sourceSQL.indexOf("ENVVAR.ENV_SYSTEM_CURRENT_USER_CHILD_ORGAN_ID_INCLUDE_SELF_AND_ROLE}")>0) {
-            JBuild4DCResponseVo<List<RoleEntity>> jBuild4DCResponseVoRoleEntity = roleRuntimeProxy.getUserRolesRT(userId);
+            JBuild4DCResponseVo<List<RoleEntity>> jBuild4DCResponseVoRoleEntity = roleRuntimeRemote.getUserRolesRT(userId);
             if(jBuild4DCResponseVoRoleEntity.getData()!=null&&jBuild4DCResponseVoRoleEntity.getData().size()>0){
                 List<RoleEntity> roleList= jBuild4DCResponseVoRoleEntity.getData();
                 if(roleList.stream().anyMatch(roleEntity -> roleEntity.getRoleId().equals("DataFilter-With-DataSet-AllData"))){
@@ -71,7 +71,7 @@ public class SQLStringPlaceholderUtility {
                 }
             }
 
-            JBuild4DCResponseVo<List<String>> jBuild4DCResponseVoOrganIds = organRuntimeProxy.getAllChildOrganIdIncludeSelfRT(organId);
+            JBuild4DCResponseVo<List<String>> jBuild4DCResponseVoOrganIds = organRuntimeRemote.getAllChildOrganIdIncludeSelfRT(organId);
             List<String> allChildOrganIdList = jBuild4DCResponseVoOrganIds.getData();
             String replaceSqlWord = "";
             for (int i = 0; i < allChildOrganIdList.size(); i++) {

@@ -88,6 +88,18 @@ public class BpmnProcess {
     @XmlAttribute(name = "jb4dcOuterFormEx1Url",namespace = BpmnNs.JB4DC_URI)
     String jb4dcOuterFormEx1Url;
 
+    @XmlAttribute(name = "jb4dcFormPlugin",namespace = BpmnNs.JB4DC_URI)
+    String jb4dcFormPlugin;
+
+    @XmlAttribute(name = "jb4dcFormParas",namespace = BpmnNs.JB4DC_URI)
+    String jb4dcFormParas;
+
+    @XmlAttribute(name = "jb4dcFormEx1Plugin",namespace = BpmnNs.JB4DC_URI)
+    String jb4dcFormEx1Plugin;
+
+    @XmlAttribute(name = "jb4dcFormEx1Paras",namespace = BpmnNs.JB4DC_URI)
+    String jb4dcFormEx1Paras;
+
     @XmlAttribute(name = "jb4dcUseContentDocument",namespace = BpmnNs.JB4DC_URI)
     String jb4dcUseContentDocument;
 
@@ -578,5 +590,37 @@ public class BpmnProcess {
 
     public void setJb4dcProcessActionConfirm(String jb4dcProcessActionConfirm) {
         this.jb4dcProcessActionConfirm = jb4dcProcessActionConfirm;
+    }
+
+    public String getJb4dcFormPlugin() {
+        return jb4dcFormPlugin;
+    }
+
+    public void setJb4dcFormPlugin(String jb4dcFormPlugin) {
+        this.jb4dcFormPlugin = jb4dcFormPlugin;
+    }
+
+    public String getJb4dcFormParas() {
+        return jb4dcFormParas;
+    }
+
+    public void setJb4dcFormParas(String jb4dcFormParas) {
+        this.jb4dcFormParas = jb4dcFormParas;
+    }
+
+    public String getJb4dcFormEx1Plugin() {
+        return jb4dcFormEx1Plugin;
+    }
+
+    public void setJb4dcFormEx1Plugin(String jb4dcFormEx1Plugin) {
+        this.jb4dcFormEx1Plugin = jb4dcFormEx1Plugin;
+    }
+
+    public String getJb4dcFormEx1Paras() {
+        return jb4dcFormEx1Paras;
+    }
+
+    public void setJb4dcFormEx1Paras(String jb4dcFormEx1Paras) {
+        this.jb4dcFormEx1Paras = jb4dcFormEx1Paras;
     }
 }

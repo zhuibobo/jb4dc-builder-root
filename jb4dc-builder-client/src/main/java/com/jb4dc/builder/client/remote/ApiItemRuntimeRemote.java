@@ -1,5 +1,6 @@
 package com.jb4dc.builder.client.remote;
 
+import com.jb4dc.base.service.aspect.ClientCallRemoteCache;
 import com.jb4dc.builder.dbentities.api.ApiItemEntity;
 import com.jb4dc.builder.po.DataSetPO;
 import com.jb4dc.core.base.vo.JBuild4DCResponseVo;
@@ -17,8 +18,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 @FeignClient(name= "${jb4dc.builder.server.name}",contextId = "ApiItemRuntimeRemote",configuration = { BuilderClientFeignClientConfig.class },path = "${jb4dc.builder.server.context-path}/Rest/Builder/RunTime/ApiRuntime")
 public interface ApiItemRuntimeRemote {
     @RequestMapping(value = "/GetApiPOById",method = RequestMethod.POST)
-    JBuild4DCResponseVo<ApiItemEntity> GetApiPOById(@RequestParam("apiId") String apiId);
+    @ClientCallRemoteCache
+    JBuild4DCResponseVo<ApiItemEntity> getApiPOById(@RequestParam("apiId") String apiId);
 
     @RequestMapping(value = "/GetApiPOByValue",method = RequestMethod.POST)
-    JBuild4DCResponseVo<ApiItemEntity> GetApiPOByValue(@RequestParam("apiValue") String apiValue);
+    @ClientCallRemoteCache
+    JBuild4DCResponseVo<ApiItemEntity> getApiPOByValue(@RequestParam("apiValue") String apiValue);
 }

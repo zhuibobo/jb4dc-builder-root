@@ -13,7 +13,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created with IntelliJ IDEA.
@@ -65,7 +67,6 @@ public class DictionaryServiceImpl extends BaseServiceImpl<DictionaryEntity> imp
 
     @Override
     public List<DictionaryEntity> getListDataByGroupId(JB4DCSession session, String groupId) {
-
         return dictionaryMapper.selectByGroupId(groupId);
     }
 
@@ -99,6 +100,22 @@ public class DictionaryServiceImpl extends BaseServiceImpl<DictionaryEntity> imp
     @Override
     public List<DictionaryEntity> getDictionaryByGroup3Level(String groupId) {
         return dictionaryMapper.selectByGroup3Level(groupId);
+    }
+
+    @Override
+    public Map<String, Map<String, Object>> getAllDictionaryMinMapJsonProp() {
+
+        List<DictionaryEntity> allDD = dictionaryMapper.selectAllASC();
+
+        Map<String,Map<String,Object>> resultMap=new HashMap<>();
+        for (DictionaryEntity dictionaryEntity : allDD) {
+            Map<String,Object> ddMap=new HashMap<>();
+            ddMap.put("ID",dictionaryEntity.getDictId());
+            ddMap.put("VALUE",dictionaryEntity.getDictValue());
+            ddMap.put("TEXT",dictionaryEntity.getDictText());
+            resultMap.put(dictionaryEntity.getDictGroupId()+"_"+dictionaryEntity.getDictValue(),ddMap);
+        }
+        return resultMap;
     }
 
     @Override

@@ -2,7 +2,7 @@ package com.jb4dc.builder.client.rest;
 
 import com.jb4dc.base.service.general.JB4DCSessionUtility;
 import com.jb4dc.base.tools.JsonUtility;
-import com.jb4dc.builder.client.proxy.IWebFormRuntimeProxy;
+import com.jb4dc.builder.client.remote.WebFormRuntimeRemote;
 import com.jb4dc.builder.client.service.webform.IWebFormDataSaveRuntimeService;
 import com.jb4dc.builder.dbentities.webform.FormResourceEntityWithBLOBs;
 import com.jb4dc.builder.po.FormResourceComplexPO;
@@ -10,7 +10,6 @@ import com.jb4dc.builder.po.SubmitResultPO;
 import com.jb4dc.builder.po.formdata.FormRecordComplexPO;
 import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
 import com.jb4dc.core.base.exception.JBuild4DCSQLKeyWordException;
-import com.jb4dc.core.base.session.JB4DCSession;
 import com.jb4dc.core.base.vo.JBuild4DCResponseVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -33,7 +32,7 @@ public class InnerFormButtonRuntimeRest {
     IWebFormDataSaveRuntimeService webFormDataSaveRuntimeService;
 
     @Autowired
-    IWebFormRuntimeProxy webFormRuntimeProxy;
+    WebFormRuntimeRemote webFormRuntimeRemote;
 
     @RequestMapping("/ReceiveHandler")
     public JBuild4DCResponseVo<SubmitResultPO> receiveHandler(String formRecordComplexPOString, String recordId, String innerFormButtonId,String listButtonId,String operationTypeName) throws JBuild4DCGenerallyException, IOException, JBuild4DCSQLKeyWordException {
@@ -49,7 +48,7 @@ public class InnerFormButtonRuntimeRest {
         FormResourceEntityWithBLOBs formResourceEntityWithBLOBs=null;
         //如果是独立运行窗体,需要尝试从表单内部获取按钮设置
         if(formRecordComplexPO.getFormRuntimeCategory().toLowerCase().equals(FormResourceComplexPO.FORM_RUNTIME_CATEGORY_INDEPENDENCE.toLowerCase())) {
-            formResourceEntityWithBLOBs = webFormRuntimeProxy.getFormRuntimePageContentById(JB4DCSessionUtility.getSession(), formRecordComplexPO.getFormId());
+            formResourceEntityWithBLOBs = webFormRuntimeRemote.loadHTML(formRecordComplexPO.getFormId()).getData();
         }
 
         webFormDataSaveRuntimeService.SaveFormRecordComplexPO(JB4DCSessionUtility.getSession(),recordId,formRecordComplexPO,listButtonId,innerFormButtonId,operationTypeName,formResourceEntityWithBLOBs);

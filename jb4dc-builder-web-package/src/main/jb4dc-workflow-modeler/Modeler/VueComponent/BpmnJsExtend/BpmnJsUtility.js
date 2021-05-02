@@ -911,6 +911,34 @@ class BpmnJsUtility {
         this.SetAttr(element,"jb4dcFormId",jb4dcFormId);
     }
 
+    static JB4DC_Attr_GetJb4dcFormPlugin(element){
+        return this.GetAttr(element,"jb4dcFormPlugin","webFormPlugin");
+    }
+    static JB4DC_Attr_SetJb4dcFormPlugin(element, jb4dcFormPlugin){
+        this.SetAttr(element,"jb4dcFormPlugin",jb4dcFormPlugin,"webFormPlugin");
+    }
+
+    static JB4DC_Attr_GetJb4dcFormParas(element){
+        return this.GetAttr(element,"jb4dcFormParas","");
+    }
+    static JB4DC_Attr_SetJb4dcFormParas(element, jb4dcFormParas){
+        this.SetAttr(element,"jb4dcFormParas",jb4dcFormParas,"");
+    }
+
+    static JB4DC_Attr_GetJb4dcFormEx1Plugin(element){
+        return this.GetAttr(element,"jb4dcFormEx1Plugin","webFormPlugin");
+    }
+    static JB4DC_Attr_SetJb4dcFormEx1Plugin(element, jb4dcFormEx1Plugin){
+        this.SetAttr(element,"jb4dcFormEx1Plugin",jb4dcFormEx1Plugin,"webFormPlugin");
+    }
+
+    static JB4DC_Attr_GetJb4dcFormEx1Paras(element){
+        return this.GetAttr(element,"jb4dcFormEx1Paras","");
+    }
+    static JB4DC_Attr_SetJb4dcFormEx1Paras(element, jb4dcFormEx1Paras){
+        this.SetAttr(element,"jb4dcFormEx1Paras",jb4dcFormEx1Paras,"");
+    }
+
     static JB4DC_Attr_GetJb4dcOuterFormUrl(element){
         return this.GetAttr(element,"jb4dcOuterFormUrl");
     }
@@ -1365,7 +1393,7 @@ class BpmnJsUtility {
         }
         if(elemBusinessObject.sourceRef){
             var sourceRefElement=elemBusinessObject.sourceRef;
-            if(sourceRefElement.$type=="bpmn:UserTask"){
+            if(sourceRefElement.$type=="bpmn:UserTask"||sourceRefElement.$type=="bpmn:StartEvent") {
                 userTaskListBusinessObject.push(sourceRefElement);
             }
             else{
@@ -1419,7 +1447,7 @@ class BpmnJsUtility {
         for (var i = 0; i < mayBeUserTaskListBusinessObject.length; i++) {
             var userTaskElemId = mayBeUserTaskListBusinessObject[i].id;
             var userTaskElem = this.GetElement(bpmnModeler, userTaskElemId);
-            var actionArray = this.JB4DC_GetActionsArray(userTaskElem);
+            var actionArray = this.JB4DC_GetActions(userTaskElem).actions;
             result.push({
                 taskElem: userTaskElem,
                 taskName:userTaskElem.businessObject.name,

@@ -1,1 +1,81 @@
-<!DOCTYPE html><html lang="zh" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"><head><meta charset="UTF-8"><title>Title</title><title>JBuild4D</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"><script type="text/javascript" src="../../../../../Js/External/JQuery-3.4.1/jquery-3.4.1.min.js"></script><script type="text/javascript" src="../../../../../Js/External/VUE-2.6.10/vue.js"></script><script type="text/javascript" src="../../../../../Js/External/IView-4.X/dist/iview.min.js"></script><script type="text/javascript" src="../../../../../Js/External/JQuery-UI-1.12.1/jquery-ui.js"></script><script type="text/javascript" src="../../../../../Js/External/ZTree-3.5.40/js/jquery.ztree.all.js"></script><script type="text/javascript" src="../../../../../Js/External/Perfect-Scrollbar-V1.4.0/perfect-scrollbar.js"></script><script type="text/javascript" src="../../../../../Js/JBuild4DCLib.js?refVersion=1619267426042"></script><script type="text/javascript" src="../../../../../Js/UIEXComponent.js?refVersion=1619267426042"></script><script type="text/javascript" src="../../../../../Js/UIEXComponentForBuilder.js?refVersion=1619267426042"></script><script type="text/javascript" src="../../../../../Js/VueEXComponent.js?refVersion=1619267426042"></script><script type="text/javascript" src="../../../../../Js/BuilderVueEXComponent.js?refVersion=1619267426042"></script><script type="text/javascript" src="../../../../../Js/HTMLDesign/HTMLDesignUtility.js?refVersion=1619267426042"></script><link rel="stylesheet" type="text/css" href="../../../../../Themes/Default/IView-4.X/iview.css"><link rel="stylesheet" type="text/css" href="../../../../../Themes/Default/JQueryUI/jquery-ui.css"><link rel="stylesheet" type="text/css" href="../../../../../Themes/Default/JQueryUI/jquery-ui-important.css"><link rel="stylesheet" type="text/css" href="../../../../../Js/External/Perfect-Scrollbar-V1.4.0/perfect-scrollbar.css"><link rel="stylesheet" type="text/css" href="../../../../../Themes/Default/ZTree/zTreeStyle/zTreeStyle.css"><link rel="stylesheet" type="text/css" href="../../../../../Themes/Default/Css/JBuild4DC.css?refVersion=1619267426042"><link rel="stylesheet" type="text/css" href="../../../../../Themes/Default/Css/JBuild4DCBuilder.css?refVersion=1619267426042"><script type="text/javascript" src="../../../../../Js/External/ZTree-3.5.40/js/jquery.ztree.exhide.js"></script><script type="text/javascript" src="../../../../../Js/External/ZTree-3.5.40/js/fuzzysearch.js"></script></head><body><div class="html-design-plugin-dialog-wraper" id="dialogApp" v-cloak><tabs size="small"><tab-pane label="附件上传"><table cellpadding="0" cellspacing="0" border="0" class="html-design-plugin-dialog-table-wraper"><colgroup><col style="width:160px"><col style="width:240px"><col style="width:140px"><col></colgroup><tbody><tr><td>操作按钮：</td><td colspan="3"><checkbox-group v-model="normalProps.opButtons"><checkbox label="upload"><span>上传</span></checkbox><checkbox label="download"><span>下载</span></checkbox><checkbox label="delete"><span>删除</span></checkbox><checkbox label="online-preview"><span>在线预览</span></checkbox><checkbox label="move-order"><span>移动</span></checkbox></checkbox-group></td></tr><tr><td>点击名称：</td><td colspan="3"><radio-group v-model="normalProps.clickFileNameAction" type="button" size="small"><radio label="download">下载</radio><radio label="online-preview">在线预览</radio></radio-group></td></tr><tr><td>权限类别：</td><td colspan="3"><radio-group v-model="normalProps.authType" type="button" size="small"><radio label="empty">无</radio><radio label="manageSelf">删除自己上传</radio><radio label="manageOrgan">删除本机构上传</radio></radio-group></td></tr><tr><td>对象类型：</td><td colspan="3"><i-input v-model="normalProps.objType"></td></tr><tr><td>上传类型：</td><td><i-input v-model="normalProps.fileExType"></td><td colspan="2"><button-group size="small"><i-button @click="setFileExType('Image')">图片</i-button><i-button @click="setFileExType('Video')">视频</i-button><i-button @click="setFileExType('Document')">文档</i-button><i-button @click="setFileExType('General')">通用</i-button><i-button @click="setFileExType('All')">全部</i-button></button-group></td></tr><tr><td>上传前JS方法：</td><td><input type="text" v-model="normalProps.beforeSelectJSMethod"></td><td>上传后JS方法：</td><td><input type="text" v-model="normalProps.afterUploadedJsMethod"></td></tr><tr><td>列表渲染方法：</td><td><input type="text" v-model="normalProps.rendererContainerJsMethod"></td><td>列表渲染单行方法：</td><td><input type="text" v-model="normalProps.rendererSingleRowJsMethod"></td></tr><tr><td>类别名称：</td><td><input type="text" v-model="normalProps.categoryType"></td><td colspan="2">同一条记录下存在不用种类的文件</td></tr><tr><td>绑定记录ID获取方法：</td><td colspan="3"><input type="text" v-model="normalProps.getBindRecordIdJsMethod"></td></tr><tr><td>绑定记录类型获取方法：</td><td colspan="3"><input type="text" v-model="normalProps.getBindRecordTypeJsMethod"></td></tr><tr><td>使用模版：</td><td colspan="3"><radio-group v-model="normalProps.useTemplate" type="button" size="small"><radio label="defaultTemplate">默认模版</radio></radio-group></td></tr></tbody></table></tab-pane><tab-pane label="基础信息"><fd-control-base-info v-model="baseInfo"></fd-control-base-info></tab-pane></tabs></div><script>var DialogApp=new Vue({el:"#dialogApp",data:{baseInfo:CKEditorPluginUtility.DefaultProps.baseInfo,normalProps:{opButtons:["upload","download","delete"],beforeSelectJSMethod:"",afterUploadedJsMethod:"",fileExType:"*",authType:"empty",rendererContainerJsMethod:"",rendererSingleRowJsMethod:"",categoryType:"*",getBindRecordIdJsMethod:"",getBindRecordTypeJsMethod:"",useTemplate:"defaultTemplate",clickFileNameAction:"download",objType:""}},mounted:function(){},methods:{ready:function(e){this.baseInfo.id="file_upload_wrap_"+StringUtility.Timestamp(),this.baseInfo.name=this.baseInfo.id},getControlProps:function(){if(StringUtility.IsNullOrEmpty(this.normalProps.objType))return DialogUtility.Alert(window,DialogUtility.DialogAlertId,{},"对象类型不能为空!",null),{success:!1};this.baseInfo.serialize="false";var e={success:!0,baseInfo:this.baseInfo,normalProps:this.normalProps};return e.baseInfo.serialize="false",e},setControlProps:function(e,t){this.baseInfo=t.baseInfo?t.baseInfo:this.baseInfo,this.normalProps.editInRow=e.attr("editInRow");var o=e.attr("opButtons").split(",");this.normalProps.opButtons=o,this.normalProps.beforeSelectJSMethod=e.attr("beforeSelectJSMethod"),this.normalProps.afterUploadedJsMethod=e.attr("afterUploadedJsMethod"),this.normalProps.fileExType=e.attr("fileExType"),this.normalProps.authType=e.attr("authType"),this.normalProps.rendererContainerJsMethod=e.attr("rendererContainerJsMethod"),this.normalProps.rendererSingleRowJsMethod=e.attr("rendererSingleRowJsMethod"),this.normalProps.categoryType=e.attr("categoryType"),this.normalProps.getBindRecordIdJsMethod=e.attr("getBindRecordIdJsMethod"),this.normalProps.getBindRecordTypeJsMethod=e.attr("getBindRecordTypeJsMethod"),this.normalProps.useTemplate=e.attr("useTemplate"),this.normalProps.clickFileNameAction=e.attr("clickFileNameAction"),this.normalProps.objType=e.attr("objType")},setFileExType:function(e){"Image"==e?this.normalProps.fileExType=".png":"Video"==e?this.normalProps.fileExType=".mp4":"Document"==e?this.normalProps.fileExType=".doc":"General"==e?this.normalProps.fileExType="General":"All"==e&&(this.normalProps.fileExType="*")}}})</script></body></html>
+<!DOCTYPE html><html lang="zh" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"><head><meta charset="UTF-8"><title>Title</title><title>JBuild4D</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"><script type="text/javascript" src="../../../../../Js/External/JQuery-3.4.1/jquery-3.4.1.min.js"></script><script type="text/javascript" src="../../../../../Js/External/VUE-2.6.10/vue.js"></script><script type="text/javascript" src="../../../../../Js/External/IView-4.X/dist/iview.min.js"></script><script type="text/javascript" src="../../../../../Js/External/JQuery-UI-1.12.1/jquery-ui.js"></script><script type="text/javascript" src="../../../../../Js/External/ZTree-3.5.40/js/jquery.ztree.all.js"></script><script type="text/javascript" src="../../../../../Js/External/Perfect-Scrollbar-V1.4.0/perfect-scrollbar.js"></script><script type="text/javascript" src="../../../../../Js/JBuild4DCLib.js?refVersion=1619921800093"></script><script type="text/javascript" src="../../../../../Js/UIEXComponent.js?refVersion=1619921800093"></script><script type="text/javascript" src="../../../../../Js/UIEXComponentForBuilder.js?refVersion=1619921800093"></script><script type="text/javascript" src="../../../../../Js/VueEXComponent.js?refVersion=1619921800093"></script><script type="text/javascript" src="../../../../../Js/BuilderVueEXComponent.js?refVersion=1619921800093"></script><script type="text/javascript" src="../../../../../Js/HTMLDesign/HTMLDesignUtility.js?refVersion=1619921800093"></script><link rel="stylesheet" type="text/css" href="../../../../../Themes/Default/IView-4.X/iview.css"><link rel="stylesheet" type="text/css" href="../../../../../Themes/Default/JQueryUI/jquery-ui.css"><link rel="stylesheet" type="text/css" href="../../../../../Themes/Default/JQueryUI/jquery-ui-important.css"><link rel="stylesheet" type="text/css" href="../../../../../Js/External/Perfect-Scrollbar-V1.4.0/perfect-scrollbar.css"><link rel="stylesheet" type="text/css" href="../../../../../Themes/Default/ZTree/zTreeStyle/zTreeStyle.css"><link rel="stylesheet" type="text/css" href="../../../../../Themes/Default/Css/JBuild4DC.css?refVersion=1619921800093"><link rel="stylesheet" type="text/css" href="../../../../../Themes/Default/Css/JBuild4DCBuilder.css?refVersion=1619921800093"><script type="text/javascript" src="../../../../../Js/External/ZTree-3.5.40/js/jquery.ztree.exhide.js"></script><script type="text/javascript" src="../../../../../Js/External/ZTree-3.5.40/js/fuzzysearch.js"></script></head><body><div class="html-design-plugin-dialog-wraper" id="dialogApp" v-cloak><tabs size="small"><tab-pane label="附件上传"><table cellpadding="0" cellspacing="0" border="0" class="html-design-plugin-dialog-table-wraper"><colgroup><col style="width:160px"><col style="width:240px"><col style="width:140px"><col></colgroup><tbody><tr><td>操作按钮：</td><td colspan="3"><checkbox-group v-model="normalProps.opButtons"><checkbox label="upload"><span>上传</span></checkbox><checkbox label="download"><span>下载</span></checkbox><checkbox label="delete"><span>删除</span></checkbox><checkbox label="online-preview"><span>在线预览</span></checkbox><checkbox label="move-order"><span>移动</span></checkbox></checkbox-group></td></tr><tr><td>点击名称：</td><td colspan="3"><radio-group v-model="normalProps.clickFileNameAction" type="button" size="small"><radio label="download">下载</radio><radio label="online-preview">在线预览</radio></radio-group></td></tr><tr><td>权限类别：</td><td colspan="3"><radio-group v-model="normalProps.authType" type="button" size="small"><radio label="empty">无</radio><radio label="manageSelf">删除自己上传</radio><radio label="manageOrgan">删除本机构上传</radio></radio-group></td></tr><tr><td>对象类型：</td><td colspan="3"><i-input v-model="normalProps.objType"></td></tr><tr><td>上传类型：</td><td><i-input v-model="normalProps.fileExType"></td><td colspan="2"><button-group size="small"><i-button @click="setFileExType('Image')">图片</i-button><i-button @click="setFileExType('Video')">视频</i-button><i-button @click="setFileExType('Document')">文档</i-button><i-button @click="setFileExType('General')">通用</i-button><i-button @click="setFileExType('All')">全部</i-button></button-group></td></tr><tr><td>上传前JS方法：</td><td><input type="text" v-model="normalProps.beforeSelectJSMethod"></td><td>上传后JS方法：</td><td><input type="text" v-model="normalProps.afterUploadedJsMethod"></td></tr><tr><td>列表渲染方法：</td><td><input type="text" v-model="normalProps.rendererContainerJsMethod"></td><td>列表渲染单行方法：</td><td><input type="text" v-model="normalProps.rendererSingleRowJsMethod"></td></tr><tr><td>类别名称：</td><td><input type="text" v-model="normalProps.categoryType"></td><td colspan="2">同一条记录下存在不用种类的文件</td></tr><tr><td>绑定记录ID获取方法：</td><td colspan="3"><input type="text" v-model="normalProps.getBindRecordIdJsMethod"></td></tr><tr><td>绑定记录类型获取方法：</td><td colspan="3"><input type="text" v-model="normalProps.getBindRecordTypeJsMethod"></td></tr><tr><td>使用模版：</td><td colspan="3"><radio-group v-model="normalProps.useTemplate" type="button" size="small"><radio label="defaultTemplate">默认模版</radio></radio-group></td></tr></tbody></table></tab-pane><tab-pane label="基础信息"><fd-control-base-info v-model="baseInfo"></fd-control-base-info></tab-pane></tabs></div><script>var DialogApp=new Vue({
+        el:"#dialogApp",
+        data: {
+            baseInfo:CKEditorPluginUtility.DefaultProps.baseInfo,
+            normalProps:{
+                opButtons:['upload','download','delete'],
+                beforeSelectJSMethod:"",
+                afterUploadedJsMethod:"",
+                fileExType:"*",
+                authType:"empty",
+                rendererContainerJsMethod:"",
+                rendererSingleRowJsMethod:"",
+                categoryType:"*",
+                getBindRecordIdJsMethod:"",
+                getBindRecordTypeJsMethod:"",
+                useTemplate:"defaultTemplate",
+                clickFileNameAction:"download",
+                objType:""
+            }
+        },
+        mounted:function () {
+
+        },
+        methods: {
+            ready:function(actionName){
+                this.baseInfo.id="file_upload_wrap_"+StringUtility.Timestamp();
+                this.baseInfo.name=this.baseInfo.id;
+            },
+            getControlProps:function () {
+                if(StringUtility.IsNullOrEmpty(this.normalProps.objType)){
+                    DialogUtility.Alert(window, DialogUtility.DialogAlertId, {}, "对象类型不能为空!", null);
+                    return {success: false};
+                }
+
+                this.baseInfo.serialize="false";
+                var result = {
+                    success: true,
+                    baseInfo: this.baseInfo,
+                    normalProps:this.normalProps
+                }
+                result.baseInfo.serialize="false";
+                return result;
+            },
+            setControlProps:function ($elem,props) {
+                this.baseInfo = props.baseInfo ? props.baseInfo : this.baseInfo;
+
+                this.normalProps.editInRow = $elem.attr("editInRow");
+                var opButtons = $elem.attr("opButtons").split(",");
+                this.normalProps.opButtons = opButtons;
+                this.normalProps.beforeSelectJSMethod = $elem.attr("beforeSelectJSMethod");
+                this.normalProps.afterUploadedJsMethod = $elem.attr("afterUploadedJsMethod");
+                this.normalProps.fileExType = $elem.attr("fileExType");
+                this.normalProps.authType = $elem.attr("authType");
+                this.normalProps.rendererContainerJsMethod = $elem.attr("rendererContainerJsMethod");
+                this.normalProps.rendererSingleRowJsMethod = $elem.attr("rendererSingleRowJsMethod");
+                this.normalProps.categoryType = $elem.attr("categoryType");
+                this.normalProps.getBindRecordIdJsMethod = $elem.attr("getBindRecordIdJsMethod");
+                this.normalProps.getBindRecordTypeJsMethod = $elem.attr("getBindRecordTypeJsMethod");
+                this.normalProps.useTemplate = $elem.attr("useTemplate");
+                this.normalProps.clickFileNameAction = $elem.attr("clickFileNameAction");
+                this.normalProps.objType = $elem.attr("objType");
+            },
+            setFileExType:function (type) {
+                if(type=="Image"){
+                    this.normalProps.fileExType=".png";
+                }
+                else if(type=="Video"){
+                    this.normalProps.fileExType=".mp4";
+                }
+                else if(type=="Document"){
+                    this.normalProps.fileExType=".doc";
+                }
+                else if(type=="General"){
+                    this.normalProps.fileExType="General";
+                }
+                else if(type=="All"){
+                    this.normalProps.fileExType="*";
+                }
+            }
+        }
+    });</script></body></html>

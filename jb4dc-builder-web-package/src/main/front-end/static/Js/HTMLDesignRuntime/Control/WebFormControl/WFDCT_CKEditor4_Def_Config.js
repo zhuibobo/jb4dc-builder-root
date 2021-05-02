@@ -7,7 +7,7 @@ CKEDITOR.editorConfig = function( config ) {
     // Define changes to default configuration here.
     // For complete reference see:
     // https://ckeditor.com/docs/ckeditor4/latest/api/CKEDITOR_config.html
-
+    //debugger;
     // The toolbar groups arrangement, optimized for two toolbar rows.
     config.toolbarGroups = [
         { name: 'clipboard',   groups: [ 'clipboard', 'undo' ] },
@@ -25,20 +25,23 @@ CKEDITOR.editorConfig = function( config ) {
         { name: 'colors' },
         { name: 'about' }
     ];
-
+    //console.log(config);
     // Remove some buttons provided by the standard plugins, which are
-    // not needed in the Standard(s) toolbar.
+    // not needed in the Standard(s) toolbar.112
     config.removeButtons = 'Underline,Subscript,Superscript';
 
-    // Set the most common block elements.
+    // Set the most common block elements.11
     config.format_tags = 'p;h1;h2;h3;pre';
 
     // Simplify the dialog windows.
     config.removeDialogTabs = 'image:advanced;link:advanced';
     //alert(+"editorConfig");
     var objId="";
-    if(formRuntimeInst&&formRuntimeInst.GetWebFormRTParas()&&formRuntimeInst.GetWebFormRTParas().RecordId) {
-        objId=formRuntimeInst.GetWebFormRTParas().RecordId;
+    if(typeof(formRuntimeInst)!="undefined"&&formRuntimeInst&&formRuntimeInst.GetWebFormRTParas()&&formRuntimeInst.GetWebFormRTParas().RecordId) {
+        objId = formRuntimeInst.GetWebFormRTParas().RecordId;
+    }
+    if(typeof(flowRuntimePageObject)!="undefined"&&flowRuntimePageObject&&flowRuntimePageObject.GetWebFormRTParas()&&flowRuntimePageObject.GetWebFormRTParas().RecordId) {
+        objId = flowRuntimePageObject.GetWebFormRTParas().RecordId;
     }
     config.filebrowserImageUploadUrl = BaseUtility.GetRootPath()+"/Rest/Builder/RunTime/FileRuntime/UploadCKE4Image?uploadType=CkE4Image&objId="+objId;
 };

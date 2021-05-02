@@ -41,8 +41,8 @@ public class AppClientWebFilterLocationPreCheck implements ISSoWebFilterLocation
             appClientToken=httpRequest.getParameter("AppClientToken");
         }
         if(StringUtility.isNotEmpty(appClientToken)){
-            JB4DCSession jb4DCSession=userLocationProxy.getAppClientSessionAndSaveToLocationServlet(appClientToken);
-
+            //JB4DCSession jb4DCSession=userLocationProxy.getAppClientSessionAndSaveToLocationServlet(appClientToken);
+            JB4DCSession jb4DCSession=null;
             if(jb4DCSession!=null){
                 try {
                     logger.info("--通过AppClientToken重新构建Session--"+JsonUtility.toObjectString(jb4DCSession));

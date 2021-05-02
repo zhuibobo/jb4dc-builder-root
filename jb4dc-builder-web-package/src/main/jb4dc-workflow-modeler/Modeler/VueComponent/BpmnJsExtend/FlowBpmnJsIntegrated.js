@@ -368,6 +368,11 @@ class FlowBpmnJsIntegrated {
         result.jb4dc.jb4dcCCReceiveObjects = BpmnJsUtility.JB4DC_GetCCReceiveObjectsArray(elem);
         result.jb4dc.jb4dcSequenceFlowConditionEditText = BpmnJsUtility.JB4DC_Attr_GetJb4dcSequenceFlowConditionEditText(elem);
 
+        result.jb4dc.jb4dcFormPlugin=BpmnJsUtility.JB4DC_Attr_GetJb4dcFormPlugin(elem);
+        result.jb4dc.jb4dcFormParas=BpmnJsUtility.JB4DC_Attr_GetJb4dcFormParas(elem);
+        result.jb4dc.jb4dcFormEx1Plugin=BpmnJsUtility.JB4DC_Attr_GetJb4dcFormEx1Plugin(elem);
+        result.jb4dc.jb4dcFormEx1Paras=BpmnJsUtility.JB4DC_Attr_GetJb4dcFormEx1Paras(elem);
+
         result.jb4dc.jb4dcUseContentDocument = BpmnJsUtility.JB4DC_Attr_GetJb4dcUseContentDocument(elem);
         result.jb4dc.jb4dcContentDocumentPlugin = BpmnJsUtility.JB4DC_Attr_GetJb4dcContentDocumentPlugin(elem);
         result.jb4dc.jb4dcContentDocumentRedHeadTemplate = BpmnJsUtility.JB4DC_Attr_GetJb4dcContentDocumentRedHeadTemplate(elem);
@@ -409,6 +414,11 @@ class FlowBpmnJsIntegrated {
         BpmnJsUtility.JB4DC_Attr_SetJb4dcCode(elem, props.jb4dc.jb4dcCode);
         BpmnJsUtility.JB4DC_Attr_SetJb4dcFormId(elem, props.jb4dc.jb4dcFormId);
         BpmnJsUtility.JB4DC_Attr_SetJb4dcFormEx1Id(elem, props.jb4dc.jb4dcFormEx1Id);
+        BpmnJsUtility.JB4DC_Attr_SetJb4dcFormPlugin(elem,props.jb4dc.jb4dcFormPlugin);
+        BpmnJsUtility.JB4DC_Attr_SetJb4dcFormParas(elem,props.jb4dc.jb4dcFormParas);
+        BpmnJsUtility.JB4DC_Attr_SetJb4dcFormEx1Plugin(elem,props.jb4dc.jb4dcFormEx1Plugin);
+        BpmnJsUtility.JB4DC_Attr_GetJb4dcFormEx1Paras(elem,props.jb4dc.jb4dcFormEx1Paras);
+
         BpmnJsUtility.JB4DC_Attr_SetJb4dcOuterFormUrl(elem, props.jb4dc.jb4dcOuterFormUrl);
         BpmnJsUtility.JB4DC_Attr_SetJb4dcOuterFormEx1Url(elem, props.jb4dc.jb4dcOuterFormEx1Url);
         BpmnJsUtility.JB4DC_Attr_SetJb4dcTenantId(elem, props.jb4dc.jb4dcTenantId);

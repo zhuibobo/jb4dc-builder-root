@@ -1,8 +1,8 @@
 package com.jb4dc.builder.client.proxy;
 
 import com.jb4dc.base.service.cache.IBuildGeneralObj;
+import com.jb4dc.base.service.cache.JB4DCCacheManagerV2;
 import com.jb4dc.base.tools.JsonUtility;
-import com.jb4dc.builder.client.cache.ClientBuilderCacheManager;
 import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,10 +17,13 @@ import java.util.List;
  * Date: 2019/11/5
  * To change this template use File | Settings | File Templates.
  */
-public class RuntimeProxyBase {
+public class DelRuntimeProxyBase {
     Logger logger= LoggerFactory.getLogger(this.getClass());
 
-    @Autowired(required = false)
+    @Autowired
+    public JB4DCCacheManagerV2 jb4DCCacheManagerV2;
+
+    /*@Autowired(required = false)
     protected ClientBuilderCacheManager clientBuilderCacheManager;
 
     public String builderCacheKey(Class aClass,String classInnerSingleValue) {
@@ -67,5 +70,5 @@ public class RuntimeProxyBase {
         //String cacheValue1=proxyBuilderCacheManager.getString(ProxyBuilderCacheManager.PROXY_BUILDER_CACHE_NAME,cacheKey);
         //String cacheValue2=proxyBuilderCacheManager.getString(ProxyBuilderCacheManager.PROXY_BUILDER_CACHE_NAME,cacheKey);
         return JsonUtility.toObjectList(cacheValue,valueType);
-    }
+    }*/
 }

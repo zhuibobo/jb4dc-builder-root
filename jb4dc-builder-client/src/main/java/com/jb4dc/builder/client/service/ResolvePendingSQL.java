@@ -2,8 +2,8 @@ package com.jb4dc.builder.client.service;
 
 import com.jb4dc.base.service.ISQLBuilderService;
 import com.jb4dc.builder.client.exenum.TableFieldTypeEnum;
-import com.jb4dc.builder.client.proxy.ITableRuntimeProxy;
-import com.jb4dc.builder.client.proxy.IEnvVariableRuntimeProxy;
+import com.jb4dc.builder.client.service.envvar.IEnvVariableRuntimeClient;
+import com.jb4dc.builder.client.remote.TableRuntimeRemote;
 import com.jb4dc.builder.po.TableFieldPO;
 import com.jb4dc.builder.po.formdata.*;
 import com.jb4dc.builder.tool.FormRecordComplexPOUtility;
@@ -33,13 +33,13 @@ import java.util.stream.Collectors;
 public class ResolvePendingSQL {
 
     @Autowired
-    private ITableRuntimeProxy tableRuntimeProxy;
+    private TableRuntimeRemote tableRuntimeRemote;
 
     @Autowired
     private ISQLBuilderService sqlBuilderService;
 
     @Autowired
-    private IEnvVariableRuntimeProxy envVariableRuntimeResolveProxy;
+    private IEnvVariableRuntimeClient envVariableRuntimeResolveProxy;
 
     protected static int ORDER_SPACE=5;
     protected int getNextDBOrderNum(String tableName,List<TableFieldPO> tableFieldPOList) throws JBuild4DCSQLKeyWordException {
@@ -84,7 +84,7 @@ public class ResolvePendingSQL {
 
         //将主记录转换为SQL语句
         FormRecordDataRelationPO mainFormRecordDataRelationPO = FormRecordComplexPOUtility.findMainFormRecordDataRelationPO(formRecordComplexPO);
-        List<TableFieldPO> tableFieldPOList = tableRuntimeProxy.getTableFieldsByTableId(mainFormRecordDataRelationPO.getTableId());
+        List<TableFieldPO> tableFieldPOList = tableRuntimeRemote.getTableFieldsByTableId(mainFormRecordDataRelationPO.getTableId()).getData();
         String idValue = FormRecordDataUtility.findIdInFormRecordFieldDataPO(mainFormRecordDataRelationPO.getOneDataRecord(),tableFieldPOList);
 
         //验证数据
@@ -125,7 +125,7 @@ public class ResolvePendingSQL {
                     }
                     if (formRecordDataRelationPO.getListDataRecord() != null && formRecordDataRelationPO.getListDataRecord().size() > 0) {
 
-                        List<TableFieldPO> subTableFieldPOList = tableRuntimeProxy.getTableFieldsByTableId(formRecordDataRelationPO.getTableId());
+                        List<TableFieldPO> subTableFieldPOList = tableRuntimeRemote.getTableFieldsByTableId(formRecordDataRelationPO.getTableId()).getData();
                         int subLDRNextDBOrderNum = this.getNextDBOrderNum(formRecordDataRelationPO.getTableName(), subTableFieldPOList);
                         String subLDROrderFieldName = this.getOrderNumFieldName(formRecordDataRelationPO.getTableName(), subTableFieldPOList);
 
@@ -210,7 +210,7 @@ public class ResolvePendingSQL {
             List<FormRecordFieldDataPO> recordFieldPOList = formRecordDataPO.getRecordFieldPOList();
             Map<String, FormRecordFieldDataPO> recordFieldPOListMap = FormRecordDataUtility.convertFormRecordFieldDataPOListToMap(recordFieldPOList);
 
-            List<TableFieldPO> tableFieldPOList = tableRuntimeProxy.getTableFieldsByTableId(tableId);
+            List<TableFieldPO> tableFieldPOList = tableRuntimeRemote.getTableFieldsByTableId(tableId).getData();
 
             if (!this.formRecordDataPOIsExist(formRecordDataPO, tableName,tableFieldPOList)) {
                 pendingSQLPO.setExecType(PendingSQLPO.EXEC_TYPE_INSERT);

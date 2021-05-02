@@ -16,9 +16,9 @@ import java.util.List;
  */
 public class FormResourceComplexPO extends FormResourcePO {
 
-    public static String FORM_RUNTIME_CATEGORY_INDEPENDENCE="IsIndependence";
-    public static String FORM_RUNTIME_CATEGORY_LIST="IsDependenceList";
-    public static String FORM_RUNTIME_CATEGORY_FLOW="IsDependenceFlow";
+    public static String FORM_RUNTIME_CATEGORY_INDEPENDENCE="IsIndependence";//独立窗体,一般用于二次开发加载表单,不带列表按钮绑定的内部按钮
+    public static String FORM_RUNTIME_CATEGORY_LIST="IsDependenceList";//依赖列表按钮
+    public static String FORM_RUNTIME_CATEGORY_FLOW="IsDependenceFlow";//依赖列成动作
 
     public FormResourceComplexPO(FormResourceEntityWithBLOBs source, String formHtmlRuntime) {
         super(source, formHtmlRuntime);

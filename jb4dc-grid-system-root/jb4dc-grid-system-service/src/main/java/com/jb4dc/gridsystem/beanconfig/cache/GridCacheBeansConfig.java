@@ -1,9 +1,7 @@
 package com.jb4dc.gridsystem.beanconfig.cache;
 
 import com.jb4dc.base.service.spring.SpringContextHolder;
-import com.jb4dc.builder.client.cache.BuilderCacheManager;
-import com.jb4dc.builder.client.cache.ClientBuilderCacheManager;
-import com.jb4dc.gridsystem.cache.GridCacheManager;
+//import com.jb4dc.gridsystem.cache.GridCacheManager;
 import org.ehcache.CacheManager;
 import org.ehcache.config.builders.CacheManagerBuilder;
 import org.ehcache.xml.XmlConfiguration;
@@ -21,7 +19,7 @@ import java.net.URL;
 
 @Configuration
 public class GridCacheBeansConfig {
-    @Bean
+    /*@Bean
     public GridCacheManager buildGridCacheManager(SpringContextHolder springContextHolder) {
         URL myUrl = getClass().getResource("/grid-ehcache.xml");
         if(springContextHolder.getActiveProfile().equals("dev")){
@@ -35,5 +33,5 @@ public class GridCacheBeansConfig {
         myCacheManager.init();
         GridCacheManager gridCacheManager =new GridCacheManager(myCacheManager);
         return gridCacheManager;
-    }
+    }*/
 }

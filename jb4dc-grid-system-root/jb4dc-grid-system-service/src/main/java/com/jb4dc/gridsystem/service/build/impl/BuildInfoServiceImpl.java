@@ -10,19 +10,14 @@ import com.jb4dc.core.base.exception.JBuild4DCSQLKeyWordException;
 import com.jb4dc.core.base.session.JB4DCSession;
 import com.jb4dc.gridsystem.dao.build.BuildInfoMapper;
 import com.jb4dc.gridsystem.dbentities.build.BuildInfoEntity;
-import com.jb4dc.gridsystem.dbentities.build.HouseInfoEntity;
 import com.jb4dc.gridsystem.po.BuildInfoPO;
 import com.jb4dc.gridsystem.service.build.IBuildInfoService;
-import com.jb4dc.gridsystem.service.build.IHouseInfoService;
-import com.jb4dc.gridsystem.service.person.IFamilyService;
-import com.jb4dc.gridsystem.service.person.IPersonService;
-import com.jb4dc.sso.client.proxy.IOrganRuntimeProxy;
+import com.jb4dc.sso.client.remote.OrganRuntimeRemote;
 import com.jb4dc.sso.dbentities.organ.OrganEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.beans.Transient;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -44,7 +39,7 @@ public class BuildInfoServiceImpl extends BaseServiceImpl<BuildInfoEntity> imple
     }
 
     @Autowired
-    IOrganRuntimeProxy organRuntimeProxy;
+    OrganRuntimeRemote organRuntimeRemote;
 
     @Autowired
     ISQLBuilderService sqlBuilderService;
@@ -173,14 +168,14 @@ public class BuildInfoServiceImpl extends BaseServiceImpl<BuildInfoEntity> imple
 
     @Override
     public BuildInfoPO saveBuildData(JB4DCSession session, BuildInfoPO buildInfoPO) throws JBuild4DCGenerallyException {
-        OrganEntity organEntity=organRuntimeProxy.getOrganById(session.getOrganId()).getData();
+        OrganEntity organEntity=organRuntimeRemote.getOrganById(session.getOrganId()).getData();
         if (organEntity==null){
             throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_GRID_CODE,"找不到组织机构信息!");
         }
         if(!organEntity.getOrganTypeValue().equals("GridUnit")){
             throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_GRID_CODE,"当前功能仅限于网格员使用!");
         }
-        OrganEntity parentOrganEntity=organRuntimeProxy.getOrganById(organEntity.getOrganParentId()).getData();
+        OrganEntity parentOrganEntity=organRuntimeRemote.getOrganById(organEntity.getOrganParentId()).getData();
         if (parentOrganEntity==null){
             throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_GRID_CODE,"找不到父组织机构信息!");
         }

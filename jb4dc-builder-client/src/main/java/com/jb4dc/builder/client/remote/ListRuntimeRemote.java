@@ -1,5 +1,6 @@
 package com.jb4dc.builder.client.remote;
 
+import com.jb4dc.base.service.aspect.ClientCallRemoteCache;
 import com.jb4dc.base.service.po.DictionaryPO;
 import com.jb4dc.builder.po.ListResourcePO;
 import com.jb4dc.core.base.vo.JBuild4DCResponseVo;
@@ -21,5 +22,6 @@ import java.util.List;
 public interface ListRuntimeRemote {
 
     @RequestMapping(value = "/LoadHTML", method = RequestMethod.POST)
+    @ClientCallRemoteCache
     JBuild4DCResponseVo<ListResourcePO> loadHTML(@RequestParam("listId") String listId);
 }

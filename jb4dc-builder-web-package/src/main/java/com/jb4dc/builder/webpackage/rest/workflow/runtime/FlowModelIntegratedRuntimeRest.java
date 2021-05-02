@@ -47,10 +47,10 @@ public class FlowModelIntegratedRuntimeRest extends FlowModelIntegratedRest {
     IModelGroupRefExtendService modelGroupRefExtendService;
 
     @RequestMapping(
-            value = {"/GetMyStartEnableModel"},
+            value = {"/GetMyBootableModel"},
             method = {RequestMethod.GET}
     )
-    public JBuild4DCResponseVo<FlowModelListIntegratedPO> getMyStartEnableModel(String userId) throws IOException, ParseException, JBuild4DCGenerallyException {
+    public JBuild4DCResponseVo<FlowModelListIntegratedPO> getMyBootableModel(String userId) throws IOException, ParseException, JBuild4DCGenerallyException {
         //XMLSerializer xmlSerializer = new XMLSerializer();
         JB4DCSession session = JB4DCSessionCenter.getUserSessionByUserId(userId);
         List<ModelIntegratedEntity> modelIntegratedEntityList = modelIntegratedExtendService.getMyStartEnableModel(session);

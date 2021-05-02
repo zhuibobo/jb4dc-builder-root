@@ -45,6 +45,26 @@
           "type": "String"
         },
         {
+          "name": "jb4dcFormPlugin",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "jb4dcFormParas",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "jb4dcFormEx1Plugin",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "jb4dcFormEx1Paras",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
           "name": "jb4dcUseContentDocument",
           "isAttr": true,
           "type": "String"
@@ -203,7 +223,28 @@
           "name": "jb4dcOuterFormEx1Url",
           "isAttr": true,
           "type": "String"
-        },{
+        },
+        {
+          "name": "jb4dcFormPlugin",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "jb4dcFormParas",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "jb4dcFormEx1Plugin",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "jb4dcFormEx1Paras",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
           "name": "jb4dcProcessTitleEditText",
           "isAttr": true,
           "type": "String"
@@ -268,6 +309,26 @@
         },
         {
           "name": "jb4dcOuterFormEx1Url",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "jb4dcFormPlugin",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "jb4dcFormParas",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "jb4dcFormEx1Plugin",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "jb4dcFormEx1Paras",
           "isAttr": true,
           "type": "String"
         },

@@ -1,9 +1,9 @@
 package com.jb4dc.builder.service.module.impl;
 
+import com.jb4dc.base.service.IAddBefore;
 import com.jb4dc.base.service.ISQLBuilderService;
 import com.jb4dc.base.service.exenum.EnableTypeEnum;
 import com.jb4dc.base.service.exenum.TrueFalseEnum;
-import com.jb4dc.base.service.IAddBefore;
 import com.jb4dc.base.service.impl.BaseServiceImpl;
 import com.jb4dc.base.service.po.ZTreeNodePO;
 import com.jb4dc.base.tools.JsonUtility;
@@ -11,6 +11,7 @@ import com.jb4dc.builder.client.service.api.IApiItemService;
 import com.jb4dc.builder.client.service.datastorage.ITableFieldService;
 import com.jb4dc.builder.client.service.envvar.IEnvVariableService;
 import com.jb4dc.builder.client.service.webform.IFormResourceService;
+import com.jb4dc.builder.client.service.weblist.IListResourceService;
 import com.jb4dc.builder.dao.module.ModuleMapper;
 import com.jb4dc.builder.dbentities.api.ApiGroupEntity;
 import com.jb4dc.builder.dbentities.api.ApiItemEntity;
@@ -20,25 +21,24 @@ import com.jb4dc.builder.dbentities.weblist.ListResourceEntity;
 import com.jb4dc.builder.po.FormResourcePO;
 import com.jb4dc.builder.po.ListResourcePO;
 import com.jb4dc.builder.po.TableFieldPO;
-import com.jb4dc.workflow.dbentities.ModelGroupEntity;
-import com.jb4dc.workflow.integrate.extend.IModelGroupExtendService;
-import com.jb4dc.workflow.po.ModuleContextPO;
 import com.jb4dc.builder.po.ZTreeNodePOConvert;
 import com.jb4dc.builder.service.api.IApiGroupService;
 import com.jb4dc.builder.service.envvar.IEnvGroupService;
 import com.jb4dc.builder.service.module.IModuleService;
-import com.jb4dc.builder.client.service.weblist.IListResourceService;
 import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
 import com.jb4dc.core.base.session.JB4DCSession;
 import com.jb4dc.core.base.vo.JBuild4DCResponseVo;
-import com.jb4dc.sso.client.proxy.IOrganRuntimeProxy;
-import com.jb4dc.sso.client.proxy.IRoleGroupRuntimeProxy;
-import com.jb4dc.sso.client.proxy.IRoleRuntimeProxy;
-import com.jb4dc.sso.client.proxy.IUserRuntimeProxy;
+import com.jb4dc.sso.client.remote.OrganRuntimeRemote;
+import com.jb4dc.sso.client.remote.RoleGroupRuntimeRemote;
+import com.jb4dc.sso.client.remote.RoleRuntimeRemote;
+import com.jb4dc.sso.client.remote.UserRuntimeRemote;
 import com.jb4dc.sso.dbentities.organ.OrganEntity;
 import com.jb4dc.sso.dbentities.role.RoleEntity;
 import com.jb4dc.sso.dbentities.role.RoleGroupEntity;
 import com.jb4dc.sso.dbentities.user.UserEntity;
+import com.jb4dc.workflow.dbentities.ModelGroupEntity;
+import com.jb4dc.workflow.integrate.extend.IModelGroupExtendService;
+import com.jb4dc.workflow.po.ModuleContextPO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -71,16 +71,16 @@ public class ModuleServiceImpl extends BaseServiceImpl<ModuleEntity> implements 
     IEnvVariableService envVariableService;
 
     @Autowired
-    IRoleGroupRuntimeProxy roleGroupRuntimeProxy;
+    RoleGroupRuntimeRemote roleGroupRuntimeRemote;
 
     @Autowired
-    IRoleRuntimeProxy roleRuntimeProxy;
+    RoleRuntimeRemote roleRuntimeRemote;
 
     @Autowired
-    IOrganRuntimeProxy organRuntimeProxy;
+    OrganRuntimeRemote organRuntimeRemote;
 
     @Autowired
-    IUserRuntimeProxy userRuntimeProxy;
+    UserRuntimeRemote userRuntimeRemote;
 
     @Autowired
     IApiGroupService apiGroupService;
@@ -198,10 +198,10 @@ public class ModuleServiceImpl extends BaseServiceImpl<ModuleEntity> implements 
         moduleContextPO.setEnvGroupPOList(envGroupService.getALLASC(jb4DCSession));
         moduleContextPO.setEnvVariablePOList(envVariableService.getALL(jb4DCSession));
 
-        JBuild4DCResponseVo<List<RoleGroupEntity>> jBuild4DCResponseVoRoleGroupEntity=roleGroupRuntimeProxy.getALLRoleGroup();
-        JBuild4DCResponseVo<List<RoleEntity>> jBuild4DCResponseVoRoleEntity=roleRuntimeProxy.getFullEnableRoleRT();
-        JBuild4DCResponseVo<List<OrganEntity>> jBuild4DCResponseVoOrganEntity=organRuntimeProxy.getEnableOrganMinPropRT();
-        JBuild4DCResponseVo<List<UserEntity>> jBuild4DCResponseVoUserEntity=userRuntimeProxy.getEnableUserMinPropRT();
+        JBuild4DCResponseVo<List<RoleGroupEntity>> jBuild4DCResponseVoRoleGroupEntity=roleGroupRuntimeRemote.getALLRoleGroup();
+        JBuild4DCResponseVo<List<RoleEntity>> jBuild4DCResponseVoRoleEntity=roleRuntimeRemote.getFullEnableRoleRT();
+        JBuild4DCResponseVo<List<OrganEntity>> jBuild4DCResponseVoOrganEntity=organRuntimeRemote.getEnableOrganMinPropRT();
+        JBuild4DCResponseVo<List<UserEntity>> jBuild4DCResponseVoUserEntity=userRuntimeRemote.getEnableUserMinPropRT();
 
         List<ApiGroupEntity> apiGroupEntityList=apiGroupService.getByGroupTypeASC("API_GROUP_WORKFLOW_ACTION_ROOT",jb4DCSession);
         List<ApiItemEntity> apiItemEntityList=apiItemService.getByGroupTypeALL("API_GROUP_WORKFLOW_ACTION_ROOT",jb4DCSession);

@@ -1,11 +1,9 @@
-package com.jb4dc.builder.client.proxy.impl;
+package com.jb4dc.builder.client.service.envvar.impl;
 
-import com.jb4dc.base.service.cache.IBuildGeneralObj;
-import com.jb4dc.builder.client.proxy.IEnvVariableRuntimeProxy;
-import com.jb4dc.builder.client.proxy.RuntimeProxyBase;
+import com.jb4dc.builder.client.service.envvar.IEnvVariableRuntimeClient;
+import com.jb4dc.builder.client.proxy.DelRuntimeProxyBase;
 import com.jb4dc.builder.client.service.envvar.IEnvVariableCreator;
 import com.jb4dc.builder.client.remote.EnvVariableRuntimeRemote;
-import com.jb4dc.builder.client.service.envvar.IEnvVariableService;
 import com.jb4dc.builder.dbentities.envvar.EnvVariableEntity;
 import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
 import com.jb4dc.core.base.session.JB4DCSession;
@@ -23,13 +21,13 @@ import java.io.IOException;
  * To change this template use File | Settings | File Templates.
  */
 @Service
-public class EnvVariableRuntimeProxyImpl extends RuntimeProxyBase implements IEnvVariableRuntimeProxy {
+public class EnvVariableRuntimeClientImpl implements IEnvVariableRuntimeClient {
 
     @Autowired
     private AutowireCapableBeanFactory autowireCapableBeanFactory;
 
-    @Autowired(required = false)
-    IEnvVariableService envVariableService;
+    //@Autowired(required = false)
+    //IEnvVariableService envVariableService;
 
     @Autowired
     EnvVariableRuntimeRemote envVariableRuntimeRemote;
@@ -44,7 +42,7 @@ public class EnvVariableRuntimeProxyImpl extends RuntimeProxyBase implements IEn
         }
     }
 
-    @Override
+    /*@Override
     public EnvVariableEntity getEnvVariableEntityByValue(JB4DCSession jb4DCSession, String value) throws JBuild4DCGenerallyException, IOException {
         EnvVariableEntity envVariableEntity;
         //通过本地bean获取环境变量实体,如果不存在业务bean,则通过rest接口远程获取.
@@ -54,21 +52,23 @@ public class EnvVariableRuntimeProxyImpl extends RuntimeProxyBase implements IEn
         else{
             //envVariableEntity=new EnvVariableEntity();
             //则通过rest接口远程获取.
-            envVariableEntity=autoGetFromCache(this.getClass(), value, new IBuildGeneralObj<EnvVariableEntity>() {
+            envVariableEntity=jb4DCCacheManagerV2.autoGetFromCache(JB4DCCacheManagerV2.Jb4dPlatformBuilderClientCacheName,
+                    "Proxy",
+                    this.getClass(), "GetEnvVariableEntityByValue_"+value, new IBuildGeneralObj<EnvVariableEntity>() {
                 @Override
                 public EnvVariableEntity BuildObj() throws JBuild4DCGenerallyException {
                     EnvVariableEntity temp=envVariableRuntimeRemote.getEnvVariableByEnvValue(value).getData();
                     return temp;
                 }
-            },EnvVariableEntity.class);
+            },EnvVariableEntity.class,JB4DCCacheManagerV2.DefExpirationTimeSeconds);
         }
         return envVariableEntity;
-    }
+    }*/
 
     @Override
     public String execEnvVarResult(JB4DCSession jb4DCSession, String value) throws JBuild4DCGenerallyException, IOException {
 
-        EnvVariableEntity envVariableEntity=getEnvVariableEntityByValue(jb4DCSession,value);
+        EnvVariableEntity envVariableEntity=envVariableRuntimeRemote.getEnvVariableByEnvValue(value).getData();
 
         IEnvVariableCreator varCreater=null;
         try {

@@ -2,8 +2,8 @@ package com.jb4dc.builder.client.rest;
 
 import com.github.pagehelper.PageInfo;
 import com.jb4dc.base.service.general.JB4DCSessionUtility;
+import com.jb4dc.builder.client.remote.DataSetRuntimeRemote;
 import com.jb4dc.builder.client.service.dataset.IDatasetRuntimeService;
-import com.jb4dc.builder.client.proxy.IDataSetRuntimeProxy;
 import com.jb4dc.builder.po.DataSetPO;
 import com.jb4dc.builder.po.QueryDataSetPO;
 import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
@@ -29,21 +29,21 @@ import java.util.Map;
 public class DataSetRuntimeRest {
 
     @Autowired
-    IDataSetRuntimeProxy dataSetRuntimeProxy;
+    DataSetRuntimeRemote dataSetRuntimeRemote;
 
     @Autowired
     IDatasetRuntimeService datasetRuntimeService;
 
     @RequestMapping(value = "/GetByDataSetId",method = RequestMethod.POST)
     public JBuild4DCResponseVo<DataSetPO> getByDataSetId(String dataSetId) throws JBuild4DCGenerallyException, IOException {
-        DataSetPO dataSetPO=dataSetRuntimeProxy.getByDataSetId(JB4DCSessionUtility.getSession(),dataSetId);
+        DataSetPO dataSetPO=dataSetRuntimeRemote.getByDataSetId(dataSetId).getData();
         return JBuild4DCResponseVo.opSuccess(dataSetPO);
     }
 
     @RequestMapping(value = "/GetDataSetData",method = RequestMethod.POST)
     public JBuild4DCResponseVo<PageInfo<List<Map<String, Object>>>> getDataSetData(@RequestBody QueryDataSetPO queryDataSetPO) throws JBuild4DCGenerallyException {
         String dataSetId=queryDataSetPO.getDataSetId();
-        DataSetPO dataSetPO=dataSetRuntimeProxy.getByDataSetId(JB4DCSessionUtility.getSession(),dataSetId);
+        DataSetPO dataSetPO=dataSetRuntimeRemote.getByDataSetId(dataSetId).getData();
 
         PageInfo<List<Map<String, Object>>> data=datasetRuntimeService.getDataSetData(JB4DCSessionUtility.getSession(),queryDataSetPO,dataSetPO);
 

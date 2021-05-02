@@ -2,11 +2,10 @@ package com.jb4dc.gridsystem.webpackage.rest.grid.ssoproxy;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.jb4dc.base.service.general.JB4DCSessionUtility;
-import com.jb4dc.base.tools.JsonUtility;
 import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
 import com.jb4dc.core.base.vo.JBuild4DCResponseVo;
-import com.jb4dc.sso.client.proxy.IOrganRuntimeProxy;
-import com.jb4dc.sso.client.proxy.IUserRuntimeProxy;
+import com.jb4dc.sso.client.remote.OrganRuntimeRemote;
+import com.jb4dc.sso.client.remote.UserRuntimeRemote;
 import com.jb4dc.sso.dbentities.organ.OrganEntity;
 import com.jb4dc.sso.dbentities.user.UserEntity;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,14 +27,14 @@ import java.util.Map;
 @RequestMapping(value = "/Rest/Grid/SSOProxy/OrganAndUser")
 public class OrganAndUserRest {
     @Autowired
-    IOrganRuntimeProxy organRuntimeProxy;
+    OrganRuntimeRemote organRuntimeRemote;
 
     @Autowired
-    IUserRuntimeProxy userRuntimeProxy;
+    UserRuntimeRemote userRuntimeRemote;
 
     @RequestMapping(value = "/GetALLOrganMinPropData", method = RequestMethod.GET)
     public JBuild4DCResponseVo getALLOrganMinPropData() throws JBuild4DCGenerallyException, JsonProcessingException {
-        JBuild4DCResponseVo<List<OrganEntity>> jBuild4DCResponseVoOrganEntity=organRuntimeProxy.getEnableOrganMinPropRT();
+        JBuild4DCResponseVo<List<OrganEntity>> jBuild4DCResponseVoOrganEntity=organRuntimeRemote.getEnableOrganMinPropRT();
         Map<String,Object> organAndUserMap=new HashMap<>();
         organAndUserMap.put("ALLOrganMinProp",jBuild4DCResponseVoOrganEntity.getData());
         organAndUserMap.put("MySessionData", JB4DCSessionUtility.getSession());
@@ -44,8 +43,8 @@ public class OrganAndUserRest {
 
     @RequestMapping(value = "/GetOrganAndUserData", method = RequestMethod.GET)
     public JBuild4DCResponseVo getOrganAndUserData() throws JBuild4DCGenerallyException {
-        JBuild4DCResponseVo<List<OrganEntity>> jBuild4DCResponseVoOrganEntity=organRuntimeProxy.getEnableOrganMinPropRT();
-        JBuild4DCResponseVo<List<UserEntity>> jBuild4DCResponseVoUserEntity=userRuntimeProxy.getEnableUserMinPropRT();
+        JBuild4DCResponseVo<List<OrganEntity>> jBuild4DCResponseVoOrganEntity=organRuntimeRemote.getEnableOrganMinPropRT();
+        JBuild4DCResponseVo<List<UserEntity>> jBuild4DCResponseVoUserEntity=userRuntimeRemote.getEnableUserMinPropRT();
         Map<String,Object> organAndUserMap=new HashMap<>();
         organAndUserMap.put("ALLOrganMinProp",jBuild4DCResponseVoOrganEntity.getData());
         organAndUserMap.put("ALLUserMinProp",jBuild4DCResponseVoUserEntity.getData());

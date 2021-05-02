@@ -5,7 +5,8 @@ import java.util.Date;
 import com.github.pagehelper.PageInfo;
 import com.jb4dc.base.service.general.JB4DCSessionUtility;
 import com.jb4dc.base.tools.JsonUtility;
-import com.jb4dc.builder.client.proxy.IDictionaryRuntimeProxy;
+
+import com.jb4dc.builder.client.remote.DictionaryRuntimeRemote;
 import com.jb4dc.builder.dbentities.systemsetting.DictionaryEntity;
 import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
 import com.jb4dc.core.base.session.JB4DCSession;
@@ -40,7 +41,7 @@ public class EventRest {
     IBuildInfoService buildInfoService;
 
     @Autowired
-    IDictionaryRuntimeProxy dictionaryRuntimeProxy;
+    DictionaryRuntimeRemote dictionaryRuntimeRemote;
 
     @Autowired
     IGridInfoService gridInfoService;
@@ -52,7 +53,7 @@ public class EventRest {
     public JBuild4DCResponseVo<List<EventInfoEntity>> getMyEventIncludeDD(int num,int size) throws JBuild4DCGenerallyException, IOException {
         JB4DCSession jb4DCSession = JB4DCSessionUtility.getSession();
 
-        List<DictionaryEntity> dictionaryEntities = dictionaryRuntimeProxy.getDictionaryByGroup3Level("f476d653-0606-4cb7-8189-4e5beee1bf11");
+        List<DictionaryEntity> dictionaryEntities = dictionaryRuntimeRemote.getDictionaryByGroup3Level("f476d653-0606-4cb7-8189-4e5beee1bf11").getData();
 
         /*for (int i = 0; i < 200; i++) {
             EventInfoEntity eventInfoEntity=new EventInfoEntity();

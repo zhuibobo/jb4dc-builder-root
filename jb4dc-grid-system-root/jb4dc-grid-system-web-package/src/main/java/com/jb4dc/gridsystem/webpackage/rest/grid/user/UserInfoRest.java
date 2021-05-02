@@ -3,7 +3,7 @@ package com.jb4dc.gridsystem.webpackage.rest.grid.user;
 import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
 import com.jb4dc.core.base.session.JB4DCSession;
 import com.jb4dc.core.base.vo.JBuild4DCResponseVo;
-import com.jb4dc.gridsystem.cache.GridCacheManager;
+//import com.jb4dc.gridsystem.cache.GridCacheManager;
 import com.jb4dc.gridsystem.dbentities.gridinfo.GridInfoEntity;
 import com.jb4dc.gridsystem.service.gridinfo.IGridInfoService;
 import com.jb4dc.gridsystem.service.proxy.UserLocationProxy;

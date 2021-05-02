@@ -13,7 +13,7 @@ public class WorkflowRuntimeTest extends RestTestBase {
 
     @Test
     public void flowModelIntegratedRuntimeRestGetMyStartEnableModel() throws Exception {
-        MockHttpServletRequestBuilder requestBuilder =get("/Rest/Workflow/RunTime/FlowModelIntegrated/GetMyStartEnableModel");
+        MockHttpServletRequestBuilder requestBuilder =get("/Rest/Workflow/RunTime/FlowModelIntegrated/GetMyBootableModel");
 
         requestBuilder.sessionAttr(JB4DCSessionUtility.UserLoginSessionKey,getSession());
         requestBuilder.param("userId","Alex4D");
@@ -30,7 +30,7 @@ public class WorkflowRuntimeTest extends RestTestBase {
 
         requestBuilder.sessionAttr(JB4DCSessionUtility.UserLoginSessionKey,getSession());
         requestBuilder.param("userId","Alex4D");
-        requestBuilder.param("modelKey","Flow_Model_097196106");
+        requestBuilder.param("modelKey","Flow_Model_1619519188394");
 
         MvcResult result=mockMvc.perform(requestBuilder).andReturn();
         //result.getResponse().setCharacterEncoding("UTF-8");

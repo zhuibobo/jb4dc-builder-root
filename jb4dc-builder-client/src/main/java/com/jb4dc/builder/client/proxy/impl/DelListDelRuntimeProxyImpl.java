@@ -1,9 +1,9 @@
 package com.jb4dc.builder.client.proxy.impl;
 
 import com.jb4dc.base.service.cache.IBuildGeneralObj;
-import com.jb4dc.builder.client.proxy.IListRuntimeProxy;
+import com.jb4dc.base.service.cache.JB4DCCacheManagerV2;
 import com.jb4dc.builder.client.remote.ListRuntimeRemote;
-import com.jb4dc.builder.client.proxy.RuntimeProxyBase;
+import com.jb4dc.builder.client.proxy.DelRuntimeProxyBase;
 import com.jb4dc.builder.client.service.weblist.IListResourceService;
 import com.jb4dc.builder.po.ListResourcePO;
 import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
@@ -18,7 +18,7 @@ import org.springframework.stereotype.Service;
  * To change this template use File | Settings | File Templates.
  */
 @Service
-public class ListRuntimeProxyImpl  extends RuntimeProxyBase implements IListRuntimeProxy {
+public class DelListDelRuntimeProxyImpl extends DelRuntimeProxyBase {
 
 
     @Autowired(required = false)
@@ -27,19 +27,20 @@ public class ListRuntimeProxyImpl  extends RuntimeProxyBase implements IListRunt
     @Autowired
     ListRuntimeRemote listRuntimeRemote;
 
-    @Override
     public ListResourcePO loadHTML(JB4DCSession jb4DCSession, String listId) throws JBuild4DCGenerallyException {
         try {
             ListResourcePO listResourcePO;
             if (listResourceService != null) {
                 listResourcePO = listResourceService.getListRuntimeHTMLContent(jb4DCSession,listId);
             } else {
-                listResourcePO=autoGetFromCache(this.getClass(), listId+"_loadHTML", new IBuildGeneralObj<ListResourcePO>() {
+                listResourcePO=jb4DCCacheManagerV2.autoGetFromCache(JB4DCCacheManagerV2.Jb4dPlatformBuilderClientCacheName,
+                        "Proxy",
+                        this.getClass(), "LoadHTML_"+listId, new IBuildGeneralObj<ListResourcePO>() {
                     @Override
                     public ListResourcePO BuildObj() throws JBuild4DCGenerallyException {
                         return listRuntimeRemote.loadHTML(listId).getData();
                     }
-                },ListResourcePO.class);
+                },ListResourcePO.class,JB4DCCacheManagerV2.DefExpirationTimeSeconds);
             }
             return listResourcePO;
         }
