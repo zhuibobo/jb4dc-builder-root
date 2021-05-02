@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <th:block th:replace="Fragment/GeneralLib::GeneralLib"></th:block>
+    <th:block th:replace="Fragment/GeneralLib::ThemesLib"></th:block>
+    <th:block th:replace="Fragment/GeneralLib::LineAwesomeLib"></th:block>
+</head>
+<body>
+<div id="appForm" class="general-edit-page-wrap" v-cloak>
+    <div style="width: 80%;float: left">
+        <i-form ref="formEntity" :model="formEntity" :rules="ruleValidate" :label-width="100">
+            <form-item label="分组名称：" prop="modelGroupText">
+                <i-input v-model="formEntity.modelGroupText"></i-input>
+            </form-item>
+            <form-item label="分组值：">
+                <i-input v-model="formEntity.modelGroupValue"></i-input>
+            </form-item>
+            <form-item label="创建时间：" class="margin-bottom-12-imp">
+                <row>
+                    <i-col span="10">
+                        <form-item prop="">
+                            <date-picker type="date" placeholder="" v-model="formEntity.modelGroupCreateTime"></date-picker>
+                        </form-item>
+                    </i-col>
+                    <i-col span="4" style="text-align: center">状态：</i-col>
+                    <i-col span="10">
+                        <form-item>
+                            <radio-group v-model="formEntity.modelGroupStatus">
+                                <radio label="启用">启用</radio>
+                                <radio label="禁用">禁用</radio>
+                            </radio-group>
+                        </form-item>
+                    </i-col>
+                </row>
+            </form-item>
+            <form-item label="备注：">
+                <i-input v-model="formEntity.modelGroupDesc" type="textarea" :autosize="{minRows: 16,maxRows: 16}"></i-input>
+            </form-item>
+        </i-form>
+    </div>
+    <div style="width: 19%;float: right">
+        <div style="border-radius: 8px;text-align: center;margin-top: 20px;margin-bottom: 30px">
+            <i :class="formEntity.modelGroupClassName" style="width: 64px;height: 64px;font-size: 64px;"></i>
+        </div>
+        <div style="padding:10px 0px;text-align: center;" @click="showSelectImageClassDialog">
+            <icon type="md-git-compare" size="52" style="color: #3399ff"></icon>
+            <p>选择图标</p>
+        </div>
+    </div>
+    <div class="button-outer-wrap">
+        <div class="button-inner-wrap">
+            <button-group>
+                <i-button type="primary" v-if="status!='view'" @click="handleSubmit('formEntity')" icon="md-checkmark">保存</i-button>
+                <i-button v-if="status!='view'" @click="handleClose()" icon="md-close">取消</i-button>
+            </button-group>
+        </div>
+    </div>
+</div>
+<script>
+    var appForm = new Vue({
+        el:"#appForm",
+        data: {
+            acInterface:{
+                getDataUrl:"/Rest/WorkFlow/Model/ModelGroup/GetDetailData",
+                saveDataUrl:"/Rest/WorkFlow/Model/ModelGroup/SaveEdit"
+            },
+            recordId:BaseUtility.GetUrlParaValue("recordId"),
+            exObjectsJson:{OrganType:[]},
+            formEntity: {
+                modelGroupId:"",
+                modelGroupValue:"", //分组的键值:必须唯一
+                modelGroupText:"", //分组的名称
+                modelGroupOrderNum:"", //排序号
+                modelGroupCreateTime:DateUtility.GetCurrentData(), //创建时间
+                modelGroupDesc:"", //备注
+                modelGroupStatus:"启用", //状态:启用,禁用
+                modelGroupParentId:BaseUtility.GetUrlParaValue("parentId"), //父节点的ID
+                modelGroupIsSystem:"否", //是否是系统分组
+                modelGroupDelEnable:"", //能否删除
+                modelGroupClassName:"las la-stream", //样式类名
+                modelGroupParentIdList:"", //父节点列表
+                modelGroupChildCount:"" //子节点数量
+            },
+            ruleValidate: {
+                modelGroupText: [
+                    { required: true, message: '【分组名称】不能空！', trigger: 'blur' }
+                ]
+            },
+            status:BaseUtility.GetUrlParaValue("op"),
+            logoImageSrc:""
+        },
+        mounted:function () {
+            this.bindFormData();
+        },
+        methods: {
+            bindFormData:function(){
+                //获取数据并赋值
+                DetailPageUtility.BindFormData(this.acInterface.getDataUrl, this.formEntity, this.recordId, this.status,null,function (result) {
+                    appForm.exObjectsJson.OrganType=result.exKVData.exObjectsJson.OrganType;
+                    if(appForm.status=="add") {
+                        //appForm.formEntity.organTypeValue = appForm.exObjectsJson.OrganType[0].organTypeValue;
+                        //appForm.logoImageSrc = BaseUtility.BuildAction(appForm.acInterface.organLogoUrl, {fileId: "defaultLogoImage"});
+                    }
+                    else {
+                        //appForm.logoImageSrc = BaseUtility.BuildAction(appForm.acInterface.organLogoUrl, {fileId: appForm.formEntity.organMainImageId});
+                    }
+                });
+            },
+            handleSubmit: function (name) {
+                var _self=this;
+                this.$refs[name].validate(function (valid) {
+                    if (valid) {
+                        var sendData=JSON.stringify(_self.formEntity);
+                        AjaxUtility.PostRequestBody(_self.acInterface.saveDataUrl,sendData,function (result) {
+                            DialogUtility.Alert(window,DialogUtility.DialogAlertId,{},result.message,function () {
+                                if(result.success) {
+                                    if (appForm.status == "add") {
+                                        window.OpenerWindowObj.appList.newTreeTableNode(_self.formEntity);
+                                    }
+                                    else if (appForm.status == "update") {
+                                        window.OpenerWindowObj.appList.updateTreeTableNode(_self.formEntity);
+                                    }
+                                }
+                                DialogUtility.Frame_CloseDialog(window);
+                            });
+                        },this);
+                    } else {
+                        this.$Message.error('Fail!');
+                    }
+                })
+            },
+            handleClose: function () {
+                DialogUtility.Frame_CloseDialog(window);
+            },
+            showSelectImageClassDialog:function (){
+                DialogUtility.ShowSelectImageClassDialog({},"appForm.selectImageClassEnd","appList.selectImageClassEnd");
+            },
+            selectImageClassEnd:function (className){
+                //debugger;
+                if(className){
+                    this.formEntity.modelGroupClassName=className;
+                }
+            }
+        }
+    });
+</script>
+</body>
+</html>
