@@ -2,11 +2,13 @@ import {RemoteUtility} from '../../Remote/RemoteUtility';
 
 class CodeMirrorUtility{
     static TryResolveCodeMirrorValueToMarkText(codeMirrorInstance,sourceTextAreaElem,resolveSourceObject) {
-
+        debugger;
+        console.log("1");
         var doc = codeMirrorInstance.getDoc();
         var editValue=doc.getValue();
         doc.setValue(editValue);
-        var reg = new RegExp("\\$\\{[TableField|EnvVar][^\\}]*\\}", "g");
+        //var reg = new RegExp("\\$\\{[TableField|EnvVar][^\\}]*\\}", "g");
+        var reg = new RegExp("\\$\\{[TableField|EnvVar][^\\}]*\\}|@\\[[^\\}]*]", "g");
         var result = "";
 
 

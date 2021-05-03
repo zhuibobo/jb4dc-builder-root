@@ -192,7 +192,7 @@
         },
         methods:{
             insertCodeAtCursor(mayBeFromTask,action) {
-                var editValue = "LastAction=${FlowAction." + mayBeFromTask.taskId + "." + action.actionCode + '}';
+                var editValue = "${LastAction==\"@[FlowAction." + mayBeFromTask.taskId + "." + action.actionCode + ']\"}';
                 var doc = this.selectedCodeMirror.getDoc();
                 var cursor = doc.getCursor();
                 doc.replaceRange(editValue, cursor);
@@ -280,7 +280,7 @@
                     _self.bpmn.conditionExpression=result.editValue;
                     var doc = _self.selectedCodeMirror.getDoc();
                     doc.setValue(_self.bpmn.conditionExpression);
-                    CodeMirrorUtility.TryResolveCodeMirrorValueToMarkText(_self.selectedCodeMirror,_self.$refs.txtSequenceFlowConditionEditValue);
+                    CodeMirrorUtility.TryResolveCodeMirrorValueToMarkText(_self.selectedCodeMirror,_self.$refs.txtSequenceFlowConditionEditValue,_self.mayBeFromTaskList);
                 });
             },
             getValue(){
