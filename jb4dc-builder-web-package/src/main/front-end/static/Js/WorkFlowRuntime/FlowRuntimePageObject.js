@@ -39,7 +39,9 @@ let FlowRuntimePageObject={
 
         if(flowModelRuntimePO.jb4dcContentDocumentPlugin=="uploadConvertToPDFPlugin"){
             tabContainer.append("<div class=\"wysiwyg-wfdct-tabs-label wfdct-tabs-label-runtime\" tab_id=\"tab_content_uploadConvertToPDFPlugin_999\">正文</div>");
-            tabContainer.append("<div class=\"wysiwyg-wfdct-tabs-content wfdct-tabs-content-runtime\" id=\"tab_content_uploadConvertToPDFPlugin_999\"></div>");
+            tabContainer.append("<div class=\"wysiwyg-wfdct-tabs-content wfdct-tabs-content-runtime\" id=\"tab_content_uploadConvertToPDFPlugin_999\">" +
+                DocumentContentUploadConvertToPDFPlugin.getHtmlElem()+
+                "</div>");
         }
         else if(flowModelRuntimePO.jb4dcContentDocumentPlugin=="wpsOnlineDocumentPlugin"){
             tabContainer.append("<div class=\"wysiwyg-wfdct-tabs-label wfdct-tabs-label-runtime\" tab_id=\"tab_content_wpsOnlineDocumentPlugin_999\">正文</div>");

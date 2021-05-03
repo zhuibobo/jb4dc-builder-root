@@ -433,43 +433,43 @@ public class WorkflowIntegrateTest extends RestTestBase {
         Task task = taskQuery.singleResult();
 
         //串行处理,设置Collection集合对象,设置Collection的Element Variable的变量为assignee,作为接受人的${assignee}变量
-        Map<String,Object> vars=new HashMap<>();
-        vars.put("act","送分管领导");
-        List<String> assigneeList=new ArrayList<>();
+        Map<String, Object> vars = new HashMap<>();
+        vars.put("act", "送分管领导");
+        List<String> assigneeList = new ArrayList<>();
         assigneeList.add("User003");
         assigneeList.add("User004");
         assigneeList.add("User005");
         assigneeList.add("User006");
         assigneeList.add("User007");
-        vars.put("assigneeList",assigneeList);
-        taskService.complete(task.getId(),vars);
+        vars.put("assigneeList", assigneeList);
+        taskService.complete(task.getId(), vars);
 
         //多人实例数量
         //List<Execution> executionList=processEngine.getRuntimeService().createProcessInstanceQuery().active().processInstanceBusinessKey("P004_002_bpmn").list();
-        List<ProcessInstance> processInstance=processEngine.getRuntimeService().createProcessInstanceQuery().active().processInstanceBusinessKey("P004_002_bpmn").list();
-        List<Execution> executionList=processEngine.getRuntimeService().createExecutionQuery().processInstanceId(processInstance.get(0).getId()).list();
-        Assert.assertEquals(1,processInstance.size());
+        List<ProcessInstance> processInstance = processEngine.getRuntimeService().createProcessInstanceQuery().active().processInstanceBusinessKey("P004_002_bpmn").list();
+        List<Execution> executionList = processEngine.getRuntimeService().createExecutionQuery().processInstanceId(processInstance.get(0).getId()).list();
+        Assert.assertEquals(1, processInstance.size());
 
-        Execution newEx=executionList.stream().filter(ex->!((ExecutionEntity)ex).isProcessInstanceExecution()).findFirst().get();
+        Execution newEx = executionList.stream().filter(ex -> !((ExecutionEntity) ex).isProcessInstanceExecution()).findFirst().get();
 
-        Assert.assertEquals(true, iFlowEngineExecutionIntegratedService.isMultiInstance(getSession(),newEx.getId()));
+        Assert.assertEquals(true, iFlowEngineExecutionIntegratedService.isMultiInstance(getSession(), newEx.getId()));
 
-        Assert.assertEquals(5, iFlowEngineExecutionIntegratedService.multiCountEngInstances(getSession(),newEx.getId()));
-        Assert.assertEquals(0, iFlowEngineExecutionIntegratedService.multiCompletedInstances(getSession(),newEx.getId()));
-        Assert.assertEquals(5, iFlowEngineExecutionIntegratedService.multiActiveInstances(getSession(),newEx.getId()));
+        Assert.assertEquals(5, iFlowEngineExecutionIntegratedService.multiCountEngInstances(getSession(), newEx.getId()));
+        Assert.assertEquals(0, iFlowEngineExecutionIntegratedService.multiCompletedInstances(getSession(), newEx.getId()));
+        Assert.assertEquals(5, iFlowEngineExecutionIntegratedService.multiActiveInstances(getSession(), newEx.getId()));
 
         taskQuery = taskService.createTaskQuery().taskAssignee("User003");
         Task taskUser003 = taskQuery.singleResult();
-        Assert.assertEquals("分管领导",taskUser003.getName());
-        taskService.complete(taskUser003.getId(),vars);
+        Assert.assertEquals("分管领导", taskUser003.getName());
+        taskService.complete(taskUser003.getId(), vars);
 
         taskQuery = taskService.createTaskQuery().taskAssignee("User004");
         task = taskQuery.singleResult();
-        Assert.assertEquals("分管领导",task.getName());
+        Assert.assertEquals("分管领导", task.getName());
 
-        Assert.assertEquals(5, iFlowEngineExecutionIntegratedService.multiCountEngInstances(getSession(),newEx.getId()));
-        Assert.assertEquals(1, iFlowEngineExecutionIntegratedService.multiCompletedInstances(getSession(),newEx.getId()));
-        Assert.assertEquals(4, iFlowEngineExecutionIntegratedService.multiActiveInstances(getSession(),newEx.getId()));
+        Assert.assertEquals(5, iFlowEngineExecutionIntegratedService.multiCountEngInstances(getSession(), newEx.getId()));
+        Assert.assertEquals(1, iFlowEngineExecutionIntegratedService.multiCompletedInstances(getSession(), newEx.getId()));
+        Assert.assertEquals(4, iFlowEngineExecutionIntegratedService.multiActiveInstances(getSession(), newEx.getId()));
     }
 
     @Test
@@ -529,6 +529,8 @@ public class WorkflowIntegrateTest extends RestTestBase {
         vars.put("UserId","User009");
         task = taskService.createTaskQuery().taskAssignee("User007").singleResult();
         taskService.complete(task.getId(),vars);
+
+
 
         task = taskService.createTaskQuery().taskAssignee("User009").singleResult();
         Assert.assertEquals("经办人1",task.getName());

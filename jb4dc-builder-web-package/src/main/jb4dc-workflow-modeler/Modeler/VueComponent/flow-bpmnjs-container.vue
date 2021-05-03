@@ -101,6 +101,8 @@
                     Op: BaseUtility.GetUrlOPParaValue(),
                     TemplateName: BaseUtility.GetUrlParaValue("templateName")
                 }, flowModelIntegratedPO.modelContent,flowModelIntegratedPO.modelerTemplateContent);
+                console.log("--ZoomAuto--");
+                //flowBpmnJsIntegrated.ZoomAuto();
             },
             logXML () {
                 flowBpmnJsIntegrated.LogXML();

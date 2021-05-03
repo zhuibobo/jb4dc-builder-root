@@ -90,6 +90,7 @@ class FlowBpmnJsIntegrated {
                 if (BaseUtility.IsAddOperation(this.setting.Op)) {
                     //BpmnJsUtility.BPMN_Attr_SetId(BpmnJsUtility.GetProcessElement(this.modeler), "Model_WD_" + StringUtility.Timestamp());
                 }
+                this.modeler.get('canvas').zoom('fit-viewport', 'auto');
                 //console.log(this.modeler._definitions);
             }
         });
