@@ -13,8 +13,6 @@
             <div class="list-button-inner-wrap">
                 <button-group>
                     <i-button type="success" @click="showAddActionDialog(null)" icon="md-add"> </i-button>
-                    <i-button type="primary" @click="move('up')" icon="md-arrow-up" disabled>  </i-button>
-                    <i-button type="primary" @click="move('down')" icon="md-arrow-down" disabled>  </i-button>
                 </button-group>
             </div>
             <div style="clear: both"></div>
@@ -22,6 +20,12 @@
         <i-table border :columns="addedActionConfig" :data="addedActionData"
                  class="iv-list-table" size="small" no-data-text="add listeners" height="420">
             <template slot-scope="{ row, index }" slot="action">
+                <div class="wf-list-font-icon-button-class" @click="moveDownAction(index,row)">
+                    <Icon type="md-arrow-round-down" />
+                </div>
+                <div class="wf-list-font-icon-button-class" @click="moveUpAction(index,row)">
+                    <Icon type="md-arrow-round-up" />
+                </div>
                 <div class="wf-list-font-icon-button-class" @click="deleteAction(index,row)">
                     <Icon type="md-close" />
                 </div>
@@ -575,7 +579,7 @@
                         title: '弹出意见',
                         key: 'actionShowOpinionDialog',
                         align: "center",
-                        width: 120
+                        width: 100
                     },
                     {
                         title: 'HTML ID',
@@ -586,7 +590,7 @@
                     {
                         title: '操作',
                         slot: 'action',
-                        width: 120,
+                        width: 160,
                         align: "center"
                     }
                 ],
@@ -671,7 +675,7 @@
                 //console.log(this.propFromId);
                 var _self = this;
                 var formId = flowBpmnJsIntegrated.TryGetFormId(this.propFromId);
-                this.$refs.contextVarJuelEditDialog.beginEditContextJuel("编辑显示条件", this.actionInnerDetailInfo.actionDisplayConditionEditText, formId, function (result) {
+                this.$refs.contextVarJuelEditDialog.beginEditContextJuel("编辑显示条件", this.actionInnerDetailInfo.actionDisplayConditionEditValue, formId, function (result) {
                     _self.actionInnerDetailInfo.actionDisplayConditionEditText = result.editText;
                     _self.actionInnerDetailInfo.actionDisplayConditionEditValue = result.editValue;
                 });
@@ -730,6 +734,25 @@
                 });
                 console.log(cloneInnerDetailInfo);
                 this.showAddActionDialog(cloneInnerDetailInfo);
+            },
+            moveUpAction:function(index,params){
+                //for(var i=0;i<this.tableData.length;i++) {
+                    //if(this.tableData[i].id==id) {
+                        ArrayUtility.MoveUp(this.addedActionData,index);
+                        return;
+                        //console.log(id);
+                    //}
+                //}
+            },
+            moveDownAction:function(index,params){
+                //console.log(this.tableData);
+                //for(var i=0;i<this.tableData.length;i++) {
+                    //if(this.tableData[i].id==id) {
+                        ArrayUtility.MoveDown(this.addedActionData,index);
+                        //return
+                        //console.log(id);
+                    //}
+                //}
             },
             completeEditAction() {
                 if (this.field.editTableObject) {

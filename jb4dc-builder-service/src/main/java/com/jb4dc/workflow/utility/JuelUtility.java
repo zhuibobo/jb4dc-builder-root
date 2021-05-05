@@ -1,12 +1,52 @@
 package com.jb4dc.workflow.utility;
 
+import com.jb4dc.base.service.general.JB4DCSessionUtility;
+import com.jb4dc.core.base.session.JB4DCSession;
+import com.jb4dc.workflow.po.JuelRunResult;
 import de.odysseus.el.ExpressionFactoryImpl;
 import de.odysseus.el.util.SimpleContext;
 
 import javax.el.ExpressionFactory;
 import javax.el.ValueExpression;
+import java.util.Map;
 
 public class JuelUtility {
+
+    public static JuelRunResult buildStringExpression(JB4DCSession jb4DCSession, String expression, Map<String,Object> vars) {
+        try {
+            ExpressionFactory factory = new ExpressionFactoryImpl();
+            SimpleContext context = new SimpleContext();
+
+            for (Map.Entry<String, Object> stringObjectEntry : vars.entrySet()) {
+                context.setVariable(stringObjectEntry.getKey(), factory.createValueExpression(stringObjectEntry.getValue().toString(), String.class));
+            }
+
+            ValueExpression e = factory.createValueExpression(context, expression, String.class);
+            String result=String.valueOf(e.getValue(context));
+            return new JuelRunResult(true,"",result,false);
+        }
+        catch (Exception ex){
+            return new JuelRunResult(false,ex.getMessage(),"",false);
+        }
+    }
+
+    public static JuelRunResult buildBoolExpression(JB4DCSession jb4DCSession, String expression, Map<String,Object> vars) {
+        try {
+            ExpressionFactory factory = new ExpressionFactoryImpl();
+            SimpleContext context = new SimpleContext();
+
+            for (Map.Entry<String, Object> stringObjectEntry : vars.entrySet()) {
+                context.setVariable(stringObjectEntry.getKey(), factory.createValueExpression(stringObjectEntry.getValue().toString(), String.class));
+            }
+
+            ValueExpression e = factory.createValueExpression(context, expression, boolean.class);
+            boolean result = (Boolean) e.getValue(context);
+            return new JuelRunResult(true, "", "", result);
+        } catch (Exception ex) {
+            return new JuelRunResult(false, ex.getMessage(), "", false);
+        }
+    }
+
     public static String demo1() {
         ExpressionFactory factory = new ExpressionFactoryImpl();
         SimpleContext context = new SimpleContext();

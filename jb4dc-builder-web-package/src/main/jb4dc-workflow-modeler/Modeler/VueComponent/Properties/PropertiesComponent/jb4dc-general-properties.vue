@@ -14,6 +14,12 @@
                         </colgroup>
                         <tbody>
                         <tr>
+                            <td>编号：</td>
+                            <td colspan="4">
+                                <input type="text" v-model="jb4dc.jb4dcCode" />
+                            </td>
+                        </tr>
+                        <tr>
                             <td>表单插件：</td>
                             <td>
                                 <radio-group type="button" style="margin: auto" v-model="jb4dc.jb4dcFormPlugin">
@@ -24,10 +30,12 @@
                                 </radio-group>
                             </td>
                             <td>绑定表单：</td>
-                            <td colspan="4">
+                            <td>
                                 <Select v-model="jb4dc.jb4dcFormId" style="width:308px" @on-change="changeBindForm" :clearable="true">
                                     <Option v-for="item in formResourcePOList" :value="item.formId" :key="item.formId">【{{ item.formCode }}】{{ item.formName }}</Option>
                                 </Select>
+                            </td>
+                            <td>
                                 <Button type="primary" disabled>编辑</Button>
                             </td>
                         </tr>
@@ -40,35 +48,9 @@
                             </td>
                         </tr>
                         <tr>
-                            <td>扩充表单1插件：</td>
-                            <td>
-                                <radio-group type="button" style="margin: auto" v-model="jb4dc.jb4dcFormEx1Plugin">
-                                    <radio label="webFormPlugin">表单</radio>
-                                    <radio label="webListPlugin" disabled>列表</radio>
-                                    <radio label="webChartPlugin" disabled>图表</radio>
-                                    <radio label="webReportPlugin" disabled>报表</radio>
-                                </radio-group>
-                            </td>
-                            <td>绑定扩充表单1：</td>
-                            <td colspan="2">
-                                <Select v-model="jb4dc.jb4dcFormEx1Id" style="width:308px" @on-change="changeBindForm" :clearable="true">
-                                    <Option v-for="item in formResourcePOList" :value="item.formId" :key="item.formId">【{{ item.formCode }}】{{ item.formName }}</Option>
-                                </Select>
-                                <Button type="primary" disabled>编辑</Button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                扩充表单1参数：
-                            </td>
-                            <td colspan="4">
-                                <input type="text" v-model="jb4dc.jb4dcFormEx1Paras" />
-                            </td>
-                        </tr>
-                        <tr>
                             <td rowspan="2">流程标题：</td>
                             <td colspan="3">
-                                <textarea v-model="jb4dc.jb4dcProcessTitleEditText" rows="2" disabled="disabled"></textarea>
+                                <textarea v-model="jb4dc.jb4dcProcessTitleEditText" rows="3" disabled="disabled"></textarea>
                             </td>
                             <td rowspan="2">
                                 <Button type="primary" @click="beginEditContextJuelForFlowProcessTitle">编辑</Button>
@@ -76,7 +58,7 @@
                         </tr>
                         <tr>
                             <td colspan="3" style="background-color: #fff">
-                                <textarea v-model="jb4dc.jb4dcProcessTitleEditValue" rows="1" disabled="disabled"></textarea>
+                                <textarea v-model="jb4dc.jb4dcProcessTitleEditValue" rows="3" disabled="disabled"></textarea>
                             </td>
                         </tr>
                         </tbody>
@@ -137,9 +119,29 @@
                         </colgroup>
                         <tbody>
                         <tr>
-                            <td>编号：</td>
+                            <td>扩充表单1插件：</td>
+                            <td>
+                                <radio-group type="button" style="margin: auto" v-model="jb4dc.jb4dcFormEx1Plugin">
+                                    <radio label="webFormPlugin">表单</radio>
+                                    <radio label="webListPlugin" disabled>列表</radio>
+                                    <radio label="webChartPlugin" disabled>图表</radio>
+                                    <radio label="webReportPlugin" disabled>报表</radio>
+                                </radio-group>
+                            </td>
+                            <td>绑定扩充表单1：</td>
+                            <td colspan="2">
+                                <Select v-model="jb4dc.jb4dcFormEx1Id" style="width:308px" @on-change="changeBindForm" :clearable="true">
+                                    <Option v-for="item in formResourcePOList" :value="item.formId" :key="item.formId">【{{ item.formCode }}】{{ item.formName }}</Option>
+                                </Select>
+                                <Button type="primary" disabled>编辑</Button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                扩充表单1参数：
+                            </td>
                             <td colspan="4">
-                                <input type="text" v-model="jb4dc.jb4dcCode" />
+                                <input type="text" v-model="jb4dc.jb4dcFormEx1Paras" />
                             </td>
                         </tr>
                         <tr>

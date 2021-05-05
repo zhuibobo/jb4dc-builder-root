@@ -53,10 +53,10 @@ public class FlowModelIntegratedRest extends GeneralRest<ModelIntegratedEntity> 
             value = {"/GetFlowModel"},
             method = {RequestMethod.POST}
     )
-    public JBuild4DCResponseVo<FlowModelIntegratedPO> getFlowModel(String recordId, String op, String templateName) throws IllegalAccessException, InstantiationException, JsonProcessingException, IOException, JBuild4DCGenerallyException, URISyntaxException {
+    public JBuild4DCResponseVo<FlowModelIntegratedPO> getFlowModel(String modelReKey, String op, String templateName) throws IllegalAccessException, InstantiationException, JsonProcessingException, IOException, JBuild4DCGenerallyException, URISyntaxException {
         JBuild4DCResponseVo responseVo = new JBuild4DCResponseVo();
-        if (StringUtility.isEmpty(recordId)) {
-            recordId = UUIDUtility.getUUID();
+        if (StringUtility.isEmpty(modelReKey)) {
+            String recordId = UUIDUtility.getUUID();
             FlowModelIntegratedPO flowModelIntegratedPO =new FlowModelIntegratedPO();
             responseVo.addExKVData("recordId", recordId);
             flowModelIntegratedPO.setModelId(recordId);
@@ -64,8 +64,8 @@ public class FlowModelIntegratedRest extends GeneralRest<ModelIntegratedEntity> 
             responseVo.setData(flowModelIntegratedPO);
         } else {
             JB4DCSession jb4DSession = JB4DCSessionUtility.getSession();
-            FlowModelIntegratedPO flowModelIntegratedPO = flowExtendModelService.getPOByIntegratedId(jb4DSession, recordId);
-            responseVo.addExKVData("recordId", recordId);
+            FlowModelIntegratedPO flowModelIntegratedPO = flowExtendModelService.getLastPOByModelReKey(jb4DSession, modelReKey);
+            responseVo.addExKVData("recordId", flowModelIntegratedPO.getModelId());
             responseVo.setData(flowModelIntegratedPO);
         }
 

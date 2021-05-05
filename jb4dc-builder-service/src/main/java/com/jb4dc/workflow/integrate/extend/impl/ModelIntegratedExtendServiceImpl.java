@@ -509,6 +509,15 @@ public class ModelIntegratedExtendServiceImpl extends BaseServiceImpl<ModelInteg
         return result;
     }
 
+    @Override
+    public FlowModelIntegratedPO getLastPOByModelReKey(JB4DCSession jb4DSession, String modelReKey) throws IOException {
+        ModelIntegratedEntity modelIntegratedEntity = getLastSaveModelIntegratedEntity(jb4DSession, modelReKey);
+        if (modelIntegratedEntity != null) {
+            return FlowModelIntegratedPO.parseToPO(modelIntegratedEntity);
+        }
+        return null;
+    }
+
     //private List<ModelAssObjectEntity> buildModelAssObjectEntity
     /*@Override
     public BpmnDefinitions parseToPO(String xml) throws JAXBException, XMLStreamException {

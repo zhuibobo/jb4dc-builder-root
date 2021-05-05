@@ -174,11 +174,11 @@ Vue.component("module-list-workflow-comp", {
                 DialogUtility.Alert(window, DialogUtility.DialogAlertId, {}, "请选择模块!", null);
             }
         },
-        edit: function (recordId) {
+        edit: function (recordId,params) {
             //debugger;
             var url = BaseUtility.BuildView(this.acInterface.editView, {
                 "op": "update",
-                "recordId": recordId,
+                "modelReKey": params.row.modelReKey,
                 "moduleId": this.moduleData.moduleId
             });
             //DialogUtility.OpenNewWindow(window, DialogUtility.DialogId, url, {width: 0, height: 0}, 2);

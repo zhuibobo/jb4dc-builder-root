@@ -36,4 +36,6 @@ public interface IModelIntegratedExtendService extends IBaseService<ModelIntegra
     List<ModelIntegratedEntity> getMyStartEnableModel(JB4DCSession session);
 
     FlowModelRuntimePO getRuntimeModelWithStart(JB4DCSession session, String modelKey) throws IOException, JAXBException, XMLStreamException, JBuild4DCGenerallyException;
+
+    FlowModelIntegratedPO getLastPOByModelReKey(JB4DCSession jb4DSession, String modelReKey) throws IOException;
 }

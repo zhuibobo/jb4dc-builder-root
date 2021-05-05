@@ -217,10 +217,10 @@ class RemoteUtility{
         return promise;
     }
 
-    static GetFlowModel(recordId,op,templateName,callbackFunc){
+    static GetFlowModel(modelReKey,op,templateName,callbackFunc){
         var url=this.BuildUrl(this.acInterface.getDataUrl);
         axios.post(url, qs.stringify({
-            "recordId":recordId,
+            "modelReKey":modelReKey,
             "op":op,
             "templateName":templateName
         })).then( (result) => {

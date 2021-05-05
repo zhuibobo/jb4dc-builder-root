@@ -147,10 +147,10 @@
                 this.isLoading = true;
                 this.oldSelectedTabName = this.selectedTabName;
                 var moduleId = BaseUtility.GetUrlParaValue("moduleId");
-                var recordId = BaseUtility.GetUrlParaValue("recordId");
+                var modelReKey = BaseUtility.GetUrlParaValue("modelReKey");
                 var op = BaseUtility.GetUrlParaValue("op");
                 RemoteUtility.TryLoadModuleContext(moduleId);
-                RemoteUtility.GetFlowModel(recordId, op, BaseUtility.GetUrlParaValue("templateName"), (flowModelPO) => {
+                RemoteUtility.GetFlowModel(modelReKey, op, BaseUtility.GetUrlParaValue("templateName"), (flowModelPO) => {
                     this.flowModelIntegratedPO = flowModelPO;
                     this.flowModelIntegratedPO.modelModuleId = BaseUtility.GetUrlParaValue("moduleId");
                     console.log(this.flowModelIntegratedPO);

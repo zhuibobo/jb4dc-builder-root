@@ -1452,7 +1452,8 @@ class BpmnJsUtility {
                 taskElem: userTaskElem,
                 taskName:userTaskElem.businessObject.name,
                 taskId:userTaskElem.businessObject.id,
-                actionArray: actionArray
+                actionArray: actionArray,
+                formId:BpmnJsUtility.JB4DC_Attr_GetJb4dcFormId(userTaskElem)
             });
             //console.log(actionArray);
         }

@@ -47,7 +47,12 @@
                                 <div class="sfp-task-action-group" v-for="mayBeFromTask in mayBeFromTaskList">
                                     <div class="sfp-tag-task-name">{{mayBeFromTask.taskName}}</div>
                                     <div class="sfp-tag-task-action-inner-group">
-                                        <div class="sfp-tag-task-action" v-for="action in mayBeFromTask.actionArray" @click="insertCodeAtCursor(mayBeFromTask,action)">{{action.actionCaption}}</div>
+                                        <!--<ButtonGroup style="margin: 4px" v-for="action in mayBeFromTask.actionArray">
+                                            <Button type="primary" ghost>{{action.actionCaption}}</Button>
+                                            <Button type="success" @click="insertCodeAtCursor(mayBeFromTask,action)"><Icon type="ios-git-pull-request" />追加</Button>
+                                            <Button type="success" @click="clearAndInsertCodeAtCursor(mayBeFromTask,action)"><Icon type="ios-git-compare" />覆盖</Button>
+                                        </ButtonGroup>-->
+                                        <div class="sfp-tag-task-action" v-for="action in mayBeFromTask.actionArray" @click="clearAndInsertCodeAtCursor(mayBeFromTask,action)">{{action.actionCaption}}</div>
                                     </div>
                                 </div>
                                 <!--<div class="sfp-task-action-group">
@@ -192,7 +197,8 @@
         },
         methods:{
             insertCodeAtCursor(mayBeFromTask,action) {
-                var editValue = "${LastAction==\"@[FlowAction." + mayBeFromTask.taskId + "." + action.actionCode + ']\"}';
+                //var editValue = "${LastActionId==\"@[FlowAction." + mayBeFromTask.taskId + "." + action.actionCode + ']\"}';
+                var editValue = "${LastActionKey==\"__$FlowAction$$" + mayBeFromTask.taskId + "$$" + action.actionCode + '$\"}';
                 var doc = this.selectedCodeMirror.getDoc();
                 var cursor = doc.getCursor();
                 doc.replaceRange(editValue, cursor);
@@ -264,6 +270,10 @@
                 console.log(doc.getSelection());*/
                 //#endregion
             },
+            clearAndInsertCodeAtCursor(mayBeFromTask,action){
+                this.selectedCodeMirror.setValue("");
+                this.insertCodeAtCursor(mayBeFromTask,action);
+            },
             tryResolveConditionTextToValue(conditionText){
 
             },
@@ -274,16 +284,22 @@
             },
             beginEditContextJuelForSequenceFlowCondition(){
                 var _self=this;
-                var formId=flowBpmnJsIntegrated.TryGetFormId("");
+                //console.log(_self.mayBeFromTaskList);
+                var formId=flowBpmnJsIntegrated.TryGetFormId(_self.mayBeFromTaskList[0].formId);
+                //console.log(formId);
                 this.$refs.contextVarJuelEditDialog.beginEditContextJuel("编辑执行条件",this.bpmn.conditionExpression,formId,function(result){
                     _self.jb4dc.jb4dcSequenceFlowConditionEditText=result.editText;
                     _self.bpmn.conditionExpression=result.editValue;
                     var doc = _self.selectedCodeMirror.getDoc();
                     doc.setValue(_self.bpmn.conditionExpression);
                     CodeMirrorUtility.TryResolveCodeMirrorValueToMarkText(_self.selectedCodeMirror,_self.$refs.txtSequenceFlowConditionEditValue,_self.mayBeFromTaskList);
-                });
+                },this.mayBeFromTaskList);
             },
             getValue(){
+                var editResult=CodeMirrorUtility.TryResolveCodeMirrorValueToMarkText(this.selectedCodeMirror,this.$refs.txtSequenceFlowConditionEditValue,this.mayBeFromTaskList);
+                this.jb4dc.jb4dcSequenceFlowConditionEditText=editResult.editText;
+                this.bpmn.conditionExpression=editResult.editValue;
+
                 var result= {
                     bpmn:this.bpmn,
                     camunda:this.camunda,

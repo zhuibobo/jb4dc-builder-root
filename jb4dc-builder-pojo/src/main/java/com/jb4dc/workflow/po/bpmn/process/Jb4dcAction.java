@@ -1,5 +1,6 @@
 package com.jb4dc.workflow.po.bpmn.process;
 
+import com.jb4dc.workflow.po.JuelRunResult;
 import com.jb4dc.workflow.po.bpmn.BpmnNs;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -31,6 +32,8 @@ public class Jb4dcAction {
 
     @XmlAttribute(name = "actionExecuteVariables")
     String actionExecuteVariables;
+
+    JuelRunResult juelRunResult;
 
     public String getActionType() {
         return actionType;

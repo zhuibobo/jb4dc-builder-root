@@ -10,9 +10,14 @@
                         <div style="margin: 8px">数据表：【<span style="color: red">{{tree.selectedTableName}}</span>】</div>
                         <i-table size="small" height="300" stripe border :columns="tableField.columnsConfig" :data="tableField.fieldData"
                                  class="iv-list-table" :highlight-row="true">
-                            <template slot-scope="{ row, index }" slot="action">
-                                <div class="wf-list-font-icon-button-class" @click="insertTableFieldToCodeMirror(row)">
-                                    <Icon type="ios-checkmark-circle" />
+                            <template slot-scope="{ row, index }" slot="actionBoolean">
+                                <div class="wf-list-font-icon-button-class" @click="insertTableFieldToCodeMirrorAsBoolean(row)">
+                                    <Icon type="md-checkmark-circle-outline" />
+                                </div>
+                            </template>
+                            <template slot-scope="{ row, index }" slot="actionString">
+                                <div class="wf-list-font-icon-button-class" @click="insertTableFieldToCodeMirrorAsString(row)">
+                                    <Icon type="md-checkmark-circle" />
                                 </div>
                             </template>
                         </i-table>
@@ -30,9 +35,14 @@
                         <div style="width: 73%;float: right;" class="iv-list-page-wrap">
                             <i-table :height="320" stripe border :columns="envVarColumnsConfig" :data="envVarTableData"
                                      class="iv-list-table" :highlight-row="true">
-                                <template slot-scope="{ row, index }" slot="action">
-                                    <div class="wf-list-font-icon-button-class" @click="insertEnvVarToEditor(row)">
-                                        <Icon type="ios-checkmark-circle" />
+                                <template slot-scope="{ row, index }" slot="actionBoolean">
+                                    <div class="wf-list-font-icon-button-class" @click="insertEnvVarToEditorAsBoolean(row)">
+                                        <Icon type="md-checkmark-circle-outline" />
+                                    </div>
+                                </template>
+                                <template slot-scope="{ row, index }" slot="actionString">
+                                    <div class="wf-list-font-icon-button-class" @click="insertEnvVarToEditorAsString(row)">
+                                        <Icon type="md-checkmark-circle" />
                                     </div>
                                 </template>
                             </i-table>
@@ -40,11 +50,98 @@
                     </div>
                 </tab-pane>
                 <tab-pane tab="flow-process-title-config-tabs" label="流程变量" name="FlowVar">
-                    <div style="margin-top: 8px">
-                        <Button type="info">发起人</Button>
-                        <Button type="info">环节名称</Button>
-                        <Button type="info">动作名称</Button>
-                        <Button type="info">.....</Button>
+                    <div style="margin-top: 8px;padding: 8px">
+                        <Row>
+                            <Col span="12">
+                                <ButtonGroup style="margin: 4px">
+                                    <Button type="primary" ghost>模型名称</Button>
+                                    <Button type="success" @click="insertFlowVarToEditorAsString('FlowVar$$ModelName')"><Icon type="md-checkmark-circle-outline" />字符串</Button>
+                                    <Button type="success" @click="insertFlowVarToEditorAsBoolean('FlowVar$$ModelName')"><Icon type="md-checkmark-circle-outline" />布尔值</Button>
+                                </ButtonGroup>
+                            </Col>
+                            <Col span="12">
+                                <ButtonGroup style="margin: 4px">
+                                    <Button type="primary" ghost>模型类别</Button>
+                                    <Button type="success" @click="insertFlowVarToEditorAsString('FlowVar$$ModelCategory')"><Icon type="md-checkmark-circle-outline" />字符串</Button>
+                                    <Button type="success" @click="insertFlowVarToEditorAsBoolean('FlowVar$$ModelCategory')"><Icon type="md-checkmark-circle-outline" />布尔值</Button>
+                                </ButtonGroup>
+                            </Col>
+                        </Row>
+                        <Row>
+                            <Col span="12">
+                                <ButtonGroup style="margin: 4px">
+                                    <Button type="primary" ghost>环节名称</Button>
+                                    <Button type="success" @click="insertFlowVarToEditorAsString('FlowVar$$NodeName')"><Icon type="md-checkmark-circle-outline" />字符串</Button>
+                                    <Button type="success" @click="insertFlowVarToEditorAsBoolean('FlowVar$$NodeName')"><Icon type="md-checkmark-circle-outline" />布尔值</Button>
+                                </ButtonGroup>
+                            </Col>
+                            <Col span="12">
+                                <ButtonGroup style="margin: 4px">
+                                    <Button type="primary" ghost>动作名称</Button>
+                                    <Button type="success" @click="insertFlowVarToEditorAsString('FlowVar$$LastActionName')"><Icon type="md-checkmark-circle-outline" />字符串</Button>
+                                    <Button type="success" @click="insertFlowVarToEditorAsBoolean('FlowVar$$LastActionName')"><Icon type="md-checkmark-circle-outline" />布尔值</Button>
+                                </ButtonGroup>
+                            </Col>
+                        </Row>
+                        <Row>
+                            <Col span="12">
+                                <ButtonGroup style="margin: 4px">
+                                    <Button type="primary" ghost>发起时间(yyyy-MM-dd)</Button>
+                                    <Button type="success" @click="insertFlowVarToEditorAsString('FlowVar$$InstanceCreatTime_yyyy_MM_dd')"><Icon type="md-checkmark-circle-outline" />字符串</Button>
+                                    <Button type="success" @click="insertFlowVarToEditorAsBoolean('FlowVar$$InstanceCreatTime_yyyy_MM_dd')"><Icon type="md-checkmark-circle-outline" />布尔值</Button>
+                                </ButtonGroup>
+                            </Col>
+                            <Col span="12">
+                                <ButtonGroup style="margin: 4px">
+                                    <Button type="primary" ghost>发起时间(yyyy-MM-dd HH:mm:ss)</Button>
+                                    <Button type="success" @click="insertFlowVarToEditorAsString('FlowVar$$InstanceCreatTime_yyyy_MM_dd_HH_mm_ss')"><Icon type="md-checkmark-circle-outline" />字符串</Button>
+                                    <Button type="success" @click="insertFlowVarToEditorAsBoolean('FlowVar$$InstanceCreatTime_yyyy_MM_dd_HH_mm_ss')"><Icon type="md-checkmark-circle-outline" />布尔值</Button>
+                                </ButtonGroup>
+                            </Col>
+                        </Row>
+                        <Row>
+                            <Col span="12">
+                                <ButtonGroup style="margin: 4px">
+                                    <Button type="primary" ghost>发起人角色ID串</Button>
+                                    <Button type="success" @click="insertFlowVarToEditorAsString('FlowVar$$CreatorRoleIdsString')"><Icon type="md-checkmark-circle-outline" />字符串</Button>
+                                    <Button type="success" @click="insertFlowVarToEditorAsBooleanContains('FlowVar$$CreatorRoleIdsString')"><Icon type="md-checkmark-circle-outline" />布尔值</Button>
+                                    <Button type="success" @click="insertFlowVarToEditorAsBooleanContainsOr2('FlowVar$$CreatorRoleIdsString')">Or2</Button>
+                                    <Button type="success" @click="insertFlowVarToEditorAsBooleanContainsAnd2('FlowVar$$CreatorRoleIdsString')">And2</Button>
+                                </ButtonGroup>
+                            </Col>
+                            <Col span="12">
+                                <ButtonGroup style="margin: 4px">
+                                    <Button type="primary" ghost>发起人角色名称串</Button>
+                                    <Button type="success" @click="insertFlowVarToEditorAsString('FlowVar$$CreatorRoleNamesString')"><Icon type="md-checkmark-circle-outline" />字符串</Button>
+                                    <Button type="success" @click="insertFlowVarToEditorAsBooleanContains('FlowVar$$CreatorRoleNamesString')"><Icon type="md-checkmark-circle-outline" />布尔值</Button>
+                                </ButtonGroup>
+                            </Col>
+                        </Row>
+                        <Row>
+                            <Col span="12">
+                                <ButtonGroup style="margin: 4px">
+                                    <Button type="primary" ghost>发起人姓名</Button>
+                                    <Button type="success" @click="insertFlowVarToEditorAsString('FlowVar$$InstanceCreator')"><Icon type="md-checkmark-circle-outline" />字符串</Button>
+                                    <Button type="success" @click="insertFlowVarToEditorAsBoolean('FlowVar$$InstanceCreator')"><Icon type="md-checkmark-circle-outline" />布尔值</Button>
+                                </ButtonGroup>
+                            </Col>
+                            <Col span="12">
+                                <ButtonGroup style="margin: 4px">
+                                    <Button type="primary" ghost>发起人所在组织</Button>
+                                    <Button type="success" @click="insertFlowVarToEditorAsString('FlowVar$$InstanceCreatorOrganName')"><Icon type="md-checkmark-circle-outline" />字符串</Button>
+                                    <Button type="success" @click="insertFlowVarToEditorAsBoolean('FlowVar$$InstanceCreatorOrganName')"><Icon type="md-checkmark-circle-outline" />布尔值</Button>
+                                </ButtonGroup>
+                            </Col>
+                        </Row>
+                        <Row>
+                            <Col span="24">
+                                <ButtonGroup style="margin: 4px">
+                                    <Button type="primary" ghost>默认标题</Button>
+                                    <Button type="success" @click="insertInstanceCaptionToEditor('template1')"><Icon type="md-checkmark-circle-outline" />模板1</Button>
+                                    <Button type="success" @click="insertInstanceCaptionToEditor('template2')"><Icon type="md-checkmark-circle-outline" />模板2</Button>
+                                </ButtonGroup>
+                            </Col>
+                        </Row>
                     </div>
                 </tab-pane>
             </tabs>
@@ -107,8 +204,13 @@
                             key: 'fieldCaption',
                             align: "center"
                         }, {
-                            title: '选择',
-                            slot: 'action',
+                            title: '布尔值',
+                            slot: 'actionBoolean',
+                            width: 80,
+                            align: 'center'
+                        }, {
+                            title: '字符串',
+                            slot: 'actionString',
                             width: 80,
                             align: 'center'
                         }
@@ -126,10 +228,16 @@
                         key: 'envVarValue',
                         align: "center"
                     }, {
-                        title: '操作',
-                        slot: 'action',
+                        title: '布尔值',
+                        slot: 'actionBoolean',
                         key: 'envVarId',
-                        width: 120,
+                        width: 80,
+                        align: "center"
+                    }, {
+                        title: '字符串',
+                        slot: 'actionString',
+                        key: 'envVarId',
+                        width: 80,
                         align: "center"
                     }
                 ],
@@ -164,15 +272,16 @@
                         DialogUtility.CloseDialogElem(_self.$refs.editDialogWrap);
                     },
                     "清空": function () {
-                        _self.editData="";
-                        if(typeof (_self.callBackFunc=="function")) {
-                            var result={
-                                editText:"",
-                                editValue:""
-                            };
-                            _self.callBackFunc(result);
-                        }
-                        DialogUtility.CloseDialogElem(_self.$refs.editDialogWrap);
+                        _self.selectedCodeMirror.setValue("");
+                        //_self.editData="";
+                        //if(typeof (_self.callBackFunc=="function")) {
+                        //    var result={
+                        //        editText:"",
+                        //        editValue:""
+                        //    };
+                        //    _self.callBackFunc(result);
+                        //}
+                        //DialogUtility.CloseDialogElem(_self.$refs.editDialogWrap);
                     },
                     "取消": function () {
                         DialogUtility.CloseDialogElem(_self.$refs.editDialogWrap);
@@ -315,16 +424,62 @@
                     replacedWith: htmlNode
                 });*/
             },
-            insertTableFieldToCodeMirror:function (fieldJson) {
-                console.log(fieldJson);
-                var editText='${表字段.'+fieldJson.tableCaption+"."+fieldJson.fieldCaption+'}';
-                var editValue='${TableField.'+fieldJson.fieldTableId+"."+fieldJson.fieldName+'}';
+            insertInstanceCaptionToEditor:function (templateName){
+                if(templateName=="template1"){
+                    var editValue='${__$FlowVar$$ModelName$}-【${__$FlowVar$$InstanceCreator$}】-「${__$FlowVar$$InstanceCreatorOrganName$}」';
+                }
+                else if (templateName=="template2"){
+                    var editValue='${__$FlowVar$$ModelName$}-【${__$FlowVar$$InstanceCreator$}】-「${__$FlowVar$$InstanceCreatTime_yyyy_MM_dd$}」';
+                }
+                var editText=editValue;
                 this.insertCodeAtCursor(editText,editValue);
             },
-            insertEnvVarToEditor:function(evnJson) {
+            insertFlowVarToEditorAsString:function (value){
+                var editText='${__$'+value+'$}';
+                var editValue='${__$'+value+'$}';
+                this.insertCodeAtCursor(editText,editValue);
+            },
+            insertFlowVarToEditorAsBoolean:function (value){
+                var editText='${__$'+value+'$==\"请输入值\"}';
+                var editValue='${__$'+value+'$==\"请输入值\"}';
+                this.insertCodeAtCursor(editText,editValue);
+            },
+            insertFlowVarToEditorAsBooleanContains:function (value){
+                var editText='${__$'+value+'$.contains(\"请输入值\")}';
+                var editValue='${__$'+value+'$.contains(\"请输入值\")}';
+                this.insertCodeAtCursor(editText,editValue);
+            },
+            insertFlowVarToEditorAsBooleanContainsOr2:function (value){
+                var editText='${__$'+value+'$.contains(\"请输入值\") or __$'+value+'$.contains(\"请输入值\")}';
+                var editValue='${__$'+value+'$.contains(\"请输入值\") or __$'+value+'$.contains(\"请输入值\")}';
+                this.insertCodeAtCursor(editText,editValue);
+            },
+            insertFlowVarToEditorAsBooleanContainsAnd2:function (value){
+                var editText='${__$'+value+'$.contains(\"请输入值\") and __$'+value+'$.contains(\"请输入值\")}';
+                var editValue='${__$'+value+'$.contains(\"请输入值\") and __$'+value+'$.contains(\"请输入值\")}';
+                this.insertCodeAtCursor(editText,editValue);
+            },
+            insertTableFieldToCodeMirrorAsString:function (fieldJson) {
+                console.log(fieldJson);
+                var editText='${__$表字段$$'+fieldJson.tableCaption+"$$"+fieldJson.fieldCaption+'$}';
+                var editValue='${__$TableField$$'+fieldJson.fieldTableId+"$$"+fieldJson.fieldName+'$}';
+                this.insertCodeAtCursor(editText,editValue);
+            },
+            insertTableFieldToCodeMirrorAsBoolean:function (fieldJson){
+                console.log(fieldJson);
+                var editText='${__$表字段$$'+fieldJson.tableCaption+"$$"+fieldJson.fieldCaption+'$==\"请输入值\"}';
+                var editValue='${__$TableField$$'+fieldJson.fieldTableId+"$$"+fieldJson.fieldName+'$==\"请输入值\"}';
+                this.insertCodeAtCursor(editText,editValue);
+            },
+            insertEnvVarToEditorAsString:function(evnJson) {
                 //console.log(evnJson);
-                var editText='${环境变量.' + evnJson.envVarText + '}';
-                var editValue='${EnvVar.' + evnJson.envVarValue + '}';
+                var editText='${__$环境变量$$' + evnJson.envVarText + '$}';
+                var editValue='${__$EnvVar$$' + evnJson.envVarValue + '$}';
+                this.insertCodeAtCursor(editText,editValue);
+            },
+            insertEnvVarToEditorAsBoolean:function (evnJson){
+                var editText='${__$环境变量$$' + evnJson.envVarText + '$==\"请输入值\"}';
+                var editValue='${__$EnvVar$$' + evnJson.envVarValue + '$==\"请输入值\"}';
                 this.insertCodeAtCursor(editText,editValue);
             },
             envGroupTreeNodeSelected(event, treeId, treeNode) {
@@ -333,9 +488,9 @@
                     this.envVarTableData = envVariablePOList;
                 });
             },
-            beginEditContextJuel(dialogTitle,oldData,formId,callBackFunc) {
+            beginEditContextJuel(dialogTitle,oldData,formId,callBackFunc,resolveSourceObject) {
                 //console.log("...........1...");
-                //console.log(formId);
+                console.log(oldData);
                 $(this.$refs.editDialogWrap).dialog("open");
                 $(this.$refs.editDialogWrap).dialog("option", "title", dialogTitle );
                 this.editData=oldData;
@@ -343,7 +498,7 @@
                 this.callBackFunc=callBackFunc;
                 //this.selectedCodeMirror = this.flowProcessTitleCodeMirror;
                 //this.tryResolveCodeMirrorValueToMarkText(this.editData);
-                CodeMirrorUtility.TryResolveCodeMirrorValueToMarkText(this.selectedCodeMirror,this.$refs.txtContextVarJuelEdit)
+                CodeMirrorUtility.TryResolveCodeMirrorValueToMarkText(this.selectedCodeMirror,this.$refs.txtContextVarJuelEdit,resolveSourceObject)
                 RemoteUtility.GetEnvGroupPOList().then((envGroupPOList) => {
                     this.tree.envGroupTreeObj = $.fn.zTree.init($(this.$refs.envGroupZTreeUL), this.tree.envGroupTreeSetting, envGroupPOList);
                     this.tree.envGroupTreeObj.expandAll(true);
