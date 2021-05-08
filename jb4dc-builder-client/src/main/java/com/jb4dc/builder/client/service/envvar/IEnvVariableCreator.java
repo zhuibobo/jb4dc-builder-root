@@ -3,6 +3,7 @@ package com.jb4dc.builder.client.service.envvar;
 import com.jb4dc.builder.dbentities.envvar.EnvVariableEntity;
 import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
 import com.jb4dc.core.base.session.JB4DCSession;
+import com.jb4dc.workflow.po.EnvVariableResultPO;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 
@@ -16,5 +17,5 @@ public interface IEnvVariableCreator {
     Document doc=null;
     Node node=null;
 
-    String createVar(JB4DCSession jb4DCSession, EnvVariableEntity envVariableEntity) throws JBuild4DCGenerallyException;
+    EnvVariableResultPO createVar(JB4DCSession jb4DCSession, EnvVariableEntity envVariableEntity) throws JBuild4DCGenerallyException;
 }

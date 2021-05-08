@@ -1,19 +1,19 @@
 package com.jb4dc.workflow.po;
 
-import com.jb4dc.builder.po.FormResourcePO;
+import com.jb4dc.workflow.dbentities.InstanceEntity;
 import com.jb4dc.workflow.dbentities.ModelIntegratedEntity;
 import com.jb4dc.workflow.po.bpmn.BpmnDefinitions;
+import com.jb4dc.workflow.po.bpmn.process.Jb4dcActions;
 
 public class FlowModelRuntimePO {
     ModelIntegratedEntity modelIntegratedEntity;
     BpmnDefinitions bpmnDefinitions;
+    InstanceEntity instanceEntity;
     String bpmnXmlContent;
     boolean isStartEvent;
 
     String currentNodeKey;
     String currentNodeName;
-
-
 
     String jb4dcOuterFormUrl;
     String jb4dcOuterFormEx1Url;
@@ -28,13 +28,13 @@ public class FlowModelRuntimePO {
 
     String jb4dcFormPlugin;
     String jb4dcFormId;
-    //FormResourcePO jb4dcFormResourcePO;
     String jb4dcFormParas;
 
     String jb4dcFormEx1Plugin;
     String jb4dcFormEx1Id;
-    //FormResourcePO jb4dcFormEx1ResourcePO;
     String jb4dcFormEx1Paras;
+
+    Jb4dcActions jb4dcActions;
 
     public String getBpmnXmlContent() {
         return bpmnXmlContent;
@@ -212,19 +212,19 @@ public class FlowModelRuntimePO {
         this.jb4dcFormEx1Paras = jb4dcFormEx1Paras;
     }
 
-    /*public FormResourcePO getJb4dcFormResourcePO() {
-        return jb4dcFormResourcePO;
+    public InstanceEntity getInstanceEntity() {
+        return instanceEntity;
     }
 
-    public void setJb4dcFormResourcePO(FormResourcePO jb4dcFormResourcePO) {
-        this.jb4dcFormResourcePO = jb4dcFormResourcePO;
+    public void setInstanceEntity(InstanceEntity instanceEntity) {
+        this.instanceEntity = instanceEntity;
     }
 
-    public FormResourcePO getJb4dcFormEx1ResourcePO() {
-        return jb4dcFormEx1ResourcePO;
+    public Jb4dcActions getJb4dcActions() {
+        return jb4dcActions;
     }
 
-    public void setJb4dcFormEx1ResourcePO(FormResourcePO jb4dcFormEx1ResourcePO) {
-        this.jb4dcFormEx1ResourcePO = jb4dcFormEx1ResourcePO;
-    }*/
+    public void setJb4dcActions(Jb4dcActions jb4dcActions) {
+        this.jb4dcActions = jb4dcActions;
+    }
 }

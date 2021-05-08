@@ -1,10 +1,9 @@
 package com.jb4dc.gridsystem.service.statistics.impl;
 
-import com.jb4dc.builder.client.tools.SQLStringPlaceholderResultPO;
-import com.jb4dc.builder.client.tools.SQLStringPlaceholderUtility;
+import com.jb4dc.builder.po.SQLStringPlaceholderResultPO;
+import com.jb4dc.builder.client.utility.SQLStringPlaceholderUtility;
 import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
 import com.jb4dc.core.base.session.JB4DCSession;
-import com.jb4dc.core.base.tools.StringUtility;
 import com.jb4dc.gridsystem.service.statistics.IBuildStatistics;
 import com.jb4dc.sso.client.remote.OrganRuntimeRemote;
 import com.jb4dc.sso.dbentities.organ.OrganEntity;

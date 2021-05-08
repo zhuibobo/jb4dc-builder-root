@@ -291,7 +291,7 @@ public class WebFormDataSaveRuntimeServiceImpl implements IWebFormDataSaveRuntim
             String fieldDefaultType = field.getFieldDefaultType();
             String fieldDefaultText = field.getFieldDefaultText();
             String fieldDefaultValue = field.getFieldDefaultValue();
-            String value = envVariableRuntimeResolveProxy.execDefaultValueResult(jb4DCSession, fieldDefaultType, fieldDefaultValue);
+            String value = envVariableRuntimeResolveProxy.execDefaultValueResult(jb4DCSession, fieldDefaultType, fieldDefaultValue).getValue();
 
             List<TableFieldPO> tempTableFieldPOList = tableRuntimeRemote.getTableFieldsByTableId(field.getTableId()).getData();
             TableFieldPO pkFieldPO = resolvePendingSQL.findPrimaryKey(field.getTableName(), tempTableFieldPOList);

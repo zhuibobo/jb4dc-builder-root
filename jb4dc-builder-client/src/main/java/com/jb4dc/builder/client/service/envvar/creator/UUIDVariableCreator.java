@@ -5,6 +5,7 @@ import com.jb4dc.builder.dbentities.envvar.EnvVariableEntity;
 import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
 import com.jb4dc.core.base.session.JB4DCSession;
 import com.jb4dc.core.base.tools.UUIDUtility;
+import com.jb4dc.workflow.po.EnvVariableResultPO;
 
 /**
  * Created with IntelliJ IDEA.
@@ -14,8 +15,8 @@ import com.jb4dc.core.base.tools.UUIDUtility;
  */
 public class UUIDVariableCreator implements IEnvVariableCreator {
     @Override
-    public String createVar(JB4DCSession jb4DCSession, EnvVariableEntity envVariableEntity) throws JBuild4DCGenerallyException {
-        return UUIDUtility.getUUID();
+    public EnvVariableResultPO createVar(JB4DCSession jb4DCSession, EnvVariableEntity envVariableEntity) throws JBuild4DCGenerallyException {
+        return new EnvVariableResultPO(UUIDUtility.getUUID());
     }
 
     public static String ENV_ID_CODE_UUID_VALUE="ENV_ID_CODE_UUID";

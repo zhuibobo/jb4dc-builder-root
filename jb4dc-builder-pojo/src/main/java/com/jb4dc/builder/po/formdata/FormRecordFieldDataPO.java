@@ -14,6 +14,8 @@ public class FormRecordFieldDataPO {
     private String tableId;
     private String fieldTableId;
     private String fieldName;
+
+    //TableFieldTypeEnum枚举定义
     private String fieldDataType;
     private String fieldDataLength;
     private String serialize;

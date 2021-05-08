@@ -1,4 +1,4 @@
-package com.jb4dc.builder.client.tools;
+package com.jb4dc.builder.po;
 
 import java.util.Map;
 

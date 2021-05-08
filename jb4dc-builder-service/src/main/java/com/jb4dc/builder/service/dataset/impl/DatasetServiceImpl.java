@@ -313,7 +313,7 @@ public class DatasetServiceImpl extends BaseServiceImpl<DatasetEntity> implement
 
                 fullValue=fullValue+"."+envValue+"}";
                 try {
-                    aboutValueParas.put(fullValue,envVariableClientResolveService.execEnvVarResult(jb4DCSession,envValue));
+                    aboutValueParas.put(fullValue,envVariableClientResolveService.execEnvVarResult(jb4DCSession,envValue).getValue());
                     textPara.setValue(fullValue);
                 }
                 catch (Exception ex){

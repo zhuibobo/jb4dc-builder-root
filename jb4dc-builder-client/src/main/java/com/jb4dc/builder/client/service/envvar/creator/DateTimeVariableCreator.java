@@ -5,6 +5,7 @@ import com.jb4dc.builder.client.service.envvar.IEnvVariableCreator;
 import com.jb4dc.builder.dbentities.envvar.EnvVariableEntity;
 import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
 import com.jb4dc.core.base.session.JB4DCSession;
+import com.jb4dc.workflow.po.EnvVariableResultPO;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -18,14 +19,14 @@ import java.util.Date;
 public class DateTimeVariableCreator implements IEnvVariableCreator {
 
     @Override
-    public String createVar(JB4DCSession jb4DCSession, EnvVariableEntity envVariableEntity) throws JBuild4DCGenerallyException {
+    public EnvVariableResultPO createVar(JB4DCSession jb4DCSession, EnvVariableEntity envVariableEntity) throws JBuild4DCGenerallyException {
         try {
             String result;
             Date date = new Date();
             SimpleDateFormat formatter = new SimpleDateFormat();
             formatter.applyPattern(envVariableEntity.getEnvVarClassPara());
             result = formatter.format(date);
-            return result;
+            return new EnvVariableResultPO(result);
         }
         catch (Exception ex){
             throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_BUILDER_CODE,this.getClass().getName()+" Error:"+ex.getMessage());

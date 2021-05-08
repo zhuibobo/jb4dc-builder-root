@@ -22,10 +22,14 @@ let FlowRuntimePageObject={
             "flowModelRuntimePO":flowModelRuntimePO
         });
         //this._formRuntimeInst.webFormRTParas=webFormRTParas;
+        this.rendererActionButtons(flowModelRuntimePO,this._formRuntimeInst);
         return this._formRuntimeInst;
     },
+    rendererActionButtons:function (flowModelRuntimePO,formRuntimeInst) {
+        ActionsRuntimeObject.CreateALLActionButton(flowModelRuntimePO, flowModelRuntimePO.jb4dcActions, formRuntimeInst);
+    },
     preHandleFormHtmlRuntimeFunc:function (sourceRuntimeHtml,formRuntimeInst,propConfig){
-        console.log(sourceRuntimeHtml);
+        //console.log(sourceRuntimeHtml);
         var flowPageContainer=$("<div>"+sourceRuntimeHtml+"/<div>");
         var flowModelRuntimePO=propConfig.flowModelRuntimePO;
         //debugger;
@@ -55,7 +59,7 @@ let FlowRuntimePageObject={
         tabContainer.append("<div class=\"wysiwyg-wfdct-tabs-label wfdct-tabs-label-runtime\" tab_id=\"tab_content_flow_task_999\">流转信息</div>");
         tabContainer.append("<div class=\"wysiwyg-wfdct-tabs-content wfdct-tabs-content-runtime\" id=\"tab_content_flow_task_999\"></div>");
         var newRuntimeHtml=flowPageContainer.html();
-        console.log(newRuntimeHtml);
+        //console.log(newRuntimeHtml);
         return newRuntimeHtml;
     }
 }

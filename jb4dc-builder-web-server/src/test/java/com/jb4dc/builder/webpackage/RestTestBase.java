@@ -19,6 +19,7 @@ import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.web.context.WebApplicationContext;
 
+import java.util.ArrayList;
 import java.util.Map;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
@@ -78,7 +79,8 @@ public class RestTestBase {
         jb4DCSession.setAccountName("Alex");
         jb4DCSession.setMainDepartmentId("");
         jb4DCSession.setMainDepartmentName("");
-        jb4DCSession.setRoleKeys(null);
+        jb4DCSession.setRoleKeys(new ArrayList<>());
+        jb4DCSession.setRoleNames(new ArrayList<>());
         jb4DCSession.setExMap(null);
         jb4DCSession.setFullAuthority(true);
         jb4DCSession.setSsoSessionToken("");

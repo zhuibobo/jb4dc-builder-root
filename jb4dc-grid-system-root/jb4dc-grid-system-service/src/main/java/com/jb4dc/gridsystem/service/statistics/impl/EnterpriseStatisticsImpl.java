@@ -1,6 +1,6 @@
 package com.jb4dc.gridsystem.service.statistics.impl;
 
-import com.jb4dc.builder.client.tools.SQLStringPlaceholderUtility;
+import com.jb4dc.builder.client.utility.SQLStringPlaceholderUtility;
 import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
 import com.jb4dc.core.base.session.JB4DCSession;
 import com.jb4dc.gridsystem.service.statistics.IEnterpriseStatistics;

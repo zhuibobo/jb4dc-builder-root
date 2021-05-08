@@ -4,6 +4,7 @@ import com.jb4dc.builder.client.service.envvar.IEnvVariableCreator;
 import com.jb4dc.builder.dbentities.envvar.EnvVariableEntity;
 import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
 import com.jb4dc.core.base.session.JB4DCSession;
+import com.jb4dc.workflow.po.EnvVariableResultPO;
 
 /**
  * Created with IntelliJ IDEA.
@@ -13,8 +14,8 @@ import com.jb4dc.core.base.session.JB4DCSession;
  */
 public class StaticVariableCreator implements IEnvVariableCreator {
     @Override
-    public String createVar(JB4DCSession jb4DCSession, EnvVariableEntity envVariableEntity) throws JBuild4DCGenerallyException {
-        return envVariableEntity.getEnvVarClassPara();
+    public EnvVariableResultPO createVar(JB4DCSession jb4DCSession, EnvVariableEntity envVariableEntity) throws JBuild4DCGenerallyException {
+        return new EnvVariableResultPO(envVariableEntity.getEnvVarClassPara());
     }
 
     public static String ENV_STATIC_YES_VALUE="ENV_STATIC_YES";

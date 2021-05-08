@@ -3,6 +3,7 @@ package com.jb4dc.builder.client.service.envvar;
 import com.jb4dc.builder.dbentities.envvar.EnvVariableEntity;
 import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
 import com.jb4dc.core.base.session.JB4DCSession;
+import com.jb4dc.workflow.po.EnvVariableResultPO;
 
 import java.io.IOException;
 
@@ -17,10 +18,10 @@ public interface IEnvVariableRuntimeClient {
 
     List<EnvVariablePO> getAPIVars() throws XPathExpressionException, ParserConfigurationException, IOException, SAXException, JBuild4DCGenerallyException;*/
 
-    String execDefaultValueResult(JB4DCSession jb4DCSession, String fieldDefaultType, String fieldDefaultValue) throws JBuild4DCGenerallyException, IOException;
+    EnvVariableResultPO execDefaultValueResult(JB4DCSession jb4DCSession, String fieldDefaultType, String fieldDefaultValue) throws JBuild4DCGenerallyException, IOException;
 
     //EnvVariableEntity getEnvVariableEntityByValue(JB4DCSession jb4DCSession, String value) throws JBuild4DCGenerallyException, IOException;
 
-    String execEnvVarResult(JB4DCSession jb4DCSession, String value) throws JBuild4DCGenerallyException, IOException;
+    EnvVariableResultPO execEnvVarResult(JB4DCSession jb4DCSession, String value) throws JBuild4DCGenerallyException, IOException;
 
 }

@@ -8,6 +8,7 @@ import com.jb4dc.builder.dbentities.envvar.EnvVariableEntity;
 import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
 import com.jb4dc.core.base.session.JB4DCSession;
 import com.jb4dc.core.base.tools.ClassUtility;
+import com.jb4dc.workflow.po.EnvVariableResultPO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.AutowireCapableBeanFactory;
 import org.springframework.stereotype.Service;
@@ -33,9 +34,9 @@ public class EnvVariableRuntimeClientImpl implements IEnvVariableRuntimeClient {
     EnvVariableRuntimeRemote envVariableRuntimeRemote;
 
     @Override
-    public String execDefaultValueResult(JB4DCSession jb4DCSession,String fieldDefaultType,String fieldDefaultValue) throws JBuild4DCGenerallyException, IOException {
+    public EnvVariableResultPO execDefaultValueResult(JB4DCSession jb4DCSession, String fieldDefaultType, String fieldDefaultValue) throws JBuild4DCGenerallyException, IOException {
         if(fieldDefaultType.toUpperCase().equals("CONST")){
-            return fieldDefaultValue;
+            return new EnvVariableResultPO(fieldDefaultValue);
         }
         else {
             return this.execEnvVarResult(jb4DCSession,fieldDefaultValue);
@@ -66,7 +67,7 @@ public class EnvVariableRuntimeClientImpl implements IEnvVariableRuntimeClient {
     }*/
 
     @Override
-    public String execEnvVarResult(JB4DCSession jb4DCSession, String value) throws JBuild4DCGenerallyException, IOException {
+    public EnvVariableResultPO execEnvVarResult(JB4DCSession jb4DCSession, String value) throws JBuild4DCGenerallyException, IOException {
 
         EnvVariableEntity envVariableEntity=envVariableRuntimeRemote.getEnvVariableByEnvValue(value).getData();
 

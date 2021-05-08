@@ -172,7 +172,7 @@ public abstract class HTMLControl implements IHTMLControl {
         String value = singleControlElem.attr("defaultvalue");
         if (StringUtility.isNotEmpty(valueType)) {
             if (valueType.toUpperCase().equals("ENVVAR")) {
-                return envVariableClientResolveService.execEnvVarResult(jb4DCSession, value);
+                return envVariableClientResolveService.execEnvVarResult(jb4DCSession, value).getValue();
             } else {
                 return value;
             }

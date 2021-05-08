@@ -220,7 +220,7 @@ public class ResolvePendingSQL {
                 this.validateTableFieldDefaultValue(hasDefaultValueTableFieldPOList);
                 //计算生成默认值
                 for (TableFieldPO tableFieldPO : hasDefaultValueTableFieldPOList) {
-                    String value = envVariableRuntimeResolveProxy.execDefaultValueResult(jb4DCSession, tableFieldPO.getFieldDefaultType(), tableFieldPO.getFieldDefaultValue());
+                    String value = envVariableRuntimeResolveProxy.execDefaultValueResult(jb4DCSession, tableFieldPO.getFieldDefaultType(), tableFieldPO.getFieldDefaultValue()).getValue();
                     tableFieldPO.setValue(value);
                 }
                 //如果存在空值的,则替换值,如果不存在的,则加入新字段

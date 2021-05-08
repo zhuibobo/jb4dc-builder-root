@@ -103,17 +103,17 @@
                             <Col span="12">
                                 <ButtonGroup style="margin: 4px">
                                     <Button type="primary" ghost>发起人角色ID串</Button>
-                                    <Button type="success" @click="insertFlowVarToEditorAsString('FlowVar$$CreatorRoleIdsString')"><Icon type="md-checkmark-circle-outline" />字符串</Button>
-                                    <Button type="success" @click="insertFlowVarToEditorAsBooleanContains('FlowVar$$CreatorRoleIdsString')"><Icon type="md-checkmark-circle-outline" />布尔值</Button>
-                                    <Button type="success" @click="insertFlowVarToEditorAsBooleanContainsOr2('FlowVar$$CreatorRoleIdsString')">Or2</Button>
-                                    <Button type="success" @click="insertFlowVarToEditorAsBooleanContainsAnd2('FlowVar$$CreatorRoleIdsString')">And2</Button>
+                                    <Button type="success" @click="insertFlowVarToEditorAsString('FlowVar$$CurrentUserRoleIdsString')"><Icon type="md-checkmark-circle-outline" />字符串</Button>
+                                    <Button type="success" @click="insertFlowVarToEditorAsBooleanContains('FlowVar$$CurrentUserRoleIdsString')"><Icon type="md-checkmark-circle-outline" />布尔值</Button>
+                                    <Button type="success" @click="insertFlowVarToEditorAsBooleanContainsOr2('FlowVar$$CurrentUserRoleIdsString')">Or2</Button>
+                                    <Button type="success" @click="insertFlowVarToEditorAsBooleanContainsAnd2('FlowVar$$CurrentUserRoleIdsString')">And2</Button>
                                 </ButtonGroup>
                             </Col>
                             <Col span="12">
                                 <ButtonGroup style="margin: 4px">
                                     <Button type="primary" ghost>发起人角色名称串</Button>
-                                    <Button type="success" @click="insertFlowVarToEditorAsString('FlowVar$$CreatorRoleNamesString')"><Icon type="md-checkmark-circle-outline" />字符串</Button>
-                                    <Button type="success" @click="insertFlowVarToEditorAsBooleanContains('FlowVar$$CreatorRoleNamesString')"><Icon type="md-checkmark-circle-outline" />布尔值</Button>
+                                    <Button type="success" @click="insertFlowVarToEditorAsString('FlowVar$$CurrentUserRoleNamesString')"><Icon type="md-checkmark-circle-outline" />字符串</Button>
+                                    <Button type="success" @click="insertFlowVarToEditorAsBooleanContains('FlowVar$$CurrentUserRoleNamesString')"><Icon type="md-checkmark-circle-outline" />布尔值</Button>
                                 </ButtonGroup>
                             </Col>
                         </Row>
@@ -127,9 +127,25 @@
                             </Col>
                             <Col span="12">
                                 <ButtonGroup style="margin: 4px">
+                                    <Button type="primary" ghost>发起人ID</Button>
+                                    <Button type="success" @click="insertFlowVarToEditorAsString('FlowVar$$InstanceCreatorId')"><Icon type="md-checkmark-circle-outline" />字符串</Button>
+                                    <Button type="success" @click="insertFlowVarToEditorAsBoolean('FlowVar$$InstanceCreatorId')"><Icon type="md-checkmark-circle-outline" />布尔值</Button>
+                                </ButtonGroup>
+                            </Col>
+                        </Row>
+                        <Row>
+                            <Col span="12">
+                                <ButtonGroup style="margin: 4px">
                                     <Button type="primary" ghost>发起人所在组织</Button>
                                     <Button type="success" @click="insertFlowVarToEditorAsString('FlowVar$$InstanceCreatorOrganName')"><Icon type="md-checkmark-circle-outline" />字符串</Button>
                                     <Button type="success" @click="insertFlowVarToEditorAsBoolean('FlowVar$$InstanceCreatorOrganName')"><Icon type="md-checkmark-circle-outline" />布尔值</Button>
+                                </ButtonGroup>
+                            </Col>
+                            <Col span="12">
+                                <ButtonGroup style="margin: 4px">
+                                    <Button type="primary" ghost>发起人所在组织ID</Button>
+                                    <Button type="success" @click="insertFlowVarToEditorAsString('FlowVar$$InstanceCreatorOrganId')"><Icon type="md-checkmark-circle-outline" />字符串</Button>
+                                    <Button type="success" @click="insertFlowVarToEditorAsBoolean('FlowVar$$InstanceCreatorOrganId')"><Icon type="md-checkmark-circle-outline" />布尔值</Button>
                                 </ButtonGroup>
                             </Col>
                         </Row>

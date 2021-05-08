@@ -8,6 +8,7 @@ import com.jb4dc.core.base.tools.DateUtility;
 import com.jb4dc.core.base.tools.StringUtility;
 import com.jb4dc.gridsystem.dbentities.gridinfo.GridInfoEntity;
 import com.jb4dc.gridsystem.service.gridinfo.IGridInfoService;
+import com.jb4dc.workflow.po.EnvVariableResultPO;
 import org.springframework.beans.factory.annotation.Autowired;
 
 public class EventCodeCreater implements IEnvVariableCreator {
@@ -15,15 +16,15 @@ public class EventCodeCreater implements IEnvVariableCreator {
     IGridInfoService gridInfoService;
 
     @Override
-    public String createVar(JB4DCSession jb4DCSession, EnvVariableEntity envVariableEntity) throws JBuild4DCGenerallyException {
+    public EnvVariableResultPO createVar(JB4DCSession jb4DCSession, EnvVariableEntity envVariableEntity) throws JBuild4DCGenerallyException {
         String organId=jb4DCSession.getOrganId();
         GridInfoEntity gridInfoEntity=gridInfoService.getByPrimaryKey(jb4DCSession,organId);
         if(gridInfoEntity==null){
-            return "请在网格管理中设置网格编码!";
+            return new EnvVariableResultPO("请在网格管理中设置网格编码!");
         }
         if(StringUtility.isEmpty(gridInfoEntity.getGridCode())){
-            return "请在网格管理中设置网格编码!";
+            return new EnvVariableResultPO("请在网格管理中设置网格编码!");
         }
-        return gridInfoEntity.getGridCode() +"-"+ DateUtility.getDate_yyyyMM()+"-";
+        return  new EnvVariableResultPO(gridInfoEntity.getGridCode() +"-"+ DateUtility.getDate_yyyyMM()+"-");
     }
 }

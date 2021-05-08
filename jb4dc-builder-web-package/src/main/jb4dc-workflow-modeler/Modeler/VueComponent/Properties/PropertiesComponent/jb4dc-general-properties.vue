@@ -111,60 +111,65 @@
                 <div slot="content">
                     <table class="properties-dialog-table-wraper" cellpadding="0" cellspacing="0" border="0">
                         <colgroup>
-                            <col style="width: 11%" />
-                            <col style="width: 39%" />
+                            <col style="width: 13%" />
+                            <col style="width: 37%" />
                             <col style="width: 11%" />
                             <col style="width: 33%" />
                             <col style="width: 6%" />
                         </colgroup>
                         <tbody>
-                        <tr>
-                            <td>扩充表单1插件：</td>
-                            <td>
-                                <radio-group type="button" style="margin: auto" v-model="jb4dc.jb4dcFormEx1Plugin">
-                                    <radio label="webFormPlugin">表单</radio>
-                                    <radio label="webListPlugin" disabled>列表</radio>
-                                    <radio label="webChartPlugin" disabled>图表</radio>
-                                    <radio label="webReportPlugin" disabled>报表</radio>
-                                </radio-group>
-                            </td>
-                            <td>绑定扩充表单1：</td>
-                            <td colspan="2">
-                                <Select v-model="jb4dc.jb4dcFormEx1Id" style="width:308px" @on-change="changeBindForm" :clearable="true">
-                                    <Option v-for="item in formResourcePOList" :value="item.formId" :key="item.formId">【{{ item.formCode }}】{{ item.formName }}</Option>
-                                </Select>
-                                <Button type="primary" disabled>编辑</Button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                扩充表单1参数：
-                            </td>
-                            <td colspan="4">
-                                <input type="text" v-model="jb4dc.jb4dcFormEx1Paras" />
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>外部表单1：</td>
-                            <td colspan="4">
-                                <input type="text" v-model="jb4dc.jb4dcOuterFormUrl" />
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>外部表单2：</td>
-                            <td colspan="4">
-                                <input type="text" v-model="jb4dc.jb4dcOuterFormEx1Url" />
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>流程备注：</td>
-                            <td colspan="3">
-                                <textarea v-model="jb4dc.jb4dcProcessDescriptionEditText" rows="2" disabled="disabled"></textarea>
-                            </td>
-                            <td>
-                                <Button type="primary" @click="beginEditContextJuelForFlowProcessDescription">编辑</Button>
-                            </td>
-                        </tr>
+                            <tr>
+                                <td>扩充表单1插件：</td>
+                                <td>
+                                    <radio-group type="button" style="margin: auto" v-model="jb4dc.jb4dcFormEx1Plugin">
+                                        <radio label="webFormPlugin">表单</radio>
+                                        <radio label="webListPlugin" disabled>列表</radio>
+                                        <radio label="webChartPlugin" disabled>图表</radio>
+                                        <radio label="webReportPlugin" disabled>报表</radio>
+                                    </radio-group>
+                                </td>
+                                <td>绑定扩充表单1：</td>
+                                <td colspan="2">
+                                    <Select v-model="jb4dc.jb4dcFormEx1Id" style="width:308px" @on-change="changeBindForm" :clearable="true">
+                                        <Option v-for="item in formResourcePOList" :value="item.formId" :key="item.formId">【{{ item.formCode }}】{{ item.formName }}</Option>
+                                    </Select>
+                                    <Button type="primary" disabled>编辑</Button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    扩充表单1参数：
+                                </td>
+                                <td colspan="4">
+                                    <input type="text" v-model="jb4dc.jb4dcFormEx1Paras" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>外部表单1：</td>
+                                <td colspan="4">
+                                    <input type="text" v-model="jb4dc.jb4dcOuterFormUrl" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>外部表单2：</td>
+                                <td colspan="4">
+                                    <input type="text" v-model="jb4dc.jb4dcOuterFormEx1Url" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td rowspan="2">流程备注：</td>
+                                <td colspan="3">
+                                    <textarea v-model="jb4dc.jb4dcProcessDescriptionEditText" rows="2" disabled="disabled"></textarea>
+                                </td>
+                                <td rowspan="2">
+                                    <Button type="primary" @click="beginEditContextJuelForFlowProcessDescription">编辑</Button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="3" style="background-color: #fff">
+                                    <textarea v-model="jb4dc.jb4dcProcessDescriptionEditValue" rows="2" disabled="disabled"></textarea>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>

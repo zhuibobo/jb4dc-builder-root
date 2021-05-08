@@ -217,13 +217,13 @@
                 }
             },
             rebuildUIData(formId) {
-                //this.mustRebuildOldTableFieldData=true;
+                //this.mustRebuildOldTableFieldData=true;12
                 console.log(this.jb4dc);
                 if(this.mustRebuildAllCBData) {
                     var authoritiesAllFieldAuthority = this.jb4dc.jb4dcAuthorities.authoritiesAllFieldAuthority ? JsonUtility.StringToJson(this.jb4dc.jb4dcAuthorities.authoritiesAllFieldAuthority) : {};
                     var authoritiesDocumentAuthority = this.jb4dc.jb4dcAuthorities.authoritiesDocumentAuthority ? JsonUtility.StringToJson(this.jb4dc.jb4dcAuthorities.authoritiesDocumentAuthority) : {};
                     var authoritiesFileAuthority = this.jb4dc.jb4dcAuthorities.authoritiesFileAuthority ? JsonUtility.StringToJson(this.jb4dc.jb4dcAuthorities.authoritiesFileAuthority) : {};
-                    var singleFieldJb4dcAuthorities = this.jb4dc.jb4dcAuthorities.authorities;
+
                     if (this.jb4dc.jb4dcAuthorities.authoritiesAllFieldAuthority) {
                         this.authoritiesAllFieldAuthority = [];
                         this.jsonToArray(this.authoritiesAllFieldAuthority, authoritiesAllFieldAuthority);
@@ -237,6 +237,11 @@
                         this.jsonToArray(this.authoritiesFileAuthority, authoritiesFileAuthority);
                     }
                     this.mustRebuildAllCBData=false;
+                }
+
+                var singleFieldJb4dcAuthorities = this.jb4dc.jb4dcAuthorities.authorities;
+                if(!singleFieldJb4dcAuthorities){
+                    singleFieldJb4dcAuthorities=[]
                 }
                 //debugger;
                 //if(jb4dcAuthorities.)

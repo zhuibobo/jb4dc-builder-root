@@ -19,6 +19,7 @@ import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
 import com.jb4dc.core.base.session.JB4DCSession;
 import com.jb4dc.core.base.tools.*;
 import com.jb4dc.sso.client.utils.HttpClientUtil;
+import com.jb4dc.workflow.dbentities.InstanceEntity;
 import com.jb4dc.workflow.dbentities.ModelAssObjectEntity;
 import com.jb4dc.workflow.dbentities.ModelGroupRefEntity;
 import com.jb4dc.workflow.exenum.ModelDesignSourceTypeEnum;
@@ -28,15 +29,14 @@ import com.jb4dc.workflow.integrate.extend.IModelAssObjectExtendService;
 import com.jb4dc.workflow.integrate.extend.IModelGroupRefExtendService;
 import com.jb4dc.workflow.po.FlowModelIntegratedPO;
 import com.jb4dc.workflow.po.FlowModelRuntimePO;
+import com.jb4dc.workflow.po.JuelRunResultPO;
 import com.jb4dc.workflow.po.TypeNamesPO;
 import com.jb4dc.workflow.po.bpmn.BpmnDefinitions;
 import com.jb4dc.workflow.dao.ModelIntegratedMapper;
 import com.jb4dc.workflow.dbentities.ModelIntegratedEntity;
 import com.jb4dc.workflow.integrate.engine.impl.FlowEngineModelIntegrateServiceImpl;
 import com.jb4dc.workflow.integrate.extend.IModelIntegratedExtendService;
-import com.jb4dc.workflow.po.bpmn.process.BpmnProcess;
-import com.jb4dc.workflow.po.bpmn.process.BpmnStartEvent;
-import com.jb4dc.workflow.po.bpmn.process.BpmnUserTask;
+import com.jb4dc.workflow.po.bpmn.process.*;
 import org.apache.commons.io.IOUtils;
 import org.camunda.bpm.engine.repository.Deployment;
 import org.slf4j.Logger;
@@ -49,6 +49,7 @@ import javax.xml.bind.JAXBException;
 import javax.xml.stream.XMLStreamException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.stream.Collectors;
 
 @Service
 public class ModelIntegratedExtendServiceImpl extends BaseServiceImpl<ModelIntegratedEntity> implements IModelIntegratedExtendService {
@@ -57,7 +58,7 @@ public class ModelIntegratedExtendServiceImpl extends BaseServiceImpl<ModelInteg
     ModelIntegratedMapper flowIntegratedMapper;
 
     @Autowired
-    IFlowEngineModelIntegratedService flowEngineModelIntegrateService;
+    IFlowEngineModelIntegratedService flowEngineModelIntegratedService;
 
     @Autowired
     IModelGroupRefExtendService modelGroupRefExtendService;
@@ -187,15 +188,15 @@ public class ModelIntegratedExtendServiceImpl extends BaseServiceImpl<ModelInteg
         ValidateUtility.isNotEmptyException(flowModelIntegratedPO.getModelModuleId(), JBuild4DCGenerallyException.EXCEPTION_BUILDER_CODE, "所属模块");
 
         if (flowModelIntegratedPO.isTryDeployment()) {
-            //尝试部署模型到工作流引擎
+            //尝试部署模型到工作流引擎d
             try {
-                Deployment deployment = flowEngineModelIntegrateService.deploymentCamundaModel(jb4DSession, flowModelIntegratedPO.getModelName(), ModelDesignSourceTypeEnum.builderWebDesign,
+                Deployment deployment = flowEngineModelIntegratedService.deploymentCamundaModel(jb4DSession, flowModelIntegratedPO.getModelName(), ModelDesignSourceTypeEnum.builderWebDesign,
                         ModelTenantIdEnum.builderGeneralTenant, flowModelIntegratedPO.getModelContent());
                 flowModelIntegratedPO.setModelDeploymentId(deployment.getId());
                 flowModelIntegratedPO.setModelReEd("是");
                 flowModelIntegratedPO.setModelReSuccess("是");
                 flowModelIntegratedPO.setModelLastReEd("是");
-                flowModelIntegratedPO.setModelReId(flowEngineModelIntegrateService.getProcessDefinitionByDeploymentId(jb4DSession, deployment.getId()).getId());
+                flowModelIntegratedPO.setModelReId(flowEngineModelIntegratedService.getProcessDefinitionByDeploymentId(jb4DSession, deployment.getId()).getId());
                 //deployment.
             } catch (Exception ex) {
                 throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_WORKFLOW_CODE, ex.getMessage(), ex.getCause(), ex.getStackTrace());
@@ -403,7 +404,7 @@ public class ModelIntegratedExtendServiceImpl extends BaseServiceImpl<ModelInteg
     private void buildFlowModelRuntimePOBaseInfo(JB4DCSession session,FlowModelRuntimePO flowModelRuntimePO, String modelKey,boolean isStart,String currentNodeKey) throws JAXBException, XMLStreamException, IOException, JBuild4DCGenerallyException {
         //FlowModelRuntimePO flowModelRuntimePO = new FlowModelRuntimePO();
 
-        String modelXml = flowEngineModelIntegrateService.getDeployedCamundaModelContentLastVersion(session, modelKey, ModelTenantIdEnum.builderGeneralTenant);
+        String modelXml = flowEngineModelIntegratedService.getDeployedCamundaModelContentLastVersion(session, modelKey, ModelTenantIdEnum.builderGeneralTenant);
         BpmnDefinitions bpmnDefinitions = parseToPO(modelXml);
         BpmnProcess bpmnProcess = bpmnDefinitions.getBpmnProcess();
 
@@ -447,6 +448,15 @@ public class ModelIntegratedExtendServiceImpl extends BaseServiceImpl<ModelInteg
                 flowModelRuntimePO.setJb4dcContentDocumentPlugin(bpmnProcess.getJb4dcContentDocumentPlugin());
                 flowModelRuntimePO.setJb4dcContentDocumentRedHeadTemplate(bpmnProcess.getJb4dcContentDocumentRedHeadTemplate());
             }
+
+            InstanceEntity instanceEntity=new InstanceEntity();
+            instanceEntity.setInstCreateTime(new Date());
+            instanceEntity.setInstCreator(session.getUserName());
+            instanceEntity.setInstCreatorId(session.getUserId());
+            instanceEntity.setInstOrganName(session.getOrganName());
+            instanceEntity.setInstOrganId(session.getOrganId());
+            flowModelRuntimePO.setInstanceEntity(instanceEntity);
+
         } else {
             BpmnUserTask userTask = bpmnProcess.getUserTaskList().stream().filter(item -> item.getId().equals(currentNodeKey)).findFirst().orElse(null);
             if (userTask != null) {
@@ -490,22 +500,13 @@ public class ModelIntegratedExtendServiceImpl extends BaseServiceImpl<ModelInteg
         flowModelRuntimePO.setBpmnXmlContent(URLUtility.encode(modelXml));
     }
 
-    private void buildFlowModelRuntimePOBindFormInfo(JB4DCSession session,FlowModelRuntimePO flowModelRuntimePO, String modelKey,boolean isStart,String currentNodeKey) throws JBuild4DCGenerallyException {
-        if(StringUtility.isNotEmpty(flowModelRuntimePO.getJb4dcFormId())&&flowModelRuntimePO.getJb4dcFormPlugin().equals(TypeNamesPO.WebFormPlugin)) {
-            //FormResourcePO formResourcePO = formResourceService.getFormRuntimePageContent(JB4DCSessionUtility.getSession(), flowModelRuntimePO.getJb4dcFormId());
-            //flowModelRuntimePO.setJb4dcFormResourcePO(formResourcePO);
-        }
-        if(StringUtility.isNotEmpty(flowModelRuntimePO.getJb4dcFormEx1Id())&&flowModelRuntimePO.getJb4dcFormEx1Plugin().equals(TypeNamesPO.WebFormPlugin)) {
-            //FormResourcePO formResourcePO = formResourceService.getFormRuntimePageContent(JB4DCSessionUtility.getSession(), flowModelRuntimePO.getJb4dcFormId());
-            //flowModelRuntimePO.setJb4dcFormEx1ResourcePO(formResourcePO);
-        }
-    }
+
 
     @Override
     public FlowModelRuntimePO getRuntimeModelWithStart(JB4DCSession session, String modelKey) throws IOException, JAXBException, XMLStreamException, JBuild4DCGenerallyException {
         FlowModelRuntimePO result = new FlowModelRuntimePO();
         buildFlowModelRuntimePOBaseInfo(session, result, modelKey, true, "");
-        buildFlowModelRuntimePOBindFormInfo(session, result, modelKey, true, modelKey);
+        //buildFlowModelRuntimePOBindFormInfo(session, result, modelKey, true, modelKey);
         return result;
     }
 
@@ -518,19 +519,10 @@ public class ModelIntegratedExtendServiceImpl extends BaseServiceImpl<ModelInteg
         return null;
     }
 
-    //private List<ModelAssObjectEntity> buildModelAssObjectEntity
-    /*@Override
-    public BpmnDefinitions parseToPO(String xml) throws JAXBException, XMLStreamException {
-        return XMLUtility.toObject(xml, BpmnDefinitions.class);
-    }
-
     @Override
-    public BpmnDefinitions parseToPO(InputStream is) throws JAXBException, XMLStreamException {
-        return XMLUtility.toObject(is, BpmnDefinitions.class);
+    public List<BpmnUserTask> getLastDeployedCamundaModelBpmnUserTaskByIdList(JB4DCSession jb4DCSession, String modelReKey, List<String> bpmnTaskIdList) throws JAXBException, XMLStreamException, IOException {
+        String modelContent = flowEngineModelIntegratedService.getDeployedCamundaModelContentLastVersion(jb4DCSession, modelReKey, ModelTenantIdEnum.builderGeneralTenant);
+        BpmnDefinitions bpmnDefinitions = this.parseToPO(modelContent);
+        return bpmnDefinitions.getBpmnProcess().getUserTaskList().stream().filter(item->bpmnTaskIdList.contains(item.getId())).collect(Collectors.toList());
     }
-
-    @Override
-    public int saveSimple(JB4DCSession jb4DCSession, String id, FlowIntegratedEntity entity) throws JBuild4DCGenerallyException {
-        return 0;
-    }*/
 }

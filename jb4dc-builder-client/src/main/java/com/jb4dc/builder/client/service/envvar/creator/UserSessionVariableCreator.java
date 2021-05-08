@@ -5,6 +5,7 @@ import com.jb4dc.builder.client.service.envvar.IEnvVariableCreator;
 import com.jb4dc.builder.dbentities.envvar.EnvVariableEntity;
 import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
 import com.jb4dc.core.base.session.JB4DCSession;
+import com.jb4dc.workflow.po.EnvVariableResultPO;
 
 /**
  * Created with IntelliJ IDEA.
@@ -14,18 +15,18 @@ import com.jb4dc.core.base.session.JB4DCSession;
  */
 public class UserSessionVariableCreator implements IEnvVariableCreator {
     @Override
-    public String createVar(JB4DCSession jb4DCSession, EnvVariableEntity envVariableEntity) throws JBuild4DCGenerallyException {
+    public EnvVariableResultPO createVar(JB4DCSession jb4DCSession, EnvVariableEntity envVariableEntity) throws JBuild4DCGenerallyException {
         if(envVariableEntity.getEnvVarClassPara().equals("ApiVarCurrentUserOrganId")){
-            return jb4DCSession.getOrganId();
+            return new EnvVariableResultPO(jb4DCSession.getOrganId());
         }
         else if(envVariableEntity.getEnvVarClassPara().equals("ApiVarCurrentUserOrganName")){
-            return jb4DCSession.getOrganName();
+            return new EnvVariableResultPO( jb4DCSession.getOrganName());
         }
         else if(envVariableEntity.getEnvVarClassPara().equals("ApiVarCurrentUserId")){
-            return jb4DCSession.getUserId();
+            return new EnvVariableResultPO( jb4DCSession.getUserId());
         }
         else if(envVariableEntity.getEnvVarClassPara().equals("ApiVarCurrentUserName")){
-            return jb4DCSession.getUserName();
+            return new EnvVariableResultPO( jb4DCSession.getUserName());
         }
         throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_BUILDER_CODE,this.getClass().getName()+"中无法根据"+envVariableEntity.getEnvVarClassPara()+"查询到对应的数据！");
     }

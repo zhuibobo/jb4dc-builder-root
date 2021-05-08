@@ -9,8 +9,8 @@ import com.jb4dc.builder.client.remote.TableRuntimeRemote;
 import com.jb4dc.builder.client.service.ResolvePendingSQL;
 import com.jb4dc.builder.client.service.dataset.IDatasetRuntimeService;
 import com.jb4dc.builder.client.service.envvar.IEnvVariableRuntimeClient;
-import com.jb4dc.builder.client.tools.SQLStringPlaceholderResultPO;
-import com.jb4dc.builder.client.tools.SQLStringPlaceholderUtility;
+import com.jb4dc.builder.po.SQLStringPlaceholderResultPO;
+import com.jb4dc.builder.client.utility.SQLStringPlaceholderUtility;
 import com.jb4dc.builder.po.*;
 import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
 import com.jb4dc.core.base.list.IListWhereCondition;
@@ -100,7 +100,7 @@ public class DatasetRuntimeServiceImpl implements IDatasetRuntimeService {
                 //将变量的Value转换为运行时的值
                 String envValue = m.group().substring(m.group().indexOf(".")+1).replace("}","");
                 try {
-                    String runValue=envVariableClientResolveService.execEnvVarResult(jb4DCSession,envValue);
+                    String runValue=envVariableClientResolveService.execEnvVarResult(jb4DCSession,envValue).getValue();
                     String t1=m.group().replace("{","\\{");
                     sqlRunValue=sqlRunValue.replaceAll(t1,runValue);
                 } catch (Exception ex) {

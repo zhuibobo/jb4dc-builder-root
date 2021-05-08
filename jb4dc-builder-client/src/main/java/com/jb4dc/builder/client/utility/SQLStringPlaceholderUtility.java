@@ -1,5 +1,6 @@
-package com.jb4dc.builder.client.tools;
+package com.jb4dc.builder.client.utility;
 
+import com.jb4dc.builder.po.SQLStringPlaceholderResultPO;
 import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
 import com.jb4dc.core.base.session.JB4DCSession;
 import com.jb4dc.core.base.tools.StringUtility;
@@ -28,8 +29,8 @@ public class SQLStringPlaceholderUtility {
         Map<String,Object> sqlParas=new HashMap<>();
         String resultSql=ChildOrganIdPlaceholderHandler(jb4DCSession.getOrganId(),sourceSQL,sqlParas);
         resultSql=ChildOrganIdAndRolePlaceholderHandler(jb4DCSession.getUserId(),jb4DCSession.getOrganId(),resultSql,sqlParas);
-        resultPO.sql=resultSql;
-        resultPO.sqlParas=sqlParas;
+        resultPO.setSql(resultSql);
+        resultPO.setSqlParas(sqlParas);
         return resultPO;
     }
 
@@ -38,8 +39,8 @@ public class SQLStringPlaceholderUtility {
         Map<String,Object> sqlParas=new HashMap<>();
         String resultSql=ChildOrganIdPlaceholderHandler(organId,sourceSQL,sqlParas);
         resultSql=ChildOrganIdAndRolePlaceholderHandler(userId,organId,resultSql,sqlParas);
-        resultPO.sql=resultSql;
-        resultPO.sqlParas=sqlParas;
+        resultPO.setSql(resultSql);
+        resultPO.setSqlParas(sqlParas);
         return resultPO;
     }
 
