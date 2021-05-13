@@ -17,7 +17,7 @@ export default {
                 type:"flowAboutUser",
                 value:"instanceStarter",
                 text:"",
-                config:{}
+                config:""
             }
         }
     },

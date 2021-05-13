@@ -5,12 +5,16 @@ import com.jb4dc.workflow.dbentities.ModelIntegratedEntity;
 import com.jb4dc.workflow.po.bpmn.BpmnDefinitions;
 import com.jb4dc.workflow.po.bpmn.process.Jb4dcActions;
 
-public class FlowModelRuntimePO {
+public class FlowModelRuntimePO implements Cloneable {
     ModelIntegratedEntity modelIntegratedEntity;
     BpmnDefinitions bpmnDefinitions;
     InstanceEntity instanceEntity;
     String bpmnXmlContent;
     boolean isStartEvent;
+
+    String modelRuKey;
+    String modelName;
+    String modelCategory;
 
     String currentNodeKey;
     String currentNodeName;
@@ -226,5 +230,39 @@ public class FlowModelRuntimePO {
 
     public void setJb4dcActions(Jb4dcActions jb4dcActions) {
         this.jb4dcActions = jb4dcActions;
+    }
+
+    public String getModelName() {
+        return modelName;
+    }
+
+    public void setModelName(String modelName) {
+        this.modelName = modelName;
+    }
+
+    public String getModelCategory() {
+        return modelCategory;
+    }
+
+    public void setModelCategory(String modelCategory) {
+        this.modelCategory = modelCategory;
+    }
+
+    public String getModelRuKey() {
+        return modelRuKey;
+    }
+
+    public void setModelRuKey(String modelRuKey) {
+        this.modelRuKey = modelRuKey;
+    }
+
+    public FlowModelRuntimePO clone() {
+        Object o = null;
+        try {
+            o = super.clone();
+        } catch (CloneNotSupportedException e) {
+            System.out.println("MyObject can't clone");
+        }
+        return (FlowModelRuntimePO)o;
     }
 }

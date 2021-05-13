@@ -1273,15 +1273,15 @@ class BpmnJsUtility {
             BaseUtility.ThrowMessage(message);
         }
     }
-    static JB4DC_GetMainReceiveObjectsArray(element){
-        var extensionElements=this.BPMN_GetExtensionElements(element);
-        if(extensionElements){
-            if(extensionElements.values){
+    static JB4DC_GetMainReceiveObjectsArray(element) {
+        var extensionElements = this.BPMN_GetExtensionElements(element);
+        if (extensionElements) {
+            if (extensionElements.values) {
                 var actions;
                 actions = ArrayUtility.WhereSingle(extensionElements.values, function (item) {
                     return item.$type == "jb4dc:Jb4dcMainReceiveObjects";
                 });
-                if(actions&&actions.values){
+                if (actions && actions.values) {
                     return actions.values
                 }
                 return null;

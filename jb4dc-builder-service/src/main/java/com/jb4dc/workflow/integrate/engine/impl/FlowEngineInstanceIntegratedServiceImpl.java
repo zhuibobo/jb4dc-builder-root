@@ -5,7 +5,7 @@ import com.jb4dc.core.base.session.JB4DCSession;
 import com.jb4dc.core.base.tools.StringUtility;
 import com.jb4dc.workflow.integrate.engine.IFlowEngineExecutionIntegratedService;
 import com.jb4dc.workflow.integrate.engine.IFlowEngineInstanceIntegratedService;
-import com.jb4dc.workflow.utility.CamundaBpmnUtility;
+import com.jb4dc.workflow.integrate.engine.utility.CamundaBpmnUtility;
 import com.jb4dc.workflow.utility.VariableUtility;
 import org.camunda.bpm.engine.ProcessEngine;
 import org.camunda.bpm.engine.RuntimeService;
@@ -25,8 +25,6 @@ import java.util.Map;
 
 @Service
 public class FlowEngineInstanceIntegratedServiceImpl extends FlowEngineCamundaIntegrateAbstractService implements IFlowEngineInstanceIntegratedService {
-
-
 
     @Autowired
     IFlowEngineExecutionIntegratedService IFlowEngineExecutionIntegratedService;

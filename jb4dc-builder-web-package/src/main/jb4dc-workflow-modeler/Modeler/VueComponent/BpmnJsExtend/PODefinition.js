@@ -201,6 +201,7 @@ class PODefinition{
         return {
             receiveObjectCode:"receiveObject_"+StringUtility.Timestamp(),
             receiveObjectType:"",
+            receiveObjectGroupName:"",
             receiveObjectValue:"",
             receiveObjectText:"",
             receiveObjectConfig:""
@@ -208,9 +209,9 @@ class PODefinition{
     }
     static RemoveExcludeProp(templatePO,actualPO){
         var result={};
-        for(var key in templatePO){
-            if(actualPO[key]){
-                result[key]=actualPO[key];
+        for(var key in templatePO) {
+            if (actualPO[key]) {
+                result[key] = actualPO[key];
             }
         }
         return result;

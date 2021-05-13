@@ -8,6 +8,8 @@ import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
 import com.jb4dc.core.base.session.JB4DCSession;
 import com.jb4dc.workflow.po.FlowModelRuntimePO;
 import com.jb4dc.workflow.po.bpmn.BpmnDefinitions;
+import com.jb4dc.workflow.po.bpmn.process.BpmnTask;
+import com.jb4dc.workflow.po.bpmn.process.BpmnUserTask;
 
 import javax.xml.bind.JAXBException;
 import javax.xml.stream.XMLStreamException;
@@ -21,7 +23,7 @@ public interface IModelIntegratedExtendService extends IBaseService<ModelIntegra
 
     BpmnDefinitions parseToPO(String xml) throws JAXBException, XMLStreamException;
 
-    BpmnDefinitions parseToPO(InputStream is) throws JAXBException, XMLStreamException;
+    BpmnDefinitions parseToPO(InputStream is) throws JAXBException, XMLStreamException, IOException;
 
     FlowModelIntegratedPO getPOByIntegratedId(JB4DCSession jb4DSession, String recordId) throws JBuild4DCGenerallyException, IOException;
 
@@ -38,4 +40,8 @@ public interface IModelIntegratedExtendService extends IBaseService<ModelIntegra
     FlowModelRuntimePO getRuntimeModelWithStart(JB4DCSession session, String modelKey) throws IOException, JAXBException, XMLStreamException, JBuild4DCGenerallyException;
 
     FlowModelIntegratedPO getLastPOByModelReKey(JB4DCSession jb4DSession, String modelReKey) throws IOException;
+
+    BpmnDefinitions getDeployedCamundaModelBpmnDefinitionsLastVersion(JB4DCSession jb4DCSession, String modelReKey) throws IOException, JAXBException, XMLStreamException;
+
+    List<BpmnTask> getLastDeployedCamundaModelBpmnTaskByIdList(JB4DCSession jb4DCSession, String modelReKey, BpmnDefinitions bpmnDefinitions, List<String> bpmnTaskIdList) throws JAXBException, XMLStreamException, IOException;
 }

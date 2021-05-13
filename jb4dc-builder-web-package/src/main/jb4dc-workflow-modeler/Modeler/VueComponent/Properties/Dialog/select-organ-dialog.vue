@@ -1,6 +1,6 @@
 <template>
     <div ref="selectOrganDialogWrap" style="display: none">
-        <div style="width: 50%;float: left;height: 452px;border: #a9b7d1 1px solid;border-radius: 4px;margin-right: 10px">
+        <div style="width: 50%;float: left;height: 452px;border: #a9b7d1 1px solid;border-radius: 4px;margin-right: 10px;overflow: auto">
             <div class="inner-wrap">
                 <div>
                     <ul id="select-organ-dialog-organZTreeUL" ref="organZTreeUL" class="ztree"></ul>

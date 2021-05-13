@@ -1,7 +1,11 @@
 package com.jb4dc.workflow.client.service.impl;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.jb4dc.base.service.cache.JB4DCCacheManagerV2;
 import com.jb4dc.builder.client.exenum.TableFieldTypeEnum;
+import com.jb4dc.builder.client.remote.EnvVariableRuntimeRemote;
 import com.jb4dc.builder.client.service.envvar.IEnvVariableRuntimeClient;
+import com.jb4dc.builder.dbentities.envvar.EnvVariableEntity;
 import com.jb4dc.builder.po.formdata.FormRecordComplexPO;
 import com.jb4dc.builder.po.formdata.FormRecordDataRelationPO;
 import com.jb4dc.builder.po.formdata.FormRecordFieldDataPO;
@@ -9,6 +13,7 @@ import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
 import com.jb4dc.core.base.session.JB4DCSession;
 import com.jb4dc.core.base.tools.DateUtility;
 import com.jb4dc.core.base.tools.StringUtility;
+import com.jb4dc.core.base.tools.UUIDUtility;
 import com.jb4dc.workflow.client.service.IWorkFlowRuntimeService;
 import com.jb4dc.workflow.client.utility.JuelUtility;
 import com.jb4dc.workflow.po.EnvVariableResultPO;
@@ -24,8 +29,8 @@ import org.springframework.stereotype.Service;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -33,8 +38,40 @@ import java.util.regex.Pattern;
 @Primary
 public class WorkFlowRuntimeServiceImpl implements IWorkFlowRuntimeService {
 
+    protected String CacheModuleName_LoadFlowModelRuntimePOSource="LoadFlowModelRuntimePOSource";
+
     @Autowired
     IEnvVariableRuntimeClient envVariableRuntimeClient;
+
+    @Autowired
+    EnvVariableRuntimeRemote envVariableRuntimeRemote;
+
+    @Autowired
+    JB4DCCacheManagerV2 jb4DCCacheManagerV2;
+
+    protected String CacheSysNameName="";
+
+    public String SaveFlowModelRuntimePOToCacheAtLoadingStatus(FlowModelRuntimePO flowModelRuntimePO) throws JsonProcessingException {
+        String cacheKey = UUIDUtility.getUUID();
+        FlowModelRuntimePO cacheValueObj= flowModelRuntimePO.clone();
+        cacheValueObj.setBpmnXmlContent("");
+        cacheValueObj.setBpmnDefinitions(null);
+        cacheValueObj.getModelIntegratedEntity().setModelContent("");
+        saveToCache(CacheModuleName_LoadFlowModelRuntimePOSource, cacheKey, cacheValueObj, JB4DCCacheManagerV2.ExpirationTime_1Day);
+        return cacheKey;
+    }
+
+    public FlowModelRuntimePO getLoadingStatusFlowModelRuntimePOFromCache(String cacheKey) throws IOException {
+        return getFromCache(FlowModelRuntimePO.class,CacheModuleName_LoadFlowModelRuntimePOSource,cacheKey);
+    }
+
+    public <T> void saveToCache(String moduleName, String key, T value, long expirationTimeSeconds) throws JsonProcessingException {
+        jb4DCCacheManagerV2.putT(JB4DCCacheManagerV2.Jb4dPlatformWorkFlowClientCacheName,moduleName,WorkFlowRuntimeServiceImpl.class,key, value,expirationTimeSeconds);
+    }
+
+    public <T> T getFromCache(Class<T> valueType, String moduleName, String key) throws IOException {
+        return jb4DCCacheManagerV2.getT(valueType,JB4DCCacheManagerV2.Jb4dPlatformWorkFlowClientCacheName,moduleName,WorkFlowRuntimeServiceImpl.class,key);
+    }
 
     @Override
     public Map<String,Object> resolveStringToJuelVariables(JB4DCSession jb4DCSession, String juelExpression, FormRecordComplexPO formRecordComplexPO, FlowModelRuntimePO flowModelRuntimePO) throws IOException, JBuild4DCGenerallyException {
@@ -116,8 +153,8 @@ public class WorkFlowRuntimeServiceImpl implements IWorkFlowRuntimeService {
     public Map<String,Object> parseFlowModelRuntimePOToJuelVars(JB4DCSession jb4DCSession, FlowModelRuntimePO flowModelRuntimePO) {
         Map<String, Object> result = new HashMap<>();
 
-        result.put("__$FlowVar$$ModelName$", flowModelRuntimePO.getBpmnDefinitions().getBpmnProcess().getName());
-        result.put("__$FlowVar$$ModelCategory$", flowModelRuntimePO.getBpmnDefinitions().getBpmnProcess().getJb4dcFlowCategory());
+        result.put("__$FlowVar$$ModelName$", flowModelRuntimePO.getModelName());
+        result.put("__$FlowVar$$ModelCategory$", flowModelRuntimePO.getModelCategory());
         result.put("__$FlowVar$$NodeName$", flowModelRuntimePO.getCurrentNodeName());
         result.put("__$FlowVar$$LastActionName$", "未确定");
         result.put("__$FlowVar$$InstanceCreatTime_yyyy_MM_dd$", DateUtility.getDate_yyyy_MM_dd(flowModelRuntimePO.getInstanceEntity().getInstCreateTime()));
@@ -128,6 +165,22 @@ public class WorkFlowRuntimeServiceImpl implements IWorkFlowRuntimeService {
         result.put("__$FlowVar$$InstanceCreatorId$", flowModelRuntimePO.getInstanceEntity().getInstCreatorId());
         result.put("__$FlowVar$$InstanceCreatorOrganName$", flowModelRuntimePO.getInstanceEntity().getInstOrganName());
         result.put("__$FlowVar$$InstanceCreatorOrganId$", flowModelRuntimePO.getInstanceEntity().getInstOrganId());
+
+        return result;
+    }
+
+    @Override
+    public Map<String,Object> parseDefaultFlowModelRuntimePOToJuelVars(JB4DCSession jb4DCSession, FlowModelRuntimePO flowModelRuntimePO, FormRecordComplexPO formRecordComplexPO) throws JBuild4DCGenerallyException, IOException {
+        Map<String, Object> result = new HashMap<>();
+        List<EnvVariableEntity> envVariableEntityList=envVariableRuntimeRemote.getEnvVariableByGroupId("ENV_GROUP_SYSTEM").getData();
+        for (EnvVariableEntity envVariableEntity : envVariableEntityList) {
+            String mapKey="__$EnvVar$$"+envVariableEntity.getEnvVarValue()+"$";
+            EnvVariableResultPO envVariableResultPO = envVariableRuntimeClient.execEnvVarResult(jb4DCSession, envVariableEntity.getEnvVarValue());
+            Object mapValue=envVariableResultPO.getValue();
+            result.put(mapKey,mapValue);
+        }
+        result.putAll(parseFormRecordComplexPOToJuelVars(jb4DCSession,formRecordComplexPO));
+        result.putAll(parseFlowModelRuntimePOToJuelVars(jb4DCSession,flowModelRuntimePO));
 
         return result;
     }

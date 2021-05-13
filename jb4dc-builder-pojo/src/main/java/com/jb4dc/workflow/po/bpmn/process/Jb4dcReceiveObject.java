@@ -17,11 +17,17 @@ public class Jb4dcReceiveObject {
     @XmlAttribute(name = "receiveObjectType")
     String receiveObjectType;
 
+    @XmlAttribute(name = "receiveObjectGroupName")
+    String receiveObjectGroupName;
+
     @XmlAttribute(name = "receiveObjectValue")
     String receiveObjectValue;
 
     @XmlAttribute(name = "receiveObjectText")
     String receiveObjectText;
+
+    @XmlAttribute(name = "receiveObjectConfig")
+    String receiveObjectConfig;
 
     public String getReceiveObjectCode() {
         return receiveObjectCode;
@@ -53,5 +59,21 @@ public class Jb4dcReceiveObject {
 
     public void setReceiveObjectText(String receiveObjectText) {
         this.receiveObjectText = receiveObjectText;
+    }
+
+    public String getReceiveObjectConfig() {
+        return receiveObjectConfig;
+    }
+
+    public void setReceiveObjectConfig(String receiveObjectConfig) {
+        this.receiveObjectConfig = receiveObjectConfig;
+    }
+
+    public String getReceiveObjectGroupName() {
+        return receiveObjectGroupName;
+    }
+
+    public void setReceiveObjectGroupName(String receiveObjectGroupName) {
+        this.receiveObjectGroupName = receiveObjectGroupName;
     }
 }

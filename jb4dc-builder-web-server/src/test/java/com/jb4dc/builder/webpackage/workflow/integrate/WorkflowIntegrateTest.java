@@ -13,7 +13,7 @@ import com.jb4dc.workflow.integrate.engine.impl.CamundaIntegrate;
 import com.jb4dc.workflow.po.bpmn.BpmnDefinitions;
 import com.jb4dc.workflow.integrate.extend.IModelIntegratedExtendService;
 import com.jb4dc.workflow.integrate.extend.IExecutionTaskExtendService;
-import com.jb4dc.workflow.utility.CamundaBpmnUtility;
+import com.jb4dc.workflow.integrate.engine.utility.CamundaBpmnUtility;
 import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
 import org.camunda.bpm.engine.ProcessEngine;
 import org.camunda.bpm.engine.RepositoryService;
@@ -38,6 +38,7 @@ import javax.xml.bind.JAXBException;
 import javax.xml.stream.XMLStreamException;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -75,7 +76,7 @@ public class WorkflowIntegrateTest extends RestTestBase {
     ProcessEngine processEngine;
 
     @Test
-    public void parseToPO() throws JAXBException, XMLStreamException, FileNotFoundException {
+    public void parseToPO() throws JAXBException, XMLStreamException, IOException {
 
         InputStream is=new FileInputStream("D:\\JavaProject\\JavaTestProject\\CamundaProject13\\src\\main\\resources\\bpmn\\P004_001_发文流程_解析XML模型用.bpmn");
 
@@ -137,7 +138,7 @@ public class WorkflowIntegrateTest extends RestTestBase {
         vars.put("act","送负责人");
         vars.put("level",1);
 
-        List<UserTask> userTasks = CamundaBpmnUtility.getNextPossibleUseTask(task,vars);
+        List<org.camunda.bpm.model.bpmn.instance.Task> userTasks = CamundaBpmnUtility.getNextPossibleTask(task,vars);
         Assert.assertEquals(2,userTasks.size());
         Assert.assertEquals(true,userTasks.stream().anyMatch(us->us.getName().equals("相关负责人")));
         //Assert.assertEquals(true,userTasks.stream().anyMatch(us->us.getName().equals("相关负责人2")));
@@ -148,12 +149,12 @@ public class WorkflowIntegrateTest extends RestTestBase {
         vars.put("act","送负责人");
         vars.put("level",6);
 
-        userTasks = CamundaBpmnUtility.getNextPossibleUseTask(task,vars);
+        userTasks = CamundaBpmnUtility.getNextPossibleTask(task,vars);
         Assert.assertEquals(3,userTasks.size());
         Assert.assertEquals(true,userTasks.stream().anyMatch(us->us.getName().equals("相关负责人")));
         Assert.assertEquals(true,userTasks.stream().anyMatch(us->us.getName().equals("相关负责人2")));
         Assert.assertEquals(true,userTasks.stream().anyMatch(us->us.getName().equals("相关负责人1")));
-        UserTask abUserTask1=userTasks.stream().filter(us->us.getName().equals("相关负责人1")).findFirst().get();
+        UserTask abUserTask1=(UserTask) userTasks.stream().filter(us->us.getName().equals("相关负责人1")).findFirst().get();
         Assert.assertEquals(false, CamundaBpmnUtility.isSequential(abUserTask1));
         Assert.assertEquals(false, CamundaBpmnUtility.isMultiInstance(abUserTask1));
         Assert.assertEquals(false, CamundaBpmnUtility.isParallel(abUserTask1));
@@ -163,14 +164,14 @@ public class WorkflowIntegrateTest extends RestTestBase {
         vars.put("act","送部门负责人");
         vars.put("level",6);
 
-        userTasks = CamundaBpmnUtility.getNextPossibleUseTask(task,vars);
+        userTasks = CamundaBpmnUtility.getNextPossibleTask(task,vars);
         Assert.assertEquals(2,userTasks.size());
         Assert.assertEquals(true,userTasks.stream().anyMatch(us->us.getName().equals("部门负责人1")));
         Assert.assertEquals(true,userTasks.stream().anyMatch(us->us.getName().equals("部门负责人2")));
-        UserTask depLUserTask=userTasks.stream().filter(us->us.getName().equals("部门负责人1")).findFirst().get();
+        UserTask depLUserTask=(UserTask)userTasks.stream().filter(us->us.getName().equals("部门负责人1")).findFirst().get();
         Assert.assertEquals(true, CamundaBpmnUtility.isMultiInstance(depLUserTask));
         Assert.assertEquals(true, CamundaBpmnUtility.isSequential(depLUserTask));
-        depLUserTask=userTasks.stream().filter(us->us.getName().equals("部门负责人2")).findFirst().get();
+        depLUserTask=(UserTask)userTasks.stream().filter(us->us.getName().equals("部门负责人2")).findFirst().get();
         Assert.assertEquals(true, CamundaBpmnUtility.isMultiInstance(depLUserTask));
         Assert.assertEquals(false, CamundaBpmnUtility.isSequential(depLUserTask));
         Assert.assertEquals(true, CamundaBpmnUtility.isParallel(depLUserTask));
@@ -179,7 +180,7 @@ public class WorkflowIntegrateTest extends RestTestBase {
         vars.put("act","送分管领导");
         vars.put("level",6);
 
-        userTasks = CamundaBpmnUtility.getNextPossibleUseTask(task,vars);
+        userTasks = CamundaBpmnUtility.getNextPossibleTask(task,vars);
         Assert.assertEquals(1,userTasks.size());
         Assert.assertEquals(true,userTasks.stream().anyMatch(us->us.getName().equals("分管领导")));
     }
@@ -222,14 +223,14 @@ public class WorkflowIntegrateTest extends RestTestBase {
         //获取可能环节
         vars=new HashMap<>();
         vars.put("UserId", "User003");
-        List<UserTask> userTasks = CamundaBpmnUtility.getNextPossibleUseTask(task,vars);
+        List<org.camunda.bpm.model.bpmn.instance.Task> userTasks = CamundaBpmnUtility.getNextPossibleTask(task,vars);
         Assert.assertEquals(1,userTasks.size());
         Assert.assertEquals(true,userTasks.stream().anyMatch(us->us.getName().equals("经办人1")));
 
         vars=new HashMap<>();
         vars.put("UserId", "User003");
         vars.put("act", "送经办人2");
-        userTasks = CamundaBpmnUtility.getNextPossibleUseTask(task,vars);
+        userTasks = CamundaBpmnUtility.getNextPossibleTask(task,vars);
         Assert.assertEquals(1,userTasks.size());
         Assert.assertEquals(true,userTasks.stream().anyMatch(us->us.getName().equals("经办人2")));
 

@@ -19,7 +19,8 @@ import org.springframework.web.bind.annotation.RequestParam;
  * To change this template use File | Settings | File Templates.
  */
 @Primary
-@FeignClient(name= "${jb4dc.builder.server.name}",contextId = "FlowModelIntegratedRuntimeRemote",configuration = { BuilderClientFeignClientConfig.class },path = "${jb4dc.builder.server.context-path}/Rest/Workflow/RunTime/FlowModelIntegrated")
+@FeignClient(name= "${jb4dc.builder.server.name}",contextId = "FlowModelIntegratedRuntimeRemote",configuration = { BuilderClientFeignClientConfig.class },
+        path = "${jb4dc.builder.server.context-path}/Rest/Workflow/RunTime/FlowModelIntegratedRuntime")
 public interface FlowModelIntegratedRuntimeRemote {
 
     @RequestMapping(value = "/GetMyBootableModel",method = RequestMethod.GET)

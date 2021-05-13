@@ -12,6 +12,7 @@ import com.jb4dc.workflow.client.service.IWorkFlowModelRuntimeService;
 import com.jb4dc.workflow.dbentities.ModelIntegratedEntity;
 import com.jb4dc.workflow.po.FlowModelListIntegratedPO;
 import com.jb4dc.workflow.po.FlowModelRuntimePO;
+import com.jb4dc.workflow.po.bpmn.process.BpmnTask;
 import com.jb4dc.workflow.po.bpmn.process.BpmnUserTask;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,8 +58,14 @@ public class FlowModelIntegratedRuntimeRemoteTest  extends RestTestBase {
     public void resolveNextPossibleUseTaskWithStartNode() throws JBuild4DCGenerallyException, IOException {
         JB4DCUnitSessionSessionUtility.mockLogin(getAlex4DSession());
         Map<String,Object> vars=new HashMap<>();
-        vars.put("LastActionKey","__$FlowAction$$StartEvent_N1$$action_526152327$");
-        JBuild4DCResponseVo<List<BpmnUserTask>> result = flowInstanceIntegratedRuntimeRemote.resolveNextPossibleUseTaskWithStartNode("Alex4D","Flow_Model_1619519188394",JsonUtility.toObjectString(vars));
+        //vars.put("LastActionKey","__$FlowAction$$StartEvent_N1$$action_526152327$");
+        Map<String,Object> formParams=new HashMap<>();
+        formParams.put("userId","Alex4D");
+        formParams.put("modelKey","Flow_Model_1619519188394");
+        formParams.put("currentNodeKey","StartEvent_N1");
+        formParams.put("actionCode","action_896686771");
+        formParams.put("varsJsonString",JsonUtility.toObjectString(vars));
+        JBuild4DCResponseVo<List<BpmnTask>> result = flowInstanceIntegratedRuntimeRemote.resolveNextPossibleUseTaskWithStartNode(formParams);
         /*for (ModelIntegratedEntity modelIntegratedEntity : result.getData().getModelIntegratedEntityList()) {
             System.out.println(modelIntegratedEntity.getModelName());
         }*/

@@ -9,6 +9,8 @@ import com.jb4dc.workflow.dbentities.ModelAssObjectEntity;
 import com.jb4dc.workflow.integrate.extend.IModelAssObjectExtendService;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class ModelAssObjectExtendServiceImpl extends BaseServiceImpl<ModelAssObjectEntity> implements IModelAssObjectExtendService
 {
@@ -32,5 +34,10 @@ public class ModelAssObjectExtendServiceImpl extends BaseServiceImpl<ModelAssObj
     @Override
     public void deleteRefByModelKey(JB4DCSession jb4DSession, String key) {
         modelAssObjectMapper.deleteRefByModelKey(key);
+    }
+
+    @Override
+    public List<ModelAssObjectEntity> getManagerByModelRuKey(JB4DCSession jb4DCSession, String modelRuKey) {
+        return modelAssObjectMapper.selectManagerByModelRuKey(modelRuKey);
     }
 }

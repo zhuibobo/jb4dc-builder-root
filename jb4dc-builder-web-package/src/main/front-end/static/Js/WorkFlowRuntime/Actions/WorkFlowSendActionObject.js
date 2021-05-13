@@ -1,10 +1,14 @@
 let WorkFlowSendActionObject={
-    Instance:function (flowModelRuntimePO,jb4dcActions,formRuntimeInst,actionObj){
+    acInterface:{
+        getRuntimeModelWithStart:"/Rest/Workflow/RunTime/ModelRuntime/GetRuntimeModelWithStart",
+    },
+    Instance:function (flowModelRuntimePO,flowModelRuntimePOCacheKey,jb4dcActions,formRuntimeInst,actionObj){
         console.log(actionObj);
         var htmlId= actionObj.actionHTMLId?actionObj.actionHTMLId:actionObj.actionCode;
         var elem = $('<button type="button" class="operation-button operation-button-primary" id="' + htmlId + '"><span>' + actionObj.actionCaption + '</span></button>');
         elem.bind("click", {
             "flowModelRuntimePO": flowModelRuntimePO,
+            "flowModelRuntimePOCacheKey":flowModelRuntimePOCacheKey,
             "jb4dcActions": jb4dcActions,
             "formRuntimeInst": formRuntimeInst,
             "actionObj":actionObj,

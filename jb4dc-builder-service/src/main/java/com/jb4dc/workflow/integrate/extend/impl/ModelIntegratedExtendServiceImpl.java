@@ -37,6 +37,7 @@ import com.jb4dc.workflow.dbentities.ModelIntegratedEntity;
 import com.jb4dc.workflow.integrate.engine.impl.FlowEngineModelIntegrateServiceImpl;
 import com.jb4dc.workflow.integrate.extend.IModelIntegratedExtendService;
 import com.jb4dc.workflow.po.bpmn.process.*;
+import liquibase.pro.packaged.B;
 import org.apache.commons.io.IOUtils;
 import org.camunda.bpm.engine.repository.Deployment;
 import org.slf4j.Logger;
@@ -81,12 +82,24 @@ public class ModelIntegratedExtendServiceImpl extends BaseServiceImpl<ModelInteg
 
     @Override
     public BpmnDefinitions parseToPO(String xml) throws JAXBException, XMLStreamException {
-        return XMLUtility.toObject(xml, BpmnDefinitions.class);
+        BpmnDefinitions bpmnDefinitions=XMLUtility.toObject(xml, BpmnDefinitions.class);
+        if(bpmnDefinitions.getBpmnProcess().getUserTaskList()!=null) {
+            for (BpmnTask bpmnTask : bpmnDefinitions.getBpmnProcess().getUserTaskList()) {
+                bpmnTask.setTaskTypeName(BpmnUserTask.class.getTypeName());
+            }
+        }
+        if(bpmnDefinitions.getBpmnProcess().getServiceTaskList()!=null) {
+            for (BpmnTask bpmnTask : bpmnDefinitions.getBpmnProcess().getServiceTaskList()) {
+                bpmnTask.setTaskTypeName(BpmnUserTask.class.getTypeName());
+            }
+        }
+        return bpmnDefinitions;
     }
 
     @Override
-    public BpmnDefinitions parseToPO(InputStream is) throws JAXBException, XMLStreamException {
-        return XMLUtility.toObject(is, BpmnDefinitions.class);
+    public BpmnDefinitions parseToPO(InputStream is) throws JAXBException, XMLStreamException, IOException {
+        String str = IOUtils.toString(is, "utf-8");
+        return parseToPO(str);
     }
 
     @Override
@@ -416,6 +429,10 @@ public class ModelIntegratedExtendServiceImpl extends BaseServiceImpl<ModelInteg
         flowModelRuntimePO.setJb4dcFormEx1Id(bpmnProcess.getJb4dcFormEx1Id());
         flowModelRuntimePO.setJb4dcFormEx1Plugin(bpmnProcess.getJb4dcFormEx1Plugin());
         flowModelRuntimePO.setJb4dcFormEx1Paras(bpmnProcess.getJb4dcFormEx1Paras());
+
+        flowModelRuntimePO.setModelName(bpmnProcess.getName());
+        flowModelRuntimePO.setModelCategory(bpmnProcess.getJb4dcFlowCategory());
+
         if (isStart) {
             BpmnStartEvent bpmnStartEvent = bpmnDefinitions.getBpmnProcess().getStartEvent();
             flowModelRuntimePO.setCurrentNodeKey(bpmnStartEvent.getId());
@@ -500,13 +517,10 @@ public class ModelIntegratedExtendServiceImpl extends BaseServiceImpl<ModelInteg
         flowModelRuntimePO.setBpmnXmlContent(URLUtility.encode(modelXml));
     }
 
-
-
     @Override
     public FlowModelRuntimePO getRuntimeModelWithStart(JB4DCSession session, String modelKey) throws IOException, JAXBException, XMLStreamException, JBuild4DCGenerallyException {
         FlowModelRuntimePO result = new FlowModelRuntimePO();
         buildFlowModelRuntimePOBaseInfo(session, result, modelKey, true, "");
-        //buildFlowModelRuntimePOBindFormInfo(session, result, modelKey, true, modelKey);
         return result;
     }
 
@@ -520,9 +534,19 @@ public class ModelIntegratedExtendServiceImpl extends BaseServiceImpl<ModelInteg
     }
 
     @Override
-    public List<BpmnUserTask> getLastDeployedCamundaModelBpmnUserTaskByIdList(JB4DCSession jb4DCSession, String modelReKey, List<String> bpmnTaskIdList) throws JAXBException, XMLStreamException, IOException {
+    public BpmnDefinitions getDeployedCamundaModelBpmnDefinitionsLastVersion(JB4DCSession jb4DCSession, String modelReKey) throws IOException, JAXBException, XMLStreamException {
         String modelContent = flowEngineModelIntegratedService.getDeployedCamundaModelContentLastVersion(jb4DCSession, modelReKey, ModelTenantIdEnum.builderGeneralTenant);
         BpmnDefinitions bpmnDefinitions = this.parseToPO(modelContent);
-        return bpmnDefinitions.getBpmnProcess().getUserTaskList().stream().filter(item->bpmnTaskIdList.contains(item.getId())).collect(Collectors.toList());
+        return bpmnDefinitions;
+    }
+
+    @Override
+    public List<BpmnTask> getLastDeployedCamundaModelBpmnTaskByIdList(JB4DCSession jb4DCSession, String modelReKey,BpmnDefinitions bpmnDefinitions, List<String> bpmnTaskIdList) throws JAXBException, XMLStreamException, IOException {
+        //String modelContent = flowEngineModelIntegratedService.getDeployedCamundaModelContentLastVersion(jb4DCSession, modelReKey, ModelTenantIdEnum.builderGeneralTenant);
+        //BpmnDefinitions bpmnDefinitions = this.parseToPO(modelContent);
+        List<BpmnTask> userTaskResult=bpmnDefinitions.getBpmnProcess().getUserTaskList().stream().filter(item->bpmnTaskIdList.contains(item.getId())).collect(Collectors.toList());
+        List<BpmnTask> serviceTaskResult=bpmnDefinitions.getBpmnProcess().getServiceTaskList().stream().filter(item->bpmnTaskIdList.contains(item.getId())).collect(Collectors.toList());
+        userTaskResult.addAll(serviceTaskResult);
+        return userTaskResult;
     }
 }

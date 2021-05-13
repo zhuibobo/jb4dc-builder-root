@@ -1,8 +1,11 @@
 package com.jb4dc.workflow.client.service.impl;
 
+import com.jb4dc.base.service.cache.JB4DCCacheManagerV2;
 import com.jb4dc.base.service.general.JB4DCSessionUtility;
+import com.jb4dc.base.tools.JsonUtility;
 import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
 import com.jb4dc.core.base.session.JB4DCSession;
+import com.jb4dc.core.base.tools.UUIDUtility;
 import com.jb4dc.core.base.vo.JBuild4DCResponseVo;
 import com.jb4dc.workflow.client.remote.FlowModelIntegratedRuntimeRemote;
 import com.jb4dc.workflow.client.service.IWorkFlowModelRuntimeService;
@@ -28,12 +31,14 @@ public class WorkFlowModelRuntimeServiceImpl extends WorkFlowRuntimeServiceImpl 
     }
 
 
+
     @Override
     public JBuild4DCResponseVo<FlowModelRuntimePO> getRuntimeModelWithStart(String userId, String modelKey) throws IOException, JBuild4DCGenerallyException {
-        FlowModelRuntimePO flowModelRuntimePO=flowModelIntegratedRuntimeRemote.getRuntimeModelWithStart(userId,modelKey).getData();
-        Jb4dcActions jb4dcActions=buildFlowModelRuntimePOBindCurrentActions(JB4DCSessionUtility.getSession(),flowModelRuntimePO,null);
+        FlowModelRuntimePO flowModelRuntimePO = flowModelIntegratedRuntimeRemote.getRuntimeModelWithStart(userId, modelKey).getData();
+        Jb4dcActions jb4dcActions = buildFlowModelRuntimePOBindCurrentActions(JB4DCSessionUtility.getSession(), flowModelRuntimePO, null);
         flowModelRuntimePO.setJb4dcActions(jb4dcActions);
-        return JBuild4DCResponseVo.getDataSuccess(flowModelRuntimePO);
+        String cacheKey = SaveFlowModelRuntimePOToCacheAtLoadingStatus(flowModelRuntimePO);
+        return JBuild4DCResponseVo.getDataSuccess(flowModelRuntimePO, cacheKey);
         //return null;
     }
 }

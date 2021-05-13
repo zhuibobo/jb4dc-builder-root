@@ -1,4 +1,4 @@
-package com.jb4dc.workflow.utility;
+package com.jb4dc.workflow.integrate.engine.utility;
 
 import com.jb4dc.workflow.integrate.engine.impl.CamundaIntegrate;
 import com.jb4dc.workflow.integrate.engine.impl.FlowEngineTaskIntegratedServiceImpl;
@@ -12,6 +12,7 @@ import org.camunda.bpm.engine.impl.javax.el.ValueExpression;
 import org.camunda.bpm.engine.impl.juel.ExpressionFactoryImpl;
 import org.camunda.bpm.engine.impl.juel.SimpleContext;
 import org.camunda.bpm.engine.impl.juel.SimpleResolver;
+import org.camunda.bpm.engine.repository.ProcessDefinition;
 import org.camunda.bpm.engine.task.Task;
 import org.camunda.bpm.model.bpmn.BpmnModelInstance;
 import org.camunda.bpm.model.bpmn.instance.*;
@@ -66,24 +67,40 @@ public class CamundaBpmnUtility {
         return newList;
     }
 
-    public static List<UserTask> getNextPossibleUseTask(Task task, Map<String, Object> vars){
+    public static List<org.camunda.bpm.model.bpmn.instance.Task> getNextPossibleUseTaskWithStartNode(String processDefinitionKey,Map<String, Object> vars){
+        ProcessEngine processEngine= CamundaIntegrate.getProcessEngine();
+        RepositoryService repositoryService=processEngine.getRepositoryService();
+        ProcessDefinition processDefinition=repositoryService.createProcessDefinitionQuery().processDefinitionKey(processDefinitionKey).latestVersion().singleResult();
+        BpmnModelInstance modelInstance = repositoryService.getBpmnModelInstance(processDefinition.getId());
+        Collection<StartEvent> startEvents=modelInstance.getModelElementsByType(StartEvent.class);
+        List<org.camunda.bpm.model.bpmn.instance.Task> userTasks=getOutgoingTask(startEvents.iterator().next(),vars);
+        return userTasks;
+    }
+
+    public static List<org.camunda.bpm.model.bpmn.instance.Task> getNextPossibleTask(String taskId, Map<String, Object> vars) {
+        ProcessEngine processEngine = CamundaIntegrate.getProcessEngine();
+        Task task = processEngine.getTaskService().createTaskQuery().taskId(taskId).singleResult();
+        return getNextPossibleTask(task,vars);
+    }
+
+    public static List<org.camunda.bpm.model.bpmn.instance.Task> getNextPossibleTask(Task task, Map<String, Object> vars){
         ProcessEngine processEngine=CamundaIntegrate.getProcessEngine();
-        List<UserTask> allPossibleTasks=new ArrayList<>();
+        List<org.camunda.bpm.model.bpmn.instance.Task> allPossibleTasks=new ArrayList<>();
         List<SequenceFlow> outgoingSequenceFlow = getOutgoingSequenceFlow(task.getProcessDefinitionId(),task.getTaskDefinitionKey());
         RepositoryService repositoryService=processEngine.getRepositoryService();
         BpmnModelInstance modelInstance = repositoryService.getBpmnModelInstance(task.getProcessDefinitionId());
         FlowNode thisTaskFlowNode = modelInstance.getModelElementById(task.getTaskDefinitionKey());
         for (SequenceFlow sequenceFlow : outgoingSequenceFlow) {
             if(CamundaBpmnUtility.isUserTaskFlowNode(sequenceFlow.getTarget())){
-                List<UserTask> possibleTasks=getOutgoingTask(thisTaskFlowNode,vars);
-                for (UserTask possibleTask : possibleTasks) {
+                List<org.camunda.bpm.model.bpmn.instance.Task> possibleTasks=getOutgoingTask(thisTaskFlowNode,vars);
+                for (org.camunda.bpm.model.bpmn.instance.Task possibleTask : possibleTasks) {
                     if(!allPossibleTasks.stream().anyMatch(ut->ut.getId().equals(possibleTask.getId()))){
                         allPossibleTasks.add(possibleTask);
                     }
                 }
             }
             else if(CamundaBpmnUtility.isExclusiveGatewayFlowNode(sequenceFlow.getTarget())){
-                List<UserTask> possibleTasks=getOutgoingTask(sequenceFlow.getTarget(),vars);
+                List<org.camunda.bpm.model.bpmn.instance.Task> possibleTasks=getOutgoingTask(sequenceFlow.getTarget(),vars);
                 allPossibleTasks.addAll(possibleTasks);
             }
         }
@@ -91,7 +108,7 @@ public class CamundaBpmnUtility {
         if(StringUtility.isNotEmpty(defaultSequenceFlowId)){
             if(allPossibleTasks.size()>1){
                 SequenceFlow defaultSequenceFlowNode = modelInstance.getModelElementById(defaultSequenceFlowId);
-                for (UserTask possibleTask : allPossibleTasks) {
+                for (org.camunda.bpm.model.bpmn.instance.Task possibleTask : allPossibleTasks) {
                     if(possibleTask.getId().equals(defaultSequenceFlowNode.getTarget().getId())){
                         allPossibleTasks.remove(possibleTask);
                     }
@@ -104,8 +121,8 @@ public class CamundaBpmnUtility {
         //for(outgoingSequenceFlow)
     }
 
-    private static List<UserTask> getOutgoingTask(FlowNode node, Map<String, Object> vars) {
-        List<UserTask> possibleTasks = new ArrayList<>();
+    private static List<org.camunda.bpm.model.bpmn.instance.Task> getOutgoingTask(FlowNode node, Map<String, Object> vars) {
+        List<org.camunda.bpm.model.bpmn.instance.Task> possibleTasks = new ArrayList<>();
         for(SequenceFlow sf: node.getOutgoing()) {
             if (sf.getName() != null) {
                 logger.info("Entering flow node {}", sf.getName());
@@ -136,11 +153,11 @@ public class CamundaBpmnUtility {
             }
 
             if (next && sf.getTarget() != null) {
-                if (sf.getTarget() instanceof UserTask) {
+                //if (sf.getTarget() instanceof UserTask) {
                     logger.info("Found next user task {}", sf.getTarget().getName());
-                    possibleTasks.add((UserTask)sf.getTarget());
+                    possibleTasks.add((org.camunda.bpm.model.bpmn.instance.Task) sf.getTarget());
                     //break;
-                }
+                //}
                 //possibleTasks.addAll(getOutgoing(sf.getTarget(), vars));
             }
 

@@ -199,7 +199,7 @@ public class ModuleServiceImpl extends BaseServiceImpl<ModuleEntity> implements 
         moduleContextPO.setEnvVariablePOList(envVariableService.getALL(jb4DCSession));
 
         JBuild4DCResponseVo<List<RoleGroupEntity>> jBuild4DCResponseVoRoleGroupEntity=roleGroupRuntimeRemote.getALLRoleGroup();
-        JBuild4DCResponseVo<List<RoleEntity>> jBuild4DCResponseVoRoleEntity=roleRuntimeRemote.getFullEnableRoleRT();
+        JBuild4DCResponseVo<List<RoleEntity>> jBuild4DCResponseVoRoleEntity=roleRuntimeRemote.getFullEnableRole();
         JBuild4DCResponseVo<List<OrganEntity>> jBuild4DCResponseVoOrganEntity=organRuntimeRemote.getEnableOrganMinPropRT();
         JBuild4DCResponseVo<List<UserEntity>> jBuild4DCResponseVoUserEntity=userRuntimeRemote.getEnableUserMinPropRT();
 

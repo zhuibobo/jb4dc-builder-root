@@ -64,7 +64,7 @@ public class SQLStringPlaceholderUtility {
     private String ChildOrganIdAndRolePlaceholderHandler(String userId,String organId,String sourceSQL,Map<String,Object> sqlParas) throws JBuild4DCGenerallyException {
         //sourceSQL.replaceAll("",)
         if(sourceSQL.indexOf("ENVVAR.ENV_SYSTEM_CURRENT_USER_CHILD_ORGAN_ID_INCLUDE_SELF_AND_ROLE}")>0) {
-            JBuild4DCResponseVo<List<RoleEntity>> jBuild4DCResponseVoRoleEntity = roleRuntimeRemote.getUserRolesRT(userId);
+            JBuild4DCResponseVo<List<RoleEntity>> jBuild4DCResponseVoRoleEntity = roleRuntimeRemote.getUserRoles(userId);
             if(jBuild4DCResponseVoRoleEntity.getData()!=null&&jBuild4DCResponseVoRoleEntity.getData().size()>0){
                 List<RoleEntity> roleList= jBuild4DCResponseVoRoleEntity.getData();
                 if(roleList.stream().anyMatch(roleEntity -> roleEntity.getRoleId().equals("DataFilter-With-DataSet-AllData"))){

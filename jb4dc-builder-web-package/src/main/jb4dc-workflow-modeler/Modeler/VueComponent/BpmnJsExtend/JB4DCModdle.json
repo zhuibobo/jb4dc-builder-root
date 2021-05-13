@@ -432,6 +432,11 @@
           "type": "String"
         },
         {
+          "name": "receiveObjectGroupName",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
           "name": "receiveObjectValue",
           "isAttr": true,
           "type": "String"

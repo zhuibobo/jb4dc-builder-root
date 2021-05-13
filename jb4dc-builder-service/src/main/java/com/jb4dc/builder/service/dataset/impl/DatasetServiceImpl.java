@@ -306,7 +306,7 @@ public class DatasetServiceImpl extends BaseServiceImpl<DatasetEntity> implement
             for (Map.Entry<String, String> textPara : aboutTextParas.entrySet()) {
                 String fullValue=textPara.getKey().split("\\.")[0];
                 String envName=textPara.getKey().substring(textPara.getKey().indexOf(".")+1).replace("}","");
-                String envValue=envVariableService.getValueByText(envName);
+                String envValue=envVariableService.getValueByText(jb4DCSession,envName);
                 if(envValue.equals("")){
                     throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_BUILDER_CODE,"将变量从"+envValue+"装换为Value时，找不到对应的数据！");
                 }

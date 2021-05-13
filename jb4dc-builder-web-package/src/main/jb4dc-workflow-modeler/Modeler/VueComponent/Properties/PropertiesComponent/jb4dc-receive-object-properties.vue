@@ -22,6 +22,9 @@
             <div style="float: left;width: 100%;margin-top: 4px">
             <i-table border :columns="receiveObjectTableConfig" :data="receiveObjectTableData"
                      class="iv-list-table" size="small" no-data-text="add listeners" height="400">
+                <template slot-scope="{ row, index }" slot="receiveGroupName">
+                    <Input v-model="receiveObjectTableData[index].receiveObjectGroupName" placeholder="使用默认值" style="width: 120px" size="small" />
+                </template>
                 <template slot-scope="{ row, index }" slot="receiveObjectText">
                     <div v-html="receiveObjectTextFormat(row)">
                     </div>
@@ -64,7 +67,14 @@
                         title: '类型',
                         key: 'receiveObjectType',
                         align: "center",
-                        width: 180
+                        width: 130
+                    },
+                    {
+                        title: '分组名称',
+                        slot: 'receiveGroupName',
+                        align: "center",
+                        key: 'receiveObjectGroupName',
+                        width: 160
                     },
                     {
                         title: '接收对象',
@@ -75,7 +85,7 @@
                     {
                         title: '操作',
                         slot: 'action',
-                        width: 120,
+                        width: 70,
                         align: "center"
                     }
                 ],
@@ -85,6 +95,11 @@
         created(){
         },
         mounted() {
+            for (let i = 0; i < this.propReceiveObjectsData.length; i++) {
+                if(!this.propReceiveObjectsData[i].receiveObjectGroupName){
+                    this.propReceiveObjectsData[i].receiveObjectGroupName = "";
+                }
+            }
             this.receiveObjectTableData = this.propReceiveObjectsData;
             /*console.log("555555555");
             window.setInterval( ()=>{
@@ -104,6 +119,7 @@
                 receiveObject.receiveObjectValue = value;
                 receiveObject.receiveObjectText = text;
                 receiveObject.receiveObjectConfig = config;
+                receiveObject.receiveObjectGroupName="";
                 return receiveObject;
             },
             addToReceiveObjectTableData:function(receiverObjectRow){

@@ -42,7 +42,6 @@ public class Jb4dcAction {
     @XmlAttribute(name = "actionRunSqls")
     String actionRunSqls;
 
-
     @XmlAttribute(name = "actionUpdateFields")
     String actionUpdateFields;
 

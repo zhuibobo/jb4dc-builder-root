@@ -2,7 +2,7 @@ let FlowRuntimePageObject={
     _webFormRTParas:null,
     _formRuntimeInst:null,
     FORM_RUNTIME_CATEGORY_FLOW:"IsDependenceFlow",
-    pageReadyForStartStatus:function (isPreview,rendererChainCompletedFunc,flowModelRuntimePO) {
+    pageReadyForStartStatus:function (isPreview,rendererChainCompletedFunc,flowModelRuntimePO,flowModelRuntimePOCacheKey) {
         //debugger;
         this._formRuntimeInst = Object.create(FormRuntime);
         //var webFormRTParas=this.getWebFormRTParas();
@@ -19,14 +19,15 @@ let FlowRuntimePageObject={
             "WebFormRTParas": {},
             "FormRuntimeCategory":FlowRuntimePageObject.FORM_RUNTIME_CATEGORY_FLOW,
             "PreHandleFormHtmlRuntimeFunc":this.preHandleFormHtmlRuntimeFunc,
-            "flowModelRuntimePO":flowModelRuntimePO
+            "flowModelRuntimePO":flowModelRuntimePO,
+            "flowModelRuntimePOCacheKey":flowModelRuntimePOCacheKey
         });
         //this._formRuntimeInst.webFormRTParas=webFormRTParas;
-        this.rendererActionButtons(flowModelRuntimePO,this._formRuntimeInst);
+        this.rendererActionButtons(flowModelRuntimePO,flowModelRuntimePOCacheKey,this._formRuntimeInst);
         return this._formRuntimeInst;
     },
-    rendererActionButtons:function (flowModelRuntimePO,formRuntimeInst) {
-        ActionsRuntimeObject.CreateALLActionButton(flowModelRuntimePO, flowModelRuntimePO.jb4dcActions, formRuntimeInst);
+    rendererActionButtons:function (flowModelRuntimePO,flowModelRuntimePOCacheKey,formRuntimeInst) {
+        ActionsRuntimeObject.CreateALLActionButton(flowModelRuntimePO,flowModelRuntimePOCacheKey, flowModelRuntimePO.jb4dcActions, formRuntimeInst);
     },
     preHandleFormHtmlRuntimeFunc:function (sourceRuntimeHtml,formRuntimeInst,propConfig){
         //console.log(sourceRuntimeHtml);

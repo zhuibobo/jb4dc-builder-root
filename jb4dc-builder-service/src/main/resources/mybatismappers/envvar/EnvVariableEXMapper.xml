@@ -36,4 +36,8 @@
     <select id="selectByText" resultMap="BaseResultMap">
         select<include refid="Base_Column_List"/> from TBUILD_ENV_VARIABLE where ENV_VAR_TEXT=#{envVarText}
     </select>
+
+    <select id="selectByGroupId" resultMap="BaseResultMap">
+        select<include refid="Base_Column_List"/> from TBUILD_ENV_VARIABLE where ENV_VAR_GROUP_ID=#{groupId}
+    </select>
 </mapper>

@@ -18,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.
@@ -122,7 +123,7 @@ public class EnvVariableServiceImpl extends BaseServiceImpl<EnvVariableEntity> i
     }
 
     @Override
-    public String getValueByText(String name){
+    public String getValueByText(JB4DCSession jb4DCSession,String name){
         EnvVariableEntity tempEntity = envVariableMapper.selectByText(name);
         if (tempEntity != null) {
             return tempEntity.getEnvVarValue();
@@ -131,7 +132,12 @@ public class EnvVariableServiceImpl extends BaseServiceImpl<EnvVariableEntity> i
     }
 
     @Override
-    public EnvVariableEntity getEntityByValue(String value) {
+    public EnvVariableEntity getEntityByValue(JB4DCSession jb4DCSession,String value) {
         return envVariableMapper.selectByValue(value);
+    }
+
+    @Override
+    public List<EnvVariableEntity> getEntitiesByGroupId(JB4DCSession session, String groupId) {
+        return envVariableMapper.selectByGroupId(groupId);
     }
 }

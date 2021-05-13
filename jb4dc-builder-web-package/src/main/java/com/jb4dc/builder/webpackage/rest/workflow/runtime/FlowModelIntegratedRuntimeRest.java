@@ -34,7 +34,7 @@ import java.util.stream.Collectors;
  * To change this template use File | Settings | File Templates.
  */
 @RestController
-@RequestMapping(value = "/Rest/Workflow/RunTime/FlowModelIntegrated")
+@RequestMapping(value = "/Rest/Workflow/RunTime/FlowModelIntegratedRuntime")
 public class FlowModelIntegratedRuntimeRest extends FlowModelIntegratedRest {
 
     @Autowired

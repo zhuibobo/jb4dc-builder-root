@@ -1,6 +1,7 @@
 package com.jb4dc.workflow.po.bpmn.process;
 
 import com.jb4dc.workflow.po.bpmn.BpmnNs;
+import com.jb4dc.workflow.po.receive.RuntimeReceiverGroup;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -15,11 +16,21 @@ public class Jb4dcCCReceiveObjects {
     @XmlElement(name = "jb4dcReceiveObject",namespace = BpmnNs.JB4DC_URI)
     List<Jb4dcReceiveObject> jb4dcReceiveObjectList;
 
+    List<RuntimeReceiverGroup> runtimeReceiveGroups;
+
     public List<Jb4dcReceiveObject> getJb4dcReceiveObjectList() {
         return jb4dcReceiveObjectList;
     }
 
     public void setJb4dcReceiveObjectList(List<Jb4dcReceiveObject> jb4dcReceiveObjectList) {
         this.jb4dcReceiveObjectList = jb4dcReceiveObjectList;
+    }
+
+    public List<RuntimeReceiverGroup> getRuntimeReceiveGroups() {
+        return runtimeReceiveGroups;
+    }
+
+    public void setRuntimeReceiveGroups(List<RuntimeReceiverGroup> runtimeReceiveGroups) {
+        this.runtimeReceiveGroups = runtimeReceiveGroups;
     }
 }
