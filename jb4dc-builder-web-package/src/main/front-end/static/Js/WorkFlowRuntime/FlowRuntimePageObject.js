@@ -2,36 +2,38 @@ let FlowRuntimePageObject={
     _webFormRTParas:null,
     _formRuntimeInst:null,
     FORM_RUNTIME_CATEGORY_FLOW:"IsDependenceFlow",
-    pageReadyForStartStatus:function (isPreview,rendererChainCompletedFunc,flowModelRuntimePO,flowModelRuntimePOCacheKey) {
+    pageReadyForStartStatus:function (isStartInstanceStatus,rendererChainCompletedFunc,flowModelRuntimePO,flowModelRuntimePOCacheKey,pageHostInstance) {
         //debugger;
         this._formRuntimeInst = Object.create(FormRuntime);
         //var webFormRTParas=this.getWebFormRTParas();
         //var webFormRTParas=getWebFormRTParasFunc.call(this);
+
         this._formRuntimeInst.Initialization({
             "RendererToId": "htmlDesignRuntimeWrap",
-            "FormId":flowModelRuntimePO.jb4dcFormId,
-            "RecordId":"",
-            "ButtonId":"",
-            "OperationType":BaseUtility.GetAddOperationName(),
-            "IsPreview":isPreview,
-            "RendererChainCompletedFunc":rendererChainCompletedFunc,
-            "ListFormButtonElemId":"",
+            "FormId": flowModelRuntimePO.jb4dcFormId,
+            "RecordId": "",
+            "ButtonId": "",
+            "OperationType": BaseUtility.GetAddOperationName(),
+            "IsPreview": false,
+            "RendererChainCompletedFunc": rendererChainCompletedFunc,
+            "ListFormButtonElemId": "",
             "WebFormRTParas": {},
-            "FormRuntimeCategory":FlowRuntimePageObject.FORM_RUNTIME_CATEGORY_FLOW,
-            "PreHandleFormHtmlRuntimeFunc":this.preHandleFormHtmlRuntimeFunc,
-            "flowModelRuntimePO":flowModelRuntimePO,
-            "flowModelRuntimePOCacheKey":flowModelRuntimePOCacheKey
+            "FormRuntimeCategory": FlowRuntimePageObject.FORM_RUNTIME_CATEGORY_FLOW,
+            "PreHandleFormHtmlRuntimeFunc": this.preHandleFormHtmlRuntimeFunc,
+            "flowModelRuntimePO": flowModelRuntimePO,
+            "flowModelRuntimePOCacheKey": flowModelRuntimePOCacheKey,
+            "isStartInstanceStatus": isStartInstanceStatus
         });
         //this._formRuntimeInst.webFormRTParas=webFormRTParas;
-        this.rendererActionButtons(flowModelRuntimePO,flowModelRuntimePOCacheKey,this._formRuntimeInst);
+        this.rendererActionButtons(flowModelRuntimePO, flowModelRuntimePOCacheKey, this._formRuntimeInst, isStartInstanceStatus,pageHostInstance);
         return this._formRuntimeInst;
     },
-    rendererActionButtons:function (flowModelRuntimePO,flowModelRuntimePOCacheKey,formRuntimeInst) {
-        ActionsRuntimeObject.CreateALLActionButton(flowModelRuntimePO,flowModelRuntimePOCacheKey, flowModelRuntimePO.jb4dcActions, formRuntimeInst);
+    rendererActionButtons:function (flowModelRuntimePO,flowModelRuntimePOCacheKey,formRuntimeInst,isStartInstanceStatus,pageHostInstance) {
+        ActionsRuntimeObject.CreateALLActionButton(flowModelRuntimePO, flowModelRuntimePOCacheKey, flowModelRuntimePO.jb4dcActions, formRuntimeInst,isStartInstanceStatus,pageHostInstance);
     },
     preHandleFormHtmlRuntimeFunc:function (sourceRuntimeHtml,formRuntimeInst,propConfig){
         //console.log(sourceRuntimeHtml);
-        var flowPageContainer=$("<div>"+sourceRuntimeHtml+"/<div>");
+        var flowPageContainer=$("<div>"+sourceRuntimeHtml+"<div>");
         var flowModelRuntimePO=propConfig.flowModelRuntimePO;
         //debugger;
         if(flowPageContainer.children("[singlename='WFDCT_TabContainer']").length==0){

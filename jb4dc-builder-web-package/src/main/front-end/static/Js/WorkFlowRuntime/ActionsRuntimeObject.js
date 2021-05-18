@@ -1,13 +1,13 @@
 var ActionsRuntimeObject={
-    CreateALLActionButton:function (flowModelRuntimePO,flowModelRuntimePOCacheKey,jb4dcActions,formRuntimeInst) {
+    CreateALLActionButton:function (flowModelRuntimePO,flowModelRuntimePOCacheKey,jb4dcActions,formRuntimeInst,isStartInstanceStatus,pageHostInstance) {
         if(jb4dcActions&&jb4dcActions.jb4dcActionList){
             var buttonElem;
             for (let i = 0; i < jb4dcActions.jb4dcActionList.length; i++) {
-                let actionObj=jb4dcActions.jb4dcActionList[i];
-                if(actionObj.juelRunResultPO.booleanResult) {
+                let actionObj = jb4dcActions.jb4dcActionList[i];
+                if (actionObj.juelRunResultPO.booleanResult) {
                     if (actionObj.actionType == "send") {
-                        var sendActionObject = Object.create(WorkFlowSendActionObject);
-                        buttonElem = sendActionObject.Instance(flowModelRuntimePO,flowModelRuntimePOCacheKey, jb4dcActions, formRuntimeInst, actionObj);
+                        var sendActionObject = Object.create(WorkFlowSendAction);
+                        buttonElem = sendActionObject.Instance(flowModelRuntimePO, flowModelRuntimePOCacheKey, jb4dcActions, formRuntimeInst, actionObj, isStartInstanceStatus,pageHostInstance);
                     }
                     $("#flowWorkActionButtonWrapOuter").append(buttonElem.elem);
                 }

@@ -9,11 +9,11 @@ import java.io.IOException;
 import java.util.Map;
 
 public interface IWorkFlowRuntimeService {
-    Map<String,Object> resolveStringToJuelVariables(JB4DCSession jb4DCSession, String juelExpression, FormRecordComplexPO formRecordComplexPO, FlowModelRuntimePO flowModelRuntimePO) throws IOException, JBuild4DCGenerallyException;
+    Map<String, Object> resolveStringToJuelVariables(JB4DCSession jb4DCSession, String juelExpression, FormRecordComplexPO formRecordComplexPO, FlowModelRuntimePO flowModelRuntimePO) throws IOException, JBuild4DCGenerallyException;
 
     Map<String, Object> parseFormRecordComplexPOToJuelVars(JB4DCSession jb4DCSession, FormRecordComplexPO formRecordComplexPO);
 
-    Map<String,Object> parseFlowModelRuntimePOToJuelVars(JB4DCSession jb4DCSession, FlowModelRuntimePO flowModelRuntimePO);
+    Map<String, Object> parseFlowModelRuntimePOToJuelVars(JB4DCSession jb4DCSession, FlowModelRuntimePO flowModelRuntimePO);
 
-    Map<String,Object> parseDefaultFlowModelRuntimePOToJuelVars(JB4DCSession jb4DCSession, FlowModelRuntimePO flowModelRuntimePO, FormRecordComplexPO formRecordComplexPO) throws JBuild4DCGenerallyException, IOException;
+    Map<String, Object> parseDefaultFlowModelRuntimePOToJuelVars(JB4DCSession jb4DCSession, FlowModelRuntimePO flowModelRuntimePO, FormRecordComplexPO formRecordComplexPO) throws JBuild4DCGenerallyException, IOException;
 }

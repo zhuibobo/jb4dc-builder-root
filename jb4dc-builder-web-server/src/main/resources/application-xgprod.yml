@@ -21,7 +21,8 @@ jb4dc:
       name: JB4DC-BUILDER-WEB-SERVER
       #address: http://localhost:9103
       context-path: /JB4DCBuilder
-
+  feignLoggerLevel: BASIC
+  #feignLoggerLevel: FULL
 
 spring:
   application:

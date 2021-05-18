@@ -7,13 +7,11 @@ import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
 import com.jb4dc.core.base.vo.JBuild4DCResponseVo;
 import com.jb4dc.qcsystem.webserver.test.RestTestBase;
 import com.jb4dc.workflow.client.remote.FlowInstanceIntegratedRuntimeRemote;
-import com.jb4dc.workflow.client.remote.FlowModelIntegratedRuntimeRemote;
 import com.jb4dc.workflow.client.service.IWorkFlowModelRuntimeService;
 import com.jb4dc.workflow.dbentities.ModelIntegratedEntity;
 import com.jb4dc.workflow.po.FlowModelListIntegratedPO;
 import com.jb4dc.workflow.po.FlowModelRuntimePO;
 import com.jb4dc.workflow.po.bpmn.process.BpmnTask;
-import com.jb4dc.workflow.po.bpmn.process.BpmnUserTask;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -55,7 +53,7 @@ public class FlowModelIntegratedRuntimeRemoteTest  extends RestTestBase {
     }
 
     @Test
-    public void resolveNextPossibleUseTaskWithStartNode() throws JBuild4DCGenerallyException, IOException {
+    public void resolveNextPossibleTaskWithStartNode() throws JBuild4DCGenerallyException, IOException {
         JB4DCUnitSessionSessionUtility.mockLogin(getAlex4DSession());
         Map<String,Object> vars=new HashMap<>();
         //vars.put("LastActionKey","__$FlowAction$$StartEvent_N1$$action_526152327$");
@@ -63,9 +61,9 @@ public class FlowModelIntegratedRuntimeRemoteTest  extends RestTestBase {
         formParams.put("userId","Alex4D");
         formParams.put("modelKey","Flow_Model_1619519188394");
         formParams.put("currentNodeKey","StartEvent_N1");
-        formParams.put("actionCode","action_896686771");
+        formParams.put("actionCode","action_955710861");
         formParams.put("varsJsonString",JsonUtility.toObjectString(vars));
-        JBuild4DCResponseVo<List<BpmnTask>> result = flowInstanceIntegratedRuntimeRemote.resolveNextPossibleUseTaskWithStartNode(formParams);
+        JBuild4DCResponseVo<List<BpmnTask>> result = flowInstanceIntegratedRuntimeRemote.resolveNextPossibleFlowNodeWithStartNode(formParams);
         /*for (ModelIntegratedEntity modelIntegratedEntity : result.getData().getModelIntegratedEntityList()) {
             System.out.println(modelIntegratedEntity.getModelName());
         }*/

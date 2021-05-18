@@ -52,7 +52,7 @@ let FormRuntimeSinglePageObject={
         }
         return this._webFormRTParas;
     },
-    pageReady:function (isPreview,rendererChainCompletedFunc,getWebFormRTParasFunc) {
+    pageReady:function (isPreview,rendererChainCompletedFunc,getWebFormRTParasFunc,pageHostInstance) {
         //debugger;
         this._formRuntimeInst = Object.create(FormRuntime);
         //var webFormRTParas=this.getWebFormRTParas();
@@ -67,7 +67,8 @@ let FormRuntimeSinglePageObject={
             "RendererChainCompletedFunc":rendererChainCompletedFunc,
             "ListFormButtonElemId":webFormRTParas.ListFormButtonElemId,
             "WebFormRTParas":webFormRTParas,
-            "FormRuntimeCategory":webFormRTParas.FormRuntimeCategory
+            "FormRuntimeCategory":webFormRTParas.FormRuntimeCategory,
+            "pageHostInstance111":pageHostInstance
         });
         //this._formRuntimeInst.webFormRTParas=webFormRTParas;
         return this._formRuntimeInst;
@@ -192,13 +193,16 @@ let FormRuntime={
         }, this);
     },
     CallRendererChainCompletedFunc:function() {
+        var _this=this;
         if (typeof (this._Prop_Config.RendererChainCompletedFunc) == "function") {
             this._Prop_Config.RendererChainCompletedFunc.call(this);
         }
         HTMLPageObjectInstanceProxy.Init(this._Prop_Config,this._FormPO);
         window.setTimeout(function () {
             console.log("延迟调用");
-            HTMLPageObjectInstanceProxy.CallPageReady()
+            HTMLPageObjectInstanceProxy.CallPageReady();
+            DialogUtility.CloseDialog(DialogUtility.DialogLoadingId);
+            //_this._Prop_Config.pageHostInstance.pageToLoadingStatus(false);
         },500);
     },
     IsPrint:function (){

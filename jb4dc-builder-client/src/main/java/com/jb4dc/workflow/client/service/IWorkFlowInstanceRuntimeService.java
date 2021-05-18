@@ -14,8 +14,8 @@ import java.util.Map;
 public interface IWorkFlowInstanceRuntimeService extends IWorkFlowRuntimeService {
 
 
-    JBuild4DCResponseVo<List<BpmnTask>> resolveNextPossibleUseTaskWithStartNode(JB4DCSession jb4DCSession,
-                                                                                String modelRuKey,
-                                                                                String flowModelRuntimePOCacheKey,
-                                                                                FormRecordComplexPO formRecordComplexPO, Map<String, Object> exVars) throws IOException, JBuild4DCGenerallyException;
+    JBuild4DCResponseVo<List<BpmnTask>> resolveNextPossibleFlowNodeWithStartNode(JB4DCSession jb4DCSession,
+                                                                                 String actionCode,
+                                                                                 String flowModelRuntimePOCacheKey,
+                                                                                 FormRecordComplexPO formRecordComplexPO, Map<String, Object> exVars) throws IOException, JBuild4DCGenerallyException;
 }

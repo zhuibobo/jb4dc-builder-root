@@ -1,9 +1,11 @@
 package com.jb4dc.workflow.po.receive;
 
+import com.jb4dc.base.service.po.ZTreeNodePO;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public class RuntimeReceiverGroup {
+public class RuntimeReceiverGroup extends ZTreeNodePO {
     protected String name;
     protected String id;
     protected String code;
@@ -14,6 +16,7 @@ public class RuntimeReceiverGroup {
     protected String status;
     protected String filter;
     protected int orderNum;
+
 
     protected List<RuntimeReceiverUser> runtimeReceiveUsers;
 
@@ -32,6 +35,8 @@ public class RuntimeReceiverGroup {
         this.status = status;
         this.filter = filter;
         this.orderNum = orderNum;
+        this.isParent="false";
+        this.open=true;
         runtimeReceiveUsers=new ArrayList<>();
     }
 

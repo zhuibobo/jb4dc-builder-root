@@ -11,5 +11,5 @@ public interface ModelAssObjectMapper extends BaseMapper<ModelAssObjectEntity> {
 
     void deleteRefByModelKey(String key);
 
-    List<ModelAssObjectEntity> selectManagerByModelRuKey(String modelRuKey);
+    List<ModelAssObjectEntity> selectManagerByModelReKey(String modelReKey);
 }

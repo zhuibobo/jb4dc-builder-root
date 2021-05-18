@@ -90,7 +90,7 @@ public class ModelIntegratedExtendServiceImpl extends BaseServiceImpl<ModelInteg
         }
         if(bpmnDefinitions.getBpmnProcess().getServiceTaskList()!=null) {
             for (BpmnTask bpmnTask : bpmnDefinitions.getBpmnProcess().getServiceTaskList()) {
-                bpmnTask.setTaskTypeName(BpmnUserTask.class.getTypeName());
+                bpmnTask.setTaskTypeName(BpmnServiceTask.class.getTypeName());
             }
         }
         return bpmnDefinitions;
@@ -431,6 +431,7 @@ public class ModelIntegratedExtendServiceImpl extends BaseServiceImpl<ModelInteg
         flowModelRuntimePO.setJb4dcFormEx1Paras(bpmnProcess.getJb4dcFormEx1Paras());
 
         flowModelRuntimePO.setModelName(bpmnProcess.getName());
+        flowModelRuntimePO.setModelReKey(bpmnProcess.getId());
         flowModelRuntimePO.setModelCategory(bpmnProcess.getJb4dcFlowCategory());
 
         if (isStart) {
@@ -541,7 +542,7 @@ public class ModelIntegratedExtendServiceImpl extends BaseServiceImpl<ModelInteg
     }
 
     @Override
-    public List<BpmnTask> getLastDeployedCamundaModelBpmnTaskByIdList(JB4DCSession jb4DCSession, String modelReKey,BpmnDefinitions bpmnDefinitions, List<String> bpmnTaskIdList) throws JAXBException, XMLStreamException, IOException {
+    public List<BpmnTask> getLastDeployedCamundaModelBpmnFlowNodeByIdList(JB4DCSession jb4DCSession, String modelReKey, BpmnDefinitions bpmnDefinitions, List<String> bpmnTaskIdList) throws JAXBException, XMLStreamException, IOException {
         //String modelContent = flowEngineModelIntegratedService.getDeployedCamundaModelContentLastVersion(jb4DCSession, modelReKey, ModelTenantIdEnum.builderGeneralTenant);
         //BpmnDefinitions bpmnDefinitions = this.parseToPO(modelContent);
         List<BpmnTask> userTaskResult=bpmnDefinitions.getBpmnProcess().getUserTaskList().stream().filter(item->bpmnTaskIdList.contains(item.getId())).collect(Collectors.toList());

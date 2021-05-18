@@ -12,7 +12,7 @@ public class FlowModelRuntimePO implements Cloneable {
     String bpmnXmlContent;
     boolean isStartEvent;
 
-    String modelRuKey;
+    String modelReKey;
     String modelName;
     String modelCategory;
 
@@ -248,12 +248,12 @@ public class FlowModelRuntimePO implements Cloneable {
         this.modelCategory = modelCategory;
     }
 
-    public String getModelRuKey() {
-        return modelRuKey;
+    public String getModelReKey() {
+        return modelReKey;
     }
 
-    public void setModelRuKey(String modelRuKey) {
-        this.modelRuKey = modelRuKey;
+    public void setModelReKey(String modelReKey) {
+        this.modelReKey = modelReKey;
     }
 
     public FlowModelRuntimePO clone() {

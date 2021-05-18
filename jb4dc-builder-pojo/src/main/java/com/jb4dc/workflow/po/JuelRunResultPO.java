@@ -6,6 +6,9 @@ public class JuelRunResultPO {
     private String stringResult;
     private boolean booleanResult;
 
+    public JuelRunResultPO() {
+    }
+
     public JuelRunResultPO(boolean success, String message, String stringResult, boolean booleanResult) {
         this.success = success;
         this.message = message;

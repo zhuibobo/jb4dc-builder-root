@@ -31,6 +31,9 @@ var HTMLPageObjectInstanceProxy={
             this.BuilderListPageRuntimeInstance = BuilderListPageRuntimeInstance;
         }
         if(this.BuilderListPageRuntimeInstance){
+            if(!this.BuilderListPageRuntimeInstance.data){
+                this.BuilderListPageRuntimeInstance.data={};
+            }
             this.BuilderListPageRuntimeInstance.data.listPO=this.htmlPO;
             if(this.BuilderListPageRuntimeInstance.pageReady){
                 this.BuilderListPageRuntimeInstance.pageReady();

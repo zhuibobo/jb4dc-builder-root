@@ -1,5 +1,7 @@
 package com.jb4dc.workflow.po.receive;
 
+import com.jb4dc.base.service.po.ZTreeNodePO;
+import com.jb4dc.sso.dbentities.organ.OrganEntity;
 import com.jb4dc.sso.dbentities.user.UserEntity;
 
 import java.security.PublicKey;
@@ -26,10 +28,12 @@ public class RuntimeReceiverUser extends RuntimeReceiverGroup {
         this.autoSelected = autoSelected;
     }
 
-    public static List<RuntimeReceiverUser> parseUserEntityListToReceiverList(List<UserEntity> userEntityList,String desc){
-        List<RuntimeReceiverUser> result=new ArrayList<>();
-        for (UserEntity userEntity : userEntityList) {
-               result.add(parseUserEntityToReceiver(userEntity,desc));
+    public static List<RuntimeReceiverUser> parseUserEntityListToReceiverList(List<UserEntity> userEntityList,String desc) {
+        List<RuntimeReceiverUser> result = new ArrayList<>();
+        if (userEntityList != null) {
+            for (UserEntity userEntity : userEntityList) {
+                result.add(parseUserEntityToReceiver(userEntity, desc));
+            }
         }
         return result;
     }
@@ -42,7 +46,31 @@ public class RuntimeReceiverUser extends RuntimeReceiverGroup {
         runtimeReceiverUser.setStatus("");
         runtimeReceiverUser.setOrderNum(userEntity.getUserOrderNum());
         runtimeReceiverUser.setTypeName("SingleUser");
+        runtimeReceiverUser.setIcon("../../../"+ ZTreeNodePO.Icon_Person);
         runtimeReceiverUser.setAutoSelected(false);
+        return runtimeReceiverUser;
+    }
+
+    public static List<RuntimeReceiverUser> parseOrganEntityListToReceiverList(List<OrganEntity> organEntityList,String desc){
+        List<RuntimeReceiverUser> result=new ArrayList<>();
+        if (organEntityList!=null) {
+            for (OrganEntity organEntity : organEntityList) {
+                result.add(parseOrganEntityToReceiver(organEntity, desc));
+            }
+        }
+        return result;
+    }
+
+    public static RuntimeReceiverUser parseOrganEntityToReceiver(OrganEntity organEntity,String desc){
+        RuntimeReceiverUser runtimeReceiverUser=new RuntimeReceiverUser();
+        runtimeReceiverUser.setName(organEntity.getOrganName());
+        runtimeReceiverUser.setId(organEntity.getOrganId());
+        runtimeReceiverUser.setDesc(desc);
+        runtimeReceiverUser.setStatus("");
+        runtimeReceiverUser.setOrderNum(organEntity.getOrganOrderNum());
+        runtimeReceiverUser.setTypeName("Organs");
+        runtimeReceiverUser.setAutoSelected(false);
+        runtimeReceiverUser.setRuntimeReceiveUsers(null);
         return runtimeReceiverUser;
     }
 

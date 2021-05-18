@@ -20,7 +20,7 @@
     <script>
         var flowRuntimePageObject;
 
-        var flowInstanceViewContainer = new Vue({
+        var flowInstanceViewVueContainer = new Vue({
             el:"#flowInstanceViewContainer",
             data: {
                 acInterface:{
@@ -32,21 +32,22 @@
                 }
             },
             mounted:function () {
+                DialogUtility.AlertLoading(window,DialogUtility.DialogLoadingId,{},"");
+
                 AjaxUtility.Get(this.acInterface.getRuntimeModelWithStart, { modelKey: this.viewPara.modelKey }, function (result) {
                     console.log(result);
 
                     BaseUtility.SetSystemFavicon();
-                    flowRuntimePageObject=FlowRuntimePageObject.pageReadyForStartStatus(false,function () {
+                    var isStartInstanceStatus = true;
+                    flowRuntimePageObject=FlowRuntimePageObject.pageReadyForStartStatus(isStartInstanceStatus,function () {
 
-                    },result.data,result.cacheKey);
-
-                    //var windowHeight=flowRuntimePageObject.GetWebFormRTParas().WindowHeight;
-                    //if(windowHeight) {
-                    //    $("#htmlDesignRuntimeWrap").height(windowHeight - 120);
-                    //}
+                    },result.data,result.cacheKey,this);
                 }, this);
             },
             methods: {
+                /*pageToLoadingStatus:function (_loadStatus){
+                    this.loadStatus=_loadStatus;
+                }*/
             }
         });
     </script>

@@ -37,7 +37,7 @@ public class ModelAssObjectExtendServiceImpl extends BaseServiceImpl<ModelAssObj
     }
 
     @Override
-    public List<ModelAssObjectEntity> getManagerByModelRuKey(JB4DCSession jb4DCSession, String modelRuKey) {
-        return modelAssObjectMapper.selectManagerByModelRuKey(modelRuKey);
+    public List<ModelAssObjectEntity> getManagerByModelReKey(JB4DCSession jb4DCSession, String modelReKey) {
+        return modelAssObjectMapper.selectManagerByModelReKey(modelReKey);
     }
 }

@@ -17,7 +17,6 @@ import com.jb4dc.workflow.integrate.extend.IModelAssObjectExtendService;
 import com.jb4dc.workflow.integrate.extend.IReceiverRuntimeResolve;
 import com.jb4dc.workflow.po.bpmn.BpmnDefinitions;
 import com.jb4dc.workflow.po.bpmn.process.BpmnTask;
-import com.jb4dc.workflow.po.bpmn.process.BpmnUserTask;
 import com.jb4dc.workflow.po.bpmn.process.Jb4dcReceiveObject;
 import com.jb4dc.workflow.po.receive.RuntimeReceiverGroup;
 import com.jb4dc.workflow.po.receive.RuntimeReceiverUser;
@@ -92,7 +91,9 @@ public class ReceiverRuntimeResolveImpl implements IReceiverRuntimeResolve {
                             RuntimeReceiverGroup runtimeReceiverGroup = new RuntimeReceiverGroup(
                                     organEntity.getOrganName(), organEntity.getOrganId(), organEntity.getOrganCode(), true, false,
                                     jb4dcReceiveObject.getReceiveObjectType(), organEntity.getOrganDesc(), organEntity.getOrganStatus(), "", organEntity.getOrganOrderNum());
-
+                            runtimeReceiverGroup.setIsParent("true");
+                            runtimeReceiverGroup.setOpen(false);
+                            runtimeReceiverGroup.setRuntimeReceiveUsers(null);
                             resultRuntimeReceiverGroupList.add(runtimeReceiverGroup);
                         }
                     }
@@ -143,7 +144,7 @@ public class ReceiverRuntimeResolveImpl implements IReceiverRuntimeResolve {
                             runtimeReceiverGroup.getRuntimeReceiveUsers().add(runtimeReceiverUser);
                         }
                     } else if (receiveObjectValue.equals("modelManager")) {
-                        List<ModelAssObjectEntity> modelAssObjectEntityList = modelAssObjectExtendService.getManagerByModelRuKey(jb4DCSession, bpmnDefinitions.getBpmnProcess().getId());
+                        List<ModelAssObjectEntity> modelAssObjectEntityList = modelAssObjectExtendService.getManagerByModelReKey(jb4DCSession, bpmnDefinitions.getBpmnProcess().getId());
                         for (ModelAssObjectEntity modelAssObjectEntity : modelAssObjectEntityList) {
                             if(modelAssObjectEntity.getObjectType().equals("ManagerUser")){
                                 UserEntity userEntity=userRuntimeRemote.getUserById(modelAssObjectEntity.getObjectValue()).getData();
@@ -186,6 +187,14 @@ public class ReceiverRuntimeResolveImpl implements IReceiverRuntimeResolve {
                 task.getExtensionElements().getJb4dcMainReceiveObjects().setRuntimeReceiveGroups(
                         resolveToActualUser(
                                 jb4DCSession,instanceId,bpmnDefinitions,bpmnTaskList,vars,task.getExtensionElements().getJb4dcMainReceiveObjects().getJb4dcReceiveObjectList()
+                        )
+                );
+            }
+
+            if(task.getExtensionElements()!=null&&task.getExtensionElements().getJb4dcCCReceiveObjects()!=null&&task.getExtensionElements().getJb4dcCCReceiveObjects().getJb4dcReceiveObjectList()!=null){
+                task.getExtensionElements().getJb4dcCCReceiveObjects().setRuntimeReceiveGroups(
+                        resolveToActualUser(
+                                jb4DCSession,instanceId,bpmnDefinitions,bpmnTaskList,vars,task.getExtensionElements().getJb4dcCCReceiveObjects().getJb4dcReceiveObjectList()
                         )
                 );
             }

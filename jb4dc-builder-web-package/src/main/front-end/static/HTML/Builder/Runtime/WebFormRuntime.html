@@ -16,11 +16,9 @@
         if(StringUtility.IsNullOrEmpty(webFormRTParas.RecordId)){
             webFormRTParas.RecordId=StringUtility.Guid();
         }*/
-        var formRuntimeInst;
+        //var formRuntimeInst;
         $(function () {
-
             //console.log(webFormRTParas);
-
             /*var formRuntimeInst = Object.create(FormRuntime);
             formRuntimeInst.Initialization({
                 RendererToId: "htmlDesignRuntimeWrap",
@@ -34,26 +32,44 @@
                     //this.DeSerializationFormData(relationFormRecordComplexPo);
                 }
             })*/
-            BaseUtility.SetSystemFavicon();
-            formRuntimeInst=FormRuntimeSinglePageObject.pageReady(false,function () {
-
-            },FormRuntimeSinglePageObject.getWebFormRTParasWithListButtonId);
-
-            var windowHeight=formRuntimeInst.GetWebFormRTParas().WindowHeight;
-            if(windowHeight) {
-                $("#htmlDesignRuntimeWrap").height(windowHeight - 120);
-            }
             //console.log();
         });
     </script>
 </head>
 <body>
-<div id="htmlDesignRuntimeWrap" style="overflow: auto"></div>
-<div class="html-design-operation-button-outer-wrap">
-    <div class="html-design-button-inner-wrap">
-        <div class="html-design-buttons-group" id="innerButtonWrapOuter">
+    <div id="formRuntimeContainer" class="general-edit-page-wrap" v-cloak>
+        <div id="htmlDesignRuntimeWrap" style="overflow: auto"></div>
+        <div class="html-design-operation-button-outer-wrap">
+            <div class="html-design-button-inner-wrap">
+                <div class="html-design-buttons-group" id="innerButtonWrapOuter">
+                </div>
+            </div>
         </div>
     </div>
-</div>
+    <script>
+        var formRuntimeInst;
+        var formRuntimeVueContainer = new Vue({
+            el:"#formRuntimeContainer",
+            data: {
+            },
+            mounted:function () {
+                BaseUtility.SetSystemFavicon();
+                DialogUtility.AlertLoading(window,DialogUtility.DialogLoadingId,{},"");
+                formRuntimeInst=FormRuntimeSinglePageObject.pageReady(false,function () {
+
+                },FormRuntimeSinglePageObject.getWebFormRTParasWithListButtonId);
+
+                var windowHeight=formRuntimeInst.GetWebFormRTParas().WindowHeight;
+                if(windowHeight) {
+                    $("#htmlDesignRuntimeWrap").height(windowHeight - 120);
+                }
+            },
+            methods: {
+                pageToLoadingStatus:function (_loadStatus){
+                    this.loadStatus=_loadStatus;
+                }
+            }
+        });
+    </script>
 </body>
 </html>

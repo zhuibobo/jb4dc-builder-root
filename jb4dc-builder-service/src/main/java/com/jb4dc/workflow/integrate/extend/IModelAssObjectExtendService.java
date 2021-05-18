@@ -9,6 +9,6 @@ import java.util.List;
 public interface IModelAssObjectExtendService extends IBaseService<ModelAssObjectEntity> {
     void deleteRefByModelKey(JB4DCSession jb4DSession, String id);
 
-    List<ModelAssObjectEntity> getManagerByModelRuKey(JB4DCSession jb4DCSession, String modelRuKey);
+    List<ModelAssObjectEntity> getManagerByModelReKey(JB4DCSession jb4DCSession, String modelReKey);
 }
 

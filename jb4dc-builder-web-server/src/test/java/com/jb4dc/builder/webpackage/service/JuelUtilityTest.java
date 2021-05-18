@@ -1,5 +1,6 @@
 package com.jb4dc.builder.webpackage.service;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.jb4dc.base.service.general.JB4DCUnitSessionSessionUtility;
 import com.jb4dc.base.tools.JsonUtility;
 import com.jb4dc.builder.po.formdata.FormRecordComplexPO;
@@ -14,15 +15,31 @@ import com.jb4dc.workflow.po.bpmn.BpmnDefinitions;
 import com.jb4dc.workflow.po.bpmn.process.BpmnProcess;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import springfox.documentation.spring.web.json.Json;
 
 import java.io.IOException;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class JuelUtilityTest extends RestTestBase {
     @Autowired
     IWorkFlowRuntimeService workFlowRuntimeService;
+
+    @Test
+    public void t1() throws IOException {
+        Map<String,Object> data=new HashMap<>();
+        data.put("n1","n1");
+        List<String> l1=new ArrayList<>();
+        l1.add("l1");
+        l1.add("l2");
+        data.put("n2",l1);
+
+        String json= JsonUtility.toObjectString(data);
+        System.out.println(json);
+
+        data=JsonUtility.toObject(json,Map.class);
+
+        System.out.println(data);
+    }
 
     @Test
     public void getHasAuthorityAppSSO() {

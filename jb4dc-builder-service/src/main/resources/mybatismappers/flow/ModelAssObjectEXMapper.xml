@@ -23,7 +23,7 @@
         delete from TFLOW_MODEL_ASS_OBJECT where OBJECT_RE_KEY=#{key}
     </delete>
 
-    <select id="selectManagerByModelRuKey" resultMap="BaseResultMap">
-        select<include refid="Base_Column_List"/> from TFLOW_MODEL_ASS_OBJECT where OBJECT_RE_KEY=#{modelRuKey} and (OBJECT_TYPE='ManagerRole' or OBJECT_TYPE='ManagerUser') ORDER by OBJECT_ORDER_NUM DESC
+    <select id="selectManagerByModelReKey" resultMap="BaseResultMap">
+        select<include refid="Base_Column_List"/> from TFLOW_MODEL_ASS_OBJECT where OBJECT_RE_KEY=#{modelReKey} and (OBJECT_TYPE='ManagerRole' or OBJECT_TYPE='ManagerUser') ORDER by OBJECT_ORDER_NUM DESC
     </select>
 </mapper>

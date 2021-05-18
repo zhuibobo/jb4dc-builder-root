@@ -43,5 +43,5 @@ public interface IModelIntegratedExtendService extends IBaseService<ModelIntegra
 
     BpmnDefinitions getDeployedCamundaModelBpmnDefinitionsLastVersion(JB4DCSession jb4DCSession, String modelReKey) throws IOException, JAXBException, XMLStreamException;
 
-    List<BpmnTask> getLastDeployedCamundaModelBpmnTaskByIdList(JB4DCSession jb4DCSession, String modelReKey, BpmnDefinitions bpmnDefinitions, List<String> bpmnTaskIdList) throws JAXBException, XMLStreamException, IOException;
+    List<BpmnTask> getLastDeployedCamundaModelBpmnFlowNodeByIdList(JB4DCSession jb4DCSession, String modelReKey, BpmnDefinitions bpmnDefinitions, List<String> bpmnTaskIdList) throws JAXBException, XMLStreamException, IOException;
 }

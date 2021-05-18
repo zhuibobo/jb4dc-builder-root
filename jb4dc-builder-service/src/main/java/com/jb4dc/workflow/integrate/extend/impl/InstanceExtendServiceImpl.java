@@ -12,9 +12,7 @@ import com.jb4dc.workflow.integrate.extend.IModelIntegratedExtendService;
 import com.jb4dc.workflow.integrate.extend.IReceiverRuntimeResolve;
 import com.jb4dc.workflow.po.bpmn.BpmnDefinitions;
 import com.jb4dc.workflow.po.bpmn.process.BpmnTask;
-import com.jb4dc.workflow.po.bpmn.process.BpmnUserTask;
-import org.camunda.bpm.model.bpmn.instance.Task;
-import org.camunda.bpm.model.bpmn.instance.UserTask;
+import org.camunda.bpm.model.bpmn.instance.Activity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -66,18 +64,18 @@ public class InstanceExtendServiceImpl extends BaseServiceImpl<InstanceEntity> i
     }
 
     @Override
-    public List<BpmnTask> resolveNextPossibleUseTaskWithStartNode(JB4DCSession jb4DCSession, String modelKey,String currentNodeKey,String actionCode, Map<String, Object> vars) throws IOException, JAXBException, XMLStreamException, JBuild4DCGenerallyException {
+    public List<BpmnTask> resolveNextPossibleFlowNodeWithStartNode(JB4DCSession jb4DCSession, String modelKey, String currentNodeKey, String actionCode, Map<String, Object> vars) throws IOException, JAXBException, XMLStreamException, JBuild4DCGenerallyException {
 
         vars = appendFlowDefaultVar(vars, currentNodeKey, actionCode);
 
-        List<Task> userTaskList = CamundaBpmnUtility.getNextPossibleUseTaskWithStartNode(modelKey, vars);
-        if (userTaskList != null && userTaskList.size() > 0) {
-            List<String> bpmnTaskIdList = userTaskList.stream().map(item -> item.getId()).collect(Collectors.toList());
+        List<Activity> userTaskFlowNodeList = CamundaBpmnUtility.getNextPossibleFlowNodeWithStartNode(modelKey, vars);
+        if (userTaskFlowNodeList != null && userTaskFlowNodeList.size() > 0) {
+            List<String> bpmnTaskFlowNodeIdList = userTaskFlowNodeList.stream().map(item -> item.getId()).collect(Collectors.toList());
             BpmnDefinitions bpmnDefinitions = modelIntegratedExtendService.getDeployedCamundaModelBpmnDefinitionsLastVersion(jb4DCSession, modelKey);
-            List<BpmnTask> bpmnTaskList = modelIntegratedExtendService.getLastDeployedCamundaModelBpmnTaskByIdList(jb4DCSession, modelKey, bpmnDefinitions, bpmnTaskIdList);
-            bpmnTaskList = receiverRuntimeResolve.resolveToActualUser(jb4DCSession,"", bpmnDefinitions, bpmnTaskList, vars);
+            List<BpmnTask> bpmnTaskFlowNodeList = modelIntegratedExtendService.getLastDeployedCamundaModelBpmnFlowNodeByIdList(jb4DCSession, modelKey, bpmnDefinitions, bpmnTaskFlowNodeIdList);
+            bpmnTaskFlowNodeList = receiverRuntimeResolve.resolveToActualUser(jb4DCSession,"", bpmnDefinitions, bpmnTaskFlowNodeList, vars);
 
-            return bpmnTaskList;
+            return bpmnTaskFlowNodeList;
         }
         return new ArrayList<>();
     }

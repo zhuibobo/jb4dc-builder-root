@@ -15,5 +15,5 @@ import java.util.Map;
 
 public interface IInstanceExtendService extends IBaseService<InstanceEntity> {
 
-    List<BpmnTask> resolveNextPossibleUseTaskWithStartNode(JB4DCSession jb4DCSession, String modelKey, String currentNodeKey, String actionCode, Map<String, Object> vars) throws IOException, JAXBException, XMLStreamException, JBuild4DCGenerallyException;
+    List<BpmnTask> resolveNextPossibleFlowNodeWithStartNode(JB4DCSession jb4DCSession, String modelKey, String currentNodeKey, String actionCode, Map<String, Object> vars) throws IOException, JAXBException, XMLStreamException, JBuild4DCGenerallyException;
 }
