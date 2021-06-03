@@ -1,4 +1,4 @@
-package com.jb4dc.workflow.po;
+package com.jb4dc.builder.po;
 
 public class EnvVariableResultPO {
     private String value;

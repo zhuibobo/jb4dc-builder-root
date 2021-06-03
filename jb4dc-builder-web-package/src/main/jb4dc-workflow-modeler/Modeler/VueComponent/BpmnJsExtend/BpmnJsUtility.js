@@ -26,6 +26,26 @@ class BpmnJsUtility {
         }
     }
 
+    static CloneObjArrayValuesWithTemplate(templatePO,arrayValues){
+        if(arrayValues){
+            var result=[];
+            for (var i = 0; i < arrayValues.length; i++) {
+                var cloneObj={};
+                for (var key in templatePO) {
+                    if(arrayValues[i][key]){
+                        cloneObj[key]=arrayValues[i][key];
+                    }
+                    else{
+                        cloneObj[key]=templatePO[key];
+                    }
+                }
+                result.push(cloneObj);
+            }
+            return result;
+        }
+        return [];
+    }
+
     static GetElement(bpmnModeler,elemId){
         var elementRegistry = bpmnModeler.get('elementRegistry');
         //console.log(elementRegistry);
@@ -911,6 +931,13 @@ class BpmnJsUtility {
         this.SetAttr(element,"jb4dcFormId",jb4dcFormId);
     }
 
+    static JB4DC_Attr_GetJb4dcAppFormId(element){
+        return this.GetAttr(element,"jb4dcAppFormId");
+    }
+    static JB4DC_Attr_SetJb4dcAppFormId(element, jb4dcAppFormId){
+        this.SetAttr(element,"jb4dcAppFormId",jb4dcAppFormId);
+    }
+
     static JB4DC_Attr_GetJb4dcFormPlugin(element){
         return this.GetAttr(element,"jb4dcFormPlugin","webFormPlugin");
     }
@@ -923,6 +950,13 @@ class BpmnJsUtility {
     }
     static JB4DC_Attr_SetJb4dcFormParas(element, jb4dcFormParas){
         this.SetAttr(element,"jb4dcFormParas",jb4dcFormParas,"");
+    }
+
+    static JB4DC_Attr_GetJb4dcAppFormParas(element){
+        return this.GetAttr(element,"jb4dcAppFormParas","");
+    }
+    static JB4DC_Attr_SetJb4dcAppFormParas(element, jb4dcAppFormParas){
+        this.SetAttr(element,"jb4dcAppFormParas",jb4dcAppFormParas,"");
     }
 
     static JB4DC_Attr_GetJb4dcFormEx1Plugin(element){
@@ -1137,11 +1171,17 @@ class BpmnJsUtility {
                 });
 
                 if(actions) {
-                    return {
-                        opinionBindToField:this.GetAttr({businessObject: actions}, "opinionBindToField", ""),
-                        opinionBindToElemId:this.GetAttr({businessObject: actions}, "opinionBindToElemId", ""),
-                        actions: actions.values? actions.values : []
+                    var actions = {
+                        opinionBindToField: this.GetAttr({businessObject: actions}, "opinionBindToField", ""),
+                        opinionBindToElemId: this.GetAttr({businessObject: actions}, "opinionBindToElemId", ""),
+                        actions: this.CloneObjArrayValuesWithTemplate(PODefinition.GetJB4DCActionPO(),actions.values)
                     }
+                    console.log(actions.actions);
+                    return actions;
+                    //var templateActionPO = PODefinition.GetJB4DCActionPO;
+                    //for (var i = 0; i < actions.actions.length; i++) {
+                        //for
+                    //}
                     //return authorities.values
                 }
                 /*if(actions&&actions.values){

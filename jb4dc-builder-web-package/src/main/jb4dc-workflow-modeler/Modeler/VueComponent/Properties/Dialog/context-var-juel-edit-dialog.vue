@@ -477,14 +477,14 @@
             },
             insertTableFieldToCodeMirrorAsString:function (fieldJson) {
                 console.log(fieldJson);
-                var editText='${__$表字段$$'+fieldJson.tableCaption+"$$"+fieldJson.fieldCaption+'$}';
-                var editValue='${__$TableField$$'+fieldJson.fieldTableId+"$$"+fieldJson.fieldName+'$}';
+                var editText='${__$业务数据$.__$表字段$$'+fieldJson.tableCaption+"$$"+fieldJson.fieldCaption+'$}';
+                var editValue='${__$BusinessData$.__$TableField$$'+fieldJson.fieldTableId+"$$"+fieldJson.fieldName+'$}';
                 this.insertCodeAtCursor(editText,editValue);
             },
             insertTableFieldToCodeMirrorAsBoolean:function (fieldJson){
                 console.log(fieldJson);
-                var editText='${__$表字段$$'+fieldJson.tableCaption+"$$"+fieldJson.fieldCaption+'$==\"请输入值\"}';
-                var editValue='${__$TableField$$'+fieldJson.fieldTableId+"$$"+fieldJson.fieldName+'$==\"请输入值\"}';
+                var editText='${__$业务数据$.__$表字段$$'+fieldJson.tableCaption+"$$"+fieldJson.fieldCaption+'$==\"请输入值\"}';
+                var editValue='${__$BusinessData$.__$TableField$$'+fieldJson.fieldTableId+"$$"+fieldJson.fieldName+'$==\"请输入值\"}';
                 this.insertCodeAtCursor(editText,editValue);
             },
             insertEnvVarToEditorAsString:function(evnJson) {

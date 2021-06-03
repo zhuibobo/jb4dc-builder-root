@@ -51,7 +51,7 @@ public class InnerFormButtonRuntimeRest {
             formResourceEntityWithBLOBs = webFormRuntimeRemote.loadHTML(formRecordComplexPO.getFormId()).getData();
         }
 
-        webFormDataSaveRuntimeService.SaveFormRecordComplexPO(JB4DCSessionUtility.getSession(),recordId,formRecordComplexPO,listButtonId,innerFormButtonId,operationTypeName,formResourceEntityWithBLOBs);
+        webFormDataSaveRuntimeService.saveFormRecordComplexPOForListButton(JB4DCSessionUtility.getSession(),recordId,formRecordComplexPO,listButtonId,innerFormButtonId,operationTypeName,formResourceEntityWithBLOBs);
 
         submitResultPO.setRecordId(recordId);
         return JBuild4DCResponseVo.opSuccess(submitResultPO);

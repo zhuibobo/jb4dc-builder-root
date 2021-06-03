@@ -86,6 +86,23 @@ public class FlowEngineModelIntegrateServiceImpl extends FlowEngineCamundaIntegr
     }
 
     @Override
+    public ProcessDefinition getDeployedCamundaModel(JB4DCSession jb4DSession, String processDefinitionId){
+        RepositoryService repositoryService = getRepositoryService();
+        return repositoryService.createProcessDefinitionQuery().processDefinitionId(processDefinitionId).singleResult();
+    }
+
+    @Override
+    public String getDeployedCamundaModelContent(JB4DCSession jb4DSession, String processDefinitionId) throws IOException {
+        ProcessDefinition processDefinition=getDeployedCamundaModel(jb4DSession,processDefinitionId);
+        RepositoryService repositoryService=getRepositoryService();
+        InputStream is=repositoryService.getResourceAsStream(processDefinition.getDeploymentId(),processDefinition.getResourceName());
+        StringWriter writer = new StringWriter();
+        IOUtils.copy(is, writer, StandardCharsets.UTF_8);
+        String result = writer.toString();
+        return result;
+    }
+
+    @Override
     public ProcessDefinition getDeployedCamundaModelLastVersion(JB4DCSession jb4DSession, String processDefinitionKey, ModelTenantIdEnum modelTenantIdEnum){
         RepositoryService repositoryService = getRepositoryService();
         return repositoryService.createProcessDefinitionQuery().tenantIdIn(modelTenantIdEnum.getDisplayName()).processDefinitionKey(processDefinitionKey).latestVersion().singleResult();

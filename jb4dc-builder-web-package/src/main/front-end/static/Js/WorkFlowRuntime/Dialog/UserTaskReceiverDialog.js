@@ -7,7 +7,7 @@ var UserTaskReceiverDialogUtility={
                 el: "#userTaskReceiverDialog",
                 data: {
                     acInterface: {
-                        getRuntimeModelWithStart: "/Rest/Workflow/RunTime/ModelRuntime/GetRuntimeModelWithStart",
+                        getRuntimeModelWithStart: "/Rest/Workflow/RunTime/Client/ModelRuntime/GetRuntimeModelWithStart",
                     }
                 },
                 mounted: function () {

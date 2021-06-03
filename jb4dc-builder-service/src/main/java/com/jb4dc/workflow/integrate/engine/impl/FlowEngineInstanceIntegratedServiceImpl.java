@@ -235,4 +235,9 @@ public class FlowEngineInstanceIntegratedServiceImpl extends FlowEngineCamundaIn
         MigrationPlan migrationPlan = runtimeService.createMigrationPlan(sourceProcessDefinitionId, targetProcessDefinitionId).mapEqualActivities().build();
         runtimeService.newMigration(migrationPlan).processInstanceIds(processInstanceId).execute();
     }
+
+    @Override
+    public ProcessInstance startProcessInstanceByKey(String modelReKey, String businessKey, Map<String, Object> vars) {
+        return getRuntimeService().startProcessInstanceByKey(modelReKey,businessKey,vars);
+    }
 }

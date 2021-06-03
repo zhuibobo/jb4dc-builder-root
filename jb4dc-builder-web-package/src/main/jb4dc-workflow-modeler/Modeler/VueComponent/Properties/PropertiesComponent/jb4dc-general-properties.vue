@@ -1,9 +1,12 @@
 <template>
     <div>
-        <Collapse value="1" accordion style="margin-top:8px ">
-            <Panel name="1">
-                基础绑定信息
-                <div slot="content">
+        <div>
+            <div class="vertical-tabs-headers">
+                <div tab="tab1" :class="verticalTabs.tab1.headerClass" @click="verticalTabChange">基础绑定信息</div>
+                <div tab="tab2" :class="verticalTabs.tab2.headerClass" @click="verticalTabChange">正文绑定信息</div>
+                <div tab="tab3" :class="verticalTabs.tab3.headerClass" @click="verticalTabChange">其他</div>
+            </div><div class="vertical-tabs-content">
+                <div v-if="verticalTabs.tab1.show" style="padding: 0px 8px 8px 8px">
                     <table class="properties-dialog-table-wraper" cellpadding="0" cellspacing="0" border="0">
                         <colgroup>
                             <col style="width: 13%" />
@@ -29,9 +32,22 @@
                                     <radio label="webReportPlugin" disabled>报表</radio>
                                 </radio-group>
                             </td>
-                            <td>绑定表单：</td>
                             <td>
-                                <Select v-model="jb4dc.jb4dcFormId" style="width:308px" @on-change="changeBindForm" :clearable="true">
+
+                            </td>
+                            <td>
+
+                            </td>
+                            <td>
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                绑定表单：
+                            </td>
+                            <td colspan="3">
+                                <Select v-model="jb4dc.jb4dcFormId" @on-change="changeBindForm" :clearable="true">
                                     <Option v-for="item in formResourcePOList" :value="item.formId" :key="item.formId">【{{ item.formCode }}】{{ item.formName }}</Option>
                                 </Select>
                             </td>
@@ -45,6 +61,27 @@
                             </td>
                             <td colspan="4">
                                 <input type="text" v-model="jb4dc.jb4dcFormParas" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                绑定移动端表单：
+                            </td>
+                            <td colspan="3">
+                                <Select v-model="jb4dc.jb4dcAppFormId" @on-change="changeBindForm" :clearable="true">
+                                    <Option v-for="item in formResourcePOList" :value="item.formId" :key="item.formId">【{{ item.formCode }}】{{ item.formName }}</Option>
+                                </Select>
+                            </td>
+                            <td>
+                                <Button type="primary" disabled>编辑</Button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                移动端表单参数：
+                            </td>
+                            <td colspan="4">
+                                <input type="text" v-model="jb4dc.jb4dcAppFormParas" />
                             </td>
                         </tr>
                         <tr>
@@ -64,10 +101,7 @@
                         </tbody>
                     </table>
                 </div>
-            </Panel>
-            <Panel name="2">
-                正文绑定信息
-                <div slot="content">
+                <div v-if="verticalTabs.tab2.show" style="padding: 4px">
                     <table class="properties-dialog-table-wraper" cellpadding="0" cellspacing="0" border="0">
                         <colgroup>
                             <col style="width: 14%" />
@@ -105,10 +139,7 @@
                         </tbody>
                     </table>
                 </div>
-            </Panel>
-            <Panel name="3">
-                其他
-                <div slot="content">
+                <div v-if="verticalTabs.tab3.show" style="padding: 4px">
                     <table class="properties-dialog-table-wraper" cellpadding="0" cellspacing="0" border="0">
                         <colgroup>
                             <col style="width: 13%" />
@@ -118,63 +149,63 @@
                             <col style="width: 6%" />
                         </colgroup>
                         <tbody>
-                            <tr>
-                                <td>扩充表单1插件：</td>
-                                <td>
-                                    <radio-group type="button" style="margin: auto" v-model="jb4dc.jb4dcFormEx1Plugin">
-                                        <radio label="webFormPlugin">表单</radio>
-                                        <radio label="webListPlugin" disabled>列表</radio>
-                                        <radio label="webChartPlugin" disabled>图表</radio>
-                                        <radio label="webReportPlugin" disabled>报表</radio>
-                                    </radio-group>
-                                </td>
-                                <td>绑定扩充表单1：</td>
-                                <td colspan="2">
-                                    <Select v-model="jb4dc.jb4dcFormEx1Id" style="width:308px" @on-change="changeBindForm" :clearable="true">
-                                        <Option v-for="item in formResourcePOList" :value="item.formId" :key="item.formId">【{{ item.formCode }}】{{ item.formName }}</Option>
-                                    </Select>
-                                    <Button type="primary" disabled>编辑</Button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    扩充表单1参数：
-                                </td>
-                                <td colspan="4">
-                                    <input type="text" v-model="jb4dc.jb4dcFormEx1Paras" />
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>外部表单1：</td>
-                                <td colspan="4">
-                                    <input type="text" v-model="jb4dc.jb4dcOuterFormUrl" />
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>外部表单2：</td>
-                                <td colspan="4">
-                                    <input type="text" v-model="jb4dc.jb4dcOuterFormEx1Url" />
-                                </td>
-                            </tr>
-                            <tr>
-                                <td rowspan="2">流程备注：</td>
-                                <td colspan="3">
-                                    <textarea v-model="jb4dc.jb4dcProcessDescriptionEditText" rows="2" disabled="disabled"></textarea>
-                                </td>
-                                <td rowspan="2">
-                                    <Button type="primary" @click="beginEditContextJuelForFlowProcessDescription">编辑</Button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td colspan="3" style="background-color: #fff">
-                                    <textarea v-model="jb4dc.jb4dcProcessDescriptionEditValue" rows="2" disabled="disabled"></textarea>
-                                </td>
-                            </tr>
+                        <tr>
+                            <td>扩充表单1插件：</td>
+                            <td>
+                                <radio-group type="button" style="margin: auto" v-model="jb4dc.jb4dcFormEx1Plugin">
+                                    <radio label="webFormPlugin">表单</radio>
+                                    <radio label="webListPlugin" disabled>列表</radio>
+                                    <radio label="webChartPlugin" disabled>图表</radio>
+                                    <radio label="webReportPlugin" disabled>报表</radio>
+                                </radio-group>
+                            </td>
+                            <td>绑定扩充表单1：</td>
+                            <td colspan="2">
+                                <Select v-model="jb4dc.jb4dcFormEx1Id" style="width:308px" @on-change="changeBindForm" :clearable="true">
+                                    <Option v-for="item in formResourcePOList" :value="item.formId" :key="item.formId">【{{ item.formCode }}】{{ item.formName }}</Option>
+                                </Select>
+                                <Button type="primary" disabled>编辑</Button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                扩充表单1参数：
+                            </td>
+                            <td colspan="4">
+                                <input type="text" v-model="jb4dc.jb4dcFormEx1Paras" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>外部表单1：</td>
+                            <td colspan="4">
+                                <input type="text" v-model="jb4dc.jb4dcOuterFormUrl" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>外部表单2：</td>
+                            <td colspan="4">
+                                <input type="text" v-model="jb4dc.jb4dcOuterFormEx1Url" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td rowspan="2">流程备注：</td>
+                            <td colspan="3">
+                                <textarea v-model="jb4dc.jb4dcProcessDescriptionEditText" rows="2" disabled="disabled"></textarea>
+                            </td>
+                            <td rowspan="2">
+                                <Button type="primary" @click="beginEditContextJuelForFlowProcessDescription">编辑</Button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="3" style="background-color: #fff">
+                                <textarea v-model="jb4dc.jb4dcProcessDescriptionEditValue" rows="2" disabled="disabled"></textarea>
+                            </td>
+                        </tr>
                         </tbody>
                     </table>
                 </div>
-            </Panel>
-        </Collapse>
+            </div>
+        </div>
 
         <contextVarJuelEditDialog ref="contextVarJuelEditDialog"></contextVarJuelEditDialog>
     </div>
@@ -200,7 +231,21 @@
                     elem:{}
                 },
                 trIsProcess:true,
-                formResourcePOList:null
+                formResourcePOList:null,
+                verticalTabs:{
+                    tab1:{
+                        show:true,
+                        headerClass:['tab-header','tab-header-selected']
+                    },
+                    tab2:{
+                        show:false,
+                        headerClass:['tab-header']
+                    },
+                    tab3:{
+                        show:false,
+                        headerClass:['tab-header']
+                    }
+                }
             }
         },
         mounted() {
@@ -225,6 +270,23 @@
             flowBpmnJsIntegrated=FlowBpmnJsIntegrated.GetInstance();
         },
         methods:{
+            verticalTabChange(event){
+                var activeTab=event.target.getAttribute("tab");
+
+                for (let verticalTabKey in this.verticalTabs) {
+                    if (verticalTabKey == activeTab) {
+                        this.verticalTabs[verticalTabKey].show = true;
+                        this.verticalTabs[verticalTabKey].headerClass = ['tab-header','tab-header-selected'];
+                    } else {
+                        this.verticalTabs[verticalTabKey].show = false;
+                        this.verticalTabs[verticalTabKey].headerClass = ['tab-header'];
+                    }
+                }
+
+                //this.verticalTabs[activeTab].show=false;
+                //console.log(event.target.getAttribute("tab"));
+                //console.log(event);
+            },
             beginEditContextJuelForFlowProcessTitle(){
                 //var
                 var _self=this;

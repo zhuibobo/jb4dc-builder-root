@@ -17,6 +17,7 @@ public class RuntimeReceiverUser extends RuntimeReceiverGroup {
 
     public RuntimeReceiverUser(String name, String id, String code, boolean isGroup, boolean isCustName, String typeName, String desc, String status, String filter, int orderNum) {
         super(name, id, code, isGroup, isCustName, typeName, desc, status, filter, orderNum);
+        this.setIcon("../../../"+ ZTreeNodePO.Icon_Person);
         //this.autoSelected = autoSelected;
     }
 

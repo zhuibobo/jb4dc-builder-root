@@ -112,7 +112,7 @@ public class BpmnTask {
 
     boolean isMultiInstanceTask;
 
-    String multiInstanceType; //Sequential,Parallel
+    String multiInstanceType; //Sequential,Parallel,Single
 
     public String getAssignee() {
         return assignee;

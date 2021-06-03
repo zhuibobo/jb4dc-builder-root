@@ -24,4 +24,6 @@ public interface IFlowEngineInstanceIntegratedService {
     void deleteAllInstance(JB4DCSession jb4DCSession, String deleteReason);
 
     void updateToVersion(String sourceProcessDefinitionId, String targetProcessDefinitionId, String processInstanceId);
+
+    ProcessInstance startProcessInstanceByKey(String modelReKey, String businessKey, Map<String, Object> vars);
 }

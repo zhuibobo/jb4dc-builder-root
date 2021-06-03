@@ -19,7 +19,9 @@ import java.util.List;
  * To change this template use File | Settings | File Templates.
  */
 public interface IWebFormDataSaveRuntimeService {
-    SubmitResultPO SaveFormRecordComplexPO(JB4DCSession jb4DCSession, String recordId, FormRecordComplexPO formRecordComplexPO, String listButtonId, String innerFormButtonId,String operationTypeName, FormResourceEntityWithBLOBs formResourceEntityWithBLOBs) throws JBuild4DCGenerallyException, IOException, JBuild4DCSQLKeyWordException;
+    void saveFormRecordComplexPO(JB4DCSession jb4DCSession, String recordId, FormRecordComplexPO formRecordComplexPO, String operationTypeName) throws JBuild4DCGenerallyException, IOException, JBuild4DCSQLKeyWordException;
+
+    SubmitResultPO saveFormRecordComplexPOForListButton(JB4DCSession jb4DCSession, String recordId, FormRecordComplexPO formRecordComplexPO, String listButtonId, String innerFormButtonId, String operationTypeName, FormResourceEntityWithBLOBs formResourceEntityWithBLOBs) throws JBuild4DCGenerallyException, IOException, JBuild4DCSQLKeyWordException;
 
     FormRecordComplexPO getFormRecordComplexPO(JB4DCSession session, String recordId, List<FormRecordDataRelationPO> formRecordDataRelationPOList,String operationType) throws JBuild4DCSQLKeyWordException, JBuild4DCGenerallyException, JsonProcessingException;
 }

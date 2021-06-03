@@ -3,6 +3,7 @@
         <RadioGroup v-model="selectedData.value">
             <Radio label="instanceStarter" border><span>实例发起人</span></Radio>
             <Radio label="modelManager" border><span>模型管理人</span></Radio>
+            <Radio label="previousNodeSender" border><span>上一环节发送人</span></Radio>
         </RadioGroup>
     </div>
 </template>
@@ -36,6 +37,9 @@ export default {
                         }
                         else if(_self.selectedData.value=="modelManager"){
                             _self.selectedData.text="模型管理人";
+                        }
+                        else if(_self.selectedData.value=="previousNodeSender"){
+                            _self.selectedData.text="上一环节发送人";
                         }
                         var result = JsonUtility.CloneStringify(_self.selectedData);
 

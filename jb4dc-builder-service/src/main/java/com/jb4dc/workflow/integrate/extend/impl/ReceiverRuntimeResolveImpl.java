@@ -1,5 +1,6 @@
 package com.jb4dc.workflow.integrate.extend.impl;
 
+import com.jb4dc.base.tools.JsonUtility;
 import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
 import com.jb4dc.core.base.session.JB4DCSession;
 import com.jb4dc.core.base.tools.StringUtility;
@@ -17,12 +18,14 @@ import com.jb4dc.workflow.integrate.extend.IModelAssObjectExtendService;
 import com.jb4dc.workflow.integrate.extend.IReceiverRuntimeResolve;
 import com.jb4dc.workflow.po.bpmn.BpmnDefinitions;
 import com.jb4dc.workflow.po.bpmn.process.BpmnTask;
+import com.jb4dc.workflow.po.bpmn.process.Jb4dcAction;
 import com.jb4dc.workflow.po.bpmn.process.Jb4dcReceiveObject;
 import com.jb4dc.workflow.po.receive.RuntimeReceiverGroup;
 import com.jb4dc.workflow.po.receive.RuntimeReceiverUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -181,22 +184,46 @@ public class ReceiverRuntimeResolveImpl implements IReceiverRuntimeResolve {
     }
 
     @Override
-    public List<BpmnTask> resolveToActualUser(JB4DCSession jb4DCSession,String instanceId, BpmnDefinitions bpmnDefinitions, List<BpmnTask> bpmnTaskList, Map<String, Object> vars) throws JBuild4DCGenerallyException {
+    public List<BpmnTask> resolveToActualUser(JB4DCSession jb4DCSession,String instanceId, BpmnDefinitions bpmnDefinitions, List<BpmnTask> bpmnTaskList, Map<String, Object> vars, Jb4dcAction jb4dcAction) throws JBuild4DCGenerallyException, IOException {
         for (BpmnTask task : bpmnTaskList) {
-            if(task.getExtensionElements()!=null&&task.getExtensionElements().getJb4dcMainReceiveObjects()!=null&&task.getExtensionElements().getJb4dcMainReceiveObjects().getJb4dcReceiveObjectList()!=null){
+            if(StringUtility.isNotEmpty(jb4dcAction.getActionMainReceiveObjects())&&!jb4dcAction.getActionMainReceiveObjects().equals("[]")){
+                //获取动作设置的主送人员
+                List<Jb4dcReceiveObject> jb4dcReceiveObjectList= JsonUtility.toObjectList(jb4dcAction.getActionMainReceiveObjects(),Jb4dcReceiveObject.class);
                 task.getExtensionElements().getJb4dcMainReceiveObjects().setRuntimeReceiveGroups(
                         resolveToActualUser(
-                                jb4DCSession,instanceId,bpmnDefinitions,bpmnTaskList,vars,task.getExtensionElements().getJb4dcMainReceiveObjects().getJb4dcReceiveObjectList()
+                                jb4DCSession, instanceId, bpmnDefinitions, bpmnTaskList, vars, jb4dcReceiveObjectList
                         )
                 );
             }
+            else {
+                //获取环节设置的主送人员
+                if (task.getExtensionElements() != null && task.getExtensionElements().getJb4dcMainReceiveObjects() != null && task.getExtensionElements().getJb4dcMainReceiveObjects().getJb4dcReceiveObjectList() != null) {
+                    task.getExtensionElements().getJb4dcMainReceiveObjects().setRuntimeReceiveGroups(
+                            resolveToActualUser(
+                                    jb4DCSession, instanceId, bpmnDefinitions, bpmnTaskList, vars, task.getExtensionElements().getJb4dcMainReceiveObjects().getJb4dcReceiveObjectList()
+                            )
+                    );
+                }
+            }
 
-            if(task.getExtensionElements()!=null&&task.getExtensionElements().getJb4dcCCReceiveObjects()!=null&&task.getExtensionElements().getJb4dcCCReceiveObjects().getJb4dcReceiveObjectList()!=null){
+            if(StringUtility.isNotEmpty(jb4dcAction.getActionCCReceiveObjects())&&!jb4dcAction.getActionCCReceiveObjects().equals("[]")){
+                //获取动作设置的抄送人员
+                List<Jb4dcReceiveObject> jb4dcReceiveObjectList= JsonUtility.toObjectList(jb4dcAction.getActionCCReceiveObjects(),Jb4dcReceiveObject.class);
                 task.getExtensionElements().getJb4dcCCReceiveObjects().setRuntimeReceiveGroups(
                         resolveToActualUser(
-                                jb4DCSession,instanceId,bpmnDefinitions,bpmnTaskList,vars,task.getExtensionElements().getJb4dcCCReceiveObjects().getJb4dcReceiveObjectList()
+                                jb4DCSession, instanceId, bpmnDefinitions, bpmnTaskList, vars, jb4dcReceiveObjectList
                         )
                 );
+            }
+            else {
+                //获取环节设置的抄送人员
+                if (task.getExtensionElements() != null && task.getExtensionElements().getJb4dcCCReceiveObjects() != null && task.getExtensionElements().getJb4dcCCReceiveObjects().getJb4dcReceiveObjectList() != null) {
+                    task.getExtensionElements().getJb4dcCCReceiveObjects().setRuntimeReceiveGroups(
+                            resolveToActualUser(
+                                    jb4DCSession, instanceId, bpmnDefinitions, bpmnTaskList, vars, task.getExtensionElements().getJb4dcCCReceiveObjects().getJb4dcReceiveObjectList()
+                            )
+                    );
+                }
             }
         }
         return bpmnTaskList;

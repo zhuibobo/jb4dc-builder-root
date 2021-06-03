@@ -23,13 +23,13 @@ public class ApiRuntimeRest {
     @Autowired
     IApiItemService apiItemService;
 
-    @RequestMapping(value = "/GetApiPOById",method = RequestMethod.POST)
+    @RequestMapping(value = "/GetApiPOById",method = RequestMethod.GET)
     public JBuild4DCResponseVo<ApiItemEntity> getApiPOById(String apiId) throws JBuild4DCGenerallyException {
         ApiItemEntity apiItemEntity=apiItemService.getByPrimaryKey(JB4DCSessionUtility.getSession(),apiId);
         return JBuild4DCResponseVo.getDataSuccess(apiItemEntity);
     }
 
-    @RequestMapping(value = "/GetApiPOByValue",method = RequestMethod.POST)
+    @RequestMapping(value = "/GetApiPOByValue",method = RequestMethod.GET)
     public JBuild4DCResponseVo<ApiItemEntity> getApiPOByValue(String apiValue) throws JBuild4DCGenerallyException {
         ApiItemEntity apiItemEntity=apiItemService.getByValue(JB4DCSessionUtility.getSession(),apiValue);
         return JBuild4DCResponseVo.getDataSuccess(apiItemEntity);

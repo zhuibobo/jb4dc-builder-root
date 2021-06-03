@@ -121,8 +121,16 @@ public class WorkflowIntegrateTest extends RestTestBase {
 
         deleteAllProcessInstance(processEngine.getRuntimeService());
 
+        Map<String,Object> vars=new HashMap<>();
+        vars.put("xxx","送负责人");
+        vars.put("yyyy",1);
+        Map<String,Object> businessData=new HashMap<>();
+        businessData.put("String","String1111");
+        businessData.put("int",1);
+        vars.put("_$BusinessData$",businessData);
+
         RuntimeService runtimeService=processEngine.getRuntimeService();
-        runtimeService.startProcessInstanceByKey("P004_002","P004_002_bpmn");
+        runtimeService.startProcessInstanceByKey("P004_002","P004_002_bpmn",vars);
 
         TaskService taskService=processEngine.getTaskService();
         TaskQuery taskQuery = taskService.createTaskQuery().taskAssignee("起草人");
@@ -134,7 +142,7 @@ public class WorkflowIntegrateTest extends RestTestBase {
         System.out.println(outgoingSequenceFlow.get(0).getTarget().getElementType());
         System.out.println(outgoingSequenceFlow);
 
-        Map<String,Object> vars=new HashMap<>();
+        vars=new HashMap<>();
         vars.put("act","送负责人");
         vars.put("level",1);
 
@@ -179,6 +187,7 @@ public class WorkflowIntegrateTest extends RestTestBase {
         vars=new HashMap<>();
         vars.put("act","送分管领导");
         vars.put("level",6);
+        vars.put("businessData",businessData);
 
         userTasks = CamundaBpmnUtility.getNextPossibleFlowNode(task,vars);
         Assert.assertEquals(1,userTasks.size());

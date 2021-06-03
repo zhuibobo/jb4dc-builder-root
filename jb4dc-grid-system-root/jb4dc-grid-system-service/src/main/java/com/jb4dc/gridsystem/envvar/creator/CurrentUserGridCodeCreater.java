@@ -7,7 +7,7 @@ import com.jb4dc.core.base.session.JB4DCSession;
 import com.jb4dc.core.base.tools.StringUtility;
 import com.jb4dc.gridsystem.dbentities.gridinfo.GridInfoEntity;
 import com.jb4dc.gridsystem.service.gridinfo.IGridInfoService;
-import com.jb4dc.workflow.po.EnvVariableResultPO;
+import com.jb4dc.builder.po.EnvVariableResultPO;
 import org.springframework.beans.factory.annotation.Autowired;
 
 public class CurrentUserGridCodeCreater implements IEnvVariableCreator {

@@ -17,11 +17,11 @@ import org.springframework.web.bind.annotation.RequestParam;
  */
 @FeignClient(name= "${jb4dc.builder.server.name}",contextId = "ApiItemRuntimeRemote",configuration = { BuilderClientFeignClientConfig.class },path = "${jb4dc.builder.server.context-path}/Rest/Builder/RunTime/ApiRuntime")
 public interface ApiItemRuntimeRemote {
-    @RequestMapping(value = "/GetApiPOById",method = RequestMethod.POST)
+    @RequestMapping(value = "/GetApiPOById",method = RequestMethod.GET)
     @ClientCallRemoteCache
     JBuild4DCResponseVo<ApiItemEntity> getApiPOById(@RequestParam("apiId") String apiId);
 
-    @RequestMapping(value = "/GetApiPOByValue",method = RequestMethod.POST)
+    @RequestMapping(value = "/GetApiPOByValue",method = RequestMethod.GET)
     @ClientCallRemoteCache
     JBuild4DCResponseVo<ApiItemEntity> getApiPOByValue(@RequestParam("apiValue") String apiValue);
 }

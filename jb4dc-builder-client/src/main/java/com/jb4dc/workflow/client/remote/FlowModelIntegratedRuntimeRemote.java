@@ -4,7 +4,7 @@ import com.jb4dc.base.service.aspect.ClientCallRemoteCache;
 import com.jb4dc.builder.client.remote.BuilderClientFeignClientConfig;
 import com.jb4dc.core.base.vo.JBuild4DCResponseVo;
 import com.jb4dc.workflow.po.FlowModelListIntegratedPO;
-import com.jb4dc.workflow.po.FlowModelRuntimePO;
+import com.jb4dc.workflow.po.FlowInstanceRuntimePO;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.context.annotation.Primary;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,9 +25,7 @@ public interface FlowModelIntegratedRuntimeRemote {
 
     @RequestMapping(value = "/GetMyBootableModel",method = RequestMethod.GET)
     @ClientCallRemoteCache
-    JBuild4DCResponseVo<FlowModelListIntegratedPO> getMyBootableModel(@RequestParam("userId") String userId);
+    JBuild4DCResponseVo<FlowModelListIntegratedPO> getMyBootableModel(@RequestParam("userId") String userId,@RequestParam("organId") String organId);
 
-    @RequestMapping(value = "/GetRuntimeModelWithStart",method = RequestMethod.GET)
-    @ClientCallRemoteCache
-    JBuild4DCResponseVo<FlowModelRuntimePO> getRuntimeModelWithStart(@RequestParam("userId") String userId,@RequestParam("modelKey") String modelKey);
+
 }

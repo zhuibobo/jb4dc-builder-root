@@ -77,17 +77,19 @@ public class ApiGroupServiceImpl extends BaseServiceImpl<ApiGroupEntity> impleme
 
     @Override
     public void initSystemData(JB4DCSession jb4DCSession) throws JBuild4DCGenerallyException {
-        ApiGroupEntity rootGroupEntity=create(jb4DCSession,rootId,rootParentId,"API根分组","API根分组","0");
+        ApiGroupEntity rootGroupEntity = create(jb4DCSession, rootId, rootParentId, "API根分组", "API根分组", "0");
 
-        ApiGroupEntity builderButtonApiRootGroupEntity=create(jb4DCSession,API_GROUP_BUILDER_BUTTON_ROOT,rootGroupEntity.getApiGroupId(),"构建按钮API分组","构建按钮API分组","API_GROUP_BUILDER_BUTTON_ROOT");
+        ApiGroupEntity builderButtonApiRootGroupEntity = create(jb4DCSession, API_GROUP_BUILDER_BUTTON_ROOT, rootGroupEntity.getApiGroupId(), "构建按钮API分组", "构建按钮API分组", "API_GROUP_BUILDER_BUTTON_ROOT");
 
-        ApiGroupEntity generalGroupEntity=create(jb4DCSession,API_GROUP_GLOBAL,builderButtonApiRootGroupEntity.getApiGroupId(),"通用API分组","通用API分组","API_GROUP_BUILDER_BUTTON_ROOT");
+        ApiGroupEntity generalGroupEntity = create(jb4DCSession, API_GROUP_GLOBAL, builderButtonApiRootGroupEntity.getApiGroupId(), "通用API分组", "通用API分组", "API_GROUP_BUILDER_BUTTON_ROOT");
 
-        ApiGroupEntity businessGroupEntity=create(jb4DCSession,"API_GROUP_BUSINESS",builderButtonApiRootGroupEntity.getApiGroupId(),"业务系统分组","业务系统分组","API_GROUP_BUILDER_BUTTON_ROOT");
+        ApiGroupEntity businessGroupEntity = create(jb4DCSession, "API_GROUP_BUSINESS", builderButtonApiRootGroupEntity.getApiGroupId(), "业务系统分组", "业务系统分组", "API_GROUP_BUILDER_BUTTON_ROOT");
 
-        ApiGroupEntity mockDevGroupEntity=create(jb4DCSession,"ENV_GROUP_BUSINESS_MOCK_DEV",builderButtonApiRootGroupEntity.getApiGroupId(),"开发模拟系统","开发模拟系统","API_GROUP_BUILDER_BUTTON_ROOT");
+        ApiGroupEntity mockDevGroupEntity = create(jb4DCSession, "ENV_GROUP_BUSINESS_MOCK_DEV", builderButtonApiRootGroupEntity.getApiGroupId(), "开发模拟系统", "开发模拟系统", "API_GROUP_BUILDER_BUTTON_ROOT");
 
-        ApiGroupEntity workFlowApiRootGroupEntity=create(jb4DCSession,API_GROUP_WORKFLOW_ACTION_ROOT,rootGroupEntity.getApiGroupId(),"工作流动作API分组","工作流动作API分组","API_GROUP_WORKFLOW_ACTION_ROOT");
+        ApiGroupEntity workFlowApiRootGroupEntity = create(jb4DCSession, API_GROUP_WORKFLOW_ACTION_ROOT, rootGroupEntity.getApiGroupId(), "工作流动作API分组", "工作流动作API分组", "API_GROUP_WORKFLOW_ACTION_ROOT");
+
+        ApiGroupEntity workFlowApiGeneralGroupEntity = create(jb4DCSession, "API_GROUP_WORKFLOW_ACTION_GENERAL", workFlowApiRootGroupEntity.getApiGroupId(), "通用动作API", "通用动作API", "API_GROUP_WORKFLOW_ACTION_ROOT");
     }
 
     @Override

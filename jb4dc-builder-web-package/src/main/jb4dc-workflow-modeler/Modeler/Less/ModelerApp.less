@@ -319,3 +319,41 @@ body{
 .select-dialog-single-select-table .ivu-table-row{
   cursor: pointer !important;
 }
+
+.vertical-tabs-headers{
+  margin-top: 8px;
+  display: inline-block;
+  width: 4%;
+  box-sizing: border-box;
+  height: 456px;
+  /*border: #027dc1 solid 1px;*/
+  vertical-align:top;
+  .tab-header{
+    border: 1px solid #dcdee2;
+    border-right: 0px;
+    padding: 8px;
+    display:block;
+    width: 100%;
+    text-align: center;
+    margin-top: 4px;
+    border-radius:4px 0px 0px 4px;
+    cursor: pointer;
+  }
+  .tab-header:first-child{
+    margin-top: 0px;
+  }
+  .tab-header-selected{
+    color: #666666;
+    background-color: #f8f8f8;
+  }
+}
+
+.vertical-tabs-content{
+  margin-top: 8px;
+  display: inline-block;
+  box-sizing: border-box;
+  width: 96%;
+  border: #dcdee2 solid 1px;
+  height: 456px;
+  border-radius: 0px 4px 4px 4px;
+}

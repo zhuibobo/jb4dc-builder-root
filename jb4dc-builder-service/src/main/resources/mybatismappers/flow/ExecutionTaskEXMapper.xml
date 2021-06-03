@@ -1,6 +1,66 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.jb4dc.workflow.dao.ExecutionTaskMapper">
+    <resultMap id="BaseResultMapWithPO" type="com.jb4dc.workflow.po.ExecutionTaskPO">
+        <constructor>
+            <idArg column="EXTASK_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="EXTASK_INST_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="EXTASK_MODEL_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="EXTASK_RU_TASK_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="EXTASK_RU_EXECUTION_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="EXTASK_RU_PROC_INST_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="EXTASK_RU_PROC_DEF_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="EXTASK_PRE_NODE_KEY" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="EXTASK_PRE_NODE_NAME" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="EXTASK_CUR_NODE_KEY" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="EXTASK_CUR_NODE_NAME" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="EXTASK_TYPE" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="EXTASK_STATUS" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="EXTASK_SENDER_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="EXTASK_SENDER_NAME" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="EXTASK_SEND_TIME" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+            <arg column="EXTASK_RECEIVER_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="EXTASK_RECEIVER_NAME" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="EXTASK_VIEW_ED" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="EXTASK_VIEW_TIME" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+            <arg column="EXTASK_START_TIME" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+            <arg column="EXTASK_END_TIME" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+            <arg column="EXTASK_HANDLE_ED" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="EXTASK_HANDLE_ACTION_KEY" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="EXTASK_HANDLE_ACTION_NAME" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="EXTASK_ORDER_NUM" javaType="java.lang.Integer" jdbcType="INTEGER" />
+            <arg column="EXTASK_FROM_TASK_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="EXTASK_FROM_EXECUTION_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="EXTASK_INDEX" javaType="java.lang.Integer" jdbcType="INTEGER" />
+            <arg column="EXTASK_MULTI_TASK" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="INST_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="INST_TITLE" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="INST_DESC" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="INST_CUST_DESC" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="INST_CREATE_TIME" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+            <arg column="INST_CREATOR" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="INST_CREATOR_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="INST_ORGAN_NAME" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="INST_ORGAN_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="INST_STATUS" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="INST_END_TIME" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+            <arg column="INST_RU_EXECUTION_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="INST_RU_PROC_INST_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="INST_RU_BUSINESS_KEY" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="INST_RU_PROC_DEF_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="INST_ORDER_NUM" javaType="java.lang.Integer" jdbcType="INTEGER" />
+            <arg column="INST_MOD_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="INST_MOD_CATEGORY" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="INST_MOD_MODULE_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="INST_MOD_TENANT_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
+        </constructor>
+    </resultMap>
+    <sql id="Inst_Base_Column_List">
+        INST_ID, INST_TITLE, INST_DESC, INST_CUST_DESC, INST_CREATE_TIME, INST_CREATOR, INST_CREATOR_ID,
+    INST_ORGAN_NAME, INST_ORGAN_ID, INST_STATUS, INST_END_TIME, INST_RU_EXECUTION_ID,
+    INST_RU_PROC_INST_ID, INST_RU_BUSINESS_KEY, INST_RU_PROC_DEF_ID, INST_ORDER_NUM,
+    INST_MOD_ID, INST_MOD_CATEGORY, INST_MOD_MODULE_ID, INST_MOD_TENANT_ID
+    </sql>
     <select id="selectAll" resultMap="BaseResultMap">select<include refid="Base_Column_List"/> from TFLOW_EXECUTION_TASK ORDER by EXTASK_ORDER_NUM DESC</select>
     <select id="selectAllASC" resultMap="BaseResultMap">select<include refid="Base_Column_List"/> from TFLOW_EXECUTION_TASK ORDER by EXTASK_ORDER_NUM ASC</select>
     <delete id="deleteAll">delete from TFLOW_EXECUTION_TASK</delete>
@@ -31,4 +91,15 @@
                                                                                                           where EXTASK_ORDER_NUM = (select max(EXTASK_ORDER_NUM) from TFLOW_EXECUTION_TASK where EXTASK_ORDER_NUM<(select EXTASK_ORDER_NUM from TFLOW_EXECUTION_TASK where EXTASK_ID=#{Id,jdbcType=NVARCHAR}))]]></select>
     <select id="selectGreaterThanRecord" parameterType="java.lang.String" resultMap="BaseResultMap"><![CDATA[select * from TFLOW_EXECUTION_TASK
                                                                                                              where EXTASK_ORDER_NUM = (select min(EXTASK_ORDER_NUM) from TFLOW_EXECUTION_TASK where EXTASK_ORDER_NUM>(select EXTASK_ORDER_NUM from TFLOW_EXECUTION_TASK where EXTASK_ID=#{Id,jdbcType=NVARCHAR}))]]></select>
+
+    <select id="selectByInstanceId" resultMap="BaseResultMap">
+        select<include refid="Base_Column_List"/> from TFLOW_EXECUTION_TASK where EXTASK_INST_ID=#{instId} ORDER by EXTASK_ORDER_NUM desc;
+    </select>
+
+    <select id="selectMyProcessTask" resultMap="BaseResultMapWithPO">
+        select <include refid="Base_Column_List"/>,<include refid="Inst_Base_Column_List"/> from TFLOW_EXECUTION_TASK join TFLOW_INSTANCE on TFLOW_EXECUTION_TASK.EXTASK_INST_ID=TFLOW_INSTANCE.INST_ID
+        where EXTASK_TYPE=#{extaskType} and EXTASK_RECEIVER_ID=#{userId} and INST_MOD_CATEGORY=#{modelCategory} and EXTASK_STATUS='Processing' and INST_MOD_MODULE_ID in (
+        select MODULE_ID from tbuild_module where MODULE_LINK_ID=#{linkId}
+        )
+    </select>
 </mapper>

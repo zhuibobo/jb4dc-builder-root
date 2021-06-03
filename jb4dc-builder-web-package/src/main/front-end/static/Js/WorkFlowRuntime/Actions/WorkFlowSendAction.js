@@ -1,12 +1,12 @@
 let WorkFlowSendAction={
     acInterface:{
-        resolveNextPossibleFlowNode:"/Rest/Workflow/RunTime/InstanceRuntime/ResolveNextPossibleFlowNode",
-        completeTask:"/Rest/Workflow/RunTime/InstanceRuntime/CompleteTask"
+        resolveNextPossibleFlowNode:"/Rest/Workflow/RunTime/Client/InstanceRuntime/ResolveNextPossibleFlowNode",
+        completeTask:"/Rest/Workflow/RunTime/Client/InstanceRuntime/CompleteTask"
     },
     _Prop:{
 
     },
-    Instance:function (flowModelRuntimePO,flowModelRuntimePOCacheKey,jb4dcActions,formRuntimeInst,actionObj,isStartInstanceStatus,pageHostInstance) {
+    Instance:function (flowModelRuntimePO,flowModelRuntimePOCacheKey,jb4dcActions,formRuntimeInst,actionObj,isStartInstanceStatus,pageHostInstance,currentNodeKey,currentNodeName,recordId,modelId,modelReKey,currentTaskId) {
         console.log(actionObj);
         var htmlId = actionObj.actionHTMLId ? actionObj.actionHTMLId : actionObj.actionCode;
         var elem = $('<button type="button" class="operation-button operation-button-primary" id="' + htmlId + '"><span>' + actionObj.actionCaption + '</span></button>');
@@ -18,7 +18,13 @@ let WorkFlowSendAction={
             "formRuntimeInst": formRuntimeInst,
             "actionObj": actionObj,
             "isStartInstanceStatus": isStartInstanceStatus,
-            "pageHostInstance": pageHostInstance
+            "pageHostInstance": pageHostInstance,
+            "currentNodeKey": currentNodeKey,
+            "currentNodeName": currentNodeName,
+            "recordId":recordId,
+            "modelId":modelId,
+            "modelReKey":modelReKey,
+            "currentTaskId":currentTaskId
         }
         elem.bind("click", this._Prop, this.ButtonClickEvent);
         return {
@@ -67,17 +73,29 @@ let WorkFlowSendAction={
         console.log(selectedReceiverData);
         console.log(this._Prop.actionObj.actionCaption);
 
-        var selectedReceiverVars=FlowRuntimeVarBuilder.BuilderSelectedReceiverToInstanceVar(nextTaskEntityList,selectedReceiverData);
-        var sendData=this.BuildSendToServerData(this._Prop, {
-            selectedReceiverVars:encodeURIComponent(JsonUtility.JsonToString(selectedReceiverVars))
-        });
+        DialogUtility.Confirm(window,"确认执行发送?",function (){
+            var selectedReceiverVars=FlowRuntimeVarBuilder.BuilderSelectedReceiverToInstanceVar(nextTaskEntityList,selectedReceiverData);
+            var sendData=this.BuildSendToServerData(this._Prop, {
+                selectedReceiverVars:encodeURIComponent(JsonUtility.JsonToString(selectedReceiverVars))
+            });
 
-        if(sendData.success) {
-            AjaxUtility.Post(this.acInterface.completeTask, sendData.data, function (result) {
-                DialogUtility.CloseDialog(DialogUtility.DialogLoadingId);
-                console.log(result);
-            }, this._Prop.sender);
-        }
+            //console.log(sendData);
+            if(sendData.success) {
+                DialogUtility.AlertLoading(window,DialogUtility.DialogLoadingId,{},"系统处理中,请稍候!");
+
+                AjaxUtility.Post(this.acInterface.completeTask, sendData.data, function (result) {
+                    DialogUtility.CloseDialog(DialogUtility.DialogLoadingId);
+                    if(result.success) {
+                        DialogUtility.Confirm(window, result.message, function () {
+
+                        }, this);
+                    }
+                    else {
+                        DialogUtility.AlertError(window, DialogUtility.DialogAlertErrorId, {}, result.data.message);
+                    }
+                }, this._Prop.sender);
+            }
+        },this);
     },
     BuildSendToServerData:function (_prop,appendSendMap){
         var formDataComplexPO = _prop.formRuntimeInst.SerializationFormData();
@@ -88,10 +106,16 @@ let WorkFlowSendAction={
                 actionCode: _prop.actionObj.actionCode,
                 flowModelRuntimePOCacheKey: _prop.flowModelRuntimePOCacheKey,
                 "formRecordComplexPOString": encodeURIComponent(JsonUtility.JsonToString(formDataComplexPO)),
+                "currentNodeKey": _prop.currentNodeKey,
+                "currentNodeName": _prop.currentNodeName,
+                "recordId":_prop.recordId,
+                "modelId":_prop.modelId,
+                "modelReKey":_prop.modelReKey,
+                "currentTaskId":_prop.currentTaskId
             }
         }
 
-        if(!appendSendMap){
+        if(appendSendMap){
             for (var key in appendSendMap) {
                 result.data[key]=appendSendMap[key];
             }

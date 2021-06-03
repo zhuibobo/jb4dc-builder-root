@@ -34,6 +34,10 @@ public interface IFlowEngineModelIntegratedService {
 
     List<ProcessDefinition> getDeployedCamundaModelList(JB4DCSession jb4DSession, String processDefinitionKey, ModelTenantIdEnum modelTenantIdEnum);
 
+    ProcessDefinition getDeployedCamundaModel(JB4DCSession jb4DSession, String processDefinitionId);
+
+    String getDeployedCamundaModelContent(JB4DCSession jb4DSession, String processDefinitionId) throws IOException;
+
     ProcessDefinition getDeployedCamundaModelLastVersion(JB4DCSession jb4DSession, String processDefinitionKey, ModelTenantIdEnum modelTenantIdEnum);
 
     String getDeployedCamundaModelContentLastVersion(JB4DCSession jb4DSession, String processDefinitionKey, ModelTenantIdEnum modelTenantIdEnum) throws IOException;

@@ -34,7 +34,7 @@
                 </div>
             </template>
         </i-table>
-        <div ref="addActionDialog" style="display: none">
+        <div id="jb4dc-actions-properties-addActionDialog" ref="addActionDialog" style="display: none">
             <div>
                 <tabs name="add-action-properties-inner-dialog-tabs">
                     <tab-pane tab="add-action-properties-inner-dialog-tabs" label="动作设置">
@@ -278,7 +278,7 @@
                             </tr>
                             <tr>
                                 <td colspan="5" style="line-height: 23px;background: #ffffff">
-                                    调用API：
+                                    调用API2：
                                     <table cellpadding="0" cellspacing="0" border="0" style="width: 100%">
                                         <colgroup>
                                             <col style="width: 360px" />
@@ -301,7 +301,15 @@
                                             </td>
                                             <td style="background: #ffffff;" valign="top">
                                                 <i-table border :columns="api.selectedApiConfig" :data="actionInnerDetailInfo.actionCallApis"
-                                                         class="iv-list-table" size="small" no-data-text="add listeners" height="294">
+                                                         class="iv-list-table" size="small" no-data-text="add listeners" height="294" style="margin-left: 4px">
+                                                    <template slot-scope="{ row, index }" slot="runAt">
+                                                        <div class="wf-list-font-icon-button-class">
+                                                            <RadioGroup v-model="row.runAt" type="button" size="small" @on-change="singleSelectedApiChange(index,row,row.runAt)">
+                                                                <Radio label="before">前</Radio>
+                                                                <Radio label="after">后</Radio>
+                                                            </RadioGroup>
+                                                        </div>
+                                                    </template>
                                                     <template slot-scope="{ row, index }" slot="action">
                                                         <div class="wf-list-font-icon-button-class" @click="removeAPI(index,row)">
                                                             <Icon type="md-close" />
@@ -536,9 +544,16 @@
                             align: "left"
                         },
                         {
-                            title: '操作',
-                            slot: 'action',
+                            title: '运行',
+                            slot: 'runAt',
+                            key: 'runAt',
                             width: 120,
+                            align: "center"
+                        },
+                        {
+                            title: 'OP',
+                            slot: 'action',
+                            width: 60,
                             align: "center"
                         }
                     ]
@@ -674,19 +689,28 @@
             beginEditContextJuelForActionDisplayCondition() {
                 //console.log(this.propFromId);
                 var _self = this;
+                //debugger;
                 var formId = flowBpmnJsIntegrated.TryGetFormId(this.propFromId);
-                this.$refs.contextVarJuelEditDialog.beginEditContextJuel("编辑显示条件", this.actionInnerDetailInfo.actionDisplayConditionEditValue, formId, function (result) {
-                    _self.actionInnerDetailInfo.actionDisplayConditionEditText = result.editText;
-                    _self.actionInnerDetailInfo.actionDisplayConditionEditValue = result.editValue;
-                });
+                this.$refs.contextVarJuelEditDialog.beginEditContextJuel("编辑显示条件",
+                    this.actionInnerDetailInfo.actionDisplayConditionEditValue,
+                    formId,
+                    function (result) {
+                        _self.actionInnerDetailInfo.actionDisplayConditionEditText = result.editText;
+                        _self.actionInnerDetailInfo.actionDisplayConditionEditValue = result.editValue;
+                    }
+                );
             },
             initAddActionDialog() {
+
+                //$("[aria-describedby='jb4dc-actions-properties-addActionDialog']").remove();
+                DialogUtility.RemoveDialogRemainingElem("jb4dc-actions-properties-addActionDialog");
                 var _self = this;
                 DialogUtility.DialogElemObj(_self.$refs.addActionDialog, {
                     title: "新增动作",
                     width: 850,
                     height: 660,
                     modal: true,
+                    autoOpen:false,
                     buttons: {
                         "确认": function () {
                             _self.completeEditAction();
@@ -697,7 +721,7 @@
                         }
                     }
                 }, null, {}, this);
-                $(this.$refs.addActionDialog).dialog("close");
+                //$(this.$refs.addActionDialog).dialog("close");
             },
             showAddActionDialog(oldInnerDetailInfo) {
                 if (!oldInnerDetailInfo) {
@@ -925,7 +949,8 @@
                 if (this.api.apiTreeSelectData.nodeTypeName == "API") {
                     this.actionInnerDetailInfo.actionCallApis.push({
                         apiId: this.api.apiTreeSelectData.id,
-                        apiName: this.api.apiTreeSelectData.text
+                        apiName: this.api.apiTreeSelectData.text,
+                        runAt:"after"
                     });
                 }
             },
@@ -935,6 +960,14 @@
             },
             clearAPI() {
                 this.actionInnerDetailInfo.actionCallApis = [];
+            },
+            singleSelectedApiChange(index, row,value){
+                console.log(row);
+                console.log(index);
+                console.log(value);
+                console.log(this.actionInnerDetailInfo.actionCallApis);
+                //this.actionInnerDetailInfo.actionCallApis
+                this.actionInnerDetailInfo.actionCallApis[index].runAt=value;
             },
             //endregion API设置
 

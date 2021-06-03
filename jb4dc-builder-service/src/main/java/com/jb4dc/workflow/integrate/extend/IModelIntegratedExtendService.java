@@ -6,10 +6,9 @@ import com.jb4dc.workflow.dbentities.ModelIntegratedEntity;
 import com.jb4dc.workflow.po.FlowModelIntegratedPO;
 import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
 import com.jb4dc.core.base.session.JB4DCSession;
-import com.jb4dc.workflow.po.FlowModelRuntimePO;
+import com.jb4dc.workflow.po.FlowInstanceRuntimePO;
 import com.jb4dc.workflow.po.bpmn.BpmnDefinitions;
 import com.jb4dc.workflow.po.bpmn.process.BpmnTask;
-import com.jb4dc.workflow.po.bpmn.process.BpmnUserTask;
 
 import javax.xml.bind.JAXBException;
 import javax.xml.stream.XMLStreamException;
@@ -31,13 +30,13 @@ public interface IModelIntegratedExtendService extends IBaseService<ModelIntegra
 
     FlowModelIntegratedPO saveFlowModel(JB4DCSession jb4DSession, FlowModelIntegratedPO flowModelIntegratedPO) throws JBuild4DCGenerallyException;
 
+    ModelIntegratedEntity getLastSaveModelIntegratedEntity(JB4DCSession jb4DCSession, String modelReKey);
+
     boolean modelMustReDeployment(JB4DCSession jb4DCSession, String sourceModelXML, String newModelXML);
 
     String getBpmnTemplateModelByName(String templateName) throws IOException, URISyntaxException;
 
     List<ModelIntegratedEntity> getMyStartEnableModel(JB4DCSession session);
-
-    FlowModelRuntimePO getRuntimeModelWithStart(JB4DCSession session, String modelKey) throws IOException, JAXBException, XMLStreamException, JBuild4DCGenerallyException;
 
     FlowModelIntegratedPO getLastPOByModelReKey(JB4DCSession jb4DSession, String modelReKey) throws IOException;
 

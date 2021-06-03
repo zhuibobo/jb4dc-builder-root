@@ -2,7 +2,7 @@
 <html lang="zh" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Title1</title>
     <th:block th:replace="Fragment/GeneralLib::WorkFlowRuntimeLib"></th:block>
     <th:block th:replace="Fragment/GeneralLib::ThemesLib"></th:block>
     <th:block th:replace="Fragment/GeneralLib::LineAwesomeLib"></th:block>
@@ -27,7 +27,7 @@
         el:"#appForm",
         data: {
             acInterface:{
-                getMyBootableModel:"/Rest/Workflow/RunTime/ModelRuntime/GetMyBootableModel",
+                getMyBootableModel:"/Rest/Workflow/RunTime/Client/ModelRuntime/GetMyBootableModel",
                 startInstanceView: "/HTML/WorkFlow/Runtime/InstanceStart.html"
             },
             models:[]

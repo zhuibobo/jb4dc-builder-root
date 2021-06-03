@@ -2,7 +2,10 @@ package com.jb4dc.workflow.po.bpmn;
 
 
 import com.jb4dc.workflow.po.bpmn.diagram.BpmnDiagram;
+import com.jb4dc.workflow.po.bpmn.process.BpmnExtensionElements;
 import com.jb4dc.workflow.po.bpmn.process.BpmnProcess;
+import com.jb4dc.workflow.po.bpmn.process.BpmnUserTask;
+import com.jb4dc.workflow.po.bpmn.process.Jb4dcAction;
 
 import javax.xml.bind.annotation.*;
 import java.util.List;
@@ -100,5 +103,28 @@ public class BpmnDefinitions {
 
     public void setMessageList(List<BpmnMessage> messageList) {
         this.messageList = messageList;
+    }
+
+    public static Jb4dcAction findAction(BpmnDefinitions bpmnDefinitions, String currentNodeKey, String actionCode) {
+        Jb4dcAction jb4dcAction = null;
+        if (bpmnDefinitions.getBpmnProcess().getStartEvent().getId().equals(currentNodeKey)) {
+            jb4dcAction = findAction(bpmnDefinitions.getBpmnProcess().getStartEvent().getExtensionElements(), currentNodeKey, actionCode);
+        }
+        if (bpmnDefinitions.getBpmnProcess().getUserTaskList() != null) {
+            for (BpmnUserTask userTask : bpmnDefinitions.getBpmnProcess().getUserTaskList()) {
+                if (userTask.getId().equals(currentNodeKey)) {
+                    jb4dcAction = findAction(userTask.getExtensionElements(), currentNodeKey, actionCode);
+                }
+            }
+        }
+        return jb4dcAction;
+    }
+
+    private static Jb4dcAction findAction(BpmnExtensionElements extensionElements, String currentNodeKey, String actionCode) {
+        Jb4dcAction jb4dcAction = null;
+        if (extensionElements != null && extensionElements.getJb4dcActions() != null && extensionElements.getJb4dcActions().getJb4dcActionList() != null && extensionElements.getJb4dcActions().getJb4dcActionList().size() > 0) {
+            jb4dcAction = extensionElements.getJb4dcActions().getJb4dcActionList().stream().filter(item -> item.getActionCode().equals(actionCode)).findFirst().orElse(null);
+        }
+        return jb4dcAction;
     }
 }

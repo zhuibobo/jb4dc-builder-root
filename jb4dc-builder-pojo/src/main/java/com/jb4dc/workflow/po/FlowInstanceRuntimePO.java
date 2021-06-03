@@ -1,14 +1,16 @@
 package com.jb4dc.workflow.po;
 
+import com.jb4dc.workflow.dbentities.ExecutionTaskEntity;
 import com.jb4dc.workflow.dbentities.InstanceEntity;
 import com.jb4dc.workflow.dbentities.ModelIntegratedEntity;
 import com.jb4dc.workflow.po.bpmn.BpmnDefinitions;
 import com.jb4dc.workflow.po.bpmn.process.Jb4dcActions;
 
-public class FlowModelRuntimePO implements Cloneable {
+public class FlowInstanceRuntimePO implements Cloneable {
     ModelIntegratedEntity modelIntegratedEntity;
     BpmnDefinitions bpmnDefinitions;
     InstanceEntity instanceEntity;
+    ExecutionTaskEntity executionTaskEntity;
     String bpmnXmlContent;
     boolean isStartEvent;
 
@@ -224,6 +226,14 @@ public class FlowModelRuntimePO implements Cloneable {
         this.instanceEntity = instanceEntity;
     }
 
+    public ExecutionTaskEntity getExecutionTaskEntity() {
+        return executionTaskEntity;
+    }
+
+    public void setExecutionTaskEntity(ExecutionTaskEntity executionTaskEntity) {
+        this.executionTaskEntity = executionTaskEntity;
+    }
+
     public Jb4dcActions getJb4dcActions() {
         return jb4dcActions;
     }
@@ -256,13 +266,13 @@ public class FlowModelRuntimePO implements Cloneable {
         this.modelReKey = modelReKey;
     }
 
-    public FlowModelRuntimePO clone() {
+    public FlowInstanceRuntimePO clone() {
         Object o = null;
         try {
             o = super.clone();
         } catch (CloneNotSupportedException e) {
             System.out.println("MyObject can't clone");
         }
-        return (FlowModelRuntimePO)o;
+        return (FlowInstanceRuntimePO)o;
     }
 }

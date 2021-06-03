@@ -66,14 +66,14 @@ public class CamundaBpmnUtility {
         return newList;
     }
 
-    public static List<org.camunda.bpm.model.bpmn.instance.Activity> getNextPossibleFlowNodeWithStartNode(String processDefinitionKey, Map<String, Object> vars){
+    public static List<org.camunda.bpm.model.bpmn.instance.Activity> getNextPossibleFlowNodeWithActionVars(String processDefinitionKey, String currentNodeKey, Map<String, Object> vars){
         ProcessEngine processEngine= CamundaIntegrate.getProcessEngine();
         RepositoryService repositoryService=processEngine.getRepositoryService();
         ProcessDefinition processDefinition=repositoryService.createProcessDefinitionQuery().processDefinitionKey(processDefinitionKey).latestVersion().singleResult();
         BpmnModelInstance modelInstance = repositoryService.getBpmnModelInstance(processDefinition.getId());
-        Collection<StartEvent> startEvents=modelInstance.getModelElementsByType(StartEvent.class);
-        //List<org.camunda.bpm.model.bpmn.instance.Task> nextPossibleFlowNode=getOutgoingTask(startEvents.iterator().next(),vars);
-        List<org.camunda.bpm.model.bpmn.instance.Activity> nextPossibleFlowNodes= getNextPossibleFlowNode(startEvents.iterator().next(),vars);
+        //Collection<StartEvent> startEvents=modelInstance.getModelElementsByType(StartEvent.class);
+        FlowNode flowNode=modelInstance.getModelElementById(currentNodeKey);
+        List<org.camunda.bpm.model.bpmn.instance.Activity> nextPossibleFlowNodes= getNextPossibleFlowNode(flowNode,vars);
         return nextPossibleFlowNodes;
     }
 

@@ -92,6 +92,8 @@ public class ApiItemServiceImpl extends BaseServiceImpl<ApiItemEntity> implement
         create(jb4DCSession,"API_GLOBAL_DELETE17",ApiGroupServiceImpl.API_GROUP_GLOBAL,"备份并删除17","API_GLOBAL_DELETE17","com.jb4dc.builder.client.service.api.mockapi.SoutApi","","","");
         create(jb4DCSession,"API_GLOBAL_DELETE18",ApiGroupServiceImpl.API_GROUP_GLOBAL,"备份并删除18","API_GLOBAL_DELETE18","com.jb4dc.builder.client.service.api.mockapi.SoutApi","","","");
         create(jb4DCSession,"API_GLOBAL_DELETE19",ApiGroupServiceImpl.API_GROUP_GLOBAL,"备份并删除19","API_GLOBAL_DELETE19","com.jb4dc.builder.client.service.api.mockapi.SoutApi","","","");
+
+        create(jb4DCSession,"GeneralPrintLogActionApi","API_GROUP_WORKFLOW_ACTION_GENERAL","将动作Api参数写入到日志","com.jb4dc.workflow.client.action.api.impl.PrintLogActionApi","com.jb4dc.workflow.client.action.api.impl.PrintLogActionApi","","","");
     }
 
     @Override

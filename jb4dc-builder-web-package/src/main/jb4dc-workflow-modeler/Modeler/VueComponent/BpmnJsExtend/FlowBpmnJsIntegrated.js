@@ -356,6 +356,7 @@ class FlowBpmnJsIntegrated {
         result.jb4dc.jb4dcFlowCategory = BpmnJsUtility.JB4DC_Attr_GetJb4dcFlowCategory(elem);
         result.jb4dc.jb4dcCode = BpmnJsUtility.JB4DC_Attr_GetJb4dcCode(elem);
         result.jb4dc.jb4dcFormId = BpmnJsUtility.JB4DC_Attr_GetJb4dcFormId(elem);
+        result.jb4dc.jb4dcAppFormId = BpmnJsUtility.JB4DC_Attr_GetJb4dcAppFormId(elem);
         result.jb4dc.jb4dcFormEx1Id = BpmnJsUtility.JB4DC_Attr_GetJb4dcFormEx1Id(elem);
         result.jb4dc.jb4dcOuterFormUrl = BpmnJsUtility.JB4DC_Attr_GetJb4dcOuterFormUrl(elem);
         result.jb4dc.jb4dcOuterFormEx1Url = BpmnJsUtility.JB4DC_Attr_GetJb4dcOuterFormEx1Url(elem);
@@ -371,6 +372,7 @@ class FlowBpmnJsIntegrated {
 
         result.jb4dc.jb4dcFormPlugin=BpmnJsUtility.JB4DC_Attr_GetJb4dcFormPlugin(elem);
         result.jb4dc.jb4dcFormParas=BpmnJsUtility.JB4DC_Attr_GetJb4dcFormParas(elem);
+        result.jb4dc.jb4dcAppFormParas=BpmnJsUtility.JB4DC_Attr_GetJb4dcAppFormParas(elem);
         result.jb4dc.jb4dcFormEx1Plugin=BpmnJsUtility.JB4DC_Attr_GetJb4dcFormEx1Plugin(elem);
         result.jb4dc.jb4dcFormEx1Paras=BpmnJsUtility.JB4DC_Attr_GetJb4dcFormEx1Paras(elem);
 
@@ -414,9 +416,11 @@ class FlowBpmnJsIntegrated {
 
         BpmnJsUtility.JB4DC_Attr_SetJb4dcCode(elem, props.jb4dc.jb4dcCode);
         BpmnJsUtility.JB4DC_Attr_SetJb4dcFormId(elem, props.jb4dc.jb4dcFormId);
+        BpmnJsUtility.JB4DC_Attr_SetJb4dcAppFormId(elem, props.jb4dc.jb4dcAppFormId);
         BpmnJsUtility.JB4DC_Attr_SetJb4dcFormEx1Id(elem, props.jb4dc.jb4dcFormEx1Id);
         BpmnJsUtility.JB4DC_Attr_SetJb4dcFormPlugin(elem,props.jb4dc.jb4dcFormPlugin);
         BpmnJsUtility.JB4DC_Attr_SetJb4dcFormParas(elem,props.jb4dc.jb4dcFormParas);
+        BpmnJsUtility.JB4DC_Attr_SetJb4dcAppFormParas(elem,props.jb4dc.jb4dcAppFormParas);
         BpmnJsUtility.JB4DC_Attr_SetJb4dcFormEx1Plugin(elem,props.jb4dc.jb4dcFormEx1Plugin);
         BpmnJsUtility.JB4DC_Attr_GetJb4dcFormEx1Paras(elem,props.jb4dc.jb4dcFormEx1Paras);
 

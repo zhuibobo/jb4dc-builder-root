@@ -16,12 +16,11 @@ import com.jb4dc.core.base.tools.StringUtility;
 import com.jb4dc.core.base.tools.UUIDUtility;
 import com.jb4dc.workflow.client.service.IWorkFlowRuntimeService;
 import com.jb4dc.workflow.client.utility.JuelUtility;
-import com.jb4dc.workflow.po.EnvVariableResultPO;
-import com.jb4dc.workflow.po.FlowModelRuntimePO;
+import com.jb4dc.builder.po.EnvVariableResultPO;
+import com.jb4dc.workflow.po.FlowInstanceRuntimePO;
 import com.jb4dc.workflow.po.JuelRunResultPO;
-import com.jb4dc.workflow.po.bpmn.process.BpmnTask;
-import com.jb4dc.workflow.po.bpmn.process.Jb4dcAction;
-import com.jb4dc.workflow.po.bpmn.process.Jb4dcActions;
+import com.jb4dc.workflow.po.bpmn.BpmnDefinitions;
+import com.jb4dc.workflow.po.bpmn.process.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
@@ -38,7 +37,7 @@ import java.util.regex.Pattern;
 @Primary
 public class WorkFlowRuntimeServiceImpl implements IWorkFlowRuntimeService {
 
-    protected String CacheModuleName_LoadFlowModelRuntimePOSource="LoadFlowModelRuntimePOSource";
+    protected String CacheModuleName_LoadFlowInstanceRuntimePOSource ="ClientFlowInstanceRuntimePO";
 
     @Autowired
     IEnvVariableRuntimeClient envVariableRuntimeClient;
@@ -51,18 +50,18 @@ public class WorkFlowRuntimeServiceImpl implements IWorkFlowRuntimeService {
 
     protected String CacheSysNameName="";
 
-    public String SaveFlowModelRuntimePOToCacheAtLoadingStatus(FlowModelRuntimePO flowModelRuntimePO) throws JsonProcessingException {
+    public String saveFlowInstanceRuntimePOToCache(FlowInstanceRuntimePO flowInstanceRuntimePO) throws JsonProcessingException {
         String cacheKey = UUIDUtility.getUUID();
-        FlowModelRuntimePO cacheValueObj= flowModelRuntimePO.clone();
+        FlowInstanceRuntimePO cacheValueObj= flowInstanceRuntimePO.clone();
         cacheValueObj.setBpmnXmlContent("");
-        cacheValueObj.setBpmnDefinitions(null);
+        //cacheValueObj.setBpmnDefinitions(null);
         cacheValueObj.getModelIntegratedEntity().setModelContent("");
-        saveToCache(CacheModuleName_LoadFlowModelRuntimePOSource, cacheKey, cacheValueObj, JB4DCCacheManagerV2.ExpirationTime_1Day);
+        saveToCache(CacheModuleName_LoadFlowInstanceRuntimePOSource, cacheKey, cacheValueObj, JB4DCCacheManagerV2.ExpirationTime_1Day);
         return cacheKey;
     }
 
-    public FlowModelRuntimePO getLoadingStatusFlowModelRuntimePOFromCache(String cacheKey) throws IOException {
-        return getFromCache(FlowModelRuntimePO.class,CacheModuleName_LoadFlowModelRuntimePOSource,cacheKey);
+    public FlowInstanceRuntimePO getFlowInstanceRuntimePOFromCache(String cacheKey) throws IOException {
+        return getFromCache(FlowInstanceRuntimePO.class, CacheModuleName_LoadFlowInstanceRuntimePOSource,cacheKey);
     }
 
     public <T> void saveToCache(String moduleName, String key, T value, long expirationTimeSeconds) throws JsonProcessingException {
@@ -73,8 +72,28 @@ public class WorkFlowRuntimeServiceImpl implements IWorkFlowRuntimeService {
         return jb4DCCacheManagerV2.getT(valueType,JB4DCCacheManagerV2.Jb4dPlatformWorkFlowClientCacheName,moduleName,WorkFlowRuntimeServiceImpl.class,key);
     }
 
-    @Override
-    public Map<String,Object> resolveStringToJuelVariables(JB4DCSession jb4DCSession, String juelExpression, FormRecordComplexPO formRecordComplexPO, FlowModelRuntimePO flowModelRuntimePO) throws IOException, JBuild4DCGenerallyException {
+    /*private Jb4dcAction findAction(BpmnExtensionElements extensionElements, String currentNodeKey, String actionCode) {
+        Jb4dcAction jb4dcAction = null;
+        if (extensionElements != null && extensionElements.getJb4dcActions() != null && extensionElements.getJb4dcActions().getJb4dcActionList() != null && extensionElements.getJb4dcActions().getJb4dcActionList().size() > 0) {
+            jb4dcAction = extensionElements.getJb4dcActions().getJb4dcActionList().stream().filter(item -> item.getActionCode().equals(actionCode)).findFirst().orElse(null);
+        }
+        return jb4dcAction;
+    }*/
+
+    private String buildLastActionVarValue(String currentNodeKey,String actionCode){
+        return "__$FlowAction$$"+currentNodeKey+"$$"+actionCode+"$";
+    }
+
+    private String getLastActionVarKey(){
+        return "LastActionKey";
+    }
+
+    private Map<String,Object> appendFlowDefaultVar(Map<String, Object> vars,String currentNodeKey,String actionCode){
+        vars.put(getLastActionVarKey(),buildLastActionVarValue(currentNodeKey,actionCode));
+        return vars;
+    }
+
+    private Map<String,Object> resolveStringToJuelVariables(JB4DCSession jb4DCSession, String juelExpression, FormRecordComplexPO formRecordComplexPO, FlowInstanceRuntimePO flowInstanceRuntimePO) throws IOException, JBuild4DCGenerallyException {
         Map<String, Object> result = new HashMap<>();
         Pattern p = Pattern.compile("\\__\\$[^\\}|^\\ ]*\\$");
         Matcher m = p.matcher(juelExpression);
@@ -112,17 +131,16 @@ public class WorkFlowRuntimeServiceImpl implements IWorkFlowRuntimeService {
             }*/
         }
         result.putAll(parseFormRecordComplexPOToJuelVars(jb4DCSession,formRecordComplexPO));
-        result.putAll(parseFlowModelRuntimePOToJuelVars(jb4DCSession,flowModelRuntimePO));
+        result.putAll(parseFlowInstanceRuntimePOToJuelVars(jb4DCSession, flowInstanceRuntimePO));
         return result;
     }
 
-    @Override
-    public Map<String, Object> parseFormRecordComplexPOToJuelVars(JB4DCSession jb4DCSession, FormRecordComplexPO formRecordComplexPO) {
-        Map<String, Object> result = new HashMap<>();
+    private Map<String, Object> parseFormRecordComplexPOToJuelVars(JB4DCSession jb4DCSession, FormRecordComplexPO formRecordComplexPO) {
+        Map<String, Object> businessData = new HashMap<>();
         if (formRecordComplexPO != null && formRecordComplexPO.getFormRecordDataRelationPOList() != null) {
             FormRecordDataRelationPO formRecordDataRelationPO = formRecordComplexPO.getFormRecordDataRelationPOList().stream().filter(item -> item.getParentId().equals("-1")).findFirst().orElse(null);
             for (FormRecordFieldDataPO fieldDataPO : formRecordDataRelationPO.getOneDataRecord().getRecordFieldPOList()) {
-                String key = "__$TableField$$" + fieldDataPO.getFieldTableId() + "$$" + fieldDataPO.getFieldName() + "$";
+                String key = "__$TableField$$" + fieldDataPO.getTableId() + "$$" + fieldDataPO.getFieldName() + "$";
                 Object value;
                 if (fieldDataPO.getFieldDataType().equals(TableFieldTypeEnum.IntType)) {
                     if (fieldDataPO.getValue() != null && StringUtility.isNotEmpty(fieldDataPO.getValue().toString())) {
@@ -143,34 +161,52 @@ public class WorkFlowRuntimeServiceImpl implements IWorkFlowRuntimeService {
                         value = "";
                     }
                 }
-                result.put(key, value);
+                businessData.put(key, value);
             }
         }
-        return result;
+
+        Map<String, Object> resultData = new HashMap<>();
+        resultData.put("__$BusinessData$",businessData);
+        return resultData;
     }
 
-    @Override
-    public Map<String,Object> parseFlowModelRuntimePOToJuelVars(JB4DCSession jb4DCSession, FlowModelRuntimePO flowModelRuntimePO) {
+    private Map<String,Object> parseFlowInstanceRuntimePOToJuelVars(JB4DCSession jb4DCSession, FlowInstanceRuntimePO flowInstanceRuntimePO) {
         Map<String, Object> result = new HashMap<>();
 
-        result.put("__$FlowVar$$ModelName$", flowModelRuntimePO.getModelName());
-        result.put("__$FlowVar$$ModelCategory$", flowModelRuntimePO.getModelCategory());
-        result.put("__$FlowVar$$NodeName$", flowModelRuntimePO.getCurrentNodeName());
+        result.put("__$FlowVar$$ModelName$", flowInstanceRuntimePO.getModelName());
+        result.put("__$FlowVar$$ModelCategory$", flowInstanceRuntimePO.getModelCategory());
+        result.put("__$FlowVar$$NodeName$", flowInstanceRuntimePO.getCurrentNodeName());
         result.put("__$FlowVar$$LastActionName$", "未确定");
-        result.put("__$FlowVar$$InstanceCreatTime_yyyy_MM_dd$", DateUtility.getDate_yyyy_MM_dd(flowModelRuntimePO.getInstanceEntity().getInstCreateTime()));
-        result.put("__$FlowVar$$InstanceCreatTime_yyyy_MM_dd_HH_mm_ss$", DateUtility.getDate_yyyy_MM_dd_HH_mm_ss(flowModelRuntimePO.getInstanceEntity().getInstCreateTime()));
+        result.put("__$FlowVar$$InstanceCreatTime_yyyy_MM_dd$", DateUtility.getDate_yyyy_MM_dd(flowInstanceRuntimePO.getInstanceEntity().getInstCreateTime()));
+        result.put("__$FlowVar$$InstanceCreatTime_yyyy_MM_dd_HH_mm_ss$", DateUtility.getDate_yyyy_MM_dd_HH_mm_ss(flowInstanceRuntimePO.getInstanceEntity().getInstCreateTime()));
         result.put("__$FlowVar$$CurrentUserRoleIdsString$", String.join(StringUtility.SP_CHAR1, jb4DCSession.getRoleKeys() != null ? jb4DCSession.getRoleKeys() : new ArrayList<String>()));
         result.put("__$FlowVar$$CurrentUserRoleNamesString$", String.join(StringUtility.SP_CHAR1, jb4DCSession.getRoleNames() != null ? jb4DCSession.getRoleNames() : new ArrayList<String>()));
-        result.put("__$FlowVar$$InstanceCreator$", flowModelRuntimePO.getInstanceEntity().getInstCreator());
-        result.put("__$FlowVar$$InstanceCreatorId$", flowModelRuntimePO.getInstanceEntity().getInstCreatorId());
-        result.put("__$FlowVar$$InstanceCreatorOrganName$", flowModelRuntimePO.getInstanceEntity().getInstOrganName());
-        result.put("__$FlowVar$$InstanceCreatorOrganId$", flowModelRuntimePO.getInstanceEntity().getInstOrganId());
+        result.put("__$FlowVar$$InstanceCreator$", flowInstanceRuntimePO.getInstanceEntity().getInstCreator());
+        result.put("__$FlowVar$$InstanceCreatorId$", flowInstanceRuntimePO.getInstanceEntity().getInstCreatorId());
+        result.put("__$FlowVar$$InstanceCreatorOrganName$", flowInstanceRuntimePO.getInstanceEntity().getInstOrganName());
+        result.put("__$FlowVar$$InstanceCreatorOrganId$", flowInstanceRuntimePO.getInstanceEntity().getInstOrganId());
 
         return result;
     }
 
+    /*@Override
+    public Jb4dcAction findAction(BpmnDefinitions bpmnDefinitions, String currentNodeKey, String actionCode) {
+        Jb4dcAction jb4dcAction = null;
+        if (bpmnDefinitions.getBpmnProcess().getStartEvent().getId().equals(currentNodeKey)) {
+            jb4dcAction = findAction(bpmnDefinitions.getBpmnProcess().getStartEvent().getExtensionElements(), currentNodeKey, actionCode);
+        }
+        if (bpmnDefinitions.getBpmnProcess().getUserTaskList() != null) {
+            for (BpmnUserTask userTask : bpmnDefinitions.getBpmnProcess().getUserTaskList()) {
+                if (userTask.getId().equals(currentNodeKey)) {
+                    jb4dcAction = findAction(userTask.getExtensionElements(), currentNodeKey, actionCode);
+                }
+            }
+        }
+        return jb4dcAction;
+    }*/
+
     @Override
-    public Map<String,Object> parseDefaultFlowModelRuntimePOToJuelVars(JB4DCSession jb4DCSession, FlowModelRuntimePO flowModelRuntimePO, FormRecordComplexPO formRecordComplexPO) throws JBuild4DCGenerallyException, IOException {
+    public Map<String,Object> parseDefaultFlowInstanceRuntimePOToJuelVars(JB4DCSession jb4DCSession, FlowInstanceRuntimePO flowInstanceRuntimePO, FormRecordComplexPO formRecordComplexPO,String currentNodeKey,String actionCode) throws JBuild4DCGenerallyException, IOException {
         Map<String, Object> result = new HashMap<>();
         List<EnvVariableEntity> envVariableEntityList=envVariableRuntimeRemote.getEnvVariableByGroupId("ENV_GROUP_SYSTEM").getData();
         for (EnvVariableEntity envVariableEntity : envVariableEntityList) {
@@ -180,27 +216,35 @@ public class WorkFlowRuntimeServiceImpl implements IWorkFlowRuntimeService {
             result.put(mapKey,mapValue);
         }
         result.putAll(parseFormRecordComplexPOToJuelVars(jb4DCSession,formRecordComplexPO));
-        result.putAll(parseFlowModelRuntimePOToJuelVars(jb4DCSession,flowModelRuntimePO));
-
+        result.putAll(parseFlowInstanceRuntimePOToJuelVars(jb4DCSession, flowInstanceRuntimePO));
+        this.appendFlowDefaultVar(result,currentNodeKey,actionCode);
         return result;
     }
 
-    public Jb4dcActions buildFlowModelRuntimePOBindCurrentActions(JB4DCSession jb4DCSession, FlowModelRuntimePO flowModelRuntimePO, FormRecordComplexPO formRecordComplexPO) throws IOException, JBuild4DCGenerallyException {
+    public String buildJuelExpression(JB4DCSession jb4DCSession,String juelExpression, Map<String, Object> vars) throws IOException, JBuild4DCGenerallyException {
+        if(StringUtility.isEmpty(juelExpression)){
+            return "";
+        }
+        JuelRunResultPO juelRunResultPO= JuelUtility.buildStringExpression(jb4DCSession,juelExpression,vars);
+        return juelRunResultPO.getStringResult();
+    }
+
+    public Jb4dcActions buildFlowInstanceRuntimePOBindCurrentActions(JB4DCSession jb4DCSession, FlowInstanceRuntimePO flowInstanceRuntimePO, FormRecordComplexPO formRecordComplexPO) throws IOException, JBuild4DCGenerallyException {
         Jb4dcActions jb4dcActions=null;
 
-        if(flowModelRuntimePO.getBpmnDefinitions().getBpmnProcess().getUserTaskList().stream().anyMatch(innerBpmnTask -> innerBpmnTask.getId().equals(flowModelRuntimePO.getCurrentNodeKey()))) {
-            BpmnTask optionalBpmnTask = flowModelRuntimePO.getBpmnDefinitions().getBpmnProcess().getTaskList().stream().filter(innerBpmnTask -> innerBpmnTask.getId().equals(flowModelRuntimePO.getCurrentNodeKey())).findFirst().get();
+        if(flowInstanceRuntimePO.getBpmnDefinitions().getBpmnProcess().getUserTaskList().stream().anyMatch(innerBpmnTask -> innerBpmnTask.getId().equals(flowInstanceRuntimePO.getCurrentNodeKey()))) {
+            BpmnTask optionalBpmnTask = flowInstanceRuntimePO.getBpmnDefinitions().getBpmnProcess().getUserTaskList().stream().filter(innerBpmnTask -> innerBpmnTask.getId().equals(flowInstanceRuntimePO.getCurrentNodeKey())).findFirst().get();
             jb4dcActions=optionalBpmnTask.getExtensionElements().getJb4dcActions();
         }
-        if(jb4dcActions==null&&flowModelRuntimePO.getBpmnDefinitions().getBpmnProcess().getStartEvent().getId().equals(flowModelRuntimePO.getCurrentNodeKey())){
-            jb4dcActions=flowModelRuntimePO.getBpmnDefinitions().getBpmnProcess().getStartEvent().getExtensionElements().getJb4dcActions();
+        if(jb4dcActions==null&& flowInstanceRuntimePO.getBpmnDefinitions().getBpmnProcess().getStartEvent().getId().equals(flowInstanceRuntimePO.getCurrentNodeKey())){
+            jb4dcActions= flowInstanceRuntimePO.getBpmnDefinitions().getBpmnProcess().getStartEvent().getExtensionElements().getJb4dcActions();
         }
 
         if (jb4dcActions != null) {
             for (Jb4dcAction jb4dcAction : jb4dcActions.getJb4dcActionList()) {
                 String juelExpression = jb4dcAction.getActionDisplayConditionEditValue();
                 if (StringUtility.isNotEmpty(juelExpression)) {
-                    Map<String,Object> vars=resolveStringToJuelVariables(jb4DCSession,juelExpression,formRecordComplexPO,flowModelRuntimePO);
+                    Map<String,Object> vars=resolveStringToJuelVariables(jb4DCSession,juelExpression,formRecordComplexPO, flowInstanceRuntimePO);
                     JuelRunResultPO juelRunResultPO= JuelUtility.buildBoolExpression(jb4DCSession,juelExpression,vars);
                     jb4dcAction.setJuelRunResultPO(juelRunResultPO);
                 } else {

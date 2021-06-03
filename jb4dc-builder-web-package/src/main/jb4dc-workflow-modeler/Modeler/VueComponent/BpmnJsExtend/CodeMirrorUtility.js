@@ -8,7 +8,7 @@ class CodeMirrorUtility{
         var editValue=doc.getValue();
         doc.setValue(editValue);
         //var reg = new RegExp("\\$\\{[TableField|EnvVar][^\\}]*\\}", "g");
-        var reg = new RegExp("\\__\\$[TableField|EnvVar][^\\}|^\\ ]*\\$", "g");
+        var reg = new RegExp("\\__\\$[__$BusinessData$.__$TableField$$|EnvVar][^\\}|^\\ ]*\\$", "g");
         var result = "";
 
         var itemTypeText;
@@ -40,9 +40,9 @@ class CodeMirrorUtility{
                         itemText = RemoteUtility.GetEnvVariableTextByEnvValue(itemValue);
                     }
                         break;
-                    case "TableField": {
+                    case "BusinessData$.__$TableField": {
                         //debugger;
-                        itemTypeText = "表字段";
+                        itemTypeText = "业务数据.表字段";
                         var tempTableName = itemValue.split("$$")[0];
                         var tempTableId = itemValue.split("$$")[0];
                         var tempFieldName = itemValue.split("$$")[1];

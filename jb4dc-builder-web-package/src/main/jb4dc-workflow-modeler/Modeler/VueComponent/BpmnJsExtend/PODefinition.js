@@ -58,6 +58,7 @@ class PODefinition{
                 jb4dcFlowCategory: "",
                 jb4dcCode: "",
                 jb4dcFormId: "",
+                jb4dcAppFormId: "",
                 jb4dcFormEx1Id: "",
                 jb4dcOuterFormUrl: "",
                 jb4dcOuterFormEx1Url: "",
@@ -101,6 +102,7 @@ class PODefinition{
                 jb4dcContentDocumentRedHeadTemplate:"",
                 jb4dcFormPlugin:"webFormPlugin",
                 jb4dcFormParas:"",
+                jb4dcAppFormParas:"",
                 jb4dcFormEx1Plugin:"webFormPlugin",
                 jb4dcFormEx1Paras:""
             }

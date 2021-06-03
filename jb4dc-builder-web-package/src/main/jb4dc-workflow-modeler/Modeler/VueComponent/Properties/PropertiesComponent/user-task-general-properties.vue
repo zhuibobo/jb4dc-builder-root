@@ -147,24 +147,25 @@
             this.tryAutoSetAssignee();
         },
         methods:{
-            tryAutoSetAssignee:function (){
-                var assigneeVar=this.bpmn.id+"_Assignee_User";
-                if(this.camunda.assignee){
-                    assigneeVar=this.camunda.assignee;
-                }
-                var assigneeExp="${"+assigneeVar+"}";
-                var assigneeListExp="${"+assigneeVar+"_List}";
+            tryAutoSetAssignee:function () {
+                var assigneeVar = "${" + this.bpmn.id + "_Assignee_User}";
+                //var assigneeExp="${"+assigneeVar+"}";
 
-                this.camunda.assignee=assigneeVar;
-                if (this.bpmn.multiInstanceLoopCharacteristics.loopCharacteristics=="true") {
+                if (this.camunda.assignee) {
+                    assigneeVar = this.camunda.assignee;
+                }
+
+                var assigneeListExp = "${" + assigneeVar + "_List}";
+
+                this.camunda.assignee = assigneeVar;
+                if (this.bpmn.multiInstanceLoopCharacteristics.loopCharacteristics == "true") {
                     if (!this.bpmn.multiInstanceLoopCharacteristics.collection) {
                         this.bpmn.multiInstanceLoopCharacteristics.collection = assigneeListExp;
                     }
                     if (!this.bpmn.multiInstanceLoopCharacteristics.elementVariable) {
-                        this.bpmn.multiInstanceLoopCharacteristics.elementVariable = assigneeVar
+                        this.bpmn.multiInstanceLoopCharacteristics.elementVariable = assigneeVar.replace("${","").replace("}","");
                     }
-                }
-                else{
+                } else {
                     this.bpmn.multiInstanceLoopCharacteristics.collection = "";
                     this.bpmn.multiInstanceLoopCharacteristics.elementVariable = "";
                 }

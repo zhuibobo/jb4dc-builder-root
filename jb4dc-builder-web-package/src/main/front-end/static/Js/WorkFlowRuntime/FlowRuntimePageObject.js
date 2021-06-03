@@ -2,16 +2,17 @@ let FlowRuntimePageObject={
     _webFormRTParas:null,
     _formRuntimeInst:null,
     FORM_RUNTIME_CATEGORY_FLOW:"IsDependenceFlow",
-    pageReadyForStartStatus:function (isStartInstanceStatus,rendererChainCompletedFunc,flowModelRuntimePO,flowModelRuntimePOCacheKey,pageHostInstance) {
+    pageReadyForStartStatus:function (isStartInstanceStatus,rendererChainCompletedFunc,flowModelRuntimePO,flowModelRuntimePOCacheKey,pageHostInstance,currentNodeKey,currentNodeName
+    ,modelId,modelReKey,currentTaskId) {
         //debugger;
         this._formRuntimeInst = Object.create(FormRuntime);
         //var webFormRTParas=this.getWebFormRTParas();
         //var webFormRTParas=getWebFormRTParasFunc.call(this);
-
+        var recordId=StringUtility.Guid();
         this._formRuntimeInst.Initialization({
             "RendererToId": "htmlDesignRuntimeWrap",
             "FormId": flowModelRuntimePO.jb4dcFormId,
-            "RecordId": "",
+            "RecordId": recordId,
             "ButtonId": "",
             "OperationType": BaseUtility.GetAddOperationName(),
             "IsPreview": false,
@@ -22,14 +23,19 @@ let FlowRuntimePageObject={
             "PreHandleFormHtmlRuntimeFunc": this.preHandleFormHtmlRuntimeFunc,
             "flowModelRuntimePO": flowModelRuntimePO,
             "flowModelRuntimePOCacheKey": flowModelRuntimePOCacheKey,
-            "isStartInstanceStatus": isStartInstanceStatus
+            "isStartInstanceStatus": isStartInstanceStatus,
+            "currentNodeKey":currentNodeKey,
+            "currentNodeName":currentNodeName,
+            "modelId":modelId,
+            "modelReKey":modelReKey,
+            "currentTaskId":currentTaskId
         });
         //this._formRuntimeInst.webFormRTParas=webFormRTParas;
-        this.rendererActionButtons(flowModelRuntimePO, flowModelRuntimePOCacheKey, this._formRuntimeInst, isStartInstanceStatus,pageHostInstance);
+        this.rendererActionButtons(flowModelRuntimePO, flowModelRuntimePOCacheKey, this._formRuntimeInst, isStartInstanceStatus,pageHostInstance,currentNodeKey,currentNodeName,recordId,modelId,modelReKey,currentTaskId);
         return this._formRuntimeInst;
     },
-    rendererActionButtons:function (flowModelRuntimePO,flowModelRuntimePOCacheKey,formRuntimeInst,isStartInstanceStatus,pageHostInstance) {
-        ActionsRuntimeObject.CreateALLActionButton(flowModelRuntimePO, flowModelRuntimePOCacheKey, flowModelRuntimePO.jb4dcActions, formRuntimeInst,isStartInstanceStatus,pageHostInstance);
+    rendererActionButtons:function (flowModelRuntimePO,flowModelRuntimePOCacheKey,formRuntimeInst,isStartInstanceStatus,pageHostInstance,currentNodeKey,currentNodeName,recordId,modelId,modelReKey,currentTaskId) {
+        ActionsRuntimeObject.CreateALLActionButton(flowModelRuntimePO, flowModelRuntimePOCacheKey, flowModelRuntimePO.jb4dcActions, formRuntimeInst,isStartInstanceStatus,pageHostInstance,currentNodeKey,currentNodeName,recordId,modelId,modelReKey,currentTaskId);
     },
     preHandleFormHtmlRuntimeFunc:function (sourceRuntimeHtml,formRuntimeInst,propConfig){
         //console.log(sourceRuntimeHtml);

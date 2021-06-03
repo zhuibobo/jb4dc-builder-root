@@ -30,6 +30,11 @@
           "type": "String"
         },
         {
+          "name": "jb4dcAppFormId",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
           "name": "jb4dcFormEx1Id",
           "isAttr": true,
           "type": "String"
@@ -51,6 +56,11 @@
         },
         {
           "name": "jb4dcFormParas",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "jb4dcAppFormParas",
           "isAttr": true,
           "type": "String"
         },
@@ -210,6 +220,11 @@
           "type": "String"
         },
         {
+          "name": "jb4dcAppFormId",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
           "name": "jb4dcFormEx1Id",
           "isAttr": true,
           "type": "String"
@@ -231,6 +246,11 @@
         },
         {
           "name": "jb4dcFormParas",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "jb4dcAppFormParas",
           "isAttr": true,
           "type": "String"
         },
@@ -298,6 +318,11 @@
           "type": "String"
         },
         {
+          "name": "jb4dcAppFormId",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
           "name": "jb4dcFormEx1Id",
           "isAttr": true,
           "type": "String"
@@ -319,6 +344,11 @@
         },
         {
           "name": "jb4dcFormParas",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "jb4dcAppFormParas",
           "isAttr": true,
           "type": "String"
         },

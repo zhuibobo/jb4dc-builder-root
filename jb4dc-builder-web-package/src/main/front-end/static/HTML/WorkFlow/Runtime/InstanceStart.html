@@ -2,7 +2,7 @@
 <html lang="zh" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Title1</title>
     <th:block th:replace="Fragment/GeneralLib::WorkFlowRuntimeLib"></th:block>
     <th:block th:replace="Fragment/GeneralLib::ThemesLib"></th:block>
     <th:block th:replace="Fragment/GeneralLib::LineAwesomeLib"></th:block>
@@ -24,7 +24,7 @@
             el:"#flowInstanceViewContainer",
             data: {
                 acInterface:{
-                    getRuntimeModelWithStart:"/Rest/Workflow/RunTime/ModelRuntime/GetRuntimeModelWithStart",
+                    getRuntimeModelWithStart:"/Rest/Workflow/RunTime/Client/InstanceRuntime/GetRuntimeModelWithStart",
                 },
                 viewPara:{
                     modelId:BaseUtility.GetUrlParaValue("modelId"),
@@ -41,7 +41,9 @@
                     var isStartInstanceStatus = true;
                     flowRuntimePageObject=FlowRuntimePageObject.pageReadyForStartStatus(isStartInstanceStatus,function () {
 
-                    },result.data,result.cacheKey,this);
+                    },result.data,result.cacheKey,this,result.data.currentNodeKey,result.data.currentNodeName,
+                    result.data.modelIntegratedEntity.modelId,result.data.modelReKey,""
+                    );
                 }, this);
             },
             methods: {

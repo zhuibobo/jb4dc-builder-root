@@ -78,9 +78,25 @@ public class WebFormDataSaveRuntimeServiceImpl implements IWebFormDataSaveRuntim
     private Logger logger= LoggerFactory.getLogger(this.getClass());
 
     @Override
+    public void saveFormRecordComplexPO(JB4DCSession jb4DCSession, String recordId, FormRecordComplexPO formRecordComplexPO, String operationTypeName) throws JBuild4DCGenerallyException, IOException, JBuild4DCSQLKeyWordException {
+        List<PendingSQLPO> pendingSQLPOList = resolvePendingSQL.resolveFormRecordComplexPOTOPendingSQL(jb4DCSession, recordId, formRecordComplexPO, operationTypeName);
+        for (PendingSQLPO pendingSQLPO : pendingSQLPOList) {
+            logger.debug(BaseUtility.wrapDevLog("保存数据解析-表单存储-待执行SQL："+pendingSQLPO.getSql()));
+            logger.debug(BaseUtility.wrapDevLog("保存数据解析-表单存储-待执行SQL参数："+JsonUtility.toObjectString(pendingSQLPO.getSqlPara())));
+
+            if(pendingSQLPO.getExecType().equals(PendingSQLPO.EXEC_TYPE_INSERT)){
+                sqlBuilderService.insert(pendingSQLPO.getSql(),pendingSQLPO.getSqlPara());
+            }
+            else if(pendingSQLPO.getExecType().equals(PendingSQLPO.EXEC_TYPE_UPDATE)){
+                sqlBuilderService.update(pendingSQLPO.getSql(),pendingSQLPO.getSqlPara());
+            }
+        }
+    }
+
+    @Override
     @Transactional(rollbackFor= {JBuild4DCGenerallyException.class,JBuild4DCSQLKeyWordException.class})
     @CalculationRunTime(note = "执行保存数据的解析")
-    public SubmitResultPO SaveFormRecordComplexPO(JB4DCSession jb4DCSession, String recordId, FormRecordComplexPO formRecordComplexPO, String listButtonId, String innerFormButtonId, String operationTypeName, FormResourceEntityWithBLOBs formResourceEntityWithBLOBs) throws JBuild4DCGenerallyException, IOException, JBuild4DCSQLKeyWordException {
+    public SubmitResultPO saveFormRecordComplexPOForListButton(JB4DCSession jb4DCSession, String recordId, FormRecordComplexPO formRecordComplexPO, String listButtonId, String innerFormButtonId, String operationTypeName, FormResourceEntityWithBLOBs formResourceEntityWithBLOBs) throws JBuild4DCGenerallyException, IOException, JBuild4DCSQLKeyWordException {
         SubmitResultPO submitResultPO = new SubmitResultPO();
 
         logger.debug(BaseUtility.wrapDevLog("保存数据解析-开始：-----------------------------------------"+recordId+"/"+ DateUtility.getDate_yyyy_MM_dd_HH_mm_ss_SSS()+"-----------------------------------------"));
@@ -113,18 +129,7 @@ public class WebFormDataSaveRuntimeServiceImpl implements IWebFormDataSaveRuntim
         }
 
         //保存数据
-        List<PendingSQLPO> pendingSQLPOList = resolvePendingSQL.resolveFormRecordComplexPOTOPendingSQL(jb4DCSession, recordId, formRecordComplexPO, operationTypeName);
-        for (PendingSQLPO pendingSQLPO : pendingSQLPOList) {
-            logger.debug(BaseUtility.wrapDevLog("保存数据解析-表单存储-待执行SQL："+pendingSQLPO.getSql()));
-            logger.debug(BaseUtility.wrapDevLog("保存数据解析-表单存储-待执行SQL参数："+JsonUtility.toObjectString(pendingSQLPO.getSqlPara())));
-
-            if(pendingSQLPO.getExecType().equals(PendingSQLPO.EXEC_TYPE_INSERT)){
-                sqlBuilderService.insert(pendingSQLPO.getSql(),pendingSQLPO.getSqlPara());
-            }
-            else if(pendingSQLPO.getExecType().equals(PendingSQLPO.EXEC_TYPE_UPDATE)){
-                sqlBuilderService.update(pendingSQLPO.getSql(),pendingSQLPO.getSqlPara());
-            }
-        }
+        this.saveFormRecordComplexPO(jb4DCSession,recordId,formRecordComplexPO,operationTypeName);
 
         if(StringUtility.isNotEmpty(listButtonId)) {
             //修改字段

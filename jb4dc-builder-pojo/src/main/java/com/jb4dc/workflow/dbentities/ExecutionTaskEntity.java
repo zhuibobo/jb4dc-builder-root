@@ -102,7 +102,10 @@ public class ExecutionTaskEntity {
     private String extaskFromExecutionId;
 
     //EXTASK_INDEX:任务索引号:从小到大增加,多实例任务相同,主要用于生成顺序流程图
-    private String extaskIndex;
+    private Integer extaskIndex;
+
+    //EXTASK_MULTI_TASK:多实例任务:Single,Sequential;Parallel
+    private String extaskMultiTask;
 
     /**
      * 构造函数
@@ -135,8 +138,9 @@ public class ExecutionTaskEntity {
      * @param extaskFromTaskId 源自任务ID
      * @param extaskFromExecutionId 源自执行ID
      * @param extaskIndex 任务索引号
+     * @param extaskMultiTask 多实例任务
      **/
-    public ExecutionTaskEntity(String extaskId, String extaskInstId, String extaskModelId, String extaskRuTaskId, String extaskRuExecutionId, String extaskRuProcInstId, String extaskRuProcDefId, String extaskPreNodeKey, String extaskPreNodeName, String extaskCurNodeKey, String extaskCurNodeName, String extaskType, String extaskStatus, String extaskSenderId, String extaskSenderName, Date extaskSendTime, String extaskReceiverId, String extaskReceiverName, String extaskViewEd, Date extaskViewTime, Date extaskStartTime, Date extaskEndTime, String extaskHandleEd, String extaskHandleActionKey, String extaskHandleActionName, Integer extaskOrderNum, String extaskFromTaskId, String extaskFromExecutionId, String extaskIndex) {
+    public ExecutionTaskEntity(String extaskId, String extaskInstId, String extaskModelId, String extaskRuTaskId, String extaskRuExecutionId, String extaskRuProcInstId, String extaskRuProcDefId, String extaskPreNodeKey, String extaskPreNodeName, String extaskCurNodeKey, String extaskCurNodeName, String extaskType, String extaskStatus, String extaskSenderId, String extaskSenderName, Date extaskSendTime, String extaskReceiverId, String extaskReceiverName, String extaskViewEd, Date extaskViewTime, Date extaskStartTime, Date extaskEndTime, String extaskHandleEd, String extaskHandleActionKey, String extaskHandleActionName, Integer extaskOrderNum, String extaskFromTaskId, String extaskFromExecutionId, Integer extaskIndex, String extaskMultiTask) {
         this.extaskId = extaskId;
         this.extaskInstId = extaskInstId;
         this.extaskModelId = extaskModelId;
@@ -166,6 +170,7 @@ public class ExecutionTaskEntity {
         this.extaskFromTaskId = extaskFromTaskId;
         this.extaskFromExecutionId = extaskFromExecutionId;
         this.extaskIndex = extaskIndex;
+        this.extaskMultiTask = extaskMultiTask;
     }
 
     public ExecutionTaskEntity() {
@@ -622,9 +627,9 @@ public class ExecutionTaskEntity {
 
     /**
      * 任务索引号:从小到大增加,多实例任务相同,主要用于生成顺序流程图
-     * @return java.lang.String
+     * @return java.lang.Integer
      **/
-    public String getExtaskIndex() {
+    public Integer getExtaskIndex() {
         return extaskIndex;
     }
 
@@ -632,7 +637,23 @@ public class ExecutionTaskEntity {
      * 任务索引号:从小到大增加,多实例任务相同,主要用于生成顺序流程图
      * @param extaskIndex 任务索引号
      **/
-    public void setExtaskIndex(String extaskIndex) {
-        this.extaskIndex = extaskIndex == null ? null : extaskIndex.trim();
+    public void setExtaskIndex(Integer extaskIndex) {
+        this.extaskIndex = extaskIndex;
+    }
+
+    /**
+     * 多实例任务:Single,Sequential;Parallel
+     * @return java.lang.String
+     **/
+    public String getExtaskMultiTask() {
+        return extaskMultiTask;
+    }
+
+    /**
+     * 多实例任务:Single,Sequential;Parallel
+     * @param extaskMultiTask 多实例任务
+     **/
+    public void setExtaskMultiTask(String extaskMultiTask) {
+        this.extaskMultiTask = extaskMultiTask == null ? null : extaskMultiTask.trim();
     }
 }
