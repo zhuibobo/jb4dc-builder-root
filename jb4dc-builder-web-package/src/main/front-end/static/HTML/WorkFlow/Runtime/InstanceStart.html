@@ -32,24 +32,19 @@
                 }
             },
             mounted:function () {
-                DialogUtility.AlertLoading(window,DialogUtility.DialogLoadingId,{},"");
+                DialogUtility.AlertLoading(window, DialogUtility.DialogLoadingId, {}, "");
 
-                AjaxUtility.Get(this.acInterface.getRuntimeModelWithStart, { modelKey: this.viewPara.modelKey }, function (result) {
+                AjaxUtility.Get(this.acInterface.getRuntimeModelWithStart, {modelKey: this.viewPara.modelKey}, function (result) {
                     console.log(result);
 
                     BaseUtility.SetSystemFavicon();
                     var isStartInstanceStatus = true;
-                    flowRuntimePageObject=FlowRuntimePageObject.pageReadyForStartStatus(isStartInstanceStatus,function () {
+                    flowRuntimePageObject = FlowRuntimePageObject.pageReadyForStartStatus(isStartInstanceStatus, function () {
 
-                    },result.data,result.cacheKey,this,result.data.currentNodeKey,result.data.currentNodeName,
-                    result.data.modelIntegratedEntity.modelId,result.data.modelReKey,""
-                    );
+                    }, result.data,result.cacheKey,this);
                 }, this);
             },
             methods: {
-                /*pageToLoadingStatus:function (_loadStatus){
-                    this.loadStatus=_loadStatus;
-                }*/
             }
         });
     </script>

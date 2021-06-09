@@ -2,10 +2,7 @@ package com.jb4dc.workflow.po.bpmn;
 
 
 import com.jb4dc.workflow.po.bpmn.diagram.BpmnDiagram;
-import com.jb4dc.workflow.po.bpmn.process.BpmnExtensionElements;
-import com.jb4dc.workflow.po.bpmn.process.BpmnProcess;
-import com.jb4dc.workflow.po.bpmn.process.BpmnUserTask;
-import com.jb4dc.workflow.po.bpmn.process.Jb4dcAction;
+import com.jb4dc.workflow.po.bpmn.process.*;
 
 import javax.xml.bind.annotation.*;
 import java.util.List;
@@ -103,6 +100,14 @@ public class BpmnDefinitions {
 
     public void setMessageList(List<BpmnMessage> messageList) {
         this.messageList = messageList;
+    }
+
+    public static BpmnTask findBpmnTaskInUserAndServiceTask(BpmnDefinitions bpmnDefinitions, String currentNodeKey){
+        BpmnTask bpmnTask=bpmnDefinitions.getBpmnProcess().getUserTaskList().stream().filter(item->item.getId().equals(currentNodeKey)).findFirst().orElse(null);
+        if(bpmnTask==null){
+            bpmnTask=bpmnDefinitions.getBpmnProcess().getServiceTaskList().stream().filter(item->item.getId().equals(currentNodeKey)).findFirst().orElse(null);
+        }
+        return bpmnTask;
     }
 
     public static Jb4dcAction findAction(BpmnDefinitions bpmnDefinitions, String currentNodeKey, String actionCode) {

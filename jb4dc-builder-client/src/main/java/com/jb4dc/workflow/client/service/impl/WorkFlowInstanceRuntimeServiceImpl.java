@@ -24,6 +24,7 @@ import com.jb4dc.workflow.client.service.IWorkFlowInstanceRuntimeService;
 import com.jb4dc.workflow.po.CompleteTaskResult;
 import com.jb4dc.workflow.po.ExecutionTaskPO;
 import com.jb4dc.workflow.po.FlowInstanceRuntimePO;
+import com.jb4dc.workflow.po.ResolveNextPossibleFlowNodePO;
 import com.jb4dc.workflow.po.bpmn.BpmnDefinitions;
 import com.jb4dc.workflow.po.bpmn.process.BpmnTask;
 import com.jb4dc.workflow.po.bpmn.process.Jb4dcAction;
@@ -79,13 +80,13 @@ public class WorkFlowInstanceRuntimeServiceImpl extends WorkFlowRuntimeServiceIm
     }
 
     @Override
-    public JBuild4DCResponseVo<List<BpmnTask>> resolveNextPossibleFlowNode(JB4DCSession jb4DCSession,
-                                                                           String instanceId,String currentNodeKey,String currentNodeName,String actionCode,
-                                                                           String flowModelRuntimePOCacheKey,
+    public JBuild4DCResponseVo<ResolveNextPossibleFlowNodePO> resolveNextPossibleFlowNode(JB4DCSession jb4DCSession,
+                                                                           String currentTaskId,String currentNodeKey,String currentNodeName,String actionCode,
+                                                                           String flowInstanceRuntimePOCacheKey,
                                                                            FormRecordComplexPO formRecordComplexPO,
                                                                            Map<String, Object> exVars) throws IOException, JBuild4DCGenerallyException {
 
-        FlowInstanceRuntimePO flowInstanceRuntimePO = getFlowInstanceRuntimePOFromCache(flowModelRuntimePOCacheKey);
+        FlowInstanceRuntimePO flowInstanceRuntimePO = getFlowInstanceRuntimePOFromCache(flowInstanceRuntimePOCacheKey);
 
         Map<String, Object> formParams = new HashMap<>();
         formParams.put("userId", jb4DCSession.getUserId());
@@ -94,7 +95,7 @@ public class WorkFlowInstanceRuntimeServiceImpl extends WorkFlowRuntimeServiceIm
         formParams.put("currentNodeKey", currentNodeKey);
         formParams.put("currentNodeName", currentNodeName);
         formParams.put("actionCode", actionCode);
-        formParams.put("instanceId",instanceId);
+        formParams.put("currentTaskId",currentTaskId);
 
         Map<String, Object> vars = parseDefaultFlowInstanceRuntimePOToJuelVars(jb4DCSession, flowInstanceRuntimePO, formRecordComplexPO,flowInstanceRuntimePO.getCurrentNodeKey(),actionCode);
         if (exVars != null && exVars.size() > 0) {
@@ -103,7 +104,7 @@ public class WorkFlowInstanceRuntimeServiceImpl extends WorkFlowRuntimeServiceIm
         formParams.put("varsJsonString", JsonUtility.toObjectString(vars));
         //formParams.put("varsJsonString", "11");
 
-        JBuild4DCResponseVo<List<BpmnTask>> result = flowInstanceIntegratedRuntimeRemote.resolveNextPossibleFlowNode(formParams);
+        JBuild4DCResponseVo<ResolveNextPossibleFlowNodePO> result = flowInstanceIntegratedRuntimeRemote.resolveNextPossibleFlowNode(formParams);
         return result;
     }
 
@@ -116,18 +117,19 @@ public class WorkFlowInstanceRuntimeServiceImpl extends WorkFlowRuntimeServiceIm
                                            String currentNodeKey,
                                            String currentNodeName,
                                            String actionCode,
-                                           String flowModelRuntimePOCacheKey,
+                                           String flowInstanceRuntimePOCacheKey,
                                            FormRecordComplexPO formRecordComplexPO,
                                            List<ClientSelectedReceiver> clientSelectedReceiverList,
                                            String businessKey, Map<String, Object> exVars) throws IOException, JBuild4DCGenerallyException, JBuild4DCSQLKeyWordException {
 
-        CompleteTaskResult completeTaskResult = new CompleteTaskResult();
-        FlowInstanceRuntimePO flowInstanceRuntimePO = getFlowInstanceRuntimePOFromCache(flowModelRuntimePOCacheKey);
 
-        if(exVars==null){
-            exVars=new HashMap<>();
+        CompleteTaskResult completeTaskResult = new CompleteTaskResult();
+        FlowInstanceRuntimePO flowInstanceRuntimePO = getFlowInstanceRuntimePOFromCache(flowInstanceRuntimePOCacheKey);
+
+        if (exVars == null) {
+            exVars = new HashMap<>();
         }
-        Map<String, Object> vars = parseDefaultFlowInstanceRuntimePOToJuelVars(jb4DCSession, flowInstanceRuntimePO, formRecordComplexPO,currentNodeKey,actionCode);
+        Map<String, Object> vars = parseDefaultFlowInstanceRuntimePOToJuelVars(jb4DCSession, flowInstanceRuntimePO, formRecordComplexPO, currentNodeKey, actionCode);
         if (exVars != null && exVars.size() > 0) {
             vars.putAll(exVars);
         }
@@ -138,23 +140,10 @@ public class WorkFlowInstanceRuntimeServiceImpl extends WorkFlowRuntimeServiceIm
         List<ActionApiPO> afterApiList = actionApiPOList.stream().filter(item -> item.getRunAt().equals(ActionApiPO.AfterName)).collect(Collectors.toList());
 
         //生成流程实例标题
-        String instanceTitle=buildJuelExpression(jb4DCSession,flowInstanceRuntimePO.getJb4dcProcessTitleEditValue(),vars);
-        String instanceDesc=buildJuelExpression(jb4DCSession,flowInstanceRuntimePO.getJb4dcProcessDescriptionEditValue(),vars);
+        String instanceTitle = buildJuelExpression(jb4DCSession, flowInstanceRuntimePO.getJb4dcProcessTitleEditValue(), vars);
+        String instanceDesc = buildJuelExpression(jb4DCSession, flowInstanceRuntimePO.getJb4dcProcessDescriptionEditValue(), vars);
 
-        //调用前置API
-        for (ActionApiPO actionApiPO : beforeApiList) {
-            ActionApiRunResult actionApiRunResult = this.rubApi(jb4DCSession, actionApiPO, isStartInstanceStatus, currentNodeKey, currentNodeName, actionCode, flowModelRuntimePOCacheKey, formRecordComplexPO, clientSelectedReceiverList, businessKey);
-        }
-
-        //执行数据保存
-        webFormDataSaveRuntimeService.saveFormRecordComplexPO(jb4DCSession, businessKey, formRecordComplexPO, isStartInstanceStatus ? BaseUtility.getAddOperationName() : BaseUtility.getUpdateOperationName());
-
-        //调用后置API
-        for (ActionApiPO actionApiPO : afterApiList) {
-            ActionApiRunResult actionApiRunResult = this.rubApi(jb4DCSession, actionApiPO, isStartInstanceStatus, currentNodeKey, currentNodeName, actionCode, flowModelRuntimePOCacheKey, formRecordComplexPO, clientSelectedReceiverList, businessKey);
-        }
-
-        //驱动流程
+        //构建驱动流程变量
         Map<String, String> formParams = new HashMap<>();
         formParams.put("isStartInstanceStatus", isStartInstanceStatus ? "true" : "false");
         formParams.put("userId", jb4DCSession.getUserId());
@@ -168,19 +157,42 @@ public class WorkFlowInstanceRuntimeServiceImpl extends WorkFlowRuntimeServiceIm
         formParams.put("modelReKey", modelReKey);
         formParams.put("currentTaskId", currentTaskId);
         formParams.put("instanceTitle", instanceTitle);
-        formParams.put("instanceDesc",instanceDesc);
+        formParams.put("instanceDesc", instanceDesc);
 
         formParams.put("varsJsonString", JsonUtility.toObjectString(vars));
 
-        JBuild4DCResponseVo<String> jBuild4DCResponseVo=flowInstanceIntegratedRuntimeRemote.completeTask(formParams);
-        if (!jBuild4DCResponseVo.isSuccess()){
-            throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_WORKFLOW_CODE,jBuild4DCResponseVo.getMessage());
-        }
-        //移除缓存
+        //校验能否调用服务端completeTask方法
+        JBuild4DCResponseVo<String> completeTaskEnableVo = flowInstanceIntegratedRuntimeRemote.completeTaskEnable(formParams);
 
-        completeTaskResult.setSuccess(true);
-        completeTaskResult.setMessage("操作成功");
-        return completeTaskResult;
+        if (completeTaskEnableVo.isSuccess()) {
+            //调用前置API
+            for (ActionApiPO actionApiPO : beforeApiList) {
+                ActionApiRunResult actionApiRunResult = this.rubApi(jb4DCSession, actionApiPO, isStartInstanceStatus, currentNodeKey, currentNodeName, actionCode, flowInstanceRuntimePOCacheKey, formRecordComplexPO, clientSelectedReceiverList, businessKey);
+            }
+
+            //执行数据保存
+            webFormDataSaveRuntimeService.saveFormRecordComplexPO(jb4DCSession, businessKey, formRecordComplexPO, isStartInstanceStatus ? BaseUtility.getAddOperationName() : BaseUtility.getUpdateOperationName());
+
+            //调用后置API
+            for (ActionApiPO actionApiPO : afterApiList) {
+                ActionApiRunResult actionApiRunResult = this.rubApi(jb4DCSession, actionApiPO, isStartInstanceStatus, currentNodeKey, currentNodeName, actionCode, flowInstanceRuntimePOCacheKey, formRecordComplexPO, clientSelectedReceiverList, businessKey);
+            }
+
+            //驱动流程变量
+            JBuild4DCResponseVo<String> jBuild4DCResponseVo = flowInstanceIntegratedRuntimeRemote.completeTask(formParams);
+            if (!jBuild4DCResponseVo.isSuccess()) {
+                throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_WORKFLOW_CODE, jBuild4DCResponseVo.getMessage());
+            }
+            //移除缓存
+
+            completeTaskResult.setSuccess(true);
+            completeTaskResult.setMessage("操作成功");
+            return completeTaskResult;
+        } else {
+            completeTaskResult.setMessage(completeTaskEnableVo.getMessage());
+            completeTaskResult.setSuccess(false);
+            return completeTaskResult;
+        }
     }
 
     @Override
@@ -191,7 +203,7 @@ public class WorkFlowInstanceRuntimeServiceImpl extends WorkFlowRuntimeServiceIm
     protected ActionApiRunResult rubApi(JB4DCSession jb4DCSession, ActionApiPO actionApiPO,
                                         boolean isStartInstanceStatus, String currentNodeKey,
                                         String currentNodeName, String actionCode,
-                                        String flowModelRuntimePOCacheKey, FormRecordComplexPO formRecordComplexPO,
+                                        String flowInstanceRuntimePOCacheKey, FormRecordComplexPO formRecordComplexPO,
                                         List<ClientSelectedReceiver> clientSelectedReceiverList, String businessKey) throws JBuild4DCGenerallyException {
         try {
             ApiItemEntity apiItemEntity = actionApiPO.getApiItemEntity();

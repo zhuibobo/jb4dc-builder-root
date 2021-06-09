@@ -93,7 +93,7 @@
                                                                                                              where EXTASK_ORDER_NUM = (select min(EXTASK_ORDER_NUM) from TFLOW_EXECUTION_TASK where EXTASK_ORDER_NUM>(select EXTASK_ORDER_NUM from TFLOW_EXECUTION_TASK where EXTASK_ID=#{Id,jdbcType=NVARCHAR}))]]></select>
 
     <select id="selectByInstanceId" resultMap="BaseResultMap">
-        select<include refid="Base_Column_List"/> from TFLOW_EXECUTION_TASK where EXTASK_INST_ID=#{instId} ORDER by EXTASK_ORDER_NUM desc;
+        select<include refid="Base_Column_List"/> from TFLOW_EXECUTION_TASK where EXTASK_INST_ID=#{instId} ORDER by EXTASK_ORDER_NUM asc
     </select>
 
     <select id="selectMyProcessTask" resultMap="BaseResultMapWithPO">

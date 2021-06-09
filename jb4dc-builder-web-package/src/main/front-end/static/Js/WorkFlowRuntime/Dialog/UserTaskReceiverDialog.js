@@ -2,9 +2,9 @@ var userTaskReceiverDialogOuterVue;
 var UserTaskReceiverDialogUtility={
     ShowDialog:function (sender,nextFlowNodeEntities,selectReceiverCompletedFunc){
         if(!userTaskReceiverDialogOuterVue) {
-            $(document.body).append("<div id='userTaskReceiverDialog'><user-task-receiver-dialog ref='userTaskReceiverDialog'></user-task-receiver-dialog></div>");
+            $(document.body).append("<div id='userTaskReceiverDialogOuter'><user-task-receiver-dialog ref='userTaskReceiverDialog'></user-task-receiver-dialog></div>");
             userTaskReceiverDialogOuterVue = new Vue({
-                el: "#userTaskReceiverDialog",
+                el: "#userTaskReceiverDialogOuter",
                 data: {
                     acInterface: {
                         getRuntimeModelWithStart: "/Rest/Workflow/RunTime/Client/ModelRuntime/GetRuntimeModelWithStart",
@@ -23,7 +23,8 @@ var UserTaskReceiverDialogUtility={
     CloseDialog:function(){
         DialogUtility.CloseDialogElem(userTaskReceiverDialogOuterVue.$refs.userTaskReceiverDialog.$refs.userTaskReceiverDialogWrap);
         userTaskReceiverDialogOuterVue=null;
-        $("#userTaskReceiverDialog").remove();
+        $("#userTaskReceiverDialogOuter").remove();
+        DialogUtility.RemoveDialogRemainingElem("userTaskReceiverDialogInner");
     }
 }
 
@@ -51,7 +52,7 @@ Vue.component("user-task-receiver-dialog", {
                     async: {
                         enable: true,
                         contentType: "application/x-www-form-urlencoded",
-                        url: BaseUtility.BuildAction("/Rest/Workflow/RunTime/ReceiverRuntime/GetAsyncReceivers"),
+                        url: BaseUtility.BuildAction("/Rest/Workflow/RunTime/Client/ReceiverRuntime/GetAsyncReceivers"),
                         autoParam: ["id", "typeName", "name"]
                     },
                     data: {
@@ -92,7 +93,7 @@ Vue.component("user-task-receiver-dialog", {
             },
             selectedReceiver: {
                 columnsConfig: [{
-                    title: '已选用户1',
+                    title: '已选用户',
                     key: 'name',
                     width: 188,
                     align: "center"
@@ -280,7 +281,7 @@ Vue.component("user-task-receiver-dialog", {
             };
         }
     },
-    template: `<div ref="userTaskReceiverDialogWrap" style="display: none">
+    template: `<div id="userTaskReceiverDialogInner" ref="userTaskReceiverDialogWrap" style="display: none">
                 <tabs name="userTaskReceiverDialogTabs">
                     <tab-pane :label="buildTabLabel(flowNodeEntity)" tab="userTaskReceiverDialogTabs" v-for="flowNodeEntity in nextFlowNodeEntities" :key="flowNodeEntity.id">
                         <collapse accordion value="mainReceiver">

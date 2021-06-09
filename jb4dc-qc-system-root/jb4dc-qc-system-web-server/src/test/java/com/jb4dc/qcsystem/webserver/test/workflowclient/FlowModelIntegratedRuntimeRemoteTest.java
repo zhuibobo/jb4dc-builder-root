@@ -14,6 +14,7 @@ import com.jb4dc.workflow.dbentities.ModelIntegratedEntity;
 import com.jb4dc.workflow.po.ExecutionTaskPO;
 import com.jb4dc.workflow.po.FlowModelListIntegratedPO;
 import com.jb4dc.workflow.po.FlowInstanceRuntimePO;
+import com.jb4dc.workflow.po.ResolveNextPossibleFlowNodePO;
 import com.jb4dc.workflow.po.bpmn.process.BpmnTask;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -83,7 +84,7 @@ public class FlowModelIntegratedRuntimeRemoteTest  extends RestTestBase {
         formParams.put("currentNodeKey","StartEvent_N1");
         formParams.put("actionCode","action_955710861");
         formParams.put("varsJsonString",JsonUtility.toObjectString(vars));
-        JBuild4DCResponseVo<List<BpmnTask>> result = flowInstanceIntegratedRuntimeRemote.resolveNextPossibleFlowNode(formParams);
+        JBuild4DCResponseVo<ResolveNextPossibleFlowNodePO> result = flowInstanceIntegratedRuntimeRemote.resolveNextPossibleFlowNode(formParams);
         /*for (ModelIntegratedEntity modelIntegratedEntity : result.getData().getModelIntegratedEntityList()) {
             System.out.println(modelIntegratedEntity.getModelName());
         }*/

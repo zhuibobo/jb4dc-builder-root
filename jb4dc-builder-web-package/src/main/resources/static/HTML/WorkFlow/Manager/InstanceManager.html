@@ -1,0 +1,97 @@
+<!DOCTYPE html><html lang="zh" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"><head><meta charset="UTF-8"><title>流程实例管理</title><title>JBuild4D</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"><script type="text/javascript" src="../../../Js/External/JQuery-3.4.1/jquery-3.4.1.min.js"></script><script type="text/javascript" src="../../../Js/External/VUE-2.6.10/vue.js"></script><script type="text/javascript" src="../../../Js/External/IView-4.X/dist/iview.min.js"></script><script type="text/javascript" src="../../../Js/External/JQuery-UI-1.12.1/jquery-ui.js"></script><script type="text/javascript" src="../../../Js/External/ZTree-3.5.40/js/jquery.ztree.all.js"></script><script type="text/javascript" src="../../../Js/External/Perfect-Scrollbar-V1.4.0/perfect-scrollbar.js"></script><script type="text/javascript" src="../../../Js/JBuild4DCLib.js?refVersion=1623205527259"></script><script type="text/javascript" src="../../../Js/UIEXComponent.js?refVersion=1623205527259"></script><script type="text/javascript" src="../../../Js/UIEXComponentForBuilder.js?refVersion=1623205527259"></script><script type="text/javascript" src="../../../Js/VueEXComponent.js?refVersion=1623205527259"></script><script type="text/javascript" src="../../../Js/BuilderVueEXComponent.js?refVersion=1623205527259"></script><link rel="stylesheet" type="text/css" href="../../../Themes/Default/IView-4.X/iview.css"><link rel="stylesheet" type="text/css" href="../../../Themes/Default/JQueryUI/jquery-ui.css"><link rel="stylesheet" type="text/css" href="../../../Themes/Default/JQueryUI/jquery-ui-important.css"><link rel="stylesheet" type="text/css" href="../../../Js/External/Perfect-Scrollbar-V1.4.0/perfect-scrollbar.css"><link rel="stylesheet" type="text/css" href="../../../Themes/Default/ZTree/zTreeStyle/zTreeStyle.css"><link rel="stylesheet" type="text/css" href="../../../Themes/Default/Css/JBuild4DC.css?refVersion=1623205527259"><link rel="stylesheet" type="text/css" href="../../../Themes/Default/Css/JBuild4DCBuilder.css?refVersion=1623205527259"><script type="text/javascript" src="../../../Js/External/Go-2.1.18/go-debug.js"></script><script type="text/javascript" src="../../../Js/External/Go-2.1.18/Figures.js"></script></head><body><div id="instanceManagerElem" class="iv-list-page-wrap"><i-table :height="listHeight" stripe border :columns="columnsConfig" :data="tableData" class="iv-list-table" :highlight-row="true" @on-selection-change="selectionChange"><template slot-scope="{ row, index }" slot="instTitle"><div style="text-align:left">{{row.instTitle}}</div></template><template slot-scope="{ row, index }" slot="action"><div class="list-font-icon-button-class" @click="edit(index,row)"><icon type="md-settings"></div></template></i-table><div style="float:right" id="list-pager-wrap"><page @on-change="changePage" :current.sync="pageNum" :page-size="pageSize" show-total :total="pageTotal"></page></div></div><script>var instanceManagerList = new Vue({
+        el: "#instanceManagerElem",
+        mounted: function () {
+            this.reloadData();
+            window.setTimeout(function () {
+                //debugger;
+                instanceManagerList.listHeight=ListPageUtility.GetGeneralPageHeight(0);
+            },500);
+        },
+        data: {
+            acInterface:{
+                editView: "/HTML/WorkFlow/Manager/InstanceManagerEdit.html",
+                reloadData:"/Rest/Workflow/Instance/FlowInstance/GetMyManageEnableInstance"
+            },
+            idFieldName:"instId",
+            columnsConfig: [
+                {
+                    type: 'expand',
+                    width: 50,
+                    render: (h, params) => {
+                        return h('instance-manager-expand-row', {
+                            props: {
+                                row: params.row
+                            }
+                        })
+                    }
+                },
+                {
+                    title: '流程实例名称',
+                    key: 'instTitle',
+                    align: "center",
+                    slot: 'instTitle'
+                }, {
+                    title: '创建者',
+                    key: 'instCreator',
+                    align: "center",
+                    width: 120,
+                }, {
+                    title: '创建时间',
+                    key: 'instCreateTime',
+                    align: "center",
+                    width: 120,
+                    render: function (h, params) {
+                        return ListPageUtility.IViewTableRenderer.ToDateYYYY_MM_DD(h, params.row.instCreateTime);
+                    }
+                }, {
+                    title: '操作',
+                    key: 'dbId',
+                    width: 120,
+                    align: "center",
+                    slot: 'action'
+                }
+            ],
+            tableData: [],
+            selectionRows: null,
+            pageTotal: 0,
+            pageSize: 12,
+            pageNum: 1,
+            listHeight: ListPageUtility.DefaultListHeight()
+        },
+        methods: {
+            selectionChange: function (selection) {
+                this.selectionRows = selection;
+            },
+            reloadData: function () {
+                ListPageUtility.IViewTableBindDataBySearch({
+                    url: this.acInterface.reloadData,
+                    pageNum: this.pageNum,
+                    pageSize: this.pageSize,
+                    searchCondition:null,
+                    pageAppObj: this,
+                    tableList: this,
+                    idField: this.idFieldName,
+                    autoSelectedOldRows: true,
+                    successFunc: null,
+                    loadDict: false,
+                    custParas: {}
+                });
+            },
+            changePage: function (pageNum) {
+                this.pageNum = pageNum;
+                this.reloadData();
+                this.selectionRows=null;
+            },
+            search:function () {
+                this.pageNum=1;
+                this.reloadData();
+            },
+            edit: function (index,row) {
+                var url = BaseUtility.BuildView(this.acInterface.editView, {
+                    "op": "update",
+                    "instanceId": row.instId
+                });
+                DialogUtility.Frame_OpenIframeWindow(window, DialogUtility.DialogWorkFlowFormId, url, {title: "管理 [" + row.instTitle + "]"}, 0);
+            }
+        }
+    });</script></body></html>

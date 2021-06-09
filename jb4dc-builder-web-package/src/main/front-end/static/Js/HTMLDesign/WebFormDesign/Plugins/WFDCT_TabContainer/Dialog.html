@@ -38,6 +38,9 @@
                     baseInfo: this.baseInfo
                 }
                 result.baseInfo.serialize="false";
+                if(!result.baseInfo.style){
+                    result.baseInfo.style="height:100%"
+                }
                 return result;
             },
             setControlProps:function ($elem,props) {

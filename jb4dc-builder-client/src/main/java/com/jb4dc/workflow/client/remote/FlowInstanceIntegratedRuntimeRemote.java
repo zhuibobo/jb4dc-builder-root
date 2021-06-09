@@ -6,6 +6,7 @@ import com.jb4dc.builder.client.remote.BuilderClientFeignClientConfig;
 import com.jb4dc.core.base.vo.JBuild4DCResponseVo;
 import com.jb4dc.workflow.po.ExecutionTaskPO;
 import com.jb4dc.workflow.po.FlowInstanceRuntimePO;
+import com.jb4dc.workflow.po.ResolveNextPossibleFlowNodePO;
 import com.jb4dc.workflow.po.bpmn.process.BpmnTask;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.context.annotation.Primary;
@@ -34,10 +35,11 @@ public interface FlowInstanceIntegratedRuntimeRemote {
     JBuild4DCResponseVo<PageInfo<ExecutionTaskPO>> getMyProcessTaskList(@RequestParam("pageNum") int pageNum, @RequestParam("pageSize") int pageSize, @RequestParam("userId") String userId, @RequestParam("organId")  String organId, @RequestParam("linkId") String linkId, @RequestParam("modelCategory") String modelCategory, @RequestParam("extaskType") String extaskType);
 
     @PostMapping(value = "/ResolveNextPossibleFlowNode",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    JBuild4DCResponseVo<List<BpmnTask>> resolveNextPossibleFlowNode(Map<String, ?> formParams);
+    JBuild4DCResponseVo<ResolveNextPossibleFlowNodePO> resolveNextPossibleFlowNode(Map<String, ?> formParams);
 
     @PostMapping(value = "/CompleteTask",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     JBuild4DCResponseVo<String> completeTask(Map<String, ?> formParams);
 
-
+    @PostMapping(value = "/CompleteTaskEnable",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    JBuild4DCResponseVo<String> completeTaskEnable(Map<String, ?> formParams);
 }

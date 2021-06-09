@@ -6,10 +6,10 @@ Vue.component("module-list-workflow-comp", {
 
         return {
             acInterface:{
-                editView: "/HTML/WorkFlow/Modeler/Index.html",
+                editView: "/HTML/WorkFlow/Modeler/ModelerDesign.html",
                 reloadData: "/Rest/Workflow/FlowModelIntegrated/GetModuleFlowListData",
                 delete: "/Rest/Workflow/FlowModelIntegrated/Delete",
-                move: "/Rest/Builder/FlowIntegrated/Move",
+                move: "/Rest/Builder/FlowIntegrated/Move"
             },
             idFieldName: "modelId",
             searchCondition: {

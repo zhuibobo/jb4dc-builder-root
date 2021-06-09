@@ -27,7 +27,6 @@ new Vue({
 });
 
 /*let IsTopFramePage=true;
-
 var appForm = new Vue({
     el:"#appForm",
     data: {
@@ -46,10 +45,6 @@ var appForm = new Vue({
         designThemes:[],
         pluginVoList:null
     },
-    mounted:function () {
-
-    },
-    methods: {
-
-    }
+    mounted:function () {},
+    methods: {}
 });*/

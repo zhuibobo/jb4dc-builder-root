@@ -81,7 +81,7 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = "./App.js");
+/******/ 	return __webpack_require__(__webpack_require__.s = "./ModelerDesign.js");
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -429,7 +429,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _Rem
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\nfunction _typeof(obj) { \"@babel/helpers - typeof\"; if (typeof Symbol === \"function\" && typeof Symbol.iterator === \"symbol\") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === \"function\" && obj.constructor === Symbol && obj !== Symbol.prototype ? \"symbol\" : typeof obj; }; } return _typeof(obj); }\n\n/* harmony default export */ __webpack_exports__[\"default\"] = ({\n  name: \"select-flow-about-user-dialog\",\n  data: function data() {\n    return {\n      selectedData: {\n        type: \"flowAboutUser\",\n        value: \"instanceStarter\",\n        text: \"\",\n        config: \"\"\n      }\n    };\n  },\n  mounted: function mounted() {\n    var _self = this;\n\n    DialogUtility.DialogElemObj(this.$refs.selectFlowAboutUserDialogWrap, {\n      title: \"\",\n      width: 850,\n      height: 560,\n      modal: true,\n      buttons: {\n        \"确认\": function 确认() {\n          if (_typeof(_self.callBackFunc == \"function\")) {\n            if (_self.selectedData.value == \"instanceStarter\") {\n              _self.selectedData.text = \"流程实例发起人\";\n            } else if (_self.selectedData.value == \"modelManager\") {\n              _self.selectedData.text = \"模型管理人\";\n            }\n\n            var result = JsonUtility.CloneStringify(_self.selectedData);\n\n            _self.callBackFunc(result);\n          }\n\n          DialogUtility.CloseDialogElem(_self.$refs.selectFlowAboutUserDialogWrap);\n        },\n        \"取消\": function 取消() {\n          DialogUtility.CloseDialogElem(_self.$refs.selectFlowAboutUserDialogWrap);\n        }\n      }\n    });\n    $(this.$refs.selectFlowAboutUserDialogWrap).dialog(\"close\");\n  },\n  methods: {\n    beginSelectFlowAboutUser: function beginSelectFlowAboutUser(dialogTitle, oldData, callBackFunc) {\n      this.selectedUserArray = [];\n      $(this.$refs.selectFlowAboutUserDialogWrap).dialog(\"open\");\n      $(this.$refs.selectFlowAboutUserDialogWrap).dialog(\"option\", \"title\", dialogTitle);\n      this.callBackFunc = callBackFunc;\n    }\n  }\n});\n\n//# sourceURL=webpack:///./VueComponent/Properties/Dialog/select-flow-about-user-dialog.vue?../node_modules/babel-loader/lib??ref--0!../node_modules/vue-loader/lib??vue-loader-options");
+eval("__webpack_require__.r(__webpack_exports__);\nfunction _typeof(obj) { \"@babel/helpers - typeof\"; if (typeof Symbol === \"function\" && typeof Symbol.iterator === \"symbol\") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === \"function\" && obj.constructor === Symbol && obj !== Symbol.prototype ? \"symbol\" : typeof obj; }; } return _typeof(obj); }\n\n/* harmony default export */ __webpack_exports__[\"default\"] = ({\n  name: \"select-flow-about-user-dialog\",\n  data: function data() {\n    return {\n      selectedData: {\n        type: \"flowAboutUser\",\n        value: \"instanceStarter\",\n        text: \"\",\n        config: \"\"\n      }\n    };\n  },\n  mounted: function mounted() {\n    var _self = this;\n\n    DialogUtility.DialogElemObj(this.$refs.selectFlowAboutUserDialogWrap, {\n      title: \"\",\n      width: 850,\n      height: 560,\n      modal: true,\n      buttons: {\n        \"确认\": function 确认() {\n          if (_typeof(_self.callBackFunc == \"function\")) {\n            if (_self.selectedData.value == \"instanceStarter\") {\n              _self.selectedData.text = \"流程实例发起人\";\n            } else if (_self.selectedData.value == \"modelManager\") {\n              _self.selectedData.text = \"模型管理人\";\n            } else if (_self.selectedData.value == \"previousNodeSender\") {\n              _self.selectedData.text = \"上一环节发送人\";\n            }\n\n            var result = JsonUtility.CloneStringify(_self.selectedData);\n\n            _self.callBackFunc(result);\n          }\n\n          DialogUtility.CloseDialogElem(_self.$refs.selectFlowAboutUserDialogWrap);\n        },\n        \"取消\": function 取消() {\n          DialogUtility.CloseDialogElem(_self.$refs.selectFlowAboutUserDialogWrap);\n        }\n      }\n    });\n    $(this.$refs.selectFlowAboutUserDialogWrap).dialog(\"close\");\n  },\n  methods: {\n    beginSelectFlowAboutUser: function beginSelectFlowAboutUser(dialogTitle, oldData, callBackFunc) {\n      this.selectedUserArray = [];\n      $(this.$refs.selectFlowAboutUserDialogWrap).dialog(\"open\");\n      $(this.$refs.selectFlowAboutUserDialogWrap).dialog(\"option\", \"title\", dialogTitle);\n      this.callBackFunc = callBackFunc;\n    }\n  }\n});\n\n//# sourceURL=webpack:///./VueComponent/Properties/Dialog/select-flow-about-user-dialog.vue?../node_modules/babel-loader/lib??ref--0!../node_modules/vue-loader/lib??vue-loader-options");
 
 /***/ }),
 
@@ -5157,7 +5157,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) *
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"render\", function() { return render; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"staticRenderFns\", function() { return staticRenderFns; });\nvar render = function() {\n  var _vm = this\n  var _h = _vm.$createElement\n  var _c = _vm._self._c || _h\n  return _c(\n    \"div\",\n    { ref: \"selectFlowAboutUserDialogWrap\", staticStyle: { display: \"none\" } },\n    [\n      _c(\n        \"RadioGroup\",\n        {\n          model: {\n            value: _vm.selectedData.value,\n            callback: function($$v) {\n              _vm.$set(_vm.selectedData, \"value\", $$v)\n            },\n            expression: \"selectedData.value\"\n          }\n        },\n        [\n          _c(\"Radio\", { attrs: { label: \"instanceStarter\", border: \"\" } }, [\n            _c(\"span\", [_vm._v(\"实例发起人\")])\n          ]),\n          _vm._v(\" \"),\n          _c(\"Radio\", { attrs: { label: \"modelManager\", border: \"\" } }, [\n            _c(\"span\", [_vm._v(\"模型管理人\")])\n          ])\n        ],\n        1\n      )\n    ],\n    1\n  )\n}\nvar staticRenderFns = []\nrender._withStripped = true\n\n\n\n//# sourceURL=webpack:///./VueComponent/Properties/Dialog/select-flow-about-user-dialog.vue?../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib??vue-loader-options");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"render\", function() { return render; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"staticRenderFns\", function() { return staticRenderFns; });\nvar render = function() {\n  var _vm = this\n  var _h = _vm.$createElement\n  var _c = _vm._self._c || _h\n  return _c(\n    \"div\",\n    { ref: \"selectFlowAboutUserDialogWrap\", staticStyle: { display: \"none\" } },\n    [\n      _c(\n        \"RadioGroup\",\n        {\n          model: {\n            value: _vm.selectedData.value,\n            callback: function($$v) {\n              _vm.$set(_vm.selectedData, \"value\", $$v)\n            },\n            expression: \"selectedData.value\"\n          }\n        },\n        [\n          _c(\"Radio\", { attrs: { label: \"instanceStarter\", border: \"\" } }, [\n            _c(\"span\", [_vm._v(\"实例发起人\")])\n          ]),\n          _vm._v(\" \"),\n          _c(\"Radio\", { attrs: { label: \"modelManager\", border: \"\" } }, [\n            _c(\"span\", [_vm._v(\"模型管理人\")])\n          ]),\n          _vm._v(\" \"),\n          _c(\"Radio\", { attrs: { label: \"previousNodeSender\", border: \"\" } }, [\n            _c(\"span\", [_vm._v(\"上一环节发送人\")])\n          ])\n        ],\n        1\n      )\n    ],\n    1\n  )\n}\nvar staticRenderFns = []\nrender._withStripped = true\n\n\n\n//# sourceURL=webpack:///./VueComponent/Properties/Dialog/select-flow-about-user-dialog.vue?../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib??vue-loader-options");
 
 /***/ }),
 
@@ -5579,18 +5579,6 @@ eval("module.exports = function(module) {\n\tif (!module.webpackPolyfill) {\n\t\
 
 /***/ }),
 
-/***/ "./App.js":
-/*!****************!*\
-  !*** ./App.js ***!
-  \****************/
-/*! no exports provided */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _Less_ModelerApp_less__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Less/ModelerApp.less */ \"./Less/ModelerApp.less\");\n/* harmony import */ var _Less_ModelerApp_less__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_Less_ModelerApp_less__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var Vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! Vue */ \"Vue\");\n/* harmony import */ var Vue__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(Vue__WEBPACK_IMPORTED_MODULE_1__);\n/* harmony import */ var _VueComponent_flow_main_modeler_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./VueComponent/flow-main-modeler.vue */ \"./VueComponent/flow-main-modeler.vue\");\n/* harmony import */ var _EditTable_Renderers_CustTdRenderer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./EditTable/Renderers/CustTdRenderer.js */ \"./EditTable/Renderers/CustTdRenderer.js\");\n/* harmony import */ var _EditTable_Renderers_CustTdRenderer_js__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_EditTable_Renderers_CustTdRenderer_js__WEBPACK_IMPORTED_MODULE_3__);\n\n\n\n\nnew Vue__WEBPACK_IMPORTED_MODULE_1___default.a({\n  el: '#appForm',\n  render: function render(h) {\n    return h(_VueComponent_flow_main_modeler_vue__WEBPACK_IMPORTED_MODULE_2__[\"default\"]);\n  }\n});\n\n//# sourceURL=webpack:///./App.js?");
-
-/***/ }),
-
 /***/ "./EditTable/Renderers/CustTdRenderer.js":
 /*!***********************************************!*\
   !*** ./EditTable/Renderers/CustTdRenderer.js ***!
@@ -5610,6 +5598,18 @@ eval("__webpack_require__(/*! !../node_modules/script-loader/addScript.js */ \".
 /***/ (function(module, exports, __webpack_require__) {
 
 eval("// extracted by mini-css-extract-plugin\n\n//# sourceURL=webpack:///./Less/ModelerApp.less?");
+
+/***/ }),
+
+/***/ "./ModelerDesign.js":
+/*!**************************!*\
+  !*** ./ModelerDesign.js ***!
+  \**************************/
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _Less_ModelerApp_less__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Less/ModelerApp.less */ \"./Less/ModelerApp.less\");\n/* harmony import */ var _Less_ModelerApp_less__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_Less_ModelerApp_less__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var Vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! Vue */ \"Vue\");\n/* harmony import */ var Vue__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(Vue__WEBPACK_IMPORTED_MODULE_1__);\n/* harmony import */ var _VueComponent_flow_main_modeler_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./VueComponent/flow-main-modeler.vue */ \"./VueComponent/flow-main-modeler.vue\");\n/* harmony import */ var _EditTable_Renderers_CustTdRenderer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./EditTable/Renderers/CustTdRenderer.js */ \"./EditTable/Renderers/CustTdRenderer.js\");\n/* harmony import */ var _EditTable_Renderers_CustTdRenderer_js__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_EditTable_Renderers_CustTdRenderer_js__WEBPACK_IMPORTED_MODULE_3__);\n\n\n\n\nnew Vue__WEBPACK_IMPORTED_MODULE_1___default.a({\n  el: '#appForm',\n  render: function render(h) {\n    return h(_VueComponent_flow_main_modeler_vue__WEBPACK_IMPORTED_MODULE_2__[\"default\"]);\n  }\n});\n\n//# sourceURL=webpack:///./ModelerDesign.js?");
 
 /***/ }),
 

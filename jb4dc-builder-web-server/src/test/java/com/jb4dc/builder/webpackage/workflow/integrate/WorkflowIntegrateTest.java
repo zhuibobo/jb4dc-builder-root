@@ -1,6 +1,8 @@
 package com.jb4dc.builder.webpackage.workflow.integrate;
 
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.jb4dc.base.tools.JsonUtility;
 import com.jb4dc.base.tools.XMLUtility;
 import com.jb4dc.builder.webpackage.RestTestBase;
 import com.jb4dc.workflow.exenum.ModelDesignSourceTypeEnum;
@@ -10,6 +12,7 @@ import com.jb4dc.workflow.integrate.engine.IFlowEngineTaskIntegratedService;
 import com.jb4dc.workflow.integrate.engine.IFlowEngineExecutionIntegratedService;
 import com.jb4dc.workflow.integrate.engine.IFlowEngineInstanceIntegratedService;
 import com.jb4dc.workflow.integrate.engine.impl.CamundaIntegrate;
+import com.jb4dc.workflow.po.HistoricActivityInstancePO;
 import com.jb4dc.workflow.po.bpmn.BpmnDefinitions;
 import com.jb4dc.workflow.integrate.extend.IModelIntegratedExtendService;
 import com.jb4dc.workflow.integrate.extend.IExecutionTaskExtendService;
@@ -20,8 +23,10 @@ import org.camunda.bpm.engine.RepositoryService;
 import org.camunda.bpm.engine.RuntimeService;
 import org.camunda.bpm.engine.TaskService;
 import org.camunda.bpm.engine.externaltask.LockedExternalTask;
+import org.camunda.bpm.engine.history.HistoricActivityInstance;
 import org.camunda.bpm.engine.impl.cfg.ProcessEngineConfigurationImpl;
 import org.camunda.bpm.engine.impl.persistence.entity.ExecutionEntity;
+import org.camunda.bpm.engine.impl.persistence.entity.HistoricActivityInstanceEntity;
 import org.camunda.bpm.engine.runtime.Execution;
 import org.camunda.bpm.engine.runtime.ProcessInstance;
 import org.camunda.bpm.engine.runtime.ProcessInstanceQuery;
@@ -146,7 +151,7 @@ public class WorkflowIntegrateTest extends RestTestBase {
         vars.put("act","送负责人");
         vars.put("level",1);
 
-        List<org.camunda.bpm.model.bpmn.instance.Activity> userTasks = CamundaBpmnUtility.getNextPossibleFlowNode(task,vars);
+        List<org.camunda.bpm.model.bpmn.instance.FlowNode> userTasks = CamundaBpmnUtility.getNextPossibleFlowNode(task,vars);
         Assert.assertEquals(2,userTasks.size());
         Assert.assertEquals(true,userTasks.stream().anyMatch(us->us.getName().equals("相关负责人")));
         //Assert.assertEquals(true,userTasks.stream().anyMatch(us->us.getName().equals("相关负责人2")));
@@ -232,7 +237,7 @@ public class WorkflowIntegrateTest extends RestTestBase {
         //获取可能环节
         vars=new HashMap<>();
         vars.put("UserId", "User003");
-        List<org.camunda.bpm.model.bpmn.instance.Activity> userTasks = CamundaBpmnUtility.getNextPossibleFlowNode(task,vars);
+        List<org.camunda.bpm.model.bpmn.instance.FlowNode> userTasks = CamundaBpmnUtility.getNextPossibleFlowNode(task,vars);
         Assert.assertEquals(1,userTasks.size());
         Assert.assertEquals(true,userTasks.stream().anyMatch(us->us.getName().equals("经办人1")));
 
@@ -771,7 +776,7 @@ public class WorkflowIntegrateTest extends RestTestBase {
     }
 
     @Test
-    public void callService1() throws FileNotFoundException, JBuild4DCGenerallyException, InterruptedException {
+    public void callService1() throws IOException, JBuild4DCGenerallyException, InterruptedException {
         CamundaIntegrate.setProcessEngine(processEngine);
         ProcessEngine processEngine = CamundaIntegrate.getProcessEngine();
         ((ProcessEngineConfigurationImpl) processEngine.getProcessEngineConfiguration()).getBeans();
@@ -836,6 +841,9 @@ public class WorkflowIntegrateTest extends RestTestBase {
 
         Assert.assertEquals(true, iFlowEngineInstanceIntegratedService.instanceIsComplete(getSession(),task.getProcessInstanceId()));
 
+        List<HistoricActivityInstance> historicActivityInstanceEntityList=processEngine.getHistoryService().createHistoricActivityInstanceQuery().processInstanceId(task.getProcessInstanceId()).list();
+        List<HistoricActivityInstancePO> historicActivityInstancePOList=JsonUtility.parseEntityListToPOList(historicActivityInstanceEntityList,HistoricActivityInstancePO.class);
+        System.out.println(JsonUtility.toObjectString(historicActivityInstancePOList));
     }
 
     @Test

@@ -19,7 +19,16 @@ var WFDCT_TabContainer={
             }
             $labers.remove();
             $tabber.prepend($ul);
-            $("#" + $tabber.attr("id")).tabs();
+            $("#" + $tabber.attr("id")).tabs({
+                activate: function( event, ui ) {
+                    var newTabOnActivity=ui.newPanel.attr("onActivity");
+                    if(newTabOnActivity) {
+                        eval(newTabOnActivity + "(event,ui)");
+                    }
+                    console.log(ui);
+                    console.log(event);
+                }
+            });
         //}
         $tabber.show();
 

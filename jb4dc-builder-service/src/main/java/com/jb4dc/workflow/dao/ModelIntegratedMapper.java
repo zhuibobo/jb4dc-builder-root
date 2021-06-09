@@ -15,4 +15,8 @@ public interface ModelIntegratedMapper extends BaseMapper<ModelIntegratedEntity>
     List<ModelIntegratedEntity> selectAllStartEnableModel();
 
     List<ModelIntegratedEntity> selectStartEnableModelByRole(@Param("userId") String userId,@Param("roleKeys") List<String> roleKeys);
+
+    ModelIntegratedEntity selectByReId(@Param("modelReId") String modelReId);
+
+    List<ModelIntegratedEntity> selectListByPrimaryKey(@Param("modelIds") List<String> modelIds);
 }

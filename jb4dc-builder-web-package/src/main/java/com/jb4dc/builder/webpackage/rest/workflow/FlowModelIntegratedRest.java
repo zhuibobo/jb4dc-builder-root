@@ -64,7 +64,7 @@ public class FlowModelIntegratedRest extends GeneralRest<ModelIntegratedEntity> 
             responseVo.setData(flowModelIntegratedPO);
         } else {
             JB4DCSession jb4DSession = JB4DCSessionUtility.getSession();
-            FlowModelIntegratedPO flowModelIntegratedPO = flowExtendModelService.getLastPOByModelReKey(jb4DSession, modelReKey);
+            FlowModelIntegratedPO flowModelIntegratedPO = flowExtendModelService.getLastSavePOByModelReKey(jb4DSession, modelReKey);
             responseVo.addExKVData("recordId", flowModelIntegratedPO.getModelId());
             responseVo.setData(flowModelIntegratedPO);
         }

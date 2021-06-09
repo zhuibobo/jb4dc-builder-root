@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>流程实例管理</title>
+    <th:block th:replace="Fragment/GeneralLib::GeneralLib"></th:block>
+    <th:block th:replace="Fragment/GeneralLib::ThemesLib"></th:block>
+    <th:block th:replace="Fragment/GeneralLib::GoJsLib"></th:block>
+</head>
+<body>
+<div id="instanceManagerElem" class="iv-list-page-wrap">
+    <i-table :height="listHeight" stripe border :columns="columnsConfig" :data="tableData"
+             class="iv-list-table" :highlight-row="true"
+             @on-selection-change="selectionChange">
+        <template slot-scope="{ row, index }" slot="instTitle">
+            <div style="text-align: left">
+                {{row.instTitle}}
+            </div>
+        </template>
+        <template slot-scope="{ row, index }" slot="action">
+            <div class="list-font-icon-button-class" @click="edit(index,row)">
+                <Icon type="md-settings" />
+            </div>
+        </template>
+    </i-table>
+    <div style="float: right;" id="list-pager-wrap">
+        <page @on-change="changePage" :current.sync="pageNum" :page-size="pageSize" show-total
+              :total="pageTotal"></page>
+    </div>
+</div>
+<script>
+    var instanceManagerList = new Vue({
+        el: "#instanceManagerElem",
+        mounted: function () {
+            this.reloadData();
+            window.setTimeout(function () {
+                //debugger;
+                instanceManagerList.listHeight=ListPageUtility.GetGeneralPageHeight(0);
+            },500);
+        },
+        data: {
+            acInterface:{
+                editView: "/HTML/WorkFlow/Manager/InstanceManagerEdit.html",
+                reloadData:"/Rest/Workflow/Instance/FlowInstance/GetMyManageEnableInstance"
+            },
+            idFieldName:"instId",
+            columnsConfig: [
+                {
+                    type: 'expand',
+                    width: 50,
+                    render: (h, params) => {
+                        return h('instance-manager-expand-row', {
+                            props: {
+                                row: params.row
+                            }
+                        })
+                    }
+                },
+                {
+                    title: '流程实例名称',
+                    key: 'instTitle',
+                    align: "center",
+                    slot: 'instTitle'
+                }, {
+                    title: '创建者',
+                    key: 'instCreator',
+                    align: "center",
+                    width: 120,
+                }, {
+                    title: '创建时间',
+                    key: 'instCreateTime',
+                    align: "center",
+                    width: 120,
+                    render: function (h, params) {
+                        return ListPageUtility.IViewTableRenderer.ToDateYYYY_MM_DD(h, params.row.instCreateTime);
+                    }
+                }, {
+                    title: '操作',
+                    key: 'dbId',
+                    width: 120,
+                    align: "center",
+                    slot: 'action'
+                }
+            ],
+            tableData: [],
+            selectionRows: null,
+            pageTotal: 0,
+            pageSize: 12,
+            pageNum: 1,
+            listHeight: ListPageUtility.DefaultListHeight()
+        },
+        methods: {
+            selectionChange: function (selection) {
+                this.selectionRows = selection;
+            },
+            reloadData: function () {
+                ListPageUtility.IViewTableBindDataBySearch({
+                    url: this.acInterface.reloadData,
+                    pageNum: this.pageNum,
+                    pageSize: this.pageSize,
+                    searchCondition:null,
+                    pageAppObj: this,
+                    tableList: this,
+                    idField: this.idFieldName,
+                    autoSelectedOldRows: true,
+                    successFunc: null,
+                    loadDict: false,
+                    custParas: {}
+                });
+            },
+            changePage: function (pageNum) {
+                this.pageNum = pageNum;
+                this.reloadData();
+                this.selectionRows=null;
+            },
+            search:function () {
+                this.pageNum=1;
+                this.reloadData();
+            },
+            edit: function (index,row) {
+                var url = BaseUtility.BuildView(this.acInterface.editView, {
+                    "op": "update",
+                    "instanceId": row.instId
+                });
+                DialogUtility.Frame_OpenIframeWindow(window, DialogUtility.DialogWorkFlowFormId, url, {title: "管理 [" + row.instTitle + "]"}, 0);
+            }
+        }
+    });
+</script>
+</body>
+</html>

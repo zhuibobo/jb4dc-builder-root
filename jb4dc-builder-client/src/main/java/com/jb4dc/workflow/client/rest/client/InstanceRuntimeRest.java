@@ -11,6 +11,7 @@ import com.jb4dc.workflow.client.service.IWorkFlowInstanceRuntimeService;
 import com.jb4dc.workflow.po.CompleteTaskResult;
 import com.jb4dc.workflow.po.ExecutionTaskPO;
 import com.jb4dc.workflow.po.FlowInstanceRuntimePO;
+import com.jb4dc.workflow.po.ResolveNextPossibleFlowNodePO;
 import com.jb4dc.workflow.po.bpmn.process.BpmnTask;
 import com.jb4dc.workflow.po.receive.ClientSelectedReceiver;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,15 +48,15 @@ public class InstanceRuntimeRest {
     }
 
     @RequestMapping(value = "/ResolveNextPossibleFlowNode",method = RequestMethod.POST)
-    public JBuild4DCResponseVo<List<BpmnTask>> resolveNextPossibleFlowNode(boolean isStartInstanceStatus,String instanceId,String currentNodeKey,String currentNodeName,String recordId, String actionCode,String flowModelRuntimePOCacheKey,String formRecordComplexPOString) throws IOException, JBuild4DCGenerallyException {
+    public JBuild4DCResponseVo<ResolveNextPossibleFlowNodePO> resolveNextPossibleFlowNode(boolean isStartInstanceStatus, String currentTaskId, String currentNodeKey, String currentNodeName, String recordId, String actionCode, String flowInstanceRuntimePOCacheKey, String formRecordComplexPOString) throws IOException, JBuild4DCGenerallyException {
 
         formRecordComplexPOString = URLDecoder.decode(formRecordComplexPOString, "utf-8");
         FormRecordComplexPO formRecordComplexPO = JsonUtility.toObjectIgnoreProp(formRecordComplexPOString, FormRecordComplexPO.class);
         Map exVars = new HashMap();
         if (isStartInstanceStatus) {
-            return workFlowInstanceRuntimeService.resolveNextPossibleFlowNode(JB4DCSessionUtility.getSession(), "", currentNodeKey, currentNodeName, actionCode, flowModelRuntimePOCacheKey, formRecordComplexPO, exVars);
+            return workFlowInstanceRuntimeService.resolveNextPossibleFlowNode(JB4DCSessionUtility.getSession(), "", currentNodeKey, currentNodeName, actionCode, flowInstanceRuntimePOCacheKey, formRecordComplexPO, exVars);
         } else {
-            return workFlowInstanceRuntimeService.resolveNextPossibleFlowNode(JB4DCSessionUtility.getSession(), instanceId, currentNodeKey, currentNodeName, actionCode, flowModelRuntimePOCacheKey, formRecordComplexPO, exVars);
+            return workFlowInstanceRuntimeService.resolveNextPossibleFlowNode(JB4DCSessionUtility.getSession(), currentTaskId, currentNodeKey, currentNodeName, actionCode, flowInstanceRuntimePOCacheKey, formRecordComplexPO, exVars);
         }
     }
 
@@ -64,12 +65,12 @@ public class InstanceRuntimeRest {
                                             String modelId,String modelReKey,
                                             String currentTaskId,String currentNodeKey,String currentNodeName,
                                             String recordId, String actionCode,
-                                            String flowModelRuntimePOCacheKey,String formRecordComplexPOString,String selectedReceiverVars) throws IOException, JBuild4DCGenerallyException, JBuild4DCSQLKeyWordException {
+                                            String flowInstanceRuntimePOCacheKey,String formRecordComplexPOString,String selectedReceiverVars) throws IOException, JBuild4DCGenerallyException, JBuild4DCSQLKeyWordException {
         formRecordComplexPOString= URLDecoder.decode(formRecordComplexPOString,"utf-8");
         FormRecordComplexPO formRecordComplexPO = JsonUtility.toObjectIgnoreProp(formRecordComplexPOString,FormRecordComplexPO.class);
         selectedReceiverVars= URLDecoder.decode(selectedReceiverVars,"utf-8");
         List<ClientSelectedReceiver> clientSelectedReceiverList= ClientSelectedReceiver.parse(selectedReceiverVars);
-        CompleteTaskResult completeTaskResult=workFlowInstanceRuntimeService.completeTask(JB4DCSessionUtility.getSession(),isStartInstanceStatus,modelId,modelReKey,currentTaskId,currentNodeKey,currentNodeName,actionCode,flowModelRuntimePOCacheKey,formRecordComplexPO,clientSelectedReceiverList,recordId,null);
+        CompleteTaskResult completeTaskResult=workFlowInstanceRuntimeService.completeTask(JB4DCSessionUtility.getSession(),isStartInstanceStatus,modelId,modelReKey,currentTaskId,currentNodeKey,currentNodeName,actionCode,flowInstanceRuntimePOCacheKey,formRecordComplexPO,clientSelectedReceiverList,recordId,null);
         return completeTaskResult;
     }
 }

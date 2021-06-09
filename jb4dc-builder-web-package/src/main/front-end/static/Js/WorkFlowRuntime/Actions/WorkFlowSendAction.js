@@ -6,25 +6,25 @@ let WorkFlowSendAction={
     _Prop:{
 
     },
-    Instance:function (flowModelRuntimePO,flowModelRuntimePOCacheKey,jb4dcActions,formRuntimeInst,actionObj,isStartInstanceStatus,pageHostInstance,currentNodeKey,currentNodeName,recordId,modelId,modelReKey,currentTaskId) {
+    Instance:function (isStartInstanceStatus,formRuntimeInst,pageHostInstance,pageReadyInnerParas,actionObj) {
         console.log(actionObj);
         var htmlId = actionObj.actionHTMLId ? actionObj.actionHTMLId : actionObj.actionCode;
         var elem = $('<button type="button" class="operation-button operation-button-primary" id="' + htmlId + '"><span>' + actionObj.actionCaption + '</span></button>');
         this._Prop = {
             "sender": this,
-            "flowModelRuntimePO": flowModelRuntimePO,
-            "flowModelRuntimePOCacheKey": flowModelRuntimePOCacheKey,
-            "jb4dcActions": jb4dcActions,
+            "flowInstanceRuntimePO": pageReadyInnerParas.flowInstanceRuntimePO,
+            "flowInstanceRuntimePOCacheKey": pageReadyInnerParas.flowInstanceRuntimePOCacheKey,
+            "jb4dcActions": pageReadyInnerParas.jb4dcActions,
             "formRuntimeInst": formRuntimeInst,
             "actionObj": actionObj,
             "isStartInstanceStatus": isStartInstanceStatus,
             "pageHostInstance": pageHostInstance,
-            "currentNodeKey": currentNodeKey,
-            "currentNodeName": currentNodeName,
-            "recordId":recordId,
-            "modelId":modelId,
-            "modelReKey":modelReKey,
-            "currentTaskId":currentTaskId
+            "currentNodeKey": pageReadyInnerParas.currentNodeKey,
+            "currentNodeName": pageReadyInnerParas.currentNodeName,
+            "recordId":pageReadyInnerParas.recordId,
+            "modelId":pageReadyInnerParas.modelId,
+            "modelReKey":pageReadyInnerParas.modelReKey,
+            "currentTaskId":pageReadyInnerParas.currentTaskId
         }
         elem.bind("click", this._Prop, this.ButtonClickEvent);
         return {
@@ -41,7 +41,7 @@ let WorkFlowSendAction={
             AjaxUtility.Post(WorkFlowBaseAction.acInterface.resolveNextPossibleFlowNode, {
                 isStartInstanceStatus: sender.data.isStartInstanceStatus,
                 actionCode: sender.data.actionObj.actionCode,
-                flowModelRuntimePOCacheKey: sender.data.flowModelRuntimePOCacheKey,
+                flowInstanceRuntimePOCacheKey: sender.data.flowInstanceRuntimePOCacheKey,
                 "formRecordComplexPOString": encodeURIComponent(JsonUtility.JsonToString(formDataComplexPO)),
             }, function (result) {
                 DialogUtility.CloseDialog(DialogUtility.DialogLoadingId);
@@ -64,7 +64,17 @@ let WorkFlowSendAction={
                     DialogUtility.CloseDialog(DialogUtility.DialogLoadingId);
                     //DialogUtility.CloseDialog(DialogUtility.DialogLoadingId);
                     console.log(result);
-                    UserTaskReceiverDialogUtility.ShowDialog(_prop.sender, result.data, _prop.sender.SelectReceiverCompleted);
+                    if(result.data.nextTaskIsEndEvent){
+                        this.SelectReceiverCompleted(result.data.bpmnTaskList,[])
+                    }
+                    else if(result.data.currentTaskIsMultiInstance&&(result.data.currentTaskMultiCompletedInstances+1)<result.data.currentTaskMultiCountEngInstances){
+                        this.SelectReceiverCompleted(result.data.bpmnTaskList,[])
+                    }
+                    else{
+                        //单实例环节或者多实例环境的最后一人
+                        UserTaskReceiverDialogUtility.ShowDialog(_prop.sender, result.data.bpmnTaskList, _prop.sender.SelectReceiverCompleted);
+                    }
+
                 }, _prop.sender);
             }
         }
@@ -86,8 +96,9 @@ let WorkFlowSendAction={
                 AjaxUtility.Post(this.acInterface.completeTask, sendData.data, function (result) {
                     DialogUtility.CloseDialog(DialogUtility.DialogLoadingId);
                     if(result.success) {
-                        DialogUtility.Confirm(window, result.message, function () {
-
+                        window.OpenerWindowObj.instanceMainTaskProcessList.reloadData();
+                        DialogUtility.Alert(window,DialogUtility.DialogAlertId,{}, result.message, function () {
+                            DialogUtility.Frame_CloseDialog(window);
                         }, this);
                     }
                     else {
@@ -104,7 +115,7 @@ let WorkFlowSendAction={
             data: {
                 isStartInstanceStatus: _prop.isStartInstanceStatus,
                 actionCode: _prop.actionObj.actionCode,
-                flowModelRuntimePOCacheKey: _prop.flowModelRuntimePOCacheKey,
+                flowInstanceRuntimePOCacheKey: _prop.flowInstanceRuntimePOCacheKey,
                 "formRecordComplexPOString": encodeURIComponent(JsonUtility.JsonToString(formDataComplexPO)),
                 "currentNodeKey": _prop.currentNodeKey,
                 "currentNodeName": _prop.currentNodeName,

@@ -2,14 +2,19 @@
 <html lang="zh" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title1</title>
-    <th:block th:replace="Fragment/GeneralLib::WorkFlowRuntimeLib"></th:block>
+    <title>Title221</title>
+
     <th:block th:replace="Fragment/GeneralLib::ThemesLib"></th:block>
     <th:block th:replace="Fragment/GeneralLib::LineAwesomeLib"></th:block>
+    <style>
+        .a{
+            height: calc(100% - 50px);
+        }
+    </style>
 </head>
 <body>
 <div id="flowInstanceViewContainer" class="general-edit-page-wrap" v-cloak>
-    <div id="htmlDesignRuntimeWrap" style="overflow: auto"></div>
+    <div id="htmlDesignRuntimeWrap" style="overflow: auto;position: absolute;top:0px;bottom: 41px;left: 0px;right: 0px;"></div>
     <div class="html-design-operation-button-outer-wrap">
         <div class="html-design-button-inner-wrap">
             <div class="html-design-buttons-group" id="flowWorkActionButtonWrapOuter">
@@ -17,8 +22,17 @@
         </div>
     </div>
 </div>
+<th:block th:replace="Fragment/GeneralLib::WorkFlowRuntimeLib"></th:block>
 <script>
     var flowRuntimePageObject;
+
+    /*var flowBpmnJsModelerView=window.ExFlowBpmnJsModelerView.CreateInstance({
+        RendererToElemId: "flow-canvas",
+        FlowBpmnJsContainer: null,
+        ChangeSelectedElemCB: null,
+        Op: BaseUtility.GetViewOperationName(),
+        TemplateName: ""
+    }, result);*/
 
     var flowInstanceViewVueContainer = new Vue({
         el:"#flowInstanceViewContainer",
@@ -35,14 +49,17 @@
 
             AjaxUtility.Get(this.acInterface.getRuntimeModelWithStart, {extaskId: this.viewPara.extaskId}, function (result) {
                 console.log(result);
-
+                console.log(JsonUtility.JsonToString(result));
                 BaseUtility.SetSystemFavicon();
-                var isStartInstanceStatus = true;
-                flowRuntimePageObject = FlowRuntimePageObject.pageReadyForStartStatus(isStartInstanceStatus, function () {
+                flowRuntimePageObject = FlowRuntimePageObject.pageReadyForProcessStatus(false, function () {
 
-                    }, result.data, result.cacheKey, this, result.data.currentNodeKey, result.data.currentNodeName,
-                    result.data.modelIntegratedEntity.modelId, result.data.modelReKey, ""
-                );
+                }, result.data,result.cacheKey,this);
+
+                //var windowHeight=formRuntimeInst.GetWebFormRTParas().WindowHeight;
+                //if(windowHeight) {
+                    //console.log(PageStyleUtility.GetPageHeight());
+                    //$("#htmlDesignRuntimeWrap").height(PageStyleUtility.GetPageHeight() - 60);
+                //}
             }, this);
         },
         methods: {

@@ -1,13 +1,13 @@
 var ActionsRuntimeObject={
-    CreateALLActionButton:function (flowModelRuntimePO,flowModelRuntimePOCacheKey,jb4dcActions,formRuntimeInst,isStartInstanceStatus,pageHostInstance,currentNodeKey,currentNodeName,recordId,modelId,modelReKey,currentTaskId) {
-        if(jb4dcActions&&jb4dcActions.jb4dcActionList){
+    CreateALLActionButton:function (isStartInstanceStatus,formRuntimeInst,pageHostInstance,pageReadyInnerParas) {
+        if(pageReadyInnerParas.jb4dcActions&&pageReadyInnerParas.jb4dcActions.jb4dcActionList){
             var buttonElem;
-            for (let i = 0; i < jb4dcActions.jb4dcActionList.length; i++) {
-                let actionObj = jb4dcActions.jb4dcActionList[i];
+            for (let i = 0; i < pageReadyInnerParas.jb4dcActions.jb4dcActionList.length; i++) {
+                let actionObj = pageReadyInnerParas.jb4dcActions.jb4dcActionList[i];
                 if (actionObj.juelRunResultPO.booleanResult) {
                     if (actionObj.actionType == "send") {
                         var sendActionObject = Object.create(WorkFlowSendAction);
-                        buttonElem = sendActionObject.Instance(flowModelRuntimePO, flowModelRuntimePOCacheKey, jb4dcActions, formRuntimeInst, actionObj, isStartInstanceStatus,pageHostInstance,currentNodeKey,currentNodeName,recordId,modelId,modelReKey,currentTaskId);
+                        buttonElem = sendActionObject.Instance(isStartInstanceStatus,formRuntimeInst,pageHostInstance,pageReadyInnerParas,actionObj);
                     }
                     $("#flowWorkActionButtonWrapOuter").append(buttonElem.elem);
                 }

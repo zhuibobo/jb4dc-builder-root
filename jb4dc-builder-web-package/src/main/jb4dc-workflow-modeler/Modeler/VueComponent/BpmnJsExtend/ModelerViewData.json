@@ -1,0 +1,1897 @@
+{
+  "success": true,
+  "message": "获取数据成功!",
+  "cacheKey": "3bd2f072-435e-4b6f-8b85-ac380c7b962c",
+  "traceMsg": null,
+  "errorCode": null,
+  "data": {
+    "modelIntegratedEntity": {
+      "modelId": "Flow_Model_1619519188394:42",
+      "modelReEd": "是",
+      "modelReId": "Flow_Model_1619519188394:42:21c3a816-c351-11eb-9148-005056c00001",
+      "modelReSuccess": "是",
+      "modelReKey": "Flow_Model_1619519188394",
+      "modelModuleId": "1e0d5c87-b786-4d56-a6e7-907da681ca7e",
+      "modelCode": "100018",
+      "modelFlowCategory": "GeneralProcess",
+      "modelImageClass": "lab la-elementor",
+      "modelPesTitleText": "${流程变量.ModelName}-【${流程变量.InstanceCreator}】-「${流程变量.InstanceCreatTime_yyyy_MM_dd}」",
+      "modelPesTitleValue": "${__$FlowVar$$ModelName$}-【${__$FlowVar$$InstanceCreator$}】-「${__$FlowVar$$InstanceCreatTime_yyyy_MM_dd$}」",
+      "modelPesDescText": null,
+      "modelPesDescValue": null,
+      "modelPesRestartEnb": "true",
+      "modelPesAnyJumpEnb": "true",
+      "modelName": "项目立项审批流程",
+      "modelCreateTime": "2021-06-02 11:17:58",
+      "modelCreator": "Alex4D",
+      "modelUpdateTime": "2021-06-02 11:17:58",
+      "modelUpdater": "Alex4D",
+      "modelDesc": "",
+      "modelStatus": "启用",
+      "modelOrderNum": 59,
+      "modelDeploymentId": "21ac2874-c351-11eb-9148-005056c00001",
+      "modelResourceName": "BuilderWebDesign",
+      "modelFromType": "BuilderWebDesign",
+      "modelSaveVersion": 42,
+      "modelLastVersion": "是",
+      "modelTenantId": "BuilderGeneralTenant",
+      "modelLastReEd": "是",
+      "modelContent": ""
+    },
+    "bpmnDefinitions": {
+      "id": "Definitions_1ihhr4m",
+      "targetNamespace": "http://bpmn.io/schema/bpmn",
+      "exporter": "Camunda Modeler",
+      "exporterVersion": "4.7.0",
+      "bpmnProcess": {
+        "id": "Flow_Model_1619519188394",
+        "name": "项目立项审批流程",
+        "isExecutable": "true",
+        "candidateStarterGroups": "SystemOrganAdmin,SSOMainAppRole-General-Role,BuilderMainAppRole-General-Role,QCMainAppRoleGroup-General-Role",
+        "candidateStarterUsers": "834b97a7-7fd0-46ba-b87b-4113b1303c59,2d6945a3-46d8-42d2-babf-6f9e402d46e3,52cee6fd-6809-41d9-825e-aaf8b9582112",
+        "versionTag": null,
+        "jb4dcCode": "Flow_Model_JB4DC_Code_1619519188394",
+        "jb4dcFlowCategory": "GeneralProcess",
+        "jb4dcFormId": "b2eab4d0-8bf1-4ddb-919f-1200da383ecc",
+        "jb4dcFormEx1Id": null,
+        "jb4dcOuterFormUrl": null,
+        "jb4dcOuterFormEx1Url": null,
+        "jb4dcFormPlugin": "webFormPlugin",
+        "jb4dcFormParas": null,
+        "jb4dcFormEx1Plugin": "webFormPlugin",
+        "jb4dcFormEx1Paras": null,
+        "jb4dcUseContentDocument": "byProcessConfig",
+        "jb4dcContentDocumentPlugin": "uploadConvertToPDFPlugin",
+        "jb4dcContentDocumentRedHeadTemplate": null,
+        "jb4dcTenantId": "JBuild4DC-Tenant",
+        "jb4dcProcessTitleEditText": "${流程变量.ModelName}-【${流程变量.InstanceCreator}】-「${流程变量.InstanceCreatTime_yyyy_MM_dd}」",
+        "jb4dcProcessTitleEditValue": "${__$FlowVar$$ModelName$}-【${__$FlowVar$$InstanceCreator$}】-「${__$FlowVar$$InstanceCreatTime_yyyy_MM_dd$}」",
+        "jb4dcProcessDescriptionEditText": null,
+        "jb4dcProcessDescriptionEditValue": null,
+        "jb4dcProcessModelImageClass": "lab la-elementor",
+        "jb4dcProcessModelManagerGroups": "[{\"roleId\":\"DataFilter-With-DataSet-AllData\",\"rolePath\":\"数据过滤角色组▷▷数据集过滤-查看全部数据\",\"roleName\":\"数据集过滤-查看全部数据\"},{\"roleId\":\"SSOMainAppRole-General-Role\",\"rolePath\":\"单点登录系统角色组▷▷单点登录通用角色\",\"roleName\":\"单点登录通用角色\"},{\"roleId\":\"QCMainAppRoleGroup-General-Role\",\"rolePath\":\"运维管理系统角色组▷▷运维管理通用角色\",\"roleName\":\"运维管理通用角色\"}]",
+        "jb4dcProcessModelManagerUsers": "[{\"userId\":\"2d6945a3-46d8-42d2-babf-6f9e402d46e3\",\"userPath\":\"行政区划▷▷澳头街道办▷▷南边灶村▷▷南边灶三号网格▷▷黄耀龙\",\"userName\":\"黄耀龙\"},{\"userId\":\"8ac17550-bbb5-4016-b1b6-557de8dc74cd\",\"userPath\":\"行政区划▷▷澳头街道办▷▷南边灶村▷▷南边灶四号网格▷▷陈垲邦\",\"userName\":\"陈垲邦\"},{\"userId\":\"52cee6fd-6809-41d9-825e-aaf8b9582112\",\"userPath\":\"行政区划▷▷澳头街道办▷▷南边灶村▷▷南边灶系统测试网格▷▷南边灶测网5002\",\"userName\":\"南边灶测网5002\"}]",
+        "jb4dcProcessCandidateStarterGroups": "[{\"roleId\":\"SystemOrganAdmin\",\"rolePath\":\"系统管理角色组▷▷系统管理员\",\"roleName\":\"系统管理员\"},{\"roleId\":\"SSOMainAppRole-General-Role\",\"rolePath\":\"单点登录系统角色组▷▷单点登录通用角色\",\"roleName\":\"单点登录通用角色\"},{\"roleId\":\"BuilderMainAppRole-General-Role\",\"rolePath\":\"应用构建系统角色组▷▷应用构建通用角色\",\"roleName\":\"应用构建通用角色\"},{\"roleId\":\"QCMainAppRoleGroup-General-Role\",\"rolePath\":\"运维管理系统角色组▷▷运维管理通用角色\",\"roleName\":\"运维管理通用角色\"}]",
+        "jb4dcProcessCandidateStarterUsers": "[{\"userId\":\"834b97a7-7fd0-46ba-b87b-4113b1303c59\",\"userPath\":\"行政区划▷▷澳头街道办▷▷南边灶村▷▷南边灶一号网格▷▷陈咏瑜\",\"userName\":\"陈咏瑜\"},{\"userId\":\"2d6945a3-46d8-42d2-babf-6f9e402d46e3\",\"userPath\":\"行政区划▷▷澳头街道办▷▷南边灶村▷▷南边灶三号网格▷▷黄耀龙\",\"userName\":\"黄耀龙\"},{\"userId\":\"52cee6fd-6809-41d9-825e-aaf8b9582112\",\"userPath\":\"行政区划▷▷澳头街道办▷▷南边灶村▷▷南边灶系统测试网格▷▷南边灶测网5002\",\"userName\":\"南边灶测网5002\"}]",
+        "jb4dcProcessActionConfirm": "true",
+        "jb4dcProcessRestartEnable": "true",
+        "jb4dcProcessModelGroups": "[]",
+        "jb4dcProcessAnyJumpEnable": "true",
+        "documentation": {
+          "text": ""
+        },
+        "extensionElements": null,
+        "startEvent": {
+          "id": "StartEvent_N1",
+          "name": "开始",
+          "documentation": {
+            "text": ""
+          },
+          "extensionElements": {
+            "camundaExecutionListenerList": null,
+            "camundaProperties": null,
+            "jb4dcMainReceiveObjects": null,
+            "jb4dcCCReceiveObjects": null,
+            "jb4dcActions": {
+              "jb4dcActionList": [
+                {
+                  "actionType": "send",
+                  "actionCode": "action_516009775",
+                  "actionCaption": "草稿",
+                  "actionShowOpinionDialog": "false",
+                  "actionDisplayConditionEditText": "​",
+                  "actionDisplayConditionEditValue": null,
+                  "actionCallJsMethod": null,
+                  "actionHTMLId": null,
+                  "actionHTMLClass": null,
+                  "actionRunSqls": "[]",
+                  "actionUpdateFields": "[]",
+                  "actionCallApis": "[]",
+                  "actionExecuteVariables": "[]",
+                  "actionConfirm": "false",
+                  "actionValidate": "无",
+                  "actionsOpinionBindToField": null,
+                  "actionsOpinionBindToElemId": null,
+                  "actionMainReceiveObjects": "[{\"receiveObjectCode\":\"receiveObject_603841326\",\"receiveObjectType\":\"flowAboutUser\",\"receiveObjectGroupName\":\"\",\"receiveObjectValue\":\"instanceStarter\",\"receiveObjectText\":\"流程实例发起人\",\"receiveObjectConfig\":\"\"}]",
+                  "actionCCReceiveObjects": "[]",
+                  "actionAutoSend": "false",
+                  "actionSendMessageId": null,
+                  "actionSendSignalId": null,
+                  "actionCallComplete": "true",
+                  "juelRunResultPO": null
+                },
+                {
+                  "actionType": "send",
+                  "actionCode": "action_515976189",
+                  "actionCaption": "送部门经理",
+                  "actionShowOpinionDialog": "false",
+                  "actionDisplayConditionEditText": null,
+                  "actionDisplayConditionEditValue": null,
+                  "actionCallJsMethod": null,
+                  "actionHTMLId": null,
+                  "actionHTMLClass": null,
+                  "actionRunSqls": "[]",
+                  "actionUpdateFields": "[]",
+                  "actionCallApis": "[{\"apiId\":\"GeneralPrintLogActionApi\",\"apiName\":\"将动作Api参数写入到日志\",\"runAt\":\"before\"},{\"apiId\":\"GeneralPrintLogActionApi\",\"apiName\":\"将动作Api参数写入到日志\",\"runAt\":\"after\"}]",
+                  "actionExecuteVariables": "[]",
+                  "actionConfirm": "false",
+                  "actionValidate": "无",
+                  "actionsOpinionBindToField": null,
+                  "actionsOpinionBindToElemId": null,
+                  "actionMainReceiveObjects": "[]",
+                  "actionCCReceiveObjects": "[]",
+                  "actionAutoSend": "false",
+                  "actionSendMessageId": null,
+                  "actionSendSignalId": null,
+                  "actionCallComplete": "true",
+                  "juelRunResultPO": null
+                },
+                {
+                  "actionType": "send",
+                  "actionCode": "action_526152327",
+                  "actionCaption": "送总经理",
+                  "actionShowOpinionDialog": "false",
+                  "actionDisplayConditionEditText": "${流程变量.InstanceCreator==\"袁红林\"}",
+                  "actionDisplayConditionEditValue": "${__$FlowVar$$InstanceCreator$==\"袁红林\"}",
+                  "actionCallJsMethod": null,
+                  "actionHTMLId": null,
+                  "actionHTMLClass": null,
+                  "actionRunSqls": "[]",
+                  "actionUpdateFields": "[]",
+                  "actionCallApis": "[]",
+                  "actionExecuteVariables": "[]",
+                  "actionConfirm": "false",
+                  "actionValidate": "无",
+                  "actionsOpinionBindToField": null,
+                  "actionsOpinionBindToElemId": null,
+                  "actionMainReceiveObjects": "[]",
+                  "actionCCReceiveObjects": "[]",
+                  "actionAutoSend": "false",
+                  "actionSendMessageId": null,
+                  "actionSendSignalId": null,
+                  "actionCallComplete": "true",
+                  "juelRunResultPO": null
+                },
+                {
+                  "actionType": "send",
+                  "actionCode": "action_896686771",
+                  "actionCaption": "直接立项服务",
+                  "actionShowOpinionDialog": "false",
+                  "actionDisplayConditionEditText": null,
+                  "actionDisplayConditionEditValue": null,
+                  "actionCallJsMethod": null,
+                  "actionHTMLId": null,
+                  "actionHTMLClass": null,
+                  "actionRunSqls": "[]",
+                  "actionUpdateFields": "[]",
+                  "actionCallApis": "[]",
+                  "actionExecuteVariables": "[]",
+                  "actionConfirm": "false",
+                  "actionValidate": "无",
+                  "actionsOpinionBindToField": null,
+                  "actionsOpinionBindToElemId": null,
+                  "actionMainReceiveObjects": "[]",
+                  "actionCCReceiveObjects": "[]",
+                  "actionAutoSend": "false",
+                  "actionSendMessageId": null,
+                  "actionSendSignalId": null,
+                  "actionCallComplete": "true",
+                  "juelRunResultPO": null
+                },
+                {
+                  "actionType": "send",
+                  "actionCode": "action_955710861",
+                  "actionCaption": "送并行网关",
+                  "actionShowOpinionDialog": "false",
+                  "actionDisplayConditionEditText": null,
+                  "actionDisplayConditionEditValue": null,
+                  "actionCallJsMethod": null,
+                  "actionHTMLId": null,
+                  "actionHTMLClass": null,
+                  "actionRunSqls": "[]",
+                  "actionUpdateFields": "[]",
+                  "actionCallApis": "[]",
+                  "actionExecuteVariables": "[]",
+                  "actionConfirm": "false",
+                  "actionValidate": "无",
+                  "actionsOpinionBindToField": null,
+                  "actionsOpinionBindToElemId": null,
+                  "actionMainReceiveObjects": "[]",
+                  "actionCCReceiveObjects": "[]",
+                  "actionAutoSend": "false",
+                  "actionSendMessageId": null,
+                  "actionSendSignalId": null,
+                  "actionCallComplete": "true",
+                  "juelRunResultPO": null
+                }
+              ]
+            },
+            "jb4dcAuthorities": null,
+            "camundaInputOutput": null,
+            "camundaTaskListenerList": null
+          },
+          "outgoingList": [
+            {
+              "text": "Flow_StartEvent_To_FirstUTNode"
+            },
+            {
+              "text": "Flow_1lh2z20"
+            },
+            {
+              "text": "Flow_19sxcty"
+            },
+            {
+              "text": "Flow_0qnp1dy"
+            },
+            {
+              "text": "Flow_0qrljwr"
+            }
+          ],
+          "messageEventDefinition": null,
+          "timerEventDefinition": null,
+          "jb4dcCode": null,
+          "jb4dcFormId": null,
+          "jb4dcFormEx1Id": null,
+          "jb4dcOuterFormUrl": null,
+          "jb4dcOuterFormEx1Url": null,
+          "jb4dcFormPlugin": "webFormPlugin",
+          "jb4dcFormParas": null,
+          "jb4dcFormEx1Plugin": "webFormPlugin",
+          "jb4dcFormEx1Paras": null,
+          "jb4dcUseContentDocument": "byProcessConfig",
+          "jb4dcContentDocumentPlugin": null,
+          "jb4dcContentDocumentRedHeadTemplate": null,
+          "jb4dcProcessTitleEditText": null,
+          "jb4dcProcessTitleEditValue": null,
+          "jb4dcProcessDescriptionEditText": null,
+          "jb4dcProcessDescriptionEditValue": null
+        },
+        "endEventList": [
+          {
+            "id": "EndEvent_N1",
+            "name": "结束",
+            "taskTypeName": null,
+            "documentation": null,
+            "extensionElements": null,
+            "incomingList": [
+              {
+                "text": "Flow_0hw0ibj"
+              },
+              {
+                "text": "Flow_095ed4g"
+              },
+              {
+                "text": "Flow_0gilvgt"
+              }
+            ],
+            "outgoingList": null,
+            "multiInstanceLoopCharacteristics": null,
+            "assignee": null,
+            "candidateUsers": null,
+            "candidateGroups": null,
+            "dueDate": null,
+            "followUpDate": null,
+            "priority": null,
+            "jb4dcCode": null,
+            "jb4dcFormId": null,
+            "jb4dcFormEx1Id": null,
+            "jb4dcOuterFormUrl": null,
+            "jb4dcOuterFormEx1Url": null,
+            "jb4dcFormPlugin": null,
+            "jb4dcFormParas": null,
+            "jb4dcFormEx1Plugin": null,
+            "jb4dcFormEx1Paras": null,
+            "jb4dcProcessTitleEditText": null,
+            "jb4dcProcessTitleEditValue": null,
+            "jb4dcProcessDescriptionEditText": null,
+            "jb4dcProcessDescriptionEditValue": null,
+            "jb4dcCandidateUsersDesc": null,
+            "jb4dcCandidateGroupsDesc": null,
+            "jb4dcUseContentDocument": null,
+            "jb4dcContentDocumentPlugin": null,
+            "jb4dcContentDocumentRedHeadTemplate": null,
+            "multiInstanceType": null,
+            "terminateEventDefinition": null,
+            "multiInstanceTask": false
+          }
+        ],
+        "taskList": null,
+        "userTaskList": [
+          {
+            "id": "UserTask_Activity_N1",
+            "name": "发起人",
+            "taskTypeName": "com.jb4dc.workflow.po.bpmn.process.BpmnUserTask",
+            "documentation": {
+              "text": ""
+            },
+            "extensionElements": {
+              "camundaExecutionListenerList": null,
+              "camundaProperties": null,
+              "jb4dcMainReceiveObjects": {
+                "jb4dcReceiveObjectList": [
+                  {
+                    "receiveObjectCode": "receiveObject_603875912",
+                    "receiveObjectType": "Users",
+                    "receiveObjectGroupName": null,
+                    "receiveObjectValue": "834b97a7-7fd0-46ba-b87b-4113b1303c59",
+                    "receiveObjectText": "行政区划▷▷澳头街道办▷▷南边灶村▷▷南边灶一号网格▷▷陈咏瑜",
+                    "receiveObjectConfig": null
+                  }
+                ],
+                "runtimeReceiveGroups": null
+              },
+              "jb4dcCCReceiveObjects": {
+                "jb4dcReceiveObjectList": null,
+                "runtimeReceiveGroups": null
+              },
+              "jb4dcActions": {
+                "jb4dcActionList": [
+                  {
+                    "actionType": "send",
+                    "actionCode": "action_516058607",
+                    "actionCaption": "送部门经理",
+                    "actionShowOpinionDialog": "false",
+                    "actionDisplayConditionEditText": null,
+                    "actionDisplayConditionEditValue": null,
+                    "actionCallJsMethod": null,
+                    "actionHTMLId": null,
+                    "actionHTMLClass": null,
+                    "actionRunSqls": "[]",
+                    "actionUpdateFields": "[]",
+                    "actionCallApis": "[]",
+                    "actionExecuteVariables": "[]",
+                    "actionConfirm": "false",
+                    "actionValidate": "无",
+                    "actionsOpinionBindToField": null,
+                    "actionsOpinionBindToElemId": null,
+                    "actionMainReceiveObjects": "[]",
+                    "actionCCReceiveObjects": "[]",
+                    "actionAutoSend": "false",
+                    "actionSendMessageId": null,
+                    "actionSendSignalId": null,
+                    "actionCallComplete": "true",
+                    "juelRunResultPO": null
+                  }
+                ]
+              },
+              "jb4dcAuthorities": {
+                "authoritiesUsed": "true",
+                "authoritiesOnlySendBackCanEdit": "false",
+                "authoritiesAllFieldAuthority": "{\"editALL\":\"true\",\"viewAll\":\"true\",\"emptyEditAll\":\"true\"}",
+                "authoritiesFileAuthority": "{\"addFile\":\"true\",\"deleteFile\":\"true\",\"viewFile\":\"true\",\"packageDown\":\"true\"}",
+                "authoritiesDocumentAuthority": "{\"edit\":\"true\",\"addComment\":\"true\",\"view\":\"true\",\"viewHistory\":\"true\"}",
+                "authoritiesJsApi": null,
+                "authoritiesJavaApi": null,
+                "authoritiesDesc": null,
+                "jb4dcAuthorityList": null
+              },
+              "camundaInputOutput": null,
+              "camundaTaskListenerList": null
+            },
+            "incomingList": [
+              {
+                "text": "Flow_StartEvent_To_FirstUTNode"
+              },
+              {
+                "text": "Flow_0qmmvbd"
+              },
+              {
+                "text": "Flow_1bq6tb2"
+              },
+              {
+                "text": "Flow_02a24uk"
+              }
+            ],
+            "outgoingList": [
+              {
+                "text": "Flow_0968hmz"
+              }
+            ],
+            "multiInstanceLoopCharacteristics": null,
+            "assignee": "${UserTask_Activity_N1_Assignee_User}",
+            "candidateUsers": null,
+            "candidateGroups": null,
+            "dueDate": null,
+            "followUpDate": null,
+            "priority": null,
+            "jb4dcCode": null,
+            "jb4dcFormId": null,
+            "jb4dcFormEx1Id": null,
+            "jb4dcOuterFormUrl": null,
+            "jb4dcOuterFormEx1Url": null,
+            "jb4dcFormPlugin": "webFormPlugin",
+            "jb4dcFormParas": null,
+            "jb4dcFormEx1Plugin": "webFormPlugin",
+            "jb4dcFormEx1Paras": null,
+            "jb4dcProcessTitleEditText": null,
+            "jb4dcProcessTitleEditValue": null,
+            "jb4dcProcessDescriptionEditText": null,
+            "jb4dcProcessDescriptionEditValue": null,
+            "jb4dcCandidateUsersDesc": null,
+            "jb4dcCandidateGroupsDesc": null,
+            "jb4dcUseContentDocument": "byProcessConfig",
+            "jb4dcContentDocumentPlugin": null,
+            "jb4dcContentDocumentRedHeadTemplate": null,
+            "multiInstanceType": "Single",
+            "multiInstanceTask": false
+          },
+          {
+            "id": "Activity_04kw6xw",
+            "name": "部门审批",
+            "taskTypeName": "com.jb4dc.workflow.po.bpmn.process.BpmnUserTask",
+            "documentation": {
+              "text": ""
+            },
+            "extensionElements": {
+              "camundaExecutionListenerList": null,
+              "camundaProperties": null,
+              "jb4dcMainReceiveObjects": {
+                "jb4dcReceiveObjectList": [
+                  {
+                    "receiveObjectCode": "receiveObject_992218500",
+                    "receiveObjectType": "Users",
+                    "receiveObjectGroupName": "",
+                    "receiveObjectValue": "834b97a7-7fd0-46ba-b87b-4113b1303c59,21ae6b28-dcd4-4f3f-b00f-c3b884f96d7e,2d6945a3-46d8-42d2-babf-6f9e402d46e3",
+                    "receiveObjectText": "行政区划▷▷澳头街道办▷▷南边灶村▷▷南边灶一号网格▷▷陈咏瑜,行政区划▷▷澳头街道办▷▷南边灶村▷▷南边灶二号网格▷▷何香茹,行政区划▷▷澳头街道办▷▷南边灶村▷▷南边灶三号网格▷▷黄耀龙",
+                    "receiveObjectConfig": null
+                  },
+                  {
+                    "receiveObjectCode": "receiveObject_992222898",
+                    "receiveObjectType": "Users",
+                    "receiveObjectGroupName": "",
+                    "receiveObjectValue": "8ac17550-bbb5-4016-b1b6-557de8dc74cd",
+                    "receiveObjectText": "行政区划▷▷澳头街道办▷▷南边灶村▷▷南边灶四号网格▷▷陈垲邦",
+                    "receiveObjectConfig": null
+                  },
+                  {
+                    "receiveObjectCode": "receiveObject_992226841",
+                    "receiveObjectType": "Organs",
+                    "receiveObjectGroupName": "",
+                    "receiveObjectValue": "4480608b-cb6f-4bff-9030-a656463fefbf,bf653078-8830-43c7-a625-f5385bfc8b8f",
+                    "receiveObjectText": "行政区划▷▷澳头街道办▷▷南边灶村▷▷南边灶一号网格,行政区划▷▷澳头街道办▷▷南边灶村▷▷南边灶二号网格",
+                    "receiveObjectConfig": null
+                  },
+                  {
+                    "receiveObjectCode": "receiveObject_992235974",
+                    "receiveObjectType": "Role",
+                    "receiveObjectGroupName": "",
+                    "receiveObjectValue": "GridMainAppRoleGroup-Dept-Role,GridMainAppRoleGroup-Street-Role,GridMainAppRoleGroup-Community-Role",
+                    "receiveObjectText": "网格化社会管理系统角色组▷▷部门角色,网格化社会管理系统角色组▷▷乡镇街道角色,网格化社会管理系统角色组▷▷村社区角色",
+                    "receiveObjectConfig": "全局"
+                  }
+                ],
+                "runtimeReceiveGroups": null
+              },
+              "jb4dcCCReceiveObjects": {
+                "jb4dcReceiveObjectList": [
+                  {
+                    "receiveObjectCode": "receiveObject_992269059",
+                    "receiveObjectType": "Role",
+                    "receiveObjectGroupName": "",
+                    "receiveObjectValue": "SSOMainAppRole-General-Role,BuilderMainAppRole-General-Role,GridMainAppRoleGroup-Center-Role,GridMainAppRoleGroup-Dept-Role,GridMainAppRoleGroup-Street-Role",
+                    "receiveObjectText": "单点登录系统角色组▷▷单点登录通用角色,应用构建系统角色组▷▷应用构建通用角色,网格化社会管理系统角色组▷▷指挥中心角色,网格化社会管理系统角色组▷▷部门角色,网格化社会管理系统角色组▷▷乡镇街道角色",
+                    "receiveObjectConfig": "全局"
+                  }
+                ],
+                "runtimeReceiveGroups": null
+              },
+              "jb4dcActions": {
+                "jb4dcActionList": [
+                  {
+                    "actionType": "send",
+                    "actionCode": "action_516191836",
+                    "actionCaption": "送分管领导",
+                    "actionShowOpinionDialog": "false",
+                    "actionDisplayConditionEditText": null,
+                    "actionDisplayConditionEditValue": null,
+                    "actionCallJsMethod": null,
+                    "actionHTMLId": null,
+                    "actionHTMLClass": null,
+                    "actionRunSqls": "[]",
+                    "actionUpdateFields": "[]",
+                    "actionCallApis": "[]",
+                    "actionExecuteVariables": "[]",
+                    "actionConfirm": "false",
+                    "actionValidate": "无",
+                    "actionsOpinionBindToField": null,
+                    "actionsOpinionBindToElemId": null,
+                    "actionMainReceiveObjects": "[]",
+                    "actionCCReceiveObjects": "[]",
+                    "actionAutoSend": "false",
+                    "actionSendMessageId": null,
+                    "actionSendSignalId": null,
+                    "actionCallComplete": "true",
+                    "juelRunResultPO": {
+                      "success": true,
+                      "message": "",
+                      "stringResult": "",
+                      "booleanResult": true
+                    }
+                  },
+                  {
+                    "actionType": "send",
+                    "actionCode": "action_516202644",
+                    "actionCaption": "退回",
+                    "actionShowOpinionDialog": "false",
+                    "actionDisplayConditionEditText": null,
+                    "actionDisplayConditionEditValue": null,
+                    "actionCallJsMethod": null,
+                    "actionHTMLId": null,
+                    "actionHTMLClass": null,
+                    "actionRunSqls": "[]",
+                    "actionUpdateFields": "[]",
+                    "actionCallApis": "[]",
+                    "actionExecuteVariables": "[]",
+                    "actionConfirm": "false",
+                    "actionValidate": "无",
+                    "actionsOpinionBindToField": null,
+                    "actionsOpinionBindToElemId": null,
+                    "actionMainReceiveObjects": "[]",
+                    "actionCCReceiveObjects": "[]",
+                    "actionAutoSend": "false",
+                    "actionSendMessageId": null,
+                    "actionSendSignalId": null,
+                    "actionCallComplete": "true",
+                    "juelRunResultPO": {
+                      "success": true,
+                      "message": "",
+                      "stringResult": "",
+                      "booleanResult": true
+                    }
+                  }
+                ]
+              },
+              "jb4dcAuthorities": {
+                "authoritiesUsed": "true",
+                "authoritiesOnlySendBackCanEdit": "false",
+                "authoritiesAllFieldAuthority": "{\"editALL\":\"true\",\"viewAll\":\"true\",\"emptyEditAll\":\"true\"}",
+                "authoritiesFileAuthority": "{\"addFile\":\"true\",\"deleteFile\":\"true\",\"viewFile\":\"true\",\"packageDown\":\"true\"}",
+                "authoritiesDocumentAuthority": "{\"edit\":\"true\",\"addComment\":\"true\",\"view\":\"true\",\"viewHistory\":\"true\"}",
+                "authoritiesJsApi": null,
+                "authoritiesJavaApi": null,
+                "authoritiesDesc": null,
+                "jb4dcAuthorityList": null
+              },
+              "camundaInputOutput": null,
+              "camundaTaskListenerList": null
+            },
+            "incomingList": [
+              {
+                "text": "Flow_0968hmz"
+              },
+              {
+                "text": "Flow_1lh2z20"
+              }
+            ],
+            "outgoingList": [
+              {
+                "text": "Flow_0o78625"
+              },
+              {
+                "text": "Flow_0qmmvbd"
+              }
+            ],
+            "multiInstanceLoopCharacteristics": null,
+            "assignee": "${Activity_04kw6xw_Assignee_User}",
+            "candidateUsers": null,
+            "candidateGroups": null,
+            "dueDate": null,
+            "followUpDate": null,
+            "priority": null,
+            "jb4dcCode": null,
+            "jb4dcFormId": null,
+            "jb4dcFormEx1Id": null,
+            "jb4dcOuterFormUrl": null,
+            "jb4dcOuterFormEx1Url": null,
+            "jb4dcFormPlugin": "webFormPlugin",
+            "jb4dcFormParas": null,
+            "jb4dcFormEx1Plugin": "webFormPlugin",
+            "jb4dcFormEx1Paras": null,
+            "jb4dcProcessTitleEditText": null,
+            "jb4dcProcessTitleEditValue": null,
+            "jb4dcProcessDescriptionEditText": null,
+            "jb4dcProcessDescriptionEditValue": null,
+            "jb4dcCandidateUsersDesc": null,
+            "jb4dcCandidateGroupsDesc": null,
+            "jb4dcUseContentDocument": "byProcessConfig",
+            "jb4dcContentDocumentPlugin": null,
+            "jb4dcContentDocumentRedHeadTemplate": null,
+            "multiInstanceType": "Single",
+            "multiInstanceTask": false
+          },
+          {
+            "id": "Activity_1oze7it",
+            "name": "分管领导",
+            "taskTypeName": "com.jb4dc.workflow.po.bpmn.process.BpmnUserTask",
+            "documentation": {
+              "text": ""
+            },
+            "extensionElements": {
+              "camundaExecutionListenerList": null,
+              "camundaProperties": null,
+              "jb4dcMainReceiveObjects": {
+                "jb4dcReceiveObjectList": null,
+                "runtimeReceiveGroups": null
+              },
+              "jb4dcCCReceiveObjects": {
+                "jb4dcReceiveObjectList": null,
+                "runtimeReceiveGroups": null
+              },
+              "jb4dcActions": {
+                "jb4dcActionList": [
+                  {
+                    "actionType": "send",
+                    "actionCode": "action_516248167",
+                    "actionCaption": "送领导会签",
+                    "actionShowOpinionDialog": "false",
+                    "actionDisplayConditionEditText": null,
+                    "actionDisplayConditionEditValue": null,
+                    "actionCallJsMethod": null,
+                    "actionHTMLId": null,
+                    "actionHTMLClass": null,
+                    "actionRunSqls": "[]",
+                    "actionUpdateFields": "[]",
+                    "actionCallApis": "[]",
+                    "actionExecuteVariables": "[]",
+                    "actionConfirm": "false",
+                    "actionValidate": "无",
+                    "actionsOpinionBindToField": null,
+                    "actionsOpinionBindToElemId": null,
+                    "actionMainReceiveObjects": "[]",
+                    "actionCCReceiveObjects": "[]",
+                    "actionAutoSend": "false",
+                    "actionSendMessageId": null,
+                    "actionSendSignalId": null,
+                    "actionCallComplete": "true",
+                    "juelRunResultPO": null
+                  },
+                  {
+                    "actionType": "send",
+                    "actionCode": "action_516265085",
+                    "actionCaption": "退回",
+                    "actionShowOpinionDialog": "false",
+                    "actionDisplayConditionEditText": null,
+                    "actionDisplayConditionEditValue": null,
+                    "actionCallJsMethod": null,
+                    "actionHTMLId": null,
+                    "actionHTMLClass": null,
+                    "actionRunSqls": "[]",
+                    "actionUpdateFields": "[]",
+                    "actionCallApis": "[]",
+                    "actionExecuteVariables": "[]",
+                    "actionConfirm": "false",
+                    "actionValidate": "无",
+                    "actionsOpinionBindToField": null,
+                    "actionsOpinionBindToElemId": null,
+                    "actionMainReceiveObjects": "[]",
+                    "actionCCReceiveObjects": "[]",
+                    "actionAutoSend": "false",
+                    "actionSendMessageId": null,
+                    "actionSendSignalId": null,
+                    "actionCallComplete": "true",
+                    "juelRunResultPO": null
+                  }
+                ]
+              },
+              "jb4dcAuthorities": {
+                "authoritiesUsed": "true",
+                "authoritiesOnlySendBackCanEdit": "false",
+                "authoritiesAllFieldAuthority": "{\"editALL\":\"true\",\"viewAll\":\"true\",\"emptyEditAll\":\"true\"}",
+                "authoritiesFileAuthority": "{\"addFile\":\"true\",\"deleteFile\":\"true\",\"viewFile\":\"true\",\"packageDown\":\"true\"}",
+                "authoritiesDocumentAuthority": "{\"edit\":\"true\",\"addComment\":\"true\",\"view\":\"true\",\"viewHistory\":\"true\"}",
+                "authoritiesJsApi": null,
+                "authoritiesJavaApi": null,
+                "authoritiesDesc": null,
+                "jb4dcAuthorityList": null
+              },
+              "camundaInputOutput": null,
+              "camundaTaskListenerList": null
+            },
+            "incomingList": [
+              {
+                "text": "Flow_0o78625"
+              }
+            ],
+            "outgoingList": [
+              {
+                "text": "Flow_1bq6tb2"
+              },
+              {
+                "text": "Flow_0nio3cs"
+              }
+            ],
+            "multiInstanceLoopCharacteristics": null,
+            "assignee": "${Activity_1oze7it_Assignee_User}",
+            "candidateUsers": null,
+            "candidateGroups": null,
+            "dueDate": null,
+            "followUpDate": null,
+            "priority": null,
+            "jb4dcCode": null,
+            "jb4dcFormId": null,
+            "jb4dcFormEx1Id": null,
+            "jb4dcOuterFormUrl": null,
+            "jb4dcOuterFormEx1Url": null,
+            "jb4dcFormPlugin": "webFormPlugin",
+            "jb4dcFormParas": null,
+            "jb4dcFormEx1Plugin": "webFormPlugin",
+            "jb4dcFormEx1Paras": null,
+            "jb4dcProcessTitleEditText": null,
+            "jb4dcProcessTitleEditValue": null,
+            "jb4dcProcessDescriptionEditText": null,
+            "jb4dcProcessDescriptionEditValue": null,
+            "jb4dcCandidateUsersDesc": null,
+            "jb4dcCandidateGroupsDesc": null,
+            "jb4dcUseContentDocument": "byProcessConfig",
+            "jb4dcContentDocumentPlugin": null,
+            "jb4dcContentDocumentRedHeadTemplate": null,
+            "multiInstanceType": "Single",
+            "multiInstanceTask": false
+          },
+          {
+            "id": "Activity_1e1ql8o",
+            "name": "领导会签",
+            "taskTypeName": "com.jb4dc.workflow.po.bpmn.process.BpmnUserTask",
+            "documentation": {
+              "text": ""
+            },
+            "extensionElements": {
+              "camundaExecutionListenerList": null,
+              "camundaProperties": null,
+              "jb4dcMainReceiveObjects": {
+                "jb4dcReceiveObjectList": null,
+                "runtimeReceiveGroups": null
+              },
+              "jb4dcCCReceiveObjects": {
+                "jb4dcReceiveObjectList": null,
+                "runtimeReceiveGroups": null
+              },
+              "jb4dcActions": {
+                "jb4dcActionList": [
+                  {
+                    "actionType": "send",
+                    "actionCode": "action_516465752",
+                    "actionCaption": "确认",
+                    "actionShowOpinionDialog": "false",
+                    "actionDisplayConditionEditText": null,
+                    "actionDisplayConditionEditValue": null,
+                    "actionCallJsMethod": null,
+                    "actionHTMLId": null,
+                    "actionHTMLClass": null,
+                    "actionRunSqls": "[]",
+                    "actionUpdateFields": "[]",
+                    "actionCallApis": "[]",
+                    "actionExecuteVariables": "[]",
+                    "actionConfirm": "false",
+                    "actionValidate": "无",
+                    "actionsOpinionBindToField": null,
+                    "actionsOpinionBindToElemId": null,
+                    "actionMainReceiveObjects": "[]",
+                    "actionCCReceiveObjects": "[]",
+                    "actionAutoSend": "false",
+                    "actionSendMessageId": null,
+                    "actionSendSignalId": null,
+                    "actionCallComplete": "true",
+                    "juelRunResultPO": null
+                  },
+                  {
+                    "actionType": "send",
+                    "actionCode": "action_516474765",
+                    "actionCaption": "退回",
+                    "actionShowOpinionDialog": "false",
+                    "actionDisplayConditionEditText": null,
+                    "actionDisplayConditionEditValue": null,
+                    "actionCallJsMethod": null,
+                    "actionHTMLId": null,
+                    "actionHTMLClass": null,
+                    "actionRunSqls": "[]",
+                    "actionUpdateFields": "[]",
+                    "actionCallApis": "[]",
+                    "actionExecuteVariables": "[]",
+                    "actionConfirm": "false",
+                    "actionValidate": "无",
+                    "actionsOpinionBindToField": null,
+                    "actionsOpinionBindToElemId": null,
+                    "actionMainReceiveObjects": "[]",
+                    "actionCCReceiveObjects": "[]",
+                    "actionAutoSend": "false",
+                    "actionSendMessageId": null,
+                    "actionSendSignalId": null,
+                    "actionCallComplete": "true",
+                    "juelRunResultPO": null
+                  }
+                ]
+              },
+              "jb4dcAuthorities": {
+                "authoritiesUsed": "true",
+                "authoritiesOnlySendBackCanEdit": "false",
+                "authoritiesAllFieldAuthority": "{\"editALL\":\"true\",\"viewAll\":\"true\",\"emptyEditAll\":\"true\"}",
+                "authoritiesFileAuthority": "{\"addFile\":\"true\",\"deleteFile\":\"true\",\"viewFile\":\"true\",\"packageDown\":\"true\"}",
+                "authoritiesDocumentAuthority": "{\"edit\":\"true\",\"addComment\":\"true\",\"view\":\"true\",\"viewHistory\":\"true\"}",
+                "authoritiesJsApi": null,
+                "authoritiesJavaApi": null,
+                "authoritiesDesc": null,
+                "jb4dcAuthorityList": null
+              },
+              "camundaInputOutput": null,
+              "camundaTaskListenerList": null
+            },
+            "incomingList": [
+              {
+                "text": "Flow_0nio3cs"
+              }
+            ],
+            "outgoingList": [
+              {
+                "text": "Flow_0g0ixvy"
+              },
+              {
+                "text": "Flow_02a24uk"
+              }
+            ],
+            "multiInstanceLoopCharacteristics": {
+              "collection": "${Activity_1oze7it_Assignee_User_List}",
+              "elementVariable": "Activity_1oze7it_Assignee_User",
+              "isSequential": null
+            },
+            "assignee": "${Activity_1oze7it_Assignee_User}",
+            "candidateUsers": null,
+            "candidateGroups": null,
+            "dueDate": null,
+            "followUpDate": null,
+            "priority": null,
+            "jb4dcCode": null,
+            "jb4dcFormId": null,
+            "jb4dcFormEx1Id": null,
+            "jb4dcOuterFormUrl": null,
+            "jb4dcOuterFormEx1Url": null,
+            "jb4dcFormPlugin": "webFormPlugin",
+            "jb4dcFormParas": null,
+            "jb4dcFormEx1Plugin": "webFormPlugin",
+            "jb4dcFormEx1Paras": null,
+            "jb4dcProcessTitleEditText": null,
+            "jb4dcProcessTitleEditValue": null,
+            "jb4dcProcessDescriptionEditText": null,
+            "jb4dcProcessDescriptionEditValue": null,
+            "jb4dcCandidateUsersDesc": null,
+            "jb4dcCandidateGroupsDesc": null,
+            "jb4dcUseContentDocument": "byProcessConfig",
+            "jb4dcContentDocumentPlugin": null,
+            "jb4dcContentDocumentRedHeadTemplate": null,
+            "multiInstanceType": "Parallel",
+            "multiInstanceTask": true
+          },
+          {
+            "id": "Activity_1kvrfxb",
+            "name": "发起人确认",
+            "taskTypeName": "com.jb4dc.workflow.po.bpmn.process.BpmnUserTask",
+            "documentation": {
+              "text": ""
+            },
+            "extensionElements": {
+              "camundaExecutionListenerList": null,
+              "camundaProperties": null,
+              "jb4dcMainReceiveObjects": {
+                "jb4dcReceiveObjectList": null,
+                "runtimeReceiveGroups": null
+              },
+              "jb4dcCCReceiveObjects": {
+                "jb4dcReceiveObjectList": null,
+                "runtimeReceiveGroups": null
+              },
+              "jb4dcActions": {
+                "jb4dcActionList": [
+                  {
+                    "actionType": "send",
+                    "actionCode": "action_516525815",
+                    "actionCaption": "办结",
+                    "actionShowOpinionDialog": "false",
+                    "actionDisplayConditionEditText": null,
+                    "actionDisplayConditionEditValue": null,
+                    "actionCallJsMethod": null,
+                    "actionHTMLId": null,
+                    "actionHTMLClass": null,
+                    "actionRunSqls": "[]",
+                    "actionUpdateFields": "[]",
+                    "actionCallApis": "[]",
+                    "actionExecuteVariables": "[]",
+                    "actionConfirm": "false",
+                    "actionValidate": "无",
+                    "actionsOpinionBindToField": null,
+                    "actionsOpinionBindToElemId": null,
+                    "actionMainReceiveObjects": "[]",
+                    "actionCCReceiveObjects": "[]",
+                    "actionAutoSend": "false",
+                    "actionSendMessageId": null,
+                    "actionSendSignalId": null,
+                    "actionCallComplete": "true",
+                    "juelRunResultPO": null
+                  }
+                ]
+              },
+              "jb4dcAuthorities": {
+                "authoritiesUsed": "true",
+                "authoritiesOnlySendBackCanEdit": "false",
+                "authoritiesAllFieldAuthority": "{\"editALL\":\"true\",\"viewAll\":\"true\",\"emptyEditAll\":\"true\"}",
+                "authoritiesFileAuthority": "{\"addFile\":\"true\",\"deleteFile\":\"true\",\"viewFile\":\"true\",\"packageDown\":\"true\"}",
+                "authoritiesDocumentAuthority": "{\"edit\":\"true\",\"addComment\":\"true\",\"view\":\"true\",\"viewHistory\":\"true\"}",
+                "authoritiesJsApi": null,
+                "authoritiesJavaApi": null,
+                "authoritiesDesc": null,
+                "jb4dcAuthorityList": null
+              },
+              "camundaInputOutput": null,
+              "camundaTaskListenerList": null
+            },
+            "incomingList": [
+              {
+                "text": "Flow_0g0ixvy"
+              },
+              {
+                "text": "Flow_1ks5zac"
+              }
+            ],
+            "outgoingList": [
+              {
+                "text": "Flow_0hw0ibj"
+              }
+            ],
+            "multiInstanceLoopCharacteristics": null,
+            "assignee": "${Activity_1oze7it_Assignee_User}",
+            "candidateUsers": null,
+            "candidateGroups": null,
+            "dueDate": null,
+            "followUpDate": null,
+            "priority": null,
+            "jb4dcCode": null,
+            "jb4dcFormId": null,
+            "jb4dcFormEx1Id": null,
+            "jb4dcOuterFormUrl": null,
+            "jb4dcOuterFormEx1Url": null,
+            "jb4dcFormPlugin": "webFormPlugin",
+            "jb4dcFormParas": null,
+            "jb4dcFormEx1Plugin": "webFormPlugin",
+            "jb4dcFormEx1Paras": null,
+            "jb4dcProcessTitleEditText": null,
+            "jb4dcProcessTitleEditValue": null,
+            "jb4dcProcessDescriptionEditText": null,
+            "jb4dcProcessDescriptionEditValue": null,
+            "jb4dcCandidateUsersDesc": null,
+            "jb4dcCandidateGroupsDesc": null,
+            "jb4dcUseContentDocument": "byProcessConfig",
+            "jb4dcContentDocumentPlugin": null,
+            "jb4dcContentDocumentRedHeadTemplate": null,
+            "multiInstanceType": "Single",
+            "multiInstanceTask": false
+          },
+          {
+            "id": "Activity_1kkofd5",
+            "name": "总经理审批",
+            "taskTypeName": "com.jb4dc.workflow.po.bpmn.process.BpmnUserTask",
+            "documentation": {
+              "text": ""
+            },
+            "extensionElements": {
+              "camundaExecutionListenerList": null,
+              "camundaProperties": null,
+              "jb4dcMainReceiveObjects": {
+                "jb4dcReceiveObjectList": [
+                  {
+                    "receiveObjectCode": "receiveObject_632872092",
+                    "receiveObjectType": "Users",
+                    "receiveObjectGroupName": null,
+                    "receiveObjectValue": "834b97a7-7fd0-46ba-b87b-4113b1303c59,21ae6b28-dcd4-4f3f-b00f-c3b884f96d7e,2d6945a3-46d8-42d2-babf-6f9e402d46e3",
+                    "receiveObjectText": "行政区划▷▷澳头街道办▷▷南边灶村▷▷南边灶一号网格▷▷陈咏瑜,行政区划▷▷澳头街道办▷▷南边灶村▷▷南边灶二号网格▷▷何香茹,行政区划▷▷澳头街道办▷▷南边灶村▷▷南边灶三号网格▷▷黄耀龙",
+                    "receiveObjectConfig": null
+                  },
+                  {
+                    "receiveObjectCode": "receiveObject_632884339",
+                    "receiveObjectType": "Users",
+                    "receiveObjectGroupName": null,
+                    "receiveObjectValue": "604ff9bc-d9ab-4686-a6af-3e8f2574e4b6,52cee6fd-6809-41d9-825e-aaf8b9582112",
+                    "receiveObjectText": "行政区划▷▷澳头街道办▷▷南边灶村▷▷南边灶系统测试网格▷▷南边灶测网5001,行政区划▷▷澳头街道办▷▷南边灶村▷▷南边灶系统测试网格▷▷南边灶测网5002",
+                    "receiveObjectConfig": null
+                  },
+                  {
+                    "receiveObjectCode": "receiveObject_632889081",
+                    "receiveObjectType": "Organs",
+                    "receiveObjectGroupName": null,
+                    "receiveObjectValue": "4480608b-cb6f-4bff-9030-a656463fefbf",
+                    "receiveObjectText": "行政区划▷▷澳头街道办▷▷南边灶村▷▷南边灶一号网格",
+                    "receiveObjectConfig": null
+                  },
+                  {
+                    "receiveObjectCode": "receiveObject_632905257",
+                    "receiveObjectType": "flowAboutUser",
+                    "receiveObjectGroupName": null,
+                    "receiveObjectValue": "instanceStarter",
+                    "receiveObjectText": "流程实例发起人",
+                    "receiveObjectConfig": null
+                  },
+                  {
+                    "receiveObjectCode": "receiveObject_632908587",
+                    "receiveObjectType": "flowAboutUser",
+                    "receiveObjectGroupName": null,
+                    "receiveObjectValue": "modelManager",
+                    "receiveObjectText": "模型管理人",
+                    "receiveObjectConfig": null
+                  },
+                  {
+                    "receiveObjectCode": "receiveObject_632913262",
+                    "receiveObjectType": "ExcludeUsers",
+                    "receiveObjectGroupName": null,
+                    "receiveObjectValue": "604ff9bc-d9ab-4686-a6af-3e8f2574e4b6",
+                    "receiveObjectText": "行政区划▷▷澳头街道办▷▷南边灶村▷▷南边灶系统测试网格▷▷南边灶测网5001",
+                    "receiveObjectConfig": null
+                  },
+                  {
+                    "receiveObjectCode": "receiveObject_699651300",
+                    "receiveObjectType": "Organs",
+                    "receiveObjectGroupName": null,
+                    "receiveObjectValue": "55dc1d44-c37f-4222-9e52-6f1a65ef29da,d7f6c52a-991e-482a-9146-6c6eb4a51ee2,80d52eb4-75f4-454c-9248-7f12cfc1ea4f",
+                    "receiveObjectText": "行政区划▷▷澳头街道办▷▷南边灶村▷▷南边灶三号网格,行政区划▷▷澳头街道办▷▷南边灶村▷▷南边灶四号网格,行政区划▷▷澳头街道办▷▷南边灶村▷▷南边灶系统测试网格",
+                    "receiveObjectConfig": null
+                  },
+                  {
+                    "receiveObjectCode": "receiveObject_742927891",
+                    "receiveObjectType": "Role",
+                    "receiveObjectGroupName": null,
+                    "receiveObjectValue": "DataFilter-With-DataSet-AllData,SystemOrganAdmin,4f2065df-6af0-427d-80bd-1c97bad5d576,GridMainAppRoleGroup-Center-Role,QCMainAppRoleGroup-General-Role",
+                    "receiveObjectText": "数据过滤角色组▷▷数据集过滤-查看全部数据,系统管理角色组▷▷系统管理员,网格化社会管理系统角色组▷▷设备管理角色,网格化社会管理系统角色组▷▷指挥中心角色,运维管理系统角色组▷▷运维管理通用角色",
+                    "receiveObjectConfig": "全局"
+                  }
+                ],
+                "runtimeReceiveGroups": null
+              },
+              "jb4dcCCReceiveObjects": {
+                "jb4dcReceiveObjectList": [
+                  {
+                    "receiveObjectCode": "receiveObject_632939951",
+                    "receiveObjectType": "Role",
+                    "receiveObjectGroupName": null,
+                    "receiveObjectValue": "SystemOrganAdmin",
+                    "receiveObjectText": "系统管理角色组▷▷系统管理员",
+                    "receiveObjectConfig": "全局"
+                  },
+                  {
+                    "receiveObjectCode": "receiveObject_632943707",
+                    "receiveObjectType": "flowAboutUser",
+                    "receiveObjectGroupName": null,
+                    "receiveObjectValue": "modelManager",
+                    "receiveObjectText": "模型管理人",
+                    "receiveObjectConfig": null
+                  }
+                ],
+                "runtimeReceiveGroups": null
+              },
+              "jb4dcActions": {
+                "jb4dcActionList": [
+                  {
+                    "actionType": "send",
+                    "actionCode": "action_136063504",
+                    "actionCaption": "确认",
+                    "actionShowOpinionDialog": "false",
+                    "actionDisplayConditionEditText": null,
+                    "actionDisplayConditionEditValue": null,
+                    "actionCallJsMethod": null,
+                    "actionHTMLId": null,
+                    "actionHTMLClass": null,
+                    "actionRunSqls": "[]",
+                    "actionUpdateFields": "[]",
+                    "actionCallApis": "[]",
+                    "actionExecuteVariables": "[]",
+                    "actionConfirm": "false",
+                    "actionValidate": "无",
+                    "actionsOpinionBindToField": null,
+                    "actionsOpinionBindToElemId": null,
+                    "actionMainReceiveObjects": "[]",
+                    "actionCCReceiveObjects": "[]",
+                    "actionAutoSend": "false",
+                    "actionSendMessageId": null,
+                    "actionSendSignalId": null,
+                    "actionCallComplete": "true",
+                    "juelRunResultPO": null
+                  }
+                ]
+              },
+              "jb4dcAuthorities": {
+                "authoritiesUsed": "true",
+                "authoritiesOnlySendBackCanEdit": "false",
+                "authoritiesAllFieldAuthority": "{\"editALL\":\"true\",\"viewAll\":\"true\",\"emptyEditAll\":\"true\"}",
+                "authoritiesFileAuthority": "{\"addFile\":\"true\",\"deleteFile\":\"true\",\"viewFile\":\"true\",\"packageDown\":\"true\"}",
+                "authoritiesDocumentAuthority": "{\"edit\":\"true\",\"addComment\":\"true\",\"view\":\"true\",\"viewHistory\":\"true\"}",
+                "authoritiesJsApi": null,
+                "authoritiesJavaApi": null,
+                "authoritiesDesc": null,
+                "jb4dcAuthorityList": null
+              },
+              "camundaInputOutput": null,
+              "camundaTaskListenerList": null
+            },
+            "incomingList": [
+              {
+                "text": "Flow_19sxcty"
+              }
+            ],
+            "outgoingList": [
+              {
+                "text": "Flow_1ks5zac"
+              }
+            ],
+            "multiInstanceLoopCharacteristics": null,
+            "assignee": "${Activity_1kkofd5_Assignee_User}",
+            "candidateUsers": null,
+            "candidateGroups": null,
+            "dueDate": null,
+            "followUpDate": null,
+            "priority": null,
+            "jb4dcCode": null,
+            "jb4dcFormId": null,
+            "jb4dcFormEx1Id": null,
+            "jb4dcOuterFormUrl": null,
+            "jb4dcOuterFormEx1Url": null,
+            "jb4dcFormPlugin": "webFormPlugin",
+            "jb4dcFormParas": null,
+            "jb4dcFormEx1Plugin": "webFormPlugin",
+            "jb4dcFormEx1Paras": null,
+            "jb4dcProcessTitleEditText": null,
+            "jb4dcProcessTitleEditValue": null,
+            "jb4dcProcessDescriptionEditText": null,
+            "jb4dcProcessDescriptionEditValue": null,
+            "jb4dcCandidateUsersDesc": null,
+            "jb4dcCandidateGroupsDesc": null,
+            "jb4dcUseContentDocument": "byProcessConfig",
+            "jb4dcContentDocumentPlugin": null,
+            "jb4dcContentDocumentRedHeadTemplate": null,
+            "multiInstanceType": "Single",
+            "multiInstanceTask": false
+          },
+          {
+            "id": "Activity_0rxncws",
+            "name": "并行用户任务",
+            "taskTypeName": "com.jb4dc.workflow.po.bpmn.process.BpmnUserTask",
+            "documentation": {
+              "text": ""
+            },
+            "extensionElements": {
+              "camundaExecutionListenerList": null,
+              "camundaProperties": null,
+              "jb4dcMainReceiveObjects": {
+                "jb4dcReceiveObjectList": null,
+                "runtimeReceiveGroups": null
+              },
+              "jb4dcCCReceiveObjects": {
+                "jb4dcReceiveObjectList": null,
+                "runtimeReceiveGroups": null
+              },
+              "jb4dcActions": {
+                "jb4dcActionList": null
+              },
+              "jb4dcAuthorities": {
+                "authoritiesUsed": "true",
+                "authoritiesOnlySendBackCanEdit": "false",
+                "authoritiesAllFieldAuthority": "{\"editALL\":\"true\",\"viewAll\":\"true\",\"emptyEditAll\":\"true\"}",
+                "authoritiesFileAuthority": "{\"addFile\":\"true\",\"deleteFile\":\"true\",\"viewFile\":\"true\",\"packageDown\":\"true\"}",
+                "authoritiesDocumentAuthority": "{\"edit\":\"true\",\"addComment\":\"true\",\"view\":\"true\",\"viewHistory\":\"true\"}",
+                "authoritiesJsApi": null,
+                "authoritiesJavaApi": null,
+                "authoritiesDesc": null,
+                "jb4dcAuthorityList": null
+              },
+              "camundaInputOutput": null,
+              "camundaTaskListenerList": null
+            },
+            "incomingList": [
+              {
+                "text": "Flow_0vq42xz"
+              }
+            ],
+            "outgoingList": [
+              {
+                "text": "Flow_0dypra8"
+              }
+            ],
+            "multiInstanceLoopCharacteristics": null,
+            "assignee": "${Activity_0rxncws_Assignee_User}",
+            "candidateUsers": null,
+            "candidateGroups": null,
+            "dueDate": null,
+            "followUpDate": null,
+            "priority": null,
+            "jb4dcCode": null,
+            "jb4dcFormId": null,
+            "jb4dcFormEx1Id": null,
+            "jb4dcOuterFormUrl": null,
+            "jb4dcOuterFormEx1Url": null,
+            "jb4dcFormPlugin": "webFormPlugin",
+            "jb4dcFormParas": null,
+            "jb4dcFormEx1Plugin": "webFormPlugin",
+            "jb4dcFormEx1Paras": null,
+            "jb4dcProcessTitleEditText": null,
+            "jb4dcProcessTitleEditValue": null,
+            "jb4dcProcessDescriptionEditText": null,
+            "jb4dcProcessDescriptionEditValue": null,
+            "jb4dcCandidateUsersDesc": null,
+            "jb4dcCandidateGroupsDesc": null,
+            "jb4dcUseContentDocument": "byProcessConfig",
+            "jb4dcContentDocumentPlugin": null,
+            "jb4dcContentDocumentRedHeadTemplate": null,
+            "multiInstanceType": "Single",
+            "multiInstanceTask": false
+          }
+        ],
+        "serviceTaskList": [
+          {
+            "id": "Activity_1xkg5wz",
+            "name": "直接立项服务",
+            "taskTypeName": "com.jb4dc.workflow.po.bpmn.process.BpmnServiceTask",
+            "documentation": {
+              "text": ""
+            },
+            "extensionElements": null,
+            "incomingList": [
+              {
+                "text": "Flow_0qnp1dy"
+              }
+            ],
+            "outgoingList": [
+              {
+                "text": "Flow_095ed4g"
+              }
+            ],
+            "multiInstanceLoopCharacteristics": null,
+            "assignee": null,
+            "candidateUsers": null,
+            "candidateGroups": null,
+            "dueDate": null,
+            "followUpDate": null,
+            "priority": null,
+            "jb4dcCode": null,
+            "jb4dcFormId": null,
+            "jb4dcFormEx1Id": null,
+            "jb4dcOuterFormUrl": null,
+            "jb4dcOuterFormEx1Url": null,
+            "jb4dcFormPlugin": null,
+            "jb4dcFormParas": null,
+            "jb4dcFormEx1Plugin": null,
+            "jb4dcFormEx1Paras": null,
+            "jb4dcProcessTitleEditText": null,
+            "jb4dcProcessTitleEditValue": null,
+            "jb4dcProcessDescriptionEditText": null,
+            "jb4dcProcessDescriptionEditValue": null,
+            "jb4dcCandidateUsersDesc": null,
+            "jb4dcCandidateGroupsDesc": null,
+            "jb4dcUseContentDocument": null,
+            "jb4dcContentDocumentPlugin": null,
+            "jb4dcContentDocumentRedHeadTemplate": null,
+            "multiInstanceType": null,
+            "multiInstanceTask": false
+          },
+          {
+            "id": "Activity_1yj74vp",
+            "name": "并行服务",
+            "taskTypeName": "com.jb4dc.workflow.po.bpmn.process.BpmnServiceTask",
+            "documentation": {
+              "text": ""
+            },
+            "extensionElements": null,
+            "incomingList": [
+              {
+                "text": "Flow_1c3kr3x"
+              }
+            ],
+            "outgoingList": [
+              {
+                "text": "Flow_1c2mel9"
+              }
+            ],
+            "multiInstanceLoopCharacteristics": null,
+            "assignee": null,
+            "candidateUsers": null,
+            "candidateGroups": null,
+            "dueDate": null,
+            "followUpDate": null,
+            "priority": null,
+            "jb4dcCode": null,
+            "jb4dcFormId": null,
+            "jb4dcFormEx1Id": null,
+            "jb4dcOuterFormUrl": null,
+            "jb4dcOuterFormEx1Url": null,
+            "jb4dcFormPlugin": null,
+            "jb4dcFormParas": null,
+            "jb4dcFormEx1Plugin": null,
+            "jb4dcFormEx1Paras": null,
+            "jb4dcProcessTitleEditText": null,
+            "jb4dcProcessTitleEditValue": null,
+            "jb4dcProcessDescriptionEditText": null,
+            "jb4dcProcessDescriptionEditValue": null,
+            "jb4dcCandidateUsersDesc": null,
+            "jb4dcCandidateGroupsDesc": null,
+            "jb4dcUseContentDocument": null,
+            "jb4dcContentDocumentPlugin": null,
+            "jb4dcContentDocumentRedHeadTemplate": null,
+            "multiInstanceType": null,
+            "multiInstanceTask": false
+          }
+        ],
+        "sendTaskList": null,
+        "receiveTaskList": null,
+        "manualTaskList": null,
+        "sequenceFlow": [
+          {
+            "id": "Flow_StartEvent_To_FirstUTNode",
+            "name": null,
+            "sourceRef": "StartEvent_N1",
+            "targetRef": "UserTask_Activity_N1",
+            "documentation": {
+              "text": ""
+            },
+            "extensionElements": null
+          },
+          {
+            "id": "Flow_0968hmz",
+            "name": null,
+            "sourceRef": "UserTask_Activity_N1",
+            "targetRef": "Activity_04kw6xw",
+            "documentation": {
+              "text": ""
+            },
+            "extensionElements": null
+          },
+          {
+            "id": "Flow_0o78625",
+            "name": null,
+            "sourceRef": "Activity_04kw6xw",
+            "targetRef": "Activity_1oze7it",
+            "documentation": {
+              "text": ""
+            },
+            "extensionElements": null
+          },
+          {
+            "id": "Flow_1lh2z20",
+            "name": null,
+            "sourceRef": "StartEvent_N1",
+            "targetRef": "Activity_04kw6xw",
+            "documentation": {
+              "text": ""
+            },
+            "extensionElements": null
+          },
+          {
+            "id": "Flow_0qmmvbd",
+            "name": null,
+            "sourceRef": "Activity_04kw6xw",
+            "targetRef": "UserTask_Activity_N1",
+            "documentation": {
+              "text": ""
+            },
+            "extensionElements": null
+          },
+          {
+            "id": "Flow_1bq6tb2",
+            "name": null,
+            "sourceRef": "Activity_1oze7it",
+            "targetRef": "UserTask_Activity_N1",
+            "documentation": {
+              "text": ""
+            },
+            "extensionElements": null
+          },
+          {
+            "id": "Flow_0nio3cs",
+            "name": null,
+            "sourceRef": "Activity_1oze7it",
+            "targetRef": "Activity_1e1ql8o",
+            "documentation": {
+              "text": ""
+            },
+            "extensionElements": null
+          },
+          {
+            "id": "Flow_0g0ixvy",
+            "name": null,
+            "sourceRef": "Activity_1e1ql8o",
+            "targetRef": "Activity_1kvrfxb",
+            "documentation": {
+              "text": ""
+            },
+            "extensionElements": null
+          },
+          {
+            "id": "Flow_02a24uk",
+            "name": null,
+            "sourceRef": "Activity_1e1ql8o",
+            "targetRef": "UserTask_Activity_N1",
+            "documentation": {
+              "text": ""
+            },
+            "extensionElements": null
+          },
+          {
+            "id": "Flow_0hw0ibj",
+            "name": null,
+            "sourceRef": "Activity_1kvrfxb",
+            "targetRef": "EndEvent_N1",
+            "documentation": {
+              "text": ""
+            },
+            "extensionElements": null
+          },
+          {
+            "id": "Flow_19sxcty",
+            "name": "姓名='袁红林'(可以执行该动作)",
+            "sourceRef": "StartEvent_N1",
+            "targetRef": "Activity_1kkofd5",
+            "documentation": {
+              "text": ""
+            },
+            "extensionElements": null
+          },
+          {
+            "id": "Flow_1ks5zac",
+            "name": null,
+            "sourceRef": "Activity_1kkofd5",
+            "targetRef": "Activity_1kvrfxb",
+            "documentation": {
+              "text": ""
+            },
+            "extensionElements": null
+          },
+          {
+            "id": "Flow_0qnp1dy",
+            "name": null,
+            "sourceRef": "StartEvent_N1",
+            "targetRef": "Activity_1xkg5wz",
+            "documentation": {
+              "text": ""
+            },
+            "extensionElements": null
+          },
+          {
+            "id": "Flow_095ed4g",
+            "name": null,
+            "sourceRef": "Activity_1xkg5wz",
+            "targetRef": "EndEvent_N1",
+            "documentation": null,
+            "extensionElements": null
+          },
+          {
+            "id": "Flow_0qrljwr",
+            "name": null,
+            "sourceRef": "StartEvent_N1",
+            "targetRef": "Gateway_0yxccem",
+            "documentation": {
+              "text": ""
+            },
+            "extensionElements": null
+          },
+          {
+            "id": "Flow_1c3kr3x",
+            "name": null,
+            "sourceRef": "Gateway_0yxccem",
+            "targetRef": "Activity_1yj74vp",
+            "documentation": null,
+            "extensionElements": null
+          },
+          {
+            "id": "Flow_0vq42xz",
+            "name": null,
+            "sourceRef": "Gateway_0yxccem",
+            "targetRef": "Activity_0rxncws",
+            "documentation": null,
+            "extensionElements": null
+          },
+          {
+            "id": "Flow_0dypra8",
+            "name": null,
+            "sourceRef": "Activity_0rxncws",
+            "targetRef": "Gateway_1kzexit",
+            "documentation": null,
+            "extensionElements": null
+          },
+          {
+            "id": "Flow_1c2mel9",
+            "name": null,
+            "sourceRef": "Activity_1yj74vp",
+            "targetRef": "Gateway_1kzexit",
+            "documentation": null,
+            "extensionElements": null
+          },
+          {
+            "id": "Flow_0gilvgt",
+            "name": null,
+            "sourceRef": "Gateway_1kzexit",
+            "targetRef": "EndEvent_N1",
+            "documentation": null,
+            "extensionElements": null
+          }
+        ],
+        "subProcessList": null,
+        "callActivityList": null,
+        "exclusiveGatewayList": null,
+        "parallelGatewayList": [
+          {
+            "id": "Gateway_0yxccem",
+            "name": null,
+            "documentation": null,
+            "extensionElements": null,
+            "incomingList": [
+              {
+                "text": "Flow_0qrljwr"
+              }
+            ],
+            "outgoingList": [
+              {
+                "text": "Flow_1c3kr3x"
+              },
+              {
+                "text": "Flow_0vq42xz"
+              }
+            ]
+          },
+          {
+            "id": "Gateway_1kzexit",
+            "name": null,
+            "documentation": null,
+            "extensionElements": null,
+            "incomingList": [
+              {
+                "text": "Flow_0dypra8"
+              },
+              {
+                "text": "Flow_1c2mel9"
+              }
+            ],
+            "outgoingList": [
+              {
+                "text": "Flow_0gilvgt"
+              }
+            ]
+          }
+        ],
+        "inclusiveGatewayList": null,
+        "complexGatewayList": null,
+        "textAnnotationList": null,
+        "associationList": null
+      },
+      "messageList": null,
+      "bpmnDiagram": {
+        "id": "BPMNDiagram_1"
+      }
+    },
+    "instanceEntity": {
+      "instId": "f9d7c309-dbee-4ffb-8ba7-1bb8458cc8de",
+      "instTitle": "项目立项审批流程-【Alex】-「2021-06-04」",
+      "instDesc": "",
+      "instCustDesc": "无",
+      "instCreateTime": "2021-06-04 11:48:56",
+      "instCreator": "Alex",
+      "instCreatorId": "Alex4D",
+      "instOrganName": "系统管理组",
+      "instOrganId": "10001",
+      "instStatus": "Running",
+      "instEndTime": null,
+      "instRuExecutionId": "c8b95268-c4e7-11eb-88e8-005056c00001",
+      "instRuProcInstId": "c8b95268-c4e7-11eb-88e8-005056c00001",
+      "instRuBusinessKey": "d0af1f40-dccb-ecce-d757-1b616f52c5d6",
+      "instRuProcDefId": "Flow_Model_1619519188394:42:21c3a816-c351-11eb-9148-005056c00001",
+      "instOrderNum": 3,
+      "instModId": "Flow_Model_1619519188394:42",
+      "instModCategory": "GeneralProcess",
+      "instModModuleId": "1e0d5c87-b786-4d56-a6e7-907da681ca7e",
+      "instModTenantId": "BuilderGeneralTenant"
+    },
+    "executionTaskEntity": {
+      "extaskId": "dd2040f3-c4e7-11eb-88e8-005056c00001",
+      "extaskInstId": "f9d7c309-dbee-4ffb-8ba7-1bb8458cc8de",
+      "extaskModelId": "Flow_Model_1619519188394:42",
+      "extaskRuTaskId": "dd2040f3-c4e7-11eb-88e8-005056c00001",
+      "extaskRuExecutionId": "c8b95268-c4e7-11eb-88e8-005056c00001",
+      "extaskRuProcInstId": "c8b95268-c4e7-11eb-88e8-005056c00001",
+      "extaskRuProcDefId": "Flow_Model_1619519188394:42:21c3a816-c351-11eb-9148-005056c00001",
+      "extaskPreNodeKey": "UserTask_Activity_N1",
+      "extaskPreNodeName": "发起人",
+      "extaskCurNodeKey": "Activity_04kw6xw",
+      "extaskCurNodeName": "部门审批",
+      "extaskType": "主送任务",
+      "extaskStatus": "Processing",
+      "extaskSenderId": "Alex4D",
+      "extaskSenderName": "Alex",
+      "extaskSendTime": "2021-06-04 11:49:31",
+      "extaskReceiverId": "Alex4D",
+      "extaskReceiverName": "Alex",
+      "extaskViewEd": "否",
+      "extaskViewTime": null,
+      "extaskStartTime": "2021-06-04 11:49:31",
+      "extaskEndTime": null,
+      "extaskHandleEd": "否",
+      "extaskHandleActionKey": null,
+      "extaskHandleActionName": null,
+      "extaskOrderNum": 3,
+      "extaskFromTaskId": "c8be348c-c4e7-11eb-88e8-005056c00001",
+      "extaskFromExecutionId": "c8b95268-c4e7-11eb-88e8-005056c00001",
+      "extaskIndex": 1002000,
+      "extaskMultiTask": "Single"
+    },
+    "historyExecutionTaskEntityList": [
+      {
+        "extaskId": "dd2040f3-c4e7-11eb-88e8-005056c00001",
+        "extaskInstId": "f9d7c309-dbee-4ffb-8ba7-1bb8458cc8de",
+        "extaskModelId": "Flow_Model_1619519188394:42",
+        "extaskRuTaskId": "dd2040f3-c4e7-11eb-88e8-005056c00001",
+        "extaskRuExecutionId": "c8b95268-c4e7-11eb-88e8-005056c00001",
+        "extaskRuProcInstId": "c8b95268-c4e7-11eb-88e8-005056c00001",
+        "extaskRuProcDefId": "Flow_Model_1619519188394:42:21c3a816-c351-11eb-9148-005056c00001",
+        "extaskPreNodeKey": "UserTask_Activity_N1",
+        "extaskPreNodeName": "发起人",
+        "extaskCurNodeKey": "Activity_04kw6xw",
+        "extaskCurNodeName": "部门审批",
+        "extaskType": "主送任务",
+        "extaskStatus": "Processing",
+        "extaskSenderId": "Alex4D",
+        "extaskSenderName": "Alex",
+        "extaskSendTime": "2021-06-04 11:49:31",
+        "extaskReceiverId": "Alex4D",
+        "extaskReceiverName": "Alex",
+        "extaskViewEd": "否",
+        "extaskViewTime": null,
+        "extaskStartTime": "2021-06-04 11:49:31",
+        "extaskEndTime": null,
+        "extaskHandleEd": "否",
+        "extaskHandleActionKey": null,
+        "extaskHandleActionName": null,
+        "extaskOrderNum": 3,
+        "extaskFromTaskId": "c8be348c-c4e7-11eb-88e8-005056c00001",
+        "extaskFromExecutionId": "c8b95268-c4e7-11eb-88e8-005056c00001",
+        "extaskIndex": 1002000,
+        "extaskMultiTask": "Single"
+      },
+      {
+        "extaskId": "c8be348c-c4e7-11eb-88e8-005056c00001",
+        "extaskInstId": "f9d7c309-dbee-4ffb-8ba7-1bb8458cc8de",
+        "extaskModelId": "Flow_Model_1619519188394:42",
+        "extaskRuTaskId": "c8be348c-c4e7-11eb-88e8-005056c00001",
+        "extaskRuExecutionId": "c8b95268-c4e7-11eb-88e8-005056c00001",
+        "extaskRuProcInstId": "c8b95268-c4e7-11eb-88e8-005056c00001",
+        "extaskRuProcDefId": "Flow_Model_1619519188394:42:21c3a816-c351-11eb-9148-005056c00001",
+        "extaskPreNodeKey": "StartEvent_N1",
+        "extaskPreNodeName": "开始",
+        "extaskCurNodeKey": "UserTask_Activity_N1",
+        "extaskCurNodeName": "发起人",
+        "extaskType": "主送任务",
+        "extaskStatus": "End",
+        "extaskSenderId": "Alex4D",
+        "extaskSenderName": "Alex",
+        "extaskSendTime": "2021-06-04 11:48:57",
+        "extaskReceiverId": "Alex4D",
+        "extaskReceiverName": "Alex",
+        "extaskViewEd": "否",
+        "extaskViewTime": null,
+        "extaskStartTime": "2021-06-04 11:48:57",
+        "extaskEndTime": null,
+        "extaskHandleEd": "否",
+        "extaskHandleActionKey": null,
+        "extaskHandleActionName": null,
+        "extaskOrderNum": 2,
+        "extaskFromTaskId": "f9d7c309-dbee-4ffb-8ba7-1bb8458cc8de",
+        "extaskFromExecutionId": "c8b95268-c4e7-11eb-88e8-005056c00001",
+        "extaskIndex": 1001000,
+        "extaskMultiTask": "Single"
+      },
+      {
+        "extaskId": "f9d7c309-dbee-4ffb-8ba7-1bb8458cc8de",
+        "extaskInstId": "f9d7c309-dbee-4ffb-8ba7-1bb8458cc8de",
+        "extaskModelId": "Flow_Model_1619519188394:42",
+        "extaskRuTaskId": "Start",
+        "extaskRuExecutionId": "c8b95268-c4e7-11eb-88e8-005056c00001",
+        "extaskRuProcInstId": "c8b95268-c4e7-11eb-88e8-005056c00001",
+        "extaskRuProcDefId": "Flow_Model_1619519188394:42:21c3a816-c351-11eb-9148-005056c00001",
+        "extaskPreNodeKey": "Start",
+        "extaskPreNodeName": "启动流程",
+        "extaskCurNodeKey": "StartEvent_N1",
+        "extaskCurNodeName": "开始",
+        "extaskType": "主送任务",
+        "extaskStatus": "End",
+        "extaskSenderId": "Alex4D",
+        "extaskSenderName": "Alex",
+        "extaskSendTime": "2021-06-04 11:48:56",
+        "extaskReceiverId": "Alex4D",
+        "extaskReceiverName": "Alex",
+        "extaskViewEd": "是",
+        "extaskViewTime": "2021-06-04 11:48:56",
+        "extaskStartTime": "2021-06-04 11:48:56",
+        "extaskEndTime": "2021-06-04 11:48:56",
+        "extaskHandleEd": "是",
+        "extaskHandleActionKey": "action_516009775",
+        "extaskHandleActionName": "草稿",
+        "extaskOrderNum": 1,
+        "extaskFromTaskId": "Start",
+        "extaskFromExecutionId": "Start",
+        "extaskIndex": 1000000,
+        "extaskMultiTask": "Single"
+      }
+    ],
+    "historicActivityInstancePOList": [
+      {
+        "id": "Activity_04kw6xw:dd1ee162-c4e7-11eb-88e8-005056c00001",
+        "parentActivityInstanceId": "c8b95268-c4e7-11eb-88e8-005056c00001",
+        "activityId": "Activity_04kw6xw",
+        "activityName": "部门审批",
+        "activityType": "userTask",
+        "processDefinitionKey": "Flow_Model_1619519188394",
+        "processDefinitionId": "Flow_Model_1619519188394:42:21c3a816-c351-11eb-9148-005056c00001",
+        "rootProcessInstanceId": "c8b95268-c4e7-11eb-88e8-005056c00001",
+        "processInstanceId": "c8b95268-c4e7-11eb-88e8-005056c00001",
+        "executionId": "c8b95268-c4e7-11eb-88e8-005056c00001",
+        "taskId": "dd2040f3-c4e7-11eb-88e8-005056c00001",
+        "calledProcessInstanceId": null,
+        "calledCaseInstanceId": null,
+        "assignee": "2d6945a3-46d8-42d2-babf-6f9e402d46e3",
+        "startTime": "2021-06-04 11:49:29",
+        "endTime": null,
+        "durationInMillis": null,
+        "completeScope": false,
+        "canceled": false,
+        "tenantId": "BuilderGeneralTenant",
+        "removalTime": null
+      },
+      {
+        "id": "StartEvent_N1:c8bb274a-c4e7-11eb-88e8-005056c00001",
+        "parentActivityInstanceId": "c8b95268-c4e7-11eb-88e8-005056c00001",
+        "activityId": "StartEvent_N1",
+        "activityName": "开始",
+        "activityType": "startEvent",
+        "processDefinitionKey": "Flow_Model_1619519188394",
+        "processDefinitionId": "Flow_Model_1619519188394:42:21c3a816-c351-11eb-9148-005056c00001",
+        "rootProcessInstanceId": "c8b95268-c4e7-11eb-88e8-005056c00001",
+        "processInstanceId": "c8b95268-c4e7-11eb-88e8-005056c00001",
+        "executionId": "c8b95268-c4e7-11eb-88e8-005056c00001",
+        "taskId": null,
+        "calledProcessInstanceId": null,
+        "calledCaseInstanceId": null,
+        "assignee": null,
+        "startTime": "2021-06-04 11:48:55",
+        "endTime": "2021-06-04 11:48:55",
+        "durationInMillis": 9,
+        "completeScope": false,
+        "canceled": false,
+        "tenantId": "BuilderGeneralTenant",
+        "removalTime": null
+      },
+      {
+        "id": "UserTask_Activity_N1:c8bd984b-c4e7-11eb-88e8-005056c00001",
+        "parentActivityInstanceId": "c8b95268-c4e7-11eb-88e8-005056c00001",
+        "activityId": "UserTask_Activity_N1",
+        "activityName": "发起人",
+        "activityType": "userTask",
+        "processDefinitionKey": "Flow_Model_1619519188394",
+        "processDefinitionId": "Flow_Model_1619519188394:42:21c3a816-c351-11eb-9148-005056c00001",
+        "rootProcessInstanceId": "c8b95268-c4e7-11eb-88e8-005056c00001",
+        "processInstanceId": "c8b95268-c4e7-11eb-88e8-005056c00001",
+        "executionId": "c8b95268-c4e7-11eb-88e8-005056c00001",
+        "taskId": "c8be348c-c4e7-11eb-88e8-005056c00001",
+        "calledProcessInstanceId": null,
+        "calledCaseInstanceId": null,
+        "assignee": "Alex4D",
+        "startTime": "2021-06-04 11:48:55",
+        "endTime": "2021-06-04 11:49:29",
+        "durationInMillis": 34042,
+        "completeScope": false,
+        "canceled": false,
+        "tenantId": "BuilderGeneralTenant",
+        "removalTime": null
+      }
+    ],
+    "bpmnXmlContent": "%3C%3Fxml%20version%3D%221.0%22%20encoding%3D%22UTF-8%22%3F%3E%0A%3Cbpmn%3Adefinitions%20xmlns%3Abpmn%3D%22http%3A%2F%2Fwww.omg.org%2Fspec%2FBPMN%2F20100524%2FMODEL%22%20xmlns%3Abpmndi%3D%22http%3A%2F%2Fwww.omg.org%2Fspec%2FBPMN%2F20100524%2FDI%22%20xmlns%3Adc%3D%22http%3A%2F%2Fwww.omg.org%2Fspec%2FDD%2F20100524%2FDC%22%20xmlns%3Adi%3D%22http%3A%2F%2Fwww.omg.org%2Fspec%2FDD%2F20100524%2FDI%22%20xmlns%3Ajb4dc%3D%22http%3A%2F%2Fjb4dc.org%2Fschema%2F1.0%2Fbpmn%22%20xmlns%3Acamunda%3D%22http%3A%2F%2Fcamunda.org%2Fschema%2F1.0%2Fbpmn%22%20xmlns%3Axsi%3D%22http%3A%2F%2Fwww.w3.org%2F2001%2FXMLSchema-instance%22%20xmlns%3Amodeler%3D%22http%3A%2F%2Fcamunda.org%2Fschema%2Fmodeler%2F1.0%22%20id%3D%22Definitions_1ihhr4m%22%20targetNamespace%3D%22http%3A%2F%2Fbpmn.io%2Fschema%2Fbpmn%22%20exporter%3D%22Camunda%20Modeler%22%20exporterVersion%3D%224.7.0%22%20modeler%3AexecutionPlatform%3D%22Camunda%20Platform%22%20modeler%3AexecutionPlatformVersion%3D%227.14.0%22%3E%3Cbpmn%3Aprocess%20id%3D%22Flow_Model_1619519188394%22%20name%3D%22%E9%A1%B9%E7%9B%AE%E7%AB%8B%E9%A1%B9%E5%AE%A1%E6%89%B9%E6%B5%81%E7%A8%8B%22%20isExecutable%3D%22true%22%20camunda%3AcandidateStarterGroups%3D%22SystemOrganAdmin%2CSSOMainAppRole-General-Role%2CBuilderMainAppRole-General-Role%2CQCMainAppRoleGroup-General-Role%22%20camunda%3AcandidateStarterUsers%3D%22834b97a7-7fd0-46ba-b87b-4113b1303c59%2C2d6945a3-46d8-42d2-babf-6f9e402d46e3%2C52cee6fd-6809-41d9-825e-aaf8b9582112%22%20jb4dc%3Ajb4dcCode%3D%22Flow_Model_JB4DC_Code_1619519188394%22%20jb4dc%3Ajb4dcFlowCategory%3D%22GeneralProcess%22%20jb4dc%3Ajb4dcFormId%3D%22b2eab4d0-8bf1-4ddb-919f-1200da383ecc%22%20jb4dc%3Ajb4dcFormPlugin%3D%22webFormPlugin%22%20jb4dc%3Ajb4dcFormEx1Plugin%3D%22webFormPlugin%22%20jb4dc%3Ajb4dcUseContentDocument%3D%22byProcessConfig%22%20jb4dc%3Ajb4dcContentDocumentPlugin%3D%22uploadConvertToPDFPlugin%22%20jb4dc%3Ajb4dcTenantId%3D%22JBuild4DC-Tenant%22%20jb4dc%3Ajb4dcProcessTitleEditText%3D%22%24%7B%E6%B5%81%E7%A8%8B%E5%8F%98%E9%87%8F.ModelName%7D-%E3%80%90%24%7B%E6%B5%81%E7%A8%8B%E5%8F%98%E9%87%8F.InstanceCreator%7D%E3%80%91-%E3%80%8C%24%7B%E6%B5%81%E7%A8%8B%E5%8F%98%E9%87%8F.InstanceCreatTime_yyyy_MM_dd%7D%E3%80%8D%22%20jb4dc%3Ajb4dcProcessTitleEditValue%3D%22%24%7B__%24FlowVar%24%24ModelName%24%7D-%E3%80%90%24%7B__%24FlowVar%24%24InstanceCreator%24%7D%E3%80%91-%E3%80%8C%24%7B__%24FlowVar%24%24InstanceCreatTime_yyyy_MM_dd%24%7D%E3%80%8D%22%20jb4dc%3Ajb4dcProcessCandidateStarterGroups%3D%22%5B%7B%26%2334%3BroleId%26%2334%3B%3A%26%2334%3BSystemOrganAdmin%26%2334%3B%2C%26%2334%3BrolePath%26%2334%3B%3A%26%2334%3B%E7%B3%BB%E7%BB%9F%E7%AE%A1%E7%90%86%E8%A7%92%E8%89%B2%E7%BB%84%E2%96%B7%E2%96%B7%E7%B3%BB%E7%BB%9F%E7%AE%A1%E7%90%86%E5%91%98%26%2334%3B%2C%26%2334%3BroleName%26%2334%3B%3A%26%2334%3B%E7%B3%BB%E7%BB%9F%E7%AE%A1%E7%90%86%E5%91%98%26%2334%3B%7D%2C%7B%26%2334%3BroleId%26%2334%3B%3A%26%2334%3BSSOMainAppRole-General-Role%26%2334%3B%2C%26%2334%3BrolePath%26%2334%3B%3A%26%2334%3B%E5%8D%95%E7%82%B9%E7%99%BB%E5%BD%95%E7%B3%BB%E7%BB%9F%E8%A7%92%E8%89%B2%E7%BB%84%E2%96%B7%E2%96%B7%E5%8D%95%E7%82%B9%E7%99%BB%E5%BD%95%E9%80%9A%E7%94%A8%E8%A7%92%E8%89%B2%26%2334%3B%2C%26%2334%3BroleName%26%2334%3B%3A%26%2334%3B%E5%8D%95%E7%82%B9%E7%99%BB%E5%BD%95%E9%80%9A%E7%94%A8%E8%A7%92%E8%89%B2%26%2334%3B%7D%2C%7B%26%2334%3BroleId%26%2334%3B%3A%26%2334%3BBuilderMainAppRole-General-Role%26%2334%3B%2C%26%2334%3BrolePath%26%2334%3B%3A%26%2334%3B%E5%BA%94%E7%94%A8%E6%9E%84%E5%BB%BA%E7%B3%BB%E7%BB%9F%E8%A7%92%E8%89%B2%E7%BB%84%E2%96%B7%E2%96%B7%E5%BA%94%E7%94%A8%E6%9E%84%E5%BB%BA%E9%80%9A%E7%94%A8%E8%A7%92%E8%89%B2%26%2334%3B%2C%26%2334%3BroleName%26%2334%3B%3A%26%2334%3B%E5%BA%94%E7%94%A8%E6%9E%84%E5%BB%BA%E9%80%9A%E7%94%A8%E8%A7%92%E8%89%B2%26%2334%3B%7D%2C%7B%26%2334%3BroleId%26%2334%3B%3A%26%2334%3BQCMainAppRoleGroup-General-Role%26%2334%3B%2C%26%2334%3BrolePath%26%2334%3B%3A%26%2334%3B%E8%BF%90%E7%BB%B4%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F%E8%A7%92%E8%89%B2%E7%BB%84%E2%96%B7%E2%96%B7%E8%BF%90%E7%BB%B4%E7%AE%A1%E7%90%86%E9%80%9A%E7%94%A8%E8%A7%92%E8%89%B2%26%2334%3B%2C%26%2334%3BroleName%26%2334%3B%3A%26%2334%3B%E8%BF%90%E7%BB%B4%E7%AE%A1%E7%90%86%E9%80%9A%E7%94%A8%E8%A7%92%E8%89%B2%26%2334%3B%7D%5D%22%20jb4dc%3Ajb4dcProcessCandidateStarterUsers%3D%22%5B%7B%26%2334%3BuserId%26%2334%3B%3A%26%2334%3B834b97a7-7fd0-46ba-b87b-4113b1303c59%26%2334%3B%2C%26%2334%3BuserPath%26%2334%3B%3A%26%2334%3B%E8%A1%8C%E6%94%BF%E5%8C%BA%E5%88%92%E2%96%B7%E2%96%B7%E6%BE%B3%E5%A4%B4%E8%A1%97%E9%81%93%E5%8A%9E%E2%96%B7%E2%96%B7%E5%8D%97%E8%BE%B9%E7%81%B6%E6%9D%91%E2%96%B7%E2%96%B7%E5%8D%97%E8%BE%B9%E7%81%B6%E4%B8%80%E5%8F%B7%E7%BD%91%E6%A0%BC%E2%96%B7%E2%96%B7%E9%99%88%E5%92%8F%E7%91%9C%26%2334%3B%2C%26%2334%3BuserName%26%2334%3B%3A%26%2334%3B%E9%99%88%E5%92%8F%E7%91%9C%26%2334%3B%7D%2C%7B%26%2334%3BuserId%26%2334%3B%3A%26%2334%3B2d6945a3-46d8-42d2-babf-6f9e402d46e3%26%2334%3B%2C%26%2334%3BuserPath%26%2334%3B%3A%26%2334%3B%E8%A1%8C%E6%94%BF%E5%8C%BA%E5%88%92%E2%96%B7%E2%96%B7%E6%BE%B3%E5%A4%B4%E8%A1%97%E9%81%93%E5%8A%9E%E2%96%B7%E2%96%B7%E5%8D%97%E8%BE%B9%E7%81%B6%E6%9D%91%E2%96%B7%E2%96%B7%E5%8D%97%E8%BE%B9%E7%81%B6%E4%B8%89%E5%8F%B7%E7%BD%91%E6%A0%BC%E2%96%B7%E2%96%B7%E9%BB%84%E8%80%80%E9%BE%99%26%2334%3B%2C%26%2334%3BuserName%26%2334%3B%3A%26%2334%3B%E9%BB%84%E8%80%80%E9%BE%99%26%2334%3B%7D%2C%7B%26%2334%3BuserId%26%2334%3B%3A%26%2334%3B52cee6fd-6809-41d9-825e-aaf8b9582112%26%2334%3B%2C%26%2334%3BuserPath%26%2334%3B%3A%26%2334%3B%E8%A1%8C%E6%94%BF%E5%8C%BA%E5%88%92%E2%96%B7%E2%96%B7%E6%BE%B3%E5%A4%B4%E8%A1%97%E9%81%93%E5%8A%9E%E2%96%B7%E2%96%B7%E5%8D%97%E8%BE%B9%E7%81%B6%E6%9D%91%E2%96%B7%E2%96%B7%E5%8D%97%E8%BE%B9%E7%81%B6%E7%B3%BB%E7%BB%9F%E6%B5%8B%E8%AF%95%E7%BD%91%E6%A0%BC%E2%96%B7%E2%96%B7%E5%8D%97%E8%BE%B9%E7%81%B6%E6%B5%8B%E7%BD%915002%26%2334%3B%2C%26%2334%3BuserName%26%2334%3B%3A%26%2334%3B%E5%8D%97%E8%BE%B9%E7%81%B6%E6%B5%8B%E7%BD%915002%26%2334%3B%7D%5D%22%20jb4dc%3Ajb4dcProcessActionConfirm%3D%22true%22%20jb4dc%3Ajb4dcProcessModelGroups%3D%22%5B%5D%22%20jb4dc%3Ajb4dcProcessModelImageClass%3D%22lab%20la-elementor%22%20jb4dc%3Ajb4dcProcessModelManagerGroups%3D%22%5B%7B%26%2334%3BroleId%26%2334%3B%3A%26%2334%3BDataFilter-With-DataSet-AllData%26%2334%3B%2C%26%2334%3BrolePath%26%2334%3B%3A%26%2334%3B%E6%95%B0%E6%8D%AE%E8%BF%87%E6%BB%A4%E8%A7%92%E8%89%B2%E7%BB%84%E2%96%B7%E2%96%B7%E6%95%B0%E6%8D%AE%E9%9B%86%E8%BF%87%E6%BB%A4-%E6%9F%A5%E7%9C%8B%E5%85%A8%E9%83%A8%E6%95%B0%E6%8D%AE%26%2334%3B%2C%26%2334%3BroleName%26%2334%3B%3A%26%2334%3B%E6%95%B0%E6%8D%AE%E9%9B%86%E8%BF%87%E6%BB%A4-%E6%9F%A5%E7%9C%8B%E5%85%A8%E9%83%A8%E6%95%B0%E6%8D%AE%26%2334%3B%7D%2C%7B%26%2334%3BroleId%26%2334%3B%3A%26%2334%3BSSOMainAppRole-General-Role%26%2334%3B%2C%26%2334%3BrolePath%26%2334%3B%3A%26%2334%3B%E5%8D%95%E7%82%B9%E7%99%BB%E5%BD%95%E7%B3%BB%E7%BB%9F%E8%A7%92%E8%89%B2%E7%BB%84%E2%96%B7%E2%96%B7%E5%8D%95%E7%82%B9%E7%99%BB%E5%BD%95%E9%80%9A%E7%94%A8%E8%A7%92%E8%89%B2%26%2334%3B%2C%26%2334%3BroleName%26%2334%3B%3A%26%2334%3B%E5%8D%95%E7%82%B9%E7%99%BB%E5%BD%95%E9%80%9A%E7%94%A8%E8%A7%92%E8%89%B2%26%2334%3B%7D%2C%7B%26%2334%3BroleId%26%2334%3B%3A%26%2334%3BQCMainAppRoleGroup-General-Role%26%2334%3B%2C%26%2334%3BrolePath%26%2334%3B%3A%26%2334%3B%E8%BF%90%E7%BB%B4%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F%E8%A7%92%E8%89%B2%E7%BB%84%E2%96%B7%E2%96%B7%E8%BF%90%E7%BB%B4%E7%AE%A1%E7%90%86%E9%80%9A%E7%94%A8%E8%A7%92%E8%89%B2%26%2334%3B%2C%26%2334%3BroleName%26%2334%3B%3A%26%2334%3B%E8%BF%90%E7%BB%B4%E7%AE%A1%E7%90%86%E9%80%9A%E7%94%A8%E8%A7%92%E8%89%B2%26%2334%3B%7D%5D%22%20jb4dc%3Ajb4dcProcessModelManagerUsers%3D%22%5B%7B%26%2334%3BuserId%26%2334%3B%3A%26%2334%3B2d6945a3-46d8-42d2-babf-6f9e402d46e3%26%2334%3B%2C%26%2334%3BuserPath%26%2334%3B%3A%26%2334%3B%E8%A1%8C%E6%94%BF%E5%8C%BA%E5%88%92%E2%96%B7%E2%96%B7%E6%BE%B3%E5%A4%B4%E8%A1%97%E9%81%93%E5%8A%9E%E2%96%B7%E2%96%B7%E5%8D%97%E8%BE%B9%E7%81%B6%E6%9D%91%E2%96%B7%E2%96%B7%E5%8D%97%E8%BE%B9%E7%81%B6%E4%B8%89%E5%8F%B7%E7%BD%91%E6%A0%BC%E2%96%B7%E2%96%B7%E9%BB%84%E8%80%80%E9%BE%99%26%2334%3B%2C%26%2334%3BuserName%26%2334%3B%3A%26%2334%3B%E9%BB%84%E8%80%80%E9%BE%99%26%2334%3B%7D%2C%7B%26%2334%3BuserId%26%2334%3B%3A%26%2334%3B8ac17550-bbb5-4016-b1b6-557de8dc74cd%26%2334%3B%2C%26%2334%3BuserPath%26%2334%3B%3A%26%2334%3B%E8%A1%8C%E6%94%BF%E5%8C%BA%E5%88%92%E2%96%B7%E2%96%B7%E6%BE%B3%E5%A4%B4%E8%A1%97%E9%81%93%E5%8A%9E%E2%96%B7%E2%96%B7%E5%8D%97%E8%BE%B9%E7%81%B6%E6%9D%91%E2%96%B7%E2%96%B7%E5%8D%97%E8%BE%B9%E7%81%B6%E5%9B%9B%E5%8F%B7%E7%BD%91%E6%A0%BC%E2%96%B7%E2%96%B7%E9%99%88%E5%9E%B2%E9%82%A6%26%2334%3B%2C%26%2334%3BuserName%26%2334%3B%3A%26%2334%3B%E9%99%88%E5%9E%B2%E9%82%A6%26%2334%3B%7D%2C%7B%26%2334%3BuserId%26%2334%3B%3A%26%2334%3B52cee6fd-6809-41d9-825e-aaf8b9582112%26%2334%3B%2C%26%2334%3BuserPath%26%2334%3B%3A%26%2334%3B%E8%A1%8C%E6%94%BF%E5%8C%BA%E5%88%92%E2%96%B7%E2%96%B7%E6%BE%B3%E5%A4%B4%E8%A1%97%E9%81%93%E5%8A%9E%E2%96%B7%E2%96%B7%E5%8D%97%E8%BE%B9%E7%81%B6%E6%9D%91%E2%96%B7%E2%96%B7%E5%8D%97%E8%BE%B9%E7%81%B6%E7%B3%BB%E7%BB%9F%E6%B5%8B%E8%AF%95%E7%BD%91%E6%A0%BC%E2%96%B7%E2%96%B7%E5%8D%97%E8%BE%B9%E7%81%B6%E6%B5%8B%E7%BD%915002%26%2334%3B%2C%26%2334%3BuserName%26%2334%3B%3A%26%2334%3B%E5%8D%97%E8%BE%B9%E7%81%B6%E6%B5%8B%E7%BD%915002%26%2334%3B%7D%5D%22%20jb4dc%3Ajb4dcProcessRestartEnable%3D%22true%22%20jb4dc%3Ajb4dcProcessAnyJumpEnable%3D%22true%22%3E%3Cbpmn%3Adocumentation%20%2F%3E%3Cbpmn%3AstartEvent%20id%3D%22StartEvent_N1%22%20name%3D%22%E5%BC%80%E5%A7%8B%22%20jb4dc%3Ajb4dcFormPlugin%3D%22webFormPlugin%22%20jb4dc%3Ajb4dcFormEx1Plugin%3D%22webFormPlugin%22%20jb4dc%3Ajb4dcUseContentDocument%3D%22byProcessConfig%22%3E%3Cbpmn%3Adocumentation%3E%3C%2Fbpmn%3Adocumentation%3E%3Cbpmn%3AextensionElements%3E%3Cjb4dc%3Ajb4dcActions%3E%3Cjb4dc%3Ajb4dcAction%20actionType%3D%22send%22%20actionCode%3D%22action_516009775%22%20actionCaption%3D%22%E8%8D%89%E7%A8%BF%22%20actionShowOpinionDialog%3D%22false%22%20actionDisplayConditionEditText%3D%22%E2%80%8B%22%20actionRunSqls%3D%22%5B%5D%22%20actionUpdateFields%3D%22%5B%5D%22%20actionCallApis%3D%22%5B%5D%22%20actionExecuteVariables%3D%22%5B%5D%22%20actionConfirm%3D%22false%22%20actionValidate%3D%22%E6%97%A0%22%20actionMainReceiveObjects%3D%22%5B%7B%26%2334%3BreceiveObjectCode%26%2334%3B%3A%26%2334%3BreceiveObject_603841326%26%2334%3B%2C%26%2334%3BreceiveObjectType%26%2334%3B%3A%26%2334%3BflowAboutUser%26%2334%3B%2C%26%2334%3BreceiveObjectGroupName%26%2334%3B%3A%26%2334%3B%26%2334%3B%2C%26%2334%3BreceiveObjectValue%26%2334%3B%3A%26%2334%3BinstanceStarter%26%2334%3B%2C%26%2334%3BreceiveObjectText%26%2334%3B%3A%26%2334%3B%E6%B5%81%E7%A8%8B%E5%AE%9E%E4%BE%8B%E5%8F%91%E8%B5%B7%E4%BA%BA%26%2334%3B%2C%26%2334%3BreceiveObjectConfig%26%2334%3B%3A%26%2334%3B%26%2334%3B%7D%5D%22%20actionCCReceiveObjects%3D%22%5B%5D%22%20actionAutoSend%3D%22false%22%20actionCallComplete%3D%22true%22%20%2F%3E%3Cjb4dc%3Ajb4dcAction%20actionType%3D%22send%22%20actionCode%3D%22action_515976189%22%20actionCaption%3D%22%E9%80%81%E9%83%A8%E9%97%A8%E7%BB%8F%E7%90%86%22%20actionShowOpinionDialog%3D%22false%22%20actionRunSqls%3D%22%5B%5D%22%20actionUpdateFields%3D%22%5B%5D%22%20actionCallApis%3D%22%5B%7B%26%2334%3BapiId%26%2334%3B%3A%26%2334%3BGeneralPrintLogActionApi%26%2334%3B%2C%26%2334%3BapiName%26%2334%3B%3A%26%2334%3B%E5%B0%86%E5%8A%A8%E4%BD%9CApi%E5%8F%82%E6%95%B0%E5%86%99%E5%85%A5%E5%88%B0%E6%97%A5%E5%BF%97%26%2334%3B%2C%26%2334%3BrunAt%26%2334%3B%3A%26%2334%3Bbefore%26%2334%3B%7D%2C%7B%26%2334%3BapiId%26%2334%3B%3A%26%2334%3BGeneralPrintLogActionApi%26%2334%3B%2C%26%2334%3BapiName%26%2334%3B%3A%26%2334%3B%E5%B0%86%E5%8A%A8%E4%BD%9CApi%E5%8F%82%E6%95%B0%E5%86%99%E5%85%A5%E5%88%B0%E6%97%A5%E5%BF%97%26%2334%3B%2C%26%2334%3BrunAt%26%2334%3B%3A%26%2334%3Bafter%26%2334%3B%7D%5D%22%20actionExecuteVariables%3D%22%5B%5D%22%20actionConfirm%3D%22false%22%20actionValidate%3D%22%E6%97%A0%22%20actionMainReceiveObjects%3D%22%5B%5D%22%20actionCCReceiveObjects%3D%22%5B%5D%22%20actionAutoSend%3D%22false%22%20actionCallComplete%3D%22true%22%20%2F%3E%3Cjb4dc%3Ajb4dcAction%20actionType%3D%22send%22%20actionCode%3D%22action_526152327%22%20actionCaption%3D%22%E9%80%81%E6%80%BB%E7%BB%8F%E7%90%86%22%20actionShowOpinionDialog%3D%22false%22%20actionDisplayConditionEditText%3D%22%24%7B%E6%B5%81%E7%A8%8B%E5%8F%98%E9%87%8F.InstanceCreator%3D%3D%26%2334%3B%E8%A2%81%E7%BA%A2%E6%9E%97%26%2334%3B%7D%22%20actionDisplayConditionEditValue%3D%22%24%7B__%24FlowVar%24%24InstanceCreator%24%3D%3D%26%2334%3B%E8%A2%81%E7%BA%A2%E6%9E%97%26%2334%3B%7D%22%20actionRunSqls%3D%22%5B%5D%22%20actionUpdateFields%3D%22%5B%5D%22%20actionCallApis%3D%22%5B%5D%22%20actionExecuteVariables%3D%22%5B%5D%22%20actionConfirm%3D%22false%22%20actionValidate%3D%22%E6%97%A0%22%20actionMainReceiveObjects%3D%22%5B%5D%22%20actionCCReceiveObjects%3D%22%5B%5D%22%20actionAutoSend%3D%22false%22%20actionCallComplete%3D%22true%22%20%2F%3E%3Cjb4dc%3Ajb4dcAction%20actionType%3D%22send%22%20actionCode%3D%22action_896686771%22%20actionCaption%3D%22%E7%9B%B4%E6%8E%A5%E7%AB%8B%E9%A1%B9%E6%9C%8D%E5%8A%A1%22%20actionShowOpinionDialog%3D%22false%22%20actionRunSqls%3D%22%5B%5D%22%20actionUpdateFields%3D%22%5B%5D%22%20actionCallApis%3D%22%5B%5D%22%20actionExecuteVariables%3D%22%5B%5D%22%20actionConfirm%3D%22false%22%20actionValidate%3D%22%E6%97%A0%22%20actionMainReceiveObjects%3D%22%5B%5D%22%20actionCCReceiveObjects%3D%22%5B%5D%22%20actionAutoSend%3D%22false%22%20actionCallComplete%3D%22true%22%20%2F%3E%3Cjb4dc%3Ajb4dcAction%20actionType%3D%22send%22%20actionCode%3D%22action_955710861%22%20actionCaption%3D%22%E9%80%81%E5%B9%B6%E8%A1%8C%E7%BD%91%E5%85%B3%22%20actionShowOpinionDialog%3D%22false%22%20actionRunSqls%3D%22%5B%5D%22%20actionUpdateFields%3D%22%5B%5D%22%20actionCallApis%3D%22%5B%5D%22%20actionExecuteVariables%3D%22%5B%5D%22%20actionConfirm%3D%22false%22%20actionValidate%3D%22%E6%97%A0%22%20actionMainReceiveObjects%3D%22%5B%5D%22%20actionCCReceiveObjects%3D%22%5B%5D%22%20actionAutoSend%3D%22false%22%20actionCallComplete%3D%22true%22%20%2F%3E%3C%2Fjb4dc%3Ajb4dcActions%3E%3C%2Fbpmn%3AextensionElements%3E%3Cbpmn%3Aoutgoing%3EFlow_StartEvent_To_FirstUTNode%3C%2Fbpmn%3Aoutgoing%3E%3Cbpmn%3Aoutgoing%3EFlow_1lh2z20%3C%2Fbpmn%3Aoutgoing%3E%3Cbpmn%3Aoutgoing%3EFlow_19sxcty%3C%2Fbpmn%3Aoutgoing%3E%3Cbpmn%3Aoutgoing%3EFlow_0qnp1dy%3C%2Fbpmn%3Aoutgoing%3E%3Cbpmn%3Aoutgoing%3EFlow_0qrljwr%3C%2Fbpmn%3Aoutgoing%3E%3C%2Fbpmn%3AstartEvent%3E%3Cbpmn%3AendEvent%20id%3D%22EndEvent_N1%22%20name%3D%22%E7%BB%93%E6%9D%9F%22%3E%3Cbpmn%3Aincoming%3EFlow_0hw0ibj%3C%2Fbpmn%3Aincoming%3E%3Cbpmn%3Aincoming%3EFlow_095ed4g%3C%2Fbpmn%3Aincoming%3E%3Cbpmn%3Aincoming%3EFlow_0gilvgt%3C%2Fbpmn%3Aincoming%3E%3C%2Fbpmn%3AendEvent%3E%3Cbpmn%3AuserTask%20id%3D%22UserTask_Activity_N1%22%20name%3D%22%E5%8F%91%E8%B5%B7%E4%BA%BA%22%20camunda%3Aassignee%3D%22%24%7BUserTask_Activity_N1_Assignee_User%7D%22%20jb4dc%3Ajb4dcFormPlugin%3D%22webFormPlugin%22%20jb4dc%3Ajb4dcFormEx1Plugin%3D%22webFormPlugin%22%20jb4dc%3Ajb4dcUseContentDocument%3D%22byProcessConfig%22%3E%3Cbpmn%3Adocumentation%3E%3C%2Fbpmn%3Adocumentation%3E%3Cbpmn%3AextensionElements%3E%3Cjb4dc%3Ajb4dcActions%3E%3Cjb4dc%3Ajb4dcAction%20actionType%3D%22send%22%20actionCode%3D%22action_516058607%22%20actionCaption%3D%22%E9%80%81%E9%83%A8%E9%97%A8%E7%BB%8F%E7%90%86%22%20actionShowOpinionDialog%3D%22false%22%20actionRunSqls%3D%22%5B%5D%22%20actionUpdateFields%3D%22%5B%5D%22%20actionCallApis%3D%22%5B%5D%22%20actionExecuteVariables%3D%22%5B%5D%22%20actionConfirm%3D%22false%22%20actionValidate%3D%22%E6%97%A0%22%20actionMainReceiveObjects%3D%22%5B%5D%22%20actionCCReceiveObjects%3D%22%5B%5D%22%20actionAutoSend%3D%22false%22%20actionCallComplete%3D%22true%22%20%2F%3E%3C%2Fjb4dc%3Ajb4dcActions%3E%3Cjb4dc%3Ajb4dcMainReceiveObjects%3E%3Cjb4dc%3Ajb4dcReceiveObject%20receiveObjectCode%3D%22receiveObject_603875912%22%20receiveObjectType%3D%22Users%22%20receiveObjectValue%3D%22834b97a7-7fd0-46ba-b87b-4113b1303c59%22%20receiveObjectText%3D%22%E8%A1%8C%E6%94%BF%E5%8C%BA%E5%88%92%E2%96%B7%E2%96%B7%E6%BE%B3%E5%A4%B4%E8%A1%97%E9%81%93%E5%8A%9E%E2%96%B7%E2%96%B7%E5%8D%97%E8%BE%B9%E7%81%B6%E6%9D%91%E2%96%B7%E2%96%B7%E5%8D%97%E8%BE%B9%E7%81%B6%E4%B8%80%E5%8F%B7%E7%BD%91%E6%A0%BC%E2%96%B7%E2%96%B7%E9%99%88%E5%92%8F%E7%91%9C%22%20%2F%3E%3C%2Fjb4dc%3Ajb4dcMainReceiveObjects%3E%3Cjb4dc%3Ajb4dcCCReceiveObjects%20%2F%3E%3Cjb4dc%3Ajb4dcAuthorities%20authoritiesUsed%3D%22true%22%20authoritiesOnlySendBackCanEdit%3D%22false%22%20authoritiesAllFieldAuthority%3D%22%7B%26%2334%3BeditALL%26%2334%3B%3A%26%2334%3Btrue%26%2334%3B%2C%26%2334%3BviewAll%26%2334%3B%3A%26%2334%3Btrue%26%2334%3B%2C%26%2334%3BemptyEditAll%26%2334%3B%3A%26%2334%3Btrue%26%2334%3B%7D%22%20authoritiesFileAuthority%3D%22%7B%26%2334%3BaddFile%26%2334%3B%3A%26%2334%3Btrue%26%2334%3B%2C%26%2334%3BdeleteFile%26%2334%3B%3A%26%2334%3Btrue%26%2334%3B%2C%26%2334%3BviewFile%26%2334%3B%3A%26%2334%3Btrue%26%2334%3B%2C%26%2334%3BpackageDown%26%2334%3B%3A%26%2334%3Btrue%26%2334%3B%7D%22%20authoritiesDocumentAuthority%3D%22%7B%26%2334%3Bedit%26%2334%3B%3A%26%2334%3Btrue%26%2334%3B%2C%26%2334%3BaddComment%26%2334%3B%3A%26%2334%3Btrue%26%2334%3B%2C%26%2334%3Bview%26%2334%3B%3A%26%2334%3Btrue%26%2334%3B%2C%26%2334%3BviewHistory%26%2334%3B%3A%26%2334%3Btrue%26%2334%3B%7D%22%20%2F%3E%3C%2Fbpmn%3AextensionElements%3E%3Cbpmn%3Aincoming%3EFlow_StartEvent_To_FirstUTNode%3C%2Fbpmn%3Aincoming%3E%3Cbpmn%3Aincoming%3EFlow_0qmmvbd%3C%2Fbpmn%3Aincoming%3E%3Cbpmn%3Aincoming%3EFlow_1bq6tb2%3C%2Fbpmn%3Aincoming%3E%3Cbpmn%3Aincoming%3EFlow_02a24uk%3C%2Fbpmn%3Aincoming%3E%3Cbpmn%3Aoutgoing%3EFlow_0968hmz%3C%2Fbpmn%3Aoutgoing%3E%3C%2Fbpmn%3AuserTask%3E%3Cbpmn%3AsequenceFlow%20id%3D%22Flow_StartEvent_To_FirstUTNode%22%20sourceRef%3D%22StartEvent_N1%22%20targetRef%3D%22UserTask_Activity_N1%22%20jb4dc%3Ajb4dcSequenceFlowConditionEditText%3D%22%24%7BLastActionKey%3D%3D%26%2334%3B%E6%B5%81%E7%A8%8B%E5%8A%A8%E4%BD%9C.%E5%BC%80%E5%A7%8B.%E8%8D%89%E7%A8%BF%26%2334%3B%7D%22%3E%3Cbpmn%3Adocumentation%20%2F%3E%3Cbpmn%3AconditionExpression%20xsi%3Atype%3D%22bpmn%3AtFormalExpression%22%3E%24%7BLastActionKey%3D%3D%22__%24FlowAction%24%24StartEvent_N1%24%24action_516009775%24%22%7D%3C%2Fbpmn%3AconditionExpression%3E%3C%2Fbpmn%3AsequenceFlow%3E%3Cbpmn%3AuserTask%20id%3D%22Activity_04kw6xw%22%20name%3D%22%E9%83%A8%E9%97%A8%E5%AE%A1%E6%89%B9%22%20camunda%3Aassignee%3D%22%24%7BActivity_04kw6xw_Assignee_User%7D%22%20jb4dc%3Ajb4dcFormPlugin%3D%22webFormPlugin%22%20jb4dc%3Ajb4dcFormEx1Plugin%3D%22webFormPlugin%22%20jb4dc%3Ajb4dcUseContentDocument%3D%22byProcessConfig%22%3E%3Cbpmn%3Adocumentation%20%2F%3E%3Cbpmn%3AextensionElements%3E%3Cjb4dc%3Ajb4dcActions%3E%3Cjb4dc%3Ajb4dcAction%20actionType%3D%22send%22%20actionCode%3D%22action_516191836%22%20actionCaption%3D%22%E9%80%81%E5%88%86%E7%AE%A1%E9%A2%86%E5%AF%BC%22%20actionShowOpinionDialog%3D%22false%22%20actionRunSqls%3D%22%5B%5D%22%20actionUpdateFields%3D%22%5B%5D%22%20actionCallApis%3D%22%5B%5D%22%20actionExecuteVariables%3D%22%5B%5D%22%20actionConfirm%3D%22false%22%20actionValidate%3D%22%E6%97%A0%22%20actionMainReceiveObjects%3D%22%5B%5D%22%20actionCCReceiveObjects%3D%22%5B%5D%22%20actionAutoSend%3D%22false%22%20actionCallComplete%3D%22true%22%20%2F%3E%3Cjb4dc%3Ajb4dcAction%20actionType%3D%22send%22%20actionCode%3D%22action_516202644%22%20actionCaption%3D%22%E9%80%80%E5%9B%9E%22%20actionShowOpinionDialog%3D%22false%22%20actionRunSqls%3D%22%5B%5D%22%20actionUpdateFields%3D%22%5B%5D%22%20actionCallApis%3D%22%5B%5D%22%20actionExecuteVariables%3D%22%5B%5D%22%20actionConfirm%3D%22false%22%20actionValidate%3D%22%E6%97%A0%22%20actionMainReceiveObjects%3D%22%5B%5D%22%20actionCCReceiveObjects%3D%22%5B%5D%22%20actionAutoSend%3D%22false%22%20actionCallComplete%3D%22true%22%20%2F%3E%3C%2Fjb4dc%3Ajb4dcActions%3E%3Cjb4dc%3Ajb4dcMainReceiveObjects%3E%3Cjb4dc%3Ajb4dcReceiveObject%20receiveObjectCode%3D%22receiveObject_992218500%22%20receiveObjectType%3D%22Users%22%20receiveObjectGroupName%3D%22%22%20receiveObjectValue%3D%22834b97a7-7fd0-46ba-b87b-4113b1303c59%2C21ae6b28-dcd4-4f3f-b00f-c3b884f96d7e%2C2d6945a3-46d8-42d2-babf-6f9e402d46e3%22%20receiveObjectText%3D%22%E8%A1%8C%E6%94%BF%E5%8C%BA%E5%88%92%E2%96%B7%E2%96%B7%E6%BE%B3%E5%A4%B4%E8%A1%97%E9%81%93%E5%8A%9E%E2%96%B7%E2%96%B7%E5%8D%97%E8%BE%B9%E7%81%B6%E6%9D%91%E2%96%B7%E2%96%B7%E5%8D%97%E8%BE%B9%E7%81%B6%E4%B8%80%E5%8F%B7%E7%BD%91%E6%A0%BC%E2%96%B7%E2%96%B7%E9%99%88%E5%92%8F%E7%91%9C%2C%E8%A1%8C%E6%94%BF%E5%8C%BA%E5%88%92%E2%96%B7%E2%96%B7%E6%BE%B3%E5%A4%B4%E8%A1%97%E9%81%93%E5%8A%9E%E2%96%B7%E2%96%B7%E5%8D%97%E8%BE%B9%E7%81%B6%E6%9D%91%E2%96%B7%E2%96%B7%E5%8D%97%E8%BE%B9%E7%81%B6%E4%BA%8C%E5%8F%B7%E7%BD%91%E6%A0%BC%E2%96%B7%E2%96%B7%E4%BD%95%E9%A6%99%E8%8C%B9%2C%E8%A1%8C%E6%94%BF%E5%8C%BA%E5%88%92%E2%96%B7%E2%96%B7%E6%BE%B3%E5%A4%B4%E8%A1%97%E9%81%93%E5%8A%9E%E2%96%B7%E2%96%B7%E5%8D%97%E8%BE%B9%E7%81%B6%E6%9D%91%E2%96%B7%E2%96%B7%E5%8D%97%E8%BE%B9%E7%81%B6%E4%B8%89%E5%8F%B7%E7%BD%91%E6%A0%BC%E2%96%B7%E2%96%B7%E9%BB%84%E8%80%80%E9%BE%99%22%20%2F%3E%3Cjb4dc%3Ajb4dcReceiveObject%20receiveObjectCode%3D%22receiveObject_992222898%22%20receiveObjectType%3D%22Users%22%20receiveObjectGroupName%3D%22%22%20receiveObjectValue%3D%228ac17550-bbb5-4016-b1b6-557de8dc74cd%22%20receiveObjectText%3D%22%E8%A1%8C%E6%94%BF%E5%8C%BA%E5%88%92%E2%96%B7%E2%96%B7%E6%BE%B3%E5%A4%B4%E8%A1%97%E9%81%93%E5%8A%9E%E2%96%B7%E2%96%B7%E5%8D%97%E8%BE%B9%E7%81%B6%E6%9D%91%E2%96%B7%E2%96%B7%E5%8D%97%E8%BE%B9%E7%81%B6%E5%9B%9B%E5%8F%B7%E7%BD%91%E6%A0%BC%E2%96%B7%E2%96%B7%E9%99%88%E5%9E%B2%E9%82%A6%22%20%2F%3E%3Cjb4dc%3Ajb4dcReceiveObject%20receiveObjectCode%3D%22receiveObject_992226841%22%20receiveObjectType%3D%22Organs%22%20receiveObjectGroupName%3D%22%22%20receiveObjectValue%3D%224480608b-cb6f-4bff-9030-a656463fefbf%2Cbf653078-8830-43c7-a625-f5385bfc8b8f%22%20receiveObjectText%3D%22%E8%A1%8C%E6%94%BF%E5%8C%BA%E5%88%92%E2%96%B7%E2%96%B7%E6%BE%B3%E5%A4%B4%E8%A1%97%E9%81%93%E5%8A%9E%E2%96%B7%E2%96%B7%E5%8D%97%E8%BE%B9%E7%81%B6%E6%9D%91%E2%96%B7%E2%96%B7%E5%8D%97%E8%BE%B9%E7%81%B6%E4%B8%80%E5%8F%B7%E7%BD%91%E6%A0%BC%2C%E8%A1%8C%E6%94%BF%E5%8C%BA%E5%88%92%E2%96%B7%E2%96%B7%E6%BE%B3%E5%A4%B4%E8%A1%97%E9%81%93%E5%8A%9E%E2%96%B7%E2%96%B7%E5%8D%97%E8%BE%B9%E7%81%B6%E6%9D%91%E2%96%B7%E2%96%B7%E5%8D%97%E8%BE%B9%E7%81%B6%E4%BA%8C%E5%8F%B7%E7%BD%91%E6%A0%BC%22%20%2F%3E%3Cjb4dc%3Ajb4dcReceiveObject%20receiveObjectCode%3D%22receiveObject_992235974%22%20receiveObjectType%3D%22Role%22%20receiveObjectGroupName%3D%22%22%20receiveObjectValue%3D%22GridMainAppRoleGroup-Dept-Role%2CGridMainAppRoleGroup-Street-Role%2CGridMainAppRoleGroup-Community-Role%22%20receiveObjectText%3D%22%E7%BD%91%E6%A0%BC%E5%8C%96%E7%A4%BE%E4%BC%9A%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F%E8%A7%92%E8%89%B2%E7%BB%84%E2%96%B7%E2%96%B7%E9%83%A8%E9%97%A8%E8%A7%92%E8%89%B2%2C%E7%BD%91%E6%A0%BC%E5%8C%96%E7%A4%BE%E4%BC%9A%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F%E8%A7%92%E8%89%B2%E7%BB%84%E2%96%B7%E2%96%B7%E4%B9%A1%E9%95%87%E8%A1%97%E9%81%93%E8%A7%92%E8%89%B2%2C%E7%BD%91%E6%A0%BC%E5%8C%96%E7%A4%BE%E4%BC%9A%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F%E8%A7%92%E8%89%B2%E7%BB%84%E2%96%B7%E2%96%B7%E6%9D%91%E7%A4%BE%E5%8C%BA%E8%A7%92%E8%89%B2%22%20receiveObjectConfig%3D%22%E5%85%A8%E5%B1%80%22%20%2F%3E%3C%2Fjb4dc%3Ajb4dcMainReceiveObjects%3E%3Cjb4dc%3Ajb4dcCCReceiveObjects%3E%3Cjb4dc%3Ajb4dcReceiveObject%20receiveObjectCode%3D%22receiveObject_992269059%22%20receiveObjectType%3D%22Role%22%20receiveObjectGroupName%3D%22%22%20receiveObjectValue%3D%22SSOMainAppRole-General-Role%2CBuilderMainAppRole-General-Role%2CGridMainAppRoleGroup-Center-Role%2CGridMainAppRoleGroup-Dept-Role%2CGridMainAppRoleGroup-Street-Role%22%20receiveObjectText%3D%22%E5%8D%95%E7%82%B9%E7%99%BB%E5%BD%95%E7%B3%BB%E7%BB%9F%E8%A7%92%E8%89%B2%E7%BB%84%E2%96%B7%E2%96%B7%E5%8D%95%E7%82%B9%E7%99%BB%E5%BD%95%E9%80%9A%E7%94%A8%E8%A7%92%E8%89%B2%2C%E5%BA%94%E7%94%A8%E6%9E%84%E5%BB%BA%E7%B3%BB%E7%BB%9F%E8%A7%92%E8%89%B2%E7%BB%84%E2%96%B7%E2%96%B7%E5%BA%94%E7%94%A8%E6%9E%84%E5%BB%BA%E9%80%9A%E7%94%A8%E8%A7%92%E8%89%B2%2C%E7%BD%91%E6%A0%BC%E5%8C%96%E7%A4%BE%E4%BC%9A%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F%E8%A7%92%E8%89%B2%E7%BB%84%E2%96%B7%E2%96%B7%E6%8C%87%E6%8C%A5%E4%B8%AD%E5%BF%83%E8%A7%92%E8%89%B2%2C%E7%BD%91%E6%A0%BC%E5%8C%96%E7%A4%BE%E4%BC%9A%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F%E8%A7%92%E8%89%B2%E7%BB%84%E2%96%B7%E2%96%B7%E9%83%A8%E9%97%A8%E8%A7%92%E8%89%B2%2C%E7%BD%91%E6%A0%BC%E5%8C%96%E7%A4%BE%E4%BC%9A%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F%E8%A7%92%E8%89%B2%E7%BB%84%E2%96%B7%E2%96%B7%E4%B9%A1%E9%95%87%E8%A1%97%E9%81%93%E8%A7%92%E8%89%B2%22%20receiveObjectConfig%3D%22%E5%85%A8%E5%B1%80%22%20%2F%3E%3C%2Fjb4dc%3Ajb4dcCCReceiveObjects%3E%3Cjb4dc%3Ajb4dcAuthorities%20authoritiesUsed%3D%22true%22%20authoritiesOnlySendBackCanEdit%3D%22false%22%20authoritiesAllFieldAuthority%3D%22%7B%26%2334%3BeditALL%26%2334%3B%3A%26%2334%3Btrue%26%2334%3B%2C%26%2334%3BviewAll%26%2334%3B%3A%26%2334%3Btrue%26%2334%3B%2C%26%2334%3BemptyEditAll%26%2334%3B%3A%26%2334%3Btrue%26%2334%3B%7D%22%20authoritiesFileAuthority%3D%22%7B%26%2334%3BaddFile%26%2334%3B%3A%26%2334%3Btrue%26%2334%3B%2C%26%2334%3BdeleteFile%26%2334%3B%3A%26%2334%3Btrue%26%2334%3B%2C%26%2334%3BviewFile%26%2334%3B%3A%26%2334%3Btrue%26%2334%3B%2C%26%2334%3BpackageDown%26%2334%3B%3A%26%2334%3Btrue%26%2334%3B%7D%22%20authoritiesDocumentAuthority%3D%22%7B%26%2334%3Bedit%26%2334%3B%3A%26%2334%3Btrue%26%2334%3B%2C%26%2334%3BaddComment%26%2334%3B%3A%26%2334%3Btrue%26%2334%3B%2C%26%2334%3Bview%26%2334%3B%3A%26%2334%3Btrue%26%2334%3B%2C%26%2334%3BviewHistory%26%2334%3B%3A%26%2334%3Btrue%26%2334%3B%7D%22%20%2F%3E%3C%2Fbpmn%3AextensionElements%3E%3Cbpmn%3Aincoming%3EFlow_0968hmz%3C%2Fbpmn%3Aincoming%3E%3Cbpmn%3Aincoming%3EFlow_1lh2z20%3C%2Fbpmn%3Aincoming%3E%3Cbpmn%3Aoutgoing%3EFlow_0o78625%3C%2Fbpmn%3Aoutgoing%3E%3Cbpmn%3Aoutgoing%3EFlow_0qmmvbd%3C%2Fbpmn%3Aoutgoing%3E%3C%2Fbpmn%3AuserTask%3E%3Cbpmn%3AuserTask%20id%3D%22Activity_1oze7it%22%20name%3D%22%E5%88%86%E7%AE%A1%E9%A2%86%E5%AF%BC%22%20camunda%3Aassignee%3D%22%24%7BActivity_1oze7it_Assignee_User%7D%22%20jb4dc%3Ajb4dcFormPlugin%3D%22webFormPlugin%22%20jb4dc%3Ajb4dcFormEx1Plugin%3D%22webFormPlugin%22%20jb4dc%3Ajb4dcUseContentDocument%3D%22byProcessConfig%22%3E%3Cbpmn%3Adocumentation%20%2F%3E%3Cbpmn%3AextensionElements%3E%3Cjb4dc%3Ajb4dcActions%3E%3Cjb4dc%3Ajb4dcAction%20actionType%3D%22send%22%20actionCode%3D%22action_516248167%22%20actionCaption%3D%22%E9%80%81%E9%A2%86%E5%AF%BC%E4%BC%9A%E7%AD%BE%22%20actionShowOpinionDialog%3D%22false%22%20actionRunSqls%3D%22%5B%5D%22%20actionUpdateFields%3D%22%5B%5D%22%20actionCallApis%3D%22%5B%5D%22%20actionExecuteVariables%3D%22%5B%5D%22%20actionConfirm%3D%22false%22%20actionValidate%3D%22%E6%97%A0%22%20actionMainReceiveObjects%3D%22%5B%5D%22%20actionCCReceiveObjects%3D%22%5B%5D%22%20actionAutoSend%3D%22false%22%20actionCallComplete%3D%22true%22%20%2F%3E%3Cjb4dc%3Ajb4dcAction%20actionType%3D%22send%22%20actionCode%3D%22action_516265085%22%20actionCaption%3D%22%E9%80%80%E5%9B%9E%22%20actionShowOpinionDialog%3D%22false%22%20actionRunSqls%3D%22%5B%5D%22%20actionUpdateFields%3D%22%5B%5D%22%20actionCallApis%3D%22%5B%5D%22%20actionExecuteVariables%3D%22%5B%5D%22%20actionConfirm%3D%22false%22%20actionValidate%3D%22%E6%97%A0%22%20actionMainReceiveObjects%3D%22%5B%5D%22%20actionCCReceiveObjects%3D%22%5B%5D%22%20actionAutoSend%3D%22false%22%20actionCallComplete%3D%22true%22%20%2F%3E%3C%2Fjb4dc%3Ajb4dcActions%3E%3Cjb4dc%3Ajb4dcMainReceiveObjects%20%2F%3E%3Cjb4dc%3Ajb4dcCCReceiveObjects%20%2F%3E%3Cjb4dc%3Ajb4dcAuthorities%20authoritiesUsed%3D%22true%22%20authoritiesOnlySendBackCanEdit%3D%22false%22%20authoritiesAllFieldAuthority%3D%22%7B%26%2334%3BeditALL%26%2334%3B%3A%26%2334%3Btrue%26%2334%3B%2C%26%2334%3BviewAll%26%2334%3B%3A%26%2334%3Btrue%26%2334%3B%2C%26%2334%3BemptyEditAll%26%2334%3B%3A%26%2334%3Btrue%26%2334%3B%7D%22%20authoritiesFileAuthority%3D%22%7B%26%2334%3BaddFile%26%2334%3B%3A%26%2334%3Btrue%26%2334%3B%2C%26%2334%3BdeleteFile%26%2334%3B%3A%26%2334%3Btrue%26%2334%3B%2C%26%2334%3BviewFile%26%2334%3B%3A%26%2334%3Btrue%26%2334%3B%2C%26%2334%3BpackageDown%26%2334%3B%3A%26%2334%3Btrue%26%2334%3B%7D%22%20authoritiesDocumentAuthority%3D%22%7B%26%2334%3Bedit%26%2334%3B%3A%26%2334%3Btrue%26%2334%3B%2C%26%2334%3BaddComment%26%2334%3B%3A%26%2334%3Btrue%26%2334%3B%2C%26%2334%3Bview%26%2334%3B%3A%26%2334%3Btrue%26%2334%3B%2C%26%2334%3BviewHistory%26%2334%3B%3A%26%2334%3Btrue%26%2334%3B%7D%22%20%2F%3E%3C%2Fbpmn%3AextensionElements%3E%3Cbpmn%3Aincoming%3EFlow_0o78625%3C%2Fbpmn%3Aincoming%3E%3Cbpmn%3Aoutgoing%3EFlow_1bq6tb2%3C%2Fbpmn%3Aoutgoing%3E%3Cbpmn%3Aoutgoing%3EFlow_0nio3cs%3C%2Fbpmn%3Aoutgoing%3E%3C%2Fbpmn%3AuserTask%3E%3Cbpmn%3AsequenceFlow%20id%3D%22Flow_0968hmz%22%20sourceRef%3D%22UserTask_Activity_N1%22%20targetRef%3D%22Activity_04kw6xw%22%20jb4dc%3Ajb4dcSequenceFlowConditionEditText%3D%22%24%7BLastActionKey%3D%3D%26%2334%3B%E6%B5%81%E7%A8%8B%E5%8A%A8%E4%BD%9C.%E5%8F%91%E8%B5%B7%E4%BA%BA.%E9%80%81%E9%83%A8%E9%97%A8%E7%BB%8F%E7%90%86%26%2334%3B%7D%22%3E%3Cbpmn%3Adocumentation%20%2F%3E%3Cbpmn%3AconditionExpression%20xsi%3Atype%3D%22bpmn%3AtFormalExpression%22%3E%24%7BLastActionKey%3D%3D%22__%24FlowAction%24%24UserTask_Activity_N1%24%24action_516058607%24%22%7D%3C%2Fbpmn%3AconditionExpression%3E%3C%2Fbpmn%3AsequenceFlow%3E%3Cbpmn%3AsequenceFlow%20id%3D%22Flow_0o78625%22%20sourceRef%3D%22Activity_04kw6xw%22%20targetRef%3D%22Activity_1oze7it%22%20jb4dc%3Ajb4dcSequenceFlowConditionEditText%3D%22%24%7BLastActionKey%3D%3D%26%2334%3B%E6%B5%81%E7%A8%8B%E5%8A%A8%E4%BD%9C.%E9%83%A8%E9%97%A8%E5%AE%A1%E6%89%B9.%E9%80%81%E5%88%86%E7%AE%A1%E9%A2%86%E5%AF%BC%26%2334%3B%7D%22%3E%3Cbpmn%3Adocumentation%20%2F%3E%3Cbpmn%3AconditionExpression%20xsi%3Atype%3D%22bpmn%3AtFormalExpression%22%3E%24%7BLastActionKey%3D%3D%22__%24FlowAction%24%24Activity_04kw6xw%24%24action_516191836%24%22%7D%3C%2Fbpmn%3AconditionExpression%3E%3C%2Fbpmn%3AsequenceFlow%3E%3Cbpmn%3AsequenceFlow%20id%3D%22Flow_1lh2z20%22%20sourceRef%3D%22StartEvent_N1%22%20targetRef%3D%22Activity_04kw6xw%22%20jb4dc%3Ajb4dcSequenceFlowConditionEditText%3D%22%24%7BLastActionKey%3D%3D%26%2334%3B%E6%B5%81%E7%A8%8B%E5%8A%A8%E4%BD%9C.%E5%BC%80%E5%A7%8B.%E9%80%81%E9%83%A8%E9%97%A8%E7%BB%8F%E7%90%86%26%2334%3B%7D%22%3E%3Cbpmn%3Adocumentation%20%2F%3E%3Cbpmn%3AconditionExpression%20xsi%3Atype%3D%22bpmn%3AtFormalExpression%22%3E%24%7BLastActionKey%3D%3D%22__%24FlowAction%24%24StartEvent_N1%24%24action_515976189%24%22%7D%3C%2Fbpmn%3AconditionExpression%3E%3C%2Fbpmn%3AsequenceFlow%3E%3Cbpmn%3AsequenceFlow%20id%3D%22Flow_0qmmvbd%22%20sourceRef%3D%22Activity_04kw6xw%22%20targetRef%3D%22UserTask_Activity_N1%22%20jb4dc%3Ajb4dcSequenceFlowConditionEditText%3D%22%24%7BLastActionKey%3D%3D%26%2334%3B%E6%B5%81%E7%A8%8B%E5%8A%A8%E4%BD%9C.%E9%83%A8%E9%97%A8%E5%AE%A1%E6%89%B9.%E9%80%80%E5%9B%9E%26%2334%3B%7D%22%3E%3Cbpmn%3Adocumentation%20%2F%3E%3Cbpmn%3AconditionExpression%20xsi%3Atype%3D%22bpmn%3AtFormalExpression%22%3E%24%7BLastActionKey%3D%3D%22__%24FlowAction%24%24Activity_04kw6xw%24%24action_516202644%24%22%7D%3C%2Fbpmn%3AconditionExpression%3E%3C%2Fbpmn%3AsequenceFlow%3E%3Cbpmn%3AsequenceFlow%20id%3D%22Flow_1bq6tb2%22%20sourceRef%3D%22Activity_1oze7it%22%20targetRef%3D%22UserTask_Activity_N1%22%20jb4dc%3Ajb4dcSequenceFlowConditionEditText%3D%22%24%7BLastActionKey%3D%3D%26%2334%3B%E6%B5%81%E7%A8%8B%E5%8A%A8%E4%BD%9C.%E5%88%86%E7%AE%A1%E9%A2%86%E5%AF%BC.%E9%80%80%E5%9B%9E%26%2334%3B%7D%22%3E%3Cbpmn%3Adocumentation%20%2F%3E%3Cbpmn%3AconditionExpression%20xsi%3Atype%3D%22bpmn%3AtFormalExpression%22%3E%24%7BLastActionKey%3D%3D%22__%24FlowAction%24%24Activity_1oze7it%24%24action_516265085%24%22%7D%3C%2Fbpmn%3AconditionExpression%3E%3C%2Fbpmn%3AsequenceFlow%3E%3Cbpmn%3AuserTask%20id%3D%22Activity_1e1ql8o%22%20name%3D%22%E9%A2%86%E5%AF%BC%E4%BC%9A%E7%AD%BE%22%20camunda%3Aassignee%3D%22%24%7BActivity_1oze7it_Assignee_User%7D%22%20jb4dc%3Ajb4dcFormPlugin%3D%22webFormPlugin%22%20jb4dc%3Ajb4dcFormEx1Plugin%3D%22webFormPlugin%22%20jb4dc%3Ajb4dcUseContentDocument%3D%22byProcessConfig%22%3E%3Cbpmn%3Adocumentation%20%2F%3E%3Cbpmn%3AextensionElements%3E%3Cjb4dc%3Ajb4dcActions%3E%3Cjb4dc%3Ajb4dcAction%20actionType%3D%22send%22%20actionCode%3D%22action_516465752%22%20actionCaption%3D%22%E7%A1%AE%E8%AE%A4%22%20actionShowOpinionDialog%3D%22false%22%20actionRunSqls%3D%22%5B%5D%22%20actionUpdateFields%3D%22%5B%5D%22%20actionCallApis%3D%22%5B%5D%22%20actionExecuteVariables%3D%22%5B%5D%22%20actionConfirm%3D%22false%22%20actionValidate%3D%22%E6%97%A0%22%20actionMainReceiveObjects%3D%22%5B%5D%22%20actionCCReceiveObjects%3D%22%5B%5D%22%20actionAutoSend%3D%22false%22%20actionCallComplete%3D%22true%22%20%2F%3E%3Cjb4dc%3Ajb4dcAction%20actionType%3D%22send%22%20actionCode%3D%22action_516474765%22%20actionCaption%3D%22%E9%80%80%E5%9B%9E%22%20actionShowOpinionDialog%3D%22false%22%20actionRunSqls%3D%22%5B%5D%22%20actionUpdateFields%3D%22%5B%5D%22%20actionCallApis%3D%22%5B%5D%22%20actionExecuteVariables%3D%22%5B%5D%22%20actionConfirm%3D%22false%22%20actionValidate%3D%22%E6%97%A0%22%20actionMainReceiveObjects%3D%22%5B%5D%22%20actionCCReceiveObjects%3D%22%5B%5D%22%20actionAutoSend%3D%22false%22%20actionCallComplete%3D%22true%22%20%2F%3E%3C%2Fjb4dc%3Ajb4dcActions%3E%3Cjb4dc%3Ajb4dcMainReceiveObjects%20%2F%3E%3Cjb4dc%3Ajb4dcCCReceiveObjects%20%2F%3E%3Cjb4dc%3Ajb4dcAuthorities%20authoritiesUsed%3D%22true%22%20authoritiesOnlySendBackCanEdit%3D%22false%22%20authoritiesAllFieldAuthority%3D%22%7B%26%2334%3BeditALL%26%2334%3B%3A%26%2334%3Btrue%26%2334%3B%2C%26%2334%3BviewAll%26%2334%3B%3A%26%2334%3Btrue%26%2334%3B%2C%26%2334%3BemptyEditAll%26%2334%3B%3A%26%2334%3Btrue%26%2334%3B%7D%22%20authoritiesFileAuthority%3D%22%7B%26%2334%3BaddFile%26%2334%3B%3A%26%2334%3Btrue%26%2334%3B%2C%26%2334%3BdeleteFile%26%2334%3B%3A%26%2334%3Btrue%26%2334%3B%2C%26%2334%3BviewFile%26%2334%3B%3A%26%2334%3Btrue%26%2334%3B%2C%26%2334%3BpackageDown%26%2334%3B%3A%26%2334%3Btrue%26%2334%3B%7D%22%20authoritiesDocumentAuthority%3D%22%7B%26%2334%3Bedit%26%2334%3B%3A%26%2334%3Btrue%26%2334%3B%2C%26%2334%3BaddComment%26%2334%3B%3A%26%2334%3Btrue%26%2334%3B%2C%26%2334%3Bview%26%2334%3B%3A%26%2334%3Btrue%26%2334%3B%2C%26%2334%3BviewHistory%26%2334%3B%3A%26%2334%3Btrue%26%2334%3B%7D%22%20%2F%3E%3C%2Fbpmn%3AextensionElements%3E%3Cbpmn%3Aincoming%3EFlow_0nio3cs%3C%2Fbpmn%3Aincoming%3E%3Cbpmn%3Aoutgoing%3EFlow_0g0ixvy%3C%2Fbpmn%3Aoutgoing%3E%3Cbpmn%3Aoutgoing%3EFlow_02a24uk%3C%2Fbpmn%3Aoutgoing%3E%3Cbpmn%3AmultiInstanceLoopCharacteristics%20camunda%3Acollection%3D%22%24%7BActivity_1oze7it_Assignee_User_List%7D%22%20camunda%3AelementVariable%3D%22Activity_1oze7it_Assignee_User%22%20%2F%3E%3C%2Fbpmn%3AuserTask%3E%3Cbpmn%3AsequenceFlow%20id%3D%22Flow_0nio3cs%22%20sourceRef%3D%22Activity_1oze7it%22%20targetRef%3D%22Activity_1e1ql8o%22%20jb4dc%3Ajb4dcSequenceFlowConditionEditText%3D%22%24%7BLastActionKey%3D%3D%26%2334%3B%E6%B5%81%E7%A8%8B%E5%8A%A8%E4%BD%9C.%E5%88%86%E7%AE%A1%E9%A2%86%E5%AF%BC.%E9%80%81%E9%A2%86%E5%AF%BC%E4%BC%9A%E7%AD%BE%26%2334%3B%7D%22%3E%3Cbpmn%3Adocumentation%20%2F%3E%3Cbpmn%3AconditionExpression%20xsi%3Atype%3D%22bpmn%3AtFormalExpression%22%3E%24%7BLastActionKey%3D%3D%22__%24FlowAction%24%24Activity_1oze7it%24%24action_516248167%24%22%7D%3C%2Fbpmn%3AconditionExpression%3E%3C%2Fbpmn%3AsequenceFlow%3E%3Cbpmn%3AuserTask%20id%3D%22Activity_1kvrfxb%22%20name%3D%22%E5%8F%91%E8%B5%B7%E4%BA%BA%E7%A1%AE%E8%AE%A4%22%20camunda%3Aassignee%3D%22%24%7BActivity_1oze7it_Assignee_User%7D%22%20jb4dc%3Ajb4dcFormPlugin%3D%22webFormPlugin%22%20jb4dc%3Ajb4dcFormEx1Plugin%3D%22webFormPlugin%22%20jb4dc%3Ajb4dcUseContentDocument%3D%22byProcessConfig%22%3E%3Cbpmn%3Adocumentation%20%2F%3E%3Cbpmn%3AextensionElements%3E%3Cjb4dc%3Ajb4dcActions%3E%3Cjb4dc%3Ajb4dcAction%20actionType%3D%22send%22%20actionCode%3D%22action_516525815%22%20actionCaption%3D%22%E5%8A%9E%E7%BB%93%22%20actionShowOpinionDialog%3D%22false%22%20actionRunSqls%3D%22%5B%5D%22%20actionUpdateFields%3D%22%5B%5D%22%20actionCallApis%3D%22%5B%5D%22%20actionExecuteVariables%3D%22%5B%5D%22%20actionConfirm%3D%22false%22%20actionValidate%3D%22%E6%97%A0%22%20actionMainReceiveObjects%3D%22%5B%5D%22%20actionCCReceiveObjects%3D%22%5B%5D%22%20actionAutoSend%3D%22false%22%20actionCallComplete%3D%22true%22%20%2F%3E%3C%2Fjb4dc%3Ajb4dcActions%3E%3Cjb4dc%3Ajb4dcMainReceiveObjects%20%2F%3E%3Cjb4dc%3Ajb4dcCCReceiveObjects%20%2F%3E%3Cjb4dc%3Ajb4dcAuthorities%20authoritiesUsed%3D%22true%22%20authoritiesOnlySendBackCanEdit%3D%22false%22%20authoritiesAllFieldAuthority%3D%22%7B%26%2334%3BeditALL%26%2334%3B%3A%26%2334%3Btrue%26%2334%3B%2C%26%2334%3BviewAll%26%2334%3B%3A%26%2334%3Btrue%26%2334%3B%2C%26%2334%3BemptyEditAll%26%2334%3B%3A%26%2334%3Btrue%26%2334%3B%7D%22%20authoritiesFileAuthority%3D%22%7B%26%2334%3BaddFile%26%2334%3B%3A%26%2334%3Btrue%26%2334%3B%2C%26%2334%3BdeleteFile%26%2334%3B%3A%26%2334%3Btrue%26%2334%3B%2C%26%2334%3BviewFile%26%2334%3B%3A%26%2334%3Btrue%26%2334%3B%2C%26%2334%3BpackageDown%26%2334%3B%3A%26%2334%3Btrue%26%2334%3B%7D%22%20authoritiesDocumentAuthority%3D%22%7B%26%2334%3Bedit%26%2334%3B%3A%26%2334%3Btrue%26%2334%3B%2C%26%2334%3BaddComment%26%2334%3B%3A%26%2334%3Btrue%26%2334%3B%2C%26%2334%3Bview%26%2334%3B%3A%26%2334%3Btrue%26%2334%3B%2C%26%2334%3BviewHistory%26%2334%3B%3A%26%2334%3Btrue%26%2334%3B%7D%22%20%2F%3E%3C%2Fbpmn%3AextensionElements%3E%3Cbpmn%3Aincoming%3EFlow_0g0ixvy%3C%2Fbpmn%3Aincoming%3E%3Cbpmn%3Aincoming%3EFlow_1ks5zac%3C%2Fbpmn%3Aincoming%3E%3Cbpmn%3Aoutgoing%3EFlow_0hw0ibj%3C%2Fbpmn%3Aoutgoing%3E%3C%2Fbpmn%3AuserTask%3E%3Cbpmn%3AsequenceFlow%20id%3D%22Flow_0g0ixvy%22%20sourceRef%3D%22Activity_1e1ql8o%22%20targetRef%3D%22Activity_1kvrfxb%22%20jb4dc%3Ajb4dcSequenceFlowConditionEditText%3D%22%24%7BLastActionKey%3D%3D%26%2334%3B%E6%B5%81%E7%A8%8B%E5%8A%A8%E4%BD%9C.%E9%A2%86%E5%AF%BC%E4%BC%9A%E7%AD%BE.%E7%A1%AE%E8%AE%A4%26%2334%3B%7D%22%3E%3Cbpmn%3Adocumentation%20%2F%3E%3Cbpmn%3AconditionExpression%20xsi%3Atype%3D%22bpmn%3AtFormalExpression%22%3E%24%7BLastActionKey%3D%3D%22__%24FlowAction%24%24Activity_1e1ql8o%24%24action_516465752%24%22%7D%3C%2Fbpmn%3AconditionExpression%3E%3C%2Fbpmn%3AsequenceFlow%3E%3Cbpmn%3AsequenceFlow%20id%3D%22Flow_02a24uk%22%20sourceRef%3D%22Activity_1e1ql8o%22%20targetRef%3D%22UserTask_Activity_N1%22%20jb4dc%3Ajb4dcSequenceFlowConditionEditText%3D%22%24%7BLastActionKey%3D%3D%26%2334%3B%E6%B5%81%E7%A8%8B%E5%8A%A8%E4%BD%9C.%E9%A2%86%E5%AF%BC%E4%BC%9A%E7%AD%BE.%E9%80%80%E5%9B%9E%26%2334%3B%7D%22%3E%3Cbpmn%3Adocumentation%20%2F%3E%3Cbpmn%3AconditionExpression%20xsi%3Atype%3D%22bpmn%3AtFormalExpression%22%3E%24%7BLastActionKey%3D%3D%22__%24FlowAction%24%24Activity_1e1ql8o%24%24action_516474765%24%22%7D%3C%2Fbpmn%3AconditionExpression%3E%3C%2Fbpmn%3AsequenceFlow%3E%3Cbpmn%3AsequenceFlow%20id%3D%22Flow_0hw0ibj%22%20sourceRef%3D%22Activity_1kvrfxb%22%20targetRef%3D%22EndEvent_N1%22%20jb4dc%3Ajb4dcSequenceFlowConditionEditText%3D%22%24%7BLastActionKey%3D%3D%26%2334%3B%E6%B5%81%E7%A8%8B%E5%8A%A8%E4%BD%9C.%E5%8F%91%E8%B5%B7%E4%BA%BA%E7%A1%AE%E8%AE%A4.%E5%8A%9E%E7%BB%93%26%2334%3B%7D%22%3E%3Cbpmn%3Adocumentation%20%2F%3E%3Cbpmn%3AconditionExpression%20xsi%3Atype%3D%22bpmn%3AtFormalExpression%22%3E%24%7BLastActionKey%3D%3D%22__%24FlowAction%24%24Activity_1kvrfxb%24%24action_516525815%24%22%7D%3C%2Fbpmn%3AconditionExpression%3E%3C%2Fbpmn%3AsequenceFlow%3E%3Cbpmn%3AsequenceFlow%20id%3D%22Flow_19sxcty%22%20name%3D%22%E5%A7%93%E5%90%8D%3D%26%2339%3B%E8%A2%81%E7%BA%A2%E6%9E%97%26%2339%3B%28%E5%8F%AF%E4%BB%A5%E6%89%A7%E8%A1%8C%E8%AF%A5%E5%8A%A8%E4%BD%9C%29%22%20sourceRef%3D%22StartEvent_N1%22%20targetRef%3D%22Activity_1kkofd5%22%20jb4dc%3Ajb4dcSequenceFlowConditionEditText%3D%22%24%7BLastActionKey%3D%3D%26%2334%3B%E6%B5%81%E7%A8%8B%E5%8A%A8%E4%BD%9C.%E5%BC%80%E5%A7%8B.%E9%80%81%E6%80%BB%E7%BB%8F%E7%90%86%26%2334%3B%7D%22%3E%3Cbpmn%3Adocumentation%20%2F%3E%3Cbpmn%3AconditionExpression%20xsi%3Atype%3D%22bpmn%3AtFormalExpression%22%3E%24%7BLastActionKey%3D%3D%22__%24FlowAction%24%24StartEvent_N1%24%24action_526152327%24%22%7D%3C%2Fbpmn%3AconditionExpression%3E%3C%2Fbpmn%3AsequenceFlow%3E%3Cbpmn%3AsequenceFlow%20id%3D%22Flow_1ks5zac%22%20sourceRef%3D%22Activity_1kkofd5%22%20targetRef%3D%22Activity_1kvrfxb%22%20jb4dc%3Ajb4dcSequenceFlowConditionEditText%3D%22%24%7BLastActionKey%3D%3D%26%2334%3B%E6%B5%81%E7%A8%8B%E5%8A%A8%E4%BD%9C.%E6%80%BB%E7%BB%8F%E7%90%86%E5%AE%A1%E6%89%B9.%E7%A1%AE%E8%AE%A4%26%2334%3B%7D%22%3E%3Cbpmn%3Adocumentation%20%2F%3E%3Cbpmn%3AconditionExpression%20xsi%3Atype%3D%22bpmn%3AtFormalExpression%22%3E%24%7BLastActionKey%3D%3D%22__%24FlowAction%24%24Activity_1kkofd5%24%24action_136063504%24%22%7D%3C%2Fbpmn%3AconditionExpression%3E%3C%2Fbpmn%3AsequenceFlow%3E%3Cbpmn%3AuserTask%20id%3D%22Activity_1kkofd5%22%20name%3D%22%E6%80%BB%E7%BB%8F%E7%90%86%E5%AE%A1%E6%89%B9%22%20camunda%3Aassignee%3D%22%24%7BActivity_1kkofd5_Assignee_User%7D%22%20jb4dc%3Ajb4dcFormPlugin%3D%22webFormPlugin%22%20jb4dc%3Ajb4dcFormEx1Plugin%3D%22webFormPlugin%22%20jb4dc%3Ajb4dcUseContentDocument%3D%22byProcessConfig%22%3E%3Cbpmn%3Adocumentation%20%2F%3E%3Cbpmn%3AextensionElements%3E%3Cjb4dc%3Ajb4dcActions%3E%3Cjb4dc%3Ajb4dcAction%20actionType%3D%22send%22%20actionCode%3D%22action_136063504%22%20actionCaption%3D%22%E7%A1%AE%E8%AE%A4%22%20actionShowOpinionDialog%3D%22false%22%20actionRunSqls%3D%22%5B%5D%22%20actionUpdateFields%3D%22%5B%5D%22%20actionCallApis%3D%22%5B%5D%22%20actionExecuteVariables%3D%22%5B%5D%22%20actionConfirm%3D%22false%22%20actionValidate%3D%22%E6%97%A0%22%20actionMainReceiveObjects%3D%22%5B%5D%22%20actionCCReceiveObjects%3D%22%5B%5D%22%20actionAutoSend%3D%22false%22%20actionCallComplete%3D%22true%22%20%2F%3E%3C%2Fjb4dc%3Ajb4dcActions%3E%3Cjb4dc%3Ajb4dcMainReceiveObjects%3E%3Cjb4dc%3Ajb4dcReceiveObject%20receiveObjectCode%3D%22receiveObject_632872092%22%20receiveObjectType%3D%22Users%22%20receiveObjectValue%3D%22834b97a7-7fd0-46ba-b87b-4113b1303c59%2C21ae6b28-dcd4-4f3f-b00f-c3b884f96d7e%2C2d6945a3-46d8-42d2-babf-6f9e402d46e3%22%20receiveObjectText%3D%22%E8%A1%8C%E6%94%BF%E5%8C%BA%E5%88%92%E2%96%B7%E2%96%B7%E6%BE%B3%E5%A4%B4%E8%A1%97%E9%81%93%E5%8A%9E%E2%96%B7%E2%96%B7%E5%8D%97%E8%BE%B9%E7%81%B6%E6%9D%91%E2%96%B7%E2%96%B7%E5%8D%97%E8%BE%B9%E7%81%B6%E4%B8%80%E5%8F%B7%E7%BD%91%E6%A0%BC%E2%96%B7%E2%96%B7%E9%99%88%E5%92%8F%E7%91%9C%2C%E8%A1%8C%E6%94%BF%E5%8C%BA%E5%88%92%E2%96%B7%E2%96%B7%E6%BE%B3%E5%A4%B4%E8%A1%97%E9%81%93%E5%8A%9E%E2%96%B7%E2%96%B7%E5%8D%97%E8%BE%B9%E7%81%B6%E6%9D%91%E2%96%B7%E2%96%B7%E5%8D%97%E8%BE%B9%E7%81%B6%E4%BA%8C%E5%8F%B7%E7%BD%91%E6%A0%BC%E2%96%B7%E2%96%B7%E4%BD%95%E9%A6%99%E8%8C%B9%2C%E8%A1%8C%E6%94%BF%E5%8C%BA%E5%88%92%E2%96%B7%E2%96%B7%E6%BE%B3%E5%A4%B4%E8%A1%97%E9%81%93%E5%8A%9E%E2%96%B7%E2%96%B7%E5%8D%97%E8%BE%B9%E7%81%B6%E6%9D%91%E2%96%B7%E2%96%B7%E5%8D%97%E8%BE%B9%E7%81%B6%E4%B8%89%E5%8F%B7%E7%BD%91%E6%A0%BC%E2%96%B7%E2%96%B7%E9%BB%84%E8%80%80%E9%BE%99%22%20%2F%3E%3Cjb4dc%3Ajb4dcReceiveObject%20receiveObjectCode%3D%22receiveObject_632884339%22%20receiveObjectType%3D%22Users%22%20receiveObjectValue%3D%22604ff9bc-d9ab-4686-a6af-3e8f2574e4b6%2C52cee6fd-6809-41d9-825e-aaf8b9582112%22%20receiveObjectText%3D%22%E8%A1%8C%E6%94%BF%E5%8C%BA%E5%88%92%E2%96%B7%E2%96%B7%E6%BE%B3%E5%A4%B4%E8%A1%97%E9%81%93%E5%8A%9E%E2%96%B7%E2%96%B7%E5%8D%97%E8%BE%B9%E7%81%B6%E6%9D%91%E2%96%B7%E2%96%B7%E5%8D%97%E8%BE%B9%E7%81%B6%E7%B3%BB%E7%BB%9F%E6%B5%8B%E8%AF%95%E7%BD%91%E6%A0%BC%E2%96%B7%E2%96%B7%E5%8D%97%E8%BE%B9%E7%81%B6%E6%B5%8B%E7%BD%915001%2C%E8%A1%8C%E6%94%BF%E5%8C%BA%E5%88%92%E2%96%B7%E2%96%B7%E6%BE%B3%E5%A4%B4%E8%A1%97%E9%81%93%E5%8A%9E%E2%96%B7%E2%96%B7%E5%8D%97%E8%BE%B9%E7%81%B6%E6%9D%91%E2%96%B7%E2%96%B7%E5%8D%97%E8%BE%B9%E7%81%B6%E7%B3%BB%E7%BB%9F%E6%B5%8B%E8%AF%95%E7%BD%91%E6%A0%BC%E2%96%B7%E2%96%B7%E5%8D%97%E8%BE%B9%E7%81%B6%E6%B5%8B%E7%BD%915002%22%20%2F%3E%3Cjb4dc%3Ajb4dcReceiveObject%20receiveObjectCode%3D%22receiveObject_632889081%22%20receiveObjectType%3D%22Organs%22%20receiveObjectValue%3D%224480608b-cb6f-4bff-9030-a656463fefbf%22%20receiveObjectText%3D%22%E8%A1%8C%E6%94%BF%E5%8C%BA%E5%88%92%E2%96%B7%E2%96%B7%E6%BE%B3%E5%A4%B4%E8%A1%97%E9%81%93%E5%8A%9E%E2%96%B7%E2%96%B7%E5%8D%97%E8%BE%B9%E7%81%B6%E6%9D%91%E2%96%B7%E2%96%B7%E5%8D%97%E8%BE%B9%E7%81%B6%E4%B8%80%E5%8F%B7%E7%BD%91%E6%A0%BC%22%20%2F%3E%3Cjb4dc%3Ajb4dcReceiveObject%20receiveObjectCode%3D%22receiveObject_632905257%22%20receiveObjectType%3D%22flowAboutUser%22%20receiveObjectValue%3D%22instanceStarter%22%20receiveObjectText%3D%22%E6%B5%81%E7%A8%8B%E5%AE%9E%E4%BE%8B%E5%8F%91%E8%B5%B7%E4%BA%BA%22%20%2F%3E%3Cjb4dc%3Ajb4dcReceiveObject%20receiveObjectCode%3D%22receiveObject_632908587%22%20receiveObjectType%3D%22flowAboutUser%22%20receiveObjectValue%3D%22modelManager%22%20receiveObjectText%3D%22%E6%A8%A1%E5%9E%8B%E7%AE%A1%E7%90%86%E4%BA%BA%22%20%2F%3E%3Cjb4dc%3Ajb4dcReceiveObject%20receiveObjectCode%3D%22receiveObject_632913262%22%20receiveObjectType%3D%22ExcludeUsers%22%20receiveObjectValue%3D%22604ff9bc-d9ab-4686-a6af-3e8f2574e4b6%22%20receiveObjectText%3D%22%E8%A1%8C%E6%94%BF%E5%8C%BA%E5%88%92%E2%96%B7%E2%96%B7%E6%BE%B3%E5%A4%B4%E8%A1%97%E9%81%93%E5%8A%9E%E2%96%B7%E2%96%B7%E5%8D%97%E8%BE%B9%E7%81%B6%E6%9D%91%E2%96%B7%E2%96%B7%E5%8D%97%E8%BE%B9%E7%81%B6%E7%B3%BB%E7%BB%9F%E6%B5%8B%E8%AF%95%E7%BD%91%E6%A0%BC%E2%96%B7%E2%96%B7%E5%8D%97%E8%BE%B9%E7%81%B6%E6%B5%8B%E7%BD%915001%22%20%2F%3E%3Cjb4dc%3Ajb4dcReceiveObject%20receiveObjectCode%3D%22receiveObject_699651300%22%20receiveObjectType%3D%22Organs%22%20receiveObjectValue%3D%2255dc1d44-c37f-4222-9e52-6f1a65ef29da%2Cd7f6c52a-991e-482a-9146-6c6eb4a51ee2%2C80d52eb4-75f4-454c-9248-7f12cfc1ea4f%22%20receiveObjectText%3D%22%E8%A1%8C%E6%94%BF%E5%8C%BA%E5%88%92%E2%96%B7%E2%96%B7%E6%BE%B3%E5%A4%B4%E8%A1%97%E9%81%93%E5%8A%9E%E2%96%B7%E2%96%B7%E5%8D%97%E8%BE%B9%E7%81%B6%E6%9D%91%E2%96%B7%E2%96%B7%E5%8D%97%E8%BE%B9%E7%81%B6%E4%B8%89%E5%8F%B7%E7%BD%91%E6%A0%BC%2C%E8%A1%8C%E6%94%BF%E5%8C%BA%E5%88%92%E2%96%B7%E2%96%B7%E6%BE%B3%E5%A4%B4%E8%A1%97%E9%81%93%E5%8A%9E%E2%96%B7%E2%96%B7%E5%8D%97%E8%BE%B9%E7%81%B6%E6%9D%91%E2%96%B7%E2%96%B7%E5%8D%97%E8%BE%B9%E7%81%B6%E5%9B%9B%E5%8F%B7%E7%BD%91%E6%A0%BC%2C%E8%A1%8C%E6%94%BF%E5%8C%BA%E5%88%92%E2%96%B7%E2%96%B7%E6%BE%B3%E5%A4%B4%E8%A1%97%E9%81%93%E5%8A%9E%E2%96%B7%E2%96%B7%E5%8D%97%E8%BE%B9%E7%81%B6%E6%9D%91%E2%96%B7%E2%96%B7%E5%8D%97%E8%BE%B9%E7%81%B6%E7%B3%BB%E7%BB%9F%E6%B5%8B%E8%AF%95%E7%BD%91%E6%A0%BC%22%20%2F%3E%3Cjb4dc%3Ajb4dcReceiveObject%20receiveObjectCode%3D%22receiveObject_742927891%22%20receiveObjectType%3D%22Role%22%20receiveObjectValue%3D%22DataFilter-With-DataSet-AllData%2CSystemOrganAdmin%2C4f2065df-6af0-427d-80bd-1c97bad5d576%2CGridMainAppRoleGroup-Center-Role%2CQCMainAppRoleGroup-General-Role%22%20receiveObjectText%3D%22%E6%95%B0%E6%8D%AE%E8%BF%87%E6%BB%A4%E8%A7%92%E8%89%B2%E7%BB%84%E2%96%B7%E2%96%B7%E6%95%B0%E6%8D%AE%E9%9B%86%E8%BF%87%E6%BB%A4-%E6%9F%A5%E7%9C%8B%E5%85%A8%E9%83%A8%E6%95%B0%E6%8D%AE%2C%E7%B3%BB%E7%BB%9F%E7%AE%A1%E7%90%86%E8%A7%92%E8%89%B2%E7%BB%84%E2%96%B7%E2%96%B7%E7%B3%BB%E7%BB%9F%E7%AE%A1%E7%90%86%E5%91%98%2C%E7%BD%91%E6%A0%BC%E5%8C%96%E7%A4%BE%E4%BC%9A%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F%E8%A7%92%E8%89%B2%E7%BB%84%E2%96%B7%E2%96%B7%E8%AE%BE%E5%A4%87%E7%AE%A1%E7%90%86%E8%A7%92%E8%89%B2%2C%E7%BD%91%E6%A0%BC%E5%8C%96%E7%A4%BE%E4%BC%9A%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F%E8%A7%92%E8%89%B2%E7%BB%84%E2%96%B7%E2%96%B7%E6%8C%87%E6%8C%A5%E4%B8%AD%E5%BF%83%E8%A7%92%E8%89%B2%2C%E8%BF%90%E7%BB%B4%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F%E8%A7%92%E8%89%B2%E7%BB%84%E2%96%B7%E2%96%B7%E8%BF%90%E7%BB%B4%E7%AE%A1%E7%90%86%E9%80%9A%E7%94%A8%E8%A7%92%E8%89%B2%22%20receiveObjectConfig%3D%22%E5%85%A8%E5%B1%80%22%20%2F%3E%3C%2Fjb4dc%3Ajb4dcMainReceiveObjects%3E%3Cjb4dc%3Ajb4dcCCReceiveObjects%3E%3Cjb4dc%3Ajb4dcReceiveObject%20receiveObjectCode%3D%22receiveObject_632939951%22%20receiveObjectType%3D%22Role%22%20receiveObjectValue%3D%22SystemOrganAdmin%22%20receiveObjectText%3D%22%E7%B3%BB%E7%BB%9F%E7%AE%A1%E7%90%86%E8%A7%92%E8%89%B2%E7%BB%84%E2%96%B7%E2%96%B7%E7%B3%BB%E7%BB%9F%E7%AE%A1%E7%90%86%E5%91%98%22%20receiveObjectConfig%3D%22%E5%85%A8%E5%B1%80%22%20%2F%3E%3Cjb4dc%3Ajb4dcReceiveObject%20receiveObjectCode%3D%22receiveObject_632943707%22%20receiveObjectType%3D%22flowAboutUser%22%20receiveObjectValue%3D%22modelManager%22%20receiveObjectText%3D%22%E6%A8%A1%E5%9E%8B%E7%AE%A1%E7%90%86%E4%BA%BA%22%20%2F%3E%3C%2Fjb4dc%3Ajb4dcCCReceiveObjects%3E%3Cjb4dc%3Ajb4dcAuthorities%20authoritiesUsed%3D%22true%22%20authoritiesOnlySendBackCanEdit%3D%22false%22%20authoritiesAllFieldAuthority%3D%22%7B%26%2334%3BeditALL%26%2334%3B%3A%26%2334%3Btrue%26%2334%3B%2C%26%2334%3BviewAll%26%2334%3B%3A%26%2334%3Btrue%26%2334%3B%2C%26%2334%3BemptyEditAll%26%2334%3B%3A%26%2334%3Btrue%26%2334%3B%7D%22%20authoritiesFileAuthority%3D%22%7B%26%2334%3BaddFile%26%2334%3B%3A%26%2334%3Btrue%26%2334%3B%2C%26%2334%3BdeleteFile%26%2334%3B%3A%26%2334%3Btrue%26%2334%3B%2C%26%2334%3BviewFile%26%2334%3B%3A%26%2334%3Btrue%26%2334%3B%2C%26%2334%3BpackageDown%26%2334%3B%3A%26%2334%3Btrue%26%2334%3B%7D%22%20authoritiesDocumentAuthority%3D%22%7B%26%2334%3Bedit%26%2334%3B%3A%26%2334%3Btrue%26%2334%3B%2C%26%2334%3BaddComment%26%2334%3B%3A%26%2334%3Btrue%26%2334%3B%2C%26%2334%3Bview%26%2334%3B%3A%26%2334%3Btrue%26%2334%3B%2C%26%2334%3BviewHistory%26%2334%3B%3A%26%2334%3Btrue%26%2334%3B%7D%22%20%2F%3E%3C%2Fbpmn%3AextensionElements%3E%3Cbpmn%3Aincoming%3EFlow_19sxcty%3C%2Fbpmn%3Aincoming%3E%3Cbpmn%3Aoutgoing%3EFlow_1ks5zac%3C%2Fbpmn%3Aoutgoing%3E%3C%2Fbpmn%3AuserTask%3E%3Cbpmn%3AsequenceFlow%20id%3D%22Flow_0qnp1dy%22%20sourceRef%3D%22StartEvent_N1%22%20targetRef%3D%22Activity_1xkg5wz%22%20jb4dc%3Ajb4dcSequenceFlowConditionEditText%3D%22%24%7BLastActionKey%3D%3D%26%2334%3B%E6%B5%81%E7%A8%8B%E5%8A%A8%E4%BD%9C.%E5%BC%80%E5%A7%8B.%E7%9B%B4%E6%8E%A5%E7%AB%8B%E9%A1%B9%E6%9C%8D%E5%8A%A1%26%2334%3B%7D%22%3E%3Cbpmn%3Adocumentation%20%2F%3E%3Cbpmn%3AconditionExpression%20xsi%3Atype%3D%22bpmn%3AtFormalExpression%22%3E%24%7BLastActionKey%3D%3D%22__%24FlowAction%24%24StartEvent_N1%24%24action_896686771%24%22%7D%3C%2Fbpmn%3AconditionExpression%3E%3C%2Fbpmn%3AsequenceFlow%3E%3Cbpmn%3AsequenceFlow%20id%3D%22Flow_095ed4g%22%20sourceRef%3D%22Activity_1xkg5wz%22%20targetRef%3D%22EndEvent_N1%22%20%2F%3E%3Cbpmn%3AserviceTask%20id%3D%22Activity_1xkg5wz%22%20name%3D%22%E7%9B%B4%E6%8E%A5%E7%AB%8B%E9%A1%B9%E6%9C%8D%E5%8A%A1%22%20camunda%3Aclass%3D%22com.jb4dc.workflow.delegate.demo.PrintMessageDelegate%22%3E%3Cbpmn%3Adocumentation%20%2F%3E%3Cbpmn%3Aincoming%3EFlow_0qnp1dy%3C%2Fbpmn%3Aincoming%3E%3Cbpmn%3Aoutgoing%3EFlow_095ed4g%3C%2Fbpmn%3Aoutgoing%3E%3C%2Fbpmn%3AserviceTask%3E%3Cbpmn%3AparallelGateway%20id%3D%22Gateway_0yxccem%22%3E%3Cbpmn%3Aincoming%3EFlow_0qrljwr%3C%2Fbpmn%3Aincoming%3E%3Cbpmn%3Aoutgoing%3EFlow_1c3kr3x%3C%2Fbpmn%3Aoutgoing%3E%3Cbpmn%3Aoutgoing%3EFlow_0vq42xz%3C%2Fbpmn%3Aoutgoing%3E%3C%2Fbpmn%3AparallelGateway%3E%3Cbpmn%3AserviceTask%20id%3D%22Activity_1yj74vp%22%20name%3D%22%E5%B9%B6%E8%A1%8C%E6%9C%8D%E5%8A%A1%22%20camunda%3Aclass%3D%22com.jb4dc.workflow.delegate.demo.PrintMessageDelegate%22%3E%3Cbpmn%3Adocumentation%20%2F%3E%3Cbpmn%3Aincoming%3EFlow_1c3kr3x%3C%2Fbpmn%3Aincoming%3E%3Cbpmn%3Aoutgoing%3EFlow_1c2mel9%3C%2Fbpmn%3Aoutgoing%3E%3C%2Fbpmn%3AserviceTask%3E%3Cbpmn%3AuserTask%20id%3D%22Activity_0rxncws%22%20name%3D%22%E5%B9%B6%E8%A1%8C%E7%94%A8%E6%88%B7%E4%BB%BB%E5%8A%A1%22%20camunda%3Aassignee%3D%22%24%7BActivity_0rxncws_Assignee_User%7D%22%20jb4dc%3Ajb4dcFormPlugin%3D%22webFormPlugin%22%20jb4dc%3Ajb4dcFormEx1Plugin%3D%22webFormPlugin%22%20jb4dc%3Ajb4dcUseContentDocument%3D%22byProcessConfig%22%3E%3Cbpmn%3Adocumentation%20%2F%3E%3Cbpmn%3AextensionElements%3E%3Cjb4dc%3Ajb4dcActions%20%2F%3E%3Cjb4dc%3Ajb4dcMainReceiveObjects%20%2F%3E%3Cjb4dc%3Ajb4dcCCReceiveObjects%20%2F%3E%3Cjb4dc%3Ajb4dcAuthorities%20authoritiesUsed%3D%22true%22%20authoritiesOnlySendBackCanEdit%3D%22false%22%20authoritiesAllFieldAuthority%3D%22%7B%26%2334%3BeditALL%26%2334%3B%3A%26%2334%3Btrue%26%2334%3B%2C%26%2334%3BviewAll%26%2334%3B%3A%26%2334%3Btrue%26%2334%3B%2C%26%2334%3BemptyEditAll%26%2334%3B%3A%26%2334%3Btrue%26%2334%3B%7D%22%20authoritiesFileAuthority%3D%22%7B%26%2334%3BaddFile%26%2334%3B%3A%26%2334%3Btrue%26%2334%3B%2C%26%2334%3BdeleteFile%26%2334%3B%3A%26%2334%3Btrue%26%2334%3B%2C%26%2334%3BviewFile%26%2334%3B%3A%26%2334%3Btrue%26%2334%3B%2C%26%2334%3BpackageDown%26%2334%3B%3A%26%2334%3Btrue%26%2334%3B%7D%22%20authoritiesDocumentAuthority%3D%22%7B%26%2334%3Bedit%26%2334%3B%3A%26%2334%3Btrue%26%2334%3B%2C%26%2334%3BaddComment%26%2334%3B%3A%26%2334%3Btrue%26%2334%3B%2C%26%2334%3Bview%26%2334%3B%3A%26%2334%3Btrue%26%2334%3B%2C%26%2334%3BviewHistory%26%2334%3B%3A%26%2334%3Btrue%26%2334%3B%7D%22%20%2F%3E%3C%2Fbpmn%3AextensionElements%3E%3Cbpmn%3Aincoming%3EFlow_0vq42xz%3C%2Fbpmn%3Aincoming%3E%3Cbpmn%3Aoutgoing%3EFlow_0dypra8%3C%2Fbpmn%3Aoutgoing%3E%3C%2Fbpmn%3AuserTask%3E%3Cbpmn%3AsequenceFlow%20id%3D%22Flow_0qrljwr%22%20sourceRef%3D%22StartEvent_N1%22%20targetRef%3D%22Gateway_0yxccem%22%20jb4dc%3Ajb4dcSequenceFlowConditionEditText%3D%22%24%7BLastActionKey%3D%3D%26%2334%3B%E6%B5%81%E7%A8%8B%E5%8A%A8%E4%BD%9C.%E5%BC%80%E5%A7%8B.%E9%80%81%E5%B9%B6%E8%A1%8C%E7%BD%91%E5%85%B3%26%2334%3B%7D%22%3E%3Cbpmn%3Adocumentation%20%2F%3E%3Cbpmn%3AconditionExpression%20xsi%3Atype%3D%22bpmn%3AtFormalExpression%22%3E%24%7BLastActionKey%3D%3D%22__%24FlowAction%24%24StartEvent_N1%24%24action_955710861%24%22%7D%3C%2Fbpmn%3AconditionExpression%3E%3C%2Fbpmn%3AsequenceFlow%3E%3Cbpmn%3AsequenceFlow%20id%3D%22Flow_1c3kr3x%22%20sourceRef%3D%22Gateway_0yxccem%22%20targetRef%3D%22Activity_1yj74vp%22%20%2F%3E%3Cbpmn%3AsequenceFlow%20id%3D%22Flow_0vq42xz%22%20sourceRef%3D%22Gateway_0yxccem%22%20targetRef%3D%22Activity_0rxncws%22%20%2F%3E%3Cbpmn%3AparallelGateway%20id%3D%22Gateway_1kzexit%22%3E%3Cbpmn%3Aincoming%3EFlow_0dypra8%3C%2Fbpmn%3Aincoming%3E%3Cbpmn%3Aincoming%3EFlow_1c2mel9%3C%2Fbpmn%3Aincoming%3E%3Cbpmn%3Aoutgoing%3EFlow_0gilvgt%3C%2Fbpmn%3Aoutgoing%3E%3C%2Fbpmn%3AparallelGateway%3E%3Cbpmn%3AsequenceFlow%20id%3D%22Flow_0dypra8%22%20sourceRef%3D%22Activity_0rxncws%22%20targetRef%3D%22Gateway_1kzexit%22%20%2F%3E%3Cbpmn%3AsequenceFlow%20id%3D%22Flow_1c2mel9%22%20sourceRef%3D%22Activity_1yj74vp%22%20targetRef%3D%22Gateway_1kzexit%22%20%2F%3E%3Cbpmn%3AsequenceFlow%20id%3D%22Flow_0gilvgt%22%20sourceRef%3D%22Gateway_1kzexit%22%20targetRef%3D%22EndEvent_N1%22%20%2F%3E%3C%2Fbpmn%3Aprocess%3E%3Cbpmndi%3ABPMNDiagram%20id%3D%22BPMNDiagram_1%22%3E%3Cbpmndi%3ABPMNPlane%20id%3D%22BPMNPlane_1%22%20bpmnElement%3D%22Flow_Model_1619519188394%22%3E%3Cbpmndi%3ABPMNEdge%20id%3D%22Flow_0gilvgt_di%22%20bpmnElement%3D%22Flow_0gilvgt%22%3E%3Cdi%3Awaypoint%20x%3D%221305%22%20y%3D%22990%22%20%2F%3E%3Cdi%3Awaypoint%20x%3D%221890%22%20y%3D%22990%22%20%2F%3E%3Cdi%3Awaypoint%20x%3D%221890%22%20y%3D%22618%22%20%2F%3E%3C%2Fbpmndi%3ABPMNEdge%3E%3Cbpmndi%3ABPMNEdge%20id%3D%22Flow_1c2mel9_di%22%20bpmnElement%3D%22Flow_1c2mel9%22%3E%3Cdi%3Awaypoint%20x%3D%221000%22%20y%3D%22920%22%20%2F%3E%3Cdi%3Awaypoint%20x%3D%221280%22%20y%3D%22920%22%20%2F%3E%3Cdi%3Awaypoint%20x%3D%221280%22%20y%3D%22965%22%20%2F%3E%3C%2Fbpmndi%3ABPMNEdge%3E%3Cbpmndi%3ABPMNEdge%20id%3D%22Flow_0dypra8_di%22%20bpmnElement%3D%22Flow_0dypra8%22%3E%3Cdi%3Awaypoint%20x%3D%221000%22%20y%3D%221090%22%20%2F%3E%3Cdi%3Awaypoint%20x%3D%221280%22%20y%3D%221090%22%20%2F%3E%3Cdi%3Awaypoint%20x%3D%221280%22%20y%3D%221015%22%20%2F%3E%3C%2Fbpmndi%3ABPMNEdge%3E%3Cbpmndi%3ABPMNEdge%20id%3D%22Flow_0vq42xz_di%22%20bpmnElement%3D%22Flow_0vq42xz%22%3E%3Cdi%3Awaypoint%20x%3D%22650%22%20y%3D%221025%22%20%2F%3E%3Cdi%3Awaypoint%20x%3D%22650%22%20y%3D%221090%22%20%2F%3E%3Cdi%3Awaypoint%20x%3D%22900%22%20y%3D%221090%22%20%2F%3E%3C%2Fbpmndi%3ABPMNEdge%3E%3Cbpmndi%3ABPMNEdge%20id%3D%22Flow_1c3kr3x_di%22%20bpmnElement%3D%22Flow_1c3kr3x%22%3E%3Cdi%3Awaypoint%20x%3D%22650%22%20y%3D%22975%22%20%2F%3E%3Cdi%3Awaypoint%20x%3D%22650%22%20y%3D%22920%22%20%2F%3E%3Cdi%3Awaypoint%20x%3D%22900%22%20y%3D%22920%22%20%2F%3E%3C%2Fbpmndi%3ABPMNEdge%3E%3Cbpmndi%3ABPMNEdge%20id%3D%22Flow_0qrljwr_di%22%20bpmnElement%3D%22Flow_0qrljwr%22%3E%3Cdi%3Awaypoint%20x%3D%22410%22%20y%3D%22618%22%20%2F%3E%3Cdi%3Awaypoint%20x%3D%22410%22%20y%3D%221000%22%20%2F%3E%3Cdi%3Awaypoint%20x%3D%22625%22%20y%3D%221000%22%20%2F%3E%3C%2Fbpmndi%3ABPMNEdge%3E%3Cbpmndi%3ABPMNEdge%20id%3D%22Flow_095ed4g_di%22%20bpmnElement%3D%22Flow_095ed4g%22%3E%3Cdi%3Awaypoint%20x%3D%221000%22%20y%3D%22480%22%20%2F%3E%3Cdi%3Awaypoint%20x%3D%221890%22%20y%3D%22480%22%20%2F%3E%3Cdi%3Awaypoint%20x%3D%221890%22%20y%3D%22582%22%20%2F%3E%3C%2Fbpmndi%3ABPMNEdge%3E%3Cbpmndi%3ABPMNEdge%20id%3D%22Flow_0qnp1dy_di%22%20bpmnElement%3D%22Flow_0qnp1dy%22%3E%3Cdi%3Awaypoint%20x%3D%22427%22%20y%3D%22596%22%20%2F%3E%3Cdi%3Awaypoint%20x%3D%22900%22%20y%3D%22485%22%20%2F%3E%3C%2Fbpmndi%3ABPMNEdge%3E%3Cbpmndi%3ABPMNEdge%20id%3D%22Flow_1ks5zac_di%22%20bpmnElement%3D%22Flow_1ks5zac%22%3E%3Cdi%3Awaypoint%20x%3D%221700%22%20y%3D%22430%22%20%2F%3E%3Cdi%3Awaypoint%20x%3D%221700%22%20y%3D%22560%22%20%2F%3E%3C%2Fbpmndi%3ABPMNEdge%3E%3Cbpmndi%3ABPMNEdge%20id%3D%22Flow_19sxcty_di%22%20bpmnElement%3D%22Flow_19sxcty%22%3E%3Cdi%3Awaypoint%20x%3D%22410%22%20y%3D%22582%22%20%2F%3E%3Cdi%3Awaypoint%20x%3D%22410%22%20y%3D%22390%22%20%2F%3E%3Cdi%3Awaypoint%20x%3D%221650%22%20y%3D%22390%22%20%2F%3E%3Cbpmndi%3ABPMNLabel%3E%3Cdc%3ABounds%20x%3D%22420%22%20y%3D%22416%22%20width%3D%2280%22%20height%3D%2227%22%20%2F%3E%3C%2Fbpmndi%3ABPMNLabel%3E%3C%2Fbpmndi%3ABPMNEdge%3E%3Cbpmndi%3ABPMNEdge%20id%3D%22Flow_0hw0ibj_di%22%20bpmnElement%3D%22Flow_0hw0ibj%22%3E%3Cdi%3Awaypoint%20x%3D%221750%22%20y%3D%22600%22%20%2F%3E%3Cdi%3Awaypoint%20x%3D%221872%22%20y%3D%22600%22%20%2F%3E%3C%2Fbpmndi%3ABPMNEdge%3E%3Cbpmndi%3ABPMNEdge%20id%3D%22Flow_02a24uk_di%22%20bpmnElement%3D%22Flow_02a24uk%22%3E%3Cdi%3Awaypoint%20x%3D%221470%22%20y%3D%22640%22%20%2F%3E%3Cdi%3Awaypoint%20x%3D%221470%22%20y%3D%22830%22%20%2F%3E%3Cdi%3Awaypoint%20x%3D%22650%22%20y%3D%22830%22%20%2F%3E%3Cdi%3Awaypoint%20x%3D%22650%22%20y%3D%22790%22%20%2F%3E%3C%2Fbpmndi%3ABPMNEdge%3E%3Cbpmndi%3ABPMNEdge%20id%3D%22Flow_0g0ixvy_di%22%20bpmnElement%3D%22Flow_0g0ixvy%22%3E%3Cdi%3Awaypoint%20x%3D%221520%22%20y%3D%22600%22%20%2F%3E%3Cdi%3Awaypoint%20x%3D%221650%22%20y%3D%22600%22%20%2F%3E%3C%2Fbpmndi%3ABPMNEdge%3E%3Cbpmndi%3ABPMNEdge%20id%3D%22Flow_0nio3cs_di%22%20bpmnElement%3D%22Flow_0nio3cs%22%3E%3Cdi%3Awaypoint%20x%3D%221280%22%20y%3D%22600%22%20%2F%3E%3Cdi%3Awaypoint%20x%3D%221420%22%20y%3D%22600%22%20%2F%3E%3C%2Fbpmndi%3ABPMNEdge%3E%3Cbpmndi%3ABPMNEdge%20id%3D%22Flow_1bq6tb2_di%22%20bpmnElement%3D%22Flow_1bq6tb2%22%3E%3Cdi%3Awaypoint%20x%3D%221230%22%20y%3D%22640%22%20%2F%3E%3Cdi%3Awaypoint%20x%3D%221230%22%20y%3D%22830%22%20%2F%3E%3Cdi%3Awaypoint%20x%3D%22650%22%20y%3D%22830%22%20%2F%3E%3Cdi%3Awaypoint%20x%3D%22650%22%20y%3D%22790%22%20%2F%3E%3C%2Fbpmndi%3ABPMNEdge%3E%3Cbpmndi%3ABPMNEdge%20id%3D%22Flow_0qmmvbd_di%22%20bpmnElement%3D%22Flow_0qmmvbd%22%3E%3Cdi%3Awaypoint%20x%3D%22950%22%20y%3D%22640%22%20%2F%3E%3Cdi%3Awaypoint%20x%3D%22950%22%20y%3D%22830%22%20%2F%3E%3Cdi%3Awaypoint%20x%3D%22650%22%20y%3D%22830%22%20%2F%3E%3Cdi%3Awaypoint%20x%3D%22650%22%20y%3D%22790%22%20%2F%3E%3C%2Fbpmndi%3ABPMNEdge%3E%3Cbpmndi%3ABPMNEdge%20id%3D%22Flow_1lh2z20_di%22%20bpmnElement%3D%22Flow_1lh2z20%22%3E%3Cdi%3Awaypoint%20x%3D%22428%22%20y%3D%22600%22%20%2F%3E%3Cdi%3Awaypoint%20x%3D%22900%22%20y%3D%22600%22%20%2F%3E%3C%2Fbpmndi%3ABPMNEdge%3E%3Cbpmndi%3ABPMNEdge%20id%3D%22Flow_0o78625_di%22%20bpmnElement%3D%22Flow_0o78625%22%3E%3Cdi%3Awaypoint%20x%3D%221000%22%20y%3D%22600%22%20%2F%3E%3Cdi%3Awaypoint%20x%3D%221180%22%20y%3D%22600%22%20%2F%3E%3C%2Fbpmndi%3ABPMNEdge%3E%3Cbpmndi%3ABPMNEdge%20id%3D%22Flow_0968hmz_di%22%20bpmnElement%3D%22Flow_0968hmz%22%3E%3Cdi%3Awaypoint%20x%3D%22700%22%20y%3D%22750%22%20%2F%3E%3Cdi%3Awaypoint%20x%3D%22775%22%20y%3D%22750%22%20%2F%3E%3Cdi%3Awaypoint%20x%3D%22907%22%20y%3D%22639%22%20%2F%3E%3C%2Fbpmndi%3ABPMNEdge%3E%3Cbpmndi%3ABPMNEdge%20id%3D%22Flow_StartEvent_To_FirstUTNode_di%22%20bpmnElement%3D%22Flow_StartEvent_To_FirstUTNode%22%3E%3Cdi%3Awaypoint%20x%3D%22420%22%20y%3D%22615%22%20%2F%3E%3Cdi%3Awaypoint%20x%3D%22514%22%20y%3D%22750%22%20%2F%3E%3Cdi%3Awaypoint%20x%3D%22600%22%20y%3D%22750%22%20%2F%3E%3C%2Fbpmndi%3ABPMNEdge%3E%3Cbpmndi%3ABPMNShape%20id%3D%22_BPMNShape_StartEvent_2%22%20bpmnElement%3D%22StartEvent_N1%22%3E%3Cdc%3ABounds%20x%3D%22392%22%20y%3D%22582%22%20width%3D%2236%22%20height%3D%2236%22%20%2F%3E%3Cbpmndi%3ABPMNLabel%3E%3Cdc%3ABounds%20x%3D%22360%22%20y%3D%22593%22%20width%3D%2222%22%20height%3D%2214%22%20%2F%3E%3C%2Fbpmndi%3ABPMNLabel%3E%3C%2Fbpmndi%3ABPMNShape%3E%3Cbpmndi%3ABPMNShape%20id%3D%22Event_0jlelhn_di%22%20bpmnElement%3D%22EndEvent_N1%22%3E%3Cdc%3ABounds%20x%3D%221872%22%20y%3D%22582%22%20width%3D%2236%22%20height%3D%2236%22%20%2F%3E%3Cbpmndi%3ABPMNLabel%3E%3Cdc%3ABounds%20x%3D%221918%22%20y%3D%22593%22%20width%3D%2222%22%20height%3D%2214%22%20%2F%3E%3C%2Fbpmndi%3ABPMNLabel%3E%3C%2Fbpmndi%3ABPMNShape%3E%3Cbpmndi%3ABPMNShape%20id%3D%22Activity_1efb9yk_di%22%20bpmnElement%3D%22UserTask_Activity_N1%22%3E%3Cdc%3ABounds%20x%3D%22600%22%20y%3D%22710%22%20width%3D%22100%22%20height%3D%2280%22%20%2F%3E%3C%2Fbpmndi%3ABPMNShape%3E%3Cbpmndi%3ABPMNShape%20id%3D%22Activity_04kw6xw_di%22%20bpmnElement%3D%22Activity_04kw6xw%22%3E%3Cdc%3ABounds%20x%3D%22900%22%20y%3D%22560%22%20width%3D%22100%22%20height%3D%2280%22%20%2F%3E%3C%2Fbpmndi%3ABPMNShape%3E%3Cbpmndi%3ABPMNShape%20id%3D%22Activity_1oze7it_di%22%20bpmnElement%3D%22Activity_1oze7it%22%3E%3Cdc%3ABounds%20x%3D%221180%22%20y%3D%22560%22%20width%3D%22100%22%20height%3D%2280%22%20%2F%3E%3C%2Fbpmndi%3ABPMNShape%3E%3Cbpmndi%3ABPMNShape%20id%3D%22Activity_1e1ql8o_di%22%20bpmnElement%3D%22Activity_1e1ql8o%22%3E%3Cdc%3ABounds%20x%3D%221420%22%20y%3D%22560%22%20width%3D%22100%22%20height%3D%2280%22%20%2F%3E%3C%2Fbpmndi%3ABPMNShape%3E%3Cbpmndi%3ABPMNShape%20id%3D%22Activity_1kvrfxb_di%22%20bpmnElement%3D%22Activity_1kvrfxb%22%3E%3Cdc%3ABounds%20x%3D%221650%22%20y%3D%22560%22%20width%3D%22100%22%20height%3D%2280%22%20%2F%3E%3C%2Fbpmndi%3ABPMNShape%3E%3Cbpmndi%3ABPMNShape%20id%3D%22Activity_1fwp0ek_di%22%20bpmnElement%3D%22Activity_1kkofd5%22%3E%3Cdc%3ABounds%20x%3D%221650%22%20y%3D%22350%22%20width%3D%22100%22%20height%3D%2280%22%20%2F%3E%3C%2Fbpmndi%3ABPMNShape%3E%3Cbpmndi%3ABPMNShape%20id%3D%22Activity_0i31538_di%22%20bpmnElement%3D%22Activity_1xkg5wz%22%3E%3Cdc%3ABounds%20x%3D%22900%22%20y%3D%22440%22%20width%3D%22100%22%20height%3D%2280%22%20%2F%3E%3C%2Fbpmndi%3ABPMNShape%3E%3Cbpmndi%3ABPMNShape%20id%3D%22Gateway_0xxiao1_di%22%20bpmnElement%3D%22Gateway_0yxccem%22%3E%3Cdc%3ABounds%20x%3D%22625%22%20y%3D%22975%22%20width%3D%2250%22%20height%3D%2250%22%20%2F%3E%3C%2Fbpmndi%3ABPMNShape%3E%3Cbpmndi%3ABPMNShape%20id%3D%22Activity_1l4nixa_di%22%20bpmnElement%3D%22Activity_1yj74vp%22%3E%3Cdc%3ABounds%20x%3D%22900%22%20y%3D%22880%22%20width%3D%22100%22%20height%3D%2280%22%20%2F%3E%3C%2Fbpmndi%3ABPMNShape%3E%3Cbpmndi%3ABPMNShape%20id%3D%22Activity_1ub4l35_di%22%20bpmnElement%3D%22Activity_0rxncws%22%3E%3Cdc%3ABounds%20x%3D%22900%22%20y%3D%221050%22%20width%3D%22100%22%20height%3D%2280%22%20%2F%3E%3C%2Fbpmndi%3ABPMNShape%3E%3Cbpmndi%3ABPMNShape%20id%3D%22Gateway_1k7eq6v_di%22%20bpmnElement%3D%22Gateway_1kzexit%22%3E%3Cdc%3ABounds%20x%3D%221255%22%20y%3D%22965%22%20width%3D%2250%22%20height%3D%2250%22%20%2F%3E%3C%2Fbpmndi%3ABPMNShape%3E%3C%2Fbpmndi%3ABPMNPlane%3E%3C%2Fbpmndi%3ABPMNDiagram%3E%3C%2Fbpmn%3Adefinitions%3E",
+    "modelReKey": "Flow_Model_1619519188394",
+    "modelName": "项目立项审批流程",
+    "modelCategory": "GeneralProcess",
+    "currentNodeKey": "Activity_04kw6xw",
+    "currentNodeName": "部门审批",
+    "jb4dcOuterFormUrl": null,
+    "jb4dcOuterFormEx1Url": null,
+    "jb4dcUseContentDocument": "byProcessConfig",
+    "jb4dcContentDocumentPlugin": "uploadConvertToPDFPlugin",
+    "jb4dcContentDocumentRedHeadTemplate": null,
+    "jb4dcProcessTitleEditText": "${流程变量.ModelName}-【${流程变量.InstanceCreator}】-「${流程变量.InstanceCreatTime_yyyy_MM_dd}」",
+    "jb4dcProcessTitleEditValue": "${__$FlowVar$$ModelName$}-【${__$FlowVar$$InstanceCreator$}】-「${__$FlowVar$$InstanceCreatTime_yyyy_MM_dd$}」",
+    "jb4dcProcessDescriptionEditText": null,
+    "jb4dcProcessDescriptionEditValue": null,
+    "jb4dcProcessActionConfirm": "true",
+    "jb4dcFormPlugin": "webFormPlugin",
+    "jb4dcFormId": "b2eab4d0-8bf1-4ddb-919f-1200da383ecc",
+    "jb4dcFormParas": null,
+    "jb4dcFormEx1Plugin": "webFormPlugin",
+    "jb4dcFormEx1Id": null,
+    "jb4dcFormEx1Paras": null,
+    "jb4dcActions": {
+      "jb4dcActionList": [
+        {
+          "actionType": "send",
+          "actionCode": "action_516191836",
+          "actionCaption": "送分管领导",
+          "actionShowOpinionDialog": "false",
+          "actionDisplayConditionEditText": null,
+          "actionDisplayConditionEditValue": null,
+          "actionCallJsMethod": null,
+          "actionHTMLId": null,
+          "actionHTMLClass": null,
+          "actionRunSqls": "[]",
+          "actionUpdateFields": "[]",
+          "actionCallApis": "[]",
+          "actionExecuteVariables": "[]",
+          "actionConfirm": "false",
+          "actionValidate": "无",
+          "actionsOpinionBindToField": null,
+          "actionsOpinionBindToElemId": null,
+          "actionMainReceiveObjects": "[]",
+          "actionCCReceiveObjects": "[]",
+          "actionAutoSend": "false",
+          "actionSendMessageId": null,
+          "actionSendSignalId": null,
+          "actionCallComplete": "true",
+          "juelRunResultPO": {
+            "success": true,
+            "message": "",
+            "stringResult": "",
+            "booleanResult": true
+          }
+        },
+        {
+          "actionType": "send",
+          "actionCode": "action_516202644",
+          "actionCaption": "退回",
+          "actionShowOpinionDialog": "false",
+          "actionDisplayConditionEditText": null,
+          "actionDisplayConditionEditValue": null,
+          "actionCallJsMethod": null,
+          "actionHTMLId": null,
+          "actionHTMLClass": null,
+          "actionRunSqls": "[]",
+          "actionUpdateFields": "[]",
+          "actionCallApis": "[]",
+          "actionExecuteVariables": "[]",
+          "actionConfirm": "false",
+          "actionValidate": "无",
+          "actionsOpinionBindToField": null,
+          "actionsOpinionBindToElemId": null,
+          "actionMainReceiveObjects": "[]",
+          "actionCCReceiveObjects": "[]",
+          "actionAutoSend": "false",
+          "actionSendMessageId": null,
+          "actionSendSignalId": null,
+          "actionCallComplete": "true",
+          "juelRunResultPO": {
+            "success": true,
+            "message": "",
+            "stringResult": "",
+            "booleanResult": true
+          }
+        }
+      ]
+    },
+    "startEvent": false
+  },
+  "exKVData": {}
+}

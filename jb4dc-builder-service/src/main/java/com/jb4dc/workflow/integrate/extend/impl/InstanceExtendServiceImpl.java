@@ -1,8 +1,11 @@
 package com.jb4dc.workflow.integrate.extend.impl;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.jb4dc.base.service.IAddBefore;
 import com.jb4dc.base.service.exenum.TrueFalseEnum;
 import com.jb4dc.base.service.impl.BaseServiceImpl;
+import com.jb4dc.base.tools.JsonUtility;
 import com.jb4dc.base.tools.URLUtility;
 import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
 import com.jb4dc.core.base.session.JB4DCSession;
@@ -13,23 +16,22 @@ import com.jb4dc.workflow.dbentities.ExecutionTaskEntity;
 import com.jb4dc.workflow.dbentities.InstanceEntity;
 import com.jb4dc.workflow.dbentities.ModelIntegratedEntity;
 import com.jb4dc.workflow.exenum.ModelTenantIdEnum;
-import com.jb4dc.workflow.integrate.engine.IFlowEngineInstanceIntegratedService;
-import com.jb4dc.workflow.integrate.engine.IFlowEngineModelIntegratedService;
-import com.jb4dc.workflow.integrate.engine.IFlowEngineTaskIntegratedService;
+import com.jb4dc.workflow.exenum.WorkFlowEnum;
+import com.jb4dc.workflow.integrate.engine.*;
 import com.jb4dc.workflow.integrate.engine.utility.CamundaBpmnUtility;
 import com.jb4dc.workflow.integrate.extend.IExecutionTaskExtendService;
 import com.jb4dc.workflow.integrate.extend.IInstanceExtendService;
 import com.jb4dc.workflow.integrate.extend.IModelIntegratedExtendService;
 import com.jb4dc.workflow.integrate.extend.IReceiverRuntimeResolve;
-import com.jb4dc.workflow.po.CompleteTaskResult;
-import com.jb4dc.workflow.po.FlowInstanceRuntimePO;
-import com.jb4dc.workflow.po.FlowModelIntegratedPO;
+import com.jb4dc.workflow.po.*;
 import com.jb4dc.workflow.po.bpmn.BpmnDefinitions;
 import com.jb4dc.workflow.po.bpmn.process.*;
 import com.jb4dc.workflow.po.receive.ClientSelectedReceiver;
+import org.camunda.bpm.engine.repository.ProcessDefinition;
 import org.camunda.bpm.engine.runtime.ProcessInstance;
 import org.camunda.bpm.engine.task.Task;
 import org.camunda.bpm.model.bpmn.instance.Activity;
+import org.camunda.bpm.model.bpmn.instance.FlowNode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -53,10 +55,16 @@ public class InstanceExtendServiceImpl extends BaseServiceImpl<InstanceEntity> i
     IFlowEngineInstanceIntegratedService flowEngineInstanceIntegratedService;
 
     @Autowired
-    IModelIntegratedExtendService modelIntegratedExtendService;
+    IFlowEngineTaskIntegratedService flowEngineTaskIntegratedService;
 
     @Autowired
-    IFlowEngineTaskIntegratedService flowEngineTaskIntegratedService;
+    IFlowEngineHistoryIntegratedService flowEngineHistoryIntegratedService;
+
+    @Autowired
+    IFlowEngineExecutionIntegratedService flowEngineExecutionIntegratedService;
+
+    @Autowired
+    IModelIntegratedExtendService modelIntegratedExtendService;
 
     @Autowired
     IReceiverRuntimeResolve receiverRuntimeResolve;
@@ -86,24 +94,93 @@ public class InstanceExtendServiceImpl extends BaseServiceImpl<InstanceEntity> i
         });
     }
 
+    private List<InstancePO> convertToPOAndLoadModelData(JB4DCSession jb4DCSession,List<InstanceEntity> instanceEntityList) throws IOException {
+        List<String> modelIds=instanceEntityList.stream().map(item->item.getInstModId()).collect(Collectors.toList());
+        List<ModelIntegratedEntity> modelIntegratedEntityList=modelIntegratedExtendService.getListByPrimaryKey(jb4DCSession,modelIds);
+
+        List<InstancePO> instancePOList= JsonUtility.parseEntityListToPOList(instanceEntityList,InstancePO.class);
+
+        for (InstancePO instancePO : instancePOList) {
+            instancePO.setModelIntegratedEntity(modelIntegratedEntityList.stream().filter(item->item.getModelId().equals(instancePO.getInstModId())).findFirst().orElse(null));
+        }
+
+        return instancePOList;
+    }
+
     @Override
-    public List<BpmnTask> resolveNextPossibleFlowNode(JB4DCSession jb4DCSession, String modelKey,String instanceId, String currentNodeKey, String actionCode, Map<String, Object> vars) throws IOException, JAXBException, XMLStreamException, JBuild4DCGenerallyException {
+    public PageInfo<InstancePO> getMyManageEnableInstance(JB4DCSession jb4DCSession, int pageNum, int pageSize) throws IOException {
+        if(jb4DCSession.isFullAuthority()){
+            PageHelper.startPage(pageNum, pageSize);
+            List<InstanceEntity> listEntity = instanceMapper.selectAll();
+            List<InstancePO> listPO=convertToPOAndLoadModelData(jb4DCSession,listEntity);
+            PageInfo<InstancePO> pageInfo = new PageInfo(listPO);
+            return pageInfo;
+            //List<InstanceEntity> instanceEntityList=instanceMapper.selectAll();
+        }
+        return new PageInfo<>();
+    }
+
+    @Override
+    public ResolveNextPossibleFlowNodePO resolveNextPossibleFlowNode(JB4DCSession jb4DCSession, String modelReKey,String currentTaskId, String currentNodeKey, String actionCode, Map<String, Object> vars) throws IOException, JAXBException, XMLStreamException, JBuild4DCGenerallyException {
 
         //vars = appendFlowDefaultVar(vars, currentNodeKey, actionCode);
-        List<Activity> userTaskFlowNodeList = CamundaBpmnUtility.getNextPossibleFlowNodeWithActionVars(modelKey,currentNodeKey, vars);
+        ResolveNextPossibleFlowNodePO resolveNextPossibleFlowNodePO=new ResolveNextPossibleFlowNodePO();
 
-        if (userTaskFlowNodeList != null && userTaskFlowNodeList.size() > 0) {
-            List<String> bpmnTaskFlowNodeIdList = userTaskFlowNodeList.stream().map(item -> item.getId()).collect(Collectors.toList());
-            BpmnDefinitions bpmnDefinitions = modelIntegratedExtendService.getDeployedCamundaModelBpmnDefinitionsLastVersion(jb4DCSession, modelKey);
-            List<BpmnTask> bpmnTaskFlowNodeList = modelIntegratedExtendService.getLastDeployedCamundaModelBpmnFlowNodeByIdList(jb4DCSession, modelKey, bpmnDefinitions, bpmnTaskFlowNodeIdList);
+        ProcessDefinition processDefinition;
+        BpmnDefinitions bpmnDefinitions;
+        ExecutionTaskEntity executionTaskEntity;
+        InstanceEntity instanceEntity=null;
+        if(StringUtility.isNotEmpty(currentTaskId)) {
+            executionTaskEntity = executionTaskExtendService.getByPrimaryKey(jb4DCSession, currentTaskId);
+            instanceEntity = this.getByPrimaryKey(jb4DCSession, executionTaskEntity.getExtaskInstId());
+            processDefinition = flowEngineModelIntegratedService.getDeployedCamundaModel(jb4DCSession, instanceEntity.getInstRuProcDefId());
+            bpmnDefinitions = modelIntegratedExtendService.getDeployedCamundaModelBpmnDefinitions(jb4DCSession, instanceEntity.getInstRuProcDefId());
 
-            Jb4dcAction jb4dcAction=BpmnDefinitions.findAction(bpmnDefinitions,currentNodeKey,actionCode);
+            //resolveNextPossibleFlowNodePO.setCurrentTaskIsMultiInstance();
+            //resolveNextPossibleFlowNodePO.setCurrentTaskIsParallel(false);
 
-            bpmnTaskFlowNodeList = receiverRuntimeResolve.resolveToActualUser(jb4DCSession,instanceId, bpmnDefinitions, bpmnTaskFlowNodeList, vars,jb4dcAction);
+            FlowNode flowNode = CamundaBpmnUtility.getFlowNodeById(instanceEntity.getInstRuProcDefId(), currentNodeKey);
+            resolveNextPossibleFlowNodePO.setCurrentTaskIsMultiInstance(flowEngineExecutionIntegratedService.isMultiInstance(jb4DCSession, executionTaskEntity.getExtaskRuExecutionId()));
 
-            return bpmnTaskFlowNodeList;
+            resolveNextPossibleFlowNodePO.setCurrentTaskIsSequential(CamundaBpmnUtility.isSequential(flowNode));
+            resolveNextPossibleFlowNodePO.setCurrentTaskIsParallel(CamundaBpmnUtility.isParallel(flowNode));
+            if (resolveNextPossibleFlowNodePO.isCurrentTaskIsMultiInstance()) {
+                resolveNextPossibleFlowNodePO.setCurrentTaskMultiCountEngInstances(flowEngineExecutionIntegratedService.multiCountEngInstances(jb4DCSession, executionTaskEntity.getExtaskRuExecutionId()));
+                resolveNextPossibleFlowNodePO.setCurrentTaskMultiCompletedInstances(flowEngineExecutionIntegratedService.multiCompletedInstances(jb4DCSession, executionTaskEntity.getExtaskRuExecutionId()));
+                resolveNextPossibleFlowNodePO.setCurrentTaskMultiActiveInstances(flowEngineExecutionIntegratedService.multiActiveInstances(jb4DCSession, executionTaskEntity.getExtaskRuExecutionId()));
+                if (resolveNextPossibleFlowNodePO.getCurrentTaskMultiCountEngInstances() == (resolveNextPossibleFlowNodePO.getCurrentTaskMultiCompletedInstances() + 1)) {
+                    resolveNextPossibleFlowNodePO.setCurrentTaskActionIsLast(true);
+                } else {
+                    resolveNextPossibleFlowNodePO.setCurrentTaskActionIsLast(false);
+                }
+            }
+
         }
-        return new ArrayList<>();
+        else{
+            processDefinition=flowEngineModelIntegratedService.getDeployedCamundaModelLastVersion(jb4DCSession,modelReKey,ModelTenantIdEnum.builderGeneralTenant);
+            bpmnDefinitions = modelIntegratedExtendService.getLastDeployedCamundaModelBpmnDefinitions(jb4DCSession, modelReKey);
+        }
+
+        List<FlowNode> nextPossibleFlowNodeList = CamundaBpmnUtility.getNextPossibleFlowNodeWithActionVars(processDefinition, currentNodeKey, vars);
+
+        if(nextPossibleFlowNodeList!=null&&nextPossibleFlowNodeList.size()==1&&CamundaBpmnUtility.isEndEventFlowNode(nextPossibleFlowNodeList.get(0))){
+            resolveNextPossibleFlowNodePO.setBpmnTaskList(new ArrayList<>());
+            resolveNextPossibleFlowNodePO.setNextTaskIsEndEvent(true);
+        }
+        else if (nextPossibleFlowNodeList != null && nextPossibleFlowNodeList.size() > 0) {
+            List<String> bpmnTaskFlowNodeIdList = nextPossibleFlowNodeList.stream().map(item -> item.getId()).collect(Collectors.toList());
+            //BpmnDefinitions bpmnDefinitions = modelIntegratedExtendService.getDeployedCamundaModelBpmnDefinitionsLastVersion(jb4DCSession, modelReKey);
+            List<BpmnTask> bpmnTaskFlowNodeList = modelIntegratedExtendService.getDeployedCamundaModelBpmnFlowNodeByIdList(jb4DCSession, modelReKey, bpmnDefinitions, bpmnTaskFlowNodeIdList);
+
+            Jb4dcAction jb4dcAction = BpmnDefinitions.findAction(bpmnDefinitions, currentNodeKey, actionCode);
+
+            bpmnTaskFlowNodeList = receiverRuntimeResolve.resolveToActualUser(jb4DCSession, instanceEntity!=null?instanceEntity.getInstId():"", bpmnDefinitions, bpmnTaskFlowNodeList, vars, jb4dcAction);
+
+            //return bpmnTaskFlowNodeList;
+            resolveNextPossibleFlowNodePO.setBpmnTaskList(bpmnTaskFlowNodeList);
+        }
+
+        return resolveNextPossibleFlowNodePO;
     }
 
     @Override
@@ -116,105 +193,133 @@ public class InstanceExtendServiceImpl extends BaseServiceImpl<InstanceEntity> i
 
         CompleteTaskResult completeTaskResult = new CompleteTaskResult();
         try {
-            FlowModelIntegratedPO flowModelIntegratedPO = modelIntegratedExtendService.getPOByIntegratedId(jb4DCSession, modelId);
+            CompleteTaskResult completeTaskEnable = this.completeTaskEnable(jb4DCSession, isStartInstanceStatus, modelId, modelReKey, currentTaskId,
+                    currentNodeKey, currentNodeName, actionCode,
+                    vars, clientSelectedReceiverList, businessKey,
+                    instanceTitle, instanceDesc);
 
+            if(completeTaskEnable.isSuccess()) {
 
-            BpmnDefinitions bpmnDefinitions = null;
+                FlowModelIntegratedPO flowModelIntegratedPO = modelIntegratedExtendService.getPOByIntegratedId(jb4DCSession, modelId);
 
-            if (isStartInstanceStatus) {
-                bpmnDefinitions = modelIntegratedExtendService.getDeployedCamundaModelBpmnDefinitionsLastVersion(jb4DCSession, flowModelIntegratedPO.getModelReKey());
-            } else {
+                BpmnDefinitions bpmnDefinitions = null;
+                ExecutionTaskEntity currentExecutionTaskEntity = null;
 
-            }
-
-            //处理主送人员
-            Map<String, List<ClientSelectedReceiver>> clientSelectedMainReceiverGroupBy = clientSelectedReceiverList.stream().filter(item -> item.getReceiveType().equals(ClientSelectedReceiver.ReceiveType_Main)).collect(Collectors.groupingBy(item -> item.getNextNodeId()));
-            for (Map.Entry<String, List<ClientSelectedReceiver>> stringListEntry : clientSelectedMainReceiverGroupBy.entrySet()) {
-                BpmnUserTask bpmnUserTask = bpmnDefinitions.getBpmnProcess().getUserTaskList().stream().filter(item -> item.getId().equals(stringListEntry.getKey())).findFirst().get();
-                if (bpmnUserTask.isMultiInstanceTask()) {
-                    String assigneeVarKey = bpmnUserTask.getMultiInstanceLoopCharacteristics().getCollection().replace("${","").replace("}","");
-                    List<String> assigneeList = stringListEntry.getValue().stream().map(item -> item.getReceiverId()).collect(Collectors.toList());
-                    vars.put(assigneeVarKey, assigneeList);
+                if (isStartInstanceStatus) {
+                    bpmnDefinitions = modelIntegratedExtendService.getLastDeployedCamundaModelBpmnDefinitions(jb4DCSession, flowModelIntegratedPO.getModelReKey());
                 } else {
-                    String assigneeVarKey = bpmnUserTask.getAssignee().replace("${","").replace("}","");
-                    String assignee = stringListEntry.getValue().get(0).getReceiverId();
-                    vars.put(assigneeVarKey, assignee);
+                    currentExecutionTaskEntity = executionTaskExtendService.getByPrimaryKey(jb4DCSession, currentTaskId);
+                    bpmnDefinitions = modelIntegratedExtendService.getDeployedCamundaModelBpmnDefinitions(jb4DCSession, currentExecutionTaskEntity.getExtaskRuProcDefId());
                 }
-            }
 
-            Jb4dcAction jb4dcAction = BpmnDefinitions.findAction(bpmnDefinitions, currentNodeKey, actionCode);
-
-            //处理抄送人员
-            Map<String, List<ClientSelectedReceiver>> clientSelectedCCReceiverGroupBy = clientSelectedReceiverList.stream().filter(item -> item.getReceiveType().equals(ClientSelectedReceiver.ReceiveType_CC)).collect(Collectors.groupingBy(item -> item.getNextNodeId()));
-
-            InstanceEntity instanceEntity;
-            ExecutionTaskEntity currentExecutionTaskEntity;
-
-            if (isStartInstanceStatus) {
-                ProcessInstance processInstance = flowEngineInstanceIntegratedService.startProcessInstanceByKey(flowModelIntegratedPO.getModelReKey(), businessKey, vars);
-                //记录扩展的实例数据
-                instanceEntity = createNewInstance(jb4DCSession, businessKey, instanceTitle, instanceDesc, flowModelIntegratedPO, processInstance);
-                //生成一个初始任务,并设置为办结状态
-                currentExecutionTaskEntity = executionTaskExtendService.createFirstExecutionTask(jb4DCSession, instanceEntity, currentNodeKey, currentNodeName, jb4dcAction);
-                //currentExecutionTaskEntity;
-            } else {
-                instanceEntity = getByPrimaryKey(jb4DCSession, currentTaskId);
-                currentExecutionTaskEntity = new ExecutionTaskEntity();
-            }
-
-            //获取当前任务,并记录到扩展任务中
-            List<Task> engineTaskList = flowEngineTaskIntegratedService.getTasks(instanceEntity.getInstRuProcInstId());
-            for (int i = 0; i < engineTaskList.size(); i++) {
-                Task task = engineTaskList.get(i);
-                if (executionTaskExtendService.getByPrimaryKey(jb4DCSession, task.getId()) == null) {
-                    ExecutionTaskEntity executionTaskEntity = new ExecutionTaskEntity();
-                    executionTaskEntity.setExtaskId(task.getId());
-                    executionTaskEntity.setExtaskInstId(instanceEntity.getInstId());
-                    executionTaskEntity.setExtaskModelId(instanceEntity.getInstModId());
-                    executionTaskEntity.setExtaskRuTaskId(task.getId());
-                    executionTaskEntity.setExtaskRuExecutionId(task.getExecutionId());
-                    executionTaskEntity.setExtaskRuProcInstId(task.getProcessInstanceId());
-                    executionTaskEntity.setExtaskRuProcDefId(task.getProcessDefinitionId());
-                    executionTaskEntity.setExtaskPreNodeKey(currentNodeKey);
-                    executionTaskEntity.setExtaskPreNodeName(currentNodeName);
-                    executionTaskEntity.setExtaskCurNodeKey(task.getTaskDefinitionKey());
-                    executionTaskEntity.setExtaskCurNodeName(task.getName());
-                    executionTaskEntity.setExtaskType(ExecutionTaskExtendServiceImpl.ExTask_Type_Main);
-                    executionTaskEntity.setExtaskStatus(ExecutionTaskExtendServiceImpl.ExTask_Status_Processing);
-                    executionTaskEntity.setExtaskSenderId(jb4DCSession.getUserId());
-                    executionTaskEntity.setExtaskSenderName(jb4DCSession.getUserName());
-                    executionTaskEntity.setExtaskSendTime(new Date());
-                    executionTaskEntity.setExtaskReceiverId(task.getAssignee());
-                    String receiverName = clientSelectedReceiverList.stream().filter(item -> item.getNextNodeId().equals(task.getTaskDefinitionKey()) && item.getReceiverId().equals((task.getAssignee()))).findFirst().get().getReceiverName();
-                    executionTaskEntity.setExtaskReceiverName(receiverName);
-                    executionTaskEntity.setExtaskViewEd(TrueFalseEnum.False.getDisplayName());
-                    executionTaskEntity.setExtaskStartTime(new Date());
-                    executionTaskEntity.setExtaskHandleEd(TrueFalseEnum.False.getDisplayName());
-                    executionTaskEntity.setExtaskOrderNum(executionTaskExtendService.getNextOrderNum(jb4DCSession));
-                    executionTaskEntity.setExtaskFromTaskId(currentExecutionTaskEntity.getExtaskId());
-                    executionTaskEntity.setExtaskFromExecutionId(currentExecutionTaskEntity.getExtaskRuExecutionId());
-
-                    BpmnUserTask bpmnUserTask = bpmnDefinitions.getBpmnProcess().getUserTaskList().stream().filter(item -> item.getId().equals(executionTaskEntity.getExtaskCurNodeKey())).findFirst().get();
-                    executionTaskEntity.setExtaskMultiTask(bpmnUserTask.getMultiInstanceType());
+                //处理主送人员
+                Map<String, List<ClientSelectedReceiver>> clientSelectedMainReceiverGroupBy = clientSelectedReceiverList.stream().filter(item -> item.getReceiveType().equals(ClientSelectedReceiver.ReceiveType_Main)).collect(Collectors.groupingBy(item -> item.getNextNodeId()));
+                for (Map.Entry<String, List<ClientSelectedReceiver>> stringListEntry : clientSelectedMainReceiverGroupBy.entrySet()) {
+                    BpmnUserTask bpmnUserTask = bpmnDefinitions.getBpmnProcess().getUserTaskList().stream().filter(item -> item.getId().equals(stringListEntry.getKey())).findFirst().get();
                     if (bpmnUserTask.isMultiInstanceTask()) {
-                        //1001001,1001002
-                        executionTaskEntity.setExtaskIndex(currentExecutionTaskEntity.getExtaskIndex() + 1000 + i);
-
+                        String assigneeVarKey = bpmnUserTask.getMultiInstanceLoopCharacteristics().getCollection().replace("${", "").replace("}", "");
+                        List<String> assigneeList = stringListEntry.getValue().stream().map(item -> item.getReceiverId()).collect(Collectors.toList());
+                        vars.put(assigneeVarKey, assigneeList);
                     } else {
-                        //1002000,1003000
-                        executionTaskEntity.setExtaskIndex(currentExecutionTaskEntity.getExtaskIndex() + 1000);
+                        String assigneeVarKey = bpmnUserTask.getAssignee().replace("${", "").replace("}", "");
+                        String assignee = stringListEntry.getValue().get(0).getReceiverId();
+                        vars.put(assigneeVarKey, assignee);
                     }
-                    executionTaskExtendService.saveSimple(jb4DCSession, executionTaskEntity.getExtaskId(), executionTaskEntity);
                 }
-            }
 
-            completeTaskResult.setSuccess(true);
-            completeTaskResult.setMessage("操作成功!");
-            return completeTaskResult;
+                Jb4dcAction jb4dcAction = BpmnDefinitions.findAction(bpmnDefinitions, currentNodeKey, actionCode);
+
+                //处理抄送人员
+                Map<String, List<ClientSelectedReceiver>> clientSelectedCCReceiverGroupBy = clientSelectedReceiverList.stream().filter(item -> item.getReceiveType().equals(ClientSelectedReceiver.ReceiveType_CC)).collect(Collectors.groupingBy(item -> item.getNextNodeId()));
+
+                InstanceEntity instanceEntity;
+
+                if (isStartInstanceStatus) {
+                    ProcessInstance processInstance = flowEngineInstanceIntegratedService.startProcessInstanceByKey(flowModelIntegratedPO.getModelReKey(), businessKey, vars);
+                    //记录扩展的实例数据
+                    instanceEntity = createNewInstance(jb4DCSession, businessKey, instanceTitle, instanceDesc, flowModelIntegratedPO, processInstance);
+                    //生成一个初始任务,并设置为办结状态
+                    currentExecutionTaskEntity = executionTaskExtendService.createFirstExecutionTask(jb4DCSession, instanceEntity, currentNodeKey, currentNodeName, jb4dcAction);
+                    //currentExecutionTaskEntity;
+                } else {
+                    instanceEntity = getByPrimaryKey(jb4DCSession, currentExecutionTaskEntity.getExtaskInstId());
+                    //办结当前任务
+                    flowEngineTaskIntegratedService.complete(currentExecutionTaskEntity.getExtaskRuTaskId(), vars);
+
+                    currentExecutionTaskEntity.setExtaskStatus(WorkFlowEnum.ExTask_Status_End);
+                    currentExecutionTaskEntity.setExtaskEndTime(new Date());
+                    currentExecutionTaskEntity.setExtaskHandleEd(TrueFalseEnum.True.getDisplayName());
+                    currentExecutionTaskEntity.setExtaskHandleActionKey(actionCode);
+                    currentExecutionTaskEntity.setExtaskHandleActionName(jb4dcAction.getActionCaption());
+
+                    executionTaskExtendService.updateByKeySelective(jb4DCSession, currentExecutionTaskEntity);
+                    //currentExecutionTaskEntity = executionTaskExtendService.getByPrimaryKey(jb4DCSession,currentTaskId);
+                }
+
+                //获取当前任务,并记录到扩展任务中
+                List<Task> engineTaskList = flowEngineTaskIntegratedService.getTasks(instanceEntity.getInstRuProcInstId());
+                for (int i = 0; i < engineTaskList.size(); i++) {
+                    Task task = engineTaskList.get(i);
+                    if (executionTaskExtendService.getByPrimaryKey(jb4DCSession, task.getId()) == null) {
+                        ExecutionTaskEntity executionTaskEntity = new ExecutionTaskEntity();
+                        executionTaskEntity.setExtaskId(task.getId());
+                        executionTaskEntity.setExtaskInstId(instanceEntity.getInstId());
+                        executionTaskEntity.setExtaskModelId(instanceEntity.getInstModId());
+                        executionTaskEntity.setExtaskRuTaskId(task.getId());
+                        executionTaskEntity.setExtaskRuExecutionId(task.getExecutionId());
+                        executionTaskEntity.setExtaskRuProcInstId(task.getProcessInstanceId());
+                        executionTaskEntity.setExtaskRuProcDefId(task.getProcessDefinitionId());
+                        executionTaskEntity.setExtaskPreNodeKey(currentNodeKey);
+                        executionTaskEntity.setExtaskPreNodeName(currentNodeName);
+                        executionTaskEntity.setExtaskCurNodeKey(task.getTaskDefinitionKey());
+                        executionTaskEntity.setExtaskCurNodeName(task.getName());
+                        executionTaskEntity.setExtaskType(WorkFlowEnum.ExTask_Type_Main);
+                        executionTaskEntity.setExtaskStatus(WorkFlowEnum.ExTask_Status_Processing);
+                        executionTaskEntity.setExtaskSenderId(jb4DCSession.getUserId());
+                        executionTaskEntity.setExtaskSenderName(jb4DCSession.getUserName());
+                        executionTaskEntity.setExtaskSendTime(new Date());
+                        executionTaskEntity.setExtaskReceiverId(task.getAssignee());
+                        String receiverName = clientSelectedReceiverList.stream().filter(item -> item.getNextNodeId().equals(task.getTaskDefinitionKey()) && item.getReceiverId().equals((task.getAssignee()))).findFirst().get().getReceiverName();
+                        executionTaskEntity.setExtaskReceiverName(receiverName);
+                        executionTaskEntity.setExtaskViewEd(TrueFalseEnum.False.getDisplayName());
+                        executionTaskEntity.setExtaskStartTime(new Date());
+                        executionTaskEntity.setExtaskHandleEd(TrueFalseEnum.False.getDisplayName());
+                        executionTaskEntity.setExtaskOrderNum(executionTaskExtendService.getNextOrderNum(jb4DCSession));
+                        executionTaskEntity.setExtaskFromTaskId(currentExecutionTaskEntity.getExtaskId());
+                        executionTaskEntity.setExtaskFromExecutionId(currentExecutionTaskEntity.getExtaskRuExecutionId());
+
+                        BpmnUserTask bpmnUserTask = bpmnDefinitions.getBpmnProcess().getUserTaskList().stream().filter(item -> item.getId().equals(executionTaskEntity.getExtaskCurNodeKey())).findFirst().get();
+                        executionTaskEntity.setExtaskMultiTask(bpmnUserTask.getMultiInstanceType());
+                        if (bpmnUserTask.isMultiInstanceTask()) {
+                            //1001001,1001002
+                            executionTaskEntity.setExtaskIndex(currentExecutionTaskEntity.getExtaskIndex() + 1000 + i);
+
+                        } else {
+                            //1002000,1003000
+                            executionTaskEntity.setExtaskIndex(currentExecutionTaskEntity.getExtaskIndex() + 1000);
+                        }
+                        executionTaskExtendService.saveSimple(jb4DCSession, executionTaskEntity.getExtaskId(), executionTaskEntity);
+                    }
+                }
+
+                //获取流程引擎中的流程实例是否办结
+                if(flowEngineInstanceIntegratedService.instanceIsComplete(jb4DCSession,instanceEntity.getInstRuProcInstId())){
+                    instanceEntity.setInstStatus(WorkFlowEnum.Instance_Status_End);
+                    instanceEntity.setInstEndTime(new Date());
+                    this.updateByKeySelective(jb4DCSession,instanceEntity);
+                }
+
+                completeTaskResult.setSuccess(true);
+                completeTaskResult.setMessage("操作成功!");
+                return completeTaskResult;
+            }
+            else {
+                return completeTaskEnable;
+            }
         } catch (Exception ex) {
 
             ex.printStackTrace();
-            String traceMsg=org.apache.commons.lang3.exception.ExceptionUtils.getStackTrace(ex);
+            String traceMsg = org.apache.commons.lang3.exception.ExceptionUtils.getStackTrace(ex);
             completeTaskResult.setSuccess(false);
             completeTaskResult.setMessage(traceMsg);
             return completeTaskResult;
@@ -248,8 +353,8 @@ public class InstanceExtendServiceImpl extends BaseServiceImpl<InstanceEntity> i
     }
 
     private void buildFlowModelRuntimePOBaseInfo(JB4DCSession session, FlowInstanceRuntimePO flowInstanceRuntimePO, String modelReKey,
-                                                 boolean isStart,String processDefId, String currentNodeKey,InstanceEntity instanceEntity,
-                                                 ExecutionTaskEntity executionTaskEntity,ModelIntegratedEntity modelIntegratedEntity) throws JAXBException, XMLStreamException, IOException, JBuild4DCGenerallyException {
+                                                 boolean isStart, String processDefId, String currentNodeKey, InstanceEntity instanceEntity,
+                                                 ExecutionTaskEntity executionTaskEntity, List<ExecutionTaskEntity> historyExecutionTaskEntityList, ModelIntegratedEntity modelIntegratedEntity) throws JAXBException, XMLStreamException, IOException, JBuild4DCGenerallyException {
         //FlowModelRuntimePO flowModelRuntimePO = new FlowModelRuntimePO();
 
         String modelXml;
@@ -278,6 +383,8 @@ public class InstanceExtendServiceImpl extends BaseServiceImpl<InstanceEntity> i
 
         flowInstanceRuntimePO.setInstanceEntity(instanceEntity);
         flowInstanceRuntimePO.setExecutionTaskEntity(executionTaskEntity);
+        flowInstanceRuntimePO.setHistoryExecutionTaskEntityList(historyExecutionTaskEntityList);
+        flowInstanceRuntimePO.setHistoricActivityInstancePOList(flowEngineHistoryIntegratedService.getHistoricActivityInstancePOByProcessInstanceId(instanceEntity.getInstRuProcInstId()));
 
         if (isStart) {
             //#region
@@ -347,8 +454,6 @@ public class InstanceExtendServiceImpl extends BaseServiceImpl<InstanceEntity> i
                     flowInstanceRuntimePO.setJb4dcContentDocumentPlugin(bpmnProcess.getJb4dcContentDocumentPlugin());
                     flowInstanceRuntimePO.setJb4dcContentDocumentRedHeadTemplate(bpmnProcess.getJb4dcContentDocumentRedHeadTemplate());
                 }
-            } else {
-                throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_WORKFLOW_CODE, "从模型中找不到Key为" + currentNodeKey + "的节点!");
             }
         }
 
@@ -358,7 +463,7 @@ public class InstanceExtendServiceImpl extends BaseServiceImpl<InstanceEntity> i
     }
 
     @Override
-    public FlowInstanceRuntimePO getRuntimeModelWithStart(JB4DCSession session, String modelKey) throws IOException, JAXBException, XMLStreamException, JBuild4DCGenerallyException {
+    public FlowInstanceRuntimePO getInstanceRuntimePOWithStart(JB4DCSession session, String modelKey) throws IOException, JAXBException, XMLStreamException, JBuild4DCGenerallyException {
         FlowInstanceRuntimePO result = new FlowInstanceRuntimePO();
         InstanceEntity instanceEntity=new InstanceEntity();
         instanceEntity.setInstCreateTime(new Date());
@@ -367,17 +472,100 @@ public class InstanceExtendServiceImpl extends BaseServiceImpl<InstanceEntity> i
         instanceEntity.setInstOrganName(session.getOrganName());
         instanceEntity.setInstOrganId(session.getOrganId());
         ModelIntegratedEntity modelIntegratedEntity=modelIntegratedExtendService.getLastSaveModelIntegratedEntity(session, modelKey);
-        buildFlowModelRuntimePOBaseInfo(session, result, modelKey, true, "","",instanceEntity,null,modelIntegratedEntity);
+        buildFlowModelRuntimePOBaseInfo(session, result, modelKey, true, "","",instanceEntity,null,null,modelIntegratedEntity);
         return result;
     }
 
     @Override
-    public FlowInstanceRuntimePO getRuntimeModelWithProcess(JB4DCSession jb4DCSession, String extaskId) throws JBuild4DCGenerallyException, JAXBException, IOException, XMLStreamException {
+    public FlowInstanceRuntimePO getInstanceRuntimePOWithProcess(JB4DCSession jb4DCSession, String extaskId) throws JBuild4DCGenerallyException, JAXBException, IOException, XMLStreamException {
         FlowInstanceRuntimePO result = new FlowInstanceRuntimePO();
         ExecutionTaskEntity executionTaskEntity = executionTaskExtendService.getByPrimaryKey(jb4DCSession, extaskId);
         InstanceEntity instanceEntity = getByPrimaryKey(jb4DCSession, executionTaskEntity.getExtaskInstId());
         ModelIntegratedEntity modelIntegratedEntity=modelIntegratedExtendService.getByPrimaryKey(jb4DCSession,instanceEntity.getInstModId());
-        buildFlowModelRuntimePOBaseInfo(jb4DCSession, result, instanceEntity.getInstModId(), false, instanceEntity.getInstRuProcDefId(), executionTaskEntity.getExtaskCurNodeKey(), instanceEntity, executionTaskEntity,modelIntegratedEntity);
+        List<ExecutionTaskEntity> executionTaskEntityList=executionTaskExtendService.getByInstanceId(jb4DCSession,instanceEntity.getInstId());
+        buildFlowModelRuntimePOBaseInfo(jb4DCSession, result, instanceEntity.getInstModId(), false, instanceEntity.getInstRuProcDefId(), executionTaskEntity.getExtaskCurNodeKey(), instanceEntity, executionTaskEntity,executionTaskEntityList,modelIntegratedEntity);
         return result;
+    }
+
+    @Override
+    public FlowInstanceRuntimePO getInstanceRuntimePOByInstanceId(JB4DCSession jb4DCSession, String instanceId) throws JBuild4DCGenerallyException, JAXBException, IOException, XMLStreamException {
+        FlowInstanceRuntimePO result = new FlowInstanceRuntimePO();
+        InstanceEntity instanceEntity = getByPrimaryKey(jb4DCSession, instanceId);
+        ModelIntegratedEntity modelIntegratedEntity=modelIntegratedExtendService.getByPrimaryKey(jb4DCSession,instanceEntity.getInstModId());
+        List<ExecutionTaskEntity> executionTaskEntityList=executionTaskExtendService.getByInstanceId(jb4DCSession,instanceEntity.getInstId());
+        buildFlowModelRuntimePOBaseInfo(jb4DCSession, result, instanceEntity.getInstModId(), false, instanceEntity.getInstRuProcDefId(), "", instanceEntity, null,executionTaskEntityList,modelIntegratedEntity);
+        return result;
+    }
+
+    @Override
+    @Transactional(rollbackFor = {JBuild4DCGenerallyException.class})
+    public FlowInstanceRuntimePO updateInstanceToVersion(JB4DCSession jb4DCSession, String instanceId, String processDefinitionId) throws JBuild4DCGenerallyException {
+        try {
+            InstanceEntity instanceEntity = getByPrimaryKey(jb4DCSession, instanceId);
+            ModelIntegratedEntity modelIntegratedEntity=modelIntegratedExtendService.getLastDeployedPOByDefinitionId(jb4DCSession,processDefinitionId);
+            flowEngineInstanceIntegratedService.updateToVersion(instanceEntity.getInstRuProcDefId(), processDefinitionId, instanceEntity.getInstRuProcInstId());
+
+            instanceEntity.setInstModId(modelIntegratedEntity.getModelId());
+            instanceEntity.setInstRuProcDefId(processDefinitionId);
+            this.updateByKeySelective(jb4DCSession,instanceEntity);
+
+            List<ExecutionTaskEntity> executionTaskEntityList=executionTaskExtendService.getByInstanceId(jb4DCSession,instanceId);
+            for (ExecutionTaskEntity executionTaskEntity : executionTaskEntityList) {
+                executionTaskEntity.setExtaskModelId(modelIntegratedEntity.getModelId());
+                executionTaskEntity.setExtaskRuProcDefId(processDefinitionId);
+                executionTaskExtendService.updateByKeySelective(jb4DCSession,executionTaskEntity);
+            }
+            return getInstanceRuntimePOByInstanceId(jb4DCSession, instanceId);
+        } catch (Exception ex) {
+            throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_WORKFLOW_CODE, ex);
+        }
+    }
+
+    @Override
+    public CompleteTaskResult completeTaskEnable(JB4DCSession jb4DCSession, boolean isStartInstanceStatus, String modelId, String modelReKey, String currentTaskId, String currentNodeKey, String currentNodeName, String actionCode, Map<String, Object> vars, List<ClientSelectedReceiver> clientSelectedReceiverList, String businessKey, String instanceTitle, String instanceDesc) {
+        CompleteTaskResult completeTaskResult = new CompleteTaskResult();
+        completeTaskResult.setSuccess(true);
+        completeTaskResult.setMessage("允许该操作");
+        try {
+            ExecutionTaskEntity currentExecutionTaskEntity = executionTaskExtendService.getByPrimaryKey(jb4DCSession, currentTaskId);
+            BpmnDefinitions bpmnDefinitions = modelIntegratedExtendService.getDeployedCamundaModelBpmnDefinitions(jb4DCSession,currentExecutionTaskEntity.getExtaskRuProcDefId());
+            InstanceEntity instanceEntity = getByPrimaryKey(jb4DCSession, currentExecutionTaskEntity.getExtaskInstId());
+            ProcessDefinition processDefinition = flowEngineModelIntegratedService.getDeployedCamundaModel(jb4DCSession, instanceEntity.getInstRuProcDefId());
+            List<FlowNode> nextPossibleFlowNodeList = CamundaBpmnUtility.getNextPossibleFlowNodeWithActionVars(processDefinition, currentNodeKey, vars);
+
+            if(nextPossibleFlowNodeList!=null&&nextPossibleFlowNodeList.size()==1&&CamundaBpmnUtility.isEndEventFlowNode(nextPossibleFlowNodeList.get(0))){
+                //resolveNextPossibleFlowNodePO.setNextTaskIsEndEvent(true);
+            }
+            else if(!isStartInstanceStatus) {
+                //ExecutionTaskEntity currentExecutionTaskEntity = executionTaskExtendService.getByPrimaryKey(jb4DCSession, currentTaskId);
+
+                //BpmnDefinitions bpmnDefinitions = modelIntegratedExtendService.getDeployedCamundaModelBpmnDefinitions(jb4DCSession,currentExecutionTaskEntity.getExtaskRuProcDefId());
+
+                FlowNode flowNode=CamundaBpmnUtility.getFlowNodeById(instanceEntity.getInstRuProcDefId(),currentNodeKey);
+
+                //多实例环节的最后一人必须设置接收用户
+                if(flowEngineExecutionIntegratedService.isMultiInstance(jb4DCSession,currentExecutionTaskEntity.getExtaskRuExecutionId())){
+                    int multiCountEngInstances=flowEngineExecutionIntegratedService.multiCountEngInstances(jb4DCSession,currentExecutionTaskEntity.getExtaskRuExecutionId());
+                    int multiCompletedInstances=flowEngineExecutionIntegratedService.multiCompletedInstances(jb4DCSession,currentExecutionTaskEntity.getExtaskRuExecutionId());
+                    if(((multiCompletedInstances+1)==multiCountEngInstances)&&(clientSelectedReceiverList==null||clientSelectedReceiverList.size()==0)) {
+                        completeTaskResult.setSuccess(false);
+                        completeTaskResult.setMessage("必须设置接收用户!");
+                    }
+                }
+                else{
+                    if (clientSelectedReceiverList.size()==0){
+                        completeTaskResult.setSuccess(false);
+                        completeTaskResult.setMessage("至少需要设置一个接收用户!");
+                    }
+                }
+            }
+
+            return completeTaskResult;
+        }
+        catch (Exception ex){
+            completeTaskResult.setSuccess(false);
+            completeTaskResult.setMessage(ex.getMessage());
+            return completeTaskResult;
+        }
     }
 }

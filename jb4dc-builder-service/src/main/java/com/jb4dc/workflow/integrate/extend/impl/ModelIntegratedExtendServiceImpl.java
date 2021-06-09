@@ -34,6 +34,7 @@ import com.jb4dc.workflow.integrate.extend.IModelIntegratedExtendService;
 import com.jb4dc.workflow.po.bpmn.process.*;
 import org.apache.commons.io.IOUtils;
 import org.camunda.bpm.engine.repository.Deployment;
+import org.camunda.bpm.engine.repository.ProcessDefinition;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -423,10 +424,8 @@ public class ModelIntegratedExtendServiceImpl extends BaseServiceImpl<ModelInteg
         //return null;
     }
 
-
-
     @Override
-    public FlowModelIntegratedPO getLastPOByModelReKey(JB4DCSession jb4DSession, String modelReKey) throws IOException {
+    public FlowModelIntegratedPO getLastSavePOByModelReKey(JB4DCSession jb4DSession, String modelReKey) throws IOException {
         ModelIntegratedEntity modelIntegratedEntity = getLastSaveModelIntegratedEntity(jb4DSession, modelReKey);
         if (modelIntegratedEntity != null) {
             return FlowModelIntegratedPO.parseToPO(modelIntegratedEntity);
@@ -435,19 +434,45 @@ public class ModelIntegratedExtendServiceImpl extends BaseServiceImpl<ModelInteg
     }
 
     @Override
-    public BpmnDefinitions getDeployedCamundaModelBpmnDefinitionsLastVersion(JB4DCSession jb4DCSession, String modelReKey) throws IOException, JAXBException, XMLStreamException {
+    public ModelIntegratedEntity getLastDeployedPOByModelReKey(JB4DCSession jb4DSession, String modelReKey){
+        ProcessDefinition processDefinition=flowEngineModelIntegratedService.getDeployedCamundaModelLastVersion(jb4DSession,modelReKey,ModelTenantIdEnum.builderGeneralTenant);
+        String processDefinitionId=processDefinition.getId();
+        ModelIntegratedEntity modelIntegratedEntity=flowIntegratedMapper.selectByReId(processDefinitionId);
+        return modelIntegratedEntity;
+    }
+
+    @Override
+    public ModelIntegratedEntity getLastDeployedPOByDefinitionId(JB4DCSession jb4DSession, String processDefinitionId){
+        ModelIntegratedEntity modelIntegratedEntity=flowIntegratedMapper.selectByReId(processDefinitionId);
+        return modelIntegratedEntity;
+    }
+
+    @Override
+    public BpmnDefinitions getLastDeployedCamundaModelBpmnDefinitions(JB4DCSession jb4DCSession, String modelReKey) throws IOException, JAXBException, XMLStreamException {
         String modelContent = flowEngineModelIntegratedService.getDeployedCamundaModelContentLastVersion(jb4DCSession, modelReKey, ModelTenantIdEnum.builderGeneralTenant);
         BpmnDefinitions bpmnDefinitions = this.parseToPO(modelContent);
         return bpmnDefinitions;
     }
 
     @Override
-    public List<BpmnTask> getLastDeployedCamundaModelBpmnFlowNodeByIdList(JB4DCSession jb4DCSession, String modelReKey, BpmnDefinitions bpmnDefinitions, List<String> bpmnTaskIdList) throws JAXBException, XMLStreamException, IOException {
+    public BpmnDefinitions getDeployedCamundaModelBpmnDefinitions(JB4DCSession jb4DCSession, String processDefinitionId) throws IOException, JAXBException, XMLStreamException {
+        String modelContent = flowEngineModelIntegratedService.getDeployedCamundaModelContent(jb4DCSession, processDefinitionId);
+        BpmnDefinitions bpmnDefinitions = this.parseToPO(modelContent);
+        return bpmnDefinitions;
+    }
+
+    @Override
+    public List<BpmnTask> getDeployedCamundaModelBpmnFlowNodeByIdList(JB4DCSession jb4DCSession, String modelReKey, BpmnDefinitions bpmnDefinitions, List<String> bpmnTaskIdList) throws JAXBException, XMLStreamException, IOException {
         //String modelContent = flowEngineModelIntegratedService.getDeployedCamundaModelContentLastVersion(jb4DCSession, modelReKey, ModelTenantIdEnum.builderGeneralTenant);
         //BpmnDefinitions bpmnDefinitions = this.parseToPO(modelContent);
         List<BpmnTask> userTaskResult=bpmnDefinitions.getBpmnProcess().getUserTaskList().stream().filter(item->bpmnTaskIdList.contains(item.getId())).collect(Collectors.toList());
         List<BpmnTask> serviceTaskResult=bpmnDefinitions.getBpmnProcess().getServiceTaskList().stream().filter(item->bpmnTaskIdList.contains(item.getId())).collect(Collectors.toList());
         userTaskResult.addAll(serviceTaskResult);
         return userTaskResult;
+    }
+
+    @Override
+    public List<ModelIntegratedEntity> getListByPrimaryKey(JB4DCSession jb4DCSession, List<String> modelIds) {
+        return flowIntegratedMapper.selectListByPrimaryKey(modelIds);
     }
 }

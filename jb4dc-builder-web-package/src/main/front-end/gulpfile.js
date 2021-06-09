@@ -275,7 +275,7 @@ gulp.task('html-template-web-workflow-html-package',()=>{
 });
 
 gulp.task('html-template-web-workflow-modeler-resource-package',()=> {
-    return gulp.src(sourcePath + "/HTML/WorkFlow/**/!(.html)/*.*", {base: sourcePath + "/HTML"}).pipe(gulp.dest(distPath + "/HTML"));
+    return gulp.src(sourcePath + "/HTML/WorkFlow/ModelerClientResource/**/*.*", {base: sourcePath + "/HTML"}).pipe(gulp.dest(distPath + "/HTML"));
 });
 
 gulp.task('site-template-design-all', gulp.series('site-template-design-utility'));
@@ -333,6 +333,10 @@ function copyAndResolveHtml(sourcePath,base,toPath) {
         .pipe(replacecust(replaceBlockObj.replaceBlock('HTMLDesignPluginLib'), replaceBlockObj.replaceHTMLDesignPluginLib))
         .pipe(replacecust(replaceBlockObj.replaceBlock('SiteTemplateDesignLib'), replaceBlockObj.replaceSiteTemplateDesignLib))
         .pipe(replacecust(replaceBlockObj.replaceBlock('LineAwesomeLib'), replaceBlockObj.replaceLineAwesomeLib))
+        .pipe(replacecust(replaceBlockObj.replaceBlock('ModelerView'), replaceBlockObj.replaceModelerViewLib))
+        .pipe(replacecust(replaceBlockObj.replaceBlock('JsonEditor'), replaceBlockObj.replaceJsonEditorLib))
+
+    //console.log(toPath);
     if(isdebug){
         obj=obj.pipe(htmlmin({
             collapseWhitespace: true,

@@ -6,11 +6,12 @@ const {CleanWebpackPlugin } = require('clean-webpack-plugin');
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
 const webpack = require('webpack');
 
-module.exports = {
+config = {
     // JavaScript 执行入口文件1
     entry: {
         /*"editTableSelectDefaultValue": './EditTable/Renderers/EditTable_SelectDefaultValue.js',*/
-        "index": './App.js'
+        "ModelerDesign": './ModelerDesign.js',
+        "ModelerView":"./ModelerView"
     },
     context: path.resolve(__dirname, ""),
     output: {
@@ -101,8 +102,14 @@ module.exports = {
             { from: '**/diagram-js.css',context: 'Less', to: ''}
         ]),
         new HtmlWebpackPlugin({
-            filename: "Index.html",
-            template: './Template.html'
+            filename: "ModelerDesign.html",
+            template: './Template.html',
+            chunks:['ModelerDesign']
+        }),
+        new HtmlWebpackPlugin({
+            filename: "ModelerView.html",
+            template: './ModelerView.html',
+            chunks:['ModelerView']
         }),
         new MiniCssExtractPlugin({
             // Options similar to the same options in webpackOptions.output
@@ -124,3 +131,18 @@ module.exports = {
         "Vue": "Vue"
     }
 };
+
+workFlowModelerClientConfig = Object.assign({}, config, {
+    output: {
+        // 把所有依赖的模块合并输出到一个 bundle.js 文件
+        //filename: '[name].[hash].js',
+        filename: '[name].js',
+        // 输出文件都放到 dist 目录下
+        path: path.resolve(__dirname, '../../../../../jb4dc-builder-client/src/main/resources/static/Js/WorkFlowModelerClient'),
+        //path: path.resolve(__dirname, './dist'),
+    }
+});
+
+module.exports=[
+    config,workFlowModelerClientConfig
+]

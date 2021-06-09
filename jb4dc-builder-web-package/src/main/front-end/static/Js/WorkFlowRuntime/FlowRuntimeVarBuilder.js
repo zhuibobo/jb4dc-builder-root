@@ -5,7 +5,7 @@ var FlowRuntimeVarBuilder={
         for (let i = 0; i < selectedReceiverData.length; i++) {
             var receiver = selectedReceiverData[i];
             resultData.push({
-                nodeId:receiver.flowNodeEntity.id,
+                nextNodeId:receiver.flowNodeEntity.id,
                 receiverId:receiver.id,
                 receiverName:receiver.name,
                 receiverTypeName:receiver.typeName,

@@ -38,9 +38,17 @@ public interface IModelIntegratedExtendService extends IBaseService<ModelIntegra
 
     List<ModelIntegratedEntity> getMyStartEnableModel(JB4DCSession session);
 
-    FlowModelIntegratedPO getLastPOByModelReKey(JB4DCSession jb4DSession, String modelReKey) throws IOException;
+    FlowModelIntegratedPO getLastSavePOByModelReKey(JB4DCSession jb4DSession, String modelReKey) throws IOException;
 
-    BpmnDefinitions getDeployedCamundaModelBpmnDefinitionsLastVersion(JB4DCSession jb4DCSession, String modelReKey) throws IOException, JAXBException, XMLStreamException;
+    ModelIntegratedEntity getLastDeployedPOByModelReKey(JB4DCSession jb4DSession, String modelReKey);
 
-    List<BpmnTask> getLastDeployedCamundaModelBpmnFlowNodeByIdList(JB4DCSession jb4DCSession, String modelReKey, BpmnDefinitions bpmnDefinitions, List<String> bpmnTaskIdList) throws JAXBException, XMLStreamException, IOException;
+    ModelIntegratedEntity getLastDeployedPOByDefinitionId(JB4DCSession jb4DSession, String processDefinitionId);
+
+    BpmnDefinitions getLastDeployedCamundaModelBpmnDefinitions(JB4DCSession jb4DCSession, String modelReKey) throws IOException, JAXBException, XMLStreamException;
+
+    BpmnDefinitions getDeployedCamundaModelBpmnDefinitions(JB4DCSession jb4DCSession, String processDefinitionId) throws IOException, JAXBException, XMLStreamException;
+
+    List<BpmnTask> getDeployedCamundaModelBpmnFlowNodeByIdList(JB4DCSession jb4DCSession, String modelReKey, BpmnDefinitions bpmnDefinitions, List<String> bpmnTaskIdList) throws JAXBException, XMLStreamException, IOException;
+
+    List<ModelIntegratedEntity> getListByPrimaryKey(JB4DCSession jb4DCSession,List<String> modelIds);
 }

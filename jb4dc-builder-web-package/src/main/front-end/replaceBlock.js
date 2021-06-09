@@ -147,6 +147,25 @@ let replaceBlock = {
         replaceArray.push(refCss(levelPath + 'Themes/Default/Line-Awesome-1.3.0/css/line-awesome.css'));
         return replaceArray.join("\n\t");
     },
+    replaceModelerViewLib:function (search, file){
+        let replaceArray = new Array();
+        //判断路径后进行引入js的路径
+        let levelPath = calculateFilePath(file);
+
+        replaceArray.push(refJs(levelPath + "HTML/WorkFlow/Modeler/ModelerView.js"));
+
+        return replaceArray.join("\n\t");
+    },
+    replaceJsonEditorLib:function (search, file){
+        let replaceArray = new Array();
+        //判断路径后进行引入js的路径
+        let levelPath = calculateFilePath(file);
+
+        replaceArray.push(refJs(levelPath + "Js/External/JsonEditor/jsoneditor.min.js"));
+        replaceArray.push(refCss(levelPath + 'Js/External/JsonEditor/jsoneditor.min.css'));
+
+        return replaceArray.join("\n\t");
+    },
     replaceBootStrap4Lib: function (search, file) {
         let replaceArray = new Array();
         //判断路径后进行引入js的路径
@@ -219,6 +238,7 @@ let replaceBlock = {
         replaceArray.push(refCss(levelPath + 'Themes/Default/Css/HTMLDesignRuntimeMain.css?refVersion=' + refVersion));
         replaceArray.push(refCss(levelPath + 'Themes/Default/Css/WorkFlowRuntimeMain.css?refVersion=' + refVersion));
         replaceArray.push(refCss(levelPath + 'Js/External/Fine-Uploader-5.16.2/fine-uploader-gallery.min.css'));
+        replaceArray.push(refJs(levelPath + 'Js/WorkFlowModelerClient/ModelerView.js'));
 
         return replaceArray.join("\n\t");
     },

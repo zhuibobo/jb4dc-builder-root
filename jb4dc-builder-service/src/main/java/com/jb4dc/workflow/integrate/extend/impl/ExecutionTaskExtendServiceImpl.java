@@ -10,6 +10,7 @@ import com.jb4dc.core.base.session.JB4DCSession;
 import com.jb4dc.workflow.dao.ExecutionTaskMapper;
 import com.jb4dc.workflow.dbentities.ExecutionTaskEntity;
 import com.jb4dc.workflow.dbentities.InstanceEntity;
+import com.jb4dc.workflow.exenum.WorkFlowEnum;
 import com.jb4dc.workflow.integrate.engine.IFlowEngineTaskIntegratedService;
 import com.jb4dc.workflow.integrate.extend.IExecutionTaskExtendService;
 import com.jb4dc.workflow.po.ExecutionTaskPO;
@@ -22,22 +23,15 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import static com.jb4dc.workflow.exenum.WorkFlowEnum.ExTask_Multi_Task_Single;
+
 @Service
 public class ExecutionTaskExtendServiceImpl  extends BaseServiceImpl<ExecutionTaskEntity> implements IExecutionTaskExtendService {
 
     @Autowired
     IFlowEngineTaskIntegratedService flowEngineTaskIntegratedService;
 
-    public static String ExTask_Type_Main="主送任务";
-    public static String ExTask_Type_CC="抄送任务";
 
-    public static String ExTask_Status_End="End";
-    public static String ExTask_Status_Processing="Processing";
-    public static String ExTask_Status_Cancel="Cancel";
-
-    public static String ExTask_Multi_Task_Single="Single";
-    public static String ExTask_Multi_Task_Sequential="Sequential";
-    public static String ExTask_Multi_Task_Parallel="Parallel";
 
     @Override
     @Transactional(rollbackFor= JBuild4DCGenerallyException.class)
@@ -65,8 +59,8 @@ public class ExecutionTaskExtendServiceImpl  extends BaseServiceImpl<ExecutionTa
         firstExecutionTaskEntity.setExtaskPreNodeName("启动流程");
         firstExecutionTaskEntity.setExtaskCurNodeKey(currentNodeKey);
         firstExecutionTaskEntity.setExtaskCurNodeName(currentNodeName);
-        firstExecutionTaskEntity.setExtaskType(ExTask_Type_Main);
-        firstExecutionTaskEntity.setExtaskStatus(ExTask_Status_End);
+        firstExecutionTaskEntity.setExtaskType(WorkFlowEnum.ExTask_Type_Main);
+        firstExecutionTaskEntity.setExtaskStatus(WorkFlowEnum.ExTask_Status_End);
         firstExecutionTaskEntity.setExtaskSenderId(jb4DCSession.getUserId());
         firstExecutionTaskEntity.setExtaskSenderName(jb4DCSession.getUserName());
         firstExecutionTaskEntity.setExtaskSendTime(new Date());

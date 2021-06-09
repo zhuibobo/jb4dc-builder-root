@@ -6,11 +6,16 @@ import com.jb4dc.workflow.dbentities.ModelIntegratedEntity;
 import com.jb4dc.workflow.po.bpmn.BpmnDefinitions;
 import com.jb4dc.workflow.po.bpmn.process.Jb4dcActions;
 
+import java.util.List;
+
 public class FlowInstanceRuntimePO implements Cloneable {
     ModelIntegratedEntity modelIntegratedEntity;
     BpmnDefinitions bpmnDefinitions;
     InstanceEntity instanceEntity;
     ExecutionTaskEntity executionTaskEntity;
+    List<ExecutionTaskEntity> historyExecutionTaskEntityList;
+    List<HistoricActivityInstancePO> historicActivityInstancePOList;
+
     String bpmnXmlContent;
     boolean isStartEvent;
 
@@ -274,5 +279,21 @@ public class FlowInstanceRuntimePO implements Cloneable {
             System.out.println("MyObject can't clone");
         }
         return (FlowInstanceRuntimePO)o;
+    }
+
+    public List<ExecutionTaskEntity> getHistoryExecutionTaskEntityList() {
+        return historyExecutionTaskEntityList;
+    }
+
+    public void setHistoryExecutionTaskEntityList(List<ExecutionTaskEntity> historyExecutionTaskEntityList) {
+        this.historyExecutionTaskEntityList = historyExecutionTaskEntityList;
+    }
+
+    public List<HistoricActivityInstancePO> getHistoricActivityInstancePOList() {
+        return historicActivityInstancePOList;
+    }
+
+    public void setHistoricActivityInstancePOList(List<HistoricActivityInstancePO> historicActivityInstancePOList) {
+        this.historicActivityInstancePOList = historicActivityInstancePOList;
     }
 }

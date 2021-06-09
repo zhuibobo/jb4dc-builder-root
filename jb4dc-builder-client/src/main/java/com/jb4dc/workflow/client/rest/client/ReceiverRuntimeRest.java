@@ -50,7 +50,7 @@ public class ReceiverRuntimeRest {
         FormRecordComplexPO formRecordComplexPO = JsonUtility.toObjectIgnoreProp(formRecordComplexPOString,FormRecordComplexPO.class);
         Map exVars=new HashMap();
         if(isStartInstanceStatus) {
-            return workFlowInstanceRuntimeService.resolveNextPossibleTaskWithStartNode(JB4DCSessionUtility.getSession(), actionCode, flowModelRuntimePOCacheKey, formRecordComplexPO, exVars);
+            return workFlowInstanceRuntimeService.resolveNextPossibleTaskWithStartNode(JB4DCSessionUtility.getSession(), actionCode, flowInstanceRuntimePOCacheKey, formRecordComplexPO, exVars);
         }
         return null;*/
         //return null;
