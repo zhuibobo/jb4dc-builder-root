@@ -1,6 +1,7 @@
 package com.jb4dc.workflow.integrate.engine.impl;
 
 import com.jb4dc.base.tools.JsonUtility;
+import com.jb4dc.core.base.tools.StringUtility;
 import com.jb4dc.workflow.integrate.engine.IFlowEngineHistoryIntegratedService;
 import com.jb4dc.workflow.po.HistoricActivityInstancePO;
 import org.camunda.bpm.engine.history.HistoricActivityInstance;
@@ -15,10 +16,12 @@ public class FlowEngineHistoryIntegratedServiceImpl extends FlowEngineCamundaInt
 
     @Override
     public List<HistoricActivityInstancePO> getHistoricActivityInstancePOByProcessInstanceId(String processInstanceId) throws IOException {
-        List<HistoricActivityInstance> historicActivityInstanceEntityList=getHistoryService().createHistoricActivityInstanceQuery().processInstanceId(processInstanceId).list();
-        if(historicActivityInstanceEntityList!=null){
-            List<HistoricActivityInstancePO> historicActivityInstancePOList= JsonUtility.parseEntityListToPOList(historicActivityInstanceEntityList,HistoricActivityInstancePO.class);
-            return historicActivityInstancePOList;
+        if(StringUtility.isNotEmpty(processInstanceId)) {
+            List<HistoricActivityInstance> historicActivityInstanceEntityList = getHistoryService().createHistoricActivityInstanceQuery().processInstanceId(processInstanceId).list();
+            if (historicActivityInstanceEntityList != null) {
+                List<HistoricActivityInstancePO> historicActivityInstancePOList = JsonUtility.parseEntityListToPOList(historicActivityInstanceEntityList, HistoricActivityInstancePO.class);
+                return historicActivityInstancePOList;
+            }
         }
         return new ArrayList<>();
     }

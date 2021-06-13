@@ -29,7 +29,7 @@ public interface IWorkFlowInstanceRuntimeService extends IWorkFlowRuntimeService
                                                                                    String flowInstanceRuntimePOCacheKey,
                                                                                    FormRecordComplexPO formRecordComplexPO, Map<String, Object> exVars) throws IOException, JBuild4DCGenerallyException;
 
-    CompleteTaskResult completeTask(JB4DCSession jb4DCSession, boolean isStartInstanceStatus,String modelId,String modelReKey,String currentTaskId, String currentNodeKey, String currentNodeName, String actionCode, String flowInstanceRuntimePOCacheKey, FormRecordComplexPO formRecordComplexPO, List<ClientSelectedReceiver> clientSelectedReceiverList, String businessKey, Map<String, Object> exVars) throws IOException, JBuild4DCGenerallyException, JBuild4DCSQLKeyWordException;
+    CompleteTaskResult completeTask(JB4DCSession jb4DCSession, boolean isStartInstanceStatus,String instanceId,String modelId,String modelReKey,String currentTaskId, String currentNodeKey, String currentNodeName, String actionCode, String flowInstanceRuntimePOCacheKey, FormRecordComplexPO formRecordComplexPO, List<ClientSelectedReceiver> clientSelectedReceiverList, String businessKey, Map<String, Object> exVars) throws IOException, JBuild4DCGenerallyException, JBuild4DCSQLKeyWordException;
 
     JBuild4DCResponseVo<PageInfo<ExecutionTaskPO>> getMyProcessTaskList(JB4DCSession alex4DSession, int pageNum, int pageSize, String modelCategory, String extaskType);
 

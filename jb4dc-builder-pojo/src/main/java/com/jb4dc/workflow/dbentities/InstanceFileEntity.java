@@ -60,10 +60,16 @@ public class InstanceFileEntity {
     private String fileType;
 
     //FILE_SIZE:文件大小
-    private Integer fileSize;
+    private Long fileSize;
 
     //FILE_PRE_ID:前一文件ID
-    private Integer filePreId;
+    private String filePreId;
+
+    //FILE_VERSION:版本号
+    private String fileVersion;
+
+    //FILE_VERSION_LAST:是否最后版本
+    private String fileVersionLast;
 
     /**
      * 构造函数
@@ -84,8 +90,10 @@ public class InstanceFileEntity {
      * @param fileType 文件类型
      * @param fileSize 文件大小
      * @param filePreId 前一文件ID
+     * @param fileVersion 版本号
+     * @param fileVersionLast 是否最后版本
      **/
-    public InstanceFileEntity(String fileId, String fileInstId, String fileName, String fileStorePath, String fileStoreName, String fileExtension, String fileDescription, Date fileCreateTime, String fileCreator, String fileCreatorId, String fileOrganName, String fileOrganId, Integer fileOrderNum, String fileStatus, String fileType, Integer fileSize, Integer filePreId) {
+    public InstanceFileEntity(String fileId, String fileInstId, String fileName, String fileStorePath, String fileStoreName, String fileExtension, String fileDescription, Date fileCreateTime, String fileCreator, String fileCreatorId, String fileOrganName, String fileOrganId, Integer fileOrderNum, String fileStatus, String fileType, Long fileSize, String filePreId, String fileVersion, String fileVersionLast) {
         this.fileId = fileId;
         this.fileInstId = fileInstId;
         this.fileName = fileName;
@@ -103,6 +111,8 @@ public class InstanceFileEntity {
         this.fileType = fileType;
         this.fileSize = fileSize;
         this.filePreId = filePreId;
+        this.fileVersion = fileVersion;
+        this.fileVersionLast = fileVersionLast;
     }
 
     public InstanceFileEntity() {
@@ -351,9 +361,9 @@ public class InstanceFileEntity {
 
     /**
      * 文件大小
-     * @return java.lang.Integer
+     * @return java.lang.Long
      **/
-    public Integer getFileSize() {
+    public Long getFileSize() {
         return fileSize;
     }
 
@@ -361,15 +371,15 @@ public class InstanceFileEntity {
      * 文件大小
      * @param fileSize 文件大小
      **/
-    public void setFileSize(Integer fileSize) {
+    public void setFileSize(Long fileSize) {
         this.fileSize = fileSize;
     }
 
     /**
      * 前一文件ID
-     * @return java.lang.Integer
+     * @return java.lang.String
      **/
-    public Integer getFilePreId() {
+    public String getFilePreId() {
         return filePreId;
     }
 
@@ -377,7 +387,39 @@ public class InstanceFileEntity {
      * 前一文件ID
      * @param filePreId 前一文件ID
      **/
-    public void setFilePreId(Integer filePreId) {
-        this.filePreId = filePreId;
+    public void setFilePreId(String filePreId) {
+        this.filePreId = filePreId == null ? null : filePreId.trim();
+    }
+
+    /**
+     * 版本号
+     * @return java.lang.String
+     **/
+    public String getFileVersion() {
+        return fileVersion;
+    }
+
+    /**
+     * 版本号
+     * @param fileVersion 版本号
+     **/
+    public void setFileVersion(String fileVersion) {
+        this.fileVersion = fileVersion == null ? null : fileVersion.trim();
+    }
+
+    /**
+     * 是否最后版本
+     * @return java.lang.String
+     **/
+    public String getFileVersionLast() {
+        return fileVersionLast;
+    }
+
+    /**
+     * 是否最后版本
+     * @param fileVersionLast 是否最后版本
+     **/
+    public void setFileVersionLast(String fileVersionLast) {
+        this.fileVersionLast = fileVersionLast == null ? null : fileVersionLast.trim();
     }
 }

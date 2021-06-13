@@ -21,10 +21,7 @@ import com.jb4dc.workflow.client.action.api.ActionApiRunResult;
 import com.jb4dc.workflow.client.action.api.IActionApi;
 import com.jb4dc.workflow.client.remote.FlowInstanceIntegratedRuntimeRemote;
 import com.jb4dc.workflow.client.service.IWorkFlowInstanceRuntimeService;
-import com.jb4dc.workflow.po.CompleteTaskResult;
-import com.jb4dc.workflow.po.ExecutionTaskPO;
-import com.jb4dc.workflow.po.FlowInstanceRuntimePO;
-import com.jb4dc.workflow.po.ResolveNextPossibleFlowNodePO;
+import com.jb4dc.workflow.po.*;
 import com.jb4dc.workflow.po.bpmn.BpmnDefinitions;
 import com.jb4dc.workflow.po.bpmn.process.BpmnTask;
 import com.jb4dc.workflow.po.bpmn.process.Jb4dcAction;
@@ -88,23 +85,35 @@ public class WorkFlowInstanceRuntimeServiceImpl extends WorkFlowRuntimeServiceIm
 
         FlowInstanceRuntimePO flowInstanceRuntimePO = getFlowInstanceRuntimePOFromCache(flowInstanceRuntimePOCacheKey);
 
-        Map<String, Object> formParams = new HashMap<>();
+        /*Map<String, Object> formParams = new HashMap<>();
         formParams.put("userId", jb4DCSession.getUserId());
         formParams.put("organId", jb4DCSession.getOrganId());
         formParams.put("modelKey", flowInstanceRuntimePO.getModelReKey());
         formParams.put("currentNodeKey", currentNodeKey);
         formParams.put("currentNodeName", currentNodeName);
         formParams.put("actionCode", actionCode);
-        formParams.put("currentTaskId",currentTaskId);
+        formParams.put("currentTaskId",currentTaskId);*/
+
+        RequestResolveNextPossibleFlowNodePO resolveNextPossibleFlowNodePO=new RequestResolveNextPossibleFlowNodePO();
+        resolveNextPossibleFlowNodePO.setActionCode(actionCode);
+        resolveNextPossibleFlowNodePO.setCurrentTaskId(currentTaskId);
+        resolveNextPossibleFlowNodePO.setModelReKey(flowInstanceRuntimePO.getModelReKey());
+        resolveNextPossibleFlowNodePO.setCurrentNodeKey(currentNodeKey);
+        resolveNextPossibleFlowNodePO.setCurrentNodeName(currentNodeName);
+        resolveNextPossibleFlowNodePO.setUserId(jb4DCSession.getUserId());
+        resolveNextPossibleFlowNodePO.setOrganId(jb4DCSession.getOrganId());
+
 
         Map<String, Object> vars = parseDefaultFlowInstanceRuntimePOToJuelVars(jb4DCSession, flowInstanceRuntimePO, formRecordComplexPO,flowInstanceRuntimePO.getCurrentNodeKey(),actionCode);
         if (exVars != null && exVars.size() > 0) {
             vars.putAll(exVars);
         }
-        formParams.put("varsJsonString", JsonUtility.toObjectString(vars));
+        //formParams.put("varsJsonString", JsonUtility.toObjectString(vars));
         //formParams.put("varsJsonString", "11");
 
-        JBuild4DCResponseVo<ResolveNextPossibleFlowNodePO> result = flowInstanceIntegratedRuntimeRemote.resolveNextPossibleFlowNode(formParams);
+        resolveNextPossibleFlowNodePO.setVarsJsonString(JsonUtility.toObjectString(vars));
+
+        JBuild4DCResponseVo<ResolveNextPossibleFlowNodePO> result = flowInstanceIntegratedRuntimeRemote.resolveNextPossibleFlowNode(resolveNextPossibleFlowNodePO);
         return result;
     }
 
@@ -112,7 +121,7 @@ public class WorkFlowInstanceRuntimeServiceImpl extends WorkFlowRuntimeServiceIm
     @Transactional(rollbackFor = {JBuild4DCGenerallyException.class, JBuild4DCSQLKeyWordException.class, IOException.class})
     @CalculationRunTime(note = "执行保存数据的解析")
     public CompleteTaskResult completeTask(JB4DCSession jb4DCSession,
-                                           boolean isStartInstanceStatus,
+                                           boolean isStartInstanceStatus,String instanceId,
                                            String modelId,String modelReKey,String currentTaskId,
                                            String currentNodeKey,
                                            String currentNodeName,
@@ -146,6 +155,7 @@ public class WorkFlowInstanceRuntimeServiceImpl extends WorkFlowRuntimeServiceIm
         //构建驱动流程变量
         Map<String, String> formParams = new HashMap<>();
         formParams.put("isStartInstanceStatus", isStartInstanceStatus ? "true" : "false");
+        formParams.put("instanceId",instanceId);
         formParams.put("userId", jb4DCSession.getUserId());
         formParams.put("organId", jb4DCSession.getOrganId());
         formParams.put("currentNodeKey", currentNodeKey);

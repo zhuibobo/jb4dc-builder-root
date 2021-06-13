@@ -19,21 +19,23 @@ let FlowRuntimePageObject={
             jb4dcActions:flowInstanceRuntimePO.jb4dcActions
         }
     },
-    pageReadyForStartStatus:function (isStartInstanceStatus,rendererChainCompletedFunc,flowInstanceRuntimePO,flowInstanceRuntimePOCacheKey,pageHostInstance) {
+    pageReadyForStartStatus:function (isStartInstanceStatus,flowInstanceRuntimePO,flowInstanceRuntimePOCacheKey,pageHostInstance) {
         //debugger;
         this._formRuntimeInst = Object.create(FormRuntime);
+        FlowRuntimePageObject._flowInstanceRuntimePO=flowInstanceRuntimePO;
         var recordId=StringUtility.Guid();
 
         var pageReadyInnerParas=this.buildPageReadyInnerParas(isStartInstanceStatus,recordId,flowInstanceRuntimePO,flowInstanceRuntimePOCacheKey);
         console.log(pageReadyInnerParas);
         this._formRuntimeInst.Initialization({
+            "InstanceId":flowInstanceRuntimePO.instanceEntity.instId,
             "RendererToId": "htmlDesignRuntimeWrap",
             "FormId": pageReadyInnerParas.formId,
             "RecordId": recordId,
             "ButtonId": "",
             "OperationType": BaseUtility.GetAddOperationName(),
             "IsPreview": false,
-            "RendererChainCompletedFunc": rendererChainCompletedFunc,
+            "RendererChainCompletedFunc":FlowRuntimePageObject.formRendererChainCompletedFunc,
             "ListFormButtonElemId": "",
             "WebFormRTParas": {},
             "FormRuntimeCategory": FlowRuntimePageObject.FORM_RUNTIME_CATEGORY_FLOW,
@@ -52,7 +54,7 @@ let FlowRuntimePageObject={
             isStartInstanceStatus,this._formRuntimeInst,pageHostInstance,pageReadyInnerParas);
         return this._formRuntimeInst;
     },
-    pageReadyForProcessStatus:function (isStartInstanceStatus,rendererChainCompletedFunc,flowInstanceRuntimePO,flowInstanceRuntimePOCacheKey,pageHostInstance){
+    pageReadyForProcessStatus:function (isStartInstanceStatus,flowInstanceRuntimePO,flowInstanceRuntimePOCacheKey,pageHostInstance){
         this._formRuntimeInst = Object.create(FormRuntime);
         FlowRuntimePageObject._flowInstanceRuntimePO=flowInstanceRuntimePO;
         var recordId=flowInstanceRuntimePO.instanceEntity.instRuBusinessKey;
@@ -60,13 +62,14 @@ let FlowRuntimePageObject={
         var pageReadyInnerParas=this.buildPageReadyInnerParas(isStartInstanceStatus,recordId,flowInstanceRuntimePO,flowInstanceRuntimePOCacheKey);
         console.log(pageReadyInnerParas);
         this._formRuntimeInst.Initialization({
+            "InstanceId":flowInstanceRuntimePO.instanceEntity.instId,
             "RendererToId": "htmlDesignRuntimeWrap",
             "FormId": pageReadyInnerParas.formId,
             "RecordId": recordId,
             "ButtonId": "",
             "OperationType": BaseUtility.GetUpdateOperationName(),
             "IsPreview": false,
-            "RendererChainCompletedFunc": rendererChainCompletedFunc,
+            "RendererChainCompletedFunc":FlowRuntimePageObject.formRendererChainCompletedFunc,
             "ListFormButtonElemId": "",
             "WebFormRTParas": {},
             "FormRuntimeCategory": FlowRuntimePageObject.FORM_RUNTIME_CATEGORY_FLOW,
@@ -88,14 +91,20 @@ let FlowRuntimePageObject={
     rendererActionButtons:function (isStartInstanceStatus,formRuntimeInst,pageHostInstance,pageReadyInnerParas) {
         ActionsRuntimeObject.CreateALLActionButton(isStartInstanceStatus,formRuntimeInst,pageHostInstance,pageReadyInnerParas);
     },
-    rendererFlowModeler:function (){
-
-    },
-    displayModelerView:function (event,ui) {
+    rendererFlowModelerForTabOnActivity:function (event,ui) {
         if (!FlowRuntimePageObject._isCreatedModelerView) {
             CreateModelerView(FlowRuntimePageObject._flowInstanceRuntimePO);
             FlowRuntimePageObject._isCreatedModelerView=true;
         }
+    },
+    rendererFlowFileContainer:function (flowInstanceRuntimePO){
+        FlowFilesListSinglePlugin.Renderer();
+    },
+    formRendererChainCompletedFunc:function (senderConfig) {
+        //console.log(senderConfig);
+        var flowInstanceRuntimePO=senderConfig.flowInstanceRuntimePO;
+        //var _this=senderConfig.FlowRuntimePageObjectInstance;
+        FlowRuntimePageObject.rendererFlowFileContainer(flowInstanceRuntimePO);
     },
     preHandleFormHtmlRuntimeFunc:function (sourceRuntimeHtml,formRuntimeInst,propConfig){
         //console.log(sourceRuntimeHtml);
@@ -121,8 +130,10 @@ let FlowRuntimePageObject={
             tabContainer.append("<div class=\"wysiwyg-wfdct-tabs-content wfdct-tabs-content-runtime\" id=\"tab_content_wpsOnlineDocumentPlugin_999\">未实现</div>");
         }
 
+        tabContainer.append("<div class=\"wysiwyg-wfdct-tabs-label wfdct-tabs-label-runtime\" tab_id=\"tab_content_flow_files_999\">附件</div>");
+        tabContainer.append("<div class=\"wysiwyg-wfdct-tabs-content wfdct-tabs-content-runtime\" id=\"tab_content_flow_files_999\">"+FlowFilesListSinglePlugin.getHtmlElem(propConfig)+"</div>");
         tabContainer.append("<div class=\"wysiwyg-wfdct-tabs-label wfdct-tabs-label-runtime\" tab_id=\"tab_content_flow_modeler_999\">流程图</div>");
-        tabContainer.append("<div class=\"wysiwyg-wfdct-tabs-content wfdct-tabs-content-runtime\" id=\"tab_content_flow_modeler_999\" style='height: calc(100% - 50px);' onActivity=\"FlowRuntimePageObject.displayModelerView\"><div id=\"flow-canvas\" style=\"height:100%;\"></div></div>");
+        tabContainer.append("<div class=\"wysiwyg-wfdct-tabs-content wfdct-tabs-content-runtime\" id=\"tab_content_flow_modeler_999\" style='height: calc(100% - 50px);' onActivity=\"FlowRuntimePageObject.rendererFlowModelerForTabOnActivity\"><div id=\"flow-canvas\" style=\"height:100%;\"></div></div>");
         tabContainer.append("<div class=\"wysiwyg-wfdct-tabs-label wfdct-tabs-label-runtime\" tab_id=\"tab_content_flow_sequence_999\">顺序图</div>");
         tabContainer.append("<div class=\"wysiwyg-wfdct-tabs-content wfdct-tabs-content-runtime\" id=\"tab_content_flow_sequence_999\"></div>");
         tabContainer.append("<div class=\"wysiwyg-wfdct-tabs-label wfdct-tabs-label-runtime\" tab_id=\"tab_content_flow_task_999\">流转信息</div>");

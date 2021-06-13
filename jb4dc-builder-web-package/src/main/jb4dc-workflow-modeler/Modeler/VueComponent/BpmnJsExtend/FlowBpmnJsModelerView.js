@@ -167,12 +167,14 @@ class FlowBpmnJsModelerView {
         //var currentNodeKey=flowInstanceRuntimePO.currentNodeKey;
         var historyExecutionTaskEntityList = flowInstanceRuntimePO.historyExecutionTaskEntityList;
         //debugger;
-        var currentTaskList = ArrayUtility.Where(historyExecutionTaskEntityList, function (item) {
-            return item.extaskStatus == "Processing";
-        });
-        if(currentTaskList&&currentTaskList.length>0){
-            for (let i = 0; i < currentTaskList.length; i++) {
-                this.toStyle(modeling, elementRegistry.get(currentTaskList[i].extaskCurNodeKey), option);
+        if(historyExecutionTaskEntityList!=null&&historyExecutionTaskEntityList.length>0) {
+            var currentTaskList = ArrayUtility.Where(historyExecutionTaskEntityList, function (item) {
+                return item.extaskStatus == "Processing";
+            });
+            if (currentTaskList && currentTaskList.length > 0) {
+                for (let i = 0; i < currentTaskList.length; i++) {
+                    this.toStyle(modeling, elementRegistry.get(currentTaskList[i].extaskCurNodeKey), option);
+                }
             }
         }
     }

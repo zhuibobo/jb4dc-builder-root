@@ -9,13 +9,11 @@ import com.jb4dc.core.base.vo.JBuild4DCResponseVo;
 import com.jb4dc.sso.client.session.SSOSessionUtility;
 import com.jb4dc.workflow.integrate.extend.IExecutionTaskExtendService;
 import com.jb4dc.workflow.integrate.extend.IInstanceExtendService;
-import com.jb4dc.workflow.po.CompleteTaskResult;
-import com.jb4dc.workflow.po.ExecutionTaskPO;
-import com.jb4dc.workflow.po.FlowInstanceRuntimePO;
-import com.jb4dc.workflow.po.ResolveNextPossibleFlowNodePO;
+import com.jb4dc.workflow.po.*;
 import com.jb4dc.workflow.po.bpmn.process.BpmnTask;
 import com.jb4dc.workflow.po.receive.ClientSelectedReceiver;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -75,15 +73,16 @@ public class FlowInstanceIntegratedRuntimeRest {
     }
 
     @RequestMapping(value = "/ResolveNextPossibleFlowNode",method = RequestMethod.POST)
-    public JBuild4DCResponseVo<ResolveNextPossibleFlowNodePO> resolveNextPossibleFlowNode(String userId,String organId, String modelKey,String currentTaskId, String currentNodeKey,String currentNodeName, String actionCode, String varsJsonString) throws IOException, JAXBException, XMLStreamException, JBuild4DCGenerallyException {
-        JB4DCSession jb4DCSession = SSOSessionUtility.buildJB4DCSessionFromRemote(userId, organId);
-        Map<String, Object> vars = JsonUtility.toObject(varsJsonString, Map.class);
-        ResolveNextPossibleFlowNodePO resolveNextPossibleFlowNodePO = instanceExtendService.resolveNextPossibleFlowNode(jb4DCSession, modelKey, currentTaskId, currentNodeKey, actionCode, vars);
+    public JBuild4DCResponseVo<ResolveNextPossibleFlowNodePO> resolveNextPossibleFlowNode(@RequestBody RequestResolveNextPossibleFlowNodePO reqPO) throws IOException, JAXBException, XMLStreamException, JBuild4DCGenerallyException {
+        JB4DCSession jb4DCSession = SSOSessionUtility.buildJB4DCSessionFromRemote(reqPO.getUserId(), reqPO.getOrganId());
+        Map<String, Object> vars = JsonUtility.toObject(reqPO.getVarsJsonString(), Map.class);
+        ResolveNextPossibleFlowNodePO resolveNextPossibleFlowNodePO = instanceExtendService.resolveNextPossibleFlowNode(jb4DCSession, reqPO.getModelReKey()
+                , reqPO.getCurrentTaskId(),reqPO.getCurrentNodeKey(), reqPO.getActionCode(), vars);
         return JBuild4DCResponseVo.getDataSuccess(resolveNextPossibleFlowNodePO);
     }
 
     @RequestMapping(value = "/CompleteTask",method = RequestMethod.POST)
-    public JBuild4DCResponseVo completeTask(String isStartInstanceStatus,
+    public JBuild4DCResponseVo completeTask(String isStartInstanceStatus,String instanceId,
                                             String userId,String organId,
                                             String modelId,String modelReKey,String currentTaskId,
                                             String currentNodeKey,String currentNodeName, String actionCode,
@@ -92,7 +91,7 @@ public class FlowInstanceIntegratedRuntimeRest {
         JB4DCSession jb4DCSession = SSOSessionUtility.buildJB4DCSessionFromRemote(userId, organId);
         Map<String, Object> vars = JsonUtility.toObject(varsJsonString, Map.class);
         List<ClientSelectedReceiver> clientSelectedReceiverList = ClientSelectedReceiver.parse(selectedReceiverVars);
-        CompleteTaskResult completeTaskResult = instanceExtendService.completeTask(jb4DCSession, isStartInstanceStatus.equals("true") ? true : false, modelId, modelReKey, currentTaskId, currentNodeKey, currentNodeName, actionCode, vars, clientSelectedReceiverList, businessKey, instanceTitle, instanceDesc);
+        CompleteTaskResult completeTaskResult = instanceExtendService.completeTask(jb4DCSession, isStartInstanceStatus.equals("true") ? true : false,instanceId, modelId, modelReKey, currentTaskId, currentNodeKey, currentNodeName, actionCode, vars, clientSelectedReceiverList, businessKey, instanceTitle, instanceDesc);
         return completeTaskResult;
     }
 

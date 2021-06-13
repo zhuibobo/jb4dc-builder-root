@@ -298,7 +298,7 @@ class FlowBpmnJsIntegrated {
 
     SerializationElemToDialogProps(elem) {
         var result = PODefinition.GetDialogPropertiesPO();
-        //debugger;
+        //debugger;1
         //bpmn
         result.bpmn.elem= {
             type: elem.type
@@ -533,6 +533,7 @@ class FlowBpmnJsIntegrated {
             BpmnJsUtility.BPMN_SetTimerEventDefinition(elem, props.bpmn.timerEventDefinition);
         } else if(BpmnJsUtility.Is_StartEvent(elem)) {
             BpmnJsUtility.JB4DC_SetActions(elem, props.jb4dc.jb4dcActions, true);
+            BpmnJsUtility.JB4DC_SetAuthorities(elem, props.jb4dc.jb4dcAuthorities, true);
         }
         else if (BpmnJsUtility.Is_EndEvent(elem)) {
             BpmnJsUtility.BPMN_SetMessageEventDefinition(elem, props.bpmn.messageEventDefinition);

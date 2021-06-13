@@ -18,14 +18,17 @@
             <arg column="FILE_ORDER_NUM" javaType="java.lang.Integer" jdbcType="INTEGER" />
             <arg column="FILE_STATUS" javaType="java.lang.String" jdbcType="VARCHAR" />
             <arg column="FILE_TYPE" javaType="java.lang.String" jdbcType="VARCHAR" />
-            <arg column="FILE_SIZE" javaType="java.lang.Integer" jdbcType="INTEGER" />
-            <arg column="FILE_PRE_ID" javaType="java.lang.Integer" jdbcType="INTEGER" />
+            <arg column="FILE_SIZE" javaType="java.lang.Long" jdbcType="BIGINT" />
+            <arg column="FILE_PRE_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="FILE_VERSION" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="FILE_VERSION_LAST" javaType="java.lang.String" jdbcType="VARCHAR" />
         </constructor>
     </resultMap>
     <sql id="Base_Column_List">
         FILE_ID, FILE_INST_ID, FILE_NAME, FILE_STORE_PATH, FILE_STORE_NAME, FILE_EXTENSION,
     FILE_DESCRIPTION, FILE_CREATE_TIME, FILE_CREATOR, FILE_CREATOR_ID, FILE_ORGAN_NAME,
-    FILE_ORGAN_ID, FILE_ORDER_NUM, FILE_STATUS, FILE_TYPE, FILE_SIZE, FILE_PRE_ID
+    FILE_ORGAN_ID, FILE_ORDER_NUM, FILE_STATUS, FILE_TYPE, FILE_SIZE, FILE_PRE_ID, FILE_VERSION,
+    FILE_VERSION_LAST
     </sql>
     <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
         select
@@ -43,13 +46,15 @@
                                          FILE_DESCRIPTION, FILE_CREATE_TIME, FILE_CREATOR,
                                          FILE_CREATOR_ID, FILE_ORGAN_NAME, FILE_ORGAN_ID,
                                          FILE_ORDER_NUM, FILE_STATUS, FILE_TYPE,
-                                         FILE_SIZE, FILE_PRE_ID)
+                                         FILE_SIZE, FILE_PRE_ID, FILE_VERSION,
+                                         FILE_VERSION_LAST)
         values (#{fileId,jdbcType=VARCHAR}, #{fileInstId,jdbcType=VARCHAR}, #{fileName,jdbcType=VARCHAR},
                 #{fileStorePath,jdbcType=VARCHAR}, #{fileStoreName,jdbcType=VARCHAR}, #{fileExtension,jdbcType=VARCHAR},
                 #{fileDescription,jdbcType=VARCHAR}, #{fileCreateTime,jdbcType=TIMESTAMP}, #{fileCreator,jdbcType=VARCHAR},
                 #{fileCreatorId,jdbcType=VARCHAR}, #{fileOrganName,jdbcType=VARCHAR}, #{fileOrganId,jdbcType=VARCHAR},
                 #{fileOrderNum,jdbcType=INTEGER}, #{fileStatus,jdbcType=VARCHAR}, #{fileType,jdbcType=VARCHAR},
-                #{fileSize,jdbcType=INTEGER}, #{filePreId,jdbcType=INTEGER})
+                #{fileSize,jdbcType=BIGINT}, #{filePreId,jdbcType=VARCHAR}, #{fileVersion,jdbcType=VARCHAR},
+                #{fileVersionLast,jdbcType=VARCHAR})
     </insert>
     <insert id="insertSelective" parameterType="com.jb4dc.workflow.dbentities.InstanceFileEntity">
         insert into TFLOW_INSTANCE_FILE
@@ -105,6 +110,12 @@
             <if test="filePreId != null">
                 FILE_PRE_ID,
             </if>
+            <if test="fileVersion != null">
+                FILE_VERSION,
+            </if>
+            <if test="fileVersionLast != null">
+                FILE_VERSION_LAST,
+            </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="fileId != null">
@@ -153,10 +164,16 @@
                 #{fileType,jdbcType=VARCHAR},
             </if>
             <if test="fileSize != null">
-                #{fileSize,jdbcType=INTEGER},
+                #{fileSize,jdbcType=BIGINT},
             </if>
             <if test="filePreId != null">
-                #{filePreId,jdbcType=INTEGER},
+                #{filePreId,jdbcType=VARCHAR},
+            </if>
+            <if test="fileVersion != null">
+                #{fileVersion,jdbcType=VARCHAR},
+            </if>
+            <if test="fileVersionLast != null">
+                #{fileVersionLast,jdbcType=VARCHAR},
             </if>
         </trim>
     </insert>
@@ -206,10 +223,16 @@
                 FILE_TYPE = #{fileType,jdbcType=VARCHAR},
             </if>
             <if test="fileSize != null">
-                FILE_SIZE = #{fileSize,jdbcType=INTEGER},
+                FILE_SIZE = #{fileSize,jdbcType=BIGINT},
             </if>
             <if test="filePreId != null">
-                FILE_PRE_ID = #{filePreId,jdbcType=INTEGER},
+                FILE_PRE_ID = #{filePreId,jdbcType=VARCHAR},
+            </if>
+            <if test="fileVersion != null">
+                FILE_VERSION = #{fileVersion,jdbcType=VARCHAR},
+            </if>
+            <if test="fileVersionLast != null">
+                FILE_VERSION_LAST = #{fileVersionLast,jdbcType=VARCHAR},
             </if>
         </set>
         where FILE_ID = #{fileId,jdbcType=VARCHAR}
@@ -230,8 +253,10 @@
             FILE_ORDER_NUM = #{fileOrderNum,jdbcType=INTEGER},
             FILE_STATUS = #{fileStatus,jdbcType=VARCHAR},
             FILE_TYPE = #{fileType,jdbcType=VARCHAR},
-            FILE_SIZE = #{fileSize,jdbcType=INTEGER},
-            FILE_PRE_ID = #{filePreId,jdbcType=INTEGER}
+            FILE_SIZE = #{fileSize,jdbcType=BIGINT},
+            FILE_PRE_ID = #{filePreId,jdbcType=VARCHAR},
+            FILE_VERSION = #{fileVersion,jdbcType=VARCHAR},
+            FILE_VERSION_LAST = #{fileVersionLast,jdbcType=VARCHAR}
         where FILE_ID = #{fileId,jdbcType=VARCHAR}
     </update>
 </mapper>

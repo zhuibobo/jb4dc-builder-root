@@ -195,7 +195,7 @@ let FormRuntime={
     CallRendererChainCompletedFunc:function() {
         var _this=this;
         if (typeof (this._Prop_Config.RendererChainCompletedFunc) == "function") {
-            this._Prop_Config.RendererChainCompletedFunc.call(this);
+            this._Prop_Config.RendererChainCompletedFunc.call(this,this._Prop_Config);
         }
         HTMLPageObjectInstanceProxy.Init(this._Prop_Config,this._FormPO);
         window.setTimeout(function () {

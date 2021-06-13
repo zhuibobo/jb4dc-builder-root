@@ -185,7 +185,7 @@ public class InstanceExtendServiceImpl extends BaseServiceImpl<InstanceEntity> i
 
     @Override
     @Transactional(rollbackFor = {JBuild4DCGenerallyException.class})
-    public CompleteTaskResult completeTask(JB4DCSession jb4DCSession, boolean isStartInstanceStatus,
+    public CompleteTaskResult completeTask(JB4DCSession jb4DCSession, boolean isStartInstanceStatus,String instanceId,
                                            String modelId, String modelReKey, String currentTaskId,
                                            String currentNodeKey, String currentNodeName, String actionCode,
                                            Map<String, Object> vars, List<ClientSelectedReceiver> clientSelectedReceiverList, String businessKey,
@@ -237,7 +237,7 @@ public class InstanceExtendServiceImpl extends BaseServiceImpl<InstanceEntity> i
                 if (isStartInstanceStatus) {
                     ProcessInstance processInstance = flowEngineInstanceIntegratedService.startProcessInstanceByKey(flowModelIntegratedPO.getModelReKey(), businessKey, vars);
                     //记录扩展的实例数据
-                    instanceEntity = createNewInstance(jb4DCSession, businessKey, instanceTitle, instanceDesc, flowModelIntegratedPO, processInstance);
+                    instanceEntity = createNewInstance(jb4DCSession,instanceId, businessKey, instanceTitle, instanceDesc, flowModelIntegratedPO, processInstance);
                     //生成一个初始任务,并设置为办结状态
                     currentExecutionTaskEntity = executionTaskExtendService.createFirstExecutionTask(jb4DCSession, instanceEntity, currentNodeKey, currentNodeName, jb4dcAction);
                     //currentExecutionTaskEntity;
@@ -327,9 +327,9 @@ public class InstanceExtendServiceImpl extends BaseServiceImpl<InstanceEntity> i
     }
 
 
-    private InstanceEntity createNewInstance(JB4DCSession jb4DCSession, String businessKey, String instanceTitle, String instanceDesc, FlowModelIntegratedPO flowModelIntegratedPO, ProcessInstance processInstance) throws JBuild4DCGenerallyException {
+    private InstanceEntity createNewInstance(JB4DCSession jb4DCSession,String newInstanceId, String businessKey, String instanceTitle, String instanceDesc, FlowModelIntegratedPO flowModelIntegratedPO, ProcessInstance processInstance) throws JBuild4DCGenerallyException {
         InstanceEntity instanceEntity = new InstanceEntity();
-        instanceEntity.setInstId(UUIDUtility.getUUID().toString());
+        instanceEntity.setInstId(newInstanceId);
         instanceEntity.setInstTitle(instanceTitle);
         instanceEntity.setInstDesc(instanceDesc);
         instanceEntity.setInstCustDesc("无");
@@ -466,6 +466,7 @@ public class InstanceExtendServiceImpl extends BaseServiceImpl<InstanceEntity> i
     public FlowInstanceRuntimePO getInstanceRuntimePOWithStart(JB4DCSession session, String modelKey) throws IOException, JAXBException, XMLStreamException, JBuild4DCGenerallyException {
         FlowInstanceRuntimePO result = new FlowInstanceRuntimePO();
         InstanceEntity instanceEntity=new InstanceEntity();
+        instanceEntity.setInstId(UUIDUtility.getUUID());
         instanceEntity.setInstCreateTime(new Date());
         instanceEntity.setInstCreator(session.getUserName());
         instanceEntity.setInstCreatorId(session.getUserId());

@@ -9,6 +9,8 @@ import com.jb4dc.workflow.dbentities.InstanceFileEntity;
 import com.jb4dc.workflow.integrate.extend.IInstanceFileExtendService;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class InstanceFileExtendServiceImpl extends BaseServiceImpl<InstanceFileEntity> implements IInstanceFileExtendService
 {
@@ -27,5 +29,10 @@ public class InstanceFileExtendServiceImpl extends BaseServiceImpl<InstanceFileE
                 return sourceEntity;
             }
         });
+    }
+
+    @Override
+    public List<InstanceFileEntity> getAttachmentFileListData(JB4DCSession jb4DCSession, String instanceId) {
+        return instanceFileMapper.selectAttachmentByInstanceId(instanceId);
     }
 }

@@ -1260,6 +1260,19 @@
         </addColumn>
     </changeSet>
 
+    <changeSet id="changeSet-camunda-integrated-0014" author="zhuangrb">
+        <dropColumn tableName="TFLOW_INSTANCE_FILE">
+            <column name="FILE_SIZE"></column>
+            <column name="FILE_PRE_ID"></column>
+        </dropColumn>
+        <addColumn tableName="TFLOW_INSTANCE_FILE">
+            <column name="FILE_SIZE" type="BIGINT" remarks="文件大小"/>
+            <column name="FILE_PRE_ID" type="NVARCHAR(100)" remarks="前一文件ID"/>
+            <column name="FILE_VERSION" type="NVARCHAR(20)" remarks="版本号"/>
+            <column name="FILE_VERSION_LAST" type="NVARCHAR(20)" remarks="是否最后版本"/>
+        </addColumn>
+    </changeSet>
+
     <changeSet id="changeSet-camunda-integrated-0999" author="zhuangrb">
         <sql>
             ALTER TABLE TFLOW_EXECUTION_TASK COMMENT = '流程实例环节执行任务表:用于扩展act_ru_task记录,主送抄送任务'
@@ -1281,6 +1294,9 @@
         </sql>
         <sql>
             ALTER TABLE TFLOW_OP_LOG COMMENT = '流程管理操作日志:主要用于管理时产生的记录'
+        </sql>
+        <sql>
+            ALTER TABLE TFLOW_OP_LOG COMMENT = '流程实例关联文件附件表'
         </sql>
     </changeSet>
 

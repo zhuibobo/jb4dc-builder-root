@@ -24,7 +24,8 @@ let WorkFlowSendAction={
             "recordId":pageReadyInnerParas.recordId,
             "modelId":pageReadyInnerParas.modelId,
             "modelReKey":pageReadyInnerParas.modelReKey,
-            "currentTaskId":pageReadyInnerParas.currentTaskId
+            "currentTaskId":pageReadyInnerParas.currentTaskId,
+            "instanceId":pageReadyInnerParas.flowInstanceRuntimePO.instanceEntity.instId
         }
         elem.bind("click", this._Prop, this.ButtonClickEvent);
         return {
@@ -62,7 +63,7 @@ let WorkFlowSendAction={
             if(sendData.success) {
                 AjaxUtility.Post(_this.acInterface.resolveNextPossibleFlowNode, sendData.data, function (result) {
                     DialogUtility.CloseDialog(DialogUtility.DialogLoadingId);
-                    //DialogUtility.CloseDialog(DialogUtility.DialogLoadingId);
+                    //DialogUtility.CloseDialog(DialogUtility.DialogLoadingId);1
                     console.log(result);
                     if(result.data.nextTaskIsEndEvent){
                         this.SelectReceiverCompleted(result.data.bpmnTaskList,[])
@@ -88,7 +89,8 @@ let WorkFlowSendAction={
             var sendData=this.BuildSendToServerData(this._Prop, {
                 selectedReceiverVars:encodeURIComponent(JsonUtility.JsonToString(selectedReceiverVars))
             });
-
+            console.log(sendData);
+            //return;
             //console.log(sendData);
             if(sendData.success) {
                 DialogUtility.AlertLoading(window,DialogUtility.DialogLoadingId,{},"系统处理中,请稍候!");
@@ -122,7 +124,8 @@ let WorkFlowSendAction={
                 "recordId":_prop.recordId,
                 "modelId":_prop.modelId,
                 "modelReKey":_prop.modelReKey,
-                "currentTaskId":_prop.currentTaskId
+                "currentTaskId":_prop.currentTaskId,
+                "instanceId":_prop.instanceId
             }
         }
 

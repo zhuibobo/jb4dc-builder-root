@@ -1,5 +1,5 @@
 var DocumentContentUploadConvertToPDFPlugin={
-    getHtmlElem:function (){
+    getHtmlElem:function (propConfig){
         return `<div 
                     control_category="InputControl" 
                     id="document_content_upload_convert_to_pdf_plugin" 

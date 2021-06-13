@@ -75,21 +75,21 @@ public class FlowModelIntegratedRuntimeRemoteTest  extends RestTestBase {
 
     @Test
     public void resolveNextPossibleTaskWithStartNode() throws JBuild4DCGenerallyException, IOException {
-        JB4DCUnitSessionSessionUtility.mockLogin(getAlex4DSession());
-        Map<String,Object> vars=new HashMap<>();
+        //JB4DCUnitSessionSessionUtility.mockLogin(getAlex4DSession());
+        //Map<String,Object> vars=new HashMap<>();
         //vars.put("LastActionKey","__$FlowAction$$StartEvent_N1$$action_526152327$");
-        Map<String,Object> formParams=new HashMap<>();
-        formParams.put("userId","Alex4D");
-        formParams.put("modelKey","Flow_Model_1619519188394");
-        formParams.put("currentNodeKey","StartEvent_N1");
-        formParams.put("actionCode","action_955710861");
-        formParams.put("varsJsonString",JsonUtility.toObjectString(vars));
-        JBuild4DCResponseVo<ResolveNextPossibleFlowNodePO> result = flowInstanceIntegratedRuntimeRemote.resolveNextPossibleFlowNode(formParams);
+        //Map<String,Object> formParams=new HashMap<>();
+        //formParams.put("userId","Alex4D");
+        //formParams.put("modelKey","Flow_Model_1619519188394");
+        //formParams.put("currentNodeKey","StartEvent_N1");
+        //formParams.put("actionCode","action_955710861");
+        //formParams.put("varsJsonString",JsonUtility.toObjectString(vars));
+        //JBuild4DCResponseVo<ResolveNextPossibleFlowNodePO> result = flowInstanceIntegratedRuntimeRemote.resolveNextPossibleFlowNode(formParams);
         /*for (ModelIntegratedEntity modelIntegratedEntity : result.getData().getModelIntegratedEntityList()) {
             System.out.println(modelIntegratedEntity.getModelName());
         }*/
 
-        String json = JsonUtility.toObjectString(result);
-        System.out.println(json);
+        //String json = JsonUtility.toObjectString(result);
+        //System.out.println(json);
     }
 }

@@ -51,9 +51,7 @@
                 console.log(result);
                 console.log(JsonUtility.JsonToString(result));
                 BaseUtility.SetSystemFavicon();
-                flowRuntimePageObject = FlowRuntimePageObject.pageReadyForProcessStatus(false, function () {
-
-                }, result.data,result.cacheKey,this);
+                flowRuntimePageObject = FlowRuntimePageObject.pageReadyForProcessStatus(false, result.data,result.cacheKey,this);
 
                 //var windowHeight=formRuntimeInst.GetWebFormRTParas().WindowHeight;
                 //if(windowHeight) {

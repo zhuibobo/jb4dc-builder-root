@@ -61,7 +61,7 @@ public class InstanceRuntimeRest {
     }
 
     @RequestMapping(value = "/CompleteTask",method = RequestMethod.POST)
-    public JBuild4DCResponseVo completeTask(boolean isStartInstanceStatus,
+    public JBuild4DCResponseVo completeTask(boolean isStartInstanceStatus,String instanceId,
                                             String modelId,String modelReKey,
                                             String currentTaskId,String currentNodeKey,String currentNodeName,
                                             String recordId, String actionCode,
@@ -70,7 +70,7 @@ public class InstanceRuntimeRest {
         FormRecordComplexPO formRecordComplexPO = JsonUtility.toObjectIgnoreProp(formRecordComplexPOString,FormRecordComplexPO.class);
         selectedReceiverVars= URLDecoder.decode(selectedReceiverVars,"utf-8");
         List<ClientSelectedReceiver> clientSelectedReceiverList= ClientSelectedReceiver.parse(selectedReceiverVars);
-        CompleteTaskResult completeTaskResult=workFlowInstanceRuntimeService.completeTask(JB4DCSessionUtility.getSession(),isStartInstanceStatus,modelId,modelReKey,currentTaskId,currentNodeKey,currentNodeName,actionCode,flowInstanceRuntimePOCacheKey,formRecordComplexPO,clientSelectedReceiverList,recordId,null);
+        CompleteTaskResult completeTaskResult=workFlowInstanceRuntimeService.completeTask(JB4DCSessionUtility.getSession(),isStartInstanceStatus,instanceId,modelId,modelReKey,currentTaskId,currentNodeKey,currentNodeName,actionCode,flowInstanceRuntimePOCacheKey,formRecordComplexPO,clientSelectedReceiverList,recordId,null);
         return completeTaskResult;
     }
 }

@@ -29,7 +29,7 @@ public interface IInstanceExtendService extends IBaseService<InstanceEntity> {
 
     ResolveNextPossibleFlowNodePO resolveNextPossibleFlowNode(JB4DCSession jb4DCSession, String modelKey, String currentTaskId, String currentNodeKey, String actionCode, Map<String, Object> vars) throws IOException, JAXBException, XMLStreamException, JBuild4DCGenerallyException;
 
-    CompleteTaskResult completeTask(JB4DCSession session, boolean isStartInstanceStatus, String modelId, String modelReKey, String currentTaskId, String currentNodeKey, String currentNodeName, String actionCode, Map<String, Object> vars, List<ClientSelectedReceiver> clientSelectedReceiverList, String businessKey,String instanceTitle,String instanceDesc) throws JBuild4DCGenerallyException;
+    CompleteTaskResult completeTask(JB4DCSession session, boolean isStartInstanceStatus,String instanceId, String modelId, String modelReKey, String currentTaskId, String currentNodeKey, String currentNodeName, String actionCode, Map<String, Object> vars, List<ClientSelectedReceiver> clientSelectedReceiverList, String businessKey,String instanceTitle,String instanceDesc) throws JBuild4DCGenerallyException;
 
     FlowInstanceRuntimePO getInstanceRuntimePOByInstanceId(JB4DCSession jb4DCSession, String instanceId) throws JBuild4DCGenerallyException, JAXBException, IOException, XMLStreamException;
 
