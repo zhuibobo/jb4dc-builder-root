@@ -8,6 +8,7 @@
       <module fileurl="file://$PROJECT_DIR$/jb4dc-builder-service/jb4dc-builder-service.iml" filepath="$PROJECT_DIR$/jb4dc-builder-service/jb4dc-builder-service.iml" />
       <module fileurl="file://$PROJECT_DIR$/jb4dc-builder-web-package/jb4dc-builder-web-package.iml" filepath="$PROJECT_DIR$/jb4dc-builder-web-package/jb4dc-builder-web-package.iml" />
       <module fileurl="file://$PROJECT_DIR$/jb4dc-builder-web-server/jb4dc-builder-web-server.iml" filepath="$PROJECT_DIR$/jb4dc-builder-web-server/jb4dc-builder-web-server.iml" />
+      <module fileurl="file://$PROJECT_DIR$/jb4dc-builder-wps-plugin/jb4dc-builder-wps-plugin.iml" filepath="$PROJECT_DIR$/jb4dc-builder-wps-plugin/jb4dc-builder-wps-plugin.iml" />
       <module fileurl="file://$PROJECT_DIR$/jb4dc-dev-mock-root/jb4dc-dev-mock-root.iml" filepath="$PROJECT_DIR$/jb4dc-dev-mock-root/jb4dc-dev-mock-root.iml" />
       <module fileurl="file://$PROJECT_DIR$/jb4dc-dev-mock-root/jb4dc-dev-mock-service/jb4dc-dev-mock-service.iml" filepath="$PROJECT_DIR$/jb4dc-dev-mock-root/jb4dc-dev-mock-service/jb4dc-dev-mock-service.iml" />
       <module fileurl="file://$PROJECT_DIR$/jb4dc-dev-mock-root/jb4dc-dev-mock-web-server/jb4dc-dev-mock-web-server.iml" filepath="$PROJECT_DIR$/jb4dc-dev-mock-root/jb4dc-dev-mock-web-server/jb4dc-dev-mock-web-server.iml" />
