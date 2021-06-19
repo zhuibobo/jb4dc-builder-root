@@ -23,115 +23,105 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4c1726ea-d2d7-4bd0-ba55-67bf5abd523a" name="Default Changelist" comment="查询统计">
-      <change afterPath="$PROJECT_DIR$/.idea/jsLibraryMappings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jb4dc-builder-wps-plugin/jb4dc-builder-wps-plugin.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jb4dc-builder-wps-plugin/jb4dc-builder-wps-word-plugin/WpsWordClient/Common/WpsWordClientRefCommon.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jb4dc-builder-wps-plugin/jb4dc-builder-wps-word-plugin/WpsWordClient/DevPanel.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jb4dc-builder-wps-plugin/jb4dc-builder-wps-word-plugin/WpsWordClient/External/IView-4.X/dist/iview.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jb4dc-builder-wps-plugin/jb4dc-builder-wps-word-plugin/WpsWordClient/External/IView-4.X/dist/iview.js.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jb4dc-builder-wps-plugin/jb4dc-builder-wps-word-plugin/WpsWordClient/External/IView-4.X/dist/iview.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jb4dc-builder-wps-plugin/jb4dc-builder-wps-word-plugin/WpsWordClient/External/IView-4.X/dist/iview.min.js.gz" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jb4dc-builder-wps-plugin/jb4dc-builder-wps-word-plugin/WpsWordClient/External/IView-4.X/dist/iview.min.js.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jb4dc-builder-wps-plugin/jb4dc-builder-wps-word-plugin/WpsWordClient/External/IView-4.X/dist/locale/ar-EG.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jb4dc-builder-wps-plugin/jb4dc-builder-wps-word-plugin/WpsWordClient/External/IView-4.X/dist/locale/ar-EG.js.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jb4dc-builder-wps-plugin/jb4dc-builder-wps-word-plugin/WpsWordClient/External/IView-4.X/dist/locale/ar-SA.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jb4dc-builder-wps-plugin/jb4dc-builder-wps-word-plugin/WpsWordClient/External/IView-4.X/dist/locale/ar-SA.js.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jb4dc-builder-wps-plugin/jb4dc-builder-wps-word-plugin/WpsWordClient/External/IView-4.X/dist/locale/cs-CZ.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jb4dc-builder-wps-plugin/jb4dc-builder-wps-word-plugin/WpsWordClient/External/IView-4.X/dist/locale/cs-CZ.js.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jb4dc-builder-wps-plugin/jb4dc-builder-wps-word-plugin/WpsWordClient/External/IView-4.X/dist/locale/da-DK.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jb4dc-builder-wps-plugin/jb4dc-builder-wps-word-plugin/WpsWordClient/External/IView-4.X/dist/locale/da-DK.js.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jb4dc-builder-wps-plugin/jb4dc-builder-wps-word-plugin/WpsWordClient/External/IView-4.X/dist/locale/de-DE.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jb4dc-builder-wps-plugin/jb4dc-builder-wps-word-plugin/WpsWordClient/External/IView-4.X/dist/locale/de-DE.js.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jb4dc-builder-wps-plugin/jb4dc-builder-wps-word-plugin/WpsWordClient/External/IView-4.X/dist/locale/el-GR.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jb4dc-builder-wps-plugin/jb4dc-builder-wps-word-plugin/WpsWordClient/External/IView-4.X/dist/locale/el-GR.js.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jb4dc-builder-wps-plugin/jb4dc-builder-wps-word-plugin/WpsWordClient/External/IView-4.X/dist/locale/en-US.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jb4dc-builder-wps-plugin/jb4dc-builder-wps-word-plugin/WpsWordClient/External/IView-4.X/dist/locale/en-US.js.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jb4dc-builder-wps-plugin/jb4dc-builder-wps-word-plugin/WpsWordClient/External/IView-4.X/dist/locale/es-ES.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jb4dc-builder-wps-plugin/jb4dc-builder-wps-word-plugin/WpsWordClient/External/IView-4.X/dist/locale/es-ES.js.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jb4dc-builder-wps-plugin/jb4dc-builder-wps-word-plugin/WpsWordClient/External/IView-4.X/dist/locale/fa-IR.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jb4dc-builder-wps-plugin/jb4dc-builder-wps-word-plugin/WpsWordClient/External/IView-4.X/dist/locale/fa-IR.js.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jb4dc-builder-wps-plugin/jb4dc-builder-wps-word-plugin/WpsWordClient/External/IView-4.X/dist/locale/fi-FI.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jb4dc-builder-wps-plugin/jb4dc-builder-wps-word-plugin/WpsWordClient/External/IView-4.X/dist/locale/fi-FI.js.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jb4dc-builder-wps-plugin/jb4dc-builder-wps-word-plugin/WpsWordClient/External/IView-4.X/dist/locale/fr-FR.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jb4dc-builder-wps-plugin/jb4dc-builder-wps-word-plugin/WpsWordClient/External/IView-4.X/dist/locale/fr-FR.js.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jb4dc-builder-wps-plugin/jb4dc-builder-wps-word-plugin/WpsWordClient/External/IView-4.X/dist/locale/hi-IN.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jb4dc-builder-wps-plugin/jb4dc-builder-wps-word-plugin/WpsWordClient/External/IView-4.X/dist/locale/hi-IN.js.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jb4dc-builder-wps-plugin/jb4dc-builder-wps-word-plugin/WpsWordClient/External/IView-4.X/dist/locale/id-ID.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jb4dc-builder-wps-plugin/jb4dc-builder-wps-word-plugin/WpsWordClient/External/IView-4.X/dist/locale/id-ID.js.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jb4dc-builder-wps-plugin/jb4dc-builder-wps-word-plugin/WpsWordClient/External/IView-4.X/dist/locale/it-IT.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jb4dc-builder-wps-plugin/jb4dc-builder-wps-word-plugin/WpsWordClient/External/IView-4.X/dist/locale/it-IT.js.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jb4dc-builder-wps-plugin/jb4dc-builder-wps-word-plugin/WpsWordClient/External/IView-4.X/dist/locale/ja-JP.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jb4dc-builder-wps-plugin/jb4dc-builder-wps-word-plugin/WpsWordClient/External/IView-4.X/dist/locale/ja-JP.js.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jb4dc-builder-wps-plugin/jb4dc-builder-wps-word-plugin/WpsWordClient/External/IView-4.X/dist/locale/ko-KR.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jb4dc-builder-wps-plugin/jb4dc-builder-wps-word-plugin/WpsWordClient/External/IView-4.X/dist/locale/ko-KR.js.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jb4dc-builder-wps-plugin/jb4dc-builder-wps-word-plugin/WpsWordClient/External/IView-4.X/dist/locale/mn-MN.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jb4dc-builder-wps-plugin/jb4dc-builder-wps-word-plugin/WpsWordClient/External/IView-4.X/dist/locale/mn-MN.js.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jb4dc-builder-wps-plugin/jb4dc-builder-wps-word-plugin/WpsWordClient/External/IView-4.X/dist/locale/mn-TR.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jb4dc-builder-wps-plugin/jb4dc-builder-wps-word-plugin/WpsWordClient/External/IView-4.X/dist/locale/mn-TR.js.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jb4dc-builder-wps-plugin/jb4dc-builder-wps-word-plugin/WpsWordClient/External/IView-4.X/dist/locale/nl-NL.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jb4dc-builder-wps-plugin/jb4dc-builder-wps-word-plugin/WpsWordClient/External/IView-4.X/dist/locale/nl-NL.js.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jb4dc-builder-wps-plugin/jb4dc-builder-wps-word-plugin/WpsWordClient/External/IView-4.X/dist/locale/pl-PL.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jb4dc-builder-wps-plugin/jb4dc-builder-wps-word-plugin/WpsWordClient/External/IView-4.X/dist/locale/pl-PL.js.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jb4dc-builder-wps-plugin/jb4dc-builder-wps-word-plugin/WpsWordClient/External/IView-4.X/dist/locale/pt-BR.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jb4dc-builder-wps-plugin/jb4dc-builder-wps-word-plugin/WpsWordClient/External/IView-4.X/dist/locale/pt-BR.js.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jb4dc-builder-wps-plugin/jb4dc-builder-wps-word-plugin/WpsWordClient/External/IView-4.X/dist/locale/pt-PT.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jb4dc-builder-wps-plugin/jb4dc-builder-wps-word-plugin/WpsWordClient/External/IView-4.X/dist/locale/pt-PT.js.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jb4dc-builder-wps-plugin/jb4dc-builder-wps-word-plugin/WpsWordClient/External/IView-4.X/dist/locale/ro-RO.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jb4dc-builder-wps-plugin/jb4dc-builder-wps-word-plugin/WpsWordClient/External/IView-4.X/dist/locale/ro-RO.js.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jb4dc-builder-wps-plugin/jb4dc-builder-wps-word-plugin/WpsWordClient/External/IView-4.X/dist/locale/ru-RU.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jb4dc-builder-wps-plugin/jb4dc-builder-wps-word-plugin/WpsWordClient/External/IView-4.X/dist/locale/ru-RU.js.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jb4dc-builder-wps-plugin/jb4dc-builder-wps-word-plugin/WpsWordClient/External/IView-4.X/dist/locale/sv-SE.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jb4dc-builder-wps-plugin/jb4dc-builder-wps-word-plugin/WpsWordClient/External/IView-4.X/dist/locale/sv-SE.js.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jb4dc-builder-wps-plugin/jb4dc-builder-wps-word-plugin/WpsWordClient/External/IView-4.X/dist/locale/th-TH.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jb4dc-builder-wps-plugin/jb4dc-builder-wps-word-plugin/WpsWordClient/External/IView-4.X/dist/locale/th-TH.js.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jb4dc-builder-wps-plugin/jb4dc-builder-wps-word-plugin/WpsWordClient/External/IView-4.X/dist/locale/tr-TR.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jb4dc-builder-wps-plugin/jb4dc-builder-wps-word-plugin/WpsWordClient/External/IView-4.X/dist/locale/tr-TR.js.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jb4dc-builder-wps-plugin/jb4dc-builder-wps-word-plugin/WpsWordClient/External/IView-4.X/dist/locale/uk-UA.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jb4dc-builder-wps-plugin/jb4dc-builder-wps-word-plugin/WpsWordClient/External/IView-4.X/dist/locale/uk-UA.js.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jb4dc-builder-wps-plugin/jb4dc-builder-wps-word-plugin/WpsWordClient/External/IView-4.X/dist/locale/vi-VN.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jb4dc-builder-wps-plugin/jb4dc-builder-wps-word-plugin/WpsWordClient/External/IView-4.X/dist/locale/vi-VN.js.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jb4dc-builder-wps-plugin/jb4dc-builder-wps-word-plugin/WpsWordClient/External/IView-4.X/dist/locale/zh-CN.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jb4dc-builder-wps-plugin/jb4dc-builder-wps-word-plugin/WpsWordClient/External/IView-4.X/dist/locale/zh-CN.js.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jb4dc-builder-wps-plugin/jb4dc-builder-wps-word-plugin/WpsWordClient/External/IView-4.X/dist/locale/zh-TW.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jb4dc-builder-wps-plugin/jb4dc-builder-wps-word-plugin/WpsWordClient/External/IView-4.X/dist/locale/zh-TW.js.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jb4dc-builder-wps-plugin/jb4dc-builder-wps-word-plugin/WpsWordClient/External/IView-4.X/dist/styles/fonts/ionicons.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jb4dc-builder-wps-plugin/jb4dc-builder-wps-word-plugin/WpsWordClient/External/IView-4.X/dist/styles/fonts/ionicons.ttf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jb4dc-builder-wps-plugin/jb4dc-builder-wps-word-plugin/WpsWordClient/External/IView-4.X/dist/styles/fonts/ionicons.woff" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jb4dc-builder-wps-plugin/jb4dc-builder-wps-word-plugin/WpsWordClient/External/IView-4.X/dist/styles/fonts/ionicons.woff2" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jb4dc-builder-wps-plugin/jb4dc-builder-wps-word-plugin/WpsWordClient/External/IView-4.X/dist/styles/iview.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jb4dc-builder-wps-plugin/jb4dc-builder-wps-word-plugin/WpsWordClient/External/JQuery-3.4.1/jquery-3.4.1.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jb4dc-builder-wps-plugin/jb4dc-builder-wps-word-plugin/WpsWordClient/External/VUE-2.6.10/vue.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jb4dc-builder-wps-plugin/jb4dc-builder-wps-word-plugin/WpsWordClient/Images/computer.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jb4dc-builder-wps-plugin/jb4dc-builder-wps-word-plugin/WpsWordClient/Images/floppy-disk.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jb4dc-builder-wps-plugin/jb4dc-builder-wps-word-plugin/WpsWordClient/Images/upload.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jb4dc-builder-wps-plugin/jb4dc-builder-wps-word-plugin/WpsWordClient/Less/WpsWordClient.less" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jb4dc-builder-wps-plugin/jb4dc-builder-wps-word-plugin/WpsWordClient/Template.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jb4dc-builder-wps-plugin/jb4dc-builder-wps-word-plugin/WpsWordClient/VueComponent/dev-panel-app.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jb4dc-builder-wps-plugin/jb4dc-builder-wps-word-plugin/WpsWordClient/WpsWordClientMain.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jb4dc-builder-wps-plugin/jb4dc-builder-wps-word-plugin/WpsWordClient/webpack.config.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jb4dc-builder-wps-plugin/jb4dc-builder-wps-word-plugin/WpsWordServer/Common/WpsWordServerRefCommon.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jb4dc-builder-wps-plugin/jb4dc-builder-wps-word-plugin/WpsWordServer/Less/WpsWordServer.less" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jb4dc-builder-wps-plugin/jb4dc-builder-wps-word-plugin/WpsWordServer/Template.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jb4dc-builder-wps-plugin/jb4dc-builder-wps-word-plugin/WpsWordServer/VueComponent/wps-word-server-demo.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jb4dc-builder-wps-plugin/jb4dc-builder-wps-word-plugin/WpsWordServer/WpsWordServerDemoPage.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jb4dc-builder-wps-plugin/jb4dc-builder-wps-word-plugin/WpsWordServer/webpack.config.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jb4dc-builder-wps-plugin/jb4dc-builder-wps-word-plugin/images/floppy-disk.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jb4dc-builder-wps-plugin/jb4dc-builder-wps-word-plugin/images/upload.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jb4dc-builder-wps-plugin/jb4dc-builder-wps-word-plugin/ribbon1.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dictionaries/zhuib.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dictionaries/zhuib.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_logging_2_2_13_RELEASE.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_test_2_2_13_RELEASE.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_thymeleaf_2_2_13_RELEASE.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_tomcat_2_2_13_RELEASE.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_validation_2_2_13_RELEASE.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_web_5_2_12_RELEASE.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/java/com/jb4dc/builder/webpackage/beanconfig/sys/HttpsHttpConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/jb4dc-builder-wps-plugin/jb4dc-builder-wps-word-plugin/WpsWordClient/Utility/WpsClientUtility.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/jb4dc-builder-wps-plugin/jb4dc-builder-wps-word-plugin/WpsWordServer/Utility/WpsJsRPCUtility.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/jb4dc-qc-system-root/jb4dc-qc-system-web-package/src/main/java/com/jb4dc/qcsystem/webpackage/beanconfig/sys/HttpsHttpConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_fasterxml_jackson_core_jackson_databind_2_10_5.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_fasterxml_jackson_core_jackson_databind_2_10_5_1.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__io_netty_netty_buffer_4_1_53_Final.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__io_netty_netty_buffer_4_1_58_Final.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__io_netty_netty_codec_4_1_53_Final.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__io_netty_netty_codec_4_1_58_Final.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__io_netty_netty_common_4_1_53_Final.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__io_netty_netty_common_4_1_58_Final.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__io_netty_netty_handler_4_1_53_Final.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__io_netty_netty_handler_4_1_58_Final.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__io_netty_netty_resolver_4_1_53_Final.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__io_netty_netty_resolver_4_1_58_Final.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__io_netty_netty_transport_4_1_53_Final.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__io_netty_netty_transport_4_1_58_Final.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__io_projectreactor_addons_reactor_extra_3_3_4_RELEASE.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__io_projectreactor_addons_reactor_extra_3_3_5_RELEASE.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__io_projectreactor_reactor_core_3_3_11_RELEASE.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__io_projectreactor_reactor_core_3_3_13_RELEASE.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__joda_time_joda_time_2_10_8.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__joda_time_joda_time_2_10_9.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__net_bytebuddy_byte_buddy_1_10_17.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__net_bytebuddy_byte_buddy_1_10_19.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__net_bytebuddy_byte_buddy_agent_1_10_17.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__net_bytebuddy_byte_buddy_agent_1_10_19.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_httpcomponents_httpcore_4_4_13.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_httpcomponents_httpcore_4_4_14.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_tomcat_embed_tomcat_embed_core_9_0_39.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_tomcat_embed_tomcat_embed_core_9_0_41.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_tomcat_embed_tomcat_embed_el_9_0_39.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_tomcat_embed_tomcat_embed_el_9_0_41.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_tomcat_embed_tomcat_embed_websocket_9_0_39.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_tomcat_embed_tomcat_embed_websocket_9_0_41.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_hibernate_validator_hibernate_validator_6_0_21_Final.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_hibernate_validator_hibernate_validator_6_0_22_Final.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_2_2_11_RELEASE.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_2_2_13_RELEASE.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_autoconfigure_2_2_11_RELEASE.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_autoconfigure_2_2_13_RELEASE.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_loader_tools_2_2_11_RELEASE.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_loader_tools_2_2_13_RELEASE.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_2_2_11_RELEASE.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_2_2_13_RELEASE.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_aop_2_2_11_RELEASE.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_web_2_2_13_RELEASE.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_cache_2_2_11_RELEASE.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_cache_2_2_13_RELEASE.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_data_redis_2_2_11_RELEASE.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_data_redis_2_2_13_RELEASE.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_jdbc_2_2_11_RELEASE.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_json_2_2_13_RELEASE.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_json_2_2_11_RELEASE.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_jdbc_2_2_13_RELEASE.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_logging_2_2_11_RELEASE.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_test_2_2_11_RELEASE.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_thymeleaf_2_2_11_RELEASE.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_tomcat_2_2_11_RELEASE.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_validation_2_2_11_RELEASE.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_web_2_2_11_RELEASE.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_aop_2_2_13_RELEASE.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_test_2_2_11_RELEASE.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_test_2_2_13_RELEASE.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_test_autoconfigure_2_2_11_RELEASE.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_test_autoconfigure_2_2_13_RELEASE.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_data_spring_data_commons_2_2_11_RELEASE.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_data_spring_data_commons_2_2_12_RELEASE.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_data_spring_data_keyvalue_2_2_11_RELEASE.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_data_spring_data_keyvalue_2_2_12_RELEASE.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_data_spring_data_redis_2_2_11_RELEASE.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_data_spring_data_redis_2_2_12_RELEASE.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_security_spring_security_crypto_5_2_7_RELEASE.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_security_spring_security_crypto_5_2_8_RELEASE.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_aop_5_2_10_RELEASE.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_jcl_5_2_12_RELEASE.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_beans_5_2_10_RELEASE.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_beans_5_2_12_RELEASE.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_context_5_2_10_RELEASE.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_context_5_2_12_RELEASE.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_context_support_5_2_10_RELEASE.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_context_support_5_2_12_RELEASE.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_core_5_2_10_RELEASE.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_core_5_2_12_RELEASE.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_expression_5_2_10_RELEASE.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_expression_5_2_12_RELEASE.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_jcl_5_2_10_RELEASE.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_oxm_5_2_12_RELEASE.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_jdbc_5_2_10_RELEASE.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_test_5_2_12_RELEASE.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_orm_5_2_10_RELEASE.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_aop_5_2_12_RELEASE.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_oxm_5_2_10_RELEASE.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_orm_5_2_12_RELEASE.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_test_5_2_10_RELEASE.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_jdbc_5_2_12_RELEASE.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_tx_5_2_10_RELEASE.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_tx_5_2_12_RELEASE.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_web_5_2_10_RELEASE.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_webmvc_5_2_10_RELEASE.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_webmvc_5_2_12_RELEASE.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_thymeleaf_thymeleaf_3_0_11_RELEASE.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_thymeleaf_thymeleaf_3_0_12_RELEASE.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_thymeleaf_thymeleaf_spring5_3_0_11_RELEASE.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_thymeleaf_thymeleaf_spring5_3_0_12_RELEASE.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jb4dc-builder-wps-plugin/jb4dc-builder-wps-word-plugin/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-wps-plugin/jb4dc-builder-wps-word-plugin/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jb4dc-builder-wps-plugin/jb4dc-builder-wps-word-plugin/js/taskpane.js" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-wps-plugin/jb4dc-builder-wps-word-plugin/js/taskpane.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jb4dc-builder-client/jb4dc-builder-client.iml" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-client/jb4dc-builder-client.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jb4dc-builder-pojo/jb4dc-builder-pojo.iml" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-pojo/jb4dc-builder-pojo.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jb4dc-builder-service/jb4dc-builder-service.iml" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-service/jb4dc-builder-service.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jb4dc-builder-web-package/jb4dc-builder-web-package.iml" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-web-package/jb4dc-builder-web-package.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jb4dc-builder-web-server/jb4dc-builder-web-server.iml" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-web-server/jb4dc-builder-web-server.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jb4dc-builder-web-server/src/main/resources/application-dev.yml" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-web-server/src/main/resources/application-dev.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jb4dc-builder-wps-plugin/jb4dc-builder-wps-word-plugin/WpsWordClient/VueComponent/dev-panel-app.vue" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-wps-plugin/jb4dc-builder-wps-word-plugin/WpsWordClient/VueComponent/dev-panel-app.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jb4dc-builder-wps-plugin/jb4dc-builder-wps-word-plugin/WpsWordClient/WpsWordClientMain.js" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-wps-plugin/jb4dc-builder-wps-word-plugin/WpsWordClient/WpsWordClientMain.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jb4dc-builder-wps-plugin/jb4dc-builder-wps-word-plugin/WpsWordClient/dist/DevPanel.js" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-wps-plugin/jb4dc-builder-wps-word-plugin/WpsWordClient/dist/DevPanel.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jb4dc-builder-wps-plugin/jb4dc-builder-wps-word-plugin/WpsWordClient/dist/WpsWordClientMain.js" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-wps-plugin/jb4dc-builder-wps-word-plugin/WpsWordClient/dist/WpsWordClientMain.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jb4dc-builder-wps-plugin/jb4dc-builder-wps-word-plugin/WpsWordServer/VueComponent/wps-word-server-demo.vue" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-wps-plugin/jb4dc-builder-wps-word-plugin/WpsWordServer/VueComponent/wps-word-server-demo.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jb4dc-builder-wps-plugin/jb4dc-builder-wps-word-plugin/WpsWordServer/dist/WpsWordServerDemoPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-wps-plugin/jb4dc-builder-wps-word-plugin/WpsWordServer/dist/WpsWordServerDemoPage.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jb4dc-builder-wps-plugin/jb4dc-builder-wps-word-plugin/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-wps-plugin/jb4dc-builder-wps-word-plugin/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/jb4dc-builder-wps-plugin/jb4dc-builder-wps-word-plugin/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-wps-plugin/jb4dc-builder-wps-word-plugin/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/jb4dc-builder-wps-plugin/jb4dc-builder-wps-word-plugin/ribbon.xml" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-wps-plugin/jb4dc-builder-wps-word-plugin/ribbon.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jb4dc-builder-wps-plugin/jb4dc-builder-wps-word-plugin/ui/taskpane.html" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-wps-plugin/jb4dc-builder-wps-word-plugin/ui/taskpane.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jb4dc-dev-mock-root/jb4dc-dev-mock-service/jb4dc-dev-mock-service.iml" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-dev-mock-root/jb4dc-dev-mock-service/jb4dc-dev-mock-service.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jb4dc-dev-mock-root/jb4dc-dev-mock-web-server/jb4dc-dev-mock-web-server.iml" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-dev-mock-root/jb4dc-dev-mock-web-server/jb4dc-dev-mock-web-server.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jb4dc-grid-system-root/jb4dc-grid-system-service/jb4dc-grid-system-service.iml" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-grid-system-root/jb4dc-grid-system-service/jb4dc-grid-system-service.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jb4dc-grid-system-root/jb4dc-grid-system-web-package/jb4dc-grid-system-web-package.iml" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-grid-system-root/jb4dc-grid-system-web-package/jb4dc-grid-system-web-package.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jb4dc-grid-system-root/jb4dc-grid-system-web-server/jb4dc-grid-system-web-server.iml" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-grid-system-root/jb4dc-grid-system-web-server/jb4dc-grid-system-web-server.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jb4dc-qc-system-root/jb4dc-qc-system-service/jb4dc-qc-system-service.iml" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-qc-system-root/jb4dc-qc-system-service/jb4dc-qc-system-service.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jb4dc-qc-system-root/jb4dc-qc-system-web-package/jb4dc-qc-system-web-package.iml" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-qc-system-root/jb4dc-qc-system-web-package/jb4dc-qc-system-web-package.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jb4dc-qc-system-root/jb4dc-qc-system-web-server/jb4dc-qc-system-web-server.iml" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-qc-system-root/jb4dc-qc-system-web-server/jb4dc-qc-system-web-server.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jb4dc-qc-system-root/jb4dc-qc-system-web-server/src/main/resources/application-dev.yml" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-qc-system-root/jb4dc-qc-system-web-server/src/main/resources/application-dev.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ChangesViewManager">
+    <option name="groupingKeys">
+      <option value="module" />
+    </option>
   </component>
   <component name="CompilerWorkspaceConfiguration">
     <option name="MAKE_PROJECT_ON_SAVE" value="true" />
@@ -152,13 +142,13 @@
         <option value="Interface" />
         <option value="HTML File" />
         <option value="Class" />
-        <option value="JavaScript File" />
         <option value="Vue Single File Component" />
+        <option value="JavaScript File" />
       </list>
     </option>
   </component>
   <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/jb4dc-builder-wps-plugin/jb4dc-builder-wps-word-plugin" />
   </component>
   <component name="GitSEFilterConfiguration">
     <file-type-list>
@@ -224,7 +214,7 @@
     <property name="jdk.selected.JAVA_MODULE" value="1.8" />
     <property name="js.buildTools.gulp.gulp_package_dir" value="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/front-end/node_modules/gulp" />
     <property name="last_directory_selection" value="$PROJECT_DIR$/jb4dc-builder-pojo/src/main/java/com/jb4dc/builder/po" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/jb4dc-builder-wps-plugin/jb4dc-builder-wps-word-plugin/WpsWordClient/External" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/jb4dc-builder-wps-plugin/jb4dc-builder-wps-word-plugin" />
     <property name="list.type.of.created.stylesheet" value="Less" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.jscs" value="true" />
@@ -255,11 +245,11 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\JavaProject\jb4dc\jb4dc-builder-root\jb4dc-builder-wps-plugin\jb4dc-builder-wps-word-plugin" />
       <recent name="D:\JavaProject\jb4dc\jb4dc-builder-root\jb4dc-builder-wps-plugin\jb4dc-builder-wps-word-plugin\WpsWordClient\External" />
       <recent name="D:\JavaProject\jb4dc\jb4dc-builder-root\jb4dc-builder-wps-plugin\jb4dc-builder-wps-word-plugin\WpsWordClient" />
       <recent name="D:\JavaProject\jb4dc\jb4dc-builder-root\jb4dc-builder-wps-plugin\jb4dc-builder-wps-word-plugin\WpsWordClient\Images" />
       <recent name="D:\JavaProject\jb4dc\jb4dc-builder-root\jb4dc-builder-wps-plugin\jb4dc-builder-wps-word-plugin\images" />
-      <recent name="D:\JavaProject\jb4dc\jb4dc-builder-root\jb4dc-builder-wps-plugin\jb4dc-builder-wps-word-plugin" />
     </key>
     <key name="CreateTestDialog.Recents.Supers">
       <recent name="" />
@@ -282,11 +272,11 @@
       <recent name="com.jb4dc.workflow.integrate" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.jb4dc.qcsystem.webpackage.beanconfig.sys" />
+      <recent name="com.jb4dc.builder.webpackage.beanconfig.sys" />
       <recent name="com.jb4dc.workflow.client.remote" />
       <recent name="com.jb4dc.workflow.client.service" />
       <recent name="com.jb4dc.builder.webpackage.rest.workflow.model" />
-      <recent name="com.jb4dc.builder.webpackage.rest.workflow.instance" />
-      <recent name="com.jb4dc.workflow.integrate.engine.impl" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -296,16 +286,14 @@
       </set>
     </option>
   </component>
-  <component name="RunManager" selected="npm.wps-word-server-dev-watch">
-    <configuration default="true" type="ArquillianTestNG" factoryName="" nameIsGenerated="true">
+  <component name="RunManager" selected="npm.wps-word-server-dev">
+    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
       <option name="arquillianRunConfiguration">
         <value>
           <option name="containerStateName" value="" />
         </value>
       </option>
-      <option name="TEST_OBJECT" value="CLASS" />
-      <properties />
-      <listeners />
+      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -357,7 +345,7 @@
       <option name="FRAME_DEACTIVATION_UPDATE_POLICY" value="UpdateClassesAndResources" />
       <method v="2">
         <option name="Make" enabled="true" />
-        <option name="LaunchBrowser.Before.Run" browser="98ca6316-2f89-46d9-a9e5-fa9e2b0625b3" url="http://127.0.0.1:9104/JB4DCBuilder/Controller/Index" />
+        <option name="LaunchBrowser.Before.Run" browser="98ca6316-2f89-46d9-a9e5-fa9e2b0625b3" url="https://127.0.0.1:19104/JB4DCBuilder/Controller/Index" />
       </method>
     </configuration>
     <configuration name="ApplicationDevMockWebServer" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
@@ -397,7 +385,7 @@
       <option name="FRAME_DEACTIVATION_UPDATE_POLICY" value="UpdateClassesAndResources" />
       <method v="2">
         <option name="Make" enabled="true" />
-        <option name="LaunchBrowser.Before.Run" browser="98ca6316-2f89-46d9-a9e5-fa9e2b0625b3" url="http://127.0.0.1:9105/QCSystem/HTML/FrameV2/FrameView.html" />
+        <option name="LaunchBrowser.Before.Run" browser="98ca6316-2f89-46d9-a9e5-fa9e2b0625b3" url="https://127.0.0.1:19105/QCSystem/HTML/FrameV2/FrameView.html" />
       </method>
     </configuration>
     <configuration default="true" type="js.build_tools.gulp">
@@ -536,19 +524,19 @@
       <item itemvalue="npm.modeler-dev" />
       <item itemvalue="npm.wps-word-server-dev" />
       <item itemvalue="npm.wps-word-client-dev" />
+      <item itemvalue="npm.wps-word-server-dev-watch" />
+      <item itemvalue="npm.wps-word-client-dev-watch" />
       <item itemvalue="Spring Boot.ApplicationBuilderWebServer" />
       <item itemvalue="Spring Boot.ApplicationDevMockWebServer" />
       <item itemvalue="Spring Boot.ApplicationGridSystemWebServer" />
       <item itemvalue="Spring Boot.ApplicationQCSystemWebServer" />
-      <item itemvalue="npm.wps-word-server-dev-watch" />
-      <item itemvalue="npm.wps-word-client-dev-watch" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="npm.wps-word-server-dev-watch" />
         <item itemvalue="npm.wps-word-server-dev" />
-        <item itemvalue="npm.wps-word-client-dev-watch" />
         <item itemvalue="npm.wps-word-client-dev" />
+        <item itemvalue="npm.wps-word-server-dev-watch" />
+        <item itemvalue="npm.wps-word-client-dev-watch" />
         <item itemvalue="Gulp.js.builder-dist-watch-debug" />
         <item itemvalue="npm.modeler-dev-watch" />
         <item itemvalue="npm.modeler-dev" />
@@ -1074,35 +1062,10 @@
       <workItem from="1623759330605" duration="1942000" />
       <workItem from="1623808149647" duration="15776000" />
       <workItem from="1623899542215" duration="5690000" />
-      <workItem from="1623915215172" duration="12233000" />
-    </task>
-    <task id="LOCAL-00400" summary="2020-10-15">
-      <created>1607348743405</created>
-      <option name="number" value="00400" />
-      <option name="presentableId" value="LOCAL-00400" />
-      <option name="project" value="LOCAL" />
-      <updated>1607348743406</updated>
-    </task>
-    <task id="LOCAL-00401" summary="2020-10-15">
-      <created>1607410639950</created>
-      <option name="number" value="00401" />
-      <option name="presentableId" value="LOCAL-00401" />
-      <option name="project" value="LOCAL" />
-      <updated>1607410639950</updated>
-    </task>
-    <task id="LOCAL-00402" summary="2020-10-15">
-      <created>1607497845330</created>
-      <option name="number" value="00402" />
-      <option name="presentableId" value="LOCAL-00402" />
-      <option name="project" value="LOCAL" />
-      <updated>1607497845331</updated>
-    </task>
-    <task id="LOCAL-00403" summary="2020-10-15">
-      <created>1607505012557</created>
-      <option name="number" value="00403" />
-      <option name="presentableId" value="LOCAL-00403" />
-      <option name="project" value="LOCAL" />
-      <updated>1607505012558</updated>
+      <workItem from="1623915215172" duration="15299000" />
+      <workItem from="1623998368545" duration="9548000" />
+      <workItem from="1624019794152" duration="2101000" />
+      <workItem from="1624071320491" duration="14245000" />
     </task>
     <task id="LOCAL-00404" summary="2020-10-15">
       <created>1607522376185</created>
@@ -1419,7 +1382,35 @@
       <option name="project" value="LOCAL" />
       <updated>1623552904101</updated>
     </task>
-    <option name="localTasksCounter" value="449" />
+    <task id="LOCAL-00449" summary="查询统计">
+      <created>1623934432055</created>
+      <option name="number" value="00449" />
+      <option name="presentableId" value="LOCAL-00449" />
+      <option name="project" value="LOCAL" />
+      <updated>1623934432055</updated>
+    </task>
+    <task id="LOCAL-00450" summary="查询统计">
+      <created>1623934546836</created>
+      <option name="number" value="00450" />
+      <option name="presentableId" value="LOCAL-00450" />
+      <option name="project" value="LOCAL" />
+      <updated>1623934546836</updated>
+    </task>
+    <task id="LOCAL-00451" summary="查询统计">
+      <created>1623934641350</created>
+      <option name="number" value="00451" />
+      <option name="presentableId" value="LOCAL-00451" />
+      <option name="project" value="LOCAL" />
+      <updated>1623934641350</updated>
+    </task>
+    <task id="LOCAL-00452" summary="查询统计">
+      <created>1623934714289</created>
+      <option name="number" value="00452" />
+      <option name="presentableId" value="LOCAL-00452" />
+      <option name="project" value="LOCAL" />
+      <updated>1623934714289</updated>
+    </task>
+    <option name="localTasksCounter" value="453" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -1466,6 +1457,11 @@
           <url>file://$PROJECT_DIR$/jb4dc-builder-web-server/src/test/java/com/jb4dc/builder/webpackage/workflow/integrate/WorkflowIntegrateTest.java</url>
           <line>845</line>
           <option name="timeStamp" value="74" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>jar://$MAVEN_REPOSITORY$/jb4dc/jb4dc-sso-client/1.0-SNAPSHOT/jb4dc-sso-client-1.0-SNAPSHOT.jar!/com/jb4dc/sso/client/remote/SSOClientFeignClientConfig.class</url>
+          <line>18</line>
+          <option name="timeStamp" value="75" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

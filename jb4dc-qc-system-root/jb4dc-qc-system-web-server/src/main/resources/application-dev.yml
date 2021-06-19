@@ -11,17 +11,25 @@ jb4dc:
   sso:
     server:
       name: JB4DC-SSO-WEB-SERVER
-      address: http://127.0.0.1:9103
+      address: https://127.0.0.1:19103
       context-path: /SSOSystem
       view:
         login: /Controller/LoginSSOView
-        logout: http://127.0.0.1:9103/SSOSystem/Controller/LogoutSSOView
+        logout: https://127.0.0.1:19103/SSOSystem/Controller/LogoutSSOView
       excluded:
   builder:
     server:
       name: JB4DC-BUILDER-WEB-SERVER
       #address: http://localhost:9103
       context-path: /JB4DCBuilder
+  #默认采用http协议提供eureka使用,扩展https附件连接器
+  sslConfig:
+    enabled: true
+    port: 19105
+    key-store-type: jks
+    key-store-password: jb4d82
+    key-alias: jb4dchttps
+    key-store: D:/JavaProject/jb4dc/https/jbu4dchttps.jks
 
 spring:
   application:
