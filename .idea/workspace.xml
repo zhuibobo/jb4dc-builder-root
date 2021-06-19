@@ -94,15 +94,36 @@
       <change beforePath="$PROJECT_DIR$/jb4dc-builder-web-package/jb4dc-builder-web-package.iml" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-web-package/jb4dc-builder-web-package.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/jb4dc-builder-web-server/jb4dc-builder-web-server.iml" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-web-server/jb4dc-builder-web-server.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/jb4dc-builder-web-server/src/main/resources/application-dev.yml" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-web-server/src/main/resources/application-dev.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jb4dc-builder-wps-plugin/jb4dc-builder-wps-word-plugin/.debugTemp/NotifyDemoUrl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/jb4dc-builder-wps-plugin/jb4dc-builder-wps-word-plugin/.debugTemp/project.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/jb4dc-builder-wps-plugin/jb4dc-builder-wps-word-plugin/.debugTemp/systemdemo.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/jb4dc-builder-wps-plugin/jb4dc-builder-wps-word-plugin/.debugTemp/wps-remote-debug.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/jb4dc-builder-wps-plugin/jb4dc-builder-wps-word-plugin/.debugTemp/wpsDemo.docx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/jb4dc-builder-wps-plugin/jb4dc-builder-wps-word-plugin/.debugTemp/wpsjsrpcsdk.js" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/jb4dc-builder-wps-plugin/jb4dc-builder-wps-word-plugin/WpsWordClient/VueComponent/dev-panel-app.vue" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-wps-plugin/jb4dc-builder-wps-word-plugin/WpsWordClient/VueComponent/dev-panel-app.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/jb4dc-builder-wps-plugin/jb4dc-builder-wps-word-plugin/WpsWordClient/WpsWordClientMain.js" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-wps-plugin/jb4dc-builder-wps-word-plugin/WpsWordClient/WpsWordClientMain.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/jb4dc-builder-wps-plugin/jb4dc-builder-wps-word-plugin/WpsWordClient/dist/DevPanel.js" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-wps-plugin/jb4dc-builder-wps-word-plugin/WpsWordClient/dist/DevPanel.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/jb4dc-builder-wps-plugin/jb4dc-builder-wps-word-plugin/WpsWordClient/dist/WpsWordClientMain.js" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-wps-plugin/jb4dc-builder-wps-word-plugin/WpsWordClient/dist/WpsWordClientMain.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/jb4dc-builder-wps-plugin/jb4dc-builder-wps-word-plugin/WpsWordServer/VueComponent/wps-word-server-demo.vue" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-wps-plugin/jb4dc-builder-wps-word-plugin/WpsWordServer/VueComponent/wps-word-server-demo.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/jb4dc-builder-wps-plugin/jb4dc-builder-wps-word-plugin/WpsWordServer/dist/WpsWordServerDemoPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-wps-plugin/jb4dc-builder-wps-word-plugin/WpsWordServer/dist/WpsWordServerDemoPage.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jb4dc-builder-wps-plugin/jb4dc-builder-wps-word-plugin/images/1.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/jb4dc-builder-wps-plugin/jb4dc-builder-wps-word-plugin/images/2.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/jb4dc-builder-wps-plugin/jb4dc-builder-wps-word-plugin/images/3.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/jb4dc-builder-wps-plugin/jb4dc-builder-wps-word-plugin/images/floppy-disk.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/jb4dc-builder-wps-plugin/jb4dc-builder-wps-word-plugin/images/newFromTemp.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/jb4dc-builder-wps-plugin/jb4dc-builder-wps-word-plugin/images/upload.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/jb4dc-builder-wps-plugin/jb4dc-builder-wps-word-plugin/js/dialog.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/jb4dc-builder-wps-plugin/jb4dc-builder-wps-word-plugin/js/ribbon.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/jb4dc-builder-wps-plugin/jb4dc-builder-wps-word-plugin/js/systemdemo.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/jb4dc-builder-wps-plugin/jb4dc-builder-wps-word-plugin/js/taskpane.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/jb4dc-builder-wps-plugin/jb4dc-builder-wps-word-plugin/js/util.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/jb4dc-builder-wps-plugin/jb4dc-builder-wps-word-plugin/main.js" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/jb4dc-builder-wps-plugin/jb4dc-builder-wps-word-plugin/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-wps-plugin/jb4dc-builder-wps-word-plugin/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/jb4dc-builder-wps-plugin/jb4dc-builder-wps-word-plugin/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-wps-plugin/jb4dc-builder-wps-word-plugin/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/jb4dc-builder-wps-plugin/jb4dc-builder-wps-word-plugin/ribbon.xml" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-wps-plugin/jb4dc-builder-wps-word-plugin/ribbon.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jb4dc-builder-wps-plugin/jb4dc-builder-wps-word-plugin/ribbon1.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/jb4dc-builder-wps-plugin/jb4dc-builder-wps-word-plugin/ui/dialog.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/jb4dc-builder-wps-plugin/jb4dc-builder-wps-word-plugin/ui/taskpane.html" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/jb4dc-dev-mock-root/jb4dc-dev-mock-service/jb4dc-dev-mock-service.iml" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-dev-mock-root/jb4dc-dev-mock-service/jb4dc-dev-mock-service.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/jb4dc-dev-mock-root/jb4dc-dev-mock-web-server/jb4dc-dev-mock-web-server.iml" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-dev-mock-root/jb4dc-dev-mock-web-server/jb4dc-dev-mock-web-server.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/jb4dc-grid-system-root/jb4dc-grid-system-service/jb4dc-grid-system-service.iml" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-grid-system-root/jb4dc-grid-system-service/jb4dc-grid-system-service.iml" afterDir="false" />
@@ -1065,14 +1086,7 @@
       <workItem from="1623915215172" duration="15299000" />
       <workItem from="1623998368545" duration="9548000" />
       <workItem from="1624019794152" duration="2101000" />
-      <workItem from="1624071320491" duration="14245000" />
-    </task>
-    <task id="LOCAL-00404" summary="2020-10-15">
-      <created>1607522376185</created>
-      <option name="number" value="00404" />
-      <option name="presentableId" value="LOCAL-00404" />
-      <option name="project" value="LOCAL" />
-      <updated>1607522376185</updated>
+      <workItem from="1624071320491" duration="14599000" />
     </task>
     <task id="LOCAL-00405" summary="2020-10-15">
       <created>1607590332209</created>
@@ -1410,7 +1424,14 @@
       <option name="project" value="LOCAL" />
       <updated>1623934714289</updated>
     </task>
-    <option name="localTasksCounter" value="453" />
+    <task id="LOCAL-00453" summary="查询统计">
+      <created>1624103167615</created>
+      <option name="number" value="00453" />
+      <option name="presentableId" value="LOCAL-00453" />
+      <option name="project" value="LOCAL" />
+      <updated>1624103167615</updated>
+    </task>
+    <option name="localTasksCounter" value="454" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
