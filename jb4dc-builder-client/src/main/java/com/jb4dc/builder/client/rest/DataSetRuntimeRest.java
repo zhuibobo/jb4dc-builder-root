@@ -41,7 +41,7 @@ public class DataSetRuntimeRest {
     }
 
     @RequestMapping(value = "/GetDataSetData",method = RequestMethod.POST)
-    public JBuild4DCResponseVo<PageInfo<List<Map<String, Object>>>> getDataSetData(@RequestBody QueryDataSetPO queryDataSetPO) throws JBuild4DCGenerallyException {
+    public JBuild4DCResponseVo<PageInfo<List<Map<String, Object>>>> getDataSetData(@RequestBody QueryDataSetPO queryDataSetPO) throws JBuild4DCGenerallyException, IOException {
         String dataSetId=queryDataSetPO.getDataSetId();
         DataSetPO dataSetPO=dataSetRuntimeRemote.getByDataSetId(dataSetId).getData();
 

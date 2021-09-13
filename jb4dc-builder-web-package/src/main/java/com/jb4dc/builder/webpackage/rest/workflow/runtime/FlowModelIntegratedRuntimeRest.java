@@ -23,6 +23,7 @@ import javax.xml.bind.JAXBException;
 import javax.xml.stream.XMLStreamException;
 import java.io.IOException;
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -55,7 +56,10 @@ public class FlowModelIntegratedRuntimeRest extends FlowModelIntegratedRest {
         JB4DCSession jb4DCSession = SSOSessionUtility.buildJB4DCSessionFromRemote(userId, organId);
         List<ModelIntegratedEntity> modelIntegratedEntityList = modelIntegratedExtendService.getMyStartEnableModel(jb4DCSession);
         List<ModelGroupRefEntity> modelGroupRefEntityList=modelGroupRefExtendService.getByModelKeyList(modelIntegratedEntityList.stream().map(item->item.getModelReKey()).collect(Collectors.toList()));
-        List<ModelGroupEntity> modelGroupEntityList=modelGroupExtendService.getByIdList(modelGroupRefEntityList.stream().map(item->item.getGrefGroupId()).collect(Collectors.toList()));
+        List<ModelGroupEntity> modelGroupEntityList=new ArrayList<>();
+        if(modelGroupRefEntityList.size()>0) {
+            modelGroupEntityList = modelGroupExtendService.getByIdList(modelGroupRefEntityList.stream().map(item -> item.getGrefGroupId()).collect(Collectors.toList()));
+        }
         //XML.toJSONObject("").toString(2);
 
         FlowModelListIntegratedPO flowModelListIntegratedPO=new FlowModelListIntegratedPO();

@@ -159,7 +159,7 @@ public class WebFormDataSaveRuntimeServiceImpl implements IWebFormDataSaveRuntim
     }
 
     @Override
-    public FormRecordComplexPO getFormRecordComplexPO(JB4DCSession session, String recordId, List<FormRecordDataRelationPO> formRecordDataRelationPOList,String operationType) throws JBuild4DCSQLKeyWordException, JBuild4DCGenerallyException, JsonProcessingException {
+    public FormRecordComplexPO getFormRecordComplexPO(JB4DCSession session, String recordId, List<FormRecordDataRelationPO> formRecordDataRelationPOList,String operationType) throws JBuild4DCSQLKeyWordException, JBuild4DCGenerallyException, IOException {
 
         FormRecordDataRelationPO mainDataPO = FormDataRelationPOUtility.getMainPO(formRecordDataRelationPOList);
         if (SQLKeyWordUtility.singleWord(mainDataPO.getTableName())) {

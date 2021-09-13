@@ -16,7 +16,7 @@ public class CorsConfiguration implements WebMvcConfigurer {
     @Override
     public void addCorsMappings(CorsRegistry corsRegistry) {
         // 允许跨域访问资源定义： /api/ 所有资源
-        corsRegistry.addMapping("/**/fonts/**")
+        corsRegistry.addMapping("/*/fonts/**")
                 // 只允许本地的9000端口访问
                 .allowedOrigins("*")
                 // 允许发送Cookie

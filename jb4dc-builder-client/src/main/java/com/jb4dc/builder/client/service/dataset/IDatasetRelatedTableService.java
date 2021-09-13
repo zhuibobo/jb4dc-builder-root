@@ -19,7 +19,7 @@ import java.util.List;
 public interface IDatasetRelatedTableService extends IBaseService<DatasetRelatedTableEntity> {
     void deleteByDataSetId(JB4DCSession jb4DCSession, String dataSetId);
 
-    List<DataSetRelatedTablePO> getByDataSetId(JB4DCSession jb4DCSession, String dataSetId) throws IOException;
+    List<DataSetRelatedTablePO> getByDataSetId(JB4DCSession jb4DCSession, String dataSetId) throws JBuild4DCGenerallyException;
 
-    DataSetRelatedTablePO getMainRTTable(JB4DCSession jb4DCSession, String dataSetId) throws IOException, JBuild4DCGenerallyException;
+    DataSetRelatedTablePO getMainRTTable(JB4DCSession jb4DCSession, String dataSetId) throws JBuild4DCGenerallyException;
 }

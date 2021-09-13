@@ -6,7 +6,6 @@ import com.jb4dc.core.base.vo.JBuild4DCResponseVo;
 import com.jb4dc.sso.client.session.SSOSessionUtility;
 import com.jb4dc.workflow.dbentities.InstanceFileEntity;
 import com.jb4dc.workflow.integrate.extend.IInstanceFileExtendService;
-import com.jb4dc.workflow.po.FlowInstanceRuntimePO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;

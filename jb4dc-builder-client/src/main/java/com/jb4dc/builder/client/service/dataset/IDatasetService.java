@@ -28,7 +28,7 @@ import java.util.Map;
 public interface IDatasetService extends IBaseService<DatasetEntity> {
     DatasetEntity getEntityByPrimaryKey(JB4DCSession jb4DCSession, String id) throws JBuild4DCGenerallyException, IOException;
 
-    DataSetPO getVoByPrimaryKey(JB4DCSession jb4DCSession, String id) throws JBuild4DCGenerallyException, IOException;
+    DataSetPO getVoByPrimaryKey(JB4DCSession jb4DCSession, String id) throws JBuild4DCGenerallyException;
 
     int saveDataSetPO(JB4DCSession jb4DCSession, String id, DataSetPO record) throws JBuild4DCGenerallyException, IOException;
 

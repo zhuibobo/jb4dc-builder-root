@@ -1,3 +1,4 @@
+/*
 package com.jb4dc.builder.webpackage.rest.builder.runtime;
 
 import com.github.pagehelper.PageInfo;
@@ -21,12 +22,14 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
+*/
 /**
  * Created with IntelliJ IDEA.
  * User: zhuangrb
  * Date: 2019/8/28
  * To change this template use File | Settings | File Templates.
- */
+ *//*
+
 @RestController
 @RequestMapping(value = "/Rest/Builder/RunTime/DataSetRuntime")
 public class DataSetRuntimeRest {
@@ -50,17 +53,13 @@ public class DataSetRuntimeRest {
     @RequestMapping(value = "/GetDataSetData",method = RequestMethod.POST)
     public JBuild4DCResponseVo<PageInfo<List<Map<String, Object>>>> getDataSetData(@RequestBody QueryDataSetPO queryDataSetPO) throws JBuild4DCGenerallyException, IOException {
         String dataSetId=queryDataSetPO.getDataSetId();
-        //DataSetPO dataSetPO=datasetService.getVoByPrimaryKey(JB4DCSessionUtility.getSession(),dataSetId);
-
         PageInfo<List<Map<String, Object>>> data=datasetService.getDataSetData(JB4DCSessionUtility.getSession(),queryDataSetPO);
-
         return JBuild4DCResponseVo.getDataSuccess(data);
     }
 
     @RequestMapping(value = "/GetMainRTTable")
     public JBuild4DCResponseVo<DataSetRelatedTablePO> getMainRTTable(String dataSetId) throws JBuild4DCGenerallyException, IOException {
         DataSetRelatedTablePO dataSetRelatedTablePO = datasetRelatedTableService.getMainRTTable(JB4DCSessionUtility.getSession(),dataSetId);
-        //datasetService.saveDataSetVo(JB4DCSessionUtility.getSession(), dataSetId, dataSetPO);
         return JBuild4DCResponseVo.opSuccess(dataSetRelatedTablePO);
     }
 
@@ -70,3 +69,4 @@ public class DataSetRuntimeRest {
         return JBuild4DCResponseVo.getDataSuccess(tableFieldService.getTableFieldsByTableId(dataSetRelatedTablePO.getRtTableId()));
     }
 }
+*/

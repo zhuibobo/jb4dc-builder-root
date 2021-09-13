@@ -57,7 +57,7 @@ public class DatasetRelatedTableServiceImpl extends BaseServiceImpl<DatasetRelat
     }
 
     @Override
-    public List<DataSetRelatedTablePO> getByDataSetId(JB4DCSession jb4DCSession, String dataSetId) throws IOException {
+    public List<DataSetRelatedTablePO> getByDataSetId(JB4DCSession jb4DCSession, String dataSetId) throws JBuild4DCGenerallyException {
         List<DatasetRelatedTableEntity> datasetRelatedTableEntities=datasetRelatedTableMapper.selectByDataSetId(dataSetId);
         List<DataSetRelatedTablePO> dataSetRelatedTablePOList=DataSetRelatedTablePO.EntityListToVoList(datasetRelatedTableEntities);
         //补充关联表的相关字段
@@ -71,7 +71,7 @@ public class DatasetRelatedTableServiceImpl extends BaseServiceImpl<DatasetRelat
     }
 
     @Override
-    public DataSetRelatedTablePO getMainRTTable(JB4DCSession jb4DCSession, String dataSetId) throws IOException, JBuild4DCGenerallyException {
+    public DataSetRelatedTablePO getMainRTTable(JB4DCSession jb4DCSession, String dataSetId) throws JBuild4DCGenerallyException {
         List<DataSetRelatedTablePO> dataSetRelatedTablePOList=getByDataSetId(jb4DCSession,dataSetId);
         if(dataSetRelatedTablePOList.stream().filter(item->item.getRtTableIsMain().equals("是")).count()==1){
            return dataSetRelatedTablePOList.stream().filter(item->item.getRtTableIsMain().equals("是")).findFirst().get();

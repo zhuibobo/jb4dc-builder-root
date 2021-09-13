@@ -17,7 +17,7 @@ public class CamundaIntegrate {
     public static ProcessEngine processEngine;
 
     @Autowired
-    public CamundaIntegrate(ProcessEngine _processEngine) {
+    public CamundaIntegrate(@Lazy ProcessEngine _processEngine) {
         processEngine=_processEngine;
     }
 

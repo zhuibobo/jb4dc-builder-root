@@ -3,6 +3,7 @@ package com.jb4dc.workflow.client.action.api;
 import com.jb4dc.base.tools.JsonUtility;
 import com.jb4dc.builder.client.remote.ApiItemRuntimeRemote;
 import com.jb4dc.builder.dbentities.api.ApiItemEntity;
+import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
 import com.jb4dc.core.base.tools.StringUtility;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -52,7 +53,7 @@ public class ActionApiPO {
         this.apiItemEntity = apiItemEntity;
     }
 
-    public static List<ActionApiPO> parseToPoListAndLoadApiEntity(ApiItemRuntimeRemote apiItemRuntimeRemote, String apiStr) throws IOException {
+    public static List<ActionApiPO> parseToPoListAndLoadApiEntity(ApiItemRuntimeRemote apiItemRuntimeRemote, String apiStr) throws IOException, JBuild4DCGenerallyException {
         if(StringUtility.isNotEmpty(apiStr)) {
             List<ActionApiPO> actionApiPOList=JsonUtility.toObjectList(apiStr, ActionApiPO.class);
             for (ActionApiPO actionApiPO : actionApiPOList) {

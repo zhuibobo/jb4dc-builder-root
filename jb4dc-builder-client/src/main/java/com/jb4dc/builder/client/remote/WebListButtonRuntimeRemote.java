@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
  * To change this template use File | Settings | File Templates.
  */
 
-@FeignClient(name= "${jb4dc.builder.server.name}",contextId = "ListButtonRuntimeRemote",configuration = { BuilderClientFeignClientConfig.class },path = "${jb4dc.builder.server.context-path}/Rest/Builder/RunTime/ListButtonRuntime")
+@FeignClient(name= "${jb4dc.builder.server.name}",contextId = "ListButtonRuntimeRemote",configuration = { BuilderClientFeignClientConfig.class },path = "${jb4dc.builder.server.context-path}/Rest/Builder/ListButton")
 public interface WebListButtonRuntimeRemote {
 
     @RequestMapping(value = "/GetButtonPO",method = RequestMethod.POST)

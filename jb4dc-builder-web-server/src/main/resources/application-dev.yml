@@ -30,6 +30,18 @@ jb4dc:
     key-alias: jb4dchttps
     key-store: D:/JavaProject/jb4dc/https/jbu4dchttps.jks
 
+management:
+  server:
+  #port: #don't change it, then the port for actuator will be the same as server.port above
+  endpoints:
+    web:
+      base-path: /actuator  #the default value for sring boot 2.x is /actuator, even you don't specify it, don't forget to include this in the URL
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: always
+
 spring:
   application:
     name: JB4DC-BUILDER-WEB-SERVER
@@ -60,6 +72,13 @@ spring:
     port: 6379
     database: 0
     password:
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848
+      config:
+        server-addr: 127.0.0.1:8848
+        file-extension: yml
 
 server:
   port: 9104
@@ -68,15 +87,15 @@ server:
       timeout: 7200
     context-path: /JB4DCBuilder
 
-eureka:
-  client:
-    serviceUrl:
+#eureka:
+  #client:
+    #serviceUrl:
       #服务端的地址
       #defaultZone: http://192.168.3.166:9092/eureka/
-      defaultZone: http://localhost:9101/eureka/
-  instance:
-    prefer-ip-address: true
-    instanceId: ${spring.cloud.inetutils.preferred-networks}:${server.port}
+      #defaultZone: http://127.0.0.1:9101/eureka/
+  #instance:
+    #prefer-ip-address: true
+    #instanceId: ${spring.cloud.inetutils.preferred-networks}:${server.port}
 
 
 logging:
@@ -88,7 +107,7 @@ logging:
         devmock:
           dao: TRACE
         sso:
-          client: debug
+          client: TRACE
 
 feign:
   client:

@@ -79,7 +79,7 @@ public class IWorkFlowInstanceFileRuntimeServiceImpl extends WorkFlowRuntimeServ
     }
 
     @Override
-    public JBuild4DCResponseVo<List<InstanceFileEntity>> getAttachmentFileListData(JB4DCSession session, String instanceId) {
+    public JBuild4DCResponseVo<List<InstanceFileEntity>> getAttachmentFileListData(JB4DCSession session, String instanceId) throws JBuild4DCGenerallyException {
         return flowInstanceFileIntegratedRuntimeRemote.getAttachmentFileListData(session.getUserId(),session.getOrganId(),instanceId);
     }
 

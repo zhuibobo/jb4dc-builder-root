@@ -17,11 +17,11 @@ import java.util.List;
  * Date: 2019/9/12
  * To change this template use File | Settings | File Templates.
  */
-@FeignClient(name= "${jb4dc.builder.server.name}",contextId = "EnvVariableRuntimeRemote",configuration = { BuilderClientFeignClientConfig.class },path = "${jb4dc.builder.server.context-path}/Rest/Builder/RunTime/EnvVariableRuntime")
+@FeignClient(name= "${jb4dc.builder.server.name}",contextId = "EnvVariableRuntimeRemote",configuration = { BuilderClientFeignClientConfig.class },path = "${jb4dc.builder.server.context-path}/Rest/Builder/EnvVariable")
 public interface EnvVariableRuntimeRemote {
     @RequestMapping(value = "/GetEnvVariableByEnvValue",method = RequestMethod.POST)
     @ClientCallRemoteCache
-    JBuild4DCResponseVo<EnvVariableEntity> getEnvVariableByEnvValue(@RequestParam("envValue") String envValue);
+    JBuild4DCResponseVo<EnvVariableEntity> getEnvVariableByEnvValue(@RequestParam("envValue") String envValue) throws JBuild4DCGenerallyException;
 
     @RequestMapping(value = "/GetEnvVariableByGroupId",method = RequestMethod.POST)
     @ClientCallRemoteCache

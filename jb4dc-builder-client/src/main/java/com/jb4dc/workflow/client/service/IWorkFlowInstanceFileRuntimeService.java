@@ -14,5 +14,5 @@ public interface IWorkFlowInstanceFileRuntimeService extends IWorkFlowRuntimeSer
 
     InstanceFileEntity addInstanceFile(JB4DCSession session, String fileName, byte[] fileByte, String fileType, String instanceId, String businessKey) throws JBuild4DCGenerallyException, IOException, URISyntaxException;
 
-    JBuild4DCResponseVo<List<InstanceFileEntity>> getAttachmentFileListData(JB4DCSession session, String instanceId);
+    JBuild4DCResponseVo<List<InstanceFileEntity>> getAttachmentFileListData(JB4DCSession session, String instanceId) throws JBuild4DCGenerallyException;
 }

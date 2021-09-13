@@ -17,7 +17,7 @@ public class RuntimeReceiverUser extends RuntimeReceiverGroup {
 
     public RuntimeReceiverUser(String name, String id, String code, boolean isGroup, boolean isCustName, String typeName, String desc, String status, String filter, int orderNum) {
         super(name, id, code, isGroup, isCustName, typeName, desc, status, filter, orderNum);
-        this.setIcon("../../../"+ ZTreeNodePO.Icon_Person);
+        this.setIcon("/"+ ZTreeNodePO.Icon_Person);
         //this.autoSelected = autoSelected;
     }
 
@@ -47,7 +47,7 @@ public class RuntimeReceiverUser extends RuntimeReceiverGroup {
         runtimeReceiverUser.setStatus("");
         runtimeReceiverUser.setOrderNum(userEntity.getUserOrderNum());
         runtimeReceiverUser.setTypeName("SingleUser");
-        runtimeReceiverUser.setIcon("../../../"+ ZTreeNodePO.Icon_Person);
+        runtimeReceiverUser.setIcon("/"+ ZTreeNodePO.Icon_Person);
         runtimeReceiverUser.setAutoSelected(false);
         return runtimeReceiverUser;
     }
@@ -71,6 +71,7 @@ public class RuntimeReceiverUser extends RuntimeReceiverGroup {
         runtimeReceiverUser.setOrderNum(organEntity.getOrganOrderNum());
         runtimeReceiverUser.setTypeName("Organs");
         runtimeReceiverUser.setAutoSelected(false);
+        runtimeReceiverUser.setIsParent("true");
         runtimeReceiverUser.setRuntimeReceiveUsers(null);
         return runtimeReceiverUser;
     }

@@ -10,6 +10,7 @@ import com.jb4dc.core.base.session.JB4DCSession;
 import com.jb4dc.workflow.dao.ExecutionTaskMapper;
 import com.jb4dc.workflow.dbentities.ExecutionTaskEntity;
 import com.jb4dc.workflow.dbentities.InstanceEntity;
+import com.jb4dc.workflow.dbentities.ModelIntegratedEntity;
 import com.jb4dc.workflow.exenum.WorkFlowEnum;
 import com.jb4dc.workflow.integrate.engine.IFlowEngineTaskIntegratedService;
 import com.jb4dc.workflow.integrate.extend.IExecutionTaskExtendService;
@@ -22,6 +23,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import static com.jb4dc.workflow.exenum.WorkFlowEnum.ExTask_Multi_Task_Single;
 
@@ -30,8 +32,6 @@ public class ExecutionTaskExtendServiceImpl  extends BaseServiceImpl<ExecutionTa
 
     @Autowired
     IFlowEngineTaskIntegratedService flowEngineTaskIntegratedService;
-
-
 
     @Override
     @Transactional(rollbackFor= JBuild4DCGenerallyException.class)
@@ -89,6 +89,14 @@ public class ExecutionTaskExtendServiceImpl  extends BaseServiceImpl<ExecutionTa
         PageInfo<ExecutionTaskPO> pageInfo = new PageInfo(list);
         return pageInfo;
     }
+
+    @Override
+    public List<ExecutionTaskEntity> getActiveTaskByInstanceIds(JB4DCSession jb4DCSession, List<InstanceEntity> listEntity) {
+        List<String> instanceIds=listEntity.stream().map(item->item.getInstId()).collect(Collectors.toList());
+        List<ExecutionTaskEntity> executionTaskEntityList=executionTaskMapper.selectListByInstanceAndStatus(instanceIds,IExecutionTaskExtendService.exTaskStatus_Processing);
+        return executionTaskEntityList;
+    }
+
 
     ExecutionTaskMapper executionTaskMapper;
     public ExecutionTaskExtendServiceImpl(ExecutionTaskMapper _defaultBaseMapper){

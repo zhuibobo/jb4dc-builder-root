@@ -14,6 +14,8 @@ import com.jb4dc.core.base.exception.JBuild4DCSQLKeyWordException;
 import com.jb4dc.core.base.session.JB4DCSession;
 import com.jb4dc.core.base.tools.BaseUtility;
 import com.jb4dc.core.base.tools.ClassUtility;
+import com.jb4dc.core.base.tools.DateUtility;
+import com.jb4dc.core.base.tools.StringUtility;
 import com.jb4dc.core.base.vo.JBuild4DCResponseVo;
 import com.jb4dc.workflow.client.action.api.ActionApiPO;
 import com.jb4dc.workflow.client.action.api.ActionApiPara;
@@ -150,6 +152,9 @@ public class WorkFlowInstanceRuntimeServiceImpl extends WorkFlowRuntimeServiceIm
 
         //生成流程实例标题
         String instanceTitle = buildJuelExpression(jb4DCSession, flowInstanceRuntimePO.getJb4dcProcessTitleEditValue(), vars);
+        if(StringUtility.isEmpty(instanceTitle)){
+            instanceTitle="新建流程实例-"+ DateUtility.getDate_yyyy_MM_dd_HH_mm_ss()+" 操作人:"+jb4DCSession.getUserName();
+        }
         String instanceDesc = buildJuelExpression(jb4DCSession, flowInstanceRuntimePO.getJb4dcProcessDescriptionEditValue(), vars);
 
         //构建驱动流程变量
@@ -199,7 +204,7 @@ public class WorkFlowInstanceRuntimeServiceImpl extends WorkFlowRuntimeServiceIm
             completeTaskResult.setMessage("操作成功");
             return completeTaskResult;
         } else {
-            completeTaskResult.setMessage(completeTaskEnableVo.getMessage());
+            completeTaskResult.setMessage("completeTaskEnable验证失败:"+completeTaskEnableVo.getMessage());
             completeTaskResult.setSuccess(false);
             return completeTaskResult;
         }

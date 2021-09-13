@@ -107,6 +107,7 @@ public class FlowModelIntegratedRest extends GeneralRest<ModelIntegratedEntity> 
             return JBuild4DCResponseVo.saveSuccess(flowModelIntegratedPO);
 
         } catch (JBuild4DCGenerallyException e) {
+            e.printStackTrace();
             return JBuild4DCResponseVo.error(e.getMessage());
         }
     }

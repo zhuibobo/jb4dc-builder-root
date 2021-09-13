@@ -5,6 +5,7 @@ import com.jb4dc.base.service.IBaseService;
 import com.jb4dc.builder.dbentities.datastorage.TableFieldEntity;
 import com.jb4dc.builder.po.FormResourcePO;
 import com.jb4dc.builder.po.TableFieldPO;
+import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
 import com.jb4dc.core.base.session.JB4DCSession;
 
 import java.io.IOException;
@@ -23,7 +24,7 @@ public interface ITableFieldService extends IBaseService<TableFieldEntity> {
 
     void createTableFieldTemplates(JB4DCSession jb4DCSession);
 
-    List<TableFieldPO> getTableFieldsByTableId(String tableId) throws IOException;
+    List<TableFieldPO> getTableFieldsByTableId(String tableId) throws JBuild4DCGenerallyException;
 
     List<TableFieldPO> getTableFieldsByTableName(String rtTableId,String rtTableName,String rtTableCaption) throws IOException;
 
@@ -33,5 +34,5 @@ public interface ITableFieldService extends IBaseService<TableFieldEntity> {
 
     TableFieldEntity getSimplePKFieldName(String tableName);
 
-    List<TableFieldPO> getFormUsedTableFieldList(JB4DCSession jb4DCSession, List<FormResourcePO> formResourcePOList) throws IOException;
+    List<TableFieldPO> getFormUsedTableFieldList(JB4DCSession jb4DCSession, List<FormResourcePO> formResourcePOList) throws JBuild4DCGenerallyException;
 }

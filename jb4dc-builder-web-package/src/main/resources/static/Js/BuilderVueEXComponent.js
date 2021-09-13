@@ -3954,7 +3954,7 @@ Vue.component("list-search-control-bind-to-comp", {
           singleNode.text = singleNode.fieldCaption + "[" + singleNode.fieldName + "]";
           singleNode.nodeType = "TableField";
           singleNode.id = singleNode.fieldId;
-          singleNode.icon = BaseUtility.GetRootPath() + "/Themes/Png16X16/page.png";
+          singleNode.icon =  "/Themes/Png16X16/page.png";
           treeNodeArray.push(singleNode);
         }
       }
@@ -4096,7 +4096,7 @@ Vue.component("list-table-label-bind-to-comp", {
         singleNode.text = singleNode.columnCaption + "[" + singleNode.columnName + "]";
         singleNode.nodeType = "DataSetColumn";
         singleNode.id = singleNode.columnId;
-        singleNode.icon = BaseUtility.GetRootPath() + "/Themes/Png16X16/page.png";
+        singleNode.icon = "/Themes/Png16X16/page.png";
         treeNodeArray.push(singleNode);
       }
 

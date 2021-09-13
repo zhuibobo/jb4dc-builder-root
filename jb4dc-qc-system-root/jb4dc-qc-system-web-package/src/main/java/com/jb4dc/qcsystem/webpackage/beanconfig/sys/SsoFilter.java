@@ -1,3 +1,4 @@
+/*
 package com.jb4dc.qcsystem.webpackage.beanconfig.sys;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -15,12 +16,14 @@ import javax.servlet.FilterChain;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 
+*/
 /**
  * Created with IntelliJ IDEA.
  * User: zhuangrb
  * Date: 2019/7/16
  * To change this template use File | Settings | File Templates.
- */
+ *//*
+
 
 @Configuration
 public class SsoFilter {
@@ -69,3 +72,4 @@ public class SsoFilter {
         return registration;
     }
 }
+*/

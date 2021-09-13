@@ -1,3 +1,4 @@
+/*
 package com.jb4dc.builder.webpackage.rest.builder.runtime;
 
 import com.jb4dc.builder.dbentities.datastorage.TableEntity;
@@ -13,12 +14,14 @@ import org.springframework.web.bind.annotation.RestController;
 import java.io.IOException;
 import java.util.List;
 
+*/
 /**
  * Created with IntelliJ IDEA.
  * User: zhuangrb
  * Date: 2019/11/4
  * To change this template use File | Settings | File Templates.
- */
+ *//*
+
 @RestController
 @RequestMapping(value = "/Rest/Builder/RunTime/TableRuntime")
 public class TableRuntimeRest {
@@ -30,12 +33,13 @@ public class TableRuntimeRest {
     ITableService tableService;
 
     @RequestMapping(value = "/GetTableFieldsByTableId")
-    public JBuild4DCResponseVo<List<TableFieldPO>> getTableFieldsByTableId(String tableId) throws IOException {
+    public JBuild4DCResponseVo<List<TableFieldPO>> getTableFieldsByTableId(String tableId) throws JBuild4DCGenerallyException {
         return JBuild4DCResponseVo.getDataSuccess(tableFieldService.getTableFieldsByTableId(tableId));
     }
 
     @RequestMapping(value = "/GetTableById")
-    public JBuild4DCResponseVo<TableEntity> getTableById(String tableId) throws IOException, JBuild4DCGenerallyException {
+    public JBuild4DCResponseVo<TableEntity> getTableById(String tableId) throws JBuild4DCGenerallyException {
         return JBuild4DCResponseVo.getDataSuccess(tableService.getByPrimaryKey(null,tableId));
     }
 }
+*/

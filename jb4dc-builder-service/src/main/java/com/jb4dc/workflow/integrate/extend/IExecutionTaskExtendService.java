@@ -14,6 +14,9 @@ import java.util.List;
 import java.util.Map;
 
 public interface IExecutionTaskExtendService  extends IBaseService<ExecutionTaskEntity> {
+    public static String exTaskStatus_End="End";
+    public static String exTaskStatus_Processing="Processing";
+
      void complete(JB4DCSession jb4DCSession, String taskId, Map<String,Object> vars) throws JBuild4DCGenerallyException;
 
      List<ExecutionTaskEntity> getByInstanceId(JB4DCSession jb4DCSession, String instId);
@@ -21,4 +24,6 @@ public interface IExecutionTaskExtendService  extends IBaseService<ExecutionTask
     ExecutionTaskEntity createFirstExecutionTask(JB4DCSession jb4DCSession, InstanceEntity instanceEntity, String currentNodeKey, String currentNodeName, Jb4dcAction jb4dcAction) throws JBuild4DCGenerallyException;
 
     PageInfo<ExecutionTaskPO> getMyProcessTaskList(JB4DCSession jb4DCSession, int pageNum, int pageSize, String userId, String organId, String linkId, String modelCategory, String extaskType);
+
+    List<ExecutionTaskEntity> getActiveTaskByInstanceIds(JB4DCSession jb4DCSession, List<InstanceEntity> listEntity);
 }

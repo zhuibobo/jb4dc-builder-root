@@ -234,13 +234,17 @@ public class WorkFlowRuntimeServiceImpl implements IWorkFlowRuntimeService {
 
         if(flowInstanceRuntimePO.getBpmnDefinitions().getBpmnProcess().getUserTaskList().stream().anyMatch(innerBpmnTask -> innerBpmnTask.getId().equals(flowInstanceRuntimePO.getCurrentNodeKey()))) {
             BpmnTask optionalBpmnTask = flowInstanceRuntimePO.getBpmnDefinitions().getBpmnProcess().getUserTaskList().stream().filter(innerBpmnTask -> innerBpmnTask.getId().equals(flowInstanceRuntimePO.getCurrentNodeKey())).findFirst().get();
-            jb4dcActions=optionalBpmnTask.getExtensionElements().getJb4dcActions();
+            if (optionalBpmnTask.getExtensionElements() != null) {
+                jb4dcActions = optionalBpmnTask.getExtensionElements().getJb4dcActions();
+            }
         }
-        if(jb4dcActions==null&& flowInstanceRuntimePO.getBpmnDefinitions().getBpmnProcess().getStartEvent().getId().equals(flowInstanceRuntimePO.getCurrentNodeKey())){
-            jb4dcActions= flowInstanceRuntimePO.getBpmnDefinitions().getBpmnProcess().getStartEvent().getExtensionElements().getJb4dcActions();
+        if(jb4dcActions==null&& flowInstanceRuntimePO.getBpmnDefinitions().getBpmnProcess().getStartEvent().getId().equals(flowInstanceRuntimePO.getCurrentNodeKey())) {
+            if (flowInstanceRuntimePO.getBpmnDefinitions().getBpmnProcess().getStartEvent().getExtensionElements() != null) {
+                jb4dcActions = flowInstanceRuntimePO.getBpmnDefinitions().getBpmnProcess().getStartEvent().getExtensionElements().getJb4dcActions();
+            }
         }
 
-        if (jb4dcActions != null) {
+        if (jb4dcActions != null&&jb4dcActions.getJb4dcActionList()!=null) {
             for (Jb4dcAction jb4dcAction : jb4dcActions.getJb4dcActionList()) {
                 String juelExpression = jb4dcAction.getActionDisplayConditionEditValue();
                 if (StringUtility.isNotEmpty(juelExpression)) {

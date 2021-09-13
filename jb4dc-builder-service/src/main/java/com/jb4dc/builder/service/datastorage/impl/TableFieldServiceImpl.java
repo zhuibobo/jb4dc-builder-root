@@ -232,12 +232,17 @@ public class TableFieldServiceImpl extends BaseServiceImpl<TableFieldEntity> imp
     }
 
     @Override
-    public List<TableFieldPO> getTableFieldsByTableId(String tableId) throws IOException {
-        TableEntity tableEntity=tableMapper.selectByPrimaryKey(tableId);
-        if(tableEntity==null){
-            return null;
+    public List<TableFieldPO> getTableFieldsByTableId(String tableId) throws JBuild4DCGenerallyException {
+        try {
+            TableEntity tableEntity = tableMapper.selectByPrimaryKey(tableId);
+            if (tableEntity == null) {
+                return null;
+            }
+            return TableFieldPO.EntityListToVoList(tableEntity.getTableId(), tableEntity.getTableName(), tableEntity.getTableCaption(), tableFieldMapper.selectByTableId(tableId));
         }
-        return TableFieldPO.EntityListToVoList(tableEntity.getTableId(),tableEntity.getTableName(),tableEntity.getTableCaption(),tableFieldMapper.selectByTableId(tableId));
+        catch (Exception ex){
+            throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_BUILDER_CODE,ex);
+        }
     }
 
     @Override
@@ -317,7 +322,7 @@ public class TableFieldServiceImpl extends BaseServiceImpl<TableFieldEntity> imp
     }
 
     @Override
-    public List<TableFieldPO> getFormUsedTableFieldList(JB4DCSession jb4DCSession, List<FormResourcePO> formResourcePOList) throws IOException {
+    public List<TableFieldPO> getFormUsedTableFieldList(JB4DCSession jb4DCSession, List<FormResourcePO> formResourcePOList) throws JBuild4DCGenerallyException {
         List<TableFieldPO> tableFieldPOList=new ArrayList<>();
         if(formResourcePOList!=null){
             List<String> tableIdList=new ArrayList<>();

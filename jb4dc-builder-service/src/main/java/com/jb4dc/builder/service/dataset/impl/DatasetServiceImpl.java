@@ -126,19 +126,24 @@ public class DatasetServiceImpl extends BaseServiceImpl<DatasetEntity> implement
     }
 
     @Override
-    public DataSetPO getVoByPrimaryKey(JB4DCSession jb4DCSession, String id) throws JBuild4DCGenerallyException, IOException {
+    public DataSetPO getVoByPrimaryKey(JB4DCSession jb4DCSession, String id) throws JBuild4DCGenerallyException {
 
-        DatasetEntity datasetEntity=super.getByPrimaryKey(jb4DCSession, id);
-        if(datasetEntity==null)
-            return null;
-        DataSetPO dataSetPO = DataSetPO.parseToPO(datasetEntity);
-        List<DataSetColumnPO> dataSetColumnVos=datasetColumnService.getByDataSetId(jb4DCSession,id);
-        List<DataSetRelatedTablePO> dataSetRelatedTablePOS =datasetRelatedTableService.getByDataSetId(jb4DCSession,id);
+        try {
+            DatasetEntity datasetEntity = super.getByPrimaryKey(jb4DCSession, id);
+            if (datasetEntity == null)
+                return null;
+            DataSetPO dataSetPO = DataSetPO.parseToPO(datasetEntity);
+            List<DataSetColumnPO> dataSetColumnVos = datasetColumnService.getByDataSetId(jb4DCSession, id);
+            List<DataSetRelatedTablePO> dataSetRelatedTablePOS = datasetRelatedTableService.getByDataSetId(jb4DCSession, id);
 
-        dataSetPO.setColumnVoList(dataSetColumnVos);
-        dataSetPO.setRelatedTableVoList(dataSetRelatedTablePOS);
+            dataSetPO.setColumnVoList(dataSetColumnVos);
+            dataSetPO.setRelatedTableVoList(dataSetRelatedTablePOS);
 
-        return dataSetPO;
+            return dataSetPO;
+        }
+        catch (Exception ex){
+            throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_BUILDER_CODE,ex);
+        }
     }
 
     @Override

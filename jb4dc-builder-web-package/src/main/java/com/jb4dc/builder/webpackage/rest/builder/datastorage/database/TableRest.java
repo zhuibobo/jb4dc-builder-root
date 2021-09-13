@@ -5,6 +5,7 @@ import com.github.pagehelper.PageInfo;
 import com.jb4dc.base.service.general.JB4DCSessionUtility;
 import com.jb4dc.base.service.search.GeneralSearchUtility;
 import com.jb4dc.base.tools.JsonUtility;
+import com.jb4dc.builder.client.remote.TableRuntimeRemote;
 import com.jb4dc.builder.config.IBuilderConfigService;
 import com.jb4dc.builder.dbentities.datastorage.DbLinkEntity;
 import com.jb4dc.builder.dbentities.datastorage.TableEntity;
@@ -40,7 +41,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping(value = "/Rest/Builder/DataStorage/DataBase/Table")
-public class TableRest {
+public class TableRest implements TableRuntimeRemote {
 
     @Autowired
     ITableFieldService tableFieldService;
@@ -112,10 +113,10 @@ public class TableRest {
         return responseVo;
     }
 
-    @RequestMapping(value = "/GetTableFieldsByTableId")
-    public JBuild4DCResponseVo getTableFieldsByTableId(String tableId) throws IOException {
+    /*@RequestMapping(value = "/GetTableFieldsByTableId")
+    public JBuild4DCResponseVo getTableFieldsByTableId(String tableId) throws JBuild4DCGenerallyException {
         return JBuild4DCResponseVo.getDataSuccess(tableFieldService.getTableFieldsByTableId(tableId));
-    }
+    }*/
 
     @RequestMapping(value = "/GetTableFieldType")
     public JBuild4DCResponseVo getFieldDataType() throws JBuild4DCGenerallyException {
@@ -226,5 +227,13 @@ public class TableRest {
         return responseVo;
     }
 
+    @Override
+    public JBuild4DCResponseVo<List<TableFieldPO>> getTableFieldsByTableId(String tableId) throws JBuild4DCGenerallyException {
+        return JBuild4DCResponseVo.getDataSuccess(tableFieldService.getTableFieldsByTableId(tableId));
+    }
 
+    @Override
+    public JBuild4DCResponseVo<TableEntity> getTableById(String tableId) throws JBuild4DCGenerallyException {
+        return JBuild4DCResponseVo.getDataSuccess(tableService.getByPrimaryKey(null,tableId));
+    }
 }

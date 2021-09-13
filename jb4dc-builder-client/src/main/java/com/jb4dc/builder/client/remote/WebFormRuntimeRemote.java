@@ -3,6 +3,7 @@ package com.jb4dc.builder.client.remote;
 import com.jb4dc.base.service.aspect.ClientCallRemoteCache;
 import com.jb4dc.builder.po.FormResourcePO;
 import com.jb4dc.builder.po.ListResourcePO;
+import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
 import com.jb4dc.core.base.vo.JBuild4DCResponseVo;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,11 +17,11 @@ import org.springframework.web.bind.annotation.RequestParam;
  * To change this template use File | Settings | File Templates.
  */
 
-@FeignClient(name= "${jb4dc.builder.server.name}",contextId = "FormRuntimeRemote",configuration = { BuilderClientFeignClientConfig.class },path = "${jb4dc.builder.server.context-path}/Rest/Builder/RunTime/FormRuntime")
+@FeignClient(name= "${jb4dc.builder.server.name}",contextId = "FormRuntimeRemote",configuration = { BuilderClientFeignClientConfig.class },path = "${jb4dc.builder.server.context-path}/Rest/Builder/Form")
 public interface WebFormRuntimeRemote {
 
     @RequestMapping(value = "/LoadHTML", method = RequestMethod.POST)
     @ClientCallRemoteCache
-    JBuild4DCResponseVo<FormResourcePO> loadHTML(@RequestParam("formId") String formId);
+    JBuild4DCResponseVo<FormResourcePO> loadHTML(@RequestParam("formId") String formId) throws JBuild4DCGenerallyException;
 
 }

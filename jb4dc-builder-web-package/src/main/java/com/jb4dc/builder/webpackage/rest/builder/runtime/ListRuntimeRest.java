@@ -1,3 +1,4 @@
+/*
 package com.jb4dc.builder.webpackage.rest.builder.runtime;
 
 import com.github.pagehelper.PageInfo;
@@ -18,12 +19,14 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
+*/
 /**
  * Created with IntelliJ IDEA.
  * User: zhuangrb
  * Date: 2019/8/9
  * To change this template use File | Settings | File Templates.
- */
+ *//*
+
 @RestController
 @RequestMapping(value = "/Rest/Builder/RunTime/ListRuntime")
 public class ListRuntimeRest {
@@ -49,3 +52,4 @@ public class ListRuntimeRest {
         return JBuild4DCResponseVo.getDataSuccess(data);
     }
 }
+*/

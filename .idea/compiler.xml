@@ -6,19 +6,19 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="jb4dc-builder-service" />
-        <module name="jb4dc-builder-web-package" />
-        <module name="jb4dc-dev-mock-service" />
-        <module name="jb4dc-qc-system-web-server" />
         <module name="jb4dc-dev-mock-web-server" />
         <module name="jb4dc-builder-web-server" />
-        <module name="jb4dc-qc-system-service" />
-        <module name="jb4dc-qc-system-web-package" />
-        <module name="jb4dc-grid-system-service" />
-        <module name="jb4dc-grid-system-web-package" />
-        <module name="jb4dc-builder-client" />
+        <module name="jb4dc-dev-mock-service" />
         <module name="jb4dc-builder-pojo" />
         <module name="jb4dc-grid-system-web-server" />
+        <module name="jb4dc-builder-service" />
+        <module name="jb4dc-builder-web-package" />
+        <module name="jb4dc-qc-system-web-package" />
+        <module name="jb4dc-grid-system-web-package" />
+        <module name="jb4dc-qc-system-web-server" />
+        <module name="jb4dc-qc-system-service" />
+        <module name="jb4dc-builder-client" />
+        <module name="jb4dc-grid-system-service" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
@@ -48,6 +48,7 @@
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="jb4dc-builder-client" options="-parameters" />
       <module name="jb4dc-builder-pojo" options="-parameters" />
+      <module name="jb4dc-builder-root" options="" />
       <module name="jb4dc-builder-service" options="-parameters" />
       <module name="jb4dc-builder-web-package" options="-parameters" />
       <module name="jb4dc-builder-web-server" options="-parameters" />
@@ -58,6 +59,7 @@
       <module name="jb4dc-grid-system-service" options="-parameters" />
       <module name="jb4dc-grid-system-web-package" options="-parameters" />
       <module name="jb4dc-grid-system-web-server" options="-parameters" />
+      <module name="jb4dc-qc-system-root" options="" />
       <module name="jb4dc-qc-system-service" options="-parameters" />
       <module name="jb4dc-qc-system-web-package" options="-parameters" />
       <module name="jb4dc-qc-system-web-server" options="-parameters" />

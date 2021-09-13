@@ -3,6 +3,7 @@ package com.jb4dc.builder.client.remote;
 import com.jb4dc.base.service.aspect.ClientCallRemoteCache;
 import com.jb4dc.builder.dbentities.datastorage.TableEntity;
 import com.jb4dc.builder.po.TableFieldPO;
+import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
 import com.jb4dc.core.base.vo.JBuild4DCResponseVo;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,14 +19,14 @@ import java.util.List;
  * Date: 2019/11/4
  * To change this template use File | Settings | File Templates.
  */
-@FeignClient(name= "${jb4dc.builder.server.name}",contextId = "TableRuntimeRemote",configuration = { BuilderClientFeignClientConfig.class },path = "${jb4dc.builder.server.context-path}/Rest/Builder/RunTime/TableRuntime")
+@FeignClient(name= "${jb4dc.builder.server.name}",contextId = "TableRuntimeRemote",configuration = { BuilderClientFeignClientConfig.class },path = "${jb4dc.builder.server.context-path}/Rest/Builder/DataStorage/DataBase/Table")
 public interface TableRuntimeRemote {
 
     @RequestMapping(value = "/GetTableFieldsByTableId", method = RequestMethod.POST)
     @ClientCallRemoteCache
-    public JBuild4DCResponseVo<List<TableFieldPO>> getTableFieldsByTableId(@RequestParam("tableId") String tableId);
+    JBuild4DCResponseVo<List<TableFieldPO>> getTableFieldsByTableId(@RequestParam("tableId") String tableId) throws JBuild4DCGenerallyException;
 
     @RequestMapping(value = "/GetTableById", method = RequestMethod.POST)
     @ClientCallRemoteCache
-    public JBuild4DCResponseVo<TableEntity> getTableById(@RequestParam("tableId") String tableId);
+    JBuild4DCResponseVo<TableEntity> getTableById(@RequestParam("tableId") String tableId) throws JBuild4DCGenerallyException;
 }

@@ -102,4 +102,12 @@
         select MODULE_ID from tbuild_module where MODULE_LINK_ID=#{linkId}
         )
     </select>
+
+    <select id="selectListByInstanceAndStatus" resultMap="BaseResultMap">
+        select<include refid="Base_Column_List"/> from TFLOW_EXECUTION_TASK where EXTASK_INST_ID in
+        <foreach collection="instanceIds" item="id" index="index" open="(" close=")" separator=",">
+            #{id}
+        </foreach>
+        and EXTASK_STATUS=#{exTaskStatus}
+    </select>
 </mapper>

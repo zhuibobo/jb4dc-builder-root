@@ -35,9 +35,7 @@ import java.io.File;
                 ListRuntimeRest.class,
                 FormRuntimeRest.class,
                 DataSetRuntimeRest.class,
-                ListButtonRuntimeRest.class,
-                ApiItemRuntimeRemote.class,
-                TableRuntimeRemote.class
+                ListButtonRuntimeRest.class
         })
 )
 public class ApplicationBuilderWebServer {

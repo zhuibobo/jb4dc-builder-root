@@ -56,6 +56,13 @@ spring:
     port: 6379
     database: 0
     password:
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848
+      config:
+        server-addr: 127.0.0.1:8848
+        file-extension: yml
 
 server:
   port: 9105
@@ -64,15 +71,15 @@ server:
       timeout: 7200
     context-path: /QCSystem
 
-eureka:
-  client:
-    serviceUrl:
+#eureka:
+#  client:
+#    serviceUrl:
       #服务端的地址
       #defaultZone: http://192.168.3.166:9092/eureka/
-      defaultZone: http://127.0.0.1:9101/eureka/
-  instance:
-    prefer-ip-address: true
-    instanceId: ${spring.cloud.inetutils.preferred-networks}:${server.port}
+#      defaultZone: http://127.0.0.1:9101/eureka/
+#  instance:
+#    prefer-ip-address: true
+#    instanceId: ${spring.cloud.inetutils.preferred-networks}:${server.port}
 
 logging:
   level:

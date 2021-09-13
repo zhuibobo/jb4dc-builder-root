@@ -12,5 +12,5 @@ import java.util.List;
 import java.util.Map;
 
 public interface IReceiverRuntimeResolve {
-    List<BpmnTask> resolveToActualUser(JB4DCSession jb4DCSession, String instanceId, BpmnDefinitions bpmnDefinitions, List<BpmnTask> bpmnTaskList, Map<String, Object> vars, Jb4dcAction jb4dcAction) throws JBuild4DCGenerallyException, IOException;
+    List<BpmnTask> resolveToActualUser(JB4DCSession jb4DCSession, String instanceId,String currentTaskId, String currentNodeKey, String actionCode, BpmnDefinitions bpmnDefinitions, List<BpmnTask> bpmnTaskList, Map<String, Object> vars, Jb4dcAction jb4dcAction) throws JBuild4DCGenerallyException, IOException;
 }

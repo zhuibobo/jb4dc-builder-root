@@ -46,6 +46,7 @@ import javax.xml.stream.XMLStreamException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Service
 public class ModelIntegratedExtendServiceImpl extends BaseServiceImpl<ModelIntegratedEntity> implements IModelIntegratedExtendService {
@@ -465,9 +466,15 @@ public class ModelIntegratedExtendServiceImpl extends BaseServiceImpl<ModelInteg
     public List<BpmnTask> getDeployedCamundaModelBpmnFlowNodeByIdList(JB4DCSession jb4DCSession, String modelReKey, BpmnDefinitions bpmnDefinitions, List<String> bpmnTaskIdList) throws JAXBException, XMLStreamException, IOException {
         //String modelContent = flowEngineModelIntegratedService.getDeployedCamundaModelContentLastVersion(jb4DCSession, modelReKey, ModelTenantIdEnum.builderGeneralTenant);
         //BpmnDefinitions bpmnDefinitions = this.parseToPO(modelContent);
-        List<BpmnTask> userTaskResult=bpmnDefinitions.getBpmnProcess().getUserTaskList().stream().filter(item->bpmnTaskIdList.contains(item.getId())).collect(Collectors.toList());
-        List<BpmnTask> serviceTaskResult=bpmnDefinitions.getBpmnProcess().getServiceTaskList().stream().filter(item->bpmnTaskIdList.contains(item.getId())).collect(Collectors.toList());
-        userTaskResult.addAll(serviceTaskResult);
+        List<BpmnTask> userTaskResult=new ArrayList<>();
+
+        if(bpmnDefinitions.getBpmnProcess().getUserTaskList()!=null&&bpmnDefinitions.getBpmnProcess().getUserTaskList().stream().filter(item -> bpmnTaskIdList.contains(item.getId())).count()>0){
+            userTaskResult=bpmnDefinitions.getBpmnProcess().getUserTaskList().stream().filter(item -> bpmnTaskIdList.contains(item.getId())).collect(Collectors.toList());
+        }
+        if(bpmnDefinitions.getBpmnProcess().getServiceTaskList()!=null&&bpmnDefinitions.getBpmnProcess().getServiceTaskList().stream().filter(item -> bpmnTaskIdList.contains(item.getId())).count()>0) {
+            List<BpmnTask> serviceTaskResult = bpmnDefinitions.getBpmnProcess().getServiceTaskList().stream().filter(item -> bpmnTaskIdList.contains(item.getId())).collect(Collectors.toList());
+            userTaskResult.addAll(serviceTaskResult);
+        }
         return userTaskResult;
     }
 

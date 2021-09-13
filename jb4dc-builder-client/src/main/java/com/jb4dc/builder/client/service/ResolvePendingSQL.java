@@ -17,6 +17,7 @@ import com.jb4dc.core.base.tools.StringUtility;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -78,7 +79,7 @@ public class ResolvePendingSQL {
         }
     }
 
-    public List<PendingSQLPO> resolveFormRecordComplexPOTOPendingSQL(JB4DCSession jb4DCSession, String recordId, FormRecordComplexPO formRecordComplexPO, String operationTypeName) throws JBuild4DCGenerallyException, JBuild4DCSQLKeyWordException {
+    public List<PendingSQLPO> resolveFormRecordComplexPOTOPendingSQL(JB4DCSession jb4DCSession, String recordId, FormRecordComplexPO formRecordComplexPO, String operationTypeName) throws JBuild4DCGenerallyException, JBuild4DCSQLKeyWordException, IOException {
 
         List<PendingSQLPO> pendingSQLPOList = new ArrayList<>();
 

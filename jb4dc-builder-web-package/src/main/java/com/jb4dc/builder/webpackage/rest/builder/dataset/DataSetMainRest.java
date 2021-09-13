@@ -12,16 +12,19 @@ import com.github.pagehelper.PageInfo;
 import com.jb4dc.base.service.general.JB4DCSessionUtility;
 import com.jb4dc.base.service.search.GeneralSearchUtility;
 import com.jb4dc.base.tools.JsonUtility;
+import com.jb4dc.builder.client.remote.DataSetRuntimeRemote;
+import com.jb4dc.builder.client.service.dataset.IDatasetRelatedTableService;
+import com.jb4dc.builder.client.service.datastorage.ITableFieldService;
 import com.jb4dc.builder.dbentities.dataset.DatasetEntity;
 import com.jb4dc.builder.dbentities.dataset.DatasetGroupEntity;
-import com.jb4dc.builder.po.DataSetPO;
-import com.jb4dc.builder.po.ZTreeNodePOConvert;
+import com.jb4dc.builder.po.*;
 import com.jb4dc.builder.service.dataset.IDatasetGroupService;
 import com.jb4dc.builder.client.service.dataset.IDatasetService;
 import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
 import com.jb4dc.core.base.session.JB4DCSession;
 import com.jb4dc.core.base.vo.JBuild4DCResponseVo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -33,12 +36,18 @@ import java.util.Map;
 
 @RestController
 @RequestMapping(value = "/Rest/Builder/DataSet/DataSetMain")
-public class DataSetMainRest  {
+public class DataSetMainRest implements DataSetRuntimeRemote {
     @Autowired
     IDatasetService datasetService;
 
     @Autowired
     IDatasetGroupService datasetGroupService;
+
+    @Autowired
+    IDatasetRelatedTableService datasetRelatedTableService;
+
+    @Autowired
+    ITableFieldService tableFieldService;
 
     @RequestMapping(value = "/GetDataSetData")
     public JBuild4DCResponseVo getDataSetData(String op, String recordId) throws JBuild4DCGenerallyException, IOException {
@@ -105,5 +114,34 @@ public class DataSetMainRest  {
 
         datasetService.copyDataSet(JB4DCSessionUtility.getSession(),dataSetId);
         return JBuild4DCResponseVo.opSuccess();
+    }
+
+    @RequestMapping(value = "/GetDataSetData",method = RequestMethod.POST)
+    public JBuild4DCResponseVo<PageInfo<List<Map<String, Object>>>> getDataSetData(@RequestBody QueryDataSetPO queryDataSetPO) throws JBuild4DCGenerallyException, IOException {
+        String dataSetId=queryDataSetPO.getDataSetId();
+        //DataSetPO dataSetPO=datasetService.getVoByPrimaryKey(JB4DCSessionUtility.getSession(),dataSetId);
+
+        PageInfo<List<Map<String, Object>>> data=datasetService.getDataSetData(JB4DCSessionUtility.getSession(),queryDataSetPO);
+
+        return JBuild4DCResponseVo.getDataSuccess(data);
+    }
+
+    @Override
+    public JBuild4DCResponseVo<DataSetPO> getByDataSetId(String dataSetId) throws JBuild4DCGenerallyException {
+        DataSetPO dataSetPO=datasetService.getVoByPrimaryKey(JB4DCSessionUtility.getSession(),dataSetId);
+        return JBuild4DCResponseVo.getDataSuccess(dataSetPO);
+    }
+
+    @Override
+    public JBuild4DCResponseVo<DataSetRelatedTablePO> getMainRTTable(String dataSetId) throws JBuild4DCGenerallyException {
+        DataSetRelatedTablePO dataSetRelatedTablePO = datasetRelatedTableService.getMainRTTable(JB4DCSessionUtility.getSession(),dataSetId);
+        //datasetService.saveDataSetVo(JB4DCSessionUtility.getSession(), dataSetId, dataSetPO);
+        return JBuild4DCResponseVo.opSuccess(dataSetRelatedTablePO);
+    }
+
+    @Override
+    public JBuild4DCResponseVo<List<TableFieldPO>> getDataSetMainTableFields(String dataSetId) throws JBuild4DCGenerallyException {
+        DataSetRelatedTablePO dataSetRelatedTablePO = datasetRelatedTableService.getMainRTTable(JB4DCSessionUtility.getSession(),dataSetId);
+        return JBuild4DCResponseVo.getDataSuccess(tableFieldService.getTableFieldsByTableId(dataSetRelatedTablePO.getRtTableId()));
     }
 }

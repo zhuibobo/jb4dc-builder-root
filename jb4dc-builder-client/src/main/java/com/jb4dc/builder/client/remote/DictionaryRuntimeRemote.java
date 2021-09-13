@@ -18,7 +18,7 @@ import java.util.Map;
  * Date: 2020/9/25
  * To change this template use File | Settings | File Templates.
  */
-@FeignClient(name= "${jb4dc.builder.server.name}",contextId = "DictionaryRuntimeRemote",configuration = { BuilderClientFeignClientConfig.class },path = "${jb4dc.builder.server.context-path}/Rest/Builder/RunTime/DictionaryRuntime")
+@FeignClient(name= "${jb4dc.builder.server.name}",contextId = "DictionaryRuntimeRemote",configuration = { BuilderClientFeignClientConfig.class },path = "${jb4dc.builder.server.context-path}/Rest/SystemSetting/Dict/Dictionary")
 public interface DictionaryRuntimeRemote {
 
     @RequestMapping(value = "/GetDDByGroupId",method = RequestMethod.GET)

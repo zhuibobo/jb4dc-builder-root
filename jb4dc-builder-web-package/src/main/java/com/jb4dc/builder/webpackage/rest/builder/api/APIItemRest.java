@@ -2,11 +2,13 @@ package com.jb4dc.builder.webpackage.rest.builder.api;
 
 import com.jb4dc.base.service.IBaseService;
 import com.jb4dc.base.service.general.JB4DCSessionUtility;
+import com.jb4dc.builder.client.remote.ApiItemRuntimeRemote;
 import com.jb4dc.builder.dbentities.api.ApiGroupEntity;
 import com.jb4dc.builder.dbentities.api.ApiItemEntity;
 import com.jb4dc.builder.po.ZTreeNodePOConvert;
 import com.jb4dc.builder.service.api.IApiGroupService;
 import com.jb4dc.builder.client.service.api.IApiItemService;
+import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
 import com.jb4dc.core.base.session.JB4DCSession;
 import com.jb4dc.core.base.vo.JBuild4DCResponseVo;
 import com.jb4dc.feb.dist.webserver.rest.base.GeneralRest;
@@ -25,7 +27,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping(value = "/Rest/Builder/ApiItem")
-public class APIItemRest  extends GeneralRest<ApiItemEntity> {
+public class APIItemRest  extends GeneralRest<ApiItemEntity> implements ApiItemRuntimeRemote {
     @Autowired
     IApiItemService apiItemService;
 
@@ -62,5 +64,17 @@ public class APIItemRest  extends GeneralRest<ApiItemEntity> {
         catch (Exception ex){
             return JBuild4DCResponseVo.error(ex.getMessage());
         }
+    }
+
+    @Override
+    public JBuild4DCResponseVo<ApiItemEntity> getApiPOById(String apiId) throws JBuild4DCGenerallyException {
+        ApiItemEntity apiItemEntity=apiItemService.getByPrimaryKey(JB4DCSessionUtility.getSession(),apiId);
+        return JBuild4DCResponseVo.getDataSuccess(apiItemEntity);
+    }
+
+    @Override
+    public JBuild4DCResponseVo<ApiItemEntity> getApiPOByValue(String apiValue) throws JBuild4DCGenerallyException {
+        ApiItemEntity apiItemEntity=apiItemService.getByValue(JB4DCSessionUtility.getSession(),apiValue);
+        return JBuild4DCResponseVo.getDataSuccess(apiItemEntity);
     }
 }
