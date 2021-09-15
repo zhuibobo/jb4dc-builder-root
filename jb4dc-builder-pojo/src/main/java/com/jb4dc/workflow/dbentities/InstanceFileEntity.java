@@ -71,6 +71,12 @@ public class InstanceFileEntity {
     //FILE_VERSION_LAST:是否最后版本
     private String fileVersionLast;
 
+    //FILE_TYPE_CATE:文件类型分类:FILE_TYPE的二级类型:正文[Source,Online]
+    private String fileTypeCate;
+
+    //FILE_SOURCE_ID:源文件ID:Online类型的文件时,指向源文件的ID
+    private String fileSourceId;
+
     /**
      * 构造函数
      * @param fileId
@@ -92,8 +98,10 @@ public class InstanceFileEntity {
      * @param filePreId 前一文件ID
      * @param fileVersion 版本号
      * @param fileVersionLast 是否最后版本
+     * @param fileTypeCate 文件类型分类
+     * @param fileSourceId 源文件ID
      **/
-    public InstanceFileEntity(String fileId, String fileInstId, String fileName, String fileStorePath, String fileStoreName, String fileExtension, String fileDescription, Date fileCreateTime, String fileCreator, String fileCreatorId, String fileOrganName, String fileOrganId, Integer fileOrderNum, String fileStatus, String fileType, Long fileSize, String filePreId, String fileVersion, String fileVersionLast) {
+    public InstanceFileEntity(String fileId, String fileInstId, String fileName, String fileStorePath, String fileStoreName, String fileExtension, String fileDescription, Date fileCreateTime, String fileCreator, String fileCreatorId, String fileOrganName, String fileOrganId, Integer fileOrderNum, String fileStatus, String fileType, Long fileSize, String filePreId, String fileVersion, String fileVersionLast, String fileTypeCate, String fileSourceId) {
         this.fileId = fileId;
         this.fileInstId = fileInstId;
         this.fileName = fileName;
@@ -113,6 +121,8 @@ public class InstanceFileEntity {
         this.filePreId = filePreId;
         this.fileVersion = fileVersion;
         this.fileVersionLast = fileVersionLast;
+        this.fileTypeCate = fileTypeCate;
+        this.fileSourceId = fileSourceId;
     }
 
     public InstanceFileEntity() {
@@ -421,5 +431,37 @@ public class InstanceFileEntity {
      **/
     public void setFileVersionLast(String fileVersionLast) {
         this.fileVersionLast = fileVersionLast == null ? null : fileVersionLast.trim();
+    }
+
+    /**
+     * 文件类型分类:FILE_TYPE的二级类型:正文[Source,Online]
+     * @return java.lang.String
+     **/
+    public String getFileTypeCate() {
+        return fileTypeCate;
+    }
+
+    /**
+     * 文件类型分类:FILE_TYPE的二级类型:正文[Source,Online]
+     * @param fileTypeCate 文件类型分类
+     **/
+    public void setFileTypeCate(String fileTypeCate) {
+        this.fileTypeCate = fileTypeCate == null ? null : fileTypeCate.trim();
+    }
+
+    /**
+     * 源文件ID:Online类型的文件时,指向源文件的ID
+     * @return java.lang.String
+     **/
+    public String getFileSourceId() {
+        return fileSourceId;
+    }
+
+    /**
+     * 源文件ID:Online类型的文件时,指向源文件的ID
+     * @param fileSourceId 源文件ID
+     **/
+    public void setFileSourceId(String fileSourceId) {
+        this.fileSourceId = fileSourceId == null ? null : fileSourceId.trim();
     }
 }

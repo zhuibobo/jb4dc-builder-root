@@ -104,6 +104,12 @@
                     </exclusion>
                 </exclusions>
             </dependency>
+            <!-- 本地安装 -->
+            <dependency>
+                <groupId>aspose</groupId>
+                <artifactId>aspose-words-21.1.0-jdk17-crack</artifactId>
+                <version>21.1.0</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 </project>

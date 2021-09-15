@@ -81,5 +81,9 @@
             <groupId>org.json</groupId>
             <artifactId>json</artifactId>
         </dependency>
+        <dependency>
+            <groupId>aspose</groupId>
+            <artifactId>aspose-words-21.1.0-jdk17-crack</artifactId>
+        </dependency>
     </dependencies>
 </project>

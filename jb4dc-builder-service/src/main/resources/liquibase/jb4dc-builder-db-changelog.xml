@@ -1273,6 +1273,13 @@
         </addColumn>
     </changeSet>
 
+    <changeSet id="changeSet-camunda-integrated-0015" author="zhuangrb">
+        <addColumn tableName="TFLOW_INSTANCE_FILE">
+            <column name="FILE_TYPE_CATE" type="NVARCHAR(20)" remarks="文件类型分类:FILE_TYPE的二级类型:正文[Source,Online]"/>
+            <column name="FILE_SOURCE_ID" type="NVARCHAR(100)" remarks="源文件ID:Online类型的文件时,指向源文件的ID"/>
+        </addColumn>
+    </changeSet>
+
     <changeSet id="changeSet-camunda-integrated-0999" author="zhuangrb">
         <sql>
             ALTER TABLE TFLOW_EXECUTION_TASK COMMENT = '流程实例环节执行任务表:用于扩展act_ru_task记录,主送抄送任务'
@@ -1296,7 +1303,7 @@
             ALTER TABLE TFLOW_OP_LOG COMMENT = '流程管理操作日志:主要用于管理时产生的记录'
         </sql>
         <sql>
-            ALTER TABLE TFLOW_OP_LOG COMMENT = '流程实例关联文件附件表'
+            ALTER TABLE TFLOW_INSTANCE_FILE COMMENT = '流程实例关联文件附件表'
         </sql>
     </changeSet>
 

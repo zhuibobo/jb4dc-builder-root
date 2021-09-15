@@ -1,7 +1,76 @@
+jb4dc:
+  system-caption: 运维管理系统
+  system-title: JBuild4DC-运维管理系统
+  warning-operation-code: jb4d82
+  is-debug: true
+  linkId: JBuild4DCQCDBLink
+  host:
+    operation-system: Window
+  file:
+    root-path: production-files
+  sso:
+    server:
+      name: JB4DC-SSO-WEB-SERVER
+      context-path: /SSOSystem
+  builder:
+    server:
+      name: JB4DC-BUILDER-WEB-SERVER
+      context-path: /JB4DCBuilder
+  #默认采用http协议提供eureka使用,扩展https附件连接器
+  sslConfig:
+    enabled: true
+    port: 19105
+    key-store-type: jks
+    key-store-password: jb4d82
+    key-alias: jb4dchttps
+    key-store: D:/JavaProject/jb4dc/https/jbu4dchttps.jks
 
-#prod dev
 spring:
-  profiles:
-    active: dev
+  application:
+    name: JB4DC-QC-SYSTEM-WEB-SERVER
+    inetutils:
+      #客户端的IP
+      preferred-networks: 192.168.3.206
+  liquibase:
+    enabled: false
+  thymeleaf:
+    prefix: classpath:/static/HTML/
+    suffix: .html
+    enabled: true
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+  servlet:
+    multipart:
+      max-file-size: 50MB
+      max-request-size: 100MB
 
-#spring.liquibase.change-log=classpath:/liquibase/jbuild4d-platform-db-changelog.xml
+server:
+  port: 9105
+  servlet:
+    session:
+      timeout: 7200
+    context-path: /QCSystem
+
+logging:
+  level:
+    liquibase: info
+    com:
+      jb4dc:
+        base:
+          dbaccess: TRACE
+        devmock:
+          dao: TRACE
+        sso:
+          client: debug
+        builder:
+          client: debug
+
+feign:
+  client:
+    config:
+      default:
+        connectTimeout: 1000
+        readTimeout: 12000
+        retryer: feign.Retryer.Default
+
