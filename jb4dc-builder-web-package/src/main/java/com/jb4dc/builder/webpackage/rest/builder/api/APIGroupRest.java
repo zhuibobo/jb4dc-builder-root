@@ -27,10 +27,10 @@ public class APIGroupRest extends GeneralRest<ApiGroupEntity> {
     @Autowired
     IApiGroupService apiGroupService;
 
-    @Override
+    /*@Override
     public String getModuleName() {
         return "API分组";
-    }
+    }*/
 
     @Override
     protected IBaseService<ApiGroupEntity> getBaseService() {

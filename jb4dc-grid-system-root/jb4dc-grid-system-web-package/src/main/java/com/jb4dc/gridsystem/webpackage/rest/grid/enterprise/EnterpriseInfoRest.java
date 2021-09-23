@@ -40,10 +40,10 @@ public class EnterpriseInfoRest extends GeneralRest<EnterpriseInfoEntity> {
         return JBuild4DCResponseVo.opSuccess(saveEnterpriseData);
     }
 
-    @Override
+    /*@Override
     public String getModuleName() {
         return "网格化社会管理系统-企业法人管理";
-    }
+    }*/
 
     @Override
     protected IBaseService<EnterpriseInfoEntity> getBaseService() {

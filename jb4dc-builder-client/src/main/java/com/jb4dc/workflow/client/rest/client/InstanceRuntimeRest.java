@@ -8,11 +8,10 @@ import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
 import com.jb4dc.core.base.exception.JBuild4DCSQLKeyWordException;
 import com.jb4dc.core.base.vo.JBuild4DCResponseVo;
 import com.jb4dc.workflow.client.service.IWorkFlowInstanceRuntimeService;
-import com.jb4dc.workflow.po.CompleteTaskResult;
+import com.jb4dc.workflow.po.TaskActionResult;
 import com.jb4dc.workflow.po.ExecutionTaskPO;
 import com.jb4dc.workflow.po.FlowInstanceRuntimePO;
 import com.jb4dc.workflow.po.ResolveNextPossibleFlowNodePO;
-import com.jb4dc.workflow.po.bpmn.process.BpmnTask;
 import com.jb4dc.workflow.po.receive.ClientSelectedReceiver;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -42,13 +41,25 @@ public class InstanceRuntimeRest {
         return workFlowInstanceRuntimeService.getRuntimeModelWithProcess(JB4DCSessionUtility.getSession(),JB4DCSessionUtility.getSession().getUserId(),JB4DCSessionUtility.getSession().getOrganId(),extaskId);
     }
 
+    @RequestMapping(value = "/GetRuntimeModelWithMyEndProcess",method = RequestMethod.GET)
+    public JBuild4DCResponseVo<FlowInstanceRuntimePO> getRuntimeModelWithMyEndProcess(String extaskId) throws IOException, JBuild4DCGenerallyException {
+        return workFlowInstanceRuntimeService.getRuntimeModelWithMyEndProcess(JB4DCSessionUtility.getSession(),JB4DCSessionUtility.getSession().getUserId(),JB4DCSessionUtility.getSession().getOrganId(),extaskId);
+    }
+
     @RequestMapping(value = "/GetMyProcessTaskList",method = RequestMethod.POST)
-    public JBuild4DCResponseVo<PageInfo<ExecutionTaskPO>> getMyProcessTask(int pageNum, int pageSize, String modelCategory, String extaskType) {
+    public JBuild4DCResponseVo<PageInfo<ExecutionTaskPO>> getMyProcessTask(int pageNum, int pageSize, String modelCategory, String extaskType) throws JBuild4DCGenerallyException {
         return workFlowInstanceRuntimeService.getMyProcessTaskList(JB4DCSessionUtility.getSession(),pageNum, pageSize, modelCategory, extaskType);
     }
 
+    @RequestMapping(value = "/GetMyProcessEndTaskList",method = RequestMethod.POST)
+    public JBuild4DCResponseVo<PageInfo<ExecutionTaskPO>> getMyProcessEndTaskList(int pageNum, int pageSize, String modelCategory, String extaskType) throws JBuild4DCGenerallyException {
+        return workFlowInstanceRuntimeService.getMyProcessEndTaskList(JB4DCSessionUtility.getSession(),pageNum, pageSize, modelCategory, extaskType);
+    }
+
     @RequestMapping(value = "/ResolveNextPossibleFlowNode",method = RequestMethod.POST)
-    public JBuild4DCResponseVo<ResolveNextPossibleFlowNodePO> resolveNextPossibleFlowNode(boolean isStartInstanceStatus, String currentTaskId, String currentNodeKey, String currentNodeName, String recordId, String actionCode, String flowInstanceRuntimePOCacheKey, String formRecordComplexPOString) throws IOException, JBuild4DCGenerallyException {
+    public JBuild4DCResponseVo<ResolveNextPossibleFlowNodePO> resolveNextPossibleFlowNode(boolean isStartInstanceStatus, String currentTaskId, String currentNodeKey, String currentNodeName,
+                                                                                          String recordId, String actionCode, String flowInstanceRuntimePOCacheKey, String formRecordComplexPOString)
+            throws IOException, JBuild4DCGenerallyException {
 
         formRecordComplexPOString = URLDecoder.decode(formRecordComplexPOString, "utf-8");
         FormRecordComplexPO formRecordComplexPO = JsonUtility.toObjectIgnoreProp(formRecordComplexPOString, FormRecordComplexPO.class);
@@ -70,7 +81,18 @@ public class InstanceRuntimeRest {
         FormRecordComplexPO formRecordComplexPO = JsonUtility.toObjectIgnoreProp(formRecordComplexPOString,FormRecordComplexPO.class);
         selectedReceiverVars= URLDecoder.decode(selectedReceiverVars,"utf-8");
         List<ClientSelectedReceiver> clientSelectedReceiverList= ClientSelectedReceiver.parse(selectedReceiverVars);
-        CompleteTaskResult completeTaskResult=workFlowInstanceRuntimeService.completeTask(JB4DCSessionUtility.getSession(),isStartInstanceStatus,instanceId,modelId,modelReKey,currentTaskId,currentNodeKey,currentNodeName,actionCode,flowInstanceRuntimePOCacheKey,formRecordComplexPO,clientSelectedReceiverList,recordId,null);
+        TaskActionResult completeTaskResult=workFlowInstanceRuntimeService.completeTask(JB4DCSessionUtility.getSession(),isStartInstanceStatus,instanceId,modelId,modelReKey,currentTaskId,currentNodeKey,currentNodeName,actionCode,flowInstanceRuntimePOCacheKey,formRecordComplexPO,clientSelectedReceiverList,recordId,null);
         return completeTaskResult;
+    }
+
+    /*@RequestMapping(value = "/RecallMySendTaskEnable",method = RequestMethod.POST)
+    public JBuild4DCResponseVo recallMySendTaskEnable(String extaskId) throws IOException, JBuild4DCGenerallyException, JBuild4DCSQLKeyWordException {
+        return workFlowInstanceRuntimeService.recallMySendTaskEnable(JB4DCSessionUtility.getSession(),JB4DCSessionUtility.getSession().getUserId(),JB4DCSessionUtility.getSession().getOrganId(),extaskId);
+    }*/
+
+    @RequestMapping(value = "/RecallMySendTask",method = RequestMethod.POST)
+    public JBuild4DCResponseVo recallMySendTask(String extaskId) throws IOException, JBuild4DCGenerallyException, JBuild4DCSQLKeyWordException {
+        JBuild4DCResponseVo jBuild4DCResponseVo=workFlowInstanceRuntimeService.recallMySendTask(JB4DCSessionUtility.getSession(),JB4DCSessionUtility.getSession().getUserId(),JB4DCSessionUtility.getSession().getOrganId(),extaskId);
+        return jBuild4DCResponseVo;
     }
 }

@@ -25,10 +25,10 @@ public class SiteInfoRest  extends GeneralRest<SiteInfoEntity> {
     @Autowired
     private ISiteInfoService siteInfoService;
 
-    @Override
+    /*@Override
     public String getModuleName() {
         return "站点基础信息";
-    }
+    }*/
 
     @Override
     protected IBaseService<SiteInfoEntity> getBaseService() {

@@ -104,10 +104,10 @@ public class BuildInfoRest extends GeneralRest<BuildInfoEntity> {
         return JBuild4DCResponseVo.opSuccess();
     }
 
-    @Override
+    /*@Override
     public String getModuleName() {
         return "网格化社会管理系统-建筑物管理";
-    }
+    }*/
 
     @Override
     protected IBaseService<BuildInfoEntity> getBaseService() {

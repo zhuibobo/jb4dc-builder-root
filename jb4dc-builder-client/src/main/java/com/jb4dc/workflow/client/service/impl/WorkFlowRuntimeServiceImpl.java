@@ -229,7 +229,7 @@ public class WorkFlowRuntimeServiceImpl implements IWorkFlowRuntimeService {
         return juelRunResultPO.getStringResult();
     }
 
-    public Jb4dcActions buildFlowInstanceRuntimePOBindCurrentActions(JB4DCSession jb4DCSession, FlowInstanceRuntimePO flowInstanceRuntimePO, FormRecordComplexPO formRecordComplexPO) throws IOException, JBuild4DCGenerallyException {
+    public Jb4dcActions resolveFlowInstanceRuntimePOConfigToActions(JB4DCSession jb4DCSession, FlowInstanceRuntimePO flowInstanceRuntimePO, FormRecordComplexPO formRecordComplexPO) throws IOException, JBuild4DCGenerallyException {
         Jb4dcActions jb4dcActions=null;
 
         if(flowInstanceRuntimePO.getBpmnDefinitions().getBpmnProcess().getUserTaskList().stream().anyMatch(innerBpmnTask -> innerBpmnTask.getId().equals(flowInstanceRuntimePO.getCurrentNodeKey()))) {

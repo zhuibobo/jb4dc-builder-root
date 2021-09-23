@@ -2,6 +2,7 @@ package com.jb4dc.builder.webpackage.rest.builder.file;
 
 import com.jb4dc.base.service.general.JB4DCSessionUtility;
 import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
+import com.jb4dc.core.base.tools.UUIDUtility;
 import com.jb4dc.core.base.vo.JBuild4DCResponseVo;
 import com.jb4dc.files.dbentities.FileInfoEntity;
 import com.jb4dc.files.po.SimpleFilePO;
@@ -44,10 +45,10 @@ public class FileRest {
                 "CKE4-Image", "Image");*/
 
         FileInfoEntity fileInfoEntity = fileInfoService.addFileToFileSystem(
-                JB4DCSessionUtility.getSession(),
-                simpleFilePO.getFileName(), simpleFilePO.getFileByte(),
+                JB4DCSessionUtility.getSession(), UUIDUtility.getUUID(),
+                simpleFilePO.getFileName(), simpleFilePO.getFileByte(),simpleFilePO.getFileByte().length,
                 objId, String.valueOf(System.currentTimeMillis()),
-                "CKE4-Image", "Image");
+                "CKE4-Image", "Image",true);
 
         String imageContextPath = request.getContextPath()+"/Rest/Builder/File/DownLoadFileByFileId?fileId="+fileInfoEntity.getFileId();
         response.setContentType("text/html;charset=UTF-8");

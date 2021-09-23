@@ -34,10 +34,10 @@ public class HouseInfoRest extends GeneralRest<HouseInfoEntity> {
     @Autowired
     IHouseRelevanterService houseRelevanterService;
 
-    @Override
+    /*@Override
     public String getModuleName() {
         return "网格化社会管理系统-房屋管理";
-    }
+    }*/
 
     @Override
     protected IBaseService<HouseInfoEntity> getBaseService() {

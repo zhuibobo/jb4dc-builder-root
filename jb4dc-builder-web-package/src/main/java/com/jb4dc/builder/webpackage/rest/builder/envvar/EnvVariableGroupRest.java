@@ -26,10 +26,10 @@ public class EnvVariableGroupRest extends GeneralRest<EnvGroupEntity> {
     @Autowired
     IEnvGroupService envGroupService;
 
-    @Override
+    /*@Override
     public String getModuleName() {
         return "环境变量";
-    }
+    }*/
 
     @Override
     protected IBaseService<EnvGroupEntity> getBaseService() {

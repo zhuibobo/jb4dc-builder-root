@@ -145,6 +145,7 @@
     <orderEntry type="library" name="Maven: jb4dc:jb4dc-sso-client:1.0-SNAPSHOT" level="project" />
     <orderEntry type="library" name="Maven: jb4dc:jb4dc-sso-pojo:1.0-SNAPSHOT" level="project" />
     <orderEntry type="library" name="Maven: org.jsoup:jsoup:1.11.3" level="project" />
+    <orderEntry type="library" name="Maven: aspose:aspose-words-21.1.0-jdk17-crack:21.1.0" level="project" />
     <orderEntry type="module" module-name="jb4dc-builder-pojo" />
     <orderEntry type="module" module-name="jb4dc-builder-service" />
     <orderEntry type="library" name="Maven: jb4dc:jb4dc-code-generate-service:1.0-SNAPSHOT" level="project" />
@@ -187,7 +188,6 @@
     <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot-starter-cache:2.4.6" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-context-support:5.3.7" level="project" />
     <orderEntry type="library" name="Maven: com.stoyanr:evictor:1.0.0" level="project" />
-    <orderEntry type="library" name="Maven: aspose:aspose-words-21.1.0-jdk17-crack:21.1.0" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.springframework.boot:spring-boot-starter-test:2.5.3" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot-starter:2.5.3" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot:2.5.3" level="project" />

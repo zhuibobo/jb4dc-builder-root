@@ -1,6 +1,8 @@
 package com.jb4dc.workflow.client.service.impl;
 import java.util.Date;
 
+import com.aspose.words.Document;
+import com.aspose.words.SaveFormat;
 import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
 import com.jb4dc.core.base.session.JB4DCSession;
 import com.jb4dc.core.base.tools.DateUtility;
@@ -10,6 +12,7 @@ import com.jb4dc.core.base.tools.UUIDUtility;
 import com.jb4dc.core.base.vo.JBuild4DCResponseVo;
 import com.jb4dc.files.dbentities.FileInfoEntity;
 import com.jb4dc.files.dbentities.FileRefEntity;
+import com.jb4dc.files.po.SimpleFilePO;
 import com.jb4dc.files.po.SimpleFilePathPO;
 import com.jb4dc.files.service.IFileInfoService;
 import com.jb4dc.workflow.client.remote.FlowInstanceFileIntegratedRuntimeRemote;
@@ -29,7 +32,7 @@ import java.util.List;
 import java.util.Map;
 
 @Service
-public class IWorkFlowInstanceFileRuntimeServiceImpl extends WorkFlowRuntimeServiceImpl implements IWorkFlowInstanceFileRuntimeService {
+public class WorkFlowInstanceFileRuntimeServiceImpl extends WorkFlowRuntimeServiceImpl implements IWorkFlowInstanceFileRuntimeService {
 
     @Autowired
     IFileInfoService fileInfoService;
@@ -38,7 +41,7 @@ public class IWorkFlowInstanceFileRuntimeServiceImpl extends WorkFlowRuntimeServ
     FlowInstanceFileIntegratedRuntimeRemote flowInstanceFileIntegratedRuntimeRemote;
 
     @Override
-    public InstanceFileEntity addInstanceFile(JB4DCSession jb4DCSession, String fileName, byte[] fileByte, String fileType, String instanceId, String businessKey) throws JBuild4DCGenerallyException, IOException, URISyntaxException {
+    public InstanceFileEntity addInstanceFile(JB4DCSession jb4DCSession, String fileName, byte[] fileByte, String fileType, String instanceId, String businessKey,String typeCate) throws JBuild4DCGenerallyException, IOException, URISyntaxException {
         String fileId = UUIDUtility.getUUID();
 
         String extensionName = FilenameUtils.getExtension(fileName);
@@ -47,7 +50,7 @@ public class IWorkFlowInstanceFileRuntimeServiceImpl extends WorkFlowRuntimeServ
         }
 
         SimpleFilePathPO fileSaveInfo = fileInfoService.buildRelativeFileSavePath(fileId, extensionName);
-        FileInfoEntity fileInfoEntity=fileInfoService.addFileToFileSystem(jb4DCSession,fileName,fileByte,businessKey,String.valueOf(System.currentTimeMillis()),fileType,"*");
+        FileInfoEntity fileInfoEntity=fileInfoService.addFileToFileSystem(jb4DCSession,fileId,fileName,fileByte,fileByte.length,businessKey,String.valueOf(System.currentTimeMillis()),fileType,"*",true);
 
         InstanceFileEntity instanceFileEntity = new InstanceFileEntity();
         instanceFileEntity.setFileId(fileInfoEntity.getFileId());
@@ -69,6 +72,8 @@ public class IWorkFlowInstanceFileRuntimeServiceImpl extends WorkFlowRuntimeServ
         instanceFileEntity.setFilePreId("NotPreId");
         instanceFileEntity.setFileVersion("10000");
         instanceFileEntity.setFileVersionLast("是");
+        instanceFileEntity.setFileTypeCate(typeCate);
+        instanceFileEntity.setFileSourceId("*");
 
         JBuild4DCResponseVo jBuild4DCResponseVo=flowInstanceFileIntegratedRuntimeRemote.addInstanceFile(instanceFileEntity);
         if(!jBuild4DCResponseVo.isSuccess()){
@@ -79,8 +84,73 @@ public class IWorkFlowInstanceFileRuntimeServiceImpl extends WorkFlowRuntimeServ
     }
 
     @Override
+    public InstanceFileEntity getInstanceFile(JB4DCSession jb4DCSession,String fileId) throws JBuild4DCGenerallyException {
+        return flowInstanceFileIntegratedRuntimeRemote.getInstanceFileById(fileId).getData();
+    }
+
+    @Override
+    public InstanceFileEntity uploadFileAndConvertToPDF(JB4DCSession jb4DCSession, SimpleFilePO simpleFilePO, String instanceId, String businessKey) throws Exception {
+        //保存原始文件
+        InstanceFileEntity sourceFileEntity=this.addInstanceFile(jb4DCSession,simpleFilePO.getFileName(),simpleFilePO.getFileByte(),"FlowInstance-Document",instanceId,businessKey,"Source");
+
+        String pdfFileId = sourceFileEntity.getFileId() + "-pdf";
+        SimpleFilePathPO pdfFileSaveInfo = fileInfoService.buildRelativeFileSavePath(pdfFileId, "pdf");
+        String pdfFileName=simpleFilePO.getFileName().substring(0,simpleFilePO.getFileName().lastIndexOf("."))+".pdf";
+        FileInfoEntity fileInfoEntity=null;
+        if(sourceFileEntity.getFileExtension().toLowerCase().equals("pdf")){
+            fileInfoEntity=fileInfoService.addFileToFileSystem(jb4DCSession,pdfFileId,pdfFileName,simpleFilePO.getFileByte(),simpleFilePO.getFileByte().length,businessKey,String.valueOf(System.currentTimeMillis()),"FlowInstance-Document","*",true);
+        }
+        else {
+            //将原始文件转换为PDF文件
+            Document wpd = new Document(simpleFilePO.getInputStream());
+            //保存pdf文件
+            wpd.save(pdfFileSaveInfo.getFullFileStorePath(), SaveFormat.PDF);
+            File file=new File(pdfFileSaveInfo.getFullFileStorePath());
+            long pdfFileSize=file.length();
+            fileInfoEntity=fileInfoService.addFileToFileSystem(jb4DCSession,pdfFileId,pdfFileName,null,pdfFileSize,businessKey,String.valueOf(System.currentTimeMillis()),"FlowInstance-Document","*",false);
+        }
+
+        //InstanceFileEntity pdfFileEntity=this.addInstanceFile(jb4DCSession,simpleFilePO.getFileName(),simpleFilePO.getFileByte(),"Document",instanceId,businessKey);
+
+        InstanceFileEntity instancePdfFileEntity = new InstanceFileEntity();
+        instancePdfFileEntity.setFileId(fileInfoEntity.getFileId());
+        instancePdfFileEntity.setFileInstId(instanceId);
+        instancePdfFileEntity.setFileName(fileInfoEntity.getFileName());
+        instancePdfFileEntity.setFileStorePath(fileInfoEntity.getFileStorePath());
+        instancePdfFileEntity.setFileStoreName(fileInfoEntity.getFileStoreName());
+        instancePdfFileEntity.setFileExtension(fileInfoEntity.getFileExtension());
+        instancePdfFileEntity.setFileDescription("");
+        instancePdfFileEntity.setFileCreateTime(new Date());
+        instancePdfFileEntity.setFileCreator(jb4DCSession.getUserName());
+        instancePdfFileEntity.setFileCreatorId(jb4DCSession.getUserId());
+        instancePdfFileEntity.setFileOrganName(jb4DCSession.getOrganName());
+        instancePdfFileEntity.setFileOrganId(jb4DCSession.getOrganId());
+        instancePdfFileEntity.setFileOrderNum(fileInfoEntity.getFileOrderNum());
+        instancePdfFileEntity.setFileStatus("新建");
+        instancePdfFileEntity.setFileType("FlowInstance-Document");
+        instancePdfFileEntity.setFileSize(fileInfoEntity.getFileSize());
+        instancePdfFileEntity.setFilePreId("NotPreId");
+        instancePdfFileEntity.setFileVersion("10000");
+        instancePdfFileEntity.setFileVersionLast("是");
+        instancePdfFileEntity.setFileTypeCate("Online");
+        instancePdfFileEntity.setFileSourceId(sourceFileEntity.getFileId());
+
+        JBuild4DCResponseVo jBuild4DCResponseVo=flowInstanceFileIntegratedRuntimeRemote.addInstanceFile(instancePdfFileEntity);
+        if(!jBuild4DCResponseVo.isSuccess()){
+            throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_WORKFLOW_CODE,jBuild4DCResponseVo.getMessage());
+        }
+
+        return instancePdfFileEntity;
+    }
+
+    @Override
     public JBuild4DCResponseVo<List<InstanceFileEntity>> getAttachmentFileListData(JB4DCSession session, String instanceId) throws JBuild4DCGenerallyException {
         return flowInstanceFileIntegratedRuntimeRemote.getAttachmentFileListData(session.getUserId(),session.getOrganId(),instanceId);
+    }
+
+    @Override
+    public InstanceFileEntity tryGetLastOnlineDocument(JB4DCSession session, String instanceId) {
+        return flowInstanceFileIntegratedRuntimeRemote.tryGetLastOnlineDocument(instanceId).getData();
     }
 
     /*private SimpleFilePathPO buildRelativeFileSavePath(String fileId, String extensionName) throws URISyntaxException, FileNotFoundException {

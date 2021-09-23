@@ -4,11 +4,16 @@ public class PostRequestWorkFlowRestPO {
     private String userId;
     private String organId;
     private String modelReKey;
+    private String modelId;
     private String currentNodeKey;
     private String currentNodeName;
     private String actionCode;
     private String currentTaskId;
     private String varsJsonString;
+    private String instanceId;
+    private String instanceTitle;
+    private String instanceDesc;
+    private String businessKey;
 
     public String getVarsJsonString() {
         return varsJsonString;
@@ -72,5 +77,45 @@ public class PostRequestWorkFlowRestPO {
 
     public void setOrganId(String organId) {
         this.organId = organId;
+    }
+
+    public String getInstanceId() {
+        return instanceId;
+    }
+
+    public void setInstanceId(String instanceId) {
+        this.instanceId = instanceId;
+    }
+
+    public String getModelId() {
+        return modelId;
+    }
+
+    public void setModelId(String modelId) {
+        this.modelId = modelId;
+    }
+
+    public String getBusinessKey() {
+        return businessKey;
+    }
+
+    public void setBusinessKey(String businessKey) {
+        this.businessKey = businessKey;
+    }
+
+    public String getInstanceTitle() {
+        return instanceTitle;
+    }
+
+    public void setInstanceTitle(String instanceTitle) {
+        this.instanceTitle = instanceTitle;
+    }
+
+    public String getInstanceDesc() {
+        return instanceDesc;
+    }
+
+    public void setInstanceDesc(String instanceDesc) {
+        this.instanceDesc = instanceDesc;
     }
 }

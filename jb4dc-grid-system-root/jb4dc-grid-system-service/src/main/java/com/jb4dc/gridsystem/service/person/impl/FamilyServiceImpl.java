@@ -8,6 +8,7 @@ import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
 import com.jb4dc.core.base.exception.JBuild4DCSQLKeyWordException;
 import com.jb4dc.core.base.session.JB4DCSession;
 import com.jb4dc.core.base.tools.StringUtility;
+import com.jb4dc.core.base.tools.UUIDUtility;
 import com.jb4dc.files.dbentities.FileInfoEntity;
 import com.jb4dc.files.po.SimpleFilePathPO;
 import com.jb4dc.files.service.IFileInfoService;
@@ -133,7 +134,7 @@ public class FamilyServiceImpl extends BaseServiceImpl<FamilyEntity> implements 
                     if(StringUtility.isNotEmpty(familyPerson.getPersonHeaderImageBase64())){
                         BASE64Decoder decoder = new BASE64Decoder();
                         byte[] byteData = decoder.decodeBuffer(familyPerson.getPersonHeaderImageBase64());
-                        FileInfoEntity fileInfoEntity=fileInfoService.addFileToFileSystem(session,"人口照片.jpg",byteData,familyPerson.getPersonId(),familyPerson.getPersonName(),"人口","人口照片");
+                        FileInfoEntity fileInfoEntity=fileInfoService.addFileToFileSystem(session, UUIDUtility.getUUID(),"人口照片.jpg",byteData,byteData.length,familyPerson.getPersonId(),familyPerson.getPersonName(),"人口","人口照片",true);
 
                         String sourcePath=fileInfoService.buildFilePath(fileInfoEntity);
                         SimpleFilePathPO simpleFilePathPO=fileInfoService.buildSavePath("person",familyPerson.getPersonId(),familyPerson.getPersonIdCard()+"-HeadPhone.jpg");

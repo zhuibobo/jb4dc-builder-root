@@ -9,6 +9,7 @@ import com.jb4dc.core.base.session.JB4DCSession;
 import com.jb4dc.core.base.vo.JBuild4DCResponseVo;
 import com.jb4dc.feb.dist.webserver.rest.base.GeneralRest;
 import com.jb4dc.workflow.dbentities.InstanceEntity;
+import com.jb4dc.workflow.integrate.engine.IFlowEngineInstanceIntegratedService;
 import com.jb4dc.workflow.integrate.extend.IInstanceExtendService;
 import com.jb4dc.workflow.po.FlowInstanceRuntimePO;
 import com.jb4dc.workflow.po.InstancePO;
@@ -21,6 +22,7 @@ import javax.xml.bind.JAXBException;
 import javax.xml.stream.XMLStreamException;
 import java.io.IOException;
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -38,9 +40,23 @@ public class FlowInstanceRest extends GeneralRest<InstanceEntity> {
     @Autowired
     IInstanceExtendService instanceExtendService;
 
-    @Override
+    @Autowired
+    IFlowEngineInstanceIntegratedService flowEngineInstanceIntegratedService;
+    /*@Override
     public String getModuleName() {
         return "工作流-流程实例";
+    }*/
+
+    @RequestMapping(
+            value = {"/test1"},
+            method = {RequestMethod.POST, RequestMethod.GET}
+    )
+    public JBuild4DCResponseVo test1() throws IOException, JBuild4DCGenerallyException {
+        JB4DCSession jb4DCSession=JB4DCSessionUtility.getTempSession("","","","");
+        List<String> caIds=new ArrayList<>();
+        caIds.add("Activity_05b1vov");
+        flowEngineInstanceIntegratedService.jumpToUserTaskActivityNode(jb4DCSession,"ca88c554-0ef5-11ec-b376-005056c00001","StartEvent_N1",caIds,"Alex4D",null);
+        return JBuild4DCResponseVo.getDataSuccess("");
     }
 
     @Override

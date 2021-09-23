@@ -26,10 +26,10 @@ public class SiteFolderRest   extends GeneralRest<SiteFolderEntity> {
     @Autowired
     private ISiteFolderService siteFolderService;
 
-    @Override
+    /*@Override
     public String getModuleName() {
         return "站点文件夹";
-    }
+    }*/
 
     @Override
     protected IBaseService<SiteFolderEntity> getBaseService() {

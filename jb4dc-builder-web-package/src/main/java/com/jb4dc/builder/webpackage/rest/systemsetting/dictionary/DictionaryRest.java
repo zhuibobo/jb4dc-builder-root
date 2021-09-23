@@ -23,10 +23,10 @@ public class DictionaryRest extends GeneralRest<DictionaryEntity> implements Dic
     @Autowired
     IDictionaryService dictionaryService;
 
-    @Override
+    /*@Override
     public String getModuleName() {
         return "数据字典";
-    }
+    }*/
 
     @Override
     protected IBaseService<DictionaryEntity> getBaseService() {

@@ -20,10 +20,10 @@ public class DBLinkRest extends GeneralRest<DbLinkEntity> {
     @Autowired
     private IDbLinkService dbLinkService;
 
-    @Override
+    /*@Override
     public String getModuleName() {
         return "数据库连接";
-    }
+    }*/
 
     @Override
     protected IBaseService<DbLinkEntity> getBaseService() {

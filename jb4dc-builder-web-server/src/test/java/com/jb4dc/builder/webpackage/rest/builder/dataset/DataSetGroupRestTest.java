@@ -51,7 +51,7 @@ public class DataSetGroupRestTest extends RestTestBase {
 
     private void createDataSetGroup(String groupId,String groupText,String parentId) throws Exception {
         MockHttpServletRequestBuilder requestBuilder = post("/Rest/Builder/DataSet/DataSetGroup/SaveEdit");
-        requestBuilder.contentType(MediaType.APPLICATION_JSON_UTF8);
+        requestBuilder.contentType(MediaType.APPLICATION_JSON);
         requestBuilder.sessionAttr(JB4DCSessionUtility.UserLoginSessionKey, getSession());
         DatasetGroupEntity groupEntity=new DatasetGroupEntity();
         groupEntity.setDsGroupId(groupId);

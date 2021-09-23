@@ -27,10 +27,10 @@ public class EnvVariableRest extends GeneralRest<EnvVariableEntity> implements E
     @Autowired
     IEnvVariableService envVariableService;
 
-    @Override
+    /*@Override
     public String getModuleName() {
         return "环境变量";
-    }
+    }*/
 
     @Override
     protected IBaseService<EnvVariableEntity> getBaseService() {

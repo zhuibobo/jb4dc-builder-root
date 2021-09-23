@@ -25,10 +25,10 @@ public class TableRelationGroupRest extends GeneralRest<TableRelationGroupEntity
         return tableRelationGroupService;
     }
 
-    @Override
+    /*@Override
     public String getModuleName() {
         return "表关系分组";
-    }
+    }*/
 
     @RequestMapping(value = "/GetTreeData", method = RequestMethod.POST)
     public JBuild4DCResponseVo getTreeData() {

@@ -1280,6 +1280,20 @@
         </addColumn>
     </changeSet>
 
+    <changeSet id="changeSet-camunda-integrated-0016" author="zhuangrb">
+        <addColumn tableName="TFLOW_EXECUTION_TASK">
+            <column name="EXTASK_HANDLER_ID" type="NVARCHAR(50)" remarks="任务的实际处理人ID:办结时进行设置"/>
+            <column name="EXTASK_HANDLER_NAME" type="NVARCHAR(50)" remarks="任务的实际处理人名称:办结时进行设置"/>
+            <column name="EXTASK_HANDLER_TYPE" type="NVARCHAR(20)" remarks="任务的处理类型:SELF[自己办结],AGENCY[代理办结]"/>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="changeSet-camunda-integrated-0017" author="zhuangrb">
+        <addColumn tableName="TFLOW_EXECUTION_TASK">
+            <column name="EXTASK_CREATE_BY" type="NVARCHAR(50)" remarks="任务创建来源:Initial-Create[初始创建],Send-Create[用户发送],Cancel-Create[撤回创建],Jump-Create[跳转创建],Restart-Create[重启创建]"/>
+        </addColumn>
+    </changeSet>
+
     <changeSet id="changeSet-camunda-integrated-0999" author="zhuangrb">
         <sql>
             ALTER TABLE TFLOW_EXECUTION_TASK COMMENT = '流程实例环节执行任务表:用于扩展act_ru_task记录,主送抄送任务'

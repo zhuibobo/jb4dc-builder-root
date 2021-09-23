@@ -9,7 +9,9 @@ import com.jb4dc.workflow.dbentities.InstanceFileEntity;
 import com.jb4dc.workflow.integrate.extend.IInstanceFileExtendService;
 import org.springframework.stereotype.Service;
 
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class InstanceFileExtendServiceImpl extends BaseServiceImpl<InstanceFileEntity> implements IInstanceFileExtendService
@@ -34,5 +36,22 @@ public class InstanceFileExtendServiceImpl extends BaseServiceImpl<InstanceFileE
     @Override
     public List<InstanceFileEntity> getAttachmentFileListData(JB4DCSession jb4DCSession, String instanceId) {
         return instanceFileMapper.selectAttachmentByInstanceId(instanceId);
+    }
+
+    @Override
+    public List<InstanceFileEntity> getDocumentFileListData(JB4DCSession jb4DCSession, String instanceId) {
+        return instanceFileMapper.selectDocumentByInstanceId(instanceId);
+    }
+
+    @Override
+    public InstanceFileEntity tryGetLastOnlineDocument(JB4DCSession jb4DCSession, String instanceId) {
+        List<InstanceFileEntity> instanceFileEntityList=getDocumentFileListData(jb4DCSession,instanceId);
+        if(instanceFileEntityList.stream().anyMatch((item->item.getFileTypeCate().equals("Online")))){
+            instanceFileEntityList=instanceFileEntityList.stream().filter(item->item.getFileTypeCate().equals("Online")).sorted(Comparator.comparing(InstanceFileEntity::getFileCreateTime).reversed()).collect(Collectors.toList());
+            return  instanceFileEntityList.get(0);
+            //instanceFileEntityList.sort(Comparator.comparing(o -> o.getFileCreateTime()).reversed());
+            //return instanceFileEntityList.stream().filter(item->item.getFileTypeCate().equals("Online"))
+        }
+        return null;
     }
 }

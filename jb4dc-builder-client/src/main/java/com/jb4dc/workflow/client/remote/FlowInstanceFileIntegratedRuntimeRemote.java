@@ -25,6 +25,12 @@ public interface FlowInstanceFileIntegratedRuntimeRemote {
     @PostMapping(value = "/AddInstanceFile")
     JBuild4DCResponseVo<String> addInstanceFile(@RequestBody InstanceFileEntity instanceFileEntity) throws JBuild4DCGenerallyException;
 
+    @PostMapping(value = "/GetInstanceFileById")
+    JBuild4DCResponseVo<InstanceFileEntity> getInstanceFileById(@RequestParam("instanceFileId") String instanceFileId) throws JBuild4DCGenerallyException;
+
     @RequestMapping(value = "/GetAttachmentFileListData",method = RequestMethod.GET)
     JBuild4DCResponseVo<List<InstanceFileEntity>> getAttachmentFileListData(@RequestParam("userId") String userId,@RequestParam("organId") String organId,@RequestParam("instanceId") String instanceId) throws JBuild4DCGenerallyException;
+
+    @GetMapping(value = "/TryGetLastOnlineDocument")
+    JBuild4DCResponseVo<InstanceFileEntity> tryGetLastOnlineDocument(@RequestParam("instanceId") String instanceId);
 }

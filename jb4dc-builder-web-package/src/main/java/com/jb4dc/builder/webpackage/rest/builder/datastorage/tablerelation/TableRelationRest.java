@@ -26,10 +26,10 @@ public class TableRelationRest extends GeneralRest<TableRelationEntity> {
         return tableRelationService;
     }
 
-    @Override
+    /*@Override
     public String getModuleName() {
         return "表关系";
-    }
+    }*/
 
     @RequestMapping(value = "/GetRelationByGroup", method = RequestMethod.POST)
     public JBuild4DCResponseVo getRelationByGroup(String groupId) {

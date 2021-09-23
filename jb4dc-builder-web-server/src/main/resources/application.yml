@@ -34,6 +34,8 @@ management:
       show-details: always
 
 spring:
+  profiles:
+    active: dev
   application:
     name: JB4DC-BUILDER-WEB-SERVER
     inetutils:
@@ -51,8 +53,8 @@ spring:
     time-zone: GMT+8
   servlet:
     multipart:
-      max-file-size: 50MB
-      max-request-size: 100MB
+      max-file-size: 150MB
+      max-request-size: 300MB
 
 server:
   port: 9104

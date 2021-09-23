@@ -13,7 +13,7 @@ public interface IFlowEngineInstanceIntegratedService {
 
     boolean instanceIsComplete(JB4DCSession jb4DCSession, String processInstanceId) throws JBuild4DCGenerallyException;
 
-    void recallProcessForUserTask(JB4DCSession jb4DCSession, String processInstanceId, String taskId, String formActivityNodeId, String assigneeUserId, Map<String, Object> variables) throws JBuild4DCGenerallyException;
+    String recallProcessForUserTask(JB4DCSession jb4DCSession, String processInstanceId, String taskId, String formActivityNodeId, String assigneeUserId, Map<String, Object> variables) throws JBuild4DCGenerallyException;
 
     void jumpToUserTaskActivityNode(JB4DCSession jb4DCSession, String processInstanceId, String jumpToActivityNodeId, List<String> cancelActivityNodeIds, String assigneeUserId, Map<String, Object> variables) throws JBuild4DCGenerallyException;
 

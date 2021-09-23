@@ -5,6 +5,7 @@ import com.github.pagehelper.PageInfo;
 import com.jb4dc.base.service.IAddBefore;
 import com.jb4dc.base.service.exenum.TrueFalseEnum;
 import com.jb4dc.base.service.impl.BaseServiceImpl;
+import com.jb4dc.base.service.po.SimplePO;
 import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
 import com.jb4dc.core.base.session.JB4DCSession;
 import com.jb4dc.workflow.dao.ExecutionTaskMapper;
@@ -33,6 +34,9 @@ public class ExecutionTaskExtendServiceImpl  extends BaseServiceImpl<ExecutionTa
     @Autowired
     IFlowEngineTaskIntegratedService flowEngineTaskIntegratedService;
 
+    //public static String Status_Name_Processing="Processing";
+    //public static String Status_Name_End="End";
+
     @Override
     @Transactional(rollbackFor= JBuild4DCGenerallyException.class)
     public void complete(JB4DCSession jb4DCSession, String taskId, Map<String, Object> vars) throws JBuild4DCGenerallyException{
@@ -46,7 +50,12 @@ public class ExecutionTaskExtendServiceImpl  extends BaseServiceImpl<ExecutionTa
     }
 
     @Override
-    public ExecutionTaskEntity createFirstExecutionTask(JB4DCSession jb4DCSession, InstanceEntity instanceEntity, String currentNodeKey, String currentNodeName, Jb4dcAction jb4dcAction) throws JBuild4DCGenerallyException {
+    public List<ExecutionTaskEntity> getByInstanceIdAndStatus(JB4DCSession jb4DCSession, String instId, String status) throws JBuild4DCGenerallyException {
+        return executionTaskMapper.selectByInstanceIdAndStatus(instId,status);
+    }
+
+    @Override
+    public ExecutionTaskEntity createStartEventExecutionTask(JB4DCSession jb4DCSession, InstanceEntity instanceEntity, String currentNodeKey, String currentNodeName, Jb4dcAction jb4dcAction) throws JBuild4DCGenerallyException {
         ExecutionTaskEntity firstExecutionTaskEntity = new ExecutionTaskEntity();
         firstExecutionTaskEntity.setExtaskId(instanceEntity.getInstId());
         firstExecutionTaskEntity.setExtaskInstId(instanceEntity.getInstId());
@@ -76,8 +85,12 @@ public class ExecutionTaskExtendServiceImpl  extends BaseServiceImpl<ExecutionTa
         firstExecutionTaskEntity.setExtaskOrderNum(executionTaskMapper.nextOrderNum());
         firstExecutionTaskEntity.setExtaskFromTaskId("Start");
         firstExecutionTaskEntity.setExtaskFromExecutionId("Start");
-        firstExecutionTaskEntity.setExtaskIndex(1000000);
+        firstExecutionTaskEntity.setExtaskIndex(getNextExtaskIndexByInstanceId(jb4DCSession,instanceEntity.getInstId()));
         firstExecutionTaskEntity.setExtaskMultiTask(ExTask_Multi_Task_Single);
+        firstExecutionTaskEntity.setExtaskHandlerId(jb4DCSession.getUserId());
+        firstExecutionTaskEntity.setExtaskHandlerName(jb4DCSession.getUserName());
+        firstExecutionTaskEntity.setExtaskHandlerType(WorkFlowEnum.ExTask_Handler_Type_Self);
+        firstExecutionTaskEntity.setExtaskCreateBy(WorkFlowEnum.ExTask_Create_By_Initial);
         saveSimple(jb4DCSession, firstExecutionTaskEntity.getExtaskId(), firstExecutionTaskEntity);
         return firstExecutionTaskEntity;
     }
@@ -91,10 +104,45 @@ public class ExecutionTaskExtendServiceImpl  extends BaseServiceImpl<ExecutionTa
     }
 
     @Override
+    public PageInfo<ExecutionTaskPO> getMyProcessEndTaskList(JB4DCSession jb4DCSession, int pageNum, int pageSize, String userId, String organId, String linkId, String modelCategory, String extaskType) {
+        PageHelper.startPage(pageNum, pageSize);
+        List<ExecutionTaskPO> list = executionTaskMapper.selectMyProcessEndTask(userId,linkId,modelCategory,extaskType);
+        PageInfo<ExecutionTaskPO> pageInfo = new PageInfo(list);
+        return pageInfo;
+    }
+
+    @Override
     public List<ExecutionTaskEntity> getActiveTaskByInstanceIds(JB4DCSession jb4DCSession, List<InstanceEntity> listEntity) {
         List<String> instanceIds=listEntity.stream().map(item->item.getInstId()).collect(Collectors.toList());
         List<ExecutionTaskEntity> executionTaskEntityList=executionTaskMapper.selectListByInstanceAndStatus(instanceIds,IExecutionTaskExtendService.exTaskStatus_Processing);
         return executionTaskEntityList;
+    }
+
+    @Override
+    public boolean instanceProcessingTaskIsSendFromMe(JB4DCSession session, String extaskId) throws JBuild4DCGenerallyException {
+        ExecutionTaskEntity executionTaskEntity=getByPrimaryKey(session,extaskId);
+        List<ExecutionTaskEntity> executionTaskEntityList=getByInstanceId(session,executionTaskEntity.getExtaskInstId()).stream().filter(item->item.getExtaskStatus().equals(WorkFlowEnum.ExTask_Status_Processing)).collect(Collectors.toList());
+        if(executionTaskEntityList!=null&&executionTaskEntityList.size()>0){
+            if(executionTaskEntityList.stream().anyMatch(item->item.getExtaskSenderId().equals(session.getUserId()))){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public void cancelProcessingExTask(JB4DCSession jb4DCSession, String instId) throws JBuild4DCGenerallyException {
+        executionTaskMapper.updateProcessingToCancelStatus(instId);
+    }
+
+    @Override
+    public int getNextExtaskIndexByInstanceId(JB4DCSession jb4DCSession, String instId) {
+        return executionTaskMapper.selectNextExtaskIndexByInstanceId(instId);
+    }
+
+    @Override
+    public ExecutionTaskEntity getProcessingTaskByInstanceIdAndFromTaskId(JB4DCSession jb4DCSession, String instId, String extaskFromTaskId) {
+        return executionTaskMapper.selectProcessingTaskByInstanceIdAndFromTaskId(instId,extaskFromTaskId);
     }
 
 

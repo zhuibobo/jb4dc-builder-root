@@ -15,10 +15,10 @@ public class ModeGroupRest extends GeneralRest<ModelGroupEntity> {
     @Autowired
     IModelGroupExtendService modelGroupExtendService;
 
-    @Override
+    /*@Override
     public String getModuleName() {
         return "流程模型分组";
-    }
+    }*/
 
     @Override
     protected IBaseService<ModelGroupEntity> getBaseService() {

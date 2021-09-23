@@ -24,10 +24,10 @@ public class DataSetGroupRest extends GeneralRest<DatasetGroupEntity> {
         return datasetGroupService;
     }
 
-    @Override
+    /*@Override
     public String getModuleName() {
         return "模块设计--数据集分组";
-    }
+    }*/
 
     @RequestMapping(value = "GetTreeData", method = RequestMethod.POST)
     public JBuild4DCResponseVo getTreeData(String dbLinkId) {

@@ -3,6 +3,7 @@ package com.jb4dc.workflow.client.service.impl;
 import com.github.pagehelper.PageInfo;
 import com.jb4dc.base.service.aspect.CalculationRunTime;
 import com.jb4dc.base.service.general.JB4DCSessionUtility;
+import com.jb4dc.base.service.po.SimplePO;
 import com.jb4dc.base.tools.JsonUtility;
 import com.jb4dc.base.ymls.JBuild4DCYaml;
 import com.jb4dc.builder.client.remote.ApiItemRuntimeRemote;
@@ -25,7 +26,6 @@ import com.jb4dc.workflow.client.remote.FlowInstanceIntegratedRuntimeRemote;
 import com.jb4dc.workflow.client.service.IWorkFlowInstanceRuntimeService;
 import com.jb4dc.workflow.po.*;
 import com.jb4dc.workflow.po.bpmn.BpmnDefinitions;
-import com.jb4dc.workflow.po.bpmn.process.BpmnTask;
 import com.jb4dc.workflow.po.bpmn.process.Jb4dcAction;
 import com.jb4dc.workflow.po.bpmn.process.Jb4dcActions;
 import com.jb4dc.workflow.po.receive.ClientSelectedReceiver;
@@ -33,7 +33,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.AutowireCapableBeanFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -62,7 +61,7 @@ public class WorkFlowInstanceRuntimeServiceImpl extends WorkFlowRuntimeServiceIm
     @Override
     public JBuild4DCResponseVo<FlowInstanceRuntimePO> getRuntimeModelWithStart(JB4DCSession jb4DCSession,String userId,String organId, String modelKey) throws IOException, JBuild4DCGenerallyException {
         FlowInstanceRuntimePO flowInstanceRuntimePO = flowInstanceIntegratedRuntimeRemote.getRuntimeModelWithStart(userId,organId, modelKey).getData();
-        Jb4dcActions jb4dcActions = buildFlowInstanceRuntimePOBindCurrentActions(JB4DCSessionUtility.getSession(), flowInstanceRuntimePO, null);
+        Jb4dcActions jb4dcActions = resolveFlowInstanceRuntimePOConfigToActions(JB4DCSessionUtility.getSession(), flowInstanceRuntimePO, null);
         flowInstanceRuntimePO.setJb4dcActions(jb4dcActions);
         String cacheKey = saveFlowInstanceRuntimePOToCache(flowInstanceRuntimePO);
         return JBuild4DCResponseVo.getDataSuccess(flowInstanceRuntimePO, cacheKey);
@@ -71,12 +70,21 @@ public class WorkFlowInstanceRuntimeServiceImpl extends WorkFlowRuntimeServiceIm
 
     @Override
     public JBuild4DCResponseVo<FlowInstanceRuntimePO> getRuntimeModelWithProcess(JB4DCSession session, String userId, String organId, String extaskId) throws IOException, JBuild4DCGenerallyException {
-        FlowInstanceRuntimePO flowInstanceRuntimePO = flowInstanceIntegratedRuntimeRemote.getRuntimeModelWithProcess(userId, organId, extaskId).getData();
-        Jb4dcActions jb4dcActions = buildFlowInstanceRuntimePOBindCurrentActions(JB4DCSessionUtility.getSession(), flowInstanceRuntimePO, null);
+        FlowInstanceRuntimePO flowInstanceRuntimePO = flowInstanceIntegratedRuntimeRemote.getRuntimeModelWithProcessTask(userId, organId, extaskId).getData();
+        Jb4dcActions jb4dcActions = resolveFlowInstanceRuntimePOConfigToActions(JB4DCSessionUtility.getSession(), flowInstanceRuntimePO, null);
         flowInstanceRuntimePO.setJb4dcActions(jb4dcActions);
         String cacheKey = saveFlowInstanceRuntimePOToCache(flowInstanceRuntimePO);
         return JBuild4DCResponseVo.getDataSuccess(flowInstanceRuntimePO, cacheKey);
     }
+
+    @Override
+    public JBuild4DCResponseVo<FlowInstanceRuntimePO> getRuntimeModelWithMyEndProcess(JB4DCSession session, String userId, String organId, String extaskId) throws IOException, JBuild4DCGenerallyException {
+        FlowInstanceRuntimePO flowInstanceRuntimePO = flowInstanceIntegratedRuntimeRemote.getRuntimeModelWithEndTask(userId, organId, extaskId).getData();
+        flowInstanceRuntimePO.setJb4dcActions(flowInstanceRuntimePO.getMyEndTaskActions());
+        String cacheKey = saveFlowInstanceRuntimePOToCache(flowInstanceRuntimePO);
+        return JBuild4DCResponseVo.getDataSuccess(flowInstanceRuntimePO, cacheKey);
+    }
+
 
     @Override
     public JBuild4DCResponseVo<ResolveNextPossibleFlowNodePO> resolveNextPossibleFlowNode(JB4DCSession jb4DCSession,
@@ -122,19 +130,19 @@ public class WorkFlowInstanceRuntimeServiceImpl extends WorkFlowRuntimeServiceIm
     @Override
     @Transactional(rollbackFor = {JBuild4DCGenerallyException.class, JBuild4DCSQLKeyWordException.class, IOException.class})
     @CalculationRunTime(note = "执行保存数据的解析")
-    public CompleteTaskResult completeTask(JB4DCSession jb4DCSession,
-                                           boolean isStartInstanceStatus,String instanceId,
-                                           String modelId,String modelReKey,String currentTaskId,
-                                           String currentNodeKey,
-                                           String currentNodeName,
-                                           String actionCode,
-                                           String flowInstanceRuntimePOCacheKey,
-                                           FormRecordComplexPO formRecordComplexPO,
-                                           List<ClientSelectedReceiver> clientSelectedReceiverList,
-                                           String businessKey, Map<String, Object> exVars) throws IOException, JBuild4DCGenerallyException, JBuild4DCSQLKeyWordException {
+    public TaskActionResult completeTask(JB4DCSession jb4DCSession,
+                                         boolean isStartInstanceStatus, String instanceId,
+                                         String modelId, String modelReKey, String currentTaskId,
+                                         String currentNodeKey,
+                                         String currentNodeName,
+                                         String actionCode,
+                                         String flowInstanceRuntimePOCacheKey,
+                                         FormRecordComplexPO formRecordComplexPO,
+                                         List<ClientSelectedReceiver> clientSelectedReceiverList,
+                                         String businessKey, Map<String, Object> exVars) throws IOException, JBuild4DCGenerallyException, JBuild4DCSQLKeyWordException {
 
 
-        CompleteTaskResult completeTaskResult = new CompleteTaskResult();
+        TaskActionResult completeTaskResult = new TaskActionResult();
         FlowInstanceRuntimePO flowInstanceRuntimePO = getFlowInstanceRuntimePOFromCache(flowInstanceRuntimePOCacheKey);
 
         if (exVars == null) {
@@ -175,9 +183,27 @@ public class WorkFlowInstanceRuntimeServiceImpl extends WorkFlowRuntimeServiceIm
         formParams.put("instanceDesc", instanceDesc);
 
         formParams.put("varsJsonString", JsonUtility.toObjectString(vars));
+        //构建驱动流程变量
+        RequestCompleteTaskPO requestCompleteTaskPO=new RequestCompleteTaskPO();
+        requestCompleteTaskPO.setStartInstanceStatus(isStartInstanceStatus);
+        requestCompleteTaskPO.setSelectedReceiverVars(JsonUtility.toObjectString(clientSelectedReceiverList));
+        requestCompleteTaskPO.setVarsJsonString(JsonUtility.toObjectString(vars));
+        requestCompleteTaskPO.setActionCode(actionCode);
+        requestCompleteTaskPO.setCurrentTaskId(currentTaskId);
+        requestCompleteTaskPO.setModelReKey(modelReKey);
+        requestCompleteTaskPO.setCurrentNodeKey(currentNodeKey);
+        requestCompleteTaskPO.setCurrentNodeName(currentNodeName);
+        requestCompleteTaskPO.setUserId(jb4DCSession.getUserId());
+        requestCompleteTaskPO.setOrganId(jb4DCSession.getOrganId());
+        requestCompleteTaskPO.setInstanceId(instanceId);
+        requestCompleteTaskPO.setModelId(modelId);
+        requestCompleteTaskPO.setBusinessKey(businessKey);
+        requestCompleteTaskPO.setInstanceTitle(instanceTitle);
+        requestCompleteTaskPO.setInstanceDesc(instanceDesc);
+
 
         //校验能否调用服务端completeTask方法
-        JBuild4DCResponseVo<String> completeTaskEnableVo = flowInstanceIntegratedRuntimeRemote.completeTaskEnable(formParams);
+        JBuild4DCResponseVo<String> completeTaskEnableVo = flowInstanceIntegratedRuntimeRemote.completeTaskEnable(requestCompleteTaskPO);
 
         if (completeTaskEnableVo.isSuccess()) {
             //调用前置API
@@ -194,7 +220,7 @@ public class WorkFlowInstanceRuntimeServiceImpl extends WorkFlowRuntimeServiceIm
             }
 
             //驱动流程变量
-            JBuild4DCResponseVo<String> jBuild4DCResponseVo = flowInstanceIntegratedRuntimeRemote.completeTask(formParams);
+            JBuild4DCResponseVo<String> jBuild4DCResponseVo = flowInstanceIntegratedRuntimeRemote.completeTask(requestCompleteTaskPO);
             if (!jBuild4DCResponseVo.isSuccess()) {
                 throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_WORKFLOW_CODE, jBuild4DCResponseVo.getMessage());
             }
@@ -211,8 +237,23 @@ public class WorkFlowInstanceRuntimeServiceImpl extends WorkFlowRuntimeServiceIm
     }
 
     @Override
-    public JBuild4DCResponseVo<PageInfo<ExecutionTaskPO>> getMyProcessTaskList(JB4DCSession jb4DCSession, int pageNum, int pageSize, String modelCategory, String extaskType) {
+    public JBuild4DCResponseVo<PageInfo<ExecutionTaskPO>> getMyProcessTaskList(JB4DCSession jb4DCSession, int pageNum, int pageSize, String modelCategory, String extaskType) throws JBuild4DCGenerallyException {
         return flowInstanceIntegratedRuntimeRemote.getMyProcessTaskList(pageNum,pageSize, jb4DCSession.getUserId(),jb4DCSession.getOrganId(), JBuild4DCYaml.getLinkId(),modelCategory,extaskType);
+    }
+
+    @Override
+    public JBuild4DCResponseVo<PageInfo<ExecutionTaskPO>> getMyProcessEndTaskList(JB4DCSession jb4DCSession, int pageNum, int pageSize, String modelCategory, String extaskType) throws JBuild4DCGenerallyException {
+        return flowInstanceIntegratedRuntimeRemote.getMyProcessEndTaskList(pageNum,pageSize, jb4DCSession.getUserId(),jb4DCSession.getOrganId(), JBuild4DCYaml.getLinkId(),modelCategory,extaskType);
+    }
+
+    /*@Override
+    public JBuild4DCResponseVo<SimplePO> recallMySendTaskEnable(JB4DCSession session, String userId, String organId, String extaskId) throws JBuild4DCGenerallyException {
+        return flowInstanceIntegratedRuntimeRemote.recallMySendTaskEnable(userId,organId,extaskId);
+    }*/
+
+    @Override
+    public JBuild4DCResponseVo recallMySendTask(JB4DCSession session, String userId, String organId, String extaskId) throws JBuild4DCGenerallyException {
+        return flowInstanceIntegratedRuntimeRemote.recallMySendTask(userId,organId,extaskId);
     }
 
     protected ActionApiRunResult rubApi(JB4DCSession jb4DCSession, ActionApiPO actionApiPO,

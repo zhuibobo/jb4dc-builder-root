@@ -33,6 +33,10 @@
             <arg column="EXTASK_FROM_EXECUTION_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
             <arg column="EXTASK_INDEX" javaType="java.lang.Integer" jdbcType="INTEGER" />
             <arg column="EXTASK_MULTI_TASK" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="EXTASK_HANDLER_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="EXTASK_HANDLER_NAME" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="EXTASK_HANDLER_TYPE" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="EXTASK_CREATE_BY" javaType="java.lang.String" jdbcType="VARCHAR" />
             <arg column="INST_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
             <arg column="INST_TITLE" javaType="java.lang.String" jdbcType="VARCHAR" />
             <arg column="INST_DESC" javaType="java.lang.String" jdbcType="VARCHAR" />
@@ -96,11 +100,24 @@
         select<include refid="Base_Column_List"/> from TFLOW_EXECUTION_TASK where EXTASK_INST_ID=#{instId} ORDER by EXTASK_ORDER_NUM asc
     </select>
 
+    <select id="selectByInstanceIdAndStatus" resultMap="BaseResultMap">
+        select<include refid="Base_Column_List"/> from TFLOW_EXECUTION_TASK where EXTASK_INST_ID=#{instId} and EXTASK_STATUS=#{status} ORDER by EXTASK_ORDER_NUM asc
+    </select>
+
     <select id="selectMyProcessTask" resultMap="BaseResultMapWithPO">
         select <include refid="Base_Column_List"/>,<include refid="Inst_Base_Column_List"/> from TFLOW_EXECUTION_TASK join TFLOW_INSTANCE on TFLOW_EXECUTION_TASK.EXTASK_INST_ID=TFLOW_INSTANCE.INST_ID
         where EXTASK_TYPE=#{extaskType} and EXTASK_RECEIVER_ID=#{userId} and INST_MOD_CATEGORY=#{modelCategory} and EXTASK_STATUS='Processing' and INST_MOD_MODULE_ID in (
         select MODULE_ID from tbuild_module where MODULE_LINK_ID=#{linkId}
         )
+    </select>
+
+    <select id="selectMyProcessEndTask" resultMap="BaseResultMapWithPO">
+        select <include refid="Base_Column_List"/>,<include refid="Inst_Base_Column_List"/> from tflow_execution_task
+                inner join (
+                    select max(EXTASK_SEND_TIME) MR_EXTASK_SEND_TIME,EXTASK_INST_ID MR_EXTASK_INST_ID from tflow_execution_task where EXTASK_HANDLER_ID=#{userId} and EXTASK_STATUS='End' and  EXTASK_TYPE=#{extaskType} group by EXTASK_INST_ID
+                ) maxrecordtable on tflow_execution_task.EXTASK_INST_ID=maxrecordtable.MR_EXTASK_INST_ID and tflow_execution_task.EXTASK_SEND_TIME=maxrecordtable.MR_EXTASK_SEND_TIME
+                inner join TFLOW_INSTANCE on tflow_execution_task.EXTASK_INST_ID=TFLOW_INSTANCE.INST_ID
+        order by EXTASK_END_TIME desc
     </select>
 
     <select id="selectListByInstanceAndStatus" resultMap="BaseResultMap">
@@ -109,5 +126,17 @@
             #{id}
         </foreach>
         and EXTASK_STATUS=#{exTaskStatus}
+    </select>
+
+    <update id="updateProcessingToCancelStatus">
+        update TFLOW_EXECUTION_TASK set EXTASK_STATUS='Cancel' where EXTASK_INST_ID=#{instanceId} and EXTASK_STATUS=#{Processing}
+    </update>
+
+    <select id="selectNextExtaskIndexByInstanceId" resultType="int">
+        select case when max(EXTASK_INDEX) is null then 1000000 else max(EXTASK_INDEX)+1000 end EXTASK_INDEX from TFLOW_EXECUTION_TASK where EXTASK_INST_ID=#{instanceId}
+    </select>
+
+    <select id="selectProcessingTaskByInstanceIdAndFromTaskId" resultMap="BaseResultMap">
+        select<include refid="Base_Column_List"/> from TFLOW_EXECUTION_TASK where EXTASK_INST_ID=#{instanceId} and EXTASK_STATUS='Processing' and EXTASK_FROM_TASK_ID=#{extaskFromTaskId}
     </select>
 </mapper>

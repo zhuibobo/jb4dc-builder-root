@@ -27,10 +27,10 @@ public class ModeRest extends GeneralRest<ModelIntegratedEntity> {
     @Autowired
     IModelIntegratedExtendService modelIntegratedExtendService;
 
-    @Override
+    /*@Override
     public String getModuleName() {
         return "流程模型";
-    }
+    }*/
 
     @Override
     protected IBaseService<ModelIntegratedEntity> getBaseService() {

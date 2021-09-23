@@ -9,4 +9,6 @@ import java.util.List;
 
 public interface InstanceFileMapper extends BaseMapper<InstanceFileEntity> {
     List<InstanceFileEntity> selectAttachmentByInstanceId(@Param("instanceId") String instanceId);
+
+    List<InstanceFileEntity> selectDocumentByInstanceId(@Param("instanceId") String instanceId);
 }

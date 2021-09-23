@@ -68,7 +68,7 @@ public class FlowEngineInstanceIntegratedServiceImpl extends FlowEngineCamundaIn
     }
 
     @Override
-    public void recallProcessForUserTask(JB4DCSession jb4DCSession, String processInstanceId, String taskId, String formActivityNodeId, String assigneeUserId, Map<String, Object> variables) throws JBuild4DCGenerallyException {
+    public String recallProcessForUserTask(JB4DCSession jb4DCSession, String processInstanceId, String taskId, String formActivityNodeId, String assigneeUserId, Map<String, Object> variables) throws JBuild4DCGenerallyException {
         if(isRecallProcessEnable(jb4DCSession,processInstanceId,taskId,formActivityNodeId)){
 
             //ProcessEngine processEngine = CamundaIntegrate.getProcessEngine();
@@ -95,16 +95,20 @@ public class FlowEngineInstanceIntegratedServiceImpl extends FlowEngineCamundaIn
                     }
 
                     processInstanceModificationInstantiationBuilder.execute();
+
+                    return "recallByMultiInstanceAllIsNotEnd";
                 }
                 else{
                     //当前环节已经完成
                     jumpToUserTaskActivityNode(jb4DCSession,processInstanceId,sendOperationActivityNodeId,currentActivityNodeIds,assigneeUserId,variables);
+                    return "recallByMultiInstanceAllIsEnd";
                 }
 
             }
             else{
                 List<String> currentActivityNodeIds= IFlowEngineExecutionIntegratedService.getCurrentActivityNodeIds(jb4DCSession,processInstanceId);
                 jumpToUserTaskActivityNode(jb4DCSession,processInstanceId,sendOperationActivityNodeId,currentActivityNodeIds,assigneeUserId,variables);
+                return "recallBySingle";
             }
         }
         else {

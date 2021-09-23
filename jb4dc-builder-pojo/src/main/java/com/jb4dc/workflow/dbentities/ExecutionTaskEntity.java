@@ -107,6 +107,18 @@ public class ExecutionTaskEntity {
     //EXTASK_MULTI_TASK:多实例任务:Single,Sequential;Parallel
     private String extaskMultiTask;
 
+    //EXTASK_HANDLER_ID:任务的实际处理人ID:办结时进行设置
+    private String extaskHandlerId;
+
+    //EXTASK_HANDLER_NAME:任务的实际处理人名称:办结时进行设置
+    private String extaskHandlerName;
+
+    //EXTASK_HANDLER_TYPE:任务的处理类型:SELF[自己办结],AGENCY[代理办结]
+    private String extaskHandlerType;
+
+    //EXTASK_CREATE_BY:任务创建来源:Initial-Create[初始创建],Send-Create[用户发送],Cancel-Create[撤回创建],Jump-Create[跳转创建],Restart-Create[重启创建]
+    private String extaskCreateBy;
+
     /**
      * 构造函数
      * @param extaskId
@@ -139,8 +151,12 @@ public class ExecutionTaskEntity {
      * @param extaskFromExecutionId 源自执行ID
      * @param extaskIndex 任务索引号
      * @param extaskMultiTask 多实例任务
+     * @param extaskHandlerId 任务的实际处理人ID
+     * @param extaskHandlerName 任务的实际处理人名称
+     * @param extaskHandlerType 任务的处理类型
+     * @param extaskCreateBy 任务创建来源
      **/
-    public ExecutionTaskEntity(String extaskId, String extaskInstId, String extaskModelId, String extaskRuTaskId, String extaskRuExecutionId, String extaskRuProcInstId, String extaskRuProcDefId, String extaskPreNodeKey, String extaskPreNodeName, String extaskCurNodeKey, String extaskCurNodeName, String extaskType, String extaskStatus, String extaskSenderId, String extaskSenderName, Date extaskSendTime, String extaskReceiverId, String extaskReceiverName, String extaskViewEd, Date extaskViewTime, Date extaskStartTime, Date extaskEndTime, String extaskHandleEd, String extaskHandleActionKey, String extaskHandleActionName, Integer extaskOrderNum, String extaskFromTaskId, String extaskFromExecutionId, Integer extaskIndex, String extaskMultiTask) {
+    public ExecutionTaskEntity(String extaskId, String extaskInstId, String extaskModelId, String extaskRuTaskId, String extaskRuExecutionId, String extaskRuProcInstId, String extaskRuProcDefId, String extaskPreNodeKey, String extaskPreNodeName, String extaskCurNodeKey, String extaskCurNodeName, String extaskType, String extaskStatus, String extaskSenderId, String extaskSenderName, Date extaskSendTime, String extaskReceiverId, String extaskReceiverName, String extaskViewEd, Date extaskViewTime, Date extaskStartTime, Date extaskEndTime, String extaskHandleEd, String extaskHandleActionKey, String extaskHandleActionName, Integer extaskOrderNum, String extaskFromTaskId, String extaskFromExecutionId, Integer extaskIndex, String extaskMultiTask, String extaskHandlerId, String extaskHandlerName, String extaskHandlerType, String extaskCreateBy) {
         this.extaskId = extaskId;
         this.extaskInstId = extaskInstId;
         this.extaskModelId = extaskModelId;
@@ -171,6 +187,10 @@ public class ExecutionTaskEntity {
         this.extaskFromExecutionId = extaskFromExecutionId;
         this.extaskIndex = extaskIndex;
         this.extaskMultiTask = extaskMultiTask;
+        this.extaskHandlerId = extaskHandlerId;
+        this.extaskHandlerName = extaskHandlerName;
+        this.extaskHandlerType = extaskHandlerType;
+        this.extaskCreateBy = extaskCreateBy;
     }
 
     public ExecutionTaskEntity() {
@@ -655,5 +675,69 @@ public class ExecutionTaskEntity {
      **/
     public void setExtaskMultiTask(String extaskMultiTask) {
         this.extaskMultiTask = extaskMultiTask == null ? null : extaskMultiTask.trim();
+    }
+
+    /**
+     * 任务的实际处理人ID:办结时进行设置
+     * @return java.lang.String
+     **/
+    public String getExtaskHandlerId() {
+        return extaskHandlerId;
+    }
+
+    /**
+     * 任务的实际处理人ID:办结时进行设置
+     * @param extaskHandlerId 任务的实际处理人ID
+     **/
+    public void setExtaskHandlerId(String extaskHandlerId) {
+        this.extaskHandlerId = extaskHandlerId == null ? null : extaskHandlerId.trim();
+    }
+
+    /**
+     * 任务的实际处理人名称:办结时进行设置
+     * @return java.lang.String
+     **/
+    public String getExtaskHandlerName() {
+        return extaskHandlerName;
+    }
+
+    /**
+     * 任务的实际处理人名称:办结时进行设置
+     * @param extaskHandlerName 任务的实际处理人名称
+     **/
+    public void setExtaskHandlerName(String extaskHandlerName) {
+        this.extaskHandlerName = extaskHandlerName == null ? null : extaskHandlerName.trim();
+    }
+
+    /**
+     * 任务的处理类型:SELF[自己办结],AGENCY[代理办结]
+     * @return java.lang.String
+     **/
+    public String getExtaskHandlerType() {
+        return extaskHandlerType;
+    }
+
+    /**
+     * 任务的处理类型:SELF[自己办结],AGENCY[代理办结]
+     * @param extaskHandlerType 任务的处理类型
+     **/
+    public void setExtaskHandlerType(String extaskHandlerType) {
+        this.extaskHandlerType = extaskHandlerType == null ? null : extaskHandlerType.trim();
+    }
+
+    /**
+     * 任务创建来源:Initial-Create[初始创建],Send-Create[用户发送],Cancel-Create[撤回创建],Jump-Create[跳转创建],Restart-Create[重启创建]
+     * @return java.lang.String
+     **/
+    public String getExtaskCreateBy() {
+        return extaskCreateBy;
+    }
+
+    /**
+     * 任务创建来源:Initial-Create[初始创建],Send-Create[用户发送],Cancel-Create[撤回创建],Jump-Create[跳转创建],Restart-Create[重启创建]
+     * @param extaskCreateBy 任务创建来源
+     **/
+    public void setExtaskCreateBy(String extaskCreateBy) {
+        this.extaskCreateBy = extaskCreateBy == null ? null : extaskCreateBy.trim();
     }
 }

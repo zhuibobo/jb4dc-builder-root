@@ -81,6 +81,12 @@ public class Jb4dcAction {
     @XmlAttribute(name = "actionCallComplete")
     String actionCallComplete;
 
+    @XmlAttribute(name = "actionDisable")
+    String actionDisable;
+
+    @XmlAttribute(name = "actionRemark")
+    String actionRemark;
+
     JuelRunResultPO juelRunResultPO;
 
     public String getActionType() {
@@ -273,5 +279,21 @@ public class Jb4dcAction {
 
     public void setActionSendSignalId(String actionSendSignalId) {
         this.actionSendSignalId = actionSendSignalId;
+    }
+
+    public String getActionDisable() {
+        return actionDisable;
+    }
+
+    public void setActionDisable(String actionDisable) {
+        this.actionDisable = actionDisable;
+    }
+
+    public String getActionRemark() {
+        return actionRemark;
+    }
+
+    public void setActionRemark(String actionRemark) {
+        this.actionRemark = actionRemark;
     }
 }

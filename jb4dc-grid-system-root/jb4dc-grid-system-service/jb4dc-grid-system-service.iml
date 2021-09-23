@@ -148,6 +148,7 @@
     <orderEntry type="module" module-name="jb4dc-builder-pojo" />
     <orderEntry type="module" module-name="jb4dc-builder-client" />
     <orderEntry type="library" name="Maven: org.jsoup:jsoup:1.11.3" level="project" />
+    <orderEntry type="library" name="Maven: aspose:aspose-words-21.1.0-jdk17-crack:21.1.0" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.cloud:spring-cloud-starter-openfeign:3.0.3" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.cloud:spring-cloud-starter:3.0.3" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.cloud:spring-cloud-context:3.0.3" level="project" />

@@ -16,6 +16,7 @@ import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URISyntaxException;
 import java.util.Iterator;
 import java.util.List;
@@ -28,14 +29,14 @@ public class InstanceFileRuntimeRest {
     IWorkFlowInstanceFileRuntimeService workFlowInstanceFileRuntimeService;
 
     @RequestMapping(value = "/UploadFile")
-    JBuild4DCResponseVo UploadFile(HttpServletRequest request, HttpServletResponse response, String fileType, String instanceId,String businessKey) throws IOException, JBuild4DCGenerallyException, URISyntaxException {
+    JBuild4DCResponseVo uploadFile(HttpServletRequest request, HttpServletResponse response, String fileType, String instanceId,String businessKey) throws IOException, JBuild4DCGenerallyException, URISyntaxException {
 
         SimpleFilePO simpleFilePO = getSingleFilePOFromRequest(request);
 
         InstanceFileEntity instanceFileEntity = workFlowInstanceFileRuntimeService.addInstanceFile(
                 JB4DCSessionUtility.getSession(),
                 simpleFilePO.getFileName(), simpleFilePO.getFileByte(),
-                fileType, instanceId,businessKey);
+                fileType, instanceId,businessKey,"*");
 
         return JBuild4DCResponseVo.opSuccess();
     }
@@ -46,7 +47,7 @@ public class InstanceFileRuntimeRest {
         return workFlowInstanceFileRuntimeService.getAttachmentFileListData(JB4DCSessionUtility.getSession(),instanceId);
     }
 
-    private SimpleFilePO getSingleFilePOFromRequest(HttpServletRequest request) throws IOException, JBuild4DCGenerallyException {
+    protected SimpleFilePO getSingleFilePOFromRequest(HttpServletRequest request) throws IOException, JBuild4DCGenerallyException {
         CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver(request.getSession()
                 .getServletContext());
         if (multipartResolver.isMultipart(request)) {
@@ -55,6 +56,7 @@ public class InstanceFileRuntimeRest {
             Iterator<String> iter = multiRequest.getFileNames();
             String upLoadFileName = null;
             byte[] fileByte = null;
+            InputStream inputStream=null;
             while (iter.hasNext()) {
                 // 记录上传过程起始时的时间，用来计算上传时间
                 // int pre = (int) System.currentTimeMillis();
@@ -68,10 +70,12 @@ public class InstanceFileRuntimeRest {
                         // 获得图片的原始名称
                         upLoadFileName = file.getOriginalFilename();
                         fileByte=file.getBytes();
+                        inputStream=file.getInputStream();
+                        //file.getInputStream();
                     }
                 }
             }
-            SimpleFilePO result=new SimpleFilePO(upLoadFileName,fileByte);
+            SimpleFilePO result=new SimpleFilePO(upLoadFileName,fileByte,inputStream);
             return result;
         }
         throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_BUILDER_CODE,"HttpServletRequest中不存在上传的文件!");

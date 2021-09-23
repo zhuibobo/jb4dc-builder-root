@@ -34,10 +34,10 @@ public class APIItemRest  extends GeneralRest<ApiItemEntity> implements ApiItemR
     @Autowired
     IApiGroupService apiGroupService;
 
-    @Override
+    /*@Override
     public String getModuleName() {
         return "API";
-    }
+    }*/
 
     @Override
     protected IBaseService<ApiItemEntity> getBaseService() {

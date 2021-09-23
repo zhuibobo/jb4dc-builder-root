@@ -44,10 +44,10 @@ public class FlowModelIntegratedRest extends GeneralRest<ModelIntegratedEntity> 
         return flowExtendModelService;
     }
 
-    @Override
+    /*@Override
     public String getModuleName() {
         return "模块设计-流程设计";
-    }
+    }*/
 
     @RequestMapping(
             value = {"/GetFlowModel"},

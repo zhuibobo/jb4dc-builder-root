@@ -1,3 +1,4 @@
+/*
 package com.jb4dc.qcsystem.webpackage.beanconfig.sys;
 
 import org.apache.catalina.connector.Connector;
@@ -38,10 +39,12 @@ public class HttpsHttpConfig {
         }
         return tomcat;
     }
-    /**
+    */
+/**
      * 配置http
      * @return
-     */
+     *//*
+
     private Connector createSslConnector() {
         Connector connector = new Connector("org.apache.coyote.http11.Http11NioProtocol");
         Http11NioProtocol protocol = (Http11NioProtocol) connector.getProtocolHandler();
@@ -57,3 +60,4 @@ public class HttpsHttpConfig {
         return connector;
     }
 }
+*/

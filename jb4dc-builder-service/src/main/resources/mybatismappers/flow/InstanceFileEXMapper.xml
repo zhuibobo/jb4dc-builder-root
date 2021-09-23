@@ -27,4 +27,8 @@
     <select id="selectAttachmentByInstanceId" resultMap="BaseResultMap">
         select<include refid="Base_Column_List"/> from TFLOW_INSTANCE_FILE where FILE_INST_ID=#{instanceId} and FILE_TYPE='Attachment' and FILE_VERSION_LAST='是' and FILE_STATUS='新建' ORDER by FILE_ORDER_NUM ASC
     </select>
+
+    <select id="selectDocumentByInstanceId" resultMap="BaseResultMap">
+        select<include refid="Base_Column_List"/> from TFLOW_INSTANCE_FILE where FILE_INST_ID=#{instanceId} and FILE_TYPE='FlowInstance-Document' ORDER by FILE_ORDER_NUM desc
+    </select>
 </mapper>

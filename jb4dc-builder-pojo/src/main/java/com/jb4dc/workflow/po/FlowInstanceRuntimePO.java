@@ -15,6 +15,7 @@ public class FlowInstanceRuntimePO implements Cloneable {
     ExecutionTaskEntity executionTaskEntity;
     List<ExecutionTaskEntity> historyExecutionTaskEntityList;
     List<HistoricActivityInstancePO> historicActivityInstancePOList;
+    Jb4dcActions myEndTaskActions;
 
     String bpmnXmlContent;
     boolean isStartEvent;
@@ -295,5 +296,13 @@ public class FlowInstanceRuntimePO implements Cloneable {
 
     public void setHistoricActivityInstancePOList(List<HistoricActivityInstancePO> historicActivityInstancePOList) {
         this.historicActivityInstancePOList = historicActivityInstancePOList;
+    }
+
+    public Jb4dcActions getMyEndTaskActions() {
+        return myEndTaskActions;
+    }
+
+    public void setMyEndTaskActions(Jb4dcActions myEndTaskActions) {
+        this.myEndTaskActions = myEndTaskActions;
     }
 }

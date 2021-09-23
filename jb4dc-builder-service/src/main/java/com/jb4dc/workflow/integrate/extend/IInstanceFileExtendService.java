@@ -8,4 +8,8 @@ import java.util.List;
 
 public interface IInstanceFileExtendService extends IBaseService<InstanceFileEntity> {
     List<InstanceFileEntity> getAttachmentFileListData(JB4DCSession jb4DCSession, String instanceId);
+
+    InstanceFileEntity tryGetLastOnlineDocument(JB4DCSession jb4DCSession, String instanceId);
+
+    List<InstanceFileEntity> getDocumentFileListData(JB4DCSession jb4DCSession, String instanceId);
 }

@@ -25,10 +25,10 @@ public class FamilyRest extends GeneralRest<FamilyEntity> {
     @Autowired
     IFamilyService familyService;
 
-    @Override
+    /*@Override
     public String getModuleName() {
         return "网格化社会管理系统-家庭管理";
-    }
+    }*/
 
     @Override
     protected IBaseService<FamilyEntity> getBaseService() {

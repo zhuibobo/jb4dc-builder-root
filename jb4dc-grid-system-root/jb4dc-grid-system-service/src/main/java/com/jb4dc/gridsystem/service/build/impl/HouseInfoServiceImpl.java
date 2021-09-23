@@ -6,6 +6,7 @@ import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
 import com.jb4dc.core.base.exception.JBuild4DCSQLKeyWordException;
 import com.jb4dc.core.base.session.JB4DCSession;
 import com.jb4dc.core.base.tools.StringUtility;
+import com.jb4dc.core.base.tools.UUIDUtility;
 import com.jb4dc.files.dbentities.FileInfoEntity;
 import com.jb4dc.files.po.SimpleFilePathPO;
 import com.jb4dc.files.service.IFileInfoService;
@@ -120,7 +121,7 @@ public class HouseInfoServiceImpl extends BaseServiceImpl<HouseInfoEntity> imple
                 if (StringUtility.isNotEmpty(editRelevanterPerson.getReterHeaderImageBase64())) {
                     BASE64Decoder decoder = new BASE64Decoder();
                     byte[] byteData = decoder.decodeBuffer(editRelevanterPerson.getReterHeaderImageBase64());
-                    FileInfoEntity fileInfoEntity = fileInfoService.addFileToFileSystem(session, "房屋相关人员照片.jpg", byteData, editRelevanterPerson.getReterId(), editRelevanterPerson.getReterName(), "房屋相关人员", "房屋相关人员照片");
+                    FileInfoEntity fileInfoEntity = fileInfoService.addFileToFileSystem(session, UUIDUtility.getUUID(),"房屋相关人员照片.jpg", byteData,byteData.length, editRelevanterPerson.getReterId(), editRelevanterPerson.getReterName(), "房屋相关人员", "房屋相关人员照片",true);
 
                     String sourcePath = fileInfoService.buildFilePath(fileInfoEntity);
                     SimpleFilePathPO simpleFilePathPO = fileInfoService.buildSavePath("houseRelevanter", editRelevanterPerson.getReterId(), editRelevanterPerson.getReterCertCode() + "-HeadPhone.jpg");

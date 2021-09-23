@@ -40,10 +40,10 @@ public class ListRest extends GeneralRest<ListResourceEntityWithBLOBs> implement
         return listResourceService;
     }
 
-    @Override
+    /*@Override
     public String getModuleName() {
         return "模块设计-列表设计";
-    }
+    }*/
 
     @RequestMapping(value = "/GetListDataForModule", method = {RequestMethod.POST})
     public JBuild4DCResponseVo<List<ListResourcePO>> getListDataForModule(Integer pageSize, Integer pageNum, String searchCondition) throws IOException, ParseException, JBuild4DCGenerallyException {

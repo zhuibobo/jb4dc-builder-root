@@ -50,10 +50,10 @@ public class FormRest extends GeneralRest<FormResourceEntityWithBLOBs> implement
         return formResourceService;
     }
 
-    @Override
+    /*@Override
     public String getModuleName() {
         return "模块设计-Web表单设计";
-    }
+    }*/
 
     @RequestMapping(value = "/GetWebFormForZTreeNodeList", method = RequestMethod.POST)
     public JBuild4DCResponseVo getWebFormForZTreeNodeList(){

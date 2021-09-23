@@ -29,10 +29,10 @@ public class PersonInfoRest extends GeneralRest<PersonEntity> {
     @Autowired
     IPersonService personService;
 
-    @Override
+    /*@Override
     public String getModuleName() {
         return "网格化社会管理系统-人口管理";
-    }
+    }*/
 
     @Override
     protected IBaseService<PersonEntity> getBaseService() {

@@ -15,10 +15,10 @@ public class DevDemoGenListRest extends GeneralRest<DemoGenListEntity> {
     @Autowired
     IDemoGenListService devDemoGenListService;
 
-    @Override
+    /*@Override
     public String getModuleName() {
         return "一般列表";
-    }
+    }*/
 
     @Override
     protected IBaseService<DemoGenListEntity> getBaseService() {

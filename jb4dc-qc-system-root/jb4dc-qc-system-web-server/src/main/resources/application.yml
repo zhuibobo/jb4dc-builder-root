@@ -17,15 +17,17 @@ jb4dc:
       name: JB4DC-BUILDER-WEB-SERVER
       context-path: /JB4DCBuilder
   #默认采用http协议提供eureka使用,扩展https附件连接器
-  sslConfig:
-    enabled: true
-    port: 19105
-    key-store-type: jks
-    key-store-password: jb4d82
-    key-alias: jb4dchttps
-    key-store: D:/JavaProject/jb4dc/https/jbu4dchttps.jks
+#  sslConfig:
+#    enabled: true
+#    port: 19105
+#    key-store-type: jks
+#    key-store-password: jb4d82
+#    key-alias: jb4dchttps
+#    key-store: D:/JavaProject/jb4dc/https/jbu4dchttps.jks
 
 spring:
+  profiles:
+    active: dev
   application:
     name: JB4DC-QC-SYSTEM-WEB-SERVER
     inetutils:
@@ -42,8 +44,8 @@ spring:
     time-zone: GMT+8
   servlet:
     multipart:
-      max-file-size: 50MB
-      max-request-size: 100MB
+      max-file-size: 150MB
+      max-request-size: 300MB
 
 server:
   port: 9105

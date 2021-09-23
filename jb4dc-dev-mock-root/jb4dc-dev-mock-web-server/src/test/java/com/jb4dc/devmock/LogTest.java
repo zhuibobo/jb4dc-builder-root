@@ -26,7 +26,7 @@ public class LogTest extends RestTestBase {
     @Test
     public void debugLog() throws Exception {
         MockHttpServletRequestBuilder requestBuilder = post("/Rest/DevDemo/LogDemo/DebugLog");
-        requestBuilder.contentType(MediaType.APPLICATION_JSON_UTF8);
+        requestBuilder.contentType(MediaType.APPLICATION_JSON);
         requestBuilder.sessionAttr(JB4DCSessionUtility.UserLoginSessionKey, getSession());
         DatasetGroupEntity groupEntity=new DatasetGroupEntity();
 

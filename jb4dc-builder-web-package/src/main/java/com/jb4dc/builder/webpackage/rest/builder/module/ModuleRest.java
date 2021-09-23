@@ -27,10 +27,10 @@ public class ModuleRest extends GeneralRest<ModuleEntity> {
         return moduleService;
     }
 
-    @Override
+    /*@Override
     public String getModuleName() {
         return "模块设计";
-    }
+    }*/
 
     @RequestMapping(value = "/GetTreeData", method = RequestMethod.POST)
     public JBuild4DCResponseVo getTreeData(String dbLinkId) {
