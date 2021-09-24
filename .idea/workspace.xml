@@ -22,23 +22,7 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4c1726ea-d2d7-4bd0-ba55-67bf5abd523a" name="Default Changelist" comment="查询统计">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jb4dc-builder-client/src/main/java/com/jb4dc/workflow/client/remote/FlowInstanceIntegratedRuntimeRemote.java" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-client/src/main/java/com/jb4dc/workflow/client/remote/FlowInstanceIntegratedRuntimeRemote.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jb4dc-builder-client/src/main/java/com/jb4dc/workflow/client/rest/client/InstanceRuntimeRest.java" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-client/src/main/java/com/jb4dc/workflow/client/rest/client/InstanceRuntimeRest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jb4dc-builder-client/src/main/java/com/jb4dc/workflow/client/service/IWorkFlowInstanceRuntimeService.java" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-client/src/main/java/com/jb4dc/workflow/client/service/IWorkFlowInstanceRuntimeService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jb4dc-builder-client/src/main/java/com/jb4dc/workflow/client/service/impl/WorkFlowInstanceRuntimeServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-client/src/main/java/com/jb4dc/workflow/client/service/impl/WorkFlowInstanceRuntimeServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jb4dc-builder-pojo/src/main/java/com/jb4dc/workflow/dbentities/ExecutionTaskEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-pojo/src/main/java/com/jb4dc/workflow/dbentities/ExecutionTaskEntity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jb4dc-builder-pojo/src/main/java/com/jb4dc/workflow/po/ExecutionTaskPO.java" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-pojo/src/main/java/com/jb4dc/workflow/po/ExecutionTaskPO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jb4dc-builder-service/src/main/java/com/jb4dc/workflow/dao/ExecutionTaskMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-service/src/main/java/com/jb4dc/workflow/dao/ExecutionTaskMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jb4dc-builder-service/src/main/java/com/jb4dc/workflow/integrate/extend/IExecutionTaskExtendService.java" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-service/src/main/java/com/jb4dc/workflow/integrate/extend/IExecutionTaskExtendService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jb4dc-builder-service/src/main/java/com/jb4dc/workflow/integrate/extend/impl/ExecutionTaskExtendServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-service/src/main/java/com/jb4dc/workflow/integrate/extend/impl/ExecutionTaskExtendServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jb4dc-builder-service/src/main/java/com/jb4dc/workflow/integrate/extend/impl/InstanceExtendServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-service/src/main/java/com/jb4dc/workflow/integrate/extend/impl/InstanceExtendServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jb4dc-builder-service/src/main/resources/liquibase/jb4dc-builder-db-changelog.xml" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-service/src/main/resources/liquibase/jb4dc-builder-db-changelog.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jb4dc-builder-service/src/main/resources/mybatismappers/flow/ExecutionTaskACMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-service/src/main/resources/mybatismappers/flow/ExecutionTaskACMapper.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jb4dc-builder-service/src/main/resources/mybatismappers/flow/ExecutionTaskEXMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-service/src/main/resources/mybatismappers/flow/ExecutionTaskEXMapper.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/java/com/jb4dc/builder/webpackage/rest/workflow/runtime/FlowInstanceIntegratedRuntimeRest.java" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/java/com/jb4dc/builder/webpackage/rest/workflow/runtime/FlowInstanceIntegratedRuntimeRest.java" afterDir="false" />
-    </list>
+    <list default="true" id="4c1726ea-d2d7-4bd0-ba55-67bf5abd523a" name="Default Changelist" comment="查询统计" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -1027,14 +1011,7 @@
       <workItem from="1632362127302" duration="301000" />
       <workItem from="1632362653126" duration="7648000" />
       <workItem from="1632391002468" duration="4039000" />
-      <workItem from="1632448797573" duration="16603000" />
-    </task>
-    <task id="LOCAL-00412" summary="2020-10-15">
-      <created>1608608737972</created>
-      <option name="number" value="00412" />
-      <option name="presentableId" value="LOCAL-00412" />
-      <option name="project" value="LOCAL" />
-      <updated>1608608737972</updated>
+      <workItem from="1632448797573" duration="16928000" />
     </task>
     <task id="LOCAL-00413" summary="2020-10-15">
       <created>1608814441725</created>
@@ -1372,7 +1349,14 @@
       <option name="project" value="LOCAL" />
       <updated>1632361430584</updated>
     </task>
-    <option name="localTasksCounter" value="461" />
+    <task id="LOCAL-00461" summary="查询统计">
+      <created>1632491862922</created>
+      <option name="number" value="00461" />
+      <option name="presentableId" value="LOCAL-00461" />
+      <option name="project" value="LOCAL" />
+      <updated>1632491862922</updated>
+    </task>
+    <option name="localTasksCounter" value="462" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
