@@ -22,7 +22,7 @@ public interface IExecutionTaskExtendService  extends IBaseService<ExecutionTask
 
     List<ExecutionTaskEntity> getByInstanceId(JB4DCSession jb4DCSession, String instId);
 
-    List<ExecutionTaskEntity> getByInstanceIdAndStatus(JB4DCSession jb4DCSession, String instId, String exTask_status_processing) throws JBuild4DCGenerallyException;
+    List<ExecutionTaskEntity> getByInstanceIdAndStatus(JB4DCSession jb4DCSession, String instId, String status) throws JBuild4DCGenerallyException;
 
     ExecutionTaskEntity createStartEventExecutionTask(JB4DCSession jb4DCSession, InstanceEntity instanceEntity, String currentNodeKey, String currentNodeName, Jb4dcAction jb4dcAction) throws JBuild4DCGenerallyException;
 
@@ -38,5 +38,7 @@ public interface IExecutionTaskExtendService  extends IBaseService<ExecutionTask
 
     int getNextExtaskIndexByInstanceId(JB4DCSession jb4DCSession, String instId);
 
-    ExecutionTaskEntity getProcessingTaskByInstanceIdAndFromTaskId(JB4DCSession jb4DCSession, String instId, String extaskFromTaskId);
+    List<ExecutionTaskEntity> getProcessingTaskByInstanceIdAndFromTaskId(JB4DCSession jb4DCSession, String instId, String extaskFromTaskId);
+
+    void changeTaskToView(JB4DCSession jb4DCSession, String extaskId) throws JBuild4DCGenerallyException;
 }

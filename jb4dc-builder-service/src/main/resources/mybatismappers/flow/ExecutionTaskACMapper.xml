@@ -29,14 +29,15 @@
             <arg column="EXTASK_HANDLE_ACTION_KEY" javaType="java.lang.String" jdbcType="VARCHAR" />
             <arg column="EXTASK_HANDLE_ACTION_NAME" javaType="java.lang.String" jdbcType="VARCHAR" />
             <arg column="EXTASK_ORDER_NUM" javaType="java.lang.Integer" jdbcType="INTEGER" />
-            <arg column="EXTASK_FROM_TASK_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
-            <arg column="EXTASK_FROM_EXECUTION_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
-            <arg column="EXTASK_INDEX" javaType="java.lang.Integer" jdbcType="INTEGER" />
-            <arg column="EXTASK_MULTI_TASK" javaType="java.lang.String" jdbcType="VARCHAR" />
             <arg column="EXTASK_HANDLER_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
             <arg column="EXTASK_HANDLER_NAME" javaType="java.lang.String" jdbcType="VARCHAR" />
             <arg column="EXTASK_HANDLER_TYPE" javaType="java.lang.String" jdbcType="VARCHAR" />
             <arg column="EXTASK_CREATE_BY" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="EXTASK_FROM_TASK_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="EXTASK_FROM_RECALL_TASK_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="EXTASK_FROM_EXECUTION_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="EXTASK_INDEX" javaType="java.lang.Integer" jdbcType="INTEGER" />
+            <arg column="EXTASK_MULTI_TASK" javaType="java.lang.String" jdbcType="VARCHAR" />
         </constructor>
     </resultMap>
     <sql id="Base_Column_List">
@@ -45,9 +46,9 @@
     EXTASK_CUR_NODE_KEY, EXTASK_CUR_NODE_NAME, EXTASK_TYPE, EXTASK_STATUS, EXTASK_SENDER_ID,
     EXTASK_SENDER_NAME, EXTASK_SEND_TIME, EXTASK_RECEIVER_ID, EXTASK_RECEIVER_NAME, EXTASK_VIEW_ED,
     EXTASK_VIEW_TIME, EXTASK_START_TIME, EXTASK_END_TIME, EXTASK_HANDLE_ED, EXTASK_HANDLE_ACTION_KEY,
-    EXTASK_HANDLE_ACTION_NAME, EXTASK_ORDER_NUM, EXTASK_FROM_TASK_ID, EXTASK_FROM_EXECUTION_ID,
-    EXTASK_INDEX, EXTASK_MULTI_TASK, EXTASK_HANDLER_ID, EXTASK_HANDLER_NAME, EXTASK_HANDLER_TYPE,
-    EXTASK_CREATE_BY
+    EXTASK_HANDLE_ACTION_NAME, EXTASK_ORDER_NUM, EXTASK_HANDLER_ID, EXTASK_HANDLER_NAME,
+    EXTASK_HANDLER_TYPE, EXTASK_CREATE_BY, EXTASK_FROM_TASK_ID, EXTASK_FROM_RECALL_TASK_ID,
+    EXTASK_FROM_EXECUTION_ID, EXTASK_INDEX, EXTASK_MULTI_TASK
     </sql>
     <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
         select
@@ -69,9 +70,9 @@
                                           EXTASK_VIEW_ED, EXTASK_VIEW_TIME, EXTASK_START_TIME,
                                           EXTASK_END_TIME, EXTASK_HANDLE_ED, EXTASK_HANDLE_ACTION_KEY,
                                           EXTASK_HANDLE_ACTION_NAME, EXTASK_ORDER_NUM,
-                                          EXTASK_FROM_TASK_ID, EXTASK_FROM_EXECUTION_ID,
-                                          EXTASK_INDEX, EXTASK_MULTI_TASK, EXTASK_HANDLER_ID,
-                                          EXTASK_HANDLER_NAME, EXTASK_HANDLER_TYPE, EXTASK_CREATE_BY
+                                          EXTASK_HANDLER_ID, EXTASK_HANDLER_NAME, EXTASK_HANDLER_TYPE,
+                                          EXTASK_CREATE_BY, EXTASK_FROM_TASK_ID, EXTASK_FROM_RECALL_TASK_ID,
+                                          EXTASK_FROM_EXECUTION_ID, EXTASK_INDEX, EXTASK_MULTI_TASK
                 )
         values (#{extaskId,jdbcType=VARCHAR}, #{extaskInstId,jdbcType=VARCHAR}, #{extaskModelId,jdbcType=VARCHAR},
                 #{extaskRuTaskId,jdbcType=VARCHAR}, #{extaskRuExecutionId,jdbcType=VARCHAR}, #{extaskRuProcInstId,jdbcType=VARCHAR},
@@ -82,9 +83,9 @@
                 #{extaskViewEd,jdbcType=VARCHAR}, #{extaskViewTime,jdbcType=TIMESTAMP}, #{extaskStartTime,jdbcType=TIMESTAMP},
                 #{extaskEndTime,jdbcType=TIMESTAMP}, #{extaskHandleEd,jdbcType=VARCHAR}, #{extaskHandleActionKey,jdbcType=VARCHAR},
                 #{extaskHandleActionName,jdbcType=VARCHAR}, #{extaskOrderNum,jdbcType=INTEGER},
-                #{extaskFromTaskId,jdbcType=VARCHAR}, #{extaskFromExecutionId,jdbcType=VARCHAR},
-                #{extaskIndex,jdbcType=INTEGER}, #{extaskMultiTask,jdbcType=VARCHAR}, #{extaskHandlerId,jdbcType=VARCHAR},
-                #{extaskHandlerName,jdbcType=VARCHAR}, #{extaskHandlerType,jdbcType=VARCHAR}, #{extaskCreateBy,jdbcType=VARCHAR}
+                #{extaskHandlerId,jdbcType=VARCHAR}, #{extaskHandlerName,jdbcType=VARCHAR}, #{extaskHandlerType,jdbcType=VARCHAR},
+                #{extaskCreateBy,jdbcType=VARCHAR}, #{extaskFromTaskId,jdbcType=VARCHAR}, #{extaskFromRecallTaskId,jdbcType=VARCHAR},
+                #{extaskFromExecutionId,jdbcType=VARCHAR}, #{extaskIndex,jdbcType=INTEGER}, #{extaskMultiTask,jdbcType=VARCHAR}
                        )
     </insert>
     <insert id="insertSelective" parameterType="com.jb4dc.workflow.dbentities.ExecutionTaskEntity">
@@ -168,18 +169,6 @@
             <if test="extaskOrderNum != null">
                 EXTASK_ORDER_NUM,
             </if>
-            <if test="extaskFromTaskId != null">
-                EXTASK_FROM_TASK_ID,
-            </if>
-            <if test="extaskFromExecutionId != null">
-                EXTASK_FROM_EXECUTION_ID,
-            </if>
-            <if test="extaskIndex != null">
-                EXTASK_INDEX,
-            </if>
-            <if test="extaskMultiTask != null">
-                EXTASK_MULTI_TASK,
-            </if>
             <if test="extaskHandlerId != null">
                 EXTASK_HANDLER_ID,
             </if>
@@ -191,6 +180,21 @@
             </if>
             <if test="extaskCreateBy != null">
                 EXTASK_CREATE_BY,
+            </if>
+            <if test="extaskFromTaskId != null">
+                EXTASK_FROM_TASK_ID,
+            </if>
+            <if test="extaskFromRecallTaskId != null">
+                EXTASK_FROM_RECALL_TASK_ID,
+            </if>
+            <if test="extaskFromExecutionId != null">
+                EXTASK_FROM_EXECUTION_ID,
+            </if>
+            <if test="extaskIndex != null">
+                EXTASK_INDEX,
+            </if>
+            <if test="extaskMultiTask != null">
+                EXTASK_MULTI_TASK,
             </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -272,18 +276,6 @@
             <if test="extaskOrderNum != null">
                 #{extaskOrderNum,jdbcType=INTEGER},
             </if>
-            <if test="extaskFromTaskId != null">
-                #{extaskFromTaskId,jdbcType=VARCHAR},
-            </if>
-            <if test="extaskFromExecutionId != null">
-                #{extaskFromExecutionId,jdbcType=VARCHAR},
-            </if>
-            <if test="extaskIndex != null">
-                #{extaskIndex,jdbcType=INTEGER},
-            </if>
-            <if test="extaskMultiTask != null">
-                #{extaskMultiTask,jdbcType=VARCHAR},
-            </if>
             <if test="extaskHandlerId != null">
                 #{extaskHandlerId,jdbcType=VARCHAR},
             </if>
@@ -295,6 +287,21 @@
             </if>
             <if test="extaskCreateBy != null">
                 #{extaskCreateBy,jdbcType=VARCHAR},
+            </if>
+            <if test="extaskFromTaskId != null">
+                #{extaskFromTaskId,jdbcType=VARCHAR},
+            </if>
+            <if test="extaskFromRecallTaskId != null">
+                #{extaskFromRecallTaskId,jdbcType=VARCHAR},
+            </if>
+            <if test="extaskFromExecutionId != null">
+                #{extaskFromExecutionId,jdbcType=VARCHAR},
+            </if>
+            <if test="extaskIndex != null">
+                #{extaskIndex,jdbcType=INTEGER},
+            </if>
+            <if test="extaskMultiTask != null">
+                #{extaskMultiTask,jdbcType=VARCHAR},
             </if>
         </trim>
     </insert>
@@ -376,18 +383,6 @@
             <if test="extaskOrderNum != null">
                 EXTASK_ORDER_NUM = #{extaskOrderNum,jdbcType=INTEGER},
             </if>
-            <if test="extaskFromTaskId != null">
-                EXTASK_FROM_TASK_ID = #{extaskFromTaskId,jdbcType=VARCHAR},
-            </if>
-            <if test="extaskFromExecutionId != null">
-                EXTASK_FROM_EXECUTION_ID = #{extaskFromExecutionId,jdbcType=VARCHAR},
-            </if>
-            <if test="extaskIndex != null">
-                EXTASK_INDEX = #{extaskIndex,jdbcType=INTEGER},
-            </if>
-            <if test="extaskMultiTask != null">
-                EXTASK_MULTI_TASK = #{extaskMultiTask,jdbcType=VARCHAR},
-            </if>
             <if test="extaskHandlerId != null">
                 EXTASK_HANDLER_ID = #{extaskHandlerId,jdbcType=VARCHAR},
             </if>
@@ -399,6 +394,21 @@
             </if>
             <if test="extaskCreateBy != null">
                 EXTASK_CREATE_BY = #{extaskCreateBy,jdbcType=VARCHAR},
+            </if>
+            <if test="extaskFromTaskId != null">
+                EXTASK_FROM_TASK_ID = #{extaskFromTaskId,jdbcType=VARCHAR},
+            </if>
+            <if test="extaskFromRecallTaskId != null">
+                EXTASK_FROM_RECALL_TASK_ID = #{extaskFromRecallTaskId,jdbcType=VARCHAR},
+            </if>
+            <if test="extaskFromExecutionId != null">
+                EXTASK_FROM_EXECUTION_ID = #{extaskFromExecutionId,jdbcType=VARCHAR},
+            </if>
+            <if test="extaskIndex != null">
+                EXTASK_INDEX = #{extaskIndex,jdbcType=INTEGER},
+            </if>
+            <if test="extaskMultiTask != null">
+                EXTASK_MULTI_TASK = #{extaskMultiTask,jdbcType=VARCHAR},
             </if>
         </set>
         where EXTASK_ID = #{extaskId,jdbcType=VARCHAR}
@@ -430,14 +440,15 @@
             EXTASK_HANDLE_ACTION_KEY = #{extaskHandleActionKey,jdbcType=VARCHAR},
             EXTASK_HANDLE_ACTION_NAME = #{extaskHandleActionName,jdbcType=VARCHAR},
             EXTASK_ORDER_NUM = #{extaskOrderNum,jdbcType=INTEGER},
-            EXTASK_FROM_TASK_ID = #{extaskFromTaskId,jdbcType=VARCHAR},
-            EXTASK_FROM_EXECUTION_ID = #{extaskFromExecutionId,jdbcType=VARCHAR},
-            EXTASK_INDEX = #{extaskIndex,jdbcType=INTEGER},
-            EXTASK_MULTI_TASK = #{extaskMultiTask,jdbcType=VARCHAR},
             EXTASK_HANDLER_ID = #{extaskHandlerId,jdbcType=VARCHAR},
             EXTASK_HANDLER_NAME = #{extaskHandlerName,jdbcType=VARCHAR},
             EXTASK_HANDLER_TYPE = #{extaskHandlerType,jdbcType=VARCHAR},
-            EXTASK_CREATE_BY = #{extaskCreateBy,jdbcType=VARCHAR}
+            EXTASK_CREATE_BY = #{extaskCreateBy,jdbcType=VARCHAR},
+            EXTASK_FROM_TASK_ID = #{extaskFromTaskId,jdbcType=VARCHAR},
+            EXTASK_FROM_RECALL_TASK_ID = #{extaskFromRecallTaskId,jdbcType=VARCHAR},
+            EXTASK_FROM_EXECUTION_ID = #{extaskFromExecutionId,jdbcType=VARCHAR},
+            EXTASK_INDEX = #{extaskIndex,jdbcType=INTEGER},
+            EXTASK_MULTI_TASK = #{extaskMultiTask,jdbcType=VARCHAR}
         where EXTASK_ID = #{extaskId,jdbcType=VARCHAR}
     </update>
 </mapper>

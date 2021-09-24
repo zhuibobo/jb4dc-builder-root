@@ -1206,6 +1206,7 @@
     <changeSet id="changeSet-camunda-integrated-0006" author="zhuangrb">
         <addColumn tableName="TFLOW_EXECUTION_TASK">
             <column name="EXTASK_FROM_TASK_ID" type="NVARCHAR(100)" remarks="源自任务ID:TFLOW_EXECUTION_TASK的EXTASK_ID"/>
+            <column name="EXTASK_FROM_RECALL_TASK_ID" type="NVARCHAR(100)" remarks="撤回任务ID:执行撤回时,记录撤回原始任务的ID"/>
             <column name="EXTASK_FROM_EXECUTION_ID" type="NVARCHAR(100)" remarks="源自执行ID:ACT_RU_EXECUTION的ID,例如由服务节点驱动而生成的本表信息"/>
             <column name="EXTASK_INDEX" type="INT" remarks="任务索引号:从小到大增加,多实例任务相同,主要用于生成顺序流程图"/>
             <column name="EXTASK_MULTI_TASK" type="NVARCHAR(20)" remarks="多实例任务:Single,Sequential;Parallel"/>

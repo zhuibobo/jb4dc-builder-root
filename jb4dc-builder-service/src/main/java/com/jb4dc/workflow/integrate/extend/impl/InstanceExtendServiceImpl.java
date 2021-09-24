@@ -32,6 +32,7 @@ import org.camunda.bpm.engine.repository.ProcessDefinition;
 import org.camunda.bpm.engine.runtime.ProcessInstance;
 import org.camunda.bpm.engine.task.Task;
 import org.camunda.bpm.model.bpmn.instance.FlowNode;
+import org.camunda.bpm.model.bpmn.instance.UserTask;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -344,8 +345,8 @@ public class InstanceExtendServiceImpl extends BaseServiceImpl<InstanceEntity> i
                             extaskIndex = currentExecutionTaskEntity.getExtaskIndex() + 1000;
                         }
 
-                        ExecutionTaskEntity executionTaskEntity=transformEngineTaskToExTask(jb4DCSession,task,instanceEntity,currentNodeKey,currentNodeName,receiverName,
-                                currentExecutionTaskEntity.getExtaskId(),currentExecutionTaskEntity.getExtaskRuExecutionId(),bpmnUserTask.getMultiInstanceType(),extaskIndex,WorkFlowEnum.ExTask_Create_By_Send);
+                        ExecutionTaskEntity executionTaskEntity=transformEngineTaskToExTask(jb4DCSession,jb4DCSession.getUserId(),jb4DCSession.getUserName(),new Date(),task,instanceEntity,currentNodeKey,currentNodeName,receiverName,
+                                currentExecutionTaskEntity.getExtaskId(),currentExecutionTaskEntity.getExtaskRuExecutionId(),bpmnUserTask.getMultiInstanceType(),extaskIndex,WorkFlowEnum.ExTask_Create_By_Send,"");
 
                         executionTaskExtendService.saveSimple(jb4DCSession, executionTaskEntity.getExtaskId(), executionTaskEntity);
                     }
@@ -395,10 +396,10 @@ public class InstanceExtendServiceImpl extends BaseServiceImpl<InstanceEntity> i
         }
     }
 
-    private ExecutionTaskEntity transformEngineTaskToExTask(JB4DCSession jb4DCSession,Task engineTask,InstanceEntity instanceEntity,String preNodeKey,String PreNodeName,String receiverName,
-                                                            String fromTaskId,String fromExecutionId,String multiInstanceType,int extaskIndex,String createBy){
+    private ExecutionTaskEntity transformEngineTaskToExTask(JB4DCSession jb4DCSession,String senderId,String senderName,Date sendTime,Task engineTask,InstanceEntity instanceEntity,String preNodeKey,String PreNodeName,String receiverName,
+                                                            String fromTaskId,String fromExecutionId,String multiInstanceType,int extaskIndex,String createBy,String fromRecallTaskId){
         //Date date=new Date();
-        Calendar calendar = Calendar.getInstance();
+        //Calendar calendar = Calendar.getInstance();
         //calendar.add(Calendar.SECOND,1);
         //date.
         ExecutionTaskEntity executionTaskEntity = new ExecutionTaskEntity();
@@ -415,17 +416,18 @@ public class InstanceExtendServiceImpl extends BaseServiceImpl<InstanceEntity> i
         executionTaskEntity.setExtaskCurNodeName(engineTask.getName());
         executionTaskEntity.setExtaskType(WorkFlowEnum.ExTask_Type_Main);
         executionTaskEntity.setExtaskStatus(WorkFlowEnum.ExTask_Status_Processing);
-        executionTaskEntity.setExtaskSenderId(jb4DCSession.getUserId());
-        executionTaskEntity.setExtaskSenderName(jb4DCSession.getUserName());
-        executionTaskEntity.setExtaskSendTime(calendar.getTime());
+        executionTaskEntity.setExtaskSenderId(senderId);
+        executionTaskEntity.setExtaskSenderName(senderName);
+        executionTaskEntity.setExtaskSendTime(sendTime);
         executionTaskEntity.setExtaskReceiverId(engineTask.getAssignee());
 
         executionTaskEntity.setExtaskReceiverName(receiverName);
         executionTaskEntity.setExtaskViewEd(TrueFalseEnum.False.getDisplayName());
-        executionTaskEntity.setExtaskStartTime(calendar.getTime());
+        executionTaskEntity.setExtaskStartTime(sendTime);
         executionTaskEntity.setExtaskHandleEd(TrueFalseEnum.False.getDisplayName());
         executionTaskEntity.setExtaskOrderNum(executionTaskExtendService.getNextOrderNum(jb4DCSession));
         executionTaskEntity.setExtaskFromTaskId(fromTaskId);
+        executionTaskEntity.setExtaskFromRecallTaskId(fromRecallTaskId);
         executionTaskEntity.setExtaskFromExecutionId(fromExecutionId);
 
         executionTaskEntity.setExtaskMultiTask(multiInstanceType);
@@ -635,7 +637,7 @@ public class InstanceExtendServiceImpl extends BaseServiceImpl<InstanceEntity> i
         return flowInstanceRuntimePO;
     }
 
-    private Jb4dcActions getMyEndTaskEnableActions(JB4DCSession session, String userId, String organId, String extaskId, FlowInstanceRuntimePO flowInstanceRuntimePO) throws JBuild4DCGenerallyException {
+    private Jb4dcActions getMyEndTaskEnableActions(JB4DCSession session, String userId, String organId, String extaskId, FlowInstanceRuntimePO flowInstanceRuntimePO) throws JBuild4DCGenerallyException, XMLStreamException, JAXBException, IOException {
         Jb4dcActions actions=new Jb4dcActions();
         actions.setJb4dcActionList(new ArrayList<>());
         //删除按钮
@@ -651,7 +653,7 @@ public class InstanceExtendServiceImpl extends BaseServiceImpl<InstanceEntity> i
         return actions;
     }
 
-    private Jb4dcAction getRecallTaskAction(JB4DCSession session, String userId, String organId, String extaskId, FlowInstanceRuntimePO flowInstanceRuntimePO) throws JBuild4DCGenerallyException {
+    private Jb4dcAction getRecallTaskAction(JB4DCSession session, String userId, String organId, String extaskId, FlowInstanceRuntimePO flowInstanceRuntimePO) throws JBuild4DCGenerallyException, XMLStreamException, JAXBException, IOException {
         SimplePO disable = recallTaskActionEnable(session, userId, organId, extaskId, flowInstanceRuntimePO);
         Jb4dcAction action = new Jb4dcAction();
         action.setActionCaption("撤回");
@@ -697,8 +699,31 @@ public class InstanceExtendServiceImpl extends BaseServiceImpl<InstanceEntity> i
                             allProcessingTaskList.stream().anyMatch(item->item.getExtaskCurNodeKey().equals(myTaskNodeKey))){
 
                         List<Task> engineTaskList = flowEngineTaskIntegratedService.getTasks(instanceEntity.getInstRuProcInstId());
+                        ExecutionTaskEntity recallNewExecutionTaskEntity=null;
                         //需要排除掉已有的ExTask;
-                        throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_WORKFLOW_CODE,"[如果撤回环节是多人环节,并且其他人都没有办理完成],暂不支持!");
+                        for (Task engineTask : engineTaskList) {
+                            if(allProcessingTaskList.stream().noneMatch(item->item.getExtaskRuTaskId().equals(engineTask.getId()))){
+
+                                int recallNewExtaskIndex=executionTaskExtendService.getNextExtaskIndexByInstanceId(jb4DCSession,instanceEntity.getInstId());
+                                recallNewExecutionTaskEntity=transformEngineTaskToExTask(jb4DCSession,
+                                        recallFromExecutionTaskEntity.getExtaskSenderId(),recallFromExecutionTaskEntity.getExtaskSenderName(), recallFromExecutionTaskEntity.getExtaskSendTime(),
+                                        engineTask,instanceEntity,
+                                        recallFromExecutionTaskEntity.getExtaskPreNodeKey(),recallFromExecutionTaskEntity.getExtaskPreNodeName(),
+                                        recallFromExecutionTaskEntity.getExtaskReceiverName(),
+                                        recallFromExecutionTaskEntity.getExtaskFromTaskId(),recallFromExecutionTaskEntity.getExtaskFromExecutionId(),bpmnUserTask.getMultiInstanceType(),recallNewExtaskIndex,WorkFlowEnum.ExTask_Create_By_Cancel,
+                                        recallFromExecutionTaskEntity.getExtaskId());
+
+                                executionTaskExtendService.saveSimple(jb4DCSession, recallNewExecutionTaskEntity.getExtaskId(), recallNewExecutionTaskEntity);
+                            }
+                        }
+                        //将撤销的来源任务从End修改为CancelEnd
+                        recallFromExecutionTaskEntity.setExtaskStatus(WorkFlowEnum.ExTask_Status_CancelEnd);
+                        executionTaskExtendService.updateByKeySelective(jb4DCSession,recallFromExecutionTaskEntity);
+
+                        recallTaskResult.setSuccess(true);
+                        recallTaskResult.setMessage("撤回成功，请到待办中进行办理操作。");
+                        recallTaskResult.setData(recallNewExecutionTaskEntity);
+                        //throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_WORKFLOW_CODE,"[如果撤回环节是多人环节,并且其他人都没有办理完成],暂不支持!");
                     }
                     else {
                         throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_WORKFLOW_CODE,"[如果撤回环节是多人环节,并且其他人都没有办理完成],状态再次验证失败.");
@@ -721,23 +746,30 @@ public class InstanceExtendServiceImpl extends BaseServiceImpl<InstanceEntity> i
                     //region 如果撤回环节是单人环节.
                     if(recallFromExecutionTaskEntity.getExtaskMultiTask().equals(WorkFlowEnum.ExTask_Multi_Task_Single)) {
                         //executionTaskExtendService.cancelProcessingExTask(jb4DCSession, instanceEntity.getInstId());
-                        ExecutionTaskEntity beCancelExecutionTaskEntity=executionTaskExtendService.getProcessingTaskByInstanceIdAndFromTaskId(jb4DCSession,instanceEntity.getInstId(),recallFromExecutionTaskEntity.getExtaskId());
-                        if(beCancelExecutionTaskEntity==null) {
+                        List<ExecutionTaskEntity> beCancelExecutionTaskEntityList=executionTaskExtendService.getProcessingTaskByInstanceIdAndFromTaskId(jb4DCSession,instanceEntity.getInstId(),recallFromExecutionTaskEntity.getExtaskId());
+                        ExecutionTaskEntity singleBeCancelExecutionTaskEntityList=null;
+                        if(beCancelExecutionTaskEntityList==null) {
                             throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_WORKFLOW_CODE,"[撤回单人环节]，找不到需要取消的任务！");
                         }
                         else{
-                            beCancelExecutionTaskEntity.setExtaskStatus(WorkFlowEnum.ExTask_Status_Cancel);
-                            executionTaskExtendService.updateByKeySelective(jb4DCSession,beCancelExecutionTaskEntity);
+                            singleBeCancelExecutionTaskEntityList=beCancelExecutionTaskEntityList.get(0);
+
+                            for (ExecutionTaskEntity executionTaskEntity : beCancelExecutionTaskEntityList) {
+                                executionTaskEntity.setExtaskStatus(WorkFlowEnum.ExTask_Status_Cancel);
+                                executionTaskExtendService.updateByKeySelective(jb4DCSession,executionTaskEntity);
+                            }
                         }
                         List<Task> engineTaskList = flowEngineTaskIntegratedService.getTasks(instanceEntity.getInstRuProcInstId());
                         Task engineTask = engineTaskList.stream().filter(item -> item.getTaskDefinitionKey().equals(recallFromExecutionTaskEntity.getExtaskCurNodeKey())).findFirst().get();
                         int recallNewExtaskIndex=executionTaskExtendService.getNextExtaskIndexByInstanceId(jb4DCSession,instanceEntity.getInstId());
 
                         //生成新的待办任务
-                        ExecutionTaskEntity recallNewExecutionTaskEntity=transformEngineTaskToExTask(jb4DCSession,engineTask,instanceEntity,
-                                beCancelExecutionTaskEntity.getExtaskCurNodeKey(),beCancelExecutionTaskEntity.getExtaskCurNodeName(),
+                        ExecutionTaskEntity recallNewExecutionTaskEntity=transformEngineTaskToExTask(jb4DCSession,
+                                recallFromExecutionTaskEntity.getExtaskSenderId(),recallFromExecutionTaskEntity.getExtaskSenderName(),recallFromExecutionTaskEntity.getExtaskSendTime(),engineTask,instanceEntity,
+                                singleBeCancelExecutionTaskEntityList.getExtaskCurNodeKey(),singleBeCancelExecutionTaskEntityList.getExtaskCurNodeName(),
                                 recallFromExecutionTaskEntity.getExtaskReceiverName(),
-                                recallFromExecutionTaskEntity.getExtaskId(),recallFromExecutionTaskEntity.getExtaskRuExecutionId(),bpmnUserTask.getMultiInstanceType(),recallNewExtaskIndex,WorkFlowEnum.ExTask_Create_By_Cancel);
+                                recallFromExecutionTaskEntity.getExtaskFromTaskId(),recallFromExecutionTaskEntity.getExtaskFromExecutionId(),bpmnUserTask.getMultiInstanceType(),recallNewExtaskIndex,WorkFlowEnum.ExTask_Create_By_Cancel,
+                                recallFromExecutionTaskEntity.getExtaskId());
 
                         executionTaskExtendService.saveSimple(jb4DCSession, recallNewExecutionTaskEntity.getExtaskId(), recallNewExecutionTaskEntity);
 
@@ -771,32 +803,64 @@ public class InstanceExtendServiceImpl extends BaseServiceImpl<InstanceEntity> i
         }
     }
 
-    private SimplePO recallTaskActionEnable(JB4DCSession session, String userId, String organId, String extaskId, FlowInstanceRuntimePO flowInstanceRuntimePO) throws JBuild4DCGenerallyException {
+    private SimplePO recallTaskActionEnable(JB4DCSession jb4DCSession, String userId, String organId, String extaskId, FlowInstanceRuntimePO flowInstanceRuntimePO) throws JBuild4DCGenerallyException, XMLStreamException, JAXBException, IOException {
         SimplePO simplePO=new SimplePO();
-        String instRuProcInstId=flowInstanceRuntimePO.getInstanceEntity().getInstRuProcInstId();
-        ExecutionTaskEntity recallFromExecutionTaskEntity=flowInstanceRuntimePO.getExecutionTaskEntity();
-        if(flowEngineInstanceIntegratedService.instanceIsComplete(session,instRuProcInstId)){
-            simplePO.setSuccess(false);
-            simplePO.setStringValue("disable");
-            simplePO.setMessage("该流程实例已经办结,无法撤回!");
-            return simplePO;
-        }
-        if(executionTaskExtendService.instanceProcessingTaskIsSendFromMe(session,extaskId)){
+        try {
             simplePO.setSuccess(true);
             simplePO.setStringValue("enable");
             simplePO.setMessage("");
+
+            String instRuProcInstId=flowInstanceRuntimePO.getInstanceEntity().getInstRuProcInstId();
+            ExecutionTaskEntity recallFromExecutionTaskEntity=flowInstanceRuntimePO.getExecutionTaskEntity();
+            if(flowEngineInstanceIntegratedService.instanceIsComplete(jb4DCSession,instRuProcInstId)){
+                throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_WORKFLOW_CODE,"该流程实例已经办结,无法撤回!");
+            }
+
+            //撤销任务所在的环节Key
+            String recallFromExecutionTaskAtNodeKey=recallFromExecutionTaskEntity.getExtaskCurNodeKey();
+            //如果当前流程所处的环节与撤销任务的环节相同或者为下一个连线环节,则允许撤销.
+            //BpmnDefinitions bpmnDefinitions = modelIntegratedExtendService.getDeployedCamundaModelBpmnDefinitions(jb4DCSession, recallFromExecutionTaskEntity.getExtaskRuProcDefId());
+            List<String> currentActivityNodeIds=flowEngineExecutionIntegratedService.getCurrentActivityNodeIds(jb4DCSession,recallFromExecutionTaskEntity.getExtaskRuProcInstId());
+            //BpmnUserTask bpmnUserTask=bpmnDefinitions.getBpmnProcess().getUserTaskList().stream().filter(item->item.getId().equals(recallFromExecutionTaskAtNodeKey)).findFirst().get();
+
+            if(currentActivityNodeIds.stream().anyMatch(item->item.equals(recallFromExecutionTaskAtNodeKey))){
+                //如果当前流程所处的环节与撤销任务的环节相同,则允许撤销.
+                return simplePO;
+            }
+
+
+
+            List<ExecutionTaskEntity> processingTaskList=executionTaskExtendService.getByInstanceIdAndStatus(jb4DCSession,recallFromExecutionTaskEntity.getExtaskInstId(),WorkFlowEnum.ExTask_Status_Processing);
+            for (ExecutionTaskEntity executionTaskEntity : processingTaskList) {
+                if(!recallFromExecutionTaskAtNodeKey.equals(executionTaskEntity.getExtaskPreNodeKey())){
+                    throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_WORKFLOW_CODE,"接收人已经办理了该件,无法撤回!");
+                }
+            }
+
+            boolean nextTaskIsSendFromMe=executionTaskExtendService.instanceProcessingTaskIsSendFromMe(jb4DCSession,extaskId);
+            if(nextTaskIsSendFromMe){
+                return simplePO;
+            }
+
+            /*if(executionTaskExtendService.instanceProcessingTaskIsSendFromMe(jb4DCSession,extaskId)){
+                simplePO.setSuccess(true);
+                simplePO.setStringValue("enable");
+                simplePO.setMessage("");
+            }
+            else{
+                throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_WORKFLOW_CODE,"接收人已经办理了该件,无法撤回!");
+            }*/
+            if(recallFromExecutionTaskEntity.getExtaskRuTaskId().equals("Start")){
+                throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_WORKFLOW_CODE,"无法执行撤回!");
+            }
+            throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_WORKFLOW_CODE,"未知情况,无法执行撤回!");
         }
-        else{
+        catch (Exception ex){
             simplePO.setSuccess(false);
             simplePO.setStringValue("disable");
-            simplePO.setMessage("接收人已经办理了该件,无法撤回!");
+            simplePO.setMessage(ex.getMessage());
+            return simplePO;
         }
-        if(recallFromExecutionTaskEntity.getExtaskRuTaskId().equals("Start")){
-            simplePO.setSuccess(false);
-            simplePO.setStringValue("disable");
-            simplePO.setMessage("无法执行撤回!");
-        }
-        return simplePO;
     }
 
     private Jb4dcAction getDeleteInstanceAction(JB4DCSession session, String userId, String organId, String extaskId, FlowInstanceRuntimePO flowInstanceRuntimePO) {

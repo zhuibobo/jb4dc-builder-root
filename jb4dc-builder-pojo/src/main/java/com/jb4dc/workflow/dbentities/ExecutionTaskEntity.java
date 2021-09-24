@@ -95,18 +95,6 @@ public class ExecutionTaskEntity {
     //EXTASK_ORDER_NUM:排序号
     private Integer extaskOrderNum;
 
-    //EXTASK_FROM_TASK_ID:源自任务ID:TFLOW_EXECUTION_TASK的EXTASK_ID
-    private String extaskFromTaskId;
-
-    //EXTASK_FROM_EXECUTION_ID:源自执行ID:ACT_RU_EXECUTION的ID,例如由服务节点驱动而生成的本表信息
-    private String extaskFromExecutionId;
-
-    //EXTASK_INDEX:任务索引号:从小到大增加,多实例任务相同,主要用于生成顺序流程图
-    private Integer extaskIndex;
-
-    //EXTASK_MULTI_TASK:多实例任务:Single,Sequential;Parallel
-    private String extaskMultiTask;
-
     //EXTASK_HANDLER_ID:任务的实际处理人ID:办结时进行设置
     private String extaskHandlerId;
 
@@ -118,6 +106,21 @@ public class ExecutionTaskEntity {
 
     //EXTASK_CREATE_BY:任务创建来源:Initial-Create[初始创建],Send-Create[用户发送],Cancel-Create[撤回创建],Jump-Create[跳转创建],Restart-Create[重启创建]
     private String extaskCreateBy;
+
+    //EXTASK_FROM_TASK_ID:源自任务ID:TFLOW_EXECUTION_TASK的EXTASK_ID
+    private String extaskFromTaskId;
+
+    //EXTASK_FROM_RECALL_TASK_ID:撤回任务ID:执行撤回时,记录撤回原始任务的ID
+    private String extaskFromRecallTaskId;
+
+    //EXTASK_FROM_EXECUTION_ID:源自执行ID:ACT_RU_EXECUTION的ID,例如由服务节点驱动而生成的本表信息
+    private String extaskFromExecutionId;
+
+    //EXTASK_INDEX:任务索引号:从小到大增加,多实例任务相同,主要用于生成顺序流程图
+    private Integer extaskIndex;
+
+    //EXTASK_MULTI_TASK:多实例任务:Single,Sequential;Parallel
+    private String extaskMultiTask;
 
     /**
      * 构造函数
@@ -147,16 +150,22 @@ public class ExecutionTaskEntity {
      * @param extaskHandleActionKey 处理动作Key
      * @param extaskHandleActionName 处理动作名称
      * @param extaskOrderNum 排序号
-     * @param extaskFromTaskId 源自任务ID
-     * @param extaskFromExecutionId 源自执行ID
-     * @param extaskIndex 任务索引号
-     * @param extaskMultiTask 多实例任务
      * @param extaskHandlerId 任务的实际处理人ID
      * @param extaskHandlerName 任务的实际处理人名称
      * @param extaskHandlerType 任务的处理类型
      * @param extaskCreateBy 任务创建来源
+     * @param extaskFromTaskId 源自任务ID
+     * @param extaskFromRecallTaskId 撤回任务ID
+     * @param extaskFromExecutionId 源自执行ID
+     * @param extaskIndex 任务索引号
+     * @param extaskMultiTask 多实例任务
      **/
-    public ExecutionTaskEntity(String extaskId, String extaskInstId, String extaskModelId, String extaskRuTaskId, String extaskRuExecutionId, String extaskRuProcInstId, String extaskRuProcDefId, String extaskPreNodeKey, String extaskPreNodeName, String extaskCurNodeKey, String extaskCurNodeName, String extaskType, String extaskStatus, String extaskSenderId, String extaskSenderName, Date extaskSendTime, String extaskReceiverId, String extaskReceiverName, String extaskViewEd, Date extaskViewTime, Date extaskStartTime, Date extaskEndTime, String extaskHandleEd, String extaskHandleActionKey, String extaskHandleActionName, Integer extaskOrderNum, String extaskFromTaskId, String extaskFromExecutionId, Integer extaskIndex, String extaskMultiTask, String extaskHandlerId, String extaskHandlerName, String extaskHandlerType, String extaskCreateBy) {
+    public ExecutionTaskEntity(String extaskId, String extaskInstId, String extaskModelId, String extaskRuTaskId, String extaskRuExecutionId, String extaskRuProcInstId,
+                               String extaskRuProcDefId, String extaskPreNodeKey, String extaskPreNodeName, String extaskCurNodeKey, String extaskCurNodeName, String extaskType,
+                               String extaskStatus, String extaskSenderId, String extaskSenderName, Date extaskSendTime, String extaskReceiverId, String extaskReceiverName,
+                               String extaskViewEd, Date extaskViewTime, Date extaskStartTime, Date extaskEndTime, String extaskHandleEd, String extaskHandleActionKey,
+                               String extaskHandleActionName, Integer extaskOrderNum, String extaskHandlerId, String extaskHandlerName, String extaskHandlerType,
+                               String extaskCreateBy, String extaskFromTaskId, String extaskFromRecallTaskId, String extaskFromExecutionId, Integer extaskIndex, String extaskMultiTask) {
         this.extaskId = extaskId;
         this.extaskInstId = extaskInstId;
         this.extaskModelId = extaskModelId;
@@ -183,14 +192,15 @@ public class ExecutionTaskEntity {
         this.extaskHandleActionKey = extaskHandleActionKey;
         this.extaskHandleActionName = extaskHandleActionName;
         this.extaskOrderNum = extaskOrderNum;
-        this.extaskFromTaskId = extaskFromTaskId;
-        this.extaskFromExecutionId = extaskFromExecutionId;
-        this.extaskIndex = extaskIndex;
-        this.extaskMultiTask = extaskMultiTask;
         this.extaskHandlerId = extaskHandlerId;
         this.extaskHandlerName = extaskHandlerName;
         this.extaskHandlerType = extaskHandlerType;
         this.extaskCreateBy = extaskCreateBy;
+        this.extaskFromTaskId = extaskFromTaskId;
+        this.extaskFromRecallTaskId = extaskFromRecallTaskId;
+        this.extaskFromExecutionId = extaskFromExecutionId;
+        this.extaskIndex = extaskIndex;
+        this.extaskMultiTask = extaskMultiTask;
     }
 
     public ExecutionTaskEntity() {
@@ -614,70 +624,6 @@ public class ExecutionTaskEntity {
     }
 
     /**
-     * 源自任务ID:TFLOW_EXECUTION_TASK的EXTASK_ID
-     * @return java.lang.String
-     **/
-    public String getExtaskFromTaskId() {
-        return extaskFromTaskId;
-    }
-
-    /**
-     * 源自任务ID:TFLOW_EXECUTION_TASK的EXTASK_ID
-     * @param extaskFromTaskId 源自任务ID
-     **/
-    public void setExtaskFromTaskId(String extaskFromTaskId) {
-        this.extaskFromTaskId = extaskFromTaskId == null ? null : extaskFromTaskId.trim();
-    }
-
-    /**
-     * 源自执行ID:ACT_RU_EXECUTION的ID,例如由服务节点驱动而生成的本表信息
-     * @return java.lang.String
-     **/
-    public String getExtaskFromExecutionId() {
-        return extaskFromExecutionId;
-    }
-
-    /**
-     * 源自执行ID:ACT_RU_EXECUTION的ID,例如由服务节点驱动而生成的本表信息
-     * @param extaskFromExecutionId 源自执行ID
-     **/
-    public void setExtaskFromExecutionId(String extaskFromExecutionId) {
-        this.extaskFromExecutionId = extaskFromExecutionId == null ? null : extaskFromExecutionId.trim();
-    }
-
-    /**
-     * 任务索引号:从小到大增加,多实例任务相同,主要用于生成顺序流程图
-     * @return java.lang.Integer
-     **/
-    public Integer getExtaskIndex() {
-        return extaskIndex;
-    }
-
-    /**
-     * 任务索引号:从小到大增加,多实例任务相同,主要用于生成顺序流程图
-     * @param extaskIndex 任务索引号
-     **/
-    public void setExtaskIndex(Integer extaskIndex) {
-        this.extaskIndex = extaskIndex;
-    }
-
-    /**
-     * 多实例任务:Single,Sequential;Parallel
-     * @return java.lang.String
-     **/
-    public String getExtaskMultiTask() {
-        return extaskMultiTask;
-    }
-
-    /**
-     * 多实例任务:Single,Sequential;Parallel
-     * @param extaskMultiTask 多实例任务
-     **/
-    public void setExtaskMultiTask(String extaskMultiTask) {
-        this.extaskMultiTask = extaskMultiTask == null ? null : extaskMultiTask.trim();
-    }
-
-    /**
      * 任务的实际处理人ID:办结时进行设置
      * @return java.lang.String
      **/
@@ -739,5 +685,85 @@ public class ExecutionTaskEntity {
      **/
     public void setExtaskCreateBy(String extaskCreateBy) {
         this.extaskCreateBy = extaskCreateBy == null ? null : extaskCreateBy.trim();
+    }
+
+    /**
+     * 源自任务ID:TFLOW_EXECUTION_TASK的EXTASK_ID
+     * @return java.lang.String
+     **/
+    public String getExtaskFromTaskId() {
+        return extaskFromTaskId;
+    }
+
+    /**
+     * 源自任务ID:TFLOW_EXECUTION_TASK的EXTASK_ID
+     * @param extaskFromTaskId 源自任务ID
+     **/
+    public void setExtaskFromTaskId(String extaskFromTaskId) {
+        this.extaskFromTaskId = extaskFromTaskId == null ? null : extaskFromTaskId.trim();
+    }
+
+    /**
+     * 撤回任务ID:执行撤回时,记录撤回原始任务的ID
+     * @return java.lang.String
+     **/
+    public String getExtaskFromRecallTaskId() {
+        return extaskFromRecallTaskId;
+    }
+
+    /**
+     * 撤回任务ID:执行撤回时,记录撤回原始任务的ID
+     * @param extaskFromRecallTaskId 撤回任务ID
+     **/
+    public void setExtaskFromRecallTaskId(String extaskFromRecallTaskId) {
+        this.extaskFromRecallTaskId = extaskFromRecallTaskId == null ? null : extaskFromRecallTaskId.trim();
+    }
+
+    /**
+     * 源自执行ID:ACT_RU_EXECUTION的ID,例如由服务节点驱动而生成的本表信息
+     * @return java.lang.String
+     **/
+    public String getExtaskFromExecutionId() {
+        return extaskFromExecutionId;
+    }
+
+    /**
+     * 源自执行ID:ACT_RU_EXECUTION的ID,例如由服务节点驱动而生成的本表信息
+     * @param extaskFromExecutionId 源自执行ID
+     **/
+    public void setExtaskFromExecutionId(String extaskFromExecutionId) {
+        this.extaskFromExecutionId = extaskFromExecutionId == null ? null : extaskFromExecutionId.trim();
+    }
+
+    /**
+     * 任务索引号:从小到大增加,多实例任务相同,主要用于生成顺序流程图
+     * @return java.lang.Integer
+     **/
+    public Integer getExtaskIndex() {
+        return extaskIndex;
+    }
+
+    /**
+     * 任务索引号:从小到大增加,多实例任务相同,主要用于生成顺序流程图
+     * @param extaskIndex 任务索引号
+     **/
+    public void setExtaskIndex(Integer extaskIndex) {
+        this.extaskIndex = extaskIndex;
+    }
+
+    /**
+     * 多实例任务:Single,Sequential;Parallel
+     * @return java.lang.String
+     **/
+    public String getExtaskMultiTask() {
+        return extaskMultiTask;
+    }
+
+    /**
+     * 多实例任务:Single,Sequential;Parallel
+     * @param extaskMultiTask 多实例任务
+     **/
+    public void setExtaskMultiTask(String extaskMultiTask) {
+        this.extaskMultiTask = extaskMultiTask == null ? null : extaskMultiTask.trim();
     }
 }

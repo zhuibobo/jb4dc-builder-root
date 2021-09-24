@@ -29,14 +29,15 @@
             <arg column="EXTASK_HANDLE_ACTION_KEY" javaType="java.lang.String" jdbcType="VARCHAR" />
             <arg column="EXTASK_HANDLE_ACTION_NAME" javaType="java.lang.String" jdbcType="VARCHAR" />
             <arg column="EXTASK_ORDER_NUM" javaType="java.lang.Integer" jdbcType="INTEGER" />
-            <arg column="EXTASK_FROM_TASK_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
-            <arg column="EXTASK_FROM_EXECUTION_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
-            <arg column="EXTASK_INDEX" javaType="java.lang.Integer" jdbcType="INTEGER" />
-            <arg column="EXTASK_MULTI_TASK" javaType="java.lang.String" jdbcType="VARCHAR" />
             <arg column="EXTASK_HANDLER_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
             <arg column="EXTASK_HANDLER_NAME" javaType="java.lang.String" jdbcType="VARCHAR" />
             <arg column="EXTASK_HANDLER_TYPE" javaType="java.lang.String" jdbcType="VARCHAR" />
             <arg column="EXTASK_CREATE_BY" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="EXTASK_FROM_TASK_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="EXTASK_FROM_RECALL_TASK_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="EXTASK_FROM_EXECUTION_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="EXTASK_INDEX" javaType="java.lang.Integer" jdbcType="INTEGER" />
+            <arg column="EXTASK_MULTI_TASK" javaType="java.lang.String" jdbcType="VARCHAR" />
             <arg column="INST_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
             <arg column="INST_TITLE" javaType="java.lang.String" jdbcType="VARCHAR" />
             <arg column="INST_DESC" javaType="java.lang.String" jdbcType="VARCHAR" />

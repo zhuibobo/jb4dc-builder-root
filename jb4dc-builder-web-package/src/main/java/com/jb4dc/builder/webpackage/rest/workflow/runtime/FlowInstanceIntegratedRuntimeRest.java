@@ -62,6 +62,18 @@ public class FlowInstanceIntegratedRuntimeRest implements FlowInstanceIntegrated
     }
 
     @Override
+    public JBuild4DCResponseVo changeTaskToView(String extaskId) throws JBuild4DCGenerallyException {
+        try {
+            JB4DCSession jb4DCSession = JB4DCSessionUtility.getSession();
+            executionTaskExtendService.changeTaskToView(jb4DCSession, extaskId);
+            return JBuild4DCResponseVo.opSuccess();
+        }
+        catch (Exception ex){
+            throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_WORKFLOW_CODE,ex);
+        }
+    }
+
+    @Override
     public JBuild4DCResponseVo<FlowInstanceRuntimePO> getRuntimeModelWithEndTask(String userId, String organId, String extaskId) throws JBuild4DCGenerallyException {
         try {
             JB4DCSession jb4DCSession = JB4DCSessionUtility.getSession();

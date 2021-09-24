@@ -23,6 +23,9 @@ public interface FlowInstanceIntegratedRuntimeRemote {
     @RequestMapping(value = "/GetRuntimeModelWithProcess",method = RequestMethod.GET)
     JBuild4DCResponseVo<FlowInstanceRuntimePO> getRuntimeModelWithProcessTask(@RequestParam("userId") String userId, @RequestParam("organId")  String organId, @RequestParam("extaskId") String extaskId) throws JBuild4DCGenerallyException;
 
+    @RequestMapping(value = "/ChangeTaskToView",method = RequestMethod.POST)
+    JBuild4DCResponseVo changeTaskToView(@RequestParam("extaskId") String extaskId) throws JBuild4DCGenerallyException;
+
     @RequestMapping(value = "/GetRuntimeModelWithEndTask",method = RequestMethod.GET)
     JBuild4DCResponseVo<FlowInstanceRuntimePO> getRuntimeModelWithEndTask(@RequestParam("userId") String userId, @RequestParam("organId")  String organId, @RequestParam("extaskId") String extaskId) throws JBuild4DCGenerallyException;
 

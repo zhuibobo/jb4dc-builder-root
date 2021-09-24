@@ -256,6 +256,11 @@ public class WorkFlowInstanceRuntimeServiceImpl extends WorkFlowRuntimeServiceIm
         return flowInstanceIntegratedRuntimeRemote.recallMySendTask(userId,organId,extaskId);
     }
 
+    @Override
+    public JBuild4DCResponseVo changeTaskToView(String extaskId) throws JBuild4DCGenerallyException {
+        return flowInstanceIntegratedRuntimeRemote.changeTaskToView(extaskId);
+    }
+
     protected ActionApiRunResult rubApi(JB4DCSession jb4DCSession, ActionApiPO actionApiPO,
                                         boolean isStartInstanceStatus, String currentNodeKey,
                                         String currentNodeName, String actionCode,

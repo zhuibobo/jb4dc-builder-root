@@ -141,8 +141,18 @@ public class ExecutionTaskExtendServiceImpl  extends BaseServiceImpl<ExecutionTa
     }
 
     @Override
-    public ExecutionTaskEntity getProcessingTaskByInstanceIdAndFromTaskId(JB4DCSession jb4DCSession, String instId, String extaskFromTaskId) {
+    public List<ExecutionTaskEntity> getProcessingTaskByInstanceIdAndFromTaskId(JB4DCSession jb4DCSession, String instId, String extaskFromTaskId) {
         return executionTaskMapper.selectProcessingTaskByInstanceIdAndFromTaskId(instId,extaskFromTaskId);
+    }
+
+    @Override
+    public void changeTaskToView(JB4DCSession jb4DCSession, String extaskId) throws JBuild4DCGenerallyException {
+        ExecutionTaskEntity executionTaskEntity=getByPrimaryKey(jb4DCSession,extaskId);
+        if(executionTaskEntity.getExtaskViewTime()==null){
+           executionTaskEntity.setExtaskViewEd("是");
+           executionTaskEntity.setExtaskViewTime(new Date());
+           updateByKeySelective(jb4DCSession,executionTaskEntity);
+        }
     }
 
 

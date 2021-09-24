@@ -16,6 +16,7 @@ import com.jb4dc.workflow.po.receive.ClientSelectedReceiver;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.io.IOException;
@@ -39,6 +40,11 @@ public class InstanceRuntimeRest {
     @RequestMapping(value = "/GetRuntimeModelWithProcess",method = RequestMethod.GET)
     public JBuild4DCResponseVo<FlowInstanceRuntimePO> getRuntimeModelWithProcess(String extaskId) throws IOException, JBuild4DCGenerallyException {
         return workFlowInstanceRuntimeService.getRuntimeModelWithProcess(JB4DCSessionUtility.getSession(),JB4DCSessionUtility.getSession().getUserId(),JB4DCSessionUtility.getSession().getOrganId(),extaskId);
+    }
+
+    @RequestMapping(value = "/ChangeTaskToView",method = RequestMethod.POST)
+    public JBuild4DCResponseVo changeTaskToView(String extaskId) throws JBuild4DCGenerallyException{
+        return workFlowInstanceRuntimeService.changeTaskToView(extaskId);
     }
 
     @RequestMapping(value = "/GetRuntimeModelWithMyEndProcess",method = RequestMethod.GET)
@@ -84,11 +90,6 @@ public class InstanceRuntimeRest {
         TaskActionResult completeTaskResult=workFlowInstanceRuntimeService.completeTask(JB4DCSessionUtility.getSession(),isStartInstanceStatus,instanceId,modelId,modelReKey,currentTaskId,currentNodeKey,currentNodeName,actionCode,flowInstanceRuntimePOCacheKey,formRecordComplexPO,clientSelectedReceiverList,recordId,null);
         return completeTaskResult;
     }
-
-    /*@RequestMapping(value = "/RecallMySendTaskEnable",method = RequestMethod.POST)
-    public JBuild4DCResponseVo recallMySendTaskEnable(String extaskId) throws IOException, JBuild4DCGenerallyException, JBuild4DCSQLKeyWordException {
-        return workFlowInstanceRuntimeService.recallMySendTaskEnable(JB4DCSessionUtility.getSession(),JB4DCSessionUtility.getSession().getUserId(),JB4DCSessionUtility.getSession().getOrganId(),extaskId);
-    }*/
 
     @RequestMapping(value = "/RecallMySendTask",method = RequestMethod.POST)
     public JBuild4DCResponseVo recallMySendTask(String extaskId) throws IOException, JBuild4DCGenerallyException, JBuild4DCSQLKeyWordException {
