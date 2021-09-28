@@ -11,13 +11,17 @@ import com.jb4dc.feb.dist.webserver.rest.base.GeneralRest;
 import com.jb4dc.workflow.dbentities.InstanceEntity;
 import com.jb4dc.workflow.integrate.engine.IFlowEngineInstanceIntegratedService;
 import com.jb4dc.workflow.integrate.extend.IInstanceExtendService;
+import com.jb4dc.workflow.po.ClearDataPO;
 import com.jb4dc.workflow.po.FlowInstanceRuntimePO;
+import com.jb4dc.workflow.po.FlowModelIntegratedPO;
 import com.jb4dc.workflow.po.InstancePO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.xml.bind.JAXBException;
 import javax.xml.stream.XMLStreamException;
 import java.io.IOException;
@@ -93,5 +97,13 @@ public class FlowInstanceRest extends GeneralRest<InstanceEntity> {
         FlowInstanceRuntimePO flowInstanceRuntimePO=instanceExtendService.updateInstanceToVersion(jb4DSession,instanceId,processDefinitionId);
         return JBuild4DCResponseVo.opSuccess(flowInstanceRuntimePO);
         //return null;
+    }
+
+
+    @RequestMapping(value = "/ClearData", method = RequestMethod.POST)
+    public JBuild4DCResponseVo clearData(@RequestBody ClearDataPO clearDataPO) throws JBuild4DCGenerallyException {
+        JB4DCSession jb4DSession = JB4DCSessionUtility.getSession();
+        instanceExtendService.clearData(jb4DSession,clearDataPO);
+        return JBuild4DCResponseVo.opSuccess();
     }
 }

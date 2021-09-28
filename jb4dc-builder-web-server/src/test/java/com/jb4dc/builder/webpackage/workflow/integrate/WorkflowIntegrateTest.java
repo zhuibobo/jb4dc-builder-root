@@ -1258,6 +1258,7 @@ public class WorkflowIntegrateTest extends RestTestBase {
         Task task = taskQuery.singleResult();
 
         taskService.complete(task.getId());
+        //runtimeService.signal();
 
         taskQuery = taskService.createTaskQuery().taskAssignee("user1");
         task = taskQuery.singleResult();

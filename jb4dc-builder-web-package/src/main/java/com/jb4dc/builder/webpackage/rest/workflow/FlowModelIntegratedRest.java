@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.github.pagehelper.PageInfo;
 import com.jb4dc.base.service.IBaseService;
 import com.jb4dc.base.service.general.JB4DCSessionUtility;
+import com.jb4dc.base.service.po.SimplePO;
 import com.jb4dc.base.service.search.GeneralSearchUtility;
 import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
 import com.jb4dc.core.base.session.JB4DCSession;
@@ -85,6 +86,18 @@ public class FlowModelIntegratedRest extends GeneralRest<ModelIntegratedEntity> 
         responseVo.setMessage("获取成功");
         responseVo.setSuccess(true);
         return responseVo;
+    }
+
+    @RequestMapping(value = "/SaveValidate", method = RequestMethod.POST)
+    public JBuild4DCResponseVo saveValidate(@RequestBody FlowModelIntegratedPO flowModelIntegratedPO, HttpServletRequest request) throws JBuild4DCGenerallyException {
+        try {
+            JB4DCSession jb4DSession = JB4DCSessionUtility.getSession();
+            SimplePO saveValidateResult =flowExtendModelService.saveValidate(jb4DSession, flowModelIntegratedPO);
+            return saveValidateResult.toResponseVo();
+        } catch (JBuild4DCGenerallyException e) {
+            e.printStackTrace();
+            return JBuild4DCResponseVo.error(e.getMessage());
+        }
     }
 
     //@Override

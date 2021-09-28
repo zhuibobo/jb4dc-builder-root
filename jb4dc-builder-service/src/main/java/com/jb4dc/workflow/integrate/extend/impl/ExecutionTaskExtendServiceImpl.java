@@ -21,6 +21,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -114,7 +115,10 @@ public class ExecutionTaskExtendServiceImpl  extends BaseServiceImpl<ExecutionTa
     @Override
     public List<ExecutionTaskEntity> getActiveTaskByInstanceIds(JB4DCSession jb4DCSession, List<InstanceEntity> listEntity) {
         List<String> instanceIds=listEntity.stream().map(item->item.getInstId()).collect(Collectors.toList());
-        List<ExecutionTaskEntity> executionTaskEntityList=executionTaskMapper.selectListByInstanceAndStatus(instanceIds,IExecutionTaskExtendService.exTaskStatus_Processing);
+        List<ExecutionTaskEntity> executionTaskEntityList=new ArrayList<>();
+        if(instanceIds.size()>0) {
+            executionTaskEntityList = executionTaskMapper.selectListByInstanceAndStatus(instanceIds, IExecutionTaskExtendService.exTaskStatus_Processing);
+        }
         return executionTaskEntityList;
     }
 
@@ -143,6 +147,11 @@ public class ExecutionTaskExtendServiceImpl  extends BaseServiceImpl<ExecutionTa
     @Override
     public List<ExecutionTaskEntity> getProcessingTaskByInstanceIdAndFromTaskId(JB4DCSession jb4DCSession, String instId, String extaskFromTaskId) {
         return executionTaskMapper.selectProcessingTaskByInstanceIdAndFromTaskId(instId,extaskFromTaskId);
+    }
+
+    @Override
+    public List<ExecutionTaskEntity> getProcessingTaskByInstanceIdAndFromTaskNodeKey(JB4DCSession jb4DCSession, String instId, String extaskPreNodeKey) {
+        return executionTaskMapper.selectProcessingTaskByInstanceIdAndFromTaskNodeKey(instId,extaskPreNodeKey);
     }
 
     @Override

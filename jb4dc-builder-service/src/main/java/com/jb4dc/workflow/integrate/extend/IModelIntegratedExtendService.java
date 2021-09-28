@@ -2,6 +2,7 @@ package com.jb4dc.workflow.integrate.extend;
 
 import com.github.pagehelper.PageInfo;
 import com.jb4dc.base.service.IBaseService;
+import com.jb4dc.base.service.po.SimplePO;
 import com.jb4dc.workflow.dbentities.ModelIntegratedEntity;
 import com.jb4dc.workflow.po.FlowModelIntegratedPO;
 import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
@@ -51,4 +52,6 @@ public interface IModelIntegratedExtendService extends IBaseService<ModelIntegra
     List<BpmnTask> getDeployedCamundaModelBpmnFlowNodeByIdList(JB4DCSession jb4DCSession, String modelReKey, BpmnDefinitions bpmnDefinitions, List<String> bpmnTaskIdList) throws JAXBException, XMLStreamException, IOException;
 
     List<ModelIntegratedEntity> getListByPrimaryKey(JB4DCSession jb4DCSession,List<String> modelIds);
+
+    SimplePO saveValidate(JB4DCSession jb4DSession, FlowModelIntegratedPO flowModelIntegratedPO) throws JBuild4DCGenerallyException;
 }

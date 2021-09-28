@@ -40,5 +40,7 @@ public interface IExecutionTaskExtendService  extends IBaseService<ExecutionTask
 
     List<ExecutionTaskEntity> getProcessingTaskByInstanceIdAndFromTaskId(JB4DCSession jb4DCSession, String instId, String extaskFromTaskId);
 
+    List<ExecutionTaskEntity> getProcessingTaskByInstanceIdAndFromTaskNodeKey(JB4DCSession jb4DCSession, String instId, String extaskPreNodeKey);
+
     void changeTaskToView(JB4DCSession jb4DCSession, String extaskId) throws JBuild4DCGenerallyException;
 }

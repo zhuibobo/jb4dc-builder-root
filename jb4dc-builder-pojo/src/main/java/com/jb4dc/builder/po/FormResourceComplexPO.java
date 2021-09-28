@@ -5,6 +5,7 @@ import com.jb4dc.builder.dbentities.webform.FormResourceEntityWithBLOBs;
 import com.jb4dc.builder.dbentities.weblist.ListButtonEntity;
 import com.jb4dc.builder.po.formdata.FormRecordComplexPO;
 import com.jb4dc.builder.po.formdata.FormRecordDataRelationPO;
+import com.jb4dc.core.base.session.JB4DCSession;
 
 import java.util.List;
 
@@ -50,6 +51,8 @@ public class FormResourceComplexPO extends FormResourcePO {
     private String formRuntimeCategory;
 
     private String loadTimeDesc;
+
+    private JB4DCSession mySession;
 
     public FormRecordComplexPO getFormRecordComplexPO() {
         return formRecordComplexPO;
@@ -97,5 +100,13 @@ public class FormResourceComplexPO extends FormResourcePO {
 
     public void setLoadTimeDesc(String loadTimeDesc) {
         this.loadTimeDesc = loadTimeDesc;
+    }
+
+    public JB4DCSession getMySession() {
+        return mySession;
+    }
+
+    public void setMySession(JB4DCSession mySession) {
+        this.mySession = mySession;
     }
 }

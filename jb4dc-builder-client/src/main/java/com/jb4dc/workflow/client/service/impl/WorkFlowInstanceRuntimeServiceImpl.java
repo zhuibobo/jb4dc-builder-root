@@ -161,7 +161,7 @@ public class WorkFlowInstanceRuntimeServiceImpl extends WorkFlowRuntimeServiceIm
         //生成流程实例标题
         String instanceTitle = buildJuelExpression(jb4DCSession, flowInstanceRuntimePO.getJb4dcProcessTitleEditValue(), vars);
         if(StringUtility.isEmpty(instanceTitle)){
-            instanceTitle="新建流程实例-"+ DateUtility.getDate_yyyy_MM_dd_HH_mm_ss()+" 操作人:"+jb4DCSession.getUserName();
+            instanceTitle="【"+flowInstanceRuntimePO.getModelName()+"】-新建流程实例-"+ DateUtility.getDate_yyyy_MM_dd_HH_mm_ss()+" 操作人:"+jb4DCSession.getUserName();
         }
         String instanceDesc = buildJuelExpression(jb4DCSession, flowInstanceRuntimePO.getJb4dcProcessDescriptionEditValue(), vars);
 

@@ -38,4 +38,6 @@ public interface IInstanceExtendService extends IBaseService<InstanceEntity> {
     //SimplePO recallMySendTaskEnable(JB4DCSession jb4DCSession, String userId, String organId, String extaskId) throws JBuild4DCGenerallyException, XMLStreamException, JAXBException, IOException;
 
     TaskActionResult recallMySendTask(JB4DCSession jb4DCSession, String userId, String organId, String extaskId) throws JBuild4DCGenerallyException;
+
+    void clearData(JB4DCSession jb4DCSession,ClearDataPO clearDataPO) throws JBuild4DCGenerallyException;
 }

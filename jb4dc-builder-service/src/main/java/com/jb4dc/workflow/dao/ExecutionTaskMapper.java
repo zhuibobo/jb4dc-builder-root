@@ -24,4 +24,6 @@ public interface ExecutionTaskMapper extends BaseMapper<ExecutionTaskEntity> {
     int selectNextExtaskIndexByInstanceId(@Param("instanceId") String instanceId);
 
     List<ExecutionTaskEntity> selectProcessingTaskByInstanceIdAndFromTaskId(@Param("instanceId") String instanceId,@Param("extaskFromTaskId") String extaskFromTaskId);
+
+    List<ExecutionTaskEntity> selectProcessingTaskByInstanceIdAndFromTaskNodeKey(@Param("instanceId") String instId,@Param("extaskPreNodeKey")  String extaskPreNodeKey);
 }

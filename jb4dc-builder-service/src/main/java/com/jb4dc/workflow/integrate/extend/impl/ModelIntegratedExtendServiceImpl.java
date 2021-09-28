@@ -8,6 +8,7 @@ import java.util.*;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.jb4dc.base.service.impl.BaseServiceImpl;
+import com.jb4dc.base.service.po.SimplePO;
 import com.jb4dc.base.tools.JsonUtility;
 import com.jb4dc.base.tools.URLUtility;
 import com.jb4dc.base.tools.XMLUtility;
@@ -112,6 +113,8 @@ public class ModelIntegratedExtendServiceImpl extends BaseServiceImpl<ModelInteg
         String str = IOUtils.toString(is, "utf-8");
         return parseToPO(str);
     }
+
+    //public List<List<>>
 
     @Override
     public FlowModelIntegratedPO getPOByIntegratedId(JB4DCSession jb4DSession, String recordId) throws JBuild4DCGenerallyException, IOException {
@@ -481,5 +484,37 @@ public class ModelIntegratedExtendServiceImpl extends BaseServiceImpl<ModelInteg
     @Override
     public List<ModelIntegratedEntity> getListByPrimaryKey(JB4DCSession jb4DCSession, List<String> modelIds) {
         return flowIntegratedMapper.selectListByPrimaryKey(modelIds);
+    }
+
+    @Override
+    public SimplePO saveValidate(JB4DCSession jb4DSession, FlowModelIntegratedPO flowModelIntegratedPO) throws JBuild4DCGenerallyException {
+        BpmnDefinitions bpmnDefinitions = null;
+        BpmnProcess bpmnProcess = null;
+        String bpmnDefinitionKey;
+        SimplePO simplePO=new SimplePO();
+        simplePO.setSuccess(true);
+        simplePO.setMessage("验证成功!");
+        try {
+            bpmnDefinitions = parseToPO(flowModelIntegratedPO.getModelContent());
+            bpmnProcess = bpmnDefinitions.getBpmnProcess();
+            bpmnDefinitionKey = bpmnProcess.getId();
+
+            if(StringUtility.isEmpty(bpmnProcess.getName())){
+                throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_WORKFLOW_CODE,"流程名称不能为空!");
+            }
+            if(flowModelIntegratedPO.getOperationName().equals(BaseUtility.getAddOperationName())) {
+                ModelIntegratedEntity modelIntegratedEntity = getLastSaveModelIntegratedEntity(jb4DSession, bpmnDefinitionKey);
+                if (modelIntegratedEntity != null) {
+                    throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_WORKFLOW_CODE, "已经存在ReKey为:" + bpmnDefinitionKey + "的流程模型!");
+                }
+            }
+
+            return simplePO;
+        } catch (Exception e) {
+            logger.error("ModelIntegratedExtendServiceImpl.saveValidate",e);
+            simplePO.setMessage(e.getMessage());
+            simplePO.setSuccess(false);
+            return simplePO;
+        }
     }
 }

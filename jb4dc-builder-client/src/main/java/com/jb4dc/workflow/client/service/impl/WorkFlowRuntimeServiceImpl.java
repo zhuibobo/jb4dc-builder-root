@@ -32,6 +32,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 @Service
 @Primary
@@ -139,7 +140,9 @@ public class WorkFlowRuntimeServiceImpl implements IWorkFlowRuntimeService {
         Map<String, Object> businessData = new HashMap<>();
         if (formRecordComplexPO != null && formRecordComplexPO.getFormRecordDataRelationPOList() != null) {
             FormRecordDataRelationPO formRecordDataRelationPO = formRecordComplexPO.getFormRecordDataRelationPOList().stream().filter(item -> item.getParentId().equals("-1")).findFirst().orElse(null);
-            for (FormRecordFieldDataPO fieldDataPO : formRecordDataRelationPO.getOneDataRecord().getRecordFieldPOList()) {
+            List<FormRecordFieldDataPO> formRecordFieldDataPOList=formRecordDataRelationPO.getOneDataRecord().getRecordFieldPOList();
+            formRecordFieldDataPOList=formRecordFieldDataPOList.stream().filter(item->item!=null).collect(Collectors.toList());
+            for (FormRecordFieldDataPO fieldDataPO : formRecordFieldDataPOList) {
                 String key = "__$TableField$$" + fieldDataPO.getTableId() + "$$" + fieldDataPO.getFieldName() + "$";
                 Object value;
                 if (fieldDataPO.getFieldDataType().equals(TableFieldTypeEnum.IntType)) {

@@ -69,4 +69,22 @@
             <column name="REMARK_ORDER_NUM" type="INT" remarks="排序号"/>
         </createTable>
     </changeSet>
+
+    <changeSet author="zhuangrb" id="changeSet-QC-0002" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
+        <addColumn tableName="TQC_ISSUES">
+            <column name="ISS_OPINION" type="CLOB" remarks="处理意见"/>
+        </addColumn>
+    </changeSet>
+
+    <changeSet author="zhuangrb" id="changeSet-QC-0999" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
+        <sql>
+            ALTER TABLE TQC_PROJECT COMMENT = '运维项目表'
+        </sql>
+        <sql>
+            ALTER TABLE TQC_ISSUES COMMENT = '运维问题表'
+        </sql>
+        <sql>
+            ALTER TABLE TQC_ISSUES_REMARK COMMENT = '运维问题备注表'
+        </sql>
+    </changeSet>
 </databaseChangeLog>

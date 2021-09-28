@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.*;
 public interface FlowInstanceIntegratedRuntimeRemote {
 
     @RequestMapping(value = "/GetRuntimeModelWithStart",method = RequestMethod.GET)
-    @ClientCallRemoteCache
+    @ClientCallRemoteCache(expirationTimeSeconds = 10L)
     JBuild4DCResponseVo<FlowInstanceRuntimePO> getRuntimeModelWithStart(@RequestParam("userId") String userId,@RequestParam("organId") String organId, @RequestParam("modelKey") String modelKey) throws JBuild4DCGenerallyException;
 
     @RequestMapping(value = "/GetRuntimeModelWithProcess",method = RequestMethod.GET)

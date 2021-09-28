@@ -14,7 +14,6 @@
         增加属性是,需要对应修改 HtmlControlDefinitionVo 中的解析
         CKEditorPluginUtility.js 中的 AddPluginsServerConfig;GetGeneralPluginInstance;
         CKEditorUtility.js 中的InitializeCKEditor
-
     -->
     <!--SingleName的名称必须唯一,并且不能是部分完全匹配其他插件名称,例如WLDCT_Hide则为错误的命名,因为已经存在WLDCT_HideContainer的插件!-->
     <!--ShowRemoveButton属性已经移除-->
@@ -128,7 +127,16 @@
             <Config></Config>
             <Desc></Desc>
         </Control>
-        <Control SingleName="WFDCT_CKEditor4" Text="HTML编辑框(CKE4)" ToolbarLocation="LC_Simple_G1,4"
+        <Control SingleName="WFDCT_OpinionInput" Text="意见输入框" ToolbarLocation="LC_Simple_G1,4"
+                 ServerResolve="com.jb4dc.builder.client.htmldesign.control.webform.WebFormOpinionInput"
+                 ClientResolve="WFDCT_OpinionInput"
+                 ClientResolveJs=""
+                 EnableChildControls="*"
+                 DialogWidth="780" DialogHeight="550" IsJBuild4DCData="true" ControlCategory="InputControl" ServerDynamicBind="false" ShowRemoveButton="true" ShowInEditorToolbar="true">
+            <Config></Config>
+            <Desc></Desc>
+        </Control>
+        <Control SingleName="WFDCT_CKEditor4" Text="HTML编辑框(CKE4)" ToolbarLocation="LC_Simple_G1,5"
                  ServerResolve="com.jb4dc.builder.client.htmldesign.control.webform.WebFormCKEditor4"
                  ClientResolve="WFDCT_CKEditor4"
                  ClientResolveJs=""
@@ -137,7 +145,7 @@
             <Config></Config>
             <Desc></Desc>
         </Control>
-        <Control SingleName="WFDCT_TextDateTime" Text="日期时间框" ToolbarLocation="LC_Simple_G1,5"
+        <Control SingleName="WFDCT_TextDateTime" Text="日期时间框" ToolbarLocation="LC_Simple_G1,6"
                  ServerResolve="com.jb4dc.builder.client.htmldesign.control.webform.WebFormTextDateTime"
                  ClientResolve="WFDCT_TextDateTime"
                  ClientResolveJs=""
@@ -146,7 +154,7 @@
             <Config></Config>
             <Desc></Desc>
         </Control>
-        <Control SingleName="WFDCT_DropDownSelect" Text="下拉选择框" ToolbarLocation="LC_Simple_G1,6"
+        <Control SingleName="WFDCT_DropDownSelect" Text="下拉选择框" ToolbarLocation="LC_Simple_G1,7"
                  ServerResolve="com.jb4dc.builder.client.htmldesign.control.webform.WebFormDropDownSelect"
                  ClientResolve="WFDCT_DropDownSelect"
                  ClientResolveJs=""
@@ -155,7 +163,7 @@
             <Config></Config>
             <Desc></Desc>
         </Control>
-        <Control SingleName="WFDCT_RadioGroup" Text="单选框组" ToolbarLocation="LC_Simple_G1,7"
+        <Control SingleName="WFDCT_RadioGroup" Text="单选框组" ToolbarLocation="LC_Simple_G1,8"
                  ServerResolve="com.jb4dc.builder.client.htmldesign.control.webform.WebFormRadioGroup"
                  ClientResolve="WFDCT_RadioGroup"
                  ClientResolveJs=""

@@ -1,6 +1,7 @@
 package com.jb4dc.workflow.po;
 
 import com.jb4dc.base.tools.JsonUtility;
+import com.jb4dc.core.base.tools.BaseUtility;
 import com.jb4dc.workflow.dbentities.ModelIntegratedEntity;
 
 import java.io.IOException;
@@ -13,22 +14,15 @@ import java.io.IOException;
  */
 public class FlowModelIntegratedPO extends ModelIntegratedEntity {
 
-    //private String bpmnXMLModeler;
-
-    //public String getBpmnXMLModeler() {
-    //    return bpmnXMLModeler;
-    //}
-
-    //public void setBpmnXMLModeler(String bpmnXMLModeler) {
-    //    this.bpmnXMLModeler = bpmnXMLModeler;
-    //}
     public FlowModelIntegratedPO(){
 
     }
 
     private boolean tryDeployment;
 
-    public String modelerTemplateContent;
+    private String operationName;
+
+    private String modelerTemplateContent;
 
     public boolean isTryDeployment() {
         return tryDeployment;
@@ -54,5 +48,13 @@ public class FlowModelIntegratedPO extends ModelIntegratedEntity {
     public static FlowModelIntegratedPO parseToPO(ModelIntegratedEntity entity) throws IOException {
         String jsonStr= JsonUtility.toObjectString(entity);
         return JsonUtility.toObject(jsonStr, FlowModelIntegratedPO.class);
+    }
+
+    public String getOperationName() {
+        return operationName;
+    }
+
+    public void setOperationName(String operationName) {
+        this.operationName = operationName;
     }
 }

@@ -116,6 +116,7 @@ public class FormRuntimeRest {
         //formResourceComplexPO.setFormSource("");
         formResourceComplexPO.setFormHtmlSource("");
         formResourceComplexPO.setFormHtmlResolve("");
+        formResourceComplexPO.setMySession(JB4DCSessionUtility.getNewPublicJB4DCSession());
         //formResourceComplexPO.setLoadTimeDesc(loadTimeDesc);
         return JBuild4DCResponseVo.getDataSuccess(formResourceComplexPO);
     }

@@ -115,8 +115,8 @@
     <select id="selectMyProcessEndTask" resultMap="BaseResultMapWithPO">
         select <include refid="Base_Column_List"/>,<include refid="Inst_Base_Column_List"/> from tflow_execution_task
                 inner join (
-                    select max(EXTASK_SEND_TIME) MR_EXTASK_SEND_TIME,EXTASK_INST_ID MR_EXTASK_INST_ID from tflow_execution_task where EXTASK_HANDLER_ID=#{userId} and EXTASK_STATUS='End' and  EXTASK_TYPE=#{extaskType} group by EXTASK_INST_ID
-                ) maxrecordtable on tflow_execution_task.EXTASK_INST_ID=maxrecordtable.MR_EXTASK_INST_ID and tflow_execution_task.EXTASK_SEND_TIME=maxrecordtable.MR_EXTASK_SEND_TIME
+                    select max(EXTASK_ORDER_NUM) MR_EXTASK_ORDER_NUM,EXTASK_INST_ID MR_EXTASK_INST_ID from tflow_execution_task where EXTASK_HANDLER_ID=#{userId} and EXTASK_STATUS='End' and  EXTASK_TYPE=#{extaskType} group by EXTASK_INST_ID
+                ) maxrecordtable on tflow_execution_task.EXTASK_INST_ID=maxrecordtable.MR_EXTASK_INST_ID and tflow_execution_task.EXTASK_ORDER_NUM=maxrecordtable.MR_EXTASK_ORDER_NUM
                 inner join TFLOW_INSTANCE on tflow_execution_task.EXTASK_INST_ID=TFLOW_INSTANCE.INST_ID
         order by EXTASK_END_TIME desc
     </select>
@@ -139,5 +139,9 @@
 
     <select id="selectProcessingTaskByInstanceIdAndFromTaskId" resultMap="BaseResultMap">
         select<include refid="Base_Column_List"/> from TFLOW_EXECUTION_TASK where EXTASK_INST_ID=#{instanceId} and EXTASK_STATUS='Processing' and EXTASK_FROM_TASK_ID=#{extaskFromTaskId}
+    </select>
+
+    <select id="selectProcessingTaskByInstanceIdAndFromTaskNodeKey" resultMap="BaseResultMap">
+        select<include refid="Base_Column_List"/> from TFLOW_EXECUTION_TASK where EXTASK_INST_ID=#{instanceId} and EXTASK_STATUS='Processing' and EXTASK_PRE_NODE_KEY=#{extaskPreNodeKey}
     </select>
 </mapper>

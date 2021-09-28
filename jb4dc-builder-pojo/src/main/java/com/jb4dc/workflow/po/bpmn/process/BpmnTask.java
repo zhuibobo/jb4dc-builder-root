@@ -14,26 +14,9 @@ import java.util.List;
 @XmlAccessorType(XmlAccessType.FIELD)
 // XML文件中的根标识
 @XmlRootElement(name = "task",namespace = BpmnNs.BPMN_URI)
-public class BpmnTask {
-    @XmlAttribute(name = "id")
-    String id;
-
-    @XmlAttribute(name = "name")
-    String name;
+public class BpmnTask extends BpmnElement {
 
     String taskTypeName;
-
-    @XmlElement(name = "documentation",namespace = BpmnNs.BPMN_URI)
-    BpmnDocumentation documentation;
-
-    @XmlElement(name = "extensionElements",namespace = BpmnNs.BPMN_URI)
-    BpmnExtensionElements extensionElements;
-
-    @XmlElement(name = "incoming",namespace = BpmnNs.BPMN_URI)
-    List<BpmnIncoming> incomingList;
-
-    @XmlElement(name = "outgoing",namespace = BpmnNs.BPMN_URI)
-    List<BpmnOutgoing> outgoingList;
 
     @XmlElement(name = "multiInstanceLoopCharacteristics",namespace = BpmnNs.BPMN_URI)
     BpmnMultiInstanceLoopCharacteristics multiInstanceLoopCharacteristics;
@@ -109,6 +92,9 @@ public class BpmnTask {
 
     @XmlAttribute(name = "jb4dcContentDocumentRedHeadTemplate",namespace = BpmnNs.JB4DC_URI)
     String jb4dcContentDocumentRedHeadTemplate;
+
+    @XmlAttribute(name = "jb4dcRecallEnable",namespace = BpmnNs.JB4DC_URI)
+    String jb4dcRecallEnable;
 
     boolean isMultiInstanceTask;
 
@@ -322,54 +308,6 @@ public class BpmnTask {
         this.multiInstanceType = multiInstanceType;
     }
 
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public List<BpmnIncoming> getIncomingList() {
-        return incomingList;
-    }
-
-    public void setIncomingList(List<BpmnIncoming> incomingList) {
-        this.incomingList = incomingList;
-    }
-
-    public BpmnDocumentation getDocumentation() {
-        return documentation;
-    }
-
-    public void setDocumentation(BpmnDocumentation documentation) {
-        this.documentation = documentation;
-    }
-
-    public BpmnExtensionElements getExtensionElements() {
-        return extensionElements;
-    }
-
-    public void setExtensionElements(BpmnExtensionElements extensionElements) {
-        this.extensionElements = extensionElements;
-    }
-
-    public List<BpmnOutgoing> getOutgoingList() {
-        return outgoingList;
-    }
-
-    public void setOutgoingList(List<BpmnOutgoing> outgoingList) {
-        this.outgoingList = outgoingList;
-    }
-
     public BpmnMultiInstanceLoopCharacteristics getMultiInstanceLoopCharacteristics() {
         return multiInstanceLoopCharacteristics;
     }
@@ -384,5 +322,13 @@ public class BpmnTask {
 
     public void setTaskTypeName(String taskTypeName) {
         this.taskTypeName = taskTypeName;
+    }
+
+    public String getJb4dcRecallEnable() {
+        return jb4dcRecallEnable;
+    }
+
+    public void setJb4dcRecallEnable(String jb4dcRecallEnable) {
+        this.jb4dcRecallEnable = jb4dcRecallEnable;
     }
 }

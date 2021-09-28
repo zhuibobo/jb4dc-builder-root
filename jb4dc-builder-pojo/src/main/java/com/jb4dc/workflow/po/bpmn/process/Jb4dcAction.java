@@ -57,11 +57,11 @@ public class Jb4dcAction {
     @XmlAttribute(name = "actionValidate")
     String actionValidate;
 
-    @XmlAttribute(name = "actionsOpinionBindToField")
-    String actionsOpinionBindToField;
+    @XmlAttribute(name = "actionOpinionBindToField")
+    String actionOpinionBindToField;
 
-    @XmlAttribute(name = "actionsOpinionBindToElemId")
-    String actionsOpinionBindToElemId;
+    @XmlAttribute(name = "actionOpinionBindToElemId")
+    String actionOpinionBindToElemId;
 
     @XmlAttribute(name = "actionMainReceiveObjects")
     String actionMainReceiveObjects;
@@ -86,6 +86,9 @@ public class Jb4dcAction {
 
     @XmlAttribute(name = "actionRemark")
     String actionRemark;
+
+    @XmlAttribute(name = "actionAtStatus")
+    String actionAtStatus;
 
     JuelRunResultPO juelRunResultPO;
 
@@ -249,20 +252,20 @@ public class Jb4dcAction {
         this.actionRunSqls = actionRunSqls;
     }
 
-    public String getActionsOpinionBindToField() {
-        return actionsOpinionBindToField;
+    public String getActionOpinionBindToField() {
+        return actionOpinionBindToField;
     }
 
-    public void setActionsOpinionBindToField(String actionsOpinionBindToField) {
-        this.actionsOpinionBindToField = actionsOpinionBindToField;
+    public void setActionOpinionBindToField(String actionOpinionBindToField) {
+        this.actionOpinionBindToField = actionOpinionBindToField;
     }
 
-    public String getActionsOpinionBindToElemId() {
-        return actionsOpinionBindToElemId;
+    public String getActionOpinionBindToElemId() {
+        return actionOpinionBindToElemId;
     }
 
-    public void setActionsOpinionBindToElemId(String actionsOpinionBindToElemId) {
-        this.actionsOpinionBindToElemId = actionsOpinionBindToElemId;
+    public void setActionOpinionBindToElemId(String actionOpinionBindToElemId) {
+        this.actionOpinionBindToElemId = actionOpinionBindToElemId;
     }
 
     public String getActionSendMessageId() {
@@ -295,5 +298,13 @@ public class Jb4dcAction {
 
     public void setActionRemark(String actionRemark) {
         this.actionRemark = actionRemark;
+    }
+
+    public String getActionAtStatus() {
+        return actionAtStatus;
+    }
+
+    public void setActionAtStatus(String actionAtStatus) {
+        this.actionAtStatus = actionAtStatus;
     }
 }
