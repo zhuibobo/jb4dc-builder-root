@@ -229,7 +229,12 @@ public class WorkFlowRuntimeServiceImpl implements IWorkFlowRuntimeService {
             return "";
         }
         JuelRunResultPO juelRunResultPO= JuelUtility.buildStringExpression(jb4DCSession,juelExpression,vars);
-        return juelRunResultPO.getStringResult();
+        if(juelRunResultPO.isSuccess()) {
+            return juelRunResultPO.getStringResult();
+        }
+        else{
+            throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_WORKFLOW_CODE,juelRunResultPO.getMessage());
+        }
     }
 
     public Jb4dcActions resolveFlowInstanceRuntimePOConfigToActions(JB4DCSession jb4DCSession, FlowInstanceRuntimePO flowInstanceRuntimePO, FormRecordComplexPO formRecordComplexPO) throws IOException, JBuild4DCGenerallyException {

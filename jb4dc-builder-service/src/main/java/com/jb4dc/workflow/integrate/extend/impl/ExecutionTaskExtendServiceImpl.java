@@ -17,6 +17,7 @@ import com.jb4dc.workflow.integrate.engine.IFlowEngineTaskIntegratedService;
 import com.jb4dc.workflow.integrate.extend.IExecutionTaskExtendService;
 import com.jb4dc.workflow.po.ExecutionTaskPO;
 import com.jb4dc.workflow.po.bpmn.process.Jb4dcAction;
+import com.jb4dc.workflow.searchmodel.ExecutionTaskSearchModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -105,9 +106,10 @@ public class ExecutionTaskExtendServiceImpl  extends BaseServiceImpl<ExecutionTa
     }
 
     @Override
-    public PageInfo<ExecutionTaskPO> getMyProcessEndTaskList(JB4DCSession jb4DCSession, int pageNum, int pageSize, String userId, String organId, String linkId, String modelCategory, String extaskType) {
-        PageHelper.startPage(pageNum, pageSize);
-        List<ExecutionTaskPO> list = executionTaskMapper.selectMyProcessEndTask(userId,linkId,modelCategory,extaskType);
+    public PageInfo<ExecutionTaskPO> getMyProcessEndTaskList(JB4DCSession jb4DCSession, ExecutionTaskSearchModel executionTaskSearchModel) {
+        PageHelper.startPage(executionTaskSearchModel.getPageNum(), executionTaskSearchModel.getPageSize());
+        executionTaskSearchModel.setJb4DCSession(jb4DCSession);
+        List<ExecutionTaskPO> list = executionTaskMapper.selectMyProcessEndTask(executionTaskSearchModel);
         PageInfo<ExecutionTaskPO> pageInfo = new PageInfo(list);
         return pageInfo;
     }

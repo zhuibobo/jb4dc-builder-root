@@ -3,7 +3,6 @@ package com.jb4dc.workflow.client.service.impl;
 import com.github.pagehelper.PageInfo;
 import com.jb4dc.base.service.aspect.CalculationRunTime;
 import com.jb4dc.base.service.general.JB4DCSessionUtility;
-import com.jb4dc.base.service.po.SimplePO;
 import com.jb4dc.base.tools.JsonUtility;
 import com.jb4dc.base.ymls.JBuild4DCYaml;
 import com.jb4dc.builder.client.remote.ApiItemRuntimeRemote;
@@ -24,12 +23,15 @@ import com.jb4dc.workflow.client.action.api.ActionApiRunResult;
 import com.jb4dc.workflow.client.action.api.IActionApi;
 import com.jb4dc.workflow.client.remote.FlowInstanceIntegratedRuntimeRemote;
 import com.jb4dc.workflow.client.service.IWorkFlowInstanceRuntimeService;
+import com.jb4dc.workflow.dbentities.ExecutionTaskOpinionEntity;
 import com.jb4dc.workflow.po.*;
 import com.jb4dc.workflow.po.bpmn.BpmnDefinitions;
 import com.jb4dc.workflow.po.bpmn.process.Jb4dcAction;
 import com.jb4dc.workflow.po.bpmn.process.Jb4dcActions;
 import com.jb4dc.workflow.po.receive.ClientSelectedReceiver;
+import com.jb4dc.workflow.searchmodel.ExecutionTaskSearchModel;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.config.AutowireCapableBeanFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -46,6 +48,7 @@ public class WorkFlowInstanceRuntimeServiceImpl extends WorkFlowRuntimeServiceIm
     @Autowired
     FlowInstanceIntegratedRuntimeRemote flowInstanceIntegratedRuntimeRemote;
 
+    @Qualifier("com.jb4dc.builder.client.remote.ApiItemRuntimeRemote")
     @Autowired
     ApiItemRuntimeRemote apiItemRuntimeRemote;
 
@@ -139,7 +142,7 @@ public class WorkFlowInstanceRuntimeServiceImpl extends WorkFlowRuntimeServiceIm
                                          String flowInstanceRuntimePOCacheKey,
                                          FormRecordComplexPO formRecordComplexPO,
                                          List<ClientSelectedReceiver> clientSelectedReceiverList,
-                                         String businessKey, Map<String, Object> exVars) throws IOException, JBuild4DCGenerallyException, JBuild4DCSQLKeyWordException {
+                                         String businessKey, Map<String, Object> exVars, List<ExecutionTaskOpinionEntity> newOpinionEntityList) throws IOException, JBuild4DCGenerallyException, JBuild4DCSQLKeyWordException {
 
 
         TaskActionResult completeTaskResult = new TaskActionResult();
@@ -200,7 +203,8 @@ public class WorkFlowInstanceRuntimeServiceImpl extends WorkFlowRuntimeServiceIm
         requestCompleteTaskPO.setBusinessKey(businessKey);
         requestCompleteTaskPO.setInstanceTitle(instanceTitle);
         requestCompleteTaskPO.setInstanceDesc(instanceDesc);
-
+        requestCompleteTaskPO.setFormRecordComplexPO(formRecordComplexPO);
+        requestCompleteTaskPO.setNewOpinionEntityList(newOpinionEntityList);
 
         //校验能否调用服务端completeTask方法
         JBuild4DCResponseVo<String> completeTaskEnableVo = flowInstanceIntegratedRuntimeRemote.completeTaskEnable(requestCompleteTaskPO);
@@ -242,8 +246,9 @@ public class WorkFlowInstanceRuntimeServiceImpl extends WorkFlowRuntimeServiceIm
     }
 
     @Override
-    public JBuild4DCResponseVo<PageInfo<ExecutionTaskPO>> getMyProcessEndTaskList(JB4DCSession jb4DCSession, int pageNum, int pageSize, String modelCategory, String extaskType) throws JBuild4DCGenerallyException {
-        return flowInstanceIntegratedRuntimeRemote.getMyProcessEndTaskList(pageNum,pageSize, jb4DCSession.getUserId(),jb4DCSession.getOrganId(), JBuild4DCYaml.getLinkId(),modelCategory,extaskType);
+    public JBuild4DCResponseVo<PageInfo<ExecutionTaskPO>> getMyProcessEndTaskList(JB4DCSession jb4DCSession, ExecutionTaskSearchModel executionTaskSearchModel) throws JBuild4DCGenerallyException {
+        executionTaskSearchModel.setLinkId(JBuild4DCYaml.getLinkId());
+        return flowInstanceIntegratedRuntimeRemote.getMyProcessEndTaskList(executionTaskSearchModel);
     }
 
     /*@Override

@@ -29,6 +29,18 @@ public class ExecutionTaskOpinionEntity {
     //OPINION_ORDER_NUM:排序号
     private Integer opinionOrderNum;
 
+    //OPINION_CLIENT_CODE:客户端生成的ID
+    private String opinionClientCode;
+
+    //OPINION_USER_ID:用户ID
+    private String opinionUserId;
+
+    //OPINION_USER_NAME:用户名
+    private String opinionUserName;
+
+    //OPINION_SIGNATURE_ID:签字关联ID
+    private String opinionSignatureId;
+
     /**
      * 构造函数
      * @param opinionId
@@ -36,13 +48,21 @@ public class ExecutionTaskOpinionEntity {
      * @param opinionText 意见内容
      * @param opinionTime 提交时间
      * @param opinionOrderNum 排序号
+     * @param opinionClientCode 客户端生成的ID
+     * @param opinionUserId 用户ID
+     * @param opinionUserName 用户名
+     * @param opinionSignatureId 签字关联ID
      **/
-    public ExecutionTaskOpinionEntity(String opinionId, String opinionExtaskId, String opinionText, Date opinionTime, Integer opinionOrderNum) {
+    public ExecutionTaskOpinionEntity(String opinionId, String opinionExtaskId, String opinionText, Date opinionTime, Integer opinionOrderNum, String opinionClientCode, String opinionUserId, String opinionUserName, String opinionSignatureId) {
         this.opinionId = opinionId;
         this.opinionExtaskId = opinionExtaskId;
         this.opinionText = opinionText;
         this.opinionTime = opinionTime;
         this.opinionOrderNum = opinionOrderNum;
+        this.opinionClientCode = opinionClientCode;
+        this.opinionUserId = opinionUserId;
+        this.opinionUserName = opinionUserName;
+        this.opinionSignatureId = opinionSignatureId;
     }
 
     public ExecutionTaskOpinionEntity() {
@@ -127,5 +147,69 @@ public class ExecutionTaskOpinionEntity {
      **/
     public void setOpinionOrderNum(Integer opinionOrderNum) {
         this.opinionOrderNum = opinionOrderNum;
+    }
+
+    /**
+     * 客户端生成的ID
+     * @return java.lang.String
+     **/
+    public String getOpinionClientCode() {
+        return opinionClientCode;
+    }
+
+    /**
+     * 客户端生成的ID
+     * @param opinionClientCode 客户端生成的ID
+     **/
+    public void setOpinionClientCode(String opinionClientCode) {
+        this.opinionClientCode = opinionClientCode == null ? null : opinionClientCode.trim();
+    }
+
+    /**
+     * 用户ID
+     * @return java.lang.String
+     **/
+    public String getOpinionUserId() {
+        return opinionUserId;
+    }
+
+    /**
+     * 用户ID
+     * @param opinionUserId 用户ID
+     **/
+    public void setOpinionUserId(String opinionUserId) {
+        this.opinionUserId = opinionUserId == null ? null : opinionUserId.trim();
+    }
+
+    /**
+     * 用户名
+     * @return java.lang.String
+     **/
+    public String getOpinionUserName() {
+        return opinionUserName;
+    }
+
+    /**
+     * 用户名
+     * @param opinionUserName 用户名
+     **/
+    public void setOpinionUserName(String opinionUserName) {
+        this.opinionUserName = opinionUserName == null ? null : opinionUserName.trim();
+    }
+
+    /**
+     * 签字关联ID
+     * @return java.lang.String
+     **/
+    public String getOpinionSignatureId() {
+        return opinionSignatureId;
+    }
+
+    /**
+     * 签字关联ID
+     * @param opinionSignatureId 签字关联ID
+     **/
+    public void setOpinionSignatureId(String opinionSignatureId) {
+        this.opinionSignatureId = opinionSignatureId == null ? null : opinionSignatureId.trim();
     }
 }

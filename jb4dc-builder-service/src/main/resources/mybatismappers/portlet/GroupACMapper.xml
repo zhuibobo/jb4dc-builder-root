@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jb4dc.portlet.dao.GroupMapper">
+    <resultMap id="BaseResultMap" type="com.jb4dc.portlet.dbentities.GroupEntity">
+        <constructor>
+            <idArg column="PORTLET_GROUP_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="PORTLET_GROUP_TYPE" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="PORTLET_GROUP_VALUE" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="PORTLET_GROUP_TEXT" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="PORTLET_GROUP_ORDER_NUM" javaType="java.lang.Integer" jdbcType="INTEGER" />
+            <arg column="PORTLET_GROUP_CREATE_TIME" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+            <arg column="PORTLET_GROUP_DESC" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="PORTLET_GROUP_STATUS" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="PORTLET_GROUP_PARENT_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="PORTLET_GROUP_DEL_ENABLE" javaType="java.lang.String" jdbcType="VARCHAR" />
+        </constructor>
+    </resultMap>
+    <sql id="Base_Column_List">
+        PORTLET_GROUP_ID, PORTLET_GROUP_TYPE, PORTLET_GROUP_VALUE, PORTLET_GROUP_TEXT, PORTLET_GROUP_ORDER_NUM,
+        PORTLET_GROUP_CREATE_TIME, PORTLET_GROUP_DESC, PORTLET_GROUP_STATUS, PORTLET_GROUP_PARENT_ID,
+        PORTLET_GROUP_DEL_ENABLE
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from PORTLET_GROUP
+        where PORTLET_GROUP_ID = #{portletGroupId,jdbcType=VARCHAR}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+        delete from PORTLET_GROUP
+        where PORTLET_GROUP_ID = #{portletGroupId,jdbcType=VARCHAR}
+    </delete>
+    <insert id="insert" parameterType="com.jb4dc.portlet.dbentities.GroupEntity">
+        insert into PORTLET_GROUP (PORTLET_GROUP_ID, PORTLET_GROUP_TYPE,
+        PORTLET_GROUP_VALUE, PORTLET_GROUP_TEXT, PORTLET_GROUP_ORDER_NUM,
+        PORTLET_GROUP_CREATE_TIME, PORTLET_GROUP_DESC,
+        PORTLET_GROUP_STATUS, PORTLET_GROUP_PARENT_ID,
+        PORTLET_GROUP_DEL_ENABLE)
+        values (#{portletGroupId,jdbcType=VARCHAR}, #{portletGroupType,jdbcType=VARCHAR},
+        #{portletGroupValue,jdbcType=VARCHAR}, #{portletGroupText,jdbcType=VARCHAR}, #{portletGroupOrderNum,jdbcType=INTEGER},
+        #{portletGroupCreateTime,jdbcType=TIMESTAMP}, #{portletGroupDesc,jdbcType=VARCHAR},
+        #{portletGroupStatus,jdbcType=VARCHAR}, #{portletGroupParentId,jdbcType=VARCHAR},
+        #{portletGroupDelEnable,jdbcType=VARCHAR})
+    </insert>
+    <insert id="insertSelective" parameterType="com.jb4dc.portlet.dbentities.GroupEntity">
+        insert into PORTLET_GROUP
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="portletGroupId != null">
+                PORTLET_GROUP_ID,
+            </if>
+            <if test="portletGroupType != null">
+                PORTLET_GROUP_TYPE,
+            </if>
+            <if test="portletGroupValue != null">
+                PORTLET_GROUP_VALUE,
+            </if>
+            <if test="portletGroupText != null">
+                PORTLET_GROUP_TEXT,
+            </if>
+            <if test="portletGroupOrderNum != null">
+                PORTLET_GROUP_ORDER_NUM,
+            </if>
+            <if test="portletGroupCreateTime != null">
+                PORTLET_GROUP_CREATE_TIME,
+            </if>
+            <if test="portletGroupDesc != null">
+                PORTLET_GROUP_DESC,
+            </if>
+            <if test="portletGroupStatus != null">
+                PORTLET_GROUP_STATUS,
+            </if>
+            <if test="portletGroupParentId != null">
+                PORTLET_GROUP_PARENT_ID,
+            </if>
+            <if test="portletGroupDelEnable != null">
+                PORTLET_GROUP_DEL_ENABLE,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="portletGroupId != null">
+                #{portletGroupId,jdbcType=VARCHAR},
+            </if>
+            <if test="portletGroupType != null">
+                #{portletGroupType,jdbcType=VARCHAR},
+            </if>
+            <if test="portletGroupValue != null">
+                #{portletGroupValue,jdbcType=VARCHAR},
+            </if>
+            <if test="portletGroupText != null">
+                #{portletGroupText,jdbcType=VARCHAR},
+            </if>
+            <if test="portletGroupOrderNum != null">
+                #{portletGroupOrderNum,jdbcType=INTEGER},
+            </if>
+            <if test="portletGroupCreateTime != null">
+                #{portletGroupCreateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="portletGroupDesc != null">
+                #{portletGroupDesc,jdbcType=VARCHAR},
+            </if>
+            <if test="portletGroupStatus != null">
+                #{portletGroupStatus,jdbcType=VARCHAR},
+            </if>
+            <if test="portletGroupParentId != null">
+                #{portletGroupParentId,jdbcType=VARCHAR},
+            </if>
+            <if test="portletGroupDelEnable != null">
+                #{portletGroupDelEnable,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.jb4dc.portlet.dbentities.GroupEntity">
+        update PORTLET_GROUP
+        <set>
+            <if test="portletGroupType != null">
+                PORTLET_GROUP_TYPE = #{portletGroupType,jdbcType=VARCHAR},
+            </if>
+            <if test="portletGroupValue != null">
+                PORTLET_GROUP_VALUE = #{portletGroupValue,jdbcType=VARCHAR},
+            </if>
+            <if test="portletGroupText != null">
+                PORTLET_GROUP_TEXT = #{portletGroupText,jdbcType=VARCHAR},
+            </if>
+            <if test="portletGroupOrderNum != null">
+                PORTLET_GROUP_ORDER_NUM = #{portletGroupOrderNum,jdbcType=INTEGER},
+            </if>
+            <if test="portletGroupCreateTime != null">
+                PORTLET_GROUP_CREATE_TIME = #{portletGroupCreateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="portletGroupDesc != null">
+                PORTLET_GROUP_DESC = #{portletGroupDesc,jdbcType=VARCHAR},
+            </if>
+            <if test="portletGroupStatus != null">
+                PORTLET_GROUP_STATUS = #{portletGroupStatus,jdbcType=VARCHAR},
+            </if>
+            <if test="portletGroupParentId != null">
+                PORTLET_GROUP_PARENT_ID = #{portletGroupParentId,jdbcType=VARCHAR},
+            </if>
+            <if test="portletGroupDelEnable != null">
+                PORTLET_GROUP_DEL_ENABLE = #{portletGroupDelEnable,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where PORTLET_GROUP_ID = #{portletGroupId,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.jb4dc.portlet.dbentities.GroupEntity">
+        update PORTLET_GROUP
+        set PORTLET_GROUP_TYPE = #{portletGroupType,jdbcType=VARCHAR},
+        PORTLET_GROUP_VALUE = #{portletGroupValue,jdbcType=VARCHAR},
+        PORTLET_GROUP_TEXT = #{portletGroupText,jdbcType=VARCHAR},
+        PORTLET_GROUP_ORDER_NUM = #{portletGroupOrderNum,jdbcType=INTEGER},
+        PORTLET_GROUP_CREATE_TIME = #{portletGroupCreateTime,jdbcType=TIMESTAMP},
+        PORTLET_GROUP_DESC = #{portletGroupDesc,jdbcType=VARCHAR},
+        PORTLET_GROUP_STATUS = #{portletGroupStatus,jdbcType=VARCHAR},
+        PORTLET_GROUP_PARENT_ID = #{portletGroupParentId,jdbcType=VARCHAR},
+        PORTLET_GROUP_DEL_ENABLE = #{portletGroupDelEnable,jdbcType=VARCHAR}
+        where PORTLET_GROUP_ID = #{portletGroupId,jdbcType=VARCHAR}
+    </update>
+</mapper>

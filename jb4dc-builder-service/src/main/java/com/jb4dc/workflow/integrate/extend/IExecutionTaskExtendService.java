@@ -10,6 +10,7 @@ import com.jb4dc.workflow.dbentities.ExecutionTaskLogEntityWithBLOBs;
 import com.jb4dc.workflow.dbentities.InstanceEntity;
 import com.jb4dc.workflow.po.ExecutionTaskPO;
 import com.jb4dc.workflow.po.bpmn.process.Jb4dcAction;
+import com.jb4dc.workflow.searchmodel.ExecutionTaskSearchModel;
 
 import java.util.List;
 import java.util.Map;
@@ -28,7 +29,7 @@ public interface IExecutionTaskExtendService  extends IBaseService<ExecutionTask
 
     PageInfo<ExecutionTaskPO> getMyProcessTaskList(JB4DCSession jb4DCSession, int pageNum, int pageSize, String userId, String organId, String linkId, String modelCategory, String extaskType);
 
-    PageInfo<ExecutionTaskPO> getMyProcessEndTaskList(JB4DCSession jb4DCSession, int pageNum, int pageSize, String userId, String organId, String linkId, String modelCategory, String extaskType);
+    PageInfo<ExecutionTaskPO> getMyProcessEndTaskList(JB4DCSession jb4DCSession, ExecutionTaskSearchModel executionTaskSearchModel);
 
     List<ExecutionTaskEntity> getActiveTaskByInstanceIds(JB4DCSession jb4DCSession, List<InstanceEntity> listEntity);
 

@@ -4,6 +4,7 @@ import com.jb4dc.base.dbaccess.dao.BaseMapper;
 import com.jb4dc.core.base.session.JB4DCSession;
 import com.jb4dc.workflow.dbentities.ExecutionTaskEntity;
 import com.jb4dc.workflow.po.ExecutionTaskPO;
+import com.jb4dc.workflow.searchmodel.ExecutionTaskSearchModel;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -15,7 +16,7 @@ public interface ExecutionTaskMapper extends BaseMapper<ExecutionTaskEntity> {
 
     List<ExecutionTaskPO> selectMyProcessTask(@Param("userId") String userId, @Param("linkId") String linkId, @Param("modelCategory") String modelCategory, @Param("extaskType") String extaskType);
 
-    List<ExecutionTaskPO> selectMyProcessEndTask(@Param("userId") String userId, @Param("linkId") String linkId, @Param("modelCategory") String modelCategory, @Param("extaskType") String extaskType);
+    List<ExecutionTaskPO> selectMyProcessEndTask(@Param("executionTaskSearchModel") ExecutionTaskSearchModel executionTaskSearchModel);
 
     List<ExecutionTaskEntity> selectListByInstanceAndStatus(@Param("instanceIds") List<String> instanceIds,@Param("exTaskStatus") String exTaskStatus);
 

@@ -61,10 +61,12 @@
         </constructor>
     </resultMap>
     <sql id="Inst_Base_Column_List">
+        <!--@sql select -->
         INST_ID, INST_TITLE, INST_DESC, INST_CUST_DESC, INST_CREATE_TIME, INST_CREATOR, INST_CREATOR_ID,
     INST_ORGAN_NAME, INST_ORGAN_ID, INST_STATUS, INST_END_TIME, INST_RU_EXECUTION_ID,
     INST_RU_PROC_INST_ID, INST_RU_BUSINESS_KEY, INST_RU_PROC_DEF_ID, INST_ORDER_NUM,
     INST_MOD_ID, INST_MOD_CATEGORY, INST_MOD_MODULE_ID, INST_MOD_TENANT_ID
+        <!--@sql from TFLOW_INSTANCE -->
     </sql>
     <select id="selectAll" resultMap="BaseResultMap">select<include refid="Base_Column_List"/> from TFLOW_EXECUTION_TASK ORDER by EXTASK_ORDER_NUM DESC</select>
     <select id="selectAllASC" resultMap="BaseResultMap">select<include refid="Base_Column_List"/> from TFLOW_EXECUTION_TASK ORDER by EXTASK_ORDER_NUM ASC</select>
@@ -113,11 +115,29 @@
     </select>
 
     <select id="selectMyProcessEndTask" resultMap="BaseResultMapWithPO">
+        <bind name="instanceTitle" value="'%'+executionTaskSearchModel.instanceTitle+'%'"/>
         select <include refid="Base_Column_List"/>,<include refid="Inst_Base_Column_List"/> from tflow_execution_task
                 inner join (
-                    select max(EXTASK_ORDER_NUM) MR_EXTASK_ORDER_NUM,EXTASK_INST_ID MR_EXTASK_INST_ID from tflow_execution_task where EXTASK_HANDLER_ID=#{userId} and EXTASK_STATUS='End' and  EXTASK_TYPE=#{extaskType} group by EXTASK_INST_ID
+                    select max(EXTASK_ORDER_NUM) MR_EXTASK_ORDER_NUM,EXTASK_INST_ID MR_EXTASK_INST_ID from tflow_execution_task where EXTASK_HANDLER_ID=#{executionTaskSearchModel.jb4DCSession.userId,jdbcType=VARCHAR} and EXTASK_STATUS='End' and  EXTASK_TYPE=#{executionTaskSearchModel.extaskType}
+                    group by EXTASK_INST_ID
                 ) maxrecordtable on tflow_execution_task.EXTASK_INST_ID=maxrecordtable.MR_EXTASK_INST_ID and tflow_execution_task.EXTASK_ORDER_NUM=maxrecordtable.MR_EXTASK_ORDER_NUM
                 inner join TFLOW_INSTANCE on tflow_execution_task.EXTASK_INST_ID=TFLOW_INSTANCE.INST_ID
+        where INST_MOD_MODULE_ID in (
+            select MODULE_ID from tbuild_module where MODULE_LINK_ID=#{executionTaskSearchModel.linkId,jdbcType=VARCHAR}
+        )
+        <if test="executionTaskSearchModel.instanceTitle != null and executionTaskSearchModel.instanceTitle != ''">
+            and INST_TITLE like #{instanceTitle}
+        </if>
+        <if test="executionTaskSearchModel.instanceStartDateBegin != null">
+            <![CDATA[
+                and EXTASK_END_TIME>=#{executionTaskSearchModel.instanceStartDateBegin}
+            ]]>
+        </if>
+        <if test="executionTaskSearchModel.instanceStartDateEnd != null">
+            <![CDATA[
+                and EXTASK_END_TIME<=#{executionTaskSearchModel.instanceStartDateEnd}
+            ]]>
+        </if>
         order by EXTASK_END_TIME desc
     </select>
 
@@ -130,7 +150,7 @@
     </select>
 
     <update id="updateProcessingToCancelStatus">
-        update TFLOW_EXECUTION_TASK set EXTASK_STATUS='Cancel' where EXTASK_INST_ID=#{instanceId} and EXTASK_STATUS=#{Processing}
+        update TFLOW_EXECUTION_TASK set EXTASK_STATUS='Cancel' where EXTASK_INST_ID=#{instanceId} and EXTASK_STATUS='Processing'
     </update>
 
     <select id="selectNextExtaskIndexByInstanceId" resultType="int">

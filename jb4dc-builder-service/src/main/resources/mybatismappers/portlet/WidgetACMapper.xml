@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jb4dc.portlet.dao.WidgetMapper">
+    <resultMap id="BaseResultMap" type="com.jb4dc.portlet.dbentities.WidgetEntity">
+        <constructor>
+            <idArg column="WIDGET_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="WIDGET_GROUP_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="WIDGET_TITLE" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="WIDGET_NAME" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="WIDGET_DESC" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="WIDGET_CLIENT_RENDER" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="WIDGET_BEF_RENDER" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="WIDGET_AFT_RENDER" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="WIDGET_UPDATE_TIME" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+            <arg column="WIDGET_UPDATER" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="WIDGET_STATUS" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="WIDGET_ORDER_NUM" javaType="java.lang.Integer" jdbcType="INTEGER" />
+        </constructor>
+    </resultMap>
+    <resultMap id="ResultMapWithBLOBs" type="com.jb4dc.portlet.dbentities.WidgetEntity">
+        <constructor>
+            <idArg column="WIDGET_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="WIDGET_GROUP_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="WIDGET_TITLE" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="WIDGET_NAME" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="WIDGET_DESC" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="WIDGET_CLIENT_RENDER" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="WIDGET_BEF_RENDER" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="WIDGET_AFT_RENDER" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="WIDGET_UPDATE_TIME" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+            <arg column="WIDGET_UPDATER" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="WIDGET_STATUS" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="WIDGET_ORDER_NUM" javaType="java.lang.Integer" jdbcType="INTEGER" />
+            <arg column="WIDGET_PROPERTIES" javaType="java.lang.String" jdbcType="LONGVARCHAR" />
+        </constructor>
+    </resultMap>
+    <sql id="Base_Column_List">
+        WIDGET_ID, WIDGET_GROUP_ID, WIDGET_TITLE, WIDGET_NAME, WIDGET_DESC, WIDGET_CLIENT_RENDER,
+        WIDGET_BEF_RENDER, WIDGET_AFT_RENDER, WIDGET_UPDATE_TIME, WIDGET_UPDATER, WIDGET_STATUS,
+        WIDGET_ORDER_NUM
+    </sql>
+    <sql id="Blob_Column_List">
+        WIDGET_PROPERTIES
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="ResultMapWithBLOBs">
+        select
+        <include refid="Base_Column_List" />
+        ,
+        <include refid="Blob_Column_List" />
+        from PORTLET_WIDGET
+        where WIDGET_ID = #{widgetId,jdbcType=VARCHAR}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+        delete from PORTLET_WIDGET
+        where WIDGET_ID = #{widgetId,jdbcType=VARCHAR}
+    </delete>
+    <insert id="insert" parameterType="com.jb4dc.portlet.dbentities.WidgetEntity">
+        insert into PORTLET_WIDGET (WIDGET_ID, WIDGET_GROUP_ID, WIDGET_TITLE,
+        WIDGET_NAME, WIDGET_DESC, WIDGET_CLIENT_RENDER,
+        WIDGET_BEF_RENDER, WIDGET_AFT_RENDER, WIDGET_UPDATE_TIME,
+        WIDGET_UPDATER, WIDGET_STATUS, WIDGET_ORDER_NUM,
+        WIDGET_PROPERTIES)
+        values (#{widgetId,jdbcType=VARCHAR}, #{widgetGroupId,jdbcType=VARCHAR}, #{widgetTitle,jdbcType=VARCHAR},
+        #{widgetName,jdbcType=VARCHAR}, #{widgetDesc,jdbcType=VARCHAR}, #{widgetClientRender,jdbcType=VARCHAR},
+        #{widgetBefRender,jdbcType=VARCHAR}, #{widgetAftRender,jdbcType=VARCHAR}, #{widgetUpdateTime,jdbcType=TIMESTAMP},
+        #{widgetUpdater,jdbcType=VARCHAR}, #{widgetStatus,jdbcType=VARCHAR}, #{widgetOrderNum,jdbcType=INTEGER},
+        #{widgetProperties,jdbcType=LONGVARCHAR})
+    </insert>
+    <insert id="insertSelective" parameterType="com.jb4dc.portlet.dbentities.WidgetEntity">
+        insert into PORTLET_WIDGET
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="widgetId != null">
+                WIDGET_ID,
+            </if>
+            <if test="widgetGroupId != null">
+                WIDGET_GROUP_ID,
+            </if>
+            <if test="widgetTitle != null">
+                WIDGET_TITLE,
+            </if>
+            <if test="widgetName != null">
+                WIDGET_NAME,
+            </if>
+            <if test="widgetDesc != null">
+                WIDGET_DESC,
+            </if>
+            <if test="widgetClientRender != null">
+                WIDGET_CLIENT_RENDER,
+            </if>
+            <if test="widgetBefRender != null">
+                WIDGET_BEF_RENDER,
+            </if>
+            <if test="widgetAftRender != null">
+                WIDGET_AFT_RENDER,
+            </if>
+            <if test="widgetUpdateTime != null">
+                WIDGET_UPDATE_TIME,
+            </if>
+            <if test="widgetUpdater != null">
+                WIDGET_UPDATER,
+            </if>
+            <if test="widgetStatus != null">
+                WIDGET_STATUS,
+            </if>
+            <if test="widgetOrderNum != null">
+                WIDGET_ORDER_NUM,
+            </if>
+            <if test="widgetProperties != null">
+                WIDGET_PROPERTIES,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="widgetId != null">
+                #{widgetId,jdbcType=VARCHAR},
+            </if>
+            <if test="widgetGroupId != null">
+                #{widgetGroupId,jdbcType=VARCHAR},
+            </if>
+            <if test="widgetTitle != null">
+                #{widgetTitle,jdbcType=VARCHAR},
+            </if>
+            <if test="widgetName != null">
+                #{widgetName,jdbcType=VARCHAR},
+            </if>
+            <if test="widgetDesc != null">
+                #{widgetDesc,jdbcType=VARCHAR},
+            </if>
+            <if test="widgetClientRender != null">
+                #{widgetClientRender,jdbcType=VARCHAR},
+            </if>
+            <if test="widgetBefRender != null">
+                #{widgetBefRender,jdbcType=VARCHAR},
+            </if>
+            <if test="widgetAftRender != null">
+                #{widgetAftRender,jdbcType=VARCHAR},
+            </if>
+            <if test="widgetUpdateTime != null">
+                #{widgetUpdateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="widgetUpdater != null">
+                #{widgetUpdater,jdbcType=VARCHAR},
+            </if>
+            <if test="widgetStatus != null">
+                #{widgetStatus,jdbcType=VARCHAR},
+            </if>
+            <if test="widgetOrderNum != null">
+                #{widgetOrderNum,jdbcType=INTEGER},
+            </if>
+            <if test="widgetProperties != null">
+                #{widgetProperties,jdbcType=LONGVARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.jb4dc.portlet.dbentities.WidgetEntity">
+        update PORTLET_WIDGET
+        <set>
+            <if test="widgetGroupId != null">
+                WIDGET_GROUP_ID = #{widgetGroupId,jdbcType=VARCHAR},
+            </if>
+            <if test="widgetTitle != null">
+                WIDGET_TITLE = #{widgetTitle,jdbcType=VARCHAR},
+            </if>
+            <if test="widgetName != null">
+                WIDGET_NAME = #{widgetName,jdbcType=VARCHAR},
+            </if>
+            <if test="widgetDesc != null">
+                WIDGET_DESC = #{widgetDesc,jdbcType=VARCHAR},
+            </if>
+            <if test="widgetClientRender != null">
+                WIDGET_CLIENT_RENDER = #{widgetClientRender,jdbcType=VARCHAR},
+            </if>
+            <if test="widgetBefRender != null">
+                WIDGET_BEF_RENDER = #{widgetBefRender,jdbcType=VARCHAR},
+            </if>
+            <if test="widgetAftRender != null">
+                WIDGET_AFT_RENDER = #{widgetAftRender,jdbcType=VARCHAR},
+            </if>
+            <if test="widgetUpdateTime != null">
+                WIDGET_UPDATE_TIME = #{widgetUpdateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="widgetUpdater != null">
+                WIDGET_UPDATER = #{widgetUpdater,jdbcType=VARCHAR},
+            </if>
+            <if test="widgetStatus != null">
+                WIDGET_STATUS = #{widgetStatus,jdbcType=VARCHAR},
+            </if>
+            <if test="widgetOrderNum != null">
+                WIDGET_ORDER_NUM = #{widgetOrderNum,jdbcType=INTEGER},
+            </if>
+            <if test="widgetProperties != null">
+                WIDGET_PROPERTIES = #{widgetProperties,jdbcType=LONGVARCHAR},
+            </if>
+        </set>
+        where WIDGET_ID = #{widgetId,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.jb4dc.portlet.dbentities.WidgetEntity">
+        update PORTLET_WIDGET
+        set WIDGET_GROUP_ID = #{widgetGroupId,jdbcType=VARCHAR},
+        WIDGET_TITLE = #{widgetTitle,jdbcType=VARCHAR},
+        WIDGET_NAME = #{widgetName,jdbcType=VARCHAR},
+        WIDGET_DESC = #{widgetDesc,jdbcType=VARCHAR},
+        WIDGET_CLIENT_RENDER = #{widgetClientRender,jdbcType=VARCHAR},
+        WIDGET_BEF_RENDER = #{widgetBefRender,jdbcType=VARCHAR},
+        WIDGET_AFT_RENDER = #{widgetAftRender,jdbcType=VARCHAR},
+        WIDGET_UPDATE_TIME = #{widgetUpdateTime,jdbcType=TIMESTAMP},
+        WIDGET_UPDATER = #{widgetUpdater,jdbcType=VARCHAR},
+        WIDGET_STATUS = #{widgetStatus,jdbcType=VARCHAR},
+        WIDGET_ORDER_NUM = #{widgetOrderNum,jdbcType=INTEGER},
+        WIDGET_PROPERTIES = #{widgetProperties,jdbcType=LONGVARCHAR}
+        where WIDGET_ID = #{widgetId,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.jb4dc.portlet.dbentities.WidgetEntity">
+        update PORTLET_WIDGET
+        set WIDGET_GROUP_ID = #{widgetGroupId,jdbcType=VARCHAR},
+        WIDGET_TITLE = #{widgetTitle,jdbcType=VARCHAR},
+        WIDGET_NAME = #{widgetName,jdbcType=VARCHAR},
+        WIDGET_DESC = #{widgetDesc,jdbcType=VARCHAR},
+        WIDGET_CLIENT_RENDER = #{widgetClientRender,jdbcType=VARCHAR},
+        WIDGET_BEF_RENDER = #{widgetBefRender,jdbcType=VARCHAR},
+        WIDGET_AFT_RENDER = #{widgetAftRender,jdbcType=VARCHAR},
+        WIDGET_UPDATE_TIME = #{widgetUpdateTime,jdbcType=TIMESTAMP},
+        WIDGET_UPDATER = #{widgetUpdater,jdbcType=VARCHAR},
+        WIDGET_STATUS = #{widgetStatus,jdbcType=VARCHAR},
+        WIDGET_ORDER_NUM = #{widgetOrderNum,jdbcType=INTEGER}
+        where WIDGET_ID = #{widgetId,jdbcType=VARCHAR}
+    </update>
+</mapper>

@@ -7,6 +7,7 @@ import com.jb4dc.builder.client.remote.BuilderClientFeignClientConfig;
 import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
 import com.jb4dc.core.base.vo.JBuild4DCResponseVo;
 import com.jb4dc.workflow.po.*;
+import com.jb4dc.workflow.searchmodel.ExecutionTaskSearchModel;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.context.annotation.Primary;
 import org.springframework.web.bind.annotation.*;
@@ -32,8 +33,8 @@ public interface FlowInstanceIntegratedRuntimeRemote {
     @RequestMapping(value = "/GetMyProcessTaskList",method = RequestMethod.GET)
     JBuild4DCResponseVo<PageInfo<ExecutionTaskPO>> getMyProcessTaskList(@RequestParam("pageNum") int pageNum, @RequestParam("pageSize") int pageSize, @RequestParam("userId") String userId, @RequestParam("organId")  String organId, @RequestParam("linkId") String linkId, @RequestParam("modelCategory") String modelCategory, @RequestParam("extaskType") String extaskType) throws JBuild4DCGenerallyException;
 
-    @RequestMapping(value = "/GetMyProcessEndTaskList",method = RequestMethod.GET)
-    JBuild4DCResponseVo<PageInfo<ExecutionTaskPO>> getMyProcessEndTaskList(@RequestParam("pageNum") int pageNum, @RequestParam("pageSize") int pageSize, @RequestParam("userId") String userId, @RequestParam("organId")  String organId, @RequestParam("linkId") String linkId, @RequestParam("modelCategory") String modelCategory, @RequestParam("extaskType") String extaskType) throws JBuild4DCGenerallyException;
+    @PostMapping(value = "/GetMyProcessEndTaskList")
+    JBuild4DCResponseVo<PageInfo<ExecutionTaskPO>> getMyProcessEndTaskList(@RequestBody ExecutionTaskSearchModel executionTaskSearchModel) throws JBuild4DCGenerallyException;
 
     @PostMapping(value = "/ResolveNextPossibleFlowNode")
     JBuild4DCResponseVo<ResolveNextPossibleFlowNodePO> resolveNextPossibleFlowNode(@RequestBody RequestResolveNextPossibleFlowNodePO resolveNextPossibleFlowNodePO) throws JBuild4DCGenerallyException ;

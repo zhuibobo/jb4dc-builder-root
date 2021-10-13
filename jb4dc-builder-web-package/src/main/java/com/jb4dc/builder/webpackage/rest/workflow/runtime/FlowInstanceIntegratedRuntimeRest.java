@@ -2,7 +2,6 @@ package com.jb4dc.builder.webpackage.rest.workflow.runtime;
 
 import com.github.pagehelper.PageInfo;
 import com.jb4dc.base.service.general.JB4DCSessionUtility;
-import com.jb4dc.base.service.po.SimplePO;
 import com.jb4dc.base.tools.JsonUtility;
 import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
 import com.jb4dc.core.base.session.JB4DCSession;
@@ -12,6 +11,7 @@ import com.jb4dc.workflow.integrate.extend.IExecutionTaskExtendService;
 import com.jb4dc.workflow.integrate.extend.IInstanceExtendService;
 import com.jb4dc.workflow.po.*;
 import com.jb4dc.workflow.po.receive.ClientSelectedReceiver;
+import com.jb4dc.workflow.searchmodel.ExecutionTaskSearchModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -97,9 +97,9 @@ public class FlowInstanceIntegratedRuntimeRest implements FlowInstanceIntegrated
     }
 
     @Override
-    public JBuild4DCResponseVo<PageInfo<ExecutionTaskPO>> getMyProcessEndTaskList(int pageNum,int pageSize,String userId, String organId, String linkId, String modelCategory, String extaskType) throws JBuild4DCGenerallyException{
+    public JBuild4DCResponseVo<PageInfo<ExecutionTaskPO>> getMyProcessEndTaskList(ExecutionTaskSearchModel executionTaskSearchModel) throws JBuild4DCGenerallyException{
         JB4DCSession jb4DCSession = JB4DCSessionUtility.getSession();
-        PageInfo<ExecutionTaskPO> executionTaskPOPageInfo = executionTaskExtendService.getMyProcessEndTaskList(jb4DCSession,pageNum,pageSize, userId,organId,linkId,modelCategory,extaskType);
+        PageInfo<ExecutionTaskPO> executionTaskPOPageInfo = executionTaskExtendService.getMyProcessEndTaskList(jb4DCSession,executionTaskSearchModel);
         return JBuild4DCResponseVo.getDataSuccess(executionTaskPOPageInfo);
     }
 
@@ -122,10 +122,14 @@ public class FlowInstanceIntegratedRuntimeRest implements FlowInstanceIntegrated
             JB4DCSession jb4DCSession = JB4DCSessionUtility.getSession();
             Map<String, Object> vars = JsonUtility.toObject(requestCompleteTaskPO.getVarsJsonString(), Map.class);
             List<ClientSelectedReceiver> clientSelectedReceiverList = ClientSelectedReceiver.parse(requestCompleteTaskPO.getSelectedReceiverVars());
+
+            String businessRelationJson = instanceExtendService.formRecordComplexPOToBusinessRelationJson(jb4DCSession, requestCompleteTaskPO.getFormRecordComplexPO());
+            String businessRelationType = "FormRecordDataRelationPO";
             TaskActionResult completeTaskResult = instanceExtendService.completeTask(jb4DCSession, requestCompleteTaskPO.isStartInstanceStatus(),
                     requestCompleteTaskPO.getInstanceId(), requestCompleteTaskPO.getModelId(), requestCompleteTaskPO.getModelReKey(), requestCompleteTaskPO.getCurrentTaskId(),
                     requestCompleteTaskPO.getCurrentNodeKey(), requestCompleteTaskPO.getCurrentNodeName(), requestCompleteTaskPO.getActionCode(), vars, clientSelectedReceiverList,
-                    requestCompleteTaskPO.getBusinessKey(), requestCompleteTaskPO.getInstanceTitle(), requestCompleteTaskPO.getInstanceDesc());
+                    requestCompleteTaskPO.getBusinessKey(), requestCompleteTaskPO.getInstanceTitle(), requestCompleteTaskPO.getInstanceDesc(), businessRelationJson, businessRelationType,requestCompleteTaskPO.getNewOpinionEntityList());
+
             return completeTaskResult;
         } catch (Exception ex) {
             throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_WORKFLOW_CODE, ex);

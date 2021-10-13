@@ -1,5 +1,6 @@
 package com.jb4dc.workflow.integrate.extend.impl;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.jb4dc.base.service.IAddBefore;
@@ -9,12 +10,15 @@ import com.jb4dc.base.service.po.SimplePO;
 import com.jb4dc.base.tools.JsonUtility;
 import com.jb4dc.base.tools.URLUtility;
 import com.jb4dc.base.ymls.JBuild4DCYaml;
+import com.jb4dc.builder.po.formdata.FormRecordComplexPO;
+import com.jb4dc.builder.po.formdata.FormRecordDataRelationPO;
 import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
 import com.jb4dc.core.base.session.JB4DCSession;
 import com.jb4dc.core.base.tools.StringUtility;
 import com.jb4dc.core.base.tools.UUIDUtility;
 import com.jb4dc.workflow.dao.InstanceMapper;
 import com.jb4dc.workflow.dbentities.ExecutionTaskEntity;
+import com.jb4dc.workflow.dbentities.ExecutionTaskOpinionEntity;
 import com.jb4dc.workflow.dbentities.InstanceEntity;
 import com.jb4dc.workflow.dbentities.ModelIntegratedEntity;
 import com.jb4dc.workflow.exenum.ModelTenantIdEnum;
@@ -30,12 +34,12 @@ import org.camunda.bpm.engine.repository.ProcessDefinition;
 import org.camunda.bpm.engine.runtime.ProcessInstance;
 import org.camunda.bpm.engine.task.Task;
 import org.camunda.bpm.model.bpmn.instance.FlowNode;
-import org.camunda.bpm.model.bpmn.instance.UserTask;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import springfox.documentation.spring.web.json.Json;
 
 import javax.xml.bind.JAXBException;
 import javax.xml.stream.XMLStreamException;
@@ -208,7 +212,7 @@ public class InstanceExtendServiceImpl extends BaseServiceImpl<InstanceEntity> i
                                          String modelId, String modelReKey, String currentTaskId,
                                          String currentNodeKey, String currentNodeName, String actionCode,
                                          Map<String, Object> vars, List<ClientSelectedReceiver> clientSelectedReceiverList, String businessKey,
-                                         String instanceTitle, String instanceDesc) throws JBuild4DCGenerallyException {
+                                         String instanceTitle, String instanceDesc, String businessRelationJson, String businessRelationType,List<ExecutionTaskOpinionEntity> newOpinionEntityList) throws JBuild4DCGenerallyException {
 
         TaskActionResult completeTaskResult = new TaskActionResult();
         try {
@@ -217,25 +221,24 @@ public class InstanceExtendServiceImpl extends BaseServiceImpl<InstanceEntity> i
                     vars, clientSelectedReceiverList, businessKey,
                     instanceTitle, instanceDesc);
 
-            if(completeTaskEnable.isSuccess()) {
+            if (completeTaskEnable.isSuccess()) {
 
                 FlowModelIntegratedPO flowModelIntegratedPO = modelIntegratedExtendService.getPOByIntegratedId(jb4DCSession, modelId);
 
                 BpmnDefinitions bpmnDefinitions = null;
                 ExecutionTaskEntity currentExecutionTaskEntity = null;
 
-                BpmnStartEvent bpmnStartEvent=null;
+                BpmnStartEvent bpmnStartEvent = null;
 
                 if (isStartInstanceStatus) {
                     bpmnDefinitions = modelIntegratedExtendService.getLastDeployedCamundaModelBpmnDefinitions(jb4DCSession, flowModelIntegratedPO.getModelReKey());
-                    bpmnStartEvent=bpmnDefinitions.getBpmnProcess().getStartEvent();
+                    bpmnStartEvent = bpmnDefinitions.getBpmnProcess().getStartEvent();
                 } else {
                     currentExecutionTaskEntity = executionTaskExtendService.getByPrimaryKey(jb4DCSession, currentTaskId);
                     bpmnDefinitions = modelIntegratedExtendService.getDeployedCamundaModelBpmnDefinitions(jb4DCSession, currentExecutionTaskEntity.getExtaskRuProcDefId());
                 }
 
                 Jb4dcAction jb4dcAction = BpmnDefinitions.findAction(bpmnDefinitions, currentNodeKey, actionCode);
-
 
                 //region 处理主送人员
                 Map<String, List<ClientSelectedReceiver>> clientSelectedMainReceiverGroupBy = clientSelectedReceiverList.stream().filter(item -> item.getReceiveType().equals(ClientSelectedReceiver.ReceiveType_Main))
@@ -260,23 +263,23 @@ public class InstanceExtendServiceImpl extends BaseServiceImpl<InstanceEntity> i
                 //endregion
 
                 InstanceEntity instanceEntity;
-                BpmnUserTask bpmnStartUserTask=null;
+                BpmnUserTask bpmnStartUserTask = null;
 
                 if (isStartInstanceStatus) {
                     //如果是启动流程时,重新设定当前节点,主要是修订起草环节作为启动事件替代的问题.
-                    currentNodeKey=bpmnStartEvent.getId();
-                    currentNodeName=bpmnStartEvent.getName();
+                    currentNodeKey = bpmnStartEvent.getId();
+                    currentNodeName = bpmnStartEvent.getName();
 
                     //构建起始事件发送到起草节点的变量
-                    bpmnStartUserTask = bpmnDefinitions.getBpmnProcess().getUserTaskList().stream().filter(item->item.getId().equals(WorkFlowEnum.UserTask_Start_Node_Id)).findFirst().get();
+                    bpmnStartUserTask = bpmnDefinitions.getBpmnProcess().getUserTaskList().stream().filter(item -> item.getId().equals(WorkFlowEnum.UserTask_Start_Node_Id)).findFirst().get();
 
 
-                    String assignee_var_name=bpmnStartUserTask.getAssignee().replace("${","").replace("}","");
+                    String assignee_var_name = bpmnStartUserTask.getAssignee().replace("${", "").replace("}", "");
                     vars.put(assignee_var_name, jb4DCSession.getUserId());
 
                     ProcessInstance processInstance = flowEngineInstanceIntegratedService.startProcessInstanceByKey(flowModelIntegratedPO.getModelReKey(), businessKey, vars);
                     //记录扩展的实例数据
-                    instanceEntity = createNewInstance(jb4DCSession,instanceId, businessKey, instanceTitle, instanceDesc, flowModelIntegratedPO, processInstance);
+                    instanceEntity = createNewInstance(jb4DCSession, instanceId, businessKey, instanceTitle, instanceDesc, flowModelIntegratedPO, processInstance, businessRelationJson, businessRelationType);
                     //生成一个初始任务,并设置为办结状态
                     currentExecutionTaskEntity = executionTaskExtendService.createStartEventExecutionTask(jb4DCSession, instanceEntity, currentNodeKey, currentNodeName, jb4dcAction);
                     //currentExecutionTaskEntity;
@@ -296,32 +299,23 @@ public class InstanceExtendServiceImpl extends BaseServiceImpl<InstanceEntity> i
                     currentExecutionTaskEntity.setExtaskHandlerType(WorkFlowEnum.ExTask_Handler_Type_Self);
 
                     executionTaskExtendService.updateByKeySelective(jb4DCSession, currentExecutionTaskEntity);
-                    //currentExecutionTaskEntity = executionTaskExtendService.getByPrimaryKey(jb4DCSession,currentTaskId);
+
+                    //保存办理意见
+                    saveNewExTaskOpinion(jb4DCSession, newOpinionEntityList, currentExecutionTaskEntity);
                 }
+
+                //保存办理日志
+                taskNewLog(jb4DCSession, isStartInstanceStatus, instanceId,
+                        modelId, modelReKey, currentTaskId,
+                        currentNodeKey, currentNodeName, actionCode,
+                        vars, clientSelectedReceiverList, businessKey,
+                        instanceTitle, instanceDesc, businessRelationJson, businessRelationType, newOpinionEntityList);
 
                 //获取当前任务,并记录到扩展任务中
                 List<Task> engineTaskList = flowEngineTaskIntegratedService.getTasks(instanceEntity.getInstRuProcInstId());
                 for (int i = 0; i < engineTaskList.size(); i++) {
                     Task task = engineTaskList.get(i);
                     if (executionTaskExtendService.getByPrimaryKey(jb4DCSession, task.getId()) == null) {
-                        /*ExecutionTaskEntity executionTaskEntity = new ExecutionTaskEntity();
-                        executionTaskEntity.setExtaskId(task.getId());
-                        executionTaskEntity.setExtaskInstId(instanceEntity.getInstId());
-                        executionTaskEntity.setExtaskModelId(instanceEntity.getInstModId());
-                        executionTaskEntity.setExtaskRuTaskId(task.getId());
-                        executionTaskEntity.setExtaskRuExecutionId(task.getExecutionId());
-                        executionTaskEntity.setExtaskRuProcInstId(task.getProcessInstanceId());
-                        executionTaskEntity.setExtaskRuProcDefId(task.getProcessDefinitionId());
-                        executionTaskEntity.setExtaskPreNodeKey(currentNodeKey);
-                        executionTaskEntity.setExtaskPreNodeName(currentNodeName);
-                        executionTaskEntity.setExtaskCurNodeKey(task.getTaskDefinitionKey());
-                        executionTaskEntity.setExtaskCurNodeName(task.getName());
-                        executionTaskEntity.setExtaskType(WorkFlowEnum.ExTask_Type_Main);
-                        executionTaskEntity.setExtaskStatus(WorkFlowEnum.ExTask_Status_Processing);
-                        executionTaskEntity.setExtaskSenderId(jb4DCSession.getUserId());
-                        executionTaskEntity.setExtaskSenderName(jb4DCSession.getUserName());
-                        executionTaskEntity.setExtaskSendTime(new Date());
-                        executionTaskEntity.setExtaskReceiverId(task.getAssignee());*/
                         String receiverName = "";
                         if (task.getAssignee().equals(jb4DCSession.getUserId())) {
                             receiverName = jb4DCSession.getUserName();
@@ -331,13 +325,6 @@ public class InstanceExtendServiceImpl extends BaseServiceImpl<InstanceEntity> i
                         if (StringUtility.isEmpty(receiverName)) {
                             throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_WORKFLOW_CODE, "无法确认用户ID对应的用户名!");
                         }
-                        /*executionTaskEntity.setExtaskReceiverName(receiverName);
-                        executionTaskEntity.setExtaskViewEd(TrueFalseEnum.False.getDisplayName());
-                        executionTaskEntity.setExtaskStartTime(new Date());
-                        executionTaskEntity.setExtaskHandleEd(TrueFalseEnum.False.getDisplayName());
-                        executionTaskEntity.setExtaskOrderNum(executionTaskExtendService.getNextOrderNum(jb4DCSession));
-                        executionTaskEntity.setExtaskFromTaskId(currentExecutionTaskEntity.getExtaskId());
-                        executionTaskEntity.setExtaskFromExecutionId(currentExecutionTaskEntity.getExtaskRuExecutionId());*/
 
                         BpmnUserTask bpmnUserTask = bpmnDefinitions.getBpmnProcess().getUserTaskList().stream().filter(item -> item.getId().equals(task.getTaskDefinitionKey())).findFirst().get();
                         int extaskIndex = 0;
@@ -345,12 +332,12 @@ public class InstanceExtendServiceImpl extends BaseServiceImpl<InstanceEntity> i
                         if (bpmnUserTask.isMultiInstanceTask()) {
                             //1001001,1001002
                             //executionTaskEntity.setExtaskIndex(currentExecutionTaskEntity.getExtaskIndex() + 1000 + i);
-                            extaskIndex = executionTaskExtendService.getNextExtaskIndexByInstanceId(jb4DCSession,instanceEntity.getInstId()) + i + 1;
+                            extaskIndex = executionTaskExtendService.getNextExtaskIndexByInstanceId(jb4DCSession, instanceEntity.getInstId()) + i + 1;
 
                         } else {
                             //1002000,1003000
                             //executionTaskEntity.setExtaskIndex(currentExecutionTaskEntity.getExtaskIndex() + 1000);
-                            extaskIndex = executionTaskExtendService.getNextExtaskIndexByInstanceId(jb4DCSession,instanceEntity.getInstId());
+                            extaskIndex = executionTaskExtendService.getNextExtaskIndexByInstanceId(jb4DCSession, instanceEntity.getInstId());
                         }
 
                         ExecutionTaskEntity executionTaskEntity = transformEngineTaskToExTask(jb4DCSession, jb4DCSession.getUserId(), jb4DCSession.getUserName(), new Date(), task, instanceEntity, currentNodeKey, currentNodeName, receiverName,
@@ -361,10 +348,10 @@ public class InstanceExtendServiceImpl extends BaseServiceImpl<InstanceEntity> i
                 }
 
                 //获取流程引擎中的流程实例是否办结
-                if(flowEngineInstanceIntegratedService.instanceIsComplete(jb4DCSession,instanceEntity.getInstRuProcInstId())){
+                if (flowEngineInstanceIntegratedService.instanceIsComplete(jb4DCSession, instanceEntity.getInstRuProcInstId())) {
                     instanceEntity.setInstStatus(WorkFlowEnum.Instance_Status_Name_End);
                     instanceEntity.setInstEndTime(new Date());
-                    this.updateByKeySelective(jb4DCSession,instanceEntity);
+                    this.updateByKeySelective(jb4DCSession, instanceEntity);
                 }
 
                 //办结起草节点推动流程到下一环节
@@ -374,33 +361,53 @@ public class InstanceExtendServiceImpl extends BaseServiceImpl<InstanceEntity> i
                                     item.getExtaskStatus().equals(WorkFlowEnum.ExTask_Status_Processing) && item.getExtaskReceiverId().equals(jb4DCSession.getUserId())
                             ).findFirst().get();
 
-                    TaskActionResult innerCompleteTaskResult =this.completeTask(jb4DCSession, false, instanceId, modelId, modelReKey, draftTask.getExtaskId(), bpmnStartUserTask.getId(), bpmnStartUserTask.getName(), actionCode, vars, clientSelectedReceiverList, businessKey, instanceTitle, instanceDesc);
-                    if(!innerCompleteTaskResult.isSuccess()){
-                        throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_WORKFLOW_CODE,innerCompleteTaskResult.getMessage());
-                    }
-                    else{
-                        draftTask=executionTaskExtendService.getByPrimaryKey(jb4DCSession,draftTask.getExtaskId());
+                    TaskActionResult innerCompleteTaskResult = this.completeTask(jb4DCSession, false, instanceId, modelId, modelReKey, draftTask.getExtaskId(), bpmnStartUserTask.getId(), bpmnStartUserTask.getName(), actionCode, vars, clientSelectedReceiverList, businessKey, instanceTitle, instanceDesc, businessRelationJson, businessRelationType, newOpinionEntityList);
+                    if (!innerCompleteTaskResult.isSuccess()) {
+                        throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_WORKFLOW_CODE, innerCompleteTaskResult.getMessage());
+                    } else {
+                        draftTask = executionTaskExtendService.getByPrimaryKey(jb4DCSession, draftTask.getExtaskId());
                         draftTask.setExtaskViewEd("是");
                         draftTask.setExtaskViewTime(draftTask.getExtaskStartTime());
                         draftTask.setExtaskCreateBy(WorkFlowEnum.ExTask_Create_By_Initial);
-                        executionTaskExtendService.updateByKeySelective(jb4DCSession,draftTask);
+                        executionTaskExtendService.updateByKeySelective(jb4DCSession, draftTask);
                     }
                 }
 
                 completeTaskResult.setSuccess(true);
                 completeTaskResult.setMessage("操作成功!");
                 return completeTaskResult;
-            }
-            else {
+            } else {
                 return completeTaskEnable;
             }
         } catch (Exception ex) {
             ex.printStackTrace();
-            logger.error("办结任务异常!",ex);
+            logger.error("办结任务异常!", ex);
             String traceMsg = org.apache.commons.lang3.exception.ExceptionUtils.getStackTrace(ex);
             completeTaskResult.setSuccess(false);
             completeTaskResult.setMessage(traceMsg);
             return completeTaskResult;
+        }
+    }
+
+    public void taskNewLog(JB4DCSession jb4DCSession, boolean isStartInstanceStatus, String instanceId,
+                                         String modelId, String modelReKey, String currentTaskId,
+                                         String currentNodeKey, String currentNodeName, String actionCode,
+                                         Map<String, Object> vars, List<ClientSelectedReceiver> clientSelectedReceiverList, String businessKey,
+                                         String instanceTitle, String instanceDesc, String businessRelationJson, String businessRelationType,List<ExecutionTaskOpinionEntity> newOpinionEntityList) throws JBuild4DCGenerallyException {
+
+
+    }
+
+    private void saveNewExTaskOpinion(JB4DCSession jb4DCSession, List<ExecutionTaskOpinionEntity> newOpinionEntityList, ExecutionTaskEntity currentExecutionTaskEntity) throws JBuild4DCGenerallyException {
+        if(newOpinionEntityList !=null) {
+            for (int i = 0, newOpinionEntityListSize = newOpinionEntityList.size(); i < newOpinionEntityListSize; i++) {
+                ExecutionTaskOpinionEntity executionTaskOpinionEntity = newOpinionEntityList.get(i);
+                executionTaskOpinionEntity.setOpinionId(UUIDUtility.getUUID());
+                executionTaskOpinionEntity.setOpinionExtaskId(currentExecutionTaskEntity.getExtaskId());
+                int taskNextOpinionNum = executionTaskOpinionExtendService.getTaskNextOpinionNum(jb4DCSession, currentExecutionTaskEntity.getExtaskId())+i;
+                executionTaskOpinionEntity.setOpinionOrderNum(taskNextOpinionNum);
+                executionTaskOpinionExtendService.saveSimple(jb4DCSession, executionTaskOpinionEntity.getOpinionId(), executionTaskOpinionEntity);
+            }
         }
     }
 
@@ -446,7 +453,7 @@ public class InstanceExtendServiceImpl extends BaseServiceImpl<InstanceEntity> i
         return executionTaskEntity;
     }
 
-    private InstanceEntity createNewInstance(JB4DCSession jb4DCSession,String newInstanceId, String businessKey, String instanceTitle, String instanceDesc, FlowModelIntegratedPO flowModelIntegratedPO, ProcessInstance processInstance) throws JBuild4DCGenerallyException {
+    private InstanceEntity createNewInstance(JB4DCSession jb4DCSession,String newInstanceId, String businessKey, String instanceTitle, String instanceDesc, FlowModelIntegratedPO flowModelIntegratedPO, ProcessInstance processInstance, String businessRelationJson, String businessRelationType) throws JBuild4DCGenerallyException {
         InstanceEntity instanceEntity = new InstanceEntity();
         instanceEntity.setInstId(newInstanceId);
         instanceEntity.setInstTitle(instanceTitle);
@@ -467,6 +474,8 @@ public class InstanceExtendServiceImpl extends BaseServiceImpl<InstanceEntity> i
         instanceEntity.setInstModCategory(flowModelIntegratedPO.getModelFlowCategory());
         instanceEntity.setInstModModuleId(flowModelIntegratedPO.getModelModuleId());
         instanceEntity.setInstModTenantId(flowModelIntegratedPO.getModelTenantId());
+        instanceEntity.setInstRuBusinessRelation(businessRelationJson);
+        instanceEntity.setInstRuBusinessRelType(businessRelationType);
         this.saveSimple(jb4DCSession, instanceEntity.getInstId(), instanceEntity);
         return instanceEntity;
     }
@@ -678,6 +687,46 @@ public class InstanceExtendServiceImpl extends BaseServiceImpl<InstanceEntity> i
         return action;
     }
 
+    private SimplePO deleteInstanceActionEnable(JB4DCSession jb4DCSession, String userId, String organId, String extaskId, FlowInstanceRuntimePO flowInstanceRuntimePO) {
+        SimplePO simplePO=new SimplePO();
+        try {
+            simplePO.setSuccess(true);
+            simplePO.setStringValue("enable");
+            simplePO.setMessage("");
+
+            String instRuProcInstId=flowInstanceRuntimePO.getInstanceEntity().getInstRuProcInstId();
+            ExecutionTaskEntity recallFromExecutionTaskEntity=flowInstanceRuntimePO.getExecutionTaskEntity();
+            if(flowEngineInstanceIntegratedService.instanceIsComplete(jb4DCSession,instRuProcInstId)){
+                throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_WORKFLOW_CODE,"该流程实例已经办结,无法撤回!");
+            }
+
+            return simplePO;
+        }
+        catch (Exception ex){
+            simplePO.setSuccess(false);
+            simplePO.setStringValue("disable");
+            simplePO.setMessage(ex.getMessage());
+            return simplePO;
+        }
+    }
+
+    private Jb4dcAction getDeleteInstanceAction(JB4DCSession session, String userId, String organId, String extaskId, FlowInstanceRuntimePO flowInstanceRuntimePO) {
+        SimplePO disable = deleteInstanceActionEnable(session, userId, organId, extaskId, flowInstanceRuntimePO);
+        Jb4dcAction action = new Jb4dcAction();
+        action.setActionCaption("删除流程实例");
+        action.setJuelRunResultPO(new JuelRunResultPO(true, "", "true", true));
+        action.setActionType("deleteInstance");
+        action.setActionDisable(disable.getStringValue());
+        action.setActionHTMLId("DeleteInstanceButton");
+        if(disable.equals("enable")){
+
+        }
+        else{
+            action.setActionRemark("不允许执行删除动作!");
+        }
+        return action;
+    }
+
     /*@Override
     public SimplePO recallMySendTaskEnable(JB4DCSession jb4DCSession, String userId, String organId, String extaskId) throws JBuild4DCGenerallyException, XMLStreamException, JAXBException, IOException {
 
@@ -766,6 +815,17 @@ public class InstanceExtendServiceImpl extends BaseServiceImpl<InstanceEntity> i
         else{
             throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_WORKFLOW_CODE,"验证码错误!");
         }
+    }
+
+    @Override
+    public String formRecordComplexPOToBusinessRelationJson(JB4DCSession jb4DCSession, FormRecordComplexPO formRecordComplexPO) throws IOException {
+        FormRecordComplexPO innerFormRecordComplexPO= JsonUtility.clone(formRecordComplexPO);
+        List<FormRecordDataRelationPO> formRecordDataRelationPOList=innerFormRecordComplexPO.getFormRecordDataRelationPOList();
+        for (FormRecordDataRelationPO formRecordDataRelationPO : formRecordDataRelationPOList) {
+            formRecordDataRelationPO.setListDataRecord(null);
+            formRecordDataRelationPO.setOneDataRecord(null);
+        }
+        return JsonUtility.toObjectString(formRecordDataRelationPOList);
     }
 
     private TaskActionResult recallBySingle(JB4DCSession jb4DCSession, InstanceEntity instanceEntity, ExecutionTaskEntity recallFromExecutionTaskEntity, BpmnUserTask bpmnUserTask) throws JBuild4DCGenerallyException {
@@ -907,18 +967,6 @@ public class InstanceExtendServiceImpl extends BaseServiceImpl<InstanceEntity> i
             simplePO.setMessage(ex.getMessage());
             return simplePO;
         }
-    }
-
-    private Jb4dcAction getDeleteInstanceAction(JB4DCSession session, String userId, String organId, String extaskId, FlowInstanceRuntimePO flowInstanceRuntimePO) {
-
-        if(deleteInstanceActionEnable(session, userId, organId, extaskId,flowInstanceRuntimePO)){
-
-        }
-        return null;
-    }
-
-    private boolean deleteInstanceActionEnable(JB4DCSession session, String userId, String organId, String extaskId, FlowInstanceRuntimePO flowInstanceRuntimePO) {
-        return true;
     }
 
 

@@ -4,12 +4,17 @@ import com.jb4dc.core.base.session.JB4DCSession;
 import com.jb4dc.workflow.po.JuelRunResultPO;
 import de.odysseus.el.ExpressionFactoryImpl;
 import de.odysseus.el.util.SimpleContext;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.el.ExpressionFactory;
 import javax.el.ValueExpression;
+import java.util.HashMap;
 import java.util.Map;
 
 public class JuelUtility {
+
+    static Logger logger= LoggerFactory.getLogger(JuelUtility.class);
 
     public static JuelRunResultPO buildStringExpression(JB4DCSession jb4DCSession, String expression, Map<String,Object> vars) {
         try {
@@ -17,7 +22,12 @@ public class JuelUtility {
             SimpleContext context = new SimpleContext();
 
             for (Map.Entry<String, Object> stringObjectEntry : vars.entrySet()) {
-                context.setVariable(stringObjectEntry.getKey(), factory.createValueExpression(stringObjectEntry.getValue().toString(), String.class));
+                if(stringObjectEntry.getValue().getClass()== HashMap.class){
+                    context.setVariable(stringObjectEntry.getKey(), factory.createValueExpression(stringObjectEntry.getValue(), HashMap.class));
+                }
+                else {
+                    context.setVariable(stringObjectEntry.getKey(), factory.createValueExpression(stringObjectEntry.getValue().toString(), String.class));
+                }
             }
 
             ValueExpression e = factory.createValueExpression(context, expression, String.class);
@@ -25,6 +35,7 @@ public class JuelUtility {
             return new JuelRunResultPO(true,"",result,false);
         }
         catch (Exception ex){
+            logger.error("解析字符串表达式错误",ex);
             return new JuelRunResultPO(false,ex.getMessage(),"",false);
         }
     }

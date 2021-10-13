@@ -23,13 +23,16 @@
             <arg column="INST_MOD_CATEGORY" javaType="java.lang.String" jdbcType="VARCHAR" />
             <arg column="INST_MOD_MODULE_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
             <arg column="INST_MOD_TENANT_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="INST_RU_BUSINESS_RELATION" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="INST_RU_BUSINESS_REL_TYPE" javaType="java.lang.String" jdbcType="VARCHAR" />
         </constructor>
     </resultMap>
     <sql id="Base_Column_List">
         INST_ID, INST_TITLE, INST_DESC, INST_CUST_DESC, INST_CREATE_TIME, INST_CREATOR, INST_CREATOR_ID,
-    INST_ORGAN_NAME, INST_ORGAN_ID, INST_STATUS, INST_END_TIME, INST_RU_EXECUTION_ID,
-    INST_RU_PROC_INST_ID, INST_RU_BUSINESS_KEY, INST_RU_PROC_DEF_ID, INST_ORDER_NUM,
-    INST_MOD_ID, INST_MOD_CATEGORY, INST_MOD_MODULE_ID, INST_MOD_TENANT_ID
+        INST_ORGAN_NAME, INST_ORGAN_ID, INST_STATUS, INST_END_TIME, INST_RU_EXECUTION_ID,
+        INST_RU_PROC_INST_ID, INST_RU_BUSINESS_KEY, INST_RU_PROC_DEF_ID, INST_ORDER_NUM,
+        INST_MOD_ID, INST_MOD_CATEGORY, INST_MOD_MODULE_ID, INST_MOD_TENANT_ID, INST_RU_BUSINESS_RELATION,
+        INST_RU_BUSINESS_REL_TYPE
     </sql>
     <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
         select
@@ -43,19 +46,21 @@
     </delete>
     <insert id="insert" parameterType="com.jb4dc.workflow.dbentities.InstanceEntity">
         insert into TFLOW_INSTANCE (INST_ID, INST_TITLE, INST_DESC,
-                                    INST_CUST_DESC, INST_CREATE_TIME, INST_CREATOR,
-                                    INST_CREATOR_ID, INST_ORGAN_NAME, INST_ORGAN_ID,
-                                    INST_STATUS, INST_END_TIME, INST_RU_EXECUTION_ID,
-                                    INST_RU_PROC_INST_ID, INST_RU_BUSINESS_KEY, INST_RU_PROC_DEF_ID,
-                                    INST_ORDER_NUM, INST_MOD_ID, INST_MOD_CATEGORY,
-                                    INST_MOD_MODULE_ID, INST_MOD_TENANT_ID)
+        INST_CUST_DESC, INST_CREATE_TIME, INST_CREATOR,
+        INST_CREATOR_ID, INST_ORGAN_NAME, INST_ORGAN_ID,
+        INST_STATUS, INST_END_TIME, INST_RU_EXECUTION_ID,
+        INST_RU_PROC_INST_ID, INST_RU_BUSINESS_KEY, INST_RU_PROC_DEF_ID,
+        INST_ORDER_NUM, INST_MOD_ID, INST_MOD_CATEGORY,
+        INST_MOD_MODULE_ID, INST_MOD_TENANT_ID, INST_RU_BUSINESS_RELATION,
+        INST_RU_BUSINESS_REL_TYPE)
         values (#{instId,jdbcType=VARCHAR}, #{instTitle,jdbcType=VARCHAR}, #{instDesc,jdbcType=VARCHAR},
-                #{instCustDesc,jdbcType=VARCHAR}, #{instCreateTime,jdbcType=TIMESTAMP}, #{instCreator,jdbcType=VARCHAR},
-                #{instCreatorId,jdbcType=VARCHAR}, #{instOrganName,jdbcType=VARCHAR}, #{instOrganId,jdbcType=VARCHAR},
-                #{instStatus,jdbcType=VARCHAR}, #{instEndTime,jdbcType=TIMESTAMP}, #{instRuExecutionId,jdbcType=VARCHAR},
-                #{instRuProcInstId,jdbcType=VARCHAR}, #{instRuBusinessKey,jdbcType=VARCHAR}, #{instRuProcDefId,jdbcType=VARCHAR},
-                #{instOrderNum,jdbcType=INTEGER}, #{instModId,jdbcType=VARCHAR}, #{instModCategory,jdbcType=VARCHAR},
-                #{instModModuleId,jdbcType=VARCHAR}, #{instModTenantId,jdbcType=VARCHAR})
+        #{instCustDesc,jdbcType=VARCHAR}, #{instCreateTime,jdbcType=TIMESTAMP}, #{instCreator,jdbcType=VARCHAR},
+        #{instCreatorId,jdbcType=VARCHAR}, #{instOrganName,jdbcType=VARCHAR}, #{instOrganId,jdbcType=VARCHAR},
+        #{instStatus,jdbcType=VARCHAR}, #{instEndTime,jdbcType=TIMESTAMP}, #{instRuExecutionId,jdbcType=VARCHAR},
+        #{instRuProcInstId,jdbcType=VARCHAR}, #{instRuBusinessKey,jdbcType=VARCHAR}, #{instRuProcDefId,jdbcType=VARCHAR},
+        #{instOrderNum,jdbcType=INTEGER}, #{instModId,jdbcType=VARCHAR}, #{instModCategory,jdbcType=VARCHAR},
+        #{instModModuleId,jdbcType=VARCHAR}, #{instModTenantId,jdbcType=VARCHAR}, #{instRuBusinessRelation,jdbcType=VARCHAR},
+        #{instRuBusinessRelType,jdbcType=VARCHAR})
     </insert>
     <insert id="insertSelective" parameterType="com.jb4dc.workflow.dbentities.InstanceEntity">
         insert into TFLOW_INSTANCE
@@ -120,6 +125,12 @@
             <if test="instModTenantId != null">
                 INST_MOD_TENANT_ID,
             </if>
+            <if test="instRuBusinessRelation != null">
+                INST_RU_BUSINESS_RELATION,
+            </if>
+            <if test="instRuBusinessRelType != null">
+                INST_RU_BUSINESS_REL_TYPE,
+            </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="instId != null">
@@ -181,6 +192,12 @@
             </if>
             <if test="instModTenantId != null">
                 #{instModTenantId,jdbcType=VARCHAR},
+            </if>
+            <if test="instRuBusinessRelation != null">
+                #{instRuBusinessRelation,jdbcType=VARCHAR},
+            </if>
+            <if test="instRuBusinessRelType != null">
+                #{instRuBusinessRelType,jdbcType=VARCHAR},
             </if>
         </trim>
     </insert>
@@ -244,30 +261,38 @@
             <if test="instModTenantId != null">
                 INST_MOD_TENANT_ID = #{instModTenantId,jdbcType=VARCHAR},
             </if>
+            <if test="instRuBusinessRelation != null">
+                INST_RU_BUSINESS_RELATION = #{instRuBusinessRelation,jdbcType=VARCHAR},
+            </if>
+            <if test="instRuBusinessRelType != null">
+                INST_RU_BUSINESS_REL_TYPE = #{instRuBusinessRelType,jdbcType=VARCHAR},
+            </if>
         </set>
         where INST_ID = #{instId,jdbcType=VARCHAR}
     </update>
     <update id="updateByPrimaryKey" parameterType="com.jb4dc.workflow.dbentities.InstanceEntity">
         update TFLOW_INSTANCE
         set INST_TITLE = #{instTitle,jdbcType=VARCHAR},
-            INST_DESC = #{instDesc,jdbcType=VARCHAR},
-            INST_CUST_DESC = #{instCustDesc,jdbcType=VARCHAR},
-            INST_CREATE_TIME = #{instCreateTime,jdbcType=TIMESTAMP},
-            INST_CREATOR = #{instCreator,jdbcType=VARCHAR},
-            INST_CREATOR_ID = #{instCreatorId,jdbcType=VARCHAR},
-            INST_ORGAN_NAME = #{instOrganName,jdbcType=VARCHAR},
-            INST_ORGAN_ID = #{instOrganId,jdbcType=VARCHAR},
-            INST_STATUS = #{instStatus,jdbcType=VARCHAR},
-            INST_END_TIME = #{instEndTime,jdbcType=TIMESTAMP},
-            INST_RU_EXECUTION_ID = #{instRuExecutionId,jdbcType=VARCHAR},
-            INST_RU_PROC_INST_ID = #{instRuProcInstId,jdbcType=VARCHAR},
-            INST_RU_BUSINESS_KEY = #{instRuBusinessKey,jdbcType=VARCHAR},
-            INST_RU_PROC_DEF_ID = #{instRuProcDefId,jdbcType=VARCHAR},
-            INST_ORDER_NUM = #{instOrderNum,jdbcType=INTEGER},
-            INST_MOD_ID = #{instModId,jdbcType=VARCHAR},
-            INST_MOD_CATEGORY = #{instModCategory,jdbcType=VARCHAR},
-            INST_MOD_MODULE_ID = #{instModModuleId,jdbcType=VARCHAR},
-            INST_MOD_TENANT_ID = #{instModTenantId,jdbcType=VARCHAR}
+        INST_DESC = #{instDesc,jdbcType=VARCHAR},
+        INST_CUST_DESC = #{instCustDesc,jdbcType=VARCHAR},
+        INST_CREATE_TIME = #{instCreateTime,jdbcType=TIMESTAMP},
+        INST_CREATOR = #{instCreator,jdbcType=VARCHAR},
+        INST_CREATOR_ID = #{instCreatorId,jdbcType=VARCHAR},
+        INST_ORGAN_NAME = #{instOrganName,jdbcType=VARCHAR},
+        INST_ORGAN_ID = #{instOrganId,jdbcType=VARCHAR},
+        INST_STATUS = #{instStatus,jdbcType=VARCHAR},
+        INST_END_TIME = #{instEndTime,jdbcType=TIMESTAMP},
+        INST_RU_EXECUTION_ID = #{instRuExecutionId,jdbcType=VARCHAR},
+        INST_RU_PROC_INST_ID = #{instRuProcInstId,jdbcType=VARCHAR},
+        INST_RU_BUSINESS_KEY = #{instRuBusinessKey,jdbcType=VARCHAR},
+        INST_RU_PROC_DEF_ID = #{instRuProcDefId,jdbcType=VARCHAR},
+        INST_ORDER_NUM = #{instOrderNum,jdbcType=INTEGER},
+        INST_MOD_ID = #{instModId,jdbcType=VARCHAR},
+        INST_MOD_CATEGORY = #{instModCategory,jdbcType=VARCHAR},
+        INST_MOD_MODULE_ID = #{instModModuleId,jdbcType=VARCHAR},
+        INST_MOD_TENANT_ID = #{instModTenantId,jdbcType=VARCHAR},
+        INST_RU_BUSINESS_RELATION = #{instRuBusinessRelation,jdbcType=VARCHAR},
+        INST_RU_BUSINESS_REL_TYPE = #{instRuBusinessRelType,jdbcType=VARCHAR}
         where INST_ID = #{instId,jdbcType=VARCHAR}
     </update>
 </mapper>

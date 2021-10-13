@@ -75,6 +75,62 @@ public class InstanceEntity {
     //INST_MOD_TENANT_ID:租户ID
     private String instModTenantId;
 
+    //INST_RU_BUSINESS_RELATION:业务关联信息:表关系等
+    private String instRuBusinessRelation;
+
+    //INST_RU_BUSINESS_REL_TYPE:业务关联信息类型:FormRecordDataRelationPO
+    private String instRuBusinessRelType;
+
+    /**
+     * 构造函数
+     * @param instId
+     * @param instTitle 流程实例标题
+     * @param instDesc 流程实例备注
+     * @param instCustDesc 流程实例备注
+     * @param instCreateTime 创建时间
+     * @param instCreator 创建者
+     * @param instCreatorId 创建者
+     * @param instOrganName 创建者所在组织
+     * @param instOrganId 创建者所在组织ID
+     * @param instStatus 状态
+     * @param instEndTime 办结事件
+     * @param instRuExecutionId 关联act_ru_execution的ID_
+     * @param instRuProcInstId 关联act_ru_execution的PROC_INST_ID_
+     * @param instRuBusinessKey 关联act_ru_execution的BUSINESS_KEY_
+     * @param instRuProcDefId 关联act_ru_execution的PROC_DEF_ID_
+     * @param instOrderNum 排序号
+     * @param instModId 所属模型ID
+     * @param instModCategory 模型分类
+     * @param instModModuleId 所属的模块ID
+     * @param instModTenantId 租户ID
+     * @param instRuBusinessRelation 业务关联信息
+     * @param instRuBusinessRelType 业务关联信息类型
+     **/
+    public InstanceEntity(String instId, String instTitle, String instDesc, String instCustDesc, Date instCreateTime, String instCreator, String instCreatorId, String instOrganName, String instOrganId, String instStatus, Date instEndTime, String instRuExecutionId, String instRuProcInstId, String instRuBusinessKey, String instRuProcDefId, Integer instOrderNum, String instModId, String instModCategory, String instModModuleId, String instModTenantId, String instRuBusinessRelation, String instRuBusinessRelType) {
+        this.instId = instId;
+        this.instTitle = instTitle;
+        this.instDesc = instDesc;
+        this.instCustDesc = instCustDesc;
+        this.instCreateTime = instCreateTime;
+        this.instCreator = instCreator;
+        this.instCreatorId = instCreatorId;
+        this.instOrganName = instOrganName;
+        this.instOrganId = instOrganId;
+        this.instStatus = instStatus;
+        this.instEndTime = instEndTime;
+        this.instRuExecutionId = instRuExecutionId;
+        this.instRuProcInstId = instRuProcInstId;
+        this.instRuBusinessKey = instRuBusinessKey;
+        this.instRuProcDefId = instRuProcDefId;
+        this.instOrderNum = instOrderNum;
+        this.instModId = instModId;
+        this.instModCategory = instModCategory;
+        this.instModModuleId = instModModuleId;
+        this.instModTenantId = instModTenantId;
+        this.instRuBusinessRelation = instRuBusinessRelation;
+        this.instRuBusinessRelType = instRuBusinessRelType;
+    }
+
     /**
      * 构造函数
      * @param instId
@@ -443,5 +499,37 @@ public class InstanceEntity {
      **/
     public void setInstModTenantId(String instModTenantId) {
         this.instModTenantId = instModTenantId == null ? null : instModTenantId.trim();
+    }
+
+    /**
+     * 业务关联信息:表关系等
+     * @return java.lang.String
+     **/
+    public String getInstRuBusinessRelation() {
+        return instRuBusinessRelation;
+    }
+
+    /**
+     * 业务关联信息:表关系等
+     * @param instRuBusinessRelation 业务关联信息
+     **/
+    public void setInstRuBusinessRelation(String instRuBusinessRelation) {
+        this.instRuBusinessRelation = instRuBusinessRelation == null ? null : instRuBusinessRelation.trim();
+    }
+
+    /**
+     * 业务关联信息类型:FormRecordDataRelationPO
+     * @return java.lang.String
+     **/
+    public String getInstRuBusinessRelType() {
+        return instRuBusinessRelType;
+    }
+
+    /**
+     * 业务关联信息类型:FormRecordDataRelationPO
+     * @param instRuBusinessRelType 业务关联信息类型
+     **/
+    public void setInstRuBusinessRelType(String instRuBusinessRelType) {
+        this.instRuBusinessRelType = instRuBusinessRelType == null ? null : instRuBusinessRelType.trim();
     }
 }

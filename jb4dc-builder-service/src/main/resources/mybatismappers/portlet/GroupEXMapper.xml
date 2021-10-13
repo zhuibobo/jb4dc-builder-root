@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jb4dc.portlet.dao.GroupMapper">
+    <select id="selectAll" resultMap="BaseResultMap">select<include refid="Base_Column_List"/> from PORTLET_GROUP ORDER by PORTLET_GROUP_ORDER_NUM DESC</select>
+    <select id="selectAllASC" resultMap="BaseResultMap">select<include refid="Base_Column_List"/> from PORTLET_GROUP ORDER by PORTLET_GROUP_ORDER_NUM ASC</select>
+    <delete id="deleteAll">delete from PORTLET_GROUP</delete>
+    <select id="nextOrderNum" resultType="integer">select case when max(PORTLET_GROUP_ORDER_NUM) is null then 1 else max(PORTLET_GROUP_ORDER_NUM)+1 end ORDERNUM from PORTLET_GROUP</select>
+    <select id="selectBySearch" parameterType="java.util.Map" resultMap="BaseResultMap">select<include refid="Base_Column_List"/>from PORTLET_GROUP<where>
+        <if test="portletGroupType !=null and portletGroupType !=''"> and PORTLET_GROUP_TYPE like #{portletGroupType} </if>
+        <if test="portletGroupValue !=null and portletGroupValue !=''"> and PORTLET_GROUP_VALUE like #{portletGroupValue} </if>
+        <if test="portletGroupText !=null and portletGroupText !=''"> and PORTLET_GROUP_TEXT like #{portletGroupText} </if>
+        <if test="portletGroupDesc !=null and portletGroupDesc !=''"> and PORTLET_GROUP_DESC like #{portletGroupDesc} </if>
+        <if test="portletGroupStatus !=null and portletGroupStatus !=''"> and PORTLET_GROUP_STATUS like #{portletGroupStatus} </if>
+        <if test="portletGroupParentId !=null and portletGroupParentId !=''"> and PORTLET_GROUP_PARENT_ID like #{portletGroupParentId} </if>
+        <if test="portletGroupDelEnable !=null and portletGroupDelEnable !=''"> and PORTLET_GROUP_DEL_ENABLE like #{portletGroupDelEnable} </if>
+    </where>ORDER by PORTLET_GROUP_ORDER_NUM DESC</select>
+    <select id="selectLessThanRecord" parameterType="java.lang.String" resultMap="BaseResultMap"><![CDATA[select * from PORTLET_GROUP
+ where PORTLET_GROUP_ORDER_NUM = (select max(PORTLET_GROUP_ORDER_NUM) from PORTLET_GROUP where PORTLET_GROUP_ORDER_NUM<(select PORTLET_GROUP_ORDER_NUM from PORTLET_GROUP where PORTLET_GROUP_ID=#{Id,jdbcType=NVARCHAR}))]]></select>
+    <select id="selectGreaterThanRecord" parameterType="java.lang.String" resultMap="BaseResultMap"><![CDATA[select * from PORTLET_GROUP
+ where PORTLET_GROUP_ORDER_NUM = (select min(PORTLET_GROUP_ORDER_NUM) from PORTLET_GROUP where PORTLET_GROUP_ORDER_NUM>(select PORTLET_GROUP_ORDER_NUM from PORTLET_GROUP where PORTLET_GROUP_ID=#{Id,jdbcType=NVARCHAR}))]]></select>
+</mapper>

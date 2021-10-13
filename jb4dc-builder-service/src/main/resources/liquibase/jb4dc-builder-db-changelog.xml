@@ -1295,6 +1295,22 @@
         </addColumn>
     </changeSet>
 
+    <changeSet id="changeSet-camunda-integrated-0018" author="zhuangrb">
+        <addColumn tableName="TFLOW_INSTANCE">
+            <column name="INST_RU_BUSINESS_RELATION" type="NVARCHAR(1000)" remarks="业务关联信息:表关系等"/>
+            <column name="INST_RU_BUSINESS_REL_TYPE" type="NVARCHAR(50)" remarks="业务关联信息类型:FormRecordDataRelationPO"/>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="changeSet-camunda-integrated-0019" author="zhuangrb">
+        <addColumn tableName="TFLOW_EXECUTION_TASK_OPINION">
+            <column name="OPINION_CLIENT_CODE" type="NVARCHAR(50)" remarks="客户端生成的ID"/>
+            <column name="OPINION_USER_ID" type="NVARCHAR(50)" remarks="用户ID"/>
+            <column name="OPINION_USER_NAME" type="NVARCHAR(50)" remarks="用户名"/>
+            <column name="OPINION_SIGNATURE_ID" type="NVARCHAR(50)" remarks="签字关联ID"/>
+        </addColumn>
+    </changeSet>
+
     <changeSet id="changeSet-camunda-integrated-0999" author="zhuangrb">
         <sql>
             ALTER TABLE TFLOW_EXECUTION_TASK COMMENT = '流程实例环节执行任务表:用于扩展act_ru_task记录,主送抄送任务'
@@ -1320,6 +1336,9 @@
         <sql>
             ALTER TABLE TFLOW_INSTANCE_FILE COMMENT = '流程实例关联文件附件表'
         </sql>
+        <sql>
+            ALTER TABLE TFLOW_EXECUTION_TASK_OPINION COMMENT = '任务处理意见表'
+        </sql>
     </changeSet>
 
     <changeSet author="zhuangrb" id="changeSet-System-0002" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
@@ -1341,5 +1360,78 @@
             <column name="MESSAGE_RECEIVER_NAME" type="NVARCHAR(100)" remarks="接收人名称" />
             <column name="MESSAGE_RECEIVER_KEY" type="NVARCHAR(100)" remarks="接收键:作为接收端的唯一凭证,手机号码,手机编号,im编号等" />
         </createTable>
+    </changeSet>
+
+    <!--Portlet-->
+    <changeSet author="zhuangrb" id="changeSet-portlet-0001" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
+        <createTable tableName="PORTLET_GROUP" remarks="门户类型分组:Widget分组,TemplatePage分组">
+            <column name="PORTLET_GROUP_ID" type="NVARCHAR(100)" remarks="分组ID:随机的UUID,主键">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="PORTLET_GROUP_TYPE" type="NVARCHAR(50)" remarks="分组类型:PageGroup;WidgetGroup" />
+            <column name="PORTLET_GROUP_VALUE" type="NVARCHAR(200)" remarks="分组的键值:必须唯一">
+                <constraints nullable="false"/>
+            </column>
+            <column name="PORTLET_GROUP_TEXT" type="NVARCHAR(200)" remarks="分组的名称">
+                <constraints nullable="false"/>
+            </column>
+            <column name="PORTLET_GROUP_ORDER_NUM" type="INT" remarks="排序号" />
+            <column name="PORTLET_GROUP_CREATE_TIME" type="datetime(6)" remarks="创建时间" />
+            <column name="PORTLET_GROUP_DESC" type="NVARCHAR(500)" remarks="备注" />
+            <column name="PORTLET_GROUP_STATUS" type="NVARCHAR(10)" remarks="状态:启用;禁用" />
+            <column name="PORTLET_GROUP_PARENT_ID" type="NVARCHAR(100)" remarks="父节点的ID" />
+            <column name="PORTLET_GROUP_DEL_ENABLE" type="NVARCHAR(10)" remarks="能否删除" />
+        </createTable>
+        <createTable tableName="PORTLET_TEMPLATE_PAGE" remarks="门户模板页面">
+            <column name="PAGE_ID" type="NVARCHAR(100)" remarks="门户模板页面ID:随机的UUID,主键">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="PAGE_GROUP_ID" type="NVARCHAR(100)" remarks="所属分组" />
+            <column name="PAGE_TITLE" type="NVARCHAR(100)" remarks="页面标题" />
+            <column name="PAGE_NAME" type="NVARCHAR(100)" remarks="页面标题:任意值,开发使用" />
+            <column name="PAGE_DESC" type="NVARCHAR(500)" remarks="页面备注" />
+            <column name="PAGE_UPDATE_TIME" type="datetime(6)" remarks="页面更新时间" />
+            <column name="PAGE_UPDATER" type="NVARCHAR(50)" remarks="页面更新人" />
+            <column name="PAGE_CONFIG" type="CLOB" remarks="页面配置内容:主要包括页面布局等" />
+            <column name="PAGE_PROPERTIES" type="CLOB" remarks="页面相关配置属性" />
+            <column name="PAGE_WIDGET_CONFIG" type="CLOB" remarks="页面内Widget配置:主要包括Widget位置,相关参数等" />
+            <column name="PAGE_REF_JS_CONFIG" type="NVARCHAR(1000)" remarks="引入的JS文件" />
+            <column name="PAGE_REF_CSS_CONFIG" type="NVARCHAR(1000)" remarks="引入的CSS文件" />
+            <column name="PAGE_BEF_RENDER" type="NVARCHAR(100)" remarks="页面渲染前置方法" />
+            <column name="PAGE_AFT_RENDER" type="NVARCHAR(100)" remarks="页面渲染后置方法" />
+            <column name="PAGE_WIDGET_BEF_RENDER" type="NVARCHAR(100)" remarks="全部WIDGET渲染前置方法" />
+            <column name="PAGE_WIDGET_AFT_RENDER" type="NVARCHAR(100)" remarks="全部WIDGET渲染后置方法" />
+            <column name="PAGE_STATUS" type="NVARCHAR(10)" remarks="状态:启用;禁用" />
+            <column name="PAGE_ORDER_NUM" type="INT" remarks="排序号" />
+        </createTable>
+        <createTable tableName="PORTLET_WIDGET" remarks="门户组件信息">
+            <column name="WIDGET_ID" type="NVARCHAR(100)" remarks="门户部件ID:随机的UUID,主键">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="WIDGET_GROUP_ID" type="NVARCHAR(100)" remarks="所属分组" />
+            <column name="WIDGET_TITLE" type="NVARCHAR(100)" remarks="WIDGET标题:作为页面显示时的标题" />
+            <column name="WIDGET_NAME" type="NVARCHAR(100)" remarks="WIDGET名称:任意值,开发使用" />
+            <column name="WIDGET_DESC" type="NVARCHAR(500)" remarks="WIDGET备注" />
+            <column name="WIDGET_CLIENT_RENDER" type="NVARCHAR(100)" remarks="WIDGET的客户端对象名称:将通过实例化创建" />
+            <column name="WIDGET_PROPERTIES" type="CLOB" remarks="WIDGET相关配置属性" />
+            <column name="WIDGET_BEF_RENDER" type="NVARCHAR(100)" remarks="WIDGET渲染前置方法" />
+            <column name="WIDGET_AFT_RENDER" type="NVARCHAR(100)" remarks="WIDGET渲染后置方法" />
+            <column name="WIDGET_UPDATE_TIME" type="datetime(6)" remarks="WIDGET更新时间" />
+            <column name="WIDGET_UPDATER" type="NVARCHAR(50)" remarks="WIDGET更新人" />
+            <column name="WIDGET_STATUS" type="NVARCHAR(10)" remarks="状态:启用;禁用" />
+            <column name="WIDGET_ORDER_NUM" type="INT" remarks="排序号" />
+        </createTable>
+    </changeSet>
+
+    <changeSet id="changeSet-portlet-0999" author="zhuangrb">
+        <sql>
+            ALTER TABLE PORTLET_GROUP COMMENT = '门户类型分组:Widget分组,TemplatePage分组'
+        </sql>
+        <sql>
+            ALTER TABLE PORTLET_TEMPLATE_PAGE COMMENT = '门户模板页面'
+        </sql>
+        <sql>
+            ALTER TABLE PORTLET_WIDGET COMMENT = '门户组件信息'
+        </sql>
     </changeSet>
 </databaseChangeLog>

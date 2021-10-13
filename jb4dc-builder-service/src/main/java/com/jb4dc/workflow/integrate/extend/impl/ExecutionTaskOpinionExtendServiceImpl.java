@@ -9,6 +9,8 @@ import com.jb4dc.workflow.dbentities.ExecutionTaskOpinionEntity;
 import com.jb4dc.workflow.integrate.extend.IExecutionTaskOpinionExtendService;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
+
 @Service
 public class ExecutionTaskOpinionExtendServiceImpl extends BaseServiceImpl<ExecutionTaskOpinionEntity> implements IExecutionTaskOpinionExtendService
 {
@@ -24,8 +26,16 @@ public class ExecutionTaskOpinionExtendServiceImpl extends BaseServiceImpl<Execu
             @Override
             public ExecutionTaskOpinionEntity run(JB4DCSession jb4DCSession, ExecutionTaskOpinionEntity sourceEntity) throws JBuild4DCGenerallyException {
                 //设置排序,以及其他参数--nextOrderNum()
+                sourceEntity.setOpinionUserId(jb4DCSession.getUserId());
+                sourceEntity.setOpinionUserName(jb4DCSession.getUserName());
+                sourceEntity.setOpinionTime(new Date());
                 return sourceEntity;
             }
         });
+    }
+
+    @Override
+    public int getTaskNextOpinionNum(JB4DCSession jb4DCSession, String extaskId) {
+        return executionTaskOpinionMapper.selectNextOrderNumByOpinionExtaskId(extaskId);
     }
 }

@@ -1,10 +1,12 @@
 package com.jb4dc.workflow.integrate.extend;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.github.pagehelper.PageInfo;
 import com.jb4dc.base.service.IBaseService;
-import com.jb4dc.base.service.po.SimplePO;
+import com.jb4dc.builder.po.formdata.FormRecordComplexPO;
 import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
 import com.jb4dc.core.base.session.JB4DCSession;
+import com.jb4dc.workflow.dbentities.ExecutionTaskOpinionEntity;
 import com.jb4dc.workflow.dbentities.InstanceEntity;
 import com.jb4dc.workflow.po.*;
 import com.jb4dc.workflow.po.receive.ClientSelectedReceiver;
@@ -27,7 +29,7 @@ public interface IInstanceExtendService extends IBaseService<InstanceEntity> {
 
     ResolveNextPossibleFlowNodePO resolveNextPossibleFlowNode(JB4DCSession jb4DCSession, String modelKey, String currentTaskId, String currentNodeKey, String actionCode, Map<String, Object> vars) throws IOException, JAXBException, XMLStreamException, JBuild4DCGenerallyException;
 
-    TaskActionResult completeTask(JB4DCSession session, boolean isStartInstanceStatus, String instanceId, String modelId, String modelReKey, String currentTaskId, String currentNodeKey, String currentNodeName, String actionCode, Map<String, Object> vars, List<ClientSelectedReceiver> clientSelectedReceiverList, String businessKey, String instanceTitle, String instanceDesc) throws JBuild4DCGenerallyException;
+    TaskActionResult completeTask(JB4DCSession session, boolean isStartInstanceStatus, String instanceId, String modelId, String modelReKey, String currentTaskId, String currentNodeKey, String currentNodeName, String actionCode, Map<String, Object> vars, List<ClientSelectedReceiver> clientSelectedReceiverList, String businessKey, String instanceTitle, String instanceDesc, String businessRelationJson, String businessRelationType,List<ExecutionTaskOpinionEntity> newOpinionEntityList) throws JBuild4DCGenerallyException;
 
     FlowInstanceRuntimePO getInstanceRuntimePOByInstanceId(JB4DCSession jb4DCSession, String instanceId) throws JBuild4DCGenerallyException, JAXBException, IOException, XMLStreamException;
 
@@ -40,4 +42,6 @@ public interface IInstanceExtendService extends IBaseService<InstanceEntity> {
     TaskActionResult recallMySendTask(JB4DCSession jb4DCSession, String userId, String organId, String extaskId) throws JBuild4DCGenerallyException;
 
     void clearData(JB4DCSession jb4DCSession,ClearDataPO clearDataPO) throws JBuild4DCGenerallyException;
+
+    String formRecordComplexPOToBusinessRelationJson(JB4DCSession jb4DCSession, FormRecordComplexPO formRecordComplexPO) throws IOException;
 }

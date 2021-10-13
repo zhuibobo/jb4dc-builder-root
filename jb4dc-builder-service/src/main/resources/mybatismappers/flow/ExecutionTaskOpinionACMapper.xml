@@ -8,10 +8,15 @@
             <arg column="OPINION_TEXT" javaType="java.lang.String" jdbcType="VARCHAR" />
             <arg column="OPINION_TIME" javaType="java.util.Date" jdbcType="TIMESTAMP" />
             <arg column="OPINION_ORDER_NUM" javaType="java.lang.Integer" jdbcType="INTEGER" />
+            <arg column="OPINION_CLIENT_CODE" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="OPINION_USER_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="OPINION_USER_NAME" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="OPINION_SIGNATURE_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
         </constructor>
     </resultMap>
     <sql id="Base_Column_List">
-        OPINION_ID, OPINION_EXTASK_ID, OPINION_TEXT, OPINION_TIME, OPINION_ORDER_NUM
+        OPINION_ID, OPINION_EXTASK_ID, OPINION_TEXT, OPINION_TIME, OPINION_ORDER_NUM, OPINION_CLIENT_CODE,
+        OPINION_USER_ID, OPINION_USER_NAME, OPINION_SIGNATURE_ID
     </sql>
     <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
         select
@@ -25,9 +30,13 @@
     </delete>
     <insert id="insert" parameterType="com.jb4dc.workflow.dbentities.ExecutionTaskOpinionEntity">
         insert into TFLOW_EXECUTION_TASK_OPINION (OPINION_ID, OPINION_EXTASK_ID, OPINION_TEXT,
-                                                  OPINION_TIME, OPINION_ORDER_NUM)
+        OPINION_TIME, OPINION_ORDER_NUM, OPINION_CLIENT_CODE,
+        OPINION_USER_ID, OPINION_USER_NAME, OPINION_SIGNATURE_ID
+        )
         values (#{opinionId,jdbcType=VARCHAR}, #{opinionExtaskId,jdbcType=VARCHAR}, #{opinionText,jdbcType=VARCHAR},
-                #{opinionTime,jdbcType=TIMESTAMP}, #{opinionOrderNum,jdbcType=INTEGER})
+        #{opinionTime,jdbcType=TIMESTAMP}, #{opinionOrderNum,jdbcType=INTEGER}, #{opinionClientCode,jdbcType=VARCHAR},
+        #{opinionUserId,jdbcType=VARCHAR}, #{opinionUserName,jdbcType=VARCHAR}, #{opinionSignatureId,jdbcType=VARCHAR}
+        )
     </insert>
     <insert id="insertSelective" parameterType="com.jb4dc.workflow.dbentities.ExecutionTaskOpinionEntity">
         insert into TFLOW_EXECUTION_TASK_OPINION
@@ -47,6 +56,18 @@
             <if test="opinionOrderNum != null">
                 OPINION_ORDER_NUM,
             </if>
+            <if test="opinionClientCode != null">
+                OPINION_CLIENT_CODE,
+            </if>
+            <if test="opinionUserId != null">
+                OPINION_USER_ID,
+            </if>
+            <if test="opinionUserName != null">
+                OPINION_USER_NAME,
+            </if>
+            <if test="opinionSignatureId != null">
+                OPINION_SIGNATURE_ID,
+            </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="opinionId != null">
@@ -63,6 +84,18 @@
             </if>
             <if test="opinionOrderNum != null">
                 #{opinionOrderNum,jdbcType=INTEGER},
+            </if>
+            <if test="opinionClientCode != null">
+                #{opinionClientCode,jdbcType=VARCHAR},
+            </if>
+            <if test="opinionUserId != null">
+                #{opinionUserId,jdbcType=VARCHAR},
+            </if>
+            <if test="opinionUserName != null">
+                #{opinionUserName,jdbcType=VARCHAR},
+            </if>
+            <if test="opinionSignatureId != null">
+                #{opinionSignatureId,jdbcType=VARCHAR},
             </if>
         </trim>
     </insert>
@@ -81,15 +114,31 @@
             <if test="opinionOrderNum != null">
                 OPINION_ORDER_NUM = #{opinionOrderNum,jdbcType=INTEGER},
             </if>
+            <if test="opinionClientCode != null">
+                OPINION_CLIENT_CODE = #{opinionClientCode,jdbcType=VARCHAR},
+            </if>
+            <if test="opinionUserId != null">
+                OPINION_USER_ID = #{opinionUserId,jdbcType=VARCHAR},
+            </if>
+            <if test="opinionUserName != null">
+                OPINION_USER_NAME = #{opinionUserName,jdbcType=VARCHAR},
+            </if>
+            <if test="opinionSignatureId != null">
+                OPINION_SIGNATURE_ID = #{opinionSignatureId,jdbcType=VARCHAR},
+            </if>
         </set>
         where OPINION_ID = #{opinionId,jdbcType=VARCHAR}
     </update>
     <update id="updateByPrimaryKey" parameterType="com.jb4dc.workflow.dbentities.ExecutionTaskOpinionEntity">
         update TFLOW_EXECUTION_TASK_OPINION
         set OPINION_EXTASK_ID = #{opinionExtaskId,jdbcType=VARCHAR},
-            OPINION_TEXT = #{opinionText,jdbcType=VARCHAR},
-            OPINION_TIME = #{opinionTime,jdbcType=TIMESTAMP},
-            OPINION_ORDER_NUM = #{opinionOrderNum,jdbcType=INTEGER}
+        OPINION_TEXT = #{opinionText,jdbcType=VARCHAR},
+        OPINION_TIME = #{opinionTime,jdbcType=TIMESTAMP},
+        OPINION_ORDER_NUM = #{opinionOrderNum,jdbcType=INTEGER},
+        OPINION_CLIENT_CODE = #{opinionClientCode,jdbcType=VARCHAR},
+        OPINION_USER_ID = #{opinionUserId,jdbcType=VARCHAR},
+        OPINION_USER_NAME = #{opinionUserName,jdbcType=VARCHAR},
+        OPINION_SIGNATURE_ID = #{opinionSignatureId,jdbcType=VARCHAR}
         where OPINION_ID = #{opinionId,jdbcType=VARCHAR}
     </update>
 </mapper>

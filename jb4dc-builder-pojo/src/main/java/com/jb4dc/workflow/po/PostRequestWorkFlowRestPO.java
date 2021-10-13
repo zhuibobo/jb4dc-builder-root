@@ -1,5 +1,11 @@
 package com.jb4dc.workflow.po;
 
+import com.jb4dc.builder.po.formdata.FormRecordComplexPO;
+import com.jb4dc.builder.po.formdata.FormRecordDataRelationPO;
+import com.jb4dc.workflow.dbentities.ExecutionTaskOpinionEntity;
+
+import java.util.List;
+
 public class PostRequestWorkFlowRestPO {
     private String userId;
     private String organId;
@@ -14,6 +20,9 @@ public class PostRequestWorkFlowRestPO {
     private String instanceTitle;
     private String instanceDesc;
     private String businessKey;
+
+    FormRecordComplexPO formRecordComplexPO;
+    List<ExecutionTaskOpinionEntity> newOpinionEntityList;
 
     public String getVarsJsonString() {
         return varsJsonString;
@@ -117,5 +126,21 @@ public class PostRequestWorkFlowRestPO {
 
     public void setInstanceDesc(String instanceDesc) {
         this.instanceDesc = instanceDesc;
+    }
+
+    public FormRecordComplexPO getFormRecordComplexPO() {
+        return formRecordComplexPO;
+    }
+
+    public void setFormRecordComplexPO(FormRecordComplexPO formRecordComplexPO) {
+        this.formRecordComplexPO = formRecordComplexPO;
+    }
+
+    public List<ExecutionTaskOpinionEntity> getNewOpinionEntityList() {
+        return newOpinionEntityList;
+    }
+
+    public void setNewOpinionEntityList(List<ExecutionTaskOpinionEntity> newOpinionEntityList) {
+        this.newOpinionEntityList = newOpinionEntityList;
     }
 }

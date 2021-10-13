@@ -41,6 +41,20 @@
     <orderEntry type="library" name="Maven: commons-codec:commons-codec:1.10" level="project" />
     <orderEntry type="library" name="Maven: jb4dc:jb4dc-sso-pojo:1.0-SNAPSHOT" level="project" />
     <orderEntry type="library" name="Maven: aspose:aspose-words-21.1.0-jdk17-crack:21.1.0" level="project" />
+    <orderEntry type="library" name="Maven: com.itextpdf:barcodes:7.1.16" level="project" />
+    <orderEntry type="library" name="Maven: com.itextpdf:font-asian:7.1.16" level="project" />
+    <orderEntry type="library" name="Maven: com.itextpdf:forms:7.1.16" level="project" />
+    <orderEntry type="library" name="Maven: com.itextpdf:hyph:7.1.16" level="project" />
+    <orderEntry type="library" name="Maven: com.itextpdf:io:7.1.16" level="project" />
+    <orderEntry type="library" name="Maven: com.itextpdf:kernel:7.1.16" level="project" />
+    <orderEntry type="library" name="Maven: org.bouncycastle:bcpkix-jdk15on:1.68" level="project" />
+    <orderEntry type="library" name="Maven: org.bouncycastle:bcprov-jdk15on:1.68" level="project" />
+    <orderEntry type="library" name="Maven: com.itextpdf:layout:7.1.16" level="project" />
+    <orderEntry type="library" name="Maven: com.itextpdf:pdfa:7.1.16" level="project" />
+    <orderEntry type="library" name="Maven: com.itextpdf:sign:7.1.16" level="project" />
+    <orderEntry type="library" name="Maven: com.itextpdf:styled-xml-parser:7.1.16" level="project" />
+    <orderEntry type="library" name="Maven: com.itextpdf:svg:7.1.16" level="project" />
+    <orderEntry type="library" name="Maven: com.itextpdf:html2pdf:3.0.5" level="project" />
     <orderEntry type="module" module-name="jb4dc-builder-pojo" />
     <orderEntry type="library" name="Maven: jb4dc:jb4dc-web-app-starter:1.0-SNAPSHOT" level="project" />
     <orderEntry type="library" name="Maven: jb4dc:jb4dc-core-base:1.0-SNAPSHOT" level="project" />
@@ -143,8 +157,6 @@
     <orderEntry type="library" name="Maven: org.springframework.cloud:spring-cloud-starter:3.0.3" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.cloud:spring-cloud-context:3.0.3" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.security:spring-security-rsa:1.0.10.RELEASE" level="project" />
-    <orderEntry type="library" name="Maven: org.bouncycastle:bcpkix-jdk15on:1.68" level="project" />
-    <orderEntry type="library" name="Maven: org.bouncycastle:bcprov-jdk15on:1.68" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.cloud:spring-cloud-openfeign-core:3.0.3" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot-starter-aop:2.4.6" level="project" />
     <orderEntry type="library" name="Maven: io.github.openfeign.form:feign-form-spring:3.8.0" level="project" />

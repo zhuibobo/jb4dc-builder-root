@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jb4dc.portlet.dao.WidgetMapper">
+    <select id="selectAll" resultMap="BaseResultMap">select<include refid="Base_Column_List"/> from PORTLET_WIDGET ORDER by WIDGET_ORDER_NUM DESC</select>
+    <select id="selectAllASC" resultMap="BaseResultMap">select<include refid="Base_Column_List"/> from PORTLET_WIDGET ORDER by WIDGET_ORDER_NUM ASC</select>
+    <delete id="deleteAll">delete from PORTLET_WIDGET</delete>
+    <select id="nextOrderNum" resultType="integer">select case when max(WIDGET_ORDER_NUM) is null then 1 else max(WIDGET_ORDER_NUM)+1 end ORDERNUM from PORTLET_WIDGET</select>
+    <select id="selectBySearch" parameterType="java.util.Map" resultMap="BaseResultMap">select<include refid="Base_Column_List"/>from PORTLET_WIDGET<where>
+        <if test="widgetGroupId !=null and widgetGroupId !=''"> and WIDGET_GROUP_ID like #{widgetGroupId} </if>
+        <if test="widgetTitle !=null and widgetTitle !=''"> and WIDGET_TITLE like #{widgetTitle} </if>
+        <if test="widgetName !=null and widgetName !=''"> and WIDGET_NAME like #{widgetName} </if>
+        <if test="widgetDesc !=null and widgetDesc !=''"> and WIDGET_DESC like #{widgetDesc} </if>
+        <if test="widgetClientRender !=null and widgetClientRender !=''"> and WIDGET_CLIENT_RENDER like #{widgetClientRender} </if>
+        <if test="widgetBefRender !=null and widgetBefRender !=''"> and WIDGET_BEF_RENDER like #{widgetBefRender} </if>
+        <if test="widgetAftRender !=null and widgetAftRender !=''"> and WIDGET_AFT_RENDER like #{widgetAftRender} </if>
+        <if test="widgetUpdater !=null and widgetUpdater !=''"> and WIDGET_UPDATER like #{widgetUpdater} </if>
+        <if test="widgetStatus !=null and widgetStatus !=''"> and WIDGET_STATUS like #{widgetStatus} </if>
+        <if test="widgetProperties !=null and widgetProperties !=''"> and WIDGET_PROPERTIES like #{widgetProperties} </if>
+    </where>ORDER by WIDGET_ORDER_NUM DESC</select>
+    <select id="selectLessThanRecord" parameterType="java.lang.String" resultMap="BaseResultMap"><![CDATA[select * from PORTLET_WIDGET
+ where WIDGET_ORDER_NUM = (select max(WIDGET_ORDER_NUM) from PORTLET_WIDGET where WIDGET_ORDER_NUM<(select WIDGET_ORDER_NUM from PORTLET_WIDGET where WIDGET_ID=#{Id,jdbcType=NVARCHAR}))]]></select>
+    <select id="selectGreaterThanRecord" parameterType="java.lang.String" resultMap="BaseResultMap"><![CDATA[select * from PORTLET_WIDGET
+ where WIDGET_ORDER_NUM = (select min(WIDGET_ORDER_NUM) from PORTLET_WIDGET where WIDGET_ORDER_NUM>(select WIDGET_ORDER_NUM from PORTLET_WIDGET where WIDGET_ID=#{Id,jdbcType=NVARCHAR}))]]></select>
+</mapper>

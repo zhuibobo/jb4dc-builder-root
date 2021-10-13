@@ -1,5 +1,7 @@
 package com.jb4dc.builder.client.rest;
 
+import com.itextpdf.html2pdf.ConverterProperties;
+import com.itextpdf.html2pdf.HtmlConverter;
 import com.jb4dc.base.service.general.JB4DCSessionUtility;
 import com.jb4dc.builder.client.remote.WebFormRuntimeRemote;
 import com.jb4dc.builder.client.remote.WebListButtonRuntimeRemote;
@@ -13,14 +15,30 @@ import com.jb4dc.core.base.tools.BaseUtility;
 import com.jb4dc.core.base.tools.StringUtility;
 import com.jb4dc.core.base.tools.UUIDUtility;
 import com.jb4dc.core.base.vo.JBuild4DCResponseVo;
+import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.conn.ssl.NoopHostnameVerifier;
+import org.apache.http.conn.ssl.SSLConnectionSocketFactory;
+import org.apache.http.conn.ssl.TrustSelfSignedStrategy;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClients;
+import org.apache.http.ssl.SSLContextBuilder;
+import org.apache.http.util.EntityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.xml.sax.SAXException;
 
+import javax.net.ssl.HostnameVerifier;
+import javax.net.ssl.SSLContext;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.xpath.XPathExpressionException;
-import java.io.IOException;
+import java.io.*;
+import java.security.KeyManagementException;
+import java.security.KeyStoreException;
+import java.security.NoSuchAlgorithmException;
 
 /**
  * Created with IntelliJ IDEA.
@@ -32,16 +50,13 @@ import java.io.IOException;
 @RequestMapping(value = "/Rest/Builder/RunTime/FormRuntime")
 public class FormRuntimeRest {
 
-    //@Autowired
-    //FormRuntimeRemote formRuntimeRemote;
-
+    @Qualifier("com.jb4dc.builder.client.remote.WebFormRuntimeRemote")
     @Autowired
     WebFormRuntimeRemote webFormRuntimeRemote;
 
+    @Qualifier("com.jb4dc.builder.client.remote.WebListButtonRuntimeRemote")
     @Autowired
     WebListButtonRuntimeRemote webListButtonRuntimeRemote;
-    //@Autowired
-    //ListButtonRuntimeRemote listButtonRuntimeRemote;
 
     @Autowired
     IWebFormRuntimeService webFormRuntimeService;
@@ -121,5 +136,44 @@ public class FormRuntimeRest {
         return JBuild4DCResponseVo.getDataSuccess(formResourceComplexPO);
     }
 
-    //@RequestMapping("/")
+    @RequestMapping("/TestHtmlToPdf")
+    public void testHtmlToPdf() throws IOException, NoSuchAlgorithmException, KeyStoreException, KeyManagementException {
+        CloseableHttpClient httpclient = createAcceptSelfSignedCertificateClient();
+        HttpGet httpGet = new HttpGet("https://localhost:28080/SSOSystem/HTML/LoginSSO.html");
+        httpGet.addHeader("content-type", "application/json;charset=utf-8");
+        CloseableHttpResponse response = httpclient.execute(httpGet);
+        InputStream inputStream=response.getEntity().getContent();
+        String ServerResponeString = EntityUtils.toString(response.getEntity(),"utf-8");
+
+        //File htmlSource = new File("input.html");
+        File pdfDest = new File("D:\\output1.pdf");
+        // pdfHTML specific code
+        ConverterProperties converterProperties = new ConverterProperties();
+        HtmlConverter.convertToPdf(ServerResponeString,
+                new FileOutputStream(pdfDest), converterProperties);
+    }
+
+    private static CloseableHttpClient createAcceptSelfSignedCertificateClient()
+            throws KeyManagementException, NoSuchAlgorithmException, KeyStoreException {
+
+        // use the TrustSelfSignedStrategy to allow Self Signed Certificates
+        SSLContext sslContext = SSLContextBuilder
+                .create()
+                .loadTrustMaterial(new TrustSelfSignedStrategy())
+                .build();
+
+        // we can optionally disable hostname verification.
+        // if you don't want to further weaken the security, you don't have to include this.
+        HostnameVerifier allowAllHosts = new NoopHostnameVerifier();
+
+        // create an SSL Socket Factory to use the SSLContext with the trust self signed certificate strategy
+        // and allow all hosts verifier.
+        SSLConnectionSocketFactory connectionFactory = new SSLConnectionSocketFactory(sslContext, allowAllHosts);
+
+        // finally create the HttpClient using HttpClient factory methods and assign the ssl socket factory
+        return HttpClients
+                .custom()
+                .setSSLSocketFactory(connectionFactory)
+                .build();
+    }
 }

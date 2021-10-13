@@ -13,4 +13,8 @@
                                                                                                           where OPINION_ORDER_NUM = (select max(OPINION_ORDER_NUM) from TFLOW_EXECUTION_TASK_OPINION where OPINION_ORDER_NUM<(select OPINION_ORDER_NUM from TFLOW_EXECUTION_TASK_OPINION where OPINION_ID=#{Id,jdbcType=NVARCHAR}))]]></select>
     <select id="selectGreaterThanRecord" parameterType="java.lang.String" resultMap="BaseResultMap"><![CDATA[select * from TFLOW_EXECUTION_TASK_OPINION
                                                                                                              where OPINION_ORDER_NUM = (select min(OPINION_ORDER_NUM) from TFLOW_EXECUTION_TASK_OPINION where OPINION_ORDER_NUM>(select OPINION_ORDER_NUM from TFLOW_EXECUTION_TASK_OPINION where OPINION_ID=#{Id,jdbcType=NVARCHAR}))]]></select>
+
+    <select id="selectNextOrderNumByOpinionExtaskId" resultType="integer">
+        select case when max(OPINION_ORDER_NUM) is null then 1 else max(OPINION_ORDER_NUM)+1 end ORDERNUM from TFLOW_EXECUTION_TASK_OPINION where OPINION_EXTASK_ID=#{exTaskId}
+    </select>
 </mapper>
