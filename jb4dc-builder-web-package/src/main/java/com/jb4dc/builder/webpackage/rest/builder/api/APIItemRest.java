@@ -54,7 +54,7 @@ public class APIItemRest  extends GeneralRest<ApiItemEntity> implements ApiItemR
             JB4DCSession jb4DCSession= JB4DCSessionUtility.getSession();
 
             //List<ApiGroupEntity> apiGroupEntityList=apiGroupService.getALL(jb4DCSession);
-            List<ApiGroupEntity> apiGroupEntityList=apiGroupService.getByGroupTypeASC(groupType,jb4DCSession);
+            List<ApiGroupEntity> apiGroupEntityList=apiGroupService.getByGroupTypeASC(jb4DCSession, groupType);
             List<ApiItemEntity> apiItemEntityList=apiItemService.getByGroupTypeALL(groupType,jb4DCSession);
 
             responseVo.setData(ZTreeNodePOConvert.parseApiToZTreeNodeList(apiGroupEntityList,apiItemEntityList));

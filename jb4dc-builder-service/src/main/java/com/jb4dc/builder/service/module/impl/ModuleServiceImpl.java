@@ -203,7 +203,7 @@ public class ModuleServiceImpl extends BaseServiceImpl<ModuleEntity> implements 
         JBuild4DCResponseVo<List<OrganEntity>> jBuild4DCResponseVoOrganEntity=organRuntimeRemote.getEnableOrganMinPropRT();
         JBuild4DCResponseVo<List<UserEntity>> jBuild4DCResponseVoUserEntity=userRuntimeRemote.getEnableUserMinPropRT();
 
-        List<ApiGroupEntity> apiGroupEntityList=apiGroupService.getByGroupTypeASC("API_GROUP_WORKFLOW_ACTION_ROOT",jb4DCSession);
+        List<ApiGroupEntity> apiGroupEntityList=apiGroupService.getByGroupTypeASC(jb4DCSession, "API_GROUP_WORKFLOW_ACTION_ROOT");
         List<ApiItemEntity> apiItemEntityList=apiItemService.getByGroupTypeALL("API_GROUP_WORKFLOW_ACTION_ROOT",jb4DCSession);
         List<ZTreeNodePO> apisForZTreeNodeList=ZTreeNodePOConvert.parseApiToZTreeNodeList(apiGroupEntityList,apiItemEntityList);
         List<ModelGroupEntity> modelGroupEntityList=modelGroupExtendService.getALL(jb4DCSession);

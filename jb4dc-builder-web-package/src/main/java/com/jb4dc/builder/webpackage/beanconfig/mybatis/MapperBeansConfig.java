@@ -1,4 +1,4 @@
-package com.jb4dc.builder.webpackage.beanconfig.mapper;
+package com.jb4dc.builder.webpackage.beanconfig.mybatis;
 
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.context.annotation.Configuration;
@@ -10,7 +10,7 @@ import org.springframework.context.annotation.Configuration;
  * To change this template use File | Settings | File Templates.
  */
 @Configuration
-@MapperScan(basePackages = {"com.jb4dc.**.dao.**","com.jb4dc.workflow.dao"})
+@MapperScan(basePackages = {"com.jb4dc.**.dao.**","com.jb4dc.workflow.dao","com.jb4dc.portlet.dao"})
 public class MapperBeansConfig {
 
 }

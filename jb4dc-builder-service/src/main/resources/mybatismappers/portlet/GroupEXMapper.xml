@@ -18,4 +18,8 @@
  where PORTLET_GROUP_ORDER_NUM = (select max(PORTLET_GROUP_ORDER_NUM) from PORTLET_GROUP where PORTLET_GROUP_ORDER_NUM<(select PORTLET_GROUP_ORDER_NUM from PORTLET_GROUP where PORTLET_GROUP_ID=#{Id,jdbcType=NVARCHAR}))]]></select>
     <select id="selectGreaterThanRecord" parameterType="java.lang.String" resultMap="BaseResultMap"><![CDATA[select * from PORTLET_GROUP
  where PORTLET_GROUP_ORDER_NUM = (select min(PORTLET_GROUP_ORDER_NUM) from PORTLET_GROUP where PORTLET_GROUP_ORDER_NUM>(select PORTLET_GROUP_ORDER_NUM from PORTLET_GROUP where PORTLET_GROUP_ID=#{Id,jdbcType=NVARCHAR}))]]></select>
+
+    <select id="selectByGroupTypeASC" resultMap="BaseResultMap">
+        select<include refid="Base_Column_List"/> from PORTLET_GROUP where PORTLET_GROUP_TYPE=#{groupType} ORDER by PORTLET_GROUP_ORDER_NUM ASC
+    </select>
 </mapper>

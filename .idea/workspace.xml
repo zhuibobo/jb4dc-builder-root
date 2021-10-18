@@ -22,7 +22,29 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4c1726ea-d2d7-4bd0-ba55-67bf5abd523a" name="Default Changelist" comment="查询统计" />
+    <list default="true" id="4c1726ea-d2d7-4bd0-ba55-67bf5abd523a" name="Default Changelist" comment="查询统计">
+      <change afterPath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/java/com/jb4dc/builder/webpackage/rest/portlet/GroupRest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/java/com/jb4dc/builder/webpackage/rest/portlet/TemplatePageRest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/java/com/jb4dc/builder/webpackage/rest/portlet/WidgetRest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/4995626b-55d1-4aae-a50b-6e972235cf2b/entities/entities.dat" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/4995626b-55d1-4aae-a50b-6e972235cf2b/entities/entities.dat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/4995626b-55d1-4aae-a50b-6e972235cf2b/entities/entities.dat.values" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/4995626b-55d1-4aae-a50b-6e972235cf2b/entities/entities.dat.values" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/4995626b-55d1-4aae-a50b-6e972235cf2b/entities/entities.dat.values.s" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/4995626b-55d1-4aae-a50b-6e972235cf2b/entities/entities.dat.values.s" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/4995626b-55d1-4aae-a50b-6e972235cf2b/entities/entities.dat_i" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/4995626b-55d1-4aae-a50b-6e972235cf2b/entities/entities.dat_i" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jb4dc-builder-service/src/main/java/com/jb4dc/builder/service/api/IApiGroupService.java" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-service/src/main/java/com/jb4dc/builder/service/api/IApiGroupService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jb4dc-builder-service/src/main/java/com/jb4dc/builder/service/api/impl/ApiGroupServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-service/src/main/java/com/jb4dc/builder/service/api/impl/ApiGroupServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jb4dc-builder-service/src/main/java/com/jb4dc/builder/service/module/impl/ModuleServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-service/src/main/java/com/jb4dc/builder/service/module/impl/ModuleServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jb4dc-builder-service/src/main/java/com/jb4dc/portlet/dao/GroupMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-service/src/main/java/com/jb4dc/portlet/dao/GroupMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jb4dc-builder-service/src/main/java/com/jb4dc/portlet/service/IGroupService.java" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-service/src/main/java/com/jb4dc/portlet/service/IGroupService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jb4dc-builder-service/src/main/java/com/jb4dc/portlet/service/impl/GroupServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-service/src/main/java/com/jb4dc/portlet/service/impl/GroupServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jb4dc-builder-service/src/main/java/com/jb4dc/portlet/service/impl/TemplatePageServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-service/src/main/java/com/jb4dc/portlet/service/impl/TemplatePageServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jb4dc-builder-service/src/main/java/com/jb4dc/portlet/service/impl/WidgetServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-service/src/main/java/com/jb4dc/portlet/service/impl/WidgetServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jb4dc-builder-service/src/main/resources/mybatismappers/portlet/GroupEXMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-service/src/main/resources/mybatismappers/portlet/GroupEXMapper.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/java/com/jb4dc/builder/webpackage/beanconfig/mapper/MapperBeansConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/java/com/jb4dc/builder/webpackage/beanconfig/mybatis/MapperBeansConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/java/com/jb4dc/builder/webpackage/rest/builder/InitializationSystemRest.java" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/java/com/jb4dc/builder/webpackage/rest/builder/InitializationSystemRest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/java/com/jb4dc/builder/webpackage/rest/builder/api/APIGroupRest.java" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/java/com/jb4dc/builder/webpackage/rest/builder/api/APIGroupRest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/java/com/jb4dc/builder/webpackage/rest/builder/api/APIItemRest.java" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/java/com/jb4dc/builder/webpackage/rest/builder/api/APIItemRest.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -99,6 +121,7 @@
   <component name="ProjectViewState">
     <option name="abbreviatePackageNames" value="true" />
     <option name="compactDirectories" value="true" />
+    <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showExcludedFiles" value="false" />
     <option name="showLibraryContents" value="true" />
     <option name="showMembers" value="true" />
@@ -172,11 +195,11 @@
       <recent name="D:\JavaProject\jb4dc\jb4dc-builder-root\jb4dc-builder-web-package\src\main\resources\ModelerResource\Template" />
     </key>
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="com.jb4dc.builder.webpackage.beanconfig.mybatis" />
       <recent name="com.jb4dc.workflow.client.rest.client" />
       <recent name="com.jb4dc.builder.po" />
       <recent name="com.jb4dc.workflow.integrate.engine.utility" />
       <recent name="com.jb4dc.workflow.integrate.utility" />
-      <recent name="com.jb4dc.workflow.client.utility" />
     </key>
     <key name="CreateTestDialog.RecentsKey">
       <recent name="com.jb4dc.workflow.integrate" />
@@ -1038,14 +1061,10 @@
       <workItem from="1634088425215" duration="14586000" />
       <workItem from="1634132723670" duration="59000" />
       <workItem from="1634132808585" duration="443000" />
-      <workItem from="1634133290353" duration="1479000" />
-    </task>
-    <task id="LOCAL-00417" summary="2020-10-15">
-      <created>1610158123794</created>
-      <option name="number" value="00417" />
-      <option name="presentableId" value="LOCAL-00417" />
-      <option name="project" value="LOCAL" />
-      <updated>1610158123794</updated>
+      <workItem from="1634133290353" duration="2800000" />
+      <workItem from="1634172963456" duration="16762000" />
+      <workItem from="1634477766959" duration="2494000" />
+      <workItem from="1634561536195" duration="2946000" />
     </task>
     <task id="LOCAL-00418" summary="2020-10-15">
       <created>1610193894199</created>
@@ -1383,7 +1402,14 @@
       <option name="project" value="LOCAL" />
       <updated>1634134423315</updated>
     </task>
-    <option name="localTasksCounter" value="466" />
+    <task id="LOCAL-00466" summary="查询统计">
+      <created>1634134978460</created>
+      <option name="number" value="00466" />
+      <option name="presentableId" value="LOCAL-00466" />
+      <option name="project" value="LOCAL" />
+      <updated>1634134978460</updated>
+    </task>
+    <option name="localTasksCounter" value="467" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -1435,6 +1461,11 @@
           <url>jar://$MAVEN_REPOSITORY$/jb4dc/jb4dc-sso-client/1.0-SNAPSHOT/jb4dc-sso-client-1.0-SNAPSHOT.jar!/com/jb4dc/sso/client/remote/SSOClientFeignClientConfig.class</url>
           <line>18</line>
           <option name="timeStamp" value="75" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/jb4dc-builder-service/src/main/java/com/jb4dc/portlet/service/impl/WidgetServiceImpl.java</url>
+          <line>24</line>
+          <option name="timeStamp" value="76" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

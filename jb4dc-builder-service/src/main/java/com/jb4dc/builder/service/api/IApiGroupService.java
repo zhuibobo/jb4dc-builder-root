@@ -16,5 +16,5 @@ import java.util.List;
 public interface IApiGroupService  extends IBaseService<ApiGroupEntity> {
     void initSystemData(JB4DCSession jb4DCSession) throws JBuild4DCGenerallyException;
 
-    List<ApiGroupEntity> getByGroupTypeASC(String groupType, JB4DCSession session);
+    List<ApiGroupEntity> getByGroupTypeASC(JB4DCSession session, String groupType);
 }

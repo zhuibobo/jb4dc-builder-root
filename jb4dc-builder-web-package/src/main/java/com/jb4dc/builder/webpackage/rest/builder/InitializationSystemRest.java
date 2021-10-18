@@ -20,6 +20,7 @@ import com.jb4dc.builder.service.systemsetting.IDictionaryService;
 import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
 import com.jb4dc.core.base.session.JB4DCSession;
 import com.jb4dc.core.base.vo.JBuild4DCResponseVo;
+import com.jb4dc.portlet.service.IGroupService;
 import com.jb4dc.workflow.integrate.extend.IModelGroupExtendService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -83,6 +84,9 @@ public class InitializationSystemRest {
     @Autowired
     private IModelGroupExtendService modelGroupExtendService;
 
+    @Autowired
+    private IGroupService groupService;
+
     @RequestMapping(value = "/Running", method = RequestMethod.POST)
     @ResponseBody
     public JBuild4DCResponseVo running(String createTestData) throws JBuild4DCGenerallyException, JsonProcessingException {
@@ -119,6 +123,9 @@ public class InitializationSystemRest {
         operationLogService.initSystemData(jb4DCSession);
 
         modelGroupExtendService.initSystemData(jb4DCSession);
+
+        //portlet分组
+        groupService.initSystemData(jb4DCSession);
 
         return JBuild4DCResponseVo.success("系统数据初始化成功！");
     }

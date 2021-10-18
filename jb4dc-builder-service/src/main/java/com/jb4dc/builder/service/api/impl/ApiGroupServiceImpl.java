@@ -93,7 +93,7 @@ public class ApiGroupServiceImpl extends BaseServiceImpl<ApiGroupEntity> impleme
     }
 
     @Override
-    public List<ApiGroupEntity> getByGroupTypeASC(String groupType, JB4DCSession session) {
+    public List<ApiGroupEntity> getByGroupTypeASC(JB4DCSession session, String groupType) {
         return apiGroupMapper.selectByGroupTypeASC(groupType);
     }
 

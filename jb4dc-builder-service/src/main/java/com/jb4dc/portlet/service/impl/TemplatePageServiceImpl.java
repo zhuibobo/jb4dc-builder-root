@@ -7,7 +7,9 @@ import com.jb4dc.core.base.session.JB4DCSession;
 import com.jb4dc.portlet.dao.TemplatePageMapper;
 import com.jb4dc.portlet.dbentities.TemplatePageEntityWithBLOBs;
 import com.jb4dc.portlet.service.ITemplatePageService;
+import org.springframework.stereotype.Service;
 
+@Service
 public class TemplatePageServiceImpl extends BaseServiceImpl<TemplatePageEntityWithBLOBs> implements ITemplatePageService
 {
     TemplatePageMapper templatePageMapper;

@@ -3,7 +3,6 @@ package com.jb4dc.builder.webpackage.rest.builder.api;
 import com.jb4dc.base.service.IBaseService;
 import com.jb4dc.base.service.general.JB4DCSessionUtility;
 import com.jb4dc.builder.dbentities.api.ApiGroupEntity;
-import com.jb4dc.builder.dbentities.envvar.EnvGroupEntity;
 import com.jb4dc.builder.service.api.IApiGroupService;
 import com.jb4dc.core.base.vo.JBuild4DCResponseVo;
 import com.jb4dc.feb.dist.webserver.rest.base.GeneralRest;
@@ -41,7 +40,7 @@ public class APIGroupRest extends GeneralRest<ApiGroupEntity> {
     public JBuild4DCResponseVo<List<ApiGroupEntity>> getTreeData(String groupType) {
         //dictionaryGroupService.moveUp(recordId);
         //List<ApiGroupEntity> groupEntityList=apiGroupService.getALLASC(JB4DCSessionUtility.getSession());
-        List<ApiGroupEntity> groupEntityList=apiGroupService.getByGroupTypeASC(groupType,JB4DCSessionUtility.getSession());
+        List<ApiGroupEntity> groupEntityList=apiGroupService.getByGroupTypeASC(JB4DCSessionUtility.getSession(), groupType);
         return JBuild4DCResponseVo.getDataSuccess(groupEntityList);
     }
 }
