@@ -21,4 +21,6 @@
  where WIDGET_ORDER_NUM = (select max(WIDGET_ORDER_NUM) from PORTLET_WIDGET where WIDGET_ORDER_NUM<(select WIDGET_ORDER_NUM from PORTLET_WIDGET where WIDGET_ID=#{Id,jdbcType=NVARCHAR}))]]></select>
     <select id="selectGreaterThanRecord" parameterType="java.lang.String" resultMap="BaseResultMap"><![CDATA[select * from PORTLET_WIDGET
  where WIDGET_ORDER_NUM = (select min(WIDGET_ORDER_NUM) from PORTLET_WIDGET where WIDGET_ORDER_NUM>(select WIDGET_ORDER_NUM from PORTLET_WIDGET where WIDGET_ID=#{Id,jdbcType=NVARCHAR}))]]></select>
+    <select id="selectByStatus" resultMap="BaseResultMap">select<include refid="Base_Column_List"/> from PORTLET_WIDGET where WIDGET_STATUS=#{status} ORDER by WIDGET_ORDER_NUM DESC</select>
+    <select id="selectByStatusASC" resultMap="BaseResultMap">select<include refid="Base_Column_List"/> from PORTLET_WIDGET where WIDGET_STATUS=#{status} ORDER by WIDGET_ORDER_NUM ASC</select>
 </mapper>

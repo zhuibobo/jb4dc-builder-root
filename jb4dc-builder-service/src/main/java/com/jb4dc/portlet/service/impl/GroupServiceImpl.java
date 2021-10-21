@@ -4,14 +4,17 @@ import com.jb4dc.base.service.IAddBefore;
 import com.jb4dc.base.service.exenum.EnableTypeEnum;
 import com.jb4dc.base.service.exenum.TrueFalseEnum;
 import com.jb4dc.base.service.impl.BaseServiceImpl;
+import com.jb4dc.base.service.po.ZTreeNodePO;
 import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
 import com.jb4dc.core.base.session.JB4DCSession;
 import com.jb4dc.core.base.tools.StringUtility;
 import com.jb4dc.portlet.dao.GroupMapper;
 import com.jb4dc.portlet.dbentities.GroupEntity;
+import com.jb4dc.portlet.dbentities.WidgetEntity;
 import com.jb4dc.portlet.service.IGroupService;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -66,6 +69,51 @@ public class GroupServiceImpl extends BaseServiceImpl<GroupEntity> implements IG
     @Override
     public List<GroupEntity> getByGroupTypeASC(JB4DCSession session, String groupType) {
         return groupMapper.selectByGroupTypeASC(groupType);
+    }
+
+    @Override
+    public List<ZTreeNodePO> convertGroupWidgetToTreeNode(JB4DCSession session, List<GroupEntity> groupEntityList, List<WidgetEntity> widgetEntityList) {
+        List<ZTreeNodePO> result=new ArrayList<>();
+        for (GroupEntity groupEntity : groupEntityList) {
+            ZTreeNodePO zTreeNodePO=new ZTreeNodePO();
+            zTreeNodePO.setNocheck(false);
+            zTreeNodePO.setNodeTypeName("Group");
+            zTreeNodePO.setValue(groupEntity.getPortletGroupValue());
+            zTreeNodePO.setText(groupEntity.getPortletGroupText());
+            zTreeNodePO.setId(groupEntity.getPortletGroupId());
+            zTreeNodePO.setParentId(groupEntity.getPortletGroupParentId());
+            zTreeNodePO.setAttr1("");
+            zTreeNodePO.setAttr2("");
+            zTreeNodePO.setAttr3("");
+            zTreeNodePO.setAttr4("");
+            zTreeNodePO.setOuterId(groupEntity.getPortletGroupId());
+            zTreeNodePO.setCode(groupEntity.getPortletGroupId());
+            zTreeNodePO.setIsParent("true");
+            zTreeNodePO.setOpen(true);
+            zTreeNodePO.setIcon("app-view-tile.png");
+            result.add(zTreeNodePO);
+        }
+        for (WidgetEntity widgetEntity : widgetEntityList) {
+            ZTreeNodePO zTreeNodePO=new ZTreeNodePO();
+            zTreeNodePO.setNocheck(false);
+            zTreeNodePO.setNodeTypeName("Widget");
+            zTreeNodePO.setValue(widgetEntity.getWidgetName());
+            zTreeNodePO.setText(widgetEntity.getWidgetTitle());
+            zTreeNodePO.setId(widgetEntity.getWidgetId());
+            zTreeNodePO.setParentId(widgetEntity.getWidgetGroupId());
+            zTreeNodePO.setAttr1("");
+            zTreeNodePO.setAttr2("");
+            zTreeNodePO.setAttr3("");
+            zTreeNodePO.setAttr4("");
+            zTreeNodePO.setOuterId(widgetEntity.getWidgetId());
+            zTreeNodePO.setCode(widgetEntity.getWidgetId());
+            zTreeNodePO.setIsParent("false");
+            zTreeNodePO.setOpen(true);
+            zTreeNodePO.setIcon("application_add.png");
+            result.add(zTreeNodePO);
+        }
+
+        return result;
     }
 
     private GroupEntity create(JB4DCSession jb4DCSession,String groupId,String groupType,String parentId,String text,String value) throws JBuild4DCGenerallyException {
