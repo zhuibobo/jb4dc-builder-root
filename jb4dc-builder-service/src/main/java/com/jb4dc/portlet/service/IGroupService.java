@@ -5,6 +5,8 @@ import com.jb4dc.base.service.po.ZTreeNodePO;
 import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
 import com.jb4dc.core.base.session.JB4DCSession;
 import com.jb4dc.portlet.dbentities.GroupEntity;
+import com.jb4dc.portlet.dbentities.TemplatePageEntity;
+import com.jb4dc.portlet.dbentities.TemplatePageEntityWithBLOBs;
 import com.jb4dc.portlet.dbentities.WidgetEntity;
 
 import java.util.List;
@@ -16,4 +18,6 @@ public interface IGroupService  extends IBaseService<GroupEntity> {
     List<GroupEntity> getByGroupTypeASC(JB4DCSession session,String groupType);
 
     List<ZTreeNodePO> convertGroupWidgetToTreeNode(JB4DCSession session, List<GroupEntity> groupEntityList, List<WidgetEntity> widgetEntityList);
+
+    List<ZTreeNodePO> convertGroupPageToTreeNode(JB4DCSession session, List<GroupEntity> groupEntityList, List<TemplatePageEntityWithBLOBs> templatePageEntityWithBLOBsList);
 }

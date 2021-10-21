@@ -10,6 +10,8 @@ import com.jb4dc.core.base.session.JB4DCSession;
 import com.jb4dc.core.base.tools.StringUtility;
 import com.jb4dc.portlet.dao.GroupMapper;
 import com.jb4dc.portlet.dbentities.GroupEntity;
+import com.jb4dc.portlet.dbentities.TemplatePageEntity;
+import com.jb4dc.portlet.dbentities.TemplatePageEntityWithBLOBs;
 import com.jb4dc.portlet.dbentities.WidgetEntity;
 import com.jb4dc.portlet.service.IGroupService;
 import org.springframework.stereotype.Service;
@@ -82,10 +84,6 @@ public class GroupServiceImpl extends BaseServiceImpl<GroupEntity> implements IG
             zTreeNodePO.setText(groupEntity.getPortletGroupText());
             zTreeNodePO.setId(groupEntity.getPortletGroupId());
             zTreeNodePO.setParentId(groupEntity.getPortletGroupParentId());
-            zTreeNodePO.setAttr1("");
-            zTreeNodePO.setAttr2("");
-            zTreeNodePO.setAttr3("");
-            zTreeNodePO.setAttr4("");
             zTreeNodePO.setOuterId(groupEntity.getPortletGroupId());
             zTreeNodePO.setCode(groupEntity.getPortletGroupId());
             zTreeNodePO.setIsParent("true");
@@ -101,10 +99,6 @@ public class GroupServiceImpl extends BaseServiceImpl<GroupEntity> implements IG
             zTreeNodePO.setText(widgetEntity.getWidgetTitle());
             zTreeNodePO.setId(widgetEntity.getWidgetId());
             zTreeNodePO.setParentId(widgetEntity.getWidgetGroupId());
-            zTreeNodePO.setAttr1("");
-            zTreeNodePO.setAttr2("");
-            zTreeNodePO.setAttr3("");
-            zTreeNodePO.setAttr4("");
             zTreeNodePO.setOuterId(widgetEntity.getWidgetId());
             zTreeNodePO.setCode(widgetEntity.getWidgetId());
             zTreeNodePO.setIsParent("false");
@@ -112,7 +106,42 @@ public class GroupServiceImpl extends BaseServiceImpl<GroupEntity> implements IG
             zTreeNodePO.setIcon("application_add.png");
             result.add(zTreeNodePO);
         }
+        return result;
+    }
 
+    @Override
+    public List<ZTreeNodePO> convertGroupPageToTreeNode(JB4DCSession session, List<GroupEntity> groupEntityList, List<TemplatePageEntityWithBLOBs> templatePageEntityList) {
+        List<ZTreeNodePO> result=new ArrayList<>();
+        for (GroupEntity groupEntity : groupEntityList) {
+            ZTreeNodePO zTreeNodePO=new ZTreeNodePO();
+            zTreeNodePO.setNocheck(false);
+            zTreeNodePO.setNodeTypeName("Group");
+            zTreeNodePO.setValue(groupEntity.getPortletGroupValue());
+            zTreeNodePO.setText(groupEntity.getPortletGroupText());
+            zTreeNodePO.setId(groupEntity.getPortletGroupId());
+            zTreeNodePO.setParentId(groupEntity.getPortletGroupParentId());
+            zTreeNodePO.setOuterId(groupEntity.getPortletGroupId());
+            zTreeNodePO.setCode(groupEntity.getPortletGroupId());
+            zTreeNodePO.setIsParent("true");
+            zTreeNodePO.setOpen(true);
+            zTreeNodePO.setIcon("app-view-tile.png");
+            result.add(zTreeNodePO);
+        }
+        for (TemplatePageEntity pageEntity : templatePageEntityList) {
+            ZTreeNodePO zTreeNodePO=new ZTreeNodePO();
+            zTreeNodePO.setNocheck(false);
+            zTreeNodePO.setNodeTypeName("Widget");
+            zTreeNodePO.setValue(pageEntity.getPageId());
+            zTreeNodePO.setText(pageEntity.getPageName());
+            zTreeNodePO.setId(pageEntity.getPageId());
+            zTreeNodePO.setParentId(pageEntity.getPageGroupId());
+            zTreeNodePO.setOuterId(pageEntity.getPageId());
+            zTreeNodePO.setCode(pageEntity.getPageId());
+            zTreeNodePO.setIsParent("false");
+            zTreeNodePO.setOpen(true);
+            zTreeNodePO.setIcon("application_add.png");
+            result.add(zTreeNodePO);
+        }
         return result;
     }
 
@@ -122,13 +151,10 @@ public class GroupServiceImpl extends BaseServiceImpl<GroupEntity> implements IG
         rootEntity.setPortletGroupType(groupType);
         rootEntity.setPortletGroupValue(value);
         rootEntity.setPortletGroupText(text);
-        //rootEntity.setPortletGroupOrderNum();
-        //rootEntity.setPortletGroupCreateTime();
         rootEntity.setPortletGroupDesc("");
         rootEntity.setPortletGroupStatus(EnableTypeEnum.enable.getDisplayName());
         rootEntity.setPortletGroupParentId(parentId);
         rootEntity.setPortletGroupDelEnable(TrueFalseEnum.False.getDisplayName());
-
         this.saveSimple(jb4DCSession,rootEntity.getPortletGroupId(),rootEntity);
         return rootEntity;
     }

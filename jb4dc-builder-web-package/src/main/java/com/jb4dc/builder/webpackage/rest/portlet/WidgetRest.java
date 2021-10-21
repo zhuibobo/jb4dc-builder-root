@@ -35,7 +35,7 @@ public class WidgetRest extends GeneralRest<WidgetEntity> {
         return widgetService;
     }
 
-    @RequestMapping(value = "/GetTreeData", method = RequestMethod.POST)
+    @RequestMapping(value = "/GetTreeData", method = { RequestMethod.GET, RequestMethod.POST })
     public JBuild4DCResponseVo<List<ZTreeNodePO>> getTreeData() {
         List<GroupEntity> groupEntityList=groupService.getByGroupTypeASC(JB4DCSessionUtility.getSession(),"WidgetGroup");
         List<WidgetEntity> widgetEntityList=widgetService.getByStatus(JB4DCSessionUtility.getSession(), EnableTypeEnum.enable.getDisplayName());
