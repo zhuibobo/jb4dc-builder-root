@@ -71,7 +71,7 @@
     </where> and MODEL_LAST_VERSION='是' ORDER by MODEL_ORDER_NUM DESC</select>
 
     <select id="selectAllStartEnableModel" resultMap="BaseResultMap">
-        select<include refid="Base_Column_List"/> from TFLOW_MODEL_INTEGRATED where MODEL_LAST_RE_ED='是' and MODEL_STATUS='启用' order by MODEL_ORDER_NUM DESC
+        select<include refid="Base_Column_List"/> from TFLOW_MODEL_INTEGRATED where MODEL_LAST_RE_ED='是' and MODEL_STATUS='启用' and MODEL_MODULE_ID in (select MODULE_ID from tbuild_module where MODULE_LINK_ID=#{linkId}) order by MODEL_ORDER_NUM DESC
     </select>
 
     <select id="selectStartEnableModelByRole" resultMap="BaseResultMap">
@@ -81,13 +81,46 @@
         <if test="roleKeys !=null">
         union
         select MODEL_RE_KEY from TFLOW_MODEL_ASS_OBJECT where OBJECT_VALUE in
-            <foreach collection="list" item="id" index="index" open="(" close=")" separator=",">
+            <foreach collection="roleKeys" item="id" index="index" open="(" close=")" separator=",">
                 #{id}
             </foreach>
             and OBJECT_TYPE='StarterRole'
         </if>
-        ) and
-        MODEL_LAST_RE_ED='是' and MODEL_STATUS='启用' order by MODEL_ORDER_NUM DESC
+        )
+        and
+        MODEL_LAST_RE_ED='是' and MODEL_STATUS='启用'
+        and
+        MODEL_MODULE_ID in (select MODULE_ID from tbuild_module where MODULE_LINK_ID=#{linkId})
+        order by MODEL_ORDER_NUM DESC
+    </select>
+
+    <select id="selectStartEnableModelByRoleAndGroupIds" resultMap="BaseResultMap">
+        select<include refid="Base_Column_List"/> from TFLOW_MODEL_INTEGRATED where
+        MODEL_RE_KEY in (
+        select MODEL_RE_KEY from TFLOW_MODEL_ASS_OBJECT where OBJECT_VALUE=#{userId} and OBJECT_TYPE='StarterUser'
+        <if test="roleKeys !=null and roleKeys.size()>0 ">
+            union
+            select MODEL_RE_KEY from TFLOW_MODEL_ASS_OBJECT where OBJECT_VALUE in
+            <foreach collection="roleKeys" item="id" index="index" open="(" close=")" separator=",">
+                #{id}
+            </foreach>
+            and OBJECT_TYPE='StarterRole'
+        </if>
+        )
+        and
+        MODEL_LAST_RE_ED='是' and MODEL_STATUS='启用'
+        and
+        MODEL_MODULE_ID in (select MODULE_ID from tbuild_module where MODULE_LINK_ID=#{linkId})
+        and
+        MODEL_FLOW_CATEGORY like #{flowCategoryName}
+        and
+        MODEL_ID in (
+            select MODEL_ID from TFLOW_MODEL_GROUP_REF where GREF_GROUP_ID in
+            <foreach collection="groupIds" item="gId" index="index" open="(" close=")" separator=",">
+                #{gId}
+            </foreach>
+        )
+        order by MODEL_ORDER_NUM DESC
     </select>
 
     <select id="selectByReId" resultMap="BaseResultMap">
@@ -100,4 +133,6 @@
             #{id}
         </foreach>
     </select>
+
+
 </mapper>

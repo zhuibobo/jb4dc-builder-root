@@ -1,4 +1,4 @@
-package com.jb4dc.workflow.client.rest.client;
+package com.jb4dc.workflow.client.rest;
 
 import com.github.pagehelper.PageInfo;
 import com.jb4dc.base.service.general.JB4DCSessionUtility;
@@ -57,14 +57,14 @@ public class InstanceRuntimeRest {
         return workFlowInstanceRuntimeService.getMyProcessTaskList(JB4DCSessionUtility.getSession(),pageNum, pageSize, modelCategory, extaskType);
     }
 
-    /*@RequestMapping(value = "/GetMyProcessEndTaskList",method = RequestMethod.POST)
-    public JBuild4DCResponseVo<PageInfo<ExecutionTaskPO>> getMyProcessEndTaskList(int pageNum, int pageSize, String modelCategory, String extaskType) throws JBuild4DCGenerallyException {
-        return workFlowInstanceRuntimeService.getMyProcessEndTaskList(JB4DCSessionUtility.getSession(),pageNum, pageSize, modelCategory, extaskType);
-    }*/
-
     @RequestMapping(value = "/GetMyProcessEndTaskList",method = RequestMethod.POST)
     public JBuild4DCResponseVo<PageInfo<ExecutionTaskPO>> getMyProcessEndTaskList(@RequestBody ExecutionTaskSearchModel executionTaskSearchModel) throws JBuild4DCGenerallyException {
         return workFlowInstanceRuntimeService.getMyProcessEndTaskList(JB4DCSessionUtility.getSession(),executionTaskSearchModel);
+    }
+
+    @RequestMapping(value = "/GetMyInstanceCompletedList",method = RequestMethod.POST)
+    public JBuild4DCResponseVo<PageInfo<ExecutionTaskPO>> getMyInstanceCompletedList(@RequestBody ExecutionTaskSearchModel executionTaskSearchModel) throws JBuild4DCGenerallyException {
+        return workFlowInstanceRuntimeService.getMyInstanceCompletedList(JB4DCSessionUtility.getSession(),executionTaskSearchModel);
     }
 
     @RequestMapping(value = "/ResolveNextPossibleFlowNode",method = RequestMethod.POST)

@@ -8,6 +8,7 @@ import com.jb4dc.workflow.po.FlowModelIntegratedPO;
 import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
 import com.jb4dc.core.base.session.JB4DCSession;
 import com.jb4dc.workflow.po.FlowInstanceRuntimePO;
+import com.jb4dc.workflow.po.ModelFilterPO;
 import com.jb4dc.workflow.po.bpmn.BpmnDefinitions;
 import com.jb4dc.workflow.po.bpmn.process.BpmnTask;
 
@@ -37,7 +38,9 @@ public interface IModelIntegratedExtendService extends IBaseService<ModelIntegra
 
     String getBpmnTemplateModelByName(String templateName) throws IOException, URISyntaxException;
 
-    List<ModelIntegratedEntity> getMyStartEnableModel(JB4DCSession session);
+    List<ModelIntegratedEntity> getMyStartEnableModel(JB4DCSession session, String linkId);
+
+    List<ModelIntegratedEntity> getMyStartEnableModel(JB4DCSession jb4DCSession, ModelFilterPO modelFilterPO);
 
     FlowModelIntegratedPO getLastSavePOByModelReKey(JB4DCSession jb4DSession, String modelReKey) throws IOException;
 
@@ -54,4 +57,6 @@ public interface IModelIntegratedExtendService extends IBaseService<ModelIntegra
     List<ModelIntegratedEntity> getListByPrimaryKey(JB4DCSession jb4DCSession,List<String> modelIds);
 
     SimplePO saveValidate(JB4DCSession jb4DSession, FlowModelIntegratedPO flowModelIntegratedPO) throws JBuild4DCGenerallyException;
+
+
 }

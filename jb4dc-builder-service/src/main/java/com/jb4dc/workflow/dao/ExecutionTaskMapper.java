@@ -18,6 +18,8 @@ public interface ExecutionTaskMapper extends BaseMapper<ExecutionTaskEntity> {
 
     List<ExecutionTaskPO> selectMyProcessEndTask(@Param("executionTaskSearchModel") ExecutionTaskSearchModel executionTaskSearchModel);
 
+    List<ExecutionTaskPO> selectMyInstanceCompletedList(@Param("executionTaskSearchModel") ExecutionTaskSearchModel executionTaskSearchModel);
+
     List<ExecutionTaskEntity> selectListByInstanceAndStatus(@Param("instanceIds") List<String> instanceIds,@Param("exTaskStatus") String exTaskStatus);
 
     void updateProcessingToCancelStatus(@Param("instanceId") String instanceId);

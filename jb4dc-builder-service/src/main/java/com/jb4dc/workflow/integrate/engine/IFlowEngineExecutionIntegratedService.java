@@ -15,7 +15,11 @@ public interface IFlowEngineExecutionIntegratedService {
 
     List<ExecutionEntity> getIsActivityNodeExecution(JB4DCSession jb4DCSession, String processInstanceId);
 
-    List<String> getCurrentActivityNodeIds(JB4DCSession jb4DCSession, String processInstanceId);
+    List<ExecutionEntity> getNodeExecution(JB4DCSession jb4DCSession, String processInstanceId);
+
+    //List<String> getCurrentActivityNodeIds(JB4DCSession jb4DCSession, String processInstanceId);
+
+    List<String> getCurrentActivityNodeIds(JB4DCSession jb4DCSession, String processInstanceId,boolean includeNotActive);
 
     boolean isProcessInstanceExecution(JB4DCSession jb4DCSession, Execution execution);
 

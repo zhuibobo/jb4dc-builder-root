@@ -78,7 +78,7 @@ public class FlowEngineInstanceIntegratedServiceImpl extends FlowEngineCamundaIn
 
             //当前操作人需要撤回的所在环节如果是多实例环节
             if (CamundaBpmnUtility.isMultiInstance(CamundaBpmnUtility.getUserTaskNode(historicTaskInstance.getProcessDefinitionId(),sendOperationActivityNodeId))){
-                List<String> currentActivityNodeIds= IFlowEngineExecutionIntegratedService.getCurrentActivityNodeIds(jb4DCSession,processInstanceId);
+                List<String> currentActivityNodeIds= IFlowEngineExecutionIntegratedService.getCurrentActivityNodeIds(jb4DCSession,processInstanceId,true);
 
                 if(currentActivityNodeIds.contains(sendOperationActivityNodeId)){
                     //当前环节未完成
@@ -106,7 +106,7 @@ public class FlowEngineInstanceIntegratedServiceImpl extends FlowEngineCamundaIn
 
             }
             else{
-                List<String> currentActivityNodeIds= IFlowEngineExecutionIntegratedService.getCurrentActivityNodeIds(jb4DCSession,processInstanceId);
+                List<String> currentActivityNodeIds= IFlowEngineExecutionIntegratedService.getCurrentActivityNodeIds(jb4DCSession,processInstanceId,true);
                 jumpToUserTaskActivityNode(jb4DCSession,processInstanceId,sendOperationActivityNodeId,currentActivityNodeIds,assigneeUserId,variables);
                 return "recallBySingle";
             }
@@ -189,6 +189,7 @@ public class FlowEngineInstanceIntegratedServiceImpl extends FlowEngineCamundaIn
                 modificationBuilder.cancelAllForActivity(cancelActivityNodeId);
                 //modificationBuilder.cancelAllForActivity(cancelActivityNodeId,true);
             }
+            //modificationBuilder.execute();
 
             ProcessInstanceModificationInstantiationBuilder processInstanceModificationInstantiationBuilder=modificationBuilder.startBeforeActivity(jumpToActivityNodeId);
             processInstanceModificationInstantiationBuilder.setVariables(innVariables);
@@ -218,7 +219,7 @@ public class FlowEngineInstanceIntegratedServiceImpl extends FlowEngineCamundaIn
         if(CamundaBpmnUtility.isMultiInstance(CamundaBpmnUtility.getFlowNodeById(newProcessInstance.getProcessDefinitionId(),jumpToActivityNodeId))){
             throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_WORKFLOW_CODE, "跳转节点不能设置为多实例节点!");
         }
-        List<String> currentActivityNodeIds= IFlowEngineExecutionIntegratedService.getCurrentActivityNodeIds(jb4DCSession,newProcessInstance.getProcessInstanceId());
+        List<String> currentActivityNodeIds= IFlowEngineExecutionIntegratedService.getCurrentActivityNodeIds(jb4DCSession,newProcessInstance.getProcessInstanceId(),true);
         jumpToUserTaskActivityNode(jb4DCSession,newProcessInstance.getProcessInstanceId(),jumpToActivityNodeId,currentActivityNodeIds,assigneeUserId,variables);
         //.execute();
     }

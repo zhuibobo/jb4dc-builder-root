@@ -104,6 +104,13 @@ public class FlowInstanceIntegratedRuntimeRest implements FlowInstanceIntegrated
     }
 
     @Override
+    public JBuild4DCResponseVo<PageInfo<ExecutionTaskPO>> getMyInstanceCompletedList(ExecutionTaskSearchModel executionTaskSearchModel) throws JBuild4DCGenerallyException {
+        JB4DCSession jb4DCSession = JB4DCSessionUtility.getSession();
+        PageInfo<ExecutionTaskPO> executionTaskPOPageInfo = executionTaskExtendService.getMyInstanceCompletedList(jb4DCSession,executionTaskSearchModel);
+        return JBuild4DCResponseVo.getDataSuccess(executionTaskPOPageInfo);
+    }
+
+    @Override
     public JBuild4DCResponseVo<ResolveNextPossibleFlowNodePO> resolveNextPossibleFlowNode(@RequestBody RequestResolveNextPossibleFlowNodePO reqPO) throws JBuild4DCGenerallyException {
         try {
             JB4DCSession jb4DCSession = JB4DCSessionUtility.getSession();

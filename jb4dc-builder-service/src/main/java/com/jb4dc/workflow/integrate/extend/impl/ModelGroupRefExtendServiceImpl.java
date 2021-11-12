@@ -9,6 +9,7 @@ import com.jb4dc.workflow.dbentities.ModelGroupRefEntity;
 import com.jb4dc.workflow.integrate.extend.IModelGroupRefExtendService;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -38,6 +39,9 @@ public class ModelGroupRefExtendServiceImpl extends BaseServiceImpl<ModelGroupRe
 
     @Override
     public List<ModelGroupRefEntity> getByModelKeyList(List<String> modelIdList) {
-        return modelGroupRefMapper.selectByModelKeyList(modelIdList);
+        if(modelIdList!=null&&modelIdList.size()>0) {
+            return modelGroupRefMapper.selectByModelKeyList(modelIdList);
+        }
+        return new ArrayList<>();
     }
 }

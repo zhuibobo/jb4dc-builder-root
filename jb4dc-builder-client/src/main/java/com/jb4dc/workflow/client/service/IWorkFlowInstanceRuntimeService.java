@@ -39,9 +39,12 @@ public interface IWorkFlowInstanceRuntimeService extends IWorkFlowRuntimeService
 
     JBuild4DCResponseVo<PageInfo<ExecutionTaskPO>> getMyProcessEndTaskList(JB4DCSession jb4DCSession, ExecutionTaskSearchModel executionTaskSearchModel) throws JBuild4DCGenerallyException;
 
+    JBuild4DCResponseVo<PageInfo<ExecutionTaskPO>> getMyInstanceCompletedList(JB4DCSession session, ExecutionTaskSearchModel executionTaskSearchModel) throws JBuild4DCGenerallyException;
     //JBuild4DCResponseVo<SimplePO> recallMySendTaskEnable(JB4DCSession session, String userId, String organId, String extaskId) throws JBuild4DCGenerallyException;
 
     JBuild4DCResponseVo recallMySendTask(JB4DCSession session, String userId, String organId, String extaskId) throws JBuild4DCGenerallyException;
 
     JBuild4DCResponseVo changeTaskToView(String extaskId) throws JBuild4DCGenerallyException;
+
+
 }

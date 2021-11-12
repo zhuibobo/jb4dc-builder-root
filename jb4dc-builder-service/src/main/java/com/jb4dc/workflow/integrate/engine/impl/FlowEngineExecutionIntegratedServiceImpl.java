@@ -1,5 +1,6 @@
 package com.jb4dc.workflow.integrate.engine.impl;
 
+import com.jb4dc.core.base.tools.StringUtility;
 import com.jb4dc.workflow.integrate.engine.IFlowEngineExecutionIntegratedService;
 import com.jb4dc.core.base.session.JB4DCSession;
 import org.camunda.bpm.engine.ProcessEngine;
@@ -35,11 +36,44 @@ public class FlowEngineExecutionIntegratedServiceImpl implements IFlowEngineExec
     }
 
     @Override
+    public List<ExecutionEntity> getNodeExecution(JB4DCSession jb4DCSession, String processInstanceId){
+        ProcessEngine processEngine=CamundaIntegrate.getProcessEngine();
+        List<ExecutionEntity> result=new ArrayList<>();
+
+        List<Execution> executionEntityList=processEngine.getRuntimeService().createExecutionQuery().processInstanceId(processInstanceId).list();
+        for (Execution execution : executionEntityList) {
+            String activityId=((ExecutionEntity)execution).getActivityId();
+            if(StringUtility.isNotEmpty(activityId)){
+                result.add((ExecutionEntity)execution);
+            }
+        }
+        return result;
+    }
+
+    /*@Override
     public List<String> getCurrentActivityNodeIds(JB4DCSession jb4DCSession, String processInstanceId){
         List<ExecutionEntity> executionEntityList= getIsActivityNodeExecution(jb4DCSession,processInstanceId);
         List<String> result=new ArrayList<>();
         for (ExecutionEntity executionEntity : executionEntityList) {
             if(!result.contains(executionEntity.getActivityId())){
+                result.add(executionEntity.getActivityId());
+            }
+        }
+        return result;
+    }*/
+
+    @Override
+    public List<String> getCurrentActivityNodeIds(JB4DCSession jb4DCSession, String processInstanceId, boolean includeNotActive) {
+        //List<ExecutionEntity> executionEntityList= getNodeExecution(jb4DCSession,processInstanceId);
+        List<ExecutionEntity> executionEntityList;
+        if (includeNotActive) {
+            executionEntityList = getNodeExecution(jb4DCSession, processInstanceId);
+        } else {
+            executionEntityList = getIsActivityNodeExecution(jb4DCSession, processInstanceId);
+        }
+        List<String> result = new ArrayList<>();
+        for (ExecutionEntity executionEntity : executionEntityList) {
+            if (!result.contains(executionEntity.getActivityId())) {
                 result.add(executionEntity.getActivityId());
             }
         }

@@ -26,6 +26,10 @@ public class GroupServiceImpl extends BaseServiceImpl<GroupEntity> implements IG
     private String rootId="0";
     private String rootParentId="-1";
 
+    public static String WidgetGroupForWorkFlowId="WidgetGroupForWorkFlow";
+    public static String WidgetGroupForGeneralId="WidgetGroupForGeneral";
+    public static String WidgetGroupForTemplateId="WidgetGroupForTemplate";
+
     GroupMapper groupMapper;
     public GroupServiceImpl(GroupMapper _defaultBaseMapper){
         super(_defaultBaseMapper);
@@ -58,9 +62,11 @@ public class GroupServiceImpl extends BaseServiceImpl<GroupEntity> implements IG
 
         GroupEntity WidgetGroup0 = create(jb4DCSession, "WidgetGroup0", "WidgetGroup",rootGroupEntity.getPortletGroupId(), "Widget分组", "Widget分组");
 
-        create(jb4DCSession, "WidgetGroup1", "WidgetGroup",WidgetGroup0.getPortletGroupId(), "服务运维Widget", "服务运维Widget");
-        create(jb4DCSession, "WidgetGroup2", "WidgetGroup",WidgetGroup0.getPortletGroupId(), "协同办公Widget", "协同办公Widget");
-
+        create(jb4DCSession, WidgetGroupForTemplateId, "WidgetGroup",WidgetGroup0.getPortletGroupId(), "模板Widget分组", "模板Widget分组");
+        create(jb4DCSession, WidgetGroupForGeneralId, "WidgetGroup",WidgetGroup0.getPortletGroupId(), "常用Widget分组", "常用Widget分组");
+        create(jb4DCSession, WidgetGroupForWorkFlowId, "WidgetGroup",WidgetGroup0.getPortletGroupId(), "工作流Widget分组", "工作流Widget分组");
+        create(jb4DCSession, "WidgetGroup1", "WidgetGroup",WidgetGroup0.getPortletGroupId(), "服务运维Widget分组", "服务运维Widget分组");
+        create(jb4DCSession, "WidgetGroup2", "WidgetGroup",WidgetGroup0.getPortletGroupId(), "协同办公Widget分组", "协同办公Widget分组");
 
         GroupEntity PageGroup0 = create(jb4DCSession, "PageGroup0", "PageGroup",rootGroupEntity.getPortletGroupId(), "模板页面分组", "模板页面分组");
 
@@ -130,7 +136,7 @@ public class GroupServiceImpl extends BaseServiceImpl<GroupEntity> implements IG
         for (TemplatePageEntity pageEntity : templatePageEntityList) {
             ZTreeNodePO zTreeNodePO=new ZTreeNodePO();
             zTreeNodePO.setNocheck(false);
-            zTreeNodePO.setNodeTypeName("Widget");
+            zTreeNodePO.setNodeTypeName("TemplatePage");
             zTreeNodePO.setValue(pageEntity.getPageId());
             zTreeNodePO.setText(pageEntity.getPageName());
             zTreeNodePO.setId(pageEntity.getPageId());

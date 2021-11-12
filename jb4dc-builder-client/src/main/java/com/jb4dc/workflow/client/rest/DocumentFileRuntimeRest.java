@@ -1,11 +1,8 @@
-package com.jb4dc.workflow.client.rest.client;
+package com.jb4dc.workflow.client.rest;
 
-import com.aspose.words.SaveFormat;
 import com.jb4dc.base.service.general.JB4DCSessionUtility;
 import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
-import com.jb4dc.core.base.tools.UUIDUtility;
 import com.jb4dc.core.base.vo.JBuild4DCResponseVo;
-import com.jb4dc.files.dbentities.FileInfoEntity;
 import com.jb4dc.files.po.SimpleFilePO;
 import com.jb4dc.files.service.IFileInfoService;
 import com.jb4dc.workflow.client.service.IWorkFlowInstanceFileRuntimeService;
@@ -14,14 +11,13 @@ import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import com.aspose.words.Document;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.net.URISyntaxException;
 
 @RestController
 @RequestMapping(value = "/Rest/Workflow/RunTime/Client/DocumentFileRuntime")

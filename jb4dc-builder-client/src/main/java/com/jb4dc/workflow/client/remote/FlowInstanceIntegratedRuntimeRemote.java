@@ -36,6 +36,9 @@ public interface FlowInstanceIntegratedRuntimeRemote {
     @PostMapping(value = "/GetMyProcessEndTaskList")
     JBuild4DCResponseVo<PageInfo<ExecutionTaskPO>> getMyProcessEndTaskList(@RequestBody ExecutionTaskSearchModel executionTaskSearchModel) throws JBuild4DCGenerallyException;
 
+    @PostMapping(value = "/GetMyInstanceCompletedList")
+    JBuild4DCResponseVo<PageInfo<ExecutionTaskPO>> getMyInstanceCompletedList(@RequestBody ExecutionTaskSearchModel executionTaskSearchModel) throws JBuild4DCGenerallyException;
+
     @PostMapping(value = "/ResolveNextPossibleFlowNode")
     JBuild4DCResponseVo<ResolveNextPossibleFlowNodePO> resolveNextPossibleFlowNode(@RequestBody RequestResolveNextPossibleFlowNodePO resolveNextPossibleFlowNodePO) throws JBuild4DCGenerallyException ;
 
@@ -56,5 +59,6 @@ public interface FlowInstanceIntegratedRuntimeRemote {
 
     @PostMapping(value = "/RecallMySendTaskEnable")
     JBuild4DCResponseVo recallMySendTask(@RequestParam("userId") String userId, @RequestParam("organId")  String organId, @RequestParam("extaskId") String extaskId) throws JBuild4DCGenerallyException ;
+
 
 }

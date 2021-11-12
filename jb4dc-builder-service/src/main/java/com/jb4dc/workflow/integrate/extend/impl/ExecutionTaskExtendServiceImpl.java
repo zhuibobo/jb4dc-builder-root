@@ -115,6 +115,15 @@ public class ExecutionTaskExtendServiceImpl  extends BaseServiceImpl<ExecutionTa
     }
 
     @Override
+    public PageInfo<ExecutionTaskPO> getMyInstanceCompletedList(JB4DCSession jb4DCSession, ExecutionTaskSearchModel executionTaskSearchModel) throws JBuild4DCGenerallyException {
+        PageHelper.startPage(executionTaskSearchModel.getPageNum(), executionTaskSearchModel.getPageSize());
+        executionTaskSearchModel.setJb4DCSession(jb4DCSession);
+        List<ExecutionTaskPO> list = executionTaskMapper.selectMyInstanceCompletedList(executionTaskSearchModel);
+        PageInfo<ExecutionTaskPO> pageInfo = new PageInfo(list);
+        return pageInfo;
+    }
+
+    @Override
     public List<ExecutionTaskEntity> getActiveTaskByInstanceIds(JB4DCSession jb4DCSession, List<InstanceEntity> listEntity) {
         List<String> instanceIds=listEntity.stream().map(item->item.getInstId()).collect(Collectors.toList());
         List<ExecutionTaskEntity> executionTaskEntityList=new ArrayList<>();

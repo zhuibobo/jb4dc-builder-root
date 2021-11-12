@@ -22,7 +22,7 @@ import java.io.IOException;
 
 @RestController
 @RequestMapping(value = "/Rest/WorkFlow/Model/ModelMain")
-public class ModeRest extends GeneralRest<ModelIntegratedEntity> {
+public class ModelRest extends GeneralRest<ModelIntegratedEntity> {
 
     @Autowired
     IModelIntegratedExtendService modelIntegratedExtendService;

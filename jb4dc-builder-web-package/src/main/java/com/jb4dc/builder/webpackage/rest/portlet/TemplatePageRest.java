@@ -7,6 +7,7 @@ import com.jb4dc.base.service.po.ZTreeNodePO;
 import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
 import com.jb4dc.core.base.vo.JBuild4DCResponseVo;
 import com.jb4dc.feb.dist.webserver.rest.base.GeneralRest;
+import com.jb4dc.portlet.client.remote.TemplatePageRuntimeRemote;
 import com.jb4dc.portlet.dbentities.GroupEntity;
 import com.jb4dc.portlet.dbentities.TemplatePageEntityWithBLOBs;
 import com.jb4dc.portlet.dbentities.WidgetEntity;
@@ -21,7 +22,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping(value = "/Rest/Portlet/TemplatePage")
-public class TemplatePageRest extends GeneralRest<TemplatePageEntityWithBLOBs> {
+public class TemplatePageRest extends GeneralRest<TemplatePageEntityWithBLOBs> implements TemplatePageRuntimeRemote {
 
     @Autowired
     ITemplatePageService templatePageService;
@@ -46,5 +47,10 @@ public class TemplatePageRest extends GeneralRest<TemplatePageEntityWithBLOBs> {
         List<TemplatePageEntityWithBLOBs> templatePageEntityWithBLOBsList=templatePageService.getByStatus(JB4DCSessionUtility.getSession(), EnableTypeEnum.enable.getDisplayName());
         List<ZTreeNodePO> zTreeNodePOList=groupService.convertGroupPageToTreeNode(JB4DCSessionUtility.getSession(),groupEntityList,templatePageEntityWithBLOBsList);
         return JBuild4DCResponseVo.getDataSuccess(zTreeNodePOList);
+    }
+
+    @Override
+    public JBuild4DCResponseVo<TemplatePageEntityWithBLOBs> getPageById(String pageId) throws JBuild4DCGenerallyException {
+        return JBuild4DCResponseVo.getDataSuccess(templatePageService.getByPrimaryKey(JB4DCSessionUtility.getSession(), pageId));
     }
 }

@@ -25,6 +25,6 @@
         MODEL_GROUP_ID in
         <foreach collection="list" item="id" index="index" open="(" close=")" separator=",">
             #{id}
-        </foreach> order by MODEL_GROUP_ORDER_NUM desc
+        </foreach> order by MODEL_GROUP_ORDER_NUM asc
     </select>
 </mapper>

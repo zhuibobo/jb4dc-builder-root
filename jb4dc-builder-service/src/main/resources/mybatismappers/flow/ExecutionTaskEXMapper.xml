@@ -141,6 +141,34 @@
         order by EXTASK_END_TIME desc
     </select>
 
+    <select id="selectMyInstanceCompletedList" resultMap="BaseResultMapWithPO">
+        <bind name="instanceTitle" value="'%'+executionTaskSearchModel.instanceTitle+'%'"/>
+        select <include refid="Base_Column_List"/>,<include refid="Inst_Base_Column_List"/> from tflow_execution_task
+        inner join (
+        select max(EXTASK_ORDER_NUM) MR_EXTASK_ORDER_NUM,EXTASK_INST_ID MR_EXTASK_INST_ID from tflow_execution_task where EXTASK_HANDLER_ID=#{executionTaskSearchModel.jb4DCSession.userId,jdbcType=VARCHAR} and EXTASK_STATUS='End' and  EXTASK_TYPE=#{executionTaskSearchModel.extaskType}
+        group by EXTASK_INST_ID
+        ) maxrecordtable on tflow_execution_task.EXTASK_INST_ID=maxrecordtable.MR_EXTASK_INST_ID and tflow_execution_task.EXTASK_ORDER_NUM=maxrecordtable.MR_EXTASK_ORDER_NUM
+        inner join TFLOW_INSTANCE on tflow_execution_task.EXTASK_INST_ID=TFLOW_INSTANCE.INST_ID
+        where INST_MOD_MODULE_ID in (
+        select MODULE_ID from tbuild_module where MODULE_LINK_ID=#{executionTaskSearchModel.linkId,jdbcType=VARCHAR}
+        )
+        <if test="executionTaskSearchModel.instanceTitle != null and executionTaskSearchModel.instanceTitle != ''">
+            and INST_TITLE like #{instanceTitle}
+        </if>
+        <if test="executionTaskSearchModel.instanceStartDateBegin != null">
+            <![CDATA[
+                and EXTASK_END_TIME>=#{executionTaskSearchModel.instanceStartDateBegin}
+            ]]>
+        </if>
+        <if test="executionTaskSearchModel.instanceStartDateEnd != null">
+            <![CDATA[
+                and EXTASK_END_TIME<=#{executionTaskSearchModel.instanceStartDateEnd}
+            ]]>
+        </if>
+        and TFLOW_INSTANCE.INST_STATUS='${@com.jb4dc.workflow.exenum.WorkFlowEnum@Instance_Status_Name_End}'
+        order by EXTASK_END_TIME desc
+    </select>
+
     <select id="selectListByInstanceAndStatus" resultMap="BaseResultMap">
         select<include refid="Base_Column_List"/> from TFLOW_EXECUTION_TASK where EXTASK_INST_ID in
         <foreach collection="instanceIds" item="id" index="index" open="(" close=")" separator=",">

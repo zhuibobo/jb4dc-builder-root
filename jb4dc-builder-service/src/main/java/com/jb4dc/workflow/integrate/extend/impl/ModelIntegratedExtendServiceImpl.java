@@ -22,11 +22,14 @@ import com.jb4dc.workflow.dbentities.ModelAssObjectEntity;
 import com.jb4dc.workflow.dbentities.ModelGroupRefEntity;
 import com.jb4dc.workflow.exenum.ModelDesignSourceTypeEnum;
 import com.jb4dc.workflow.exenum.ModelTenantIdEnum;
+import com.jb4dc.workflow.exenum.WorkFlowEnum;
 import com.jb4dc.workflow.integrate.engine.IFlowEngineModelIntegratedService;
 import com.jb4dc.workflow.integrate.extend.IModelAssObjectExtendService;
+import com.jb4dc.workflow.integrate.extend.IModelGroupExtendService;
 import com.jb4dc.workflow.integrate.extend.IModelGroupRefExtendService;
 import com.jb4dc.workflow.po.FlowModelIntegratedPO;
 import com.jb4dc.workflow.po.FlowInstanceRuntimePO;
+import com.jb4dc.workflow.po.ModelFilterPO;
 import com.jb4dc.workflow.po.bpmn.BpmnDefinitions;
 import com.jb4dc.workflow.dao.ModelIntegratedMapper;
 import com.jb4dc.workflow.dbentities.ModelIntegratedEntity;
@@ -69,6 +72,9 @@ public class ModelIntegratedExtendServiceImpl extends BaseServiceImpl<ModelInteg
 
     @Autowired
     IModuleService moduleService;
+
+    @Autowired
+    IModelGroupExtendService modelGroupExtendService;
     //@Autowired
     //private IFileInfoService fileInfoService;
 
@@ -249,7 +255,7 @@ public class ModelIntegratedExtendServiceImpl extends BaseServiceImpl<ModelInteg
                     modelGroupRefEntity.setGrefId(UUID.randomUUID().toString());
                     modelGroupRefEntity.setGrefGroupId(map.get("groupId").toString());
                     modelGroupRefEntity.setGrefModelKey(bpmnProcess.getId());
-                    modelGroupRefEntity.setGrefModelId(flowModelIntegratedPO.getModelModuleId());
+                    modelGroupRefEntity.setGrefModelId(flowModelIntegratedPO.getModelId());
                     modelGroupRefExtendService.saveSimple(jb4DSession, modelGroupRefEntity.getGrefId(), modelGroupRefEntity);
                 }
             } catch (IOException ex) {
@@ -418,14 +424,38 @@ public class ModelIntegratedExtendServiceImpl extends BaseServiceImpl<ModelInteg
     }
 
     @Override
-    public List<ModelIntegratedEntity> getMyStartEnableModel(JB4DCSession session) {
-        if(session.isFullAuthority()){
-            return flowIntegratedMapper.selectAllStartEnableModel();
+    public List<ModelIntegratedEntity> getMyStartEnableModel(JB4DCSession jb4DCSession, String linkId) {
+        if(jb4DCSession.isFullAuthority()){
+            return flowIntegratedMapper.selectAllStartEnableModel(linkId);
         }
         else{
-            return flowIntegratedMapper.selectStartEnableModelByRole(session.getUserId(),session.getRoleKeys());
+            return flowIntegratedMapper.selectStartEnableModelByRole(jb4DCSession.getUserId(),jb4DCSession.getRoleKeys(),linkId);
         }
-        //return null;
+    }
+
+    @Override
+    public List<ModelIntegratedEntity> getMyStartEnableModel(JB4DCSession jb4DCSession, ModelFilterPO modelFilterPO) {
+        if(jb4DCSession.isFullAuthority()){
+        //if(false){
+            return flowIntegratedMapper.selectAllStartEnableModel(modelFilterPO.getLinkId());
+        }
+        else{
+            String flowCategoryName="";
+            List<String> filterGroupIds=new ArrayList<>();
+            if(modelFilterPO.getModelFlowCategory().equals(WorkFlowEnum.FlowCategoryName_AllProcess)){
+                flowCategoryName = "%%";
+            }
+            else{
+                flowCategoryName=modelFilterPO.getModelFlowCategory();
+            }
+            if(modelFilterPO.isAllModelGroup()){
+                filterGroupIds=modelGroupExtendService.getALL(jb4DCSession).stream().map(item->item.getModelGroupId()).collect(Collectors.toList());
+            }
+            else{
+                filterGroupIds=modelFilterPO.getSelectedModelGroup().stream().map(item->item.getGroupId()).collect(Collectors.toList());
+            }
+            return flowIntegratedMapper.selectStartEnableModelByRoleAndGroupIds(jb4DCSession.getUserId(),jb4DCSession.getRoleKeys(),filterGroupIds,flowCategoryName,modelFilterPO.getLinkId());
+        }
     }
 
     @Override

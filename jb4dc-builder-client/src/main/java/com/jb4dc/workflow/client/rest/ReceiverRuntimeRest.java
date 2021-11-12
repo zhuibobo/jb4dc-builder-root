@@ -1,4 +1,4 @@
-package com.jb4dc.workflow.client.rest.client;
+package com.jb4dc.workflow.client.rest;
 
 import com.jb4dc.base.service.general.JB4DCSessionUtility;
 import com.jb4dc.base.tools.JsonUtility;

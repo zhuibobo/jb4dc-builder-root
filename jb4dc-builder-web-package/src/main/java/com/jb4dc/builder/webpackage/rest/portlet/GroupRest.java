@@ -26,7 +26,7 @@ public class GroupRest extends GeneralRest<GroupEntity> {
         return groupService;
     }
 
-    @RequestMapping(value = "/GetTreeData", method = RequestMethod.POST)
+    @RequestMapping(value = "/GetTreeData", method = {RequestMethod.POST,RequestMethod.GET})
     public JBuild4DCResponseVo<List<GroupEntity>> getTreeData(String groupType) {
         List<GroupEntity> groupEntityList=groupService.getByGroupTypeASC( JB4DCSessionUtility.getSession(),groupType);
         return JBuild4DCResponseVo.getDataSuccess(groupEntityList);

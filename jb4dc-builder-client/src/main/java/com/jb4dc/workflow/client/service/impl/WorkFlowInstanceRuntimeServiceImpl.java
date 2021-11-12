@@ -251,6 +251,12 @@ public class WorkFlowInstanceRuntimeServiceImpl extends WorkFlowRuntimeServiceIm
         return flowInstanceIntegratedRuntimeRemote.getMyProcessEndTaskList(executionTaskSearchModel);
     }
 
+    @Override
+    public JBuild4DCResponseVo<PageInfo<ExecutionTaskPO>> getMyInstanceCompletedList(JB4DCSession session, ExecutionTaskSearchModel executionTaskSearchModel) throws JBuild4DCGenerallyException {
+        executionTaskSearchModel.setLinkId(JBuild4DCYaml.getLinkId());
+        return flowInstanceIntegratedRuntimeRemote.getMyInstanceCompletedList(executionTaskSearchModel);
+    }
+
     /*@Override
     public JBuild4DCResponseVo<SimplePO> recallMySendTaskEnable(JB4DCSession session, String userId, String organId, String extaskId) throws JBuild4DCGenerallyException {
         return flowInstanceIntegratedRuntimeRemote.recallMySendTaskEnable(userId,organId,extaskId);

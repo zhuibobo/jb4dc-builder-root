@@ -12,9 +12,11 @@ public interface ModelIntegratedMapper extends BaseMapper<ModelIntegratedEntity>
 
     List<ModelIntegratedEntity> selectByModule(Map<String, Object> searchItemMap);
 
-    List<ModelIntegratedEntity> selectAllStartEnableModel();
+    List<ModelIntegratedEntity> selectAllStartEnableModel(String linkId);
 
-    List<ModelIntegratedEntity> selectStartEnableModelByRole(@Param("userId") String userId,@Param("roleKeys") List<String> roleKeys);
+    List<ModelIntegratedEntity> selectStartEnableModelByRole(@Param("userId") String userId, @Param("roleKeys") List<String> roleKeys,@Param("linkId") String linkId);
+
+    List<ModelIntegratedEntity> selectStartEnableModelByRoleAndGroupIds(@Param("userId") String userId, @Param("roleKeys") List<String> roleKeys, @Param("groupIds") List<String> groupIds,@Param("flowCategoryName") String flowCategoryName,@Param("linkId") String linkId);
 
     ModelIntegratedEntity selectByReId(@Param("modelReId") String modelReId);
 

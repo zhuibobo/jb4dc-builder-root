@@ -910,35 +910,44 @@ public class InstanceExtendServiceImpl extends BaseServiceImpl<InstanceEntity> i
     }
 
     private SimplePO recallTaskActionEnable(JB4DCSession jb4DCSession, String userId, String organId, String extaskId, FlowInstanceRuntimePO flowInstanceRuntimePO) throws JBuild4DCGenerallyException, XMLStreamException, JAXBException, IOException {
-        SimplePO simplePO=new SimplePO();
+        SimplePO simplePO = new SimplePO();
         try {
             simplePO.setSuccess(true);
             simplePO.setStringValue("enable");
             simplePO.setMessage("");
 
-            String instRuProcInstId=flowInstanceRuntimePO.getInstanceEntity().getInstRuProcInstId();
-            ExecutionTaskEntity recallFromExecutionTaskEntity=flowInstanceRuntimePO.getExecutionTaskEntity();
-            if(flowEngineInstanceIntegratedService.instanceIsComplete(jb4DCSession,instRuProcInstId)){
-                throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_WORKFLOW_CODE,"该流程实例已经办结,无法撤回!");
+            String instRuProcInstId = flowInstanceRuntimePO.getInstanceEntity().getInstRuProcInstId();
+            ExecutionTaskEntity recallFromExecutionTaskEntity = flowInstanceRuntimePO.getExecutionTaskEntity();
+            if (flowEngineInstanceIntegratedService.instanceIsComplete(jb4DCSession, instRuProcInstId)) {
+                throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_WORKFLOW_CODE, "该流程实例已经办结,无法撤回!");
             }
 
             //撤销任务所在的环节Key
-            String recallFromExecutionTaskAtNodeKey=recallFromExecutionTaskEntity.getExtaskCurNodeKey();
+            String recallFromExecutionTaskAtNodeKey = recallFromExecutionTaskEntity.getExtaskCurNodeKey();
+
+            BpmnDefinitions bpmnDefinitions = flowInstanceRuntimePO.getBpmnDefinitions();
+            BpmnUserTask bpmnUserTask = bpmnDefinitions.getBpmnProcess().getUserTaskList().stream().filter(item -> item.getId().equals(recallFromExecutionTaskAtNodeKey)).findFirst().get();
+            //在流程设计中被设置为不可撤回
+            if(StringUtility.isNotEmpty(bpmnUserTask.getJb4dcRecallEnable())&&bpmnUserTask.getJb4dcRecallEnable().equals("false")){
+                throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_WORKFLOW_CODE, "当前环节被设置为不可撤回!");
+            }
+
             //如果当前流程所处的环节与撤销任务的环节相同或者为下一个连线环节,则允许撤销.
             //BpmnDefinitions bpmnDefinitions = modelIntegratedExtendService.getDeployedCamundaModelBpmnDefinitions(jb4DCSession, recallFromExecutionTaskEntity.getExtaskRuProcDefId());
-            List<String> currentActivityNodeIds=flowEngineExecutionIntegratedService.getCurrentActivityNodeIds(jb4DCSession,recallFromExecutionTaskEntity.getExtaskRuProcInstId());
+            List<String> currentActivityNodeIds = flowEngineExecutionIntegratedService.getCurrentActivityNodeIds(jb4DCSession, recallFromExecutionTaskEntity.getExtaskRuProcInstId(),true);
             //BpmnUserTask bpmnUserTask=bpmnDefinitions.getBpmnProcess().getUserTaskList().stream().filter(item->item.getId().equals(recallFromExecutionTaskAtNodeKey)).findFirst().get();
 
-            if(currentActivityNodeIds.stream().anyMatch(item->item.equals(recallFromExecutionTaskAtNodeKey))){
+            if (currentActivityNodeIds.stream().anyMatch(item -> item.equals(recallFromExecutionTaskAtNodeKey))) {
                 //如果当前流程所处的环节与撤销任务的环节相同,则允许撤销.
                 return simplePO;
             }
 
-            List<ExecutionTaskEntity> processingTaskList=executionTaskExtendService.getByInstanceIdAndStatus(jb4DCSession,recallFromExecutionTaskEntity.getExtaskInstId(),WorkFlowEnum.ExTask_Status_Processing);
+            //如果当前流程所处的环节不是撤销环节的下一个环节,则不允许撤销.
+            List<ExecutionTaskEntity> processingTaskList = executionTaskExtendService.getByInstanceIdAndStatus(jb4DCSession, recallFromExecutionTaskEntity.getExtaskInstId(), WorkFlowEnum.ExTask_Status_Processing);
             //boolean innerRecallEnable=true;
             for (ExecutionTaskEntity executionTaskEntity : processingTaskList) {
-                if(!recallFromExecutionTaskAtNodeKey.equals(executionTaskEntity.getExtaskPreNodeKey())){
-                    throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_WORKFLOW_CODE,"接收人已经办理了该件,无法撤回!");
+                if (!recallFromExecutionTaskAtNodeKey.equals(executionTaskEntity.getExtaskPreNodeKey())) {
+                    throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_WORKFLOW_CODE, "接收人已经办理了该件,无法撤回!");
                 }
             }
 
@@ -955,13 +964,12 @@ public class InstanceExtendServiceImpl extends BaseServiceImpl<InstanceEntity> i
             else{
                 throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_WORKFLOW_CODE,"接收人已经办理了该件,无法撤回!");
             }*/
-            if(recallFromExecutionTaskEntity.getExtaskRuTaskId().equals("Start")){
-                throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_WORKFLOW_CODE,"无法执行撤回!");
+            if (recallFromExecutionTaskEntity.getExtaskRuTaskId().equals("Start")) {
+                throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_WORKFLOW_CODE, "无法执行撤回!");
             }
             //throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_WORKFLOW_CODE,"未知情况,无法执行撤回!");
             return simplePO;
-        }
-        catch (Exception ex){
+        } catch (Exception ex) {
             simplePO.setSuccess(false);
             simplePO.setStringValue("disable");
             simplePO.setMessage(ex.getMessage());

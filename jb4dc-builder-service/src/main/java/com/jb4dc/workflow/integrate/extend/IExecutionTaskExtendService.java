@@ -31,6 +31,8 @@ public interface IExecutionTaskExtendService  extends IBaseService<ExecutionTask
 
     PageInfo<ExecutionTaskPO> getMyProcessEndTaskList(JB4DCSession jb4DCSession, ExecutionTaskSearchModel executionTaskSearchModel);
 
+    PageInfo<ExecutionTaskPO> getMyInstanceCompletedList(JB4DCSession jb4DCSession, ExecutionTaskSearchModel executionTaskSearchModel) throws JBuild4DCGenerallyException;
+
     List<ExecutionTaskEntity> getActiveTaskByInstanceIds(JB4DCSession jb4DCSession, List<InstanceEntity> listEntity);
 
     boolean instanceProcessingTaskIsSendFromMe(JB4DCSession session, String extaskId) throws JBuild4DCGenerallyException;
@@ -44,4 +46,6 @@ public interface IExecutionTaskExtendService  extends IBaseService<ExecutionTask
     List<ExecutionTaskEntity> getProcessingTaskByInstanceIdAndFromTaskNodeKey(JB4DCSession jb4DCSession, String instId, String extaskPreNodeKey);
 
     void changeTaskToView(JB4DCSession jb4DCSession, String extaskId) throws JBuild4DCGenerallyException;
+
+
 }

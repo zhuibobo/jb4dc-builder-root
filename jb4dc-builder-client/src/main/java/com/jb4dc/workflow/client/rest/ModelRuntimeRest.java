@@ -1,4 +1,4 @@
-package com.jb4dc.workflow.client.rest.client;
+package com.jb4dc.workflow.client.rest;
 
 import com.jb4dc.base.service.general.JB4DCSessionUtility;
 import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
@@ -21,9 +21,13 @@ public class ModelRuntimeRest {
     IWorkFlowModelRuntimeService workFlowModelRuntimeService;
 
     @RequestMapping(value = "/GetMyBootableModel",method = RequestMethod.GET)
-    public JBuild4DCResponseVo<FlowModelListIntegratedPO> getMyBootableModel(){
+    public JBuild4DCResponseVo<FlowModelListIntegratedPO> getMyBootableModel() throws JBuild4DCGenerallyException {
+
        return workFlowModelRuntimeService.getMyBootableModel(JB4DCSessionUtility.getSession(),JB4DCSessionUtility.getSession().getUserId(),JB4DCSessionUtility.getSession().getOrganId());
     }
 
-
+    @RequestMapping(value = "/GetMyBootableModelWithSSOMenu",method = RequestMethod.GET)
+    public JBuild4DCResponseVo<FlowModelListIntegratedPO> getMyBootableModelWithSSOMenu(String menuId) throws JBuild4DCGenerallyException, IOException {
+        return workFlowModelRuntimeService.getMyBootableModel(JB4DCSessionUtility.getSession(),menuId,JB4DCSessionUtility.getSession().getUserId(),JB4DCSessionUtility.getSession().getOrganId());
+    }
 }

@@ -588,7 +588,7 @@ public class WorkflowIntegrateTest extends RestTestBase {
         //vars.put("UserId","User008");
         taskService.complete(task.getId(),vars);
 
-        List<String> activityNodeIds= iFlowEngineExecutionIntegratedService.getCurrentActivityNodeIds(getSession(),task.getProcessInstanceId());
+        List<String> activityNodeIds= iFlowEngineExecutionIntegratedService.getCurrentActivityNodeIds(getSession(),task.getProcessInstanceId(),true);
         String i="1";
         //iwfInstanceIntegratedService.recallProcess(task.getProcessInstanceId(),task.getId(),"Task_1uhc294");
         String jumpToActivityNodeId="Task_1uhc294";
@@ -598,7 +598,7 @@ public class WorkflowIntegrateTest extends RestTestBase {
         task = taskQuery.singleResult();
         Assert.assertEquals("起草",task.getName());
 
-        activityNodeIds= iFlowEngineExecutionIntegratedService.getCurrentActivityNodeIds(getSession(),task.getProcessInstanceId());
+        activityNodeIds= iFlowEngineExecutionIntegratedService.getCurrentActivityNodeIds(getSession(),task.getProcessInstanceId(),true);
         //jumpToActivityNodeId="Task_0j813kr";
         //vars=new HashMap<>();
         //vars.put("JB1UserId","JB1UserId001");
@@ -608,7 +608,7 @@ public class WorkflowIntegrateTest extends RestTestBase {
         task = taskQuery.singleResult();
         Assert.assertEquals("起草",task.getName());
 
-        activityNodeIds= iFlowEngineExecutionIntegratedService.getCurrentActivityNodeIds(getSession(),task.getProcessInstanceId());
+        activityNodeIds= iFlowEngineExecutionIntegratedService.getCurrentActivityNodeIds(getSession(),task.getProcessInstanceId(),true);
         jumpToActivityNodeId="Task_0j813kr";
         iFlowEngineInstanceIntegratedService.jumpToUserTaskActivityNode(getSession(),task.getProcessInstanceId(),jumpToActivityNodeId,activityNodeIds,"JumpUser003",null);
         taskQuery = taskService.createTaskQuery().taskAssignee("JumpUser003");
@@ -619,7 +619,7 @@ public class WorkflowIntegrateTest extends RestTestBase {
         taskService.complete(task.getId(),vars);
 
         jumpToActivityNodeId="Task_0l7j5un";
-        activityNodeIds= iFlowEngineExecutionIntegratedService.getCurrentActivityNodeIds(getSession(),task.getProcessInstanceId());
+        activityNodeIds= iFlowEngineExecutionIntegratedService.getCurrentActivityNodeIds(getSession(),task.getProcessInstanceId(),true);
         assigneeList=new ArrayList<>();
         assigneeList.add("User003");
         assigneeList.add("User004");
