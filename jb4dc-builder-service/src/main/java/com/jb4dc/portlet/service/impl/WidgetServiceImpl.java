@@ -13,6 +13,7 @@ import com.jb4dc.portlet.service.IWidgetService;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.List;
 
 @Service
 public class WidgetServiceImpl extends BaseServiceImpl<WidgetEntity> implements IWidgetService
@@ -39,7 +40,24 @@ public class WidgetServiceImpl extends BaseServiceImpl<WidgetEntity> implements 
 
     @Override
     public void initSystemData(JB4DCSession jb4DCSession) throws JBuild4DCGenerallyException {
-        create(jb4DCSession,"WidgetQuickEntry",GroupServiceImpl.WidgetGroupForGeneralId,"快速入口","快速入口","PortletDefaultQuickEntryWidgetControl","{\"Desc\":\"Widget相关属性\"}");
+        String widgetProperties="{\n" +
+                "            QuickEntries: [{\n" +
+                "                name: \"事务发起\",\n" +
+                "                caption: \"事务发起\",\n" +
+                "                openType: \"innerIframe\",\n" +
+                "                url: \"/QCSystem/JB4DCBuilderClient/HTML/WorkFlow/Runtime/MyBootableMyModels.html?menuId=QCSystem-WorkFlow-Client-Bootable\",\n" +
+                "                image: \"0265.png\"\n" +
+                "            }]\n" +
+                "        }";
+        create(jb4DCSession,"PortletDefaultQuickEntryWidgetControl",GroupServiceImpl.WidgetGroupForTemplateId,"快速入口","快速入口","PortletDefaultQuickEntryWidgetControl",widgetProperties);
+
+        widgetProperties="";
+        create(jb4DCSession,"PortletDefaultToDoListWidgetControl",GroupServiceImpl.WidgetGroupForTemplateId,"待办列表","待办列表","PortletDefaultToDoListWidgetControl",widgetProperties);
+    }
+
+    @Override
+    public List<WidgetEntity> getALLWithBLOBs(JB4DCSession session) {
+        return widgetMapper.selectAllWithBLOBs();
     }
 
     private WidgetEntity create(JB4DCSession jb4DCSession,String widgetId,String groupId,String widgetTitle,String widgetName,String widgetClientRender,String widgetProperties) throws JBuild4DCGenerallyException {
