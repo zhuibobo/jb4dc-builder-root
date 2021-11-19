@@ -52,13 +52,13 @@ public class FlowModelIntegratedRuntimeRemoteTest  extends RestTestBase {
         JB4DCUnitSessionSessionUtility.mockLogin(getAlex4DSession());
         String modelCategory="GeneralProcess";
         String extaskType="主送任务";
-        JBuild4DCResponseVo<PageInfo<ExecutionTaskPO>> result = workFlowInstanceRuntimeService.getMyProcessTaskList(getAlex4DSession(),1,20, modelCategory, extaskType);
+        //JBuild4DCResponseVo<PageInfo<ExecutionTaskPO>> result = workFlowInstanceRuntimeService.getMyProcessTaskList(getAlex4DSession(),1,20, modelCategory, extaskType);
         /*for (ModelIntegratedEntity modelIntegratedEntity : result.getData().getModelIntegratedEntityList()) {
             System.out.println(modelIntegratedEntity.getModelName());
         }*/
 
-        String json = JsonUtility.toObjectString(result);
-        System.out.println(json);
+        //String json = JsonUtility.toObjectString(result);
+        //System.out.println(json);
     }
 
     @Test

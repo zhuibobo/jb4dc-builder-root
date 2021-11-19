@@ -86,10 +86,10 @@ public class FlowInstanceIntegratedRuntimeRest implements FlowInstanceIntegrated
     }
 
     @Override
-    public JBuild4DCResponseVo<PageInfo<ExecutionTaskPO>> getMyProcessTaskList(int pageNum,int pageSize,String userId, String organId, String linkId, String modelCategory, String extaskType) throws JBuild4DCGenerallyException {
+    public JBuild4DCResponseVo<PageInfo<ExecutionTaskPO>> getMyProcessTaskList(ExecutionTaskSearchModel executionTaskSearchModel) throws JBuild4DCGenerallyException {
         try {
             JB4DCSession jb4DCSession = JB4DCSessionUtility.getSession();
-            PageInfo<ExecutionTaskPO> executionTaskPOPageInfo = executionTaskExtendService.getMyProcessTaskList(jb4DCSession, pageNum, pageSize, userId, organId, linkId, modelCategory, extaskType);
+            PageInfo<ExecutionTaskPO> executionTaskPOPageInfo = executionTaskExtendService.getMyProcessTaskList(jb4DCSession, executionTaskSearchModel);
             return JBuild4DCResponseVo.getDataSuccess(executionTaskPOPageInfo);
         } catch (Exception ex) {
             throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_WORKFLOW_CODE, ex);

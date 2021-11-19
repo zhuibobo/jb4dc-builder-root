@@ -14,7 +14,7 @@ public interface ExecutionTaskMapper extends BaseMapper<ExecutionTaskEntity> {
 
     List<ExecutionTaskEntity> selectByInstanceIdAndStatus(@Param("instId") String instId,@Param("status")  String status);
 
-    List<ExecutionTaskPO> selectMyProcessTask(@Param("userId") String userId, @Param("linkId") String linkId, @Param("modelCategory") String modelCategory, @Param("extaskType") String extaskType);
+    List<ExecutionTaskPO> selectMyProcessTask(@Param("executionTaskSearchModel") ExecutionTaskSearchModel executionTaskSearchModel);
 
     List<ExecutionTaskPO> selectMyProcessEndTask(@Param("executionTaskSearchModel") ExecutionTaskSearchModel executionTaskSearchModel);
 

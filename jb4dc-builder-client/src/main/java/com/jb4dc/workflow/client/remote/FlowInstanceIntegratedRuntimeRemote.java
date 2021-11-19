@@ -30,8 +30,8 @@ public interface FlowInstanceIntegratedRuntimeRemote {
     @RequestMapping(value = "/GetRuntimeModelWithEndTask",method = RequestMethod.GET)
     JBuild4DCResponseVo<FlowInstanceRuntimePO> getRuntimeModelWithEndTask(@RequestParam("userId") String userId, @RequestParam("organId")  String organId, @RequestParam("extaskId") String extaskId) throws JBuild4DCGenerallyException;
 
-    @RequestMapping(value = "/GetMyProcessTaskList",method = RequestMethod.GET)
-    JBuild4DCResponseVo<PageInfo<ExecutionTaskPO>> getMyProcessTaskList(@RequestParam("pageNum") int pageNum, @RequestParam("pageSize") int pageSize, @RequestParam("userId") String userId, @RequestParam("organId")  String organId, @RequestParam("linkId") String linkId, @RequestParam("modelCategory") String modelCategory, @RequestParam("extaskType") String extaskType) throws JBuild4DCGenerallyException;
+    @PostMapping(value = "/GetMyProcessTaskList")
+    JBuild4DCResponseVo<PageInfo<ExecutionTaskPO>> getMyProcessTaskList(@RequestBody ExecutionTaskSearchModel executionTaskSearchModel) throws JBuild4DCGenerallyException;
 
     @PostMapping(value = "/GetMyProcessEndTaskList")
     JBuild4DCResponseVo<PageInfo<ExecutionTaskPO>> getMyProcessEndTaskList(@RequestBody ExecutionTaskSearchModel executionTaskSearchModel) throws JBuild4DCGenerallyException;

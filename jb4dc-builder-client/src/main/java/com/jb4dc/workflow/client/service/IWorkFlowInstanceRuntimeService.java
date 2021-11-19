@@ -31,7 +31,7 @@ public interface IWorkFlowInstanceRuntimeService extends IWorkFlowRuntimeService
 
     TaskActionResult completeTask(JB4DCSession jb4DCSession, boolean isStartInstanceStatus, String instanceId, String modelId, String modelReKey, String currentTaskId, String currentNodeKey, String currentNodeName, String actionCode, String flowInstanceRuntimePOCacheKey, FormRecordComplexPO formRecordComplexPO, List<ClientSelectedReceiver> clientSelectedReceiverList, String businessKey, Map<String, Object> exVars, List<ExecutionTaskOpinionEntity> newOpinionEntityList) throws IOException, JBuild4DCGenerallyException, JBuild4DCSQLKeyWordException;
 
-    JBuild4DCResponseVo<PageInfo<ExecutionTaskPO>> getMyProcessTaskList(JB4DCSession alex4DSession, int pageNum, int pageSize, String modelCategory, String extaskType) throws JBuild4DCGenerallyException;
+    JBuild4DCResponseVo<PageInfo<ExecutionTaskPO>> getMyProcessTaskList(JB4DCSession alex4DSession, ExecutionTaskSearchModel executionTaskSearchModel) throws JBuild4DCGenerallyException;
 
     JBuild4DCResponseVo<FlowInstanceRuntimePO> getRuntimeModelWithProcess(JB4DCSession session, String userId, String organId, String extaskId) throws IOException, JBuild4DCGenerallyException;
 

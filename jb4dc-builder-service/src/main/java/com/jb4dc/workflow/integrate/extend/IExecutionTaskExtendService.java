@@ -27,7 +27,7 @@ public interface IExecutionTaskExtendService  extends IBaseService<ExecutionTask
 
     ExecutionTaskEntity createStartEventExecutionTask(JB4DCSession jb4DCSession, InstanceEntity instanceEntity, String currentNodeKey, String currentNodeName, Jb4dcAction jb4dcAction) throws JBuild4DCGenerallyException;
 
-    PageInfo<ExecutionTaskPO> getMyProcessTaskList(JB4DCSession jb4DCSession, int pageNum, int pageSize, String userId, String organId, String linkId, String modelCategory, String extaskType);
+    PageInfo<ExecutionTaskPO> getMyProcessTaskList(JB4DCSession jb4DCSession, ExecutionTaskSearchModel executionTaskSearchModel);
 
     PageInfo<ExecutionTaskPO> getMyProcessEndTaskList(JB4DCSession jb4DCSession, ExecutionTaskSearchModel executionTaskSearchModel);
 

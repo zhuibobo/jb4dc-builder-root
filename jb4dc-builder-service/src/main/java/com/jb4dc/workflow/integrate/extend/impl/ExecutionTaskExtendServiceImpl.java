@@ -98,9 +98,10 @@ public class ExecutionTaskExtendServiceImpl  extends BaseServiceImpl<ExecutionTa
     }
 
     @Override
-    public PageInfo<ExecutionTaskPO> getMyProcessTaskList(JB4DCSession jb4DCSession, int pageNum, int pageSize, String userId, String organId, String linkId, String modelCategory, String extaskType) {
-        PageHelper.startPage(pageNum, pageSize);
-        List<ExecutionTaskPO> list = executionTaskMapper.selectMyProcessTask(userId,linkId,modelCategory,extaskType);
+    public PageInfo<ExecutionTaskPO> getMyProcessTaskList(JB4DCSession jb4DCSession, ExecutionTaskSearchModel executionTaskSearchModel) {
+        PageHelper.startPage(executionTaskSearchModel.getPageNum(), executionTaskSearchModel.getPageSize());
+        executionTaskSearchModel.setJb4DCSession(jb4DCSession);
+        List<ExecutionTaskPO> list = executionTaskMapper.selectMyProcessTask(executionTaskSearchModel);
         PageInfo<ExecutionTaskPO> pageInfo = new PageInfo(list);
         return pageInfo;
     }

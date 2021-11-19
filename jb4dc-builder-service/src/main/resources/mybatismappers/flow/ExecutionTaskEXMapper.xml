@@ -109,8 +109,8 @@
 
     <select id="selectMyProcessTask" resultMap="BaseResultMapWithPO">
         select <include refid="Base_Column_List"/>,<include refid="Inst_Base_Column_List"/> from TFLOW_EXECUTION_TASK join TFLOW_INSTANCE on TFLOW_EXECUTION_TASK.EXTASK_INST_ID=TFLOW_INSTANCE.INST_ID
-        where EXTASK_TYPE=#{extaskType} and EXTASK_RECEIVER_ID=#{userId} and INST_MOD_CATEGORY=#{modelCategory} and EXTASK_STATUS='Processing' and INST_MOD_MODULE_ID in (
-        select MODULE_ID from tbuild_module where MODULE_LINK_ID=#{linkId}
+        where EXTASK_TYPE=#{executionTaskSearchModel.extaskType,jdbcType=VARCHAR} and EXTASK_RECEIVER_ID=#{executionTaskSearchModel.jb4DCSession.userId,jdbcType=VARCHAR} and INST_MOD_CATEGORY=#{executionTaskSearchModel.modelCategory,jdbcType=VARCHAR} and EXTASK_STATUS='Processing' and INST_MOD_MODULE_ID in (
+        select MODULE_ID from tbuild_module where MODULE_LINK_ID=#{executionTaskSearchModel.linkId,jdbcType=VARCHAR}
         )
     </select>
 

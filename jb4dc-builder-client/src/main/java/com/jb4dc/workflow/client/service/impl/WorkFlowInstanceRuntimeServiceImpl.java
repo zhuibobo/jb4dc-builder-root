@@ -241,8 +241,9 @@ public class WorkFlowInstanceRuntimeServiceImpl extends WorkFlowRuntimeServiceIm
     }
 
     @Override
-    public JBuild4DCResponseVo<PageInfo<ExecutionTaskPO>> getMyProcessTaskList(JB4DCSession jb4DCSession, int pageNum, int pageSize, String modelCategory, String extaskType) throws JBuild4DCGenerallyException {
-        return flowInstanceIntegratedRuntimeRemote.getMyProcessTaskList(pageNum,pageSize, jb4DCSession.getUserId(),jb4DCSession.getOrganId(), JBuild4DCYaml.getLinkId(),modelCategory,extaskType);
+    public JBuild4DCResponseVo<PageInfo<ExecutionTaskPO>> getMyProcessTaskList(JB4DCSession jb4DCSession, ExecutionTaskSearchModel executionTaskSearchModel) throws JBuild4DCGenerallyException {
+        executionTaskSearchModel.setLinkId(JBuild4DCYaml.getLinkId());
+        return flowInstanceIntegratedRuntimeRemote.getMyProcessTaskList(executionTaskSearchModel);
     }
 
     @Override
