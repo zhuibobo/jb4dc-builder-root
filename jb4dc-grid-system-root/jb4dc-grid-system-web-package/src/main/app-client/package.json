@@ -46,7 +46,7 @@
     "@fortawesome/free-solid-svg-icons": "^5.15.1",
     "@fortawesome/vue-fontawesome": "^2.0.0",
     "@popperjs/core": "^2.5.4",
-    "axios": "^0.21.0",
+    "axios": "^0.21.2",
     "bootstrap": "^4.5.3",
     "mescroll.js": "^1.4.2",
     "popper.js": "^1.16.1",
