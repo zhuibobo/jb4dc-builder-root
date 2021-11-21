@@ -23,7 +23,7 @@ public class WorkflowTransformRest {
     @Autowired
     InstanceRuntimeRest instanceRuntimeRest;
 
-    @RequestMapping(value = "/GetMyProcessTaskList", method = {RequestMethod.GET, RequestMethod.POST})
+    @RequestMapping(value = "/GetMyProcessTaskListTransform", method = {RequestMethod.GET, RequestMethod.POST})
     public JBuild4DCResponseVo<List<ExecutionTaskPO>> getMyProcessTaskListTransform(String modelCategory,int pageSize) throws JBuild4DCGenerallyException {
         ExecutionTaskSearchModel executionTaskSearchModel=new ExecutionTaskSearchModel();
         executionTaskSearchModel.setModelCategory(modelCategory);
@@ -33,9 +33,25 @@ public class WorkflowTransformRest {
         executionTaskSearchModel.setPageNum(1);
         executionTaskSearchModel.setPageSize(pageSize);
         executionTaskSearchModel.setLoadDict(false);
+        //executionTaskSearchModel.setInstanceTitle("");
 
         List<ExecutionTaskPO> executionTaskPOList=instanceRuntimeRest.getMyProcessTaskList(executionTaskSearchModel).getData().getList();
         return JBuild4DCResponseVo.getDataSuccess(executionTaskPOList);
     }
 
+    @RequestMapping(value = "/GetMyProcessEndTaskListTransform", method = {RequestMethod.GET, RequestMethod.POST})
+    public JBuild4DCResponseVo<List<ExecutionTaskPO>> getMyProcessEndTaskListTransform(String modelCategory,int pageSize) throws JBuild4DCGenerallyException {
+        ExecutionTaskSearchModel executionTaskSearchModel=new ExecutionTaskSearchModel();
+        executionTaskSearchModel.setModelCategory(modelCategory);
+        executionTaskSearchModel.setExtaskType(WorkFlowEnum.ExTask_Type_Main);
+        executionTaskSearchModel.setLinkId(JBuild4DCYaml.getLinkId());
+        executionTaskSearchModel.setJb4DCSession(JB4DCSessionUtility.getSession());
+        executionTaskSearchModel.setPageNum(1);
+        executionTaskSearchModel.setPageSize(pageSize);
+        executionTaskSearchModel.setLoadDict(false);
+        //executionTaskSearchModel.setInstanceTitle("");
+
+        List<ExecutionTaskPO> executionTaskPOList=instanceRuntimeRest.getMyProcessEndTaskList(executionTaskSearchModel).getData().getList();
+        return JBuild4DCResponseVo.getDataSuccess(executionTaskPOList);
+    }
 }

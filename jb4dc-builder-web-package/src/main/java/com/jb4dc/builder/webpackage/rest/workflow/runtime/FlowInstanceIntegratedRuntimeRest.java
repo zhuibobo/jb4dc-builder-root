@@ -131,11 +131,12 @@ public class FlowInstanceIntegratedRuntimeRest implements FlowInstanceIntegrated
             List<ClientSelectedReceiver> clientSelectedReceiverList = ClientSelectedReceiver.parse(requestCompleteTaskPO.getSelectedReceiverVars());
 
             String businessRelationJson = instanceExtendService.formRecordComplexPOToBusinessRelationJson(jb4DCSession, requestCompleteTaskPO.getFormRecordComplexPO());
+            String businessDataJson = JsonUtility.toObjectString(requestCompleteTaskPO.getFormRecordComplexPO());
             String businessRelationType = "FormRecordDataRelationPO";
             TaskActionResult completeTaskResult = instanceExtendService.completeTask(jb4DCSession, requestCompleteTaskPO.isStartInstanceStatus(),
                     requestCompleteTaskPO.getInstanceId(), requestCompleteTaskPO.getModelId(), requestCompleteTaskPO.getModelReKey(), requestCompleteTaskPO.getCurrentTaskId(),
                     requestCompleteTaskPO.getCurrentNodeKey(), requestCompleteTaskPO.getCurrentNodeName(), requestCompleteTaskPO.getActionCode(), vars, clientSelectedReceiverList,
-                    requestCompleteTaskPO.getBusinessKey(), requestCompleteTaskPO.getInstanceTitle(), requestCompleteTaskPO.getInstanceDesc(), businessRelationJson, businessRelationType,requestCompleteTaskPO.getNewOpinionEntityList());
+                    requestCompleteTaskPO.getBusinessKey(), requestCompleteTaskPO.getInstanceTitle(), requestCompleteTaskPO.getInstanceDesc(), businessRelationJson, businessDataJson, businessRelationType, requestCompleteTaskPO.getNewOpinionEntityList());
 
             return completeTaskResult;
         } catch (Exception ex) {

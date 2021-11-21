@@ -51,8 +51,73 @@ public class WidgetServiceImpl extends BaseServiceImpl<WidgetEntity> implements 
                 "        }";
         create(jb4DCSession,"PortletDefaultQuickEntryWidgetControl",GroupServiceImpl.WidgetGroupForTemplateId,"快速入口","快速入口","PortletDefaultQuickEntryWidgetControl",widgetProperties);
 
-        widgetProperties="";
-        create(jb4DCSession,"PortletDefaultToDoListWidgetControl",GroupServiceImpl.WidgetGroupForTemplateId,"待办列表","待办列表","PortletDefaultToDoListWidgetControl",widgetProperties);
+        widgetProperties="{\n" +
+                "            list:{\n" +
+                "                getListDateRest:\"/%(appContextPath)s/Rest/Extension/Portlet/WorkflowTransform/GetMyProcessTaskListTransform\",\n" +
+                "                getListDateRestParas:{\n" +
+                "                    modelCategory:\"GeneralProcess\",\n" +
+                "                    pageSize:12\n" +
+                "                },\n" +
+                "                openType:\"frameIframe\",\n" +
+                "                dialogConfig:{\n" +
+                "                    height: 0,\n" +
+                "                    width: 0,\n" +
+                "                    title: \"JB4DC\",\n" +
+                "                    modal: true\n" +
+                "                },\n" +
+                "                fieldParsing:{\n" +
+                "                    timeFormat:\"%(instanceEntity.instCreateTime)s\",\n" +
+                "                    titleFormat:\"[标题]%(instanceEntity.instTitle)s-%(extaskCurNodeName)s\"\n" +
+                "                },\n" +
+                "                openUrl:\"/%(appContextPath)s/JB4DCBuilderClient/HTML/WorkFlow/Runtime/MyProcessInstanceMainTask.html?op=update&extaskId=%(extaskId)s\",\n" +
+                "                printRowData:false\n" +
+                "            },\n" +
+                "            more:{\n" +
+                "                openType:\"frameIframe\",\n" +
+                "                dialogConfig:{\n" +
+                "                    height: 0,\n" +
+                "                    width: 0,\n" +
+                "                    title: \"JB4DC\",\n" +
+                "                    modal: true\n" +
+                "                },\n" +
+                "                openUrl:\"/%(appContextPath)s/JB4DCBuilderClient/HTML/WorkFlow/Runtime/MyProcessInstanceMainTaskList.html?menuId=QCSystem-WorkFlow-Client-MyTask\"\n" +
+                "            }\n" +
+                "        }";
+        create(jb4DCSession,"PortletDefaultListWidgetControlForMyProcessInstanceMainTaskList",GroupServiceImpl.WidgetGroupForTemplateId,"待办事务","待办事务","PortletDefaultListWidgetControl",widgetProperties);
+
+        widgetProperties="{\n" +
+                "            list:{\n" +
+                "                getListDateRest:\"/%(appContextPath)s/Rest/Extension/Portlet/WorkflowTransform/GetMyProcessEndTaskListTransform\",\n" +
+                "                getListDateRestParas:{\n" +
+                "                    modelCategory:\"GeneralProcess\",\n" +
+                "                    pageSize:12\n" +
+                "                },\n" +
+                "                openType:\"frameIframe\",\n" +
+                "                dialogConfig:{\n" +
+                "                    height: 0,\n" +
+                "                    width: 0,\n" +
+                "                    title: \"JB4DC\",\n" +
+                "                    modal: true\n" +
+                "                },\n" +
+                "                fieldParsing:{\n" +
+                "                    timeFormat:\"%(instanceEntity.instCreateTime)s\",\n" +
+                "                    titleFormat:\"[标题]%(instanceEntity.instTitle)s-%(extaskCurNodeName)s\"\n" +
+                "                },\n" +
+                "                openUrl:\"/%(appContextPath)s/JB4DCBuilderClient/HTML/WorkFlow/Runtime/MyEndProcessInstanceMainTask.html?op=update&extaskId=%(extaskId)s\",\n" +
+                "                printRowData:false\n" +
+                "            },\n" +
+                "            more:{\n" +
+                "                openType:\"frameIframe\",\n" +
+                "                dialogConfig:{\n" +
+                "                    height: 0,\n" +
+                "                    width: 0,\n" +
+                "                    title: \"JB4DC\",\n" +
+                "                    modal: true\n" +
+                "                },\n" +
+                "                openUrl:\"/%(appContextPath)s/JB4DCBuilderClient/HTML/WorkFlow/Runtime/MyProcessInstanceMainTaskList.html?menuId=QCSystem-WorkFlow-Client-MyTask-End\"\n" +
+                "            }\n" +
+                "        }";
+        create(jb4DCSession,"PortletDefaultListWidgetControlForMyEndProcessInstanceMainTaskList",GroupServiceImpl.WidgetGroupForTemplateId,"已办事务","已办事务","PortletDefaultListWidgetControl",widgetProperties);
     }
 
     @Override

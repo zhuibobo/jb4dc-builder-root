@@ -25,7 +25,8 @@ public class ExecutionTaskPO extends ExecutionTaskEntity {
                  extaskViewEd,  extaskViewTime,  extaskStartTime,  extaskEndTime,  extaskHandleEd,  extaskHandleActionKey,
                  extaskHandleActionName,  extaskOrderNum,  extaskHandlerId,  extaskHandlerName,  extaskHandlerType,
                  extaskCreateBy,  extaskFromTaskId,  extaskFromRecallTaskId,  extaskFromExecutionId,  extaskIndex,  extaskMultiTask);
-        InstanceEntity instanceEntity = new InstanceEntity(instId, instTitle, instDesc, instCustDesc, instCreateTime, instCreator, instCreatorId, instOrganName, instOrganId, instStatus, instEndTime, instRuExecutionId, instRuProcInstId, instRuBusinessKey, instRuProcDefId, instOrderNum, instModId, instModCategory, instModModuleId, instModTenantId);
+        InstanceEntity instanceEntity = new InstanceEntity(instId, instTitle, instDesc, instCustDesc, instCreateTime, instCreator, instCreatorId, instOrganName,
+                instOrganId, instStatus, instEndTime, instRuExecutionId, instRuProcInstId, instRuBusinessKey, instRuProcDefId, instOrderNum, instModId, instModCategory, instModModuleId, instModTenantId);
         this.instanceEntity=instanceEntity;
     }
 
