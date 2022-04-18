@@ -69,6 +69,7 @@ public class WidgetServiceImpl extends BaseServiceImpl<WidgetEntity> implements 
                 "                    timeFormat:\"%(instanceEntity.instCreateTime)s\",\n" +
                 "                    titleFormat:\"[标题]%(instanceEntity.instTitle)s-%(extaskCurNodeName)s\"\n" +
                 "                },\n" +
+                "                openUrlFormatRest:\"\",\n" +
                 "                openUrl:\"/%(appContextPath)s/JB4DCBuilderClient/HTML/WorkFlow/Runtime/MyProcessInstanceMainTask.html?op=update&extaskId=%(extaskId)s\",\n" +
                 "                printRowData:false\n" +
                 "            },\n" +

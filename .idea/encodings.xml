@@ -32,6 +32,8 @@
     <file url="file://$PROJECT_DIR$/jb4dc-grid-system-root/jb4dc-grid-system-web-server/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/jb4dc-grid-system-root/jb4dc-grid-system-web-server/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/jb4dc-grid-system-root/jb4dc-grid-system-web-server/src/main/resources/config" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/jb4dc-grid-system-root/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/jb4dc-grid-system-root/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/jb4dc-qc-system-root/jb4dc-qc-system-service/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/jb4dc-qc-system-root/jb4dc-qc-system-service/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/jb4dc-qc-system-root/jb4dc-qc-system-web-package/src/main/java" charset="UTF-8" />
@@ -39,6 +41,10 @@
     <file url="file://$PROJECT_DIR$/jb4dc-qc-system-root/jb4dc-qc-system-web-server/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/jb4dc-qc-system-root/jb4dc-qc-system-web-server/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/jb4dc-qc-system-root/jb4dc-qc-system-web-server/src/main/resources/config" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/jb4dc-qc-system-root/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/jb4dc-qc-system-root/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/resources" charset="UTF-8" />
     <file url="PROJECT" charset="UTF-8" />
   </component>
 </project>

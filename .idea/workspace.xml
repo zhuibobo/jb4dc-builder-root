@@ -23,19 +23,22 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4c1726ea-d2d7-4bd0-ba55-67bf5abd523a" name="Default Changelist" comment="查询统计">
+      <change afterPath="$PROJECT_DIR$/jb4dc-qc-system-root/jb4dc-qc-system-web-package/src/main/java/com/jb4dc/qcsystem/webpackage/rest/qcsystem/extension/portlet/BuilderDataSetTransformRest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/dataSources/4995626b-55d1-4aae-a50b-6e972235cf2b.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/4995626b-55d1-4aae-a50b-6e972235cf2b.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/jb4dc-builder-root.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/jb4dc-builder-root.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/runConfigurations.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jb4dc-builder-pojo/src/main/java/com/jb4dc/workflow/dbentities/InstanceEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-pojo/src/main/java/com/jb4dc/workflow/dbentities/InstanceEntity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jb4dc-builder-pojo/src/main/java/com/jb4dc/workflow/po/ExecutionTaskPO.java" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-pojo/src/main/java/com/jb4dc/workflow/po/ExecutionTaskPO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jb4dc-builder-client/src/main/java/com/jb4dc/builder/client/rest/DataSetRuntimeRest.java" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-client/src/main/java/com/jb4dc/builder/client/rest/DataSetRuntimeRest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/jb4dc-builder-service/src/main/java/com/jb4dc/portlet/service/impl/WidgetServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-service/src/main/java/com/jb4dc/portlet/service/impl/WidgetServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jb4dc-builder-service/src/main/java/com/jb4dc/workflow/integrate/extend/IInstanceExtendService.java" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-service/src/main/java/com/jb4dc/workflow/integrate/extend/IInstanceExtendService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jb4dc-builder-service/src/main/java/com/jb4dc/workflow/integrate/extend/impl/InstanceExtendServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-service/src/main/java/com/jb4dc/workflow/integrate/extend/impl/InstanceExtendServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jb4dc-builder-service/src/main/resources/liquibase/jb4dc-builder-db-changelog.xml" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-service/src/main/resources/liquibase/jb4dc-builder-db-changelog.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/jb4dc-builder-service/src/main/resources/mybatismappers/flow/ExecutionTaskEXMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-service/src/main/resources/mybatismappers/flow/ExecutionTaskEXMapper.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jb4dc-builder-service/src/main/resources/mybatismappers/flow/InstanceACMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-service/src/main/resources/mybatismappers/flow/InstanceACMapper.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/java/com/jb4dc/builder/webpackage/rest/workflow/runtime/FlowInstanceIntegratedRuntimeRest.java" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/java/com/jb4dc/builder/webpackage/rest/workflow/runtime/FlowInstanceIntegratedRuntimeRest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/java/com/jb4dc/builder/webpackage/rest/systemsetting/dictionary/DictionaryRest.java" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/java/com/jb4dc/builder/webpackage/rest/systemsetting/dictionary/DictionaryRest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jb4dc-builder-web-server/jb4dc-builder-web-server.iml" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-builder-web-server/jb4dc-builder-web-server.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jb4dc-dev-mock-root/jb4dc-dev-mock-web-server/jb4dc-dev-mock-web-server.iml" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-dev-mock-root/jb4dc-dev-mock-web-server/jb4dc-dev-mock-web-server.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jb4dc-qc-system-root/jb4dc-qc-system-root.iml" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-qc-system-root/jb4dc-qc-system-root.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/jb4dc-qc-system-root/jb4dc-qc-system-web-package/src/main/java/com/jb4dc/qcsystem/webpackage/rest/qcsystem/extension/portlet/WorkflowTransformRest.java" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-qc-system-root/jb4dc-qc-system-web-package/src/main/java/com/jb4dc/qcsystem/webpackage/rest/qcsystem/extension/portlet/WorkflowTransformRest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jb4dc-qc-system-root/jb4dc-qc-system-web-server/jb4dc-qc-system-web-server.iml" beforeDir="false" afterPath="$PROJECT_DIR$/jb4dc-qc-system-root/jb4dc-qc-system-web-server/jb4dc-qc-system-web-server.iml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -96,6 +99,9 @@
     <other-services-enabled>true</other-services-enabled>
     <auto-save>true</auto-save>
   </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
   <component name="MavenImportPreferences">
     <option name="generalSettings">
       <MavenGeneralSettings>
@@ -119,49 +125,20 @@
     <option name="showMembers" value="true" />
     <option name="showVisibilityIcons" value="true" />
   </component>
-  <component name="PropertiesComponent">
-    <property name="DatabaseDriversLRU" value="mysql" />
-    <property name="DefaultHtmlFileTemplate" value="HTML File" />
-    <property name="ExpandSpringBootJavaOptionsPanel" value="true" />
-    <property name="RequestMappingsPanelOrder0" value="0" />
-    <property name="RequestMappingsPanelOrder1" value="1" />
-    <property name="RequestMappingsPanelWidth0" value="75" />
-    <property name="RequestMappingsPanelWidth1" value="75" />
-    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
-    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
-    <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary" value="Arquillian JUnit4" />
-    <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.Arquillian JUnit4" value="" />
-    <property name="extract.method.default.visibility" value="private" />
-    <property name="javascript.nodejs.core.library.configured.version" value="12.18.2" />
-    <property name="javascript.nodejs.core.library.typings.version" value="12.20.21" />
-    <property name="jdk.selected.JAVA_MODULE" value="1.8" />
-    <property name="js.buildTools.gulp.gulp_package_dir" value="$PROJECT_DIR$/jb4dc-builder-web-package/src/main/front-end/node_modules/gulp" />
-    <property name="last_directory_selection" value="$PROJECT_DIR$/jb4dc-builder-pojo/src/main/java/com/jb4dc/builder/po" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/jb4dc-builder-service/src/main/resources/mybatismappers/portlet" />
-    <property name="list.type.of.created.stylesheet" value="Less" />
-    <property name="node.js.detected.package.eslint" value="true" />
-    <property name="node.js.detected.package.jscs" value="true" />
-    <property name="node.js.detected.package.standard" value="true" />
-    <property name="node.js.path.for.package.eslint" value="project" />
-    <property name="node.js.path.for.package.jscs" value="project" />
-    <property name="node.js.path.for.package.standard" value="project" />
-    <property name="node.js.selected.package.eslint" value="(autodetect)" />
-    <property name="node.js.selected.package.jscs" value="" />
-    <property name="node.js.selected.package.standard" value="" />
-    <property name="nodejs_interpreter_path" value="node" />
-    <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
-    <property name="nodejs_npm_path_reset_for_default_project" value="true" />
-    <property name="nodejs_package_manager_path" value="npm" />
-    <property name="project.structure.last.edited" value="Modules" />
-    <property name="project.structure.proportion" value="0.15" />
-    <property name="project.structure.side.proportion" value="0.26886383" />
-    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
-    <property name="ts.external.directory.path" value="C:\DevInstallation\IntelliJ IDEA 2020.3.3\plugins\JavaScriptLanguage\jsLanguageServicesImpl\external" />
-    <property name="vue.rearranger.settings.migration" value="true" />
-  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "WebServerToolWindowFactoryState": "false",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0",
+    "spring.configuration.checksum": "4c7ce4cd7a91853ddd40ca3f387bfd73",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
   <component name="ReactorSettings">
     <option name="notificationShown" value="true" />
   </component>
@@ -211,7 +188,7 @@
       </set>
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.InitializationSystemRestTest">
+  <component name="RunManager" selected="Spring Boot.ApplicationBuilderWebServer">
     <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
       <option name="arquillianRunConfiguration">
         <value>
@@ -241,59 +218,55 @@
       </method>
     </configuration>
     <configuration name="ApplicationBuilderWebServer" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <option name="FRAME_DEACTIVATION_UPDATE_POLICY" value="UpdateClassesAndResources" />
       <module name="jb4dc-builder-web-server" />
+      <option name="SHORTEN_COMMAND_LINE" value="NONE" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.jb4dc.builder.webserver.ApplicationBuilderWebServer" />
+      <option name="UPDATE_ACTION_UPDATE_POLICY" value="UpdateClassesAndResources" />
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="com.jb4dc.builder.webserver.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="SPRING_BOOT_MAIN_CLASS" value="com.jb4dc.builder.webserver.ApplicationBuilderWebServer" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="SHORTEN_COMMAND_LINE" value="NONE" />
-      <option name="UPDATE_ACTION_UPDATE_POLICY" value="UpdateClassesAndResources" />
-      <option name="FRAME_DEACTIVATION_UPDATE_POLICY" value="UpdateClassesAndResources" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
     <configuration name="ApplicationDevMockWebServer" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <option name="FRAME_DEACTIVATION_UPDATE_POLICY" value="UpdateClassesAndResources" />
       <module name="jb4dc-dev-mock-web-server" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.jb4dc.devmock.webserver.ApplicationDevMockWebServer" />
-      <option name="URL_PATH" value="http://127.0.0.1:9102/DevMock/HTML/FrameV2/FrameView.html" />
-      <option name="ALTERNATIVE_JRE_PATH" />
       <option name="UPDATE_ACTION_UPDATE_POLICY" value="UpdateClassesAndResources" />
-      <option name="FRAME_DEACTIVATION_UPDATE_POLICY" value="UpdateClassesAndResources" />
+      <option name="URL_PATH" value="http://127.0.0.1:9102/DevMock/HTML/FrameV2/FrameView.html" />
       <method v="2">
         <option name="Make" enabled="true" />
         <option name="LaunchBrowser.Before.Run" browser="98ca6316-2f89-46d9-a9e5-fa9e2b0625b3" url="http://127.0.0.1:9102/DevMock/HTML/FrameV2/FrameView.html" />
       </method>
     </configuration>
     <configuration name="ApplicationGridSystemWebServer" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
-      <module name="jb4dc-grid-system-web-server" />
-      <option name="SPRING_BOOT_MAIN_CLASS" value="com.jb4dc.gridsystem.webserver.ApplicationGridSystemWebServer" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="SHORTEN_COMMAND_LINE" value="NONE" />
-      <option name="UPDATE_ACTION_UPDATE_POLICY" value="UpdateClassesAndResources" />
       <option name="FRAME_DEACTIVATION_UPDATE_POLICY" value="UpdateClassesAndResources" />
+      <module name="jb4dc-grid-system-web-server" />
+      <option name="SHORTEN_COMMAND_LINE" value="NONE" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.jb4dc.gridsystem.webserver.ApplicationGridSystemWebServer" />
+      <option name="UPDATE_ACTION_UPDATE_POLICY" value="UpdateClassesAndResources" />
       <method v="2">
         <option name="Make" enabled="true" />
         <option name="LaunchBrowser.Before.Run" browser="98ca6316-2f89-46d9-a9e5-fa9e2b0625b3" url="http://127.0.0.1:9106/GridSystem/HTML/FrameV2/FrameView.html" />
       </method>
     </configuration>
     <configuration name="ApplicationQCSystemWebServer" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <option name="FRAME_DEACTIVATION_UPDATE_POLICY" value="UpdateClassesAndResources" />
       <module name="jb4dc-qc-system-web-server" />
+      <option name="SHORTEN_COMMAND_LINE" value="NONE" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.jb4dc.qcsystem.webserver.ApplicationQCSystemWebServer" />
+      <option name="UPDATE_ACTION_UPDATE_POLICY" value="UpdateClassesAndResources" />
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="com.jb4dc.qcsystem.webserver.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="SPRING_BOOT_MAIN_CLASS" value="com.jb4dc.qcsystem.webserver.ApplicationQCSystemWebServer" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="SHORTEN_COMMAND_LINE" value="NONE" />
-      <option name="UPDATE_ACTION_UPDATE_POLICY" value="UpdateClassesAndResources" />
-      <option name="FRAME_DEACTIVATION_UPDATE_POLICY" value="UpdateClassesAndResources" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -446,9 +419,9 @@
       <item itemvalue="npm.test" />
       <item itemvalue="npm.gridappclient-dev" />
       <item itemvalue="Spring Boot.ApplicationBuilderWebServer" />
+      <item itemvalue="Spring Boot.ApplicationQCSystemWebServer" />
       <item itemvalue="Spring Boot.ApplicationDevMockWebServer" />
       <item itemvalue="Spring Boot.ApplicationGridSystemWebServer" />
-      <item itemvalue="Spring Boot.ApplicationQCSystemWebServer" />
     </list>
     <recent_temporary>
       <list>
@@ -1083,14 +1056,67 @@
       <workItem from="1637307232508" duration="7823000" />
       <workItem from="1637332078739" duration="1258000" />
       <workItem from="1637369180168" duration="16152000" />
-      <workItem from="1637453648083" duration="5429000" />
-    </task>
-    <task id="LOCAL-00427" summary="查询统计">
-      <created>1617974840193</created>
-      <option name="number" value="00427" />
-      <option name="presentableId" value="LOCAL-00427" />
-      <option name="project" value="LOCAL" />
-      <updated>1617974840193</updated>
+      <workItem from="1637453648083" duration="5768000" />
+      <workItem from="1637540407440" duration="8752000" />
+      <workItem from="1637891267411" duration="1796000" />
+      <workItem from="1638067335006" duration="2029000" />
+      <workItem from="1638961615982" duration="792000" />
+      <workItem from="1638963161319" duration="476000" />
+      <workItem from="1638963665172" duration="1370000" />
+      <workItem from="1639010572773" duration="2914000" />
+      <workItem from="1639790679953" duration="4914000" />
+      <workItem from="1639875927287" duration="5851000" />
+      <workItem from="1639962698847" duration="1869000" />
+      <workItem from="1640262254410" duration="1797000" />
+      <workItem from="1640308436674" duration="610000" />
+      <workItem from="1640507736426" duration="1357000" />
+      <workItem from="1640588257536" duration="2427000" />
+      <workItem from="1640669748814" duration="1276000" />
+      <workItem from="1640847594302" duration="1847000" />
+      <workItem from="1640873623345" duration="11000" />
+      <workItem from="1640913782127" duration="5489000" />
+      <workItem from="1641260022523" duration="2866000" />
+      <workItem from="1641339950018" duration="1193000" />
+      <workItem from="1641382048139" duration="51000" />
+      <workItem from="1641387462886" duration="696000" />
+      <workItem from="1641428136932" duration="3574000" />
+      <workItem from="1641516107573" duration="1814000" />
+      <workItem from="1641605947079" duration="5762000" />
+      <workItem from="1641688120529" duration="3781000" />
+      <workItem from="1641775673599" duration="3596000" />
+      <workItem from="1641865261327" duration="1290000" />
+      <workItem from="1641947321270" duration="3084000" />
+      <workItem from="1642214147944" duration="1264000" />
+      <workItem from="1642337568247" duration="2253000" />
+      <workItem from="1642381913531" duration="1708000" />
+      <workItem from="1642408295611" duration="4453000" />
+      <workItem from="1642466018761" duration="3679000" />
+      <workItem from="1642556219718" duration="4601000" />
+      <workItem from="1642644076938" duration="1926000" />
+      <workItem from="1644408472133" duration="1554000" />
+      <workItem from="1644476182557" duration="2629000" />
+      <workItem from="1644935037147" duration="615000" />
+      <workItem from="1644969492281" duration="1210000" />
+      <workItem from="1645188546263" duration="431000" />
+      <workItem from="1645246967948" duration="753000" />
+      <workItem from="1645359853112" duration="2634000" />
+      <workItem from="1645448944783" duration="1867000" />
+      <workItem from="1645539763418" duration="341000" />
+      <workItem from="1645711092594" duration="1248000" />
+      <workItem from="1645797071805" duration="2346000" />
+      <workItem from="1645868443007" duration="2471000" />
+      <workItem from="1646098830464" duration="822000" />
+      <workItem from="1646137324304" duration="764000" />
+      <workItem from="1646548429619" duration="2436000" />
+      <workItem from="1646916178057" duration="1721000" />
+      <workItem from="1647048846557" duration="89000" />
+      <workItem from="1647596336079" duration="1594000" />
+      <workItem from="1647652620154" duration="3264000" />
+      <workItem from="1649251575449" duration="4073000" />
+      <workItem from="1649431509686" duration="1127000" />
+      <workItem from="1649462662557" duration="3164000" />
+      <workItem from="1649601612976" duration="1223000" />
+      <workItem from="1650285091033" duration="3385000" />
     </task>
     <task id="LOCAL-00428" summary="查询统计">
       <created>1618219887460</created>
@@ -1428,7 +1454,14 @@
       <option name="project" value="LOCAL" />
       <updated>1637397633832</updated>
     </task>
-    <option name="localTasksCounter" value="476" />
+    <task id="LOCAL-00476" summary="查询统计">
+      <created>1637506971406</created>
+      <option name="number" value="00476" />
+      <option name="presentableId" value="LOCAL-00476" />
+      <option name="project" value="LOCAL" />
+      <updated>1637506971407</updated>
+    </task>
+    <option name="localTasksCounter" value="477" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -1444,7 +1477,6 @@
         </entry>
       </map>
     </option>
-    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />

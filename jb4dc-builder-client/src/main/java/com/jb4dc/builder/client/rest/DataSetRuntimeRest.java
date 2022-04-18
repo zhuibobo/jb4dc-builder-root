@@ -9,6 +9,7 @@ import com.jb4dc.builder.po.QueryDataSetPO;
 import com.jb4dc.core.base.exception.JBuild4DCGenerallyException;
 import com.jb4dc.core.base.vo.JBuild4DCResponseVo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -28,6 +29,7 @@ import java.util.Map;
 @RequestMapping(value = "/Rest/Builder/RunTime/DataSetRuntime")
 public class DataSetRuntimeRest {
 
+    @Qualifier("com.jb4dc.builder.client.remote.DataSetRuntimeRemote")
     @Autowired
     DataSetRuntimeRemote dataSetRuntimeRemote;
 

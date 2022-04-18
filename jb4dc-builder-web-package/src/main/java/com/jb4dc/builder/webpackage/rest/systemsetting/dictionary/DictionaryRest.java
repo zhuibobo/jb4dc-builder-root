@@ -53,13 +53,13 @@ public class DictionaryRest extends GeneralRest<DictionaryEntity> implements Dic
 
     @Override
     public JBuild4DCResponseVo<List<DictionaryEntity>> getDDByGroupId(String groupId) {
-        List<DictionaryEntity> dictionaryEntityList=dictionaryService.getListDataByGroupId(JB4DCSessionUtility.getSessionNotException(),groupId);
+        List<DictionaryEntity> dictionaryEntityList=dictionaryService.getListDataByGroupId(JB4DCSessionUtility.getSession(),groupId);
         return JBuild4DCResponseVo.success("",dictionaryEntityList);
     }
 
     @Override
     public JBuild4DCResponseVo<List<DictionaryEntity>> getAllDictionary() {
-        List<DictionaryEntity> dictionaryEntityList=dictionaryService.getALLASC(JB4DCSessionUtility.getSessionNotException());
+        List<DictionaryEntity> dictionaryEntityList=dictionaryService.getALLASC(JB4DCSessionUtility.getSession());
         return JBuild4DCResponseVo.success("",dictionaryEntityList);
     }
 
