@@ -101,7 +101,7 @@
             <Desc></Desc>
         </Control>
         <Control SingleName="WFDCT_SimpleLabel" Text="文本标签" ToolbarLocation="LC_Simple_G1,1"
-                 ServerResolve="com.jb4dc.builder.client.htmldesign.control.webform.WebFormSimpleLabel"
+                 ServerResolve="com.jb4dc.builder.client.htmldesign.control.webform.WebFormTextLabel"
                  ClientResolve="WFDCT_SimpleLabel"
                  ClientResolveJs=""
                  EnableChildControls="*"
@@ -341,7 +341,7 @@
             <Desc></Desc>
         </Control>
         <Control SingleName="WLDCT_ListTableInnerButtonSingle" Text="列表内按钮" ToolbarLocation="LC_Simple_G3,3"
-                 ServerResolve="com.jb4dc.builder.client.htmldesign.control.weblist.WebListListTableInnerButtonSingle"
+                 ServerResolve=" "
                  ClientResolve="WLDCT_ListTableInnerButtonSingle"
                  ClientResolveJs=""
                  EnableChildControls="*"

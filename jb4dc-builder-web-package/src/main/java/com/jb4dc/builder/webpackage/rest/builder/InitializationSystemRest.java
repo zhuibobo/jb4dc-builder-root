@@ -3,7 +3,10 @@ package com.jb4dc.builder.webpackage.rest.builder;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.jb4dc.base.service.IOperationLogService;
 import com.jb4dc.base.service.general.JB4DCSessionUtility;
+import com.jb4dc.base.tools.JsonUtility;
+import com.jb4dc.builder.client.htmldesign.impl.PluginsConfigService;
 import com.jb4dc.builder.dbentities.datastorage.TableRelationGroupEntity;
+import com.jb4dc.builder.po.ControlPluginsPO;
 import com.jb4dc.builder.service.api.IApiGroupService;
 import com.jb4dc.builder.client.service.api.IApiItemService;
 import com.jb4dc.builder.service.dataset.IDatasetGroupService;
@@ -28,6 +31,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.xml.sax.SAXException;
+
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.xpath.XPathExpressionException;
+import java.io.IOException;
 
 /**
  * Created with IntelliJ IDEA.
@@ -91,6 +99,9 @@ public class InitializationSystemRest {
     @Autowired
     private IWidgetService widgetService;
 
+    @Autowired
+    private PluginsConfigService pluginsConfigService;
+
     @RequestMapping(value = "/Running", method = RequestMethod.POST)
     @ResponseBody
     public JBuild4DCResponseVo running(String createTestData) throws JBuild4DCGenerallyException, JsonProcessingException {
@@ -136,5 +147,10 @@ public class InitializationSystemRest {
 
         return JBuild4DCResponseVo.success("系统数据初始化成功！");
     }
-
+    @RequestMapping(value = "/testLoadPluginPO", method = RequestMethod.GET)
+    @ResponseBody
+    public JBuild4DCResponseVo testLoadPluginPO() throws XPathExpressionException, ParserConfigurationException, IOException, SAXException {
+        ControlPluginsPO controlPluginsPO=pluginsConfigService.getControlPluginsPO();
+        return JBuild4DCResponseVo.success("转换成功!",controlPluginsPO);
+    }
 }

@@ -78,10 +78,13 @@ public abstract class HTMLControl implements IHTMLControl {
 
             if(singleElem.attr(HTMLControlAttrs.JBUILD4DC_CUSTOM).equals("true")){
                 //String serverResolveFullClassName = singleElem.attr(HTMLControlAttrs.SERVERRESOLVE);
+                String serverResolveFullClassName="";
                 String singleName=singleElem.attr(HTMLControlAttrs.SINGLENAME);
                 HtmlControlDefinitionPO htmlControlDefinitionPO =ckEditorPluginsService.getVo(singleName);
-                String serverResolveFullClassName = htmlControlDefinitionPO.getServerResolve();
-
+                if(htmlControlDefinitionPO==null) {
+                    throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_BUILDER_CODE,"未找到插件"+singleName+"的实体定义!");
+                }
+                serverResolveFullClassName = htmlControlDefinitionPO.getServerResolve();
                 lastParentJbuild4dCustomElem=singleElem;
 
                 if(serverResolveFullClassName!=null&&!serverResolveFullClassName.equals("")){
@@ -124,6 +127,9 @@ public abstract class HTMLControl implements IHTMLControl {
                 //String serverResolveFullClassName = singleElem.attr(HTMLControlAttrs.SERVERRESOLVE);
                 String singleName=singleElem.attr(HTMLControlAttrs.SINGLENAME);
                 HtmlControlDefinitionPO htmlControlDefinitionPO =ckEditorPluginsService.getVo(singleName);
+                if(htmlControlDefinitionPO==null){
+                    return;
+                }
                 String serverResolveFullClassName = htmlControlDefinitionPO.getServerResolve();
 
                 lastParentJbuild4dCustomElem=singleElem;

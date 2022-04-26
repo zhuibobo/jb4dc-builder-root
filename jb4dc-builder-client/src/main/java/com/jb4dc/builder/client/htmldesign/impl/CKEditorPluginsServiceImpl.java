@@ -71,16 +71,20 @@ public class CKEditorPluginsServiceImpl implements ICKEditorPluginsService {
         return autoGetFromCache(CKEditorPluginsServiceImpl.class, "getWebFormControlVoList", new IBuildGeneralObj<List<HtmlControlDefinitionPO>>() {
             @Override
             public List<HtmlControlDefinitionPO> BuildObj() throws JBuild4DCGenerallyException {
-                CKEditorPluginsConfigService configService=new CKEditorPluginsConfigService();
-                List<Node> nodeList= null;
+                PluginsConfigService configService=new PluginsConfigService();
+                /*List<Node> nodeList= null;
                 try {
                     nodeList = configService.getWebFormControlNodes();
                 } catch (Exception ex) {
                     throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_BUILDER_CODE,ex.getMessage());
                 }
-                List<HtmlControlDefinitionPO> htmlControlDefinitionPOList=parseNodeListToVoList(nodeList);
+                List<HtmlControlDefinitionPO> htmlControlDefinitionPOList=parseNodeListToVoList(nodeList);*/
                 //clientBuilderCacheManager.put(ClientBuilderCacheManager.HTML_CONTROL_PLUGIN_BUILDER_CACHE_NAME,cacheKey,JsonUtility.toObjectString(htmlControlDefinitionPOList));
-                return htmlControlDefinitionPOList;
+                try {
+                    return configService.getALLHtmlControlDefinitionPO().stream().filter(item->item.getDesignType().equals("webFormDesign")).collect(Collectors.toList());
+                } catch (XPathExpressionException | ParserConfigurationException | IOException | SAXException e) {
+                    throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_BUILDER_CODE,e);
+                }
             }
         },HtmlControlDefinitionPO.class);
 
@@ -116,16 +120,12 @@ public class CKEditorPluginsServiceImpl implements ICKEditorPluginsService {
         return autoGetFromCache(CKEditorPluginsServiceImpl.class, "getListControlVoList", new IBuildGeneralObj<List<HtmlControlDefinitionPO>>() {
             @Override
             public List<HtmlControlDefinitionPO> BuildObj() throws JBuild4DCGenerallyException {
-                CKEditorPluginsConfigService configService=new CKEditorPluginsConfigService();
-                List<Node> nodeList= null;
+                PluginsConfigService configService=new PluginsConfigService();
                 try {
-                    nodeList = configService.getListControlNodes();
-                } catch (Exception ex) {
-                    throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_BUILDER_CODE,ex.getMessage());
+                    return configService.getALLHtmlControlDefinitionPO().stream().filter(item->item.getDesignType().equals("webListDesign")).collect(Collectors.toList());
+                } catch (XPathExpressionException | ParserConfigurationException | IOException | SAXException e) {
+                    throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_BUILDER_CODE,e);
                 }
-                List<HtmlControlDefinitionPO> htmlControlDefinitionPOList=parseNodeListToVoList(nodeList);
-                //clientBuilderCacheManager.put(ClientBuilderCacheManager.HTML_CONTROL_PLUGIN_BUILDER_CACHE_NAME,cacheKey,JsonUtility.toObjectString(htmlControlDefinitionPOList));
-                return htmlControlDefinitionPOList;
             }
         },HtmlControlDefinitionPO.class);
         /*return builderCacheManager.autoGetFromCache(BuilderCacheManager.BUILDER_CACHE_NAME, JBuild4DCYaml.isDebug(), "getListControlVoList", new IBuildGeneralObj<List<HtmlControlDefinitionPO>>() {
@@ -160,16 +160,12 @@ public class CKEditorPluginsServiceImpl implements ICKEditorPluginsService {
         return autoGetFromCache(CKEditorPluginsServiceImpl.class, "getAllControlVoList", new IBuildGeneralObj<List<HtmlControlDefinitionPO>>() {
             @Override
             public List<HtmlControlDefinitionPO> BuildObj() throws JBuild4DCGenerallyException {
-                CKEditorPluginsConfigService configService=new CKEditorPluginsConfigService();
-                List<Node> nodeList= null;
+                PluginsConfigService configService=new PluginsConfigService();
                 try {
-                    nodeList = configService.getALLControlNodes();
-                } catch (Exception ex) {
-                    throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_BUILDER_CODE,ex.getMessage());
+                    return configService.getALLHtmlControlDefinitionPO();
+                } catch (XPathExpressionException | ParserConfigurationException | IOException | SAXException e) {
+                    throw new JBuild4DCGenerallyException(JBuild4DCGenerallyException.EXCEPTION_BUILDER_CODE,e);
                 }
-                List<HtmlControlDefinitionPO> htmlControlDefinitionPOList=parseNodeListToVoList(nodeList);
-                //clientBuilderCacheManager.put(ClientBuilderCacheManager.HTML_CONTROL_PLUGIN_BUILDER_CACHE_NAME,cacheKey,JsonUtility.toObjectString(htmlControlDefinitionPOList));
-                return htmlControlDefinitionPOList;
             }
         },HtmlControlDefinitionPO.class);
         /*return builderCacheManager.autoGetFromCache(BuilderCacheManager.BUILDER_CACHE_NAME,, JBuild4DCYaml.isDebug(), "getAllControlVoList", new IBuildGeneralObj<List<HtmlControlDefinitionPO>>() {
@@ -191,14 +187,17 @@ public class CKEditorPluginsServiceImpl implements ICKEditorPluginsService {
     public HtmlControlDefinitionPO getVo(String singleName) throws JBuild4DCGenerallyException, ParserConfigurationException, SAXException, XPathExpressionException, IOException {
         List<HtmlControlDefinitionPO> allControlVoList=getAllControlVoList();
         List<HtmlControlDefinitionPO> temp=allControlVoList.stream().filter(item->item.getSingleName().equals(singleName)).collect(Collectors.toList());
-        return temp.get(0);
+        if(temp.size()>0) {
+            return temp.get(0);
+        }
+        return null;
     }
 
     private List<HtmlControlDefinitionPO> parseNodeListToVoList(List<Node> nodeList) throws JBuild4DCGenerallyException {
         try {
             List<HtmlControlDefinitionPO> result = new ArrayList<>();
             for (Node node : nodeList) {
-                result.add(HtmlControlDefinitionPO.parseWebFormControlNode(node));
+                //result.add(HtmlControlDefinitionPO.parseWebFormControlNode(node));
             }
             return result;
         }
